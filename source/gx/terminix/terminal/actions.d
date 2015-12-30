@@ -12,3 +12,4 @@ enum ACTION_FIND_PREVIOUS = "find-previous";
 enum ACTION_FIND_NEXT = "find-next";
 enum ACTION_TITLE = "title";
 enum ACTION_CLOSE = "close";
+enum ACTION_PROFILE_SELECT = "profile-select";

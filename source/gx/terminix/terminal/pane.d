@@ -25,10 +25,11 @@ import gio.SimpleActionGroup;
 import gio.ThemedIcon;
 
 import glib.Regex;
-import glib.Variant : GVariant = Variant;
 import glib.ShellUtils;
 import glib.Str;
 import glib.URI;
+import glib.Variant : GVariant = Variant;
+import glib.VariantType : GVariantType = VariantType;
 
 import gtk.Box;
 import gtk.Button;
@@ -101,7 +102,10 @@ private:
     string overrideTitle;
     bool _synchronizeInput;
     
-    SimpleActionGroup actionGroup;    
+    SimpleActionGroup sagTerminalActions;
+    
+   	SimpleAction saProfileSelect;
+    GMenu profileMenu;
 
 	Menu mContext;
 	MenuItem miCopy;
@@ -111,9 +115,9 @@ private:
     GSettings gsShortcuts;
 
 	void createUI() {
-		actionGroup = new SimpleActionGroup();
-		createActions(actionGroup);
-		insertActionGroup(ACTION_PREFIX, actionGroup);
+		sagTerminalActions = new SimpleActionGroup();
+		createActions(sagTerminalActions);
+		insertActionGroup(ACTION_PREFIX, sagTerminalActions);
         
 		add(createTitlePane());
         add(createTerminal());
@@ -147,12 +151,20 @@ private:
 		sp.setMarginRight(3);
 		bTitle.packEnd(sp, false, false, 0);
 
+        //Profile Menu
+       	profileMenu = new GMenu();
+
         //Menu button that displays popover
 		MenuButton mb = new MenuButton();
 		mb.setRelief(ReliefStyle.NONE);
 		mb.setFocusOnClick(false);
 		Image hamburger = new Image("open-menu-symbolic", IconSize.MENU);
 		mb.setPopover(createPopover(mb));
+        mb.addOnButtonPress(delegate(Event e, Widget w) {
+            buildProfileMenu();
+            return false;
+        });
+
 		mb.add(hamburger);
 		setVerticalMargins(mb);
 
@@ -160,6 +172,18 @@ private:
 
 		return bTitle;
 	}
+    
+    //Dynamically build the menus for selecting a profile
+    void buildProfileMenu() {
+        profileMenu.removeAll();
+        saProfileSelect.setState(new GVariant(profileUUID));
+        ProfileInfo[] profiles = prfMgr.getProfiles();
+        foreach(profile; profiles) {
+            GMenuItem menuItem = new GMenuItem(profile.name, getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
+            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
+            profileMenu.appendItem(menuItem);
+        }
+    }
 
     /**
      * Creates the common actions used by the terminal pane
@@ -187,6 +211,7 @@ private:
             } 
         });
 
+        //Close Terminal Action
 		registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) {  
             bool closeTerminal = true;
             if (isProcessRunning()) {
@@ -201,6 +226,15 @@ private:
             }
             if (closeTerminal) notifyTerminalClose();
         });
+        
+        //Select Profile
+        GVariant pu = new GVariant(profileUUID);
+        saProfileSelect = registerAction(sagTerminalActions, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
+            ulong l;
+            string uuid = value.getString(l);
+            profileUUID = uuid;
+            saProfileSelect.setState(value);
+        }, pu.getType(), pu);
 	}
 
     /**
@@ -229,6 +263,8 @@ private:
         menuSection.appendItem(new GMenuItem(_("Find..."), ACTION_PREFIX ~ "." ~ ACTION_FIND));
         menuSection.appendItem(new GMenuItem(_("Title..."), ACTION_PREFIX ~ "." ~ ACTION_TITLE));
         model.appendSection(null, menuSection);
+        
+        model.appendSubmenu(_("Profiles"), profileMenu);
 
 		Popover pm = new Popover(parent, model);
 		return pm;
@@ -513,6 +549,7 @@ public:
 		gsProfile.addOnChanged(delegate(string key, Settings) { 
             applyPreference(key); 
         });
+        /*
   		gsShortcuts.addOnChanged(delegate(string key, Settings) {
             // Hack to workaround problem of when shortcut changes
             // GTK doesn't update the accel reference until you recreate it
@@ -520,8 +557,9 @@ public:
             //
             // Todo: Individualize the creation of actions similar to what we are doing 
             // for preferences 
-            createActions(actionGroup); 
+            createActions(sagTerminalActions); 
         });
+        */
 	}
 
 	void initTerminal(string initialPath, bool firstRun) {
@@ -564,6 +602,14 @@ public:
     
     @property string profileUUID() {
         return _profileUUID;
+    }
+    
+    @property void profileUUID(string uuid) {
+        if (_profileUUID != uuid) {
+            _profileUUID = uuid;
+            gsProfile = prfMgr.getProfileSettings(profileUUID);
+            applyPreferences();            
+        }
     }
     
     @property bool synchronizeInput() {
