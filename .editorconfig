@@ -1,0 +1,26 @@
+[*]
+max_line_length = 170
+indent_style = tab
+
+[*.d]
+# allman, otbs or stroustrup - see https://en.wikipedia.org/wiki/Indent_style
+dfmt_brace_style = otbs
+# The formatting process will usually keep lines below this length, but they may be up to max_line_length columns long.
+dfmt_soft_max_line_length = 160
+# Place operators on the end of the previous line when splitting lines
+dfmt_split_operator_at_line_end = false
+# Insert space after the closing paren of a cast expression
+dfmt_space_after_cast = true
+# Insert space after the module name and before the : for selective imports
+dfmt_selective_import_space = true
+# Place labels on the same line as the labeled switch, for, foreach, or while statement
+dfmt_compact_labeled_statements = true
+#
+# Not yet implemented:
+#
+# Align labels, cases, and defaults with their enclosing switch
+dfmt_align_switch_statements = true
+# Decrease the indentation level of attributes
+dfmt_outdent_attributes = true
+# Insert space after if, while, foreach, etc, and before the (
+dfmt_space_after_keywords = true

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright © 2002 Havoc Pennington
+  Copyright © 2002 Jonathan Blandford
+  Copyright © 2003, 2004 Mariano Suárez-Alvarez
+  Copyright © 2005 Kjartan Maraas
+  Copyright © 2005 Tony Tsui
+  Copyright © 2006 Guilherme de S. Pastore
+  Copyright © 2009, 2010 Behdad Esfahbod
+  Copyright © 2008, 2010 Christian Persch
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+  Modified and adapted from gnome-terminal for use with Terminix by Gerald Nunn
+-->
+<schemalist gettext-domain="Terminix">
+
+   <enum id='com.gexperts.Terminix.ThemeVariant'>
+    <value nick='system' value='0'/>
+    <value nick='light'  value='1'/>
+    <value nick='dark'   value='2'/>
+  </enum>
+
+  <!-- Cursor -->
+  <enum id='com.gexperts.Terminix.Cursor.BlinkMode'>
+    <value nick='system' value='0'/>
+    <value nick='on' value='1'/>
+    <value nick='off' value='2'/>
+  </enum>
+  <enum id='com.gexperts.Terminix.Cursor.Shape'>
+    <value nick='block' value='0'/>
+    <value nick='ibeam' value='1'/>
+    <value nick='underline' value='2'/>
+  </enum>
+  
+   <enum id='com.gexperts.Terminix.CJKWidth'>
+    <value nick='narrow' value='1'/>
+    <value nick='wide'   value='2'/>
+  </enum>
+  
+  <enum id='com.gexperts.Terminix.EraseBinding'>
+    <value nick='auto' value='0'/>
+    <value nick='ascii-backspace' value='1'/>
+    <value nick='ascii-delete' value='2'/>
+    <value nick='delete-sequence' value='3'/>
+    <value nick='tty' value='4'/>
+  </enum>
+
+  <!-- Global settings -->
+  <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
+
+    <!-- Dark Theme -->
+    <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
+      <default>'system'</default>
+      <summary>Which theme variant to use</summary>
+    </key>
+    <!-- Search Options -->
+    <key name="search-default-match-case" type="b">
+      <default>false</default>
+      <summary>Whether to match case when searching</summary>
+      <description>If true, searches will be case sensitive.</description>
+    </key>
+    <key name="search-default-match-entire-word" type="b">
+      <default>false</default>
+      <summary>Whether to only match the entire word</summary>
+      <description>If true, search must be the entire word in order to be considered a match.</description>
+    </key>
+    <key name="search-default-match-as-regex" type="b">
+      <default>false</default>
+      <summary>Whether to match using regular expressions</summary>
+      <description>If true, the search will be done treating the search text as a regular expression.</description>
+    </key>
+    <key name="search-default-wrap-around" type="b">
+      <default>false</default>
+      <summary>Whether searches wrap the terminal buffer</summary>
+      <description>If true, a search will move to the bottom of the terminal buffer when it reaches the top item and vice versa.</description>
+    </key>
+  </schema>
+
+  <!-- SettingsList base schema -->
+
+  <schema id="com.gexperts.Terminix.SettingsList">
+    <key name="list" type="as">
+      <default>[]</default>
+    </key>
+    <key name="default" type="s">
+      <default>''</default>
+    </key>
+  </schema>
+
+  <!-- Profiles list schema -->
+
+  <schema id="com.gexperts.Terminix.ProfilesList" 
+          extends="com.gexperts.Terminix.SettingsList"
+          path="/com/gexperts/Terminix/profiles/">
+    <override name="list">['2b7c4080-0ddd-46c5-8f23-563fd3ba789d']</override>
+    <override name="default">'2b7c4080-0ddd-46c5-8f23-563fd3ba789d'</override>
+  </schema>
+
+  <!-- A terminal profile -->
+
+  <schema id="com.gexperts.Terminix.Profile">
+    <key name="visible-name" type="s">
+      <default l10n="messages" context="visible-name">'Unnamed'</default>
+      <summary>Human-readable name of the profile</summary>
+      <description>Human-readable name of the profile.</description>
+    </key>
+    <key name="default-size-columns" type="i">
+      <range min="16" max="256" />
+      <default>80</default>
+      <summary>Default number of columns</summary>
+      <description>Number of columns in newly created terminal windows. Has no effect if use_custom_default_size is not enabled.</description>
+    </key>
+    <key name="default-size-rows" type="i">
+      <range min="4" max="256" />
+      <default>24</default>
+      <summary>Default number of rows</summary>
+      <description>Number of rows in newly created terminal windows. Has no effect if use_custom_default_size is not enabled.</description>
+    </key>
+    <key name="cursor-blink-mode" enum="com.gexperts.Terminix.Cursor.BlinkMode">
+      <default>'system'</default>
+      <summary>Whether to blink the cursor</summary>
+      <description>The possible values are "system" to use the global cursor blinking settings, or "on" or "off" to set the mode explicitly.</description>
+    </key>
+    <key name="cursor-shape" enum="com.gexperts.Terminix.Cursor.Shape">
+      <default>'block'</default>
+      <summary>The cursor appearance</summary>
+    </key>
+    <key name="audible-bell" type="b">
+      <default>true</default>
+      <summary>Whether to ring the terminal bell</summary>
+    </key>
+    <key name="allow-bold" type="b">
+      <default>true</default>
+      <summary>Whether to allow bold text</summary>
+      <description>If true, allow applications in the terminal to make text boldface.</description>
+    </key>
+    <key name="rewrap-on-resize" type="b">
+      <default>true</default>
+      <summary>Whether to rewrap the terminal contents on window resize</summary>
+    </key>
+    <!-- Font -->
+    <key name="use-system-font" type="b">
+      <default>true</default>
+      <summary>Whether to use the system monospace font</summary>
+    </key>
+    <key name="font" type="s">
+      <default>'Monospace 12'</default>
+      <summary>A Pango font name and size</summary>
+    </key>
+    <!--Transparency-->
+    <key name="background-transparency-percent" type="i">
+      <range min="0" max="100" />
+      <default>0</default>
+      <summary>The amount of transparency to apply to the background</summary>
+    </key>
+    <!-- Colors -->
+    <key name="foreground-color" type="s">
+      <default>'#00FF00'</default>
+      <summary>Default color of text in the terminal</summary>
+      <description>Default color of text in the terminal, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#000000'</default>
+      <summary>Default color of terminal background</summary>
+      <description>Default color of terminal background, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
+    </key>
+    <key name="palette" type="as">
+      <default>["#2E2E34343636",
+                "#CCCC00000000",
+                "#4E4E9A9A0606",
+                "#C4C4A0A00000",
+                "#34346565A4A4",
+                "#757550507B7B",
+                "#060698209A9A",
+                "#D3D3D7D7CFCF",
+                "#555557575353",
+                "#EFEF29292929",
+                "#8A8AE2E23434",
+                "#FCFCE9E94F4F",
+                "#72729F9FCFCF",
+                "#ADAD7F7FA8A8",
+                "#3434E2E2E2E2",
+                "#EEEEEEEEECEC"]</default>
+      <summary>Palette for terminal applications</summary>
+    </key>
+    <key name="use-theme-colors" type="b">
+      <default>true</default>
+      <summary>Whether to use the colors from the theme for the terminal widget</summary>
+    </key>
+    <!-- Scroll Options -->
+    <key name="show-scrollbar" type="b">
+      <default>true</default>
+      <summary>When to show the scrollbar</summary>
+    </key>
+    <key name="scrollback-lines" type="i">
+      <default>8192</default>
+      <summary>Number of lines to keep in scrollback</summary>
+      <description>Number of scrollback lines to keep around. You can scroll back in the terminal by this number of lines; lines that don't fit in the scrollback are discarded. If scrollback_unlimited is true, this value is ignored.</description>
+    </key>
+    <key name="scrollback-unlimited" type="b">
+      <default>false</default>
+      <summary>Whether an unlimited number of lines should be kept in scrollback</summary>
+      <description>If true, scrollback lines will never be discarded. The scrollback history is stored on disk temporarily, so this may cause the system to run out of disk space if there is a lot of output to the terminal.</description>
+    </key>
+    <key name="scroll-on-keystroke" type="b">
+      <default>true</default>
+      <summary>Whether to scroll to the bottom when a key is pressed</summary>
+      <description>If true, pressing a key jumps the scrollbar to the bottom.</description>
+    </key>
+    <key name="scroll-on-output" type="b">
+      <default>false</default>
+      <summary>Whether to scroll to the bottom when there's new output</summary>
+      <description>If true, whenever there's new output the terminal will scroll to the bottom.</description>
+    </key>
+    <!-- Compatibility -->
+    <key name="backspace-binding" enum="com.gexperts.Terminix.EraseBinding">
+      <default>'ascii-delete'</default>
+      <summary>The code sequence the Backspace key generates</summary>
+    </key>
+    <key name="delete-binding" enum="com.gexperts.Terminix.EraseBinding">
+      <default>'delete-sequence'</default>
+      <summary>The code sequence the Delete key generates</summary>
+    </key>
+    <key name="cjk-utf8-ambiguous-width" enum="com.gexperts.Terminix.CJKWidth">
+      <default>'narrow'</default>
+      <summary>Whether ambiguous-width characters are narrow or wide when using UTF-8 encoding</summary>
+    </key>
+    <!-- Window Title -->
+    <key name="terminal-title" type="s">
+      <default>'${id}: ${title}'</default>
+      <summary>The string to display as the terminal title</summary>
+      <description>The title supports tokens which are replaced at runtime, additionally pango markup can be used as well</description>
+    </key>
+    
+  </schema>
+  
+  <!-- Keybinding settings -->
+  <!-- 
+    Note that key names match to action names used by Terminix. Since
+    GSettings doesn't allow the '.' in key names, the action name is divided
+    between the prefix and id using the hyphen. The first hyphen is treated as
+    the separator, subsequent hyphens are treated as part of the action id.
+    
+    The intent is to use localization on the prefix and id to show more
+    friendly descriptors to users in the GUI that allows modifying these names.
+  -->
+  
+  <schema id="com.gexperts.Terminix.Keybindings" path="/com/gexperts/Terminix/keybindings/">
+    <key name="app-new-window" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to create a new window</summary>
+    </key>
+    <key name="app-new-session" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to create a new session</summary>
+    </key>
+    <key name="app-preferences" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to open preferences</summary>
+    </key>
+    <key name="session-synchronize-input" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to synchronize input for the session</summary>
+    </key>
+    <key name="session-list" type="s">
+      <default>'&lt;Ctrl&gt;k'</default>
+      <summary>Keyboard shortcut to open list of sessions</summary>
+    </key>
+    <key name="session-name" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to change the name of the session</summary>
+    </key>
+    <key name="session-load" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to load a previously saved session</summary>
+    </key>
+    <key name="session-save" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to save the current session</summary>
+    </key>
+    <key name="session-save-as" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to save the current session as a new file</summary>
+    </key>
+    <key name="session-switch-to-terminal-0" type="s">
+      <default>'&lt;Alt&gt;0'</default>
+      <summary>Keyboard shortcut to switch to terminal 0</summary>
+    </key>
+    <key name="session-switch-to-terminal-1" type="s">
+      <default>'&lt;Alt&gt;1'</default>
+      <summary>Keyboard shortcut to switch to terminal 1</summary>
+    </key>
+    <key name="session-switch-to-terminal-2" type="s">
+      <default>'&lt;Alt&gt;2'</default>
+      <summary>Keyboard shortcut to switch to terminal 2</summary>
+    </key>
+    <key name="session-switch-to-terminal-3" type="s">
+      <default>'&lt;Alt&gt;3'</default>
+      <summary>Keyboard shortcut to switch to terminal 3</summary>
+    </key>
+    <key name="session-switch-to-terminal-4" type="s">
+      <default>'&lt;Alt&gt;4'</default>
+      <summary>Keyboard shortcut to switch to terminal 4</summary>
+    </key>
+    <key name="session-switch-to-terminal-5" type="s">
+      <default>'&lt;Alt&gt;5'</default>
+      <summary>Keyboard shortcut to switch to terminal 5</summary>
+    </key>
+    <key name="session-switch-to-terminal-6" type="s">
+      <default>'&lt;Alt&gt;6'</default>
+      <summary>Keyboard shortcut to switch to terminal 6</summary>
+    </key>
+    <key name="session-switch-to-terminal-7" type="s">
+      <default>'&lt;Alt&gt;7'</default>
+      <summary>Keyboard shortcut to switch to terminal 7</summary>
+    </key>
+    <key name="session-switch-to-terminal-8" type="s">
+      <default>'&lt;Alt&gt;8'</default>
+      <summary>Keyboard shortcut to switch to terminal 8</summary>
+    </key>
+    <key name="session-switch-to-terminal-9" type="s">
+      <default>'&lt;Alt&gt;9'</default>
+      <summary>Keyboard shortcut to switch to terminal 9</summary>
+    </key>
+    <!-- Can't use accelerators with tab, may need to hardwire this in VTE -->
+    <key name="session-switch-to-next-terminal" type="s">
+      <default>'&lt;Ctrl&gt;Tab'</default>
+      <summary>Keyboard shortcut to switch to the next terminal</summary>
+    </key>
+    <key name="session-switch-to-previous-terminal" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Shift&gt;Tab'</default>
+      <summary>Keyboard shortcut to switch to the previous terminal</summary>
+    </key>
+    <key name="terminal-split-horizontal" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to split terminal horizontally</summary>
+    </key>
+    <key name="terminal-split-vertical" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to split terminal vertically</summary>
+    </key>
+    <key name="terminal-find" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Shift&gt;f'</default>
+      <summary>Keyboard shortcut to find text in terminal</summary>
+    </key>
+    <key name="terminal-find-next" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Shift&gt;g'</default>
+      <summary>Keyboard shortcut to find next match in terminal</summary>
+    </key>
+    <key name="terminal-find-previous" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Shift&gt;h'</default>
+      <summary>Keyboard shortcut to find previous match in terminal</summary>
+    </key>
+    <key name="terminal-title" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to set a custom title for the terminal</summary>
+    </key>
+    <key name="terminal-close" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to close the terminal</summary>
+    </key>
+  </schema>
+</schemalist>
