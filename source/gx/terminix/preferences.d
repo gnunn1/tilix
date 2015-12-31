@@ -232,6 +232,14 @@ public:
 		}
 		return results;
 	}
+    
+    string getProfileUUIDFromName(string profileName) {
+        ProfileInfo[] profiles = getProfiles();
+        foreach(profile; profiles) {
+            if (profile.name == profileName) return profile.uuid;
+        }
+        return null;
+    }
 
 	/**
 	 * Returns the GSettings object that corresponds to a specific profile. This

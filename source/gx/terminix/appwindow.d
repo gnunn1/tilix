@@ -52,6 +52,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 
 import gx.terminix.constants;
+import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
 
@@ -137,9 +138,6 @@ private:
             saSyncInput.setState(new GVariant(session.synchronizeInput));
 		}, ConnectFlags.AFTER);
 		this.add(nb);
-
-        //Create an initial session using default session name and profile
-        createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
 	}
 
     void createActions() {
@@ -246,8 +244,8 @@ private:
 		}
 	}
 
-	void createNewSession(string name, string profileUUID) {
-        Session session = new Session(name, profileUUID, nb.getNPages() == 0);
+	void createNewSession(string name, string profileUUID, string workingDir) {
+        Session session = new Session(name, profileUUID, workingDir, nb.getNPages() == 0);
         addSession(session);
 	}
     
@@ -337,6 +335,15 @@ private:
         fcd.addFilter(ff);
     }
     
+    void loadSession(string filename) {
+        if (!exists(filename)) 
+            throw new SessionCreationException(format(_("Filename '%s' does not exist"), filename));
+        string text = readText(filename);
+        JSONValue value = parseJSON(text);
+        Session session = new Session(value, filename, nb.getAllocatedWidth(), nb.getAllocatedHeight(), nb.getNPages() == 0);
+        addSession(session);
+    }
+    
     void loadSession() {
         FileChooserDialog fcd = new FileChooserDialog(_("Load Session"), this, FileChooserAction.OPEN);
         scope(exit) {fcd.destroy();}
@@ -344,11 +351,7 @@ private:
         fcd.setDefaultResponse(ResponseType.OK);
         if (fcd.run() == ResponseType.OK) {
             try {
-                string filename = fcd.getFilename();
-                string text = readText(filename);
-                JSONValue value = parseJSON(text);
-                Session session = new Session(value, filename, nb.getAllocatedWidth(), nb.getAllocatedHeight(), nb.getNPages() == 0);
-                addSession(session);
+                loadSession(fcd.getFilename());
             } catch (Exception e) {
                 fcd.hide();
                 error(e);
@@ -394,6 +397,32 @@ public:
 		addOnDelete(&onWindowClosed);
 		addOnCompositedChanged(&onCompositedChanged);
 	}
+    
+    void initialize() {
+        //Create an initial session using default session name and profile
+        createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+    }
+    
+    void initialize(CommandParameters cp) {
+        trace("Initializing with command line parameters");
+        if (cp.session.length > 0) {
+            loadSession(cp.session);
+            return;
+        } 
+        string profile;
+        if (cp.profileName.length > 0) {
+            profile = prfMgr.getProfileUUIDFromName(cp.profileName);
+        }
+        if (profile.length == 0) {
+            profile = prfMgr.getDefaultProfile();
+        }
+
+        string workingDir;
+        if (cp.workingDir.length > 0) workingDir = cp.workingDir;
+        else workingDir = Util.getHomeDir(); 
+
+        createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
+    }
 
 	void createSession() {
         string value;
@@ -406,6 +435,11 @@ public:
 	}
 
 	void createSession(string name, string profileUUID) {
-		createNewSession(name, profileUUID);
+		createNewSession(name, profileUUID, Util.getHomeDir());
 	}
+    
+	void createSession(string name, string profileUUID, string workingDir) {
+		createNewSession(name, profileUUID, workingDir);
+	}
+    
 }

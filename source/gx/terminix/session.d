@@ -65,10 +65,10 @@ private:
     
 	TerminalPane lastFocused;
 
-	void createUI(string profileUUID, bool firstRun) {
+	void createUI(string profileUUID, string workingDir, bool firstRun) {
 		TerminalPane terminal = createTerminal(profileUUID);
 		add(terminal);
-		terminal.initTerminal(Util.getHomeDir(), firstRun);
+		terminal.initTerminal(workingDir, firstRun);
 		lastFocused = terminal;
 	}
 
@@ -359,11 +359,12 @@ private:
     
 public:
 
-	this(string name, string profileUUID, bool firstRun) {
+	this(string name, string profileUUID, string workingDir, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
 		_name = name;
-		createUI(profileUUID,firstRun);
+		createUI(profileUUID, workingDir, firstRun);
 	}
+    
     
     //TODO Determine whether we need to support 
     //concept of firstRun for loading session

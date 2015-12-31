@@ -16,15 +16,15 @@ immutable uint GTK_VERSION_PATCH = 0;
 /**
  * Application ID
  */
-immutable string APPLICATION_ID = "com.gexperts.Terminix";
+enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used by About Box
-immutable string APPLICATION_NAME = "Terminix";
-immutable string APPLICATION_VERSION = "0.10.0";
-immutable string APPLICATION_AUTHOR = "Gerald Nunn";
-immutable string APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
-immutable string APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");
-immutable string APPLICATION_LICENSE = _(
+enum APPLICATION_NAME = "Terminix";
+enum APPLICATION_VERSION = "0.10.0";
+enum APPLICATION_AUTHOR = "Gerald Nunn";
+enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
+enum APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");
+enum APPLICATION_LICENSE = _(
 	"This Source Code Form is subject to the terms of the Mozilla Public " "License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at " "http://mozilla.org/MPL/2.0/.");
 
 immutable string[] APPLICATION_AUTHORS = ["Gerald Nunn"];

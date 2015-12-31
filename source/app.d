@@ -14,13 +14,14 @@ import gtk.MessageDialog;
 import gx.gtk.util;
 
 import gx.terminix.application;
+import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
 	
 	//Version checking cribbed from grestful, thanks!
 	string error = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
-	
+    
 	if (error !is null)	{
 		Main.init(args);
 		
@@ -42,6 +43,13 @@ int main(string[] args) {
 		return 1;
 	}
     
-	auto terminixApp = new Terminix();
-	return terminixApp.run(args);
+    CommandParameters cp = CommandParameters(args);
+    if (!cp.exit) {
+        auto terminixApp = new Terminix(cp);
+        //Bypass GTK command line handling since we handle it ourselves
+        string[] tempArgs;
+        return terminixApp.run(tempArgs);
+    } else {
+        return cp.exitCode;
+    }
 }

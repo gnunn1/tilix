@@ -26,6 +26,7 @@ import gx.gtk.actions;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.terminix.appwindow;
+import gx.terminix.cmdparams;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
@@ -45,6 +46,8 @@ private:
 	uint prefId = 0;
 	GSettings gsShortcuts;
 	GSettings gsGeneral;
+    
+    CommandParameters cp;    
 
 	/**
      * Load and register binary resource file and add css files as providers
@@ -159,8 +162,10 @@ private:
 			}
 		}
 
-		void createAppWindow() {
+		void createAppWindow(bool onActivate = false) {
 			AppWindow window = new AppWindow(this);
+            if (onActivate) window.initialize(cp);
+            else window.initialize();
 			this.addWindow(window);
 			window.showAll();
 		}
@@ -171,13 +176,12 @@ private:
 
 		void onAppActivate(GioApplication app) {
 			trace("Activate App Signal");
-			createAppWindow();
+			createAppWindow(true);
 		}
 
 		void onAppStartup(GioApplication app) {
 			trace("Startup App Signal");
 			loadResources();
-			setApplication(this);
 			gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
 			gsShortcuts.addOnChanged(delegate(string key, Settings) {
 				trace("Updating shortcut '" ~ keyToDetailedActionName(key) ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
@@ -198,7 +202,6 @@ private:
 
 		void onAppShutdown(GioApplication app) {
 			trace("Quit App Signal");
-			setApplication(null);
 		}
 
 		void applyPreferences() {
@@ -207,12 +210,11 @@ private:
 
 	public:
 
-		this() {
+		this(CommandParameters cp) {
 			super(APPLICATION_ID, ApplicationFlags.FLAGS_NONE);
-
+            this.cp = cp;
 			this.addOnActivate(&onAppActivate);
 			this.addOnStartup(&onAppStartup);
 			this.addOnShutdown(&onAppShutdown);
-
 		}
 	}

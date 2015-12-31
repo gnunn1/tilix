@@ -20,14 +20,6 @@ private Application app = null;
 enum SHORTCUT_DISABLED = "disabled";
 
 /**
- * Sets the global application object so that actions can access it
- * to set accelerators
- */
-void setApplication(Application application) {
-    app = application;
-}
-
-/**
  * Given an action prefix and id returns the detailed name
  */
 string getActionDetailedName(string prefix, string id) {
@@ -133,7 +125,6 @@ SimpleAction registerAction(
     if (state is null)
         action = new SimpleAction(id, parameterType);
     else {
-        trace("Creating stateful action " ~ id);
         action = new SimpleAction(id, parameterType, state);
     }
     
@@ -146,6 +137,7 @@ SimpleAction registerAction(
     actionMap.addAction(action);
     
     if (accelerators.length > 0) {
+        Application app = cast(Application) Application.getDefault();
         if (app !is null) {
             app.setAccelsForAction(prefix.length==0 ? id : getActionDetailedName(prefix,id), accelerators); 
         } else { 
