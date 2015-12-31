@@ -94,6 +94,7 @@ private:
 
 		//View sessions button
 		mbSessions = new MenuButton();
+        mbSessions.setTooltipText(_("Switch to a new session"));
 		mbSessions.setFocusOnClick(false);
 		Image iList = new Image("view-list-symbolic", IconSize.MENU);
 		mbSessions.add(iList);

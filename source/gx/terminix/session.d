@@ -482,7 +482,7 @@ private:
 
 		Label label = new Label(format("<b>%s</b>", _("Name")));
 		label.setUseMarkup(true);
-		label.setHalign(Align.START);
+		label.setHalign(Align.END);
         grid.attach(label, 0, 0, 1, 1);
         
         eName = new Entry();
@@ -492,7 +492,7 @@ private:
     
 		label = new Label(format("<b>%s</b>", _("Profile")));
 		label.setUseMarkup(true);
-		label.setHalign(Align.START);
+		label.setHalign(Align.END);
         grid.attach(label, 0, 1, 1, 1);
 
         ProfileInfo[] profiles = prfMgr.getProfiles();

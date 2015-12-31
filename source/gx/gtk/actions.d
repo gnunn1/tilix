@@ -89,17 +89,16 @@ SimpleAction registerActionWithSettings(
     void delegate(glib.Variant.Variant, SimpleAction) cbStateChange = null
     ) {
     
-    string shortcut = null;
+    string[] shortcuts;
     try {
-        shortcut = settings.getString(getActionKey(prefix, id));
-        if (shortcut.length == 0) shortcut = SHORTCUT_DISABLED; 
+        string shortcut = settings.getString(getActionKey(prefix, id));
+        if (shortcut.length > 0 && shortcut != SHORTCUT_DISABLED) shortcuts = [shortcut];  
     } catch (Exception e)  {
         //TODO - This does not work, figure out to catch GLib-GIO-ERROR
         trace(format("No shortcut for action %s.%s", prefix, id));
     }
-    if (SHORTCUT_DISABLED == shortcut) shortcut = null;
     
-    return registerAction(actionMap, prefix, id, [shortcut], cbActivate, type, state, cbStateChange);    
+    return registerAction(actionMap, prefix, id, shortcuts, cbActivate, type, state, cbStateChange);    
 }
 
 /**

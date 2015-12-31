@@ -61,6 +61,11 @@
   <!-- Global settings -->
   <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
 
+    <key name="prompt-on-new-session" type="b">
+      <default>true</default>
+      <summary>Whether to prompt for session settings or use defaults.</summary>
+      <description>If true, when creating a new session a prompt will appear to pick the session name and profile used.</description>
+    </key>
     <!-- Dark Theme -->
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
       <default>'system'</default>

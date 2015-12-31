@@ -24,6 +24,7 @@ import gtk.Button;
 import gtk.CellRendererAccel;
 import gtk.CellRendererText;
 import gtk.CellRendererToggle;
+import gtk.CheckButton;
 import gtk.ComboBox;
 import gtk.Grid;
 import gtk.HeaderBar;
@@ -356,6 +357,26 @@ private:
 		Settings settings = new Settings(SETTINGS_ID);
 
 		int row = 0;
+        Label lblBehavior = new Label("");
+        lblBehavior.setUseMarkup(true);
+        lblBehavior.setHalign(Align.START);
+        lblBehavior.setMarkup(format("<b>%s</b>", _("Behavior")));
+        attach(lblBehavior, 0, row, 2, 1);
+        row++;
+        
+        //Prompt on new session
+        CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
+		settings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
+        attach(cbPrompt, 0, row, 2, 1);
+        row++;
+        
+        Label lblAppearance = new Label("");
+        lblAppearance.setUseMarkup(true);
+        lblAppearance.setHalign(Align.START);
+        lblAppearance.setMarkup(format("<b>%s</b>", _("Appearance")));
+        attach(lblAppearance, 0, row, 2, 1);
+        row++;
+
 		//Dark Theme
 		attach(createLabel(_("Theme Variant")), 0, row, 1, 1);
 
