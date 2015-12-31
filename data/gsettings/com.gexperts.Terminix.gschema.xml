@@ -58,6 +58,12 @@
     <value nick='tty' value='4'/>
   </enum>
 
+  <enum id='com.gexperts.Terminix.ExitAction'>
+    <value nick='close' value='0'/>
+    <value nick='restart' value='1'/>
+    <value nick='hold' value='2'/>
+  </enum>
+
   <!-- Global settings -->
   <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
 
@@ -249,7 +255,27 @@
       <summary>The string to display as the terminal title</summary>
       <description>The title supports tokens which are replaced at runtime, additionally pango markup can be used as well</description>
     </key>
-    
+    <!-- Command Tab Options -->
+    <key name="exit-action" enum="com.gexperts.Terminix.ExitAction">
+      <default>'close'</default>
+      <summary>What to do with the terminal when the child command exits</summary>
+      <description>Possible values are "close" to close the terminal, "restart" to restart the command, and "hold" to keep the terminal open with no command running inside.</description>
+    </key>
+    <key name="login-shell" type="b">
+      <default>false</default>
+      <summary>Whether to launch the command in the terminal as a login shell</summary>
+      <description>If true, the command inside the terminal will be launched as a login shell (argv[0] will have a hyphen in front of it).</description>
+    </key>
+    <key name="use-custom-command" type="b">
+      <default>false</default>
+      <summary>Whether to run a custom command instead of the shell</summary>
+      <description>If true, the value of the custom_command setting will be used in place of running a shell.</description>
+    </key>
+    <key name="custom-command" type="s">
+      <default>''</default>
+      <summary>Custom command to use instead of the shell</summary>
+      <description>Run this command in place of the shell, if use_custom_command is true.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->

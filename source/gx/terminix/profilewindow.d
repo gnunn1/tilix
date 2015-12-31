@@ -66,6 +66,7 @@ private:
 		nb.setVexpand(true);
 
 		nb.appendPage(new GeneralPage(profile, gsProfile), _("General"));
+        nb.appendPage(new CommandPage(profile, gsProfile), _("Command"));
 		nb.appendPage(new ColorPage(profile, gsProfile), _("Color"));
         nb.appendPage(new ScrollPage(profile, gsProfile), _("Scrolling"));
         nb.appendPage(new CompatibilityPage(profile, gsProfile), _("Compatibility"));
@@ -559,6 +560,56 @@ public:
     
     this(ProfileInfo profile, GSettings gsProfile) {
         super();
+        this.gsProfile = gsProfile;
+        createUI();
+    }
+}
+
+class CommandPage: Box {
+
+private:
+    GSettings gsProfile;
+
+    void createUI() {
+		setMarginLeft(18);
+		setMarginRight(18);
+		setMarginTop(18);
+		setMarginBottom(18);
+        
+        CheckButton cbLoginShell = new CheckButton(_("Run command as a login shell"));
+        gsProfile.bind(SETTINGS_PROFILE_LOGIN_SHELL_KEY, cbLoginShell, "active", GSettingsBindFlags.DEFAULT);
+        add(cbLoginShell);
+        
+        CheckButton cbCustomCommand = new CheckButton(_("Run a custom command instead of my shell"));
+        gsProfile.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, cbCustomCommand, "active", GSettingsBindFlags.DEFAULT);
+        add(cbCustomCommand);
+        
+        Box bCommand = new Box(Orientation.HORIZONTAL, 12);
+        bCommand.setMarginLeft(12);
+        Label lblCommand = new Label(_("Command"));
+		gsProfile.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, lblCommand, "sensitive",
+			GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+        bCommand.add(lblCommand);
+        Entry eCommand = new Entry();
+        gsProfile.bind(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY, eCommand, "text", GSettingsBindFlags.DEFAULT);
+		gsProfile.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, eCommand, "sensitive",
+			GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+        bCommand.add(eCommand);
+        add(bCommand);
+        
+        Box bWhenExits = new Box(Orientation.HORIZONTAL, 12);
+        Label lblWhenExists = new Label("When command exists");
+        bWhenExits.add(lblWhenExists);
+        ComboBox cbWhenExists = createNameValueCombo([_("Exit the terminal"), _("Restart the command"),_("Hold the terminal open")], SETTINGS_PROFILE_EXIT_ACTION_VALUES);
+		gsProfile.bind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);
+        bWhenExits.add(cbWhenExists);
+        
+        add(bWhenExits);        
+    }
+
+public:
+    this(ProfileInfo profile, GSettings gsProfile) {
+        super(Orientation.VERTICAL, 6);
         this.gsProfile = gsProfile;
         createUI();
     }

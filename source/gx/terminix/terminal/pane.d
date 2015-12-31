@@ -90,6 +90,8 @@ private:
     OnTerminalKeyPress[] terminalKeyPressDelegates;
 
     SearchRevealer rFind;
+    ExitPromptRevealer rExitPrompt;
+
 	Terminal terminal;
 	Scrollbar sb;
 	GPid gpid = 0;
@@ -101,6 +103,8 @@ private:
     ulong _terminalID;
     string overrideTitle;
     bool _synchronizeInput;
+    
+    string initialWorkingDir;
     
     SimpleActionGroup sagTerminalActions;
     
@@ -294,7 +298,23 @@ private:
 		terminal.addOnDragDataReceived(&onTerminalDragDataReceived);
 
 		//Event handlers
-		terminal.addOnChildExited(delegate(int fd, Terminal terminal) { notifyTerminalClose(); });
+		terminal.addOnChildExited(delegate(int status, Terminal terminal) {
+            switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
+                case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE: 
+                    spawnTerminalProcess(initialWorkingDir);
+                    return;
+                case SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE:
+                    notifyTerminalClose();
+                    return;
+                case SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE:
+                    trace("Holding exit");
+                    //rExitPrompt.setStatus(status);
+                    //rExitPrompt.setRevealChild(true); 
+                    return;
+                default:
+                    return;
+            } 
+        });
 		terminal.addOnWindowTitleChanged(delegate(Terminal terminal) { updateTitle(); });
 		terminal.addOnCurrentDirectoryUriChanged(delegate(Terminal terminal) { 
             titleInitialized = true;
@@ -325,6 +345,8 @@ private:
         overlay.add(terminal);
         rFind = new SearchRevealer(terminal);
         overlay.addOverlay(rFind);
+        rExitPrompt = new ExitPromptRevealer();
+        overlay.addOverlay(rExitPrompt);
 
 		Box box = new Box(Orientation.HORIZONTAL, 0);
 		box.add(overlay);
@@ -537,6 +559,25 @@ private:
 		}
 	}
 
+	void spawnTerminalProcess(string initialPath) {
+		GSpawnFlags flags;
+        string shell = terminal.getUserShell();
+        string[] args = [shell];
+        if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
+            args ~= "-c";
+            args ~= gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY);
+            flags = GSpawnFlags.SEARCH_PATH;
+        } else {
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_LOGIN_SHELL_KEY)) {
+                args ~= "-" ~ shell;
+            }
+            flags = GSpawnFlags.FILE_AND_ARGV_ZERO;
+        }
+		terminal.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, [""], flags, null, null, gpid, null);
+		terminal.grabFocus();
+	}
+
+
 public:
 
 	this(string profileUUID) {
@@ -549,23 +590,11 @@ public:
 		gsProfile.addOnChanged(delegate(string key, Settings) { 
             applyPreference(key); 
         });
-        /*
-  		gsShortcuts.addOnChanged(delegate(string key, Settings) {
-            // Hack to workaround problem of when shortcut changes
-            // GTK doesn't update the accel reference until you recreate it
-            // Hopefully this doesn't suck too much when dozens of terminals are active
-            //
-            // Todo: Individualize the creation of actions similar to what we are doing 
-            // for preferences 
-            createActions(sagTerminalActions); 
-        });
-        */
 	}
 
 	void initTerminal(string initialPath, bool firstRun) {
-		string userShell = terminal.getUserShell();
-		terminal.spawnSync(VtePtyFlags.DEFAULT, initialPath, [userShell], [""], GSpawnFlags.DEFAULT, null, null, gpid, null);
-		terminal.grabFocus();
+        initialWorkingDir = initialPath;
+        spawnTerminalProcess(initialPath);
 		if (firstRun) {
 			terminal.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
 		}
@@ -662,6 +691,40 @@ public:
 	void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
 		gx.util.array.remove(terminalKeyPressDelegates, dlg);
 	}
+}
+
+//Terminal Exited Revealer, used when Hold option for existing terminal is selected
+package class ExitPromptRevealer: Revealer {
+
+private:
+
+    enum STATUS_NORMAL = "The child process exited normally with status %d";
+    enum STATUS_ERROR = "The child process exited with an error, status %d";
+
+    Label prompt;
+
+    void createUI() {
+        setHexpand(true);
+        setVexpand(false);
+        setHalign(Align.END);
+        setValign(Align.START);
+        Box b = new Box(Orientation.HORIZONTAL, 12);
+        prompt = new Label(_("Testing"));        
+        b.add(prompt);
+        Frame frame = new Frame(b, null);
+        add(frame);
+    }
+
+public:    
+    this() {
+        super();
+    }
+    
+    void setStatus(int value) {
+        //prompt.setText(format(value==0?STATUS_NORMAL:STATUS_ERROR, value));
+        prompt.setText(STATUS_NORMAL);    
+    }
+
 }
 
 private:
