@@ -20,7 +20,7 @@ immutable string APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used by About Box
 immutable string APPLICATION_NAME = "Terminix";
-immutable string APPLICATION_VERSION = "0.1";
+immutable string APPLICATION_VERSION = "0.10.0";
 immutable string APPLICATION_AUTHOR = "Gerald Nunn";
 immutable string APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 immutable string APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");
