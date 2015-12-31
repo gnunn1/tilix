@@ -59,9 +59,7 @@ class AppWindow : ApplicationWindow {
 
 private:
 
-	enum DEFAULT_SESSION_NAME = "Default Session";
-
-    enum ACTION_GROUP_SESSION_LIST = "sessionlist";
+	enum DEFAULT_SESSION_NAME = "Default";
 
     enum ACTION_PREFIX = "session";
 	enum ACTION_SESSION_LIST = "list";
@@ -78,13 +76,11 @@ private:
 	HeaderBar hb;
     
 	GMenu sessionMenu;
-    //Dynamic action group that holds list of sessions which is displayed in popup to allow
-    //user to switch between sessions
-	SimpleActionGroup sessionListActions;
+    SimpleAction saSessionSelect;
     MenuButton mbSessions;
     
     SimpleActionGroup sessionActions;
-    Popover pmSessionActions;
+    MenuButton mbSessionActions;
     SimpleAction saSyncInput;    
 
 	void createUI() {
@@ -101,11 +97,9 @@ private:
 		mbSessions.setFocusOnClick(false);
 		Image iList = new Image("view-list-symbolic", IconSize.MENU);
 		mbSessions.add(iList);
-		sessionListActions = new SimpleActionGroup();
 		sessionMenu = new GMenu();
 		Popover pm = new Popover(mbSessions, sessionMenu);
         pm.setModal(true);
-		mbSessions.insertActionGroup(ACTION_GROUP_SESSION_LIST, sessionListActions);
 		mbSessions.setPopover(pm);
 		mbSessions.addOnButtonPress(delegate(Event e, Widget w) {
             buildSessionMenu();
@@ -124,7 +118,7 @@ private:
 		hb.packStart(btnNew);
 
 		//Session Actions
-		MenuButton mbSessionActions = new MenuButton();
+	    mbSessionActions = new MenuButton();
 		mbSessionActions.setFocusOnClick(false);
 		Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
 		mbSessionActions.add(iHamburger);
@@ -140,20 +134,25 @@ private:
             updateUIState();
 			session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
-			trace(format("%d is requested page, %d is current page", pageNo, nb.getCurrentPage()));
 		}, ConnectFlags.AFTER);
 		this.add(nb);
 
-        createSession(_(DEFAULT_SESSION_NAME));
+        //Create an initial session using default session name and profile
+        createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
 	}
 
     void createActions() {
         GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
 		sessionActions = new SimpleActionGroup();
-		registerActionWithSettings(sessionActions, ACTION_PREFIX , ACTION_SESSION_LIST, gsShortcuts, delegate(Variant, SimpleAction) { 
-            buildSessionMenu(); 
-            mbSessions.activate(); 
-        });
+        
+        //Select Session
+        GVariant pu = new GVariant(0);
+        saSessionSelect = registerAction(sessionActions, ACTION_PREFIX, ACTION_SESSION_LIST, null, delegate(GVariant value, SimpleAction sa) {
+            nb.setCurrentPage(value.getInt32());
+            saSessionSelect.setState(value);
+            mbSessions.setActive(false);
+        }, pu.getType(), pu);
+
         //Create Switch to Terminal (0..9) actions
         for(int i=0; i<=9; i++) {
             registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(Variant, SimpleAction sa) { 
@@ -164,7 +163,7 @@ private:
                 }
             });
         }
-        /* GTK doesn't support settings Tab for accelerators, need to look into this more */
+        /* TODO - GTK doesn't support settings Tab for accelerators, need to look into this more */
 		registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NEXT_TERMINAL, gsShortcuts, delegate(Variant, SimpleAction) { 
             Session session = getCurrentSession();
             if (session !is null) session.focusNext();
@@ -207,10 +206,10 @@ private:
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             getCurrentSession().synchronizeInput = newState;            
-            pmSessionActions.hide();
+            mbSessionActions.setActive(false);
         }, null, state);
         
-		insertActionGroup(ACTION_PREFIX, sessionActions);
+		insertActionGroup(ACTION_PREFIX, sessionActions);       
     }
     
     Popover createPopover(Widget parent) {
@@ -227,8 +226,7 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
-		pmSessionActions = new Popover(parent, model);
-		return pmSessionActions;
+		return new Popover(parent, model);
     }
     
 	/**
@@ -247,8 +245,8 @@ private:
 		}
 	}
 
-	void createNewSession(string name) {
-        Session session = new Session(name, nb.getNPages() == 0);
+	void createNewSession(string name, string profileUUID) {
+        Session session = new Session(name, profileUUID, nb.getNPages() == 0);
         addSession(session);
 	}
     
@@ -284,18 +282,14 @@ private:
      * Dynamically build actions and menu items to show in session popover
      */
     void buildSessionMenu() {
-		sessionMenu.removeAll();
-		string[] actions = sessionListActions.listActions();
-		foreach (action; actions)
-			sessionListActions.remove(action);
-		for (int i = 0; i < nb.getNPages(); i++) {
-			Session session = cast(Session) nb.getNthPage(i);
-			SimpleAction action = new SimpleAction(to!string(i), null);
-			action.setEnabled(true);
-			action.addOnActivate(delegate(GVariant, SimpleAction sa) { nb.setCurrentPage(to!int(sa.getName())); });
-			sessionListActions.addAction(action);
-			sessionMenu.append(to!string(i) ~ ": " ~ session.name, ACTION_GROUP_SESSION_LIST ~ "." ~ to!string(i));
-		}
+        sessionMenu.removeAll();
+        saSessionSelect.setState(new GVariant(nb.getCurrentPage()));
+        for(int i=0; i<nb.getNPages; i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            GMenuItem menuItem = new GMenuItem(session.name, getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
+            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST), new GVariant(i));
+            sessionMenu.appendItem(menuItem);
+        }
     }
 
 	bool onWindowClosed(Event event, Widget widget) {
@@ -402,12 +396,15 @@ public:
 
 	void createSession() {
         string value;
-        if (showInputDialog(this, value, _(DEFAULT_SESSION_NAME), _("New Session"), _("Enter a name for the new session"))) {
-            createSession(value);
-        }
+        SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+        scope(exit) {sp.destroy();}
+        sp.showAll();
+        if (sp.run() == ResponseType.OK) {
+            createSession(sp.name, sp.profileUUID);
+        }  
 	}
 
-	void createSession(string name) {
-		createNewSession(name);
+	void createSession(string name, string profileUUID) {
+		createNewSession(name, profileUUID);
 	}
 }

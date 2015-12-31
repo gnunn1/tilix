@@ -15,16 +15,23 @@ import gdk.Event;
 import glib.Util;
 
 import gtk.Box;
-import gtk.Container;
 import gtk.Button;
+import gtk.Container;
 import gtk.Clipboard;
+import gtk.ComboBox;
+import gtk.Dialog;
+import gtk.Entry;
+import gtk.Grid;
+import gtk.Label;
 import gtk.Main;
 import gtk.Menu;
 import gtk.MenuItem;
 import gtk.Paned;
 import gtk.Widget;
+import gtk.Window;
 
 import gx.gtk.util;
+import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.preferences;
@@ -58,8 +65,8 @@ private:
     
 	TerminalPane lastFocused;
 
-	void createUI(bool firstRun) {
-		TerminalPane terminal = createTerminal();
+	void createUI(string profileUUID, bool firstRun) {
+		TerminalPane terminal = createTerminal(profileUUID);
 		add(terminal);
 		terminal.initTerminal(Util.getHomeDir(), firstRun);
 		lastFocused = terminal;
@@ -71,10 +78,6 @@ private:
 		}
 	}
 
-	TerminalPane createTerminal() {
-        return createTerminal(prfMgr.getDefaultProfile());
-    }
-    
     void sequenceTerminalID() {
         foreach(i, terminal; terminals) {
             terminal.terminalID = i;
@@ -356,10 +359,10 @@ private:
     
 public:
 
-	this(string name, bool firstRun) {
+	this(string name, string profileUUID, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
 		_name = name;
-		createUI(firstRun);
+		createUI(profileUUID,firstRun);
 	}
     
     //TODO Determine whether we need to support 
@@ -461,6 +464,69 @@ public:
 	}
 }
 
+class SessionProperties: Dialog {
+
+private:
+    Entry eName;
+    ComboBox cbProfile;
+    
+    void createUI(string name, string profileUUID) {
+
+		Grid grid = new Grid();
+		grid.setColumnSpacing(12);
+		grid.setRowSpacing(6);
+		grid.setMarginTop(18);
+		grid.setMarginBottom(18);
+		grid.setMarginLeft(18);
+		grid.setMarginRight(18);
+
+		Label label = new Label(format("<b>%s</b>", _("Name")));
+		label.setUseMarkup(true);
+		label.setHalign(Align.START);
+        grid.attach(label, 0, 0, 1, 1);
+        
+        eName = new Entry();
+        eName.setText(name);
+        eName.setMaxWidthChars(30);
+        grid.attach(eName, 1, 0, 1, 1);
+    
+		label = new Label(format("<b>%s</b>", _("Profile")));
+		label.setUseMarkup(true);
+		label.setHalign(Align.START);
+        grid.attach(label, 0, 1, 1, 1);
+
+        ProfileInfo[] profiles = prfMgr.getProfiles();
+        string[] names = new string[profiles.length];
+        string[] uuid = new string[profiles.length];
+        foreach(i, profile; profiles) {
+            names[i] = profile.name;
+            uuid[i] = profile.uuid;
+        }
+        cbProfile = createNameValueCombo(names, uuid);
+        cbProfile.setActiveId(profileUUID);
+        cbProfile.setHexpand(true);
+        grid.attach(cbProfile, 1, 1, 1, 1);
+        
+		getContentArea().add(grid);
+    }
+
+public:
+
+	this(Window parent, string name, string profileUUID) {
+		super(_("New Session"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [StockID.CANCEL,StockID.OK], [ResponseType.CANCEL,ResponseType.OK]);
+		setDefaultResponse(ResponseType.OK);
+		createUI(name, profileUUID);
+	}
+    
+    @property string name() {
+        return eName.getText();
+    }
+    
+    @property string profileUUID() {
+        return cbProfile.getActiveId();
+    }
+}
+
 private:
 
 /**
@@ -490,3 +556,5 @@ struct SessionSizeInfo {
         }    
     } 
 }
+
+
