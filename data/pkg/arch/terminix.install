@@ -1,0 +1,11 @@
+post_install() {
+  glib-compile-schemas /usr/share/glib-2.0/schemas
+}
+
+post_upgrade() {
+  post_install
+}
+
+post_remove() {
+  post_install
+}
