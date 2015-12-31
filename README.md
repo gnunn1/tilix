@@ -44,6 +44,9 @@ Once you have those installed, building the application is a one line command as
 ```
 dub build --build=release
 ```
+
+The application depends on various resources to function directly, run sudo ./install.sh to compile and copy all of the necessary files to the correct locations. Note this has only been tested on Arch Linux, use with caution.
+
 #### Build Dependencies
 
 Terminix depends on the following libraries as defined in dub.json:
@@ -51,6 +54,4 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Installation
 
-The application depends on various resources to function directly, run sudo ./install.sh to compile and copy all of the necessary files to the correct locations. Note this has only been tested on Arch Linux, use with caution.
-
-At this time distro packages are not available.
+At this time distro packages are not available, releases which can be installed manually are available in the releases section with instructions.
