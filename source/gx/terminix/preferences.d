@@ -13,7 +13,7 @@ import gio.Settings : GSettings = Settings;
 
 import gx.util.array;
 
-//Preferences
+//Preference Constants
 enum SETTINGS_ID = "com.gexperts.Terminix.Settings";
 enum SETTINGS_BASE_PATH = "/com/gexperts/Terminix";
 
@@ -29,7 +29,7 @@ enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-wo
 enum SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX = "search-default-match-as-regex";
 enum SETTINGS_SEARCH_DEFAULT_WRAP_AROUND = "search-default-wrap-around";
 
-//Profiles
+//Profile Preference Constants
 enum SETTINGS_PROFILE_LIST_ID = "com.gexperts.Terminix.ProfilesList";
 enum SETTINGS_PROFILE_ID = "com.gexperts.Terminix.Profile";
 enum SETTINGS_PROFILE_PATH = SETTINGS_BASE_PATH ~ "/profiles/";

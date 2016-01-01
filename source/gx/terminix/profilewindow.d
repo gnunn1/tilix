@@ -42,6 +42,9 @@ import gx.i18n.l10n;
 import gx.terminix.colorschemes;
 import gx.terminix.preferences;
 
+/**
+ * UI used for managing preferences for a specific profile
+ */
 class ProfileWindow : ApplicationWindow {
 
 private:

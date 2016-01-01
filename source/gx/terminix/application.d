@@ -31,6 +31,9 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
 
+/**
+ * The GTK Application used by Terminix.
+ */
 class Terminix : Application {
 
 private:

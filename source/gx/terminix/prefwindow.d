@@ -49,6 +49,9 @@ import gx.terminix.preferences;
 import gx.terminix.profilewindow;
 import gx.util.array;
 
+/**
+ * UI for managing Terminix preferences
+ */
 class PreferenceWindow : ApplicationWindow {
 
 private:
