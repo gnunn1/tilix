@@ -13,6 +13,7 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 * The grouping of terminals can be saved and loaded from disk
 * Terminals support custom titles
 * Color schemes are stored in files and custom color schemes can be created by simply creating a new file
+* Supports transparency
 
 The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) and no allowance has been made for other Desktop Environments (xfce, unity, kde, etc) at this time so your mileage may vary. Consideration for other environments may be given if demand warrants it.
 
@@ -21,17 +22,19 @@ At this point in time the application should be considered early alpha and has o
 ### Dependencies
 
 Terminix requires the following libraries to be installed in order to run:
-* GTK 3.1.8 or later
+* GTK 3.1.4 or later
+* GTK VTE Widget 0.42 or later
+* Dconf
+* GSettings
 
 ### Todo Items
 
 Since this is an early alpha release, there are a number of features which have not yet been developed including:
 
-* Allow flexibiltiy with input synchronization by enabling selection of specific terminals
-* Add the Gnome Terminal Command options to the Profile settings
 * Add the Gnome Terminal support for encodings
 * Add an option to support a "compact" view which would have smaller terminal title bars and move commands to popup menus
 * Add support for localization
+* Add support for Fedora patched VTE which supports notifications
 
 Additional feature requests are gladly accepted
 
@@ -54,4 +57,4 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Installation
 
-At this time distro packages are not available, releases which can be installed manually are available in the releases section with instructions.
+Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), for other distros releases can be installed manually from the releases section following the included instructions.
