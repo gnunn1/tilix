@@ -4,6 +4,7 @@
  */
 module gx.terminix.terminal.pane;
 
+import core.sys.posix.sys.wait;
 import core.sys.posix.unistd;
 
 import std.algorithm;
@@ -36,6 +37,7 @@ import gtk.Button;
 import gtk.Clipboard;
 import gtk.Frame;
 import gtk.Image;
+import gtk.InfoBar;
 import gtk.Label;
 import gtk.Main;
 import gtk.Menu;
@@ -90,10 +92,11 @@ private:
     OnTerminalKeyPress[] terminalKeyPressDelegates;
 
     SearchRevealer rFind;
-    ExitPromptRevealer rExitPrompt;
 
 	Terminal terminal;
+    Overlay terminalOverlay;
 	Scrollbar sb;
+
 	GPid gpid = 0;
     bool titleInitialized = false;
     
@@ -298,23 +301,7 @@ private:
 		terminal.addOnDragDataReceived(&onTerminalDragDataReceived);
 
 		//Event handlers
-		terminal.addOnChildExited(delegate(int status, Terminal terminal) {
-            switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
-                case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE: 
-                    spawnTerminalProcess(initialWorkingDir);
-                    return;
-                case SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE:
-                    notifyTerminalClose();
-                    return;
-                case SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE:
-                    trace("Holding exit");
-                    //rExitPrompt.setStatus(status);
-                    //rExitPrompt.setRevealChild(true); 
-                    return;
-                default:
-                    return;
-            } 
-        });
+		terminal.addOnChildExited(&onTerminalChildExited);
 		terminal.addOnWindowTitleChanged(delegate(Terminal terminal) { updateTitle(); });
 		terminal.addOnCurrentDirectoryUriChanged(delegate(Terminal terminal) { 
             titleInitialized = true;
@@ -341,15 +328,13 @@ private:
 		miPaste = new MenuItem(delegate(MenuItem item) { terminal.pasteClipboard(); }, _("Paste"), null);
 		mContext.add(miPaste);
 
-        Overlay overlay = new Overlay();
-        overlay.add(terminal);
+        terminalOverlay = new Overlay();
+        terminalOverlay.add(terminal);
         rFind = new SearchRevealer(terminal);
-        overlay.addOverlay(rFind);
-        rExitPrompt = new ExitPromptRevealer();
-        overlay.addOverlay(rExitPrompt);
+        terminalOverlay.addOverlay(rFind);
 
 		Box box = new Box(Orientation.HORIZONTAL, 0);
-		box.add(overlay);
+		box.add(terminalOverlay);
 
 		sb = new Scrollbar(Orientation.VERTICAL, terminal.getVadjustment());
 		box.add(sb);
@@ -383,6 +368,32 @@ private:
 			dlg(this);
 		}
 	}
+
+    void onTerminalChildExited(int status, Terminal terminal) {
+        trace("Exit code received is " ~ to!string(status));
+        switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
+            case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE: 
+                spawnTerminalProcess(initialWorkingDir);
+                return;
+            case SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE:
+                notifyTerminalClose();
+                return;
+            case SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE:
+                TerminalInfoBar ibRelaunch = new TerminalInfoBar();
+                ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
+                    if (response == ResponseType.OK) {
+                        ibRelaunch.destroy();
+                        spawnTerminalProcess(initialWorkingDir);
+                    }
+                });
+                ibRelaunch.setStatus(status);
+                terminalOverlay.addOverlay(ibRelaunch);
+                ibRelaunch.showAll(); 
+                return;
+            default:
+                return;
+        } 
+    }
 
 	bool onTerminalButtonPress(Event event, Widget widget) {
 		if (event.type == EventType.BUTTON_PRESS) {
@@ -693,38 +704,37 @@ public:
 	}
 }
 
-//Terminal Exited Revealer, used when Hold option for existing terminal is selected
-package class ExitPromptRevealer: Revealer {
+//Terminal Exited Info Bar, used when Hold option for exiting terminal is selected
+package class TerminalInfoBar: InfoBar {
 
 private:
-
     enum STATUS_NORMAL = "The child process exited normally with status %d";
-    enum STATUS_ERROR = "The child process exited with an error, status %d";
+    enum STATUS_ABORT_STATUS = "The child process was aborted by signal %d.";
+    enum STATUS_ABORT = "The child process was aborted.";
 
-    Label prompt;
+    Label lblPrompt;
 
-    void createUI() {
-        setHexpand(true);
-        setVexpand(false);
-        setHalign(Align.END);
-        setValign(Align.START);
-        Box b = new Box(Orientation.HORIZONTAL, 12);
-        prompt = new Label(_("Testing"));        
-        b.add(prompt);
-        Frame frame = new Frame(b, null);
-        add(frame);
-    }
-
-public:    
+public:
     this() {
-        super();
-    }
-    
-    void setStatus(int value) {
-        //prompt.setText(format(value==0?STATUS_NORMAL:STATUS_ERROR, value));
-        prompt.setText(STATUS_NORMAL);    
+        super([_("Relaunch")], [ResponseType.OK]);
+        setDefaultResponse(ResponseType.OK);
+        setMessageType(MessageType.QUESTION);
+        lblPrompt = new Label(_(""));
+        lblPrompt.setHalign(Align.START);
+        getContentArea().packStart(lblPrompt, true, true, 0);
+        setHalign(Align.FILL);
+        setValign(Align.START);
     }
 
+    void setStatus(int value) {
+        if (WEXITSTATUS(value)) {
+            lblPrompt.setText(format(STATUS_NORMAL, WEXITSTATUS(value)));
+        } else if (WIFSIGNALED(value)) {
+            lblPrompt.setText(format(STATUS_ABORT_STATUS, WTERMSIG(value)));
+        } else {
+            lblPrompt.setText(STATUS_ABORT);
+        }
+    }
 }
 
 private:
