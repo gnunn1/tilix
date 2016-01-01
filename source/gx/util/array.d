@@ -10,8 +10,9 @@ import std.array;
 /**
  * Removes the specified element from the array (once).
  *
- * @param array   The array to remove the item from.
- * @param element The item to look for and remove.
+ * Params:
+ *  array   = The array to remove the item from.
+ *  element = The item to look for and remove.
  * 
  * Adapted from grestful, modified to explicitly check index
  */

@@ -35,10 +35,18 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.preferences;
-import gx.terminix.terminal.pane;
+import gx.terminix.terminal.terminal;
 
+/**
+ * An event that occurs when the session closes, the application window
+ * listens to this event and removes the session when received.
+ */
 alias OnSessionClose = void delegate(Session session);
 
+/**
+ * An exception that is thrown when a session cannot be created, typically
+ * when a failure indeserialization occurs.
+ */
 class SessionCreationException: Exception {
     this(string msg) {
         super(msg) ;
@@ -53,20 +61,37 @@ class SessionCreationException: Exception {
     }
 }
 
+/**
+ * The session is used to represent a grouping of tiled terminals. It is
+ * responsible for managing the layout, de/serialization and session level
+ * actions. Note that the Terminal widgets managed by the session are not the
+ * actual GTK+ VTE widget but rather a composite widget that includes a title bar,
+ * VTE and some overlays. The session does not have direct access to the VTE widget
+ * and this design should not change in order to maintain the separation of concerns.
+ *
+ * From a GTK point of view, a session is just a Box which is used displayed in a
+ * GTK Notebook. As a result the application supports multiple sessions at the same
+ * time with each one being a separate page. Note that tabs are not shown as it
+ * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
+ * and which inspired this application.
+ */ 
 class Session : Box {
 
 private:
 
 	OnSessionClose[] sessionCloseDelegates;
 
-	TerminalPane[] terminals;
+	Terminal[] terminals;
 	string _name;
     bool _synchronizeInput;
     
-	TerminalPane lastFocused;
+	Terminal lastFocused;
 
+    /**
+     * Creates the session user interface
+     */
 	void createUI(string profileUUID, string workingDir, bool firstRun) {
-		TerminalPane terminal = createTerminal(profileUUID);
+		Terminal terminal = createTerminal(profileUUID);
 		add(terminal);
 		terminal.initTerminal(workingDir, firstRun);
 		lastFocused = terminal;
@@ -84,8 +109,15 @@ private:
         }
     }
 
-	TerminalPane createTerminal(string profileUUID) {
-		TerminalPane terminal = new TerminalPane(profileUUID);
+    /**
+     * Creates the terminal widget and wires the various
+     * event handlers. Note the terminal widget is a composite
+     * widget and not the actual VTE widget provided by GTK.
+     *
+     * The VTE widget is not exposed to the session.
+     */
+	Terminal createTerminal(string profileUUID) {
+		Terminal terminal = new Terminal(profileUUID);
 		terminal.addOnTerminalClose(&onTerminalClose);
 		terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
 		terminal.addOnTerminalInFocus(&onTerminalInFocus);
@@ -110,7 +142,7 @@ private:
      * If there is some magic way in GTK to do this without the extra Box shim
      * it would be nice to eliminate this. 
      */
-	void onTerminalRequestSplit(TerminalPane terminal, Orientation orientation) {
+	void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
 		Box parent = cast(Box) terminal.getParent();
 		int height = parent.getAllocatedHeight();
@@ -125,7 +157,7 @@ private:
 
 		parent.remove(terminal);
 		b1.add(terminal);
-		TerminalPane newTerminal = createTerminal(terminal.profileUUID);
+		Terminal newTerminal = createTerminal(terminal.profileUUID);
 		b2.add(newTerminal);
 
 		switch (orientation) {
@@ -153,15 +185,15 @@ private:
 	 * in preparation to remove the other child and replace the
 	 * splitter with it.
 	 */
-	Box findOtherChild(TerminalPane terminal, Paned paned) {
+	Box findOtherChild(Terminal terminal, Paned paned) {
 		Box box1 = cast(Box) paned.getChild1();
 		Box box2 = cast(Box) paned.getChild2();
 
 		Widget widget1 = gx.gtk.util.getChildren(box1)[0];
 		Widget widget2 = gx.gtk.util.getChildren(box2)[0];
 
-		TerminalPane terminal1 = cast(TerminalPane) widget1;
-		TerminalPane terminal2 = cast(TerminalPane) widget2;
+		Terminal terminal1 = cast(Terminal) widget1;
+		Terminal terminal2 = cast(Terminal) widget2;
 
 		int result = terminal == terminal1 ? 1 : 2;
 		return (result == 1 ? box2 : box1);
@@ -171,7 +203,7 @@ private:
 	 * Removes the terminal by replacing the parent splitter with
 	 * the child from the other side.
 	 */
-	void onTerminalClose(TerminalPane terminal) {
+	void onTerminalClose(Terminal terminal) {
 		if (lastFocused == terminal)
 			lastFocused = null;
 		//Remove delegates
@@ -200,12 +232,12 @@ private:
         sequenceTerminalID();        
 	}
     
-	void onTerminalInFocus(TerminalPane terminal) {
+	void onTerminalInFocus(Terminal terminal) {
 		//trace("Focus noted");
 		lastFocused = terminal;
 	}
     
-    void onTerminalKeyPress(Event event, TerminalPane originator) {
+    void onTerminalKeyPress(Event event, Terminal originator) {
         trace("Got key press");
         foreach(terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
@@ -258,7 +290,7 @@ private:
      */
     public WidgetType getSerializedType(Widget widget) {
         if (cast(Session) widget !is null) return WidgetType.SESSION;
-        else if (cast(TerminalPane) widget !is null) return WidgetType.TERMINAL;
+        else if (cast(Terminal) widget !is null) return WidgetType.TERMINAL;
         else if (cast(Paned) widget !is null) return WidgetType.PANED;
         else return WidgetType.OTHER;
     }
@@ -274,7 +306,7 @@ private:
                 serializePaned(value, cast(Paned) widget, sizeInfo);
                 break;
             case WidgetType.TERMINAL:    
-                serializeTerminal(value, cast(TerminalPane) widget);
+                serializeTerminal(value, cast(Terminal) widget);
                 break;
             default:
                 trace("Unknown Widget, can't serialize");
@@ -299,7 +331,7 @@ private:
     /**
      * Serialize the TerminalPane widget
      */
-    JSONValue serializeTerminal(JSONValue value, TerminalPane terminal) {
+    JSONValue serializeTerminal(JSONValue value, Terminal terminal) {
         value[NODE_PROFILE] = terminal.profileUUID;
         value[NODE_DIRECTORY] = terminal.currentDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
@@ -319,11 +351,11 @@ private:
     /**
      * De-serialize a TerminalPane widget
      */
-    TerminalPane parseTerminal(JSONValue value) {
+    Terminal parseTerminal(JSONValue value) {
         trace("Loading terminal");
         //TODO Check that the profile exists and use default if it doesn't
         string profileUUID = value[NODE_PROFILE].str();
-        TerminalPane terminal  = createTerminal(profileUUID);
+        Terminal terminal  = createTerminal(profileUUID);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         return terminal;
     }
@@ -359,6 +391,15 @@ private:
     
 public:
 
+    /**
+     * Creates a new session
+     * 
+     * Params:
+     *  name        = The name of the session
+     *  profileUUID = The profile to use when creating the initial terminal for the session
+     *  workingDir  = The working directory to use in the initial terminal
+     *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
+     */ 
 	this(string name, string profileUUID, string workingDir, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
 		_name = name;
@@ -366,8 +407,17 @@ public:
 	}
     
     
-    //TODO Determine whether we need to support 
-    //concept of firstRun for loading session
+    /**
+     * Creates a new session by de-serializing a session from JSON
+     *
+     * TODO Determine whether we need to support concept of firstRun for loading session
+     * 
+     * Params:
+     *  value       = The root session node of the JSON block used to for deserialization
+     *  filename    = The filename corresponding to the JSON block
+     *  width       = The expected width and height of the session, used to scale Paned positions
+     *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
+     */ 
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
         try {
@@ -378,6 +428,12 @@ public:
         }        
     }
     
+    /**
+     * Serialize the session
+     *
+     * Returns:
+     *  The JSON representation of the session
+     */
     JSONValue serialize() {
         JSONValue root = ["version" : "1.0"];
         root.object[NODE_NAME] = _name;
@@ -389,6 +445,9 @@ public:
         return root;
     }
 
+    /**
+     * The name of the session
+     */
 	@property string name() {
 		return _name;
 	}
@@ -399,6 +458,9 @@ public:
         }
     }
     
+    /**
+     * If the session was created via de-serialization the filename used, otherwise null
+     */
     @property string filename() {
         return _filename;
     }
@@ -407,6 +469,9 @@ public:
         _filename = value;
     }
     
+    /**
+     * Whether the input for all terminals is synchronized
+     */
     @property bool synchronizeInput() {
         return _synchronizeInput;
     }
@@ -418,6 +483,9 @@ public:
         }
     }
 
+    /**
+     * Whether any terminals in the session have a child process running
+     */
 	bool isProcessRunning() {
 		foreach (terminal; terminals) {
 			if (terminal.isProcessRunning())
@@ -426,12 +494,18 @@ public:
 		return false;
 	}
 
+    /**
+     * Restore focus to the terminal that last had focus in the session
+     */
 	void focusRestore() {
 		if (lastFocused !is null) {
 			lastFocused.focusTerminal();
 		}
 	}
     
+    /**
+     * Focus the next terminal in the session
+     */
     void focusNext() {
         ulong id = 0;
         if (lastFocused !is null) {
@@ -441,6 +515,9 @@ public:
         focusTerminal(id);
     }
     
+    /**
+     * Focus the previous terminal in the session
+     */
     void focusPrevious() {
         ulong id = 0;
         if (lastFocused !is null) {
@@ -450,6 +527,9 @@ public:
         focusTerminal(id);
     }
     
+    /**
+     * Focus the terminal designated by the ID
+     */
     void focusTerminal(ulong terminalID) {
         if (terminalID >= 0 && terminalID < terminals.length) {
             terminals[terminalID].focusTerminal();
@@ -465,7 +545,11 @@ public:
 	}
 }
 
-class SessionProperties: Dialog {
+/**
+ * Class used to prompt user for session name and profile to use when
+ * adding a new session.
+ */
+package class SessionProperties: Dialog {
 
 private:
     Entry eName;

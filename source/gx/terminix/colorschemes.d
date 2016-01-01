@@ -31,10 +31,10 @@ enum SCHEME_KEY_PALETTE = "palette";
 enum SCHEME_KEY_USE_THEME_COLORS = "use-theme-colors";
 
 /**
-  * Terminix color scheme
+  * A Terminix color scheme.
   *
-  * Unlike gnome terminal, a color scheme encompases both the fg/bg
-  * and palette colors similar to what editor color schemes typically
+  * Unlike gnome terminal, a color scheme in Terminix encompases both the fg/bg
+  * and palette colors similar to what text editor color schemes typically
   * do.
   */
 struct ColorScheme {
@@ -52,6 +52,11 @@ struct ColorScheme {
 	}
 }
 
+/**
+ * Finds a matching color scheme based on colors. This is used
+ * in ProfilePreference since we don't store the selected color
+ * scheme, just the colors chosen.
+ */
 int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA bg, RGBA[16] palette) {
 	foreach (pi, scheme; schemes) {
 		if (useThemeColors != scheme.useThemeColors)
@@ -76,7 +81,6 @@ int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA
 /**
  * Loads the color schemes from disk
  *
- * TODO: Load from both user and system directories
  * TODO: Cull duplicates
  */
 ColorScheme[] loadColorSchemes() {
@@ -107,6 +111,9 @@ ColorScheme[] loadColorSchemes() {
 	return schemes;
 }
 
+/**
+ * Loads a color scheme from a JSON file
+ */
 private ColorScheme loadScheme(string fileName) {
 	string content = readText(fileName);
 	JSONValue root = parseJSON(content);

@@ -267,7 +267,7 @@ void selectRow(TreeView tv, int row, TreeViewColumn column = null) {
 }
 
 /**
- * An implementation of a range that allows using foreach over a range
+ * An implementation of a range that allows using foreach with a TreeModel and TreeIter
  */
 struct TreeIterRange {
 

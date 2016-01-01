@@ -56,6 +56,13 @@ import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
 
+/**
+ * The GTK Application Window for Terminix. It is responsible for
+ * managing sessions which are held as pages in a GTK Notebook. All
+ * session actions are created and managed here but against the session
+ * prefix rather then the win prefix which is typically used for
+ * a AplicationWindow.
+ */
 class AppWindow : ApplicationWindow {
 
 private:
@@ -84,8 +91,11 @@ private:
     MenuButton mbSessionActions;
     SimpleAction saSyncInput;    
 
+    /**
+     * Create the user interface
+     */
 	void createUI() {
-        createActions();
+        createSessionActions();
 
 		//Header Bar
 		hb = new HeaderBar();
@@ -140,7 +150,10 @@ private:
 		this.add(nb);
 	}
 
-    void createActions() {
+    /**
+     * Create all the session actions and corresponding actions
+     */
+    void createSessionActions() {
         GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
 		sessionActions = new SimpleActionGroup();
         
@@ -211,6 +224,9 @@ private:
 		insertActionGroup(ACTION_PREFIX, sessionActions);       
     }
     
+    /**
+     * Creates the session action popover
+     */
     Popover createPopover(Widget parent) {
 		GMenu model = new GMenu();
 
@@ -245,6 +261,7 @@ private:
 	}
 
 	void createNewSession(string name, string profileUUID, string workingDir) {
+        //Set firstRun based on whether any sessions currently exist, i.e. no pages in NoteBook
         Session session = new Session(name, profileUUID, workingDir, nb.getNPages() == 0);
         addSession(session);
 	}
@@ -278,7 +295,7 @@ private:
 	}
 
 	/**
-     * Dynamically build actions and menu items to show in session popover
+     * Dynamically build session list menu items to show in list popover
      */
     void buildSessionMenu() {
         sessionMenu.removeAll();
@@ -335,6 +352,9 @@ private:
         fcd.addFilter(ff);
     }
     
+    /**
+     * Loads session from a file
+     */
     void loadSession(string filename) {
         if (!exists(filename)) 
             throw new SessionCreationException(format(_("Filename '%s' does not exist"), filename));
@@ -344,6 +364,9 @@ private:
         addSession(session);
     }
     
+    /**
+     * Loads session from a file, prompt user to select file
+     */
     void loadSession() {
         FileChooserDialog fcd = new FileChooserDialog(_("Load Session"), this, FileChooserAction.OPEN);
         scope(exit) {fcd.destroy();}
@@ -360,6 +383,12 @@ private:
         }
     }
     
+    /**
+     * Saves session to a file
+     *
+     * Params:
+     *  showSaveAsDialog = Determines if save as dialog is shown. Note dialog may be shown even if false is passed if the session filename is not set
+     */
     void saveSession(bool showSaveAsDialog = true) {
         Session session = getCurrentSession();
         string filename = session.filename;
@@ -403,6 +432,9 @@ public:
         createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
     }
     
+    /**
+     * intialize the session based on the command line parameters
+     */
     void initialize(CommandParameters cp) {
         trace("Initializing with command line parameters");
         if (cp.session.length > 0) {
@@ -424,6 +456,9 @@ public:
         createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
 
+    /**
+     * Creates a new session and prompts the user for session properties
+     */
 	void createSession() {
         string value;
         SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
@@ -434,10 +469,16 @@ public:
         }  
 	}
 
+    /**
+     * Creates a new session based on parameters, user is not prompted
+     */
 	void createSession(string name, string profileUUID) {
 		createNewSession(name, profileUUID, Util.getHomeDir());
 	}
     
+    /**
+     * Creates a new session based on parameters, user is not prompted
+     */
 	void createSession(string name, string profileUUID, string workingDir) {
 		createNewSession(name, profileUUID, workingDir);
 	}

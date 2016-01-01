@@ -10,7 +10,7 @@ import gx.i18n.l10n;
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
-immutable uint GTK_VERSION_MINOR = 16;
+immutable uint GTK_VERSION_MINOR = 14;
 immutable uint GTK_VERSION_PATCH = 0;
 
 /**
@@ -18,9 +18,9 @@ immutable uint GTK_VERSION_PATCH = 0;
  */
 enum APPLICATION_ID = "com.gexperts.Terminix";
 
-// Application values used by About Box
+// Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.10.0";
+enum APPLICATION_VERSION = "0.20.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");

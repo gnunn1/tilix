@@ -2,7 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-module gx.terminix.terminal.pane;
+module gx.terminix.terminal.terminal;
 
 import core.sys.posix.sys.wait;
 import core.sys.posix.unistd;
@@ -55,7 +55,8 @@ import gtk.TargetEntry;
 import gtk.Widget;
 import gtk.Window;
 
-import vte.Terminal;
+import vte.Terminal: VTE = Terminal;
+import vtec.vtetypes;
 
 import gx.gtk.actions;
 import gx.gtk.util;
@@ -67,10 +68,31 @@ import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.search;
 
-alias OnTerminalInFocus = void delegate(TerminalPane pane);
-alias OnTerminalClose = void delegate(TerminalPane pane);
-alias OnTerminalRequestSplit = void delegate(TerminalPane pane, Orientation orientation);
-alias OnTerminalKeyPress = void delegate(Event event, TerminalPane pane);
+/**
+ * An event that is fired whenever the terminal gets focused. Used by
+ * the Session to track focus.
+ */
+alias OnTerminalInFocus = void delegate(Terminal pane);
+
+/**
+ * An event that is fired when the terminal has been requested to close,
+ * either explicitly by the user clicking the close button or the terminal
+ * process exiting/aborting.
+ */
+alias OnTerminalClose = void delegate(Terminal pane);
+
+/**
+ * An event that is triggered when the terminal requests to be split into two,
+ * either vertrically or horizontally. The session is reponsible for actually
+ * making the split happen.
+ */
+alias OnTerminalRequestSplit = void delegate(Terminal pane, Orientation orientation);
+
+/**
+ * Triggered on  terminal key press, used by the session to synchronize input
+ * when this option is selected.
+ */
+alias OnTerminalKeyPress = void delegate(Event event, Terminal pane);
 
 enum DropTargets {
 	URILIST,
@@ -78,11 +100,27 @@ enum DropTargets {
 	TEXT
 };
 
+/**
+ * Constants used for the various variables permitted when defining
+ * the terminal title.
+ */
 enum TERMINAL_TITLE = "${title}";
 enum TERMINAL_ID = "${id}";
 enum TERMINAL_DIR = "${directory}";
 
-class TerminalPane : Box {
+
+/**
+ * This class is a composite widget that consists of the VTE Terminal
+ * widget and the title bar. From the perspective of a session this is
+ * treated as the Terminal, the Session class has no direct access to the
+ * actual VTE widget and this abstraction should be maintained to
+ * separate concerns.
+ *
+ * Communication between the Session and the actual VTE widget is achieved through
+ * various event handlers defined in this Terminal widget. Note these event handlers
+ * do not correspond to GTK signals, they are pure D code.
+ */
+class Terminal : Box {
 
 private:
 
@@ -93,7 +131,7 @@ private:
 
     SearchRevealer rFind;
 
-	Terminal terminal;
+	VTE vte;
     Overlay terminalOverlay;
 	Scrollbar sb;
 
@@ -121,19 +159,30 @@ private:
 	GSettings gsProfile;
     GSettings gsShortcuts;
 
+    /**
+     * Create the user interface of the TerminalPane
+     */
 	void createUI() {
 		sagTerminalActions = new SimpleActionGroup();
 		createActions(sagTerminalActions);
 		insertActionGroup(ACTION_PREFIX, sagTerminalActions);
         
-		add(createTitlePane());
-        add(createTerminal());
+		// Create the title bar of the pane
+        add(createTitlePane());
+        
+        //Create the actual terminal for the pane
+        add(createVTE());
 	}
 
     /**
      * Creates the top bar of the terminal pane
      */
 	Widget createTitlePane() {
+    
+    	void setVerticalMargins(Widget widget) {
+            widget.setMarginTop(4);
+            widget.setMarginBottom(4);
+    	}
 
 		Box bTitle = new Box(Orientation.HORIZONTAL, 0);
 		bTitle.setVexpand(false);
@@ -196,19 +245,24 @@ private:
      * Creates the common actions used by the terminal pane
      */
 	void createActions(SimpleActionGroup group) {
-		registerActionWithSettings(group, ACTION_PREFIX , ACTION_SPLIT_H, gsShortcuts, delegate(Variant, SimpleAction) { notifyTerminalRequestSplit(Orientation.HORIZONTAL); });
+		//Terminal Split actions
+        registerActionWithSettings(group, ACTION_PREFIX , ACTION_SPLIT_H, gsShortcuts, delegate(Variant, SimpleAction) { notifyTerminalRequestSplit(Orientation.HORIZONTAL); });
 		registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_V, gsShortcuts, delegate(Variant, SimpleAction) { notifyTerminalRequestSplit(Orientation.VERTICAL); });
-		registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(Variant, SimpleAction) { 
+		
+        //Find actions
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(Variant, SimpleAction) { 
             if (!rFind.getRevealChild()) {
                 rFind.setRevealChild(true); 
                 rFind.focusSearchEntry();
             } else {
                 rFind.setRevealChild(false);
-                terminal.grabFocus(); 
+                vte.grabFocus(); 
             } 
         });
-		registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(Variant, SimpleAction) { terminal.searchFindPrevious(); });
-		registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(Variant, SimpleAction) { terminal.searchFindNext(); });
+		registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(Variant, SimpleAction) { vte.searchFindPrevious(); });
+		registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(Variant, SimpleAction) { vte.searchFindNext(); });
+        
+        //Override terminal title
 		registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(Variant, SimpleAction) {  
             string terminalTitle = overrideTitle is null?gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY):overrideTitle; 
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"), _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank"))) {
@@ -277,42 +331,41 @@ private:
 		return pm;
 	}
     
-	void setVerticalMargins(Widget widget) {
-		widget.setMarginTop(4);
-		widget.setMarginBottom(4);
-	}
-
-	Widget createTerminal() {
-		terminal = new Terminal();
+    /**
+     * Creates the actual VTE terminal inside an Overlay along with some support
+     * widgets such as the Find revealer.
+     */
+	Widget createVTE() {
+		vte = new VTE();
 		// Basic widget properties
-		terminal.setHexpand(true);
-		terminal.setVexpand(true);
+		vte.setHexpand(true);
+		vte.setVexpand(true);
 		//URL Regex Experessions
 		foreach (regex; compiledRegex) {
-			int id = terminal.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
-			terminal.matchSetCursorType(id, CursorType.HAND2);
+			int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
+			vte.matchSetCursorType(id, CursorType.HAND2);
 		}
 		//DND
 		TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
 		TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
 		TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
 		TargetEntry[] targets = [uriEntry, stringEntry, textEntry];
-		terminal.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY);
-		terminal.addOnDragDataReceived(&onTerminalDragDataReceived);
+		vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY);
+		vte.addOnDragDataReceived(&onTerminalDragDataReceived);
 
 		//Event handlers
-		terminal.addOnChildExited(&onTerminalChildExited);
-		terminal.addOnWindowTitleChanged(delegate(Terminal terminal) { updateTitle(); });
-		terminal.addOnCurrentDirectoryUriChanged(delegate(Terminal terminal) { 
+		vte.addOnChildExited(&onTerminalChildExited);
+		vte.addOnWindowTitleChanged(delegate(VTE terminal) { updateTitle(); });
+		vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { 
             titleInitialized = true;
             updateTitle(); 
         });
-		terminal.addOnCurrentFileUriChanged(delegate(Terminal terminal) { trace("Current file is " ~ terminal.getCurrentFileUri); });
-		terminal.addOnFocusIn(&onTerminalFocusIn);
-		terminal.addOnFocusOut(&onTerminalFocusOut);
+		vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
+		vte.addOnFocusIn(&onTerminalFocusIn);
+		vte.addOnFocusOut(&onTerminalFocusOut);
 
-		terminal.addOnButtonPress(&onTerminalButtonPress);
-        terminal.addOnKeyPress(delegate(Event event, Widget widget) {
+		vte.addOnButtonPress(&onTerminalButtonPress);
+        vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (_synchronizeInput && event.key.sendEvent == 0) {
                 trace("forward event key press");
                 foreach(dlg; terminalKeyPressDelegates) dlg(event, this);            
@@ -323,27 +376,30 @@ private:
         });
 
 		mContext = new Menu();
-		miCopy = new MenuItem(delegate(MenuItem item) { terminal.copyClipboard(); }, _("Copy"), null);
+		miCopy = new MenuItem(delegate(MenuItem item) { vte.copyClipboard(); }, _("Copy"), null);
 		mContext.add(miCopy);
-		miPaste = new MenuItem(delegate(MenuItem item) { terminal.pasteClipboard(); }, _("Paste"), null);
+		miPaste = new MenuItem(delegate(MenuItem item) { vte.pasteClipboard(); }, _("Paste"), null);
 		mContext.add(miPaste);
 
         terminalOverlay = new Overlay();
-        terminalOverlay.add(terminal);
-        rFind = new SearchRevealer(terminal);
+        terminalOverlay.add(vte);
+        rFind = new SearchRevealer(vte);
         terminalOverlay.addOverlay(rFind);
 
 		Box box = new Box(Orientation.HORIZONTAL, 0);
 		box.add(terminalOverlay);
 
-		sb = new Scrollbar(Orientation.VERTICAL, terminal.getVadjustment());
+		sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
 		box.add(sb);
 		return box;
 	}
 
+    /**
+     * Updates the terminal title in response to UI changes
+     */
 	void updateTitle() {
 		string title = overrideTitle is null?gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY):overrideTitle;
-        title = title.replace(TERMINAL_TITLE, terminal.getWindowTitle());
+        title = title.replace(TERMINAL_TITLE, vte.getWindowTitle());
         title = title.replace(TERMINAL_ID, to!string(terminalID));
         string path;
         if (titleInitialized) {
@@ -369,7 +425,10 @@ private:
 		}
 	}
 
-    void onTerminalChildExited(int status, Terminal terminal) {
+    /**
+     * Triggered when the terminal signals the child process has exited
+     */
+    void onTerminalChildExited(int status, VTE terminal) {
         trace("Exit code received is " ~ to!string(status));
         switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
             case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE: 
@@ -395,15 +454,18 @@ private:
         } 
     }
 
+    /**
+     * Signal received when mouse button is pressed in terminal
+     */
 	bool onTerminalButtonPress(Event event, Widget widget) {
 		if (event.type == EventType.BUTTON_PRESS) {
 			GdkEventButton* buttonEvent = event.button;
 			switch (buttonEvent.button) {
 			case MouseButton.PRIMARY:
-				long col = to!long(buttonEvent.x) / terminal.getCharWidth();
-				long row = to!long(buttonEvent.y) / terminal.getCharHeight();
+				long col = to!long(buttonEvent.x) / vte.getCharWidth();
+				long row = to!long(buttonEvent.y) / vte.getCharHeight();
 				int tag;
-				string match = terminal.matchCheck(col, row, tag);
+				string match = vte.matchCheck(col, row, tag);
 				if (match) {
 					MountOperation.showUri(null, match, Main.getCurrentEventTime());
 					return true;
@@ -411,7 +473,7 @@ private:
 					return false;
 				}
 			case MouseButton.SECONDARY:
-				miCopy.setSensitive(terminal.getHasSelection());
+				miCopy.setSensitive(vte.getHasSelection());
 				miPaste.setSensitive(Clipboard.get(null).waitIsTextAvailable());
 				mContext.showAll();
 				mContext.popup(buttonEvent.button, buttonEvent.time);
@@ -431,14 +493,14 @@ private:
 				foreach (uri; uris) {
 					string hostname;
 					string quoted = ShellUtils.shellQuote(URI.filenameFromUri(uri, hostname)) ~ " ";
-					terminal.feedChild(quoted, quoted.length);
+					vte.feedChild(quoted, quoted.length);
 				}
 			}
 			break;
 		case DropTargets.STRING, DropTargets.TEXT:
 			string text = data.getText();
 			if (!text)
-				terminal.feedChild(text, text.length);
+				vte.feedChild(text, text.length);
 			break;
 		}
 	}
@@ -465,24 +527,24 @@ private:
 	void applyPreference(string key) {
 		switch (key) {
 		case SETTINGS_PROFILE_AUDIBLE_BELL_KEY:
-			terminal.setAudibleBell(gsProfile.getBoolean(SETTINGS_PROFILE_AUDIBLE_BELL_KEY));
+			vte.setAudibleBell(gsProfile.getBoolean(SETTINGS_PROFILE_AUDIBLE_BELL_KEY));
 			break;
 		case SETTINGS_PROFILE_ALLOW_BOLD_KEY:
-			terminal.setAllowBold(gsProfile.getBoolean(SETTINGS_PROFILE_ALLOW_BOLD_KEY));
+			vte.setAllowBold(gsProfile.getBoolean(SETTINGS_PROFILE_ALLOW_BOLD_KEY));
 			break;
 		case SETTINGS_PROFILE_REWRAP_KEY:
-			terminal.setRewrapOnResize(gsProfile.getBoolean(SETTINGS_PROFILE_REWRAP_KEY));
+			vte.setRewrapOnResize(gsProfile.getBoolean(SETTINGS_PROFILE_REWRAP_KEY));
 			break;
 		case SETTINGS_PROFILE_CURSOR_SHAPE_KEY:
-			terminal.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
+			vte.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
 			break;
 		case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY,
 		SETTINGS_PROFILE_USE_THEME_COLORS_KEY:
 				RGBA fg;
 			RGBA bg;
 			if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-				terminal.getStyleContext().getColor(StateFlags.ACTIVE, fg);
-				terminal.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
+				vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
+				vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
 			} else {
 				fg = new RGBA();
 				bg = new RGBA();
@@ -497,33 +559,33 @@ private:
 				palette[i] = new RGBA();
 				palette[i].parse(colors[i]);
 			}
-			terminal.setColors(fg, bg, palette);
+			vte.setColors(fg, bg, palette);
 			break;
 		case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
 			sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
 			break;
 		case SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY:
-			terminal.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY));
+			vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY));
 			break;
 		case SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY:
-			terminal.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
+			vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
 			break;
 		case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
 		SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
 				long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getValue(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY).getInt64();
-			terminal.setScrollbackLines(scrollLines);
+			vte.setScrollbackLines(scrollLines);
 			break;
         case SETTINGS_PROFILE_BACKSPACE_BINDING_KEY:
-            terminal.setBackspaceBinding(getEraseBinding(gsProfile.getString(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY)));
+            vte.setBackspaceBinding(getEraseBinding(gsProfile.getString(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY)));
             break;
         case SETTINGS_PROFILE_DELETE_BINDING_KEY:
-            terminal.setDeleteBinding(getEraseBinding(gsProfile.getString(SETTINGS_PROFILE_DELETE_BINDING_KEY)));
+            vte.setDeleteBinding(getEraseBinding(gsProfile.getString(SETTINGS_PROFILE_DELETE_BINDING_KEY)));
             break;
         case SETTINGS_PROFILE_CJK_WIDTH_KEY:
-            terminal.setCjkAmbiguousWidth(to!int(countUntil(SETTINGS_PROFILE_CJK_WIDTH_VALUES, gsProfile.getString(SETTINGS_PROFILE_CJK_WIDTH_KEY))) + 1);
+            vte.setCjkAmbiguousWidth(to!int(countUntil(SETTINGS_PROFILE_CJK_WIDTH_VALUES, gsProfile.getString(SETTINGS_PROFILE_CJK_WIDTH_KEY))) + 1);
             break;
         case SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY:
-            terminal.setCursorBlinkMode(getBlinkMode(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY)));
+            vte.setCursorBlinkMode(getBlinkMode(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY)));
             break;
         case SETTINGS_PROFILE_TITLE_KEY:
             updateTitle();
@@ -570,9 +632,13 @@ private:
 		}
 	}
 
+    /**
+     * Spawns the child process in the Terminal depending on the Profile
+     * command options.
+     */
 	void spawnTerminalProcess(string initialPath) {
 		GSpawnFlags flags;
-        string shell = terminal.getUserShell();
+        string shell = vte.getUserShell();
         string[] args = [shell];
         if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
             args ~= "-c";
@@ -584,13 +650,16 @@ private:
             }
             flags = GSpawnFlags.FILE_AND_ARGV_ZERO;
         }
-		terminal.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, [""], flags, null, null, gpid, null);
-		terminal.grabFocus();
+		vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, [""], flags, null, null, gpid, null);
+		vte.grabFocus();
 	}
 
 
 public:
 
+    /**
+     * Creates the TerminalPane using the specified profile
+     */
 	this(string profileUUID) {
 		super(Orientation.VERTICAL, 0);
         _profileUUID = profileUUID;
@@ -603,25 +672,41 @@ public:
         });
 	}
 
+    /**
+     * initializes the terminal, i.w spawns the child process.
+     *
+     * Params:
+     *  initialPath = The initial working directory for the terminal
+     *  firstRun    = Whether this is the first run of the application, used to determine whether to apply profile geometry
+     */ 
 	void initTerminal(string initialPath, bool firstRun) {
         initialWorkingDir = initialPath;
         spawnTerminalProcess(initialPath);
 		if (firstRun) {
-			terminal.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
+			vte.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
 		}
 	}
 
+    /**
+     * Requests the terminal be focused
+     */
 	void focusTerminal() {
-		terminal.grabFocus();
+		vte.grabFocus();
 	}
 
+    /**
+     * Determines if a child process is running in the terminal
+     */
 	bool isProcessRunning() {
-		int fd = terminal.getPty().getFd();
+		int fd = vte.getPty().getFd();
 		pid_t fg = tcgetpgrp(fd);
 		trace(format("fg=%d gpid=%d", fg, gpid));
 		return (fg != -1 && fg != gpid);
 	}
     
+    /**
+     * Called by the session to synchronize input
+     */
     void echoKeyPressEvent(Event event) {
         //TODO - Look at this some more, feedChild seems to work fine but would really preferences
         //to simply fire the key event against the terminal. The problem is that while te event is set to 
@@ -631,13 +716,13 @@ public:
         //trace(format("Getting GDKWindow Pointer %s for terminal %d", to!string(event.getWindow().getWindowStruct()), terminalID));
         //Main.doEvent(event);
         string data = Str.toString(event.key.str,event.key.length);
-        terminal.feedChild(data, data.length);
+        vte.feedChild(data, data.length);
     }
     
     @property string currentDirectory() {
         if (gpid == 0) return null; 
         string hostname;
-        return URI.filenameFromUri(terminal.getCurrentDirectoryUri(), hostname);
+        return URI.filenameFromUri(vte.getCurrentDirectoryUri(), hostname);
     }
     
     @property string profileUUID() {
@@ -704,7 +789,9 @@ public:
 	}
 }
 
-//Terminal Exited Info Bar, used when Hold option for exiting terminal is selected
+/**
+ * Terminal Exited Info Bar, used when Hold option for exiting terminal is selected
+ */
 package class TerminalInfoBar: InfoBar {
 
 private:

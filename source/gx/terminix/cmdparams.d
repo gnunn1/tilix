@@ -6,6 +6,9 @@ import std.stdio;
 
 import gx.i18n.l10n;
 
+/**
+ * Manages the terminix command line options
+ */
 struct CommandParameters {
 
     string workingDir;

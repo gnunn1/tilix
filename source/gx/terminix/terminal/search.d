@@ -22,17 +22,20 @@ import gtk.Revealer;
 import gtk.SearchEntry;
 import gtk.ToggleButton;
 
-import vte.Terminal;
+import vte.Terminal: VTE = Terminal;
 
 import gx.i18n.l10n;
 
 import gx.terminix.terminal.actions;
 import gx.terminix.preferences;
 
+/**
+ * Widget that displays the Find UI for a terminal and manages the search actions
+ */
 class SearchRevealer: Revealer {
 
 private:
-    Terminal terminal;
+    VTE vte;
 
     SearchEntry seSearch;
     CheckButton cbMatchCase;
@@ -106,7 +109,7 @@ private:
         CheckButton cbWrapAround = new CheckButton(_("Wrap around"));
         cbWrapAround.setActive(gsGeneral.getBoolean(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
         cbWrapAround.addOnToggled(delegate(ToggleButton cb) {
-            terminal.searchSetWrapAround(cb.getActive());        
+            vte.searchSetWrapAround(cb.getActive());        
         });
         bOptions.add(cbWrapAround);
 
@@ -129,17 +132,17 @@ private:
         if (!cbMatchCase.getActive()) flags = flags | GRegexCompileFlags.CASELESS;
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);
-            terminal.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
+            vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
         } else {
-            terminal.searchSetGregex(null, cast(GRegexMatchFlags) 0);
+            vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
         }
     }
     
 public:
 
-    this(Terminal terminal) {
+    this(VTE vte) {
         super();
-        this.terminal = terminal;
+        this.vte = vte;
         createUI();
     }
     
