@@ -105,6 +105,7 @@ enum DropTargets {
  * the terminal title.
  */
 enum TERMINAL_TITLE = "${title}";
+enum TERMINAL_ICON_TITLE = "${iconTitle}";
 enum TERMINAL_ID = "${id}";
 enum TERMINAL_DIR = "${directory}";
 
@@ -180,8 +181,8 @@ private:
 	Widget createTitlePane() {
     
     	void setVerticalMargins(Widget widget) {
-            widget.setMarginTop(4);
-            widget.setMarginBottom(4);
+            widget.setMarginTop(2);
+            widget.setMarginBottom(2);
     	}
 
 		Box bTitle = new Box(Orientation.HORIZONTAL, 0);
@@ -356,6 +357,7 @@ private:
 		//Event handlers
 		vte.addOnChildExited(&onTerminalChildExited);
 		vte.addOnWindowTitleChanged(delegate(VTE terminal) { updateTitle(); });
+        vte.addOnIconTitleChanged(delegate(VTE terminal) { updateTitle(); });
 		vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { 
             titleInitialized = true;
             updateTitle(); 
@@ -400,6 +402,7 @@ private:
 	void updateTitle() {
 		string title = overrideTitle is null?gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY):overrideTitle;
         title = title.replace(TERMINAL_TITLE, vte.getWindowTitle());
+        title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle()); 
         title = title.replace(TERMINAL_ID, to!string(terminalID));
         string path;
         if (titleInitialized) {
