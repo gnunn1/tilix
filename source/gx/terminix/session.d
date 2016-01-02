@@ -198,10 +198,17 @@ private:
 		int result = terminal == terminal1 ? 1 : 2;
 		return (result == 1 ? box2 : box1);
 	}
-
+    
 	/**
 	 * Removes the terminal by replacing the parent splitter with
-	 * the child from the other side.
+	 * the child from the other side. This is a bit convoluted since
+     * we are using Box as a shim to preserve spacing. Every child widget
+     * is embeded in a Box which is then embeded in a Paned. So an example
+     * heirarchy qouls be as follows:
+     *
+     * Session (Box) -> Paned -> Box -> Terminal
+     *                        -> Box -> Paned -> Box -> Terminal
+     *                                        -> Box -> Terminal
 	 */
 	void onTerminalClose(Terminal terminal) {
 		if (lastFocused == terminal)
@@ -223,7 +230,16 @@ private:
 
 		Box parent = cast(Box) paned.getParent();
 		parent.remove(paned);
-		parent.add(box);
+        
+        //Need to add the widget in the box not the box itself since the Paned we removed is already in a Box
+        //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
+        //to Paned to fail
+        //Get child widget, could be Terminal or Paned       
+        Widget widget = gx.gtk.util.getChildren(box)[0];
+        //Remove widget from original Box parent
+        box.remove(widget);
+        //Add widget to new parent
+		parent.add(widget);
 		parent.showAll();
     
         //Remove terminal

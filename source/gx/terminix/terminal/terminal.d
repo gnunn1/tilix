@@ -222,28 +222,6 @@ private:
 		setVerticalMargins(btnClose);
 		bTitle.packEnd(btnClose, false, false, 4);
 
-		/*
-        Separator sp = new Separator(Orientation.VERTICAL);
-		sp.setMarginLeft(3);
-		sp.setMarginRight(3);
-		bTitle.packEnd(sp, false, false, 0);
-
-        //Menu button that displays popover
-        
-		MenuButton mb = new MenuButton();
-		mb.setRelief(ReliefStyle.NONE);
-		mb.setFocusOnClick(false);
-		Image hamburger = new Image("open-menu-symbolic", IconSize.MENU);
-		mb.setPopover(createPopover(mb));
-        mb.addOnButtonPress(delegate(Event e, Widget w) {
-            buildProfileMenu();
-            return false;
-        });
-		mb.add(hamburger);
-		setVerticalMargins(mb);
-        
-		bTitle.packEnd(mb, false, false, 5);
-        */
 		return bTitle;
 	}
     
