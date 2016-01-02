@@ -181,7 +181,7 @@ private:
 	Widget createTitlePane() {
     
     	void setVerticalMargins(Widget widget) {
-            widget.setMarginTop(2);
+            widget.setMarginTop(1);
             widget.setMarginBottom(2);
     	}
 
@@ -193,7 +193,26 @@ private:
 		lblTitle = new Label(_("Terminal"));
 		lblTitle.setEllipsize(PangoEllipsizeMode.START);
         lblTitle.setUseMarkup(true);
-		bTitle.packStart(lblTitle, false, false, 4);
+        
+        //Profile Menu
+       	profileMenu = new GMenu();
+        
+        Box bTitleLabel = new Box(Orientation.HORIZONTAL, 6);
+        bTitleLabel.add(lblTitle);
+        bTitleLabel.add(new Image("pan-down-symbolic", IconSize.MENU));
+
+        MenuButton mbTitle = new MenuButton();
+		mbTitle.setRelief(ReliefStyle.NONE);
+		mbTitle.setFocusOnClick(false);
+		mbTitle.setPopover(createPopover(mbTitle));
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) {
+            buildProfileMenu();
+            return false;
+        });
+		mbTitle.add(bTitleLabel);
+
+		bTitle.packStart(mbTitle, false, false, 4);
+		setVerticalMargins(mbTitle);
         
 		//Close Button
 		Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
@@ -203,15 +222,14 @@ private:
 		setVerticalMargins(btnClose);
 		bTitle.packEnd(btnClose, false, false, 4);
 
-		Separator sp = new Separator(Orientation.VERTICAL);
+		/*
+        Separator sp = new Separator(Orientation.VERTICAL);
 		sp.setMarginLeft(3);
 		sp.setMarginRight(3);
 		bTitle.packEnd(sp, false, false, 0);
 
-        //Profile Menu
-       	profileMenu = new GMenu();
-
         //Menu button that displays popover
+        
 		MenuButton mb = new MenuButton();
 		mb.setRelief(ReliefStyle.NONE);
 		mb.setFocusOnClick(false);
@@ -221,12 +239,11 @@ private:
             buildProfileMenu();
             return false;
         });
-
 		mb.add(hamburger);
 		setVerticalMargins(mb);
-
+        
 		bTitle.packEnd(mb, false, false, 5);
-
+        */
 		return bTitle;
 	}
     
