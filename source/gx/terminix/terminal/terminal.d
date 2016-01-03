@@ -380,10 +380,12 @@ private:
 		vte.addOnFocusIn(&onTerminalFocusIn);
 		vte.addOnFocusOut(&onTerminalFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
-            Window window = cast(Window) terminal.getToplevel();
-            if (window !is null && !window.isActive()) {
-                foreach(dlg; terminalNotificationReceivedDelegates)
-                    dlg(this, summary, _body);
+            if (titleInitialized) {
+                Window window = cast(Window) terminal.getToplevel();
+                if (window !is null && !window.isActive()) {
+                    foreach(dlg; terminalNotificationReceivedDelegates)
+                        dlg(this, summary, _body);
+                }
             } 
         });
 

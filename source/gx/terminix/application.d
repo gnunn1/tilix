@@ -192,13 +192,16 @@ private:
     }
 
     /**
-     * TODO - File bug for this against GtkD
+     * TODO - Check why toArray isn't working as Mike Wey fixed this in GtkD
      */
     Window[] getAppWindows() {
+        /*
+        return getWindows().toArray!Window();
+        */
         Widget[] widgets = getWidgets(getWindows());
         Window[] windows = new Window[widgets.length];
         foreach(i,widget;widgets) windows[i] = cast(Window) widgets[i];
-        return windows; 
+        return windows;
     }
 
     void onAppActivate(GioApplication app) {
