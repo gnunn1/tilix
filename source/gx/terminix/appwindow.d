@@ -455,6 +455,17 @@ public:
 
         createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
+    
+    bool activateSession(string sessionID) {
+        for(int i=0; i < nb.getNPages(); i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            if (session.sessionID == sessionID) {
+                nb.setCurrentPage(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Creates a new session and prompts the user for session properties

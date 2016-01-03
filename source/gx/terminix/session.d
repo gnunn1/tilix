@@ -8,9 +8,13 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 import std.json;
+import std.uuid;
 
 import gdk.Atom;
 import gdk.Event;
+
+import gio.Application;
+import gio.Notification;
 
 import glib.Util;
 
@@ -85,6 +89,8 @@ private:
 	string _name;
     bool _synchronizeInput;
     
+    string _sessionID;
+    
 	Terminal lastFocused;
 
     /**
@@ -122,6 +128,7 @@ private:
 		terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
 		terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
+        terminal.addOnTerminalNotificationReceived(&onTerminalNotificationReceived);
 		terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
@@ -218,6 +225,7 @@ private:
 		terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
 		terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
+        terminal.removeOnTerminalNotificationReceived(&onTerminalNotificationReceived);
 
 		//Only one terminal open, close session
 		if (terminals.length == 1) {
@@ -253,7 +261,7 @@ private:
 		lastFocused = terminal;
 	}
     
-    void onTerminalKeyPress(Event event, Terminal originator) {
+    void onTerminalKeyPress(Terminal originator, Event event) {
         trace("Got key press");
         foreach(terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
@@ -269,6 +277,19 @@ private:
                 newEvent.key.sendEvent = 1;
                 terminal.echoKeyPressEvent(newEvent);
             }
+        }
+    }
+    
+    void onTerminalNotificationReceived(Terminal terminal, string summary, string _body) {
+        trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
+        Window window = cast(Window) terminal.getToplevel();
+        if (window !is null && !window.isActive()) {
+            Notification n = new Notification(_(summary));
+            n.setBody(_body);
+            n.setDefaultAction("app.activate-session::" ~ _sessionID);
+            Application app = Application.getDefault();
+            app.sendNotification("command-completed", n);
+            trace("Notification sent from app " ~ app.getApplicationId());
         }
     }
 
@@ -418,6 +439,7 @@ public:
      */ 
 	this(string name, string profileUUID, string workingDir, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
+        _sessionID = randomUUID().toString();
 		_name = name;
 		createUI(profileUUID, workingDir, firstRun);
 	}
@@ -436,6 +458,7 @@ public:
      */ 
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
 		super(Orientation.VERTICAL, 0);
+        _sessionID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
@@ -472,6 +495,13 @@ public:
         if (value.length > 0) {
             _name = value;
         }
+    }
+    
+    /**
+     * Unique and immutable session ID
+     */
+    @property string sessionID() {
+        return _sessionID;
     }
     
     /**

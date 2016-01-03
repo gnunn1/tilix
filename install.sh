@@ -27,4 +27,4 @@ cp data/schemes/* ${TERMINIX_SHARE}/schemes
 
 # Copy executable and desktop file
 cp terminix /usr/bin/terminix
-cp data/pkg/desktop/terminix.desktop /usr/share/applications
+cp data/pkg/desktop/com.gexperts.Terminix.desktop /usr/share/applications

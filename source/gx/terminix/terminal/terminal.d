@@ -4,14 +4,18 @@
  */
 module gx.terminix.terminal.terminal;
 
+import core.sys.posix.stdio;
 import core.sys.posix.sys.wait;
 import core.sys.posix.unistd;
 
 import std.algorithm;
 import std.array;
 import std.conv;
+import std.concurrency;
 import std.experimental.logger;
 import std.format;
+import std.process;
+import std.stdio;
 
 import gdk.DragContext;
 import gdk.Event;
@@ -67,32 +71,46 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.search;
+import gx.terminix.terminal.vtenotification;
 
 /**
  * An event that is fired whenever the terminal gets focused. Used by
  * the Session to track focus.
  */
-alias OnTerminalInFocus = void delegate(Terminal pane);
+alias OnTerminalInFocus = void delegate(Terminal terminal);
 
 /**
  * An event that is fired when the terminal has been requested to close,
  * either explicitly by the user clicking the close button or the terminal
  * process exiting/aborting.
  */
-alias OnTerminalClose = void delegate(Terminal pane);
+alias OnTerminalClose = void delegate(Terminal terminal);
 
 /**
  * An event that is triggered when the terminal requests to be split into two,
  * either vertrically or horizontally. The session is reponsible for actually
  * making the split happen.
  */
-alias OnTerminalRequestSplit = void delegate(Terminal pane, Orientation orientation);
+alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orientation);
 
 /**
  * Triggered on  terminal key press, used by the session to synchronize input
  * when this option is selected.
  */
-alias OnTerminalKeyPress = void delegate(Event event, Terminal pane);
+alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
+
+/**
+ * Triggered when the terminal receives a notification that a command is completed. The terminal
+ * will not send the notifications if it has focus. 
+ *
+ * Note that this functionality depends on having the Fedora patched VTE installed rather
+ * then the default VTE.
+ *
+ * See:
+ * http://pkgs.fedoraproject.org/cgit/vte291.git/tree/vte291-command-notify.patch
+ * http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/gnome-terminal-command-notify.patch
+ */
+alias OnTerminalNotificationReceived = void delegate(Terminal terminal, string summary, string _body);
 
 enum DropTargets {
 	URILIST,
@@ -129,10 +147,11 @@ private:
 	OnTerminalClose[] terminalCloseDelegates;
 	OnTerminalRequestSplit[] terminalRequestSplitDelegates;
     OnTerminalKeyPress[] terminalKeyPressDelegates;
+    OnTerminalNotificationReceived[] terminalNotificationReceivedDelegates;
 
     SearchRevealer rFind;
 
-	VTE vte;
+	VTENotification vte;
     Overlay terminalOverlay;
 	Scrollbar sb;
 
@@ -332,7 +351,7 @@ private:
      * widgets such as the Find revealer.
      */
 	Widget createVTE() {
-		vte = new VTE();
+		vte = new VTENotification();
 		// Basic widget properties
 		vte.setHexpand(true);
 		vte.setVexpand(true);
@@ -360,14 +379,21 @@ private:
 		vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
 		vte.addOnFocusIn(&onTerminalFocusIn);
 		vte.addOnFocusOut(&onTerminalFocusOut);
+        vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
+            Window window = cast(Window) terminal.getToplevel();
+            if (window !is null && !window.isActive()) {
+                foreach(dlg; terminalNotificationReceivedDelegates)
+                    dlg(this, summary, _body);
+            } 
+        });
 
 		vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (_synchronizeInput && event.key.sendEvent == 0) {
                 trace("forward event key press");
-                foreach(dlg; terminalKeyPressDelegates) dlg(event, this);            
+                foreach(dlg; terminalKeyPressDelegates) dlg(this, event);            
             } else {
-                trace("Synchronized Input = " ~ to!string(_synchronizeInput) ~ ", sendEvent=" ~ to!string(event.key.sendEvent));
+                //trace("Synchronized Input = " ~ to!string(_synchronizeInput) ~ ", sendEvent=" ~ to!string(event.key.sendEvent));
             }
             return false;
         });
@@ -648,10 +674,10 @@ private:
             }
             flags = GSpawnFlags.FILE_AND_ARGV_ZERO;
         }
-		vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, [""], flags, null, null, gpid, null);
+        string[] envv = [""];
+        vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);
 		vte.grabFocus();
 	}
-
 
 public:
 
@@ -784,6 +810,14 @@ public:
 
 	void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
 		gx.util.array.remove(terminalKeyPressDelegates, dlg);
+	}
+    
+    void addOnTerminalNotificationReceived(OnTerminalNotificationReceived dlg) {
+        terminalNotificationReceivedDelegates ~= dlg;
+    }
+
+	void removeOnTerminalNotificationReceived(OnTerminalNotificationReceived dlg) {
+		gx.util.array.remove(terminalNotificationReceivedDelegates, dlg);
 	}
 }
 
