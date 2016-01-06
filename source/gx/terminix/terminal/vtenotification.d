@@ -47,28 +47,27 @@ public:
 	 *     summary = 
 	 *     body = 
 	 */
-	void addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
-	{
-		if ( "notification-received" !in connectedSignals )
-		{
-			Signals.connectData(
-				this,
-				"notification-received",
-				cast(GCallback)&callBackNotificationReceived,
-				cast(void*)this,
-				null,
-				connectFlags);
-			connectedSignals["notification-received"] = 1;
-		}
-		onNotificationReceivedListeners ~= dlg;
+	void addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0) {
+        //Check that this is the Fedora patched VTE that supports the notification-received signal
+        if (Signals.lookup("notification-received", getType()) != 0) {
+            if ( "notification-received" !in connectedSignals ) {
+                Signals.connectData(
+                    this,
+                    "notification-received",
+                    cast(GCallback)&callBackNotificationReceived,
+                    cast(void*)this,
+                    null,
+                    connectFlags);
+                connectedSignals["notification-received"] = 1;
+            }
+            onNotificationReceivedListeners ~= dlg;
+        }
 	}
     
-	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, VTENotification _terminal)
-	{
+	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, VTENotification _terminal)	{
         string s = Str.toString(_summary);
         string b = Str.toString(_body);
-		foreach ( void delegate(string, string, Terminal) dlg; _terminal.onNotificationReceivedListeners )
-		{
+		foreach ( void delegate(string, string, Terminal) dlg; _terminal.onNotificationReceivedListeners ) {
 			dlg(s, b, _terminal);
 		}
 	}

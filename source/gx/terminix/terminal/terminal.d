@@ -16,10 +16,16 @@ import std.experimental.logger;
 import std.format;
 import std.process;
 import std.stdio;
+import std.uuid;
 
+import cairo.Context;
+
+import gdk.Atom;
 import gdk.DragContext;
 import gdk.Event;
 import gdk.RGBA;
+
+import gdkpixbuf.Pixbuf;
 
 import gio.ActionMapIF;
 import gio.Menu : GMenu = Menu;
@@ -39,6 +45,8 @@ import glib.VariantType : GVariantType = VariantType;
 import gtk.Box;
 import gtk.Button;
 import gtk.Clipboard;
+import gtk.DragAndDrop;
+import gtk.EventBox;
 import gtk.Frame;
 import gtk.Image;
 import gtk.InfoBar;
@@ -93,6 +101,15 @@ alias OnTerminalClose = void delegate(Terminal terminal);
  */
 alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orientation);
 
+
+/**
+ * An event that is triggered when a terminal requests to moved from it's
+ * original location (src) and split with another terminal (dest).
+ *
+ * This typically happens after a drag and drop of a terminal
+ */
+alias OnTerminalRequestMove = void delegate(Terminal src, Terminal dest);
+
 /**
  * Triggered on  terminal key press, used by the session to synchronize input
  * when this option is selected.
@@ -111,12 +128,6 @@ alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
  * http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/gnome-terminal-command-notify.patch
  */
 alias OnTerminalNotificationReceived = void delegate(Terminal terminal, string summary, string _body);
-
-enum DropTargets {
-	URILIST,
-	STRING,
-	TEXT
-};
 
 /**
  * Constants used for the various variables permitted when defining
@@ -146,9 +157,10 @@ private:
 	OnTerminalInFocus[] terminalInFocusDelegates;
 	OnTerminalClose[] terminalCloseDelegates;
 	OnTerminalRequestSplit[] terminalRequestSplitDelegates;
+    OnTerminalRequestMove[] terminalRequestMoveDelegates;
     OnTerminalKeyPress[] terminalKeyPressDelegates;
     OnTerminalNotificationReceived[] terminalNotificationReceivedDelegates;
-
+    
     SearchRevealer rFind;
 
 	VTENotification vte;
@@ -162,6 +174,7 @@ private:
     
     string _profileUUID;
     ulong _terminalID;
+    string _terminalUUID;
     string overrideTitle;
     bool _synchronizeInput;
     
@@ -188,10 +201,14 @@ private:
 		insertActionGroup(ACTION_PREFIX, sagTerminalActions);
         
 		// Create the title bar of the pane
-        add(createTitlePane());
+        Widget titlePane = createTitlePane();  
+        add(titlePane);
         
         //Create the actual terminal for the pane
         add(createVTE());
+
+        //Enable Drag and Drop
+        setupDragAndDrop(titlePane); 
 	}
 
     /**
@@ -240,8 +257,12 @@ private:
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
 		setVerticalMargins(btnClose);
 		bTitle.packEnd(btnClose, false, false, 4);
+        
+        //Need EventBox to support drag and drop
+        EventBox ev = new EventBox();
+        ev.add(bTitle);
 
-		return bTitle;
+		return ev;
 	}
     
     //Dynamically build the menus for selecting a profile
@@ -360,13 +381,6 @@ private:
 			int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
 			vte.matchSetCursorType(id, CursorType.HAND2);
 		}
-		//DND
-		TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
-		TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
-		TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
-		TargetEntry[] targets = [uriEntry, stringEntry, textEntry];
-		vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY);
-		vte.addOnDragDataReceived(&onTerminalDragDataReceived);
 
 		//Event handlers
 		vte.addOnChildExited(&onTerminalChildExited);
@@ -509,26 +523,6 @@ private:
 			}
 		}
 		return false;
-	}
-
-	void onTerminalDragDataReceived(DragContext context, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
-		final switch (info) {
-		case DropTargets.URILIST:
-			string[] uris = data.getUris();
-			if (uris) {
-				foreach (uri; uris) {
-					string hostname;
-					string quoted = ShellUtils.shellQuote(URI.filenameFromUri(uri, hostname)) ~ " ";
-					vte.feedChild(quoted, quoted.length);
-				}
-			}
-			break;
-		case DropTargets.STRING, DropTargets.TEXT:
-			string text = data.getText();
-			if (!text)
-				vte.feedChild(text, text.length);
-			break;
-		}
 	}
 
 	bool onTerminalFocusIn(Event event, Widget widget) {
@@ -681,6 +675,214 @@ private:
 		vte.grabFocus();
 	}
 
+// Code to move terminals through Drag And Drop (DND) is in this private block
+// Keep all DND code here and do not intermix with other blocks
+//
+// This code also handles other DND for text, URI, etc in VTE but the vast bulk deals
+// with terminal DND   
+private:
+
+    DragInfo dragInfo = DragInfo(false, DragQuandrant.LEFT);
+
+    /**
+     * Sets up the DND by registering the TargetEntry objects as source and destinations
+     * as well as attaching the various event handlers
+     *
+     * Called at the end of createUI when all UI elements are in place
+     */
+    void setupDragAndDrop(Widget title) {
+        trace("Setting up drag and drop");
+		//DND
+		TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
+		TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
+		TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
+        TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
+		TargetEntry[] targets = [uriEntry, stringEntry, textEntry, vteEntry];
+		vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
+        title.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
+        //vte.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
+        
+        //Title bar events
+        title.addOnDragBegin(&onTitleDragBegin);
+        title.addOnDragDataGet(&onTitleDragDataGet);
+        
+        //VTE Drop events
+		vte.addOnDragDataReceived(&onVTEDragDataReceived);
+        vte.addOnDragMotion(&onVTEDragMotion);
+        vte.addOnDragLeave(&onVTEDragLeave);
+        vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
+    } 
+    
+    /**
+     * Called to set the selection data, which is later returned in the drag received
+     * so it knows which terminal was dropped, in this case the terminal UUID
+     */
+    void onTitleDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
+        char[] buffer = (terminalUUID ~ '\0').dup;
+        data.set(intern(VTE_DND, false), info, buffer);
+    }
+    
+    /**
+     * Begin the drag operation from the use dragging the title bar, renders the 
+     * terminal image into a scaled Pixbuf to use as the drag icon.
+     *
+     * TODO - Add some transparency
+     */ 
+    void onTitleDragBegin(DragContext dc, Widget widget) {
+        const int MAX_SIZE = 256;
+    
+        double w = this.getAllocatedWidth();
+        double h = this.getAllocatedHeight();
+        trace(format("Original: %f, %f", w, h));
+        Pixbuf pb = gdk.Pixbuf.getFromWindow(getWindow(), 0, 0, to!int(w), to!int(h));
+        //Only scale if we need too
+        if (w > MAX_SIZE || h > MAX_SIZE) {
+            if (w > h) {
+                h = 256 * h/w;
+                w = 256;
+            } else if (h > w) {
+                w = 256 * w/h;
+                h = 256;
+            } else {
+                w, h = 256;
+            }
+        }
+        trace(format("New: %f, %f", w, h));
+        pb = pb.scaleSimple(to!int(w), to!int(h), GdkInterpType.BILINEAR);
+        
+        DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
+    }
+    
+    bool onVTEDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
+        trace(format("Drag motion: %d, %d", x, y));
+        //Is this a terminal drag or something else?
+        if (!dc.listTargets().find(intern(VTE_DND, false))) return true;
+        
+        EventBox title = cast(EventBox) DragAndDrop.dragGetSourceWidget(dc);
+        if (title is null) {
+            trace("Oops, something went wrong not a terminal drag");
+            return false;
+        }
+        Terminal dragTerminal = cast(Terminal) title.getParent();
+        //Don't allow drop on the same terminal
+        if (dragTerminal.terminalUUID == _terminalUUID) return false;
+        
+        DragQuandrant dq = getDragQuandrant(x, y, vte);
+        
+        dragInfo = DragInfo(true, dq);
+        vte.queueDraw();
+        
+        return true;
+    }
+    
+    void onVTEDragLeave(DragContext, uint, Widget) {
+        dragInfo = DragInfo(false, DragQuandrant.LEFT);
+        vte.queueDraw();
+    }
+    
+    /**
+     * Given a point x,y which quandrant (left, top, right, bottom) should
+     * the drag snap too.
+     */
+    DragQuandrant getDragQuandrant(int x, int y, Widget widget) {
+    
+        /**
+         * Cribbed from Stackoverflow (http://stackoverflow.com/questions/2049582/how-to-determine-a-point-in-a-2d-triangle)
+         * since implementing my own version of barycentric method will turn my brain to mush
+         */
+        bool pointInTriangle(GdkPoint p, GdkPoint p0, GdkPoint p1, GdkPoint p2) {
+            int s = p0.y * p2.x - p0.x * p2.y + (p2.y - p0.y) * p.x + (p0.x - p2.x) * p.y;
+            int t = p0.x * p1.y - p0.y * p1.x + (p0.y - p1.y) * p.x + (p1.x - p0.x) * p.y;
+
+            if ((s < 0) != (t < 0))
+                return false;
+
+            int a = -p1.y * p2.x + p0.y * (p2.x - p1.x) + p0.x * (p1.y - p2.y) + p1.x * p2.y;
+            if (a < 0.0) {
+                s = -s;
+                t = -t;
+                a = -a;
+            }
+            return s > 0 && t > 0 && (s + t) <= a;
+        }
+        
+        GdkPoint cursor = GdkPoint(x, y);
+        GdkPoint topLeft = GdkPoint(0,0);
+        GdkPoint topRight = GdkPoint(widget.getAllocatedWidth(), 0);
+        GdkPoint bottomRight = GdkPoint(widget.getAllocatedWidth(), widget.getAllocatedHeight());
+        GdkPoint bottomLeft = GdkPoint(0, widget.getAllocatedHeight());
+        GdkPoint center = GdkPoint(widget.getAllocatedWidth()/2, widget.getAllocatedHeight()/2);
+        
+        //LEFT
+        if (pointInTriangle(cursor, topLeft, bottomLeft, center)) return DragQuandrant.LEFT;
+        //TOP
+        if (pointInTriangle(cursor, topLeft, topRight, center)) return DragQuandrant.TOP;
+        //RIGHT
+        if (pointInTriangle(cursor, topRight, bottomRight, center)) return DragQuandrant.RIGHT;
+        //BOTTOM
+        if (pointInTriangle(cursor, bottomLeft, bottomRight, center)) return DragQuandrant.BOTTOM;
+        
+        trace("Whoops, something wrong with calculation");
+        return DragQuandrant.LEFT;        
+    }
+    
+    /**
+     * Called when the drag operation ends and a drop occurred
+     */
+    void onVTEDragDataReceived(DragContext context, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
+		trace("Drag data recieved for " ~ to!string(info));
+        final switch (info) {
+		case DropTargets.URILIST:
+			string[] uris = data.getUris();
+			if (uris) {
+				foreach (uri; uris) {
+					string hostname;
+					string quoted = ShellUtils.shellQuote(URI.filenameFromUri(uri, hostname)) ~ " ";
+					vte.feedChild(quoted, quoted.length);
+				}
+			}
+			break;
+		case DropTargets.STRING, DropTargets.TEXT:
+			string text = data.getText();
+			if (!text)
+				vte.feedChild(text, text.length);
+			break;
+        case DropTargets.VTE:
+            string uuid = data.getText();
+            trace("Dropped terminal " ~ uuid);
+		}
+	}
+    
+    //Draw the drag hint if dragging is occurring
+    bool onVTEDraw(Scoped!Context cr, Widget widget) {
+        //Dragging happening?
+        if (!dragInfo.isDragActive) return false;
+        trace("Drawing rectangle");
+        RGBA bg;
+        vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
+        cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.2);
+        cr.setLineWidth(1);
+        int w = widget.getAllocatedWidth();
+        int h = widget.getAllocatedHeight();
+        final switch (dragInfo.dq) {
+            case DragQuandrant.LEFT:
+                cr.rectangle(0, 0, w/2, h);
+                break;
+            case DragQuandrant.TOP:
+                cr.rectangle(0, 0, w, h/2);
+                break;
+            case DragQuandrant.BOTTOM:
+                cr.rectangle(0, h/2, w, h);
+                break;
+            case DragQuandrant.RIGHT:
+                cr.rectangle(w/2, 0, w, h);
+                break;
+        }
+        cr.strokePreserve();
+        cr.fill();
+        return false;
+    }
+
 public:
 
     /**
@@ -688,6 +890,7 @@ public:
      */
 	this(string profileUUID) {
 		super(Orientation.VERTICAL, 0);
+        _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
 		gsProfile = prfMgr.getProfileSettings(profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
@@ -771,6 +974,9 @@ public:
         _synchronizeInput = value;
     }
     
+    /**
+     * A numeric ID managed by the session, this ID can and does change
+     */
     @property ulong terminalID() {
         return _terminalID;
     }
@@ -782,12 +988,28 @@ public:
         }
     }
     
+    /**
+     * A unique ID for the terminal, it is constant for the lifespan
+     * of the terminal
+     */
+    @property string terminalUUID() {
+        return _terminalUUID;
+    }
+    
 	void addOnTerminalRequestSplit(OnTerminalRequestSplit dlg) {
 		terminalRequestSplitDelegates ~= dlg;
 	}
 
 	void removeOnTerminalRequestSplit(OnTerminalRequestSplit dlg) {
 		gx.util.array.remove(terminalRequestSplitDelegates, dlg);
+	}
+
+	void addOnTerminalRequestMove(OnTerminalRequestMove dlg) {
+		terminalRequestMoveDelegates ~= dlg;
+	}
+
+	void removeOnTerminalRequestMove(OnTerminalRequestMove dlg) {
+		gx.util.array.remove(terminalRequestMoveDelegates, dlg);
 	}
 
 	void addOnTerminalClose(OnTerminalClose dlg) {
@@ -858,6 +1080,43 @@ public:
     }
 }
 
+//Block for defining various DND structs and constants
+private:
+    /**
+     * Constant used to identift terminal drand and drop
+     */
+    enum VTE_DND = "vte";
+    
+    /**
+    * List of available Drop Targets for VTE
+    */
+    enum DropTargets {
+        URILIST,
+        STRING,
+        TEXT,
+        /**
+        * Used when one VTE is dropped on another
+        */
+        VTE
+    };
+
+    /**
+     * When dragging over VTE, specifies which quandrant new terminal
+     * should snap to
+     */
+    enum DragQuandrant {
+        LEFT,
+        TOP,
+        RIGHT,
+        BOTTOM
+    }
+    
+    struct DragInfo {
+        bool isDragActive;
+        DragQuandrant dq; 
+    }
+
+//Block for handling default regex in vte
 private:
 
     //REGEX, cribbed from Gnome Terminal
