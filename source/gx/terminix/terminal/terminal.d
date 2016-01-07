@@ -24,6 +24,7 @@ import gdk.Atom;
 import gdk.DragContext;
 import gdk.Event;
 import gdk.RGBA;
+import gdk.Screen;
 
 import gdkpixbuf.Pixbuf;
 
@@ -82,9 +83,9 @@ import gx.terminix.terminal.search;
 import gx.terminix.terminal.vtenotification;
 
 /**
-    * When dragging over VTE, specifies which quandrant new terminal
-    * should snap to
-    */
+* When dragging over VTE, specifies which quandrant new terminal
+* should snap to
+*/
 enum DragQuadrant {
     LEFT,
     TOP,
@@ -112,7 +113,6 @@ alias OnTerminalClose = void delegate(Terminal terminal);
  */
 alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orientation);
 
-
 /**
  * An event that is triggered when a terminal requests to moved from it's
  * original location (src) and split with another terminal (dest).
@@ -122,7 +122,12 @@ alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orie
 alias OnTerminalRequestMove = void delegate(string srcUUID, Terminal dest, DragQuadrant dq);
 
 /**
- * Triggered on  terminal key press, used by the session to synchronize input
+ * Invoked when a terminal requests that it be detached into it's own window
+ */
+alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
+
+/**
+ * Triggered on a terminal key press, used by the session to synchronize input
  * when this option is selected.
  */
 alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
@@ -169,6 +174,7 @@ private:
 	OnTerminalClose[] terminalCloseDelegates;
 	OnTerminalRequestSplit[] terminalRequestSplitDelegates;
     OnTerminalRequestMove[] terminalRequestMoveDelegates;
+    OnTerminalRequestDetach[] terminalRequestDetachDelegates;
     OnTerminalKeyPress[] terminalKeyPressDelegates;
     OnTerminalNotificationReceived[] terminalNotificationReceivedDelegates;
     
@@ -476,6 +482,12 @@ private:
 		}
 	}
 
+	void notifyTerminalRequestDetach(Terminal terminal, int x, int y) {
+		foreach (OnTerminalRequestDetach dlg; terminalRequestDetachDelegates) {
+			dlg(terminal, x, y);
+		}
+	}
+
 	void notifyTerminalClose() {
 		foreach (OnTerminalClose dlg; terminalCloseDelegates) {
 			dlg(this);
@@ -722,13 +734,14 @@ private:
         //Title bar events
         title.addOnDragBegin(&onTitleDragBegin);
         title.addOnDragDataGet(&onTitleDragDataGet);
+        title.addOnDragFailed(&onTitleDragFailed, ConnectFlags.AFTER);
         
         //VTE Drop events
 		vte.addOnDragDataReceived(&onVTEDragDataReceived);
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
-    } 
+    }
     
     /**
      * Called to set the selection data, which is later returned in the drag received
@@ -770,13 +783,39 @@ private:
         DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
     }
     
-    bool isSourceAndDestEqual(DragContext dc, Terminal dest) {
+    /**
+     * Called when drag failed, used this to detach a terminal into a new window
+     */
+    bool onTitleDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
+        trace("Drag Failed with ", dr);
+        if (dr == GtkDragResult.NO_TARGET) {
+            Screen screen;
+            int x, y;
+            dc.getDevice().getPosition(screen, x, y);
+            //Detach here
+            Terminal terminal = getDragTerminal(dc);
+            if (terminal !is null) {
+                trace("Detaching terminal ", dr);
+                notifyTerminalRequestDetach(terminal, x, y);
+            } else {
+                error("Failed to get terminal therefore detach request failed");
+            }             
+            return true;        
+        }
+        return false;
+    }
+    
+    Terminal getDragTerminal(DragContext dc) {
         EventBox title = cast(EventBox) DragAndDrop.dragGetSourceWidget(dc);
         if (title is null) {
             trace("Oops, something went wrong not a terminal drag");
-            return false;
+            return null;
         }
-        Terminal dragTerminal = cast(Terminal) title.getParent();
+        return cast(Terminal) title.getParent();
+    }
+    
+    bool isSourceAndDestEqual(DragContext dc, Terminal dest) {
+        Terminal dragTerminal = getDragTerminal(dc);
         return (dragTerminal.terminalUUID == _terminalUUID);
     }
 
@@ -806,7 +845,7 @@ private:
         dragInfo = DragInfo(false, DragQuadrant.LEFT);
         vte.queueDraw();
     }
-    
+
     /**
      * Given a point x,y which quandrant (left, top, right, bottom) should
      * the drag snap too.
@@ -1044,6 +1083,14 @@ public:
 
 	void removeOnTerminalRequestMove(OnTerminalRequestMove dlg) {
 		gx.util.array.remove(terminalRequestMoveDelegates, dlg);
+	}
+
+	void addOnTerminalRequestDetach(OnTerminalRequestDetach dlg) {
+		terminalRequestDetachDelegates ~= dlg;
+	}
+
+	void removeOnTerminalRequestDetach(OnTerminalRequestDetach dlg) {
+		gx.util.array.remove(terminalRequestDetachDelegates, dlg);
 	}
 
 	void addOnTerminalClose(OnTerminalClose dlg) {
