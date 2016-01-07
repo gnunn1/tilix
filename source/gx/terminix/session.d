@@ -126,6 +126,7 @@ private:
 		Terminal terminal = new Terminal(profileUUID);
 		terminal.addOnTerminalClose(&onTerminalClose);
 		terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
+        terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
 		terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.addOnTerminalNotificationReceived(&onTerminalNotificationReceived);
@@ -134,6 +135,16 @@ private:
         terminal.synchronizeInput = synchronizeInput;
 		return terminal;
 	}
+    
+    /**
+     * Find a terminal based on it's UUID
+     */
+    Terminal findTerminal(string terminalUUID) {
+        foreach(terminal; terminals) {
+            if (terminal.terminalUUID == terminalUUID) return terminal;
+        }
+        return null;
+    }
 
     /**
      * Splits the terminal into two by removing the existing terminal, add
@@ -151,7 +162,67 @@ private:
      */
 	void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
-		Box parent = cast(Box) terminal.getParent();
+		Terminal newTerminal = createTerminal(terminal.profileUUID);
+        insertTerminal(terminal, newTerminal, orientation, 2);
+		newTerminal.initTerminal(terminal.currentDirectory, false);
+	}
+    
+    /**
+     * Removes a terminal from it's parent and cleans up splitter if necessary
+     * Note that this does not unset event handlers or do any other cleanup as
+     * this method is used both when moving and closing terminals.
+     */  
+    void unparentTerminal(Terminal terminal) {
+    
+        /**
+        * Given a terminal, find the other child in the splitter.
+        * Note the other child could be either a terminal or 
+        * another splitter. In either case a Box will be the immediate
+        * child hence we return that since this function is called
+        * in preparation to remove the other child and replace the
+        * splitter with it.
+        */
+        Box findOtherChild(Terminal terminal, Paned paned) {
+            Box box1 = cast(Box) paned.getChild1();
+            Box box2 = cast(Box) paned.getChild2();
+
+            Widget widget1 = gx.gtk.util.getChildren(box1)[0];
+            Widget widget2 = gx.gtk.util.getChildren(box2)[0];
+
+            Terminal terminal1 = cast(Terminal) widget1;
+            Terminal terminal2 = cast(Terminal) widget2;
+
+            int result = terminal == terminal1 ? 1 : 2;
+            return (result == 1 ? box2 : box1);
+        }
+    
+		Paned paned = cast(Paned) terminal.getParent().getParent();
+		Box otherBox = findOtherChild(terminal, paned);
+		paned.remove(otherBox);
+
+		Box parent = cast(Box) paned.getParent();
+		parent.remove(paned);
+        
+        //Need to add the widget in the box not the box itself since the Paned we removed is already in a Box
+        //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
+        //to Paned to fail
+        //Get child widget, could be Terminal or Paned       
+        Widget widget = gx.gtk.util.getChildren(otherBox)[0];
+        //Remove widget from original Box parent
+        otherBox.remove(widget);
+        //Add widget to new parent
+		parent.add(widget);
+        //Clean up terminal parent
+        Box box = cast(Box) terminal.getParent();
+        box.remove(terminal);
+    }
+    
+    /**
+     * Inserts a source terminal into a destination by creating the necessary
+     * splitters and box shims
+     */
+    void insertTerminal(Terminal dest, Terminal src, Orientation orientation, int child) {
+		Box parent = cast(Box) dest.getParent();
 		int height = parent.getAllocatedHeight();
 		int width = parent.getAllocatedWidth();
 
@@ -162,10 +233,14 @@ private:
 		paned.pack1(b1, true, true);
 		paned.pack2(b2, true, true);
 
-		parent.remove(terminal);
-		b1.add(terminal);
-		Terminal newTerminal = createTerminal(terminal.profileUUID);
-		b2.add(newTerminal);
+		parent.remove(dest);
+        if (child == 1) {
+		  b1.add(src);
+          b2.add(dest);
+        } else {
+          b1.add(dest);
+          b2.add(src);     
+        } 
 
 		switch (orientation) {
 		case Orientation.HORIZONTAL:
@@ -177,34 +252,25 @@ private:
 		default:
 			assert(0);
 		}
-
 		parent.add(paned);
 		parent.showAll();
-        trace("Terminal current directory " ~ terminal.currentDirectory); 
-		newTerminal.initTerminal(terminal.currentDirectory, false);
-	}
+    }
     
-	/**
-	 * Given a terminal, find the other child in the splitter.
-	 * Note the other child could be either a terminal or 
-	 * another splitter. In either case a Box will be the immediate
-	 * child hence we return that since this function is called
-	 * in preparation to remove the other child and replace the
-	 * splitter with it.
-	 */
-	Box findOtherChild(Terminal terminal, Paned paned) {
-		Box box1 = cast(Box) paned.getChild1();
-		Box box2 = cast(Box) paned.getChild2();
+    void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
+        trace(format("Moving terminal %d to quadrant %d", dest.terminalID, dq));
+        Terminal src = findTerminal(srcUUID);
+        assert(src !is null);
+        
+        trace("Unparenting terminal");
+        unparentTerminal(src);
+        trace("Unparented terminal");
+        Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
+        int child = (dq == DragQuadrant.TOP || dq == DragQuadrant.LEFT) ? 1 : 2;
 
-		Widget widget1 = gx.gtk.util.getChildren(box1)[0];
-		Widget widget2 = gx.gtk.util.getChildren(box2)[0];
-
-		Terminal terminal1 = cast(Terminal) widget1;
-		Terminal terminal2 = cast(Terminal) widget2;
-
-		int result = terminal == terminal1 ? 1 : 2;
-		return (result == 1 ? box2 : box1);
-	}
+        //Inserting terminal
+        //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
+        insertTerminal(dest, src, orientation, child);        
+    }
     
 	/**
 	 * Removes the terminal by replacing the parent splitter with
@@ -223,6 +289,7 @@ private:
 		//Remove delegates
 		terminal.removeOnTerminalClose(&onTerminalClose);
 		terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
+        terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
 		terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.removeOnTerminalNotificationReceived(&onTerminalNotificationReceived);
@@ -231,29 +298,13 @@ private:
 		if (terminals.length == 1) {
 			notifySessionClose();
 			return;
-		} 
-		Paned paned = cast(Paned) terminal.getParent().getParent();
-		Box box = findOtherChild(terminal, paned);
-		paned.remove(box);
-
-		Box parent = cast(Box) paned.getParent();
-		parent.remove(paned);
-        
-        //Need to add the widget in the box not the box itself since the Paned we removed is already in a Box
-        //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
-        //to Paned to fail
-        //Get child widget, could be Terminal or Paned       
-        Widget widget = gx.gtk.util.getChildren(box)[0];
-        //Remove widget from original Box parent
-        box.remove(widget);
-        //Add widget to new parent
-		parent.add(widget);
-		parent.showAll();
-    
+		}
+        unparentTerminal(terminal); 
         //Remove terminal
         gx.util.array.remove(terminals, terminal);
         //Update terminal IDs to fill in hole
         sequenceTerminalID();        
+		showAll();
 	}
     
 	void onTerminalInFocus(Terminal terminal) {
@@ -443,7 +494,6 @@ public:
 		_name = name;
 		createUI(profileUUID, workingDir, firstRun);
 	}
-    
     
     /**
      * Creates a new session by de-serializing a session from JSON

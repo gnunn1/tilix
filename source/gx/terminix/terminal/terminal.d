@@ -82,6 +82,17 @@ import gx.terminix.terminal.search;
 import gx.terminix.terminal.vtenotification;
 
 /**
+    * When dragging over VTE, specifies which quandrant new terminal
+    * should snap to
+    */
+enum DragQuadrant {
+    LEFT,
+    TOP,
+    RIGHT,
+    BOTTOM
+}
+
+/**
  * An event that is fired whenever the terminal gets focused. Used by
  * the Session to track focus.
  */
@@ -108,7 +119,7 @@ alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orie
  *
  * This typically happens after a drag and drop of a terminal
  */
-alias OnTerminalRequestMove = void delegate(Terminal src, Terminal dest);
+alias OnTerminalRequestMove = void delegate(string srcUUID, Terminal dest, DragQuadrant dq);
 
 /**
  * Triggered on  terminal key press, used by the session to synchronize input
@@ -459,6 +470,12 @@ private:
 		}
 	}
 
+	void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
+		foreach (OnTerminalRequestMove dlg; terminalRequestMoveDelegates) {
+			dlg(srcUUID, dest, dq);
+		}
+	}
+
 	void notifyTerminalClose() {
 		foreach (OnTerminalClose dlg; terminalCloseDelegates) {
 			dlg(this);
@@ -682,7 +699,7 @@ private:
 // with terminal DND   
 private:
 
-    DragInfo dragInfo = DragInfo(false, DragQuandrant.LEFT);
+    DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
 
     /**
      * Sets up the DND by registering the TargetEntry objects as source and destinations
@@ -729,7 +746,7 @@ private:
      * TODO - Add some transparency
      */ 
     void onTitleDragBegin(DragContext dc, Widget widget) {
-        const int MAX_SIZE = 256;
+        const int MAX_SIZE = 300;
     
         double w = this.getAllocatedWidth();
         double h = this.getAllocatedHeight();
@@ -753,30 +770,40 @@ private:
         DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
     }
     
-    bool onVTEDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
-        trace(format("Drag motion: %d, %d", x, y));
-        //Is this a terminal drag or something else?
-        if (!dc.listTargets().find(intern(VTE_DND, false))) return true;
-        
+    bool isSourceAndDestEqual(DragContext dc, Terminal dest) {
         EventBox title = cast(EventBox) DragAndDrop.dragGetSourceWidget(dc);
         if (title is null) {
             trace("Oops, something went wrong not a terminal drag");
             return false;
         }
         Terminal dragTerminal = cast(Terminal) title.getParent();
+        return (dragTerminal.terminalUUID == _terminalUUID);
+    }
+
+    /**
+     * Keeps track of where the cursor is and sets dragInfo so the correct
+     * quandrant can be highlighted.
+     */
+    bool onVTEDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
+        //Is this a terminal drag or something else?
+        if (!dc.listTargets().find(intern(VTE_DND, false))) return true;
         //Don't allow drop on the same terminal
-        if (dragTerminal.terminalUUID == _terminalUUID) return false;
-        
-        DragQuandrant dq = getDragQuandrant(x, y, vte);
+        if (isSourceAndDestEqual(dc, this)) {
+            trace("Invalid drop");
+            return false;
+        }        
+        DragQuadrant dq = getDragQuadrant(x, y, vte);
         
         dragInfo = DragInfo(true, dq);
         vte.queueDraw();
+        trace(format("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq));
         
         return true;
     }
     
     void onVTEDragLeave(DragContext, uint, Widget) {
-        dragInfo = DragInfo(false, DragQuandrant.LEFT);
+        trace("Drag Leave " ~ _terminalUUID);
+        dragInfo = DragInfo(false, DragQuadrant.LEFT);
         vte.queueDraw();
     }
     
@@ -784,7 +811,7 @@ private:
      * Given a point x,y which quandrant (left, top, right, bottom) should
      * the drag snap too.
      */
-    DragQuandrant getDragQuandrant(int x, int y, Widget widget) {
+    DragQuadrant getDragQuadrant(int x, int y, Widget widget) {
     
         /**
          * Cribbed from Stackoverflow (http://stackoverflow.com/questions/2049582/how-to-determine-a-point-in-a-2d-triangle)
@@ -814,23 +841,26 @@ private:
         GdkPoint center = GdkPoint(widget.getAllocatedWidth()/2, widget.getAllocatedHeight()/2);
         
         //LEFT
-        if (pointInTriangle(cursor, topLeft, bottomLeft, center)) return DragQuandrant.LEFT;
+        if (pointInTriangle(cursor, topLeft, bottomLeft, center)) return DragQuadrant.LEFT;
         //TOP
-        if (pointInTriangle(cursor, topLeft, topRight, center)) return DragQuandrant.TOP;
+        if (pointInTriangle(cursor, topLeft, topRight, center)) return DragQuadrant.TOP;
         //RIGHT
-        if (pointInTriangle(cursor, topRight, bottomRight, center)) return DragQuandrant.RIGHT;
+        if (pointInTriangle(cursor, topRight, bottomRight, center)) return DragQuadrant.RIGHT;
         //BOTTOM
-        if (pointInTriangle(cursor, bottomLeft, bottomRight, center)) return DragQuandrant.BOTTOM;
+        if (pointInTriangle(cursor, bottomLeft, bottomRight, center)) return DragQuadrant.BOTTOM;
         
         trace("Whoops, something wrong with calculation");
-        return DragQuandrant.LEFT;        
+        return DragQuadrant.LEFT;        
     }
     
     /**
      * Called when the drag operation ends and a drop occurred
      */
-    void onVTEDragDataReceived(DragContext context, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
+    void onVTEDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
 		trace("Drag data recieved for " ~ to!string(info));
+        //Don't allow drop on the same terminal
+        if (isSourceAndDestEqual(dc, this)) return;        
+        
         final switch (info) {
 		case DropTargets.URILIST:
 			string[] uris = data.getUris();
@@ -848,8 +878,12 @@ private:
 				vte.feedChild(text, text.length);
 			break;
         case DropTargets.VTE:
-            string uuid = data.getText();
-            trace("Dropped terminal " ~ uuid);
+            string uuid = to!string(data.getDataWithLength()[0..$-1]);
+            DragQuadrant dq = getDragQuadrant(x, y, vte);
+            trace(format("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq));
+            notifyTerminalRequestMove(uuid, this, dq);
+            dragInfo = DragInfo(false, dq);
+            break;
 		}
 	}
     
@@ -860,21 +894,21 @@ private:
         trace("Drawing rectangle");
         RGBA bg;
         vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
-        cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.2);
+        cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
         cr.setLineWidth(1);
         int w = widget.getAllocatedWidth();
         int h = widget.getAllocatedHeight();
         final switch (dragInfo.dq) {
-            case DragQuandrant.LEFT:
+            case DragQuadrant.LEFT:
                 cr.rectangle(0, 0, w/2, h);
                 break;
-            case DragQuandrant.TOP:
+            case DragQuadrant.TOP:
                 cr.rectangle(0, 0, w, h/2);
                 break;
-            case DragQuandrant.BOTTOM:
+            case DragQuadrant.BOTTOM:
                 cr.rectangle(0, h/2, w, h);
                 break;
-            case DragQuandrant.RIGHT:
+            case DragQuadrant.RIGHT:
                 cr.rectangle(w/2, 0, w, h);
                 break;
         }
@@ -1100,20 +1134,9 @@ private:
         VTE
     };
 
-    /**
-     * When dragging over VTE, specifies which quandrant new terminal
-     * should snap to
-     */
-    enum DragQuandrant {
-        LEFT,
-        TOP,
-        RIGHT,
-        BOTTOM
-    }
-    
     struct DragInfo {
         bool isDragActive;
-        DragQuandrant dq; 
+        DragQuadrant dq; 
     }
 
 //Block for handling default regex in vte
