@@ -3,11 +3,11 @@
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 module gx.terminix.common;
- 
+
 import gx.util.array;
- 
+
 enum ActionType {
-   DETACH
+    DETACH
 }
 
 /**
@@ -20,26 +20,27 @@ alias OnIsActionAllowed = bool delegate(ActionType actionType);
 /**
  * Mixin to handle the boiler plate of IsActionAllowed event 
  * handlers
- */  
+ */
 mixin template IsActionAllowedHandler() {
- 
+
 private:
     OnIsActionAllowed[] isActionAllowedDelegates;
-    
+
     bool notifyIsActionAllowed(ActionType actionType) {
-        foreach(dlg; isActionAllowedDelegates) {
-            if (!dlg(actionType)) return false;
+        foreach (dlg; isActionAllowedDelegates) {
+            if (!dlg(actionType))
+                return false;
         }
         return true;
     }
-    
-public:
-    
-	void addOnIsActionAllowed(OnIsActionAllowed dlg) {
-		isActionAllowedDelegates ~= dlg;
-	}
 
-	void removeOnIsActionAllowed(OnIsActionAllowed dlg) {
-		gx.util.array.remove(isActionAllowedDelegates, dlg);
-	}
+public:
+
+    void addOnIsActionAllowed(OnIsActionAllowed dlg) {
+        isActionAllowedDelegates ~= dlg;
+    }
+
+    void removeOnIsActionAllowed(OnIsActionAllowed dlg) {
+        gx.util.array.remove(isActionAllowedDelegates, dlg);
+    }
 }

@@ -11,23 +11,20 @@ module gx.util.singleton;
  * 
  * This code from grestful (https://github.com/Gert-dev/grestful), slight modifications to confirm to D style guid
  */
-mixin template Singleton()
-{
-	@property
-	{
-		/**
+mixin template Singleton() {
+    @property {
+        /**
          * Retrieves the sole instance of this class.
          *
          * @return The sole instance.
          */
-		auto public static instance()
-		{
-			static typeof(this) instance = null;
-			
-			if (!instance)
-				instance = new typeof(this)();
-			
-			return instance;
-		}
-	}
+        auto public static instance() {
+            static typeof(this) instance = null;
+
+            if (!instance)
+                instance = new typeof(this)();
+
+            return instance;
+        }
+    }
 }

@@ -54,15 +54,15 @@ alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewS
  * An exception that is thrown when a session cannot be created, typically
  * when a failure indeserialization occurs.
  */
-class SessionCreationException: Exception {
+class SessionCreationException : Exception {
     this(string msg) {
-        super(msg) ;
+        super(msg);
     }
-    
+
     this(string msg, Throwable next) {
         super(msg, next);
     }
-    
+
     this(Throwable next) {
         super(next.msg, next);
     }
@@ -81,53 +81,53 @@ class SessionCreationException: Exception {
  * time with each one being a separate page. Note that tabs are not shown as it
  * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
  * and which inspired this application.
- */ 
+ */
 class Session : Box {
 
 private:
 
     mixin IsActionAllowedHandler;
-    
-    OnSessionDetach[] sessionDetachDelegates;
-	OnSessionClose[] sessionCloseDelegates;
 
-	Terminal[] terminals;
-	string _name;
+    OnSessionDetach[] sessionDetachDelegates;
+    OnSessionClose[] sessionCloseDelegates;
+
+    Terminal[] terminals;
+    string _name;
     bool _synchronizeInput;
-    
+
     string _sessionID;
-    
-	Terminal lastFocused;
+
+    Terminal lastFocused;
 
     /**
      * Creates the session user interface
      */
-	void createUI(string profileUUID, string workingDir, bool firstRun) {
+    void createUI(string profileUUID, string workingDir, bool firstRun) {
         Terminal terminal = createTerminal(profileUUID);
         add(terminal);
         terminal.initTerminal(workingDir, firstRun);
         lastFocused = terminal;
-	}
-    
-    void createUI(Terminal terminal) {
-        add(terminal);
-        lastFocused = terminal;        
     }
 
-	void notifySessionClose() {
-		foreach (dlg; sessionCloseDelegates) {
-			dlg(this);
-		}
-	}
-    
+    void createUI(Terminal terminal) {
+        add(terminal);
+        lastFocused = terminal;
+    }
+
+    void notifySessionClose() {
+        foreach (dlg; sessionCloseDelegates) {
+            dlg(this);
+        }
+    }
+
     void notifySessionDetach(Session session, int x, int y, bool isNewSession) {
-		foreach (dlg; sessionDetachDelegates) {
-			dlg(session, x, y, isNewSession);
-		}
+        foreach (dlg; sessionDetachDelegates) {
+            dlg(session, x, y, isNewSession);
+        }
     }
 
     void sequenceTerminalID() {
-        foreach(i, terminal; terminals) {
+        foreach (i, terminal; terminals) {
             terminal.terminalID = i;
         }
     }
@@ -139,28 +139,29 @@ private:
      *
      * The VTE widget is not exposed to the session.
      */
-	Terminal createTerminal(string profileUUID) {
-		Terminal terminal = new Terminal(profileUUID);
-		terminal.addOnTerminalClose(&onTerminalClose);
+    Terminal createTerminal(string profileUUID) {
+        Terminal terminal = new Terminal(profileUUID);
+        terminal.addOnTerminalClose(&onTerminalClose);
         terminal.addOnTerminalRequestDetach(&onTerminalRequestDetach);
-		terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
+        terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
-		terminal.addOnTerminalInFocus(&onTerminalInFocus);
+        terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.addOnTerminalNotificationReceived(&onTerminalNotificationReceived);
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
-		terminals ~= terminal;
+        terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
-		return terminal;
-	}
-    
+        return terminal;
+    }
+
     /**
      * Find a terminal based on it's UUID
      */
     Terminal findTerminal(string terminalUUID) {
-        foreach(terminal; terminals) {
-            if (terminal.terminalUUID == terminalUUID) return terminal;
+        foreach (terminal; terminals) {
+            if (terminal.terminalUUID == terminalUUID)
+                return terminal;
         }
         return null;
     }
@@ -179,20 +180,20 @@ private:
      * If there is some magic way in GTK to do this without the extra Box shim
      * it would be nice to eliminate this. 
      */
-	void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
+    void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
-		Terminal newTerminal = createTerminal(terminal.profileUUID);
+        Terminal newTerminal = createTerminal(terminal.profileUUID);
         insertTerminal(terminal, newTerminal, orientation, 2);
-		newTerminal.initTerminal(terminal.currentDirectory, false);
-	}
-    
+        newTerminal.initTerminal(terminal.currentDirectory, false);
+    }
+
     /**
      * Removes a terminal from it's parent and cleans up splitter if necessary
      * Note that this does not unset event handlers or do any other cleanup as
      * this method is used both when moving and closing terminals.
-     */  
+     */
     void unparentTerminal(Terminal terminal) {
-    
+
         /**
         * Given a terminal, find the other child in the splitter.
         * Note the other child could be either a terminal or 
@@ -214,14 +215,14 @@ private:
             int result = terminal == terminal1 ? 1 : 2;
             return (result == 1 ? box2 : box1);
         }
-    
-		Paned paned = cast(Paned) terminal.getParent().getParent();
-		Box otherBox = findOtherChild(terminal, paned);
-		paned.remove(otherBox);
 
-		Box parent = cast(Box) paned.getParent();
-		parent.remove(paned);
-        
+        Paned paned = cast(Paned) terminal.getParent().getParent();
+        Box otherBox = findOtherChild(terminal, paned);
+        paned.remove(otherBox);
+
+        Box parent = cast(Box) paned.getParent();
+        parent.remove(paned);
+
         //Need to add the widget in the box not the box itself since the Paned we removed is already in a Box
         //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
         //to Paned to fail
@@ -230,56 +231,56 @@ private:
         //Remove widget from original Box parent
         otherBox.remove(widget);
         //Add widget to new parent
-		parent.add(widget);
+        parent.add(widget);
         //Clean up terminal parent
         Box box = cast(Box) terminal.getParent();
         box.remove(terminal);
     }
-    
+
     /**
      * Inserts a source terminal into a destination by creating the necessary
      * splitters and box shims
      */
     void insertTerminal(Terminal dest, Terminal src, Orientation orientation, int child) {
-		Box parent = cast(Box) dest.getParent();
-		int height = parent.getAllocatedHeight();
-		int width = parent.getAllocatedWidth();
+        Box parent = cast(Box) dest.getParent();
+        int height = parent.getAllocatedHeight();
+        int width = parent.getAllocatedWidth();
 
-		Box b1 = new Box(Orientation.VERTICAL, 0);
-		Box b2 = new Box(Orientation.VERTICAL, 0);
+        Box b1 = new Box(Orientation.VERTICAL, 0);
+        Box b2 = new Box(Orientation.VERTICAL, 0);
 
-		Paned paned = new Paned(orientation);
-		paned.pack1(b1, true, true);
-		paned.pack2(b2, true, true);
+        Paned paned = new Paned(orientation);
+        paned.pack1(b1, true, true);
+        paned.pack2(b2, true, true);
 
-		parent.remove(dest);
+        parent.remove(dest);
         if (child == 1) {
-		  b1.add(src);
-          b2.add(dest);
+            b1.add(src);
+            b2.add(dest);
         } else {
-          b1.add(dest);
-          b2.add(src);     
-        } 
+            b1.add(dest);
+            b2.add(src);
+        }
 
-		switch (orientation) {
-		case Orientation.HORIZONTAL:
-			paned.setPosition(width / 2);
-			break;
-		case Orientation.VERTICAL:
-			paned.setPosition(height / 2);
-			break;
-		default:
-			assert(0);
-		}
-		parent.add(paned);
-		parent.showAll();
+        switch (orientation) {
+        case Orientation.HORIZONTAL:
+            paned.setPosition(width / 2);
+            break;
+        case Orientation.VERTICAL:
+            paned.setPosition(height / 2);
+            break;
+        default:
+            assert(0);
+        }
+        parent.add(paned);
+        parent.showAll();
     }
-    
+
     void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
         trace(format("Moving terminal %d to quadrant %d", dest.terminalID, dq));
         Terminal src = findTerminal(srcUUID);
         assert(src !is null);
-        
+
         trace("Unparenting terminal");
         unparentTerminal(src);
         trace("Unparented terminal");
@@ -288,10 +289,10 @@ private:
 
         //Inserting terminal
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
-        insertTerminal(dest, src, orientation, child);        
+        insertTerminal(dest, src, orientation, child);
     }
-    
-	/**
+
+    /**
 	 * Removes the terminal by replacing the parent splitter with
 	 * the child from the other side. This is a bit convoluted since
      * we are using Box as a shim to preserve spacing. Every child widget
@@ -302,43 +303,43 @@ private:
      *                        -> Box -> Paned -> Box -> Terminal
      *                                        -> Box -> Terminal
 	 */
-	void onTerminalClose(Terminal terminal) {
-		if (lastFocused == terminal)
-			lastFocused = null;
-		//Remove delegates
-		terminal.removeOnTerminalClose(&onTerminalClose);
+    void onTerminalClose(Terminal terminal) {
+        if (lastFocused == terminal)
+            lastFocused = null;
+        //Remove delegates
+        terminal.removeOnTerminalClose(&onTerminalClose);
         terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
-		terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
+        terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
-		terminal.removeOnTerminalInFocus(&onTerminalInFocus);
+        terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.removeOnTerminalNotificationReceived(&onTerminalNotificationReceived);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
-		//Only one terminal open, close session
-		if (terminals.length == 1) {
-			notifySessionClose();
-			return;
-		}
-        unparentTerminal(terminal); 
+        //Only one terminal open, close session
+        if (terminals.length == 1) {
+            notifySessionClose();
+            return;
+        }
+        unparentTerminal(terminal);
         //Remove terminal
         gx.util.array.remove(terminals, terminal);
         //Update terminal IDs to fill in hole
-        sequenceTerminalID();        
-		showAll();
-	}
-    
+        sequenceTerminalID();
+        showAll();
+    }
+
     bool onTerminalIsActionAllowed(ActionType actionType) {
         switch (actionType) {
-            case ActionType.DETACH:
-                //Ok this is a bit weird but we only only a terminal to be detached
-                //if a session has more then one terminal in it OR the application
-                //has multiple sessions. 
-                return terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH);
-            default:
-                return false;      
+        case ActionType.DETACH:
+            //Ok this is a bit weird but we only only a terminal to be detached
+            //if a session has more then one terminal in it OR the application
+            //has multiple sessions. 
+            return terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH);
+        default:
+            return false;
         }
     }
-    
+
     /**
      * Request from the terminal to detach itself into a new window,
      * typically a result of a drag operation
@@ -346,29 +347,29 @@ private:
     void onTerminalRequestDetach(Terminal terminal, int x, int y) {
         //Only one terminal, just detach session as a whole
         if (terminals.length == 1) {
-            notifySessionDetach(this, x, y, false);    
+            notifySessionDetach(this, x, y, false);
         } else {
             unparentTerminal(terminal);
             //Remove terminal
             gx.util.array.remove(terminals, terminal);
-            
+
             Session session = new Session(this._name, terminal);
             notifySessionDetach(session, x, y, true);
-        
+
             //Update terminal IDs to fill in hole
-            sequenceTerminalID();        
+            sequenceTerminalID();
             showAll();
         }
     }
-    
-	void onTerminalInFocus(Terminal terminal) {
-		//trace("Focus noted");
-		lastFocused = terminal;
-	}
-    
+
+    void onTerminalInFocus(Terminal terminal) {
+        //trace("Focus noted");
+        lastFocused = terminal;
+    }
+
     void onTerminalKeyPress(Terminal originator, Event event) {
         trace("Got key press");
-        foreach(terminal; terminals) {
+        foreach (terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
                 trace("sending key press, sendEvent = " ~ to!string(event.key.sendEvent));
                 Event newEvent = event.copy();
@@ -384,7 +385,7 @@ private:
             }
         }
     }
-    
+
     void onTerminalNotificationReceived(Terminal terminal, string summary, string _body) {
         trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
         Window window = cast(Window) terminal.getToplevel();
@@ -398,7 +399,7 @@ private:
         }
     }
 
-//De/Serialization code in this private block
+    //De/Serialization code in this private block
 private:
 
     string _filename;
@@ -413,12 +414,12 @@ private:
     enum NODE_DIRECTORY = "directory";
     enum NODE_PROFILE = "profile";
     enum NODE_WIDTH = "width";
-    enum NODE_HEIGHT = "height";    
+    enum NODE_HEIGHT = "height";
 
     /** 
      * Widget Types which are serialized
-     */ 
-    enum WidgetType: string {
+     */
+    enum WidgetType : string {
         SESSION = "Session",
         PANED = "Paned",
         TERMINAL = "Terminal",
@@ -431,10 +432,14 @@ private:
      * not need to be serialized.
      */
     public WidgetType getSerializedType(Widget widget) {
-        if (cast(Session) widget !is null) return WidgetType.SESSION;
-        else if (cast(Terminal) widget !is null) return WidgetType.TERMINAL;
-        else if (cast(Paned) widget !is null) return WidgetType.PANED;
-        else return WidgetType.OTHER;
+        if (cast(Session) widget !is null)
+            return WidgetType.SESSION;
+        else if (cast(Terminal) widget !is null)
+            return WidgetType.TERMINAL;
+        else if (cast(Paned) widget !is null)
+            return WidgetType.PANED;
+        else
+            return WidgetType.OTHER;
     }
 
     /**
@@ -444,16 +449,16 @@ private:
         JSONValue value = [NODE_TYPE : getSerializedType(widget)];
         WidgetType wt = getSerializedType(widget);
         switch (wt) {
-            case WidgetType.PANED:
-                serializePaned(value, cast(Paned) widget, sizeInfo);
-                break;
-            case WidgetType.TERMINAL:    
-                serializeTerminal(value, cast(Terminal) widget);
-                break;
-            default:
-                trace("Unknown Widget, can't serialize");
+        case WidgetType.PANED:
+            serializePaned(value, cast(Paned) widget, sizeInfo);
+            break;
+        case WidgetType.TERMINAL:
+            serializeTerminal(value, cast(Terminal) widget);
+            break;
+        default:
+            trace("Unknown Widget, can't serialize");
         }
-        return value; 
+        return value;
     }
 
     /**
@@ -466,7 +471,7 @@ private:
         Box box1 = cast(Box) paned.getChild1();
         Box box2 = cast(Box) paned.getChild2();
         value.object[NODE_CHILD1] = serializeWidget(gx.gtk.util.getChildren(box1)[0], sizeInfo);
-        value.object[NODE_CHILD2] = serializeWidget(gx.gtk.util.getChildren(box2)[0], sizeInfo);  
+        value.object[NODE_CHILD2] = serializeWidget(gx.gtk.util.getChildren(box2)[0], sizeInfo);
         return value;
     }
 
@@ -480,16 +485,18 @@ private:
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
         return value;
     }
-    
+
     /**
      * Parse a node and determine whether it is it a Terminal or Paned
      * child that needs de-serialization
      */
     Widget parseNode(JSONValue value, SessionSizeInfo sizeInfo) {
-        if (value[NODE_TYPE].str() == WidgetType.TERMINAL) return parseTerminal(value);
-        else return parsePaned(value, sizeInfo);
+        if (value[NODE_TYPE].str() == WidgetType.TERMINAL)
+            return parseTerminal(value);
+        else
+            return parsePaned(value, sizeInfo);
     }
-    
+
     /**
      * De-serialize a TerminalPane widget
      */
@@ -497,11 +504,11 @@ private:
         trace("Loading terminal");
         //TODO Check that the profile exists and use default if it doesn't
         string profileUUID = value[NODE_PROFILE].str();
-        Terminal terminal  = createTerminal(profileUUID);
+        Terminal terminal = createTerminal(profileUUID);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         return terminal;
     }
-    
+
     /**
      * De-serialize a Paned widget
      */
@@ -537,12 +544,12 @@ private:
      * Creates a new session with the specified terminal
      */
     this(string sessionName, Terminal terminal) {
-		super(Orientation.VERTICAL, 0);
+        super(Orientation.VERTICAL, 0);
         _sessionID = randomUUID().toString();
-		_name = sessionName;
-		createUI(terminal);
+        _name = sessionName;
+        createUI(terminal);
     }
-  
+
 public:
 
     /**
@@ -553,14 +560,14 @@ public:
      *  profileUUID = The profile to use when creating the initial terminal for the session
      *  workingDir  = The working directory to use in the initial terminal
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
-     */ 
-	this(string name, string profileUUID, string workingDir, bool firstRun) {
-		super(Orientation.VERTICAL, 0);
+     */
+    this(string name, string profileUUID, string workingDir, bool firstRun) {
+        super(Orientation.VERTICAL, 0);
         _sessionID = randomUUID().toString();
-		_name = name;
-		createUI(profileUUID, workingDir, firstRun);
-	}
-    
+        _name = name;
+        createUI(profileUUID, workingDir, firstRun);
+    }
+
     /**
      * Creates a new session by de-serializing a session from JSON
      *
@@ -571,18 +578,19 @@ public:
      *  filename    = The filename corresponding to the JSON block
      *  width       = The expected width and height of the session, used to scale Paned positions
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
-     */ 
+     */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
-		super(Orientation.VERTICAL, 0);
+        super(Orientation.VERTICAL, 0);
         _sessionID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
-        }        
+        }
     }
-    
+
     /**
      * Serialize the session
      *
@@ -594,7 +602,7 @@ public:
         root.object[NODE_NAME] = _name;
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
-        SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight()); 
+        SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
         root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(this)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
@@ -603,34 +611,34 @@ public:
     /**
      * The name of the session
      */
-	@property string name() {
-		return _name;
-	}
-    
+    @property string name() {
+        return _name;
+    }
+
     @property void name(string value) {
         if (value.length > 0) {
             _name = value;
         }
     }
-    
+
     /**
      * Unique and immutable session ID
      */
     @property string sessionID() {
         return _sessionID;
     }
-    
+
     /**
      * If the session was created via de-serialization the filename used, otherwise null
      */
     @property string filename() {
         return _filename;
     }
-    
+
     @property void filename(string value) {
         _filename = value;
     }
-    
+
     /**
      * Whether the input for all terminals is synchronized
      */
@@ -640,7 +648,7 @@ public:
 
     @property void synchronizeInput(bool value) {
         _synchronizeInput = value;
-        foreach(terminal; terminals) {
+        foreach (terminal; terminals) {
             terminal.synchronizeInput = value;
         }
     }
@@ -648,23 +656,23 @@ public:
     /**
      * Whether any terminals in the session have a child process running
      */
-	bool isProcessRunning() {
-		foreach (terminal; terminals) {
-			if (terminal.isProcessRunning())
-				return true;
-		}
-		return false;
-	}
+    bool isProcessRunning() {
+        foreach (terminal; terminals) {
+            if (terminal.isProcessRunning())
+                return true;
+        }
+        return false;
+    }
 
     /**
      * Restore focus to the terminal that last had focus in the session
      */
-	void focusRestore() {
-		if (lastFocused !is null) {
-			lastFocused.focusTerminal();
-		}
-	}
-    
+    void focusRestore() {
+        if (lastFocused !is null) {
+            lastFocused.focusTerminal();
+        }
+    }
+
     /**
      * Focus the next terminal in the session
      */
@@ -672,11 +680,12 @@ public:
         ulong id = 0;
         if (lastFocused !is null) {
             id = lastFocused.terminalID + 1;
-            if (id >= terminals.length) id = 0;
+            if (id >= terminals.length)
+                id = 0;
         }
         focusTerminal(id);
     }
-    
+
     /**
      * Focus the previous terminal in the session
      */
@@ -684,11 +693,12 @@ public:
         ulong id = 0;
         if (lastFocused !is null) {
             id = lastFocused.terminalID - 1;
-            if (id < 0) id = terminals.length - 1;
+            if (id < 0)
+                id = terminals.length - 1;
         }
         focusTerminal(id);
     }
-    
+
     /**
      * Focus the terminal designated by the ID
      */
@@ -697,63 +707,63 @@ public:
             terminals[terminalID].focusTerminal();
         }
     }
-    
-	void addOnSessionClose(OnSessionClose dlg) {
-		sessionCloseDelegates ~= dlg;
-	}
 
-	void removeOnSessionClose(OnSessionClose dlg) {
-		gx.util.array.remove(sessionCloseDelegates, dlg);
-	}
+    void addOnSessionClose(OnSessionClose dlg) {
+        sessionCloseDelegates ~= dlg;
+    }
 
-	void addOnSessionDetach(OnSessionDetach dlg) {
-		sessionDetachDelegates ~= dlg;
-	}
+    void removeOnSessionClose(OnSessionClose dlg) {
+        gx.util.array.remove(sessionCloseDelegates, dlg);
+    }
 
-	void removeOnSessionDetach(OnSessionDetach dlg) {
-		gx.util.array.remove(sessionDetachDelegates, dlg);
-	}
+    void addOnSessionDetach(OnSessionDetach dlg) {
+        sessionDetachDelegates ~= dlg;
+    }
+
+    void removeOnSessionDetach(OnSessionDetach dlg) {
+        gx.util.array.remove(sessionDetachDelegates, dlg);
+    }
 }
 
 /**
  * Class used to prompt user for session name and profile to use when
  * adding a new session.
  */
-package class SessionProperties: Dialog {
+package class SessionProperties : Dialog {
 
 private:
     Entry eName;
     ComboBox cbProfile;
-    
+
     void createUI(string name, string profileUUID) {
 
-		Grid grid = new Grid();
-		grid.setColumnSpacing(12);
-		grid.setRowSpacing(6);
-		grid.setMarginTop(18);
-		grid.setMarginBottom(18);
-		grid.setMarginLeft(18);
-		grid.setMarginRight(18);
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+        grid.setMarginTop(18);
+        grid.setMarginBottom(18);
+        grid.setMarginLeft(18);
+        grid.setMarginRight(18);
 
-		Label label = new Label(format("<b>%s</b>", _("Name")));
-		label.setUseMarkup(true);
-		label.setHalign(Align.END);
+        Label label = new Label(format("<b>%s</b>", _("Name")));
+        label.setUseMarkup(true);
+        label.setHalign(Align.END);
         grid.attach(label, 0, 0, 1, 1);
-        
+
         eName = new Entry();
         eName.setText(name);
         eName.setMaxWidthChars(30);
         grid.attach(eName, 1, 0, 1, 1);
-    
-		label = new Label(format("<b>%s</b>", _("Profile")));
-		label.setUseMarkup(true);
-		label.setHalign(Align.END);
+
+        label = new Label(format("<b>%s</b>", _("Profile")));
+        label.setUseMarkup(true);
+        label.setHalign(Align.END);
         grid.attach(label, 0, 1, 1, 1);
 
         ProfileInfo[] profiles = prfMgr.getProfiles();
         string[] names = new string[profiles.length];
         string[] uuid = new string[profiles.length];
-        foreach(i, profile; profiles) {
+        foreach (i, profile; profiles) {
             names[i] = profile.name;
             uuid[i] = profile.uuid;
         }
@@ -761,22 +771,22 @@ private:
         cbProfile.setActiveId(profileUUID);
         cbProfile.setHexpand(true);
         grid.attach(cbProfile, 1, 1, 1, 1);
-        
-		getContentArea().add(grid);
+
+        getContentArea().add(grid);
     }
 
 public:
 
-	this(Window parent, string name, string profileUUID) {
-		super(_("New Session"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [StockID.CANCEL,StockID.OK], [ResponseType.CANCEL,ResponseType.OK]);
-		setDefaultResponse(ResponseType.OK);
-		createUI(name, profileUUID);
-	}
-    
+    this(Window parent, string name, string profileUUID) {
+        super(_("New Session"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [StockID.CANCEL, StockID.OK], [ResponseType.CANCEL, ResponseType.OK]);
+        setDefaultResponse(ResponseType.OK);
+        createUI(name, profileUUID);
+    }
+
     @property string name() {
         return eName.getText();
     }
-    
+
     @property string profileUUID() {
         return cbProfile.getActiveId();
     }
@@ -792,24 +802,22 @@ private:
 struct SessionSizeInfo {
     int width;
     int height;
-    
+
     double scalePosition(int position, Orientation orientation) {
         final switch (orientation) {
-            case Orientation.HORIZONTAL:
-                return to!double(position)/to!double(width);
-            case Orientation.VERTICAL:
-                return to!double(position)/to!double(height);            
-        }    
+        case Orientation.HORIZONTAL:
+            return to!double(position) / to!double(width);
+        case Orientation.VERTICAL:
+            return to!double(position) / to!double(height);
+        }
     }
-    
+
     int getPosition(double scaledPosition, Orientation orientation) {
         final switch (orientation) {
-            case Orientation.HORIZONTAL:
-                return to!int(scaledPosition * width);
-            case Orientation.VERTICAL:
-                return to!int(scaledPosition * height);            
-        }    
-    } 
+        case Orientation.HORIZONTAL:
+            return to!int(scaledPosition * width);
+        case Orientation.VERTICAL:
+            return to!int(scaledPosition * height);
+        }
+    }
 }
-
-

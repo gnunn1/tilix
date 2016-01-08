@@ -14,57 +14,57 @@ alias OnCloseClickedDelegate = void delegate(TabLabel label, Widget Page);
 /**
  * This is a tab label that supports having a close button.
  */
-class TabLabel: Box {
+class TabLabel : Box {
 
 private:
-	Button button;
-	Label label;
-	Widget page;
+    Button button;
+    Label label;
+    Widget page;
 
-	OnCloseClickedDelegate[] closeClickedHandlers;
+    OnCloseClickedDelegate[] closeClickedHandlers;
 
-	void closeClicked(Button button) {
-		foreach (OnCloseClickedDelegate handler; closeClickedHandlers) {
-			handler(this, page);
-		}
-	}
+    void closeClicked(Button button) {
+        foreach (OnCloseClickedDelegate handler; closeClickedHandlers) {
+            handler(this, page);
+        }
+    }
 
 public:
 
-	this(string text, Widget page) {
-		super(Orientation.HORIZONTAL, 5);
+    this(string text, Widget page) {
+        super(Orientation.HORIZONTAL, 5);
 
-		this.page = page;
+        this.page = page;
 
-		label = new Label(text);
-		label.setHexpand(true);
-		add(label);
+        label = new Label(text);
+        label.setHexpand(true);
+        add(label);
 
-		button = new Button("window-close-symbolic", IconSize.MENU);
-		button.setRelief(ReliefStyle.NONE);
-		button.setFocusOnClick(false);
+        button = new Button("window-close-symbolic", IconSize.MENU);
+        button.setRelief(ReliefStyle.NONE);
+        button.setFocusOnClick(false);
 
-		button.addOnClicked(&closeClicked);
+        button.addOnClicked(&closeClicked);
 
-		add(button);
+        add(button);
 
-		showAll();
-	}
+        showAll();
+    }
 
-	/**
+    /**
 	 * Handler that is invoked when close button is clicked. It is
 	 * up to the application to listen to this event and actually remove
 	 * the tab.
 	 */
-	void addOnCloseClicked(OnCloseClickedDelegate handler) {
-		closeClickedHandlers ~= handler;
-	}
+    void addOnCloseClicked(OnCloseClickedDelegate handler) {
+        closeClickedHandlers ~= handler;
+    }
 
-	@property string text() {
-		return label.getText();
-	}
+    @property string text() {
+        return label.getText();
+    }
 
-	@property void text(string value) {
-		label.setText(value);
-	}
+    @property void text(string value) {
+        label.setText(value);
+    }
 }

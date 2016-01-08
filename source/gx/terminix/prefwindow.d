@@ -55,78 +55,78 @@ import gx.util.array;
 class PreferenceWindow : ApplicationWindow {
 
 private:
-	Notebook nb;
+    Notebook nb;
 
-	void createUI() {
-		HeaderBar hb = new HeaderBar();
-		hb.setShowCloseButton(true);
-		hb.setTitle(_("Preferences"));
-		this.setTitlebar(hb);
+    void createUI() {
+        HeaderBar hb = new HeaderBar();
+        hb.setShowCloseButton(true);
+        hb.setTitle(_("Preferences"));
+        this.setTitlebar(hb);
 
-		nb = new Notebook();
-		nb.setHexpand(true);
-		nb.setVexpand(true);
+        nb = new Notebook();
+        nb.setHexpand(true);
+        nb.setVexpand(true);
 
-		GlobalPreferences gp = new GlobalPreferences();
-		nb.appendPage(gp, _("Global"));
+        GlobalPreferences gp = new GlobalPreferences();
+        nb.appendPage(gp, _("Global"));
 
-		ShortcutPreferences sp = new ShortcutPreferences();
-		nb.appendPage(sp, _("Shortcuts"));
+        ShortcutPreferences sp = new ShortcutPreferences();
+        nb.appendPage(sp, _("Shortcuts"));
 
-		ProfilePreferences pp = new ProfilePreferences(getApplication());
-		nb.appendPage(pp, _("Profiles"));
+        ProfilePreferences pp = new ProfilePreferences(getApplication());
+        nb.appendPage(pp, _("Profiles"));
 
-		add(nb);
-	}
+        add(nb);
+    }
 
 public:
-	this(Application app) {
-		super(app);
-		createUI();
-	}
+    this(Application app) {
+        super(app);
+        createUI();
+    }
 }
 
 /**
  * Shortcuts preferences page
  */
- 
-class ShortcutPreferences: Box {
+
+class ShortcutPreferences : Box {
 
 private:
     Settings gsShortcuts;
-    
-    TreeStore tsShortcuts;    
-    
-	enum COLUMN_NAME = 0;
-	enum COLUMN_SHORTCUT = 1;
+
+    TreeStore tsShortcuts;
+
+    enum COLUMN_NAME = 0;
+    enum COLUMN_SHORTCUT = 1;
     enum COLUMN_ACTION_NAME = 2;
 
     void createUI() {
-		setMarginLeft(18);
-		setMarginRight(18);
-		setMarginTop(18);
-		setMarginBottom(18);
-    
-		//Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
-		tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING]);
-		loadShortcuts(tsShortcuts);
+        setMarginLeft(18);
+        setMarginRight(18);
+        setMarginTop(18);
+        setMarginBottom(18);
 
-		TreeView tvShortcuts = new TreeView(tsShortcuts);
-		tvShortcuts.setActivateOnSingleClick(false);
-		//tvShortcuts.addOnCursorChanged(delegate(TreeView) { updateUI(); });
+        //Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
+        tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING]);
+        loadShortcuts(tsShortcuts);
 
-		TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
-		column.setExpand(true);
-		tvShortcuts.appendColumn(column);
+        TreeView tvShortcuts = new TreeView(tsShortcuts);
+        tvShortcuts.setActivateOnSingleClick(false);
+        //tvShortcuts.addOnCursorChanged(delegate(TreeView) { updateUI(); });
+
+        TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
+        column.setExpand(true);
+        tvShortcuts.appendColumn(column);
 
         CellRendererAccel craShortcut = new CellRendererAccel();
-        craShortcut.setProperty( "editable", 1 );
+        craShortcut.setProperty("editable", 1);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel cra) {
             TreeIter iter = new TreeIter();
-            tsShortcuts.getIter(iter, new TreePath(path));            
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, SHORTCUT_DISABLED);        
+            tsShortcuts.getIter(iter, new TreePath(path));
+            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, SHORTCUT_DISABLED);
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);        
+            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint hardwareKeycode, CellRendererAccel cra) {
             TreeIter iter = new TreeIter();
@@ -134,29 +134,29 @@ private:
             string label = AccelGroup.acceleratorName(accelKey, accelMods);
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), label);        
+            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), label);
         });
-		column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
+        column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 
-		tvShortcuts.appendColumn(column);
+        tvShortcuts.appendColumn(column);
 
-		ScrolledWindow scShortcuts = new ScrolledWindow(tvShortcuts);
-		scShortcuts.setShadowType(ShadowType.ETCHED_IN);
-		scShortcuts.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-		scShortcuts.setHexpand(true);
-		scShortcuts.setVexpand(true);
-		add(scShortcuts);
-        
+        ScrolledWindow scShortcuts = new ScrolledWindow(tvShortcuts);
+        scShortcuts.setShadowType(ShadowType.ETCHED_IN);
+        scShortcuts.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        scShortcuts.setHexpand(true);
+        scShortcuts.setVexpand(true);
+        add(scShortcuts);
+
         tvShortcuts.expandAll();
     }
-    
+
     void loadShortcuts(TreeStore ts) {
         string[] keys = gsShortcuts.listKeys();
         sort(keys);
-        
+
         TreeIter currentIter;
         string currentPrefix;
-        foreach(key; keys) {
+        foreach (key; keys) {
             string prefix, id;
             getActionNameFromKey(key, prefix, id);
             if (prefix != currentPrefix) {
@@ -164,7 +164,7 @@ private:
                 currentIter = appendValues(ts, null, [_(prefix)]);
             }
             appendValues(ts, currentIter, [_(id), gsShortcuts.getString(key), key]);
-        }        
+        }
     }
 
 public:
@@ -184,158 +184,157 @@ class ProfilePreferences : Box {
 
 private:
 
-	enum COLUMN_IS_DEFAULT = 0;
-	enum COLUMN_NAME = 1;
-	enum COLUMN_UUID = 2;
+    enum COLUMN_IS_DEFAULT = 0;
+    enum COLUMN_NAME = 1;
+    enum COLUMN_UUID = 2;
 
-	Application app;
-	Button btnNew;
-	Button btnDelete;
-	Button btnEdit;
-	//Button btnClone;
-	TreeView tvProfiles;
-	ListStore lsProfiles;
+    Application app;
+    Button btnNew;
+    Button btnDelete;
+    Button btnEdit;
+    //Button btnClone;
+    TreeView tvProfiles;
+    ListStore lsProfiles;
 
-	void createUI() {
-		setMarginLeft(18);
-		setMarginRight(18);
-		setMarginTop(18);
-		setMarginBottom(18);
+    void createUI() {
+        setMarginLeft(18);
+        setMarginRight(18);
+        setMarginTop(18);
+        setMarginBottom(18);
 
-		//Profiles TreeView, note while UUID is in the model it's not actually displayed
-		lsProfiles = new ListStore([GType.BOOLEAN, GType.STRING, GType.STRING]);
-		loadProfiles();
+        //Profiles TreeView, note while UUID is in the model it's not actually displayed
+        lsProfiles = new ListStore([GType.BOOLEAN, GType.STRING, GType.STRING]);
+        loadProfiles();
 
-		tvProfiles = new TreeView(lsProfiles);
-		tvProfiles.setActivateOnSingleClick(false);
-		tvProfiles.addOnCursorChanged(delegate(TreeView) { updateUI(); });
+        tvProfiles = new TreeView(lsProfiles);
+        tvProfiles.setActivateOnSingleClick(false);
+        tvProfiles.addOnCursorChanged(delegate(TreeView) { updateUI(); });
 
-		CellRendererToggle toggle = new CellRendererToggle();
-		toggle.setRadio(true);
-		toggle.setActivatable(true);
-		toggle.addOnToggled(delegate(string treePath, CellRendererToggle) {
-			//Update UI and set Default profile
-			foreach (TreeIter iter;
-			TreeIterRange(lsProfiles)) {
-				TreePath path = lsProfiles.getPath(iter);
-				bool isDefault = (path.toString() == treePath);
-				if (isDefault)
-					prfMgr.setDefaultProfile(lsProfiles.getValue(iter, COLUMN_UUID).getString());
-				lsProfiles.setValue(iter, 0, isDefault);
-			}
-		});
-		TreeViewColumn column = new TreeViewColumn(_("Default"), toggle, "active", COLUMN_IS_DEFAULT);
-		tvProfiles.appendColumn(column);
-		column = new TreeViewColumn(_("Profile"), new CellRendererText(), "text", COLUMN_NAME);
-		column.setExpand(true);
-		tvProfiles.appendColumn(column);
+        CellRendererToggle toggle = new CellRendererToggle();
+        toggle.setRadio(true);
+        toggle.setActivatable(true);
+        toggle.addOnToggled(delegate(string treePath, CellRendererToggle) {
+            //Update UI and set Default profile
+            foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
+                TreePath path = lsProfiles.getPath(iter);
+                bool isDefault = (path.toString() == treePath);
+                if (isDefault)
+                    prfMgr.setDefaultProfile(lsProfiles.getValue(iter, COLUMN_UUID).getString());
+                lsProfiles.setValue(iter, 0, isDefault);
+            }
+        });
+        TreeViewColumn column = new TreeViewColumn(_("Default"), toggle, "active", COLUMN_IS_DEFAULT);
+        tvProfiles.appendColumn(column);
+        column = new TreeViewColumn(_("Profile"), new CellRendererText(), "text", COLUMN_NAME);
+        column.setExpand(true);
+        tvProfiles.appendColumn(column);
 
-		ScrolledWindow scProfiles = new ScrolledWindow(tvProfiles);
-		scProfiles.setShadowType(ShadowType.ETCHED_IN);
-		scProfiles.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-		scProfiles.setHexpand(true);
-		add(scProfiles);
+        ScrolledWindow scProfiles = new ScrolledWindow(tvProfiles);
+        scProfiles.setShadowType(ShadowType.ETCHED_IN);
+        scProfiles.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        scProfiles.setHexpand(true);
+        add(scProfiles);
 
-		//Row of buttons on right
-		Box bButtons = new Box(Orientation.VERTICAL, 4);
-		bButtons.setVexpand(true);
+        //Row of buttons on right
+        Box bButtons = new Box(Orientation.VERTICAL, 4);
+        bButtons.setVexpand(true);
 
-		btnNew = new Button(_("New"));
-		btnNew.addOnClicked(delegate(Button button) {
-			ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
-			//profiles ~= profile;
-			addProfile(profile);
-			selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
-			editProfile();
-		});
-		bButtons.add(btnNew);
-		/*
+        btnNew = new Button(_("New"));
+        btnNew.addOnClicked(delegate(Button button) {
+            ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
+            //profiles ~= profile;
+            addProfile(profile);
+            selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
+            editProfile();
+        });
+        bButtons.add(btnNew);
+        /*
 		btnClone = new Button(_("Clone"));
 		bButtons.add(btnClone);
 		*/
-		btnEdit = new Button(_("Edit"));
-		btnEdit.addOnClicked(delegate(Button button) { editProfile(); });
-		bButtons.add(btnEdit);
-		btnDelete = new Button(_("Delete"));
-		btnDelete.addOnClicked(delegate(Button button) {
-			ProfileInfo profile = getSelectedProfile();
-			if (profile.uuid !is null) {
-				prfMgr.deleteProfile(profile.uuid);
-				lsProfiles.remove(tvProfiles.getSelectedIter());
-			}
-		});
-		bButtons.add(btnDelete);
+        btnEdit = new Button(_("Edit"));
+        btnEdit.addOnClicked(delegate(Button button) { editProfile(); });
+        bButtons.add(btnEdit);
+        btnDelete = new Button(_("Delete"));
+        btnDelete.addOnClicked(delegate(Button button) {
+            ProfileInfo profile = getSelectedProfile();
+            if (profile.uuid !is null) {
+                prfMgr.deleteProfile(profile.uuid);
+                lsProfiles.remove(tvProfiles.getSelectedIter());
+            }
+        });
+        bButtons.add(btnDelete);
 
-		add(bButtons);
+        add(bButtons);
 
-		selectRow(tvProfiles, 0);
-		updateUI();
-	}
+        selectRow(tvProfiles, 0);
+        updateUI();
+    }
 
-	void editProfile() {
-		ProfileInfo profile = getSelectedProfile();
-		if (profile.uuid !is null) {
-			ProfileWindow window = new ProfileWindow(app, profile);
-			app.addWindow(window);
-			window.addOnDelete(&onProfileWindowDeleted);
-			window.showAll();
-			//TODO: Track profile editing windows to focus instead of creating new
-			//prefId = window.getId();
-		}
-	}
+    void editProfile() {
+        ProfileInfo profile = getSelectedProfile();
+        if (profile.uuid !is null) {
+            ProfileWindow window = new ProfileWindow(app, profile);
+            app.addWindow(window);
+            window.addOnDelete(&onProfileWindowDeleted);
+            window.showAll();
+            //TODO: Track profile editing windows to focus instead of creating new
+            //prefId = window.getId();
+        }
+    }
 
-	//Update Profile Name here in case it changed
-	bool onProfileWindowDeleted(Event event, Widget widget) {
-		ProfileWindow window = cast(ProfileWindow) widget;
-		if (window) {
-			ProfileInfo profile = prfMgr.getProfile(window.uuid);
-			foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
-				if (lsProfiles.getValue(iter, COLUMN_UUID).getString() == window.uuid) {
-					lsProfiles.setValue(iter, COLUMN_NAME, profile.name);
-				}
-			}
-		}
-		return false;
-	}
+    //Update Profile Name here in case it changed
+    bool onProfileWindowDeleted(Event event, Widget widget) {
+        ProfileWindow window = cast(ProfileWindow) widget;
+        if (window) {
+            ProfileInfo profile = prfMgr.getProfile(window.uuid);
+            foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
+                if (lsProfiles.getValue(iter, COLUMN_UUID).getString() == window.uuid) {
+                    lsProfiles.setValue(iter, COLUMN_NAME, profile.name);
+                }
+            }
+        }
+        return false;
+    }
 
-	ProfileInfo getSelectedProfile() {
-		TreeIter selected = tvProfiles.getSelectedIter();
-		if (selected) {
-			return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), lsProfiles.getValue(selected, COLUMN_UUID).getString(),
-				lsProfiles.getValue(selected, COLUMN_NAME).getString());
-		} else {
-			return ProfileInfo(false, null, null);
-		}
-	}
+    ProfileInfo getSelectedProfile() {
+        TreeIter selected = tvProfiles.getSelectedIter();
+        if (selected) {
+            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), lsProfiles.getValue(selected, COLUMN_UUID).getString(),
+                lsProfiles.getValue(selected, COLUMN_NAME).getString());
+        } else {
+            return ProfileInfo(false, null, null);
+        }
+    }
 
-	void updateUI() {
-		TreeIter selected = tvProfiles.getSelectedIter();
-		btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 0);
-		btnEdit.setSensitive(selected !is null);
-	}
+    void updateUI() {
+        TreeIter selected = tvProfiles.getSelectedIter();
+        btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 0);
+        btnEdit.setSensitive(selected !is null);
+    }
 
-	void addProfile(ProfileInfo profile) {
-		TreeIter iter = lsProfiles.createIter();
-		lsProfiles.setValue(iter, 0, profile.isDefault);
-		lsProfiles.setValue(iter, 1, profile.name);
-		lsProfiles.setValue(iter, 2, profile.uuid);
-	}
+    void addProfile(ProfileInfo profile) {
+        TreeIter iter = lsProfiles.createIter();
+        lsProfiles.setValue(iter, 0, profile.isDefault);
+        lsProfiles.setValue(iter, 1, profile.name);
+        lsProfiles.setValue(iter, 2, profile.uuid);
+    }
 
-	void loadProfiles() {
-		ProfileInfo[] profiles = prfMgr.getProfiles();
-		lsProfiles.clear();
-		foreach (ProfileInfo profile; profiles) {
-			addProfile(profile);
-		}
-	}
+    void loadProfiles() {
+        ProfileInfo[] profiles = prfMgr.getProfiles();
+        lsProfiles.clear();
+        foreach (ProfileInfo profile; profiles) {
+            addProfile(profile);
+        }
+    }
 
 public:
 
-	this(Application app) {
-		super(Orientation.HORIZONTAL, 12);
-		this.app = app;
-		createUI();
-	}
+    this(Application app) {
+        super(Orientation.HORIZONTAL, 12);
+        this.app = app;
+        createUI();
+    }
 
 }
 
@@ -346,33 +345,33 @@ class GlobalPreferences : Grid {
 
 private:
 
-	ComboBox cbThemeVariant;
+    ComboBox cbThemeVariant;
 
-	void createUI() {
-		//Set basic grid settings
-		setColumnSpacing(12);
-		setRowSpacing(6);
-		setMarginTop(18);
-		setMarginBottom(18);
-		setMarginLeft(18);
-		setMarginRight(18);
+    void createUI() {
+        //Set basic grid settings
+        setColumnSpacing(12);
+        setRowSpacing(6);
+        setMarginTop(18);
+        setMarginBottom(18);
+        setMarginLeft(18);
+        setMarginRight(18);
 
-		Settings settings = new Settings(SETTINGS_ID);
+        Settings settings = new Settings(SETTINGS_ID);
 
-		int row = 0;
+        int row = 0;
         Label lblBehavior = new Label("");
         lblBehavior.setUseMarkup(true);
         lblBehavior.setHalign(Align.START);
         lblBehavior.setMarkup(format("<b>%s</b>", _("Behavior")));
         attach(lblBehavior, 0, row, 2, 1);
         row++;
-        
+
         //Prompt on new session
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
-		settings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
+        settings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         attach(cbPrompt, 0, row, 2, 1);
         row++;
-        
+
         Label lblAppearance = new Label("");
         lblAppearance.setUseMarkup(true);
         lblAppearance.setHalign(Align.START);
@@ -380,41 +379,41 @@ private:
         attach(lblAppearance, 0, row, 2, 1);
         row++;
 
-		//Dark Theme
-		attach(createLabel(_("Theme Variant")), 0, row, 1, 1);
+        //Dark Theme
+        attach(createLabel(_("Theme Variant")), 0, row, 1, 1);
 
-		ListStore lsThemeVariant = new ListStore([GType.STRING, GType.STRING]);
+        ListStore lsThemeVariant = new ListStore([GType.STRING, GType.STRING]);
 
-		appendValues(lsThemeVariant, [_("Default"), SETTINGS_THEME_VARIANT_SYSTEM_VALUE]);
-		appendValues(lsThemeVariant, [_("Light"), SETTINGS_THEME_VARIANT_LIGHT_VALUE]);
-		appendValues(lsThemeVariant, [_("Dark"), SETTINGS_THEME_VARIANT_DARK_VALUE]);
+        appendValues(lsThemeVariant, [_("Default"), SETTINGS_THEME_VARIANT_SYSTEM_VALUE]);
+        appendValues(lsThemeVariant, [_("Light"), SETTINGS_THEME_VARIANT_LIGHT_VALUE]);
+        appendValues(lsThemeVariant, [_("Dark"), SETTINGS_THEME_VARIANT_DARK_VALUE]);
 
-		cbThemeVariant = new ComboBox(lsThemeVariant, false);
-		cbThemeVariant.setFocusOnClick(false);
-		cbThemeVariant.setIdColumn(1);
-		CellRendererText cell = new CellRendererText();
-		cell.setAlignment(0, 0);
-		cbThemeVariant.packStart(cell, false);
-		cbThemeVariant.addAttribute(cell, "text", 0);
+        cbThemeVariant = new ComboBox(lsThemeVariant, false);
+        cbThemeVariant.setFocusOnClick(false);
+        cbThemeVariant.setIdColumn(1);
+        CellRendererText cell = new CellRendererText();
+        cell.setAlignment(0, 0);
+        cbThemeVariant.packStart(cell, false);
+        cbThemeVariant.addAttribute(cell, "text", 0);
 
-		settings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+        settings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
 
-		attach(cbThemeVariant, 1, row, 1, 1);
-		row++;
-	}
+        attach(cbThemeVariant, 1, row, 1, 1);
+        row++;
+    }
 
 public:
 
-	this() {
-		super();
-		createUI();
-	}
+    this() {
+        super();
+        createUI();
+    }
 }
 
 // Function to create a right aligned label with appropriate margins
 private Label createLabel(string text) {
-	Label label = new Label(text);
-	label.setHalign(GtkAlign.END);
-	//label.setMarginLeft(12);
-	return label;
+    Label label = new Label(text);
+    label.setHalign(GtkAlign.END);
+    //label.setMarginLeft(12);
+    return label;
 }

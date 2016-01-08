@@ -17,16 +17,16 @@ import std.array;
  * Adapted from grestful, modified to explicitly check index
  */
 void remove(T)(ref T[] array, T element) {
-	long index = array.countUntil(element);
-	if (index >= 0)
-		array = std.algorithm.remove(array, index);
+    long index = array.countUntil(element);
+    if (index >= 0)
+        array = std.algorithm.remove(array, index);
 }
 
 unittest {
-	string[] test = ["test1", "test2", "test3"];
+    string[] test = ["test1", "test2", "test3"];
 
-	remove(test, "test1");
-	assert(test == ["test2", "test3"]);
-	remove(test, "test4");
-	assert(test == ["test2", "test3"]);
+    remove(test, "test1");
+    assert(test == ["test2", "test3"]);
+    remove(test, "test4");
+    assert(test == ["test2", "test3"]);
 }

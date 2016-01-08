@@ -48,7 +48,7 @@ enum SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE = "block";
 enum SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE = "ibeam";
 enum SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE = "underline";
 enum SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY = "cursor-blink-mode";
-immutable string[] SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES = ["system","on","off"];
+immutable string[] SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES = ["system", "on", "off"];
 enum SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY = "use-system-font";
 enum SETTINGS_PROFILE_SYSTEM_FONT_KEY = "font";
 
@@ -65,7 +65,7 @@ enum SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY = "scrollback-unlimited";
 enum SETTINGS_PROFILE_SCROLLBACK_LINES_KEY = "scrollback-lines";
 
 enum SETTINGS_PROFILE_BACKSPACE_BINDING_KEY = "backspace-binding";
-immutable string[] SETTINGS_PROFILE_ERASE_BINDING_VALUES = ["auto","ascii-backspace","ascii-delete","delete-sequence","tty"];
+immutable string[] SETTINGS_PROFILE_ERASE_BINDING_VALUES = ["auto", "ascii-backspace", "ascii-delete", "delete-sequence", "tty"];
 enum SETTINGS_PROFILE_DELETE_BINDING_KEY = "delete-binding";
 enum SETTINGS_PROFILE_CJK_WIDTH_KEY = "cjk-utf8-ambiguous-width";
 immutable string[] SETTINGS_PROFILE_CJK_WIDTH_VALUES = ["narrow", "wide"];
@@ -74,7 +74,9 @@ enum SETTINGS_PROFILE_EXIT_ACTION_KEY = "exit-action";
 enum SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE = "close";
 enum SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE = "restart";
 enum SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE = "hold";
-immutable string[] SETTINGS_PROFILE_EXIT_ACTION_VALUES = [SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE,SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE,SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE];
+immutable string[] SETTINGS_PROFILE_EXIT_ACTION_VALUES = [
+    SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE, SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE, SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE
+];
 enum SETTINGS_PROFILE_LOGIN_SHELL_KEY = "login-shell";
 enum SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY = "use-custom-command";
 enum SETTINGS_PROFILE_CUSTOM_COMMAND_KEY = "custom-command";
@@ -98,24 +100,24 @@ enum SETTINGS_PROFILE_NEW_NAME_VALUE = "Unnamed";
  * Structure that represents a Profile in GSettings
  */
 struct ProfileInfo {
-	/**
+    /**
 	 * Whether this is the default profile
 	 */
-	bool isDefault;
+    bool isDefault;
 
-	/**
+    /**
 	 * The UUID that uniquely identifies this profile
 	 */
-	string uuid;
+    string uuid;
 
-	/**
+    /**
 	 * The human readable name for the profile
 	 */
-	string name;
+    string name;
 
-	bool opEquals(ProfileInfo p) {
-		return (isDefault == p.isDefault && uuid == p.uuid && name == p.name);
-	}
+    bool opEquals(ProfileInfo p) {
+        return (isDefault == p.isDefault && uuid == p.uuid && name == p.name);
+    }
 }
 
 /**
@@ -127,96 +129,96 @@ class ProfileManager {
 
 private:
 
-	enum GSETTINGS_DEFAULT_UUID = "2b7c4080-0ddd-46c5-8f23-563fd3ba789d";
+    enum GSETTINGS_DEFAULT_UUID = "2b7c4080-0ddd-46c5-8f23-563fd3ba789d";
 
-	GSettings gsProfileList;
+    GSettings gsProfileList;
 
-	/**
+    /**
 	 * Initalize initial values
 	 */
-	void init() {
-		if (GSETTINGS_DEFAULT_UUID == getDefaultProfile()) {
-			createProfile(SETTINGS_PROFILE_DEFAULT_NAME_VALUE);
-		}
-	}
+    void init() {
+        if (GSETTINGS_DEFAULT_UUID == getDefaultProfile()) {
+            createProfile(SETTINGS_PROFILE_DEFAULT_NAME_VALUE);
+        }
+    }
 
-	string getProfilePath(string uuid) {
-		return SETTINGS_PROFILE_PATH ~ uuid ~ "/";
-	}
+    string getProfilePath(string uuid) {
+        return SETTINGS_PROFILE_PATH ~ uuid ~ "/";
+    }
 
 package:
-	/**
+    /**
 	 * Creates and initializes the ProfileManager. If no default
 	 * profile exists one is created automatically when this is
 	 * constructed.
 	 */
-	this() {
-		gsProfileList = new GSettings(SETTINGS_PROFILE_LIST_ID);
-		init();
-	}
+    this() {
+        gsProfileList = new GSettings(SETTINGS_PROFILE_LIST_ID);
+        init();
+    }
 
 public:
 
-	/**
+    /**
 	 * Creates a profile in GSettings and optionally sets it as the default.
 	 */
-	ProfileInfo createProfile(string profileName, bool isDefault = false) {
-		string uuid = randomUUID().toString();
-		/*
+    ProfileInfo createProfile(string profileName, bool isDefault = false) {
+        string uuid = randomUUID().toString();
+        /*
 		scope(failure) {
 			error(format("Failed to create profile %s", uuid));
 			return ProfileInfo(false, null, null);
 		}
 		*/
-		//Create Profile
-		GSettings gsProfile = getProfileSettings(uuid);
-		trace("Got profile settings for " ~ uuid);
-		gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
-		trace("Set profile name " ~ profileName);
+        //Create Profile
+        GSettings gsProfile = getProfileSettings(uuid);
+        trace("Got profile settings for " ~ uuid);
+        gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
+        trace("Set profile name " ~ profileName);
 
-		string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
-		trace("Get list of profiles");
+        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        trace("Get list of profiles");
 
-		//Remove default if it is there, only happens on first run
-		//TODO: Remove defaults from preference XML?
-		gx.util.array.remove(ps, GSETTINGS_DEFAULT_UUID);
-		trace("Remove default profile");
+        //Remove default if it is there, only happens on first run
+        //TODO: Remove defaults from preference XML?
+        gx.util.array.remove(ps, GSETTINGS_DEFAULT_UUID);
+        trace("Remove default profile");
 
-		ps ~= uuid;
-		gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
-		trace("Update list to include new profile");
-		if (isDefault) {
-			gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
-		}
-		return ProfileInfo(isDefault, uuid, profileName);
-	}
+        ps ~= uuid;
+        gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
+        trace("Update list to include new profile");
+        if (isDefault) {
+            gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
+        }
+        return ProfileInfo(isDefault, uuid, profileName);
+    }
 
-	/**
+    /**
 	 * Deletes the specified profile in GSettings
 	 *
 	 * @param uuid the identifier of the profile to delete
 	 */
-	void deleteProfile(string uuid) {
-		string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
-		remove(ps, uuid);
-		gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
-		if (uuid == getDefaultProfile() && ps.length > 0) {
-			//Update default profile to be the first one
-			gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, ps[0]);
-		}
-		//TODO - Need to figure out a way to remove path from GSettings
-		//GSettings has no API to do this, terminal is using dconf API directly
-		//This delete removes the profile in the sense it is no longer in the list
-		//but otherwise it stays in dconf, try resetting it to see if resetting to default
-		//effectively removes it
-		GSettings gsProfile = getProfileSettings(uuid);
-		string[] keys = gsProfile.listKeys();
-		foreach (string key; keys) {
-			gsProfile.reset(key);
-		}
-	}
+    void deleteProfile(string uuid) {
+        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        remove(ps, uuid);
+        gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
+        if (uuid == getDefaultProfile() && ps.length > 0) {
+            //Update default profile to be the first one
+            gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, ps[0]);
+        }
+        //TODO - Need to figure out a way to remove path from GSettings
+        //GSettings has no API to do this, terminal is using dconf API directly
+        //This delete removes the profile in the sense it is no longer in the list
+        //but otherwise it stays in dconf, try resetting it to see if resetting to default
+        //effectively removes it
+        GSettings gsProfile = getProfileSettings(uuid);
+        string[] keys = gsProfile.listKeys();
+        foreach (string key; keys) {
+            gsProfile.reset(key);
+        }
+    }
 
-	/**
+    /**
 	 * Returns information about the specified profile. Note there is
 	 * no point calling this if you just are going to the Profile Settings
 	 * object anyway, just get the settings object and retrieve the information
@@ -224,33 +226,34 @@ public:
 	 *
 	 * @param uuid The identifier of the profile to retrieve
 	 */
-	ProfileInfo getProfile(string uuid) {
-		GSettings gsProfile = getProfileSettings(uuid);
-		string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
-		return ProfileInfo(uuid == getDefaultProfile(), uuid, name);
-	}
+    ProfileInfo getProfile(string uuid) {
+        GSettings gsProfile = getProfileSettings(uuid);
+        string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+        return ProfileInfo(uuid == getDefaultProfile(), uuid, name);
+    }
 
-	/**
+    /**
 	 * Returns a list of profiles
 	 */
-	ProfileInfo[] getProfiles() {
-		ProfileInfo[] results;
-		string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
-		foreach (string uuid; ps) {
-			results ~= getProfile(uuid);
-		}
-		return results;
-	}
-    
+    ProfileInfo[] getProfiles() {
+        ProfileInfo[] results;
+        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        foreach (string uuid; ps) {
+            results ~= getProfile(uuid);
+        }
+        return results;
+    }
+
     string getProfileUUIDFromName(string profileName) {
         ProfileInfo[] profiles = getProfiles();
-        foreach(profile; profiles) {
-            if (profile.name == profileName) return profile.uuid;
+        foreach (profile; profiles) {
+            if (profile.name == profileName)
+                return profile.uuid;
         }
         return null;
     }
 
-	/**
+    /**
 	 * Returns the GSettings object that corresponds to a specific profile. This
 	 * object should not be shared between multiple classes. Also note that GtkD
 	 * does not allow you to remove event handlers thus care should be taken to only
@@ -258,24 +261,24 @@ public:
 	 *
 	 * @param uuid The identifier of the profile
 	 */
-	GSettings getProfileSettings(string uuid) {
-		return new GSettings(SETTINGS_PROFILE_ID, getProfilePath(uuid));
-	}
+    GSettings getProfileSettings(string uuid) {
+        return new GSettings(SETTINGS_PROFILE_ID, getProfilePath(uuid));
+    }
 
-	/**
+    /**
 	 * Returns the UUID of the default profile.
 	 */
-	string getDefaultProfile() {
-		return gsProfileList.getString(SETTINGS_PROFILE_DEFAULT_KEY);
-	}
+    string getDefaultProfile() {
+        return gsProfileList.getString(SETTINGS_PROFILE_DEFAULT_KEY);
+    }
 
-	void setDefaultProfile(string uuid) {
-		gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
-	}
+    void setDefaultProfile(string uuid) {
+        gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
+    }
 }
 
 void initProfileManager() {
-	prfMgr = new ProfileManager();
+    prfMgr = new ProfileManager();
 }
 
 /**
@@ -289,7 +292,7 @@ void initProfileManager() {
 ProfileManager prfMgr;
 
 unittest {
-	ProfileInfo pi1 = ProfileInfo(false, "1234", "test");
-	ProfileInfo pi2 = ProfileInfo(false, "1234", "test");
-	assert(pi1 == pi2);
+    ProfileInfo pi1 = ProfileInfo(false, "1234", "test");
+    ProfileInfo pi2 = ProfileInfo(false, "1234", "test");
+    assert(pi1 == pi2);
 }

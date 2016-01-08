@@ -15,8 +15,8 @@ import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
-import glib.Variant: GVariant = Variant;
-import glib.VariantType: GVariantType = VariantType;
+import glib.Variant : GVariant = Variant;
+import glib.VariantType : GVariantType = VariantType;
 
 import gtk.AboutDialog;
 import gtk.Application;
@@ -41,51 +41,51 @@ class Terminix : Application {
 
 private:
 
-	enum ACTION_PREFIX = "app";
+    enum ACTION_PREFIX = "app";
 
-	enum ACTION_NEW_WINDOW = "new-window";
-	enum ACTION_NEW_SESSION = "new-session";
+    enum ACTION_NEW_WINDOW = "new-window";
+    enum ACTION_NEW_SESSION = "new-session";
     enum ACTION_ACTIVATE_SESSION = "activate-session";
-	enum ACTION_PREFERENCES = "preferences";
-	enum ACTION_ABOUT = "about";
-	enum ACTION_QUIT = "quit";
+    enum ACTION_PREFERENCES = "preferences";
+    enum ACTION_ABOUT = "about";
+    enum ACTION_QUIT = "quit";
 
-	uint prefId = 0;
-	GSettings gsShortcuts;
-	GSettings gsGeneral;
-    
-    CommandParameters cp;    
+    uint prefId = 0;
+    GSettings gsShortcuts;
+    GSettings gsGeneral;
 
-	/**
+    CommandParameters cp;
+
+    /**
      * Load and register binary resource file and add css files as providers
      */
-	void loadResources() {
-		//Load resources
-		if (findResource(APPLICATION_RESOURCES, true)) {
-			foreach (cssFile; APPLICATION_CSS_RESOURCES) {
-				string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
-				if (!addCssProvider(cssURI)) {
-					error(format("Could not load CSS %s", cssURI));
-				}
-			}
-		}
-	}
+    void loadResources() {
+        //Load resources
+        if (findResource(APPLICATION_RESOURCES, true)) {
+            foreach (cssFile; APPLICATION_CSS_RESOURCES) {
+                string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
+                if (!addCssProvider(cssURI)) {
+                    error(format("Could not load CSS %s", cssURI));
+                }
+            }
+        }
+    }
 
-	/**
+    /**
      * Installs the application menu. This is the menu that drops down in gnome-shell when you click the application
      * name next to Activities.
      * 
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
-	void installAppMenu() {
-		Menu appMenu = new Menu();
-        
+    void installAppMenu() {
+        Menu appMenu = new Menu();
+
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction sa) {
             ulong l;
             string sessionID = value.getString(l);
             trace("activate-session triggered for session " ~ sessionID);
             Window[] windows = getAppWindows();
-            foreach(window; windows) {
+            foreach (window; windows) {
                 AppWindow aw = cast(AppWindow) window;
                 if (aw !is null && aw.activateSession(sessionID)) {
                     aw.present();
@@ -94,16 +94,19 @@ private:
             }
         }, new GVariantType("s"));
 
-		registerAction(this, ACTION_PREFIX, ACTION_NEW_SESSION, null, delegate(GVariant, SimpleAction) { this.onCreateNewSession(); });
+        registerAction(this, ACTION_PREFIX, ACTION_NEW_SESSION, null, delegate(GVariant, SimpleAction) { this.onCreateNewSession(); });
 
-		registerAction(this, ACTION_PREFIX, ACTION_NEW_WINDOW, null, delegate(GVariant, SimpleAction) { this.onCreateNewWindow(); });
+        registerAction(this, ACTION_PREFIX, ACTION_NEW_WINDOW, null, delegate(GVariant, SimpleAction) { this.onCreateNewWindow(); });
 
-		registerAction(this, ACTION_PREFIX, ACTION_PREFERENCES, null, delegate(GVariant, SimpleAction) { this.onShowPreferences(); });
+        registerAction(this, ACTION_PREFIX, ACTION_PREFERENCES, null, delegate(GVariant, SimpleAction) { this.onShowPreferences(); });
 
-		registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { this.onShowAboutDialog(); });
+        registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { this.onShowAboutDialog(); });
 
-		registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { foreach (Window window; getAppWindows()) {
-			window.close();}  });
+        registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) {
+            foreach (Window window; getAppWindows()) {
+                window.close();
+            }
+        });
 
         Menu newSection = new Menu();
         newSection.append(_("New Session"), getActionDetailedName(ACTION_PREFIX, ACTION_NEW_SESSION));
@@ -185,8 +188,10 @@ private:
 
     void createAppWindow(bool onActivate = false) {
         AppWindow window = new AppWindow(this);
-        if (onActivate) window.initialize(cp);
-        else window.initialize();
+        if (onActivate)
+            window.initialize(cp);
+        else
+            window.initialize();
         this.addWindow(window);
         window.showAll();
     }
@@ -200,7 +205,8 @@ private:
         */
         Widget[] widgets = getWidgets(getWindows());
         Window[] windows = new Window[widgets.length];
-        foreach(i,widget;widgets) windows[i] = cast(Window) widgets[i];
+        foreach (i, widget; widgets)
+            windows[i] = cast(Window) widgets[i];
         return windows;
     }
 
@@ -217,8 +223,7 @@ private:
             trace("Updating shortcut '" ~ keyToDetailedActionName(key) ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
             setAccelsForAction(keyToDetailedActionName(key), [gsShortcuts.getString(key)]);
             string[] values = getAccelsForAction(keyToDetailedActionName(key));
-            foreach (value;
-            values) {
+            foreach (value; values) {
                 trace("Accel " ~ value ~ " for action " ~ keyToDetailedActionName(key));
             }
         });
@@ -237,7 +242,7 @@ private:
     void applyPreferences() {
         Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY)));
     }
-    
+
 public:
 
     this(CommandParameters cp) {

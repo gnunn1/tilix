@@ -25,7 +25,7 @@ enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");
 enum APPLICATION_LICENSE = _(
-	"This Source Code Form is subject to the terms of the Mozilla Public " "License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at " "http://mozilla.org/MPL/2.0/.");
+        "This Source Code Form is subject to the terms of the Mozilla Public " "License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at " "http://mozilla.org/MPL/2.0/.");
 
 immutable string[] APPLICATION_AUTHORS = ["Gerald Nunn"];
 immutable string[] APPLICATION_ARTISTS = [];

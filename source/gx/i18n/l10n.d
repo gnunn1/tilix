@@ -9,5 +9,5 @@ module gx.i18n.l10n;
  * and po files for translation
  */
 string _(string text) {
-	return text;
+    return text;
 }
