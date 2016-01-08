@@ -237,7 +237,7 @@ private:
     void applyPreferences() {
         Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY)));
     }
-
+    
 public:
 
     this(CommandParameters cp) {

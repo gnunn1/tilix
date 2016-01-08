@@ -51,6 +51,7 @@ import gx.gtk.tablabel;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
+import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.cmdparams;
 import gx.terminix.preferences;
@@ -268,10 +269,26 @@ private:
     
     void addSession(Session session) {
         session.addOnSessionClose(&onSessionClose);
+        session.addOnIsActionAllowed(&onSessionIsActionAllowed);
+        session.addOnSessionDetach(&onSessionDetach);
 		int index = nb.appendPage(session, session.name);
 		nb.showAll();
 		nb.setCurrentPage(index);
         updateUIState();
+    }
+    
+    void closeSession(Session session) {
+        //remove event handlers
+        session.removeOnSessionClose(&onSessionClose);
+        session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
+        session.removeOnSessionDetach(&onSessionDetach);
+        //remove session from Notebook
+		nb.remove(session);
+		updateUIState();
+		//Close Window if there are no pages
+		if (nb.getNPages() == 0) {
+			this.close();
+		}
     }
 
 	void updateUIState() {
@@ -286,13 +303,30 @@ private:
 	}
 
 	void onSessionClose(Session session) {
-		nb.remove(session);
-		updateUIState();
-		//Close Window if there are no pages
-		if (nb.getNPages() == 0) {
-			this.close();
-		}
+        closeSession(session);
 	}
+    
+    void onSessionDetach(Session session, int x, int y, bool isNewSession) {
+        //Detach an existing sessio, let's close it
+        if (!isNewSession) {
+            closeSession(session);
+        }
+        AppWindow window = new AppWindow(this.getApplication());
+        getApplication.addWindow(window);
+        window.initialize(session);
+        window.move(x, y);
+        window.showAll();
+    }
+    
+    bool onSessionIsActionAllowed(ActionType actionType) {
+        switch (actionType) {
+            case ActionType.DETACH:
+                //Only allow if there is more then one session
+                return nb.getNPages() > 1;
+            default:
+                return false;      
+        }
+    }
 
 	/**
      * Dynamically build session list menu items to show in list popover
@@ -430,6 +464,10 @@ public:
     void initialize() {
         //Create an initial session using default session name and profile
         createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+    }
+    
+    void initialize(Session session) {
+        addSession(session);
     }
     
     /**

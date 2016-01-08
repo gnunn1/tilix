@@ -76,6 +76,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
 
+import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
@@ -169,6 +170,8 @@ enum TERMINAL_DIR = "${directory}";
 class Terminal : Box {
 
 private:
+
+    mixin IsActionAllowedHandler;
 
 	OnTerminalInFocus[] terminalInFocusDelegates;
 	OnTerminalClose[] terminalCloseDelegates;
@@ -789,6 +792,9 @@ private:
     bool onTitleDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
         if (dr == GtkDragResult.NO_TARGET) {
+            //Only allow detach if whole heirarchy agrees (application, window, session)
+            if (!notifyIsActionAllowed(ActionType.DETACH)) return false;
+            trace("Detaching terminal");
             Screen screen;
             int x, y;
             dc.getDevice().getPosition(screen, x, y);
@@ -835,7 +841,8 @@ private:
         
         dragInfo = DragInfo(true, dq);
         vte.queueDraw();
-        trace(format("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq));
+        //Uncomment this if debugging motion otherwise generates annoying amount of trace noise
+        //trace(format("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq));
         
         return true;
     }
@@ -930,7 +937,6 @@ private:
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
         //Dragging happening?
         if (!dragInfo.isDragActive) return false;
-        trace("Drawing rectangle");
         RGBA bg;
         vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
         cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);

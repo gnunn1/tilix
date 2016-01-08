@@ -10,7 +10,7 @@ import std.string;
 
 import gio.ActionMapIF;
 import gio.SimpleAction;
-import gio.Settings: GSettings = Settings;
+import gio.Settings : GSettings = Settings;
 
 import gtk.Application;
 import gtk.ApplicationWindow;
@@ -39,17 +39,17 @@ string getActionKey(string prefix, string id) {
   * Given a GSettings key, returns the coresponding action prefix and id.
   */
 void getActionNameFromKey(string key, out string prefix, out string id) {
-    ptrdiff_t index = key.indexOf( "-");
-    if (index>=0) {
-        prefix = key[0..index];
-        id = key[index+1..$];
+    ptrdiff_t index = key.indexOf("-");
+    if (index >= 0) {
+        prefix = key[0 .. index];
+        id = key[index + 1 .. $];
     }
 }
 
 string keyToDetailedActionName(string key) {
     string prefix, id;
     getActionNameFromKey(key, prefix, id);
-    return prefix ~ "." ~ id; 
+    return prefix ~ "." ~ id;
 }
 
 /**
@@ -70,27 +70,22 @@ string keyToDetailedActionName(string key) {
     *
     * Returns: The registered action.
     */
-SimpleAction registerActionWithSettings(
-    ActionMapIF actionMap,
-    string prefix,
-    string id,
-    GSettings settings,
-    void delegate(glib.Variant.Variant, SimpleAction) cbActivate = null,
-    glib.VariantType.VariantType type = null,
-    glib.Variant.Variant state = null,
-    void delegate(glib.Variant.Variant, SimpleAction) cbStateChange = null
-    ) {
-    
+SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(glib.Variant.Variant,
+    SimpleAction) cbActivate = null, glib.VariantType.VariantType type = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+    SimpleAction) cbStateChange = null) {
+
     string[] shortcuts;
     try {
         string shortcut = settings.getString(getActionKey(prefix, id));
-        if (shortcut.length > 0 && shortcut != SHORTCUT_DISABLED) shortcuts = [shortcut];  
-    } catch (Exception e)  {
+        if (shortcut.length > 0 && shortcut != SHORTCUT_DISABLED)
+            shortcuts = [shortcut];
+    }
+    catch (Exception e) {
         //TODO - This does not work, figure out to catch GLib-GIO-ERROR
         trace(format("No shortcut for action %s.%s", prefix, id));
     }
-    
-    return registerAction(actionMap, prefix, id, shortcuts, cbActivate, type, state, cbStateChange);    
+
+    return registerAction(actionMap, prefix, id, shortcuts, cbActivate, type, state, cbStateChange);
 }
 
 /**
@@ -111,36 +106,29 @@ SimpleAction registerActionWithSettings(
     *
     * Returns: The registered action.
     */
-SimpleAction registerAction(
-    ActionMapIF actionMap,
-    string prefix,
-    string id,
-    string[] accelerators = null,
-    void delegate(glib.Variant.Variant, SimpleAction) cbActivate = null,
-    glib.VariantType.VariantType parameterType = null,
-    glib.Variant.Variant state = null,
-    void delegate(glib.Variant.Variant, SimpleAction) cbStateChange = null
-    ) {
+SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(glib.Variant.Variant,
+    SimpleAction) cbActivate = null, glib.VariantType.VariantType parameterType = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+    SimpleAction) cbStateChange = null) {
     SimpleAction action;
     if (state is null)
         action = new SimpleAction(id, parameterType);
     else {
         action = new SimpleAction(id, parameterType, state);
     }
-    
+
     if (cbActivate !is null)
         action.addOnActivate(cbActivate);
-    
+
     if (cbStateChange !is null)
         action.addOnChangeState(cbStateChange);
-    
+
     actionMap.addAction(action);
-    
+
     if (accelerators.length > 0) {
         Application app = cast(Application) Application.getDefault();
         if (app !is null) {
-            app.setAccelsForAction(prefix.length==0 ? id : getActionDetailedName(prefix,id), accelerators); 
-        } else { 
+            app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);
+        } else {
             error(format("Accelerator for action %s could not be registered", id));
         }
     }

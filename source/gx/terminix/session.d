@@ -38,6 +38,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
 
+import gx.terminix.common;
 import gx.terminix.preferences;
 import gx.terminix.terminal.terminal;
 
@@ -46,6 +47,8 @@ import gx.terminix.terminal.terminal;
  * listens to this event and removes the session when received.
  */
 alias OnSessionClose = void delegate(Session session);
+
+alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewSession);
 
 /**
  * An exception that is thrown when a session cannot be created, typically
@@ -83,6 +86,9 @@ class Session : Box {
 
 private:
 
+    mixin IsActionAllowedHandler;
+    
+    OnSessionDetach[] sessionDetachDelegates;
 	OnSessionClose[] sessionCloseDelegates;
 
 	Terminal[] terminals;
@@ -97,17 +103,28 @@ private:
      * Creates the session user interface
      */
 	void createUI(string profileUUID, string workingDir, bool firstRun) {
-		Terminal terminal = createTerminal(profileUUID);
-		add(terminal);
-		terminal.initTerminal(workingDir, firstRun);
-		lastFocused = terminal;
+        Terminal terminal = createTerminal(profileUUID);
+        add(terminal);
+        terminal.initTerminal(workingDir, firstRun);
+        lastFocused = terminal;
 	}
+    
+    void createUI(Terminal terminal) {
+        add(terminal);
+        lastFocused = terminal;        
+    }
 
 	void notifySessionClose() {
-		foreach (OnSessionClose dlg; sessionCloseDelegates) {
+		foreach (dlg; sessionCloseDelegates) {
 			dlg(this);
 		}
 	}
+    
+    void notifySessionDetach(Session session, int x, int y, bool isNewSession) {
+		foreach (dlg; sessionDetachDelegates) {
+			dlg(session, x, y, isNewSession);
+		}
+    }
 
     void sequenceTerminalID() {
         foreach(i, terminal; terminals) {
@@ -125,11 +142,13 @@ private:
 	Terminal createTerminal(string profileUUID) {
 		Terminal terminal = new Terminal(profileUUID);
 		terminal.addOnTerminalClose(&onTerminalClose);
+        terminal.addOnTerminalRequestDetach(&onTerminalRequestDetach);
 		terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
 		terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.addOnTerminalNotificationReceived(&onTerminalNotificationReceived);
+        terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
 		terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
@@ -288,12 +307,13 @@ private:
 			lastFocused = null;
 		//Remove delegates
 		terminal.removeOnTerminalClose(&onTerminalClose);
+        terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
 		terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
 		terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.removeOnTerminalNotificationReceived(&onTerminalNotificationReceived);
-
+        terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
 		//Only one terminal open, close session
 		if (terminals.length == 1) {
 			notifySessionClose();
@@ -306,6 +326,40 @@ private:
         sequenceTerminalID();        
 		showAll();
 	}
+    
+    bool onTerminalIsActionAllowed(ActionType actionType) {
+        switch (actionType) {
+            case ActionType.DETACH:
+                //Ok this is a bit weird but we only only a terminal to be detached
+                //if a session has more then one terminal in it OR the application
+                //has multiple sessions. 
+                return terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH);
+            default:
+                return false;      
+        }
+    }
+    
+    /**
+     * Request from the terminal to detach itself into a new window,
+     * typically a result of a drag operation
+     */
+    void onTerminalRequestDetach(Terminal terminal, int x, int y) {
+        //Only one terminal, just detach session as a whole
+        if (terminals.length == 1) {
+            notifySessionDetach(this, x, y, false);    
+        } else {
+            unparentTerminal(terminal);
+            //Remove terminal
+            gx.util.array.remove(terminals, terminal);
+            
+            Session session = new Session(this._name, terminal);
+            notifySessionDetach(session, x, y, true);
+        
+            //Update terminal IDs to fill in hole
+            sequenceTerminalID();        
+            showAll();
+        }
+    }
     
 	void onTerminalInFocus(Terminal terminal) {
 		//trace("Focus noted");
@@ -476,7 +530,19 @@ private:
         trace(child.toPrettyString());
         add(parseNode(child, sizeInfo));
     }
-    
+
+private:
+
+    /**
+     * Creates a new session with the specified terminal
+     */
+    this(string sessionName, Terminal terminal) {
+		super(Orientation.VERTICAL, 0);
+        _sessionID = randomUUID().toString();
+		_name = sessionName;
+		createUI(terminal);
+    }
+  
 public:
 
     /**
@@ -638,6 +704,14 @@ public:
 
 	void removeOnSessionClose(OnSessionClose dlg) {
 		gx.util.array.remove(sessionCloseDelegates, dlg);
+	}
+
+	void addOnSessionDetach(OnSessionDetach dlg) {
+		sessionDetachDelegates ~= dlg;
+	}
+
+	void removeOnSessionDetach(OnSessionDetach dlg) {
+		gx.util.array.remove(sessionDetachDelegates, dlg);
 	}
 }
 
