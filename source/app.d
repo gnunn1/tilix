@@ -4,13 +4,14 @@
  */
 import std.stdio;
 
-import std.conv;
 import std.experimental.logger;
+import std.format;
 
 import gtk.Main;
 import gtk.Version;
 import gtk.MessageDialog;
 
+import gx.i18n.l10n;
 import gx.gtk.util;
 
 import gx.terminix.application;
@@ -30,10 +31,7 @@ int main(string[] args) {
 			DialogFlags.MODAL,
 			MessageType.ERROR,
 			ButtonsType.OK,
-			"Your GTK version is too old, you need at least GTK " ~
-			to!string(GTK_VERSION_MAJOR) ~ '.' ~
-			to!string(GTK_VERSION_MINOR) ~ '.' ~
-			to!string(GTK_VERSION_PATCH) ~ '!',
+            format(_("Your GTK version is too old, you need at least GTK %d.%d.%d!"), GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH),
 			null
 			);
 		

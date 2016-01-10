@@ -134,19 +134,6 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
 
 /**
- * Triggered when the terminal receives a notification that a command is completed. The terminal
- * will not send the notifications if it has focus. 
- *
- * Note that this functionality depends on having the Fedora patched VTE installed rather
- * then the default VTE.
- *
- * See:
- * http://pkgs.fedoraproject.org/cgit/vte291.git/tree/vte291-command-notify.patch
- * http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/gnome-terminal-command-notify.patch
- */
-alias OnTerminalNotificationReceived = void delegate(Terminal terminal, string summary, string _body);
-
-/**
  * Constants used for the various variables permitted when defining
  * the terminal title.
  */
@@ -170,7 +157,11 @@ class Terminal : Box {
 
 private:
 
+    // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
+    
+    // mixin for managing process notification event delegates     
+    mixin ProcessNotificationHandler;
 
     OnTerminalInFocus[] terminalInFocusDelegates;
     OnTerminalClose[] terminalCloseDelegates;
@@ -178,7 +169,6 @@ private:
     OnTerminalRequestMove[] terminalRequestMoveDelegates;
     OnTerminalRequestDetach[] terminalRequestDetachDelegates;
     OnTerminalKeyPress[] terminalKeyPressDelegates;
-    OnTerminalNotificationReceived[] terminalNotificationReceivedDelegates;
 
     SearchRevealer rFind;
 
@@ -365,9 +355,11 @@ private:
 
         GMenuItem splitH = new GMenuItem(null, ACTION_PREFIX ~ "." ~ ACTION_SPLIT_H);
         splitH.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-right-symbolic"));
+        splitH.setAttributeValue("label", new GVariant(_("Split Right")));
 
         GMenuItem splitV = new GMenuItem(null, ACTION_PREFIX ~ "." ~ ACTION_SPLIT_V);
         splitV.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-down-symbolic"));
+        splitV.setAttributeValue("label", new GVariant(_("Split Down")));
 
         GMenu splitSection = new GMenu();
         splitSection.appendItem(splitH);
@@ -415,11 +407,7 @@ private:
         vte.addOnFocusOut(&onTerminalFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (titleInitialized) {
-                Window window = cast(Window) terminal.getToplevel();
-                if (window !is null && !window.isActive()) {
-                    foreach (dlg; terminalNotificationReceivedDelegates)
-                        dlg(this, summary, _body);
-                }
+                notifyProcessNotification(summary, _body, terminalUUID);
             }
         });
 
@@ -1129,14 +1117,6 @@ public:
 
     void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
         gx.util.array.remove(terminalKeyPressDelegates, dlg);
-    }
-
-    void addOnTerminalNotificationReceived(OnTerminalNotificationReceived dlg) {
-        terminalNotificationReceivedDelegates ~= dlg;
-    }
-
-    void removeOnTerminalNotificationReceived(OnTerminalNotificationReceived dlg) {
-        gx.util.array.remove(terminalNotificationReceivedDelegates, dlg);
     }
 }
 

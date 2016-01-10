@@ -13,9 +13,6 @@ import std.uuid;
 import gdk.Atom;
 import gdk.Event;
 
-import gio.Application;
-import gio.Notification;
-
 import glib.Util;
 
 import gtk.Box;
@@ -86,7 +83,11 @@ class Session : Box {
 
 private:
 
+    // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
+    
+    // mixin for managing process notification event delegates     
+    mixin ProcessNotificationHandler;
 
     OnSessionDetach[] sessionDetachDelegates;
     OnSessionClose[] sessionCloseDelegates;
@@ -95,10 +96,9 @@ private:
     string _name;
     bool _synchronizeInput;
 
-    string _sessionID;
-
+    string _sessionUUID;
+    
     Terminal lastFocused;
-
     /**
      * Creates the session user interface
      */
@@ -147,7 +147,7 @@ private:
         terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
-        terminal.addOnTerminalNotificationReceived(&onTerminalNotificationReceived);
+        terminal.addOnProcessNotification(&onTerminalProcessNotification);
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
@@ -313,7 +313,7 @@ private:
         terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
-        terminal.removeOnTerminalNotificationReceived(&onTerminalNotificationReceived);
+        terminal.removeOnProcessNotification(&onTerminalProcessNotification);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
         //Only one terminal open, close session
         if (terminals.length == 1) {
@@ -327,6 +327,10 @@ private:
         sequenceTerminalID();
         showAll();
     }
+    
+    void onTerminalProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
+        notifyProcessNotification(summary, _body, terminalUUID, _sessionUUID);
+    }    
 
     bool onTerminalIsActionAllowed(ActionType actionType) {
         switch (actionType) {
@@ -383,19 +387,6 @@ private:
                 newEvent.key.sendEvent = 1;
                 terminal.echoKeyPressEvent(newEvent);
             }
-        }
-    }
-
-    void onTerminalNotificationReceived(Terminal terminal, string summary, string _body) {
-        trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
-        Window window = cast(Window) terminal.getToplevel();
-        if (window !is null && !window.isActive()) {
-            Notification n = new Notification(_(summary));
-            n.setBody(_body);
-            n.setDefaultAction("app.activate-session::" ~ _sessionID);
-            Application app = Application.getDefault();
-            app.sendNotification("command-completed", n);
-            trace("Notification sent from app " ~ app.getApplicationId());
         }
     }
 
@@ -545,7 +536,7 @@ private:
      */
     this(string sessionName, Terminal terminal) {
         super(Orientation.VERTICAL, 0);
-        _sessionID = randomUUID().toString();
+        _sessionUUID = randomUUID().toString();
         _name = sessionName;
         createUI(terminal);
     }
@@ -563,7 +554,7 @@ public:
      */
     this(string name, string profileUUID, string workingDir, bool firstRun) {
         super(Orientation.VERTICAL, 0);
-        _sessionID = randomUUID().toString();
+        _sessionUUID = randomUUID().toString();
         _name = name;
         createUI(profileUUID, workingDir, firstRun);
     }
@@ -581,7 +572,7 @@ public:
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
         super(Orientation.VERTICAL, 0);
-        _sessionID = randomUUID().toString();
+        _sessionUUID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
@@ -624,8 +615,8 @@ public:
     /**
      * Unique and immutable session ID
      */
-    @property string sessionID() {
-        return _sessionID;
+    @property string sessionUUID() {
+        return _sessionUUID;
     }
 
     /**
@@ -702,10 +693,25 @@ public:
     /**
      * Focus the terminal designated by the ID
      */
-    void focusTerminal(ulong terminalID) {
+    bool focusTerminal(ulong terminalID) {
         if (terminalID >= 0 && terminalID < terminals.length) {
             terminals[terminalID].focusTerminal();
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * Focus the terminal designated by the UUID
+     */
+    bool focusTerminal(string terminalUUID) {
+        foreach(terminal; terminals) {
+            if (terminal.terminalUUID == terminalUUID) {
+                terminal.focusTerminal();
+                return true;
+            }
+        }
+        return false;
     }
 
     void addOnSessionClose(OnSessionClose dlg) {
@@ -753,6 +759,7 @@ private:
         eName = new Entry();
         eName.setText(name);
         eName.setMaxWidthChars(30);
+        eName.setActivatesDefault(true);
         grid.attach(eName, 1, 0, 1, 1);
 
         label = new Label(format("<b>%s</b>", _("Profile")));
@@ -820,4 +827,4 @@ struct SessionSizeInfo {
             return to!int(scaledPosition * height);
         }
     }
-}
+} 

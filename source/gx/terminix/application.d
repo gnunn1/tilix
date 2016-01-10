@@ -82,12 +82,12 @@ private:
 
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction sa) {
             ulong l;
-            string sessionID = value.getString(l);
-            trace("activate-session triggered for session " ~ sessionID);
+            string sessionUUID = value.getString(l);
+            trace("activate-session triggered for session " ~ sessionUUID);
             Window[] windows = getAppWindows();
             foreach (window; windows) {
                 AppWindow aw = cast(AppWindow) window;
-                if (aw !is null && aw.activateSession(sessionID)) {
+                if (aw !is null && aw.activateSession(sessionUUID)) {
                     aw.present();
                     break;
                 }

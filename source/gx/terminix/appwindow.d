@@ -23,6 +23,7 @@ import gio.ActionIF;
 import gio.ActionMapIF;
 import gio.Menu : GMenu = Menu;
 import gio.MenuItem : GMenuItem = MenuItem;
+import gio.Notification;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 import gio.SimpleActionGroup;
@@ -33,21 +34,25 @@ import glib.VariantType : GVariantType = VariantType;
 
 import gtk.Box;
 import gtk.Button;
+import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
 import gtk.HeaderBar;
 import gtk.Image;
+import gtk.Label;
+import gtk.ListBox;
+import gtk.ListBoxRow;
 import gtk.MenuButton;
 import gtk.MessageDialog;
 import gtk.Notebook;
 import gtk.Popover;
+import gtk.ScrolledWindow;
 import gtk.Widget;
 
 import vte.Pty;
 import vte.Terminal;
 
 import gx.gtk.actions;
-import gx.gtk.tablabel;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -92,6 +97,12 @@ private:
     MenuButton mbSessionActions;
     SimpleAction saSyncInput;
 
+    MenuButton mbSessionNotifications;
+    Label lblNotifications;
+    SessionNotificationPopover poSessionNotifications;
+
+    SessionNotification[string] sessionNotifications;
+
     /**
      * Create the user interface
      */
@@ -133,11 +144,28 @@ private:
         mbSessionActions.setPopover(createPopover(mbSessionActions));
         hb.packEnd(mbSessionActions);
 
+        //Session Notification
+        mbSessionNotifications = new MenuButton();
+        mbSessionNotifications.setFocusOnClick(false);
+        mbSessionNotifications.setVisible(false);
+        lblNotifications = new Label("0");
+        lblNotifications.getStyleContext().addClass("terminix-notification-counter");
+        lblNotifications.show();
+        mbSessionNotifications.add(lblNotifications);
+        mbSessionNotifications.setNoShowAll(true);
+        poSessionNotifications = new SessionNotificationPopover(mbSessionNotifications, this);
+        mbSessionNotifications.setPopover(poSessionNotifications);
+        mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
+
+        hb.packEnd(mbSessionNotifications);
+
         //Notebook
         nb = new Notebook();
         nb.setShowTabs(false);
         nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
             Session session = cast(Session) page;
+            //Remove any sessions associated with current page
+            sessionNotifications.remove(session.sessionUUID);
             updateTitle(session);
             updateUIState();
             session.focusRestore();
@@ -262,6 +290,7 @@ private:
         session.addOnSessionClose(&onSessionClose);
         session.addOnIsActionAllowed(&onSessionIsActionAllowed);
         session.addOnSessionDetach(&onSessionDetach);
+        session.addOnProcessNotification(&onSessionProcessNotification);
         int index = nb.appendPage(session, session.name);
         nb.showAll();
         nb.setCurrentPage(index);
@@ -273,6 +302,7 @@ private:
         session.removeOnSessionClose(&onSessionClose);
         session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
         session.removeOnSessionDetach(&onSessionDetach);
+        session.removeOnProcessNotification(&onSessionProcessNotification);
         //remove session from Notebook
         nb.remove(session);
         updateUIState();
@@ -283,6 +313,18 @@ private:
     }
 
     void updateUIState() {
+        if (sessionNotifications.length > 0) {
+            ulong count = 0;
+            foreach (sn; sessionNotifications.values) {
+                count = count + sn.messages.length;
+                trace(format("Entry %s has %d messages", sn.sessionUUID, sn.messages.length));
+            }
+            trace(format("Total Notifications %d for entries %d", count, sessionNotifications.length));
+            lblNotifications.setText(to!string(count));
+            mbSessionNotifications.show();
+        } else {
+            mbSessionNotifications.hide();
+        }
     }
 
     void updateTitle(Session session) {
@@ -316,6 +358,34 @@ private:
             return nb.getNPages() > 1;
         default:
             return false;
+        }
+    }
+
+    void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {
+        trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
+        //If window not active, send notification to shell
+        if (!isActive()) {
+            Notification n = new Notification(_(summary));
+            n.setBody(_body);
+            n.setDefaultAction("app.activate-session::" ~ sessionUUID);
+            getApplication().sendNotification("command-completed", n);
+            //if session not visible send to local handler
+        } else if (sessionUUID != getCurrentSession().sessionUUID) {
+            trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().sessionUUID));
+            //handle session level notifications here
+            ProcessNotificationMessage msg = ProcessNotificationMessage(terminalUUID, summary, _body);
+            if (sessionUUID in sessionNotifications) {
+                SessionNotification sn = sessionNotifications[sessionUUID];
+                sn.messages ~= msg;
+                trace("Updated with new notification " ~ to!string(sn.messages.length));
+            } else {
+                SessionNotification sn = new SessionNotification(sessionUUID);
+                sn.messages ~= msg;
+                sessionNotifications[sessionUUID] = sn;
+                trace("Session UUID " ~ sn.sessionUUID);
+                trace("Messages " ~ to!string(sn.messages.length));
+            }
+            updateUIState();
         }
     }
 
@@ -366,6 +436,16 @@ private:
             return null;
         else
             return cast(Session) nb.getNthPage(nb.getCurrentPage);
+    }
+
+    Session getSession(string sessionUUID) {
+        for (int i = 0; i < nb.getNPages(); i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            if (session.sessionUUID == sessionUUID) {
+                return session;
+            }
+        }
+        return null;
     }
 
     void addFilters(FileChooserDialog fcd) {
@@ -489,17 +569,23 @@ public:
             workingDir = cp.workingDir;
         else
             workingDir = Util.getHomeDir();
-
         createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
 
-    bool activateSession(string sessionID) {
+    bool activateSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = cast(Session) nb.getNthPage(i);
-            if (session.sessionID == sessionID) {
+            if (session.sessionUUID == sessionUUID) {
                 nb.setCurrentPage(i);
                 return true;
             }
+        }
+        return false;
+    }
+
+    bool activateTerminal(string sessionUUID, string terminalUUID) {
+        if (activateSession(sessionUUID)) {
+            return getCurrentSession().focusTerminal(terminalUUID);
         }
         return false;
     }
@@ -508,7 +594,6 @@ public:
      * Creates a new session and prompts the user for session properties
      */
     void createSession() {
-        string value;
         SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
         scope (exit) {
             sp.destroy();
@@ -532,5 +617,202 @@ public:
     void createSession(string name, string profileUUID, string workingDir) {
         createNewSession(name, profileUUID, workingDir);
     }
+}
 
+// ***************************************************************************
+// This block deals with session notification messages. These are messages
+// that are raised after a process is completed.
+// ***************************************************************************
+private:
+
+/**
+ * Represents a single process notification
+ */
+immutable struct ProcessNotificationMessage {
+    string terminalUUID;
+    string summary;
+    string _body;
+}
+
+class SessionNotification {
+    string sessionUUID;
+    ProcessNotificationMessage[] messages;
+    
+    this(string sessionUUID) {
+        this.sessionUUID = sessionUUID;
+    }
+}
+
+class SessionNotificationPopover : Popover {
+
+private:
+    SessionNotification[] sns;
+    AppWindow window;
+    ListBox lb;
+
+    void createUI() {
+        Box b = new Box(Orientation.VERTICAL, 0);
+        b.setBorderWidth(6);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.setShadowType(ShadowType.ETCHED_IN);
+        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sw.setHexpand(true);
+        //TODO - This is quick and dirty, really need to calculate 
+        //an appropriate height as this will bekind of ugh on HiDPI 
+        //displays
+        sw.setMinContentHeight(200);
+
+        lb = new ListBox();
+        lb.setVexpand(true);
+        lb.setHexpand(true);
+        lb.setActivateOnSingleClick(true);
+        lb.setSelectionMode(SelectionMode.NONE);
+        lb.addOnRowActivated(delegate(ListBoxRow lbr, ListBox lb) {
+            SessionRow sr = cast(SessionRow) lbr;
+            if (sr !is null) {
+                window.activateSession(sr.sessionUUID);
+            } else {
+                TerminalRow tr = cast(TerminalRow) lbr;
+                window.activateTerminal(tr.sessionUUID, tr.terminalUUID);
+            }
+        });
+
+        sw.add(lb);
+        b.add(sw);
+        b.showAll();
+        add(b);
+        trace("Popover CreateUI called");
+    }
+
+    void createListRows() {
+        foreach (sn; sns) {
+            Session session = window.getSession(sn.sessionUUID);
+            if (session !is null) {
+                lb.add(new SessionRow(sn.sessionUUID, session.name));
+                foreach (msg; sn.messages) {
+                    lb.add(new TerminalRow(msg, sn.sessionUUID));
+                }
+            }
+        }
+        lb.showAll();
+        lb.selectRow(null);
+    }
+    
+    /* Used for close button, removed
+    void removeSession(string sessionUUID) {
+        int count = 0;
+        //Iterate over rows removing all rows whose sessionUUID 
+        //matches this one
+        BaseRow row = cast(BaseRow) lb.getRowAtIndex(count);
+        while (row !is null) {
+            if (row.sessionUUID == sessionUUID) {
+                lb.remove(row);
+            } else {
+                count++;
+            }
+            row = cast(BaseRow) lb.getRowAtIndex(count);
+        }
+        if (lb.getRowAtIndex(0) is null) {
+            hide();
+        }
+    }
+    */
+
+public:
+
+    this(Widget relativeTo, AppWindow window) {
+        super(relativeTo);
+        this.window = window;
+        createUI();
+    }
+
+    void populate(SessionNotification[] sns) {
+        lb.removeAll();
+        this.sns = sns;
+        createListRows();
+    }
+    
+}
+
+class BaseRow: ListBoxRow {
+
+private: 
+    string sessionUUID;
+    
+public: 
+    this(string sessionUUID) {
+        this.sessionUUID = sessionUUID;
+    } 
+
+}
+
+class SessionRow : BaseRow {
+
+private:
+    SessionNotificationPopover popover;    
+
+    void createUI(string sessionName) {
+        Box b = new Box(Orientation.HORIZONTAL, 0);
+        b.setBorderWidth(6);
+        //b.getStyleContext().addClass("notebook");
+        //b.getStyleContext().addClass("header");
+        Image imgSession = new Image("view-grid-symbolic", IconSize.MENU);
+        b.packStart(imgSession, false, false, 4);
+        
+        Label lbl = new Label(format("<b>%s</b>", sessionName));
+        lbl.setHalign(Align.START);
+        lbl.setUseMarkup(true);
+        b.packStart(lbl, true, true, 4);
+
+        /* Don't do close button, total pain in the ass to keep synchronized
+           and not really needed. Just comment out for now in case it needs
+           to be brought back for some reason.
+           
+           Not needed because we remove notifications when switching sessions
+           
+        Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
+        btnClose.setRelief(ReliefStyle.NONE);
+        btnClose.setFocusOnClick(false);
+        btnClose.addOnClicked(delegate(Button) {
+            popover.removeSession(sessionUUID);
+        });
+        b.packEnd(btnClose, false, false, 0);
+        */
+        add(b);
+        setHalign(Align.FILL);
+        setValign(Align.FILL);
+    }
+
+public:
+    this(string sessionUUID, string sessionName) {
+        super(sessionUUID);
+        createUI(sessionName);
+    }
+}
+
+
+class TerminalRow : BaseRow {
+
+private:
+    string terminalUUID;
+
+    void createUI(ProcessNotificationMessage msg) {
+        Box b = new Box(Orientation.HORIZONTAL, 0);
+        b.setBorderWidth(6);
+        Image imgTerminal = new Image("utilities-terminal-symbolic", IconSize.MENU);
+        b.packStart(imgTerminal, false, false, 4);
+        
+        Label label = new Label(msg._body);
+        label.setSensitive(false);
+        b.setMarginLeft(18);
+        b.add(label);
+        add(b);
+    }
+
+public:
+    this(ProcessNotificationMessage msg, string sessionUUID) {
+        super(sessionUUID);
+        this.terminalUUID = msg.terminalUUID;
+        createUI(msg);
+    }
 }
