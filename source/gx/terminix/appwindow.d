@@ -85,6 +85,7 @@ private:
     enum ACTION_SESSION_SAVE_AS = "save-as";
     enum ACTION_SESSION_LOAD = "load";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
+    enum ACTION_WIN_SESSION_X = "switch-to-session-";
 
     Notebook nb;
     HeaderBar hb;
@@ -107,7 +108,10 @@ private:
      * Create the user interface
      */
     void createUI() {
-        createSessionActions();
+        GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+    
+        createWindowActions(gsShortcuts);    
+        createSessionActions(gsShortcuts);
 
         //Header Bar
         hb = new HeaderBar();
@@ -175,10 +179,25 @@ private:
     }
 
     /**
+     * Create Window actions
+     */
+    void createWindowActions(GSettings gsShortcuts) {
+        //Create Switch to Session (0..9) actions
+        //Can't use :: action targets for this since action name needs to be preferences 
+        for (int i = 0; i <= 9; i++) {
+            registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(Variant, SimpleAction sa) {
+                int index = to!int(sa.getName()[$ - 1 .. $]);
+                if (nb.getNPages() <= index) {
+                    nb.setCurrentPage(index);
+                }
+            });
+        }
+    }
+
+    /**
      * Create all the session actions and corresponding actions
      */
-    void createSessionActions() {
-        GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+    void createSessionActions(GSettings gsShortcuts) {
         sessionActions = new SimpleActionGroup();
 
         //Select Session
@@ -190,6 +209,7 @@ private:
         }, pu.getType(), pu);
 
         //Create Switch to Terminal (0..9) actions
+        //Can't use :: action targets for this since action name needs to be preferences 
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(Variant, SimpleAction sa) {
                 Session session = getCurrentSession();
@@ -397,7 +417,7 @@ private:
         saSessionSelect.setState(new GVariant(nb.getCurrentPage()));
         for (int i = 0; i < nb.getNPages; i++) {
             Session session = cast(Session) nb.getNthPage(i);
-            GMenuItem menuItem = new GMenuItem(session.name, getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
+            GMenuItem menuItem = new GMenuItem(format("%d: %s", i, session.name), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
             menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST), new GVariant(i));
             sessionMenu.appendItem(menuItem);
         }
