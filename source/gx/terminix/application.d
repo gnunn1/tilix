@@ -34,6 +34,8 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
 
+Terminix terminix;
+
 /**
  * The GTK Application used by Terminix.
  */
@@ -55,6 +57,8 @@ private:
     GSettings gsGeneral;
 
     CommandParameters cp;
+    
+    AppWindow[] windows;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -84,11 +88,9 @@ private:
             ulong l;
             string sessionUUID = value.getString(l);
             trace("activate-session triggered for session " ~ sessionUUID);
-            Window[] windows = getAppWindows();
             foreach (window; windows) {
-                AppWindow aw = cast(AppWindow) window;
-                if (aw !is null && aw.activateSession(sessionUUID)) {
-                    aw.present();
+                if (window.activateSession(sessionUUID)) {
+                    window.present();
                     break;
                 }
             }
@@ -103,8 +105,10 @@ private:
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { this.onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) {
-            foreach (Window window; getAppWindows()) {
-                window.close();
+            Widget[] widgets = getWidgets(getWindows());
+            foreach (widget; widgets) {
+                Window window = cast(Window) widget;
+                if (window !is null) window.close();
             }
         });
 
@@ -146,7 +150,6 @@ private:
         }
         //Otherwise create it and save the ID
         PreferenceWindow window = new PreferenceWindow(this);
-        addWindow(window);
         window.showAll();
         prefId = window.getId();
     }
@@ -185,29 +188,14 @@ private:
             present();
         }
     }
-
+    
     void createAppWindow(bool onActivate = false) {
         AppWindow window = new AppWindow(this);
         if (onActivate)
             window.initialize(cp);
         else
             window.initialize();
-        this.addWindow(window);
         window.showAll();
-    }
-
-    /**
-     * TODO - Check why toArray isn't working as Mike Wey fixed this in GtkD
-     */
-    Window[] getAppWindows() {
-        /*
-        return getWindows().toArray!Window();
-        */
-        Widget[] widgets = getWidgets(getWindows());
-        Window[] windows = new Window[widgets.length];
-        foreach (i, widget; widgets)
-            windows[i] = cast(Window) widgets[i];
-        return windows;
     }
 
     void onAppActivate(GioApplication app) {
@@ -237,6 +225,7 @@ private:
 
     void onAppShutdown(GioApplication app) {
         trace("Quit App Signal");
+        terminix = null;
     }
 
     void applyPreferences() {
@@ -251,5 +240,41 @@ public:
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
+        terminix = this;
+    }
+
+    void addAppWindow(AppWindow window) {
+        windows ~= window;
+        //GTK add window
+        addWindow(window);
+    }
+    
+    void removeAppWindow(AppWindow window) {
+        gx.util.array.remove(windows, window);
+        removeWindow(window);
+    }
+    
+    /**
+    * This searches across all Windows to find
+    * a widget that matches the UUID specified. At the
+    * moment this would be a session or a terminal.
+    *
+    * This is used for any operations that span windows, at 
+    * the moment there is just one, dragging a terminal from
+    * one Window to the next.
+    *
+    * TODO - Convert this into a template
+    */
+    Widget findWidgetForUUID(string uuid) {
+
+        foreach(window; windows) {
+            trace("Finding widget " ~ uuid);
+            trace("Checking app window");
+            Widget result = window.findWidgetForUUID(uuid);
+            if (result !is null) {
+                return result;
+            }
+        }
+        return null;
     }
 }

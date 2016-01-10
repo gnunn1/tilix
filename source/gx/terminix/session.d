@@ -15,6 +15,7 @@ import gdk.Event;
 
 import glib.Util;
 
+import gtk.Application;
 import gtk.Box;
 import gtk.Button;
 import gtk.Container;
@@ -35,6 +36,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
 
+import gx.terminix.application;
 import gx.terminix.common;
 import gx.terminix.preferences;
 import gx.terminix.terminal.terminal;
@@ -141,6 +143,16 @@ private:
      */
     Terminal createTerminal(string profileUUID) {
         Terminal terminal = new Terminal(profileUUID);
+        addTerminal(terminal);
+        return terminal;
+    }
+    
+    /**
+     * Adds a new terminal to the session, usually this is a newly
+     * created terminal but can also be one attached to this session
+     * from another session via DND
+     */
+    void addTerminal(Terminal terminal) {
         terminal.addOnTerminalClose(&onTerminalClose);
         terminal.addOnTerminalRequestDetach(&onTerminalRequestDetach);
         terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
@@ -152,7 +164,40 @@ private:
         terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
-        return terminal;
+    }
+    
+    /**
+     * Closes the terminal and removes it from the session. This can be
+     * called when a terminal is closed naturally or when a terminal
+     * is removed from the session completely.
+     */
+    void removeTerminal(Terminal terminal) {
+        trace("Removing terminal from session");
+        if (lastFocused == terminal)
+            lastFocused = null;
+        //Remove delegates
+        terminal.removeOnTerminalClose(&onTerminalClose);
+        terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
+        terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
+        terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
+        terminal.removeOnTerminalInFocus(&onTerminalInFocus);
+        terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
+        terminal.removeOnProcessNotification(&onTerminalProcessNotification);
+        terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
+        //unparent the terminal
+        unparentTerminal(terminal);
+        //Remove terminal
+        gx.util.array.remove(terminals, terminal);
+        //Only one terminal open, close session
+        trace(format("There are %d terminals left", terminals.length));
+        if (terminals.length == 0) {
+            trace("No more terminals, requesting session be closed");
+            notifySessionClose();
+            return;
+        }
+        //Update terminal IDs to fill in hole
+        sequenceTerminalID();
+        showAll();
     }
 
     /**
@@ -191,6 +236,14 @@ private:
      * Removes a terminal from it's parent and cleans up splitter if necessary
      * Note that this does not unset event handlers or do any other cleanup as
      * this method is used both when moving and closing terminals.
+     *
+     * This is a bit convoluted since we are using Box as a shim to 
+     * preserve spacing. Every child widget is embeded in a Box which
+     * is then embeded in a Paned. So an example heirarchy qouls be as follows:
+     *
+     * Session (Box) -> Paned -> Box -> Terminal
+     *                        -> Box -> Paned -> Box -> Terminal
+     *                                        -> Box -> Terminal
      */
     void unparentTerminal(Terminal terminal) {
 
@@ -217,6 +270,13 @@ private:
         }
 
         Paned paned = cast(Paned) terminal.getParent().getParent();
+        // If no paned this means there is only one terminal left
+        // Just unparent the terminal and carry on
+        if (paned is null) {
+            Box box = cast(Box) terminal.getParent();
+            box.remove(terminal);
+            return;
+        }
         Box otherBox = findOtherChild(terminal, paned);
         paned.remove(otherBox);
 
@@ -236,7 +296,7 @@ private:
         Box box = cast(Box) terminal.getParent();
         box.remove(terminal);
     }
-
+    
     /**
      * Inserts a source terminal into a destination by creating the necessary
      * splitters and box shims
@@ -275,57 +335,54 @@ private:
         parent.add(paned);
         parent.showAll();
     }
-
+    
     void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
+        
+        Session getSession(Terminal terminal) {
+            Widget widget = terminal.getParent();
+            while (widget !is null) {
+                Session result = cast(Session) widget;
+                if (result !is null) return result;
+                widget = widget.getParent();
+            }
+            return null;
+        }
+            
         trace(format("Moving terminal %d to quadrant %d", dest.terminalID, dq));
         Terminal src = findTerminal(srcUUID);
-        assert(src !is null);
-
-        trace("Unparenting terminal");
-        unparentTerminal(src);
-        trace("Unparented terminal");
+        // If terminal is not null, its from this session. If it
+        // is null then dropped from a different session, maybe different window
+        if (src !is null) {
+            unparentTerminal(src);
+        } else {
+            trace("Moving terminal from different session");
+            src = cast(Terminal) terminix.findWidgetForUUID(srcUUID);
+            if (src is null) {
+                showErrorDialog(cast(Window) this.getToplevel(), _("Could not locate dropped terminal"));
+                return;    
+            }
+            Session session = getSession(src);
+            if (session is null) {
+                showErrorDialog(cast(Window) this.getToplevel(), _("Could not locate session for dropped terminal"));
+                return;    
+            }
+            trace("Removing Terminal from other session");
+            session.removeTerminal(src);
+            //Add terminal to this one
+            addTerminal(src);
+        }
         Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
         int child = (dq == DragQuadrant.TOP || dq == DragQuadrant.LEFT) ? 1 : 2;
-
         //Inserting terminal
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
         insertTerminal(dest, src, orientation, child);
     }
 
     /**
-	 * Removes the terminal by replacing the parent splitter with
-	 * the child from the other side. This is a bit convoluted since
-     * we are using Box as a shim to preserve spacing. Every child widget
-     * is embeded in a Box which is then embeded in a Paned. So an example
-     * heirarchy qouls be as follows:
-     *
-     * Session (Box) -> Paned -> Box -> Terminal
-     *                        -> Box -> Paned -> Box -> Terminal
-     *                                        -> Box -> Terminal
+     * Event handler that get's called when Terminal is closed
 	 */
     void onTerminalClose(Terminal terminal) {
-        if (lastFocused == terminal)
-            lastFocused = null;
-        //Remove delegates
-        terminal.removeOnTerminalClose(&onTerminalClose);
-        terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
-        terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
-        terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
-        terminal.removeOnTerminalInFocus(&onTerminalInFocus);
-        terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
-        terminal.removeOnProcessNotification(&onTerminalProcessNotification);
-        terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
-        //Only one terminal open, close session
-        if (terminals.length == 1) {
-            notifySessionClose();
-            return;
-        }
-        unparentTerminal(terminal);
-        //Remove terminal
-        gx.util.array.remove(terminals, terminal);
-        //Update terminal IDs to fill in hole
-        sequenceTerminalID();
-        showAll();
+        removeTerminal(terminal);
     }
     
     void onTerminalProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
@@ -349,14 +406,12 @@ private:
      * typically a result of a drag operation
      */
     void onTerminalRequestDetach(Terminal terminal, int x, int y) {
+        trace("Detaching session");
         //Only one terminal, just detach session as a whole
         if (terminals.length == 1) {
             notifySessionDetach(this, x, y, false);
         } else {
-            unparentTerminal(terminal);
-            //Remove terminal
-            gx.util.array.remove(terminals, terminal);
-
+            removeTerminal(terminal);
             Session session = new Session(this._name, terminal);
             notifySessionDetach(session, x, y, true);
 
@@ -538,6 +593,7 @@ private:
         super(Orientation.VERTICAL, 0);
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
+        addTerminal(terminal);
         createUI(terminal);
     }
 
@@ -580,6 +636,15 @@ public:
         catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
+    }
+    
+    /**
+     * Finds the widget matching a specific UUID, typically
+     * a Session or Terminal
+     */
+    Widget findWidgetForUUID(string uuid) {
+        trace("Searching terminals " ~ uuid);
+        return findTerminal(uuid);
     }
 
     /**

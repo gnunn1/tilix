@@ -82,6 +82,7 @@ private:
 public:
     this(Application app) {
         super(app);
+        app.addWindow(this);
         createUI();
     }
 }

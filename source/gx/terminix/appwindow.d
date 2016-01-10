@@ -56,6 +56,7 @@ import gx.gtk.actions;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
+import gx.terminix.application;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.cmdparams;
@@ -109,8 +110,8 @@ private:
      */
     void createUI() {
         GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
-    
-        createWindowActions(gsShortcuts);    
+
+        createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
 
         //Header Bar
@@ -328,6 +329,7 @@ private:
         updateUIState();
         //Close Window if there are no pages
         if (nb.getNPages() == 0) {
+            trace("No more sessions, closing AppWindow");
             this.close();
         }
     }
@@ -360,12 +362,13 @@ private:
     }
 
     void onSessionDetach(Session session, int x, int y, bool isNewSession) {
-        //Detach an existing sessio, let's close it
+        trace("Detaching session");
+        //Detach an existing session, let's close it
         if (!isNewSession) {
             closeSession(session);
         }
-        AppWindow window = new AppWindow(this.getApplication());
-        getApplication.addWindow(window);
+        AppWindow window = new AppWindow(terminix);
+        terminix.addAppWindow(window);
         window.initialize(session);
         window.move(x, y);
         window.showAll();
@@ -444,6 +447,10 @@ private:
                 return true;
         }
         return false;
+    }
+    
+    void onWindowDestroyed(Widget widget) {
+        terminix.removeAppWindow(this);
     }
 
     void onCompositedChanged(Widget widget) {
@@ -548,6 +555,8 @@ public:
 
     this(Application application) {
         super(application);
+        trace("Adding window to terminix");
+        terminix.addAppWindow(this);
         setTitle(_("Terminix"));
         setIconName("terminal");
 
@@ -555,6 +564,7 @@ public:
         createUI();
 
         addOnDelete(&onWindowClosed);
+        addOnDestroy(&onWindowDestroyed);
         addOnCompositedChanged(&onCompositedChanged);
     }
 
@@ -591,7 +601,9 @@ public:
             workingDir = Util.getHomeDir();
         createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
-
+    /**
+     * Activates the specified sessionUUID
+     */
     bool activateSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = cast(Session) nb.getNthPage(i);
@@ -603,12 +615,31 @@ public:
         return false;
     }
 
+    /**
+     * Activates the specified terminal
+     */
     bool activateTerminal(string sessionUUID, string terminalUUID) {
         if (activateSession(sessionUUID)) {
             return getCurrentSession().focusTerminal(terminalUUID);
         }
         return false;
     }
+    
+    /**
+     * Finds the widget matching a specific UUID, typically
+     * a Session or Terminal
+     */
+    Widget findWidgetForUUID(string uuid) {
+        for (int i = 0; i < nb.getNPages(); i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            if (session.sessionUUID == uuid) return session;
+            trace("Searching session");
+            Widget result = session.findWidgetForUUID(uuid);
+            if (result !is null) return result;
+        }
+        return null;
+    }
+    
 
     /**
      * Creates a new session and prompts the user for session properties
@@ -657,7 +688,7 @@ immutable struct ProcessNotificationMessage {
 class SessionNotification {
     string sessionUUID;
     ProcessNotificationMessage[] messages;
-    
+
     this(string sessionUUID) {
         this.sessionUUID = sessionUUID;
     }
@@ -717,7 +748,7 @@ private:
         lb.showAll();
         lb.selectRow(null);
     }
-    
+
     /* Used for close button, removed
     void removeSession(string sessionUUID) {
         int count = 0;
@@ -751,25 +782,25 @@ public:
         this.sns = sns;
         createListRows();
     }
-    
+
 }
 
-class BaseRow: ListBoxRow {
+class BaseRow : ListBoxRow {
 
-private: 
+private:
     string sessionUUID;
-    
-public: 
+
+public:
     this(string sessionUUID) {
         this.sessionUUID = sessionUUID;
-    } 
+    }
 
 }
 
 class SessionRow : BaseRow {
 
 private:
-    SessionNotificationPopover popover;    
+    SessionNotificationPopover popover;
 
     void createUI(string sessionName) {
         Box b = new Box(Orientation.HORIZONTAL, 0);
@@ -778,7 +809,7 @@ private:
         //b.getStyleContext().addClass("header");
         Image imgSession = new Image("view-grid-symbolic", IconSize.MENU);
         b.packStart(imgSession, false, false, 4);
-        
+
         Label lbl = new Label(format("<b>%s</b>", sessionName));
         lbl.setHalign(Align.START);
         lbl.setUseMarkup(true);
@@ -810,7 +841,6 @@ public:
     }
 }
 
-
 class TerminalRow : BaseRow {
 
 private:
@@ -821,7 +851,7 @@ private:
         b.setBorderWidth(6);
         Image imgTerminal = new Image("utilities-terminal-symbolic", IconSize.MENU);
         b.packStart(imgTerminal, false, false, 4);
-        
+
         Label label = new Label(msg._body);
         label.setSensitive(false);
         b.setMarginLeft(18);
