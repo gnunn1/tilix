@@ -104,6 +104,8 @@ private:
     SessionNotificationPopover poSessionNotifications;
 
     SessionNotification[string] sessionNotifications;
+    
+    GSettings gsSettings;
 
     /**
      * Create the user interface
@@ -386,14 +388,16 @@ private:
 
     void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {
         trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
-        //If window not active, send notification to shell
-        if (!isActive()) {
+        // If window not active, send notification to shell
+        if (!isActive() && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY)) {
             Notification n = new Notification(_(summary));
             n.setBody(_body);
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
             getApplication().sendNotification("command-completed", n);
             //if session not visible send to local handler
-        } else if (sessionUUID != getCurrentSession().sessionUUID) {
+        } 
+        // If session not active, keep copy locally
+        if (sessionUUID != getCurrentSession().sessionUUID) {
             trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().sessionUUID));
             //handle session level notifications here
             ProcessNotificationMessage msg = ProcessNotificationMessage(terminalUUID, summary, _body);
@@ -555,8 +559,8 @@ public:
 
     this(Application application) {
         super(application);
-        trace("Adding window to terminix");
         terminix.addAppWindow(this);
+        gsSettings = new GSettings(SETTINGS_ID);
         setTitle(_("Terminix"));
         setIconName("terminal");
 

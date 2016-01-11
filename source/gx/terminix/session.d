@@ -445,7 +445,9 @@ private:
         }
     }
 
-    //De/Serialization code in this private block
+/************************************************
+ * De/Serialization code in this private block
+ ************************************************/
 private:
 
     string _filename;

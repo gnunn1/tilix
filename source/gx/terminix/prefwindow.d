@@ -14,6 +14,7 @@ import gdk.Event;
 
 import gio.Settings;
 
+import gobject.Signals;
 import gobject.Value;
 
 import gtk.AccelGroup;
@@ -39,6 +40,8 @@ import gtk.TreeStore;
 import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
+
+import vte.Terminal;
 
 import gx.gtk.actions;
 import gx.gtk.util;
@@ -372,6 +375,14 @@ private:
         settings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         attach(cbPrompt, 0, row, 2, 1);
         row++;
+        
+        //Show Notifications, only show option if notifications are supported
+        if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
+            CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
+            settings.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
+            attach(cbNotify, 0, row, 2, 1);
+            row++;
+        }
 
         Label lblAppearance = new Label("");
         lblAppearance.setUseMarkup(true);

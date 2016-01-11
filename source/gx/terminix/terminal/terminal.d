@@ -406,7 +406,7 @@ private:
         vte.addOnFocusIn(&onTerminalFocusIn);
         vte.addOnFocusOut(&onTerminalFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
-            if (titleInitialized) {
+            if (titleInitialized && !terminal.hasFocus()) {
                 notifyProcessNotification(summary, _body, terminalUUID);
             }
         });

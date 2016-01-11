@@ -23,6 +23,7 @@ enum SETTINGS_THEME_VARIANT_LIGHT_VALUE = "light";
 enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
 
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
+enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
 enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-word";
