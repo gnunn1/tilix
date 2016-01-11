@@ -9,11 +9,14 @@ A tiling terminal emulator for Linux using GTK+ 3
 Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the following features:
 
 * Layout terminals in any fashion by splitting them horizontally or vertically
+* Terminals can be re-arranged using drag and drop both within and between windows
+* Terminals can be detached into a new window via drag and drop
 * Input can be synchronized between terminals so commands typed in one terminal are replicated to the others
 * The grouping of terminals can be saved and loaded from disk
 * Terminals support custom titles
 * Color schemes are stored in files and custom color schemes can be created by simply creating a new file
-* Supports transparency
+* Transparent background
+* Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
 
 The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) and no allowance has been made for other Desktop Environments (xfce, unity, kde, etc) at this time so your mileage may vary. Consideration for other environments may be given if demand warrants it.
 
@@ -34,7 +37,6 @@ Since this is an early alpha release, there are a number of features which have 
 * Add the Gnome Terminal support for encodings
 * Add an option to support a "compact" view which would have smaller terminal title bars and move commands to popup menus
 * Add support for localization
-* Add support for Fedora patched VTE which supports notifications
 
 Additional feature requests are gladly accepted
 
@@ -57,4 +59,9 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Installation
 
-Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), for other distros releases can be installed manually from the releases section following the included instructions.
+Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), for other distros releases can be installed manually from the releases section by downloading terminix.zip and following these instructions:
+
+```
+sudo unzip terminix.zip -d /
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+```
