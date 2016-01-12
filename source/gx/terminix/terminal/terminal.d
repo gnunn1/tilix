@@ -78,6 +78,7 @@ import gx.util.array;
 
 import gx.terminix.common;
 import gx.terminix.constants;
+import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.search;
@@ -194,6 +195,9 @@ private:
     SimpleAction saProfileSelect;
     GMenu profileMenu;
 
+    SimpleAction saEncodingSelect;
+    GMenu encodingMenu;
+
     Menu mContext;
     MenuItem miCopy;
     MenuItem miPaste;
@@ -241,6 +245,9 @@ private:
 
         //Profile Menu
         profileMenu = new GMenu();
+        
+        //Encoding Menu
+        encodingMenu = new GMenu();
 
         Box bTitleLabel = new Box(Orientation.HORIZONTAL, 6);
         bTitleLabel.add(lblTitle);
@@ -250,7 +257,11 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { buildProfileMenu(); return false; });
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { 
+            buildProfileMenu();
+            buildEncodingMenu(); 
+            return false; 
+        });
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -280,6 +291,22 @@ private:
             GMenuItem menuItem = new GMenuItem(profile.name, getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
             menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
             profileMenu.appendItem(menuItem);
+        }
+    }
+
+    //Dynamically build the menus for selecting an encoding
+    void buildEncodingMenu() {
+        encodingMenu.removeAll();
+        saEncodingSelect.setState(new GVariant(vte.getEncoding()));
+        GSettings gsSettings = new GSettings(SETTINGS_ID); 
+        string[] encodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
+        foreach (encoding; encodings) {
+            if (encoding in lookupEncoding) {
+                string name = lookupEncoding[encoding];
+                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ name, getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
+                menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new GVariant(encoding));
+                encodingMenu.appendItem(menuItem);
+            }
         }
     }
 
@@ -345,6 +372,15 @@ private:
             profileUUID = uuid;
             saProfileSelect.setState(value);
         }, pu.getType(), pu);
+        
+        // Select Encoding
+        // 
+        GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
+        saEncodingSelect = registerAction(sagTerminalActions, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
+            ulong l;
+            sa.setState(value);
+            vte.setEncoding(value.getString(l));
+        }, encoding.getType(), encoding);
     }
 
     /**
@@ -377,6 +413,7 @@ private:
         model.appendSection(null, menuSection);
 
         model.appendSubmenu(_("Profiles"), profileMenu);
+        model.appendSubmenu(_("Encoding"), encodingMenu);
 
         Popover pm = new Popover(parent, model);
         return pm;

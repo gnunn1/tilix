@@ -5,6 +5,12 @@
 module gx.terminix.encoding;
 
 import gx.i18n.l10n;
+
+/**
+ * Hashmap of encodings
+ */
+string[string] lookupEncoding;
+
 /**
  * Array of available encodings
  */
@@ -79,4 +85,7 @@ string[2][] encodings = [
     ];
 
 static this() {
+    foreach(encoding; encodings) {
+        lookupEncoding[encoding[0]] = encoding[1];
+    }
 }
