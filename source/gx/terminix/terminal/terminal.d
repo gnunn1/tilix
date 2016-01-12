@@ -616,9 +616,9 @@ private:
         case SETTINGS_PROFILE_CURSOR_SHAPE_KEY:
             vte.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
             break;
-        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY,
+        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY,
         SETTINGS_PROFILE_USE_THEME_COLORS_KEY:
-                RGBA fg;
+            RGBA fg;
             RGBA bg;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
                 vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
@@ -626,8 +626,10 @@ private:
             } else {
                 fg = new RGBA();
                 bg = new RGBA();
-                fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY));
-                bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY));
+                if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
+                    trace("Parsing foreground color failed");
+                if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                    trace("Parsing background color failed");
             }
             double alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             bg.alpha = alpha;
@@ -635,10 +637,23 @@ private:
             RGBA[] palette = new RGBA[colors.length];
             foreach (i, color; colors) {
                 palette[i] = new RGBA();
-                palette[i].parse(colors[i]);
+                if (!palette[i].parse(colors[i])) trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(fg, bg, palette);
             break;
+        case SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
+            RGBA bg;
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
+                vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
+            } else {
+                bg = new RGBA();
+                if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                    trace("Parsing background color failed");
+            }
+            double alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
+            bg.alpha = alpha;
+            vte.setColorBackground(bg);
+            break;         
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
             break;
