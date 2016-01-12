@@ -24,6 +24,7 @@ enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
 
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
+enum SETTINGS_ENCODINGS_KEY = "encodings";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
 enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-word";
@@ -68,6 +69,7 @@ enum SETTINGS_PROFILE_SCROLLBACK_LINES_KEY = "scrollback-lines";
 enum SETTINGS_PROFILE_BACKSPACE_BINDING_KEY = "backspace-binding";
 immutable string[] SETTINGS_PROFILE_ERASE_BINDING_VALUES = ["auto", "ascii-backspace", "ascii-delete", "delete-sequence", "tty"];
 enum SETTINGS_PROFILE_DELETE_BINDING_KEY = "delete-binding";
+enum SETTINGS_PROFILE_ENCODING_KEY = "encoding";
 enum SETTINGS_PROFILE_CJK_WIDTH_KEY = "cjk-utf8-ambiguous-width";
 immutable string[] SETTINGS_PROFILE_CJK_WIDTH_VALUES = ["narrow", "wide"];
 

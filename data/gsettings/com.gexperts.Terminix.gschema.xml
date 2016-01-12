@@ -104,6 +104,22 @@
       <summary>Whether searches wrap the terminal buffer</summary>
       <description>If true, a search will move to the bottom of the terminal buffer when it reaches the top item and vice versa.</description>
     </key>
+    <key name="encodings" type="as">
+      <!-- Translators: Please note that this has to be a list of
+           valid encodings (which are to be taken from the list in src/encoding.c).
+           It has to include UTF-8 the list entries themselves are not to be
+           translated. This is provided for customization of the default encoding
+           menu; see bug 144810 for an use case. In most cases, this should be
+           left alone.
+      -->
+      <default>["UTF-8"]</default>
+      <summary>List of available encodings</summary>
+      <description>
+        A subset of possible encodings are presented in
+        the Encoding submenu. This is a list of encodings
+        to appear there.
+      </description>
+    </key>    
   </schema>
 
   <!-- SettingsList base schema -->
@@ -281,6 +297,80 @@
       <default>''</default>
       <summary>Custom command to use instead of the shell</summary>
       <description>Run this command in place of the shell, if use_custom_command is true.</description>
+    </key>
+    <!-- Encodings -->
+    <key name="encoding" type="s">
+      <choices>
+        <choice value="ISO-8859-1" />
+        <choice value="ISO-8859-2" />
+        <choice value="ISO-8859-3" />
+        <choice value="ISO-8859-4" />
+        <choice value="ISO-8859-5" />
+        <choice value="ISO-8859-6" />
+        <choice value="ISO-8859-7" />
+        <choice value="ISO-8859-8" />
+        <choice value="ISO-8859-8-I" />
+        <choice value="ISO-8859-9" />
+        <choice value="ISO-8859-10" />
+        <choice value="ISO-8859-13" />
+        <choice value="ISO-8859-14" />
+        <choice value="ISO-8859-15" />
+        <choice value="ISO-8859-16" />
+        <choice value="UTF-8" />
+        <choice value="ARMSCII-8" />
+        <choice value="BIG5" />
+        <choice value="BIG5-HKSCS" />
+        <choice value="CP866" />
+        <choice value="EUC-JP" />
+        <choice value="EUC-KR" />
+        <choice value="EUC-TW" />
+        <choice value="GB18030" />
+        <choice value="GB2312" />
+        <choice value="GBK" />
+        <choice value="GEORGIAN-PS" />
+        <choice value="IBM850" />
+        <choice value="IBM852" />
+        <choice value="IBM855" />
+        <choice value="IBM857" />
+        <choice value="IBM862" />
+        <choice value="IBM864" />
+        <choice value="ISO-2022-JP" />
+        <choice value="ISO-2022-KR" />
+        <choice value="ISO-IR-111" />
+        <choice value="KOI8-R" />
+        <choice value="KOI8-U" />
+        <choice value="MAC_ARABIC" />
+        <choice value="MAC_CE" />
+        <choice value="MAC_CROATIAN" />
+        <choice value="MAC-CYRILLIC" />
+        <choice value="MAC_DEVANAGARI" />
+        <choice value="MAC_FARSI" />
+        <choice value="MAC_GREEK" />
+        <choice value="MAC_GUJARATI" />
+        <choice value="MAC_GURMUKHI" />
+        <choice value="MAC_HEBREW" />
+        <choice value="MAC_ICELANDIC" />
+        <choice value="MAC_ROMAN" />
+        <choice value="MAC_ROMANIAN" />
+        <choice value="MAC_TURKISH" />
+        <choice value="MAC_UKRAINIAN" />
+        <choice value="SHIFT_JIS" />
+        <choice value="TCVN" />
+        <choice value="TIS-620" />
+        <choice value="UHC" />
+        <choice value="VISCII" />
+        <choice value="WINDOWS-1250" />
+        <choice value="WINDOWS-1251" />
+        <choice value="WINDOWS-1252" />
+        <choice value="WINDOWS-1253" />
+        <choice value="WINDOWS-1254" />
+        <choice value="WINDOWS-1255" />
+        <choice value="WINDOWS-1256" />
+        <choice value="WINDOWS-1257" />
+        <choice value="WINDOWS-1258" />
+      </choices>
+      <default>'UTF-8'</default>
+      <summary>Which encoding to use</summary>
     </key>
   </schema>
   

@@ -622,6 +622,9 @@ private:
         case SETTINGS_PROFILE_DELETE_BINDING_KEY:
             vte.setDeleteBinding(getEraseBinding(gsProfile.getString(SETTINGS_PROFILE_DELETE_BINDING_KEY)));
             break;
+        case SETTINGS_PROFILE_ENCODING_KEY:
+            vte.setEncoding(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
+            break;
         case SETTINGS_PROFILE_CJK_WIDTH_KEY:
             vte.setCjkAmbiguousWidth(to!int(countUntil(SETTINGS_PROFILE_CJK_WIDTH_VALUES, gsProfile.getString(SETTINGS_PROFILE_CJK_WIDTH_KEY))) + 1);
             break;
@@ -645,7 +648,7 @@ private:
             // Only pass one color key, all colors will be applied
             SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY, SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY,
             SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, SETTINGS_PROFILE_DELETE_BINDING_KEY, SETTINGS_PROFILE_CJK_WIDTH_KEY,
-            SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY
+            SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY
         ];
 
         foreach (key; keys)

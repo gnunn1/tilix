@@ -40,6 +40,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 
 import gx.terminix.colorschemes;
+import gx.terminix.encoding;
 import gx.terminix.preferences;
 
 /**
@@ -551,6 +552,21 @@ private:
         ComboBox cbDelete = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
         gsProfile.bind(SETTINGS_PROFILE_DELETE_BINDING_KEY, cbDelete, "active-id", GSettingsBindFlags.DEFAULT);
         attach(cbDelete, 1, row, 1, 1);
+        row++;
+
+        Label lblEncoding = new Label(_("Encoding"));
+        lblEncoding.setHalign(Align.END);
+        attach(lblEncoding, 0, row, 1, 1);
+        string[] key, value;
+        key.length = encodings.length;
+        value.length = encodings.length;
+        foreach(i, encoding; encodings) {
+            key[i] = encoding[0];
+            value[i] = encoding[0] ~ " " ~ encoding[1];
+        }
+        ComboBox cbEncoding = createNameValueCombo(key, value);
+        gsProfile.bind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);
+        attach(cbEncoding, 1, row, 1, 1);
         row++;
 
         Label lblCJK = new Label(_("Ambiguous-width characters"));

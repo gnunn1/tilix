@@ -34,7 +34,7 @@ mkdir -p ${TERMINIX_ARCHIVE_PATH}/usr/share/applications
 
 # Copy executable and desktop file
 cp ../../terminix ${TERMINIX_ARCHIVE_PATH}/usr/bin
-cp desktop/terminix.desktop ${TERMINIX_ARCHIVE_PATH}/usr/share/applications
+cp desktop/com.gexperts.Terminix.desktop ${TERMINIX_ARCHIVE_PATH}/usr/share/applications
 
 echo "Creating archive"
 cd ${TERMINIX_ARCHIVE_PATH}

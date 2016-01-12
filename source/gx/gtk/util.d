@@ -228,6 +228,30 @@ TreeIter appendValues(ListStore ls, string[] values) {
     return iter;
 }
 
+
+/**
+ * Creates a combobox that holds a set of name/value pairs
+ * where the name is displayed.
+ */
+ComboBox createNameValueCombo(const string[string] keyValues) {
+
+    ListStore ls = new ListStore([GType.STRING, GType.STRING]);
+
+    foreach(key, value; keyValues) {
+        appendValues(ls, [value, key]);
+    }
+
+    ComboBox cb = new ComboBox(ls, false);
+    cb.setFocusOnClick(false);
+    cb.setIdColumn(1);
+    CellRendererText cell = new CellRendererText();
+    cell.setAlignment(0, 0);
+    cb.packStart(cell, false);
+    cb.addAttribute(cell, "text", 0);
+
+    return cb;
+}
+
 /**
  * Creates a combobox that holds a set of name/value pairs
  * where the name is displayed.
