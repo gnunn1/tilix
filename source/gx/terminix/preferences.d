@@ -11,6 +11,7 @@ import std.uuid;
 
 import gio.Settings : GSettings = Settings;
 
+import gx.i18n.l10n;
 import gx.util.array;
 
 //Preference Constants
@@ -136,15 +137,6 @@ private:
 
     GSettings gsProfileList;
 
-    /**
-	 * Initalize initial values
-	 */
-    void init() {
-        if (GSETTINGS_DEFAULT_UUID == getDefaultProfile()) {
-            createProfile(SETTINGS_PROFILE_DEFAULT_NAME_VALUE);
-        }
-    }
-
     string getProfilePath(string uuid) {
         return SETTINGS_PROFILE_PATH ~ uuid ~ "/";
     }
@@ -157,7 +149,6 @@ package:
 	 */
     this() {
         gsProfileList = new GSettings(SETTINGS_PROFILE_LIST_ID);
-        init();
     }
 
 public:
@@ -232,6 +223,14 @@ public:
     ProfileInfo getProfile(string uuid) {
         GSettings gsProfile = getProfileSettings(uuid);
         string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+        // Because the default profile name is 'unnamed', if we run the
+        // app for the first time the name says Unnamed instead of Default
+        // so check for this here by comparing name to Unnamed and uuid to default
+        if (GSETTINGS_DEFAULT_UUID == uuid && name == _(SETTINGS_PROFILE_NEW_NAME_VALUE)) {
+            gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, _(SETTINGS_PROFILE_DEFAULT_NAME_VALUE));
+            name = SETTINGS_PROFILE_DEFAULT_NAME_VALUE;
+        }
+        trace(format("Getting profile '%s', default profile is '%s'", uuid, getDefaultProfile()));
         return ProfileInfo(uuid == getDefaultProfile(), uuid, name);
     }
 
