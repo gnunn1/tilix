@@ -59,15 +59,16 @@ struct ColorScheme {
  */
 int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA bg, RGBA[16] palette) {
 	foreach (pi, scheme; schemes) {
-		if (useThemeColors != scheme.useThemeColors)
-			continue;
+		if (useThemeColors != scheme.useThemeColors) {
+            continue;
+        }
 		if (useThemeColors) {
 			if (!(equal(fg, scheme.foreground) && equal(bg, scheme.background)))
 				continue;
 		}
 		bool match = true;
 		foreach (i, color; palette) {
-			if (!equal(color, scheme.palette[1])) {
+			if (!equal(color, scheme.palette[i])) {
 				match = false;
 				break;
 			}
