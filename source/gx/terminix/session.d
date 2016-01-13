@@ -136,6 +136,16 @@ private:
             terminal.terminalID = i;
         }
     }
+    
+    /**
+     * Create a Paned widget and modify some properties to
+     * make it look somewhat attractive on Ubuntu and non Adwaita themes.
+     */
+    Paned createPaned(Orientation orientation) {
+        Paned result = new Paned(orientation);
+        result.setWideHandle(false);
+        return result;
+    }
 
     /**
      * Creates the terminal widget and wires the various
@@ -231,7 +241,9 @@ private:
     void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
         Terminal newTerminal = createTerminal(terminal.profileUUID);
+        trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);
+        trace("Intializing terminal");
         newTerminal.initTerminal(terminal.currentDirectory, false);
     }
 
@@ -317,6 +329,7 @@ private:
         paned.pack2(b2, true, true);
 
         parent.remove(dest);
+        parent.showAll();
         if (child == 1) {
             b1.add(src);
             b2.add(dest);
@@ -325,15 +338,13 @@ private:
             b2.add(src);
         }
 
-        switch (orientation) {
+        final switch (orientation) {
         case Orientation.HORIZONTAL:
             paned.setPosition(width / 2);
             break;
         case Orientation.VERTICAL:
             paned.setPosition(height / 2);
             break;
-        default:
-            assert(0);
         }
         parent.add(paned);
         parent.showAll();
@@ -566,7 +577,7 @@ private:
     Paned parsePaned(JSONValue value, SessionSizeInfo sizeInfo) {
         trace("Loading paned");
         Orientation orientation = cast(Orientation) value[NODE_ORIENTATION].integer();
-        Paned paned = new Paned(orientation);
+        Paned paned = createPaned(orientation);
         Box b1 = new Box(Orientation.VERTICAL, 0);
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
         Box b2 = new Box(Orientation.VERTICAL, 0);

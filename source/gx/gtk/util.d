@@ -16,6 +16,7 @@ import gdk.Screen;
 import gio.File : GFile = File;
 import gio.Resource;
 
+import glib.GException;
 import glib.ListG;
 import glib.Util;
 
@@ -159,10 +160,15 @@ Resource findResource(string resourcePath, bool register = true) {
 }
 
 bool addCssProvider(string filename, ProviderPriority priority) {
-    CssProvider provider = new CssProvider();
-    if (provider.loadFromFile(GFile.parseName(filename))) {
-        StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
-        return true;
+    try {
+        CssProvider provider = new CssProvider();
+        if (provider.loadFromFile(GFile.parseName(filename))) {
+            StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
+            return true;
+        }
+    } catch (GException ge) {
+        error("Unexpected error loading resource " ~ filename);
+        error("Error: " ~ ge.msg);
     }
     return false;
 }

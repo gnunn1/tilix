@@ -481,7 +481,7 @@ private:
         box.add(sb);
         return box;
     }
-
+    
     /**
      * Updates the terminal title in response to UI changes
      */
@@ -793,6 +793,8 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
+        
+        trace("Drag and drop completed");
     }
 
     /**
@@ -1031,8 +1033,11 @@ public:
         gsProfile = prfMgr.getProfileSettings(profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         createUI();
+        trace("Apply preferences");
         applyPreferences();
+        trace("Profile Event Handler");
         gsProfile.addOnChanged(delegate(string key, Settings) { applyPreference(key); });
+        trace("Finished creation");
     }
 
     /**

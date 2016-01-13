@@ -21,8 +21,8 @@ import gx.terminix.constants;
 int main(string[] args) {
 	
 	//Version checking cribbed from grestful, thanks!
-	string error = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
-	if (error !is null)	{
+	string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
+	if (gtkError !is null)	{
 		Main.init(args);
 		
 		MessageDialog dialog = new MessageDialog(
@@ -45,7 +45,14 @@ int main(string[] args) {
         auto terminixApp = new Terminix(cp);
         //Bypass GTK command line handling since we handle it ourselves
         string[] tempArgs;
-        return terminixApp.run(tempArgs);
+        int result;
+        try {
+            result = terminixApp.run(tempArgs);
+        } catch (Exception e) {
+            error("Unexpected exception occurred");
+            error("Error: " ~ e.msg);
+        }
+        return result;
     } else {
         return cp.exitCode;
     }

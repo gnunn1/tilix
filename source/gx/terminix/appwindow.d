@@ -181,7 +181,7 @@ private:
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
         }, ConnectFlags.AFTER);
-        this.add(nb);
+        add(nb);
     }
 
     /**
@@ -573,23 +573,6 @@ public:
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
         addOnCompositedChanged(&onCompositedChanged);
-        /*
-        addOnDraw(delegate(Scoped!Context cr, Widget widget) {
-            StyleContext context = widget.getStyleContext();
-            gtk.Border.Border border;
-            int x = 0;
-            int y = 0; 
-            int w = widget.getAllocatedWidth();
-            int h = widget.getAllocatedHeight();
-            context.getShadowWidth(widget.getStateFlags(), border);
-            x = x + border.getBorderStruct().left;
-            y = y + border.getBorderStruct().top;
-
-            StyleContext.renderBackground(context, cr, x, y, w, h);
-            StyleContext.renderFrame(context, cr, x, y, w, h);
-            return false;
-        });
-        */
     }
 
     void initialize() {
