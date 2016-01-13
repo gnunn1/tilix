@@ -10,6 +10,8 @@ import std.file;
 import std.format;
 import std.json;
 
+import cairo.Context;
+
 import gtk.Application : Application;
 import gio.Application : GioApplication = Application;
 import gtk.ApplicationWindow : ApplicationWindow;
@@ -47,6 +49,7 @@ import gtk.MessageDialog;
 import gtk.Notebook;
 import gtk.Popover;
 import gtk.ScrolledWindow;
+import gtk.StyleContext;
 import gtk.Widget;
 
 import vte.Pty;
@@ -570,6 +573,16 @@ public:
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
         addOnCompositedChanged(&onCompositedChanged);
+        /*
+        addOnDraw(delegate(Scoped!Context cr, Widget widget) {
+            int w = widget.getAllocatedWidth();
+            int h = widget.getAllocatedHeight();
+            StyleContext context = widget.getStyleContext();
+            StyleContext.renderBackground(context, cr, 0, 0, w, h);
+            StyleContext.renderFrame(context, cr, 0, 0, w, h);
+            return false;
+        });
+        */
     }
 
     void initialize() {

@@ -438,7 +438,10 @@ private:
         vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnWindowTitleChanged(delegate(VTE terminal) { updateTitle(); });
         vte.addOnIconTitleChanged(delegate(VTE terminal) { updateTitle(); });
-        vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { titleInitialized = true; updateTitle(); });
+        vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { 
+            titleInitialized = true; 
+            updateTitle(); 
+        });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalFocusIn);
         vte.addOnFocusOut(&onTerminalFocusOut);
@@ -490,6 +493,7 @@ private:
         string path;
         if (titleInitialized) {
             path = currentDirectory;
+            trace("Current directory is " ~ path);
         } else {
             path = "";
         }
@@ -653,7 +657,7 @@ private:
             double alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             bg.alpha = alpha;
             vte.setColorBackground(bg);
-            break;         
+            break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
             break;
@@ -665,7 +669,7 @@ private:
             break;
         case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
         SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
-                long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getValue(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY).getInt64();
+                long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getValue(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY).getInt32();
             vte.setScrollbackLines(scrollLines);
             break;
         case SETTINGS_PROFILE_BACKSPACE_BINDING_KEY:
@@ -703,8 +707,9 @@ private:
             SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY
         ];
 
-        foreach (key; keys)
+        foreach (key; keys) {
             applyPreference(key);
+        }
     }
 
     VteCursorBlinkMode getBlinkMode(string mode) {
@@ -1038,6 +1043,7 @@ public:
      *  firstRun    = Whether this is the first run of the application, used to determine whether to apply profile geometry
      */
     void initTerminal(string initialPath, bool firstRun) {
+        trace("Initializing Terminal");
         initialWorkingDir = initialPath;
         spawnTerminalProcess(initialPath);
         if (firstRun) {
@@ -1081,7 +1087,17 @@ public:
         if (gpid == 0)
             return null;
         string hostname;
-        return URI.filenameFromUri(vte.getCurrentDirectoryUri(), hostname);
+        //trace("Getting current directory");
+        string cwd = vte.getCurrentDirectoryUri();
+        if (cwd.length == 0) {
+            //trace("Whoops, current directory is empty");
+            return null;
+        } else {
+            //trace("Got current directory " ~ cwd);
+        }
+        string result = URI.filenameFromUri(cwd, hostname);
+        //trace("Got result " ~ result);
+        return result;
     }
 
     @property string profileUUID() {
