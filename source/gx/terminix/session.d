@@ -105,6 +105,9 @@ private:
      * Creates the session user interface
      */
     void createUI(string profileUUID, string workingDir, bool firstRun) {
+        // Fix transparency bugs on ubuntu where background-color 
+        // for widgets don't seem to take
+        getStyleContext().addClass("terminix-notebook-page");
         Terminal terminal = createTerminal(profileUUID);
         add(terminal);
         terminal.initTerminal(workingDir, firstRun);

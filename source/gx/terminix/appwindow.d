@@ -575,11 +575,18 @@ public:
         addOnCompositedChanged(&onCompositedChanged);
         /*
         addOnDraw(delegate(Scoped!Context cr, Widget widget) {
+            StyleContext context = widget.getStyleContext();
+            gtk.Border.Border border;
+            int x = 0;
+            int y = 0; 
             int w = widget.getAllocatedWidth();
             int h = widget.getAllocatedHeight();
-            StyleContext context = widget.getStyleContext();
-            StyleContext.renderBackground(context, cr, 0, 0, w, h);
-            StyleContext.renderFrame(context, cr, 0, 0, w, h);
+            context.getShadowWidth(widget.getStateFlags(), border);
+            x = x + border.getBorderStruct().left;
+            y = y + border.getBorderStruct().top;
+
+            StyleContext.renderBackground(context, cr, x, y, w, h);
+            StyleContext.renderFrame(context, cr, x, y, w, h);
             return false;
         });
         */

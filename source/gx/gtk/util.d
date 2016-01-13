@@ -158,10 +158,10 @@ Resource findResource(string resourcePath, bool register = true) {
     return null;
 }
 
-bool addCssProvider(string filename) {
+bool addCssProvider(string filename, ProviderPriority priority) {
     CssProvider provider = new CssProvider();
     if (provider.loadFromFile(GFile.parseName(filename))) {
-        StyleContext.addProviderForScreen(Screen.getDefault(), provider, ProviderPriority.APPLICATION);
+        StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
         return true;
     }
     return false;
