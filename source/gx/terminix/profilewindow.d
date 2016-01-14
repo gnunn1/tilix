@@ -564,7 +564,7 @@ private:
             key[i] = encoding[0];
             value[i] = encoding[0] ~ " " ~ encoding[1];
         }
-        ComboBox cbEncoding = createNameValueCombo(key, value);
+        ComboBox cbEncoding = createNameValueCombo(value, key);
         gsProfile.bind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);
         attach(cbEncoding, 1, row, 1, 1);
         row++;

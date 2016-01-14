@@ -150,6 +150,10 @@ private:
         }
         //Otherwise create it and save the ID
         PreferenceWindow window = new PreferenceWindow(this);
+        window.addOnDelete(delegate(Event, Widget) {
+            prefId = 0;
+            return false;
+        });
         window.showAll();
         prefId = window.getId();
     }

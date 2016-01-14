@@ -60,10 +60,9 @@ class PreferenceWindow : ApplicationWindow {
 
 private:
     Notebook nb;
+    Settings gsSettings;
 
-    void createUI() {
-        Settings gsSettings = new Settings(SETTINGS_ID);
-
+    void createUI(Application app) {
         HeaderBar hb = new HeaderBar();
         hb.setShowCloseButton(true);
         hb.setTitle(_("Preferences"));
@@ -78,7 +77,7 @@ private:
         ShortcutPreferences sp = new ShortcutPreferences();
         nb.appendPage(sp, _("Shortcuts"));
 
-        ProfilePreferences pp = new ProfilePreferences(getApplication());
+        ProfilePreferences pp = new ProfilePreferences(app);
         nb.appendPage(pp, _("Profiles"));
         
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
@@ -88,10 +87,12 @@ private:
     }
 
 public:
+
     this(Application app) {
         super(app);
+        gsSettings = new Settings(SETTINGS_ID);
         app.addWindow(this);
-        createUI();
+        createUI(app);
     }
 }
 
