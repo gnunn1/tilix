@@ -448,10 +448,9 @@ private:
         setMarginRight(18);
 
         int row = 0;
-        Label lblBehavior = new Label("");
+        Label lblBehavior = new Label(format("<b>%s</b>", _("Behavior")));
         lblBehavior.setUseMarkup(true);
         lblBehavior.setHalign(Align.START);
-        lblBehavior.setMarkup(format("<b>%s</b>", _("Behavior")));
         attach(lblBehavior, 0, row, 2, 1);
         row++;
 
@@ -469,10 +468,9 @@ private:
             row++;
         }
 
-        Label lblAppearance = new Label("");
+        Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
         lblAppearance.setUseMarkup(true);
         lblAppearance.setHalign(Align.START);
-        lblAppearance.setMarkup(format("<b>%s</b>", _("Appearance")));
         attach(lblAppearance, 0, row, 2, 1);
         row++;
 

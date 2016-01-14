@@ -190,8 +190,8 @@ private:
         //Text Appearance
         Box b = new Box(Orientation.VERTICAL, 6);
         b.setMarginTop(18);
-        Label lblTitle = new Label("");
-        lblTitle.setMarkup(_("<b>Text Appearance</b>"));
+        Label lblTitle = new Label(_("<b>Text Appearance</b>"));
+        lblTitle.setUseMarkup(true);
         lblTitle.setHalign(Align.START);
         b.add(lblTitle);
 
@@ -265,8 +265,8 @@ private:
         grid.setRowSpacing(18);
 
         int row = 0;
-        Label lblScheme = new Label("");
-        lblScheme.setMarkup(_("<b>Color scheme</b>"));
+        Label lblScheme = new Label(_("<b>Color scheme</b>"));
+        lblScheme.setUseMarkup(true);
         lblScheme.setHalign(Align.END);
         grid.attach(lblScheme, 0, row, 1, 1);
 
@@ -286,16 +286,16 @@ private:
         grid.attach(cbScheme, 1, row, 1, 1);
         row++;
 
-        Label lblPalette = new Label("");
-        lblPalette.setMarkup(_("<b>Color palette</b>"));
+        Label lblPalette = new Label(_("<b>Color palette</b>"));
+        lblPalette.setUseMarkup(true);
         lblPalette.setHalign(Align.END);
         lblPalette.setValign(Align.START);
         grid.attach(lblPalette, 0, row, 1, 1);
         grid.attach(createColorGrid(row), 1, row, 1, 1);
         row++;
 
-        Label lblOptions = new Label("");
-        lblOptions.setMarkup(_("<b>Options</b>"));
+        Label lblOptions = new Label(_("<b>Options</b>"));
+        lblOptions.setUseMarkup(true);
         lblOptions.setValign(Align.START);
         lblOptions.setHalign(Align.END);
         grid.attach(lblOptions, 0, row, 1, 1);
@@ -355,7 +355,7 @@ private:
             gsProfile.setString(SETTINGS_PROFILE_FG_COLOR_KEY, rgbaTo16bitHex(color, false, true));
         });
 
-        Label lblSpacer = new Label("");
+        Label lblSpacer = new Label(" ");
         lblSpacer.setHexpand(true);
         gColors.attach(lblSpacer, 3, row, 1, 1);
 
@@ -395,7 +395,7 @@ private:
 
     void onPaletteColorSet(ColorButton cb) {
         setCustomScheme();
-        RGBA color = new RGBA();
+        RGBA color;
         cb.getRgba(color);
         string[] colorValues = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
         colorValues[cast(int) cb.getData(PALETTE_COLOR_INDEX_KEY)] = rgbaTo16bitHex(color, false, true);
@@ -412,11 +412,10 @@ private:
         //Initialize ColorScheme combobox
         RGBA[16] colors;
         foreach (i, cb; cbPalette) {
-            colors[i] = new RGBA();
             cb.getRgba(colors[i]);
         }
-        RGBA fg = new RGBA();
-        RGBA bg = new RGBA();
+        RGBA fg;
+        RGBA bg;
         cbFG.getRgba(fg);
         cbBG.getRgba(bg);
         int index = findSchemeByColors(schemes, cbUseThemeColors.getActive(), fg, bg, colors);
@@ -618,7 +617,7 @@ private:
         add(bCommand);
 
         Box bWhenExits = new Box(Orientation.HORIZONTAL, 12);
-        Label lblWhenExists = new Label("When command exists");
+        Label lblWhenExists = new Label(_("When command exists"));
         bWhenExits.add(lblWhenExists);
         ComboBox cbWhenExists = createNameValueCombo([_("Exit the terminal"), _("Restart the command"), _("Hold the terminal open")], SETTINGS_PROFILE_EXIT_ACTION_VALUES);
         gsProfile.bind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);

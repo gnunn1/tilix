@@ -37,7 +37,7 @@ enum SCHEME_KEY_USE_THEME_COLORS = "use-theme-colors";
   * and palette colors similar to what text editor color schemes typically
   * do.
   */
-struct ColorScheme {
+class ColorScheme {
 	string id;
 	string name;
 	string comment;
@@ -45,11 +45,15 @@ struct ColorScheme {
 	RGBA foreground;
 	RGBA background;
 	RGBA[16] palette;
-
-	bool opEquals(ColorScheme c) {
-		return (id == c.id && name == c.name && comment == c.comment && useThemeColors == c.useThemeColors && equal(foreground, c.foreground) && equal(background,
-			c.background) && palette == palette);
-	}
+    
+    this() {
+        id = randomUUID().toString();
+        foreground = new RGBA();
+        background = new RGBA();
+        for (int i=0; i<16; i++) {
+            palette[i] = new RGBA();
+        }        
+    }
 }
 
 /**
@@ -116,37 +120,33 @@ ColorScheme[] loadColorSchemes() {
  * Loads a color scheme from a JSON file
  */
 private ColorScheme loadScheme(string fileName) {
+    ColorScheme cs = new ColorScheme();
+
 	string content = readText(fileName);
 	JSONValue root = parseJSON(content);
-	string name = root[SCHEME_KEY_NAME].str();
-	string comment;
+	cs.name = root[SCHEME_KEY_NAME].str();
 	if (SCHEME_KEY_COMMENT in root) {
-		comment = root[SCHEME_KEY_COMMENT].str();
+		cs.comment = root[SCHEME_KEY_COMMENT].str();
 	}
-	bool useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSON_TYPE.TRUE ? true : false;
-	RGBA foreground;
+	cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSON_TYPE.TRUE ? true : false;
 	if (SCHEME_KEY_FOREGROUND in root) {
-		foreground = getColor(root[SCHEME_KEY_FOREGROUND].str());
+		parseColor(cs.foreground, root[SCHEME_KEY_FOREGROUND].str());
 	}
-	RGBA background;
 	if (SCHEME_KEY_BACKGROUND in root) {
-		background = getColor(root[SCHEME_KEY_BACKGROUND].str());
+		parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
 	}
 	JSONValue[] rawPalette = root[SCHEME_KEY_PALETTE].array();
 	if (rawPalette.length != 16) {
 		throw new Exception(_("Color scheme palette requires 16 colors"));
 	}
-	RGBA[16] palette;
 	foreach (i, value; rawPalette) {
-		palette[i] = getColor(value.str());
+		parseColor(cs.palette[i], value.str());
 	}
-	return ColorScheme(randomUUID().toString(), name, comment, useThemeColors, foreground, background, palette);
+	return cs;
 }
 
-private RGBA getColor(string value) {
-	if (value is null)
-		return null;
-	RGBA color = new RGBA();
-	color.parse(value);
-	return color;
+private void parseColor(RGBA rgba, string value) {
+	if (value.length == 0)
+		return;
+	rgba.parse(value);
 }

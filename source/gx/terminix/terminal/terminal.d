@@ -487,7 +487,10 @@ private:
      */
     void updateTitle() {
         string title = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
-        title = title.replace(TERMINAL_TITLE, vte.getWindowTitle());
+        string windowTitle = vte.getWindowTitle();
+        if (windowTitle.length == 0)
+            windowTitle = _("Terminal");
+        title = title.replace(TERMINAL_TITLE, windowTitle);
         title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
         title = title.replace(TERMINAL_ID, to!string(terminalID));
         string path;
@@ -498,8 +501,6 @@ private:
             path = "";
         }
         title = title.replace(TERMINAL_DIR, path);
-        if (title.length == 0)
-            title = _("Terminal");
         lblTitle.setMarkup(title);
     }
 
@@ -600,6 +601,21 @@ private:
         lblTitle.setSensitive(false);
         return false;
     }
+    
+// Preferences go here
+private:
+    RGBA fg;
+    RGBA bg;
+    RGBA[16] palette;
+    
+    void initColors() {
+        fg = new RGBA();
+        bg = new RGBA();
+        palette = new RGBA[16];
+        for (int i=0; i<16; i++) {
+            palette[i] = new RGBA();
+        }        
+    }
 
     /**
      * Updates a setting based on the passed key. Note that using gio.Settings.bind
@@ -621,42 +637,23 @@ private:
             vte.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
             break;
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY,
-        SETTINGS_PROFILE_USE_THEME_COLORS_KEY:
-            RGBA fg;
-            RGBA bg;
+        SETTINGS_PROFILE_USE_THEME_COLORS_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
+                trace("using theme colors");
                 vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
                 vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
             } else {
-                fg = new RGBA();
-                bg = new RGBA();
                 if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
                     trace("Parsing foreground color failed");
                 if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
                     trace("Parsing background color failed");
             }
-            double alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
-            bg.alpha = alpha;
+            bg.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
-            RGBA[] palette = new RGBA[colors.length];
             foreach (i, color; colors) {
-                palette[i] = new RGBA();
-                if (!palette[i].parse(colors[i])) trace("Parsing color failed " ~ colors[i]);
+                if (!palette[i].parse(color)) trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(fg, bg, palette);
-            break;
-        case SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
-            RGBA bg;
-            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
-            } else {
-                bg = new RGBA();
-                if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
-                    trace("Parsing background color failed");
-            }
-            double alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
-            bg.alpha = alpha;
-            vte.setColorBackground(bg);
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
@@ -733,6 +730,8 @@ private:
         }
     }
 
+private:
+
     /**
      * Spawns the child process in the Terminal depending on the Profile
      * command options.
@@ -749,9 +748,10 @@ private:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_LOGIN_SHELL_KEY)) {
                 args ~= "-" ~ shell;
             }
-            flags = GSpawnFlags.FILE_AND_ARGV_ZERO;
+            flags = GSpawnFlags.DEFAULT;
         }
         string[] envv = [""];
+        foreach(arg; args) trace("Argument: " ~ arg);
         vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);
         vte.grabFocus();
     }
@@ -1028,6 +1028,7 @@ public:
      */
     this(string profileUUID) {
         super(Orientation.VERTICAL, 0);
+        initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
         gsProfile = prfMgr.getProfileSettings(profileUUID);
@@ -1041,7 +1042,7 @@ public:
     }
 
     /**
-     * initializes the terminal, i.w spawns the child process.
+     * initializes the terminal, i.e spawns the child process.
      *
      * Params:
      *  initialPath = The initial working directory for the terminal
@@ -1054,6 +1055,7 @@ public:
         if (firstRun) {
             vte.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
         }
+        updateTitle();
     }
 
     /**
