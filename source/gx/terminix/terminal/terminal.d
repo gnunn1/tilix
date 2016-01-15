@@ -36,6 +36,7 @@ import gio.SimpleAction;
 import gio.SimpleActionGroup;
 import gio.ThemedIcon;
 
+import glib.GException;
 import glib.Regex;
 import glib.ShellUtils;
 import glib.Str;
@@ -642,7 +643,6 @@ private:
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY,
         SETTINGS_PROFILE_USE_THEME_COLORS_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                trace("using theme colors");
                 vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
                 vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
             } else {
@@ -669,7 +669,7 @@ private:
             break;
         case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
         SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
-                long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getValue(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY).getInt32();
+            long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getInt(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY);
             vte.setScrollbackLines(scrollLines);
             break;
         case SETTINGS_PROFILE_BACKSPACE_BINDING_KEY:
@@ -764,7 +764,18 @@ private:
         }
         string[] envv = [""];
         foreach(arg; args) trace("Argument: " ~ arg);
-        vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);
+        try {
+            bool result = vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);
+            if (!result) {
+                string msg = _("Unexpected error occurred, no additional information available");
+                error(msg);
+                vte.feedChild(msg, msg.length);
+            }
+        } catch (GException ge) {
+            string msg = format(_("Unexpected error occurred: %s"), ge.msg);
+            error(msg);
+            vte.feedChild(msg, msg.length);
+        }
         vte.grabFocus();
     }
 
