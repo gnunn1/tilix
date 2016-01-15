@@ -652,13 +652,17 @@ public:
      * Creates a new session and prompts the user for session properties
      */
     void createSession() {
-        SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
-        scope (exit) {
-            sp.destroy();
-        }
-        sp.showAll();
-        if (sp.run() == ResponseType.OK) {
-            createSession(sp.name, sp.profileUUID);
+        if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
+            SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+            scope (exit) {
+                sp.destroy();
+            }
+            sp.showAll();
+            if (sp.run() == ResponseType.OK) {
+                createSession(sp.name, sp.profileUUID);
+            }
+        } else {
+            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
         }
     }
 
