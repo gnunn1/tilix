@@ -20,7 +20,7 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.35.0";
+enum APPLICATION_VERSION = "0.36.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = _("A VTE based terminal emulator for Linux");
@@ -28,6 +28,7 @@ enum APPLICATION_LICENSE = _(
         "This Source Code Form is subject to the terms of the Mozilla Public " "License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at " "http://mozilla.org/MPL/2.0/.");
 
 immutable string[] APPLICATION_AUTHORS = ["Gerald Nunn"];
+string[] APPLICATION_CREDITS = ["GTK VTE widget team, Terminix would not be possible without their work", "GtkD for providing such an excellent GTK wrapper", "Dlang.org for such an excellent language, D"];
 immutable string[] APPLICATION_ARTISTS = [];
 immutable string[] APPLICATION_DOCUMENTERS = [""];
 immutable string APPLICATION_TRANSLATORS = "";

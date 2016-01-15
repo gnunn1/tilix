@@ -182,7 +182,7 @@ private:
             setDocumenters(APPLICATION_DOCUMENTERS.dup);
             setTranslatorCredits(APPLICATION_TRANSLATORS);
             setLicense(APPLICATION_LICENSE);
-            //addCreditSection(_("Credits"), [])
+            addCreditSection(_("Credits"), APPLICATION_CREDITS);
 
             addOnResponse(delegate(int responseId, Dialog sender) {
                 if (responseId == ResponseType.CANCEL || responseId == ResponseType.DELETE_EVENT)
