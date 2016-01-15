@@ -20,7 +20,13 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 
 The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) and no allowance has been made for other Desktop Environments (xfce, unity, kde, etc) at this time so your mileage may vary. Consideration for other environments may be given if demand warrants it.
 
-At this point in time the application should be considered early alpha and has only been tested under Arch Linux using GTK 3.18.
+At this point in time the application should be considered early alpha and has been tested to varying degrees with the following distros:
+
+* Arch Linux (primary test platform, works)
+* Ubuntu 16.04 (secondary, works)
+* Fedora 23 (primary, works, bug #19)
+* RHEL 7.2 (primary, works)
+* Fedora Eawhide (not supported, semi-works, UI broken, bug #16)
 
 ### Dependencies
 
@@ -34,7 +40,6 @@ Terminix requires the following libraries to be installed in order to run:
 
 Since this is an early alpha release, there are a number of features which have not yet been developed including:
 
-* Add the Gnome Terminal support for encodings
 * Add an option to support a "compact" view which would have smaller terminal title bars and move commands to popup menus
 * Add support for localization
 
