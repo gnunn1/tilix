@@ -26,7 +26,7 @@ At this point in time the application should be considered early alpha and has b
 * Ubuntu 16.04 (secondary, works)
 * Fedora 23 (primary, works, bug #19)
 * RHEL 7.2 (primary, works)
-* Fedora Eawhide (not supported, semi-works, UI broken, bug #16)
+* Fedora Rawhide (not supported, semi-works, UI broken, bug #16)
 
 ### Dependencies
 
