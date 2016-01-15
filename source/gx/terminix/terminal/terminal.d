@@ -68,6 +68,8 @@ import gtk.TargetEntry;
 import gtk.Widget;
 import gtk.Window;
 
+import pango.PgFontDescription;
+
 import vte.Terminal : VTE = Terminal;
 import vtec.vtetypes;
 
@@ -204,6 +206,7 @@ private:
 
     GSettings gsProfile;
     GSettings gsShortcuts;
+    GSettings gsDesktop;
 
     /**
      * Create the user interface of the TerminalPane
@@ -687,6 +690,15 @@ private:
         case SETTINGS_PROFILE_TITLE_KEY:
             updateTitle();
             break;
+        case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
+            PgFontDescription desc;
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY)) {
+                desc = PgFontDescription.fromString(SETTINGS_MONOSPACE_FONT_KEY);                
+            } else {
+                desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY)); 
+            }
+            vte.setFont(desc);            
+            break;
         default:
             break;
         }
@@ -1033,6 +1045,12 @@ public:
         _profileUUID = profileUUID;
         gsProfile = prfMgr.getProfileSettings(profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
+        gsDesktop.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_MONOSPACE_FONT_KEY) {
+                applyPreference(SETTINGS_PROFILE_FONT_KEY);
+            }
+        });
         createUI();
         trace("Apply preferences");
         applyPreferences();

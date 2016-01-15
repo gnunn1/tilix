@@ -14,6 +14,10 @@ import gio.Settings : GSettings = Settings;
 import gx.i18n.l10n;
 import gx.util.array;
 
+//Gnome Desktop Settings
+enum SETTINGS_DESKTOP_ID = "org.gnome.desktop.interface";
+enum SETTINGS_MONOSPACE_FONT_KEY = "monospace-font-name";
+
 //Preference Constants
 enum SETTINGS_ID = "com.gexperts.Terminix.Settings";
 enum SETTINGS_BASE_PATH = "/com/gexperts/Terminix";
@@ -53,7 +57,7 @@ enum SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE = "underline";
 enum SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY = "cursor-blink-mode";
 immutable string[] SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES = ["system", "on", "off"];
 enum SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY = "use-system-font";
-enum SETTINGS_PROFILE_SYSTEM_FONT_KEY = "font";
+enum SETTINGS_PROFILE_FONT_KEY = "font";
 
 enum SETTINGS_PROFILE_BG_COLOR_KEY = "background-color";
 enum SETTINGS_PROFILE_FG_COLOR_KEY = "foreground-color";

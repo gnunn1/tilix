@@ -214,7 +214,7 @@ private:
         //Font Selector
         FontButton fbFont = new FontButton();
         fbFont.setTitle(_("Choose A Terminal Font"));
-        gsProfile.bind(SETTINGS_PROFILE_SYSTEM_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
+        gsProfile.bind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
         gsProfile.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
             .INVERT_BOOLEAN);
         bFont.add(fbFont);
