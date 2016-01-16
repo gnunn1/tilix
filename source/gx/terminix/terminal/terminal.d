@@ -65,6 +65,7 @@ import gtk.Revealer;
 import gtk.Scrollbar;
 import gtk.SelectionData;
 import gtk.Separator;
+import gtk.SeparatorMenuItem;
 import gtk.TargetEntry;
 import gtk.Widget;
 import gtk.Window;
@@ -204,6 +205,7 @@ private:
     Menu mContext;
     MenuItem miCopy;
     MenuItem miPaste;
+    MenuItem miSelectAll;
 
     GSettings gsProfile;
     GSettings gsShortcuts;
@@ -472,6 +474,9 @@ private:
         mContext.add(miCopy);
         miPaste = new MenuItem(delegate(MenuItem item) { vte.pasteClipboard(); }, _("Paste"), null);
         mContext.add(miPaste);
+        miSelectAll = new MenuItem(delegate(MenuItem item) {vte.selectAll(); }, _("Select All"), null);
+        mContext.add(new SeparatorMenuItem());
+        mContext.add(miSelectAll);
 
         terminalOverlay = new Overlay();        
         terminalOverlay.add(vte);
