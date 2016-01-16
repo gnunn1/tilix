@@ -190,7 +190,10 @@ private:
         foreach(window; appWindows) {
             window.close();
         }
-        
+        foreach(window; profileWindows) {
+            window.close();
+        }
+        if (preferenceWindow !is null) preferenceWindow.close();
     }
 
     void onAppActivate(GioApplication app) {

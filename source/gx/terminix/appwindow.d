@@ -608,6 +608,7 @@ public:
             workingDir = Util.getHomeDir();
         createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
+      
     /**
      * Activates the specified sessionUUID
      */
