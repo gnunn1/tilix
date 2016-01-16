@@ -34,11 +34,13 @@ import gtk.Notebook;
 import gtk.Scale;
 import gtk.SpinButton;
 import gtk.Switch;
+import gtk.Widget;
 
 import gx.gtk.util;
 
 import gx.i18n.l10n;
 
+import gx.terminix.application;
 import gx.terminix.colorschemes;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
@@ -77,14 +79,20 @@ private:
 
         add(nb);
     }
+    
+    void onWindowDestroyed(Widget widget) {
+        terminix.removeProfileWindow(this);
+    }
 
 public:
 
-    this(Application app, ProfileInfo profile) {
+    this(Terminix app, ProfileInfo profile) {
         super(app);
         this.profile = profile;
         gsProfile = prfMgr.getProfileSettings(profile.uuid);
         createUI();
+        app.addProfileWindow(this);
+        addOnDestroy(&onWindowDestroyed);
     }
 
     @property string uuid() {

@@ -21,6 +21,7 @@ import glib.VariantType : GVariantType = VariantType;
 import gtk.AboutDialog;
 import gtk.Application;
 import gtk.Dialog;
+import gtk.Main;
 import gtk.Settings;
 import gtk.Widget;
 import gtk.Window;
@@ -33,6 +34,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
+import gx.terminix.profilewindow;
 
 Terminix terminix;
 
@@ -52,13 +54,14 @@ private:
     enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
 
-    uint prefId = 0;
     GSettings gsShortcuts;
     GSettings gsGeneral;
 
     CommandParameters cp;
     
-    AppWindow[] windows;
+    AppWindow[] appWindows;
+    ProfileWindow[] profileWindows;
+    PreferenceWindow preferenceWindow;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -88,7 +91,7 @@ private:
             ulong l;
             string sessionUUID = value.getString(l);
             trace("activate-session triggered for session " ~ sessionUUID);
-            foreach (window; windows) {
+            foreach (window; appWindows) {
                 if (window.activateSession(sessionUUID)) {
                     window.present();
                     break;
@@ -96,20 +99,16 @@ private:
             }
         }, new GVariantType("s"));
 
-        registerAction(this, ACTION_PREFIX, ACTION_NEW_SESSION, null, delegate(GVariant, SimpleAction) { this.onCreateNewSession(); });
+        registerAction(this, ACTION_PREFIX, ACTION_NEW_SESSION, null, delegate(GVariant, SimpleAction) { onCreateNewSession(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_NEW_WINDOW, null, delegate(GVariant, SimpleAction) { this.onCreateNewWindow(); });
+        registerAction(this, ACTION_PREFIX, ACTION_NEW_WINDOW, null, delegate(GVariant, SimpleAction) { onCreateNewWindow(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_PREFERENCES, null, delegate(GVariant, SimpleAction) { this.onShowPreferences(); });
+        registerAction(this, ACTION_PREFIX, ACTION_PREFERENCES, null, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { this.onShowAboutDialog(); });
+        registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) {
-            Widget[] widgets = getWidgets(getWindows());
-            foreach (widget; widgets) {
-                Window window = cast(Window) widget;
-                if (window !is null) window.close();
-            }
+            quitTerminix();
         });
 
         Menu newSection = new Menu();
@@ -140,24 +139,9 @@ private:
     }
 
     void onShowPreferences() {
-        //Check if preference window already exists
-        if (prefId != 0) {
-            Window window = getWindowById(prefId);
-            if (window) {
-                window.present();
-                return;
-            }
-        }
-        //Otherwise create it and save the ID
-        PreferenceWindow window = new PreferenceWindow(this);
-        window.addOnDelete(delegate(Event, Widget) {
-            prefId = 0;
-            return false;
-        });
-        window.showAll();
-        prefId = window.getId();
+        presentPreferences();
     }
-
+    
     /**
      * Shows the about dialog.
      * 
@@ -200,6 +184,13 @@ private:
         else
             window.initialize();
         window.showAll();
+    }
+
+    void quitTerminix() {
+        foreach(window; appWindows) {
+            window.close();
+        }
+        
     }
 
     void onAppActivate(GioApplication app) {
@@ -248,13 +239,25 @@ public:
     }
 
     void addAppWindow(AppWindow window) {
-        windows ~= window;
+        appWindows ~= window;
         //GTK add window
         addWindow(window);
     }
     
     void removeAppWindow(AppWindow window) {
-        gx.util.array.remove(windows, window);
+        gx.util.array.remove(appWindows, window);
+        removeWindow(window);
+    }
+    
+    void addProfileWindow(ProfileWindow window) {
+        profileWindows ~= window;
+        //GTK add window
+        addWindow(window);
+    }
+    
+    void removeProfileWindow(ProfileWindow window) {
+        gx.util.array.remove(profileWindows, window);
+        //GTK remove window
         removeWindow(window);
     }
     
@@ -267,11 +270,12 @@ public:
     * the moment there is just one, dragging a terminal from
     * one Window to the next.
     *
-    * TODO - Convert this into a template
+    * TODO - Convert this into a template to eliminate casting
+    *        by callers
     */
     Widget findWidgetForUUID(string uuid) {
 
-        foreach(window; windows) {
+        foreach(window; appWindows) {
             trace("Finding widget " ~ uuid);
             trace("Checking app window");
             Widget result = window.findWidgetForUUID(uuid);
@@ -280,5 +284,42 @@ public:
             }
         }
         return null;
+    }
+    
+    void presentPreferences() {
+        //Check if preference window already exists
+        if (preferenceWindow !is null) {
+            preferenceWindow.present();
+            return;
+        }
+        //Otherwise create it and save the ID
+        preferenceWindow = new PreferenceWindow(this);
+        addWindow(preferenceWindow);
+        preferenceWindow.addOnDelete(delegate(Event, Widget) {
+            preferenceWindow = null;
+            removeWindow(preferenceWindow);
+            return false;
+        });
+        preferenceWindow.showAll();
+    }
+    
+    void closeProfilePreferences(ProfileInfo profile) {
+        foreach(window; profileWindows) {
+            if (window.uuid == profile.uuid) {
+                window.destroy();
+                return;
+            }
+        }
+    }
+    
+    void presentProfilePreferences(ProfileInfo profile) {
+        foreach(window; profileWindows) {
+            if (window.uuid == profile.uuid) {
+                window.present();
+                return;
+            }
+        }
+        ProfileWindow window = new ProfileWindow(this, profile);
+        window.showAll();
     }
 }

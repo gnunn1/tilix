@@ -80,6 +80,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
 
+import gx.terminix.application;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.encoding;
@@ -298,6 +299,9 @@ private:
             menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
             profileMenu.appendItem(menuItem);
         }
+        GMenu menuSection = new GMenu();
+        menuSection.append(_("Edit Profile"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_PREFERENCE));
+        profileMenu.appendSection(null, menuSection);
     }
 
     //Dynamically build the menus for selecting an encoding
@@ -369,10 +373,15 @@ private:
             if (closeTerminal)
                 notifyTerminalClose();
         });
+        
+        //Edit Profile Preference
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(Variant, SimpleAction) { 
+            terminix.presentProfilePreferences(prfMgr.getProfile(_profileUUID)); 
+        }, null, null);
 
         //Select Profile
         GVariant pu = new GVariant(profileUUID);
-        saProfileSelect = registerAction(sagTerminalActions, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
+        saProfileSelect = registerAction(group, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
             ulong l;
             string uuid = value.getString(l);
             profileUUID = uuid;
@@ -382,7 +391,7 @@ private:
         // Select Encoding
         // 
         GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
-        saEncodingSelect = registerAction(sagTerminalActions, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
+        saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
             ulong l;
             sa.setState(value);
             vte.setEncoding(value.getString(l));

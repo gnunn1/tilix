@@ -328,6 +328,7 @@ public:
      * Based on the example here https://www.sociomantic.com/blog/2010/06/opapply-recipe/#.Vm8mW7grKEI
      */
     int opApply(int delegate(ref TreeIter iter) dg) {
+        trace("Iterate on Apply Start");
         int result = 0;
         TreeIter iter;
         bool hasNext = model.getIterFirst(iter);
@@ -337,6 +338,7 @@ public:
                 break;
             hasNext = model.iterNext(iter);
         }
+        trace("Iterate on Apply End");
         return result;
     }
 }

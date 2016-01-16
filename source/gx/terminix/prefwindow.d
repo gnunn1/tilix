@@ -48,6 +48,7 @@ import gx.gtk.util;
 
 import gx.i18n.l10n;
 
+import gx.terminix.application;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.profilewindow;
@@ -286,7 +287,9 @@ private:
     //Button btnClone;
     TreeView tvProfiles;
     ListStore lsProfiles;
-
+    
+    Settings[string] profiles;
+    
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -350,8 +353,11 @@ private:
         btnDelete.addOnClicked(delegate(Button button) {
             ProfileInfo profile = getSelectedProfile();
             if (profile.uuid !is null) {
-                prfMgr.deleteProfile(profile.uuid);
+                //If profile window for this profile is open, close it first 
+                terminix.closeProfilePreferences(profile);
                 lsProfiles.remove(tvProfiles.getSelectedIter());
+                profiles.remove(profile.uuid);
+                prfMgr.deleteProfile(profile.uuid);
             }
         });
         bButtons.add(btnDelete);
@@ -365,34 +371,16 @@ private:
     void editProfile() {
         ProfileInfo profile = getSelectedProfile();
         if (profile.uuid !is null) {
-            ProfileWindow window = new ProfileWindow(app, profile);
-            app.addWindow(window);
-            window.addOnDelete(&onProfileWindowDeleted);
-            window.showAll();
-            //TODO: Track profile editing windows to focus instead of creating new
-            //prefId = window.getId();
+            terminix.presentProfilePreferences(profile);
         }
-    }
-
-    //Update Profile Name here in case it changed
-    bool onProfileWindowDeleted(Event event, Widget widget) {
-        ProfileWindow window = cast(ProfileWindow) widget;
-        if (window) {
-            ProfileInfo profile = prfMgr.getProfile(window.uuid);
-            foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
-                if (lsProfiles.getValue(iter, COLUMN_UUID).getString() == window.uuid) {
-                    lsProfiles.setValue(iter, COLUMN_NAME, profile.name);
-                }
-            }
-        }
-        return false;
     }
 
     ProfileInfo getSelectedProfile() {
         TreeIter selected = tvProfiles.getSelectedIter();
         if (selected) {
-            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), lsProfiles.getValue(selected, COLUMN_UUID).getString(),
-                lsProfiles.getValue(selected, COLUMN_NAME).getString());
+            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), 
+                               lsProfiles.getValue(selected, COLUMN_UUID).getString(),
+                               lsProfiles.getValue(selected, COLUMN_NAME).getString());
         } else {
             return ProfileInfo(false, null, null);
         }
@@ -409,6 +397,28 @@ private:
         lsProfiles.setValue(iter, 0, profile.isDefault);
         lsProfiles.setValue(iter, 1, profile.name);
         lsProfiles.setValue(iter, 2, profile.uuid);
+        Settings ps = prfMgr.getProfileSettings(profile.uuid);
+        ps.addOnChanged(delegate(string key, Settings settings) {
+            trace("Key changed " ~ key);
+            if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) {
+                foreach(uuid, ps; profiles) {
+                    if (ps == settings) {
+                        updateProfileName(uuid, ps.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
+                        break;
+                    }
+                }
+            }
+        });
+        profiles[profile.uuid] = ps;
+    }
+
+    //Update Profile Name here in case it changed
+    void updateProfileName(string uuid, string name) {
+        foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
+            if (lsProfiles.getValue(iter, COLUMN_UUID).getString() == uuid) {
+                lsProfiles.setValue(iter, COLUMN_NAME, name);
+            }
+        }
     }
 
     void loadProfiles() {
@@ -426,7 +436,6 @@ public:
         this.app = app;
         createUI();
     }
-
 }
 
 /**

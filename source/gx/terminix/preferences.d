@@ -249,6 +249,10 @@ public:
         }
         return results;
     }
+    
+    string[] getProfileUUIDs() {
+        return gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+    }
 
     string getProfileUUIDFromName(string profileName) {
         ProfileInfo[] profiles = getProfiles();
