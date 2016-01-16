@@ -259,13 +259,12 @@ private:
         });
 
         //Synchronize Input
-        GVariant state = new GVariant(false);
         saSyncInput = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             getCurrentSession().synchronizeInput = newState;
             mbSessionActions.setActive(false);
-        }, null, state);
+        }, null, new GVariant(false));
 
         insertActionGroup(ACTION_PREFIX, sessionActions);
     }

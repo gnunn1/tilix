@@ -15,3 +15,4 @@ enum ACTION_CLOSE = "close";
 enum ACTION_PROFILE_SELECT = "profile-select";
 enum ACTION_ENCODING_SELECT = "encoding-select";
 enum ACTION_PROFILE_PREFERENCE = "profile-preference";
+enum ACTION_READ_ONLY = "read-only";

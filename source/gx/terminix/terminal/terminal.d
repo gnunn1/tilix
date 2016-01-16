@@ -325,15 +325,15 @@ private:
      */
     void createActions(SimpleActionGroup group) {
         //Terminal Split actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_H, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_H, gsShortcuts, delegate(GVariant, SimpleAction) {
             notifyTerminalRequestSplit(Orientation.HORIZONTAL);
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_V, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_V, gsShortcuts, delegate(GVariant, SimpleAction) {
             notifyTerminalRequestSplit(Orientation.VERTICAL);
         });
 
         //Find actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!rFind.getRevealChild()) {
                 rFind.setRevealChild(true);
                 rFind.focusSearchEntry();
@@ -342,11 +342,11 @@ private:
                 vte.grabFocus();
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(Variant, SimpleAction) { vte.searchFindPrevious(); });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(Variant, SimpleAction) { vte.searchFindNext(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindPrevious(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindNext(); });
 
         //Override terminal title
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
             string terminalTitle = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
                     _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank"))) {
@@ -358,7 +358,7 @@ private:
         });
 
         //Close Terminal Action
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             bool closeTerminal = true;
             if (isProcessRunning()) {
                 MessageDialog dialog = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
@@ -375,7 +375,15 @@ private:
         });
         
         //Edit Profile Preference
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(Variant, SimpleAction) { 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(GVariant state, SimpleAction sa) { 
+            bool newState = !sa.getState().getBoolean();
+            sa.setState(new GVariant(newState));
+            vte.setInputEnabled(!newState);
+        }, null, new GVariant(false));
+
+
+        //Edit Profile Preference
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) { 
             terminix.presentProfilePreferences(prfMgr.getProfile(_profileUUID)); 
         }, null, null);
 
@@ -423,12 +431,18 @@ private:
         model.appendItem(splits);
 
         GMenu menuSection = new GMenu();
-        menuSection.appendItem(new GMenuItem(_("Find..."), ACTION_PREFIX ~ "." ~ ACTION_FIND));
-        menuSection.appendItem(new GMenuItem(_("Title..."), ACTION_PREFIX ~ "." ~ ACTION_TITLE));
+        menuSection.append(_("Find..."), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        menuSection.append(_("Title..."), getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
+        model.appendSection(null, menuSection);
+        
+        menuSection = new GMenu();
+        menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
 
-        model.appendSubmenu(_("Profiles"), profileMenu);
-        model.appendSubmenu(_("Encoding"), encodingMenu);
+        menuSection = new GMenu();
+        menuSection.appendSubmenu(_("Profiles"), profileMenu);
+        menuSection.appendSubmenu(_("Encoding"), encodingMenu);
+        model.appendSection(null, menuSection);
 
         Popover pm = new Popover(parent, model);
         return pm;
