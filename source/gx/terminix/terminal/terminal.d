@@ -473,7 +473,7 @@ private:
         miPaste = new MenuItem(delegate(MenuItem item) { vte.pasteClipboard(); }, _("Paste"), null);
         mContext.add(miPaste);
 
-        terminalOverlay = new Overlay();
+        terminalOverlay = new Overlay();        
         terminalOverlay.add(vte);
         rFind = new SearchRevealer(vte);
         terminalOverlay.addOverlay(rFind);
@@ -481,6 +481,9 @@ private:
         Box box = new Box(Orientation.HORIZONTAL, 0);
         box.add(terminalOverlay);
 
+        // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for we use
+        // a Scrollbar instead of a ScrolledWindow. It's pity considering the
+        // overlay scrollbars look awesome with VTE
         sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
         box.add(sb);
         return box;
@@ -1082,6 +1085,7 @@ public:
         initialWorkingDir = initialPath;
         spawnTerminalProcess(initialPath);
         if (firstRun) {
+            trace("Set VTE Size for rows " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY)));
             vte.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
         }
         updateTitle();
