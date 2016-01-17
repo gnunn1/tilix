@@ -65,7 +65,6 @@ import gtk.Overlay;
 import gtk.Popover;
 import gtk.Revealer;
 import gtk.Scrollbar;
-//import gtk.ScrolledWindow;
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
@@ -777,7 +776,7 @@ private:
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
             PgFontDescription desc;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY)) {
-                desc = PgFontDescription.fromString(SETTINGS_MONOSPACE_FONT_KEY);                
+                desc = PgFontDescription.fromString(gsDesktop.getString(SETTINGS_MONOSPACE_FONT_KEY));                
             } else {
                 desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY)); 
             }
@@ -1170,6 +1169,7 @@ public:
         spawnTerminalProcess(initialPath);
         if (firstRun) {
             trace("Set VTE Size for rows " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY)));
+            trace("Set VTE Size for columns " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY)));
             vte.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
         }
         updateTitle();
