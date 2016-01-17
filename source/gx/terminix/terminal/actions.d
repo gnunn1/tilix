@@ -16,3 +16,6 @@ enum ACTION_PROFILE_SELECT = "profile-select";
 enum ACTION_ENCODING_SELECT = "encoding-select";
 enum ACTION_PROFILE_PREFERENCE = "profile-preference";
 enum ACTION_READ_ONLY = "read-only";
+enum ACTION_COPY = "copy";
+enum ACTION_PASTE = "paste";
+enum ACTION_SELECT_ALL = "select-all";

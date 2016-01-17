@@ -349,6 +349,11 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindPrevious(); });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindNext(); });
 
+        //Clipboard actions
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) { vte.copyClipboard(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) { pasteClipboard(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll();  });
+
         //Override terminal title
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
             string terminalTitle = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
@@ -497,11 +502,11 @@ private:
         });
 
         mContext = new Menu();
-        miCopy = new MenuItem(delegate(MenuItem item) { vte.copyClipboard(); }, _("Copy"), null);
+        miCopy = new MenuItem(null, _("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
         mContext.add(miCopy);
-        miPaste = new MenuItem(delegate(MenuItem item) { pasteClipboard(); }, _("Paste"), null);
+        miPaste = new MenuItem(null, _("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
         mContext.add(miPaste);
-        miSelectAll = new MenuItem(delegate(MenuItem item) {vte.selectAll(); }, _("Select All"), null);
+        miSelectAll = new MenuItem(null, _("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
         mContext.add(new SeparatorMenuItem());
         mContext.add(miSelectAll);
 
@@ -556,7 +561,7 @@ private:
         string pasteText = Clipboard.get(null).waitForText(); 
         if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
-                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel());
+                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel(), pasteText);
                 scope(exit) {dialog.destroy();}
                 if (dialog.run() == 1) return;
                 else unsafePasteIgnored = true; 
@@ -754,6 +759,7 @@ private:
             } else {
                 desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY)); 
             }
+            if (desc.getSize() == 0) desc.setSize(10);
             vte.setFont(desc);            
             break;
         default:
@@ -1330,7 +1336,7 @@ package class UnsafePasteDialog: MessageDialog {
 
 public:
 
-    this(Window parent) {
+    this(Window parent, string cmd) {
         super(parent, DialogFlags.MODAL, MessageType.WARNING, ButtonsType.NONE, null, null);
         setTransientFor(parent);
         getMessageArea().setMarginLeft(0);
@@ -1338,7 +1344,8 @@ public:
         setMarkup("<span weight='bold' size='larger'>" ~
                     _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~
                     _("Copying commands from the internet can be dangerous. ") ~ "\n" ~
-                    _("Be sure you understand what each part of this command does."));
+                    _("Be sure you understand what each part of this command does.") ~ "\n\n" ~
+                    "<tt><b>" ~ chomp(cmd) ~ "</b></tt>");
         setImage(new Image("dialog-warning", IconSize.DIALOG));
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
