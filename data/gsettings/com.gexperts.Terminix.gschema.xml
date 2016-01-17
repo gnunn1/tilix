@@ -83,6 +83,12 @@
       <summary>Whether to notify when a process is completed</summary>
       <description>If true, notifications will be sent when non-visible processes complete in terminals.</description>
     </key>
+    <!-- Unsafe Paste, cribbed from Pantheon -->
+    <key name="unsafe-paste-alert" type="b">
+      <default>true</default>
+      <summary>Alert the user about unsafe paste.</summary>
+      <description>If the user paste's a command into the terminal that might be considered unsafe, when them.</description>
+    </key>    
     <!-- Search Options -->
     <key name="search-default-match-case" type="b">
       <default>false</default>

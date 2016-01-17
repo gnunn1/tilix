@@ -44,6 +44,7 @@ void showErrorDialog(Window parent, string message, string title = null) {
     scope (exit) {
         dialog.destroy();
     }
+    dialog.setTransientFor(parent);
     if (title.length > 0)
         dialog.setTitle(title);
     dialog.run();
@@ -51,15 +52,16 @@ void showErrorDialog(Window parent, string message, string title = null) {
 
 bool showInputDialog(Window parent, out string value, string initialValue = null, string title = null, string message = null) {
     MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL, message, null);
+    scope (exit) {
+        dialog.destroy();
+    }
+    dialog.setTransientFor(parent);
     dialog.setTitle(title);
     Entry entry = new Entry(initialValue);
     entry.addOnActivate(delegate(Entry) { dialog.response(ResponseType.OK); });
     dialog.getMessageArea().add(entry);
     entry.showAll();
     dialog.setDefaultResponse(ResponseType.OK);
-    scope (exit) {
-        dialog.destroy();
-    }
     if (dialog.run() == ResponseType.OK) {
         value = entry.getText();
         return true;

@@ -16,6 +16,7 @@ import std.experimental.logger;
 import std.format;
 import std.process;
 import std.stdio;
+import std.string;
 import std.uuid;
 
 import cairo.Context;
@@ -47,6 +48,7 @@ import glib.VariantType : GVariantType = VariantType;
 import gtk.Box;
 import gtk.Button;
 import gtk.Clipboard;
+import gtk.Dialog;
 import gtk.DragAndDrop;
 import gtk.EventBox;
 import gtk.Frame;
@@ -63,6 +65,7 @@ import gtk.Overlay;
 import gtk.Popover;
 import gtk.Revealer;
 import gtk.Scrollbar;
+//import gtk.ScrolledWindow;
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
@@ -192,6 +195,7 @@ private:
     string _terminalUUID;
     string overrideTitle;
     bool _synchronizeInput;
+    bool unsafePasteIgnored;
 
     string initialWorkingDir;
 
@@ -495,13 +499,21 @@ private:
         mContext = new Menu();
         miCopy = new MenuItem(delegate(MenuItem item) { vte.copyClipboard(); }, _("Copy"), null);
         mContext.add(miCopy);
-        miPaste = new MenuItem(delegate(MenuItem item) { vte.pasteClipboard(); }, _("Paste"), null);
+        miPaste = new MenuItem(delegate(MenuItem item) { pasteClipboard(); }, _("Paste"), null);
         mContext.add(miPaste);
         miSelectAll = new MenuItem(delegate(MenuItem item) {vte.selectAll(); }, _("Select All"), null);
         mContext.add(new SeparatorMenuItem());
         mContext.add(miSelectAll);
 
-        terminalOverlay = new Overlay();        
+        terminalOverlay = new Overlay();
+        /*
+        ScrolledWindow sw = new ScrolledWindow(vte);
+        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sw.setHexpand(true);
+        sw.setVexpand(true);
+        terminalOverlay.add(sw);
+        */
+        
         terminalOverlay.add(vte);
         rFind = new SearchRevealer(vte);
         terminalOverlay.addOverlay(rFind);
@@ -537,6 +549,20 @@ private:
         }
         title = title.replace(TERMINAL_DIR, path);
         lblTitle.setMarkup(title);
+    }
+    
+    void pasteClipboard() {
+        GSettings gsSettings = new GSettings(SETTINGS_ID);
+        string pasteText = Clipboard.get(null).waitForText(); 
+        if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
+            if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
+                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel());
+                scope(exit) {dialog.destroy();}
+                if (dialog.run() == 1) return;
+                else unsafePasteIgnored = true; 
+            }
+        }
+        vte.pasteClipboard();
     }
 
     void notifyTerminalRequestSplit(Orientation orientation) {
@@ -1291,6 +1317,35 @@ public:
         } else {
             lblPrompt.setText(STATUS_ABORT);
         }
+    }
+}
+
+/**
+ * This feature has been copied from Pantheon Terminal and
+ * translated from Vala to D. Thanks to Pantheon for this.
+ *
+ * http://bazaar.launchpad.net/~elementary-apps/pantheon-terminal/trunk/view/head:/src/UnsafePasteDialog.vala
+ */ 
+package class UnsafePasteDialog: MessageDialog {
+
+public:
+
+    this(Window parent) {
+        super(parent, DialogFlags.MODAL, MessageType.WARNING, ButtonsType.NONE, null, null);
+        setTransientFor(parent);
+        getMessageArea().setMarginLeft(0);
+        getMessageArea().setMarginRight(0);
+        setMarkup("<span weight='bold' size='larger'>" ~
+                    _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~
+                    _("Copying commands from the internet can be dangerous. ") ~ "\n" ~
+                    _("Be sure you understand what each part of this command does."));
+        setImage(new Image("dialog-warning", IconSize.DIALOG));
+        Button btnCancel = new Button(_("Don't Paste"));
+        Button btnIgnore = new Button(_("Paste Anyway"));
+        btnIgnore.getStyleContext().addClass ("destructive-action");
+        addActionWidget(btnCancel, 1);
+        addActionWidget(btnIgnore, 0);
+        showAll();
     }
 }
 

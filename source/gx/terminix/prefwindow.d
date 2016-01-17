@@ -469,6 +469,12 @@ private:
         attach(cbPrompt, 0, row, 2, 1);
         row++;
         
+        //Unsafe Paste Warning
+        CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
+        gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
+        attach(cbUnsafe, 0, row, 2, 1);
+        row++;
+
         //Show Notifications, only show option if notifications are supported
         if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
