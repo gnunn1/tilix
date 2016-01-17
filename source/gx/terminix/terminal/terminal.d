@@ -40,6 +40,7 @@ import gio.ThemedIcon;
 import glib.GException;
 import glib.Regex;
 import glib.ShellUtils;
+import glib.SimpleXML;
 import glib.Str;
 import glib.URI;
 import glib.Variant : GVariant = Variant;
@@ -572,7 +573,7 @@ private:
         string pasteText = Clipboard.get(null).waitForText(); 
         if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
-                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel(), pasteText);
+                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel(), chomp(pasteText));
                 scope(exit) {dialog.destroy();}
                 if (dialog.run() == 1) return;
                 else unsafePasteIgnored = true; 
@@ -1369,7 +1370,7 @@ public:
                     _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~
                     _("Copying commands from the internet can be dangerous. ") ~ "\n" ~
                     _("Be sure you understand what each part of this command does.") ~ "\n\n" ~
-                    "<tt><b>" ~ chomp(cmd) ~ "</b></tt>");
+                    "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
         setImage(new Image("dialog-warning", IconSize.DIALOG));
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
