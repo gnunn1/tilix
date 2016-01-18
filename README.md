@@ -75,4 +75,4 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 Note the project is actively looking for package maintainers, if you are interested in assuming this role for one or more distros please see [Issue #25](https://github.com/gnunn1/terminix/issues/25).
 
-At this time no 32 bit version of Terminix and there are no plans to create a 32 bit version at this time. While in theory it would be possible to compile a 32 bit version from source code, no testing of this has been done.
+At this time no 32 bit version of Terminix is available and there are no plans to create a 32 bit version at this time. While in theory it would be possible to compile a 32 bit version from source code, no testing of this has been done.
