@@ -185,6 +185,7 @@ private:
      * is removed from the session completely.
      */
     void removeTerminal(Terminal terminal) {
+        int id = to!int(terminal.terminalID);
         trace("Removing terminal from session");
         if (lastFocused == terminal)
             lastFocused = null;
@@ -210,6 +211,11 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
+        //Fix Issue #33
+        if (id >= terminals.length) id = to!int(terminals.length) -1;
+        if (id >= 0 && id < terminals.length) {
+            focusTerminal(id);
+        }
         showAll();
     }
 
@@ -348,6 +354,8 @@ private:
         }
         parent.add(paned);
         parent.showAll();
+        //Fix for issue #33
+        focusTerminal(src.terminalID);
     }
     
     void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
