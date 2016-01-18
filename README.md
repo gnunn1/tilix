@@ -64,9 +64,13 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Installation
 
-Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), for other distros releases can be installed manually from the releases section by downloading terminix.zip and following these instructions:
+Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), RPMs for Fedora 23 and CentOS 7 are available via the [OpenSUSE Build Service](https://software.opensuse.org/download.html?project=home%3Agnunn&package=terminix).
+
+For other distros releases can be installed manually from the releases section by downloading terminix.zip and following these instructions:
 
 ```
 sudo unzip terminix.zip -d /
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
+
+Note the project is actively looking for package maintainers, if you are interested in assuming this role for one or more distros please see [Issue #25](https://github.com/gnunn1/terminix/issues/25).
