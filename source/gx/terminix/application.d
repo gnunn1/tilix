@@ -346,7 +346,7 @@ public:
         if (testVTEConfig()) {
             warnedVTEConfigIssue = true;
             string msg = _("There appears to be an issue with the configuration of the terminal.\n" ~
-                         "This issue is not serious, but correcting it will improve your experience\n" ~
+                         "This issue is not serious, but correcting it will improve your experience.\n" ~
                          "Click the link below for more information:");
             string title = "<span weight='bold' size='larger'>" ~ _("Configuration Issue Detected") ~ "</span>";
             MessageDialog dlg = new MessageDialog(getActiveWindow(), DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
