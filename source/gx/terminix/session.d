@@ -249,7 +249,7 @@ private:
         Terminal newTerminal = createTerminal(terminal.profileUUID);
         trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);
-        trace("Intializing terminal");
+        trace("Intializing terminal with " ~ terminal.currentDirectory);
         newTerminal.initTerminal(terminal.currentDirectory, false);
     }
 

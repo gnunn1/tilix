@@ -19,7 +19,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
-	
+	trace("Starting terminix...");
 	//Version checking cribbed from grestful, thanks!
 	string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
 	if (gtkError !is null)	{
@@ -40,6 +40,7 @@ int main(string[] args) {
 		return 1;
 	}
     
+	trace("Reading command parameters...");
     CommandParameters cp = CommandParameters(args);
     if (!cp.exit) {
         auto terminixApp = new Terminix(cp);
@@ -47,6 +48,7 @@ int main(string[] args) {
         string[] tempArgs;
         int result;
         try {
+            trace("Running application...");
             result = terminixApp.run(tempArgs);
         } catch (Exception e) {
             error("Unexpected exception occurred");

@@ -205,7 +205,6 @@ private:
 
         TreeView tvShortcuts = new TreeView(tsShortcuts);
         tvShortcuts.setActivateOnSingleClick(false);
-        //tvShortcuts.addOnCursorChanged(delegate(TreeView) { updateUI(); });
 
         TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
         column.setExpand(true);
@@ -388,7 +387,7 @@ private:
 
     void updateUI() {
         TreeIter selected = tvProfiles.getSelectedIter();
-        btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 0);
+        btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 1);
         btnEdit.setSensitive(selected !is null);
     }
 

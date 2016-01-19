@@ -20,8 +20,13 @@ import glib.VariantType : GVariantType = VariantType;
 
 import gtk.AboutDialog;
 import gtk.Application;
+import gtk.CheckButton;
 import gtk.Dialog;
+import gtk.Image;
+import gtk.Label;
+import gtk.LinkButton;
 import gtk.Main;
+import gtk.MessageDialog;
 import gtk.Settings;
 import gtk.Widget;
 import gtk.Window;
@@ -62,6 +67,8 @@ private:
     AppWindow[] appWindows;
     ProfileWindow[] profileWindows;
     PreferenceWindow preferenceWindow;
+    
+    bool warnedVTEConfigIssue = false;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -324,5 +331,42 @@ public:
         }
         ProfileWindow window = new ProfileWindow(this, profile);
         window.showAll();
+    }
+    
+    bool testVTEConfig() {
+        return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
+    }
+    
+    /**
+     * Shows a dialog when a VTE configuration issue is detected.
+     * See Issue #34 and https://github.com/gnunn1/terminix/wiki/VTE-Configuration-Issue
+     * for more information.
+     */
+    void warnVTEConfigIssue() {
+        if (testVTEConfig()) {
+            warnedVTEConfigIssue = true;
+            string msg = _("There appears to be an issue with the configuration of the terminal.\n" ~
+                         "This issue is not serious, but correcting it will improve your experience\n" ~
+                         "Click the link below for more information:");
+            string title = "<span weight='bold' size='larger'>" ~ _("Configuration Issue Detected") ~ "</span>";
+            MessageDialog dlg = new MessageDialog(getActiveWindow(), DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
+            scope(exit) {dlg.destroy();}
+            with (dlg) {
+                setTransientFor(getActiveWindow());
+                setMarkup(title);
+                getMessageArea().setMarginLeft(0);
+                getMessageArea().setMarginRight(0);
+                getMessageArea().add(new Label(msg));
+                getMessageArea().add(new LinkButton("https://github.com/gnunn1/terminix/wiki/VTE-Configuration-Issue"));
+                CheckButton cb = new CheckButton(_("Do not show this message again"));
+                getMessageArea().add(cb);
+                setImage(new Image("dialog-warning", IconSize.DIALOG));
+                showAll();
+                run();
+                if (cb.getActive()) {
+                    gsGeneral.setBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY, false);
+                }
+            }
+        }
     }
 }

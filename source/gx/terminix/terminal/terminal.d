@@ -186,7 +186,7 @@ private:
     Scrollbar sb;
 
     GPid gpid = 0;
-    bool titleInitialized = false;
+    bool _terminalInitialized = false;
 
     Label lblTitle;
 
@@ -214,7 +214,7 @@ private:
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
-
+    
     /**
      * Create the user interface of the TerminalPane
      */
@@ -481,18 +481,32 @@ private:
 
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
-        vte.addOnWindowTitleChanged(delegate(VTE terminal) { updateTitle(); });
-        vte.addOnIconTitleChanged(delegate(VTE terminal) { updateTitle(); });
+        vte.addOnWindowTitleChanged(delegate(VTE terminal) {
+            trace(format("Window title changed, pid=%d '%s'", gpid, vte.getWindowTitle())); 
+            terminalInitialized = true;
+            updateTitle(); 
+        });
+        vte.addOnIconTitleChanged(delegate(VTE terminal) { 
+            trace(format("Icon title changed, pid=%d '%s'", gpid, vte.getIconTitle())); 
+            updateTitle(); 
+        });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { 
-            titleInitialized = true; 
+            trace(format("Current directory changed, pid=%d '%s'", gpid, currentDirectory)); 
+            terminalInitialized = true; 
             updateTitle(); 
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalFocusIn);
         vte.addOnFocusOut(&onTerminalFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
-            if (titleInitialized && !terminal.hasFocus()) {
+            if (terminalInitialized && !terminal.hasFocus()) {
                 notifyProcessNotification(summary, _body, terminalUUID);
+            }
+        });
+        vte.addOnContentsChanged(delegate(VTE) {
+            // VTE configuration problem, Issue #34
+            if (terminalInitialized && terminix.testVTEConfig() && currentDirectory.length == 0) {
+                terminix.warnVTEConfigIssue();
             }
         });
 
@@ -558,10 +572,11 @@ private:
         title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
         title = title.replace(TERMINAL_ID, to!string(terminalID));
         string path;
-        if (titleInitialized) {
+        if (terminalInitialized) {
             path = currentDirectory;
             trace("Current directory is " ~ path);
         } else {
+            trace("Terminal not initialized yet, no path available");
             path = "";
         }
         title = title.replace(TERMINAL_DIR, path);
@@ -772,6 +787,7 @@ private:
             vte.setCursorBlinkMode(getBlinkMode(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY)));
             break;
         case SETTINGS_PROFILE_TITLE_KEY:
+            trace("Applying preferences");
             updateTitle();
             break;
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
@@ -836,18 +852,18 @@ private:
      * command options.
      */
     void spawnTerminalProcess(string initialPath) {
-        GSpawnFlags flags;
+        GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
-        string[] args = [shell];
+        string[] args;
         if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
-            args ~= "-c";
-            args ~= gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY);
-            flags = GSpawnFlags.SEARCH_PATH;
+            ShellUtils.shellParseArgv(gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY), args);
+            flags = flags | GSpawnFlags.SEARCH_PATH;
         } else {
+            args ~= shell;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_LOGIN_SHELL_KEY)) {
-                args ~= "-" ~ shell;
+                args ~= format("-%s", shell);
+                flags = flags | GSpawnFlags.FILE_AND_ARGV_ZERO;
             }
-            flags = GSpawnFlags.DEFAULT;
         }
         string[] envv = [""];
         foreach(arg; args) trace("Argument: " ~ arg);
@@ -1173,6 +1189,7 @@ public:
             trace("Set VTE Size for columns " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY)));
             vte.setSize(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY), gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY));
         }
+        trace("Terminal initialized");
         updateTitle();
     }
 
@@ -1212,16 +1229,11 @@ public:
         if (gpid == 0)
             return null;
         string hostname;
-        //trace("Getting current directory");
         string cwd = vte.getCurrentDirectoryUri();
         if (cwd.length == 0) {
-            //trace("Whoops, current directory is empty");
             return null;
-        } else {
-            //trace("Got current directory " ~ cwd);
-        }
+        } 
         string result = URI.filenameFromUri(cwd, hostname);
-        //trace("Got result " ~ result);
         return result;
     }
 
@@ -1256,6 +1268,16 @@ public:
         if (this._terminalID != ID) {
             this._terminalID = ID;
             updateTitle();
+        }
+    }
+    
+    @property bool terminalInitialized() {
+        return _terminalInitialized;
+    }
+    
+    @property void terminalInitialized(bool value) {
+        if (value != _terminalInitialized) {
+            _terminalInitialized = value;
         }
     }
 
