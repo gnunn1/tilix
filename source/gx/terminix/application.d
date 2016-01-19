@@ -158,8 +158,8 @@ private:
         AboutDialog dialog;
 
         with (dialog = new AboutDialog()) {
+            setTransientFor(getActiveWindow());
             setDestroyWithParent(true);
-            //setTransientFor(this.window);
             setModal(true);
 
             setWrapLicense(true);
