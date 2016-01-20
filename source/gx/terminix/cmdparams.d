@@ -14,14 +14,18 @@ struct CommandParameters {
     string workingDir;
     string profileName;
     string session;
+    string command;
 
     bool exit = false;
     int exitCode = 0;
 
     this(string[] args) {
-        auto results = getopt(args, "working-directory|w", _("Set the working directory of the terminal"), &workingDir, "profile|p",
-            _("Set the starting profile"), &profileName, "session|s", _("Open the specified session"), &session);
-
+        auto results = getopt(args, 
+                              "working-directory|w", _("Set the working directory of the terminal"), &workingDir, 
+                              "profile|p", _("Set the starting profile"), &profileName, 
+                              "session|s", _("Open the specified session"), &session,
+                              "command|c",_("Send a command to current instance"), &command);
+                              
         if (results.helpWanted) {
             defaultGetoptPrinter("Terminix Usage:\n\tterminix [OPTIONS]\n\nAvailable options are:\n", results.options);
             writeln("Note that the session option is not compatible with profile and working-directory options");

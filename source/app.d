@@ -6,6 +6,7 @@ import std.stdio;
 
 import std.experimental.logger;
 import std.format;
+import std.process;
 
 import gtk.Main;
 import gtk.Version;
@@ -49,7 +50,20 @@ int main(string[] args) {
         int result;
         try {
             trace("Running application...");
-            result = terminixApp.run(tempArgs);
+            if (cp.command.length > 0) {
+                string id = environment["TERMINIX_ID"];
+                if (id.length == 0) {
+                    writeln("You must execute a command within a running instance of terminix");
+                    return 2;
+                } else {
+                    trace("Sending command");
+                    terminixApp.register(null);
+                    terminixApp.executeCommand(cp.command, id);
+                    return 0;    
+                }
+            } else {
+                result = terminixApp.run(tempArgs);
+            }
         } catch (Exception e) {
             error("Unexpected exception occurred");
             error("Error: " ~ e.msg);

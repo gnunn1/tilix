@@ -865,7 +865,7 @@ private:
                 flags = flags | GSpawnFlags.FILE_AND_ARGV_ZERO;
             }
         }
-        string[] envv = [""];
+        string[] envv = ["TERMINIX_ID="~terminalUUID];
         foreach(arg; args) trace("Argument: " ~ arg);
         try {
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);

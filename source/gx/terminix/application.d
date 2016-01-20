@@ -9,6 +9,7 @@ import std.format;
 import std.path;
 import std.variant;
 
+import gio.ActionGroupIF;
 import gio.ActionMapIF;
 import gio.Menu;
 import gio.MenuModel;
@@ -36,6 +37,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.terminix.appwindow;
 import gx.terminix.cmdparams;
+import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
@@ -58,6 +60,7 @@ private:
     enum ACTION_PREFERENCES = "preferences";
     enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
+    enum ACTION_COMMAND = "command";
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
@@ -236,6 +239,41 @@ private:
     void applyPreferences() {
         Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY)));
     }
+    
+    void executeCommand(GVariant value, SimpleAction sa) {
+        ulong l;
+        string command = value.getChildValue(0).getString(l);
+        if (command.length == 0) {
+            error("No command was received");
+            return;
+        }
+        string terminalUUID = value.getChildValue(1).getString(l);
+        if (terminalUUID.length == 0) {
+            error("Terminal UUID was not sent for command, cannot resolve");
+            return;
+        }
+        trace(format("Command Received, command=%s, terminalID=%s", command, terminalUUID));
+        //Get action name
+        string prefix;
+        string actionName;
+        getActionNameFromKey(command, prefix, actionName);
+        Widget widget = findWidgetForUUID(terminalUUID);
+        while (widget !is null) {
+            ActionGroupIF group = widget.getActionGroup(prefix);
+            if (group !is null && group.hasAction(actionName)) {
+                trace(format("Activating action for prefix=%s and action=%s", prefix, actionName));
+                group.activateAction(actionName, null);
+                return;    
+            }
+            widget = widget.getParent();
+        }
+        //Check if the action belongs to the app
+        if (prefix == ACTION_PREFIX) {
+            activateAction(actionName, null);
+            return;
+        }
+        trace(format("Could not find action for prefix=%s and action=%s", prefix, actionName));
+    }
 
 public:
 
@@ -245,7 +283,24 @@ public:
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
+        GVariant param = new GVariant([new GVariant("None"), new GVariant("None")]);
+        trace("Registering command action with type " ~ param.getType().peekString());
+        registerAction(this, ACTION_PREFIX, ACTION_COMMAND, null, &executeCommand, param.getType(), param);
+
         terminix = this;
+    }
+    
+    /**
+     * Executes a command by invoking the command action.
+     * This is used to invoke a command on a remote instance of
+     * the GTK Application leveraging the ability for the remote
+     * instance to trigger actions on the primary instance.
+     *
+     * See https://wiki.gnome.org/HowDoI/GtkApplication
+     */
+    void executeCommand(string command, string terminalID) {
+        GVariant[] param = [new GVariant(command), new GVariant(terminalID)];
+        activateAction(ACTION_COMMAND, new GVariant(param));
     }
 
     void addAppWindow(AppWindow window) {
