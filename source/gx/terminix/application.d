@@ -95,6 +95,7 @@ private:
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
     void installAppMenu() {
+        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         Menu appMenu = new Menu();
 
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction sa) {
@@ -109,11 +110,11 @@ private:
             }
         }, new GVariantType("s"));
 
-        registerAction(this, ACTION_PREFIX, ACTION_NEW_SESSION, null, delegate(GVariant, SimpleAction) { onCreateNewSession(); });
+        registerActionWithSettings(this, ACTION_PREFIX, ACTION_NEW_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewSession(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_NEW_WINDOW, null, delegate(GVariant, SimpleAction) { onCreateNewWindow(); });
+        registerActionWithSettings(this, ACTION_PREFIX, ACTION_NEW_WINDOW, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewWindow(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_PREFERENCES, null, delegate(GVariant, SimpleAction) { onShowPreferences(); });
+        registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
@@ -286,7 +287,6 @@ public:
         GVariant param = new GVariant([new GVariant("None"), new GVariant("None")]);
         trace("Registering command action with type " ~ param.getType().peekString());
         registerAction(this, ACTION_PREFIX, ACTION_COMMAND, null, &executeCommand, param.getType(), param);
-
         terminix = this;
     }
     
