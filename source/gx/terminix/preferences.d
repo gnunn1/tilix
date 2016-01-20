@@ -32,6 +32,7 @@ enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 enum SETTINGS_UNSAFE_PASTE_ALERT_KEY = "unsafe-paste-alert";
 enum STRIP_FIRST_COMMENT_CHAR_ON_PASTE = "paste-strip-first-char";
 enum SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY = "warn-vte-config-issue";
+enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE = "focus-follow-mouse";
 enum SETTINGS_ENCODINGS_KEY = "encodings";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";

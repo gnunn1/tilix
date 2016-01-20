@@ -214,6 +214,7 @@ private:
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
+    GSettings gsSettings;
     
     /**
      * Create the user interface of the TerminalPane
@@ -509,6 +510,12 @@ private:
                 terminix.warnVTEConfigIssue();
             }
         });
+        vte.addOnEnterNotify(delegate(Event event, Widget) {
+            if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE)) {
+                vte.grabFocus(); 
+            }   
+            return false;
+        }, GConnectFlags.AFTER);
 
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
@@ -584,7 +591,6 @@ private:
     }
     
     void pasteClipboard() {
-        GSettings gsSettings = new GSettings(SETTINGS_ID);
         string pasteText = Clipboard.get(null).waitForText(); 
         if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
@@ -1163,6 +1169,7 @@ public:
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
+        gsSettings = new GSettings(SETTINGS_ID);
         gsProfile = prfMgr.getProfileSettings(profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);

@@ -468,6 +468,12 @@ private:
         attach(cbPrompt, 0, row, 2, 1);
         row++;
         
+        //Focus follows the mouse
+        CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
+        gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
+        attach(cbFocusMouse, 0, row, 2, 1);
+        row++;
+
         //Show Notifications, only show option if notifications are supported
         if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
