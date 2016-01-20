@@ -88,7 +88,12 @@
       <default>true</default>
       <summary>Alert the user about unsafe paste.</summary>
       <description>If the user paste's a command into the terminal that might be considered unsafe, when them.</description>
-    </key>    
+    </key>
+    <key name="paste-strip-first-char" type="b">
+      <default>false</default>
+      <summary>Strip the first character from a paste if comment or variable declaration </summary>
+      <description>If true, if the first character is a comment (#) or a variable declaration($) it will be stripped on paste.</description>
+    </key>
     <!-- Search Options -->
     <key name="search-default-match-case" type="b">
       <default>false</default>

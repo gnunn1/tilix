@@ -468,12 +468,6 @@ private:
         attach(cbPrompt, 0, row, 2, 1);
         row++;
         
-        //Unsafe Paste Warning
-        CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
-        gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
-        attach(cbUnsafe, 0, row, 2, 1);
-        row++;
-
         //Show Notifications, only show option if notifications are supported
         if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
@@ -481,6 +475,24 @@ private:
             attach(cbNotify, 0, row, 2, 1);
             row++;
         }
+
+        Label lblPaste = new Label(format("<b>%s</b>", _("Paste")));
+        lblPaste.setUseMarkup(true);
+        lblPaste.setHalign(Align.START);
+        attach(lblPaste, 0, row, 2, 1);
+        row++;
+        
+        //Unsafe Paste Warning
+        CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
+        gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
+        attach(cbUnsafe, 0, row, 2, 1);
+        row++;
+
+        //Strip Paste
+        CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
+        gsSettings.bind(STRIP_FIRST_COMMENT_CHAR_ON_PASTE, cbStrip, "active", GSettingsBindFlags.DEFAULT);
+        attach(cbStrip, 0, row, 2, 1);
+        row++;
 
         Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
         lblAppearance.setUseMarkup(true);
