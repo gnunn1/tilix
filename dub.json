@@ -9,6 +9,10 @@
 	"buildTypes": {
 		"release": {
             "versions": ["StdLoggerDisableTrace"]
-		}
+		},
+        "custom": {
+            "versions": ["StdLoggerDisableTrace"],
+            "buildOptions": ["optimize", "inline", "releaseMode"]
+        }
 	}    
 }

@@ -956,6 +956,10 @@ private:
      * Begin the drag operation from the use dragging the title bar, renders the 
      * terminal image into a scaled Pixbuf to use as the drag icon.
      *
+     * Cribbed idea from Terminator, my original implementation worked
+     * but had an issue in Fedora 23 potentially due to a Cario bug,
+     * see Issue #19
+     *
      * TODO - Add some transparency
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
@@ -1435,7 +1439,7 @@ public:
 //Block for defining various DND structs and constants
 private:
 /**
-     * Constant used to identift terminal drand and drop
+     * Constant used to identify terminal drag and drop
      */
 enum VTE_DND = "vte";
 

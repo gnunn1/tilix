@@ -4,10 +4,13 @@
  */
 module gx.i18n.l10n;
 
+//import glib.Internationalization;
+
 /**
  * Preparation in case down the road D supports GNU gettext
  * and po files for translation
  */
 string _(string text) {
+    //return Internationalization.dgettext("terminix", text);
     return text;
 }

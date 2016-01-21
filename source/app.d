@@ -20,6 +20,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
+
 	trace("Starting terminix...");
 	//Version checking cribbed from grestful, thanks!
 	string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
@@ -54,7 +55,7 @@ int main(string[] args) {
             if (cp.action.length > 0) {
                 string id = environment["TERMINIX_ID"];
                 if (id.length == 0) {
-                    writeln("You must execute a command within a running instance of terminix");
+                    writeln(_("You must execute a command within a running instance of terminix"));
                     return 2;
                 } else {
                     trace(format("Sending command=%s, cmdLine=%s", cp.action, cp.cmdLine));
@@ -66,8 +67,8 @@ int main(string[] args) {
                 result = terminixApp.run(tempArgs);
             }
         } catch (Exception e) {
-            error("Unexpected exception occurred");
-            error("Error: " ~ e.msg);
+            error(_("Unexpected exception occurred"));
+            error(_("Error: ") ~ e.msg);
         }
         return result;
     } else {
