@@ -949,7 +949,7 @@ private:
      */
     void onTitleDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
         char[] buffer = (terminalUUID ~ '\0').dup;
-        data.set(intern(VTE_DND, false), info, buffer);
+        data.set(intern(VTE_DND, false), 8, buffer);
     }
 
     /**
