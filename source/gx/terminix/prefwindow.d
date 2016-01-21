@@ -440,7 +440,7 @@ public:
 /**
  * Global preferences page *
  */
-class GlobalPreferences : Grid {
+class GlobalPreferences : Box {
 
 private:
 
@@ -448,66 +448,56 @@ private:
 
     void createUI(Settings gsSettings) {
         //Set basic grid settings
-        setColumnSpacing(12);
-        setRowSpacing(6);
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
         setMarginRight(18);
 
-        int row = 0;
         Label lblBehavior = new Label(format("<b>%s</b>", _("Behavior")));
         lblBehavior.setUseMarkup(true);
         lblBehavior.setHalign(Align.START);
-        attach(lblBehavior, 0, row, 2, 1);
-        row++;
+        add(lblBehavior);
 
         //Prompt on new session
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
         gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
-        attach(cbPrompt, 0, row, 2, 1);
-        row++;
+        add(cbPrompt);
         
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
         gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
-        attach(cbFocusMouse, 0, row, 2, 1);
-        row++;
+        add(cbFocusMouse);
 
         //Show Notifications, only show option if notifications are supported
         if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
             gsSettings.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
-            attach(cbNotify, 0, row, 2, 1);
-            row++;
+            add(cbNotify);
         }
 
         Label lblPaste = new Label(format("<b>%s</b>", _("Paste")));
         lblPaste.setUseMarkup(true);
         lblPaste.setHalign(Align.START);
-        attach(lblPaste, 0, row, 2, 1);
-        row++;
+        add(lblPaste);
         
         //Unsafe Paste Warning
         CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
         gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
-        attach(cbUnsafe, 0, row, 2, 1);
-        row++;
+        add(cbUnsafe);
 
         //Strip Paste
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
         gsSettings.bind(STRIP_FIRST_COMMENT_CHAR_ON_PASTE, cbStrip, "active", GSettingsBindFlags.DEFAULT);
-        attach(cbStrip, 0, row, 2, 1);
-        row++;
+        add(cbStrip);
 
         Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
         lblAppearance.setUseMarkup(true);
         lblAppearance.setHalign(Align.START);
-        attach(lblAppearance, 0, row, 2, 1);
-        row++;
+        add(lblAppearance);
 
         //Dark Theme
-        attach(createLabel(_("Theme Variant")), 0, row, 1, 1);
+        Box b = new Box(Orientation.HORIZONTAL, 6);
+        b.add(createLabel(_("Theme Variant")));
 
         ListStore lsThemeVariant = new ListStore([GType.STRING, GType.STRING]);
 
@@ -525,14 +515,14 @@ private:
 
         gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
 
-        attach(cbThemeVariant, 1, row, 1, 1);
-        row++;
+        b.add(cbThemeVariant);
+        add(b);
     }
 
 public:
 
     this(Settings gsSettings) {
-        super();
+        super(Orientation.VERTICAL, 6);
         createUI(gsSettings);
     }
 }
