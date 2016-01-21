@@ -165,7 +165,7 @@ enum TERMINAL_DIR = "${directory}";
  * various event handlers defined in this Terminal widget. Note these event handlers
  * do not correspond to GTK signals, they are pure D code.
  */
-class Terminal : Box {
+class Terminal : EventBox {
 
 private:
 
@@ -227,12 +227,14 @@ private:
         createActions(sagTerminalActions);
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
 
+        Box box = new Box(Orientation.VERTICAL, 0);
+        add(box);
         // Create the title bar of the pane
         Widget titlePane = createTitlePane();
-        add(titlePane);
+        box.add(titlePane);
 
         //Create the actual terminal for the pane
-        add(createVTE());
+        box.add(createVTE());
 
         //Enable Drag and Drop
         setupDragAndDrop(titlePane);
@@ -289,11 +291,7 @@ private:
         setVerticalMargins(btnClose);
         bTitle.packEnd(btnClose, false, false, 4);
 
-        //Need EventBox to support drag and drop
-        EventBox ev = new EventBox();
-        ev.add(bTitle);
-
-        return ev;
+        return bTitle;
     }
 
     //Dynamically build the menus for selecting a profile
@@ -928,13 +926,13 @@ private:
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
         TargetEntry[] targets = [uriEntry, stringEntry, textEntry, vteEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
-        title.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
+        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
         //vte.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
 
         //Title bar events
-        title.addOnDragBegin(&onTitleDragBegin);
-        title.addOnDragDataGet(&onTitleDragDataGet);
-        title.addOnDragFailed(&onTitleDragFailed, ConnectFlags.AFTER);
+        addOnDragBegin(&onTitleDragBegin);
+        addOnDragDataGet(&onTitleDragDataGet);
+        addOnDragFailed(&onTitleDragFailed, ConnectFlags.AFTER);
 
         //VTE Drop events
         vte.addOnDragDataReceived(&onVTEDragDataReceived);
@@ -980,6 +978,7 @@ private:
         setSourceWindow(cr, window, 0, 0);
         cr.paint();
         Pixbuf pb = gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
+        trace("Drag image drawn");
         DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
     }
 
@@ -1010,12 +1009,12 @@ private:
     }
 
     Terminal getDragTerminal(DragContext dc) {
-        EventBox title = cast(EventBox) DragAndDrop.dragGetSourceWidget(dc);
-        if (title is null) {
-            trace("Oops, something went wrong not a terminal drag");
+        Terminal terminal = cast(Terminal) DragAndDrop.dragGetSourceWidget(dc);
+        if (terminal is null) {
+            error("Oops, something went wrong not a terminal drag");
             return null;
         }
-        return cast(Terminal) title.getParent();
+        return terminal;
     }
 
     bool isSourceAndDestEqual(DragContext dc, Terminal dest) {
@@ -1098,7 +1097,7 @@ private:
         if (pointInTriangle(cursor, bottomLeft, bottomRight, center))
             return DragQuadrant.BOTTOM;
 
-        trace("Whoops, something wrong with calculation");
+        error("Error with drag quandrant calculation, no quandrant calculated");
         return DragQuadrant.LEFT;
     }
 
@@ -1173,7 +1172,7 @@ public:
      * Creates the TerminalPane using the specified profile
      */
     this(string profileUUID) {
-        super(Orientation.VERTICAL, 0);
+        super();
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
