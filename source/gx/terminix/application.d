@@ -16,6 +16,7 @@ import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
+import glib.ShellUtils;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
 
@@ -188,12 +189,9 @@ private:
         }
     }
     
-    void createAppWindow(bool onActivate = false) {
+    void createAppWindow() {
         AppWindow window = new AppWindow(this);
-        if (onActivate)
-            window.initialize(cp);
-        else
-            window.initialize();
+        window.initialize();
         window.showAll();
     }
 
@@ -209,7 +207,8 @@ private:
 
     void onAppActivate(GioApplication app) {
         trace("Activate App Signal");
-        createAppWindow(true);
+        createAppWindow();
+        cp.clear();
     }
 
     void onAppStartup(GioApplication app) {
@@ -242,6 +241,12 @@ private:
     }
     
     void executeCommand(GVariant value, SimpleAction sa) {
+        //Clear command parameters at end of command
+        //Only set them temporarily so if a terminal is created
+        //as a result of the action it can inherit them. The
+        //command line parameters are sent by the remote Application
+        //and packed into the value parameter.
+        scope (exit) {cp.clear();}
         ulong l;
         string command = value.getChildValue(0).getString(l);
         if (command.length == 0) {
@@ -253,7 +258,11 @@ private:
             error("Terminal UUID was not sent for command, cannot resolve");
             return;
         }
-        trace(format("Command Received, command=%s, terminalID=%s", command, terminalUUID));
+        string cmdLine = value.getChildValue(2).getString(l);
+        string[] args;
+        ShellUtils.shellParseArgv(cmdLine, args);
+        cp = CommandParameters(args);
+        trace(format("Command Received, command=%s, terminalID=%s, cmdLine=%s", command, terminalUUID, cmdLine));
         //Get action name
         string prefix;
         string actionName;
@@ -284,7 +293,7 @@ public:
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
-        GVariant param = new GVariant([new GVariant("None"), new GVariant("None")]);
+        GVariant param = new GVariant([new GVariant("None"), new GVariant("None"), new GVariant("None")]);
         trace("Registering command action with type " ~ param.getType().peekString());
         registerAction(this, ACTION_PREFIX, ACTION_COMMAND, null, &executeCommand, param.getType(), param);
         terminix = this;
@@ -298,8 +307,8 @@ public:
      *
      * See https://wiki.gnome.org/HowDoI/GtkApplication
      */
-    void executeCommand(string command, string terminalID) {
-        GVariant[] param = [new GVariant(command), new GVariant(terminalID)];
+    void executeCommand(string command, string terminalID, string cmdLine) {
+        GVariant[] param = [new GVariant(command), new GVariant(terminalID), new GVariant(cmdLine)];
         activateAction(ACTION_COMMAND, new GVariant(param));
     }
 
@@ -390,6 +399,27 @@ public:
     
     bool testVTEConfig() {
         return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
+    }
+    
+    /**
+     * Even those these are parameters passed on the command-line
+     * they are used by the terminal when it is created as a global
+     * override.
+     *
+     * Originally I was passing command line parameters to the terminal
+     * via the heirarchy App > AppWindow > Session > Terminal but this
+     * is unwiedly. It's also not feasible when supporting using the
+     * command line to create terminals in the current instance since
+     * that uses actions and it's not feasible to pass these via the
+     * action mechanism.
+     *
+     * When a terminal is created, it will check this global overrides and
+     * use it where applicaable. The application is responsible for setiing
+     * and clearing these overrides around the terminal creation. Since GTK
+     * is single threaded this works fine.
+     */
+    CommandParameters getGlobalOverrides() {
+        return cp;
     }
     
     /**

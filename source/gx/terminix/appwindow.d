@@ -556,6 +556,13 @@ private:
         write(filename, json);
         session.filename = filename;
     }
+    
+    /**
+     * Creates a new session based on parameters, user is not prompted
+     */
+    void createSession(string name, string profileUUID) {
+        createNewSession(name, profileUUID, Util.getHomeDir());
+    }
 
 public:
 
@@ -575,37 +582,16 @@ public:
     }
 
     void initialize() {
+        if (terminix.getGlobalOverrides().session.length > 0) {
+            loadSession(terminix.getGlobalOverrides().session);
+            return;
+        }
         //Create an initial session using default session name and profile
         createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
     }
 
     void initialize(Session session) {
         addSession(session);
-    }
-
-    /**
-     * intialize the session based on the command line parameters
-     */
-    void initialize(CommandParameters cp) {
-        trace("Initializing with command line parameters");
-        if (cp.session.length > 0) {
-            loadSession(cp.session);
-            return;
-        }
-        string profile;
-        if (cp.profileName.length > 0) {
-            profile = prfMgr.getProfileUUIDFromName(cp.profileName);
-        }
-        if (profile.length == 0) {
-            profile = prfMgr.getDefaultProfile();
-        }
-
-        string workingDir;
-        if (cp.workingDir.length > 0)
-            workingDir = cp.workingDir;
-        else
-            workingDir = Util.getHomeDir();
-        createSession(_(DEFAULT_SESSION_NAME), profile, workingDir);
     }
       
     /**
@@ -664,20 +650,6 @@ public:
         } else {
             createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
         }
-    }
-
-    /**
-     * Creates a new session based on parameters, user is not prompted
-     */
-    void createSession(string name, string profileUUID) {
-        createNewSession(name, profileUUID, Util.getHomeDir());
-    }
-
-    /**
-     * Creates a new session based on parameters, user is not prompted
-     */
-    void createSession(string name, string profileUUID, string workingDir) {
-        createNewSession(name, profileUUID, workingDir);
     }
 }
 

@@ -84,6 +84,7 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.encoding;
@@ -863,11 +864,18 @@ private:
      * Spawns the child process in the Terminal depending on the Profile
      * command options.
      */
-    void spawnTerminalProcess(string initialPath) {
+    void spawnTerminalProcess(string workingDir) {
+        CommandParameters overrides = terminix.getGlobalOverrides();
+        if (overrides.workingDir.length > 0) workingDir = overrides.workingDir;
+    
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
         string[] args;
-        if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
+        if (overrides.execute.length > 0) {
+            trace("Overriding the command from command prompt: " ~ overrides.execute);
+            ShellUtils.shellParseArgv(overrides.execute, args);
+            flags = flags | GSpawnFlags.SEARCH_PATH;
+        } else if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
             ShellUtils.shellParseArgv(gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY), args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
         } else {
@@ -880,7 +888,7 @@ private:
         string[] envv = ["TERMINIX_ID="~terminalUUID];
         foreach(arg; args) trace("Argument: " ~ arg);
         try {
-            bool result = vte.spawnSync(VtePtyFlags.DEFAULT, initialPath, args, envv, flags, null, null, gpid, null);
+            bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
                 error(msg);
@@ -1169,8 +1177,17 @@ public:
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
+        // Check if profile is overriden globally
+        trace("Override profile name " ~ terminix.getGlobalOverrides().profileName);
+        if (terminix.getGlobalOverrides().profileName.length > 0) {
+            string newProfileUUID = prfMgr.getProfileUUIDFromName(terminix.getGlobalOverrides().profileName);
+            if (newProfileUUID.length > 0) {
+                _profileUUID = newProfileUUID;
+                trace("Overriding profile with global: " ~ _profileUUID);
+            }
+        }
         gsSettings = new GSettings(SETTINGS_ID);
-        gsProfile = prfMgr.getProfileSettings(profileUUID);
+        gsProfile = prfMgr.getProfileSettings(_profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
         gsDesktop.addOnChanged(delegate(string key, GSettings) {
