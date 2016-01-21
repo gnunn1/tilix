@@ -20,8 +20,10 @@ import std.string;
 import std.uuid;
 
 import cairo.Context;
+import cairo.Surface;
 
 import gdk.Atom;
+import gdk.Cairo;
 import gdk.DragContext;
 import gdk.Event;
 import gdk.RGBA;
@@ -959,27 +961,25 @@ private:
      * TODO - Add some transparency
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
-        const int MAX_SIZE = 300;
-
-        double w = this.getAllocatedWidth();
-        double h = this.getAllocatedHeight();
-        trace(format("Original: %f, %f", w, h));
-        Pixbuf pb = gdk.Pixbuf.getFromWindow(getWindow(), 0, 0, to!int(w), to!int(h));
-        //Only scale if we need too
-        if (w > MAX_SIZE || h > MAX_SIZE) {
-            if (w > h) {
-                h = 256 * h / w;
-                w = 256;
-            } else if (h > w) {
-                w = 256 * w / h;
-                h = 256;
-            } else {
-                w, h = 256;
-            }
-        }
-        trace(format("New: %f, %f", w, h));
-        pb = pb.scaleSimple(to!int(w), to!int(h), GdkInterpType.BILINEAR);
-
+        trace("Title Drag begin");
+        const double MAX_SIZE = 300;
+        gdk.Window.Window window = this.getWindow();
+        int w = window.getWidth();
+        int h = window.getHeight();
+        trace(format("Original: %d, %d", w, h));
+        int longest = max(w, h);
+        double factor = MAX_SIZE / to!double(longest);
+        if ((w * factor) > w || (h * factor) > h) factor = 1;
+        int pw = to!int(w * factor);
+        int ph = to!int(h * factor);
+        trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
+                
+        Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
+        Context cr = Context.create(surface);
+        cr.scale(factor, factor);
+        setSourceWindow(cr, window, 0, 0);
+        cr.paint();
+        Pixbuf pb = gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
         DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
     }
 
@@ -1033,7 +1033,7 @@ private:
             return true;
         //Don't allow drop on the same terminal
         if (isSourceAndDestEqual(dc, this)) {
-            trace("Invalid drop");
+            //trace("Invalid drop");
             return false;
         }
         DragQuadrant dq = getDragQuadrant(x, y, vte);
