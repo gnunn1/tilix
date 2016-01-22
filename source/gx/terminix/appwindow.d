@@ -352,8 +352,8 @@ private:
 
     void closeSession(Session session) {
         removeSession(session);
-        session.cleanup();
         session.destroy();
+        trace("Session closed");
     }
     
     void onSessionClose(Session session) {

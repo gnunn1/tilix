@@ -402,7 +402,6 @@ private:
     
     void closeTerminal(Terminal terminal) {
         removeTerminal(terminal);
-        terminal.stopProcess();
         terminal.destroy();
     }
 
@@ -665,12 +664,6 @@ public:
         }
         catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
-        }
-    }
-    
-    void cleanup() {
-        foreach(terminal; terminals) {
-            closeTerminal(terminal);
         }
     }
     

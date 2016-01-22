@@ -1178,6 +1178,10 @@ public:
      */
     this(string profileUUID) {
         super();
+        addOnDestroy(delegate(Widget) {
+            trace("Terminal destroy");
+            stopProcess();
+        });
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
@@ -1206,7 +1210,7 @@ public:
         gsProfile.addOnChanged(delegate(string key, Settings) { applyPreference(key); });
         trace("Finished creation");
     }
-
+    
     /**
      * initializes the terminal, i.e spawns the child process.
      *
