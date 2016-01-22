@@ -521,7 +521,6 @@ private:
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (_synchronizeInput && event.key.sendEvent == 0) {
-                trace("forward event key press");
                 foreach (dlg; terminalKeyPressDelegates)
                     dlg(this, event);
             } else {
@@ -1266,15 +1265,8 @@ public:
      * Called by the session to synchronize input
      */
     void echoKeyPressEvent(Event event) {
-        //TODO - Look at this some more, feedChild seems to work fine but would really preferences
-        //to simply fire the key event against the terminal. The problem is that while te event is set to 
-        //the right terminal window, the key always gets handled by the terminal with focus
-        // 
-        //event.key.window = terminal.getWindow().getWindowStruct();
-        //trace(format("Getting GDKWindow Pointer %s for terminal %d", to!string(event.getWindow().getWindowStruct()), terminalID));
-        //Main.doEvent(event);
-        string data = Str.toString(event.key.str, event.key.length);
-        vte.feedChild(data, data.length);
+        event.key.window = vte.getWindow().getWindowStruct();
+        vte.event(event);
     }
 
     @property string currentDirectory() {

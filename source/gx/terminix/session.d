@@ -455,17 +455,10 @@ private:
 
     void onTerminalKeyPress(Terminal originator, Event event) {
         trace("Got key press");
+        Event newEvent = event.copy();
         foreach (terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
                 trace("sending key press, sendEvent = " ~ to!string(event.key.sendEvent));
-                Event newEvent = event.copy();
-                /*
-                Event newEvent = new Event(EventType.KEY_PRESS);
-                newEvent.key.hardwareKeycode = event.key.hardwareKeycode;
-                newEvent.key.keyval = event.key.keyval;
-                newEvent.key.state = event.key.state;
-                newEvent.key.type = event.key.type;
-                */
                 newEvent.key.sendEvent = 1;
                 terminal.echoKeyPressEvent(newEvent);
             }
