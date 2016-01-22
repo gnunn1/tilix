@@ -638,6 +638,7 @@ private:
      * Triggered when the terminal signals the child process has exited
      */
     void onTerminalChildExited(int status, VTE terminal) {
+        gpid = -1;
         trace("Exit code received is " ~ to!string(status));
         switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
         case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE:
@@ -1225,6 +1226,20 @@ public:
         trace("Terminal initialized");
         updateTitle();
     }
+    
+    /**
+     * Issues a SIGHUP to pid to get it close. This is used
+     * when the terminal is destroyed.
+     */
+    void stopProcess() {
+        if (gpid >0 ) {
+            try {
+                kill(gpid, SIGHUP);
+            } catch (ProcessException pe) {
+                error("Error when stoping terminal child process:\n\t" ~ pe.msg);
+            }
+        }
+    }
 
     /**
      * Requests the terminal be focused
@@ -1242,7 +1257,7 @@ public:
         trace(format("fg=%d gpid=%d", fg, gpid));
         return (fg != -1 && fg != gpid);
     }
-
+    
     /**
      * Called by the session to synchronize input
      */

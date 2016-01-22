@@ -399,12 +399,18 @@ private:
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
         insertTerminal(dest, src, orientation, child);
     }
+    
+    void closeTerminal(Terminal terminal) {
+        removeTerminal(terminal);
+        terminal.stopProcess();
+        terminal.destroy();
+    }
 
     /**
      * Event handler that get's called when Terminal is closed
 	 */
     void onTerminalClose(Terminal terminal) {
-        removeTerminal(terminal);
+        closeTerminal(terminal);
     }
     
     void onTerminalProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
@@ -659,6 +665,12 @@ public:
         }
         catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
+        }
+    }
+    
+    void cleanup() {
+        foreach(terminal; terminals) {
+            closeTerminal(terminal);
         }
     }
     

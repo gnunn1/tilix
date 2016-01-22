@@ -4,6 +4,8 @@
  */
 module gx.terminix.appwindow;
 
+import core.memory;
+
 import std.conv;
 import std.experimental.logger;
 import std.file;
@@ -81,6 +83,7 @@ private:
 
     enum ACTION_PREFIX = "session";
     enum ACTION_SESSION_LIST = "list";
+    enum ACTION_SESSION_CLOSE = "close";
     enum ACTION_SESSION_NAME = "name";
     enum ACTION_SESSION_NEXT_TERMINAL = "switch-to-next-terminal";
     enum ACTION_SESSION_PREV_TERMINAL = "switch-to-previous-terminal";
@@ -101,6 +104,7 @@ private:
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
     SimpleAction saSyncInput;
+    SimpleAction saCloseSession;
 
     MenuButton mbSessionNotifications;
     Label lblNotifications;
@@ -168,7 +172,7 @@ private:
         mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
 
         hb.packEnd(mbSessionNotifications);
-
+        
         //Notebook
         nb = new Notebook();
         nb.setShowTabs(false);
@@ -237,6 +241,13 @@ private:
                 session.focusPrevious();
         });
 
+        //Close Session
+        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) { 
+            if (nb.getNPages>1) {
+                closeSession(getCurrentSession());
+            } 
+        });
+
         //Load Session
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_LOAD, gsShortcuts, delegate(Variant, SimpleAction) { loadSession(); });
 
@@ -279,6 +290,7 @@ private:
         mFileSection.appendItem(new GMenuItem(_("Load..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
         mFileSection.appendItem(new GMenuItem(_("Save As..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
+        mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
         model.appendSection(null, mFileSection);
 
         GMenu mSessionSection = new GMenu();
@@ -322,7 +334,7 @@ private:
         updateUIState();
     }
 
-    void closeSession(Session session) {
+    void removeSession(Session session) {
         //remove event handlers
         session.removeOnSessionClose(&onSessionClose);
         session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
@@ -338,6 +350,29 @@ private:
         }
     }
 
+    void closeSession(Session session) {
+        removeSession(session);
+        session.cleanup();
+        session.destroy();
+    }
+    
+    void onSessionClose(Session session) {
+        closeSession(session);
+    }
+
+    void onSessionDetach(Session session, int x, int y, bool isNewSession) {
+        trace("Detaching session");
+        //Detach an existing session, let's close it
+        if (!isNewSession) {
+            removeSession(session);
+        }
+        AppWindow window = new AppWindow(terminix);
+        terminix.addAppWindow(window);
+        window.initialize(session);
+        window.move(x, y);
+        window.showAll();
+    }
+
     void updateUIState() {
         if (sessionNotifications.length > 0) {
             ulong count = 0;
@@ -351,6 +386,7 @@ private:
         } else {
             mbSessionNotifications.hide();
         }
+        saCloseSession.setEnabled(nb.getNPages > 1);
     }
 
     void updateTitle(Session session) {
@@ -359,23 +395,6 @@ private:
         } else {
             hb.setTitle(APPLICATION_NAME);
         }
-    }
-
-    void onSessionClose(Session session) {
-        closeSession(session);
-    }
-
-    void onSessionDetach(Session session, int x, int y, bool isNewSession) {
-        trace("Detaching session");
-        //Detach an existing session, let's close it
-        if (!isNewSession) {
-            closeSession(session);
-        }
-        AppWindow window = new AppWindow(terminix);
-        terminix.addAppWindow(window);
-        window.initialize(session);
-        window.move(x, y);
-        window.showAll();
     }
 
     bool onSessionIsActionAllowed(ActionType actionType) {
