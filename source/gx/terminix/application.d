@@ -237,7 +237,16 @@ private:
     }
 
     void applyPreferences() {
-        Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY)));
+        string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
+        if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) { 
+            Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
+        } else {
+            //Need to reset property here when it is DEFAULT
+            gobject.Value.Value value = new gobject.Value.Value();
+            Settings.getDefault().getProperty(GTK_APP_PREFER_DARK_THEME, value);
+            value.reset();
+            Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, value);
+        }
     }
     
     void executeCommand(GVariant value, SimpleAction sa) {
