@@ -28,6 +28,7 @@ import gtk.Popover;
 import gtk.Revealer;
 import gtk.SearchEntry;
 import gtk.ToggleButton;
+import gtk.Widget;
 
 import vte.Terminal : VTE = Terminal;
 
@@ -71,6 +72,7 @@ private:
         setValign(Align.START);
 
         Box bEntry = new Box(Orientation.HORIZONTAL, 0);
+        bEntry.getStyleContext().addClass("linked");
         bEntry.setMarginLeft(4);
         bEntry.setMarginRight(4);
         bEntry.setMarginTop(4);
@@ -92,19 +94,16 @@ private:
         Button btnUp = new Button("go-up-symbolic", IconSize.MENU);
         btnUp.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
         btnUp.setCanFocus(false);
-        btnUp.setRelief(ReliefStyle.HALF);
         bEntry.add(btnUp);
 
         Button btnDown = new Button("go-down-symbolic", IconSize.MENU);
         btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
-        btnDown.setRelief(ReliefStyle.HALF);
         btnDown.setCanFocus(false);
         bEntry.add(btnDown);
         
         mbOptions = new MenuButton();
         mbOptions.setTooltipText(_("Search Options"));
         mbOptions.setFocusOnClick(false);
-        mbOptions.setRelief(ReliefStyle.HALF);
         Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
         mbOptions.add(iHamburger);
         mbOptions.setPopover(createPopover);
@@ -114,7 +113,7 @@ private:
         
         frame.getStyleContext().addClass("notebook");
         frame.getStyleContext().addClass("header");
-        //frame.getStyleContext().addClass("terminix-search-slider");
+        frame.getStyleContext().addClass("terminix-search-slider");
         add(frame);
     }
     
@@ -191,5 +190,17 @@ public:
 
     void focusSearchEntry() {
         seSearch.grabFocus();
+    }
+    
+    bool hasSearchEntryFocus() {
+        return seSearch.hasFocus();
+    }
+    
+    void addOnSearchEntryFocusIn(bool delegate(Event, Widget) dlg) {
+        seSearch.addOnFocusIn(dlg);
+    }
+    
+    void addOnSearchEntryFocusOut(bool delegate(Event, Widget) dlg) {
+        seSearch.addOnFocusOut(dlg);
     }
 }

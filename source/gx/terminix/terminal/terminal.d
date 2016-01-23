@@ -500,8 +500,8 @@ private:
             updateTitle(); 
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
-        vte.addOnFocusIn(&onTerminalFocusIn);
-        vte.addOnFocusOut(&onTerminalFocusOut);
+        vte.addOnFocusIn(&onTerminalWidgetFocusIn);
+        vte.addOnFocusOut(&onTerminalWidgetFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (terminalInitialized && !terminal.hasFocus()) {
                 notifyProcessNotification(summary, _body, terminalUUID);
@@ -566,6 +566,9 @@ private:
         
         Box box = new Box(Orientation.VERTICAL, 0);
         rFind = new SearchRevealer(vte);
+        rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
+        rFind.addOnSearchEntryFocusOut(&onTerminalWidgetFocusOut);
+        
         box.add(rFind);        
         box.add(terminalBox);
         
@@ -709,7 +712,20 @@ private:
         return false;
     }
 
-    bool onTerminalFocusIn(Event event, Widget widget) {
+    /**
+     * returns true if any widget in the "terminal" has focus,
+     * this includes both the vte and the search entry. This is
+     * used to determine if the title should be dislayed normally
+     * or grayed out.
+     */
+    bool isTerminalWidgetFocused() {
+        return vte.hasFocus || rFind.hasSearchEntryFocus();
+    }
+
+    /**
+     * Tracks focus of widgets (vte and rFind) in this terminal pane
+     */
+    bool onTerminalWidgetFocusIn(Event event, Widget widget) {
         lblTitle.setSensitive(true);
         //Fire focus events so session can track which terminal last had focus
         foreach (dlg; terminalInFocusDelegates) {
@@ -718,8 +734,11 @@ private:
         return false;
     }
 
-    bool onTerminalFocusOut(Event event, Widget widget) {
-        lblTitle.setSensitive(false);
+    /**
+     * Tracks focus of widgets (vte and rFind) in this terminal pane
+     */
+    bool onTerminalWidgetFocusOut(Event event, Widget widget) {
+        lblTitle.setSensitive(isTerminalWidgetFocused());
         return false;
     }
     
