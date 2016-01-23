@@ -795,6 +795,7 @@ private:
             vte.setColors(fg, bg, palette);
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
+            sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
             sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
             break;
         case SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY:
