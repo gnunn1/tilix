@@ -241,11 +241,15 @@ private:
         if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) { 
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
         } else {
+            //While the code below works, gives some critical errors, for now
+            //switching to Default from Dark/Light needs a restart
+            /*
             //Need to reset property here when it is DEFAULT
-            gobject.Value.Value value = new gobject.Value.Value();
+            gobject.Value.Value value = new gobject.Value.Value(false);
             Settings.getDefault().getProperty(GTK_APP_PREFER_DARK_THEME, value);
             value.reset();
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, value);
+            */
         }
     }
     
