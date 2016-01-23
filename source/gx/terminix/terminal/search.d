@@ -71,16 +71,19 @@ private:
         setHalign(Align.FILL);
         setValign(Align.START);
 
+        Box bSearch = new Box(Orientation.HORIZONTAL, 6);
+        bSearch.setHalign(Align.CENTER);        
+        bSearch.setMarginLeft(4);
+        bSearch.setMarginRight(4);
+        bSearch.setMarginTop(4);
+        bSearch.setMarginBottom(4);
+        bSearch.setHexpand(true);
+
         Box bEntry = new Box(Orientation.HORIZONTAL, 0);
         bEntry.getStyleContext().addClass("linked");
-        bEntry.setMarginLeft(4);
-        bEntry.setMarginRight(4);
-        bEntry.setMarginTop(4);
-        bEntry.setMarginBottom(4);
-        
-        bEntry.setHexpand(true);
+         
         seSearch = new SearchEntry();
-        seSearch.setHexpand(true);
+        //seSearch.setHexpand(true);
         seSearch.setWidthChars(30);
         seSearch.addOnSearchChanged(delegate(SearchEntry se) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
@@ -91,29 +94,36 @@ private:
         });
         bEntry.add(seSearch);
 
+        mbOptions = new MenuButton();
+        mbOptions.setTooltipText(_("Search Options"));
+        mbOptions.setFocusOnClick(false);
+        Image iHamburger = new Image("pan-down-symbolic", IconSize.MENU);
+        mbOptions.add(iHamburger);
+        mbOptions.setPopover(createPopover);
+        bEntry.add(mbOptions);
+        
+        bSearch.add(bEntry);
+
+        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        bButtons.getStyleContext().addClass("linked");
+
         Button btnUp = new Button("go-up-symbolic", IconSize.MENU);
         btnUp.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
         btnUp.setCanFocus(false);
-        bEntry.add(btnUp);
+        bButtons.add(btnUp);
 
         Button btnDown = new Button("go-down-symbolic", IconSize.MENU);
         btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
         btnDown.setCanFocus(false);
-        bEntry.add(btnDown);
+        bButtons.add(btnDown);
         
-        mbOptions = new MenuButton();
-        mbOptions.setTooltipText(_("Search Options"));
-        mbOptions.setFocusOnClick(false);
-        Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
-        mbOptions.add(iHamburger);
-        mbOptions.setPopover(createPopover);
-        bEntry.add(mbOptions);
-
-        Frame frame = new Frame(bEntry, null);
+        bSearch.add(bButtons);
         
+        Frame frame = new Frame(bSearch, null);
         frame.getStyleContext().addClass("notebook");
         frame.getStyleContext().addClass("header");
         frame.getStyleContext().addClass("terminix-search-slider");
+        
         add(frame);
     }
     
