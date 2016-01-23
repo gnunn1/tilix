@@ -10,20 +10,28 @@ import std.format;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.Menu;
 import gio.Settings : GSettings = Settings;
+import gio.SimpleAction;
+import gio.SimpleActionGroup;
 
 import glib.Regex;
+import glib.Variant: GVariant = Variant;
 
 import gtk.Box;
 import gtk.Button;
 import gtk.CheckButton;
 import gtk.Frame;
+import gtk.Image;
+import gtk.MenuButton;
+import gtk.Popover;
 import gtk.Revealer;
 import gtk.SearchEntry;
 import gtk.ToggleButton;
 
 import vte.Terminal : VTE = Terminal;
 
+import gx.gtk.actions;
 import gx.i18n.l10n;
 
 import gx.terminix.terminal.actions;
@@ -35,30 +43,42 @@ import gx.terminix.preferences;
 class SearchRevealer : Revealer {
 
 private:
+
+    enum ACTION_SEARCH_PREFIX = "search";
+    enum ACTION_SEARCH_MATCH_CASE = "match-case";
+    enum ACTION_SEARCH_ENTIRE_WORD_ONLY = "entire-word";
+    enum ACTION_SEARCH_MATCH_REGEX = "match-regex";
+    enum ACTION_SEARCH_WRAP_AROUND = "wrap-around";
+
     VTE vte;
 
     SearchEntry seSearch;
-    CheckButton cbMatchCase;
-    CheckButton cbEntireWordOnly;
-    CheckButton cbMatchAsRegex;
+
+    MenuButton mbOptions;
+    bool matchCase;
+    bool entireWordOnly;
+    bool matchAsRegex;
 
     /**
      * Creates the find overlay
      */
     void createUI() {
-        GSettings gsGeneral = new GSettings(SETTINGS_ID);
-
-        setHexpand(false);
+        createActions();
+    
+        setHexpand(true);
         setVexpand(false);
-        setHalign(Align.END);
+        setHalign(Align.FILL);
         setValign(Align.START);
 
-        Box bSearch = new Box(Orientation.VERTICAL, 12);
-        bSearch.setHexpand(false);
-        bSearch.setVexpand(false);
-
         Box bEntry = new Box(Orientation.HORIZONTAL, 0);
+        bEntry.setMarginLeft(4);
+        bEntry.setMarginRight(4);
+        bEntry.setMarginTop(4);
+        bEntry.setMarginBottom(4);
+        
+        bEntry.setHexpand(true);
         seSearch = new SearchEntry();
+        seSearch.setHexpand(true);
         seSearch.setWidthChars(30);
         seSearch.addOnSearchChanged(delegate(SearchEntry se) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
@@ -69,57 +89,89 @@ private:
         });
         bEntry.add(seSearch);
 
-        Button upButton = new Button("go-up-symbolic", IconSize.MENU);
-        upButton.setActionName(ACTION_PREFIX ~ "." ~ ACTION_FIND_PREVIOUS);
-        upButton.setCanFocus(false);
-        bEntry.add(upButton);
+        Button btnUp = new Button("go-up-symbolic", IconSize.MENU);
+        btnUp.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
+        btnUp.setCanFocus(false);
+        btnUp.setRelief(ReliefStyle.HALF);
+        bEntry.add(btnUp);
 
-        Button downButton = new Button("go-down-symbolic", IconSize.MENU);
-        downButton.setActionName(ACTION_PREFIX ~ "." ~ ACTION_FIND_NEXT);
-        downButton.setCanFocus(false);
-        bEntry.add(downButton);
+        Button btnDown = new Button("go-down-symbolic", IconSize.MENU);
+        btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
+        btnDown.setRelief(ReliefStyle.HALF);
+        btnDown.setCanFocus(false);
+        bEntry.add(btnDown);
+        
+        mbOptions = new MenuButton();
+        mbOptions.setTooltipText(_("Search Options"));
+        mbOptions.setFocusOnClick(false);
+        mbOptions.setRelief(ReliefStyle.HALF);
+        Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
+        mbOptions.add(iHamburger);
+        mbOptions.setPopover(createPopover);
+        bEntry.add(mbOptions);
 
-        bSearch.add(bEntry);
-
-        Box bOptions = new Box(Orientation.VERTICAL, 6);
-
-        cbMatchCase = new CheckButton(_("Match case"));
-        cbMatchCase.setActive(gsGeneral.getBoolean(SETTINGS_SEARCH_DEFAULT_MATCH_CASE));
-        cbMatchCase.addOnToggled(delegate(ToggleButton cb) { setTerminalSearchCriteria(); });
-        bOptions.add(cbMatchCase);
-
-        cbEntireWordOnly = new CheckButton(_("Match entire word only"));
-        cbEntireWordOnly.setActive(gsGeneral.getBoolean(SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD));
-        cbEntireWordOnly.addOnToggled(delegate(ToggleButton cb) { setTerminalSearchCriteria(); });
-        bOptions.add(cbEntireWordOnly);
-
-        cbMatchAsRegex = new CheckButton(_("Match as regular expression"));
-        cbMatchAsRegex.setActive(gsGeneral.getBoolean(SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX));
-        cbMatchAsRegex.addOnToggled(delegate(ToggleButton cb) { setTerminalSearchCriteria(); });
-        bOptions.add(cbMatchAsRegex);
-
-        CheckButton cbWrapAround = new CheckButton(_("Wrap around"));
-        cbWrapAround.setActive(gsGeneral.getBoolean(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
-        cbWrapAround.addOnToggled(delegate(ToggleButton cb) { vte.searchSetWrapAround(cb.getActive()); });
-        bOptions.add(cbWrapAround);
-
-        bSearch.add(bOptions);
-
-        Frame frame = new Frame(bSearch, null);
+        Frame frame = new Frame(bEntry, null);
+        
         frame.getStyleContext().addClass("notebook");
         frame.getStyleContext().addClass("header");
-        frame.getStyleContext().addClass("terminix-search-slider");
+        //frame.getStyleContext().addClass("terminix-search-slider");
         add(frame);
+    }
+    
+    void createActions() {
+        GSettings gsGeneral = new GSettings(SETTINGS_ID);
+
+        SimpleActionGroup sagSearch = new SimpleActionGroup();
+
+        registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE, null, delegate(GVariant value, SimpleAction sa) {
+            matchCase = !sa.getState().getBoolean();
+            sa.setState(new GVariant(matchCase));
+            setTerminalSearchCriteria();            
+            mbOptions.setActive(false);
+        }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_CASE));
+        
+        registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY, null, delegate(GVariant value, SimpleAction sa) {
+            entireWordOnly = !sa.getState().getBoolean();
+            sa.setState(new GVariant(entireWordOnly));
+            setTerminalSearchCriteria();            
+            mbOptions.setActive(false);
+        }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD));
+        
+        registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX, null, delegate(GVariant value, SimpleAction sa) {
+            matchAsRegex = !sa.getState().getBoolean();
+            sa.setState(new GVariant(matchAsRegex));
+            setTerminalSearchCriteria();            
+            mbOptions.setActive(false);
+        }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX));
+
+        registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND, null, delegate(GVariant value, SimpleAction sa) {
+            bool newState = !sa.getState().getBoolean();
+            sa.setState(new GVariant(newState));
+            vte.searchSetWrapAround(newState);
+            mbOptions.setActive(false);
+        }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
+        
+        insertActionGroup(ACTION_SEARCH_PREFIX, sagSearch);    
+    }
+
+    Popover createPopover() {
+        Menu model = new Menu();
+        model.append(_("Match case"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE));
+        model.append(_("Match entire word only"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY));
+        model.append(_("Match as regular expression"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX));
+        model.append(_("Wrap around"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND));
+        
+        return new Popover(mbOptions, model);
     }
 
     void setTerminalSearchCriteria() {
         string text = seSearch.getText();
-        if (!cbMatchAsRegex.getActive())
+        if (!matchAsRegex)
             text = Regex.escapeString(text);
-        if (cbEntireWordOnly.getActive())
+        if (entireWordOnly)
             text = format("\\b%s\\b", text);
         GRegexCompileFlags flags;
-        if (!cbMatchCase.getActive())
+        if (!matchCase)
             flags = flags | GRegexCompileFlags.CASELESS;
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);

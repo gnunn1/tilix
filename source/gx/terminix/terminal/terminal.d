@@ -225,7 +225,6 @@ private:
     void createUI() {
         sagTerminalActions = new SimpleActionGroup();
         createActions(sagTerminalActions);
-        insertActionGroup(ACTION_PREFIX, sagTerminalActions);
 
         Box box = new Box(Orientation.VERTICAL, 0);
         add(box);
@@ -422,6 +421,9 @@ private:
             sa.setState(value);
             vte.setEncoding(value.getString(l));
         }, encoding.getType(), encoding);
+        
+        //Insert Terminal Actions
+        insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
 
     /**
@@ -551,19 +553,22 @@ private:
         pmContext.setModal(true);
         */
         terminalOverlay = new Overlay();
-        
         terminalOverlay.add(vte);
-        rFind = new SearchRevealer(vte);
-        terminalOverlay.addOverlay(rFind);
 
-        Box box = new Box(Orientation.HORIZONTAL, 0);
-        box.add(terminalOverlay);
+        Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
+        terminalBox.add(terminalOverlay);
 
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
         sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
-        box.add(sb);
+        terminalBox.add(sb);
+        
+        Box box = new Box(Orientation.VERTICAL, 0);
+        rFind = new SearchRevealer(vte);
+        box.add(rFind);        
+        box.add(terminalBox);
+        
         return box;
     }
     
