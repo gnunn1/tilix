@@ -1,5 +1,12 @@
 export TERMINIX_ARCHIVE_PATH="/tmp/terminix/archive";
 
+function processPOFile {
+    echo "Processing ${1}"
+    LOCALE=$(basename "$1" .po)
+    mkdir -p ${TERMINIX_ARCHIVE_PATH}/usr/share/locale/${LOCALE}/LC_MESSAGES
+    msgfmt $1 -o ${TERMINIX_ARCHIVE_PATH}/usr/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
+}
+
 CURRENT_DIR=$(pwd)
 
 echo "Building application..."
@@ -35,6 +42,12 @@ mkdir -p ${TERMINIX_ARCHIVE_PATH}/usr/share/applications
 # Copy executable and desktop file
 cp ../../terminix ${TERMINIX_ARCHIVE_PATH}/usr/bin
 cp desktop/com.gexperts.Terminix.desktop ${TERMINIX_ARCHIVE_PATH}/usr/share/applications
+
+# Compile po files
+echo "Copying and installing localization files"
+export -f processPOFile
+ls ../../po/*.po | xargs -n 1 -P 10 -I {} bash -c 'processPOFile "$@"' _ {}
+
 
 echo "Creating archive"
 cd ${TERMINIX_ARCHIVE_PATH}
