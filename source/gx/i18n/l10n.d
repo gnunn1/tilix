@@ -6,10 +6,6 @@ module gx.i18n.l10n;
 
 import glib.Internationalization;
 
-void textdomain(string domain) {
-    _textdomain = domain;
-}
-
 /**
  * When compiled with the 'Localize' version tag all requests
  * for localization will be saved and output to  terminix.pot
@@ -52,8 +48,12 @@ version (Localize) {
     } 
 }
 
+void textdomain(string domain) {
+    _textdomain = domain;
+}
+
 /**
- * Preparation in case down the road D supports GNU gettext
+ * Localize text using GLib integration with GNU gettext
  * and po files for translation
  */
 string _(string text) {
@@ -62,7 +62,7 @@ string _(string text) {
         messages[text] = text;
     }
 
-    return Internationalization.dgettext("terminix", text);
+    return Internationalization.dgettext(_textdomain, text);
 }
 
 private:
