@@ -569,7 +569,7 @@ private:
         value.length = encodings.length;
         foreach(i, encoding; encodings) {
             key[i] = encoding[0];
-            value[i] = encoding[0] ~ " " ~ encoding[1];
+            value[i] = encoding[0] ~ " " ~ _(encoding[1]);
         }
         ComboBox cbEncoding = createNameValueCombo(value, key);
         gsProfile.bind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);

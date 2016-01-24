@@ -126,7 +126,7 @@ private:
         foreach(encoding; encodings) {
             TreeIter iter = ls.createIter();
             ls.setValue(iter, 0, menuEncodings.canFind(encoding[0]));
-            ls.setValue(iter, 1, encoding[0] ~ " " ~ encoding[1]);
+            ls.setValue(iter, 1, encoding[0] ~ " " ~ _(encoding[1]));
             ls.setValue(iter, 2, encoding[0]);
         }
         
