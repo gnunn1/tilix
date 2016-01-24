@@ -534,7 +534,9 @@ private:
      */
     JSONValue serializePaned(JSONValue value, Paned paned, SessionSizeInfo sizeInfo) {
         value[NODE_ORIENTATION] = JSONValue(paned.getOrientation());
-        value[NODE_SCALED_POSITION] = JSONValue(sizeInfo.scalePosition(paned.getPosition, paned.getOrientation()));
+        //Switch to integer to fix Issue #49 and work around D std.json bug
+        int positionPercent = to!int(sizeInfo.scalePosition(paned.getPosition, paned.getOrientation()) * 100);
+        value[NODE_SCALED_POSITION] = JSONValue(positionPercent);
         value[NODE_TYPE] = WidgetType.PANED;
         Box box1 = cast(Box) paned.getChild1();
         Box box2 = cast(Box) paned.getChild2();
@@ -590,7 +592,15 @@ private:
         b2.add(parseNode(value[NODE_CHILD2], sizeInfo));
         paned.pack1(b1, true, true);
         paned.pack2(b2, true, true);
-        paned.setPosition(sizeInfo.getPosition(value[NODE_SCALED_POSITION].floating(), orientation));
+        // Fix for issue #49
+        JSONValue position = value[NODE_SCALED_POSITION];
+        double percent;
+        if (position.type == JSON_TYPE.FLOAT) {
+            percent = value[NODE_SCALED_POSITION].floating();
+        } else {
+            percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
+        }
+        paned.setPosition(sizeInfo.getPosition(percent, orientation));
         return paned;
     }
 
