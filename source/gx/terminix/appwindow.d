@@ -289,7 +289,7 @@ private:
         GMenu mFileSection = new GMenu();
         mFileSection.appendItem(new GMenuItem(_("Load") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
-        mFileSection.appendItem(new GMenuItem(_("Save As" ~ "..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
+        mFileSection.appendItem(new GMenuItem(_("Save As") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
         mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
         model.appendSection(null, mFileSection);
 
