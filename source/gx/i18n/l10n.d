@@ -6,6 +6,10 @@ module gx.i18n.l10n;
 
 import glib.Internationalization;
 
+void textdomain(string domain) {
+    _textdomain = domain;
+}
+
 /**
  * When compiled with the 'Localize' version tag all requests
  * for localization will be saved and output to  terminix.pot
@@ -60,3 +64,6 @@ string _(string text) {
 
     return Internationalization.dgettext("terminix", text);
 }
+
+private:
+string _textdomain;

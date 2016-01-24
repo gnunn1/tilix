@@ -22,6 +22,8 @@ import gx.terminix.constants;
 int main(string[] args) {
 
 	trace("Starting terminix...");
+    //textdomain
+    textdomain("terminix");
 	//Version checking cribbed from grestful, thanks!
 	string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
 	if (gtkError !is null)	{
