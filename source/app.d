@@ -65,6 +65,9 @@ int main(string[] args) {
                 }
             } else {
                 result = terminixApp.run(tempArgs);
+                version(Localize) {
+                    saveFile(std.conv.to!string(std.path.withExtension(args[0], ".pot")));
+                }
             }
         } catch (Exception e) {
             error(_("Unexpected exception occurred"));

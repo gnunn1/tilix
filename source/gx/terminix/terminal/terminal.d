@@ -451,8 +451,8 @@ private:
         model.appendItem(splits);
 
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Find..."), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
-        menuSection.append(_("Title..."), getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
+        menuSection.append(_("Find") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        menuSection.append(_("Title") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
         model.appendSection(null, menuSection);
         
         menuSection = new GMenu();

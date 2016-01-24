@@ -126,7 +126,7 @@ private:
         //Header Bar
         hb = new HeaderBar();
         hb.setShowCloseButton(true);
-        hb.setTitle(APPLICATION_NAME);
+        hb.setTitle(_(APPLICATION_NAME));
         this.setTitlebar(hb);
 
         //View sessions button
@@ -287,14 +287,14 @@ private:
         GMenu model = new GMenu();
 
         GMenu mFileSection = new GMenu();
-        mFileSection.appendItem(new GMenuItem(_("Load..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
+        mFileSection.appendItem(new GMenuItem(_("Load") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
-        mFileSection.appendItem(new GMenuItem(_("Save As..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
+        mFileSection.appendItem(new GMenuItem(_("Save As" ~ "..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
         mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
         model.appendSection(null, mFileSection);
 
         GMenu mSessionSection = new GMenu();
-        mSessionSection.appendItem(new GMenuItem(_("Name..."), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_NAME)));
+        mSessionSection.appendItem(new GMenuItem(_("Name") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_NAME)));
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
@@ -391,9 +391,9 @@ private:
 
     void updateTitle(Session session) {
         if (session) {
-            hb.setTitle(APPLICATION_NAME ~ ": " ~ session.name);
+            hb.setTitle(_(APPLICATION_NAME) ~ ": " ~ session.name);
         } else {
-            hb.setTitle(APPLICATION_NAME);
+            hb.setTitle(_(APPLICATION_NAME));
         }
     }
 

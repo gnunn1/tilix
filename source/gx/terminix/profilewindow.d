@@ -198,7 +198,7 @@ private:
         //Text Appearance
         Box b = new Box(Orientation.VERTICAL, 6);
         b.setMarginTop(18);
-        Label lblTitle = new Label(_("<b>Text Appearance</b>"));
+        Label lblTitle = new Label(format("<b>%s</b>",_("Text Appearance")));
         lblTitle.setUseMarkup(true);
         lblTitle.setHalign(Align.START);
         b.add(lblTitle);
@@ -273,7 +273,7 @@ private:
         grid.setRowSpacing(18);
 
         int row = 0;
-        Label lblScheme = new Label(_("<b>Color scheme</b>"));
+        Label lblScheme = new Label(format("<b>%s</b>",_("Color scheme")));
         lblScheme.setUseMarkup(true);
         lblScheme.setHalign(Align.END);
         grid.attach(lblScheme, 0, row, 1, 1);
@@ -294,7 +294,7 @@ private:
         grid.attach(cbScheme, 1, row, 1, 1);
         row++;
 
-        Label lblPalette = new Label(_("<b>Color palette</b>"));
+        Label lblPalette = new Label(format("<b>%s</b>",_("Color palette")));
         lblPalette.setUseMarkup(true);
         lblPalette.setHalign(Align.END);
         lblPalette.setValign(Align.START);
@@ -302,7 +302,7 @@ private:
         grid.attach(createColorGrid(row), 1, row, 1, 1);
         row++;
 
-        Label lblOptions = new Label(_("<b>Options</b>"));
+        Label lblOptions = new Label(format("<b>%s</b>",_("Options")));
         lblOptions.setUseMarkup(true);
         lblOptions.setValign(Align.START);
         lblOptions.setHalign(Align.END);
