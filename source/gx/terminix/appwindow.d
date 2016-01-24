@@ -123,12 +123,6 @@ private:
         createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
 
-        //Header Bar
-        hb = new HeaderBar();
-        hb.setShowCloseButton(true);
-        hb.setTitle(_(APPLICATION_NAME));
-        this.setTitlebar(hb);
-
         //View sessions button
         mbSessions = new MenuButton();
         mbSessions.setTooltipText(_("Switch to a new session"));
@@ -140,7 +134,6 @@ private:
         pm.setModal(true);
         mbSessions.setPopover(pm);
         mbSessions.addOnButtonPress(delegate(Event e, Widget w) { buildSessionMenu(); return false; });
-        hb.packStart(mbSessions);
 
         //New tab button
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
@@ -148,7 +141,6 @@ private:
         btnNew.setAlwaysShowImage(true);
         btnNew.addOnClicked(delegate(Button button) { createSession(); });
         btnNew.setTooltipText(_("Create a new session"));
-        hb.packStart(btnNew);
 
         //Session Actions
         mbSessionActions = new MenuButton();
@@ -156,7 +148,6 @@ private:
         Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
         mbSessionActions.add(iHamburger);
         mbSessionActions.setPopover(createPopover(mbSessionActions));
-        hb.packEnd(mbSessionActions);
 
         //Session Notification
         mbSessionNotifications = new MenuButton();
@@ -171,7 +162,6 @@ private:
         mbSessionNotifications.setPopover(poSessionNotifications);
         mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
 
-        hb.packEnd(mbSessionNotifications);
         
         //Notebook
         nb = new Notebook();
@@ -185,7 +175,34 @@ private:
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
         }, ConnectFlags.AFTER);
-        add(nb);
+        
+        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            Box bToolbar = new Box(Orientation.HORIZONTAL, 0);
+            bToolbar.getStyleContext().addClass("terminix-toolbar");
+
+            bToolbar.packStart(mbSessions, false, false, 4);
+            bToolbar.packStart(btnNew, false, false, 4);
+            bToolbar.packEnd(mbSessionActions, false, false, 4);
+            bToolbar.packEnd(mbSessionNotifications, false, false, 4);
+            
+            Box b = new Box(Orientation.VERTICAL, 4);
+            b.getStyleContext().addClass("terminix-toolbar");
+
+            b.add(bToolbar);            
+            b.add(nb);
+            add(b);        
+        } else {
+            //Header Bar
+            hb = new HeaderBar();
+            hb.setShowCloseButton(true);
+            hb.setTitle(_(APPLICATION_NAME));
+            hb.packStart(mbSessions);
+            hb.packStart(btnNew);
+            hb.packEnd(mbSessionActions);
+            hb.packEnd(mbSessionNotifications);
+            this.setTitlebar(hb);
+            add(nb);
+        }
     }
 
     /**
@@ -390,11 +407,14 @@ private:
     }
 
     void updateTitle(Session session) {
+        string title;
         if (session) {
-            hb.setTitle(_(APPLICATION_NAME) ~ ": " ~ session.name);
+            title = _(APPLICATION_NAME) ~ ": " ~ session.name;
         } else {
-            hb.setTitle(_(APPLICATION_NAME));
+            title = _(APPLICATION_NAME);
         }
+        if (hb !is null) hb.setTitle(title);
+        else setTitle(title);
     }
 
     bool onSessionIsActionAllowed(ActionType actionType) {
