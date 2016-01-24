@@ -19,3 +19,6 @@ enum ACTION_READ_ONLY = "read-only";
 enum ACTION_COPY = "copy";
 enum ACTION_PASTE = "paste";
 enum ACTION_SELECT_ALL = "select-all";
+enum ACTION_ZOOM_IN = "zoom-in";
+enum ACTION_ZOOM_OUT = "zoom-out";
+enum ACTION_ZOOM_NORMAL = "zoom-normal";

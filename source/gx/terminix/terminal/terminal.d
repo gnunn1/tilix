@@ -361,6 +361,24 @@ private:
             } 
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll();  });
+        
+        //Zoom actions
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) { 
+            if (vte.getFontScale()<5) {
+                trace("Zoom In");
+                vte.setFontScale(vte.getFontScale() + 0.1);
+            }
+        });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(GVariant, SimpleAction) { 
+            if (vte.getFontScale()>0.1) {
+                trace("Zoom Out");
+                vte.setFontScale(vte.getFontScale() - 0.1);
+            }
+        });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(GVariant, SimpleAction) { 
+            trace("Zoom Normal");
+            vte.setFontScale(1.0);
+        });
 
         //Override terminal title
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
