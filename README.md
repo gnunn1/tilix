@@ -18,13 +18,13 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 * Transparent background
 * Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
 
-The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) and no allowance has been made for other Desktop Environments (xfce, unity, kde, etc) at this time so your mileage may vary. Consideration for other environments may be given if demand warrants it.
+The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other then Gnome, only Unity and has been tested officially though users have had success with other desktop environments.
 
-At this point in time the application should be considered early alpha and has been tested to varying degrees with the following distros:
+At this point in time the application should be considered mid alpha and has been tested to varying degrees with the following distros:
 
 * Arch Linux (primary test platform, works)
 * Ubuntu 16.04 (secondary, works)
-* Fedora 23 (primary, works, bug #19)
+* Fedora 23 (primary, works)
 * RHEL 7.2 (primary, works)
 * Fedora Rawhide (not supported, semi-works, UI broken, bug #16)
 
@@ -32,18 +32,9 @@ At this point in time the application should be considered early alpha and has b
 
 Terminix requires the following libraries to be installed in order to run:
 * GTK 3.14 or later
-* GTK VTE Widget 0.42 or later
+* GTK VTE Widget 0.42
 * Dconf
 * GSettings
-
-### Todo Items
-
-Since this is an early alpha release, there are a number of features which have not yet been developed including:
-
-* Add an option to support a "compact" view which would have smaller terminal title bars and move commands to popup menus
-* Add support for localization
-
-Additional feature requests are gladly accepted
 
 ### Building
 
@@ -55,12 +46,12 @@ Once you have those installed, building the application is a one line command as
 dub build --build=release
 ```
 
-The application depends on various resources to function directly, run sudo ./install.sh to compile and copy all of the necessary files to the correct locations. Note this has only been tested on Arch Linux, use with caution.
+The application depends on various resources to function correctly, run sudo ./install.sh to compile and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
 
 #### Build Dependencies
 
 Terminix depends on the following libraries as defined in dub.json:
-* [gtkd](http://gtkd.org/) >= 3.2.1
+* [gtkd](http://gtkd.org/) >= 3.2.2
 
 ### Installation
 
