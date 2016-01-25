@@ -1153,10 +1153,6 @@ private:
      */
     void onVTEDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
         trace("Drag data recieved for " ~ to!string(info));
-        //Don't allow drop on the same terminal
-        if (isSourceAndDestEqual(dc, this))
-            return;
-
         final switch (info) {
         case DropTargets.URILIST:
             string[] uris = data.getUris();
@@ -1170,10 +1166,13 @@ private:
             break;
         case DropTargets.STRING, DropTargets.TEXT:
             string text = data.getText();
-            if (!text)
+            if (text.length > 0) { 
                 vte.feedChild(text, text.length);
+            }
             break;
         case DropTargets.VTE:
+            //Don't allow drop on the same terminal
+            if (isSourceAndDestEqual(dc, this)) return;
             string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
             DragQuadrant dq = getDragQuadrant(x, y, vte);
             trace(format("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq));
