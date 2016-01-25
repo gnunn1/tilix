@@ -177,18 +177,19 @@ private:
         }, ConnectFlags.AFTER);
         
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            Box bToolbar = new Box(Orientation.HORIZONTAL, 0);
-            bToolbar.getStyleContext().addClass("terminix-toolbar");
-
-            bToolbar.packStart(mbSessions, false, false, 4);
-            bToolbar.packStart(btnNew, false, false, 4);
-            bToolbar.packEnd(mbSessionActions, false, false, 4);
-            bToolbar.packEnd(mbSessionNotifications, false, false, 4);
+            Box tb = new Box(Orientation.HORIZONTAL, 0);
+            tb.packStart(mbSessions, false, false, 4);
+            tb.packStart(btnNew, false, false, 4);
+            tb.packEnd(mbSessionActions, false, false, 4);
+            tb.packEnd(mbSessionNotifications, false, false, 4);
+            tb.setMarginBottom(4);
             
-            Box b = new Box(Orientation.VERTICAL, 4);
-            b.getStyleContext().addClass("terminix-toolbar");
+            Box spacer = new Box(Orientation.VERTICAL, 0);
+            spacer.getStyleContext().addClass("terminix-toolbar");
+            spacer.packStart(tb, true, true, 0);            
 
-            b.add(bToolbar);            
+            Box b = new Box(Orientation.VERTICAL, 0);
+            b.add(spacer);            
             b.add(nb);
             add(b);        
         } else {
