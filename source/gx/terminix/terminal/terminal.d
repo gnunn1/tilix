@@ -820,7 +820,7 @@ private:
             vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY));
             break;
         case SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY:
-            vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
+            vte.setScrollOnKeystroke(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
             break;
         case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
         SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
@@ -843,7 +843,6 @@ private:
             vte.setCursorBlinkMode(getBlinkMode(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY)));
             break;
         case SETTINGS_PROFILE_TITLE_KEY:
-            trace("Applying preferences");
             updateTitle();
             break;
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
