@@ -1,3 +1,11 @@
+if [ -z  "$1" ]; then
+   export PREFIX=/usr
+else
+   export PREFIX=$1
+fi
+
+echo "Installing to prefix ${PREFIX}"
+
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -7,15 +15,17 @@ fi
 function processPOFile {
     echo "Processing ${1}"
     LOCALE=$(basename "$1" .po)
-    msgfmt $1 -o /usr/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
+    mkdir -p ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
+    msgfmt $1 -o ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
 }
 
 # Copy and compile schema
 echo "Copying and compiling schema..."
-cp data/gsettings/com.gexperts.Terminix.gschema.xml /usr/share/glib-2.0/schemas/
-glib-compile-schemas /usr/share/glib-2.0/schemas/
+mkdir -p ${PREFIX}/share/glib-2.0/schemas
+cp data/gsettings/com.gexperts.Terminix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
+glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
 
-export TERMINIX_SHARE=/usr/share/terminix
+export TERMINIX_SHARE=${PREFIX}/share/terminix
 
 mkdir -p ${TERMINIX_SHARE}/resources
 mkdir -p ${TERMINIX_SHARE}/schemes
@@ -37,5 +47,7 @@ export -f processPOFile
 ls po/*.po | xargs -n 1 -P 10 -I {} bash -c 'processPOFile "$@"' _ {}
 
 # Copy executable and desktop file
-cp terminix /usr/bin/terminix
-cp data/pkg/desktop/com.gexperts.Terminix.desktop /usr/share/applications
+mkdir -p ${PREFIX}/bin
+cp terminix ${PREFIX}/bin/terminix
+mkdir -p ${PREFIX}/share/applications
+cp data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications
