@@ -3,6 +3,10 @@
 import os
 import urllib
 
+import gi
+
+gi.require_version('Nautilus', '3.0')
+
 from gi.repository import Nautilus, GObject
 
 class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
@@ -28,7 +32,7 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             return
         
         item = Nautilus.MenuItem(name='NautilusPython::openterminal_file_item',
-                                 label='Open in Terminix' ,
+                                 label='Open in Terminix',
                                  tip='Open Terminix In %s' % file.get_name())
         item.connect('activate', self.menu_activate_cb, file)
         return item,

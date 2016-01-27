@@ -1,16 +1,15 @@
 if [ -z  "$1" ]; then
    export PREFIX=/usr
+    # Make sure only root can run our script
+    if [ "$(id -u)" != "0" ]; then
+       echo "This script must be run as root" 1>&2
+       exit 1
+fi
 else
    export PREFIX=$1
 fi
 
 echo "Installing to prefix ${PREFIX}"
-
-# Make sure only root can run our script
-if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
 
 function processPOFile {
     echo "Processing ${1}"
@@ -45,6 +44,11 @@ cp data/schemes/* ${TERMINIX_SHARE}/schemes
 echo "Copying and installing localization files"
 export -f processPOFile
 ls po/*.po | xargs -n 1 -P 10 -I {} bash -c 'processPOFile "$@"' _ {}
+
+# Copying Nautilus extension
+echo "Copying Nautilus extension"
+mkdir -p ${PREFIX}/share/nautilus-python/extensions/
+cp data/nautilus/open-terminix.py ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
 
 # Copy executable and desktop file
 mkdir -p ${PREFIX}/bin
