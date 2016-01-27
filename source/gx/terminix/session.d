@@ -600,6 +600,7 @@ private:
         } else {
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
         }
+        trace(format("Paned position percent: %f", percent));
         paned.setPosition(sizeInfo.getPosition(percent, orientation));
         return paned;
     }
@@ -694,6 +695,15 @@ public:
         root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(this)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
+    }
+    
+    static void getPersistedSessionSize(JSONValue value, out int width, out int height) {
+        try {
+            width = to!int(value[NODE_WIDTH].integer());
+            height = to!int(value[NODE_HEIGHT].integer());
+        } catch (Exception e) {
+            throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
+        }
     }
 
     /**

@@ -540,7 +540,20 @@ private:
             throw new SessionCreationException(format(_("Filename '%s' does not exist"), filename));
         string text = readText(filename);
         JSONValue value = parseJSON(text);
-        Session session = new Session(value, filename, nb.getAllocatedWidth(), nb.getAllocatedHeight(), nb.getNPages() == 0);
+        int width = nb.getAllocatedWidth();
+        int height = nb.getAllocatedHeight();
+        // If no sessions then we are loading our first session,
+        // set the window size to what was saved in session JSON file
+        if (nb.getNPages() == 0) {
+            try {
+                Session.getPersistedSessionSize(value, width, height);
+                setDefaultSize(width, height);
+            } catch (Exception e) {
+                throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
+            }
+        }
+        trace("Session dimensions: w=%d, h=%d", width, height);
+        Session session = new Session(value, filename, width, height , nb.getNPages() == 0);
         addSession(session);
     }
 
