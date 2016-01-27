@@ -20,7 +20,7 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.40.0";
+enum APPLICATION_VERSION = "0.45.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = "A VTE based terminal emulator for Linux";
@@ -31,7 +31,7 @@ immutable string[] APPLICATION_AUTHORS = ["Gerald Nunn"];
 string[] APPLICATION_CREDITS = ["GTK VTE widget team, Terminix would not be possible without their work", "GtkD for providing such an excellent GTK wrapper", "Dlang.org for such an excellent language, D"];
 immutable string[] APPLICATION_ARTISTS = [];
 immutable string[] APPLICATION_DOCUMENTERS = [""];
-immutable string APPLICATION_TRANSLATORS = "";
+immutable string APPLICATION_TRANSLATORS = "MetotoSakamoto, frnogueira, dsboger";
 
 //GTK Settings
 enum GTK_APP_PREFER_DARK_THEME = "gtk-application-prefer-dark-theme";
