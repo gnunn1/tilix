@@ -908,7 +908,10 @@ private:
      */
     void spawnTerminalProcess(string workingDir) {
         CommandParameters overrides = terminix.getGlobalOverrides();
-        if (overrides.workingDir.length > 0) workingDir = overrides.workingDir;
+        if (overrides.workingDir.length > 0) {
+            workingDir = overrides.workingDir;
+            trace("Working directory overriden to " ~ workingDir);
+        }
     
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
@@ -1226,7 +1229,6 @@ public:
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
         // Check if profile is overriden globally
-        trace("Override profile name " ~ terminix.getGlobalOverrides().profileName);
         if (terminix.getGlobalOverrides().profileName.length > 0) {
             string newProfileUUID = prfMgr.getProfileUUIDFromName(terminix.getGlobalOverrides().profileName);
             if (newProfileUUID.length > 0) {

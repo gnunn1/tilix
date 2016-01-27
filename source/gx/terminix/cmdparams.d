@@ -1,11 +1,26 @@
 module gx.terminix.cmdparams;
 
 import std.experimental.logger;
-import std.getopt;
+import std.file;
+import std.path;
+import std.process;
 import std.stdio;
 import std.string;
 
+import gio.ApplicationCommandLine;
+
+import glib.VariantDict;
+import glib.Variant: GVariant = Variant;
+import glib.VariantType: GVariantType = VariantType;
+
 import gx.i18n.l10n;
+
+enum CMD_WORKING_DRIECTORY = "working-directory";
+enum CMD_SESSION = "session";
+enum CMD_PROFILE = "profile";
+enum CMD_EXECUTE = "execute";
+enum CMD_ACTION = "action";
+enum CMD_TERMINAL_UUID = "terminalUUID";
 
 /**
  * Manages the terminix command line options
@@ -19,49 +34,67 @@ private:
     string _action;
     string _execute;
     string _cmdLine;
+    string _terminalUUID;
 
     bool _exit = false;
     int _exitCode = 0;
+    
+    string getValue(VariantDict vd, string key, GVariantType vt) {
+        GVariant value = vd.lookupValue(key, vt);
+        if (value is null) return "";
+        else {
+            ulong l;
+            return value.getString(l);
+        }
+    }
 
 public:    
     
-    this(string[] args) {
-        _cmdLine.length = 0;
-        //Start from 1 to skip executable
-        foreach(i, arg; args[1..$]) {
-            if (i > 0) _cmdLine ~=" ";
-            if (arg.indexOf(" ") > 0) arg ="\"" ~ arg ~ "\""; 
-            _cmdLine ~= arg;
+    this(ApplicationCommandLine acl) {
+        _cmdLine = acl.getCwd();
+        
+        //Declare a string variant type
+        GVariantType vts = new GVariantType("s");
+        VariantDict vd = acl.getOptionsDict();
+        _workingDir = getValue(vd,CMD_WORKING_DRIECTORY,vts);
+        if (_workingDir.length > 0) {
+            _workingDir = expandTilde(_workingDir);
+            if (!isDir(_workingDir)) {
+                writeln(format(_("Ignoring parameter working-directory as '%s' is not a directory"), _workingDir));
+                _workingDir.length = 0;
+            }
         }
-        try { 
-            auto results = getopt(args, 
-                                "working-directory|w", _("Set the working directory of the terminal"), &_workingDir, 
-                                "profile|p", _("Set the starting profile"), &_profileName, 
-                                "session|s", _("Open the specified session"), &_session,
-                                "action|a",_("Send an action to current Terminix instance"), &_action,
-                                "execute|x",_("Execute the passed command"), &_execute);
-            if (results.helpWanted) {
-                defaultGetoptPrinter("Terminix Usage:\n\tterminix [OPTIONS]\n\nAvailable options are:\n", results.options);
-                writeln("Note that the session option is not compatible with profile and working-directory options");
-                _exitCode = 0;
-                _exit = true;
+        _session = getValue(vd, CMD_SESSION, vts);
+        if (_session.length > 0) {
+            _session = expandTilde(_session);
+            if (!isFile(session)) {
+                writeln(format(_("Ignoring parameter session as '%s' does not exist"), _session));
+                _session.length = 0;
             }
-
-            if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0)) {
-                writeln(_("You cannot load a session and set a profile/working directory, please choose one or the other"));
-                _exitCode = 1;
-                _exit = true;
-            }
-            trace("Command Line Options:\n\tworkingDirectory: " ~ _workingDir);
-            trace("Command Line Options:\n\tprofileName: " ~ _profileName);
-        } catch (GetOptException e) {
-            writeln("Unexpected error occurred when parsing command line parameters, error was:");
-            writeln("\t" ~ e.msg);
-            writeln();
-            writeln("Exiting terminix");
+        }
+        _profileName = getValue(vd, CMD_PROFILE, vts);
+        _execute = getValue(vd, CMD_EXECUTE, vts);
+        _action = getValue(vd, CMD_ACTION, vts);
+        if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0)) {
+            writeln(_("You cannot load a session and set a profile/working directory, please choose one or the other"));
             _exitCode = 1;
             _exit = true;
-        }                              
+        }
+        _terminalUUID = getValue(vd, CMD_TERMINAL_UUID, vts);
+        if (_action.length > 0) {
+            if (!acl.getIsRemote() || _terminalUUID.length == 0) {
+                writeln("You can only use the the action parameter within Terminix");
+                _exitCode = 2;
+                _exit = true;
+                _action.length = 0;
+            }
+        }      
+        trace("Command line parameters:");  
+        trace("\tworking-directory=" ~ _workingDir);
+        trace("\tsession=" ~ _session);
+        trace("\tprofile=" ~ _profileName);
+        trace("\taction=" ~ _action);
+        trace("\texecute=" ~ _execute);
     }
     
     void clear() {
@@ -72,6 +105,7 @@ public:
         _execute.length = 0;
         _exitCode = 0;
         _cmdLine.length = 0;
+        _terminalUUID.length = 0;
         _exit = false;
     }
     
@@ -87,7 +121,9 @@ public:
     
     @property string cmdLine() {return _cmdLine;}
     
+    @property string terminalUUID() {return _terminalUUID;}
+    
     @property bool exit() {return _exit;}
     
-    @property int exitCode() {return _exitCode;}     
+    @property int exitCode() {return _exitCode;}    
 }

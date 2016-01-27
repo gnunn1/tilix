@@ -7,10 +7,13 @@ module gx.terminix.application;
 import std.experimental.logger;
 import std.format;
 import std.path;
+import std.process;
 import std.variant;
 
 import gio.ActionGroupIF;
 import gio.ActionMapIF;
+import gio.Application : GApplication = Application;
+import gio.ApplicationCommandLine;
 import gio.Menu;
 import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
@@ -18,6 +21,7 @@ import gio.SimpleAction;
 
 import glib.ShellUtils;
 import glib.Variant : GVariant = Variant;
+import glib.VariantDict: GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
 import gtk.AboutDialog;
@@ -67,11 +71,11 @@ private:
     GSettings gsGeneral;
 
     CommandParameters cp;
-    
+
     AppWindow[] appWindows;
     ProfileWindow[] profileWindows;
     PreferenceWindow preferenceWindow;
-    
+
     bool warnedVTEConfigIssue = false;
 
     /**
@@ -119,9 +123,7 @@ private:
 
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) {
-            quitTerminix();
-        });
+        registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTerminix(); });
 
         Menu newSection = new Menu();
         newSection.append(_("New Session"), getActionDetailedName(ACTION_PREFIX, ACTION_NEW_SESSION));
@@ -153,7 +155,7 @@ private:
     void onShowPreferences() {
         presentPreferences();
     }
-    
+
     /**
      * Shows the about dialog.
      * 
@@ -188,7 +190,7 @@ private:
             present();
         }
     }
-    
+
     void createAppWindow() {
         AppWindow window = new AppWindow(this);
         window.initialize();
@@ -196,18 +198,44 @@ private:
     }
 
     void quitTerminix() {
-        foreach(window; appWindows) {
+        foreach (window; appWindows) {
             window.close();
         }
-        foreach(window; profileWindows) {
+        foreach (window; profileWindows) {
             window.close();
         }
-        if (preferenceWindow !is null) preferenceWindow.close();
+        if (preferenceWindow !is null)
+            preferenceWindow.close();
+    }
+    
+    int onHandleLocalOptions(GVariantDict, GApplication) {
+        trace("App processing local command line");
+        return -1;
+    }
+    
+    int onCommandLine(ApplicationCommandLine acl, GApplication app) {
+        trace("App processing command line");
+        scope (exit) {
+            cp.clear();
+            acl.setExitStatus(cp.exitCode);
+            acl.destroy();
+        }
+        cp = CommandParameters(acl);
+        if (cp.exitCode == 0) {
+            if (cp.action.length > 0) {
+                executeAction(cp.terminalUUID, cp.action);
+                return cp.exitCode;
+            } 
+        }
+        trace("Activating app");
+        activate();
+        return cp.exitCode;
     }
 
-    void onAppActivate(GioApplication app) {
+    void onAppActivate(GApplication app) {
         trace("Activate App Signal");
-        createAppWindow();
+        if (!app.getIsRemote())
+            createAppWindow();
         cp.clear();
     }
 
@@ -238,7 +266,7 @@ private:
 
     void applyPreferences() {
         string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
-        if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) { 
+        if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
         } else {
             //While the code below works, gives some critical errors, for now
@@ -252,41 +280,19 @@ private:
             */
         }
     }
-    
-    void executeCommand(GVariant value, SimpleAction sa) {
-        //Clear command parameters at end of command
-        //Only set them temporarily so if a terminal is created
-        //as a result of the action it can inherit them. The
-        //command line parameters are sent by the remote Application
-        //and packed into the value parameter.
-        scope (exit) {cp.clear();}
-        ulong l;
-        string command = value.getChildValue(0).getString(l);
-        if (command.length == 0) {
-            error("No command was received");
-            return;
-        }
-        string terminalUUID = value.getChildValue(1).getString(l);
-        if (terminalUUID.length == 0) {
-            error("Terminal UUID was not sent for command, cannot resolve");
-            return;
-        }
-        string cmdLine = value.getChildValue(2).getString(l);
-        string[] args;
-        ShellUtils.shellParseArgv(cmdLine, args);
-        cp = CommandParameters(args);
-        trace(format("Command Received, command=%s, terminalID=%s, cmdLine=%s", command, terminalUUID, cmdLine));
-        //Get action name
+
+    void executeAction(string terminalUUID, string action) {
+        trace("Executing action " ~ action);
         string prefix;
         string actionName;
-        getActionNameFromKey(command, prefix, actionName);
+        getActionNameFromKey(action, prefix, actionName);
         Widget widget = findWidgetForUUID(terminalUUID);
         while (widget !is null) {
             ActionGroupIF group = widget.getActionGroup(prefix);
             if (group !is null && group.hasAction(actionName)) {
                 trace(format("Activating action for prefix=%s and action=%s", prefix, actionName));
                 group.activateAction(actionName, null);
-                return;    
+                return;
             }
             widget = widget.getParent();
         }
@@ -300,18 +306,23 @@ private:
 
 public:
 
-    this(CommandParameters cp) {
-        super(APPLICATION_ID, ApplicationFlags.FLAGS_NONE);
-        this.cp = cp;
+    this() {
+        super(APPLICATION_ID, ApplicationFlags.HANDLES_COMMAND_LINE);
+        addMainOption(CMD_WORKING_DRIECTORY, 'w', GOptionFlags.NONE, GOptionArg.STRING, _("Set the working directory of the terminal"), _("DIRECTORY"));
+        addMainOption(CMD_PROFILE, 'p', GOptionFlags.NONE, GOptionArg.STRING, _("Set the starting profile"), _("PROFILE_NAME"));
+        addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING, _("Open the specified session"), _("SESSION_NAME"));
+        addMainOption(CMD_ACTION, 'a', GOptionFlags.NONE, GOptionArg.STRING, _("Send an action to current Terminix instance"), _("ACTION_NAME"));
+        addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
+        addMainOption(CMD_TERMINAL_UUID,'t', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"),_("TERMINAL_UUID"));
+
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
-        GVariant param = new GVariant([new GVariant("None"), new GVariant("None"), new GVariant("None")]);
-        trace("Registering command action with type " ~ param.getType().peekString());
-        registerAction(this, ACTION_PREFIX, ACTION_COMMAND, null, &executeCommand, param.getType(), param);
+        this.addOnCommandLine(&onCommandLine);
+        this.addOnHandleLocalOptions(&onHandleLocalOptions);
         terminix = this;
     }
-    
+
     /**
      * Executes a command by invoking the command action.
      * This is used to invoke a command on a remote instance of
@@ -330,24 +341,24 @@ public:
         //GTK add window
         addWindow(window);
     }
-    
+
     void removeAppWindow(AppWindow window) {
         gx.util.array.remove(appWindows, window);
         removeWindow(window);
     }
-    
+
     void addProfileWindow(ProfileWindow window) {
         profileWindows ~= window;
         //GTK add window
         addWindow(window);
     }
-    
+
     void removeProfileWindow(ProfileWindow window) {
         gx.util.array.remove(profileWindows, window);
         //GTK remove window
         removeWindow(window);
     }
-    
+
     /**
     * This searches across all Windows to find
     * a widget that matches the UUID specified. At the
@@ -362,7 +373,7 @@ public:
     */
     Widget findWidgetForUUID(string uuid) {
 
-        foreach(window; appWindows) {
+        foreach (window; appWindows) {
             trace("Finding widget " ~ uuid);
             trace("Checking app window");
             Widget result = window.findWidgetForUUID(uuid);
@@ -372,7 +383,7 @@ public:
         }
         return null;
     }
-    
+
     void presentPreferences() {
         //Check if preference window already exists
         if (preferenceWindow !is null) {
@@ -382,25 +393,21 @@ public:
         //Otherwise create it and save the ID
         preferenceWindow = new PreferenceWindow(this);
         addWindow(preferenceWindow);
-        preferenceWindow.addOnDelete(delegate(Event, Widget) {
-            preferenceWindow = null;
-            removeWindow(preferenceWindow);
-            return false;
-        });
+        preferenceWindow.addOnDelete(delegate(Event, Widget) { preferenceWindow = null; removeWindow(preferenceWindow); return false; });
         preferenceWindow.showAll();
     }
-    
+
     void closeProfilePreferences(ProfileInfo profile) {
-        foreach(window; profileWindows) {
+        foreach (window; profileWindows) {
             if (window.uuid == profile.uuid) {
                 window.destroy();
                 return;
             }
         }
     }
-    
+
     void presentProfilePreferences(ProfileInfo profile) {
-        foreach(window; profileWindows) {
+        foreach (window; profileWindows) {
             if (window.uuid == profile.uuid) {
                 window.present();
                 return;
@@ -409,11 +416,11 @@ public:
         ProfileWindow window = new ProfileWindow(this, profile);
         window.showAll();
     }
-    
+
     bool testVTEConfig() {
         return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
     }
-    
+
     /**
      * Even those these are parameters passed on the command-line
      * they are used by the terminal when it is created as a global
@@ -434,7 +441,7 @@ public:
     CommandParameters getGlobalOverrides() {
         return cp;
     }
-    
+
     /**
      * Shows a dialog when a VTE configuration issue is detected.
      * See Issue #34 and https://github.com/gnunn1/terminix/wiki/VTE-Configuration-Issue
@@ -443,12 +450,12 @@ public:
     void warnVTEConfigIssue() {
         if (testVTEConfig()) {
             warnedVTEConfigIssue = true;
-            string msg = "There appears to be an issue with the configuration of the terminal.\n" ~
-                         "This issue is not serious, but correcting it will improve your experience.\n" ~
-                         "Click the link below for more information:";
+            string msg = "There appears to be an issue with the configuration of the terminal.\n" ~ "This issue is not serious, but correcting it will improve your experience.\n" ~ "Click the link below for more information:";
             string title = "<span weight='bold' size='larger'>" ~ _("Configuration Issue Detected") ~ "</span>";
             MessageDialog dlg = new MessageDialog(getActiveWindow(), DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
-            scope(exit) {dlg.destroy();}
+            scope (exit) {
+                dlg.destroy();
+            }
             with (dlg) {
                 setTransientFor(getActiveWindow());
                 setMarkup(title);

@@ -20,8 +20,16 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
-
 	trace("Starting terminix...");
+    //append TERMINIX_ID to args if present
+    try {
+        string terminalUUID = environment["TERMINIX_ID"];
+        trace("Inserting terminal UUID " ~ terminalUUID);
+        args ~= ("--" ~ CMD_TERMINAL_UUID ~ "=" ~ terminalUUID);
+    } catch (Exception e) {
+        trace("No terminix UUID found");
+    }
+    
     //textdomain
     textdomain("terminix");
 	//Version checking cribbed from grestful, thanks!
@@ -44,39 +52,19 @@ int main(string[] args) {
 		return 1;
 	}
     
-	trace("Reading command parameters...");
-    CommandParameters cp = CommandParameters(args);
-    if (!cp.exit) {
-        trace("Creating app");
-        auto terminixApp = new Terminix(cp);
-        //Bypass GTK command line handling since we handle it ourselves
-        string[] tempArgs;
-        int result;
-        try {
-            trace("Running application...");
-            if (cp.action.length > 0) {
-                string id = environment["TERMINIX_ID"];
-                if (id.length == 0) {
-                    writeln(_("You must execute a command within a running instance of terminix"));
-                    return 2;
-                } else {
-                    trace(format("Sending command=%s, cmdLine=%s", cp.action, cp.cmdLine));
-                    terminixApp.register(null);
-                    terminixApp.executeCommand(cp.action, id, cp.cmdLine);
-                    return 0;    
-                }
-            } else {
-                result = terminixApp.run(tempArgs);
-                version(Localize) {
-                    saveFile(std.conv.to!string(std.path.withExtension(args[0], ".pot")));
-                }
-            }
-        } catch (Exception e) {
-            error(_("Unexpected exception occurred"));
-            error(_("Error: ") ~ e.msg);
+    trace("Creating app");
+    auto terminixApp = new Terminix();
+    int result;
+    try {
+        trace("Running application...");
+        result = terminixApp.run(args);
+        trace("App completed...");
+        version(Localize) {
+            saveFile(std.conv.to!string(std.path.withExtension(args[0], ".pot")));
         }
-        return result;
-    } else {
-        return cp.exitCode;
+    } catch (Exception e) {
+        error(_("Unexpected exception occurred"));
+        error(_("Error: ") ~ e.msg);
     }
+    return result;
 }
