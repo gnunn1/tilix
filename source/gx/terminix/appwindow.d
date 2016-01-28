@@ -49,7 +49,9 @@ import gtk.ListBoxRow;
 import gtk.MenuButton;
 import gtk.MessageDialog;
 import gtk.Notebook;
+import gtk.Overlay;
 import gtk.Popover;
+import gtk.Revealer;
 import gtk.ScrolledWindow;
 import gtk.StyleContext;
 import gtk.Widget;
@@ -58,6 +60,7 @@ import vte.Pty;
 import vte.Terminal;
 
 import gx.gtk.actions;
+import gx.gtk.cairo;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -93,9 +96,11 @@ private:
     enum ACTION_SESSION_LOAD = "load";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
+    enum ACTION_WIN_SIDEBAR = "view-sidebar";
 
     Notebook nb;
     HeaderBar hb;
+    SideBar sb;
 
     GMenu sessionMenu;
     SimpleAction saSessionSelect;
@@ -123,6 +128,40 @@ private:
         createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
 
+        //Notebook
+        nb = new Notebook();
+        nb.setShowTabs(false);
+        nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
+            Session session = cast(Session) page;
+            //Remove any sessions associated with current page
+            sessionNotifications.remove(session.sessionUUID);
+            updateTitle(session);
+            updateUIState();
+            session.focusRestore();
+            saSyncInput.setState(new GVariant(session.synchronizeInput));
+        }, ConnectFlags.AFTER);
+        
+
+        Overlay overlay = new Overlay();
+        add(overlay);
+        sb = new SideBar();
+        overlay.addOverlay(sb);        
+        
+        //Could be a Box or a Headerbar depending on value of disable_csd
+        Widget toolbar = createHeaderBar();
+
+        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            Box b = new Box(Orientation.VERTICAL, 0);
+            b.add(toolbar);            
+            b.add(nb);
+            overlay.add(b);        
+        } else {
+            this.setTitlebar(toolbar);
+            overlay.add(nb);
+        }
+    }
+    
+    Widget createHeaderBar() {
         //View sessions button
         mbSessions = new MenuButton();
         mbSessions.setTooltipText(_("Switch to a new session"));
@@ -161,21 +200,7 @@ private:
         poSessionNotifications = new SessionNotificationPopover(mbSessionNotifications, this);
         mbSessionNotifications.setPopover(poSessionNotifications);
         mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
-
-        
-        //Notebook
-        nb = new Notebook();
-        nb.setShowTabs(false);
-        nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
-            Session session = cast(Session) page;
-            //Remove any sessions associated with current page
-            sessionNotifications.remove(session.sessionUUID);
-            updateTitle(session);
-            updateUIState();
-            session.focusRestore();
-            saSyncInput.setState(new GVariant(session.synchronizeInput));
-        }, ConnectFlags.AFTER);
-        
+    
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
             tb.packStart(mbSessions, false, false, 4);
@@ -186,12 +211,8 @@ private:
             
             Box spacer = new Box(Orientation.VERTICAL, 0);
             spacer.getStyleContext().addClass("terminix-toolbar");
-            spacer.packStart(tb, true, true, 0);            
-
-            Box b = new Box(Orientation.VERTICAL, 0);
-            b.add(spacer);            
-            b.add(nb);
-            add(b);        
+            spacer.packStart(tb, true, true, 0);
+            return spacer;            
         } else {
             //Header Bar
             hb = new HeaderBar();
@@ -201,8 +222,7 @@ private:
             hb.packStart(btnNew);
             hb.packEnd(mbSessionActions);
             hb.packEnd(mbSessionNotifications);
-            this.setTitlebar(hb);
-            add(nb);
+            return hb;
         }
     }
 
@@ -220,6 +240,15 @@ private:
                 }
             });
         }
+        registerActionWithSettings(this, "win", ACTION_WIN_SIDEBAR, gsShortcuts, delegate(Variant, SimpleAction) {
+            if (sb.getRevealChild()) {
+                sb.setRevealChild(false);
+            } else {
+                sb.populateSessions(nb);
+                sb.setRevealChild(true);
+            }
+        });
+        
     }
 
     /**
@@ -707,6 +736,41 @@ public:
 }
 
 // ***************************************************************************
+// This block deals with the session sidebar that is used to switch between sessions
+// ***************************************************************************
+private:
+
+class SideBar: Revealer {
+private:
+    ListBox lbSessions;
+
+public:
+    this() {
+        super();
+        lbSessions = new ListBox();
+        setHexpand(false);
+        setVexpand(true);
+        setHalign(Align.START);
+        setValign(Align.FILL);
+        
+        add(lbSessions);
+    }
+    
+    void populateSessions(Notebook nb) {
+        trace("Populating sidebar sessions");
+        lbSessions.removeAll();
+        for (int i=0; i<nb.getNPages(); i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            Image img = new Image(getWidgetImage(session, 0.10));
+            ListBoxRow row = new ListBoxRow();
+            row.add(img);
+            lbSessions.add(row);
+        }
+        lbSessions.showAll();
+    }
+}
+
+// ***************************************************************************
 // This block deals with session notification messages. These are messages
 // that are raised after a process is completed.
 // ***************************************************************************
@@ -828,9 +892,9 @@ private:
 
 public:
     this(string sessionUUID) {
+        super();
         this.sessionUUID = sessionUUID;
     }
-
 }
 
 class SessionRow : BaseRow {
