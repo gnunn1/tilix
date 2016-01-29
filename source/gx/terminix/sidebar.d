@@ -7,6 +7,7 @@ import gtk.Image;
 import gtk.ListBox;
 import gtk.ListBoxRow;
 import gtk.Revealer;
+import gtk.ScrolledWindow;
 
 import gx.gtk.cairo;
 
@@ -44,7 +45,12 @@ public:
         setHalign(Align.START);
         setValign(Align.FILL);
         
-        Frame frame = new Frame(lbSessions, null);
+        ScrolledWindow sw = new ScrolledWindow(lbSessions);
+        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sw.setHexpand(true);
+        sw.setVexpand(true);
+
+        Frame frame = new Frame(sw, null);
         frame.getStyleContext().addClass("notebook");
         frame.getStyleContext().addClass("header");
         add(frame);

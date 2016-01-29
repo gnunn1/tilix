@@ -2,6 +2,7 @@ module gx.gtk.cairo;
 
 import std.algorithm;
 import std.conv;
+import std.datetime;
 import std.experimental.logger;
 import std.format;
 
@@ -42,15 +43,24 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
         parent.remove(widget);
         window.add(widget);
         window.showAll();
+        StopWatch sw = StopWatch(AutoStart.yes);
         Pixbuf pb = window.pixbuf;
-        // Need to process events here until Window is drawn
-        // Gives me a bit of the shudders, any potential for infinite loop?
-        // TODO: Look at this a lot more, use idle instead to retrieve?
-        while (pb is null) {
+        /*
+        Need to process events here until Window is drawn
+        Not overly pleased with this solution, use timer
+        to make sure we don't get caught up in an infinite loop
+        
+        Considered using an idle handler here but because the
+        widget needs to stay parented to the OffscreenWindow that
+        gives me even more shudders then the less then optimal
+        solution implemented here.
+        */
+        while (pb is null && sw.peek().msecs<100) {
             trace("Iterate loop");
             gtk.Main.Main.iteration();
             pb = window.pixbuf;
         }
+        sw.stop();
         if (pb is null) {
             error("Pixbuf from renderwindow is null");
         } else {
