@@ -41,6 +41,7 @@ import gtk.Button;
 import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
+import gtk.Frame;
 import gtk.HeaderBar;
 import gtk.Image;
 import gtk.Label;
@@ -60,7 +61,6 @@ import vte.Pty;
 import vte.Terminal;
 
 import gx.gtk.actions;
-import gx.gtk.cairo;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -70,6 +70,7 @@ import gx.terminix.constants;
 import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
+import gx.terminix.sidebar;
 
 /**
  * The GTK Application Window for Terminix. It is responsible for
@@ -145,6 +146,10 @@ private:
         Overlay overlay = new Overlay();
         add(overlay);
         sb = new SideBar();
+        sb.addOnSessionSelected(delegate(string sessionUUID) {
+            sb.setRevealChild(false);
+            activateSession(sessionUUID);
+        });
         overlay.addOverlay(sb);        
         
         //Could be a Box or a Headerbar depending on value of disable_csd
@@ -244,7 +249,7 @@ private:
             if (sb.getRevealChild()) {
                 sb.setRevealChild(false);
             } else {
-                sb.populateSessions(nb);
+                sb.populateSessions(getSessions(), getCurrentSession().sessionUUID);
                 sb.setRevealChild(true);
             }
         });
@@ -396,6 +401,18 @@ private:
             this.close();
         }
     }
+    
+    Session[] getSessions() {
+        Session[] result = new Session[](nb.getNPages());
+        for (int i=0; i<nb.getNPages(); i++) {
+            result[i] = getSession(i);
+        }
+        return result;
+    }
+    
+    Session getSession(int i) {
+        return cast(Session) nb.getNthPage(i);
+    }
 
     void closeSession(Session session) {
         removeSession(session);
@@ -494,8 +511,7 @@ private:
         sessionMenu.removeAll();
         saSessionSelect.setState(new GVariant(nb.getCurrentPage()));
         for (int i = 0; i < nb.getNPages; i++) {
-            Session session = cast(Session) nb.getNthPage(i);
-            GMenuItem menuItem = new GMenuItem(format("%d: %s", i, session.name), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
+            GMenuItem menuItem = new GMenuItem(format("%d: %s", i, getSession(i)), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
             menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST), new GVariant(i));
             sessionMenu.appendItem(menuItem);
         }
@@ -504,8 +520,7 @@ private:
     bool onWindowClosed(Event event, Widget widget) {
         bool promptForClose = false;
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
-            if (session.isProcessRunning()) {
+            if (getSession(i).isProcessRunning()) {
                 promptForClose = true;
                 break;
             }
@@ -537,12 +552,12 @@ private:
         if (nb.getCurrentPage < 0)
             return null;
         else
-            return cast(Session) nb.getNthPage(nb.getCurrentPage);
+            return getSession(nb.getCurrentPage());
     }
 
     Session getSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
+            Session session = getSession(i);
             if (session.sessionUUID == sessionUUID) {
                 return session;
             }
@@ -681,7 +696,7 @@ public:
      */
     bool activateSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
+            Session session = getSession(i);
             if (session.sessionUUID == sessionUUID) {
                 nb.setCurrentPage(i);
                 return true;
@@ -706,7 +721,7 @@ public:
      */
     Widget findWidgetForUUID(string uuid) {
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
+            Session session = getSession(i);
             if (session.sessionUUID == uuid) return session;
             trace("Searching session");
             Widget result = session.findWidgetForUUID(uuid);
@@ -732,41 +747,6 @@ public:
         } else {
             createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
         }
-    }
-}
-
-// ***************************************************************************
-// This block deals with the session sidebar that is used to switch between sessions
-// ***************************************************************************
-private:
-
-class SideBar: Revealer {
-private:
-    ListBox lbSessions;
-
-public:
-    this() {
-        super();
-        lbSessions = new ListBox();
-        setHexpand(false);
-        setVexpand(true);
-        setHalign(Align.START);
-        setValign(Align.FILL);
-        
-        add(lbSessions);
-    }
-    
-    void populateSessions(Notebook nb) {
-        trace("Populating sidebar sessions");
-        lbSessions.removeAll();
-        for (int i=0; i<nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
-            Image img = new Image(getWidgetImage(session, 0.10));
-            ListBoxRow row = new ListBoxRow();
-            row.add(img);
-            lbSessions.add(row);
-        }
-        lbSessions.showAll();
     }
 }
 

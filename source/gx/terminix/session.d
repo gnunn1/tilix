@@ -104,12 +104,21 @@ private:
     /**
      * Creates the session user interface
      */
+    
+    /**
+     * We only have this as an intermediate widget to allow the page
+     * to be re-parented and drawn in slide-out previews
+     */
+    Box _drawable; 
+     
     void createUI(string profileUUID, string workingDir, bool firstRun) {
+        _drawable = new Box(Orientation.VERTICAL, 0);
+        add(_drawable);
         // Fix transparency bugs on ubuntu where background-color 
         // for widgets don't seem to take
         getStyleContext().addClass("terminix-notebook-page");
         Terminal terminal = createTerminal(profileUUID);
-        add(terminal);
+        _drawable.add(terminal);
         terminal.initTerminal(workingDir, firstRun);
         lastFocused = terminal;
     }
@@ -749,6 +758,14 @@ public:
         foreach (terminal; terminals) {
             terminal.synchronizeInput = value;
         }
+    }
+    
+    /**
+     * Used to support re-parenting to enable a thumbnail
+     * image to be drawn off screen
+     */ 
+    @property Box drawable() {
+        return _drawable;
     }
 
     /**
