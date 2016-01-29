@@ -42,34 +42,38 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
         }
         parent.remove(widget);
         window.add(widget);
-        window.showAll();
-        StopWatch sw = StopWatch(AutoStart.yes);
-        Pixbuf pb = window.pixbuf;
-        /*
-        Need to process events here until Window is drawn
-        Not overly pleased with this solution, use timer
-        to make sure we don't get caught up in an infinite loop
-        
-        Considered using an idle handler here but because the
-        widget needs to stay parented to the OffscreenWindow that
-        gives me even more shudders then the less then optimal
-        solution implemented here.
-        */
-        while (pb is null && sw.peek().msecs<100) {
-            trace("Iterate loop");
-            gtk.Main.Main.iteration();
-            pb = window.pixbuf;
-        }
-        sw.stop();
-        if (pb is null) {
-            error("Pixbuf from renderwindow is null");
-        } else {
+        try {
+            window.show();
+            StopWatch sw = StopWatch(AutoStart.yes);
+            /*
+            Need to process events here until Window is drawn
+            Not overly pleased with this solution, use timer
+            as a guard to make sure we don't get caught up 
+            in an infinite loop
+            
+            Considered using an idle handler here but because the
+            widget needs to stay parented to the OffscreenWindow that
+            gives me even more shudders then the less then optimal
+            solution implemented here.
+            */
+            Pixbuf pb = window.pixbuf;
+            while (pb is null && sw.peek().msecs<200) {
+                trace("Iterate loop");
+                gtk.Main.Main.iteration();
+                pb = window.pixbuf;
+            }
+            sw.stop();
+            if (pb is null) {
+                error("Pixbuf from renderwindow is null");
+                pb = window.getPixbuf();
+            } 
             pb = pb.scaleSimple(pw, ph , GdkInterpType.BILINEAR);
+            return pb;
+        } finally {
+            window.remove(widget);
+            parent.add(widget);
+            window.destroy();
         }
-        window.remove(widget);
-        parent.add(widget);
-        window.destroy();
-        return pb;
     }
 }
 
@@ -80,7 +84,7 @@ class RenderWindow: OffscreenWindow {
     bool onDamage(gdk.Event.Event, Widget) {
         trace("Damage event received");
         pb = getPixbuf();
-        return true;
+        return false;
     }
 
 public:
