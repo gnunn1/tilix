@@ -137,7 +137,7 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
 
 unittest {
     string prefix, id;
-    getActionName("terminal-split-horizontal", prefix, id);
+    getActionNameFromKey("terminal-split-horizontal", prefix, id);
     assert("terminal" == prefix);
     assert("split-horizontal" == id);
 }
