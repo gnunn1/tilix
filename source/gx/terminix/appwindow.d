@@ -147,7 +147,9 @@ private:
         sb.addOnSessionSelected(delegate(string sessionUUID) {
             trace("Session selected " ~ sessionUUID);
             saViewSideBar.activate(null);
-            activateSession(sessionUUID);
+            if (sessionUUID.length > 0) {
+                activateSession(sessionUUID);
+            }
         });
         overlay.addOverlay(sb);        
         

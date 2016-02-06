@@ -18,6 +18,22 @@ import gtk.Container;
 import gtk.OffscreenWindow;
 import gtk.Widget;
 
+Pixbuf getWindowImage(Window window, double factor) {
+    int w = window.getWidth();
+    int h = window.getHeight();
+    trace(format("Original: %d, %d", w, h));
+    int pw = to!int(w * factor);
+    int ph = to!int(h * factor);
+    trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
+            
+    Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
+    Context cr = Context.create(surface);
+    cr.scale(factor, factor);
+    setSourceWindow(cr, window, 0, 0);
+    cr.paint();
+    return gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
+}
+
 Pixbuf getWidgetImage(Widget widget, double factor) {
     int w = widget.getAllocatedWidth();
     int h = widget.getAllocatedHeight();
