@@ -315,20 +315,22 @@ private:
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbUseThemeColors, "active", GSettingsBindFlags.DEFAULT);
 
         bOptions.add(cbUseThemeColors);
+        GSettings gsSettings = new GSettings(SETTINGS_ID);
+        if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
+            Box bTransparent = new Box(Orientation.HORIZONTAL, 6);
+            bTransparent.setHexpand(true);
 
-        Box bTransparent = new Box(Orientation.HORIZONTAL, 6);
-        bTransparent.setHexpand(true);
+            Label lblTransparent = new Label(_("Transparency"));
+            bTransparent.add(lblTransparent);
+            
+            Scale sTransparent = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
+            sTransparent.setDrawValue(false);
+            sTransparent.setHexpand(true);
+            gsProfile.bind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+            bTransparent.add(sTransparent);
 
-        Label lblTransparent = new Label(_("Transparency"));
-        bTransparent.add(lblTransparent);
-
-        Scale sTransparent = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
-        sTransparent.setDrawValue(false);
-        sTransparent.setHexpand(true);
-        gsProfile.bind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
-        bTransparent.add(sTransparent);
-
-        bOptions.add(bTransparent);
+            bOptions.add(bTransparent);
+        }
         grid.attach(bOptions, 1, row, 1, 1);
         row++;
 

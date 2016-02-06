@@ -498,7 +498,7 @@ private:
     void onWindowDestroyed(Widget widget) {
         terminix.removeAppWindow(this);
     }
-
+    
     void onCompositedChanged(Widget widget) {
         trace("Composite changed");
         updateVisual();
@@ -626,7 +626,9 @@ public:
         setTitle(_("Terminix"));
         setIconName("terminal");
 
-        updateVisual();
+        if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
+            updateVisual();
+        }
         createUI();
 
         addOnDelete(&onWindowClosed);

@@ -39,6 +39,7 @@ import gtk.TreePath;
 import gtk.TreeStore;
 import gtk.TreeView;
 import gtk.TreeViewColumn;
+import gtk.Version;
 import gtk.Widget;
 
 import vte.Terminal;
@@ -80,7 +81,7 @@ private:
 
         ProfilePreferences pp = new ProfilePreferences(app);
         nb.appendPage(pp, _("Profiles"));
-        
+
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
         nb.appendPage(ep, _("Encoding"));
 
@@ -106,11 +107,11 @@ private:
     enum COLUMN_IS_ENABLED = 0;
     enum COLUMN_NAME = 1;
     enum COLUMN_ENCODING = 2;
-    
+
     Settings gsSettings;
-    
+
     ListStore ls;
-    
+
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -120,19 +121,19 @@ private:
         Label lblEncoding = new Label(_("Encodings showing in menu:"));
         lblEncoding.setHalign(Align.START);
         add(lblEncoding);
-        
+
         string[] menuEncodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
         ls = new ListStore([GType.BOOLEAN, GType.STRING, GType.STRING]);
-        foreach(encoding; encodings) {
+        foreach (encoding; encodings) {
             TreeIter iter = ls.createIter();
             ls.setValue(iter, 0, menuEncodings.canFind(encoding[0]));
             ls.setValue(iter, 1, encoding[0] ~ " " ~ _(encoding[1]));
             ls.setValue(iter, 2, encoding[0]);
         }
-        
+
         TreeView tv = new TreeView(ls);
         tv.setHeadersVisible(false);
-        
+
         CellRendererToggle toggle = new CellRendererToggle();
         toggle.setActivatable(true);
         toggle.addOnToggled(delegate(string path, CellRendererToggle crt) {
@@ -159,7 +160,7 @@ private:
         column = new TreeViewColumn(_("Encoding"), new CellRendererText(), "text", COLUMN_NAME);
         column.setExpand(true);
         tv.appendColumn(column);
-        
+
         ScrolledWindow sw = new ScrolledWindow(tv);
         sw.setShadowType(ShadowType.ETCHED_IN);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
@@ -177,7 +178,6 @@ public:
         createUI();
     }
 }
-
 
 /**
  * Shortcuts preferences page
@@ -286,9 +286,9 @@ private:
     //Button btnClone;
     TreeView tvProfiles;
     ListStore lsProfiles;
-    
+
     Settings[string] profiles;
-    
+
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -377,9 +377,8 @@ private:
     ProfileInfo getSelectedProfile() {
         TreeIter selected = tvProfiles.getSelectedIter();
         if (selected) {
-            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), 
-                               lsProfiles.getValue(selected, COLUMN_UUID).getString(),
-                               lsProfiles.getValue(selected, COLUMN_NAME).getString());
+            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), lsProfiles.getValue(selected, COLUMN_UUID).getString(),
+                    lsProfiles.getValue(selected, COLUMN_NAME).getString());
         } else {
             return ProfileInfo(false, null, null);
         }
@@ -400,7 +399,7 @@ private:
         ps.addOnChanged(delegate(string key, Settings settings) {
             trace("Key changed " ~ key);
             if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) {
-                foreach(uuid, ps; profiles) {
+                foreach (uuid, ps; profiles) {
                     if (ps == settings) {
                         updateProfileName(uuid, ps.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
                         break;
@@ -462,14 +461,14 @@ private:
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
         gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         add(cbPrompt);
-        
+
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
         gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbFocusMouse);
 
         //Show Notifications, only show option if notifications are supported
-        if (Signals.lookup("notification-received", Terminal.getType())  != 0) {
+        if (Signals.lookup("notification-received", Terminal.getType()) != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
             gsSettings.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
             add(cbNotify);
@@ -479,7 +478,7 @@ private:
         lblPaste.setUseMarkup(true);
         lblPaste.setHalign(Align.START);
         add(lblPaste);
-        
+
         //Unsafe Paste Warning
         CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
         gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
@@ -494,6 +493,13 @@ private:
         lblAppearance.setUseMarkup(true);
         lblAppearance.setHalign(Align.START);
         add(lblAppearance);
+
+        //Enable Transparency, only enabled if less then 3.18
+        if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
+            CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
+            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+            add(cbTransparent);
+        }
 
         //Dark Theme
         Box b = new Box(Orientation.HORIZONTAL, 6);
