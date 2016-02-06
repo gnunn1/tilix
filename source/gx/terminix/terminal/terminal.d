@@ -81,6 +81,7 @@ import vte.Terminal : VTE = Terminal;
 import vtec.vtetypes;
 
 import gx.gtk.actions;
+import gx.gtk.cairo;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
@@ -1009,25 +1010,7 @@ private:
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
         trace("Title Drag begin");
-        const double MAX_SIZE = 300;
-        gdk.Window.Window window = this.getWindow();
-        int w = window.getWidth();
-        int h = window.getHeight();
-        trace(format("Original: %d, %d", w, h));
-        int longest = max(w, h);
-        double factor = MAX_SIZE / to!double(longest);
-        if ((w * factor) > w || (h * factor) > h) factor = 1;
-        int pw = to!int(w * factor);
-        int ph = to!int(h * factor);
-        trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
-                
-        Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
-        Context cr = Context.create(surface);
-        cr.scale(factor, factor);
-        setSourceWindow(cr, window, 0, 0);
-        cr.paint();
-        Pixbuf pb = gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
-        trace("Drag image drawn");
+        Pixbuf pb = getWidgetImage(this, 0.20);
         DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
     }
 
