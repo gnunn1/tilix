@@ -8,10 +8,10 @@ echo "Building application..."
 cd ../..
 dub build --build=release
 
-./install.sh ${TERMINIX_ARCHIVE_PATH}
+./install.sh ${TERMINIX_ARCHIVE_PATH}/usr
 
 # Remove compiled schema
-rm ${TERMINIX_ARCHIVE_PATH}/share/glib-2.0/schemas/gschemas.compiled
+rm ${TERMINIX_ARCHIVE_PATH}/usr/share/glib-2.0/schemas/gschemas.compiled
 
 echo "Creating archive"
 cd ${TERMINIX_ARCHIVE_PATH}
