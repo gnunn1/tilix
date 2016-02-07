@@ -107,6 +107,11 @@ enum DragQuadrant {
     BOTTOM
 }
 
+enum TerminalState {
+    NORMAL,
+    MAXIMIZED
+}
+
 /**
  * An event that is fired whenever the terminal gets focused. Used by
  * the Session to track focus.
@@ -147,6 +152,12 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
 
 /**
+ * Triggered when the terminal needs to change state. Delegate returns whether
+ * state change was successful.
+ */
+alias OnTerminalRequestStateChange = bool delegate(Terminal terminal, TerminalState state);
+
+/**
  * Constants used for the various variables permitted when defining
  * the terminal title.
  */
@@ -182,6 +193,10 @@ private:
     OnTerminalRequestMove[] terminalRequestMoveDelegates;
     OnTerminalRequestDetach[] terminalRequestDetachDelegates;
     OnTerminalKeyPress[] terminalKeyPressDelegates;
+    OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
+
+    TerminalState terminalState = TerminalState.NORMAL;
+    Button btnMaximize; 
 
     SearchRevealer rFind;
 
@@ -238,6 +253,15 @@ private:
 
         //Enable Drag and Drop
         setupDragAndDrop(titlePane);
+        
+        //Handle double click for window state change
+        addOnButtonPress(delegate(Event event, Widget w) {
+            trace("Title button event received");
+            if (event.button.button == MouseButton.PRIMARY && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
+                maximizeTerminal();
+            }
+            return false;
+        });
     }
 
     /**
@@ -254,6 +278,7 @@ private:
         bTitle.setVexpand(false);
         bTitle.getStyleContext().addClass("notebook");
         bTitle.getStyleContext().addClass("header");
+        bTitle.setMarginRight(4);
 
         lblTitle = new Label(_("Terminal"));
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
@@ -289,7 +314,15 @@ private:
         btnClose.setFocusOnClick(false);
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
         setVerticalMargins(btnClose);
-        bTitle.packEnd(btnClose, false, false, 4);
+        bTitle.packEnd(btnClose, false, false, 0);
+
+        //Maximize Button
+        btnMaximize = new Button("window-maximize-symbolic", IconSize.MENU);
+        btnMaximize.setRelief(ReliefStyle.NONE);
+        btnMaximize.setFocusOnClick(false);
+        btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
+        setVerticalMargins(btnMaximize);
+        bTitle.packEnd(btnMaximize, false, false, 0);
 
         return bTitle;
     }
@@ -391,6 +424,11 @@ private:
                     overrideTitle = null;
                 updateTitle();
             }
+        });
+
+        //Maximize Terminal
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            maximizeTerminal();
         });
 
         //Close Terminal Action
@@ -617,6 +655,16 @@ private:
         lblTitle.setMarkup(title);
     }
     
+    /**
+     * Enables/Disables actions depending on UI state
+     */
+    void updateActions() {
+        SimpleAction sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_H);
+        sa.setEnabled(terminalState == TerminalState.NORMAL);
+        sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_V);
+        sa.setEnabled(terminalState == TerminalState.NORMAL);
+    }
+    
     void pasteClipboard() {
         string pasteText = Clipboard.get(null).waitForText(); 
         if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
@@ -759,6 +807,28 @@ private:
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
         lblTitle.setSensitive(isTerminalWidgetFocused());
         return false;
+    }
+    
+    /**
+     * Maximizes or restores terminal by requesting
+     * state change from container.
+     */
+    void maximizeTerminal() {
+        TerminalState newState = (terminalState == TerminalState.NORMAL)? TerminalState.MAXIMIZED: TerminalState.NORMAL;
+        bool result = true;
+        foreach(dlg; terminalRequestStateChangeDelegates) {
+            if (!dlg(this, newState)) {
+                result = false;
+            }
+        }
+        if (result) {
+            terminalState = newState;
+            string icon;
+            if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
+            else icon="window-maximize-symbolic";
+            btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
+            updateActions();
+        }
     }
     
 // Preferences go here
@@ -1406,6 +1476,16 @@ public:
     void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
         gx.util.array.remove(terminalKeyPressDelegates, dlg);
     }
+    
+    
+    void addOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
+        terminalRequestStateChangeDelegates ~= dlg;
+    }
+
+    void removeOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
+        gx.util.array.remove(terminalRequestStateChangeDelegates, dlg);
+    }
+    
 }
 
 /**

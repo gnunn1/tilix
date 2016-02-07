@@ -29,6 +29,7 @@ import gtk.Main;
 import gtk.Menu;
 import gtk.MenuItem;
 import gtk.Paned;
+import gtk.Stack;
 import gtk.Widget;
 import gtk.Window;
 
@@ -81,7 +82,7 @@ class SessionCreationException : Exception {
  * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
  * and which inspired this application.
  */
-class Session : Box {
+class Session : Stack {
 
 private:
 
@@ -100,7 +101,11 @@ private:
 
     string _sessionUUID;
     
+    Box group;
+    MaximizedInfo maximizedInfo;
+    
     Terminal lastFocused;
+    
     /**
      * Creates the session user interface
      */
@@ -109,13 +114,14 @@ private:
         // for widgets don't seem to take
         getStyleContext().addClass("terminix-notebook-page");
         Terminal terminal = createTerminal(profileUUID);
-        add(terminal);
+        createUI(terminal);
         terminal.initTerminal(workingDir, firstRun);
-        lastFocused = terminal;
     }
 
     void createUI(Terminal terminal) {
-        add(terminal);
+        group = new Box(Orientation.VERTICAL, 0);
+        group.add(terminal);
+        addNamed(group, "group");
         lastFocused = terminal;
     }
 
@@ -174,6 +180,7 @@ private:
         terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.addOnProcessNotification(&onTerminalProcessNotification);
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
+        terminal.addOnTerminalRequestStateChange(&onTerminalRequestStateChange);
         terminals ~= terminal;
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
@@ -198,6 +205,7 @@ private:
         terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
         terminal.removeOnProcessNotification(&onTerminalProcessNotification);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
+        terminal.removeOnTerminalRequestStateChange(&onTerminalRequestStateChange);
         //unparent the terminal
         unparentTerminal(terminal);
         //Remove terminal
@@ -464,6 +472,49 @@ private:
             }
         }
     }
+    
+    /**
+     * Manages changing a terminal from maximized to normal
+     */
+    bool onTerminalRequestStateChange(Terminal terminal, TerminalState state) {
+        trace("Changing window state");
+        //Already have a maximized terminal
+        if (terminals.length == 1) {
+            trace("Only one terminal in session, ignoring maximize request");
+            return false;
+        }
+        if (state == TerminalState.MAXIMIZED && maximizedInfo.isMaximized) {
+            error("A Terminal is already maximized, ignoring");
+            return false;
+        }
+        if (state == TerminalState.NORMAL && !maximizedInfo.isMaximized) {
+            error("Terminal is not maximized, ignoring");
+            return false;
+        }
+        if (state == TerminalState.NORMAL && maximizedInfo.terminal != terminal) {
+            error("A different Terminal is maximized, ignoring");
+            return false;
+        }
+        final switch (state) {
+            case TerminalState.MAXIMIZED:
+                maximizedInfo.terminal = terminal;
+                maximizedInfo.parent = cast(Box) terminal.getParent();
+                maximizedInfo.isMaximized = true;
+                maximizedInfo.parent.remove(terminal);
+                addNamed(terminal, "maximized");
+                setVisibleChild(terminal);
+                break;                
+            case TerminalState.NORMAL:
+                remove(terminal);
+                maximizedInfo.parent.add(terminal);
+                maximizedInfo.isMaximized = false;
+                maximizedInfo.parent = null;
+                maximizedInfo.terminal = null;
+                setVisibleChild(group);
+                break;
+        }
+        return true;
+    }
 
 /************************************************
  * De/Serialization code in this private block
@@ -623,7 +674,7 @@ private:
      * Creates a new session with the specified terminal
      */
     this(string sessionName, Terminal terminal) {
-        super(Orientation.VERTICAL, 0);
+        super();
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
         addTerminal(terminal);
@@ -642,7 +693,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(string name, string profileUUID, string workingDir, bool firstRun) {
-        super(Orientation.VERTICAL, 0);
+        super();
         _sessionUUID = randomUUID().toString();
         _name = name;
         createUI(profileUUID, workingDir, firstRun);
@@ -660,7 +711,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
-        super(Orientation.VERTICAL, 0);
+        super();
         _sessionUUID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
@@ -935,3 +986,14 @@ struct SessionSizeInfo {
         }
     }
 } 
+
+/**
+ * When a terminal is maximized, this remembers where
+ * the terminal was parented as well as any other useful
+ * info.
+ */
+struct MaximizedInfo {
+    bool isMaximized;
+    Box parent;
+    Terminal terminal;
+}
