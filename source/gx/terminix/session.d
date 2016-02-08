@@ -110,19 +110,23 @@ private:
      * Creates the session user interface
      */
     void createUI(string profileUUID, string workingDir, bool firstRun) {
-        // Fix transparency bugs on ubuntu where background-color 
-        // for widgets don't seem to take
-        getStyleContext().addClass("terminix-notebook-page");
         Terminal terminal = createTerminal(profileUUID);
         createUI(terminal);
         terminal.initTerminal(workingDir, firstRun);
     }
 
     void createUI(Terminal terminal) {
-        group = new Box(Orientation.VERTICAL, 0);
+        createGroup();
         group.add(terminal);
-        addNamed(group, "group");
         lastFocused = terminal;
+    }
+    
+    void createGroup() {
+        group = new Box(Orientation.VERTICAL, 0);
+        // Fix transparency bugs on ubuntu where background-color 
+        // for widgets don't seem to take
+        group.getStyleContext().addClass("terminix-notebook-page");
+        addNamed(group, "group");
     }
 
     void notifySessionClose() {
@@ -497,14 +501,18 @@ private:
         }
         final switch (state) {
             case TerminalState.MAXIMIZED:
+                trace("Maximizing terminal");
                 maximizedInfo.terminal = terminal;
                 maximizedInfo.parent = cast(Box) terminal.getParent();
                 maximizedInfo.isMaximized = true;
                 maximizedInfo.parent.remove(terminal);
                 addNamed(terminal, "maximized");
+                trace("Switching stack to terminal");
+                terminal.show();
                 setVisibleChild(terminal);
                 break;                
             case TerminalState.NORMAL:
+                trace("Restoring terminal");
                 remove(terminal);
                 maximizedInfo.parent.add(terminal);
                 maximizedInfo.isMaximized = false;
@@ -513,6 +521,7 @@ private:
                 setVisibleChild(group);
                 break;
         }
+        terminal.focusTerminal();
         return true;
     }
 
@@ -522,6 +531,7 @@ private:
 private:
 
     string _filename;
+    string maximizedTerminalUUID;
 
     enum NODE_TYPE = "type";
     enum NODE_NAME = "name";
@@ -534,6 +544,7 @@ private:
     enum NODE_PROFILE = "profile";
     enum NODE_WIDTH = "width";
     enum NODE_HEIGHT = "height";
+    enum NODE_MAXIMIZED = "maximized";
 
     /** 
      * Widget Types which are serialized
@@ -584,15 +595,28 @@ private:
      * Serialize the Paned widget
      */
     JSONValue serializePaned(JSONValue value, Paned paned, SessionSizeInfo sizeInfo) {
+    
+        /**
+         * Added to check for maximized state and grab right terminal
+         */
+        void serializeBox(string node, Box box) {
+            Widget[] widgets = gx.gtk.util.getChildren(box);
+            if (widgets.length == 0 && maximizedInfo.isMaximized && equal(box, maximizedInfo.parent)) {
+                value.object[node] = serializeWidget(maximizedInfo.terminal, sizeInfo);
+            } else { 
+                value.object[node] = serializeWidget(widgets[0], sizeInfo);
+            }
+        }
+    
         value[NODE_ORIENTATION] = JSONValue(paned.getOrientation());
         //Switch to integer to fix Issue #49 and work around D std.json bug
         int positionPercent = to!int(sizeInfo.scalePosition(paned.getPosition, paned.getOrientation()) * 100);
         value[NODE_SCALED_POSITION] = JSONValue(positionPercent);
         value[NODE_TYPE] = WidgetType.PANED;
         Box box1 = cast(Box) paned.getChild1();
+        serializeBox(NODE_CHILD1, box1);
         Box box2 = cast(Box) paned.getChild2();
-        value.object[NODE_CHILD1] = serializeWidget(gx.gtk.util.getChildren(box1)[0], sizeInfo);
-        value.object[NODE_CHILD2] = serializeWidget(gx.gtk.util.getChildren(box2)[0], sizeInfo);
+        serializeBox(NODE_CHILD2, box2);
         return value;
     }
 
@@ -604,6 +628,9 @@ private:
         value[NODE_DIRECTORY] = terminal.currentDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
+        if (maximizedInfo.isMaximized && equal(terminal, maximizedInfo.terminal)) {
+            value[NODE_MAXIMIZED] = JSONValue(true);
+        }
         return value;
     }
 
@@ -627,6 +654,9 @@ private:
         string profileUUID = value[NODE_PROFILE].str();
         Terminal terminal = createTerminal(profileUUID);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
+        if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
+            maximizedTerminalUUID = terminal.terminalUUID;
+        }
         return terminal;
     }
 
@@ -660,12 +690,20 @@ private:
      * De-serialize a session
      */
     void parseSession(JSONValue value, SessionSizeInfo sizeInfo) {
+        maximizedTerminalUUID.length = 0;
         _name = value[NODE_NAME].str();
         long savedWidth = value[NODE_WIDTH].integer();
         long savedHeight = value[NODE_HEIGHT].integer();
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
-        add(parseNode(child, sizeInfo));
+        group.add(parseNode(child, sizeInfo));
+        if (maximizedTerminalUUID.length > 0) {
+            Terminal terminal = findTerminal(maximizedTerminalUUID);
+            if (terminal !is null) {
+                trace("Maximizing terminal " ~ maximizedTerminalUUID);
+                terminal.maximize();
+            }
+        }
     }
 
 private:
@@ -712,6 +750,7 @@ public:
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
         super();
+        createGroup();
         _sessionUUID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
@@ -743,7 +782,7 @@ public:
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
-        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(this)[0], sizeInfo);
+        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(group)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
     }

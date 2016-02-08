@@ -101,6 +101,14 @@ bool equal(RGBA r1, RGBA r2) {
     return r1.equal(r2);
 }
 
+bool equal(Widget w1, Widget w2) {
+    if (w1 is null && w2 is null)
+        return true;
+    if ((w1 is null && w2 !is null) || (w1 !is null && w2 is null))
+        return false;
+    return w1.getWidgetStruct() == w2.getWidgetStruct();
+}
+
 /**
  * Converts an RGBA structure to a 8 bit HEX string, i.e #2E3436
  *
@@ -193,6 +201,9 @@ Widget getWidget(GtkWidget* p) {
  * list = A ListG object with a list of widgets
  */
 Widget[] getWidgets(ListG list) {
+    if (list is null) {
+        return new Widget[0];
+    }
     Widget[] result = new Widget[list.length()];
     size_t count;
 

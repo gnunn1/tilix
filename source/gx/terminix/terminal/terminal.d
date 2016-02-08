@@ -258,7 +258,7 @@ private:
         addOnButtonPress(delegate(Event event, Widget w) {
             trace("Title button event received");
             if (event.button.button == MouseButton.PRIMARY && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
-                maximizeTerminal();
+                maximize();
             }
             return false;
         });
@@ -278,7 +278,6 @@ private:
         bTitle.setVexpand(false);
         bTitle.getStyleContext().addClass("notebook");
         bTitle.getStyleContext().addClass("header");
-        bTitle.setMarginRight(4);
 
         lblTitle = new Label(_("Terminal"));
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
@@ -314,7 +313,7 @@ private:
         btnClose.setFocusOnClick(false);
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
         setVerticalMargins(btnClose);
-        bTitle.packEnd(btnClose, false, false, 0);
+        bTitle.packEnd(btnClose, false, false, 4);
 
         //Maximize Button
         btnMaximize = new Button("window-maximize-symbolic", IconSize.MENU);
@@ -428,7 +427,7 @@ private:
 
         //Maximize Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            maximizeTerminal();
+            maximize();
         });
 
         //Close Terminal Action
@@ -807,28 +806,6 @@ private:
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
         lblTitle.setSensitive(isTerminalWidgetFocused());
         return false;
-    }
-    
-    /**
-     * Maximizes or restores terminal by requesting
-     * state change from container.
-     */
-    void maximizeTerminal() {
-        TerminalState newState = (terminalState == TerminalState.NORMAL)? TerminalState.MAXIMIZED: TerminalState.NORMAL;
-        bool result = true;
-        foreach(dlg; terminalRequestStateChangeDelegates) {
-            if (!dlg(this, newState)) {
-                result = false;
-            }
-        }
-        if (result) {
-            terminalState = newState;
-            string icon;
-            if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
-            else icon="window-maximize-symbolic";
-            btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
-            updateActions();
-        }
     }
     
 // Preferences go here
@@ -1324,6 +1301,28 @@ public:
         }
         trace("Terminal initialized");
         updateTitle();
+    }
+    
+    /**
+     * Maximizes or restores terminal by requesting
+     * state change from container.
+     */
+    void maximize() {
+        TerminalState newState = (terminalState == TerminalState.NORMAL)? TerminalState.MAXIMIZED: TerminalState.NORMAL;
+        bool result = true;
+        foreach(dlg; terminalRequestStateChangeDelegates) {
+            if (!dlg(this, newState)) {
+                result = false;
+            }
+        }
+        if (result) {
+            terminalState = newState;
+            string icon;
+            if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
+            else icon="window-maximize-symbolic";
+            btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
+            updateActions();
+        }
     }
     
     /**
