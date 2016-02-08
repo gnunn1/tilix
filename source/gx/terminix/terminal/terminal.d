@@ -662,6 +662,11 @@ private:
         sa.setEnabled(terminalState == TerminalState.NORMAL);
         sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_V);
         sa.setEnabled(terminalState == TerminalState.NORMAL);
+        //Update button image
+        string icon;
+        if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
+        else icon="window-maximize-symbolic";
+        btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
     
     void pasteClipboard() {
@@ -1079,6 +1084,8 @@ private:
             if (terminal !is null) {
                 trace("Detaching terminal ", dr);
                 notifyTerminalRequestDetach(terminal, x, y);
+                terminalState = TerminalState.NORMAL;
+                updateActions();
             } else {
                 error("Failed to get terminal therefore detach request failed");
             }
@@ -1109,8 +1116,8 @@ private:
         //Is this a terminal drag or something else?
         if (!dc.listTargets().find(intern(VTE_DND, false)))
             return true;
-        //Don't allow drop on the same terminal
-        if (isSourceAndDestEqual(dc, this)) {
+        //Don't allow drop on the same terminal or if it is maximized
+        if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED) {
             //trace("Invalid drop");
             return false;
         }
@@ -1204,7 +1211,7 @@ private:
             break;
         case DropTargets.VTE:
             //Don't allow drop on the same terminal
-            if (isSourceAndDestEqual(dc, this)) return;
+            if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED) return;
             string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
             DragQuadrant dq = getDragQuadrant(x, y, vte);
             trace(format("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq));
@@ -1317,10 +1324,6 @@ public:
         }
         if (result) {
             terminalState = newState;
-            string icon;
-            if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
-            else icon="window-maximize-symbolic";
-            btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
             updateActions();
         }
     }

@@ -291,18 +291,27 @@ private:
         Box findOtherChild(Terminal terminal, Paned paned) {
             Box box1 = cast(Box) paned.getChild1();
             Box box2 = cast(Box) paned.getChild2();
+            
+            //If terminal is maximized we can short-circuit check since
+            // we know terminal's parent already
+            if (maximizedInfo.isMaximized) {
+                return equal(box1, maximizedInfo.parent)?box2:box1;
+            }
 
             Widget widget1 = gx.gtk.util.getChildren(box1)[0];
-            Widget widget2 = gx.gtk.util.getChildren(box2)[0];
 
             Terminal terminal1 = cast(Terminal) widget1;
-            Terminal terminal2 = cast(Terminal) widget2;
 
             int result = terminal == terminal1 ? 1 : 2;
             return (result == 1 ? box2 : box1);
         }
-
-        Paned paned = cast(Paned) terminal.getParent().getParent();
+        
+        Paned paned;
+        if (maximizedInfo.isMaximized) {
+            paned = cast(Paned) maximizedInfo.parent.getParent();
+        } else {
+            paned = cast(Paned) terminal.getParent().getParent();
+        }
         // If no paned this means there is only one terminal left
         // Just unparent the terminal and carry on
         if (paned is null) {
@@ -325,9 +334,11 @@ private:
         otherBox.remove(widget);
         //Add widget to new parent
         parent.add(widget);
-        //Clean up terminal parent
-        Box box = cast(Box) terminal.getParent();
-        box.remove(terminal);
+        //Clean up terminal parent, use container as base class since
+        //terminal can be parented to either Box or Stack which both
+        //descend from Container
+        Container container = cast(Container) terminal.getParent();
+        container.remove(terminal);
     }
     
     /**
