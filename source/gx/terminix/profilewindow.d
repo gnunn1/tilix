@@ -173,6 +173,15 @@ private:
         gsProfile.bind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
+        
+        //Blink Mode
+        Label lblBlinkMode = new Label(_("Blink Mode"));
+        lblBlinkMode.setHalign(Align.END);
+        grid.attach(lblBlinkMode, 0, row, 1, 1);
+        ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
+        gsProfile.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbBlinkMode, 1, row, 1, 1);
+        row++;
 
         //Terminal Bell
         Label lblBell = new Label(_("Terminal Bell"));
