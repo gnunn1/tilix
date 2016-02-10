@@ -587,7 +587,6 @@ private:
             return false;
         });
 
-
         //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
         //work fine in a popover. Could switch this to a popover but popover positioning could use some
         //work, as well popover clips in small windows.
