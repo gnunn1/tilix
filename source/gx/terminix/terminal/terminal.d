@@ -907,6 +907,9 @@ private:
             if (desc.getSize() == 0) desc.setSize(10);
             vte.setFont(desc);            
             break;
+        case SETTINGS_AUTO_HIDE_MOUSE_KEY:
+            vte.setMouseAutohide(gsSettings.getBoolean(SETTINGS_AUTO_HIDE_MOUSE_KEY));
+            break;
         default:
             break;
         }
@@ -1273,6 +1276,11 @@ public:
             }
         }
         gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_AUTO_HIDE_MOUSE_KEY) {
+                applyPreference(SETTINGS_AUTO_HIDE_MOUSE_KEY);
+            }
+        });
         gsProfile = prfMgr.getProfileSettings(_profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);

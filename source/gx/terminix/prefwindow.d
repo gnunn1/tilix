@@ -467,6 +467,11 @@ private:
         gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbFocusMouse);
 
+        //Auto hide the mouse
+        CheckButton cbAutoHideMouse = new CheckButton(_("Autohide the mouse pointer when typing"));
+        gsSettings.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", GSettingsBindFlags.DEFAULT);
+        add(cbAutoHideMouse);
+
         //Show Notifications, only show option if notifications are supported
         if (Signals.lookup("notification-received", Terminal.getType()) != 0) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
