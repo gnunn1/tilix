@@ -54,6 +54,8 @@ import gtk.Clipboard;
 import gtk.Dialog;
 import gtk.DragAndDrop;
 import gtk.EventBox;
+import gtk.FileChooserDialog;
+import gtk.FileFilter;
 import gtk.Frame;
 import gtk.Image;
 import gtk.InfoBar;
@@ -447,13 +449,17 @@ private:
                 notifyTerminalClose();
         });
         
-        //Edit Profile Preference
+        //Read Only
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(GVariant state, SimpleAction sa) { 
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             vte.setInputEnabled(!newState);
         }, null, new GVariant(false));
-
+        
+        //SaveAs
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { 
+            saveTerminalOutput();
+        }, null, null);
 
         //Edit Profile Preference
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) { 
@@ -507,6 +513,7 @@ private:
         model.appendItem(splits);
 
         GMenu menuSection = new GMenu();
+        menuSection.append(_("Save") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
         menuSection.append(_("Find") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
         menuSection.append(_("Title") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
         model.appendSection(null, menuSection);
@@ -1251,6 +1258,52 @@ private:
         cr.strokePreserve();
         cr.fill();
         return false;
+    }
+    
+//Save terminal output functionality
+private:
+    string outputFilename;
+
+    /**
+     * Saves terminal output to a file
+     *
+     * Params:
+     *  showSaveAsDialog = Determines if save as dialog is shown. Note dialog may be shown even if false is passed if the session filename is not set
+     */
+    void saveTerminalOutput(bool showSaveAsDialog = true) {
+        if (outputFilename.length == 0 || showSaveAsDialog) {
+            Window window = cast(Window) getToplevel();
+            FileChooserDialog fcd = new FileChooserDialog(_("Save Terminal Output"), window, FileChooserAction.SAVE);
+            scope (exit)
+                fcd.destroy();
+
+            FileFilter ff = new FileFilter();
+            ff.addPattern("*.txt");
+            ff.setName(_("All Text Files"));
+            fcd.addFilter(ff);
+            ff = new FileFilter();
+            ff.addPattern("*");
+            ff.setName(_("All Files"));
+            fcd.addFilter(ff);
+
+            fcd.setDoOverwriteConfirmation(true);
+            fcd.setDefaultResponse(ResponseType.OK);
+            if (outputFilename.length == 0) {
+            } else { 
+                fcd.setCurrentName("output.txt");
+            }
+
+            if (fcd.run() == ResponseType.OK) {
+                outputFilename = fcd.getFilename();
+            } else {
+                return;
+            }
+        }
+        //Do work here
+        gio.FileIF.FileIF file = gio.File.File.parseName(outputFilename);
+        gio.OutputStream.OutputStream stream = file.create(GFileCreateFlags.NONE, null);
+        scope(exit) {stream.close(null);}
+        vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
     }
 
 public:
