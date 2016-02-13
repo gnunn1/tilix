@@ -185,7 +185,7 @@ private:
 
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
-    
+
     // mixin for managing process notification event delegates     
     mixin ProcessNotificationHandler;
 
@@ -198,7 +198,7 @@ private:
     OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
 
     TerminalState terminalState = TerminalState.NORMAL;
-    Button btnMaximize; 
+    Button btnMaximize;
 
     SearchRevealer rFind;
 
@@ -230,13 +230,13 @@ private:
 
     Menu mContext;
     MenuItem miCopy;
-    MenuItem miPaste;    
+    MenuItem miPaste;
 
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
     GSettings gsSettings;
-    
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -255,9 +255,9 @@ private:
 
         //Enable Drag and Drop
         setupDragAndDrop(titlePane);
-        
+
         //Handle double click for window state change
-        addOnButtonPress(delegate(Event event, Widget w) {
+        addOnButtonPress(delegate(Event event, Widget) {
             trace("Title button event received");
             if (event.button.button == MouseButton.PRIMARY && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
                 maximize();
@@ -287,7 +287,7 @@ private:
 
         //Profile Menu
         profileMenu = new GMenu();
-        
+
         //Encoding Menu
         encodingMenu = new GMenu();
 
@@ -299,11 +299,7 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { 
-            buildProfileMenu();
-            buildEncodingMenu(); 
-            return false; 
-        });
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { buildProfileMenu(); buildEncodingMenu(); return false; });
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -347,7 +343,7 @@ private:
     void buildEncodingMenu() {
         encodingMenu.removeAll();
         saEncodingSelect.setState(new GVariant(vte.getEncoding()));
-        GSettings gsSettings = new GSettings(SETTINGS_ID); 
+        GSettings gsSettings = new GSettings(SETTINGS_ID);
         string[] encodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {
@@ -385,32 +381,32 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindNext(); });
 
         //Clipboard actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) { 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (vte.getHasSelection()) {
                 vte.copyClipboard();
-            } 
+            }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 pasteClipboard();
-            } 
+            }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll();  });
-        
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
+
         //Zoom actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) { 
-            if (vte.getFontScale()<5) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (vte.getFontScale() < 5) {
                 trace("Zoom In");
                 vte.setFontScale(vte.getFontScale() + 0.1);
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(GVariant, SimpleAction) { 
-            if (vte.getFontScale()>0.1) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (vte.getFontScale() > 0.1) {
                 trace("Zoom Out");
                 vte.setFontScale(vte.getFontScale() - 0.1);
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(GVariant, SimpleAction) { 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(GVariant, SimpleAction) {
             trace("Zoom Normal");
             vte.setFontScale(1.0);
         });
@@ -419,7 +415,7 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
             string terminalTitle = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
-                    _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank"))) {
+                _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank"))) {
                 overrideTitle = terminalTitle;
                 if (overrideTitle.length == 0)
                     overrideTitle = null;
@@ -428,9 +424,7 @@ private:
         });
 
         //Maximize Terminal
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            maximize();
-        });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { maximize(); });
 
         //Close Terminal Action
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -448,22 +442,20 @@ private:
             if (closeTerminal)
                 notifyTerminalClose();
         });
-        
+
         //Read Only
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(GVariant state, SimpleAction sa) { 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             vte.setInputEnabled(!newState);
         }, null, new GVariant(false));
-        
+
         //SaveAs
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { 
-            saveTerminalOutput();
-        }, null, null);
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
 
         //Edit Profile Preference
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) { 
-            terminix.presentProfilePreferences(prfMgr.getProfile(_profileUUID)); 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            terminix.presentProfilePreferences(prfMgr.getProfile(_profileUUID));
         }, null, null);
 
         //Select Profile
@@ -474,7 +466,7 @@ private:
             profileUUID = uuid;
             saProfileSelect.setState(value);
         }, pu.getType(), pu);
-        
+
         // Select Encoding
         // 
         GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
@@ -483,7 +475,7 @@ private:
             sa.setState(value);
             vte.setEncoding(value.getString(l));
         }, encoding.getType(), encoding);
-        
+
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
@@ -517,7 +509,7 @@ private:
         menuSection.append(_("Find") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
         menuSection.append(_("Title") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
         model.appendSection(null, menuSection);
-        
+
         menuSection = new GMenu();
         menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
@@ -549,18 +541,15 @@ private:
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
-            trace(format("Window title changed, pid=%d '%s'", gpid, vte.getWindowTitle())); 
+            trace(format("Window title changed, pid=%d '%s'", gpid, vte.getWindowTitle()));
             terminalInitialized = true;
-            updateTitle(); 
+            updateTitle();
         });
-        vte.addOnIconTitleChanged(delegate(VTE terminal) { 
-            trace(format("Icon title changed, pid=%d '%s'", gpid, vte.getIconTitle())); 
-            updateTitle(); 
-        });
-        vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) { 
-            trace(format("Current directory changed, pid=%d '%s'", gpid, currentDirectory)); 
-            terminalInitialized = true; 
-            updateTitle(); 
+        vte.addOnIconTitleChanged(delegate(VTE terminal) { trace(format("Icon title changed, pid=%d '%s'", gpid, vte.getIconTitle())); updateTitle(); });
+        vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
+            trace(format("Current directory changed, pid=%d '%s'", gpid, currentDirectory));
+            terminalInitialized = true;
+            updateTitle();
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalWidgetFocusIn);
@@ -578,8 +567,8 @@ private:
         });
         vte.addOnEnterNotify(delegate(Event event, Widget) {
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE)) {
-                vte.grabFocus(); 
-            }   
+                vte.grabFocus();
+            }
             return false;
         }, GConnectFlags.AFTER);
 
@@ -598,11 +587,11 @@ private:
         //work fine in a popover. Could switch this to a popover but popover positioning could use some
         //work, as well popover clips in small windows.
         mContext = new Menu();
-        miCopy = new MenuItem(delegate(MenuItem) {vte.copyClipboard();}, _("Copy"), null);
+        miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
         mContext.add(miCopy);
-        miPaste = new MenuItem(delegate(MenuItem) {pasteClipboard();}, _("Paste"), null);
+        miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
         mContext.add(miPaste);
-        MenuItem miSelectAll = new MenuItem(delegate(MenuItem) {vte.selectAll();}, _("Select All"), null);
+        MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
         mContext.add(new SeparatorMenuItem());
         mContext.add(miSelectAll);
 
@@ -625,18 +614,18 @@ private:
         // overlay scrollbars look awesome with VTE
         sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
         terminalBox.add(sb);
-        
+
         Box box = new Box(Orientation.VERTICAL, 0);
         rFind = new SearchRevealer(vte);
         rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
         rFind.addOnSearchEntryFocusOut(&onTerminalWidgetFocusOut);
-        
-        box.add(rFind);        
+
+        box.add(rFind);
         box.add(terminalBox);
-        
+
         return box;
     }
-    
+
     /**
      * Updates the terminal title in response to UI changes
      */
@@ -659,7 +648,7 @@ private:
         title = title.replace(TERMINAL_DIR, path);
         lblTitle.setMarkup(title);
     }
-    
+
     /**
      * Enables/Disables actions depending on UI state
      */
@@ -670,24 +659,30 @@ private:
         sa.setEnabled(terminalState == TerminalState.NORMAL);
         //Update button image
         string icon;
-        if (terminalState == TerminalState.MAXIMIZED) icon="window-restore-symbolic"; 
-        else icon="window-maximize-symbolic";
+        if (terminalState == TerminalState.MAXIMIZED)
+            icon = "window-restore-symbolic";
+        else
+            icon = "window-maximize-symbolic";
         btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
-    
+
     void pasteClipboard() {
-        string pasteText = Clipboard.get(null).waitForText(); 
-        if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf ("\n") != 0)) {
+        string pasteText = Clipboard.get(null).waitForText();
+        if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
-                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window)getToplevel(), chomp(pasteText));
-                scope(exit) {dialog.destroy();}
-                if (dialog.run() == 1) return;
-                else unsafePasteIgnored = true; 
+                UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window) getToplevel(), chomp(pasteText));
+                scope (exit) {
+                    dialog.destroy();
+                }
+                if (dialog.run() == 1)
+                    return;
+                else
+                    unsafePasteIgnored = true;
             }
         }
         if (gsSettings.getBoolean(STRIP_FIRST_COMMENT_CHAR_ON_PASTE)) {
             if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
-                vte.feedChild(pasteText[1..$], pasteText.length -1);
+                vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
                 return;
             }
         }
@@ -818,20 +813,20 @@ private:
         lblTitle.setSensitive(isTerminalWidgetFocused());
         return false;
     }
-    
-// Preferences go here
+
+    // Preferences go here
 private:
     RGBA fg;
     RGBA bg;
     RGBA[16] palette;
-    
+
     void initColors() {
         fg = new RGBA();
         bg = new RGBA();
         palette = new RGBA[16];
-        for (int i=0; i<16; i++) {
+        for (int i = 0; i < 16; i++) {
             palette[i] = new RGBA();
-        }        
+        }
     }
 
     /**
@@ -853,12 +848,12 @@ private:
         case SETTINGS_PROFILE_CURSOR_SHAPE_KEY:
             vte.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
             break;
-        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY,
+        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, 
         SETTINGS_PROFILE_USE_THEME_COLORS_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
-            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
-                vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
-            } else {
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
+                    vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
+                    vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
+                } else {
                 if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
                     trace("Parsing foreground color failed");
                 if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
@@ -867,7 +862,8 @@ private:
             bg.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
             foreach (i, color; colors) {
-                if (!palette[i].parse(color)) trace("Parsing color failed " ~ colors[i]);
+                if (!palette[i].parse(color))
+                    trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(fg, bg, palette);
             break;
@@ -881,9 +877,9 @@ private:
         case SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY:
             vte.setScrollOnKeystroke(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
             break;
-        case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
-        SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
-            long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getInt(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY);
+        case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
+            long scrollLines = gsProfile.getBoolean(
+                    SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getInt(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY);
             vte.setScrollbackLines(scrollLines);
             break;
         case SETTINGS_PROFILE_BACKSPACE_BINDING_KEY:
@@ -907,12 +903,13 @@ private:
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
             PgFontDescription desc;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY)) {
-                desc = PgFontDescription.fromString(gsDesktop.getString(SETTINGS_MONOSPACE_FONT_KEY));                
+                desc = PgFontDescription.fromString(gsDesktop.getString(SETTINGS_MONOSPACE_FONT_KEY));
             } else {
-                desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY)); 
+                desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY));
             }
-            if (desc.getSize() == 0) desc.setSize(10);
-            vte.setFont(desc);            
+            if (desc.getSize() == 0)
+                desc.setSize(10);
+            vte.setFont(desc);
             break;
         case SETTINGS_AUTO_HIDE_MOUSE_KEY:
             vte.setMouseAutohide(gsSettings.getBoolean(SETTINGS_AUTO_HIDE_MOUSE_KEY));
@@ -927,12 +924,15 @@ private:
      */
     void applyPreferences() {
         string[] keys = [
-            SETTINGS_PROFILE_AUDIBLE_BELL_KEY, SETTINGS_PROFILE_ALLOW_BOLD_KEY, SETTINGS_PROFILE_REWRAP_KEY, SETTINGS_PROFILE_CURSOR_SHAPE_KEY,
-            // Only pass one color key, all colors will be applied
-            SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY, SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY,
-            SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, SETTINGS_PROFILE_DELETE_BINDING_KEY, SETTINGS_PROFILE_CJK_WIDTH_KEY,
-            SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY,
-            //Only pass the one font key, will handle both cases
+            SETTINGS_PROFILE_AUDIBLE_BELL_KEY, SETTINGS_PROFILE_ALLOW_BOLD_KEY,
+            SETTINGS_PROFILE_REWRAP_KEY,
+            SETTINGS_PROFILE_CURSOR_SHAPE_KEY,// Only pass one color key, all colors will be applied
+            SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY,
+            SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY,
+            SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
+            SETTINGS_PROFILE_BACKSPACE_BINDING_KEY,
+            SETTINGS_PROFILE_DELETE_BINDING_KEY,
+            SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY,//Only pass the one font key, will handle both cases
             SETTINGS_PROFILE_FONT_KEY
         ];
 
@@ -974,7 +974,7 @@ private:
             workingDir = overrides.workingDir;
             trace("Working directory overriden to " ~ workingDir);
         }
-    
+
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
         string[] args;
@@ -992,8 +992,9 @@ private:
                 flags = flags | GSpawnFlags.FILE_AND_ARGV_ZERO;
             }
         }
-        string[] envv = ["TERMINIX_ID="~terminalUUID];
-        foreach(arg; args) trace("Argument: " ~ arg);
+        string[] envv = ["TERMINIX_ID=" ~ terminalUUID];
+        foreach (arg; args)
+            trace("Argument: " ~ arg);
         try {
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
@@ -1001,7 +1002,8 @@ private:
                 error(msg);
                 vte.feedChild(msg, msg.length);
             }
-        } catch (GException ge) {
+        }
+        catch (GException ge) {
             string msg = format(_("Unexpected error occurred: %s"), ge.msg);
             error(msg);
             vte.feedChild(msg, msg.length);
@@ -1046,7 +1048,7 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
-        
+
         trace("Drag and drop completed");
     }
 
@@ -1214,13 +1216,14 @@ private:
             break;
         case DropTargets.STRING, DropTargets.TEXT:
             string text = data.getText();
-            if (text.length > 0) { 
+            if (text.length > 0) {
                 vte.feedChild(text, text.length);
             }
             break;
         case DropTargets.VTE:
             //Don't allow drop on the same terminal
-            if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED) return;
+            if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED)
+                return;
             string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
             DragQuadrant dq = getDragQuadrant(x, y, vte);
             trace(format("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq));
@@ -1259,8 +1262,8 @@ private:
         cr.fill();
         return false;
     }
-    
-//Save terminal output functionality
+
+    //Save terminal output functionality
 private:
     string outputFilename;
 
@@ -1289,7 +1292,7 @@ private:
             fcd.setDoOverwriteConfirmation(true);
             fcd.setDefaultResponse(ResponseType.OK);
             if (outputFilename.length == 0) {
-            } else { 
+            } else {
                 fcd.setCurrentName("output.txt");
             }
 
@@ -1302,7 +1305,9 @@ private:
         //Do work here
         gio.FileIF.FileIF file = gio.File.File.parseName(outputFilename);
         gio.OutputStream.OutputStream stream = file.create(GFileCreateFlags.NONE, null);
-        scope(exit) {stream.close(null);}
+        scope (exit) {
+            stream.close(null);
+        }
         vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
     }
 
@@ -1313,10 +1318,7 @@ public:
      */
     this(string profileUUID) {
         super();
-        addOnDestroy(delegate(Widget) {
-            trace("Terminal destroy");
-            stopProcess();
-        });
+        addOnDestroy(delegate(Widget) { trace("Terminal destroy"); stopProcess(); });
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
@@ -1349,7 +1351,7 @@ public:
         gsProfile.addOnChanged(delegate(string key, Settings) { applyPreference(key); });
         trace("Finished creation");
     }
-    
+
     /**
      * initializes the terminal, i.e spawns the child process.
      *
@@ -1369,15 +1371,15 @@ public:
         trace("Terminal initialized");
         updateTitle();
     }
-    
+
     /**
      * Maximizes or restores terminal by requesting
      * state change from container.
      */
     void maximize() {
-        TerminalState newState = (terminalState == TerminalState.NORMAL)? TerminalState.MAXIMIZED: TerminalState.NORMAL;
+        TerminalState newState = (terminalState == TerminalState.NORMAL) ? TerminalState.MAXIMIZED : TerminalState.NORMAL;
         bool result = true;
-        foreach(dlg; terminalRequestStateChangeDelegates) {
+        foreach (dlg; terminalRequestStateChangeDelegates) {
             if (!dlg(this, newState)) {
                 result = false;
             }
@@ -1387,16 +1389,17 @@ public:
             updateActions();
         }
     }
-    
+
     /**
      * Issues a SIGHUP to pid to get it close. This is used
      * when the terminal is destroyed.
      */
     void stopProcess() {
-        if (gpid >0 ) {
+        if (gpid > 0) {
             try {
                 kill(gpid, SIGHUP);
-            } catch (ProcessException pe) {
+            }
+            catch (ProcessException pe) {
                 error("Error when stoping terminal child process:\n\t" ~ pe.msg);
             }
         }
@@ -1418,7 +1421,7 @@ public:
         trace(format("fg=%d gpid=%d", fg, gpid));
         return (fg != -1 && fg != gpid);
     }
-    
+
     /**
      * Called by the session to synchronize input
      */
@@ -1434,7 +1437,7 @@ public:
         string cwd = vte.getCurrentDirectoryUri();
         if (cwd.length == 0) {
             return null;
-        } 
+        }
         string result = URI.filenameFromUri(cwd, hostname);
         return result;
     }
@@ -1472,11 +1475,11 @@ public:
             updateTitle();
         }
     }
-    
+
     @property bool terminalInitialized() {
         return _terminalInitialized;
     }
-    
+
     @property void terminalInitialized(bool value) {
         if (value != _terminalInitialized) {
             _terminalInitialized = value;
@@ -1538,8 +1541,7 @@ public:
     void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
         gx.util.array.remove(terminalKeyPressDelegates, dlg);
     }
-    
-    
+
     void addOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
         terminalRequestStateChangeDelegates ~= dlg;
     }
@@ -1547,7 +1549,7 @@ public:
     void removeOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
         gx.util.array.remove(terminalRequestStateChangeDelegates, dlg);
     }
-    
+
 }
 
 /**
@@ -1590,8 +1592,8 @@ public:
  * translated from Vala to D. Thanks to Pantheon for this.
  *
  * http://bazaar.launchpad.net/~elementary-apps/pantheon-terminal/trunk/view/head:/src/UnsafePasteDialog.vala
- */ 
-package class UnsafePasteDialog: MessageDialog {
+ */
+package class UnsafePasteDialog : MessageDialog {
 
 public:
 
@@ -1600,15 +1602,13 @@ public:
         setTransientFor(parent);
         getMessageArea().setMarginLeft(0);
         getMessageArea().setMarginRight(0);
-        setMarkup("<span weight='bold' size='larger'>" ~
-                    _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~
-                    _("Copying commands from the internet can be dangerous. ") ~ "\n" ~
-                    _("Be sure you understand what each part of this command does.") ~ "\n\n" ~
-                    "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
+        setMarkup("<span weight='bold' size='larger'>" ~ _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~ _(
+                "Copying commands from the internet can be dangerous. ") ~ "\n" ~ _(
+                "Be sure you understand what each part of this command does.") ~ "\n\n" ~ "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
         setImage(new Image("dialog-warning", IconSize.DIALOG));
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
-        btnIgnore.getStyleContext().addClass ("destructive-action");
+        btnIgnore.getStyleContext().addClass("destructive-action");
         addActionWidget(btnCancel, 1);
         addActionWidget(btnIgnore, 0);
         showAll();
@@ -1632,7 +1632,7 @@ enum DropTargets {
     /**
         * Used when one VTE is dropped on another
         */
-        VTE
+    VTE
 };
 
 struct DragInfo {
@@ -1672,10 +1672,11 @@ struct TerminalRegex {
 
 immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.FLAVOR_AS_IS, true),
-    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.FLAVOR_DEFAULT_TO_HTTP, true),
-    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST, TerminalURLFlavor.FLAVOR_VOIP_CALL, true),
-    TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST, TerminalURLFlavor.FLAVOR_EMAIL, true),
-    TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.FLAVOR_AS_IS, true)
+    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH,
+        TerminalURLFlavor.FLAVOR_DEFAULT_TO_HTTP, true),
+    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST,
+        TerminalURLFlavor.FLAVOR_VOIP_CALL, true), TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST,
+        TerminalURLFlavor.FLAVOR_EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.FLAVOR_AS_IS, true)
 ];
 
 immutable Regex[URL_REGEX_PATTERNS.length] compiledRegex;

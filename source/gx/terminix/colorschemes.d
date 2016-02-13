@@ -38,21 +38,21 @@ enum SCHEME_KEY_USE_THEME_COLORS = "use-theme-colors";
   * do.
   */
 class ColorScheme {
-	string id;
-	string name;
-	string comment;
-	bool useThemeColors;
-	RGBA foreground;
-	RGBA background;
-	RGBA[16] palette;
-    
+    string id;
+    string name;
+    string comment;
+    bool useThemeColors;
+    RGBA foreground;
+    RGBA background;
+    RGBA[16] palette;
+
     this() {
         id = randomUUID().toString();
         foreground = new RGBA();
         background = new RGBA();
-        for (int i=0; i<16; i++) {
+        for (int i = 0; i < 16; i++) {
             palette[i] = new RGBA();
-        }        
+        }
     }
 }
 
@@ -62,25 +62,25 @@ class ColorScheme {
  * scheme, just the colors chosen.
  */
 int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA bg, RGBA[16] palette) {
-	foreach (pi, scheme; schemes) {
-		if (useThemeColors != scheme.useThemeColors) {
+    foreach (pi, scheme; schemes) {
+        if (useThemeColors != scheme.useThemeColors) {
             continue;
         }
-		if (useThemeColors) {
-			if (!(equal(fg, scheme.foreground) && equal(bg, scheme.background)))
-				continue;
-		}
-		bool match = true;
-		foreach (i, color; palette) {
-			if (!equal(color, scheme.palette[i])) {
-				match = false;
-				break;
-			}
-		}
-		if (match)
-			return to!int(pi);
-	}
-	return -1;
+        if (useThemeColors) {
+            if (!(equal(fg, scheme.foreground) && equal(bg, scheme.background)))
+                continue;
+        }
+        bool match = true;
+        foreach (i, color; palette) {
+            if (!equal(color, scheme.palette[i])) {
+                match = false;
+                break;
+            }
+        }
+        if (match)
+            return to!int(pi);
+    }
+    return -1;
 }
 
 /**
@@ -89,31 +89,31 @@ int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA
  * TODO: Cull duplicates
  */
 ColorScheme[] loadColorSchemes() {
-	ColorScheme[] schemes;
-	string[] paths = Util.getSystemDataDirs() ~ Util.getUserConfigDir();
-	foreach (path; paths) {
-		auto fullpath = buildPath(path, APPLICATION_CONFIG_FOLDER, SCHEMES_FOLDER);
-		trace("Loading color schemes from " ~ fullpath);
-		if (exists(fullpath)) {
-			DirEntry entry = DirEntry(fullpath);
-			if (entry.isDir()) {
-				auto files = dirEntries(fullpath, SpanMode.shallow).filter!(f => f.name.endsWith(".json"));
-				foreach (string name; files) {
-					trace("Loading color scheme " ~ name);
-					try {
-						schemes ~= loadScheme(name);
-					}
-					catch (Exception e) {
-						error(format(_("File %s is not a color scheme compliant JSON file"), name));
-						error(e.msg);
-						error(e.info.toString());
-					}
-				}
-			}
-		}
-	}
-	sort!("a.name < b.name")(schemes);
-	return schemes;
+    ColorScheme[] schemes;
+    string[] paths = Util.getSystemDataDirs() ~ Util.getUserConfigDir();
+    foreach (path; paths) {
+        auto fullpath = buildPath(path, APPLICATION_CONFIG_FOLDER, SCHEMES_FOLDER);
+        trace("Loading color schemes from " ~ fullpath);
+        if (exists(fullpath)) {
+            DirEntry entry = DirEntry(fullpath);
+            if (entry.isDir()) {
+                auto files = dirEntries(fullpath, SpanMode.shallow).filter!(f => f.name.endsWith(".json"));
+                foreach (string name; files) {
+                    trace("Loading color scheme " ~ name);
+                    try {
+                        schemes ~= loadScheme(name);
+                    }
+                    catch (Exception e) {
+                        error(format(_("File %s is not a color scheme compliant JSON file"), name));
+                        error(e.msg);
+                        error(e.info.toString());
+                    }
+                }
+            }
+        }
+    }
+    sort!("a.name < b.name")(schemes);
+    return schemes;
 }
 
 /**
@@ -122,31 +122,31 @@ ColorScheme[] loadColorSchemes() {
 private ColorScheme loadScheme(string fileName) {
     ColorScheme cs = new ColorScheme();
 
-	string content = readText(fileName);
-	JSONValue root = parseJSON(content);
-	cs.name = root[SCHEME_KEY_NAME].str();
-	if (SCHEME_KEY_COMMENT in root) {
-		cs.comment = root[SCHEME_KEY_COMMENT].str();
-	}
-	cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSON_TYPE.TRUE ? true : false;
-	if (SCHEME_KEY_FOREGROUND in root) {
-		parseColor(cs.foreground, root[SCHEME_KEY_FOREGROUND].str());
-	}
-	if (SCHEME_KEY_BACKGROUND in root) {
-		parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
-	}
-	JSONValue[] rawPalette = root[SCHEME_KEY_PALETTE].array();
-	if (rawPalette.length != 16) {
-		throw new Exception(_("Color scheme palette requires 16 colors"));
-	}
-	foreach (i, value; rawPalette) {
-		parseColor(cs.palette[i], value.str());
-	}
-	return cs;
+    string content = readText(fileName);
+    JSONValue root = parseJSON(content);
+    cs.name = root[SCHEME_KEY_NAME].str();
+    if (SCHEME_KEY_COMMENT in root) {
+        cs.comment = root[SCHEME_KEY_COMMENT].str();
+    }
+    cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSON_TYPE.TRUE ? true : false;
+    if (SCHEME_KEY_FOREGROUND in root) {
+        parseColor(cs.foreground, root[SCHEME_KEY_FOREGROUND].str());
+    }
+    if (SCHEME_KEY_BACKGROUND in root) {
+        parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
+    }
+    JSONValue[] rawPalette = root[SCHEME_KEY_PALETTE].array();
+    if (rawPalette.length != 16) {
+        throw new Exception(_("Color scheme palette requires 16 colors"));
+    }
+    foreach (i, value; rawPalette) {
+        parseColor(cs.palette[i], value.str());
+    }
+    return cs;
 }
 
 private void parseColor(RGBA rgba, string value) {
-	if (value.length == 0)
-		return;
-	rgba.parse(value);
+    if (value.length == 0)
+        return;
+    rgba.parse(value);
 }

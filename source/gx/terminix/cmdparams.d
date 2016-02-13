@@ -10,8 +10,8 @@ import std.string;
 import gio.ApplicationCommandLine;
 
 import glib.VariantDict;
-import glib.Variant: GVariant = Variant;
-import glib.VariantType: GVariantType = VariantType;
+import glib.Variant : GVariant = Variant;
+import glib.VariantType : GVariantType = VariantType;
 
 import gx.i18n.l10n;
 
@@ -38,25 +38,26 @@ private:
 
     bool _exit = false;
     int _exitCode = 0;
-    
+
     string getValue(VariantDict vd, string key, GVariantType vt) {
         GVariant value = vd.lookupValue(key, vt);
-        if (value is null) return "";
+        if (value is null)
+            return "";
         else {
             ulong l;
             return value.getString(l);
         }
     }
 
-public:    
-    
+public:
+
     this(ApplicationCommandLine acl) {
         _cmdLine = acl.getCwd();
-        
+
         //Declare a string variant type
         GVariantType vts = new GVariantType("s");
         VariantDict vd = acl.getOptionsDict();
-        _workingDir = getValue(vd,CMD_WORKING_DRIECTORY,vts);
+        _workingDir = getValue(vd, CMD_WORKING_DRIECTORY, vts);
         if (_workingDir.length > 0) {
             _workingDir = expandTilde(_workingDir);
             if (!isDir(_workingDir)) {
@@ -88,15 +89,15 @@ public:
                 _exit = true;
                 _action.length = 0;
             }
-        }      
-        trace("Command line parameters:");  
+        }
+        trace("Command line parameters:");
         trace("\tworking-directory=" ~ _workingDir);
         trace("\tsession=" ~ _session);
         trace("\tprofile=" ~ _profileName);
         trace("\taction=" ~ _action);
         trace("\texecute=" ~ _execute);
     }
-    
+
     void clear() {
         _workingDir.length = 0;
         _profileName.length = 0;
@@ -108,22 +109,40 @@ public:
         _terminalUUID.length = 0;
         _exit = false;
     }
-    
-    @property string workingDir() {return _workingDir;}
 
-    @property string profileName() {return _profileName;}
-    
-    @property string session() {return _session;}
-    
-    @property string action() {return _action;}
-    
-    @property string execute() {return _execute;}
-    
-    @property string cmdLine() {return _cmdLine;}
-    
-    @property string terminalUUID() {return _terminalUUID;}
-    
-    @property bool exit() {return _exit;}
-    
-    @property int exitCode() {return _exitCode;}    
+    @property string workingDir() {
+        return _workingDir;
+    }
+
+    @property string profileName() {
+        return _profileName;
+    }
+
+    @property string session() {
+        return _session;
+    }
+
+    @property string action() {
+        return _action;
+    }
+
+    @property string execute() {
+        return _execute;
+    }
+
+    @property string cmdLine() {
+        return _cmdLine;
+    }
+
+    @property string terminalUUID() {
+        return _terminalUUID;
+    }
+
+    @property bool exit() {
+        return _exit;
+    }
+
+    @property int exitCode() {
+        return _exitCode;
+    }
 }

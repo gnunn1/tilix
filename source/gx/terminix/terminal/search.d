@@ -16,7 +16,7 @@ import gio.SimpleAction;
 import gio.SimpleActionGroup;
 
 import glib.Regex;
-import glib.Variant: GVariant = Variant;
+import glib.Variant : GVariant = Variant;
 
 import gtk.Box;
 import gtk.Button;
@@ -65,14 +65,14 @@ private:
      */
     void createUI() {
         createActions();
-    
+
         setHexpand(true);
         setVexpand(false);
         setHalign(Align.FILL);
         setValign(Align.START);
 
         Box bSearch = new Box(Orientation.HORIZONTAL, 6);
-        bSearch.setHalign(Align.CENTER);        
+        bSearch.setHalign(Align.CENTER);
         bSearch.setMarginLeft(4);
         bSearch.setMarginRight(4);
         bSearch.setMarginTop(4);
@@ -81,11 +81,11 @@ private:
 
         Box bEntry = new Box(Orientation.HORIZONTAL, 0);
         bEntry.getStyleContext().addClass("linked");
-         
+
         seSearch = new SearchEntry();
         //seSearch.setHexpand(true);
         seSearch.setWidthChars(30);
-        seSearch.addOnSearchChanged(delegate(SearchEntry se) { setTerminalSearchCriteria(); });
+        seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
             if (event.getKeyval(keyval) && keyval == GdkKeysyms.GDK_Escape)
@@ -101,7 +101,7 @@ private:
         mbOptions.add(iHamburger);
         mbOptions.setPopover(createPopover);
         bEntry.add(mbOptions);
-        
+
         bSearch.add(bEntry);
 
         Box bButtons = new Box(Orientation.HORIZONTAL, 0);
@@ -116,17 +116,17 @@ private:
         btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
         btnDown.setCanFocus(false);
         bButtons.add(btnDown);
-        
+
         bSearch.add(bButtons);
-        
+
         Frame frame = new Frame(bSearch, null);
         frame.getStyleContext().addClass("notebook");
         frame.getStyleContext().addClass("header");
         frame.getStyleContext().addClass("terminix-search-slider");
-        
+
         add(frame);
     }
-    
+
     void createActions() {
         GSettings gsGeneral = new GSettings(SETTINGS_ID);
 
@@ -135,21 +135,21 @@ private:
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE, null, delegate(GVariant value, SimpleAction sa) {
             matchCase = !sa.getState().getBoolean();
             sa.setState(new GVariant(matchCase));
-            setTerminalSearchCriteria();            
+            setTerminalSearchCriteria();
             mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_CASE));
-        
+
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY, null, delegate(GVariant value, SimpleAction sa) {
             entireWordOnly = !sa.getState().getBoolean();
             sa.setState(new GVariant(entireWordOnly));
-            setTerminalSearchCriteria();            
+            setTerminalSearchCriteria();
             mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD));
-        
+
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX, null, delegate(GVariant value, SimpleAction sa) {
             matchAsRegex = !sa.getState().getBoolean();
             sa.setState(new GVariant(matchAsRegex));
-            setTerminalSearchCriteria();            
+            setTerminalSearchCriteria();
             mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX));
 
@@ -159,8 +159,8 @@ private:
             vte.searchSetWrapAround(newState);
             mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
-        
-        insertActionGroup(ACTION_SEARCH_PREFIX, sagSearch);    
+
+        insertActionGroup(ACTION_SEARCH_PREFIX, sagSearch);
     }
 
     Popover createPopover() {
@@ -169,7 +169,7 @@ private:
         model.append(_("Match entire word only"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY));
         model.append(_("Match as regular expression"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX));
         model.append(_("Wrap around"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND));
-        
+
         return new Popover(mbOptions, model);
     }
 
@@ -201,15 +201,15 @@ public:
     void focusSearchEntry() {
         seSearch.grabFocus();
     }
-    
+
     bool hasSearchEntryFocus() {
         return seSearch.hasFocus();
     }
-    
+
     void addOnSearchEntryFocusIn(bool delegate(Event, Widget) dlg) {
         seSearch.addOnFocusIn(dlg);
     }
-    
+
     void addOnSearchEntryFocusOut(bool delegate(Event, Widget) dlg) {
         seSearch.addOnFocusOut(dlg);
     }

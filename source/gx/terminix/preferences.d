@@ -256,7 +256,7 @@ public:
         }
         return results;
     }
-    
+
     string[] getProfileUUIDs() {
         return gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
     }

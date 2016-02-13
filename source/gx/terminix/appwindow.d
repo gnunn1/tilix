@@ -111,7 +111,7 @@ private:
     SessionNotificationPopover poSessionNotifications;
 
     SessionNotification[string] sessionNotifications;
-    
+
     GSettings gsSettings;
 
     /**
@@ -162,7 +162,6 @@ private:
         mbSessionNotifications.setPopover(poSessionNotifications);
         mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
 
-        
         //Notebook
         nb = new Notebook();
         nb.setShowTabs(false);
@@ -175,7 +174,7 @@ private:
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
         }, ConnectFlags.AFTER);
-        
+
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
             tb.packStart(mbSessions, false, false, 4);
@@ -183,15 +182,15 @@ private:
             tb.packEnd(mbSessionActions, false, false, 4);
             tb.packEnd(mbSessionNotifications, false, false, 4);
             tb.setMarginBottom(4);
-            
+
             Box spacer = new Box(Orientation.VERTICAL, 0);
             spacer.getStyleContext().addClass("terminix-toolbar");
-            spacer.packStart(tb, true, true, 0);            
+            spacer.packStart(tb, true, true, 0);
 
             Box b = new Box(Orientation.VERTICAL, 0);
-            b.add(spacer);            
+            b.add(spacer);
             b.add(nb);
-            add(b);        
+            add(b);
         } else {
             //Header Bar
             hb = new HeaderBar();
@@ -260,10 +259,10 @@ private:
         });
 
         //Close Session
-        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) { 
-            if (nb.getNPages>1) {
+        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) {
+            if (nb.getNPages > 1) {
                 closeSession(getCurrentSession());
-            } 
+            }
         });
 
         //Load Session
@@ -373,7 +372,7 @@ private:
         session.destroy();
         trace("Session closed");
     }
-    
+
     void onSessionClose(Session session) {
         closeSession(session);
     }
@@ -414,8 +413,10 @@ private:
         } else {
             title = _(APPLICATION_NAME);
         }
-        if (hb !is null) hb.setTitle(title);
-        else setTitle(title);
+        if (hb !is null)
+            hb.setTitle(title);
+        else
+            setTitle(title);
     }
 
     bool onSessionIsActionAllowed(ActionType actionType) {
@@ -437,7 +438,7 @@ private:
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
             getApplication().sendNotification("command-completed", n);
             //if session not visible send to local handler
-        } 
+        }
         // If session not active, keep copy locally
         if (sessionUUID != getCurrentSession().sessionUUID) {
             trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().sessionUUID));
@@ -483,7 +484,7 @@ private:
         }
         if (promptForClose) {
             MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                _("There are processes that are still running, close anyway?"), null);
+                    _("There are processes that are still running, close anyway?"), null);
 
             dialog.setDefaultResponse(ResponseType.CANCEL);
             scope (exit) {
@@ -494,11 +495,11 @@ private:
         }
         return false;
     }
-    
+
     void onWindowDestroyed(Widget widget) {
         terminix.removeAppWindow(this);
     }
-    
+
     void onCompositedChanged(Widget widget) {
         trace("Composite changed");
         updateVisual();
@@ -548,12 +549,13 @@ private:
             try {
                 Session.getPersistedSessionSize(value, width, height);
                 setDefaultSize(width, height);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
             }
         }
         trace("Session dimensions: w=%d, h=%d", width, height);
-        Session session = new Session(value, filename, width, height , nb.getNPages() == 0);
+        Session session = new Session(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
     }
 
@@ -609,7 +611,7 @@ private:
         write(filename, json);
         session.filename = filename;
     }
-    
+
     /**
      * Creates a new session based on parameters, user is not prompted
      */
@@ -648,7 +650,7 @@ public:
     void initialize(Session session) {
         addSession(session);
     }
-      
+
     /**
      * Activates the specified sessionUUID
      */
@@ -672,7 +674,7 @@ public:
         }
         return false;
     }
-    
+
     /**
      * Finds the widget matching a specific UUID, typically
      * a Session or Terminal
@@ -680,14 +682,15 @@ public:
     Widget findWidgetForUUID(string uuid) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = cast(Session) nb.getNthPage(i);
-            if (session.sessionUUID == uuid) return session;
+            if (session.sessionUUID == uuid)
+                return session;
             trace("Searching session");
             Widget result = session.findWidgetForUUID(uuid);
-            if (result !is null) return result;
+            if (result !is null)
+                return result;
         }
         return null;
     }
-    
 
     /**
      * Creates a new session and prompts the user for session properties

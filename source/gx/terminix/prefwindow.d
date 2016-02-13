@@ -420,10 +420,10 @@ private:
     }
 
     void loadProfiles() {
-        ProfileInfo[] profiles = prfMgr.getProfiles();
+        ProfileInfo[] infos = prfMgr.getProfiles();
         lsProfiles.clear();
-        foreach (ProfileInfo profile; profiles) {
-            addProfile(profile);
+        foreach (ProfileInfo info; infos) {
+            addProfile(info);
         }
     }
 

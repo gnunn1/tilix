@@ -79,7 +79,7 @@ private:
 
         add(nb);
     }
-    
+
     void onWindowDestroyed(Widget widget) {
         terminix.removeProfileWindow(this);
     }
@@ -169,11 +169,11 @@ private:
         lblCursorShape.setHalign(Align.END);
         grid.attach(lblCursorShape, 0, row, 1, 1);
         ComboBox cbCursorShape = createNameValueCombo([_("Block"), _("IBeam"), _("Underline")], [SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE,
-            SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
+                SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
         gsProfile.bind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
-        
+
         //Blink Mode
         Label lblBlinkMode = new Label(_("Blink Mode"));
         lblBlinkMode.setHalign(Align.END);
@@ -207,7 +207,7 @@ private:
         //Text Appearance
         Box b = new Box(Orientation.VERTICAL, 6);
         b.setMarginTop(18);
-        Label lblTitle = new Label(format("<b>%s</b>",_("Text Appearance")));
+        Label lblTitle = new Label(format("<b>%s</b>", _("Text Appearance")));
         lblTitle.setUseMarkup(true);
         lblTitle.setHalign(Align.START);
         b.add(lblTitle);
@@ -233,7 +233,7 @@ private:
         fbFont.setTitle(_("Choose A Terminal Font"));
         gsProfile.bind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
         gsProfile.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
-            .INVERT_BOOLEAN);
+                .INVERT_BOOLEAN);
         bFont.add(fbFont);
         b.add(bFont);
 
@@ -282,7 +282,7 @@ private:
         grid.setRowSpacing(18);
 
         int row = 0;
-        Label lblScheme = new Label(format("<b>%s</b>",_("Color scheme")));
+        Label lblScheme = new Label(format("<b>%s</b>", _("Color scheme")));
         lblScheme.setUseMarkup(true);
         lblScheme.setHalign(Align.END);
         grid.attach(lblScheme, 0, row, 1, 1);
@@ -303,7 +303,7 @@ private:
         grid.attach(cbScheme, 1, row, 1, 1);
         row++;
 
-        Label lblPalette = new Label(format("<b>%s</b>",_("Color palette")));
+        Label lblPalette = new Label(format("<b>%s</b>", _("Color palette")));
         lblPalette.setUseMarkup(true);
         lblPalette.setHalign(Align.END);
         lblPalette.setValign(Align.START);
@@ -311,7 +311,7 @@ private:
         grid.attach(createColorGrid(row), 1, row, 1, 1);
         row++;
 
-        Label lblOptions = new Label(format("<b>%s</b>",_("Options")));
+        Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
         lblOptions.setUseMarkup(true);
         lblOptions.setValign(Align.START);
         lblOptions.setHalign(Align.END);
@@ -331,7 +331,7 @@ private:
 
             Label lblTransparent = new Label(_("Transparency"));
             bTransparent.add(lblTransparent);
-            
+
             Scale sTransparent = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
             sTransparent.setDrawValue(false);
             sTransparent.setHexpand(true);
@@ -352,7 +352,7 @@ private:
         gColors.setRowSpacing(6);
         cbBG = new ColorButton(parseColor(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)));
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbBG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
-            .INVERT_BOOLEAN);
+                .INVERT_BOOLEAN);
         cbBG.setTitle(_("Select Background Color"));
         cbBG.addOnColorSet(delegate(ColorButton cb) {
             setCustomScheme();
@@ -365,7 +365,7 @@ private:
 
         cbFG = new ColorButton(parseColor(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)));
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbFG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
-            .INVERT_BOOLEAN);
+                .INVERT_BOOLEAN);
         cbFG.setTitle(_("Select Foreground Color"));
         cbFG.addOnColorSet(delegate(ColorButton cb) {
             setCustomScheme();
@@ -520,7 +520,7 @@ private:
         SpinButton sbScrollbackSize = new SpinButton(256, long.max, 256);
         gsProfile.bind(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY, sbScrollbackSize, "value", GSettingsBindFlags.DEFAULT);
         gsProfile.bind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, sbScrollbackSize, "sensitive",
-            GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
+                GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
 
         Box b = new Box(Orientation.HORIZONTAL, 12);
         b.add(cbLimitScroll);
@@ -578,7 +578,7 @@ private:
         string[] key, value;
         key.length = encodings.length;
         value.length = encodings.length;
-        foreach(i, encoding; encodings) {
+        foreach (i, encoding; encodings) {
             key[i] = encoding[0];
             value[i] = encoding[0] ~ " " ~ _(encoding[1]);
         }

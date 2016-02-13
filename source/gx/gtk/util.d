@@ -176,7 +176,8 @@ bool addCssProvider(string filename, ProviderPriority priority) {
             StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
             return true;
         }
-    } catch (GException ge) {
+    }
+    catch (GException ge) {
         error("Unexpected error loading resource " ~ filename);
         error("Error: " ~ ge.msg);
     }
@@ -247,7 +248,6 @@ TreeIter appendValues(ListStore ls, string[] values) {
     return iter;
 }
 
-
 /**
  * Creates a combobox that holds a set of name/value pairs
  * where the name is displayed.
@@ -256,7 +256,7 @@ ComboBox createNameValueCombo(const string[string] keyValues) {
 
     ListStore ls = new ListStore([GType.STRING, GType.STRING]);
 
-    foreach(key, value; keyValues) {
+    foreach (key, value; keyValues) {
         appendValues(ls, [value, key]);
     }
 
@@ -343,7 +343,6 @@ public:
     int opApply(int delegate(ref TreeIter iter) dg) {
         trace("Iterate on Apply Start");
         int result = 0;
-        TreeIter iter;
         bool hasNext = model.getIterFirst(iter);
         while (hasNext) {
             result = dg(iter);

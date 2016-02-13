@@ -21,7 +21,7 @@ import gio.SimpleAction;
 
 import glib.ShellUtils;
 import glib.Variant : GVariant = Variant;
-import glib.VariantDict: GVariantDict = VariantDict;
+import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
 import gtk.AboutDialog;
@@ -207,12 +207,12 @@ private:
         if (preferenceWindow !is null)
             preferenceWindow.close();
     }
-    
+
     int onHandleLocalOptions(GVariantDict, GApplication) {
         trace("App processing local command line");
         return -1;
     }
-    
+
     int onCommandLine(ApplicationCommandLine acl, GApplication app) {
         trace("App processing command line");
         scope (exit) {
@@ -225,7 +225,7 @@ private:
             if (cp.action.length > 0) {
                 executeAction(cp.terminalUUID, cp.action);
                 return cp.exitCode;
-            } 
+            }
         }
         trace("Activating app");
         activate();
@@ -313,7 +313,7 @@ public:
         addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING, _("Open the specified session"), _("SESSION_NAME"));
         addMainOption(CMD_ACTION, 'a', GOptionFlags.NONE, GOptionArg.STRING, _("Send an action to current Terminix instance"), _("ACTION_NAME"));
         addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
-        addMainOption(CMD_TERMINAL_UUID,'t', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"),_("TERMINAL_UUID"));
+        addMainOption(CMD_TERMINAL_UUID, 't', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
 
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
@@ -393,7 +393,11 @@ public:
         //Otherwise create it and save the ID
         preferenceWindow = new PreferenceWindow(this);
         addWindow(preferenceWindow);
-        preferenceWindow.addOnDelete(delegate(Event, Widget) { preferenceWindow = null; removeWindow(preferenceWindow); return false; });
+        preferenceWindow.addOnDelete(delegate(Event, Widget) {
+            preferenceWindow = null; 
+            removeWindow(preferenceWindow); 
+            return false; 
+        });
         preferenceWindow.showAll();
     }
 

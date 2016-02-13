@@ -71,8 +71,8 @@ string keyToDetailedActionName(string key) {
     * Returns: The registered action.
     */
 SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(glib.Variant.Variant,
-    SimpleAction) cbActivate = null, glib.VariantType.VariantType type = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
-    SimpleAction) cbStateChange = null) {
+        SimpleAction) cbActivate = null, glib.VariantType.VariantType type = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+        SimpleAction) cbStateChange = null) {
 
     string[] shortcuts;
     try {
@@ -107,8 +107,8 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
     * Returns: The registered action.
     */
 SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(glib.Variant.Variant,
-    SimpleAction) cbActivate = null, glib.VariantType.VariantType parameterType = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
-    SimpleAction) cbStateChange = null) {
+        SimpleAction) cbActivate = null, glib.VariantType.VariantType parameterType = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+        SimpleAction) cbStateChange = null) {
     SimpleAction action;
     if (state is null)
         action = new SimpleAction(id, parameterType);
@@ -125,7 +125,6 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
     actionMap.addAction(action);
 
     if (accelerators.length > 0) {
-        Application app = cast(Application) Application.getDefault();
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);
         } else {

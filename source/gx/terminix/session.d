@@ -88,7 +88,7 @@ private:
 
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
-    
+
     // mixin for managing process notification event delegates     
     mixin ProcessNotificationHandler;
 
@@ -100,12 +100,12 @@ private:
     bool _synchronizeInput;
 
     string _sessionUUID;
-    
+
     Box group;
     MaximizedInfo maximizedInfo;
-    
+
     Terminal lastFocused;
-    
+
     /**
      * Creates the session user interface
      */
@@ -120,7 +120,7 @@ private:
         group.add(terminal);
         lastFocused = terminal;
     }
-    
+
     void createGroup() {
         group = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu where background-color 
@@ -146,7 +146,7 @@ private:
             terminal.terminalID = i;
         }
     }
-    
+
     /**
      * Create a Paned widget and modify some properties to
      * make it look somewhat attractive on Ubuntu and non Adwaita themes.
@@ -169,7 +169,7 @@ private:
         addTerminal(terminal);
         return terminal;
     }
-    
+
     /**
      * Adds a new terminal to the session, usually this is a newly
      * created terminal but can also be one attached to this session
@@ -189,7 +189,7 @@ private:
         terminal.terminalID = terminals.length - 1;
         terminal.synchronizeInput = synchronizeInput;
     }
-    
+
     /**
      * Closes the terminal and removes it from the session. This can be
      * called when a terminal is closed naturally or when a terminal
@@ -224,7 +224,8 @@ private:
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
         //Fix Issue #33
-        if (id >= terminals.length) id = to!int(terminals.length) -1;
+        if (id >= terminals.length)
+            id = to!int(terminals.length) - 1;
         if (id >= 0 && id < terminals.length) {
             focusTerminal(id);
         }
@@ -291,11 +292,11 @@ private:
         Box findOtherChild(Terminal terminal, Paned paned) {
             Box box1 = cast(Box) paned.getChild1();
             Box box2 = cast(Box) paned.getChild2();
-            
+
             //If terminal is maximized we can short-circuit check since
             // we know terminal's parent already
             if (maximizedInfo.isMaximized) {
-                return equal(box1, maximizedInfo.parent)?box2:box1;
+                return equal(box1, maximizedInfo.parent) ? box2 : box1;
             }
 
             Widget widget1 = gx.gtk.util.getChildren(box1)[0];
@@ -305,7 +306,7 @@ private:
             int result = terminal == terminal1 ? 1 : 2;
             return (result == 1 ? box2 : box1);
         }
-        
+
         Paned paned;
         if (maximizedInfo.isMaximized) {
             paned = cast(Paned) maximizedInfo.parent.getParent();
@@ -340,7 +341,7 @@ private:
         Container container = cast(Container) terminal.getParent();
         container.remove(terminal);
     }
-    
+
     /**
      * Inserts a source terminal into a destination by creating the necessary
      * splitters and box shims
@@ -380,19 +381,20 @@ private:
         //Fix for issue #33
         focusTerminal(src.terminalID);
     }
-    
+
     void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
-        
+
         Session getSession(Terminal terminal) {
             Widget widget = terminal.getParent();
             while (widget !is null) {
                 Session result = cast(Session) widget;
-                if (result !is null) return result;
+                if (result !is null)
+                    return result;
                 widget = widget.getParent();
             }
             return null;
         }
-            
+
         trace(format("Moving terminal %d to quadrant %d", dest.terminalID, dq));
         Terminal src = findTerminal(srcUUID);
         // If terminal is not null, its from this session. If it
@@ -404,12 +406,12 @@ private:
             src = cast(Terminal) terminix.findWidgetForUUID(srcUUID);
             if (src is null) {
                 showErrorDialog(cast(Window) this.getToplevel(), _("Could not locate dropped terminal"));
-                return;    
+                return;
             }
             Session session = getSession(src);
             if (session is null) {
                 showErrorDialog(cast(Window) this.getToplevel(), _("Could not locate session for dropped terminal"));
-                return;    
+                return;
             }
             trace("Removing Terminal from other session");
             session.removeTerminal(src);
@@ -422,7 +424,7 @@ private:
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
         insertTerminal(dest, src, orientation, child);
     }
-    
+
     void closeTerminal(Terminal terminal) {
         removeTerminal(terminal);
         terminal.destroy();
@@ -434,10 +436,10 @@ private:
     void onTerminalClose(Terminal terminal) {
         closeTerminal(terminal);
     }
-    
+
     void onTerminalProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
         notifyProcessNotification(summary, _body, terminalUUID, _sessionUUID);
-    }    
+    }
 
     bool onTerminalIsActionAllowed(ActionType actionType) {
         switch (actionType) {
@@ -487,7 +489,7 @@ private:
             }
         }
     }
-    
+
     /**
      * Manages changing a terminal from maximized to normal
      */
@@ -511,32 +513,32 @@ private:
             return false;
         }
         final switch (state) {
-            case TerminalState.MAXIMIZED:
-                trace("Maximizing terminal");
-                maximizedInfo.terminal = terminal;
-                maximizedInfo.parent = cast(Box) terminal.getParent();
-                maximizedInfo.isMaximized = true;
-                maximizedInfo.parent.remove(terminal);
-                addNamed(terminal, "maximized");
-                trace("Switching stack to terminal");
-                terminal.show();
-                setVisibleChild(terminal);
-                break;                
-            case TerminalState.NORMAL:
-                trace("Restoring terminal");
-                remove(terminal);
-                maximizedInfo.parent.add(terminal);
-                maximizedInfo.isMaximized = false;
-                maximizedInfo.parent = null;
-                maximizedInfo.terminal = null;
-                setVisibleChild(group);
-                break;
+        case TerminalState.MAXIMIZED:
+            trace("Maximizing terminal");
+            maximizedInfo.terminal = terminal;
+            maximizedInfo.parent = cast(Box) terminal.getParent();
+            maximizedInfo.isMaximized = true;
+            maximizedInfo.parent.remove(terminal);
+            addNamed(terminal, "maximized");
+            trace("Switching stack to terminal");
+            terminal.show();
+            setVisibleChild(terminal);
+            break;
+        case TerminalState.NORMAL:
+            trace("Restoring terminal");
+            remove(terminal);
+            maximizedInfo.parent.add(terminal);
+            maximizedInfo.isMaximized = false;
+            maximizedInfo.parent = null;
+            maximizedInfo.terminal = null;
+            setVisibleChild(group);
+            break;
         }
         terminal.focusTerminal();
         return true;
     }
 
-/************************************************
+    /************************************************
  * De/Serialization code in this private block
  ************************************************/
 private:
@@ -606,7 +608,7 @@ private:
      * Serialize the Paned widget
      */
     JSONValue serializePaned(JSONValue value, Paned paned, SessionSizeInfo sizeInfo) {
-    
+
         /**
          * Added to check for maximized state and grab right terminal
          */
@@ -614,11 +616,11 @@ private:
             Widget[] widgets = gx.gtk.util.getChildren(box);
             if (widgets.length == 0 && maximizedInfo.isMaximized && equal(box, maximizedInfo.parent)) {
                 value.object[node] = serializeWidget(maximizedInfo.terminal, sizeInfo);
-            } else { 
+            } else {
                 value.object[node] = serializeWidget(widgets[0], sizeInfo);
             }
         }
-    
+
         value[NODE_ORIENTATION] = JSONValue(paned.getOrientation());
         //Switch to integer to fix Issue #49 and work around D std.json bug
         int positionPercent = to!int(sizeInfo.scalePosition(paned.getPosition, paned.getOrientation()) * 100);
@@ -703,8 +705,6 @@ private:
     void parseSession(JSONValue value, SessionSizeInfo sizeInfo) {
         maximizedTerminalUUID.length = 0;
         _name = value[NODE_NAME].str();
-        long savedWidth = value[NODE_WIDTH].integer();
-        long savedHeight = value[NODE_HEIGHT].integer();
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
         group.add(parseNode(child, sizeInfo));
@@ -771,7 +771,7 @@ public:
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
     }
-    
+
     /**
      * Finds the widget matching a specific UUID, typically
      * a Session or Terminal
@@ -797,12 +797,13 @@ public:
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
     }
-    
+
     static void getPersistedSessionSize(JSONValue value, out int width, out int height) {
         try {
             width = to!int(value[NODE_WIDTH].integer());
             height = to!int(value[NODE_HEIGHT].integer());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
     }
@@ -913,7 +914,7 @@ public:
      * Focus the terminal designated by the UUID
      */
     bool focusTerminal(string terminalUUID) {
-        foreach(terminal; terminals) {
+        foreach (terminal; terminals) {
             if (terminal.terminalUUID == terminalUUID) {
                 terminal.focusTerminal();
                 return true;
@@ -1035,7 +1036,7 @@ struct SessionSizeInfo {
             return to!int(scaledPosition * height);
         }
     }
-} 
+}
 
 /**
  * When a terminal is maximized, this remembers where
