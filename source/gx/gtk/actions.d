@@ -125,6 +125,9 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
     actionMap.addAction(action);
 
     if (accelerators.length > 0) {
+        if (app is null) {
+            app = cast(Application) Application.getDefault();            
+        }
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);
         } else {

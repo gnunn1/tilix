@@ -686,7 +686,7 @@ private:
                     unsafePasteIgnored = true;
             }
         }
-        if (gsSettings.getBoolean(STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
+        if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
             if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
                 vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
                 return;

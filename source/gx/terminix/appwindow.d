@@ -93,6 +93,7 @@ private:
     enum ACTION_SESSION_LOAD = "load";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
+    enum ACTION_WIN_FULLSCREEN = "fullscreen";
 
     Notebook nb;
     HeaderBar hb;
@@ -212,13 +213,24 @@ private:
         //Create Switch to Session (0..9) actions
         //Can't use :: action targets for this since action name needs to be preferences 
         for (int i = 0; i <= 9; i++) {
-            registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(Variant, SimpleAction sa) {
+            registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 int index = to!int(sa.getName()[$ - 1 .. $]);
                 if (nb.getNPages() <= index) {
                     nb.setCurrentPage(index);
                 }
             });
         }
+        
+        registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            trace("Setting fullscreen");
+            bool newState = !sa.getState().getBoolean();
+            sa.setState(new GVariant(newState));
+            if (newState) {
+                fullscreen();
+            } else {
+                unfullscreen();
+            }
+        }, null, new GVariant(false));
     }
 
     /**
