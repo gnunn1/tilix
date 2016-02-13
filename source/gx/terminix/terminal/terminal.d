@@ -228,10 +228,15 @@ private:
     SimpleAction saEncodingSelect;
     GMenu encodingMenu;
 
-    Menu mContext;
-    MenuItem miCopy;
-    MenuItem miPaste;
-
+    SimpleAction saCopy; 
+    SimpleAction saPaste;
+    static if (POPOVER_CONTEXT_MENU) {
+        Popover pmContext;
+    } else {
+        Menu mContext;
+        MenuItem miCopy;
+        MenuItem miPaste;
+    }
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
@@ -381,12 +386,12 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) { vte.searchFindNext(); });
 
         //Clipboard actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) {
+        saCopy = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (vte.getHasSelection()) {
                 vte.copyClipboard();
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 pasteClipboard();
             }
@@ -583,26 +588,27 @@ private:
             return false;
         });
 
-        //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
-        //work fine in a popover. Could switch this to a popover but popover positioning could use some
-        //work, as well popover clips in small windows.
-        mContext = new Menu();
-        miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
-        mContext.add(miCopy);
-        miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
-        mContext.add(miPaste);
-        MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
-        mContext.add(new SeparatorMenuItem());
-        mContext.add(miSelectAll);
-
-        /* Enable to use popovers for context menu, wasn't happy with positioning
-        GMenu mmContext = new GMenu();
-        mmContext.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-        mmContext.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));         
-        mmContext.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
-        pmContext = new Popover(vte, mmContext);
-        pmContext.setModal(true);
-        */
+        static if (POPOVER_CONTEXT_MENU) {
+            GMenu mmContext = new GMenu();
+            mmContext.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
+            mmContext.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));         
+            mmContext.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
+            pmContext = new Popover(vte, mmContext);
+            pmContext.setModal(true);
+            pmContext.setPosition(PositionType.BOTTOM);
+        } else {
+            //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
+            //work fine in a popover. Could switch this to a popover but popover positioning could use some
+            //work, as well popover clips in small windows.
+            mContext = new Menu();
+            miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
+            mContext.add(miCopy);
+            miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
+            mContext.add(miPaste);
+            MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
+            mContext.add(new SeparatorMenuItem());
+            mContext.add(miSelectAll);
+        }
         terminalOverlay = new Overlay();
         terminalOverlay.add(vte);
 
@@ -763,19 +769,18 @@ private:
                 }
             case MouseButton.SECONDARY:
                 trace("Enablign actions");
-                miCopy.setSensitive(vte.getHasSelection());
-                miPaste.setSensitive(Clipboard.get(null).waitIsTextAvailable());
-                mContext.showAll();
-                mContext.popup(buttonEvent.button, buttonEvent.time);
-                /* Use popovers
-                saCopy.setEnabled(vte.getHasSelection());
-                saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
-                mContext.showAll();
-                mContext.popup(buttonEvent.button, buttonEvent.time);
-                GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
-                pmContext.setPointingTo(&rect);
-                pmContext.showAll();
-                */
+                static if (POPOVER_CONTEXT_MENU) {
+                    saCopy.setEnabled(vte.getHasSelection());
+                    saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
+                    GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
+                    pmContext.setPointingTo(&rect);
+                    pmContext.showAll();
+                } else {                
+                    miCopy.setSensitive(vte.getHasSelection());
+                    miPaste.setSensitive(Clipboard.get(null).waitIsTextAvailable());
+                    mContext.showAll();
+                    mContext.popup(buttonEvent.button, buttonEvent.time);
+                }
                 return true;
             default:
                 return false;

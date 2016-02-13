@@ -8,6 +8,9 @@ import std.path;
 
 import gx.i18n.l10n;
 
+//Compilation Flags
+immutable bool POPOVER_CONTEXT_MENU = true;
+
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
 immutable uint GTK_VERSION_MINOR = 14;
