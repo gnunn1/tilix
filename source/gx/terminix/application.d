@@ -24,6 +24,8 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.Value;
+
 import gtk.AboutDialog;
 import gtk.Application;
 import gtk.CheckButton;
@@ -69,6 +71,7 @@ private:
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
+    Value defaultMenuAccel;
 
     CommandParameters cp;
 
@@ -268,16 +271,16 @@ private:
         string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
         if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
+        }
+        if (defaultMenuAccel is null) {
+            defaultMenuAccel = new Value("F10");
+            Settings.getDefault().getProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
+            trace("Default menu accelerator is " ~ defaultMenuAccel.getString());
+        }
+        if (!gsGeneral.getBoolean(SETTINGS_MENU_ACCELERATOR_KEY)) {
+            Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, new Value(""));
         } else {
-            //While the code below works, gives some critical errors, for now
-            //switching to Default from Dark/Light needs a restart
-            /*
-            //Need to reset property here when it is DEFAULT
-            gobject.Value.Value value = new gobject.Value.Value(false);
-            Settings.getDefault().getProperty(GTK_APP_PREFER_DARK_THEME, value);
-            value.reset();
-            Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, value);
-            */
+            Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
         }
     }
 

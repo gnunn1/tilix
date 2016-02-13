@@ -27,15 +27,16 @@ enum SETTINGS_THEME_VARIANT_SYSTEM_VALUE = "system";
 enum SETTINGS_THEME_VARIANT_LIGHT_VALUE = "light";
 enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
 
+enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
 enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 enum SETTINGS_UNSAFE_PASTE_ALERT_KEY = "unsafe-paste-alert";
-enum STRIP_FIRST_COMMENT_CHAR_ON_PASTE = "paste-strip-first-char";
+enum STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY = "paste-strip-first-char";
 enum SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY = "warn-vte-config-issue";
-enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE = "focus-follow-mouse";
+enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY = "focus-follow-mouse";
 enum SETTINGS_ENCODINGS_KEY = "encodings";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";

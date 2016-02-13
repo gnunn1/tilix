@@ -461,10 +461,15 @@ private:
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
         gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         add(cbPrompt);
+        
+        //Enable/Disable F10 accelerator in GTK
+        CheckButton cbMenuAccelerator = new CheckButton(_("Enable the menu accelerator key (F10 by default)"));
+        gsSettings.bind(SETTINGS_MENU_ACCELERATOR_KEY, cbMenuAccelerator, "active", GSettingsBindFlags.DEFAULT);
+        add(cbMenuAccelerator);
 
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
-        gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
+        gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbFocusMouse);
 
         //Auto hide the mouse
@@ -491,7 +496,7 @@ private:
 
         //Strip Paste
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
-        gsSettings.bind(STRIP_FIRST_COMMENT_CHAR_ON_PASTE, cbStrip, "active", GSettingsBindFlags.DEFAULT);
+        gsSettings.bind(STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
 
         Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));

@@ -98,7 +98,12 @@
       <summary>Whether to notify when a process is completed</summary>
       <description>If true, notifications will be sent when non-visible processes complete in terminals.</description>
     </key>
-    <!-- Unsafe Paste, cribbed from Pantheon -->
+    <!-- Menubar Accelerator -->
+    <key name="menu-accelerator-enabled" type="b">
+      <default>true</default>
+      <summary>Whether the standard GTK shortcut for menubar access is enabled</summary>
+      <description>Normally you can access the menubar with F10. This can also be customized via gtkrc (gtk-menu-bar-accel = "whatever"). This option allows the standard menubar accelerator to be disabled.</description>
+    </key>    <!-- Unsafe Paste, cribbed from Pantheon -->
     <key name="unsafe-paste-alert" type="b">
       <default>true</default>
       <summary>Alert the user about unsafe paste.</summary>
