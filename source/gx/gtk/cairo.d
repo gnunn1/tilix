@@ -50,7 +50,6 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
     } else {
         trace("Widget is not drawable, using OffscreenWindow for thumbnail");
         RenderWindow window = new RenderWindow();
-        window.setDefaultSize(w,h);
         Container parent = cast(Container) widget.getParent();
         if (parent is null) {
             error("Parent is not a Container, cannot draw offscreen image");
@@ -59,7 +58,7 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
         parent.remove(widget);
         window.add(widget);
         try {
-            window.show();
+            window.setDefaultSize(w,h);
             StopWatch sw = StopWatch(AutoStart.yes);
             /*
             Need to process events here until Window is drawn
@@ -72,13 +71,12 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
             gives me even more shudders then the less then optimal
             solution implemented here.
             */
-            Pixbuf pb = window.pixbuf;
-            while (pb is null && sw.peek().msecs<200) {
+            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<200) {
                 trace("Iterate loop");
-                gtk.Main.Main.iteration();
-                pb = window.pixbuf;
+                gtk.Main.Main.iterationDo(false);
             }
             sw.stop();
+            Pixbuf pb = window.pixbuf;
             if (pb is null) {
                 error("Pixbuf from renderwindow is null");
                 pb = window.getPixbuf();
@@ -107,6 +105,7 @@ public:
     this() {
         super();
         addOnDamage(&onDamage);
+        show();
     }
     
     @property Pixbuf pixbuf() {
