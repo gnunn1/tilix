@@ -10,6 +10,9 @@ import cairo.Context;
 import cairo.Surface;
 
 import gdk.Cairo;
+import gdk.RGBA;
+import gdk.Screen;
+import gdk.Visual;
 import gdk.Window;
 
 import gdkpixbuf.Pixbuf;
@@ -71,15 +74,17 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
             gives me even more shudders then the less then optimal
             solution implemented here.
             */
-            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<200) {
-                trace("Iterate loop");
+            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
                 gtk.Main.Main.iterationDo(false);
             }
             sw.stop();
-            Pixbuf pb = window.pixbuf;
+            trace(format("Total time processing events: %d msecs", sw.peek().msecs));
+            // While we could call getPixBuf() on Offscreen Window, drawing 
+            // it ourselves gives better results when dealing with transparency
+            Pixbuf pb = getWindowImage(widget.getWindow(), factor);
             if (pb is null) {
                 error("Pixbuf from renderwindow is null");
-                pb = window.getPixbuf();
+                return pb;
             } 
             pb = pb.scaleSimple(pw, ph , GdkInterpType.BILINEAR);
             return pb;

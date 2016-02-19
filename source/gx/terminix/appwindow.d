@@ -131,6 +131,7 @@ private:
         nb = new Notebook();
         nb.setShowTabs(false);
         nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
+            trace("Switched Sessions");
             Session session = cast(Session) page;
             //Remove any sessions associated with current page
             sessionNotifications.remove(session.sessionUUID);
@@ -149,6 +150,8 @@ private:
             saViewSideBar.activate(null);
             if (sessionUUID.length > 0) {
                 activateSession(sessionUUID);
+            } else {
+                getCurrentSession().focusRestore();
             }
         });
         overlay.addOverlay(sb);        
@@ -255,8 +258,11 @@ private:
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));
             tbSideBar.setActive(newState);
+            if (!newState) {
+                //Hiding session, restore focus
+                getCurrentSession().focusRestore();
+            }
         }, null, new GVariant(false));
-        
     }
 
     /**

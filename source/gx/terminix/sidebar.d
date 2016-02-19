@@ -42,13 +42,13 @@ private:
     
     bool blockSelectedHandler;
     
-    void onRowSelected(ListBoxRow row, ListBox) {
+    void onRowActivated(ListBoxRow row, ListBox) {
         SideBarRow sr = cast(SideBarRow) row;
         if (sr !is null && !blockSelectedHandler) {
             notifySessionSelected(sr.sessionUUID);
         }        
     }
-    
+
     void notifySessionSelected(string sessionUUID) {
         foreach(sessionSelected; sessionSelectedDelegates) {
             sessionSelected(sessionUUID);
@@ -67,8 +67,15 @@ private:
     bool onKeyRelease(Event event, Widget w) {
         uint keyval;
         //If escape key is pressed, close sidebar
-        if (event.getKeyval(keyval) && keyval == GdkKeysyms.GDK_Escape)
-            notifySessionSelected(null);
+        if (event.getKeyval(keyval)) {
+            switch(keyval) {
+                case GdkKeysyms.GDK_Escape:
+                    notifySessionSelected(null);
+                    break;
+                default:
+                    //Ignore other keys    
+            }
+        }
         return false;
     }
 
@@ -79,11 +86,12 @@ public:
         addOnKeyRelease(&onKeyRelease);
         setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
         lbSessions = new ListBox();
+        lbSessions.setCanFocus(true);
         lbSessions.getStyleContext().addClass("notebook");
         lbSessions.getStyleContext().addClass("header");
 
         lbSessions.setSelectionMode(SelectionMode.BROWSE);
-        lbSessions.addOnRowSelected(&onRowSelected);
+        lbSessions.addOnRowActivated(&onRowActivated);
         setHexpand(false);
         setVexpand(true);
         setHalign(Align.START);
@@ -108,16 +116,16 @@ public:
         lbSessions.removeAll();
         foreach(i, session; sessions) {
             Overlay overlay = new Overlay();
-            Image img = new Image(getWidgetImage(session.drawable, 0.15));
-            setAllMargins(img, 1);
-            overlay.add(img);
+            setAllMargins(overlay, 2);
+            Frame imgframe = new Frame(new Image(getWidgetImage(session.drawable, 0.20)), null);
+            imgframe.setShadowType(ShadowType.IN);
+            overlay.add(imgframe);
             Label label = new Label(to!string(i));
             label.setHalign(Align.END);
             label.setValign(Align.END);
             label.setMargins(0, 0, 6, 2);
             overlay.addOverlay(label);
             SideBarRow row = new SideBarRow(session.sessionUUID);
-            setAllMargins(row, 4);
             row.add(overlay);
             lbSessions.add(row);
             if (session.sessionUUID == currentSessionUUID) {
@@ -130,10 +138,13 @@ public:
     override void setRevealChild(bool revealChild) {
         super.setRevealChild(revealChild);
         if (revealChild) {
-            grabAdd();
+            trace("Show sidebar");
+            lbSessions.grabAdd();
         } else {
-            grabRemove();
+            trace("Hide sidebar");
+            lbSessions.grabRemove();
         }
+        lbSessions.getSelectedRow().grabFocus();
     }
     
     void addOnSessionSelected(OnSessionSelected dlg) {

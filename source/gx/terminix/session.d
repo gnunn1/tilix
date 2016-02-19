@@ -784,6 +784,7 @@ public:
      */
     void focusRestore() {
         if (lastFocused !is null) {
+            trace("Restoring focus to terminal");
             lastFocused.focusTerminal();
         }
     }
