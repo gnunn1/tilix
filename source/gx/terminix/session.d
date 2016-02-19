@@ -121,21 +121,28 @@ private:
     }
 
     void createUI(Terminal terminal) {
-        stackGroup = new Box(Orientation.VERTICAL, 0);
-        stackMaximized = new Box(Orientation.VERTICAL, 0);
-        addNamed(stackGroup, STACK_GROUP_NAME);
-        addNamed(stackMaximized, STACK_MAX_NAME);
-        createGroup();
+        createBaseUI();
         groupChild.add(terminal);
         lastFocused = terminal;
     }
 
-    void createGroup() {
+    void createBaseUI() {
+        stackGroup = new Box(Orientation.VERTICAL, 0);
+        addNamed(stackGroup, STACK_GROUP_NAME);
+        stackMaximized = new Box(Orientation.VERTICAL, 0);
+        addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu where background-color 
         // for widgets don't seem to take
         groupChild.getStyleContext().addClass("terminix-notebook-page");
         stackGroup.add(groupChild);
+        // Need this to switch the stack in case we loaded a layout
+        // with a maximized terminal since stack can't be switched until realized
+        addOnRealize(delegate(Widget widget) {
+           if (maximizedInfo.isMaximized) {
+               setVisibleChild(stackMaximized);
+           } 
+        });
     }
 
     void notifySessionClose() {
@@ -529,7 +536,7 @@ private:
             maximizedInfo.isMaximized = true;
             maximizedInfo.parent.remove(terminal);
             stackMaximized.add(terminal);
-            trace("Switching stack to terminal");
+            trace("Switching stack to maximized page");
             terminal.show();
             setVisibleChild(stackMaximized);
             break;
@@ -770,7 +777,7 @@ public:
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
         super();
-        createGroup();
+        createBaseUI();
         _sessionUUID = randomUUID().toString();
         try {
             parseSession(value, SessionSizeInfo(width, height));
