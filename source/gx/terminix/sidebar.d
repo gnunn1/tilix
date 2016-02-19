@@ -35,7 +35,6 @@ alias OnSessionSelected = void delegate(string sessionUUID);
  */ 
 class SideBar: Revealer {
 private:
-    Frame frame;
     ListBox lbSessions;
     
     OnSessionSelected[] sessionSelectedDelegates;
@@ -57,7 +56,7 @@ private:
     
     bool onButtonPress(Event event, Widget w) {
         //If button press happened outside of sidebar close it
-        if (event.getWindow().getWindowStruct() != frame.getWindow().getWindowStruct() &&
+        if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() &&
             event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
             notifySessionSelected(null);
         }
@@ -85,28 +84,23 @@ public:
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
         setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
-        lbSessions = new ListBox();
-        lbSessions.setCanFocus(true);
-        lbSessions.getStyleContext().addClass("notebook");
-        lbSessions.getStyleContext().addClass("header");
-
-        lbSessions.setSelectionMode(SelectionMode.BROWSE);
-        lbSessions.addOnRowActivated(&onRowActivated);
         setHexpand(false);
         setVexpand(true);
         setHalign(Align.START);
         setValign(Align.FILL);
+
+        lbSessions = new ListBox();
+        lbSessions.setCanFocus(true);
+        lbSessions.setSelectionMode(SelectionMode.BROWSE);
+        lbSessions.getStyleContext().addClass("notebook");
+        lbSessions.getStyleContext().addClass("header");
+        lbSessions.addOnRowActivated(&onRowActivated);
         
         ScrolledWindow sw = new ScrolledWindow(lbSessions);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-        sw.setHexpand(true);
-        sw.setVexpand(true);
+        sw.setShadowType(ShadowType.IN);
         
-        Box b = new Box(Orientation.VERTICAL, 0);
-        b.add(sw);
-
-        frame = new Frame(b, null);
-        add(frame);
+        add(sw);
     }
     
     void populateSessions(Session[] sessions, string currentSessionUUID) {
@@ -139,10 +133,10 @@ public:
         super.setRevealChild(revealChild);
         if (revealChild) {
             trace("Show sidebar");
-            lbSessions.grabAdd();
+            grabAdd();
         } else {
             trace("Hide sidebar");
-            lbSessions.grabRemove();
+            grabRemove();
         }
         lbSessions.getSelectedRow().grabFocus();
     }
