@@ -25,37 +25,18 @@ import gtk.Container;
 import gtk.OffscreenWindow;
 import gtk.Widget;
 
-Pixbuf getWindowImage(Window window, double factor) {
-    int w = window.getWidth();
-    int h = window.getHeight();
-    trace(format("Original: %d, %d", w, h));
-    int pw = to!int(w * factor);
-    int ph = to!int(h * factor);
-    trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
-            
-    Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
-    Context cr = Context.create(surface);
-    cr.scale(factor, factor);
-    setSourceWindow(cr, window, 0, 0);
-    cr.paint();
-    return gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
-}
-
 Pixbuf getWidgetImage(Widget widget, double factor) {
-    int w = widget.getAllocatedWidth();
-    int h = widget.getAllocatedHeight();
-    int pw = to!int(w * factor);
-    int ph = to!int(h * factor);
-    trace(format("Thumbnail dimensionsL w=%d, h=%d", pw, ph));
-
+    StopWatch sw = StopWatch(AutoStart.yes);
+    scope (exit) {
+        sw.stop();
+        trace(format("Total time getting thumbnail: %d msecs", sw.peek().msecs));
+    }
     if (widget.isDrawable()) {
-        Surface surface = widget.getWindow().createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
-        Context cr = Context.create(surface);
-        cr.scale(factor, factor);
-        widget.draw(cr);
-        return gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
+        return getDrawableWidgetImage(widget, factor);
     } else {
         trace("Widget is not drawable, using OffscreenWindow for thumbnail");
+        int w = widget.getAllocatedWidth();
+        int h = widget.getAllocatedHeight();
         RenderWindow window = new RenderWindow();
         Container parent = cast(Container) widget.getParent();
         if (parent is null) {
@@ -65,8 +46,7 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
         parent.remove(widget);
         window.add(widget);
         try {
-            window.setDefaultSize(w,h);
-            StopWatch sw = StopWatch(AutoStart.yes);
+            window.setDefaultSize(w, h);
             /*
             Need to process events here until Window is drawn
             Not overly pleased with this solution, use timer
@@ -81,16 +61,13 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
             while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
                 gtk.Main.Main.iterationDo(false);
             }
-            sw.stop();
-            trace(format("Total time processing events: %d msecs", sw.peek().msecs));
             // While we could call getPixBuf() on Offscreen Window, drawing 
             // it ourselves gives better results when dealing with transparency
-            Pixbuf pb = getWindowImage(widget.getWindow(), factor);
+            Pixbuf pb = getDrawableWidgetImage(widget, factor);
             if (pb is null) {
                 error("Pixbuf from renderwindow is null");
                 return pb;
             } 
-            pb = pb.scaleSimple(pw, ph , GdkInterpType.BILINEAR);
             return pb;
         } finally {
             window.remove(widget);
@@ -101,6 +78,22 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
 }
 
 private:
+Pixbuf getDrawableWidgetImage(Widget widget, double factor) {
+    int w = widget.getAllocatedWidth();
+    int h = widget.getAllocatedHeight();
+    trace(format("Original: %d, %d", w, h));
+    int pw = to!int(w * factor);
+    int ph = to!int(h * factor);
+    trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
+   
+    Window window = widget.getWindow();
+    Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
+    Context cr = Context.create(surface);
+    cr.scale(factor, factor);
+    widget.draw(cr);
+    return gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
+}
+
 class RenderWindow: OffscreenWindow {
     bool _canDraw = false;
     
