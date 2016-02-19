@@ -78,7 +78,7 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
             gives me even more shudders then the less then optimal
             solution implemented here.
             */
-            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
+            while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
                 gtk.Main.Main.iterationDo(false);
             }
             sw.stop();
@@ -102,11 +102,11 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
 
 private:
 class RenderWindow: OffscreenWindow {
-    Pixbuf pb;
+    bool _canDraw = false;
     
     bool onDamage(gdk.Event.Event, Widget) {
         trace("Damage event received");
-        pb = getPixbuf();
+        _canDraw = true;
         return false;
     }
 
@@ -117,8 +117,7 @@ public:
         show();
     }
     
-    @property Pixbuf pixbuf() {
-        return pb;
+    @property bool canDraw() {
+        return _canDraw;
     }
-
 }

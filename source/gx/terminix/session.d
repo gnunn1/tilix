@@ -82,7 +82,7 @@ class SessionCreationException : Exception {
  * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
  * and which inspired this application.
  */
-class Session : Box {
+class Session : Stack {
 
 private:
 
@@ -100,10 +100,13 @@ private:
     bool _synchronizeInput;
 
     string _sessionUUID;
-    
-    Stack stack;
 
-    Box group;
+    enum STACK_GROUP_NAME = "group";
+    enum STACK_MAX_NAME = "maximized";
+
+    Box stackGroup;
+    Box stackMaximized;
+    Box groupChild;
     MaximizedInfo maximizedInfo;
 
     Terminal lastFocused;
@@ -118,19 +121,21 @@ private:
     }
 
     void createUI(Terminal terminal) {
-        stack = new Stack();
-        add(stack);
+        stackGroup = new Box(Orientation.VERTICAL, 0);
+        stackMaximized = new Box(Orientation.VERTICAL, 0);
+        addNamed(stackGroup, STACK_GROUP_NAME);
+        addNamed(stackMaximized, STACK_MAX_NAME);
         createGroup();
-        group.add(terminal);
+        groupChild.add(terminal);
         lastFocused = terminal;
     }
 
     void createGroup() {
-        group = new Box(Orientation.VERTICAL, 0);
+        groupChild = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu where background-color 
         // for widgets don't seem to take
-        group.getStyleContext().addClass("terminix-notebook-page");
-        stack.addNamed(group, "group");
+        groupChild.getStyleContext().addClass("terminix-notebook-page");
+        stackGroup.add(groupChild);
     }
 
     void notifySessionClose() {
@@ -523,19 +528,19 @@ private:
             maximizedInfo.parent = cast(Box) terminal.getParent();
             maximizedInfo.isMaximized = true;
             maximizedInfo.parent.remove(terminal);
-            stack.addNamed(terminal, "maximized");
+            stackMaximized.add(terminal);
             trace("Switching stack to terminal");
             terminal.show();
-            stack.setVisibleChild(terminal);
+            setVisibleChild(stackMaximized);
             break;
         case TerminalState.NORMAL:
             trace("Restoring terminal");
-            stack.remove(terminal);
+            stackMaximized.remove(terminal);
             maximizedInfo.parent.add(terminal);
             maximizedInfo.isMaximized = false;
             maximizedInfo.parent = null;
             maximizedInfo.terminal = null;
-            stack.setVisibleChild(group);
+            setVisibleChild(stackGroup);
             break;
         }
         terminal.focusTerminal();
@@ -711,7 +716,7 @@ private:
         _name = value[NODE_NAME].str();
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
-        group.add(parseNode(child, sizeInfo));
+        groupChild.add(parseNode(child, sizeInfo));
         if (maximizedTerminalUUID.length > 0) {
             Terminal terminal = findTerminal(maximizedTerminalUUID);
             if (terminal !is null) {
@@ -727,7 +732,7 @@ private:
      * Creates a new session with the specified terminal
      */
     this(string sessionName, Terminal terminal) {
-        super(Orientation.VERTICAL, 0);
+        super();
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
         addTerminal(terminal);
@@ -746,7 +751,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(string name, string profileUUID, string workingDir, bool firstRun) {
-        super(Orientation.VERTICAL, 0);
+        super();
         _sessionUUID = randomUUID().toString();
         _name = name;
         createUI(profileUUID, workingDir, firstRun);
@@ -764,7 +769,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
-        super(Orientation.VERTICAL, 0);
+        super();
         createGroup();
         _sessionUUID = randomUUID().toString();
         try {
@@ -797,7 +802,7 @@ public:
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
-        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(group)[0], sizeInfo);
+        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(groupChild)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
     }
@@ -862,7 +867,11 @@ public:
      * image to be drawn off screen
      */ 
     @property Widget drawable() {
-        return stack;
+        if (maximizedInfo.isMaximized) {
+            return maximizedInfo.terminal;
+        } else {
+            return groupChild;
+        }
     }
 
     /**
