@@ -41,6 +41,7 @@ import gtk.Button;
 import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
+import gtk.Frame;
 import gtk.HeaderBar;
 import gtk.Image;
 import gtk.Label;
@@ -49,9 +50,12 @@ import gtk.ListBoxRow;
 import gtk.MenuButton;
 import gtk.MessageDialog;
 import gtk.Notebook;
+import gtk.Overlay;
 import gtk.Popover;
+import gtk.Revealer;
 import gtk.ScrolledWindow;
 import gtk.StyleContext;
+import gtk.ToggleButton;
 import gtk.Widget;
 
 import vte.Pty;
@@ -67,6 +71,7 @@ import gx.terminix.constants;
 import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
+import gx.terminix.sidebar;
 
 /**
  * The GTK Application Window for Terminix. It is responsible for
@@ -82,7 +87,6 @@ private:
     enum DEFAULT_SESSION_NAME = "Default";
 
     enum ACTION_PREFIX = "session";
-    enum ACTION_SESSION_LIST = "list";
     enum ACTION_SESSION_CLOSE = "close";
     enum ACTION_SESSION_NAME = "name";
     enum ACTION_SESSION_NEXT_TERMINAL = "switch-to-next-terminal";
@@ -94,18 +98,18 @@ private:
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
+    enum ACTION_WIN_SIDEBAR = "view-sidebar";
 
     Notebook nb;
     HeaderBar hb;
-
-    GMenu sessionMenu;
-    SimpleAction saSessionSelect;
-    MenuButton mbSessions;
+    SideBar sb;
+    ToggleButton tbSideBar;
 
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
     SimpleAction saSyncInput;
     SimpleAction saCloseSession;
+    SimpleAction saViewSideBar;
 
     MenuButton mbSessionNotifications;
     Label lblNotifications;
@@ -124,17 +128,57 @@ private:
         createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
 
+        //Notebook
+        nb = new Notebook();
+        nb.setShowTabs(false);
+        nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
+            trace("Switched Sessions");
+            Session session = cast(Session) page;
+            //Remove any sessions associated with current page
+            sessionNotifications.remove(session.sessionUUID);
+            updateTitle(session);
+            updateUIState();
+            session.focusRestore();
+            saSyncInput.setState(new GVariant(session.synchronizeInput));
+        }, ConnectFlags.AFTER);
+        
+
+        Overlay overlay = new Overlay();
+        add(overlay);
+        sb = new SideBar();
+        sb.addOnSessionSelected(delegate(string sessionUUID) {
+            trace("Session selected " ~ sessionUUID);
+            saViewSideBar.activate(null);
+            if (sessionUUID.length > 0) {
+                activateSession(sessionUUID);
+            } else {
+                getCurrentSession().focusRestore();
+            }
+        });
+        overlay.addOverlay(sb);        
+        
+        //Could be a Box or a Headerbar depending on value of disable_csd
+        Widget toolbar = createHeaderBar();
+
+        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            Box b = new Box(Orientation.VERTICAL, 0);
+            b.add(toolbar);            
+            b.add(nb);
+            overlay.add(b);        
+        } else {
+            this.setTitlebar(toolbar);
+            overlay.add(nb);
+        }
+    }
+    
+    Widget createHeaderBar() {
         //View sessions button
-        mbSessions = new MenuButton();
-        mbSessions.setTooltipText(_("Switch to a new session"));
-        mbSessions.setFocusOnClick(false);
+        tbSideBar = new ToggleButton();
+        tbSideBar.setTooltipText(_("View session sidebar"));
+        tbSideBar.setFocusOnClick(false);
         Image iList = new Image("view-list-symbolic", IconSize.MENU);
-        mbSessions.add(iList);
-        sessionMenu = new GMenu();
-        Popover pm = new Popover(mbSessions, sessionMenu);
-        pm.setModal(true);
-        mbSessions.setPopover(pm);
-        mbSessions.addOnButtonPress(delegate(Event e, Widget w) { buildSessionMenu(); return false; });
+        tbSideBar.add(iList);
+        tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
 
         //New tab button
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
@@ -178,7 +222,7 @@ private:
 
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
-            tb.packStart(mbSessions, false, false, 4);
+            tb.packStart(tbSideBar, false, false, 4);
             tb.packStart(btnNew, false, false, 4);
             tb.packEnd(mbSessionActions, false, false, 4);
             tb.packEnd(mbSessionNotifications, false, false, 4);
@@ -192,17 +236,17 @@ private:
             b.add(spacer);
             b.add(nb);
             add(b);
+            return spacer;            
         } else {
             //Header Bar
             hb = new HeaderBar();
             hb.setShowCloseButton(true);
             hb.setTitle(_(APPLICATION_NAME));
-            hb.packStart(mbSessions);
+            hb.packStart(tbSideBar);
             hb.packStart(btnNew);
             hb.packEnd(mbSessionActions);
             hb.packEnd(mbSessionNotifications);
-            this.setTitlebar(hb);
-            add(nb);
+            return hb;
         }
     }
 
@@ -230,6 +274,25 @@ private:
             } else {
                 unfullscreen();
             }
+        });
+
+        saViewSideBar = registerActionWithSettings(this, "win", ACTION_WIN_SIDEBAR, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            bool newState = !sa.getState().getBoolean();
+            trace("Sidebar action activated " ~ to!string(newState));
+            // Note that populate sessions does some weird shit with event
+            // handling, don't trigger UI activity until after it is done
+            // See comments in gx.gtk.cairo.getWidgetImage
+            if (newState) {
+                trace("Toggle sidebar on");
+                sb.populateSessions(getSessions(), getCurrentSession().sessionUUID);
+            }
+            sb.setRevealChild(newState);
+            sa.setState(new GVariant(newState));
+            tbSideBar.setActive(newState);
+            if (!newState) {
+                //Hiding session, restore focus
+                getCurrentSession().focusRestore();
+            }
         }, null, new GVariant(false));
     }
 
@@ -239,18 +302,10 @@ private:
     void createSessionActions(GSettings gsShortcuts) {
         sessionActions = new SimpleActionGroup();
 
-        //Select Session
-        GVariant pu = new GVariant(0);
-        saSessionSelect = registerAction(sessionActions, ACTION_PREFIX, ACTION_SESSION_LIST, null, delegate(GVariant value, SimpleAction sa) {
-            nb.setCurrentPage(value.getInt32());
-            saSessionSelect.setState(value);
-            mbSessions.setActive(false);
-        }, pu.getType(), pu);
-
         //Create Switch to Terminal (0..9) actions
         //Can't use :: action targets for this since action name needs to be preferences 
         for (int i = 0; i <= 9; i++) {
-            registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(Variant, SimpleAction sa) {
+            registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 Session session = getCurrentSession();
                 if (session !is null) {
                     ulong terminalID = to!ulong(sa.getName()[$ - 1 .. $]);
@@ -259,35 +314,35 @@ private:
             });
         }
         /* TODO - GTK doesn't support settings Tab for accelerators, need to look into this more */
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NEXT_TERMINAL, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NEXT_TERMINAL, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
             if (session !is null)
                 session.focusNext();
         });
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_PREV_TERMINAL, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_PREV_TERMINAL, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
             if (session !is null)
                 session.focusPrevious();
         });
 
         //Close Session
-        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) {
-            if (nb.getNPages > 1) {
+        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) { 
+            if (nb.getNPages>1) {
                 closeSession(getCurrentSession());
             }
         });
 
         //Load Session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_LOAD, gsShortcuts, delegate(Variant, SimpleAction) { loadSession(); });
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_LOAD, gsShortcuts, delegate(GVariant, SimpleAction) { loadSession(); });
 
         //Save Session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE, gsShortcuts, delegate(Variant, SimpleAction) { saveSession(false); });
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE, gsShortcuts, delegate(GVariant, SimpleAction) { saveSession(false); });
 
         //Save As Session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE_AS, gsShortcuts, delegate(Variant, SimpleAction) { saveSession(true); });
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE_AS, gsShortcuts, delegate(GVariant, SimpleAction) { saveSession(true); });
 
         //Change name of session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NAME, gsShortcuts, delegate(Variant, SimpleAction) {
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NAME, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
             string name = session.name;
             if (showInputDialog(this, name, name, _("Change Session Name"), _("Enter a new name for the session"))) {
@@ -377,6 +432,18 @@ private:
             trace("No more sessions, closing AppWindow");
             this.close();
         }
+    }
+    
+    Session[] getSessions() {
+        Session[] result = new Session[](nb.getNPages());
+        for (int i=0; i<nb.getNPages(); i++) {
+            result[i] = getSession(i);
+        }
+        return result;
+    }
+    
+    Session getSession(int i) {
+        return cast(Session) nb.getNthPage(i);
     }
 
     void closeSession(Session session) {
@@ -471,25 +538,10 @@ private:
         }
     }
 
-    /**
-     * Dynamically build session list menu items to show in list popover
-     */
-    void buildSessionMenu() {
-        sessionMenu.removeAll();
-        saSessionSelect.setState(new GVariant(nb.getCurrentPage()));
-        for (int i = 0; i < nb.getNPages; i++) {
-            Session session = cast(Session) nb.getNthPage(i);
-            GMenuItem menuItem = new GMenuItem(format("%d: %s", i, session.name), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST));
-            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LIST), new GVariant(i));
-            sessionMenu.appendItem(menuItem);
-        }
-    }
-
     bool onWindowClosed(Event event, Widget widget) {
         bool promptForClose = false;
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
-            if (session.isProcessRunning()) {
+            if (getSession(i).isProcessRunning()) {
                 promptForClose = true;
                 break;
             }
@@ -521,12 +573,12 @@ private:
         if (nb.getCurrentPage < 0)
             return null;
         else
-            return cast(Session) nb.getNthPage(nb.getCurrentPage);
+            return getSession(nb.getCurrentPage());
     }
 
     Session getSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
+            Session session = getSession(i);
             if (session.sessionUUID == sessionUUID) {
                 return session;
             }
@@ -668,7 +720,7 @@ public:
      */
     bool activateSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
-            Session session = cast(Session) nb.getNthPage(i);
+            Session session = getSession(i);
             if (session.sessionUUID == sessionUUID) {
                 nb.setCurrentPage(i);
                 return true;
@@ -845,9 +897,9 @@ private:
 
 public:
     this(string sessionUUID) {
+        super();
         this.sessionUUID = sessionUUID;
     }
-
 }
 
 class SessionRow : BaseRow {

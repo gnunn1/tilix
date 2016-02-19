@@ -20,10 +20,8 @@ import std.string;
 import std.uuid;
 
 import cairo.Context;
-import cairo.Surface;
 
 import gdk.Atom;
-import gdk.Cairo;
 import gdk.DragContext;
 import gdk.Event;
 import gdk.RGBA;
@@ -803,6 +801,7 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusIn(Event event, Widget widget) {
+        trace("Terminal gained focus " ~ terminalUUID);
         lblTitle.setSensitive(true);
         //Fire focus events so session can track which terminal last had focus
         foreach (dlg; terminalInFocusDelegates) {
@@ -815,6 +814,7 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
+        trace("Terminal lost focus" ~ terminalUUID);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         return false;
     }

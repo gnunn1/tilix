@@ -39,6 +39,17 @@ import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
 
+void setAllMargins(Widget widget, int margin) {
+    setMargins(widget, margin, margin, margin, margin);
+}
+
+void setMargins(Widget widget, int left, int top, int right, int bottom) {
+    widget.setMarginLeft(left);
+    widget.setMarginTop(top);
+    widget.setMarginRight(right);
+    widget.setMarginBottom(bottom);
+}
+
 void showErrorDialog(Window parent, string message, string title = null) {
     MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.ERROR, ButtonsType.OK, message, null);
     scope (exit) {

@@ -82,7 +82,7 @@ class SessionCreationException : Exception {
  * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
  * and which inspired this application.
  */
-class Session : Stack {
+class Session : Box {
 
 private:
 
@@ -100,6 +100,8 @@ private:
     bool _synchronizeInput;
 
     string _sessionUUID;
+    
+    Stack stack;
 
     Box group;
     MaximizedInfo maximizedInfo;
@@ -116,6 +118,8 @@ private:
     }
 
     void createUI(Terminal terminal) {
+        stack = new Stack();
+        add(stack);
         createGroup();
         group.add(terminal);
         lastFocused = terminal;
@@ -126,7 +130,7 @@ private:
         // Fix transparency bugs on ubuntu where background-color 
         // for widgets don't seem to take
         group.getStyleContext().addClass("terminix-notebook-page");
-        addNamed(group, "group");
+        stack.addNamed(group, "group");
     }
 
     void notifySessionClose() {
@@ -519,19 +523,19 @@ private:
             maximizedInfo.parent = cast(Box) terminal.getParent();
             maximizedInfo.isMaximized = true;
             maximizedInfo.parent.remove(terminal);
-            addNamed(terminal, "maximized");
+            stack.addNamed(terminal, "maximized");
             trace("Switching stack to terminal");
             terminal.show();
-            setVisibleChild(terminal);
+            stack.setVisibleChild(terminal);
             break;
         case TerminalState.NORMAL:
             trace("Restoring terminal");
-            remove(terminal);
+            stack.remove(terminal);
             maximizedInfo.parent.add(terminal);
             maximizedInfo.isMaximized = false;
             maximizedInfo.parent = null;
             maximizedInfo.terminal = null;
-            setVisibleChild(group);
+            stack.setVisibleChild(group);
             break;
         }
         terminal.focusTerminal();
@@ -723,7 +727,7 @@ private:
      * Creates a new session with the specified terminal
      */
     this(string sessionName, Terminal terminal) {
-        super();
+        super(Orientation.VERTICAL, 0);
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
         addTerminal(terminal);
@@ -742,7 +746,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(string name, string profileUUID, string workingDir, bool firstRun) {
-        super();
+        super(Orientation.VERTICAL, 0);
         _sessionUUID = randomUUID().toString();
         _name = name;
         createUI(profileUUID, workingDir, firstRun);
@@ -760,7 +764,7 @@ public:
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
-        super();
+        super(Orientation.VERTICAL, 0);
         createGroup();
         _sessionUUID = randomUUID().toString();
         try {
@@ -852,6 +856,14 @@ public:
             terminal.synchronizeInput = value;
         }
     }
+    
+    /**
+     * Used to support re-parenting to enable a thumbnail
+     * image to be drawn off screen
+     */ 
+    @property Widget drawable() {
+        return stack;
+    }
 
     /**
      * Whether any terminals in the session have a child process running
@@ -869,6 +881,7 @@ public:
      */
     void focusRestore() {
         if (lastFocused !is null) {
+            trace("Restoring focus to terminal");
             lastFocused.focusTerminal();
         }
     }
