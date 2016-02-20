@@ -418,7 +418,7 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
             string terminalTitle = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
-                _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank"))) {
+                _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank."))) {
                 overrideTitle = terminalTitle;
                 if (overrideTitle.length == 0)
                     overrideTitle = null;
