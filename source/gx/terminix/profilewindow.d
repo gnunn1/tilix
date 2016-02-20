@@ -636,7 +636,7 @@ private:
         add(bCommand);
 
         Box bWhenExits = new Box(Orientation.HORIZONTAL, 12);
-        Label lblWhenExists = new Label(_("When command exists"));
+        Label lblWhenExists = new Label(_("When command exits"));
         bWhenExits.add(lblWhenExists);
         ComboBox cbWhenExists = createNameValueCombo([_("Exit the terminal"), _("Restart the command"), _("Hold the terminal open")], SETTINGS_PROFILE_EXIT_ACTION_VALUES);
         gsProfile.bind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);
