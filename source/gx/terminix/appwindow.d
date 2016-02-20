@@ -207,19 +207,6 @@ private:
         mbSessionNotifications.setPopover(poSessionNotifications);
         mbSessionNotifications.addOnButtonPress(delegate(Event e, Widget w) { poSessionNotifications.populate(sessionNotifications.values); return false; });
 
-        //Notebook
-        nb = new Notebook();
-        nb.setShowTabs(false);
-        nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
-            Session session = cast(Session) page;
-            //Remove any sessions associated with current page
-            sessionNotifications.remove(session.sessionUUID);
-            updateTitle(session);
-            updateUIState();
-            session.focusRestore();
-            saSyncInput.setState(new GVariant(session.synchronizeInput));
-        }, ConnectFlags.AFTER);
-
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
             tb.packStart(tbSideBar, false, false, 4);
@@ -274,7 +261,7 @@ private:
             } else {
                 unfullscreen();
             }
-        });
+        }, null, new GVariant(false));
 
         saViewSideBar = registerActionWithSettings(this, "win", ACTION_WIN_SIDEBAR, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
