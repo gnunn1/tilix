@@ -136,28 +136,24 @@ private:
             matchCase = !sa.getState().getBoolean();
             sa.setState(new GVariant(matchCase));
             setTerminalSearchCriteria();
-            mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_CASE));
 
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY, null, delegate(GVariant value, SimpleAction sa) {
             entireWordOnly = !sa.getState().getBoolean();
             sa.setState(new GVariant(entireWordOnly));
             setTerminalSearchCriteria();
-            mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD));
 
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX, null, delegate(GVariant value, SimpleAction sa) {
             matchAsRegex = !sa.getState().getBoolean();
             sa.setState(new GVariant(matchAsRegex));
             setTerminalSearchCriteria();
-            mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX));
 
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND, null, delegate(GVariant value, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             vte.searchSetWrapAround(newState);
-            mbOptions.setActive(false);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
 
         insertActionGroup(ACTION_SEARCH_PREFIX, sagSearch);
