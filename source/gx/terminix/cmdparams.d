@@ -15,7 +15,7 @@ import glib.VariantType : GVariantType = VariantType;
 
 import gx.i18n.l10n;
 
-enum CMD_WORKING_DRIECTORY = "working-directory";
+enum CMD_WORKING_DIRECTORY = "working-directory";
 enum CMD_SESSION = "session";
 enum CMD_PROFILE = "profile";
 enum CMD_EXECUTE = "execute";
@@ -57,7 +57,7 @@ public:
         //Declare a string variant type
         GVariantType vts = new GVariantType("s");
         VariantDict vd = acl.getOptionsDict();
-        _workingDir = getValue(vd, CMD_WORKING_DRIECTORY, vts);
+        _workingDir = getValue(vd, CMD_WORKING_DIRECTORY, vts);
         if (_workingDir.length > 0) {
             _workingDir = expandTilde(_workingDir);
             if (!isDir(_workingDir)) {
