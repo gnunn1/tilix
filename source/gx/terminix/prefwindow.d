@@ -213,6 +213,7 @@ private:
         CellRendererAccel craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel cra) {
+            trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, SHORTCUT_DISABLED);
@@ -220,12 +221,15 @@ private:
             gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint hardwareKeycode, CellRendererAccel cra) {
+            trace("Updating shortcut");
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
             string label = AccelGroup.acceleratorName(accelKey, accelMods);
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), label);
+            string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+            trace(format("Setting action %s to shortcut %s", action, label));
+            gsShortcuts.setString(action, label);
         });
         column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 

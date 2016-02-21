@@ -103,7 +103,6 @@ private:
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
     void installAppMenu() {
-        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         Menu appMenu = new Menu();
 
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction sa) {
@@ -241,6 +240,7 @@ private:
         trace("Startup App Signal");
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        trace("Monitoring shortcuts");
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
             trace("Updating shortcut '" ~ keyToDetailedActionName(key) ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
             setAccelsForAction(keyToDetailedActionName(key), [gsShortcuts.getString(key)]);
