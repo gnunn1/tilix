@@ -35,7 +35,7 @@ string[] APPLICATION_CREDITS = [
 ];
 immutable string[] APPLICATION_ARTISTS = [];
 immutable string[] APPLICATION_DOCUMENTERS = [""];
-immutable string APPLICATION_TRANSLATORS = "MetotoSakamoto, frnogueira, dsboger";
+immutable string APPLICATION_TRANSLATORS = "MetotoSakamoto, frnogueira, dsboger, Philipp Wolfer";
 
 //GTK Settings
 enum GTK_APP_PREFER_DARK_THEME = "gtk-application-prefer-dark-theme";

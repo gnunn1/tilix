@@ -211,11 +211,6 @@ private:
             preferenceWindow.close();
     }
 
-    int onHandleLocalOptions(GVariantDict, GApplication) {
-        trace("App processing local command line");
-        return -1;
-    }
-
     int onCommandLine(ApplicationCommandLine acl, GApplication app) {
         trace("App processing command line");
         scope (exit) {
@@ -322,7 +317,6 @@ public:
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
         this.addOnCommandLine(&onCommandLine);
-        this.addOnHandleLocalOptions(&onHandleLocalOptions);
         terminix = this;
     }
 
