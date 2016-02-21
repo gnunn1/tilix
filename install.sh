@@ -50,6 +50,10 @@ echo "Copying Nautilus extension"
 mkdir -p ${PREFIX}/share/nautilus-python/extensions/
 cp data/nautilus/open-terminix.py ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
 
+# Copy D-Bus service descriptor
+mkdir -p ${PREFIX}/share/dbus-1/services
+cp data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services
+
 # Copy executable and desktop file
 mkdir -p ${PREFIX}/bin
 cp terminix ${PREFIX}/bin/terminix
