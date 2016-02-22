@@ -86,7 +86,7 @@ private:
 
     enum CSS_CLASS_NEEDS_ATTENTION = "needs-attention";
 
-    enum DEFAULT_SESSION_NAME = "Default";
+    enum DEFAULT_SESSION_NAME = N_("Default");
 
     enum ACTION_PREFIX = "session";
     enum ACTION_SESSION_CLOSE = "close";

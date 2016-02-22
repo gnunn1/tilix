@@ -23,9 +23,9 @@ version (Localize) {
     import std.experimental.logger;
     import std.file;
     import std.string;
-    
+
     string[string] messages;
-    
+
     void saveFile(string filename) {
         string output;
         foreach(key,value; messages) {
@@ -35,7 +35,7 @@ version (Localize) {
             if (key.indexOf("\n") >= 0) {
                 string lines;
                 foreach(s;key.splitLines()) {
-                    lines ~= "\"" ~ s ~ "\"\n"; 
+                    lines ~= "\"" ~ s ~ "\"\n";
                 }
                 output ~= ("msgid \"\"\n" ~ lines);
                 output ~= ("msgstr \"\"\n" ~ lines ~ "\n");
@@ -45,7 +45,7 @@ version (Localize) {
             }
         }
         write(filename, output);
-    } 
+    }
 }
 
 void textdomain(string domain) {
@@ -63,6 +63,15 @@ string _(string text) {
     }
 
     return Internationalization.dgettext(_textdomain, text);
+}
+
+/**
+ * Only marks a string for translation. This is useful in situations where the
+ * translated strings can't be directly used, e.g. in string array initializers.
+ * To get the translated string, call _() at runtime.
+ */
+string N_(string text) {
+    return text;
 }
 
 private:
