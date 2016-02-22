@@ -351,7 +351,7 @@ private:
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {
                 string name = lookupEncoding[encoding];
-                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ name, getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
+                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
                 menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new GVariant(encoding));
                 encodingMenu.appendItem(menuItem);
             }
