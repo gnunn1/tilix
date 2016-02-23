@@ -9,7 +9,8 @@ find ${BASEDIR}/source -name '*.d' | xgettext \
   --default-domain=$DOMAIN \
   --package-name=$DOMAIN \
   --directory=$BASEDIR \
-  --language=Vala
+  --language=Vala \
+  --from-code=utf-8
 
 xgettext \
   --join-existing \

@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 # This example is contributed by Martin Enlund
 # Example modified for Terminix
 import os
