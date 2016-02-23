@@ -45,6 +45,9 @@ echo "Copying and installing localization files"
 export -f processPOFile
 ls po/*.po | xargs -n 1 -P 10 -I {} bash -c 'processPOFile "$@"' _ {}
 
+# Generate desktop file
+msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
+
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
 mkdir -p ${PREFIX}/share/nautilus-python/extensions/
