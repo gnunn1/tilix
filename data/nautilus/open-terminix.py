@@ -38,14 +38,14 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             return
         
         item = Nautilus.MenuItem(name='NautilusPython::openterminal_file_item',
-                                 label=_('Open in Terminix'),
+                                 label=_('Open in Terminix…'),
                                  tip=_('Open Terminix In %s') % file.get_name())
         item.connect('activate', self.menu_activate_cb, file)
         return item,
 
     def get_background_items(self, window, file):
         item = Nautilus.MenuItem(name='NautilusPython::openterminal_item',
-                                 label=_('Open Terminix Here'),
+                                 label=_('Open Terminix Here…'),
                                  tip=_('Open Terminix In This Directory'))
         item.connect('activate', self.menu_background_activate_cb, file)
         return item,
