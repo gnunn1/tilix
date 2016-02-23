@@ -11,15 +11,17 @@ import gi
 
 gi.require_version('Nautilus', '3.0')
 
-from gi.repository import Nautilus, GObject
+from gi.repository import Nautilus, GObject, Gio
 
 class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         
     def _open_terminal(self, file):
-        filename = urllib.unquote(file.get_uri()[7:])
+        gfile = Gio.File.new_for_uri(file.get_uri())
+        filename = gfile.get_path();
         terminal = "terminix"
 
-        os.system('%s -w %s &' % (terminal, filename))
+        #print "Opening file:", filename 
+        os.system('%s -w "%s" &' % (terminal, filename))
         
     def menu_activate_cb(self, menu, file):
         self._open_terminal(file)
