@@ -183,6 +183,7 @@ private:
             setTranslatorCredits(APPLICATION_TRANSLATORS);
             setLicense(APPLICATION_LICENSE);
             addCreditSection(_("Credits"), APPLICATION_CREDITS);
+            setLogoIconName(APPLICATION_ICON_NAME);
 
             addOnResponse(delegate(int responseId, Dialog sender) {
                 if (responseId == ResponseType.CANCEL || responseId == ResponseType.DELETE_EVENT)
