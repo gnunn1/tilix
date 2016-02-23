@@ -83,3 +83,29 @@ public:
         gx.util.array.remove(processNotificationDelegates, dlg);
     }
 }
+
+// ***************************************************************************
+// This block deals with session notification messages. These are messages
+// that are raised after a process is completed.
+// ***************************************************************************
+
+/**
+ * Represents a single process notification
+ */
+immutable struct ProcessNotificationMessage {
+    string terminalUUID;
+    string summary;
+    string _body;
+}
+
+/**
+ * All notifications for a given session
+ */
+class SessionNotification {
+    string sessionUUID;
+    ProcessNotificationMessage[] messages;
+
+    this(string sessionUUID) {
+        this.sessionUUID = sessionUUID;
+    }
+}
