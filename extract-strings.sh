@@ -29,6 +29,19 @@ xgettext \
   --language=Desktop \
   ${BASEDIR}/data/pkg/desktop/com.gexperts.Terminix.desktop.in
 
+# Attempt to extract the keyboard shortcut action names from the GSettings schema
+sed -n '/<key name="\(app\|session\|terminal\|win\)-/p' \
+  ${BASEDIR}/data/gsettings/com.gexperts.Terminix.gschema.xml \
+  | sed 's/\s*<key name="\(app\|session\|terminal\|win\)-\([^"]*\).*/"\1"\;\n"\2";/' \
+  | xgettext \
+  --join-existing \
+  --extract-all \
+  --output $OUTPUT_FILE \
+  --default-domain=$DOMAIN \
+  --package-name=$DOMAIN \
+  --directory=$BASEDIR \
+  --language=C \
+  -
 # xgettext \
 #   --join-existing \
 #   --output ${DOMAIN}.pot \
