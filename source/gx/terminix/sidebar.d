@@ -11,6 +11,7 @@ import std.experimental.logger;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gtk.AspectFrame;
 import gtk.Box;
 import gtk.Frame;
 import gtk.Image;
@@ -108,6 +109,15 @@ public:
     }
 
     void populateSessions(Session[] sessions, string currentSessionUUID, SessionNotification[string] notifications) {
+        
+        AspectFrame wrapLabel(Label label, string cssClass) {
+            AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
+            af.setShadowType(ShadowType.NONE);
+            af.getStyleContext().addClass(cssClass);
+            af.add(label);
+            return af;
+        }
+        
         trace("Populating sidebar sessions");
         blockSelectedHandler = true;
         scope (exit) {
@@ -134,12 +144,16 @@ public:
                     }
                     tooltip ~= message._body;
                 }
-                lblNCount.setTooltipText(tooltip);
-                b.packStart(lblNCount, false, false, 4);
+                setAllMargins(lblNCount, 6);
+
+                AspectFrame af = wrapLabel(lblNCount, "terminix-notification-count");
+                af.setTooltipText(tooltip);
+                b.packStart(af, false, false, 4);
             }
 
             Label lblIndex = new Label(to!string(i));
-            b.packEnd(lblIndex, false, false, 4);
+            setAllMargins(lblIndex, 6);
+            b.packEnd(wrapLabel(lblIndex, "terminix-session-index"), false, false, 4);
             setAllMargins(b, 4);
             overlay.addOverlay(b);
             SideBarRow row = new SideBarRow(session.sessionUUID);
