@@ -3,11 +3,26 @@ DOMAIN=terminix
 BASEDIR=$(dirname $0)
 OUTPUT_FILE=${BASEDIR}/po/${DOMAIN}.pot
 
+echo "Extracting translatable strings... "
+
+# Attempt to extract the keyboard shortcut action names from the GSettings schema
+sed -n '/<key name="\(app\|session\|terminal\|win\)-/p' \
+  ${BASEDIR}/data/gsettings/com.gexperts.Terminix.gschema.xml \
+  | sed 's/\s*<key name="\(app\|session\|terminal\|win\)-\([^"]*\).*/"\1"\;\n"\2";/' \
+  | xgettext \
+  --extract-all \
+  --no-location \
+  --force-po \
+  --output $OUTPUT_FILE \
+  --language=C \
+  -
+
+# Extract the strings from D source code. Since xgettext does not support D
+# as a language we use Vala, which works reasonable well.
 find ${BASEDIR}/source -name '*.d' | xgettext \
+  --join-existing \
   --output $OUTPUT_FILE \
   --files-from=- \
-  --default-domain=$DOMAIN \
-  --package-name=$DOMAIN \
   --directory=$BASEDIR \
   --language=Vala \
   --from-code=utf-8
@@ -15,8 +30,6 @@ find ${BASEDIR}/source -name '*.d' | xgettext \
 xgettext \
   --join-existing \
   --output $OUTPUT_FILE \
-  --default-domain=$DOMAIN \
-  --package-name=$DOMAIN \
   --directory=$BASEDIR \
   ${BASEDIR}/data/nautilus/open-terminix.py
 
@@ -26,27 +39,14 @@ xgettext \
   --default-domain=$DOMAIN \
   --package-name=$DOMAIN \
   --directory=$BASEDIR \
+  --foreign-user \
   --language=Desktop \
   ${BASEDIR}/data/pkg/desktop/com.gexperts.Terminix.desktop.in
 
-# Attempt to extract the keyboard shortcut action names from the GSettings schema
-sed -n '/<key name="\(app\|session\|terminal\|win\)-/p' \
-  ${BASEDIR}/data/gsettings/com.gexperts.Terminix.gschema.xml \
-  | sed 's/\s*<key name="\(app\|session\|terminal\|win\)-\([^"]*\).*/"\1"\;\n"\2";/' \
-  | xgettext \
-  --join-existing \
-  --extract-all \
-  --output $OUTPUT_FILE \
-  --default-domain=$DOMAIN \
-  --package-name=$DOMAIN \
-  --directory=$BASEDIR \
-  --language=C \
-  -
-# xgettext \
-#   --join-existing \
-#   --output ${DOMAIN}.pot \
-#   --default-domain=$DOMAIN \
-#   --package-name=$DOMAIN \
-#   --directory=$BASEDIR \
-#   --language=GSettings \
-#   ${BASEDIR}/data/gsettings/com.gexperts.Terminix.gschema.xml
+# Merge the messages with existing po files
+echo "Merging with existing translations... "
+for file in ${BASEDIR}/po/*.po
+do
+  echo -n $file
+  msgmerge --update $file $OUTPUT_FILE
+done
