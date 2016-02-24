@@ -20,6 +20,15 @@ xgettext \
   --directory=$BASEDIR \
   ${BASEDIR}/data/nautilus/open-terminix.py
 
+xgettext \
+  --join-existing \
+  --output $OUTPUT_FILE \
+  --default-domain=$DOMAIN \
+  --package-name=$DOMAIN \
+  --directory=$BASEDIR \
+  --language=Desktop \
+  ${BASEDIR}/data/pkg/desktop/com.gexperts.Terminix.desktop.in
+
 # xgettext \
 #   --join-existing \
 #   --output ${DOMAIN}.pot \
