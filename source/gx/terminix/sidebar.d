@@ -13,6 +13,7 @@ import gdk.Keysyms;
 
 import gtk.AspectFrame;
 import gtk.Box;
+import gtk.EventBox;
 import gtk.Frame;
 import gtk.Image;
 import gtk.Label;
@@ -109,15 +110,15 @@ public:
     }
 
     void populateSessions(Session[] sessions, string currentSessionUUID, SessionNotification[string] notifications) {
-        
-        AspectFrame wrapLabel(Label label, string cssClass) {
+
+        AspectFrame wrapWidget(Widget widget, string cssClass) {
             AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
             af.setShadowType(ShadowType.NONE);
             af.getStyleContext().addClass(cssClass);
-            af.add(label);
+            af.add(widget);
             return af;
         }
-        
+
         trace("Populating sidebar sessions");
         blockSelectedHandler = true;
         scope (exit) {
@@ -136,7 +137,9 @@ public:
 
             if (session.sessionUUID in notifications) {
                 SessionNotification sn = notifications[session.sessionUUID];
-                Label lblNCount = new Label(to!string(sn.messages.length));
+                Label lblNCount = new Label(format("%d", sn.messages.length));
+                lblNCount.setUseMarkup(true);
+                lblNCount.setWidthChars(2);
                 string tooltip;
                 foreach (j, message; sn.messages) {
                     if (j > 0) {
@@ -144,16 +147,18 @@ public:
                     }
                     tooltip ~= message._body;
                 }
-                setAllMargins(lblNCount, 6);
-
-                AspectFrame af = wrapLabel(lblNCount, "terminix-notification-count");
-                af.setTooltipText(tooltip);
+                setAllMargins(lblNCount, 4);
+                EventBox ev = new EventBox();
+                ev.add(lblNCount);
+                AspectFrame af = wrapWidget(ev, "terminix-notification-count");
+                ev.setTooltipText(tooltip);
                 b.packStart(af, false, false, 4);
             }
 
-            Label lblIndex = new Label(to!string(i));
-            setAllMargins(lblIndex, 6);
-            b.packEnd(wrapLabel(lblIndex, "terminix-session-index"), false, false, 4);
+            Label lblIndex = new Label(format("%d", i));
+            setAllMargins(lblIndex, 4);
+            lblIndex.setWidthChars(2);
+            b.packEnd(wrapWidget(lblIndex, "terminix-session-index"), false, false, 4);
             setAllMargins(b, 4);
             overlay.addOverlay(b);
             SideBarRow row = new SideBarRow(session.sessionUUID);
