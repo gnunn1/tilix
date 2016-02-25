@@ -207,6 +207,7 @@ private:
     GPid gpid = 0;
     bool _terminalInitialized = false;
 
+    Box bTitle;
     Label lblTitle;
 
     string _profileUUID;
@@ -279,7 +280,7 @@ private:
             widget.setMarginBottom(2);
         }
 
-        Box bTitle = new Box(Orientation.HORIZONTAL, 0);
+        bTitle = new Box(Orientation.HORIZONTAL, 0);
         bTitle.setVexpand(false);
         bTitle.getStyleContext().addClass("notebook");
         bTitle.getStyleContext().addClass("header");
@@ -323,7 +324,7 @@ private:
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
         setVerticalMargins(btnMaximize);
         bTitle.packEnd(btnMaximize, false, false, 0);
-
+        
         return bTitle;
     }
 
@@ -919,6 +920,13 @@ private:
         case SETTINGS_AUTO_HIDE_MOUSE_KEY:
             vte.setMouseAutohide(gsSettings.getBoolean(SETTINGS_AUTO_HIDE_MOUSE_KEY));
             break;
+        case SETTINGS_ENABLE_SMALL_TITLE_KEY:
+            if (gsSettings.getBoolean(SETTINGS_ENABLE_SMALL_TITLE_KEY)) {
+                bTitle.getStyleContext().addClass("compact");
+            } else {
+                bTitle.getStyleContext().removeClass("compact");
+            }
+            break;       
         default:
             break;
         }
@@ -938,7 +946,8 @@ private:
             SETTINGS_PROFILE_BACKSPACE_BINDING_KEY,
             SETTINGS_PROFILE_DELETE_BINDING_KEY,
             SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY,//Only pass the one font key, will handle both cases
-            SETTINGS_PROFILE_FONT_KEY
+            SETTINGS_PROFILE_FONT_KEY,
+            SETTINGS_ENABLE_SMALL_TITLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY
         ];
 
         foreach (key; keys) {
@@ -1337,9 +1346,7 @@ public:
         }
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
-            if (key == SETTINGS_AUTO_HIDE_MOUSE_KEY) {
-                applyPreference(SETTINGS_AUTO_HIDE_MOUSE_KEY);
-            }
+            applyPreference(key);
         });
         gsProfile = prfMgr.getProfileSettings(_profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);

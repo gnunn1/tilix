@@ -32,6 +32,7 @@ enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
+enum SETTINGS_ENABLE_SMALL_TITLE_KEY = "enable-small-title";
 enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 enum SETTINGS_UNSAFE_PASTE_ALERT_KEY = "unsafe-paste-alert";
 enum SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY = "paste-strip-first-char";

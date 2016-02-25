@@ -515,6 +515,11 @@ private:
             add(cbTransparent);
         }
 
+        //Render terminal titlebars smaller then default
+        CheckButton cbSmallTitlebar = new CheckButton(_("Use small size for terminal titlebars"));
+        gsSettings.bind(SETTINGS_ENABLE_SMALL_TITLE_KEY, cbSmallTitlebar, "active", GSettingsBindFlags.DEFAULT);
+        add(cbSmallTitlebar);
+
         //Dark Theme
         Box b = new Box(Orientation.HORIZONTAL, 6);
         b.add(createLabel(_("Theme Variant")));

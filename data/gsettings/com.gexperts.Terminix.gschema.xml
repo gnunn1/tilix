@@ -78,7 +78,7 @@
       <description>If true, the mouse pointer is hidden when the user starts typing and shown again when interaction with the mouse occurs.</description>
     </key>
     <key name="prompt-on-new-session" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Whether to prompt for session settings or use defaults.</summary>
       <description>If true, when creating a new session a prompt will appear to pick the session name and profile used.</description>
     </key>
@@ -86,6 +86,11 @@
       <default>true</default>
       <summary>Whether to transparency is enabled.</summary>
       <description>If true, transparency is enabled in terminals is supported.</description>
+    </key>
+    <key name="enable-small-title" type="b">
+      <default>false</default>
+      <summary>Whether terminal titlebars are shown smaller.</summary>
+      <description>If true, terminal titlebars are rendered smaller then the default by removing padding.</description>
     </key>
     <!-- Dark Theme -->
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
