@@ -452,7 +452,7 @@ public:
     void warnVTEConfigIssue() {
         if (testVTEConfig()) {
             warnedVTEConfigIssue = true;
-            string msg = "There appears to be an issue with the configuration of the terminal.\n" ~ "This issue is not serious, but correcting it will improve your experience.\n" ~ "Click the link below for more information:";
+            string msg = _("There appears to be an issue with the configuration of the terminal.\nThis issue is not serious, but correcting it will improve your experience.\nClick the link below for more information:");
             string title = "<span weight='bold' size='larger'>" ~ _("Configuration Issue Detected") ~ "</span>";
             MessageDialog dlg = new MessageDialog(getActiveWindow(), DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
             scope (exit) {
@@ -463,7 +463,7 @@ public:
                 setMarkup(title);
                 getMessageArea().setMarginLeft(0);
                 getMessageArea().setMarginRight(0);
-                getMessageArea().add(new Label(_(msg)));
+                getMessageArea().add(new Label(msg));
                 getMessageArea().add(new LinkButton("https://github.com/gnunn1/terminix/wiki/VTE-Configuration-Issue"));
                 CheckButton cb = new CheckButton(_("Do not show this message again"));
                 getMessageArea().add(cb);

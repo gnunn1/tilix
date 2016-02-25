@@ -508,9 +508,9 @@ private:
         model.appendItem(splits);
 
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Save") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
-        menuSection.append(_("Find") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
-        menuSection.append(_("Title") ~ "...", getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
+        menuSection.append(_("Save…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
+        menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        menuSection.append(_("Title…"), getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
@@ -1563,9 +1563,9 @@ public:
 package class TerminalInfoBar : InfoBar {
 
 private:
-    enum STATUS_NORMAL = "The child process exited normally with status %d";
-    enum STATUS_ABORT_STATUS = "The child process was aborted by signal %d.";
-    enum STATUS_ABORT = "The child process was aborted.";
+    enum STATUS_NORMAL = N_("The child process exited normally with status %d");
+    enum STATUS_ABORT_STATUS = N_("The child process was aborted by signal %d.");
+    enum STATUS_ABORT = N_("The child process was aborted.");
 
     Label lblPrompt;
 
@@ -1574,7 +1574,7 @@ public:
         super([_("Relaunch")], [ResponseType.OK]);
         setDefaultResponse(ResponseType.OK);
         setMessageType(MessageType.QUESTION);
-        lblPrompt = new Label(_(""));
+        lblPrompt = new Label("");
         lblPrompt.setHalign(Align.START);
         getContentArea().packStart(lblPrompt, true, true, 0);
         setHalign(Align.FILL);
@@ -1583,11 +1583,11 @@ public:
 
     void setStatus(int value) {
         if (WEXITSTATUS(value)) {
-            lblPrompt.setText(format(STATUS_NORMAL, WEXITSTATUS(value)));
+            lblPrompt.setText(format(_(STATUS_NORMAL), WEXITSTATUS(value)));
         } else if (WIFSIGNALED(value)) {
-            lblPrompt.setText(format(STATUS_ABORT_STATUS, WTERMSIG(value)));
+            lblPrompt.setText(format(_(STATUS_ABORT_STATUS), WTERMSIG(value)));
         } else {
-            lblPrompt.setText(STATUS_ABORT);
+            lblPrompt.setText(_(STATUS_ABORT));
         }
     }
 }
