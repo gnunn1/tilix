@@ -226,6 +226,15 @@ private:
         terminal.removeOnProcessNotification(&onTerminalProcessNotification);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.removeOnTerminalRequestStateChange(&onTerminalRequestStateChange);
+        //If a terminal is maximized restore it before removing
+        // so all the parenting can be detected
+        Terminal maximizedTerminal;
+        if (maximizedInfo.isMaximized) {
+            if (maximizedInfo.terminal != terminal) {
+                maximizedTerminal = maximizedInfo.terminal;
+            }
+            restoreTerminal(terminal);
+        }
         //unparent the terminal
         unparentTerminal(terminal);
         //Remove terminal
@@ -244,6 +253,9 @@ private:
             id = to!int(terminals.length) - 1;
         if (id >= 0 && id < terminals.length) {
             focusTerminal(id);
+        }
+        if (maximizedTerminal !is null) {
+            maximizeTerminal(terminal);
         }
         showAll();
     }
@@ -324,7 +336,7 @@ private:
         }
 
         Paned paned;
-        if (maximizedInfo.isMaximized) {
+        if (maximizedInfo.isMaximized && terminal.terminalUUID == maximizedInfo.terminal.terminalUUID) {
             paned = cast(Paned) maximizedInfo.parent.getParent();
         } else {
             paned = cast(Paned) terminal.getParent().getParent();
@@ -505,50 +517,58 @@ private:
             }
         }
     }
+    
+    bool maximizeTerminal(Terminal terminal) {
+        if (terminals.length == 1) {
+            trace("Only one terminal in session, ignoring maximize request");
+            return false;
+        }
+        //Already have a maximized terminal
+        if (maximizedInfo.isMaximized) {
+            error("A Terminal is already maximized, ignoring");
+            return false;
+        }
+        trace("Maximizing terminal");
+        maximizedInfo.terminal = terminal;
+        maximizedInfo.parent = cast(Box) terminal.getParent();
+        maximizedInfo.isMaximized = true;
+        maximizedInfo.parent.remove(terminal);
+        stackMaximized.add(terminal);
+        trace("Switching stack to maximized page");
+        terminal.show();
+        setVisibleChild(stackMaximized);
+        return true;
+    }
+    
+    bool restoreTerminal(Terminal terminal) {
+        if (!maximizedInfo.isMaximized) {
+            error("Terminal is not maximized, ignoring");
+            return false;
+        }
+        if (maximizedInfo.terminal != terminal) {
+            error("A different Terminal is maximized, ignoring");
+            return false;
+        }
+        trace("Restoring terminal");
+        stackMaximized.remove(maximizedInfo.terminal);
+        maximizedInfo.parent.add(maximizedInfo.terminal);
+        maximizedInfo.isMaximized = false;
+        maximizedInfo.parent = null;
+        maximizedInfo.terminal = null;
+        setVisibleChild(stackGroup);
+        return true;
+    }
 
     /**
      * Manages changing a terminal from maximized to normal
      */
     bool onTerminalRequestStateChange(Terminal terminal, TerminalState state) {
         trace("Changing window state");
-        //Already have a maximized terminal
-        if (terminals.length == 1) {
-            trace("Only one terminal in session, ignoring maximize request");
-            return false;
-        }
-        if (state == TerminalState.MAXIMIZED && maximizedInfo.isMaximized) {
-            error("A Terminal is already maximized, ignoring");
-            return false;
-        }
-        if (state == TerminalState.NORMAL && !maximizedInfo.isMaximized) {
-            error("Terminal is not maximized, ignoring");
-            return false;
-        }
-        if (state == TerminalState.NORMAL && maximizedInfo.terminal != terminal) {
-            error("A different Terminal is maximized, ignoring");
-            return false;
-        }
-        final switch (state) {
-        case TerminalState.MAXIMIZED:
-            trace("Maximizing terminal");
-            maximizedInfo.terminal = terminal;
-            maximizedInfo.parent = cast(Box) terminal.getParent();
-            maximizedInfo.isMaximized = true;
-            maximizedInfo.parent.remove(terminal);
-            stackMaximized.add(terminal);
-            trace("Switching stack to maximized page");
-            terminal.show();
-            setVisibleChild(stackMaximized);
-            break;
-        case TerminalState.NORMAL:
-            trace("Restoring terminal");
-            stackMaximized.remove(terminal);
-            maximizedInfo.parent.add(terminal);
-            maximizedInfo.isMaximized = false;
-            maximizedInfo.parent = null;
-            maximizedInfo.terminal = null;
-            setVisibleChild(stackGroup);
-            break;
+        bool result;
+        if (state == TerminalState.MAXIMIZED) {
+            result = maximizeTerminal(terminal);
+        } else {
+            result = restoreTerminal(terminal); 
         }
         terminal.focusTerminal();
         return true;
