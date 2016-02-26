@@ -240,6 +240,10 @@ private:
     GSettings gsShortcuts;
     GSettings gsDesktop;
     GSettings gsSettings;
+    
+    // Track Regex Tag we get back from VTE in order
+    // to track which regex generated the match
+    TerminalRegex[int] regexTag; 
 
     /**
      * Create the user interface of the TerminalPane
@@ -537,8 +541,9 @@ private:
         vte.setHexpand(true);
         vte.setVexpand(true);
         //URL Regex Experessions
-        foreach (regex; compiledRegex) {
+        foreach (i,regex; compiledRegex) {
             int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
+            regexTag[id] = URL_REGEX_PATTERNS[i];
             vte.matchSetCursorType(id, CursorType.HAND2);
         }
 
@@ -761,7 +766,12 @@ private:
                 int tag;
                 string match = vte.matchCheck(col, row, tag);
                 if (match) {
-                    MountOperation.showUri(null, match, Main.getCurrentEventTime());
+                    TerminalURLFlavor flavor = TerminalURLFlavor.AS_IS;
+                    if (tag in regexTag) {
+                        TerminalRegex regex = regexTag[tag];
+                        flavor = regex.flavor;
+                    }
+                    openURI(match, cast(TerminalURLFlavor) tag);
                     return true;
                 } else {
                     return false;
@@ -786,6 +796,22 @@ private:
             }
         }
         return false;
+    }
+    
+    void openURI(string uri, TerminalURLFlavor flavor) {
+        switch (flavor) {
+            case TerminalURLFlavor.DEFAULT_TO_HTTP:
+                uri = "http://" ~ uri;
+                break;
+            case TerminalURLFlavor.EMAIL:
+                if (!uri.startsWith("mailto:")) {
+                    uri = "mailto:" ~ uri;
+                }
+                break;            
+            default:
+                break;
+        }
+        MountOperation.showUri(null, uri, Main.getCurrentEventTime());
     }
 
     /**
@@ -1669,11 +1695,11 @@ enum USERPASS = USERCHARS_CLASS ~ "+(?:" ~ PASSCHARS_CLASS ~ "+)?";
 enum URLPATH = "(?:(/" ~ PATHCHARS_CLASS ~ "+(?:[(]" ~ PATHCHARS_CLASS ~ "*[)])*" ~ PATHCHARS_CLASS ~ "*)*" ~ PATHTERM_CLASS ~ ")?";
 
 enum TerminalURLFlavor {
-    FLAVOR_AS_IS,
-    FLAVOR_DEFAULT_TO_HTTP,
-    FLAVOR_VOIP_CALL,
-    FLAVOR_EMAIL,
-    FLAVOR_NUMBER,
+    AS_IS,
+    DEFAULT_TO_HTTP,
+    VOIP_CALL,
+    EMAIL,
+    NUMBER,
 };
 
 struct TerminalRegex {
@@ -1683,12 +1709,12 @@ struct TerminalRegex {
 }
 
 immutable TerminalRegex[] URL_REGEX_PATTERNS = [
-    TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.FLAVOR_AS_IS, true),
+    TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.AS_IS, true),
     TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH,
-        TerminalURLFlavor.FLAVOR_DEFAULT_TO_HTTP, true),
+        TerminalURLFlavor.DEFAULT_TO_HTTP, true),
     TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST,
-        TerminalURLFlavor.FLAVOR_VOIP_CALL, true), TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST,
-        TerminalURLFlavor.FLAVOR_EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.FLAVOR_AS_IS, true)
+        TerminalURLFlavor.VOIP_CALL, true), TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST,
+        TerminalURLFlavor.EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
 ];
 
 immutable Regex[URL_REGEX_PATTERNS.length] compiledRegex;
