@@ -30,6 +30,7 @@ import gtk.Menu;
 import gtk.MenuItem;
 import gtk.Paned;
 import gtk.Stack;
+import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
@@ -169,7 +170,9 @@ private:
      */
     Paned createPaned(Orientation orientation) {
         Paned result = new Paned(orientation);
-        result.setWideHandle(false);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            result.setWideHandle(false);
+        }
         return result;
     }
 
@@ -382,7 +385,7 @@ private:
         Box b1 = new Box(Orientation.VERTICAL, 0);
         Box b2 = new Box(Orientation.VERTICAL, 0);
 
-        Paned paned = new Paned(orientation);
+        Paned paned = createPaned(orientation);
         paned.pack1(b1, true, true);
         paned.pack2(b2, true, true);
 
