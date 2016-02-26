@@ -254,7 +254,7 @@ private:
             // See comments in gx.gtk.cairo.getWidgetImage
             if (newState) {
                 trace("Toggle sidebar on");
-                sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications);
+                sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
             }
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));
@@ -677,7 +677,9 @@ public:
 
     void initialize() {
         if (terminix.getGlobalOverrides().session.length > 0) {
-            loadSession(terminix.getGlobalOverrides().session);
+            foreach(sessionFilename; terminix.getGlobalOverrides().session) {
+                loadSession(sessionFilename);
+            }
             return;
         }
         //Create an initial session using default session name and profile

@@ -30,7 +30,7 @@ struct CommandParameters {
 private:
     string _workingDir;
     string _profileName;
-    string _session;
+    string[] _session;
     string _action;
     string _execute;
     string _cmdLine;
@@ -38,6 +38,15 @@ private:
 
     bool _exit = false;
     int _exitCode = 0;
+
+    string[] getValues(VariantDict vd, string key) {
+        GVariant value = vd.lookupValue(key, new GVariantType("as"));
+        if (value is null)
+            return [];
+        else {
+            return value.getStrv();
+        }
+    }
 
     string getValue(VariantDict vd, string key, GVariantType vt) {
         GVariant value = vd.lookupValue(key, vt);
@@ -65,12 +74,14 @@ public:
                 _workingDir.length = 0;
             }
         }
-        _session = getValue(vd, CMD_SESSION, vts);
+        _session = getValues(vd, CMD_SESSION);
         if (_session.length > 0) {
-            _session = expandTilde(_session);
-            if (!isFile(session)) {
-                writeln(format(_("Ignoring parameter session as '%s' does not exist"), _session));
-                _session.length = 0;
+            for (ulong i = _session.length - 1; i--; i >= 0) {
+                _session[i] = expandTilde(_session[i]);
+                if (!isFile(_session[i])) {
+                    writeln(format(_("Ignoring parameter session as '%s' does not exist"), _session));
+                    std.algorithm.remove(_session, i);
+                }
             }
         }
         _profileName = getValue(vd, CMD_PROFILE, vts);
@@ -118,7 +129,7 @@ public:
         return _profileName;
     }
 
-    @property string session() {
+    @property string[] session() {
         return _session;
     }
 

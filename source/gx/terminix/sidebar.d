@@ -109,7 +109,7 @@ public:
         add(sw);
     }
 
-    void populateSessions(Session[] sessions, string currentSessionUUID, SessionNotification[string] notifications) {
+    void populateSessions(Session[] sessions, string currentSessionUUID, SessionNotification[string] notifications, int width, int height) {
 
         AspectFrame wrapWidget(Widget widget, string cssClass) {
             AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
@@ -128,7 +128,7 @@ public:
         foreach (i, session; sessions) {
             Overlay overlay = new Overlay();
             setAllMargins(overlay, 2);
-            Frame imgframe = new Frame(new Image(getWidgetImage(session.drawable, 0.20)), null);
+            Frame imgframe = new Frame(new Image(getWidgetImage(session.drawable, 0.20, width, height)), null);
             imgframe.setShadowType(ShadowType.IN);
             overlay.add(imgframe);
             Box b = new Box(Orientation.HORIZONTAL, 4);

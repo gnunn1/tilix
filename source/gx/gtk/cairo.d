@@ -25,18 +25,24 @@ import gtk.Container;
 import gtk.OffscreenWindow;
 import gtk.Widget;
 
+
 Pixbuf getWidgetImage(Widget widget, double factor) {
+    return getWidgetImage(widget, factor, widget.getAllocatedWidth(), widget.getAllocatedHeight());
+}
+
+// Added support for specifying width and height explicitly in cases
+// where container has been realized but widget has not been, for example
+// pages added to Notebook but never shown
+Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
         trace(format("Total time getting thumbnail: %d msecs", sw.peek().msecs));
     }
     if (widget.isDrawable()) {
-        return getDrawableWidgetImage(widget, factor);
+        return getDrawableWidgetImage(widget, factor, width, height);
     } else {
         trace("Widget is not drawable, using OffscreenWindow for thumbnail");
-        int w = widget.getAllocatedWidth();
-        int h = widget.getAllocatedHeight();
         RenderWindow window = new RenderWindow();
         Container parent = cast(Container) widget.getParent();
         if (parent is null) {
@@ -46,7 +52,7 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
         parent.remove(widget);
         window.add(widget);
         try {
-            window.setDefaultSize(w, h);
+            window.setDefaultSize(width, height);
             /*
             Need to process events here until Window is drawn
             Not overly pleased with this solution, use timer
@@ -63,7 +69,7 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
             }
             // While we could call getPixBuf() on Offscreen Window, drawing 
             // it ourselves gives better results when dealing with transparency
-            Pixbuf pb = getDrawableWidgetImage(widget, factor);
+            Pixbuf pb = getDrawableWidgetImage(widget, factor, width, height);
             if (pb is null) {
                 error("Pixbuf from renderwindow is null");
                 return pb;
@@ -78,9 +84,9 @@ Pixbuf getWidgetImage(Widget widget, double factor) {
 }
 
 private:
-Pixbuf getDrawableWidgetImage(Widget widget, double factor) {
-    int w = widget.getAllocatedWidth();
-    int h = widget.getAllocatedHeight();
+Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int height) {
+    int w = width;
+    int h = height;
     trace(format("Original: %d, %d", w, h));
     int pw = to!int(w * factor);
     int ph = to!int(h * factor);
