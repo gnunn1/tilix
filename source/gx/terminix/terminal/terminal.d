@@ -909,11 +909,11 @@ private:
                     vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
                     vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
                 } else {
-                if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
-                    trace("Parsing foreground color failed");
-                if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
-                    trace("Parsing background color failed");
-            }
+                    if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
+                        trace("Parsing foreground color failed");
+                    if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                        trace("Parsing background color failed");
+                }
             bg.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
             foreach (i, color; colors) {
