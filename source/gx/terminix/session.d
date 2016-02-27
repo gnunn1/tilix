@@ -597,6 +597,8 @@ private:
     enum NODE_WIDTH = "width";
     enum NODE_HEIGHT = "height";
     enum NODE_MAXIMIZED = "maximized";
+    enum NODE_OVERRIDE_CMD = "overrideCommand";
+    enum NODE_TITLE = "title";
 
     /** 
      * Widget Types which are serialized
@@ -680,6 +682,12 @@ private:
         value[NODE_DIRECTORY] = terminal.currentDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
+        if (terminal.overrideTitle.length > 0) {
+            value[NODE_TITLE] = JSONValue(terminal.overrideTitle);
+        }
+        if (terminal.overrideCommand.length > 0) {
+            value[NODE_OVERRIDE_CMD] = JSONValue(terminal.overrideCommand);
+        }
         if (maximizedInfo.isMaximized && equal(terminal, maximizedInfo.terminal)) {
             value[NODE_MAXIMIZED] = JSONValue(true);
         }
@@ -705,6 +713,12 @@ private:
         //TODO Check that the profile exists and use default if it doesn't
         string profileUUID = value[NODE_PROFILE].str();
         Terminal terminal = createTerminal(profileUUID);
+        if (NODE_TITLE in value) {
+            terminal.overrideTitle = value[NODE_TITLE].str(); 
+        }
+        if (NODE_OVERRIDE_CMD in value) {
+            terminal.overrideCommand = value[NODE_OVERRIDE_CMD].str(); 
+        }
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
             maximizedTerminalUUID = terminal.terminalUUID;

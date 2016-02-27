@@ -87,8 +87,8 @@ public:
         _profileName = getValue(vd, CMD_PROFILE, vts);
         _execute = getValue(vd, CMD_EXECUTE, vts);
         _action = getValue(vd, CMD_ACTION, vts);
-        if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0)) {
-            writeln(_("You cannot load a session and set a profile/working directory, please choose one or the other"));
+        if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _execute.length > 0)) {
+            writeln(_("You cannot load a session and set a profile/working directory/execute command option, please choose one or the other"));
             _exitCode = 1;
             _exit = true;
         }

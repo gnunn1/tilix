@@ -93,6 +93,7 @@ import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
+import gx.terminix.terminal.layout;
 import gx.terminix.terminal.search;
 import gx.terminix.terminal.vtenotification;
 
@@ -107,6 +108,9 @@ enum DragQuadrant {
     BOTTOM
 }
 
+/**
+ * The window state of the terminal
+ */
 enum TerminalState {
     NORMAL,
     MAXIMIZED
@@ -211,10 +215,18 @@ private:
     Label lblTitle;
 
     string _profileUUID;
+    //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
     ulong _terminalID;
-    string _terminalUUID;
-    string overrideTitle;
+    //Unique identifier for this terminal, never shown to user, never changes
+    immutable string _terminalUUID;
+    //overrides profile title
+    string _overrideTitle;
+    //overrides command when load from session JSON
+    string _overrideCommand;
+    //Whether synchronized input is turned on in the session
     bool _synchronizeInput;
+    //Whether to ignore unsafe paste, basically when 
+    //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
 
     string initialWorkingDir;
@@ -227,7 +239,7 @@ private:
     SimpleAction saEncodingSelect;
     GMenu encodingMenu;
 
-    SimpleAction saCopy; 
+    SimpleAction saCopy;
     SimpleAction saPaste;
     static if (POPOVER_CONTEXT_MENU) {
         Popover pmContext;
@@ -240,10 +252,10 @@ private:
     GSettings gsShortcuts;
     GSettings gsDesktop;
     GSettings gsSettings;
-    
+
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
-    TerminalRegex[int] regexTag; 
+    TerminalRegex[int] regexTag;
 
     /**
      * Create the user interface of the TerminalPane
@@ -328,7 +340,7 @@ private:
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
         setVerticalMargins(btnMaximize);
         bTitle.packEnd(btnMaximize, false, false, 0);
-        
+
         return bTitle;
     }
 
@@ -420,15 +432,26 @@ private:
         });
 
         //Override terminal title
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            string terminalTitle = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_LAYOUT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            string terminalTitle = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
+            LayoutDialog dialog = new LayoutDialog(cast(Window) getToplevel());
+            scope(exit) {dialog.destroy();}
+            dialog.title = terminalTitle;
+            dialog.command = _overrideCommand;
+            dialog.showAll();
+            if (dialog.run() == ResponseType.OK) {
+                _overrideTitle = dialog.title;
+                _overrideCommand = dialog.command;
+            }
+            /*            
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
                 _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank."))) {
-                overrideTitle = terminalTitle;
-                if (overrideTitle.length == 0)
-                    overrideTitle = null;
+                _overrideTitle = terminalTitle;
+                if (_overrideTitle.length == 0)
+                    _overrideTitle.length = 0;
                 updateTitle();
             }
+            */
         });
 
         //Maximize Terminal
@@ -515,7 +538,7 @@ private:
         GMenu menuSection = new GMenu();
         menuSection.append(_("Save…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
         menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
-        menuSection.append(_("Title…"), getActionDetailedName(ACTION_PREFIX, ACTION_TITLE));
+        menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
@@ -541,7 +564,7 @@ private:
         vte.setHexpand(true);
         vte.setVexpand(true);
         //URL Regex Experessions
-        foreach (i,regex; compiledRegex) {
+        foreach (i, regex; compiledRegex) {
             int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
             regexTag[id] = URL_REGEX_PATTERNS[i];
             vte.matchSetCursorType(id, CursorType.HAND2);
@@ -595,7 +618,7 @@ private:
         static if (POPOVER_CONTEXT_MENU) {
             GMenu mmContext = new GMenu();
             mmContext.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            mmContext.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));         
+            mmContext.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             mmContext.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             pmContext = new Popover(vte, mmContext);
             pmContext.setModal(true);
@@ -640,7 +663,7 @@ private:
      * Updates the terminal title in response to UI changes
      */
     void updateTitle() {
-        string title = overrideTitle is null ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : overrideTitle;
+        string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
         string windowTitle = vte.getWindowTitle();
         if (windowTitle.length == 0)
             windowTitle = _("Terminal");
@@ -784,7 +807,7 @@ private:
                     GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
                     pmContext.setPointingTo(&rect);
                     pmContext.showAll();
-                } else {                
+                } else {
                     miCopy.setSensitive(vte.getHasSelection());
                     miPaste.setSensitive(Clipboard.get(null).waitIsTextAvailable());
                     mContext.showAll();
@@ -797,19 +820,19 @@ private:
         }
         return false;
     }
-    
+
     void openURI(string uri, TerminalURLFlavor flavor) {
         switch (flavor) {
-            case TerminalURLFlavor.DEFAULT_TO_HTTP:
-                uri = "http://" ~ uri;
-                break;
-            case TerminalURLFlavor.EMAIL:
-                if (!uri.startsWith("mailto:")) {
-                    uri = "mailto:" ~ uri;
-                }
-                break;            
-            default:
-                break;
+        case TerminalURLFlavor.DEFAULT_TO_HTTP:
+            uri = "http://" ~ uri;
+            break;
+        case TerminalURLFlavor.EMAIL:
+            if (!uri.startsWith("mailto:")) {
+                uri = "mailto:" ~ uri;
+            }
+            break;
+        default:
+            break;
         }
         MountOperation.showUri(null, uri, Main.getCurrentEventTime());
     }
@@ -880,8 +903,8 @@ private:
         case SETTINGS_PROFILE_CURSOR_SHAPE_KEY:
             vte.setCursorShape(getCursorShape(gsProfile.getString(SETTINGS_PROFILE_CURSOR_SHAPE_KEY)));
             break;
-        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, 
-        SETTINGS_PROFILE_USE_THEME_COLORS_KEY, SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
+        case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_USE_THEME_COLORS_KEY,
+        SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
                     vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
                     vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
@@ -952,7 +975,7 @@ private:
             } else {
                 bTitle.getStyleContext().removeClass("compact");
             }
-            break;       
+            break;
         default:
             break;
         }
@@ -965,13 +988,13 @@ private:
         string[] keys = [
             SETTINGS_PROFILE_AUDIBLE_BELL_KEY, SETTINGS_PROFILE_ALLOW_BOLD_KEY,
             SETTINGS_PROFILE_REWRAP_KEY,
-            SETTINGS_PROFILE_CURSOR_SHAPE_KEY,// Only pass one color key, all colors will be applied
+            SETTINGS_PROFILE_CURSOR_SHAPE_KEY, // Only pass one color key, all colors will be applied
             SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY,
             SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY,
             SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY,
             SETTINGS_PROFILE_BACKSPACE_BINDING_KEY,
             SETTINGS_PROFILE_DELETE_BINDING_KEY,
-            SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY,//Only pass the one font key, will handle both cases
+            SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, //Only pass the one font key, will handle both cases
             SETTINGS_PROFILE_FONT_KEY,
             SETTINGS_ENABLE_SMALL_TITLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY
         ];
@@ -1007,8 +1030,11 @@ private:
     /**
      * Spawns the child process in the Terminal depending on the Profile
      * command options.
+     *
+     * Note that command must be passed in rather then using overrideCommand
+     * directly in case we re-spawn it later.
      */
-    void spawnTerminalProcess(string workingDir) {
+    void spawnTerminalProcess(string workingDir, string command = null) {
         CommandParameters overrides = terminix.getGlobalOverrides();
         if (overrides.workingDir.length > 0) {
             workingDir = overrides.workingDir;
@@ -1018,9 +1044,13 @@ private:
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
         string[] args;
-        if (overrides.execute.length > 0) {
+        // Passed command takes precedence over global override which comes from -x flag
+        if (command.length == 0 && overrides.execute.length > 0) {
+            command = overrides.execute;
+        }
+        if (command.length > 0) {
             trace("Overriding the command from command prompt: " ~ overrides.execute);
-            ShellUtils.shellParseArgv(overrides.execute, args);
+            ShellUtils.shellParseArgv(command, args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
         } else if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
             ShellUtils.shellParseArgv(gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY), args);
@@ -1371,9 +1401,7 @@ public:
             }
         }
         gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
-            applyPreference(key);
-        });
+        gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_profileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
@@ -1400,7 +1428,7 @@ public:
     void initTerminal(string initialPath, bool firstRun) {
         trace("Initializing Terminal");
         initialWorkingDir = initialPath;
-        spawnTerminalProcess(initialPath);
+        spawnTerminalProcess(initialPath, overrideCommand);
         if (firstRun) {
             trace("Set VTE Size for rows " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY)));
             trace("Set VTE Size for columns " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY)));
@@ -1522,6 +1550,22 @@ public:
         if (value != _terminalInitialized) {
             _terminalInitialized = value;
         }
+    }
+    
+    @property string overrideCommand() {
+        return _overrideCommand;        
+    }
+    
+    @property void overrideCommand(string value) {
+        _overrideCommand = value;
+    }
+
+    @property string overrideTitle() {
+        return _overrideTitle;
+    }
+
+    @property void overrideTitle(string value) {
+        _overrideTitle = value;
     }
 
     /**
@@ -1711,8 +1755,7 @@ struct TerminalRegex {
 immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.AS_IS, true),
     TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH,
-        TerminalURLFlavor.DEFAULT_TO_HTTP, true),
-    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST,
+        TerminalURLFlavor.DEFAULT_TO_HTTP, true), TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST,
         TerminalURLFlavor.VOIP_CALL, true), TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST,
         TerminalURLFlavor.EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
 ];
