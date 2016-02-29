@@ -1,14 +1,14 @@
 #!/usr/bin/env sh
 
 if [ -z  "$1" ]; then
-   export PREFIX=/usr
+    export PREFIX=/usr
     # Make sure only root can run our script
     if [ "$(id -u)" != "0" ]; then
-       echo "This script must be run as root" 1>&2
-       exit 1
-fi
+        echo "This script must be run as root" 1>&2
+        exit 1
+    fi
 else
-   export PREFIX=$1
+    export PREFIX=$1
 fi
 
 echo "Installing to prefix ${PREFIX}"
