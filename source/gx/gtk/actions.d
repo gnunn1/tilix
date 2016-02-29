@@ -15,9 +15,11 @@ import gio.Settings : GSettings = Settings;
 import gtk.Application;
 import gtk.ApplicationWindow;
 
+import gx.i18n.l10n;
+
 private Application app = null;
 
-enum SHORTCUT_DISABLED = "disabled";
+enum SHORTCUT_DISABLED = N_("disabled");
 
 /**
  * Given an action prefix and id returns the detailed name

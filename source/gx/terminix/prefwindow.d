@@ -216,9 +216,9 @@ private:
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, SHORTCUT_DISABLED);
+            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
+            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), _(SHORTCUT_DISABLED));
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint hardwareKeycode, CellRendererAccel cra) {
             trace("Updating shortcut");
