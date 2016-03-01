@@ -9,6 +9,7 @@ import core.memory;
 import std.conv;
 import std.experimental.logger;
 import std.file;
+import std.math;
 import std.format;
 import std.json;
 
@@ -487,7 +488,7 @@ private:
             double y = h * 0.70;
             double radius = w * 0.20;
             cr.setSourceRgba(bg.red, bg.blue, bg.green, bg.alpha);
-            cr.arc(x, y, radius, 0.0, 2.0 * std.math.PI);
+            cr.arc(x, y, radius, 0.0, 2.0 * PI);
             cr.fillPreserve();
             cr.stroke();
             cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
