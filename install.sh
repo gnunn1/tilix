@@ -1,22 +1,17 @@
+#!/usr/bin/env sh
+
 if [ -z  "$1" ]; then
-   export PREFIX=/usr
+    export PREFIX=/usr
     # Make sure only root can run our script
     if [ "$(id -u)" != "0" ]; then
-       echo "This script must be run as root" 1>&2
-       exit 1
-fi
+        echo "This script must be run as root" 1>&2
+        exit 1
+    fi
 else
-   export PREFIX=$1
+    export PREFIX=$1
 fi
 
 echo "Installing to prefix ${PREFIX}"
-
-function processPOFile {
-    echo "Processing ${1}"
-    LOCALE=$(basename "$1" .po)
-    mkdir -p ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
-    msgfmt $1 -o ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
-}
 
 # Copy and compile schema
 echo "Copying and compiling schema..."
@@ -42,8 +37,12 @@ cp data/schemes/* ${TERMINIX_SHARE}/schemes
 
 # Compile po files
 echo "Copying and installing localization files"
-export -f processPOFile
-ls po/*.po | xargs -n 1 -P 10 -I {} bash -c 'processPOFile "$@"' _ {}
+for f in po/*.po; do
+    echo "Processing $f"
+    LOCALE=$(basename "$f" .po)
+    mkdir -p ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
+    msgfmt $f -o ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
+done
 
 # Generate desktop file
 msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
