@@ -784,10 +784,8 @@ private:
             GdkEventButton* buttonEvent = event.button;
             switch (buttonEvent.button) {
             case MouseButton.PRIMARY:
-                long col = to!long(buttonEvent.x) / vte.getCharWidth();
-                long row = to!long(buttonEvent.y) / vte.getCharHeight();
                 int tag;
-                string match = vte.matchCheck(col, row, tag);
+                string match = vte.matchCheckEvent(event, tag);
                 if (match) {
                     TerminalURLFlavor flavor = TerminalURLFlavor.AS_IS;
                     if (tag in regexTag) {
