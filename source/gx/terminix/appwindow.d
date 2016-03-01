@@ -20,6 +20,7 @@ import gtk.ApplicationWindow : ApplicationWindow;
 import gtkc.giotypes : GApplicationFlags;
 
 import gdk.Event;
+import gdk.RGBA;
 import gdk.Screen;
 import gdk.Visual;
 
@@ -44,7 +45,6 @@ import gtk.FileFilter;
 import gtk.Frame;
 import gtk.HeaderBar;
 import gtk.Image;
-import gtk.Label;
 import gtk.ListBox;
 import gtk.ListBoxRow;
 import gtk.MenuButton;
@@ -139,7 +139,6 @@ private:
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
         }, ConnectFlags.AFTER);
-        
 
         Overlay overlay = new Overlay();
         add(overlay);
@@ -153,22 +152,22 @@ private:
                 getCurrentSession().focusRestore();
             }
         });
-        overlay.addOverlay(sb);        
-        
+        overlay.addOverlay(sb);
+
         //Could be a Box or a Headerbar depending on value of disable_csd
         Widget toolbar = createHeaderBar();
 
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box b = new Box(Orientation.VERTICAL, 0);
-            b.add(toolbar);            
+            b.add(toolbar);
             b.add(nb);
-            overlay.add(b);        
+            overlay.add(b);
         } else {
             this.setTitlebar(toolbar);
             overlay.add(nb);
         }
     }
-    
+
     Widget createHeaderBar() {
         //View sessions button
         tbSideBar = new ToggleButton();
@@ -177,6 +176,7 @@ private:
         Image iList = new Image("view-list-symbolic", IconSize.MENU);
         tbSideBar.add(iList);
         tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
+        tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
 
         //New tab button
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
@@ -207,7 +207,7 @@ private:
             b.add(spacer);
             b.add(nb);
             add(b);
-            return spacer;            
+            return spacer;
         } else {
             //Header Bar
             hb = new HeaderBar();
@@ -234,7 +234,7 @@ private:
                 }
             });
         }
-        
+
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             trace("Setting fullscreen");
             bool newState = !sa.getState().getBoolean();
@@ -279,7 +279,8 @@ private:
                 Session session = getCurrentSession();
                 if (session !is null) {
                     ulong terminalID = to!ulong(sa.getName()[$ - 1 .. $]);
-                    if (terminalID == 0) terminalID = 10;
+                    if (terminalID == 0)
+                        terminalID = 10;
                     session.focusTerminal(terminalID);
                 }
             });
@@ -297,8 +298,8 @@ private:
         });
 
         //Close Session
-        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) { 
-            if (nb.getNPages>1) {
+        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (nb.getNPages > 1) {
                 closeSession(getCurrentSession());
             }
         });
@@ -404,15 +405,15 @@ private:
             this.close();
         }
     }
-    
+
     Session[] getSessions() {
         Session[] result = new Session[](nb.getNPages());
-        for (int i=0; i<nb.getNPages(); i++) {
+        for (int i = 0; i < nb.getNPages(); i++) {
             result[i] = getSession(i);
         }
         return result;
     }
-    
+
     Session getSession(int i) {
         return cast(Session) nb.getNthPage(i);
     }
@@ -470,6 +471,35 @@ private:
             hb.setTitle(title);
         else
             setTitle(title);
+    }
+
+    bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
+        if (nb.getNPages() > 1) {
+            int w = widget.getAllocatedWidth();
+            int h = widget.getAllocatedHeight();
+            RGBA fg;
+            RGBA bg;
+            widget.getStyleContext().lookupColor("theme_fg_color", bg);
+            widget.getStyleContext().lookupColor("theme_bg_color", fg);
+            bg.alpha = 0.9;
+
+            double x = w * 0.70;
+            double y = h * 0.70;
+            double radius = w * 0.20;
+            cr.setSourceRgba(bg.red, bg.blue, bg.green, bg.alpha);
+            cr.arc(x, y, radius, 0.0, 2.0 * std.math.PI);
+            cr.fillPreserve();
+            cr.stroke();
+            cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
+            cr.setFontSize(11);
+            cr.setSourceRgba(fg.red, fg.blue, fg.green, 1.0);
+            string text = to!string(nb.getNPages());
+            cairo_text_extents_t extents;
+            cr.textExtents(text, &extents);
+            cr.moveTo(x - extents.width / 2, y + extents.height / 2);
+            cr.showText(text);
+        }
+        return false;
     }
 
     bool onSessionIsActionAllowed(ActionType actionType) {
@@ -678,7 +708,7 @@ public:
 
     void initialize() {
         if (terminix.getGlobalOverrides().session.length > 0) {
-            foreach(sessionFilename; terminix.getGlobalOverrides().session) {
+            foreach (sessionFilename; terminix.getGlobalOverrides().session) {
                 loadSession(sessionFilename);
             }
             return;
