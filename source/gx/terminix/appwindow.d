@@ -229,7 +229,7 @@ private:
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 int index = to!int(sa.getName()[$ - 1 .. $]);
-                if (nb.getNPages() <= index) {
+                if (index <= nb.getNPages()) {
                     nb.setCurrentPage(index);
                 }
             });
@@ -279,6 +279,7 @@ private:
                 Session session = getCurrentSession();
                 if (session !is null) {
                     ulong terminalID = to!ulong(sa.getName()[$ - 1 .. $]);
+                    if (terminalID == 0) terminalID = 10;
                     session.focusTerminal(terminalID);
                 }
             });

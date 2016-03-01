@@ -160,7 +160,7 @@ private:
 
     void sequenceTerminalID() {
         foreach (i, terminal; terminals) {
-            terminal.terminalID = i;
+            terminal.terminalID = i + 1;
         }
     }
 
@@ -205,7 +205,7 @@ private:
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.addOnTerminalRequestStateChange(&onTerminalRequestStateChange);
         terminals ~= terminal;
-        terminal.terminalID = terminals.length - 1;
+        terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
     }
 
@@ -253,7 +253,7 @@ private:
         sequenceTerminalID();
         //Fix Issue #33
         if (id >= terminals.length)
-            id = to!int(terminals.length) - 1;
+            id = to!int(terminals.length);
         if (id >= 0 && id < terminals.length) {
             focusTerminal(id);
         }
@@ -574,7 +574,7 @@ private:
             result = restoreTerminal(terminal); 
         }
         terminal.focusTerminal();
-        return true;
+        return result;
     }
 
     /************************************************
@@ -943,11 +943,11 @@ public:
      * Focus the next terminal in the session
      */
     void focusNext() {
-        ulong id = 0;
+        ulong id = 1;
         if (lastFocused !is null) {
             id = lastFocused.terminalID + 1;
-            if (id >= terminals.length)
-                id = 0;
+            if (id > terminals.length)
+                id = 1;
         }
         focusTerminal(id);
     }
@@ -956,11 +956,13 @@ public:
      * Focus the previous terminal in the session
      */
     void focusPrevious() {
-        ulong id = 0;
+        ulong id = 1;
         if (lastFocused !is null) {
-            id = lastFocused.terminalID - 1;
-            if (id < 0)
-                id = terminals.length - 1;
+            id = lastFocused.terminalID;
+            if (id == 1)
+                id = terminals.length;
+            else
+                id--;
         }
         focusTerminal(id);
     }
@@ -969,8 +971,8 @@ public:
      * Focus the terminal designated by the ID
      */
     bool focusTerminal(ulong terminalID) {
-        if (terminalID >= 0 && terminalID < terminals.length) {
-            terminals[terminalID].focusTerminal();
+        if (terminalID > 0 && terminalID <= terminals.length) {
+            terminals[terminalID - 1].focusTerminal();
             return true;
         }
         return false;
