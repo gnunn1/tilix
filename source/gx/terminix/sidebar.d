@@ -155,7 +155,7 @@ public:
                 b.packStart(af, false, false, 4);
             }
 
-            Label lblIndex = new Label(format("%d", i));
+            Label lblIndex = new Label(format("%d", (i+1)));
             setAllMargins(lblIndex, 4);
             lblIndex.setWidthChars(2);
             b.packEnd(wrapWidget(lblIndex, "terminix-session-index"), false, false, 4);
