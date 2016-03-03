@@ -201,6 +201,10 @@ public:
     bool hasSearchEntryFocus() {
         return seSearch.hasFocus();
     }
+    
+    bool isSearchEntryFocus() {
+        return seSearch.isFocus();
+    }
 
     void addOnSearchEntryFocusIn(bool delegate(Event, Widget) dlg) {
         seSearch.addOnFocusIn(dlg);

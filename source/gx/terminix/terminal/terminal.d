@@ -212,6 +212,7 @@ private:
     bool _terminalInitialized = false;
 
     Box bTitle;
+    MenuButton mbTitle;
     Label lblTitle;
 
     string _profileUUID;
@@ -228,7 +229,7 @@ private:
     //Whether to ignore unsafe paste, basically when 
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
-
+    
     string initialWorkingDir;
 
     SimpleActionGroup sagTerminalActions;
@@ -315,7 +316,7 @@ private:
         bTitleLabel.add(lblTitle);
         bTitleLabel.add(new Image("pan-down-symbolic", IconSize.MENU));
 
-        MenuButton mbTitle = new MenuButton();
+        mbTitle = new MenuButton();
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
@@ -855,6 +856,10 @@ private:
         foreach (dlg; terminalInFocusDelegates) {
             dlg(this);
         }
+        static if (DIM_TERMINAL_NO_FOCUS) {
+            //Add dim effect
+            vte.queueDraw();
+        }
         return false;
     }
 
@@ -864,6 +869,10 @@ private:
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
         trace("Terminal lost focus" ~ terminalUUID);
         lblTitle.setSensitive(isTerminalWidgetFocused());
+        static if (DIM_TERMINAL_NO_FOCUS) {
+            //Add dim effect
+            vte.queueDraw();
+        }
         return false;
     }
 
@@ -1303,6 +1312,19 @@ private:
 
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
+        static if (DIM_TERMINAL_NO_FOCUS && POPOVER_CONTEXT_MENU) {
+            if (!vte.isFocus() && 
+                !rFind.isSearchEntryFocus() &&
+                !pmContext.isVisible() &&
+                !mbTitle.getPopover().isVisible()
+                ) {
+                RGBA bg;
+                vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
+                cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
+                cr.rectangle(0, 0, widget.getAllocatedWidth(), widget.getAllocatedHeight());
+                cr.fill();
+            }
+        }
         //Dragging happening?
         if (!dragInfo.isDragActive)
             return false;
