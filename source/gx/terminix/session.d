@@ -216,7 +216,7 @@ private:
      */
     void removeTerminal(Terminal terminal) {
         int id = to!int(terminal.terminalID);
-        trace("Removing terminal from session");
+        trace("Removing terminal " ~ terminal.terminalUUID);
         if (lastFocused == terminal)
             lastFocused = null;
         //Remove delegates
@@ -254,7 +254,7 @@ private:
         //Fix Issue #33
         if (id >= terminals.length)
             id = to!int(terminals.length);
-        if (id >= 0 && id < terminals.length) {
+        if (id > 0 && id <= terminals.length) {
             focusTerminal(id);
         }
         if (maximizedTerminal !is null) {
