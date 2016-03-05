@@ -280,9 +280,15 @@ private:
         //Handle double click for window state change
         addOnButtonPress(delegate(Event event, Widget) {
             trace("Title button event received");
-            if (event.button.button == MouseButton.PRIMARY && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
-                maximize();
+            
+            if (event.button.button == MouseButton.PRIMARY && event.button.y < bTitle.getAllocatedHeight()) {
+                if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
+                    maximize();
+                } else if (event.getEventType() == EventType.BUTTON_PRESS) {
+                    vte.grabFocus();
+                }
             }
+            
             return false;
         });
     }
