@@ -28,6 +28,7 @@ public:
         super(_("Layout Options"), window, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [ResponseType.OK, ResponseType.CANCEL]);
         setDefaultResponse(ResponseType.OK);
         setTransientFor(window);
+        setDefaultSize(400, -1);
         
         Grid grid = new Grid();
         grid.setMarginTop(18);
@@ -72,6 +73,7 @@ public:
         Label lblInfo = new Label(_("Active options are always in effect and apply immediately.\nSession Load options only apply when loading a session file."));
         lblInfo.setSensitive(false);
         lblInfo.setMarginTop(6);
+        lblInfo.setLineWrap(true);
         grid.attach(lblInfo, 0, row, 2, 1);
         row++;
                         
