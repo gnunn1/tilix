@@ -66,7 +66,7 @@ int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA
         if (useThemeColors != scheme.useThemeColors) {
             continue;
         }
-        if (useThemeColors) {
+        if (!useThemeColors) {
             if (!(equal(fg, scheme.foreground) && equal(bg, scheme.background)))
                 continue;
         }
