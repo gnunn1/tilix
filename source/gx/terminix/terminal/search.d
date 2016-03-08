@@ -88,8 +88,10 @@ private:
         seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
-            if (event.getKeyval(keyval) && keyval == GdkKeysyms.GDK_Escape)
+            if (event.getKeyval(keyval) && keyval == GdkKeysyms.GDK_Escape) {
                 setRevealChild(false);
+                vte.grabFocus();
+            }
             return false;
         });
         bEntry.add(seSearch);
