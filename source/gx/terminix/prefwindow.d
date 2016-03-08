@@ -466,11 +466,6 @@ private:
         gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         add(cbPrompt);
         
-        //Enable/Disable F10 accelerator in GTK
-        CheckButton cbMenuAccelerator = new CheckButton(_("Enable the menu accelerator key (F10 by default)"));
-        gsSettings.bind(SETTINGS_MENU_ACCELERATOR_KEY, cbMenuAccelerator, "active", GSettingsBindFlags.DEFAULT);
-        add(cbMenuAccelerator);
-
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
         gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
