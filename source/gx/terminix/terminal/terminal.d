@@ -649,7 +649,7 @@ private:
         Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
         terminalBox.add(terminalOverlay);
 
-        // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for we use
+        // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
         sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
@@ -805,7 +805,9 @@ private:
                     return false;
                 }
             case MouseButton.SECONDARY:
-                trace("Enablign actions");
+                trace("Enabling actions");
+                if (!(event.button.state & (GdkModifierType.SHIFT_MASK | GdkModifierType.CONTROL_MASK | GdkModifierType.MOD1_MASK)) && vte.onButtonPressEvent(event.button)) return true;
+                
                 static if (POPOVER_CONTEXT_MENU) {
                     saCopy.setEnabled(vte.getHasSelection());
                     saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
