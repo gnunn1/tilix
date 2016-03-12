@@ -26,7 +26,7 @@ At this point in time the application should be considered mid alpha and has bee
 * Ubuntu 16.04 (secondary, works)
 * Fedora 23 (primary, works)
 * RHEL 7.2 (primary, works)
-* Fedora Rawhide (not supported, semi-works, UI broken, bug #16)
+* Fedora Rawhide (Supported with Gnome 3.20, works)
 
 ### Dependencies
 
