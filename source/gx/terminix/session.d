@@ -13,6 +13,8 @@ import std.uuid;
 import gdk.Atom;
 import gdk.Event;
 
+import gio.Settings: GSettings = Settings;
+
 import glib.Util;
 
 import gtk.Application;
@@ -105,12 +107,17 @@ private:
     enum STACK_GROUP_NAME = "group";
     enum STACK_MAX_NAME = "maximized";
 
+    //A box in the stack used as the page where terminals reside 
     Box stackGroup;
+    //A box in the stack used to hold a maximized terminal
     Box stackMaximized;
+    //A box under stackGroup, used to hold the terminals and panes
     Box groupChild;
     MaximizedInfo maximizedInfo;
 
     Terminal lastFocused;
+    
+    GSettings gsSettings;
 
     /**
      * Creates the session user interface
@@ -171,7 +178,7 @@ private:
     Paned createPaned(Orientation orientation) {
         Paned result = new Paned(orientation);
         if (Version.checkVersion(3, 16, 0).length == 0) {
-            result.setWideHandle(false);
+            result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
         return result;
     }
@@ -330,7 +337,7 @@ private:
                 return equal(box1, maximizedInfo.parent) ? box2 : box1;
             }
 
-            Widget widget1 = gx.gtk.util.getChildren(box1)[0];
+            Widget widget1 = gx.gtk.util.getChildren!(Widget)(box1, false)[0];
 
             Terminal terminal1 = cast(Terminal) widget1;
 
@@ -361,7 +368,7 @@ private:
         //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
         //to Paned to fail
         //Get child widget, could be Terminal or Paned       
-        Widget widget = gx.gtk.util.getChildren(otherBox)[0];
+        Widget widget = gx.gtk.util.getChildren!(Widget)(otherBox, false)[0];
         //Remove widget from original Box parent
         otherBox.remove(widget);
         //Add widget to new parent
@@ -654,7 +661,7 @@ private:
          * Added to check for maximized state and grab right terminal
          */
         void serializeBox(string node, Box box) {
-            Widget[] widgets = gx.gtk.util.getChildren(box);
+            Widget[] widgets = gx.gtk.util.getChildren!(Widget)(box, false);
             if (widgets.length == 0 && maximizedInfo.isMaximized && equal(box, maximizedInfo.parent)) {
                 value.object[node] = serializeWidget(maximizedInfo.terminal, sizeInfo);
             } else {
@@ -777,10 +784,29 @@ private:
      */
     this(string sessionName, Terminal terminal) {
         super();
+        initSession();
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
         addTerminal(terminal);
         createUI(terminal);
+    }
+    
+    void initSession() {
+        gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_ENABLE_WIDE_HANDLE_KEY) {
+                trace("Wide handle setting changed");
+                updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
+            }
+        });       
+    }
+    
+    void updateWideHandle(bool value) {
+        Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
+        trace(format("Updating wide handle for %d paned", all.length));
+        foreach(paned; all) {
+            paned.setWideHandle(value);
+        }    
     }
 
 public:
@@ -796,6 +822,7 @@ public:
      */
     this(string name, string profileUUID, string workingDir, bool firstRun) {
         super();
+        initSession();
         _sessionUUID = randomUUID().toString();
         _name = name;
         createUI(profileUUID, workingDir, firstRun);
@@ -814,6 +841,7 @@ public:
      */
     this(JSONValue value, string filename, int width, int height, bool firstRun) {
         super();
+        initSession();
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         try {
@@ -846,7 +874,7 @@ public:
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
-        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren(groupChild)[0], sizeInfo);
+        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren!(Widget)(groupChild, false)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
         return root;
     }

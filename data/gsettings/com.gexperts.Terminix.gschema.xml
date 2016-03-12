@@ -92,6 +92,11 @@
       <summary>Whether terminal titlebars are shown smaller.</summary>
       <description>If true, terminal titlebars are rendered smaller then the default by removing padding.</description>
     </key>
+    <key name="enable-wide-handle" type="b">
+      <default>false</default>
+      <summary>Whether splitters use a narrow (default) or wide handle</summary>
+      <description>If true, splitters between terminals use a wide handle. Only supported in GTK 2.16 and later.</description>
+    </key>
     <!-- Dark Theme -->
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
       <default>'system'</default>

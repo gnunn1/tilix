@@ -22,6 +22,7 @@ import glib.Util;
 
 import gobject.ObjectG;
 
+import gtk.Bin;
 import gtk.ComboBox;
 import gtk.CellRendererText;
 import gtk.Container;
@@ -29,6 +30,7 @@ import gtk.CssProvider;
 import gtk.Entry;
 import gtk.ListStore;
 import gtk.MessageDialog;
+import gtk.Paned;
 import gtk.StyleContext;
 import gtk.TreeIter;
 import gtk.TreeModelIF;
@@ -39,10 +41,44 @@ import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
 
+/**
+ * Template for finding all children of a specific type
+ */
+T[] getChildren(T) (Widget widget, bool recursive) {
+    T[] result;
+    Widget[] children;
+    Bin bin = cast(Bin) widget;
+    if (bin !is null) {
+        children = [bin.getChild()];
+    }
+    Container container = cast(Container) widget;
+    if (container !is null) {
+        ListG list = container.getChildren();
+        if (list !is null)
+            children = list.toArray!(Widget)();
+    }
+    
+    foreach(child; children) {
+        T match = cast(T) child;
+        if (match !is null) result ~= match;
+        if (recursive) {
+            result ~= getChildren!(T)(child, recursive);
+        }
+    }
+    return result;    
+}
+
+
+/**
+ * Sets all margins of a widget to the same value
+ */
 void setAllMargins(Widget widget, int margin) {
     setMargins(widget, margin, margin, margin, margin);
 }
 
+/**
+ * Sets margins of a widget to the passed values
+ */
 void setMargins(Widget widget, int left, int top, int right, int bottom) {
     widget.setMarginLeft(left);
     widget.setMarginTop(top);
@@ -50,6 +86,9 @@ void setMargins(Widget widget, int left, int top, int right, int bottom) {
     widget.setMarginBottom(bottom);
 }
 
+/**
+ * Displays an error message in a dialog
+ */
 void showErrorDialog(Window parent, string message, string title = null) {
     MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.ERROR, ButtonsType.OK, message, null);
     scope (exit) {
@@ -193,48 +232,6 @@ bool addCssProvider(string filename, ProviderPriority priority) {
         error("Error: " ~ ge.msg);
     }
     return false;
-}
-
-/**
- * Given a pointer to GtkWidget, returns the existing
- * D object allocated for the struct. If none exists, one
- * is created
- */
-Widget getWidget(GtkWidget* p) {
-    return ObjectG.getDObject!(Widget)(p);
-}
-
-/**
- * Returns an aray of widgets held in the list.
- * This attempts to get the existing D Object rather
- * then creating a new reference.
- *
- * Params:
- * list = A ListG object with a list of widgets
- */
-Widget[] getWidgets(ListG list) {
-    if (list is null) {
-        return new Widget[0];
-    }
-    Widget[] result = new Widget[list.length()];
-    size_t count;
-
-    while (list !is null && count < list.length) {
-        result[count] = getWidget(cast(GtkWidget*) list.data);
-        list = list.next();
-        count++;
-    }
-    return result;
-}
-
-/**
- * Returns a list of all children of a container. This differs
- * from ListG.toArray!Widget() in that it attempts to get the
- * existing D object for a Widget rather then creating a new reference
- */
-Widget[] getChildren(Container container) {
-    ListG list = container.getChildren();
-    return getWidgets(list);
 }
 
 /**

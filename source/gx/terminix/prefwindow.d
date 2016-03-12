@@ -514,7 +514,13 @@ private:
         CheckButton cbSmallTitlebar = new CheckButton(_("Use small size for terminal titlebars"));
         gsSettings.bind(SETTINGS_ENABLE_SMALL_TITLE_KEY, cbSmallTitlebar, "active", GSettingsBindFlags.DEFAULT);
         add(cbSmallTitlebar);
-
+        
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
+            gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
+            add(cbWideHandle);
+        }
+        
         //Dark Theme
         Box b = new Box(Orientation.HORIZONTAL, 6);
         b.add(createLabel(_("Theme Variant")));
