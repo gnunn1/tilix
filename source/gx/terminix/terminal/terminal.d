@@ -72,6 +72,7 @@ import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
 import gtk.TargetEntry;
+import gtk.ToggleButton;
 import gtk.Widget;
 import gtk.Window;
 
@@ -214,6 +215,7 @@ private:
     Box bTitle;
     MenuButton mbTitle;
     Label lblTitle;
+    ToggleButton tbSyncInput;
 
     string _profileUUID;
     //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
@@ -226,6 +228,9 @@ private:
     string _overrideCommand;
     //Whether synchronized input is turned on in the session
     bool _synchronizeInput;
+    //If synchronized is on, determines if there is a local override turning it off for this terminal only
+    bool _synchronizeInputOverride = true;
+    
     //Whether to ignore unsafe paste, basically when 
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
@@ -347,6 +352,20 @@ private:
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
         setVerticalMargins(btnMaximize);
         bTitle.packEnd(btnMaximize, false, false, 0);
+        
+        //Synchronize Input Button
+        tbSyncInput = new ToggleButton();
+        tbSyncInput.setNoShowAll(true);
+        tbSyncInput.setImage(new Image("input-keyboard-symbolic", IconSize.MENU));
+        tbSyncInput.setTooltipText(_("Disable input synchronization for this terminal"));
+        tbSyncInput.setRelief(ReliefStyle.NONE);
+        tbSyncInput.setFocusOnClick(false);
+        setVerticalMargins(tbSyncInput);
+        tbSyncInput.setActive(_synchronizeInputOverride);
+        tbSyncInput.addOnToggled(delegate(ToggleButton btn) {
+            _synchronizeInputOverride = btn.getActive();
+        }, ConnectFlags.AFTER);
+        bTitle.packEnd(tbSyncInput, false, false, 0);
 
         return bTitle;
     }
@@ -613,12 +632,10 @@ private:
 
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
-            if (_synchronizeInput && event.key.sendEvent == 0) {
+            if (isSynchronizedInput() && event.key.sendEvent == 0) {
                 foreach (dlg; terminalKeyPressDelegates)
                     dlg(this, event);
-            } else {
-                //trace("Synchronized Input = " ~ to!string(_synchronizeInput) ~ ", sendEvent=" ~ to!string(event.key.sendEvent));
-            }
+            } 
             return false;
         });
 
@@ -664,6 +681,10 @@ private:
         box.add(terminalBox);
 
         return box;
+    }
+    
+    bool isSynchronizedInput() {
+        return _synchronizeInput && _synchronizeInputOverride;
     }
 
     /**
@@ -1520,8 +1541,10 @@ public:
      * Called by the session to synchronize input
      */
     void echoKeyPressEvent(Event event) {
-        event.key.window = vte.getWindow().getWindowStruct();
-        vte.event(event);
+        if (isSynchronizedInput()) {
+            event.key.window = vte.getWindow().getWindowStruct();
+            vte.event(event);
+        }
     }
 
     @property string currentDirectory() {
@@ -1553,7 +1576,11 @@ public:
     }
 
     @property void synchronizeInput(bool value) {
-        _synchronizeInput = value;
+        if (_synchronizeInput != value) {
+            _synchronizeInput = value;
+            if (_synchronizeInput) tbSyncInput.show();
+            else tbSyncInput.hide();
+        }            
     }
 
     /**
