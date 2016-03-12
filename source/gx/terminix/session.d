@@ -140,7 +140,7 @@ private:
         stackMaximized = new Box(Orientation.VERTICAL, 0);
         addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
-        // Fix transparency bugs on ubuntu where background-color 
+        // Fix transparency bugs on ubuntu and rawhide where background-color 
         // for widgets don't seem to take
         groupChild.getStyleContext().addClass("terminix-notebook-page");
         stackGroup.add(groupChild);

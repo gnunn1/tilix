@@ -130,6 +130,7 @@ private:
         //Notebook
         nb = new Notebook();
         nb.setShowTabs(false);
+        nb.setShowBorder(false);
         nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
             trace("Switched Sessions");
             Session session = cast(Session) page;
