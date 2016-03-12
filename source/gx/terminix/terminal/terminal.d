@@ -907,16 +907,16 @@ private:
 
     // Preferences go here
 private:
-    RGBA fg;
-    RGBA bg;
-    RGBA[16] palette;
+    RGBA vteFG;
+    RGBA vteBG;
+    RGBA[16] vtePalette;
 
     void initColors() {
-        fg = new RGBA();
-        bg = new RGBA();
-        palette = new RGBA[16];
+        vteFG = new RGBA();
+        vteBG = new RGBA();
+        vtePalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
-            palette[i] = new RGBA();
+            vtePalette[i] = new RGBA();
         }
     }
 
@@ -942,21 +942,21 @@ private:
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_USE_THEME_COLORS_KEY,
         SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                    vte.getStyleContext().getColor(StateFlags.ACTIVE, fg);
-                    vte.getStyleContext().getBackgroundColor(StateFlags.ACTIVE, bg);
+                    getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
+                    getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
                 } else {
-                    if (!fg.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
+                    if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
                         trace("Parsing foreground color failed");
-                    if (!bg.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                    if (!vteBG.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
                         trace("Parsing background color failed");
                 }
-            bg.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
+            vteBG.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
             foreach (i, color; colors) {
-                if (!palette[i].parse(color))
+                if (!vtePalette[i].parse(color))
                     trace("Parsing color failed " ~ colors[i]);
             }
-            vte.setColors(fg, bg, palette);
+            vte.setColors(vteFG, vteBG, vtePalette);
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
@@ -1352,6 +1352,7 @@ private:
 
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
+
         static if (DIM_TERMINAL_NO_FOCUS && POPOVER_CONTEXT_MENU) {
             if (!vte.isFocus() && 
                 !rFind.isSearchEntryFocus() &&
@@ -1359,7 +1360,7 @@ private:
                 !mbTitle.getPopover().isVisible()
                 ) {
                 RGBA bg;
-                vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
+                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
                 cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
                 cr.rectangle(0, 0, widget.getAllocatedWidth(), widget.getAllocatedHeight());
                 cr.fill();
@@ -1369,7 +1370,7 @@ private:
         if (!dragInfo.isDragActive)
             return false;
         RGBA bg;
-        vte.getStyleContext().getBackgroundColor(StateFlags.SELECTED, bg);
+        getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
         cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
         cr.setLineWidth(1);
         int w = widget.getAllocatedWidth();

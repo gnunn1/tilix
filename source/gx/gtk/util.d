@@ -68,6 +68,33 @@ T[] getChildren(T) (Widget widget, bool recursive) {
     return result;    
 }
 
+/**
+ * Gets the background color from style context. Works around
+ * spurious VTE State messages on GTK 3.19 or later. See the
+ * blog entry here: https://blogs.gnome.org/mclasen/2015/11/20/a-gtk-update/
+ */
+void getStyleBackgroundColor(StyleContext context, StateFlags flags, out RGBA color) {
+    with (context) {
+        save();
+        setState(flags);
+        getBackgroundColor(getState(), color);
+        restore();
+    }
+}
+
+/**
+ * Gets the color from style context. Works around
+ * spurious VTE State messages on GTK 3.19 or later. See the
+ * blog entry here: https://blogs.gnome.org/mclasen/2015/11/20/a-gtk-update/
+ */
+void getStyleColor(StyleContext context, StateFlags flags, out RGBA color) {
+    with (context) {
+        save();
+        setState(flags);
+        getColor(getState(), color);
+        restore();
+    }
+}
 
 /**
  * Sets all margins of a widget to the same value
