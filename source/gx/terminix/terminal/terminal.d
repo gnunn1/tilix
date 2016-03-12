@@ -1125,6 +1125,7 @@ private:
 private:
 
     DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
+    Window dragImage;
 
     /**
      * Sets up the DND by registering the TargetEntry objects as source and destinations
@@ -1148,7 +1149,8 @@ private:
         addOnDragBegin(&onTitleDragBegin);
         addOnDragDataGet(&onTitleDragDataGet);
         addOnDragFailed(&onTitleDragFailed, ConnectFlags.AFTER);
-
+        addOnDragEnd(&onTitleDragEnd, ConnectFlags.AFTER);
+        
         //VTE Drop events
         vte.addOnDragDataReceived(&onVTEDragDataReceived);
         vte.addOnDragMotion(&onVTEDragMotion);
@@ -1179,8 +1181,17 @@ private:
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
         trace("Title Drag begin");
-        Pixbuf pb = getWidgetImage(this, 0.20);
-        DragAndDrop.dragSetIconPixbuf(dc, pb, 0, 0);
+        Image image = new Image(getWidgetImage(this, 0.20));
+        image.show();
+        dragImage = new Window(GtkWindowType.POPUP);
+        dragImage.add(image);
+        DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+    }
+    
+    void onTitleDragEnd(DragContext dc, Widget widget) {
+        trace("Title drag end");
+        dragImage.destroy();
+        dragImage = null;   
     }
 
     /**
