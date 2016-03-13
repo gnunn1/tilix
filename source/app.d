@@ -46,7 +46,7 @@ int main(string[] args) {
         dialog.run();
         return 1;
     }
-
+    
     trace("Creating app");
     auto terminixApp = new Terminix();
     int result;

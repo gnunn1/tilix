@@ -132,10 +132,6 @@ struct ProfileInfo {
 	 * The human readable name for the profile
 	 */
     string name;
-
-    bool opEquals(ProfileInfo p) {
-        return (isDefault == p.isDefault && uuid == p.uuid && name == p.name);
-    }
 }
 
 /**

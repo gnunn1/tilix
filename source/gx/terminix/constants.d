@@ -11,6 +11,7 @@ import gx.i18n.l10n;
 //Compilation Flags
 immutable bool POPOVER_CONTEXT_MENU = true;
 immutable bool DIM_TERMINAL_NO_FOCUS = false;
+immutable bool USE_DBUS_SERVER = true;
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;

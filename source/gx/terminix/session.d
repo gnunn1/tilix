@@ -146,7 +146,7 @@ private:
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
-        addOnRealize(delegate(Widget widget) {
+        addOnRealize(delegate(Widget) {
            if (maximizedInfo.isMaximized) {
                setVisibleChild(stackMaximized);
            } 

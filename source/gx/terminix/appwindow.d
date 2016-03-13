@@ -131,7 +131,7 @@ private:
         nb = new Notebook();
         nb.setShowTabs(false);
         nb.setShowBorder(false);
-        nb.addOnSwitchPage(delegate(Widget page, uint pageNo, Notebook) {
+        nb.addOnSwitchPage(delegate(Widget page, uint, Notebook) {
             trace("Switched Sessions");
             Session session = cast(Session) page;
             //Remove any sessions associated with current page
@@ -184,7 +184,7 @@ private:
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
-        btnNew.addOnClicked(delegate(Button button) { createSession(); });
+        btnNew.addOnClicked(delegate(Button) { createSession(); });
         btnNew.setTooltipText(_("Create a new session"));
 
         //Session Actions
@@ -566,11 +566,11 @@ private:
         return false;
     }
 
-    void onWindowDestroyed(Widget widget) {
+    void onWindowDestroyed(Widget) {
         terminix.removeAppWindow(this);
     }
 
-    void onCompositedChanged(Widget widget) {
+    void onCompositedChanged(Widget) {
         trace("Composite changed");
         updateVisual();
     }

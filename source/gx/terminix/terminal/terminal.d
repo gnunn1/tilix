@@ -389,7 +389,6 @@ private:
     void buildEncodingMenu() {
         encodingMenu.removeAll();
         saEncodingSelect.setState(new GVariant(vte.getEncoding()));
-        GSettings gsSettings = new GSettings(SETTINGS_ID);
         string[] encodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {

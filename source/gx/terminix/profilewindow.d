@@ -80,7 +80,8 @@ private:
         add(nb);
     }
 
-    void onWindowDestroyed(Widget widget) {
+    void onWindowDestroyed(Widget) {
+        trace("Window destroyed");
         terminix.removeProfileWindow(this);
     }
 

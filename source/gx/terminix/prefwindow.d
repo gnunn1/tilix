@@ -136,10 +136,9 @@ private:
 
         CellRendererToggle toggle = new CellRendererToggle();
         toggle.setActivatable(true);
-        toggle.addOnToggled(delegate(string path, CellRendererToggle crt) {
+        toggle.addOnToggled(delegate(string path, CellRendererToggle) {
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
-            string[] menuEncodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
             string encoding = ls.getValue(iter, COLUMN_ENCODING).getString();
             bool enabled = ls.getValue(iter, COLUMN_IS_ENABLED).getBoolean();
             trace("Menu encoding clicked for " ~ encoding);
@@ -212,7 +211,7 @@ private:
 
         CellRendererAccel craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
-        craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel cra) {
+        craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
@@ -220,7 +219,7 @@ private:
             //Note accelerator changed by app which is monitoring gsetting changes
             gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), _(SHORTCUT_DISABLED));
         });
-        craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint hardwareKeycode, CellRendererAccel cra) {
+        craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint, CellRendererAccel) {
             trace("Updating shortcut");
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
@@ -337,7 +336,7 @@ private:
         bButtons.setVexpand(true);
 
         btnNew = new Button(_("New"));
-        btnNew.addOnClicked(delegate(Button button) {
+        btnNew.addOnClicked(delegate(Button) {
             ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
             //profiles ~= profile;
             addProfile(profile);
@@ -350,10 +349,10 @@ private:
 		bButtons.add(btnClone);
 		*/
         btnEdit = new Button(_("Edit"));
-        btnEdit.addOnClicked(delegate(Button button) { editProfile(); });
+        btnEdit.addOnClicked(delegate(Button) { editProfile(); });
         bButtons.add(btnEdit);
         btnDelete = new Button(_("Delete"));
-        btnDelete.addOnClicked(delegate(Button button) {
+        btnDelete.addOnClicked(delegate(Button) {
             ProfileInfo profile = getSelectedProfile();
             if (profile.uuid !is null) {
                 //If profile window for this profile is open, close it first 
@@ -401,7 +400,6 @@ private:
         lsProfiles.setValue(iter, 2, profile.uuid);
         Settings ps = prfMgr.getProfileSettings(profile.uuid);
         ps.addOnChanged(delegate(string key, Settings settings) {
-            trace("Key changed " ~ key);
             if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) {
                 foreach (uuid, ps; profiles) {
                     if (ps == settings) {

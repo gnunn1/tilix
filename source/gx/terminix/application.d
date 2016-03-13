@@ -105,7 +105,7 @@ private:
     void installAppMenu() {
         Menu appMenu = new Menu();
 
-        registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction sa) {
+        registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction) {
             ulong l;
             string sessionUUID = value.getString(l);
             trace("activate-session triggered for session " ~ sessionUUID);
@@ -211,7 +211,7 @@ private:
             preferenceWindow.close();
     }
 
-    int onCommandLine(ApplicationCommandLine acl, GApplication app) {
+    int onCommandLine(ApplicationCommandLine acl, GApplication) {
         trace("App processing command line");
         scope (exit) {
             cp.clear();
@@ -237,7 +237,7 @@ private:
         cp.clear();
     }
 
-    void onAppStartup(GioApplication app) {
+    void onAppStartup(GioApplication) {
         trace("Startup App Signal");
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
@@ -251,14 +251,14 @@ private:
             }
         });
         gsGeneral = new GSettings(SETTINGS_ID);
-        gsGeneral.addOnChanged(delegate(string key, Settings) { applyPreferences(); });
+        gsGeneral.addOnChanged(delegate(string, Settings) { applyPreferences(); });
 
         initProfileManager();
         applyPreferences();
         installAppMenu();
     }
 
-    void onAppShutdown(GioApplication app) {
+    void onAppShutdown(GioApplication) {
         trace("Quit App Signal");
         terminix = null;
     }
