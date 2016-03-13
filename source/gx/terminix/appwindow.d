@@ -231,6 +231,8 @@ private:
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 int index = to!int(sa.getName()[$ - 1 .. $]);
+                if (index == 0) index = 9;
+                else index--;
                 if (index <= nb.getNPages()) {
                     nb.setCurrentPage(index);
                 }
