@@ -267,6 +267,12 @@ private:
         string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
         if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
+        } else {
+            /*
+             * Resetting the theme variant to "Default" depends on new 
+             * gtk_settings_reset_property API in Gnome 3.20. Once
+             * GtkD is updated to include this it will be added here.
+             */ 
         }
         if (defaultMenuAccel is null) {
             defaultMenuAccel = new Value("F10");
