@@ -67,7 +67,11 @@ import gtk.MountOperation;
 import gtk.Overlay;
 import gtk.Popover;
 import gtk.Revealer;
+static if (USE_SCROLLED_WINDOW) {
+import gtk.ScrolledWindow;
+} else {
 import gtk.Scrollbar;
+}
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
@@ -207,7 +211,9 @@ private:
 
     VTENotification vte;
     Overlay terminalOverlay;
-    Scrollbar sb;
+    static if (!USE_SCROLLED_WINDOW) {
+        Scrollbar sb;
+    }
 
     GPid gpid = 0;
     bool _terminalInitialized = false;
@@ -660,7 +666,12 @@ private:
             mContext.add(miSelectAll);
         }
         terminalOverlay = new Overlay();
-        terminalOverlay.add(vte);
+        static if (USE_SCROLLED_WINDOW) {
+            ScrolledWindow sw = new ScrolledWindow(vte);
+            terminalOverlay.add(sw);
+        } else {
+            terminalOverlay.add(vte);
+        }
 
         Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
         terminalBox.add(terminalOverlay);
@@ -668,9 +679,11 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
-        terminalBox.add(sb);
-
+        static if (!USE_SCROLLED_WINDOW) {
+            sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
+            terminalBox.add(sb);
+        } 
+        
         Box box = new Box(Orientation.VERTICAL, 0);
         rFind = new SearchRevealer(vte);
         rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
@@ -958,8 +971,10 @@ private:
             vte.setColors(vteFG, vteBG, vtePalette);
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
-            sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
-            sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
+            static if (!USE_SCROLLED_WINDOW) {
+                sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
+                sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
+            }
             break;
         case SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY:
             vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY));
