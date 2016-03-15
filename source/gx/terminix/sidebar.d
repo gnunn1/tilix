@@ -62,9 +62,12 @@ private:
     }
 
     bool onButtonPress(Event event, Widget w) {
+        trace("** Sidebar button press");
         //If button press happened outside of sidebar close it
-        if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
-            notifySessionSelected(null);
+        if (event.getWindow() !is null && lbSessions.getWindow() !is null) { 
+            if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
+                notifySessionSelected(null);
+            }
         }
         return false;
     }
@@ -174,10 +177,10 @@ public:
     override void setRevealChild(bool revealChild) {
         super.setRevealChild(revealChild);
         if (revealChild) {
-            trace("Show sidebar");
+            trace("** Show sidebar");
             grabAdd();
         } else {
-            trace("Hide sidebar");
+            trace("** Hide sidebar");
             grabRemove();
         }
         lbSessions.getSelectedRow().grabFocus();
