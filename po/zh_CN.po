@@ -12,7 +12,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "terminal"
@@ -153,7 +153,7 @@ msgid "find-previous"
 msgstr "查找上一个"
 
 msgid "layout"
-msgstr ""
+msgstr "布局"
 
 msgid "maximize"
 msgstr "最大化"
@@ -185,11 +185,11 @@ msgstr "正常缩放"
 #: source/gx/terminix/colorschemes.d:107
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
-msgstr ""
+msgstr "文件 %s 不是兼容的 JSON 颜色主题文件"
 
 #: source/gx/terminix/colorschemes.d:140
 msgid "Color scheme palette requires 16 colors"
-msgstr ""
+msgstr "颜色主题色板需要 16 个颜色"
 
 #: source/gx/terminix/profilewindow.d:64
 #, c-format
@@ -197,9 +197,8 @@ msgid "Editing Profile: %s"
 msgstr "正在编辑配置方案：%s"
 
 #: source/gx/terminix/profilewindow.d:66
-#, fuzzy
 msgid "New Profile"
-msgstr "配置方案"
+msgstr "新建配置方案"
 
 #: source/gx/terminix/profilewindow.d:74
 msgid "General"
@@ -521,9 +520,8 @@ msgid "Greek"
 msgstr "希腊语"
 
 #: source/gx/terminix/encoding.d:25
-#, fuzzy
 msgid "Hebrew Visual"
-msgstr "希伯来语"
+msgstr "希伯来语（视觉排布）"
 
 #: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
 #: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
@@ -642,7 +640,7 @@ msgstr "退出"
 
 #: source/gx/terminix/application.d:185
 msgid "Credits"
-msgstr ""
+msgstr "感谢名单"
 
 #: source/gx/terminix/application.d:310
 msgid "Set the working directory of the terminal"
@@ -650,7 +648,7 @@ msgstr "设置终端的工作目录"
 
 #: source/gx/terminix/application.d:310
 msgid "DIRECTORY"
-msgstr ""
+msgstr "DIRECTORY"
 
 #: source/gx/terminix/application.d:311
 msgid "Set the starting profile"
@@ -658,7 +656,7 @@ msgstr "设置启动配置文件"
 
 #: source/gx/terminix/application.d:311
 msgid "PROFILE_NAME"
-msgstr ""
+msgstr "PROFILE_NAME"
 
 #: source/gx/terminix/application.d:312
 msgid "Open the specified session"
@@ -666,7 +664,7 @@ msgstr "打开指定的会话"
 
 #: source/gx/terminix/application.d:312
 msgid "SESSION_NAME"
-msgstr ""
+msgstr "SESSION_NAME"
 
 #: source/gx/terminix/application.d:313
 msgid "Send an action to current Terminix instance"
@@ -674,7 +672,7 @@ msgstr "向当前 Terminix 实例发送动作"
 
 #: source/gx/terminix/application.d:313
 msgid "ACTION_NAME"
-msgstr ""
+msgstr "ACTION_NAME"
 
 #: source/gx/terminix/application.d:314
 msgid "Execute the passed command"
@@ -682,15 +680,15 @@ msgstr "执行传入的命令"
 
 #: source/gx/terminix/application.d:314
 msgid "EXECUTE"
-msgstr ""
+msgstr "EXECUTE"
 
 #: source/gx/terminix/application.d:315
 msgid "Hidden argument to pass terminal UUID"
-msgstr ""
+msgstr "传入终端 UUID 的隐藏参数"
 
 #: source/gx/terminix/application.d:315
 msgid "TERMINAL_UUID"
-msgstr ""
+msgstr "TERMINAL_UUID"
 
 #: source/gx/terminix/application.d:455
 msgid ""
@@ -811,15 +809,15 @@ msgstr "外观"
 
 #: source/gx/terminix/prefwindow.d:508
 msgid "Enable transparency, requires re-start"
-msgstr ""
+msgstr "开启透明终端，需要重启终端"
 
 #: source/gx/terminix/prefwindow.d:514
 msgid "Use small size for terminal titlebars"
-msgstr ""
+msgstr "使用较小的终端标题栏"
 
 #: source/gx/terminix/prefwindow.d:519
 msgid "Use a wide handle for splitters"
-msgstr ""
+msgstr "使用较宽的分割手柄"
 
 #: source/gx/terminix/prefwindow.d:526
 msgid "Theme Variant"
@@ -834,38 +832,36 @@ msgid "Dark"
 msgstr "深色"
 
 #: source/gx/terminix/terminal/layout.d:28
-#, fuzzy
 msgid "Layout Options"
-msgstr "选项"
+msgstr "布局选项"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: source/gx/terminix/terminal/layout.d:43
-#, fuzzy
 msgid "Active"
-msgstr "动作"
+msgstr "会话活动"
 
 #: source/gx/terminix/terminal/layout.d:49
-#, fuzzy
 msgid "Title"
 msgstr "标题"
 
 #: source/gx/terminix/terminal/layout.d:57
-#, fuzzy
 msgid "Session Load"
-msgstr "会话"
+msgstr "载入会话"
 
 #: source/gx/terminix/terminal/layout.d:73
 msgid ""
 "Active options are always in effect and apply immediately.\n"
 "Session Load options only apply when loading a session file."
 msgstr ""
+"会话活动选项一直生效且立即应用。\n"
+"会话载入选项仅在载入会话文件时生效。"
 
 #: source/gx/terminix/terminal/search.d:100
 msgid "Search Options"
@@ -894,7 +890,7 @@ msgstr "终端"
 
 #: source/gx/terminix/terminal/terminal.d:360
 msgid "Disable input synchronization for this terminal"
-msgstr ""
+msgstr "为此终端关闭输入同步"
 
 #: source/gx/terminix/terminal/terminal.d:384
 msgid "Edit Profile"
@@ -923,7 +919,7 @@ msgstr "查找…"
 
 #: source/gx/terminix/terminal/terminal.d:567
 msgid "Layout Options…"
-msgstr ""
+msgstr "布局选项…"
 
 #: source/gx/terminix/terminal/terminal.d:571
 msgid "Read-Only"
@@ -941,85 +937,85 @@ msgstr "全选"
 
 #: source/gx/terminix/terminal/terminal.d:1107
 msgid "Unexpected error occurred, no additional information available"
-msgstr ""
+msgstr "发生未知错误，无其他可用信息"
 
 #: source/gx/terminix/terminal/terminal.d:1113
 #, c-format
 msgid "Unexpected error occurred: %s"
-msgstr ""
+msgstr "发生未知错误：%s"
 
 #: source/gx/terminix/terminal/terminal.d:1398
 msgid "Save Terminal Output"
-msgstr ""
+msgstr "保存终端输出"
 
 #: source/gx/terminix/terminal/terminal.d:1404
 msgid "All Text Files"
-msgstr ""
+msgstr "所有文本文件"
 
 #: source/gx/terminix/terminal/terminal.d:1408
 #: source/gx/terminix/appwindow.d:601
 msgid "All Files"
-msgstr ""
+msgstr "所有文件"
 
 #: source/gx/terminix/terminal/terminal.d:1698
 #, c-format
 msgid "The child process exited normally with status %d"
-msgstr ""
+msgstr "子进程以 %d 状态正常退出"
 
 #: source/gx/terminix/terminal/terminal.d:1699
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr ""
+msgstr "子进程被 %d 信号中止。"
 
 #: source/gx/terminix/terminal/terminal.d:1700
 msgid "The child process was aborted."
-msgstr ""
+msgstr "子进程已被中止。"
 
 #: source/gx/terminix/terminal/terminal.d:1706
 msgid "Relaunch"
-msgstr ""
+msgstr "重新启动"
 
 #: source/gx/terminix/terminal/terminal.d:1742
 msgid "This command is asking for Administrative access to your computer"
-msgstr ""
+msgstr "命令正在请求计算机的管理员权限"
 
 #: source/gx/terminix/terminal/terminal.d:1743
 msgid "Copying commands from the internet can be dangerous. "
-msgstr ""
+msgstr "从互联网复制命令有一定危险性。"
 
 #: source/gx/terminix/terminal/terminal.d:1744
 msgid "Be sure you understand what each part of this command does."
-msgstr ""
+msgstr "你应当确认命令每个部分的作用。"
 
 #: source/gx/terminix/terminal/terminal.d:1746
-#, fuzzy
 msgid "Don't Paste"
-msgstr "粘贴"
+msgstr "不要粘贴"
 
 #: source/gx/terminix/terminal/terminal.d:1747
 msgid "Paste Anyway"
-msgstr ""
+msgstr "依然粘贴"
 
 #: source/gx/terminix/cmdparams.d:73
 #, c-format
 msgid "Ignoring parameter working-directory as '%s' is not a directory"
-msgstr ""
+msgstr "忽略 working-directory 参数，因为“%s”不是目录"
 
 #: source/gx/terminix/cmdparams.d:82
-#, fuzzy, c-format
+#, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
-msgstr "文件名“%s”不存在"
+msgstr "忽略 session 参数，因为“%s”不存在"
 
 #: source/gx/terminix/cmdparams.d:91
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
+"你不能在载入会话时同时设置配置档案、工作目录及执行的命令行选项，请选择其中一"
+"个操作"
 
 #: source/gx/terminix/appwindow.d:175
-#, fuzzy
 msgid "View session sidebar"
-msgstr "显示侧边栏"
+msgstr "显示会话侧边栏"
 
 #: source/gx/terminix/appwindow.d:187
 msgid "Create a new session"
@@ -1059,7 +1055,7 @@ msgstr "同步输入"
 
 #: source/gx/terminix/appwindow.d:597
 msgid "All JSON Files"
-msgstr ""
+msgstr "所有 JSON 文件"
 
 #: source/gx/terminix/appwindow.d:610
 #, c-format
@@ -1075,9 +1071,8 @@ msgid "Could not load session due to unexpected error."
 msgstr "发生未知错误，无法载入会话。"
 
 #: source/gx/terminix/appwindow.d:648
-#, fuzzy
 msgid "Error Loading Session"
-msgstr "载入会话"
+msgstr "载入会话出错"
 
 #: source/gx/terminix/appwindow.d:663
 msgid "Save Session"
@@ -1089,22 +1084,21 @@ msgid "Terminix"
 msgstr "Terminix"
 
 #: source/gx/gtk/actions.d:22
-#, fuzzy
 msgid "disabled"
-msgstr "已启用"
+msgstr "已禁用"
 
 #: source/app.d:42
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
+msgstr "你的 GTK 版本太老，需要至少 GTK %d.%d.%d！"
 
 #: source/app.d:62
 msgid "Unexpected exception occurred"
-msgstr ""
+msgstr "发生未预期错误"
 
 #: source/app.d:63
 msgid "Error: "
-msgstr ""
+msgstr "错误："
 
 # ******************
 # Nautilus extension
@@ -1128,7 +1122,7 @@ msgstr "在此目录打开 Terminix"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 msgid "A tiling terminal for Gnome"
-msgstr ""
+msgstr "GNOME 的平铺终端模拟器"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:10
 msgid "utilities-terminal"
