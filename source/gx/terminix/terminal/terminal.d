@@ -1383,9 +1383,14 @@ private:
         //Dragging happening?
         if (!dragInfo.isDragActive)
             return false;
-        RGBA bg;
-        getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
-        cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
+        RGBA color;
+        getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, color);
+        /*
+        if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", bg)) {
+            getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
+        }
+        */
+        cr.setSourceRgba(color.red, color.green, color.blue, 0.1);
         cr.setLineWidth(1);
         int w = widget.getAllocatedWidth();
         int h = widget.getAllocatedHeight();
