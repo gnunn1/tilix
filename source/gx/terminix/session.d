@@ -393,8 +393,8 @@ private:
         Box b2 = new Box(Orientation.VERTICAL, 0);
 
         Paned paned = createPaned(orientation);
-        paned.pack1(b1, true, false);
-        paned.pack2(b2, true, false);
+        paned.pack1(b1, false, true);
+        paned.pack2(b2, false, true);
 
         parent.remove(dest);
         parent.showAll();
@@ -744,8 +744,8 @@ private:
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
         Box b2 = new Box(Orientation.VERTICAL, 0);
         b2.add(parseNode(value[NODE_CHILD2], sizeInfo));
-        paned.pack1(b1, true, false);
-        paned.pack2(b2, true, false);
+        paned.pack1(b1, false, true);
+        paned.pack2(b2, false, true);
         // Fix for issue #49
         JSONValue position = value[NODE_SCALED_POSITION];
         double percent;
