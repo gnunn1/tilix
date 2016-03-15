@@ -178,10 +178,10 @@ public:
         super.setRevealChild(revealChild);
         if (revealChild) {
             trace("** Show sidebar");
-            grabAdd();
+            if (!hasGrab()) grabAdd();
         } else {
             trace("** Hide sidebar");
-            grabRemove();
+            if (hasGrab()) grabRemove();
         }
         lbSessions.getSelectedRow().grabFocus();
     }
