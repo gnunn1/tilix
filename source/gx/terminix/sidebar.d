@@ -92,6 +92,7 @@ public:
         super();
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
+        
         setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
         setHexpand(false);
         setVexpand(true);
@@ -108,6 +109,13 @@ public:
         ScrolledWindow sw = new ScrolledWindow(lbSessions);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setShadowType(ShadowType.IN);
+
+        sw.addOnUnmap(delegate(Widget) {
+           if (hasGrab()) {
+               grabRemove();
+               trace("** Sidebar unmapped");
+           } 
+        });
 
         add(sw);
     }
