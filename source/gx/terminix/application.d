@@ -243,11 +243,16 @@ private:
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         trace("Monitoring shortcuts");
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
-            trace("Updating shortcut '" ~ keyToDetailedActionName(key) ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
-            setAccelsForAction(keyToDetailedActionName(key), [gsShortcuts.getString(key)]);
-            string[] values = getAccelsForAction(keyToDetailedActionName(key));
-            foreach (value; values) {
-                trace("Accel " ~ value ~ " for action " ~ keyToDetailedActionName(key));
+            string actionName = keyToDetailedActionName(key);
+            trace("Updating shortcut '" ~ actionName ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
+            string shortcut = gsShortcuts.getString(key); 
+            if (shortcut == SHORTCUT_DISABLED) {
+                char** tmp = (new char*[1]).ptr;
+                tmp[0] = cast(char*) '\0';                
+                gtkc.gtk.gtk_application_set_accels_for_action(gtkApplication, glib.Str.Str.toStringz(actionName), tmp);
+                trace("Removing accelerator");
+            } else {
+                setAccelsForAction(actionName, [shortcut]);
             }
         });
         gsGeneral = new GSettings(SETTINGS_ID);
