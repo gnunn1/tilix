@@ -1004,6 +1004,7 @@ public:
      */
     bool focusTerminal(ulong terminalID) {
         if (terminalID > 0 && terminalID <= terminals.length) {
+            if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminals[terminalID - 1]) return false;
             terminals[terminalID - 1].focusTerminal();
             return true;
         }
