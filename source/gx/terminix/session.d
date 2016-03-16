@@ -118,6 +118,9 @@ private:
     Terminal lastFocused;
     
     GSettings gsSettings;
+    
+    immutable bool PANED_RESIZE_MODE = false;
+    immutable bool PANED_SHRINK_MODE = true;
 
     /**
      * Creates the session user interface
@@ -138,6 +141,7 @@ private:
         stackGroup = new Box(Orientation.VERTICAL, 0);
         addNamed(stackGroup, STACK_GROUP_NAME);
         stackMaximized = new Box(Orientation.VERTICAL, 0);
+        stackMaximized.getStyleContext().addClass("terminix-notebook-page");
         addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu and rawhide where background-color 
@@ -393,8 +397,8 @@ private:
         Box b2 = new Box(Orientation.VERTICAL, 0);
 
         Paned paned = createPaned(orientation);
-        paned.pack1(b1, false, true);
-        paned.pack2(b2, false, true);
+        paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
+        paned.pack2(b2, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
 
         parent.remove(dest);
         parent.showAll();
@@ -744,8 +748,8 @@ private:
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
         Box b2 = new Box(Orientation.VERTICAL, 0);
         b2.add(parseNode(value[NODE_CHILD2], sizeInfo));
-        paned.pack1(b1, false, true);
-        paned.pack2(b2, false, true);
+        paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
+        paned.pack2(b2, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
         // Fix for issue #49
         JSONValue position = value[NODE_SCALED_POSITION];
         double percent;
