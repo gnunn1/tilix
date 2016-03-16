@@ -345,6 +345,7 @@ private:
 
         //Close Button
         Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
+        btnClose.setTooltipText(_("Close"));
         btnClose.setRelief(ReliefStyle.NONE);
         btnClose.setFocusOnClick(false);
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
@@ -353,6 +354,7 @@ private:
 
         //Maximize Button
         btnMaximize = new Button("window-maximize-symbolic", IconSize.MENU);
+        btnMaximize.setTooltipText(_("Maximize"));
         btnMaximize.setRelief(ReliefStyle.NONE);
         btnMaximize.setFocusOnClick(false);
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
@@ -732,10 +734,13 @@ private:
         sa.setEnabled(terminalState == TerminalState.NORMAL);
         //Update button image
         string icon;
-        if (terminalState == TerminalState.MAXIMIZED)
+        if (terminalState == TerminalState.MAXIMIZED) {
             icon = "window-restore-symbolic";
-        else
+            btnMaximize.setTooltipText(_("Restore"));
+        } else {
             icon = "window-maximize-symbolic";
+            btnMaximize.setTooltipText(_("Maximize"));
+        }
         btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
 
