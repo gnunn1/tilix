@@ -120,7 +120,7 @@ private:
     GSettings gsSettings;
     
     immutable bool PANED_RESIZE_MODE = false;
-    immutable bool PANED_SHRINK_MODE = true;
+    immutable bool PANED_SHRINK_MODE = false;
 
     /**
      * Creates the session user interface

@@ -677,7 +677,7 @@ private:
 
         Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
         terminalBox.add(terminalOverlay);
-
+        
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE

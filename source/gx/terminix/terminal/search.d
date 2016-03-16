@@ -83,6 +83,7 @@ private:
         bEntry.getStyleContext().addClass("linked");
 
         seSearch = new SearchEntry();
+        seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
         seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
