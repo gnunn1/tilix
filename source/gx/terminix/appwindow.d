@@ -259,6 +259,10 @@ private:
             if (newState) {
                 trace("Toggle sidebar on");
                 sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
+                sb.showAll();
+            } else {
+                trace("Toggle sidebar off");
+                sb.hide();
             }
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));

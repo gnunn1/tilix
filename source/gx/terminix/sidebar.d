@@ -112,8 +112,8 @@ public:
 
         sw.addOnUnmap(delegate(Widget) {
            if (hasGrab()) {
-               grabRemove();
-               trace("** Sidebar unmapped");
+                grabRemove();
+                trace("** Unmapped, Removing Sidebar Grab");
            } 
         });
 
@@ -186,12 +186,18 @@ public:
         super.setRevealChild(revealChild);
         if (revealChild) {
             trace("** Show sidebar");
-            if (!hasGrab()) grabAdd();
+            if (!hasGrab()) {
+                grabAdd();
+                trace("** Getting Sidebar Grab");
+            }
+            lbSessions.getSelectedRow().grabFocus();
         } else {
             trace("** Hide sidebar");
-            if (hasGrab()) grabRemove();
+            if (hasGrab()) {
+                grabRemove();
+                trace("** Removing Sidebar Grab");
+            }
         }
-        lbSessions.getSelectedRow().grabFocus();
     }
 
     void addOnSessionSelected(OnSessionSelected dlg) {
