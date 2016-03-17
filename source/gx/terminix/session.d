@@ -528,24 +528,6 @@ private:
                 terminal.handleSyncInput(event);
             }
         }
-
-        /*
-        final switch (event.eventType) {
-            
-            case SyncInputEventType.KEY_PRESS:
-//                Event newEvent = event.event.copy();
-                foreach (terminal; terminals) {
-                    if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
-                        trace("sending key press, sendEvent = " ~ to!string(newEvent.key.sendEvent));
-//                        newEvent.key.sendEvent = 1;
-                        terminal.handleSyncInput(event);
-                    }
-                }
-                break;
-            case SyncInputEventType.PASTE:
-                break;
-        } 
-        */
     }
     
     bool maximizeTerminal(Terminal terminal) {

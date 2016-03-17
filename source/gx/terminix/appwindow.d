@@ -102,6 +102,8 @@ private:
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
+    enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
+    enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
 
     Notebook nb;
     HeaderBar hb;
@@ -227,24 +229,38 @@ private:
      */
     void createWindowActions(GSettings gsShortcuts) {
         static if (SHOW_DEBUG_OPTIONS) {
-            registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) {
-               trace("Performing collection");
-               core.memory.GC.collect(); 
-            });
+            registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) { trace("Performing collection"); core.memory.GC.collect(); });
         }
-        
+
         //Create Switch to Session (0..9) actions
         //Can't use :: action targets for this since action name needs to be preferences 
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 int index = to!int(sa.getName()[$ - 1 .. $]);
-                if (index == 0) index = 9;
-                else index--;
+                if (index == 0)
+                    index = 9;
+                else
+                    index--;
                 if (index <= nb.getNPages()) {
                     nb.setCurrentPage(index);
                 }
             });
         }
+
+        registerActionWithSettings(this, "win", ACTION_WIN_NEXT_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (nb.getCurrentPage() < nb.getNPages() - 1) {
+                nb.nextPage();
+            } else {
+                nb.setCurrentPage(0);
+            }
+        });
+        registerActionWithSettings(this, "win", ACTION_WIN_PREVIOUS_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (nb.getCurrentPage() > 0) {
+                nb.prevPage();
+            } else {
+                nb.setCurrentPage(nb.getNPages() - 1);
+            }
+        });
 
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             trace("Setting fullscreen");
@@ -368,7 +384,7 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Name…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_NAME)));
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
-        
+
         static if (SHOW_DEBUG_OPTIONS) {
             GMenu mDebugSection = new GMenu();
             mDebugSection.appendItem(new GMenuItem(_("GC"), getActionDetailedName("win", "gc")));
