@@ -226,6 +226,13 @@ private:
      * Create Window actions
      */
     void createWindowActions(GSettings gsShortcuts) {
+        static if (SHOW_DEBUG_OPTIONS) {
+            registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) {
+               trace("Performing collection");
+               core.memory.GC.collect(); 
+            });
+        }
+        
         //Create Switch to Session (0..9) actions
         //Can't use :: action targets for this since action name needs to be preferences 
         for (int i = 0; i <= 9; i++) {
@@ -361,6 +368,12 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Name…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_NAME)));
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
+        
+        static if (SHOW_DEBUG_OPTIONS) {
+            GMenu mDebugSection = new GMenu();
+            mDebugSection.appendItem(new GMenuItem(_("GC"), getActionDetailedName("win", "gc")));
+            model.appendSection(null, mDebugSection);
+        }
 
         return new Popover(parent, model);
     }

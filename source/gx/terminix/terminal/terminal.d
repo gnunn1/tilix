@@ -1144,7 +1144,11 @@ private:
 private:
 
     DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
-    Window dragImage;
+    static if (USE_PIXBUF_DND) {
+        Pixbuf dragImage;
+    } else {
+        Window dragImage;
+    }
 
     /**
      * Sets up the DND by registering the TargetEntry objects as source and destinations
@@ -1200,11 +1204,16 @@ private:
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
         trace("Title Drag begin");
-        Image image = new Image(getWidgetImage(this, 0.20));
-        image.show();
-        dragImage = new Window(GtkWindowType.POPUP);
-        dragImage.add(image);
-        DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+        static if (USE_PIXBUF_DND) {
+            dragImage = getWidgetImage(this, 0.20);
+            DragAndDrop.dragSetIconPixbuf(dc, dragImage, 0, 0);
+        } else {
+            Image image = new Image(getWidgetImage(this, 0.20));
+            image.show();
+            dragImage = new Window(GtkWindowType.POPUP);
+            dragImage.add(image);
+            DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+        }
     }
     
     void onTitleDragEnd(DragContext dc, Widget widget) {
