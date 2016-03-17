@@ -479,21 +479,7 @@ private:
     }
 
     void updateUIState() {
-        if (sessionNotifications.length > 0) {
-            ulong count = 0;
-            foreach (sn; sessionNotifications.values) {
-                count = count + sn.messages.length;
-                trace(format("Entry %s has %d messages", sn.sessionUUID, sn.messages.length));
-            }
-            trace(format("Total Notifications %d for entries %d", count, sessionNotifications.length));
-            if (!tbSideBar.getStyleContext().hasClass(CSS_CLASS_NEEDS_ATTENTION)) {
-                tbSideBar.getStyleContext().addClass(CSS_CLASS_NEEDS_ATTENTION);
-            }
-        } else {
-            if (tbSideBar.getStyleContext().hasClass(CSS_CLASS_NEEDS_ATTENTION)) {
-                tbSideBar.getStyleContext().removeClass(CSS_CLASS_NEEDS_ATTENTION);
-            }
-        }
+        tbSideBar.queueDraw();
         saCloseSession.setEnabled(nb.getNPages > 1);
     }
 
@@ -511,30 +497,50 @@ private:
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
-        if (nb.getNPages() > 1) {
+        
+        // pw, ph, ps = percent width, height, size
+        void drawBadge(double pw, double ph, double ps, RGBA fg, RGBA bg, int value) {
             int w = widget.getAllocatedWidth();
             int h = widget.getAllocatedHeight();
-            RGBA fg;
-            RGBA bg;
-            widget.getStyleContext().lookupColor("theme_fg_color", bg);
-            widget.getStyleContext().lookupColor("theme_bg_color", fg);
-            bg.alpha = 0.9;
 
-            double x = w * 0.70;
-            double y = h * 0.70;
-            double radius = w * 0.20;
-            cr.setSourceRgba(bg.red, bg.blue, bg.green, bg.alpha);
+            double x = w * pw;
+            double y = h * ph;
+            double radius = w * ps;
+            
+            cr.save();
+            cr.setSourceRgba(bg.red, bg.green, bg.blue, bg.alpha);
             cr.arc(x, y, radius, 0.0, 2.0 * PI);
             cr.fillPreserve();
             cr.stroke();
             cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
             cr.setFontSize(11);
-            cr.setSourceRgba(fg.red, fg.blue, fg.green, 1.0);
-            string text = to!string(nb.getNPages());
+            cr.setSourceRgba(fg.red, fg.green, fg.blue, 1.0);
+            string text = to!string(value);
             cairo_text_extents_t extents;
             cr.textExtents(text, &extents);
             cr.moveTo(x - extents.width / 2, y + extents.height / 2);
             cr.showText(text);
+            cr.restore();
+            cr.newPath();
+        }
+        
+        RGBA fg;
+        RGBA bg;
+        if (nb.getNPages() > 1) {
+            widget.getStyleContext().lookupColor("theme_fg_color", bg);
+            widget.getStyleContext().lookupColor("theme_bg_color", fg);
+            bg.alpha = 0.9;
+            drawBadge(0.70, 0.70, 0.20, fg, bg, nb.getNPages());
+        }
+        ulong count = 0;
+        foreach (sn; sessionNotifications.values) {
+            count = count + sn.messages.length;
+        }
+        if (count > 0) {
+            widget.getStyleContext().lookupColor("theme_selected_fg_color", fg);
+            widget.getStyleContext().lookupColor("theme_selected_bg_color", bg);
+            bg.alpha = 0.9;
+            drawBadge(0.30, 0.30, 0.20, fg, bg, to!int(count));
         }
         return false;
     }
