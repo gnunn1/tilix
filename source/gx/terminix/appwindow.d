@@ -595,8 +595,10 @@ private:
             scope (exit) {
                 dialog.destroy();
             }
-            if (dialog.run() == ResponseType.CANCEL)
+            if (dialog.run() != ResponseType.OK) {
+                trace("Abort close");
                 return true;
+            }
         }
         return false;
     }
