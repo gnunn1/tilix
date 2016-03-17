@@ -211,6 +211,7 @@ private:
 
         CellRendererAccel craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
+        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.GTK);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
@@ -220,15 +221,16 @@ private:
             gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), _(SHORTCUT_DISABLED));
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint, CellRendererAccel) {
-            trace("Updating shortcut");
+            string label = AccelGroup.acceleratorGetLabel(accelKey, accelMods);
+            string name = AccelGroup.acceleratorName(accelKey, accelMods);
+            trace("Updating shortcut as " ~ label);
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
-            string label = AccelGroup.acceleratorName(accelKey, accelMods);
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
             //Note accelerator changed by app which is monitoring gsetting changes
             string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
             trace(format("Setting action %s to shortcut %s", action, label));
-            gsShortcuts.setString(action, label);
+            gsShortcuts.setString(action, name);
         });
         column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 
@@ -257,7 +259,7 @@ private:
                 currentPrefix = prefix;
                 currentIter = appendValues(ts, null, [_(prefix)]);
             }
-            appendValues(ts, currentIter, [_(id), gsShortcuts.getString(key), key]);
+            appendValues(ts, currentIter, [_(id), acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
         }
     }
 
