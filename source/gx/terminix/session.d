@@ -211,7 +211,7 @@ private:
         terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.addOnTerminalInFocus(&onTerminalInFocus);
-        terminal.addOnTerminalKeyPress(&onTerminalKeyPress);
+        terminal.addOnTerminalSyncInput(&onTerminalSyncInput);
         terminal.addOnProcessNotification(&onTerminalProcessNotification);
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.addOnTerminalRequestStateChange(&onTerminalRequestStateChange);
@@ -236,7 +236,7 @@ private:
         terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.removeOnTerminalInFocus(&onTerminalInFocus);
-        terminal.removeOnTerminalKeyPress(&onTerminalKeyPress);
+        terminal.removeOnTerminalSyncInput(&onTerminalSyncInput);
         terminal.removeOnProcessNotification(&onTerminalProcessNotification);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.removeOnTerminalRequestStateChange(&onTerminalRequestStateChange);
@@ -520,16 +520,32 @@ private:
         lastFocused = terminal;
     }
 
-    void onTerminalKeyPress(Terminal originator, Event event) {
-        trace("Got key press");
-        Event newEvent = event.copy();
+    void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
+        trace("Got sync input event");
         foreach (terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
-                trace("sending key press, sendEvent = " ~ to!string(event.key.sendEvent));
-                newEvent.key.sendEvent = 1;
-                terminal.echoKeyPressEvent(newEvent);
+                trace("sending sync event");
+                terminal.handleSyncInput(event);
             }
         }
+
+        /*
+        final switch (event.eventType) {
+            
+            case SyncInputEventType.KEY_PRESS:
+//                Event newEvent = event.event.copy();
+                foreach (terminal; terminals) {
+                    if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
+                        trace("sending key press, sendEvent = " ~ to!string(newEvent.key.sendEvent));
+//                        newEvent.key.sendEvent = 1;
+                        terminal.handleSyncInput(event);
+                    }
+                }
+                break;
+            case SyncInputEventType.PASTE:
+                break;
+        } 
+        */
     }
     
     bool maximizeTerminal(Terminal terminal) {

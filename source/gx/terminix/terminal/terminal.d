@@ -154,11 +154,18 @@ alias OnTerminalRequestMove = void delegate(string srcUUID, Terminal dest, DragQ
  */
 alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 
+enum SyncInputEventType {KEY_PRESS, PASTE};
+
+struct SyncInputEvent {
+    SyncInputEventType eventType;
+    Event event;
+}
+
 /**
  * Triggered on a terminal key press, used by the session to synchronize input
  * when this option is selected.
  */
-alias OnTerminalKeyPress = void delegate(Terminal terminal, Event event);
+alias OnTerminalSyncInput = void delegate(Terminal terminal, SyncInputEvent event);
 
 /**
  * Triggered when the terminal needs to change state. Delegate returns whether
@@ -201,7 +208,7 @@ private:
     OnTerminalRequestSplit[] terminalRequestSplitDelegates;
     OnTerminalRequestMove[] terminalRequestMoveDelegates;
     OnTerminalRequestDetach[] terminalRequestDetachDelegates;
-    OnTerminalKeyPress[] terminalKeyPressDelegates;
+    OnTerminalSyncInput[] terminalSyncInputDelegates;
     OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
 
     TerminalState terminalState = TerminalState.NORMAL;
@@ -640,8 +647,9 @@ private:
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (isSynchronizedInput() && event.key.sendEvent == 0) {
-                foreach (dlg; terminalKeyPressDelegates)
-                    dlg(this, event);
+                SyncInputEvent se = SyncInputEvent(SyncInputEventType.KEY_PRESS, event);
+                foreach (dlg; terminalSyncInputDelegates)
+                    dlg(this, se);
             } 
             return false;
         });
@@ -744,9 +752,10 @@ private:
         btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
 
-    void pasteClipboard() {
+    void pasteClipboard(bool inputSync = false) {
         string pasteText = Clipboard.get(null).waitForText();
-        if ((pasteText.indexOf("sudo") > -1) && (pasteText.indexOf("\n") != 0)) {
+        // Don't check for unsafe paste if doing sync input, original paste checked it
+        if (!inputSync && (pasteText.indexOf("sudo") > -1) && (pasteText.indexOf("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
                 UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window) getToplevel(), chomp(pasteText));
                 scope (exit) {
@@ -756,6 +765,15 @@ private:
                     return;
                 else
                     unsafePasteIgnored = true;
+            }
+        }
+        scope (exit) {
+            // Only call handler if synchronized input is active and we are
+            // not doing this paste as a result of a synchronized input
+            if (!inputSync && isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(SyncInputEventType.PASTE, null);
+                foreach (dlg; terminalSyncInputDelegates)
+                    dlg(this, se);
             }
         }
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
@@ -1585,10 +1603,19 @@ public:
     /**
      * Called by the session to synchronize input
      */
-    void echoKeyPressEvent(Event event) {
-        if (isSynchronizedInput()) {
-            event.key.window = vte.getWindow().getWindowStruct();
-            vte.event(event);
+    void handleSyncInput(SyncInputEvent sie) {
+        if (!isSynchronizedInput()) return;
+
+        final switch (sie.eventType) {
+            case SyncInputEventType.KEY_PRESS:
+                Event newEvent = sie.event.copy();
+                newEvent.key.sendEvent = 1;
+                newEvent.key.window = vte.getWindow().getWindowStruct();
+                vte.event(newEvent);
+                break;
+            case SyncInputEventType.PASTE:
+                pasteClipboard(true);
+                break;            
         }
     }
 
@@ -1716,12 +1743,12 @@ public:
         gx.util.array.remove(terminalInFocusDelegates, dlg);
     }
 
-    void addOnTerminalKeyPress(OnTerminalKeyPress dlg) {
-        terminalKeyPressDelegates ~= dlg;
+    void addOnTerminalSyncInput(OnTerminalSyncInput dlg) {
+        terminalSyncInputDelegates ~= dlg;
     }
 
-    void removeOnTerminalKeyPress(OnTerminalKeyPress dlg) {
-        gx.util.array.remove(terminalKeyPressDelegates, dlg);
+    void removeOnTerminalSyncInput(OnTerminalSyncInput dlg) {
+        gx.util.array.remove(terminalSyncInputDelegates, dlg);
     }
 
     void addOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
