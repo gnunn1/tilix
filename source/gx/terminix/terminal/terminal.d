@@ -482,6 +482,7 @@ private:
             if (dialog.run() == ResponseType.OK) {
                 _overrideTitle = dialog.title;
                 _overrideCommand = dialog.command;
+                updateTitle();
             }
             /*            
             if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
