@@ -144,8 +144,6 @@ private:
             saSyncInput.setState(new GVariant(session.synchronizeInput));
         }, ConnectFlags.AFTER);
 
-        Overlay overlay = new Overlay();
-        add(overlay);
         sb = new SideBar();
         sb.addOnSessionSelected(delegate(string sessionUUID) {
             trace("Session selected " ~ sessionUUID);
@@ -156,6 +154,9 @@ private:
                 getCurrentSession().focusRestore();
             }
         });
+
+        Overlay overlay = new Overlay();
+        overlay.add(nb);
         overlay.addOverlay(sb);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
@@ -164,11 +165,11 @@ private:
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box b = new Box(Orientation.VERTICAL, 0);
             b.add(toolbar);
-            b.add(nb);
-            overlay.add(b);
+            b.add(overlay);
+            add(b);
         } else {
             this.setTitlebar(toolbar);
-            overlay.add(nb);
+            add(overlay);
         }
     }
 
@@ -207,10 +208,6 @@ private:
             spacer.getStyleContext().addClass("terminix-toolbar");
             spacer.packStart(tb, true, true, 0);
 
-            Box b = new Box(Orientation.VERTICAL, 0);
-            b.add(spacer);
-            b.add(nb);
-            add(b);
             return spacer;
         } else {
             //Header Bar
