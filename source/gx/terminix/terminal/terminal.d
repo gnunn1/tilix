@@ -1423,7 +1423,7 @@ private:
             getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
         }
         */
-        cr.setSourceRgba(color.red, color.green, color.blue, 0.1);
+        cr.setSourceRgba(color.red, color.green, color.blue, 0.3);
         cr.setLineWidth(1);
         int w = widget.getAllocatedWidth();
         int h = widget.getAllocatedHeight();
