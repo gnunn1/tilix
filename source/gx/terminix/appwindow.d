@@ -530,7 +530,7 @@ private:
             widget.getStyleContext().lookupColor("theme_fg_color", bg);
             widget.getStyleContext().lookupColor("theme_bg_color", fg);
             bg.alpha = 0.9;
-            drawBadge(0.70, 0.70, 0.20, fg, bg, nb.getNPages());
+            drawBadge(0.72, 0.70, 0.19, fg, bg, nb.getNPages());
         }
         ulong count = 0;
         foreach (sn; sessionNotifications.values) {
@@ -540,7 +540,7 @@ private:
             widget.getStyleContext().lookupColor("theme_selected_fg_color", fg);
             widget.getStyleContext().lookupColor("theme_selected_bg_color", bg);
             bg.alpha = 0.9;
-            drawBadge(0.30, 0.30, 0.20, fg, bg, to!int(count));
+            drawBadge(0.28, 0.70, 0.19, fg, bg, to!int(count));
         }
         return false;
     }
