@@ -998,6 +998,61 @@ public:
     }
 
     /**
+     * Focus terminal in the session by direction
+     */
+    void focusDirection(string direction) {
+        trace("Focusing ", direction);
+
+        Widget appWindow = lastFocused.getToplevel();
+        GtkAllocation appWindowAllocation;
+        appWindow.getClip(appWindowAllocation);
+
+        // Start at the top left of the current terminal
+        int xPos, yPos;
+        lastFocused.translateCoordinates(appWindow, 0, 0, xPos, yPos);
+
+        // While still in the application window, move 20 pixels per loop
+        while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
+            switch (direction) {
+                case "up":
+                    yPos -= 20;
+                    break;
+
+                case "down":
+                    yPos += 20;
+                    break;
+
+                case "left":
+                    xPos -= 20;
+                    break;
+
+                case "right":
+                    xPos += 20;
+                    break;
+
+                default: break;
+            }
+
+            // If the x/y position lands in another terminal, focus it
+            foreach (terminal; terminals) {
+                if (terminal == lastFocused)
+                    continue;
+
+                int termX, termY;
+                terminal.translateCoordinates(appWindow, 0, 0, termX, termY);
+
+                GtkAllocation termAllocation;
+                terminal.getClip(termAllocation);
+
+                if (xPos >= termX && yPos >= termY && xPos <= (termX + termAllocation.width) && yPos <= (termY + termAllocation.height)) {
+                    focusTerminal(terminal.terminalUUID);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
      * Focus the terminal designated by the ID
      */
     bool focusTerminal(ulong terminalID) {
