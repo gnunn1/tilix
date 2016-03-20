@@ -275,6 +275,9 @@ private:
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
     TerminalRegex[int] regexTag;
+    
+    //Track match detection
+    TerminalURLMatch match;
 
     /**
      * Create the user interface of the TerminalPane
@@ -452,6 +455,18 @@ private:
             }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
+        
+        //Link Actions, no shortcuts, context menu only
+        registerAction(group, ACTION_PREFIX, ACTION_COPY_LINK, null, delegate(GVariant, SimpleAction) {
+            if (match.match) {
+                Clipboard.get(null).setText(match.match, to!int(match.match.length));
+            }    
+        });
+        registerAction(group, ACTION_PREFIX, ACTION_OPEN_LINK, null, delegate(GVariant, SimpleAction) {
+            if (match.match) {
+                openURI(match.match, match.flavor);
+            }
+        });
 
         //Zoom actions
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -654,27 +669,14 @@ private:
             } 
             return false;
         });
-
+        
+        // Create basic context menu, items get added dynamically
         static if (POPOVER_CONTEXT_MENU) {
-            GMenu mmContext = new GMenu();
-            mmContext.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            mmContext.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
-            mmContext.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
-            pmContext = new Popover(vte, mmContext);
+            pmContext = new Popover(vte);
             pmContext.setModal(true);
             pmContext.setPosition(PositionType.BOTTOM);
         } else {
-            //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
-            //work fine in a popover. Could switch this to a popover but popover positioning could use some
-            //work, as well popover clips in small windows.
             mContext = new Menu();
-            miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
-            mContext.add(miCopy);
-            miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
-            mContext.add(miPaste);
-            MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
-            mContext.add(new SeparatorMenuItem());
-            mContext.add(miSelectAll);
         }
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
@@ -839,24 +841,64 @@ private:
             return;
         }
     }
+    
+    void buildContextMenu() {
+        static if (POPOVER_CONTEXT_MENU) {
+            GMenu mmContext = new GMenu();
+            if (match.match) {
+                GMenu linkSection = new GMenu();
+                linkSection.append(_("Open Link"), ACTION_OPEN_LINK);
+                linkSection.append(_("Copy Link Address"), ACTION_COPY_LINK);
+                mmContext.appendSection(null, linkSection);
+            }
+            GMenu clipSection = new GMenu();
+            clipSection.append(_("Copy"), ACTION_COPY);
+            clipSection.append(_("Paste"), ACTION_PASTE);
+            clipSection.append(_("Select All"), ACTION_SELECT_ALL);
+            mmContext.appendSection(null, clipSection);
+            pmContext.bindModel(mmContext, ACTION_PREFIX);
+        } else {
+            //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
+            //work fine in a popover. Could switch this to a popover but popover positioning could use some
+            //work, as well popover clips in small windows.
+            //
+            // Note doesn't have new copy/open link actions, will be removing context menu support in near
+            // future since popover seems to be working well
+            mContext.removeAll();
+            miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
+            mContext.add(miCopy);
+            miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
+            mContext.add(miPaste);
+            MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
+            mContext.add(new SeparatorMenuItem());
+            mContext.add(miSelectAll);
+        }
+    }
 
     /**
      * Signal received when mouse button is pressed in terminal
      */
     bool onTerminalButtonPress(Event event, Widget widget) {
+
+        void updateMatch(Event event) {
+            match.clear;
+            int tag;
+            match.match = vte.matchCheckEvent(event, tag);
+            if (match.match) {
+                if (tag in regexTag) {
+                    TerminalRegex regex = regexTag[tag];
+                    match.flavor = regex.flavor;
+                }
+            }
+        }
+
         if (event.type == EventType.BUTTON_PRESS) {
             GdkEventButton* buttonEvent = event.button;
+            updateMatch(event);            
             switch (buttonEvent.button) {
             case MouseButton.PRIMARY:
-                int tag;
-                string match = vte.matchCheckEvent(event, tag);
-                if (match) {
-                    TerminalURLFlavor flavor = TerminalURLFlavor.AS_IS;
-                    if (tag in regexTag) {
-                        TerminalRegex regex = regexTag[tag];
-                        flavor = regex.flavor;
-                    }
-                    openURI(match, cast(TerminalURLFlavor) tag);
+                if (match.match) {
+                    openURI(match.match, match.flavor);
                     return true;
                 } else {
                     return false;
@@ -865,6 +907,7 @@ private:
                 trace("Enabling actions");
                 if (!(event.button.state & (GdkModifierType.SHIFT_MASK | GdkModifierType.CONTROL_MASK | GdkModifierType.MOD1_MASK)) && vte.onButtonPressEvent(event.button)) return true;
                 
+                buildContextMenu();
                 static if (POPOVER_CONTEXT_MENU) {
                     saCopy.setEnabled(vte.getHasSelection());
                     saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
@@ -1828,13 +1871,13 @@ public:
 //Block for defining various DND structs and constants
 private:
 /**
-     * Constant used to identify terminal drag and drop
-     */
+ * Constant used to identify terminal drag and drop
+ */
 enum VTE_DND = "vte";
 
 /**
-    * List of available Drop Targets for VTE
-    */
+ * List of available Drop Targets for VTE
+ */
 enum DropTargets {
     URILIST,
     STRING,
@@ -1852,6 +1895,20 @@ struct DragInfo {
 
 //Block for handling default regex in vte
 private:
+
+/**
+ * Struct used to track matches in terminal for cases like context menu
+ * where we need to preserve state between finding match and performing action
+ */
+struct TerminalURLMatch {
+    TerminalURLFlavor flavor;
+    string match;
+    
+    void clear() {
+        flavor = TerminalURLFlavor.AS_IS;
+        match.length = 0;
+    }
+}
 
 //REGEX, cribbed from Gnome Terminal
 enum USERCHARS = "-[:alnum:]";
