@@ -13,7 +13,7 @@ import std.uuid;
 import gdk.Atom;
 import gdk.Event;
 
-import gio.Settings: GSettings = Settings;
+import gio.Settings : GSettings = Settings;
 
 import glib.Util;
 
@@ -116,9 +116,9 @@ private:
     MaximizedInfo maximizedInfo;
 
     Terminal lastFocused;
-    
+
     GSettings gsSettings;
-    
+
     immutable bool PANED_RESIZE_MODE = false;
     immutable bool PANED_SHRINK_MODE = false;
 
@@ -151,9 +151,9 @@ private:
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
         addOnRealize(delegate(Widget) {
-           if (maximizedInfo.isMaximized) {
-               setVisibleChild(stackMaximized);
-           } 
+            if (maximizedInfo.isMaximized) {
+                setVisibleChild(stackMaximized);
+            }
         });
     }
 
@@ -529,7 +529,7 @@ private:
             }
         }
     }
-    
+
     bool maximizeTerminal(Terminal terminal) {
         if (terminals.length == 1) {
             trace("Only one terminal in session, ignoring maximize request");
@@ -551,7 +551,7 @@ private:
         setVisibleChild(stackMaximized);
         return true;
     }
-    
+
     bool restoreTerminal(Terminal terminal) {
         if (!maximizedInfo.isMaximized) {
             error("Terminal is not maximized, ignoring");
@@ -580,7 +580,7 @@ private:
         if (state == TerminalState.MAXIMIZED) {
             result = maximizeTerminal(terminal);
         } else {
-            result = restoreTerminal(terminal); 
+            result = restoreTerminal(terminal);
         }
         terminal.focusTerminal();
         return result;
@@ -723,10 +723,10 @@ private:
         string profileUUID = value[NODE_PROFILE].str();
         Terminal terminal = createTerminal(profileUUID);
         if (NODE_TITLE in value) {
-            terminal.overrideTitle = value[NODE_TITLE].str(); 
+            terminal.overrideTitle = value[NODE_TITLE].str();
         }
         if (NODE_OVERRIDE_CMD in value) {
-            terminal.overrideCommand = value[NODE_OVERRIDE_CMD].str(); 
+            terminal.overrideCommand = value[NODE_OVERRIDE_CMD].str();
         }
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
@@ -792,7 +792,7 @@ private:
         addTerminal(terminal);
         createUI(terminal);
     }
-    
+
     void initSession() {
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
@@ -800,15 +800,15 @@ private:
                 trace("Wide handle setting changed");
                 updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
             }
-        });       
+        });
     }
-    
+
     void updateWideHandle(bool value) {
         Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
         trace(format("Updating wide handle for %d paned", all.length));
-        foreach(paned; all) {
+        foreach (paned; all) {
             paned.setWideHandle(value);
-        }    
+        }
     }
 
 public:
@@ -935,11 +935,11 @@ public:
             terminal.synchronizeInput = value;
         }
     }
-    
+
     /**
      * Used to support re-parenting to enable a thumbnail
      * image to be drawn off screen
-     */ 
+     */
     @property Widget drawable() {
         if (maximizedInfo.isMaximized) {
             return maximizedInfo.terminal;
@@ -1014,23 +1014,20 @@ public:
         // While still in the application window, move 20 pixels per loop
         while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
             switch (direction) {
-                case "up":
-                    yPos -= 20;
-                    break;
-
-                case "down":
-                    yPos += 20;
-                    break;
-
-                case "left":
-                    xPos -= 20;
-                    break;
-
-                case "right":
-                    xPos += 20;
-                    break;
-
-                default: break;
+            case "up":
+                yPos -= 20;
+                break;
+            case "down":
+                yPos += 20;
+                break;
+            case "left":
+                xPos -= 20;
+                break;
+            case "right":
+                xPos += 20;
+                break;
+            default:
+                break;
             }
 
             // If the x/y position lands in another terminal, focus it
@@ -1045,11 +1042,18 @@ public:
                 terminal.getClip(termAllocation);
 
                 if (xPos >= termX && yPos >= termY && xPos <= (termX + termAllocation.width) && yPos <= (termY + termAllocation.height)) {
-                    focusTerminal(terminal.terminalUUID);
+                    focusTerminal(terminal);
                     return;
                 }
             }
         }
+    }
+    
+    bool focusTerminal(Terminal terminal) {
+        if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminal)
+            return false;
+        terminal.focusTerminal();
+        return true;        
     }
 
     /**
@@ -1057,9 +1061,7 @@ public:
      */
     bool focusTerminal(ulong terminalID) {
         if (terminalID > 0 && terminalID <= terminals.length) {
-            if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminals[terminalID - 1]) return false;
-            terminals[terminalID - 1].focusTerminal();
-            return true;
+            return focusTerminal(terminals[terminalID - 1]);
         }
         return false;
     }
@@ -1070,8 +1072,7 @@ public:
     bool focusTerminal(string terminalUUID) {
         foreach (terminal; terminals) {
             if (terminal.terminalUUID == terminalUUID) {
-                terminal.focusTerminal();
-                return true;
+                return focusTerminal(terminal);
             }
         }
         return false;
