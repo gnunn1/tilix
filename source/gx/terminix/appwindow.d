@@ -12,6 +12,7 @@ import std.file;
 import std.math;
 import std.format;
 import std.json;
+import std.string;
 
 import cairo.Context;
 
@@ -313,6 +314,20 @@ private:
                 }
             });
         }
+
+        //Create directional Switch to Terminal actions
+        const string[] directions = ["up", "down", "left", "right"];
+        foreach (string direction; directions) {
+            registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ direction, gsShortcuts, delegate(GVariant, SimpleAction sa) {
+                Session session = getCurrentSession();
+                if (session !is null) {
+                    string actionName = sa.getName();
+                    string direction = actionName[lastIndexOf(actionName, '-') + 1 .. $];
+                    session.focusDirection(direction);
+                }
+            });
+        }
+
         /* TODO - GTK doesn't support settings Tab for accelerators, need to look into this more */
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NEXT_TERMINAL, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
