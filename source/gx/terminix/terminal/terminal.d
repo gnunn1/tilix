@@ -1183,6 +1183,10 @@ private:
         foreach (arg; args)
             trace("Argument: " ~ arg);
         try {
+            //Set PWD so that shell sets correct directory for symlinks, see #164
+            if (workingDir.length > 0) {
+                envv ~= ["PWD=" ~ workingDir];
+            }
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
@@ -1582,7 +1586,7 @@ public:
      *  firstRun    = Whether this is the first run of the application, used to determine whether to apply profile geometry
      */
     void initTerminal(string initialPath, bool firstRun) {
-        trace("Initializing Terminal");
+        trace("Initializing Terminal with directory " ~ initialPath);
         initialWorkingDir = initialPath;
         spawnTerminalProcess(initialPath, overrideCommand);
         if (firstRun) {
