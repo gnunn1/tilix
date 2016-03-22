@@ -139,7 +139,7 @@ private:
             Session session = cast(Session) page;
             //Remove any sessions associated with current page
             sessionNotifications.remove(session.sessionUUID);
-            updateTitle(session);
+            updateTitle();
             updateUIState();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
@@ -363,7 +363,7 @@ private:
             if (showInputDialog(this, name, name, _("Change Session Name"), _("Enter a new name for the session"))) {
                 if (name.length > 0) {
                     session.name = name;
-                    updateTitle(session);
+                    updateTitle();
                 }
             }
         });
@@ -495,10 +495,13 @@ private:
         saCloseSession.setEnabled(nb.getNPages > 1);
     }
 
-    void updateTitle(Session session) {
+    void updateTitle() {
         string title;
-        if (session) {
+        Session session = getCurrentSession();
+        if (session && nb.getNPages() == 1) {
             title = _(APPLICATION_NAME) ~ ": " ~ session.name;
+        } else if (session) { 
+            title = _(APPLICATION_NAME) ~ " " ~ to!string(nb.getCurrentPage()+1) ~ ": " ~ session.name;
         } else {
             title = _(APPLICATION_NAME);
         }
