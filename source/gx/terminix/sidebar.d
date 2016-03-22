@@ -165,6 +165,12 @@ public:
                 ev.setTooltipText(tooltip);
                 b.packStart(af, false, false, 4);
             }
+            
+            Label lblName = new Label(session.name);
+            lblName.setEllipsize(PangoEllipsizeMode.END);
+            lblName.setSensitive(false);
+            lblName.getStyleContext().addClass("terminix-session-name");
+            b.packStart(lblName, true, false, 4);
 
             Label lblIndex = new Label(format("%d", (i+1)));
             setAllMargins(lblIndex, 4);
