@@ -573,11 +573,38 @@ private:
     Popover createPopover(Widget parent) {
         GMenu model = new GMenu();
 
-        GMenuItem splitH = new GMenuItem(null, ACTION_PREFIX ~ "." ~ ACTION_SPLIT_H);
+        GMenuItem buttons = createSplitButtons();
+        model.appendItem(buttons);
+
+        GMenu menuSection = new GMenu();
+        menuSection.append(_("Save…"), ACTION_SAVE);
+        menuSection.append(_("Find…"), ACTION_FIND);
+        menuSection.append(_("Layout Options…"), ACTION_LAYOUT);
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.append(_("Read-Only"), ACTION_READ_ONLY);
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.appendSubmenu(_("Profiles"), profileMenu);
+        menuSection.appendSubmenu(_("Encoding"), encodingMenu);
+        model.appendSection(null, menuSection);
+
+        Popover pm = new Popover(parent, model);
+        pm.bindModel(model, ACTION_PREFIX);
+        return pm;
+    }
+
+    /**
+     * Creates the horizontal/vertical split buttons
+     */
+    GMenuItem createSplitButtons() {
+        GMenuItem splitH = new GMenuItem(null, ACTION_SPLIT_H);
         splitH.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-right-symbolic"));
         splitH.setAttributeValue("label", new GVariant(_("Split Right")));
 
-        GMenuItem splitV = new GMenuItem(null, ACTION_PREFIX ~ "." ~ ACTION_SPLIT_V);
+        GMenuItem splitV = new GMenuItem(null, ACTION_SPLIT_V);
         splitV.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-down-symbolic"));
         splitV.setAttributeValue("label", new GVariant(_("Split Down")));
 
@@ -587,27 +614,9 @@ private:
 
         GMenuItem splits = new GMenuItem(null, null);
         splits.setSection(splitSection);
-        //splits.setLabel("Split");
         splits.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
-        model.appendItem(splits);
 
-        GMenu menuSection = new GMenu();
-        menuSection.append(_("Save…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
-        menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
-        menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
-        menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
-        menuSection.appendSubmenu(_("Profiles"), profileMenu);
-        menuSection.appendSubmenu(_("Encoding"), encodingMenu);
-        model.appendSection(null, menuSection);
-
-        Popover pm = new Popover(parent, model);
-        return pm;
+        return splits;
     }
 
     /**
@@ -856,6 +865,10 @@ private:
             clipSection.append(_("Paste"), ACTION_PASTE);
             clipSection.append(_("Select All"), ACTION_SELECT_ALL);
             mmContext.appendSection(null, clipSection);
+
+            GMenuItem buttons = createSplitButtons();
+            mmContext.appendItem(buttons);
+
             pmContext.bindModel(mmContext, ACTION_PREFIX);
         } else {
             //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
