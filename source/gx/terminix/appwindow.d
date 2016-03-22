@@ -741,7 +741,8 @@ private:
      * Creates a new session based on parameters, user is not prompted
      */
     void createSession(string name, string profileUUID) {
-        createNewSession(name, profileUUID, Util.getHomeDir());
+        //createNewSession(name, profileUUID, Util.getHomeDir());
+        createNewSession(name, profileUUID, null);
     }
 
 public:
