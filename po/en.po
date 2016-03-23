@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-16 20:42-0600\n"
+"POT-Creation-Date: 2016-03-23 08:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: \n"
@@ -84,6 +84,22 @@ msgstr "Switch To Terminal 8"
 
 msgid "switch-to-terminal-9"
 msgstr "Switch To Terminal 9"
+
+#, fuzzy
+msgid "switch-to-terminal-up"
+msgstr "Switch To Terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-down"
+msgstr "Switch To Terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-left"
+msgstr "Switch To Terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-right"
+msgstr "Switch To Terminal 10"
 
 msgid "win"
 msgstr "Window"
@@ -186,14 +202,381 @@ msgstr "Zoom Out"
 msgid "zoom-normal"
 msgstr "Zoom Normal"
 
-#: source/gx/terminix/colorschemes.d:107
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
+#: source/gx/terminix/terminal/search.d:100
+msgid "Search Options"
+msgstr "Search Options"
+
+#: source/gx/terminix/terminal/search.d:166
+msgid "Match case"
+msgstr "Match case"
+
+#: source/gx/terminix/terminal/search.d:167
+msgid "Match entire word only"
+msgstr "Match entire word only"
+
+#: source/gx/terminix/terminal/search.d:168
+msgid "Match as regular expression"
+msgstr "Match as regular expression"
+
+#: source/gx/terminix/terminal/search.d:169
+msgid "Wrap around"
+msgstr "Wrap around"
+
+#: source/gx/terminix/terminal/terminal.d:332
+#: source/gx/terminix/terminal/terminal.d:722
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/terminix/terminal/terminal.d:358
+#: source/gx/terminix/appwindow.d:392
+msgid "Close"
+msgstr "Close"
+
+#: source/gx/terminix/terminal/terminal.d:367
+#: source/gx/terminix/terminal/terminal.d:753
+#, fuzzy
+msgid "Maximize"
+msgstr "Maximize"
+
+#: source/gx/terminix/terminal/terminal.d:378
+msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/colorschemes.d:140
-msgid "Color scheme palette requires 16 colors"
+#: source/gx/terminix/terminal/terminal.d:402
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
+#: source/gx/terminix/terminal/terminal.d:521
+#: source/gx/terminix/appwindow.d:613
+msgid "There are processes that are still running, close anyway?"
 msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:578
+msgid "Split Right"
+msgstr "Split Right"
+
+#: source/gx/terminix/terminal/terminal.d:582
+msgid "Split Down"
+msgstr "Split Down"
+
+#: source/gx/terminix/terminal/terminal.d:595
+msgid "Save…"
+msgstr "Save…"
+
+#: source/gx/terminix/terminal/terminal.d:596
+msgid "Find…"
+msgstr "Find…"
+
+#: source/gx/terminix/terminal/terminal.d:597
+msgid "Layout Options…"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:601
+msgid "Read-Only"
+msgstr "Read-Only"
+
+#: source/gx/terminix/terminal/terminal.d:605
+#: source/gx/terminix/prefwindow.d:83
+msgid "Profiles"
+msgstr "Profiles"
+
+#: source/gx/terminix/terminal/terminal.d:606
+#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
+#: source/gx/terminix/prefwindow.d:159
+msgid "Encoding"
+msgstr "Encoding"
+
+#: source/gx/terminix/terminal/terminal.d:750
+msgid "Restore"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:850
+msgid "Open Link"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:851
+msgid "Copy Link Address"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:855
+#: source/gx/terminix/terminal/terminal.d:868
+msgid "Copy"
+msgstr "Copy"
+
+#: source/gx/terminix/terminal/terminal.d:856
+#: source/gx/terminix/terminal/terminal.d:870
+#: source/gx/terminix/prefwindow.d:486
+msgid "Paste"
+msgstr "Paste"
+
+#: source/gx/terminix/terminal/terminal.d:857
+#: source/gx/terminix/terminal/terminal.d:872
+msgid "Select All"
+msgstr "Select All"
+
+#: source/gx/terminix/terminal/terminal.d:1192
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1198
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1509
+msgid "Save Terminal Output"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1515
+msgid "All Text Files"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1519
+#: source/gx/terminix/appwindow.d:660
+msgid "All Files"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1818
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1819
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1820
+msgid "The child process was aborted."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1826
+msgid "Relaunch"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1862
+msgid "This command is asking for Administrative access to your computer"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1863
+msgid "Copying commands from the internet can be dangerous. "
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1864
+msgid "Be sure you understand what each part of this command does."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:1866
+msgid "Don't Paste"
+msgstr "Don't Paste"
+
+#: source/gx/terminix/terminal/terminal.d:1867
+msgid "Paste Anyway"
+msgstr ""
+
+#: source/gx/terminix/terminal/layout.d:28
+#, fuzzy
+msgid "Layout Options"
+msgstr "Options"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "OK"
+msgstr ""
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "Cancel"
+msgstr ""
+
+#: source/gx/terminix/terminal/layout.d:43
+#, fuzzy
+msgid "Active"
+msgstr "Action"
+
+#: source/gx/terminix/terminal/layout.d:49
+#, fuzzy
+msgid "Title"
+msgstr "Title"
+
+#: source/gx/terminix/terminal/layout.d:57
+#, fuzzy
+msgid "Session Load"
+msgstr "Session"
+
+#: source/gx/terminix/terminal/layout.d:64
+#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
+msgid "Command"
+msgstr "Command"
+
+#: source/gx/terminix/terminal/layout.d:73
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+
+#: source/gx/terminix/appwindow.d:91 source/gx/terminix/prefwindow.d:324
+#: source/gx/terminix/prefwindow.d:530
+msgid "Default"
+msgstr "Default"
+
+#: source/gx/terminix/appwindow.d:180
+msgid "View session sidebar"
+msgstr "View session sidebar"
+
+#: source/gx/terminix/appwindow.d:192
+msgid "Create a new session"
+msgstr "Create a new session"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Change Session Name"
+msgstr "Change Session Name"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Enter a new name for the session"
+msgstr "Enter a new name for the session"
+
+#: source/gx/terminix/appwindow.d:389
+msgid "Load…"
+msgstr "Load…"
+
+#: source/gx/terminix/appwindow.d:390
+msgid "Save"
+msgstr "Save"
+
+#: source/gx/terminix/appwindow.d:391
+msgid "Save As…"
+msgstr "Save As…"
+
+#: source/gx/terminix/appwindow.d:396
+msgid "Name…"
+msgstr "Name…"
+
+#: source/gx/terminix/appwindow.d:397
+msgid "Synchronize Input"
+msgstr "Synchronize Input"
+
+#: source/gx/terminix/appwindow.d:402
+msgid "GC"
+msgstr ""
+
+#: source/gx/terminix/appwindow.d:656
+msgid "All JSON Files"
+msgstr ""
+
+#: source/gx/terminix/appwindow.d:669
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Filename '%s' does not exist"
+
+#: source/gx/terminix/appwindow.d:694
+msgid "Load Session"
+msgstr "Load Session"
+
+#: source/gx/terminix/appwindow.d:707
+msgid "Could not load session due to unexpected error."
+msgstr "Could not load session due to unexpected error."
+
+#: source/gx/terminix/appwindow.d:707
+msgid "Error Loading Session"
+msgstr "Error Loading Session"
+
+#: source/gx/terminix/appwindow.d:722
+msgid "Save Session"
+msgstr "Save Session"
+
+#: source/gx/terminix/appwindow.d:757
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/application.d:131 source/gx/terminix/session.d:1152
+msgid "New Session"
+msgstr "New Session"
+
+#: source/gx/terminix/application.d:132
+msgid "New Window"
+msgstr "New Window"
+
+#: source/gx/terminix/application.d:136 source/gx/terminix/prefwindow.d:70
+msgid "Preferences"
+msgstr "Preferences"
+
+#: source/gx/terminix/application.d:140
+msgid "About"
+msgstr "About"
+
+#: source/gx/terminix/application.d:141
+msgid "Quit"
+msgstr "Quit"
+
+#: source/gx/terminix/application.d:185
+msgid "Credits"
+msgstr ""
+
+#: source/gx/terminix/application.d:321
+msgid "Set the working directory of the terminal"
+msgstr "Set the working directory of the terminal"
+
+#: source/gx/terminix/application.d:321
+msgid "DIRECTORY"
+msgstr ""
+
+#: source/gx/terminix/application.d:322
+msgid "Set the starting profile"
+msgstr "Set the starting profile"
+
+#: source/gx/terminix/application.d:322
+msgid "PROFILE_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:323
+msgid "Open the specified session"
+msgstr "Open the specified session"
+
+#: source/gx/terminix/application.d:323
+msgid "SESSION_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:324
+msgid "Send an action to current Terminix instance"
+msgstr "Send an action to current Terminix instance"
+
+#: source/gx/terminix/application.d:324
+msgid "ACTION_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:325
+msgid "Execute the passed command"
+msgstr "Execute the passed command"
+
+#: source/gx/terminix/application.d:325
+msgid "EXECUTE"
+msgstr ""
+
+#: source/gx/terminix/application.d:326
+msgid "Hidden argument to pass terminal UUID"
+msgstr ""
+
+#: source/gx/terminix/application.d:326
+msgid "TERMINAL_UUID"
+msgstr ""
+
+#: source/gx/terminix/application.d:466
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"There appears to be an issue with the configuration of the terminal. This\n"
+"issue is not serious, but correcting it will improve your experience. Click\n"
+"the link below for more information:"
+
+#: source/gx/terminix/application.d:467
+msgid "Configuration Issue Detected"
+msgstr "Configuration Issue Detected"
+
+#: source/gx/terminix/application.d:479
+msgid "Do not show this message again"
+msgstr "Do not show this message again"
 
 #: source/gx/terminix/profilewindow.d:64
 #, c-format
@@ -207,11 +590,6 @@ msgstr "New Profile"
 #: source/gx/terminix/profilewindow.d:74
 msgid "General"
 msgstr "General"
-
-#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
-#: source/gx/terminix/terminal/layout.d:64
-msgid "Command"
-msgstr "Command"
 
 #: source/gx/terminix/profilewindow.d:76
 msgid "Color"
@@ -443,12 +821,6 @@ msgstr "TTY"
 msgid "Delete key generates"
 msgstr "Delete key generates"
 
-#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
-#: source/gx/terminix/prefwindow.d:159
-#: source/gx/terminix/terminal/terminal.d:590
-msgid "Encoding"
-msgstr "Encoding"
-
 #: source/gx/terminix/profilewindow.d:591
 msgid "Ambiguous-width characters"
 msgstr "Ambiguous-width characters"
@@ -484,6 +856,31 @@ msgstr "Restart the command"
 #: source/gx/terminix/profilewindow.d:642
 msgid "Hold the terminal open"
 msgstr "Hold the terminal open"
+
+#: source/gx/terminix/colorschemes.d:107
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr ""
+
+#: source/gx/terminix/colorschemes.d:140
+msgid "Color scheme palette requires 16 colors"
+msgstr ""
+
+#: source/gx/terminix/session.d:450
+msgid "Could not locate dropped terminal"
+msgstr "Could not locate dropped terminal"
+
+#: source/gx/terminix/session.d:455
+msgid "Could not locate session for dropped terminal"
+msgstr "Could not locate session for dropped terminal"
+
+#: source/gx/terminix/session.d:1118
+msgid "Name"
+msgstr "Name"
+
+#: source/gx/terminix/session.d:1129 source/gx/terminix/prefwindow.d:326
+msgid "Profile"
+msgstr "Profile"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -623,112 +1020,6 @@ msgstr "Vietnamese"
 msgid "Thai"
 msgstr "Thai"
 
-#: source/gx/terminix/application.d:131 source/gx/terminix/session.d:1096
-msgid "New Session"
-msgstr "New Session"
-
-#: source/gx/terminix/application.d:132
-msgid "New Window"
-msgstr "New Window"
-
-#: source/gx/terminix/application.d:136 source/gx/terminix/prefwindow.d:70
-msgid "Preferences"
-msgstr "Preferences"
-
-#: source/gx/terminix/application.d:140
-msgid "About"
-msgstr "About"
-
-#: source/gx/terminix/application.d:141
-msgid "Quit"
-msgstr "Quit"
-
-#: source/gx/terminix/application.d:185
-msgid "Credits"
-msgstr ""
-
-#: source/gx/terminix/application.d:321
-msgid "Set the working directory of the terminal"
-msgstr "Set the working directory of the terminal"
-
-#: source/gx/terminix/application.d:321
-msgid "DIRECTORY"
-msgstr ""
-
-#: source/gx/terminix/application.d:322
-msgid "Set the starting profile"
-msgstr "Set the starting profile"
-
-#: source/gx/terminix/application.d:322
-msgid "PROFILE_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:323
-msgid "Open the specified session"
-msgstr "Open the specified session"
-
-#: source/gx/terminix/application.d:323
-msgid "SESSION_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:324
-msgid "Send an action to current Terminix instance"
-msgstr "Send an action to current Terminix instance"
-
-#: source/gx/terminix/application.d:324
-msgid "ACTION_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:325
-msgid "Execute the passed command"
-msgstr "Execute the passed command"
-
-#: source/gx/terminix/application.d:325
-msgid "EXECUTE"
-msgstr ""
-
-#: source/gx/terminix/application.d:326
-msgid "Hidden argument to pass terminal UUID"
-msgstr ""
-
-#: source/gx/terminix/application.d:326
-msgid "TERMINAL_UUID"
-msgstr ""
-
-#: source/gx/terminix/application.d:466
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"There appears to be an issue with the configuration of the terminal. This\n"
-"issue is not serious, but correcting it will improve your experience. Click\n"
-"the link below for more information:"
-
-#: source/gx/terminix/application.d:467
-msgid "Configuration Issue Detected"
-msgstr "Configuration Issue Detected"
-
-#: source/gx/terminix/application.d:479
-msgid "Do not show this message again"
-msgstr "Do not show this message again"
-
-#: source/gx/terminix/session.d:450
-msgid "Could not locate dropped terminal"
-msgstr "Could not locate dropped terminal"
-
-#: source/gx/terminix/session.d:455
-msgid "Could not locate session for dropped terminal"
-msgstr "Could not locate session for dropped terminal"
-
-#: source/gx/terminix/session.d:1062
-msgid "Name"
-msgstr "Name"
-
-#: source/gx/terminix/session.d:1073 source/gx/terminix/prefwindow.d:326
-msgid "Profile"
-msgstr "Profile"
-
 #: source/gx/terminix/prefwindow.d:77
 msgid "Global"
 msgstr "Global"
@@ -736,11 +1027,6 @@ msgstr "Global"
 #: source/gx/terminix/prefwindow.d:80
 msgid "Shortcuts"
 msgstr "Shortcuts"
-
-#: source/gx/terminix/prefwindow.d:83
-#: source/gx/terminix/terminal/terminal.d:589
-msgid "Profiles"
-msgstr "Profiles"
 
 #: source/gx/terminix/prefwindow.d:121
 msgid "Encodings showing in menu:"
@@ -757,11 +1043,6 @@ msgstr "Action"
 #: source/gx/terminix/prefwindow.d:235
 msgid "Shortcut Key"
 msgstr "Shortcut Key"
-
-#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:530
-#: source/gx/terminix/appwindow.d:90
-msgid "Default"
-msgstr "Default"
 
 #: source/gx/terminix/prefwindow.d:340
 msgid "New"
@@ -794,12 +1075,6 @@ msgstr ""
 #: source/gx/terminix/prefwindow.d:481
 msgid "Send desktop notification on process complete"
 msgstr "Send desktop notification on process complete"
-
-#: source/gx/terminix/prefwindow.d:486
-#: source/gx/terminix/terminal/terminal.d:660
-#: source/gx/terminix/terminal/terminal.d:672
-msgid "Paste"
-msgstr "Paste"
 
 #: source/gx/terminix/prefwindow.d:492
 msgid "Warn when attempting unsafe paste"
@@ -837,187 +1112,6 @@ msgstr "Light"
 msgid "Dark"
 msgstr "Dark"
 
-#: source/gx/terminix/terminal/layout.d:28
-#, fuzzy
-msgid "Layout Options"
-msgstr "Options"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr ""
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Cancel"
-msgstr ""
-
-#: source/gx/terminix/terminal/layout.d:43
-#, fuzzy
-msgid "Active"
-msgstr "Action"
-
-#: source/gx/terminix/terminal/layout.d:49
-#, fuzzy
-msgid "Title"
-msgstr "Title"
-
-#: source/gx/terminix/terminal/layout.d:57
-#, fuzzy
-msgid "Session Load"
-msgstr "Session"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-
-#: source/gx/terminix/terminal/search.d:100
-msgid "Search Options"
-msgstr "Search Options"
-
-#: source/gx/terminix/terminal/search.d:166
-msgid "Match case"
-msgstr "Match case"
-
-#: source/gx/terminix/terminal/search.d:167
-msgid "Match entire word only"
-msgstr "Match entire word only"
-
-#: source/gx/terminix/terminal/search.d:168
-msgid "Match as regular expression"
-msgstr "Match as regular expression"
-
-#: source/gx/terminix/terminal/search.d:169
-msgid "Wrap around"
-msgstr "Wrap around"
-
-#: source/gx/terminix/terminal/terminal.d:329
-#: source/gx/terminix/terminal/terminal.d:719
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/terminix/terminal/terminal.d:355
-#: source/gx/terminix/appwindow.d:380
-msgid "Close"
-msgstr "Close"
-
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:750
-#, fuzzy
-msgid "Maximize"
-msgstr "Maximize"
-
-#: source/gx/terminix/terminal/terminal.d:375
-msgid "Disable input synchronization for this terminal"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:399
-msgid "Edit Profile"
-msgstr "Edit Profile"
-
-#: source/gx/terminix/terminal/terminal.d:505
-#: source/gx/terminix/appwindow.d:592
-msgid "There are processes that are still running, close anyway?"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:562
-msgid "Split Right"
-msgstr "Split Right"
-
-#: source/gx/terminix/terminal/terminal.d:566
-msgid "Split Down"
-msgstr "Split Down"
-
-#: source/gx/terminix/terminal/terminal.d:579
-msgid "Save…"
-msgstr "Save…"
-
-#: source/gx/terminix/terminal/terminal.d:580
-msgid "Find…"
-msgstr "Find…"
-
-#: source/gx/terminix/terminal/terminal.d:581
-msgid "Layout Options…"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:585
-msgid "Read-Only"
-msgstr "Read-Only"
-
-#: source/gx/terminix/terminal/terminal.d:659
-#: source/gx/terminix/terminal/terminal.d:670
-msgid "Copy"
-msgstr "Copy"
-
-#: source/gx/terminix/terminal/terminal.d:661
-#: source/gx/terminix/terminal/terminal.d:674
-msgid "Select All"
-msgstr "Select All"
-
-#: source/gx/terminix/terminal/terminal.d:747
-msgid "Restore"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1144
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1150
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1461
-msgid "Save Terminal Output"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1467
-msgid "All Text Files"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1471
-#: source/gx/terminix/appwindow.d:637
-msgid "All Files"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1770
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1771
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1772
-msgid "The child process was aborted."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1778
-msgid "Relaunch"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1814
-msgid "This command is asking for Administrative access to your computer"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1815
-msgid "Copying commands from the internet can be dangerous. "
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1816
-msgid "Be sure you understand what each part of this command does."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:1818
-msgid "Don't Paste"
-msgstr "Don't Paste"
-
-#: source/gx/terminix/terminal/terminal.d:1819
-msgid "Paste Anyway"
-msgstr ""
-
 #: source/gx/terminix/cmdparams.d:73
 #, c-format
 msgid "Ignoring parameter working-directory as '%s' is not a directory"
@@ -1033,76 +1127,6 @@ msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
-
-#: source/gx/terminix/appwindow.d:178
-msgid "View session sidebar"
-msgstr "View session sidebar"
-
-#: source/gx/terminix/appwindow.d:190
-msgid "Create a new session"
-msgstr "Create a new session"
-
-#: source/gx/terminix/appwindow.d:351
-msgid "Change Session Name"
-msgstr "Change Session Name"
-
-#: source/gx/terminix/appwindow.d:351
-msgid "Enter a new name for the session"
-msgstr "Enter a new name for the session"
-
-#: source/gx/terminix/appwindow.d:377
-msgid "Load…"
-msgstr "Load…"
-
-#: source/gx/terminix/appwindow.d:378
-msgid "Save"
-msgstr "Save"
-
-#: source/gx/terminix/appwindow.d:379
-msgid "Save As…"
-msgstr "Save As…"
-
-#: source/gx/terminix/appwindow.d:384
-msgid "Name…"
-msgstr "Name…"
-
-#: source/gx/terminix/appwindow.d:385
-msgid "Synchronize Input"
-msgstr "Synchronize Input"
-
-#: source/gx/terminix/appwindow.d:390
-msgid "GC"
-msgstr ""
-
-#: source/gx/terminix/appwindow.d:633
-msgid "All JSON Files"
-msgstr ""
-
-#: source/gx/terminix/appwindow.d:646
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Filename '%s' does not exist"
-
-#: source/gx/terminix/appwindow.d:671
-msgid "Load Session"
-msgstr "Load Session"
-
-#: source/gx/terminix/appwindow.d:684
-msgid "Could not load session due to unexpected error."
-msgstr "Could not load session due to unexpected error."
-
-#: source/gx/terminix/appwindow.d:684
-msgid "Error Loading Session"
-msgstr "Error Loading Session"
-
-#: source/gx/terminix/appwindow.d:699
-msgid "Save Session"
-msgstr "Save Session"
-
-#: source/gx/terminix/appwindow.d:733
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
-msgid "Terminix"
-msgstr "Terminix"
 
 #: source/gx/gtk/actions.d:23
 msgid "disabled"
