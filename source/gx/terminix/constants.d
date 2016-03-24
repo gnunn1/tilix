@@ -11,7 +11,6 @@ import gx.i18n.l10n;
 //Compilation Flags, these are used to test various things
 immutable bool POPOVER_CONTEXT_MENU = true;
 immutable bool DIM_TERMINAL_NO_FOCUS = false;
-immutable bool USE_DBUS_SERVER = false;
 immutable bool USE_SCROLLED_WINDOW = false;
 immutable bool USE_PIXBUF_DND = false;
 immutable bool SHOW_DEBUG_OPTIONS = false;
