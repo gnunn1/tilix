@@ -591,7 +591,7 @@ private:
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
         model.appendSection(null, menuSection);
 
-        Popover pm = new Popover(parent, model);
+        Popover pm = new Popover(parent);
         pm.bindModel(model, ACTION_PREFIX);
         return pm;
     }
