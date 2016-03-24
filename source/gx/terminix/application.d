@@ -262,7 +262,7 @@ private:
         applyPreferences();
         installAppMenu();
     }
-
+    
     void onAppShutdown(GioApplication) {
         trace("Quit App Signal");
         terminix = null;

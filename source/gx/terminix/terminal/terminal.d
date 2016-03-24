@@ -1953,10 +1953,19 @@ immutable Regex[URL_REGEX_PATTERNS.length] compiledRegex;
 
 static this() {
     import std.exception : assumeUnique;
+    import vte.Version : Version;
+
+    uint majorVersion = Version.getMajorVersion();
+    uint minorVersion = Version.getMinorVersion();
+    trace(format("VTE Version is %d.%d", majorVersion, minorVersion));
 
     Regex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
-        tempRegex[i] = new Regex(regex.pattern, GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0, cast(GRegexMatchFlags) 0);
+        GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
+        if (minorVersion >= 44) {
+            flags = flags | GRegexCompileFlags.MULTILINE;
+        }
+        tempRegex[i] = new Regex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
     }
     compiledRegex = assumeUnique(tempRegex);
 }
