@@ -53,7 +53,7 @@ The application depends on various resources to function correctly, run sudo ./i
 Terminix depends on the following libraries as defined in dub.json:
 * [gtkd](http://gtkd.org/) >= 3.2.2
 
-### Installation
+### Install Terminix
 
 Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), RPMs for Fedora 23 and CentOS 7 are available via the [OpenSUSE Build Service](https://software.opensuse.org/download.html?project=home%3Agnunn&package=terminix).
 
@@ -69,19 +69,17 @@ Note the project is actively looking for package maintainers, if you are interes
 At this time no 32 bit version of Terminix is available and there are no plans to create a 32 bit version at this time. While in theory it would be possible to compile a 32 bit version from source code, no testing of this has been done.
 
 
-#### Uninstallation
+#### Uninstall Terminix
+
+This method only applies if you installed Terminix manually using the install instructions. If you installed Terminix from a distribution package then use your package manager to remove terminix, do not use these instructions.
+
+Download the uninstall.sh script from this repository and then open a terminal (not Terminix!) in the directory where you saved it. First set the executable flag on the script:
 
 ```
 chmod +x uninstall.sh
 ```
 
-and
-
-```
-sh uninstall.sh
-```
-
-Note that sometimes you may need to
+and then execute it:
 
 ```
 sudo sh uninstall.sh
