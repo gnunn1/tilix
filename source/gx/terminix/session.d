@@ -863,6 +863,11 @@ public:
         trace("Searching terminals " ~ uuid);
         return findTerminal(uuid);
     }
+    
+    string getActiveTerminalUUID() {
+        if (lastFocused !is null) return lastFocused.terminalUUID;
+        else return null;
+    }
 
     /**
      * Serialize the session

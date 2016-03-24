@@ -805,6 +805,11 @@ public:
         }
         return false;
     }
+    
+    string getActiveTerminalUUID() {
+        Session session = getCurrentSession();
+        return session.getActiveTerminalUUID();
+    }
 
     /**
      * Finds the widget matching a specific UUID, typically

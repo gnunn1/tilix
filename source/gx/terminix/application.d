@@ -221,9 +221,17 @@ private:
         cp = CommandParameters(acl);
         if (cp.exitCode == 0) {
             if (cp.action.length > 0) {
-                executeAction(cp.terminalUUID, cp.action);
+                trace("Executing action  " ~ cp.action);
+                string terminalUUID = cp.terminalUUID;
+                if (terminalUUID.length == 0) {
+                    AppWindow window = cast(AppWindow) getActiveWindow();
+                    if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
+                } 
+                executeAction(terminalUUID, cp.action);
                 return cp.exitCode;
             }
+        } else {
+            trace(format("Exit code is %d", cp.exitCode));
         }
         trace("Activating app");
         activate();
