@@ -19,6 +19,7 @@ import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
+import glib.ListG;
 import glib.ShellUtils;
 import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
@@ -224,7 +225,7 @@ private:
                 trace("Executing action  " ~ cp.action);
                 string terminalUUID = cp.terminalUUID;
                 if (terminalUUID.length == 0) {
-                    AppWindow window = cast(AppWindow) getActiveWindow();
+                    AppWindow window = getActiveAppWindow();
                     if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
                 } 
                 executeAction(terminalUUID, cp.action);
@@ -320,6 +321,23 @@ private:
             return;
         }
         trace(format("Could not find action for prefix=%s and action=%s", prefix, actionName));
+    }
+    
+    /**
+     * Returns the most active AppWindow, ignores preference
+     * an profile windows
+     */
+    AppWindow getActiveAppWindow() {
+        AppWindow appWindow = cast(AppWindow)getActiveWindow();
+        if (appWindow !is null) return appWindow;
+        
+        ListG list = getWindows();
+        Window[] windows = list.toArray!(Window)();
+        foreach(window; windows) {
+            appWindow = cast(AppWindow) window;
+            if (appWindow !is null) return appWindow;
+        }
+        return null;
     }
 
 public:
