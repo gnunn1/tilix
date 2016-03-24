@@ -29,7 +29,11 @@ string acceleratorNameToLabel(string acceleratorName) {
     uint acceleratorKey; 
     GdkModifierType acceleratorMods;
     AccelGroup.acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
-    return AccelGroup.acceleratorGetLabel(acceleratorKey, acceleratorMods); 
+    string label = AccelGroup.acceleratorGetLabel(acceleratorKey, acceleratorMods);
+    if (label == "") {
+      label = _(SHORTCUT_DISABLED);
+    }
+    return label;
 }
 
 /**
