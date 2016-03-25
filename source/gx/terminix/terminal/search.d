@@ -85,6 +85,7 @@ private:
         seSearch = new SearchEntry();
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
+        seSearch.getStyleContext().addClass("terminix-search-entry");
         seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
