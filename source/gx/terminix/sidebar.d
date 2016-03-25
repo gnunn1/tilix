@@ -104,6 +104,7 @@ public:
         lbSessions.setSelectionMode(SelectionMode.BROWSE);
         lbSessions.getStyleContext().addClass("notebook");
         lbSessions.getStyleContext().addClass("header");
+        lbSessions.getStyleContext().addClass("terminix-session-sidebar");
         lbSessions.addOnRowActivated(&onRowActivated);
 
         ScrolledWindow sw = new ScrolledWindow(lbSessions);
