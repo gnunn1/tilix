@@ -235,6 +235,31 @@ private:
             trace(format("Exit code is %d", cp.exitCode));
         }
         trace("Activating app");
+        
+        if (acl.getIsRemote()) {
+            AppWindow aw = getActiveAppWindow();
+            if (aw !is null) {    
+                switch (gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY)) {
+                    //New Session
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
+                        aw.present();
+                        aw.createSession();
+                        return cp.exitCode;
+                    //Split Horizontal
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
+                        aw.present();
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-horizontal");
+                        return cp.exitCode;
+                    //Split Verical
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
+                        aw.present();
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-vertical");
+                        return cp.exitCode;
+                    default:
+                        //Fall through to activate
+                }
+            }        
+        }
         activate();
         return cp.exitCode;
     }

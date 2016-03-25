@@ -32,6 +32,14 @@
     <value nick='light'  value='1'/>
     <value nick='dark'   value='2'/>
   </enum>
+  
+  <!-- Second Instance Options -->
+  <enum id='com.gexperts.Terminix.NewInstance.Mode'>
+    <value nick='new-window' value ='0'/>
+    <value nick='new-session' value ='1'/>
+    <value nick='split-horizontal' value ='2'/>
+    <value nick='split-vertical' value ='3'/>
+  </enum>
 
   <!-- Cursor -->
   <enum id='com.gexperts.Terminix.Cursor.BlinkMode'>
@@ -101,6 +109,11 @@
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
       <default>'system'</default>
       <summary>Which theme variant to use</summary>
+    </key>
+    <!-- Second Instance Options -->
+    <key name="new-instance-mode" enum="com.gexperts.Terminix.NewInstance.Mode">
+        <default>'new-window'</default>
+        <summary>Default behavior when opening a second instance of Terminix</summary>
     </key>
     <!-- Notification Options -->
     <key name="notify-on-process-complete" type="b">
