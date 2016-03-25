@@ -707,7 +707,7 @@ private:
         }
 
         Box box = new Box(Orientation.VERTICAL, 0);
-        rFind = new SearchRevealer(vte);
+        rFind = new SearchRevealer(vte, sagTerminalActions);
         rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
         rFind.addOnSearchEntryFocusOut(&onTerminalWidgetFocusOut);
 
