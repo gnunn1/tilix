@@ -88,7 +88,9 @@ private:
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
         seSearch.getStyleContext().addClass("terminix-search-entry");
-        seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
+        seSearch.addOnSearchChanged(delegate(SearchEntry) {
+            setTerminalSearchCriteria(); 
+        });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
             if (event.getKeyval(keyval)) {
@@ -188,6 +190,10 @@ private:
 
     void setTerminalSearchCriteria() {
         string text = seSearch.getText();
+        if (text.length == 0) {
+            vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
+            return;
+        }
         if (!matchAsRegex)
             text = Regex.escapeString(text);
         if (entireWordOnly)
@@ -198,8 +204,6 @@ private:
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);
             vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
-        } else {
-            vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
         }
     }
 
