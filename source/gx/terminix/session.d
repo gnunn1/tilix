@@ -863,10 +863,12 @@ public:
         trace("Searching terminals " ~ uuid);
         return findTerminal(uuid);
     }
-    
+
     string getActiveTerminalUUID() {
-        if (lastFocused !is null) return lastFocused.terminalUUID;
-        else return null;
+        if (lastFocused !is null)
+            return lastFocused.terminalUUID;
+        else
+            return null;
     }
 
     /**
@@ -965,6 +967,35 @@ public:
     }
 
     /**
+     * Resize terminal based on direction
+     */
+    void resizeTerminal(string direction) {
+        Terminal terminal = lastFocused;
+        if (terminal !is null) {
+            Container parent = cast(Container) terminal;
+            int increment = 10;
+            if (direction == "up" || direction == "left")
+                increment = -increment;
+            while (parent !is null) {
+                Paned paned = cast(Paned) parent;
+                trace("Testing Paned");
+                if (paned !is null) {
+                    if ((direction == "up" || direction == "down") && paned.getOrientation() == Orientation.VERTICAL) {
+                        trace("Resizing " ~ direction);
+                        paned.setPosition(paned.getPosition() + increment);
+                        return;
+                    } else if ((direction == "left" || direction == "right") && paned.getOrientation() == Orientation.HORIZONTAL) {
+                        trace("Resizing " ~ direction);
+                        paned.setPosition(paned.getPosition() + increment);
+                        return;
+                    }
+                }
+                parent = cast(Container) parent.getParent();
+            }
+        }
+    }
+
+    /**
      * Restore focus to the terminal that last had focus in the session
      */
     void focusRestore() {
@@ -1053,12 +1084,12 @@ public:
             }
         }
     }
-    
+
     bool focusTerminal(Terminal terminal) {
         if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminal)
             return false;
         terminal.focusTerminal();
-        return true;        
+        return true;
     }
 
     /**
