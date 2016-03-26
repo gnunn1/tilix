@@ -30,6 +30,8 @@ import gdk.Screen;
 import gdkpixbuf.Pixbuf;
 
 import gio.ActionMapIF;
+import gio.File : GFile = File;
+import gio.FileIF : GFileIF = FileIF;
 import gio.Menu : GMenu = Menu;
 import gio.MenuItem : GMenuItem = MenuItem;
 import gio.Settings : GSettings = Settings;
@@ -1440,8 +1442,17 @@ private:
             string[] uris = data.getUris();
             if (uris) {
                 foreach (uri; uris) {
-                    string hostname;
-                    string quoted = ShellUtils.shellQuote(URI.filenameFromUri(uri, hostname)) ~ " ";
+                    trace("Dropped filename " ~ uri);
+                    GFileIF file = GFile.parseName(uri);
+                    string filename;
+                    if (file !is null) {
+                        filename = file.getPath();
+                        trace("Converted filename " ~ filename);
+                    } else {
+                        string hostname;
+                        filename = URI.filenameFromUri(uri, hostname);
+                    }
+                    string quoted = ShellUtils.shellQuote(filename) ~ " ";
                     vte.feedChild(quoted, quoted.length);
                 }
             }

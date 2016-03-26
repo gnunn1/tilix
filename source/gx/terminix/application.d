@@ -20,7 +20,6 @@ import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
 import glib.ListG;
-import glib.ShellUtils;
 import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
