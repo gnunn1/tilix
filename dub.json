@@ -3,8 +3,8 @@
 	"description": "A VTE based terminal emulator for Linux",
 	"copyright": "Copyright © 2015, Gerald Nunn",
 	"authors": ["Gerald Nunn"],
-	"dependencies": {
-		"gtk-d": "3.2.3"
+    "dependencies": {
+		"gtk-d": "3.3.0"
 	},
 	"buildTypes": {
 		"release": {
@@ -13,5 +13,17 @@
         "localize": {
             "versions": ["Localize"]
         }
-	}    
+	},
+    "configurations": [
+        {
+            "name": "default",
+            "targetType": "executable"    
+        },
+        {
+            "name": "dynamic",
+            "targetType": "executable",    
+            "libs": ["gtkd-3"],
+            "lflags": ["-defaultlib=gtkd-3.so"]
+        }    
+    ]    
 }
