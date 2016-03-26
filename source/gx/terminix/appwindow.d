@@ -279,13 +279,9 @@ private:
             // handling, don't trigger UI activity until after it is done
             // See comments in gx.gtk.cairo.getWidgetImage
             if (newState) {
-                trace("Toggle sidebar on");
                 sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
                 sb.showAll();
-            } else {
-                trace("Toggle sidebar off");
-                sb.hide();
-            }
+            } 
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));
             tbSideBar.setActive(newState);

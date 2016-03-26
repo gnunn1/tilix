@@ -115,7 +115,8 @@ public:
            if (hasGrab()) {
                 grabRemove();
                 trace("** Unmapped, Removing Sidebar Grab");
-           } 
+           }
+            hide();            
         });
 
         add(sw);
