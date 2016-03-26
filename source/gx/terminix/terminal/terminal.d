@@ -1167,6 +1167,19 @@ private:
 
 private:
 
+    void showInfoBarMessage(string message) {
+        TerminalInfoBar ibRelaunch = new TerminalInfoBar();
+        ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
+            if (response == ResponseType.OK) {
+                ibRelaunch.destroy();
+                spawnTerminalProcess(initialWorkingDir);
+            }
+        });
+        ibRelaunch.setMessage(message);
+        terminalOverlay.addOverlay(ibRelaunch);
+        ibRelaunch.showAll();
+    }
+
     /**
      * Spawns the child process in the Terminal depending on the Profile
      * command options.
@@ -1214,13 +1227,13 @@ private:
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
                 error(msg);
-                vte.feedChild(msg, msg.length);
+                showInfoBarMessage(msg);
             }
         }
         catch (GException ge) {
             string msg = format(_("Unexpected error occurred: %s"), ge.msg);
             error(msg);
-            vte.feedChild(msg, msg.length);
+            showInfoBarMessage(msg);
         }
         vte.grabFocus();
     }
@@ -1670,6 +1683,7 @@ public:
      * Determines if a child process is running in the terminal
      */
     bool isProcessRunning() {
+        if (vte.getPty() is null) return false;
         int fd = vte.getPty().getFd();
         pid_t fg = tcgetpgrp(fd);
         trace(format("fg=%d gpid=%d", fg, gpid));
@@ -1862,6 +1876,10 @@ public:
         getContentArea().packStart(lblPrompt, true, true, 0);
         setHalign(Align.FILL);
         setValign(Align.START);
+    }
+    
+    void setMessage(string message) {
+        lblPrompt.setText(message);
     }
 
     void setStatus(int value) {
