@@ -128,7 +128,7 @@ private:
         registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
         if (Version.checkVersion(3, 19, 0).length == 0) {
-            registerAction(this, ACTION_PREFIX, ACTION_SHORTCUTS, null, delegate(GVariant, SimpleAction) { 
+            registerActionWithSettings(this, ACTION_PREFIX, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) { 
                 import gtk.ShortcutsWindow: ShortcutsWindow;
                 
                 ShortcutsWindow window = getShortcutWindow();

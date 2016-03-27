@@ -29,6 +29,7 @@ public:
 
 ShortcutsWindow getShortcutWindow() {
     Builder builder = new Builder();
+    builder.setTranslationDomain(TERMINIX_DOMAIN);
     if (!builder.addFromResource(SHORTCUTS_UI)) {
         error("Could not load shortcuts from " ~ SHORTCUTS_UI);
         return null;

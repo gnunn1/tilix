@@ -31,7 +31,7 @@ int main(string[] args) {
         trace("No terminix UUID found");
     }
     //textdomain
-    textdomain("terminix");
+    textdomain(TERMINIX_DOMAIN);
     //Version checking cribbed from grestful, thanks!
     string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
     if (gtkError !is null) {

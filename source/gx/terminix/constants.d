@@ -20,6 +20,10 @@ immutable uint GTK_VERSION_MAJOR = 3;
 immutable uint GTK_VERSION_MINOR = 14;
 immutable uint GTK_VERSION_PATCH = 0;
 
+
+// GetText Domain
+enum TERMINIX_DOMAIN = "terminix";
+
 /**
  * Application ID
  */
