@@ -36,6 +36,7 @@ import gtk.LinkButton;
 import gtk.Main;
 import gtk.MessageDialog;
 import gtk.Settings;
+import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
@@ -49,6 +50,7 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
 import gx.terminix.profilewindow;
+import gx.terminix.shortcuts;
 
 Terminix terminix;
 
@@ -68,6 +70,7 @@ private:
     enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
     enum ACTION_COMMAND = "command";
+    enum ACTION_SHORTCUTS = "shortcuts";
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
@@ -89,6 +92,7 @@ private:
         if (findResource(APPLICATION_RESOURCES, true)) {
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
                 string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
+                trace(format("Could not load CSS %s", cssURI));
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     error(format("Could not load CSS %s", cssURI));
                 }
@@ -123,6 +127,18 @@ private:
 
         registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
+        if (Version.checkVersion(3, 19, 0).length == 0) {
+            registerAction(this, ACTION_PREFIX, ACTION_SHORTCUTS, null, delegate(GVariant, SimpleAction) { 
+                import gtk.ShortcutsWindow: ShortcutsWindow;
+                
+                ShortcutsWindow window = getShortcutWindow();
+                if (window is null) return;
+                window.setDestroyWithParent(true);
+                window.setModal(true);
+                window.showAll();                     
+            });
+        }
+        
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTerminix(); });
@@ -134,6 +150,9 @@ private:
 
         Menu prefSection = new Menu();
         prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX, ACTION_PREFERENCES));
+        if (Version.checkVersion(3, 19, 0).length == 0) {
+            prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX, ACTION_SHORTCUTS));
+        }        
         appMenu.appendSection(null, prefSection);
 
         Menu otherSection = new Menu();
