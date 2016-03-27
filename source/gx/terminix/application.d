@@ -330,6 +330,9 @@ private:
              * gtk_settings_reset_property API in Gnome 3.20. Once
              * GtkD is updated to include this it will be added here.
              */ 
+            if (Version.checkVersion(3, 19, 0).length == 0) {
+                Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
+            }
         }
         if (defaultMenuAccel is null) {
             defaultMenuAccel = new Value("F10");
