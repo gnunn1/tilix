@@ -42,6 +42,15 @@ xgettext \
   --foreign-user \
   --language=Desktop \
   ${BASEDIR}/data/pkg/desktop/com.gexperts.Terminix.desktop.in
+  
+# Glade UI Files
+find ${BASEDIR}/data/resources/ui -name '*.ui' | xgettext \
+  --join-existing \
+  --output $OUTPUT_FILE \
+  --files-from=- \
+  --directory=$BASEDIR \
+  --language=Glade \
+  --from-code=utf-8
 
 # Merge the messages with existing po files
 echo "Merging with existing translations... "

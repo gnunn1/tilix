@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 08:24+0100\n"
+"POT-Creation-Date: 2016-03-27 12:34-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Youngbin Han <sukso96100@gmail.com>\n"
 "Language-Team: sukso96100@gmail.com\n"
@@ -100,6 +100,22 @@ msgstr "터미널 10번으로 전환"
 
 #, fuzzy
 msgid "switch-to-terminal-right"
+msgstr "터미널 10번으로 전환"
+
+#, fuzzy
+msgid "resize-terminal-up"
+msgstr "터미널 10번으로 전환"
+
+#, fuzzy
+msgid "resize-terminal-down"
+msgstr "터미널 10번으로 전환"
+
+#, fuzzy
+msgid "resize-terminal-left"
+msgstr "터미널 10번으로 전환"
+
+#, fuzzy
+msgid "resize-terminal-right"
 msgstr "터미널 10번으로 전환"
 
 msgid "win"
@@ -203,379 +219,14 @@ msgstr "축소"
 msgid "zoom-normal"
 msgstr "확대 원래대로"
 
-#: source/gx/terminix/terminal/search.d:100
-msgid "Search Options"
-msgstr "검색 옵션"
-
-#: source/gx/terminix/terminal/search.d:166
-msgid "Match case"
-msgstr "일치 경우"
-
-#: source/gx/terminix/terminal/search.d:167
-msgid "Match entire word only"
-msgstr "전체 단어 일치만"
-
-#: source/gx/terminix/terminal/search.d:168
-msgid "Match as regular expression"
-msgstr "정규 표현식으로 일치"
-
-#: source/gx/terminix/terminal/search.d:169
-msgid "Wrap around"
-msgstr "주변 감싸기"
-
-#: source/gx/terminix/terminal/terminal.d:332
-#: source/gx/terminix/terminal/terminal.d:722
-msgid "Terminal"
-msgstr "터미널"
-
-#: source/gx/terminix/terminal/terminal.d:358
-#: source/gx/terminix/appwindow.d:392
-msgid "Close"
-msgstr "닫기"
-
-#: source/gx/terminix/terminal/terminal.d:367
-#: source/gx/terminix/terminal/terminal.d:753
-msgid "Maximize"
-msgstr "최대화"
-
-#: source/gx/terminix/terminal/terminal.d:378
-msgid "Disable input synchronization for this terminal"
-msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
-
-#: source/gx/terminix/terminal/terminal.d:402
-msgid "Edit Profile"
-msgstr "프로파일 편집"
-
-#: source/gx/terminix/terminal/terminal.d:521
-#: source/gx/terminix/appwindow.d:613
-msgid "There are processes that are still running, close anyway?"
-msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
-
-#: source/gx/terminix/terminal/terminal.d:578
-msgid "Split Right"
-msgstr "오른쪽으로 분할"
-
-#: source/gx/terminix/terminal/terminal.d:582
-msgid "Split Down"
-msgstr "아래로 분할"
-
-#: source/gx/terminix/terminal/terminal.d:595
-msgid "Save…"
-msgstr "저장…"
-
-#: source/gx/terminix/terminal/terminal.d:596
-msgid "Find…"
-msgstr "찾기…"
-
-#: source/gx/terminix/terminal/terminal.d:597
-msgid "Layout Options…"
-msgstr "레이아웃 옵션…"
-
-#: source/gx/terminix/terminal/terminal.d:601
-msgid "Read-Only"
-msgstr "읽기전용"
-
-#: source/gx/terminix/terminal/terminal.d:605
-#: source/gx/terminix/prefwindow.d:83
-msgid "Profiles"
-msgstr "프로파일"
-
-#: source/gx/terminix/terminal/terminal.d:606
-#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
-#: source/gx/terminix/prefwindow.d:159
-msgid "Encoding"
-msgstr "인코딩"
-
-#: source/gx/terminix/terminal/terminal.d:750
-msgid "Restore"
-msgstr "복원"
-
-#: source/gx/terminix/terminal/terminal.d:850
-msgid "Open Link"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:851
-msgid "Copy Link Address"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:855
-#: source/gx/terminix/terminal/terminal.d:868
-msgid "Copy"
-msgstr "복사"
-
-#: source/gx/terminix/terminal/terminal.d:856
-#: source/gx/terminix/terminal/terminal.d:870
-#: source/gx/terminix/prefwindow.d:486
-msgid "Paste"
-msgstr "붙여넣기"
-
-#: source/gx/terminix/terminal/terminal.d:857
-#: source/gx/terminix/terminal/terminal.d:872
-msgid "Select All"
-msgstr "모두 선택"
-
-#: source/gx/terminix/terminal/terminal.d:1192
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다."
-
-#: source/gx/terminix/terminal/terminal.d:1198
+#: source/gx/terminix/colorschemes.d:107
 #, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "예상하지 못한 오류가 발생했습니다. %s"
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
 
-#: source/gx/terminix/terminal/terminal.d:1509
-msgid "Save Terminal Output"
-msgstr "터미널 출력 저장"
-
-#: source/gx/terminix/terminal/terminal.d:1515
-msgid "All Text Files"
-msgstr "모든 텍스트 파일"
-
-#: source/gx/terminix/terminal/terminal.d:1519
-#: source/gx/terminix/appwindow.d:660
-msgid "All Files"
-msgstr "모든 파일"
-
-#: source/gx/terminix/terminal/terminal.d:1818
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
-
-#: source/gx/terminix/terminal/terminal.d:1819
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다. %d"
-
-#: source/gx/terminix/terminal/terminal.d:1820
-msgid "The child process was aborted."
-msgstr "자식 프로세스가 중지되었습니다."
-
-#: source/gx/terminix/terminal/terminal.d:1826
-msgid "Relaunch"
-msgstr "다시 시작"
-
-#: source/gx/terminix/terminal/terminal.d:1862
-msgid "This command is asking for Administrative access to your computer"
-msgstr "이 명령어가 컴퓨터로의 관리자 액세스를 요청합니다"
-
-#: source/gx/terminix/terminal/terminal.d:1863
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "인터넷에서 명령어를 복사하는 것은 위험할 수 있습니다. "
-
-#: source/gx/terminix/terminal/terminal.d:1864
-msgid "Be sure you understand what each part of this command does."
-msgstr "이 명령어의 각 부분이 무엇을 하는지 분명히 이해하세요."
-
-#: source/gx/terminix/terminal/terminal.d:1866
-msgid "Don't Paste"
-msgstr "붙여넣지 마세요"
-
-#: source/gx/terminix/terminal/terminal.d:1867
-msgid "Paste Anyway"
-msgstr "어떻게든 붙여넣기"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Layout Options"
-msgstr "레이아웃 옵션"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr "확인"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Cancel"
-msgstr "취소"
-
-#: source/gx/terminix/terminal/layout.d:43
-msgid "Active"
-msgstr "동작"
-
-#: source/gx/terminix/terminal/layout.d:49
-msgid "Title"
-msgstr "제목"
-
-#: source/gx/terminix/terminal/layout.d:57
-msgid "Session Load"
-msgstr "세션"
-
-#: source/gx/terminix/terminal/layout.d:64
-#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
-msgid "Command"
-msgstr "명령어"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
-"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
-
-#: source/gx/terminix/appwindow.d:91 source/gx/terminix/prefwindow.d:324
-#: source/gx/terminix/prefwindow.d:530
-msgid "Default"
-msgstr "기본값"
-
-#: source/gx/terminix/appwindow.d:180
-msgid "View session sidebar"
-msgstr "세션 사이드바 보기"
-
-#: source/gx/terminix/appwindow.d:192
-msgid "Create a new session"
-msgstr "새 세션 만들기"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Change Session Name"
-msgstr "세션 이름 바꾸기"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Enter a new name for the session"
-msgstr "새 세션 이름 입력"
-
-#: source/gx/terminix/appwindow.d:389
-msgid "Load…"
-msgstr "불러오기…"
-
-#: source/gx/terminix/appwindow.d:390
-msgid "Save"
-msgstr "저장"
-
-#: source/gx/terminix/appwindow.d:391
-msgid "Save As…"
-msgstr "다른 이름으로 저장…"
-
-#: source/gx/terminix/appwindow.d:396
-msgid "Name…"
-msgstr "이름…"
-
-#: source/gx/terminix/appwindow.d:397
-msgid "Synchronize Input"
-msgstr "입력 동기화"
-
-#: source/gx/terminix/appwindow.d:402
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:656
-msgid "All JSON Files"
-msgstr "모든 JSON 파일"
-
-#: source/gx/terminix/appwindow.d:669
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "파일 이름 '%s'이(가) 없습니다."
-
-#: source/gx/terminix/appwindow.d:694
-msgid "Load Session"
-msgstr "세션 불러오기"
-
-#: source/gx/terminix/appwindow.d:707
-msgid "Could not load session due to unexpected error."
-msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
-
-#: source/gx/terminix/appwindow.d:707
-msgid "Error Loading Session"
-msgstr "세션 불러오기 오류"
-
-#: source/gx/terminix/appwindow.d:722
-msgid "Save Session"
-msgstr "세션 저장"
-
-#: source/gx/terminix/appwindow.d:757
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:131 source/gx/terminix/session.d:1152
-msgid "New Session"
-msgstr "새 세션"
-
-#: source/gx/terminix/application.d:132
-msgid "New Window"
-msgstr "새 창"
-
-#: source/gx/terminix/application.d:136 source/gx/terminix/prefwindow.d:70
-msgid "Preferences"
-msgstr "기본 설정"
-
-#: source/gx/terminix/application.d:140
-msgid "About"
-msgstr "정보"
-
-#: source/gx/terminix/application.d:141
-msgid "Quit"
-msgstr "끝내기"
-
-#: source/gx/terminix/application.d:185
-msgid "Credits"
-msgstr "크레딧"
-
-#: source/gx/terminix/application.d:321
-msgid "Set the working directory of the terminal"
-msgstr "터미널 작업 디렉터리 설정"
-
-#: source/gx/terminix/application.d:321
-msgid "DIRECTORY"
-msgstr ""
-
-#: source/gx/terminix/application.d:322
-msgid "Set the starting profile"
-msgstr "시작 프로파일 설정"
-
-#: source/gx/terminix/application.d:322
-msgid "PROFILE_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:323
-msgid "Open the specified session"
-msgstr "특정 세션 열기"
-
-#: source/gx/terminix/application.d:323
-msgid "SESSION_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:324
-msgid "Send an action to current Terminix instance"
-msgstr "현재 Terminix 인스턴스로 동작 보내기"
-
-#: source/gx/terminix/application.d:324
-msgid "ACTION_NAME"
-msgstr ""
-
-#: source/gx/terminix/application.d:325
-msgid "Execute the passed command"
-msgstr "전달된 명령어 실행"
-
-#: source/gx/terminix/application.d:325
-msgid "EXECUTE"
-msgstr ""
-
-#: source/gx/terminix/application.d:326
-msgid "Hidden argument to pass terminal UUID"
-msgstr "터미널 UUID를 전달하기 위한 숨겨진 독립변수"
-
-#: source/gx/terminix/application.d:326
-msgid "TERMINAL_UUID"
-msgstr ""
-
-#: source/gx/terminix/application.d:466
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"터미널 설정에 이슈가 있는 것으로 보입니다.\n"
-"이 이슈는 심각하지 않습니다. 그러나 고친다면 사용 경험이 향상됩니다\n"
-"자세한 정보는 아래 링크를 누르세요."
-
-#: source/gx/terminix/application.d:467
-msgid "Configuration Issue Detected"
-msgstr "설정 이슈 감지됨"
-
-#: source/gx/terminix/application.d:479
-msgid "Do not show this message again"
-msgstr "이 메시지 다시 보지 않기"
+#: source/gx/terminix/colorschemes.d:140
+msgid "Color scheme palette requires 16 colors"
+msgstr "색상표에 16 가지 색상이 필요합니다"
 
 #: source/gx/terminix/profilewindow.d:64
 #, c-format
@@ -589,6 +240,11 @@ msgstr "새 프로파일"
 #: source/gx/terminix/profilewindow.d:74
 msgid "General"
 msgstr "일반"
+
+#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
+#: source/gx/terminix/terminal/layout.d:64
+msgid "Command"
+msgstr "명령어"
 
 #: source/gx/terminix/profilewindow.d:76
 msgid "Color"
@@ -820,6 +476,12 @@ msgstr "TTY"
 msgid "Delete key generates"
 msgstr "Delete 키 누를 때 생성할 것"
 
+#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
+#: source/gx/terminix/prefwindow.d:159
+#: source/gx/terminix/terminal/terminal.d:601
+msgid "Encoding"
+msgstr "인코딩"
+
 #: source/gx/terminix/profilewindow.d:591
 msgid "Ambiguous-width characters"
 msgstr "모호한 폭의 문자"
@@ -855,31 +517,6 @@ msgstr "명령어 다시 시작"
 #: source/gx/terminix/profilewindow.d:642
 msgid "Hold the terminal open"
 msgstr "터미널 열림 유지"
-
-#: source/gx/terminix/colorschemes.d:107
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
-
-#: source/gx/terminix/colorschemes.d:140
-msgid "Color scheme palette requires 16 colors"
-msgstr "색상표에 16 가지 색상이 필요합니다"
-
-#: source/gx/terminix/session.d:450
-msgid "Could not locate dropped terminal"
-msgstr "중단된 터미널을 위치시킬 수 없습니다"
-
-#: source/gx/terminix/session.d:455
-msgid "Could not locate session for dropped terminal"
-msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
-
-#: source/gx/terminix/session.d:1118
-msgid "Name"
-msgstr "이름"
-
-#: source/gx/terminix/session.d:1129 source/gx/terminix/prefwindow.d:326
-msgid "Profile"
-msgstr "프로파일"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -1019,13 +656,125 @@ msgstr "베트남어"
 msgid "Thai"
 msgstr "태국어"
 
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1188
+#: source/gx/terminix/prefwindow.d:492
+msgid "New Session"
+msgstr "새 세션"
+
+#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:492
+msgid "New Window"
+msgstr "새 창"
+
+#: source/gx/terminix/application.d:152 source/gx/terminix/prefwindow.d:70
+msgid "Preferences"
+msgstr "기본 설정"
+
+#: source/gx/terminix/application.d:154 source/gx/terminix/prefwindow.d:80
+msgid "Shortcuts"
+msgstr "바로 가기"
+
+#: source/gx/terminix/application.d:159
+msgid "About"
+msgstr "정보"
+
+#: source/gx/terminix/application.d:160
+msgid "Quit"
+msgstr "끝내기"
+
+#: source/gx/terminix/application.d:204
+msgid "Credits"
+msgstr "크레딧"
+
+#: source/gx/terminix/application.d:393
+msgid "Set the working directory of the terminal"
+msgstr "터미널 작업 디렉터리 설정"
+
+#: source/gx/terminix/application.d:393
+msgid "DIRECTORY"
+msgstr ""
+
+#: source/gx/terminix/application.d:394
+msgid "Set the starting profile"
+msgstr "시작 프로파일 설정"
+
+#: source/gx/terminix/application.d:394
+msgid "PROFILE_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:395
+msgid "Open the specified session"
+msgstr "특정 세션 열기"
+
+#: source/gx/terminix/application.d:395
+msgid "SESSION_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:396
+msgid "Send an action to current Terminix instance"
+msgstr "현재 Terminix 인스턴스로 동작 보내기"
+
+#: source/gx/terminix/application.d:396
+msgid "ACTION_NAME"
+msgstr ""
+
+#: source/gx/terminix/application.d:397
+msgid "Execute the passed command"
+msgstr "전달된 명령어 실행"
+
+#: source/gx/terminix/application.d:397
+msgid "EXECUTE"
+msgstr ""
+
+#: source/gx/terminix/application.d:398
+msgid "Hidden argument to pass terminal UUID"
+msgstr "터미널 UUID를 전달하기 위한 숨겨진 독립변수"
+
+#: source/gx/terminix/application.d:398
+msgid "TERMINAL_UUID"
+msgstr ""
+
+#: source/gx/terminix/application.d:538
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"터미널 설정에 이슈가 있는 것으로 보입니다.\n"
+"이 이슈는 심각하지 않습니다. 그러나 고친다면 사용 경험이 향상됩니다\n"
+"자세한 정보는 아래 링크를 누르세요."
+
+#: source/gx/terminix/application.d:539
+msgid "Configuration Issue Detected"
+msgstr "설정 이슈 감지됨"
+
+#: source/gx/terminix/application.d:551
+msgid "Do not show this message again"
+msgstr "이 메시지 다시 보지 않기"
+
+#: source/gx/terminix/session.d:450
+msgid "Could not locate dropped terminal"
+msgstr "중단된 터미널을 위치시킬 수 없습니다"
+
+#: source/gx/terminix/session.d:455
+msgid "Could not locate session for dropped terminal"
+msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
+
+#: source/gx/terminix/session.d:1154
+msgid "Name"
+msgstr "이름"
+
+#: source/gx/terminix/session.d:1165 source/gx/terminix/prefwindow.d:326
+msgid "Profile"
+msgstr "프로파일"
+
 #: source/gx/terminix/prefwindow.d:77
 msgid "Global"
 msgstr "전역"
 
-#: source/gx/terminix/prefwindow.d:80
-msgid "Shortcuts"
-msgstr "바로 가기"
+#: source/gx/terminix/prefwindow.d:83
+#: source/gx/terminix/terminal/terminal.d:600
+msgid "Profiles"
+msgstr "프로파일"
 
 #: source/gx/terminix/prefwindow.d:121
 msgid "Encodings showing in menu:"
@@ -1042,6 +791,11 @@ msgstr "동작"
 #: source/gx/terminix/prefwindow.d:235
 msgid "Shortcut Key"
 msgstr "단축키"
+
+#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:543
+#: source/gx/terminix/appwindow.d:91
+msgid "Default"
+msgstr "기본값"
 
 #: source/gx/terminix/prefwindow.d:340
 msgid "New"
@@ -1075,41 +829,248 @@ msgstr "타이핑 할 때 마우스 포인터 자동으로 숨기기"
 msgid "Send desktop notification on process complete"
 msgstr "프로세스가 완료될때 데스크톱 알림 보내기"
 
+#: source/gx/terminix/prefwindow.d:489
+msgid "On new instance"
+msgstr ""
+
 #: source/gx/terminix/prefwindow.d:492
+#, fuzzy
+msgid "Split Horizontal"
+msgstr "수평으로 분할"
+
+#: source/gx/terminix/prefwindow.d:492
+#, fuzzy
+msgid "Split Vertical"
+msgstr "수직으로 분할"
+
+#: source/gx/terminix/prefwindow.d:498
+#: source/gx/terminix/terminal/terminal.d:875
+#: source/gx/terminix/terminal/terminal.d:893
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: source/gx/terminix/prefwindow.d:504
 msgid "Warn when attempting unsafe paste"
 msgstr "위험한 붙여넣기를 할 때 경고하기"
 
-#: source/gx/terminix/prefwindow.d:497
+#: source/gx/terminix/prefwindow.d:509
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "붙여넣기 한 것이 주석 또는 변수 선언문일 경우 첫 문자 삭제하기"
 
-#: source/gx/terminix/prefwindow.d:501
+#: source/gx/terminix/prefwindow.d:514
 msgid "Appearance"
 msgstr "모양새"
 
-#: source/gx/terminix/prefwindow.d:508
+#: source/gx/terminix/prefwindow.d:521
 msgid "Enable transparency, requires re-start"
 msgstr "투명도 활성화 하기(다시 시작 필요함)"
 
-#: source/gx/terminix/prefwindow.d:514
+#: source/gx/terminix/prefwindow.d:527
 msgid "Use small size for terminal titlebars"
 msgstr "작은 크기의 터미널 타이틀바 사용"
 
-#: source/gx/terminix/prefwindow.d:519
+#: source/gx/terminix/prefwindow.d:532
 msgid "Use a wide handle for splitters"
 msgstr "스플라이터에 대해 넓은 핸들 사용하기"
 
-#: source/gx/terminix/prefwindow.d:526
+#: source/gx/terminix/prefwindow.d:539
 msgid "Theme Variant"
 msgstr "테마 종류"
 
-#: source/gx/terminix/prefwindow.d:531
+#: source/gx/terminix/prefwindow.d:544
 msgid "Light"
 msgstr "밝음"
 
-#: source/gx/terminix/prefwindow.d:532
+#: source/gx/terminix/prefwindow.d:545
 msgid "Dark"
 msgstr "어두움"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "Layout Options"
+msgstr "레이아웃 옵션"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "OK"
+msgstr "확인"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "Cancel"
+msgstr "취소"
+
+#: source/gx/terminix/terminal/layout.d:43
+msgid "Active"
+msgstr "동작"
+
+#: source/gx/terminix/terminal/layout.d:49
+msgid "Title"
+msgstr "제목"
+
+#: source/gx/terminix/terminal/layout.d:57
+msgid "Session Load"
+msgstr "세션"
+
+#: source/gx/terminix/terminal/layout.d:73
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
+"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
+
+#: source/gx/terminix/terminal/search.d:117
+msgid "Search Options"
+msgstr "검색 옵션"
+
+#: source/gx/terminix/terminal/search.d:183
+msgid "Match case"
+msgstr "일치 경우"
+
+#: source/gx/terminix/terminal/search.d:184
+msgid "Match entire word only"
+msgstr "전체 단어 일치만"
+
+#: source/gx/terminix/terminal/search.d:185
+msgid "Match as regular expression"
+msgstr "정규 표현식으로 일치"
+
+#: source/gx/terminix/terminal/search.d:186
+msgid "Wrap around"
+msgstr "주변 감싸기"
+
+#: source/gx/terminix/terminal/terminal.d:323
+#: source/gx/terminix/terminal/terminal.d:741
+msgid "Terminal"
+msgstr "터미널"
+
+#: source/gx/terminix/terminal/terminal.d:349
+#: source/gx/terminix/appwindow.d:401
+msgid "Close"
+msgstr "닫기"
+
+#: source/gx/terminix/terminal/terminal.d:358
+#: source/gx/terminix/terminal/terminal.d:772
+msgid "Maximize"
+msgstr "최대화"
+
+#: source/gx/terminix/terminal/terminal.d:369
+msgid "Disable input synchronization for this terminal"
+msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
+
+#: source/gx/terminix/terminal/terminal.d:402
+msgid "Edit Profile"
+msgstr "프로파일 편집"
+
+#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/appwindow.d:622
+msgid "There are processes that are still running, close anyway?"
+msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
+
+#: source/gx/terminix/terminal/terminal.d:590
+msgid "Save…"
+msgstr "저장…"
+
+#: source/gx/terminix/terminal/terminal.d:591
+msgid "Find…"
+msgstr "찾기…"
+
+#: source/gx/terminix/terminal/terminal.d:592
+msgid "Layout Options…"
+msgstr "레이아웃 옵션…"
+
+#: source/gx/terminix/terminal/terminal.d:596
+msgid "Read-Only"
+msgstr "읽기전용"
+
+#: source/gx/terminix/terminal/terminal.d:615
+msgid "Split Right"
+msgstr "오른쪽으로 분할"
+
+#: source/gx/terminix/terminal/terminal.d:619
+msgid "Split Down"
+msgstr "아래로 분할"
+
+#: source/gx/terminix/terminal/terminal.d:769
+msgid "Restore"
+msgstr "복원"
+
+#: source/gx/terminix/terminal/terminal.d:869
+msgid "Open Link"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:870
+msgid "Copy Link Address"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:874
+#: source/gx/terminix/terminal/terminal.d:891
+msgid "Copy"
+msgstr "복사"
+
+#: source/gx/terminix/terminal/terminal.d:876
+#: source/gx/terminix/terminal/terminal.d:895
+msgid "Select All"
+msgstr "모두 선택"
+
+#: source/gx/terminix/terminal/terminal.d:1228
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다."
+
+#: source/gx/terminix/terminal/terminal.d:1234
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "예상하지 못한 오류가 발생했습니다. %s"
+
+#: source/gx/terminix/terminal/terminal.d:1550
+msgid "Save Terminal Output"
+msgstr "터미널 출력 저장"
+
+#: source/gx/terminix/terminal/terminal.d:1556
+msgid "All Text Files"
+msgstr "모든 텍스트 파일"
+
+#: source/gx/terminix/terminal/terminal.d:1560
+#: source/gx/terminix/appwindow.d:669
+msgid "All Files"
+msgstr "모든 파일"
+
+#: source/gx/terminix/terminal/terminal.d:1863
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
+
+#: source/gx/terminix/terminal/terminal.d:1864
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다. %d"
+
+#: source/gx/terminix/terminal/terminal.d:1865
+msgid "The child process was aborted."
+msgstr "자식 프로세스가 중지되었습니다."
+
+#: source/gx/terminix/terminal/terminal.d:1871
+msgid "Relaunch"
+msgstr "다시 시작"
+
+#: source/gx/terminix/terminal/terminal.d:1911
+msgid "This command is asking for Administrative access to your computer"
+msgstr "이 명령어가 컴퓨터로의 관리자 액세스를 요청합니다"
+
+#: source/gx/terminix/terminal/terminal.d:1912
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "인터넷에서 명령어를 복사하는 것은 위험할 수 있습니다. "
+
+#: source/gx/terminix/terminal/terminal.d:1913
+msgid "Be sure you understand what each part of this command does."
+msgstr "이 명령어의 각 부분이 무엇을 하는지 분명히 이해하세요."
+
+#: source/gx/terminix/terminal/terminal.d:1915
+msgid "Don't Paste"
+msgstr "붙여넣지 마세요"
+
+#: source/gx/terminix/terminal/terminal.d:1916
+msgid "Paste Anyway"
+msgstr "어떻게든 붙여넣기"
 
 #: source/gx/terminix/cmdparams.d:73
 #, c-format
@@ -1129,21 +1090,91 @@ msgstr ""
 "세션 불러오기와 프로파일/작업 디렉터리/실행 명령어 설정을 하실 수 없습니다. "
 "하나 또는 다른것을 선택하세요."
 
+#: source/gx/terminix/appwindow.d:181
+msgid "View session sidebar"
+msgstr "세션 사이드바 보기"
+
+#: source/gx/terminix/appwindow.d:193
+msgid "Create a new session"
+msgstr "새 세션 만들기"
+
+#: source/gx/terminix/appwindow.d:372
+msgid "Change Session Name"
+msgstr "세션 이름 바꾸기"
+
+#: source/gx/terminix/appwindow.d:372
+msgid "Enter a new name for the session"
+msgstr "새 세션 이름 입력"
+
+#: source/gx/terminix/appwindow.d:398
+msgid "Load…"
+msgstr "불러오기…"
+
+#: source/gx/terminix/appwindow.d:399
+msgid "Save"
+msgstr "저장"
+
+#: source/gx/terminix/appwindow.d:400
+msgid "Save As…"
+msgstr "다른 이름으로 저장…"
+
+#: source/gx/terminix/appwindow.d:405
+msgid "Name…"
+msgstr "이름…"
+
+#: source/gx/terminix/appwindow.d:406
+msgid "Synchronize Input"
+msgstr "입력 동기화"
+
+#: source/gx/terminix/appwindow.d:411
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:665
+msgid "All JSON Files"
+msgstr "모든 JSON 파일"
+
+#: source/gx/terminix/appwindow.d:678
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "파일 이름 '%s'이(가) 없습니다."
+
+#: source/gx/terminix/appwindow.d:703
+msgid "Load Session"
+msgstr "세션 불러오기"
+
+#: source/gx/terminix/appwindow.d:716
+msgid "Could not load session due to unexpected error."
+msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
+
+#: source/gx/terminix/appwindow.d:716
+msgid "Error Loading Session"
+msgstr "세션 불러오기 오류"
+
+#: source/gx/terminix/appwindow.d:731
+msgid "Save Session"
+msgstr "세션 저장"
+
+#: source/gx/terminix/appwindow.d:766
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
+msgid "Terminix"
+msgstr "Terminix"
+
 #: source/gx/gtk/actions.d:23
 msgid "disabled"
 msgstr "비활성화됨"
 
-#: source/app.d:42
+#: source/app.d:41
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 "GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
 
-#: source/app.d:62
+#: source/app.d:61
 msgid "Unexpected exception occurred"
 msgstr "예상하지 못한 예외 발생"
 
-#: source/app.d:63
+#: source/app.d:62
 msgid "Error: "
 msgstr "오류: "
 
@@ -1171,6 +1202,405 @@ msgstr "그놈을 위한 타일링 터미널"
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:10
 msgid "utilities-terminal"
 msgstr "utilities-terminal"
+
+#: data/resources/ui/shortcuts.ui:15
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Application"
+msgstr "동작"
+
+#: data/resources/ui/shortcuts.ui:19
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "새 창"
+
+#: data/resources/ui/shortcuts.ui:25
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open a new session"
+msgstr "새 세션 만들기"
+
+#: data/resources/ui/shortcuts.ui:31
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "기본 설정"
+
+#: data/resources/ui/shortcuts.ui:39
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Window"
+msgstr "새 창"
+
+#: data/resources/ui/shortcuts.ui:43
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Toggle fullscreen mode"
+msgstr "전체화면"
+
+#: data/resources/ui/shortcuts.ui:49
+#, fuzzy
+msgctxt "shortcut window"
+msgid "View session sidebar"
+msgstr "세션 사이드바 보기"
+
+#: data/resources/ui/shortcuts.ui:55
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to next session"
+msgstr "다음 세션으로 전환"
+
+#: data/resources/ui/shortcuts.ui:61
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to previous session"
+msgstr "이전 세션으로 전환"
+
+#: data/resources/ui/shortcuts.ui:67
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 1"
+msgstr "세션 1번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:73
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 2"
+msgstr "세션 2번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:79
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 3"
+msgstr "세션 3번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:85
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 4"
+msgstr "세션 4번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:91
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 5"
+msgstr "세션 5번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:97
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 6"
+msgstr "세션 6번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:103
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 7"
+msgstr "세션 7번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:109
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 8"
+msgstr "세션 8번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:115
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 9"
+msgstr "세션 9번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:121
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 10"
+msgstr "세션 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:137
+#, fuzzy
+msgctxt "shortcut window"
+msgid "File"
+msgstr "모든 파일"
+
+#: data/resources/ui/shortcuts.ui:141
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Close the current session"
+msgstr "특정 세션 열기"
+
+#: data/resources/ui/shortcuts.ui:147
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save the current session"
+msgstr "특정 세션 열기"
+
+#: data/resources/ui/shortcuts.ui:153
+msgctxt "shortcut window"
+msgid "Save the current session with new filename"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:159
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Load the current session"
+msgstr "세션 불러오기"
+
+#: data/resources/ui/shortcuts.ui:167
+msgctxt "shortcut window"
+msgid "Resize"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:171
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal up"
+msgstr "터미널 나가기"
+
+#: data/resources/ui/shortcuts.ui:177
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal down"
+msgstr "터미널 열림 유지"
+
+#: data/resources/ui/shortcuts.ui:183
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal left"
+msgstr "터미널 나가기"
+
+#: data/resources/ui/shortcuts.ui:189
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal right"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:197
+msgctxt "shortcut window"
+msgid "Switch"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:201
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to next terminal"
+msgstr "다음 터미널로 전환"
+
+#: data/resources/ui/shortcuts.ui:207
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to previous terminal"
+msgstr "이전 터미널로 전환"
+
+#: data/resources/ui/shortcuts.ui:213
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal up"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:219
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal down"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:225
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal left"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:231
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal right"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:237
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 1"
+msgstr "터미널 1번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:243
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 2"
+msgstr "터미널 2번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:249
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 3"
+msgstr "터미널 3번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:255
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 4"
+msgstr "터미널 4번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:261
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 5"
+msgstr "터미널 5번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:267
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 6"
+msgstr "터미널 6번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:273
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 7"
+msgstr "터미널 7번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:279
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 8"
+msgstr "터미널 8번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:285
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 9"
+msgstr "터미널 9번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:291
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 10"
+msgstr "터미널 10번으로 전환"
+
+#: data/resources/ui/shortcuts.ui:307
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split"
+msgstr "아래로 분할"
+
+#: data/resources/ui/shortcuts.ui:311
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split horizontal"
+msgstr "수평으로 분할"
+
+#: data/resources/ui/shortcuts.ui:317
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split Vertical"
+msgstr "수직으로 분할"
+
+#: data/resources/ui/shortcuts.ui:325 data/resources/ui/shortcuts.ui:329
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "찾기…"
+
+#: data/resources/ui/shortcuts.ui:335
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find next"
+msgstr "다음 찾기"
+
+# ***********************************************
+# Keyboard shortcuts to the end, these are shown
+# in the Shortcut preferences and in the future
+# the shortcut overview if available in Gnome 3.20
+# ***********************************************
+#: data/resources/ui/shortcuts.ui:341
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find previous"
+msgstr "이전 찾기"
+
+#: data/resources/ui/shortcuts.ui:349
+msgctxt "shortcut window"
+msgid "Clipboard"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:353
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Copy"
+msgstr "복사"
+
+#: data/resources/ui/shortcuts.ui:359
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: data/resources/ui/shortcuts.ui:365
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Select all"
+msgstr "모두 선택"
+
+#: data/resources/ui/shortcuts.ui:373
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:377
+msgctxt "shortcut window"
+msgid "Zoom in"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:383
+msgctxt "shortcut window"
+msgid "Zoom out"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:389
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Zoom normal size"
+msgstr "확대 원래대로"
+
+#: data/resources/ui/shortcuts.ui:397
+msgctxt "shortcut window"
+msgid "Other"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:401
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save terminal contents"
+msgstr "터미널 출력 저장"
+
+#: data/resources/ui/shortcuts.ui:407
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Close terminal"
+msgstr "터미널"
+
+#: data/resources/ui/shortcuts.ui:413
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Maximize terminal"
+msgstr "터미널 나가기"
+
+#: data/resources/ui/shortcuts.ui:419
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Current profile preferences"
+msgstr "프로파일 설정"
+
+#: data/resources/ui/shortcuts.ui:425
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Toggle read only"
+msgstr "읽기전용"
+
+#: data/resources/ui/shortcuts.ui:431
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Layout options"
+msgstr "레이아웃 옵션"
 
 #~ msgid "Enter Custom Title"
 #~ msgstr "사용자 정의 제목 입력"
