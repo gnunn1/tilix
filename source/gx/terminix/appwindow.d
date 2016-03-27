@@ -147,6 +147,7 @@ private:
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
+        sb.setAppWindow(this);
         sb.addOnSessionSelected(delegate(string sessionUUID) {
             trace("Session selected " ~ sessionUUID);
             saViewSideBar.activate(null);

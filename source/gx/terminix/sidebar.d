@@ -28,6 +28,7 @@ import gtk.Widget;
 import gx.gtk.cairo;
 import gx.gtk.util;
 
+import gx.terminix.appwindow;
 import gx.terminix.common;
 import gx.terminix.session;
 
@@ -42,6 +43,8 @@ alias OnSessionSelected = void delegate(string sessionUUID);
  */
 class SideBar : Revealer {
 private:
+    AppWindow appWindow;
+
     ListBox lbSessions;
 
     OnSessionSelected[] sessionSelectedDelegates;
@@ -66,6 +69,11 @@ private:
         //If button press happened outside of sidebar close it
         if (event.getWindow() !is null && lbSessions.getWindow() !is null) { 
             if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
+                notifySessionSelected(null);
+            }
+            else if (event.isDoubleClick(event.button())) {
+                // Create new session
+                appWindow.createSession();
                 notifySessionSelected(null);
             }
         }
@@ -120,6 +128,10 @@ public:
         });
 
         add(sw);
+    }
+
+    void setAppWindow(AppWindow _appWindow) {
+        appWindow = _appWindow;
     }
 
     void populateSessions(Session[] sessions, string currentSessionUUID, SessionNotification[string] notifications, int width, int height) {
