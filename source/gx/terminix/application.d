@@ -19,7 +19,7 @@ import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
-import glib.ShellUtils;
+import glib.ListG;
 import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
@@ -36,6 +36,7 @@ import gtk.LinkButton;
 import gtk.Main;
 import gtk.MessageDialog;
 import gtk.Settings;
+import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
@@ -49,6 +50,7 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
 import gx.terminix.profilewindow;
+import gx.terminix.shortcuts;
 
 Terminix terminix;
 
@@ -68,6 +70,7 @@ private:
     enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
     enum ACTION_COMMAND = "command";
+    enum ACTION_SHORTCUTS = "shortcuts";
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
@@ -89,6 +92,7 @@ private:
         if (findResource(APPLICATION_RESOURCES, true)) {
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
                 string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
+                trace(format("Could not load CSS %s", cssURI));
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     error(format("Could not load CSS %s", cssURI));
                 }
@@ -123,6 +127,18 @@ private:
 
         registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
+        if (Version.checkVersion(3, 19, 0).length == 0) {
+            registerActionWithSettings(this, ACTION_PREFIX, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) { 
+                import gtk.ShortcutsWindow: ShortcutsWindow;
+                
+                ShortcutsWindow window = getShortcutWindow();
+                if (window is null) return;
+                window.setDestroyWithParent(true);
+                window.setModal(true);
+                window.showAll();                     
+            });
+        }
+        
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTerminix(); });
@@ -134,6 +150,9 @@ private:
 
         Menu prefSection = new Menu();
         prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX, ACTION_PREFERENCES));
+        if (Version.checkVersion(3, 19, 0).length == 0) {
+            prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX, ACTION_SHORTCUTS));
+        }        
         appMenu.appendSection(null, prefSection);
 
         Menu otherSection = new Menu();
@@ -174,16 +193,22 @@ private:
             setWrapLicense(true);
             setLogoIconName(null);
             setName(APPLICATION_NAME);
-            setComments(APPLICATION_COMMENTS);
+            setComments(_(APPLICATION_COMMENTS));
             setVersion(APPLICATION_VERSION);
             setCopyright(APPLICATION_COPYRIGHT);
             setAuthors(APPLICATION_AUTHORS.dup);
             setArtists(APPLICATION_ARTISTS.dup);
             setDocumenters(APPLICATION_DOCUMENTERS.dup);
             setTranslatorCredits(APPLICATION_TRANSLATORS);
-            setLicense(APPLICATION_LICENSE);
-            addCreditSection(_("Credits"), APPLICATION_CREDITS);
+            setLicense(_(APPLICATION_LICENSE));
             setLogoIconName(APPLICATION_ICON_NAME);
+
+            string[] localizedCredits;
+            localizedCredits.length = APPLICATION_CREDITS.length;
+            foreach (i, credit; APPLICATION_CREDITS) {
+                localizedCredits[i] = _(credit);
+            }
+            addCreditSection(_("Credits"), localizedCredits);
 
             addOnResponse(delegate(int responseId, Dialog sender) {
                 if (responseId == ResponseType.CANCEL || responseId == ResponseType.DELETE_EVENT)
@@ -221,11 +246,44 @@ private:
         cp = CommandParameters(acl);
         if (cp.exitCode == 0) {
             if (cp.action.length > 0) {
-                executeAction(cp.terminalUUID, cp.action);
+                trace("Executing action  " ~ cp.action);
+                string terminalUUID = cp.terminalUUID;
+                if (terminalUUID.length == 0) {
+                    AppWindow window = getActiveAppWindow();
+                    if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
+                } 
+                executeAction(terminalUUID, cp.action);
                 return cp.exitCode;
             }
+        } else {
+            trace(format("Exit code is %d", cp.exitCode));
         }
         trace("Activating app");
+        
+        if (acl.getIsRemote()) {
+            AppWindow aw = getActiveAppWindow();
+            if (aw !is null) {    
+                switch (gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY)) {
+                    //New Session
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
+                        aw.present();
+                        aw.createSession();
+                        return cp.exitCode;
+                    //Split Horizontal
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
+                        aw.present();
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-horizontal");
+                        return cp.exitCode;
+                    //Split Verical
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
+                        aw.present();
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-vertical");
+                        return cp.exitCode;
+                    default:
+                        //Fall through to activate
+                }
+            }        
+        }
         activate();
         return cp.exitCode;
     }
@@ -262,7 +320,7 @@ private:
         applyPreferences();
         installAppMenu();
     }
-
+    
     void onAppShutdown(GioApplication) {
         trace("Quit App Signal");
         terminix = null;
@@ -278,6 +336,9 @@ private:
              * gtk_settings_reset_property API in Gnome 3.20. Once
              * GtkD is updated to include this it will be added here.
              */ 
+            if (Version.checkVersion(3, 19, 0).length == 0) {
+                Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
+            }
         }
         if (defaultMenuAccel is null) {
             defaultMenuAccel = new Value("F10");
@@ -312,6 +373,23 @@ private:
             return;
         }
         trace(format("Could not find action for prefix=%s and action=%s", prefix, actionName));
+    }
+    
+    /**
+     * Returns the most active AppWindow, ignores preference
+     * an profile windows
+     */
+    AppWindow getActiveAppWindow() {
+        AppWindow appWindow = cast(AppWindow)getActiveWindow();
+        if (appWindow !is null) return appWindow;
+        
+        ListG list = getWindows();
+        Window[] windows = list.toArray!(Window)();
+        foreach(window; windows) {
+            appWindow = cast(AppWindow) window;
+            if (appWindow !is null) return appWindow;
+        }
+        return null;
     }
 
 public:

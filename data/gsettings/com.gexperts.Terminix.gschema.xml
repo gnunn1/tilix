@@ -32,6 +32,14 @@
     <value nick='light'  value='1'/>
     <value nick='dark'   value='2'/>
   </enum>
+  
+  <!-- Second Instance Options -->
+  <enum id='com.gexperts.Terminix.NewInstance.Mode'>
+    <value nick='new-window' value ='0'/>
+    <value nick='new-session' value ='1'/>
+    <value nick='split-horizontal' value ='2'/>
+    <value nick='split-vertical' value ='3'/>
+  </enum>
 
   <!-- Cursor -->
   <enum id='com.gexperts.Terminix.Cursor.BlinkMode'>
@@ -101,6 +109,11 @@
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
       <default>'system'</default>
       <summary>Which theme variant to use</summary>
+    </key>
+    <!-- Second Instance Options -->
+    <key name="new-instance-mode" enum="com.gexperts.Terminix.NewInstance.Mode">
+        <default>'new-window'</default>
+        <summary>Default behavior when opening a second instance of Terminix</summary>
     </key>
     <!-- Notification Options -->
     <key name="notify-on-process-complete" type="b">
@@ -439,16 +452,20 @@
   
   <schema id="com.gexperts.Terminix.Keybindings" path="/com/gexperts/Terminix/keybindings/">
     <key name="app-new-window" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;N'</default>
       <summary>Keyboard shortcut to create a new window</summary>
     </key>
     <key name="app-new-session" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;S'</default>
       <summary>Keyboard shortcut to create a new session</summary>
     </key>
     <key name="app-preferences" type="s">
       <default>'disabled'</default>
       <summary>Keyboard shortcut to open preferences</summary>
+    </key>
+    <key name="app-shortcuts" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to show shortcuts</summary>
     </key>
     <key name="session-synchronize-input" type="s">
       <default>'disabled'</default>
@@ -530,48 +547,64 @@
       <default>'&lt;Alt&gt;Right'</default>
       <summary>Keyboard shortcut to switch to terminal right</summary>
     </key>
+    <key name="session-resize-terminal-up" type="s">
+      <default>'&lt;Shift&gt;&lt;Alt&gt;Up'</default>
+      <summary>Keyboard shortcut to resize terminal up</summary>
+    </key>
+    <key name="session-resize-terminal-down" type="s">
+      <default>'&lt;Shift&gt;&lt;Alt&gt;Down'</default>
+      <summary>Keyboard shortcut to resize terminal down</summary>
+    </key>
+    <key name="session-resize-terminal-left" type="s">
+      <default>'&lt;Shift&gt;&lt;Alt&gt;Left'</default>
+      <summary>Keyboard shortcut to resize terminal left</summary>
+    </key>
+    <key name="session-resize-terminal-right" type="s">
+      <default>'&lt;Shift&gt;&lt;Alt&gt;Right'</default>
+      <summary>Keyboard shortcut to resize terminal right</summary>
+    </key>
     <key name="win-view-sidebar" type="s">
       <default>'&lt;Ctrl&gt;s'</default>
       <summary>Keyboard shortcut to view session sidebar</summary>
     </key>  
     <key name="win-switch-to-session-0" type="s">
-      <default>'disabled'</default>
-      <summary>Keyboard shortcut to switch to session 0</summary>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;0'</default>
+      <summary>Keyboard shortcut to switch to session 10</summary>
     </key>
     <key name="win-switch-to-session-1" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;1'</default>
       <summary>Keyboard shortcut to switch to session 1</summary>
     </key>
     <key name="win-switch-to-session-2" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;2'</default>
       <summary>Keyboard shortcut to switch to session 2</summary>
     </key>
     <key name="win-switch-to-session-3" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;3'</default>
       <summary>Keyboard shortcut to switch to session 3</summary>
     </key>
     <key name="win-switch-to-session-4" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;4'</default>
       <summary>Keyboard shortcut to switch to session 4</summary>
     </key>
     <key name="win-switch-to-session-5" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;5'</default>
       <summary>Keyboard shortcut to switch to session 5</summary>
     </key>
     <key name="win-switch-to-session-6" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;6'</default>
       <summary>Keyboard shortcut to switch to session 6</summary>
     </key>
     <key name="win-switch-to-session-7" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;7'</default>
       <summary>Keyboard shortcut to switch to session 7</summary>
     </key>
     <key name="win-switch-to-session-8" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;8'</default>
       <summary>Keyboard shortcut to switch to session 8</summary>
     </key>
     <key name="win-switch-to-session-9" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;9'</default>
       <summary>Keyboard shortcut to switch to session 9</summary>
     </key>
     <key name="win-switch-to-next-session" type="s">
@@ -597,11 +630,11 @@
       <summary>Keyboard shortcut to switch to the previous terminal</summary>
     </key>
     <key name="terminal-split-horizontal" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;h'</default>
       <summary>Keyboard shortcut to split terminal horizontally</summary>
     </key>
     <key name="terminal-split-vertical" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;v'</default>
       <summary>Keyboard shortcut to split terminal vertically</summary>
     </key>
     <key name="terminal-find" type="s">
@@ -621,7 +654,7 @@
       <summary>Keyboard shortcut to set a customize layout options for the terminal</summary>
     </key>
     <key name="terminal-close" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;W'</default>
       <summary>Keyboard shortcut to close the terminal</summary>
     </key>
     <key name="terminal-maximize" type="s">

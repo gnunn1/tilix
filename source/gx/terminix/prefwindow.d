@@ -218,7 +218,7 @@ private:
             tsShortcuts.getIter(iter, new TreePath(path));
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), _(SHORTCUT_DISABLED));
+            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint, CellRendererAccel) {
             string label = AccelGroup.acceleratorGetLabel(accelKey, accelMods);
@@ -483,6 +483,18 @@ private:
             add(cbNotify);
         }
 
+        //New Instance Options
+        Box bNewInstance = new Box(Orientation.HORIZONTAL, 6);
+        
+        Label lblNewInstance = new Label(_("On new instance"));
+        lblNewInstance.setHalign(Align.END);
+        bNewInstance.add(lblNewInstance);
+        ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Horizontal"), _("Split Vertical")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
+        gsSettings.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
+        bNewInstance.add(cbNewInstance);
+        add(bNewInstance);
+
+        // *********** Paste Options
         Label lblPaste = new Label(format("<b>%s</b>", _("Paste")));
         lblPaste.setUseMarkup(true);
         lblPaste.setHalign(Align.START);
@@ -497,7 +509,8 @@ private:
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
         gsSettings.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
-
+        
+        // *********** Appearance Options
         Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
         lblAppearance.setUseMarkup(true);
         lblAppearance.setHalign(Align.START);

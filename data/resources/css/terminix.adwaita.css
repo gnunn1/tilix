@@ -1,9 +1,11 @@
 .terminix-search-slider {
-    padding: 6px;
-    border-color: @borders;
-    border-radius: 0 0 3px 3px;
-    border-width: 0 0 1px 1px;
-    border-style: solid;
+    padding: 2px;
+    border-width: 1px 0 0 0;
+}
+
+.terminix-search-entry {
+    padding-bottom: 6px;
+    padding-top: 6px;
 }
 
 .terminix-notification-counter {
@@ -34,6 +36,10 @@
     background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_fg_color), to(transparent)), -gtk-gradient(radial, center center, 0, center center, 0.5, to(rgba(255, 255, 255, 0.76923)), to(transparent));
     color: @theme_bg_color;
     font-size: smaller;
+}
+
+.terminix-session-sidebar {
+    background-color: @theme_bg_color;
 }
 
 .terminix-session-name {

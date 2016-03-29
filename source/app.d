@@ -20,7 +20,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
-    trace("Starting terminix...");
+    trace(format("Starting terminix with %d arguments...", args.length));
     //append TERMINIX_ID to args if present
     try {
         string terminalUUID = environment["TERMINIX_ID"];
@@ -30,9 +30,8 @@ int main(string[] args) {
     catch (Exception e) {
         trace("No terminix UUID found");
     }
-
     //textdomain
-    textdomain("terminix");
+    textdomain(TERMINIX_DOMAIN);
     //Version checking cribbed from grestful, thanks!
     string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
     if (gtkError !is null) {

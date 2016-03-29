@@ -27,6 +27,9 @@ enum SETTINGS_THEME_VARIANT_SYSTEM_VALUE = "system";
 enum SETTINGS_THEME_VARIANT_LIGHT_VALUE = "light";
 enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
 
+enum SETTINGS_NEW_INSTANCE_MODE_KEY = "new-instance-mode";
+immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-horizontal", "split-vertical"];
+
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";

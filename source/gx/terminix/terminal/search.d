@@ -10,6 +10,7 @@ import std.format;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.ActionGroupIF;
 import gio.Menu;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
@@ -52,6 +53,7 @@ private:
     enum ACTION_SEARCH_WRAP_AROUND = "wrap-around";
 
     VTE vte;
+    ActionGroupIF terminalActions;
 
     SearchEntry seSearch;
 
@@ -85,12 +87,27 @@ private:
         seSearch = new SearchEntry();
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
-        seSearch.addOnSearchChanged(delegate(SearchEntry) { setTerminalSearchCriteria(); });
+        seSearch.getStyleContext().addClass("terminix-search-entry");
+        seSearch.addOnSearchChanged(delegate(SearchEntry) {
+            setTerminalSearchCriteria(); 
+        });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
-            if (event.getKeyval(keyval) && keyval == GdkKeysyms.GDK_Escape) {
-                setRevealChild(false);
-                vte.grabFocus();
+            if (event.getKeyval(keyval)) {
+                switch (keyval) {
+                    case GdkKeysyms.GDK_Escape:
+                        setRevealChild(false);
+                        vte.grabFocus();
+                        break;
+                    case GdkKeysyms.GDK_Return:
+                        if (event.key.state & GdkModifierType.SHIFT_MASK) {
+                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);   
+                        } else {
+                            terminalActions.activateAction(ACTION_FIND_NEXT, null);
+                        }
+                        break;
+                    default:
+                }  
             }
             return false;
         });
@@ -109,15 +126,15 @@ private:
         Box bButtons = new Box(Orientation.HORIZONTAL, 0);
         bButtons.getStyleContext().addClass("linked");
 
-        Button btnUp = new Button("go-up-symbolic", IconSize.MENU);
-        btnUp.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
-        btnUp.setCanFocus(false);
-        bButtons.add(btnUp);
+        Button btnNext = new Button("go-up-symbolic", IconSize.MENU);
+        btnNext.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
+        btnNext.setCanFocus(false);
+        bButtons.add(btnNext);
 
-        Button btnDown = new Button("go-down-symbolic", IconSize.MENU);
-        btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
-        btnDown.setCanFocus(false);
-        bButtons.add(btnDown);
+        Button btnPrevious = new Button("go-down-symbolic", IconSize.MENU);
+        btnPrevious.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
+        btnPrevious.setCanFocus(false);
+        bButtons.add(btnPrevious);
 
         bSearch.add(bButtons);
 
@@ -173,6 +190,10 @@ private:
 
     void setTerminalSearchCriteria() {
         string text = seSearch.getText();
+        if (text.length == 0) {
+            vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
+            return;
+        }
         if (!matchAsRegex)
             text = Regex.escapeString(text);
         if (entireWordOnly)
@@ -183,16 +204,15 @@ private:
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);
             vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
-        } else {
-            vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
         }
     }
 
 public:
 
-    this(VTE vte) {
+    this(VTE vte, ActionGroupIF terminalActions) {
         super();
         this.vte = vte;
+        this.terminalActions = terminalActions;
         createUI();
     }
 

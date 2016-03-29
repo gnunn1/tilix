@@ -96,6 +96,7 @@ private:
     enum ACTION_SESSION_NEXT_TERMINAL = "switch-to-next-terminal";
     enum ACTION_SESSION_PREV_TERMINAL = "switch-to-previous-terminal";
     enum ACTION_SESSION_TERMINAL_X = "switch-to-terminal-";
+    enum ACTION_RESIZE_TERMINAL_DIRECTION = "resize-terminal-";
     enum ACTION_SESSION_SAVE = "save";
     enum ACTION_SESSION_SAVE_AS = "save-as";
     enum ACTION_SESSION_LOAD = "load";
@@ -278,13 +279,9 @@ private:
             // handling, don't trigger UI activity until after it is done
             // See comments in gx.gtk.cairo.getWidgetImage
             if (newState) {
-                trace("Toggle sidebar on");
                 sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
                 sb.showAll();
-            } else {
-                trace("Toggle sidebar off");
-                sb.hide();
-            }
+            } 
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));
             tbSideBar.setActive(newState);
@@ -324,6 +321,18 @@ private:
                     string actionName = sa.getName();
                     string direction = actionName[lastIndexOf(actionName, '-') + 1 .. $];
                     session.focusDirection(direction);
+                }
+            });
+        }
+
+        //Create directional Resize to Terminal actions
+        foreach (string direction; directions) {
+            registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_RESIZE_TERMINAL_DIRECTION ~ direction, gsShortcuts, delegate(GVariant, SimpleAction sa) {
+                Session session = getCurrentSession();
+                if (session !is null) {
+                    string actionName = sa.getName();
+                    string direction = actionName[lastIndexOf(actionName, '-') + 1 .. $];
+                    session.resizeTerminal(direction);
                 }
             });
         }
@@ -804,6 +813,11 @@ public:
             return getCurrentSession().focusTerminal(terminalUUID);
         }
         return false;
+    }
+    
+    string getActiveTerminalUUID() {
+        Session session = getCurrentSession();
+        return session.getActiveTerminalUUID();
     }
 
     /**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-16 20:42-0600\n"
+"POT-Creation-Date: 2016-03-27 19:25-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,6 +33,10 @@ msgstr "Nouvelle session"
 
 msgid "preferences"
 msgstr "Préférences"
+
+#, fuzzy
+msgid "shortcuts"
+msgstr "Raccourcis"
 
 msgid "session"
 msgstr "Session"
@@ -84,6 +88,38 @@ msgstr "Basculer vers le terminal 8"
 
 msgid "switch-to-terminal-9"
 msgstr "Basculer vers le terminal 9"
+
+#, fuzzy
+msgid "switch-to-terminal-up"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-down"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-left"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "switch-to-terminal-right"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "resize-terminal-up"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "resize-terminal-down"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "resize-terminal-left"
+msgstr "Basculer vers le terminal 10"
+
+#, fuzzy
+msgid "resize-terminal-right"
+msgstr "Basculer vers le terminal 10"
 
 msgid "win"
 msgstr "Window"
@@ -448,7 +484,7 @@ msgstr "La touche « Suppr » émet"
 
 #: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
 #: source/gx/terminix/prefwindow.d:159
-#: source/gx/terminix/terminal/terminal.d:590
+#: source/gx/terminix/terminal/terminal.d:601
 msgid "Encoding"
 msgstr "Codage"
 
@@ -628,79 +664,84 @@ msgstr "Vietnamese"
 msgid "Thai"
 msgstr "Thai"
 
-#: source/gx/terminix/application.d:131 source/gx/terminix/session.d:1096
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1188
+#: source/gx/terminix/prefwindow.d:492
 msgid "New Session"
 msgstr "Nouvelle Session"
 
-#: source/gx/terminix/application.d:132
+#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:492
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: source/gx/terminix/application.d:136 source/gx/terminix/prefwindow.d:70
+#: source/gx/terminix/application.d:152 source/gx/terminix/prefwindow.d:70
 msgid "Preferences"
 msgstr "Préférences"
 
-#: source/gx/terminix/application.d:140
+#: source/gx/terminix/application.d:154 source/gx/terminix/prefwindow.d:80
+msgid "Shortcuts"
+msgstr "Raccourcis"
+
+#: source/gx/terminix/application.d:159
 msgid "About"
 msgstr "À propos"
 
-#: source/gx/terminix/application.d:141
+#: source/gx/terminix/application.d:160
 msgid "Quit"
 msgstr "Quitter"
 
-#: source/gx/terminix/application.d:185
+#: source/gx/terminix/application.d:204
 msgid "Credits"
 msgstr ""
 
-#: source/gx/terminix/application.d:321
+#: source/gx/terminix/application.d:393
 msgid "Set the working directory of the terminal"
 msgstr "Définir le répertoire de travail pour le terminal"
 
-#: source/gx/terminix/application.d:321
+#: source/gx/terminix/application.d:393
 msgid "DIRECTORY"
 msgstr ""
 
-#: source/gx/terminix/application.d:322
+#: source/gx/terminix/application.d:394
 msgid "Set the starting profile"
 msgstr "Définir le profil de démarrage"
 
-#: source/gx/terminix/application.d:322
+#: source/gx/terminix/application.d:394
 msgid "PROFILE_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:323
+#: source/gx/terminix/application.d:395
 msgid "Open the specified session"
 msgstr "Ouvrir la session specifiée"
 
-#: source/gx/terminix/application.d:323
+#: source/gx/terminix/application.d:395
 msgid "SESSION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:324
+#: source/gx/terminix/application.d:396
 msgid "Send an action to current Terminix instance"
 msgstr "Envoyer une action à l'instance actuelle Terminix"
 
-#: source/gx/terminix/application.d:324
+#: source/gx/terminix/application.d:396
 msgid "ACTION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:325
+#: source/gx/terminix/application.d:397
 msgid "Execute the passed command"
 msgstr "Exécuter la commande passée"
 
-#: source/gx/terminix/application.d:325
+#: source/gx/terminix/application.d:397
 msgid "EXECUTE"
 msgstr ""
 
-#: source/gx/terminix/application.d:326
+#: source/gx/terminix/application.d:398
 msgid "Hidden argument to pass terminal UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:326
+#: source/gx/terminix/application.d:398
 msgid "TERMINAL_UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:466
+#: source/gx/terminix/application.d:538
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -710,11 +751,11 @@ msgstr ""
 "n'est pas grave, mais en les corrigeant çela permettra d'améliorer votre "
 "expérience. Cliquez sur le lien ci-dessous pour plus d'informations:"
 
-#: source/gx/terminix/application.d:467
+#: source/gx/terminix/application.d:539
 msgid "Configuration Issue Detected"
 msgstr "Problème de configuration détecté"
 
-#: source/gx/terminix/application.d:479
+#: source/gx/terminix/application.d:551
 msgid "Do not show this message again"
 msgstr "Ne pas réafficher ce message"
 
@@ -726,11 +767,11 @@ msgstr "Impossible de localiser le terminal chuté"
 msgid "Could not locate session for dropped terminal"
 msgstr "Impossible de localiser la session pour le terminal chuté"
 
-#: source/gx/terminix/session.d:1062
+#: source/gx/terminix/session.d:1154
 msgid "Name"
 msgstr "Nom"
 
-#: source/gx/terminix/session.d:1073 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1165 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "Profil"
 
@@ -738,12 +779,8 @@ msgstr "Profil"
 msgid "Global"
 msgstr "Général"
 
-#: source/gx/terminix/prefwindow.d:80
-msgid "Shortcuts"
-msgstr "Raccourcis"
-
 #: source/gx/terminix/prefwindow.d:83
-#: source/gx/terminix/terminal/terminal.d:589
+#: source/gx/terminix/terminal/terminal.d:600
 msgid "Profiles"
 msgstr "Profils"
 
@@ -763,8 +800,8 @@ msgstr "Action"
 msgid "Shortcut Key"
 msgstr "Touche de raccourci"
 
-#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:530
-#: source/gx/terminix/appwindow.d:90
+#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:543
+#: source/gx/terminix/appwindow.d:91
 msgid "Default"
 msgstr "Par défaut"
 
@@ -800,47 +837,61 @@ msgstr ""
 msgid "Send desktop notification on process complete"
 msgstr "Envoyer une notification bureau une fois le processus accompli"
 
-#: source/gx/terminix/prefwindow.d:486
-#: source/gx/terminix/terminal/terminal.d:660
-#: source/gx/terminix/terminal/terminal.d:672
+#: source/gx/terminix/prefwindow.d:489
+msgid "On new instance"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:492
+#, fuzzy
+msgid "Split Horizontal"
+msgstr "Division horizontale"
+
+#: source/gx/terminix/prefwindow.d:492
+#, fuzzy
+msgid "Split Vertical"
+msgstr "Division verticale"
+
+#: source/gx/terminix/prefwindow.d:498
+#: source/gx/terminix/terminal/terminal.d:875
+#: source/gx/terminix/terminal/terminal.d:893
 msgid "Paste"
 msgstr "Coller"
 
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/prefwindow.d:504
 msgid "Warn when attempting unsafe paste"
 msgstr "Alerter lors d'un collage dangeureux"
 
-#: source/gx/terminix/prefwindow.d:497
+#: source/gx/terminix/prefwindow.d:509
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Supprimer le premier caractère si ceci est un commentaire ou une déclaration "
 "de variable"
 
-#: source/gx/terminix/prefwindow.d:501
+#: source/gx/terminix/prefwindow.d:514
 msgid "Appearance"
 msgstr "Apparance"
 
-#: source/gx/terminix/prefwindow.d:508
+#: source/gx/terminix/prefwindow.d:521
 msgid "Enable transparency, requires re-start"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:514
+#: source/gx/terminix/prefwindow.d:527
 msgid "Use small size for terminal titlebars"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:519
+#: source/gx/terminix/prefwindow.d:532
 msgid "Use a wide handle for splitters"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:526
+#: source/gx/terminix/prefwindow.d:539
 msgid "Theme Variant"
 msgstr "Variante de thème"
 
-#: source/gx/terminix/prefwindow.d:531
+#: source/gx/terminix/prefwindow.d:544
 msgid "Light"
 msgstr "Clair"
 
-#: source/gx/terminix/prefwindow.d:532
+#: source/gx/terminix/prefwindow.d:545
 msgid "Dark"
 msgstr "Sombre"
 
@@ -878,150 +929,158 @@ msgid ""
 "Session Load options only apply when loading a session file."
 msgstr ""
 
-#: source/gx/terminix/terminal/search.d:100
+#: source/gx/terminix/terminal/search.d:117
 msgid "Search Options"
 msgstr "Options de recherche"
 
-#: source/gx/terminix/terminal/search.d:166
+#: source/gx/terminix/terminal/search.d:183
 msgid "Match case"
 msgstr "Respecter la case"
 
-#: source/gx/terminix/terminal/search.d:167
+#: source/gx/terminix/terminal/search.d:184
 msgid "Match entire word only"
 msgstr "Mots entiers seulement"
 
-#: source/gx/terminix/terminal/search.d:168
+#: source/gx/terminix/terminal/search.d:185
 msgid "Match as regular expression"
 msgstr "Utiliser comme expression régulière"
 
-#: source/gx/terminix/terminal/search.d:169
+#: source/gx/terminix/terminal/search.d:186
 msgid "Wrap around"
 msgstr "Recherche circulaire"
 
-#: source/gx/terminix/terminal/terminal.d:329
-#: source/gx/terminix/terminal/terminal.d:719
+#: source/gx/terminix/terminal/terminal.d:323
+#: source/gx/terminix/terminal/terminal.d:741
 msgid "Terminal"
 msgstr "Terminal"
 
-#: source/gx/terminix/terminal/terminal.d:355
-#: source/gx/terminix/appwindow.d:380
+#: source/gx/terminix/terminal/terminal.d:349
+#: source/gx/terminix/appwindow.d:401
 msgid "Close"
 msgstr "Fermer"
 
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:750
+#: source/gx/terminix/terminal/terminal.d:358
+#: source/gx/terminix/terminal/terminal.d:772
 msgid "Maximize"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:375
+#: source/gx/terminix/terminal/terminal.d:369
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:399
+#: source/gx/terminix/terminal/terminal.d:402
 msgid "Edit Profile"
 msgstr "Modifier Profil"
 
-#: source/gx/terminix/terminal/terminal.d:505
-#: source/gx/terminix/appwindow.d:592
+#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/appwindow.d:622
 msgid "There are processes that are still running, close anyway?"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:562
-msgid "Split Right"
-msgstr "Division droite"
-
-#: source/gx/terminix/terminal/terminal.d:566
-msgid "Split Down"
-msgstr "Division basse"
-
-#: source/gx/terminix/terminal/terminal.d:579
+#: source/gx/terminix/terminal/terminal.d:590
 msgid "Save…"
 msgstr "Enregistrer…"
 
-#: source/gx/terminix/terminal/terminal.d:580
+#: source/gx/terminix/terminal/terminal.d:591
 msgid "Find…"
 msgstr "Rechercher…"
 
-#: source/gx/terminix/terminal/terminal.d:581
+#: source/gx/terminix/terminal/terminal.d:592
 msgid "Layout Options…"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:585
+#: source/gx/terminix/terminal/terminal.d:596
 msgid "Read-Only"
 msgstr "Lecture-Seule"
 
-#: source/gx/terminix/terminal/terminal.d:659
-#: source/gx/terminix/terminal/terminal.d:670
-msgid "Copy"
-msgstr "Copier"
+#: source/gx/terminix/terminal/terminal.d:615
+msgid "Split Right"
+msgstr "Division droite"
 
-#: source/gx/terminix/terminal/terminal.d:661
-#: source/gx/terminix/terminal/terminal.d:674
-msgid "Select All"
-msgstr "Tout Séléctionner"
+#: source/gx/terminix/terminal/terminal.d:619
+msgid "Split Down"
+msgstr "Division basse"
 
-#: source/gx/terminix/terminal/terminal.d:747
+#: source/gx/terminix/terminal/terminal.d:769
 msgid "Restore"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1144
+#: source/gx/terminix/terminal/terminal.d:869
+msgid "Open Link"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:870
+msgid "Copy Link Address"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:874
+#: source/gx/terminix/terminal/terminal.d:891
+msgid "Copy"
+msgstr "Copier"
+
+#: source/gx/terminix/terminal/terminal.d:876
+#: source/gx/terminix/terminal/terminal.d:895
+msgid "Select All"
+msgstr "Tout Séléctionner"
+
+#: source/gx/terminix/terminal/terminal.d:1228
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1150
+#: source/gx/terminix/terminal/terminal.d:1234
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1461
+#: source/gx/terminix/terminal/terminal.d:1550
 msgid "Save Terminal Output"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1467
+#: source/gx/terminix/terminal/terminal.d:1556
 msgid "All Text Files"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1471
-#: source/gx/terminix/appwindow.d:637
+#: source/gx/terminix/terminal/terminal.d:1560
+#: source/gx/terminix/appwindow.d:669
 msgid "All Files"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1770
+#: source/gx/terminix/terminal/terminal.d:1863
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1771
+#: source/gx/terminix/terminal/terminal.d:1864
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1772
+#: source/gx/terminix/terminal/terminal.d:1865
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1778
+#: source/gx/terminix/terminal/terminal.d:1871
 msgid "Relaunch"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1814
+#: source/gx/terminix/terminal/terminal.d:1911
 msgid "This command is asking for Administrative access to your computer"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1815
+#: source/gx/terminix/terminal/terminal.d:1912
 msgid "Copying commands from the internet can be dangerous. "
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1816
+#: source/gx/terminix/terminal/terminal.d:1913
 msgid "Be sure you understand what each part of this command does."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1818
+#: source/gx/terminix/terminal/terminal.d:1915
 #, fuzzy
 msgid "Don't Paste"
 msgstr "Coller"
 
-#: source/gx/terminix/terminal/terminal.d:1819
+#: source/gx/terminix/terminal/terminal.d:1916
 msgid "Paste Anyway"
 msgstr ""
 
@@ -1041,73 +1100,73 @@ msgid ""
 "command option, please choose one or the other"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:178
+#: source/gx/terminix/appwindow.d:181
 msgid "View session sidebar"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:190
+#: source/gx/terminix/appwindow.d:193
 msgid "Create a new session"
 msgstr "Créer une nouvelle session"
 
-#: source/gx/terminix/appwindow.d:351
+#: source/gx/terminix/appwindow.d:372
 msgid "Change Session Name"
 msgstr "Changer le nom de la sesssion"
 
-#: source/gx/terminix/appwindow.d:351
+#: source/gx/terminix/appwindow.d:372
 msgid "Enter a new name for the session"
 msgstr "Entrer un nouveau nom pour la session"
 
-#: source/gx/terminix/appwindow.d:377
+#: source/gx/terminix/appwindow.d:398
 msgid "Load…"
 msgstr "Charger…"
 
-#: source/gx/terminix/appwindow.d:378
+#: source/gx/terminix/appwindow.d:399
 msgid "Save"
 msgstr "Enregistrer"
 
-#: source/gx/terminix/appwindow.d:379
+#: source/gx/terminix/appwindow.d:400
 msgid "Save As…"
 msgstr "Enregistrer Sous…"
 
-#: source/gx/terminix/appwindow.d:384
+#: source/gx/terminix/appwindow.d:405
 msgid "Name…"
 msgstr "Nom…"
 
-#: source/gx/terminix/appwindow.d:385
+#: source/gx/terminix/appwindow.d:406
 msgid "Synchronize Input"
 msgstr "Synchroniser l'entrée"
 
-#: source/gx/terminix/appwindow.d:390
+#: source/gx/terminix/appwindow.d:411
 msgid "GC"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:633
+#: source/gx/terminix/appwindow.d:665
 msgid "All JSON Files"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:646
+#: source/gx/terminix/appwindow.d:678
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Nom de fichier '%s' n'existe pas"
 
-#: source/gx/terminix/appwindow.d:671
+#: source/gx/terminix/appwindow.d:703
 msgid "Load Session"
 msgstr "Charger Session"
 
-#: source/gx/terminix/appwindow.d:684
+#: source/gx/terminix/appwindow.d:716
 msgid "Could not load session due to unexpected error."
 msgstr "Impossible de charger session en raison de l'erreur inattendue ."
 
-#: source/gx/terminix/appwindow.d:684
+#: source/gx/terminix/appwindow.d:716
 #, fuzzy
 msgid "Error Loading Session"
 msgstr "Charger Session"
 
-#: source/gx/terminix/appwindow.d:699
+#: source/gx/terminix/appwindow.d:731
 msgid "Save Session"
 msgstr "Sauvegarder Session"
 
-#: source/gx/terminix/appwindow.d:733
+#: source/gx/terminix/appwindow.d:766
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 msgid "Terminix"
 msgstr "Terminix"
@@ -1117,16 +1176,16 @@ msgstr "Terminix"
 msgid "disabled"
 msgstr "Activé"
 
-#: source/app.d:42
+#: source/app.d:41
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:62
+#: source/app.d:61
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:63
+#: source/app.d:62
 msgid "Error: "
 msgstr ""
 
@@ -1154,6 +1213,407 @@ msgstr ""
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:10
 msgid "utilities-terminal"
 msgstr "utilities-terminal"
+
+#: data/resources/ui/shortcuts.ui:15
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Application"
+msgstr "Action"
+
+#: data/resources/ui/shortcuts.ui:19
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Nouvelle fenêtre"
+
+#: data/resources/ui/shortcuts.ui:25
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open a new session"
+msgstr "Créer une nouvelle session"
+
+#: data/resources/ui/shortcuts.ui:31
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "Préférences"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "View configured shortcuts"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:45
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Window"
+msgstr "Nouvelle Fenêtre"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Toggle fullscreen mode"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "View session sidebar"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:61
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to next session"
+msgstr "Basculer vers la session 10"
+
+#: data/resources/ui/shortcuts.ui:67
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to previous session"
+msgstr "Terminal précédent"
+
+#: data/resources/ui/shortcuts.ui:73
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 1"
+msgstr "Basculer vers la session 1"
+
+#: data/resources/ui/shortcuts.ui:79
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 2"
+msgstr "Basculer vers la session 2"
+
+#: data/resources/ui/shortcuts.ui:85
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 3"
+msgstr "Basculer vers la session 3"
+
+#: data/resources/ui/shortcuts.ui:91
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 4"
+msgstr "Basculer vers la session 4"
+
+#: data/resources/ui/shortcuts.ui:97
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 5"
+msgstr "Basculer vers la session 5"
+
+#: data/resources/ui/shortcuts.ui:103
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 6"
+msgstr "Basculer vers la session 6"
+
+#: data/resources/ui/shortcuts.ui:109
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 7"
+msgstr "Basculer vers la session 7"
+
+#: data/resources/ui/shortcuts.ui:115
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 8"
+msgstr "Basculer vers la session 8"
+
+#: data/resources/ui/shortcuts.ui:121
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 9"
+msgstr "Basculer vers la session 9"
+
+#: data/resources/ui/shortcuts.ui:127
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to session 10"
+msgstr "Basculer vers la session 10"
+
+#: data/resources/ui/shortcuts.ui:143
+msgctxt "shortcut window"
+msgid "File"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:147
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Close the current session"
+msgstr "Ouvrir la session specifiée"
+
+#: data/resources/ui/shortcuts.ui:153
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save the current session"
+msgstr "Ouvrir la session specifiée"
+
+#: data/resources/ui/shortcuts.ui:159
+msgctxt "shortcut window"
+msgid "Save the current session with new filename"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:165
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Load the current session"
+msgstr "Charger Session"
+
+#: data/resources/ui/shortcuts.ui:173
+msgctxt "shortcut window"
+msgid "Resize"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:177
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal up"
+msgstr "Quitter le terminal"
+
+#: data/resources/ui/shortcuts.ui:183
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal down"
+msgstr "Conserver le terminal ouvert"
+
+#: data/resources/ui/shortcuts.ui:189
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal left"
+msgstr "Quitter le terminal"
+
+#: data/resources/ui/shortcuts.ui:195
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Resize the terminal right"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:203
+msgctxt "shortcut window"
+msgid "Switch"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:207
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to next terminal"
+msgstr "Terminal suivant"
+
+#: data/resources/ui/shortcuts.ui:213
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to previous terminal"
+msgstr "Terminal précédent"
+
+#: data/resources/ui/shortcuts.ui:219
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal up"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:225
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal down"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:231
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal left"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:237
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to the terminal right"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:243
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 1"
+msgstr "Basculer vers le Terminal 1"
+
+#: data/resources/ui/shortcuts.ui:249
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 2"
+msgstr "Basculer vers le terminal 2"
+
+#: data/resources/ui/shortcuts.ui:255
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 3"
+msgstr "Basculer vers le terminal 3"
+
+#: data/resources/ui/shortcuts.ui:261
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 4"
+msgstr "Basculer vers le terminal 4"
+
+#: data/resources/ui/shortcuts.ui:267
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 5"
+msgstr "Basculer vers le terminal 5"
+
+#: data/resources/ui/shortcuts.ui:273
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 6"
+msgstr "Basculer vers le terminal 6"
+
+#: data/resources/ui/shortcuts.ui:279
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 7"
+msgstr "Basculer vers le terminal 7"
+
+#: data/resources/ui/shortcuts.ui:285
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 8"
+msgstr "Basculer vers le terminal 8"
+
+#: data/resources/ui/shortcuts.ui:291
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 9"
+msgstr "Basculer vers le terminal 9"
+
+#: data/resources/ui/shortcuts.ui:297
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to terminal 10"
+msgstr "Basculer vers le terminal 10"
+
+#: data/resources/ui/shortcuts.ui:313
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split"
+msgstr "Division basse"
+
+#: data/resources/ui/shortcuts.ui:317
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split horizontal"
+msgstr "Division horizontale"
+
+#: data/resources/ui/shortcuts.ui:323
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Split Vertical"
+msgstr "Division verticale"
+
+#: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Rechercher…"
+
+#: data/resources/ui/shortcuts.ui:341
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find next"
+msgstr "Rechercher le suivant"
+
+# ***********************************************
+# Keyboard shortcuts to the end, these are shown
+# in the Shortcut preferences and in the future
+# the shortcut overview if available in Gnome 3.20
+# ***********************************************
+#: data/resources/ui/shortcuts.ui:347
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Find previous"
+msgstr "Rechercher le précédent"
+
+#: data/resources/ui/shortcuts.ui:355
+msgctxt "shortcut window"
+msgid "Clipboard"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:359
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Copy"
+msgstr "Copier"
+
+#: data/resources/ui/shortcuts.ui:365
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Paste"
+msgstr "Coller"
+
+#: data/resources/ui/shortcuts.ui:371
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Select all"
+msgstr "Tout Séléctionner"
+
+#: data/resources/ui/shortcuts.ui:379
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:383
+msgctxt "shortcut window"
+msgid "Zoom in"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:389
+msgctxt "shortcut window"
+msgid "Zoom out"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:395
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Zoom normal size"
+msgstr "Réinitialiser le niveau de zoom"
+
+#: data/resources/ui/shortcuts.ui:403
+msgctxt "shortcut window"
+msgid "Other"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:407
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save terminal contents"
+msgstr "Conserver le terminal ouvert"
+
+#: data/resources/ui/shortcuts.ui:413
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Close terminal"
+msgstr "Terminal"
+
+#: data/resources/ui/shortcuts.ui:419
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Maximize terminal"
+msgstr "Quitter le terminal"
+
+#: data/resources/ui/shortcuts.ui:425
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Current profile preferences"
+msgstr "Préférence du profil"
+
+#: data/resources/ui/shortcuts.ui:431
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Toggle read only"
+msgstr "Lecture-seul"
+
+#: data/resources/ui/shortcuts.ui:437
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Layout options"
+msgstr "Options"
 
 #~ msgid "Enter Custom Title"
 #~ msgstr "Entrer le nom du tire"

@@ -104,6 +104,7 @@ public:
         lbSessions.setSelectionMode(SelectionMode.BROWSE);
         lbSessions.getStyleContext().addClass("notebook");
         lbSessions.getStyleContext().addClass("header");
+        lbSessions.getStyleContext().addClass("terminix-session-sidebar");
         lbSessions.addOnRowActivated(&onRowActivated);
 
         ScrolledWindow sw = new ScrolledWindow(lbSessions);
@@ -114,7 +115,8 @@ public:
            if (hasGrab()) {
                 grabRemove();
                 trace("** Unmapped, Removing Sidebar Grab");
-           } 
+           }
+            hide();            
         });
 
         add(sw);
@@ -125,7 +127,9 @@ public:
         AspectFrame wrapWidget(Widget widget, string cssClass) {
             AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
             af.setShadowType(ShadowType.NONE);
-            af.getStyleContext().addClass(cssClass);
+            if (cssClass.length > 0) {
+                af.getStyleContext().addClass(cssClass);
+            }
             af.add(widget);
             return af;
         }
@@ -163,6 +167,12 @@ public:
                 ev.add(lblNCount);
                 AspectFrame af = wrapWidget(ev, "terminix-notification-count");
                 ev.setTooltipText(tooltip);
+                b.packStart(af, false, false, 4);
+            } else {
+                //Add placeholder to keep things aligned
+                Label lblTemp = new Label("");
+                lblTemp.setWidthChars(2);
+                AspectFrame af = wrapWidget(lblTemp, null);
                 b.packStart(af, false, false, 4);
             }
             
