@@ -193,16 +193,22 @@ private:
             setWrapLicense(true);
             setLogoIconName(null);
             setName(APPLICATION_NAME);
-            setComments(APPLICATION_COMMENTS);
+            setComments(_(APPLICATION_COMMENTS));
             setVersion(APPLICATION_VERSION);
             setCopyright(APPLICATION_COPYRIGHT);
             setAuthors(APPLICATION_AUTHORS.dup);
             setArtists(APPLICATION_ARTISTS.dup);
             setDocumenters(APPLICATION_DOCUMENTERS.dup);
             setTranslatorCredits(APPLICATION_TRANSLATORS);
-            setLicense(APPLICATION_LICENSE);
-            addCreditSection(_("Credits"), APPLICATION_CREDITS);
+            setLicense(_(APPLICATION_LICENSE));
             setLogoIconName(APPLICATION_ICON_NAME);
+
+            string[] localizedCredits;
+            localizedCredits.length = APPLICATION_CREDITS.length;
+            foreach (i, credit; APPLICATION_CREDITS) {
+                localizedCredits[i] = _(credit);
+            }
+            addCreditSection(_("Credits"), localizedCredits);
 
             addOnResponse(delegate(int responseId, Dialog sender) {
                 if (responseId == ResponseType.CANCEL || responseId == ResponseType.DELETE_EVENT)
