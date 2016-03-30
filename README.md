@@ -18,7 +18,7 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 * Transparent background
 * Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
 
-The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other then Gnome, only Unity and has been tested officially though users have had success with other desktop environments.
+The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than Gnome, only Unity and has been tested officially though users have had success with other desktop environments.
 
 At this point in time the application should be considered mid alpha and has been tested to varying degrees with the following distros:
 
@@ -61,7 +61,7 @@ For other 64 bit distros releases can be installed manually from the releases se
 
 ```
 sudo unzip terminix.zip -d /
-glib-compile-schemas /usr/share/glib-2.0/schemas/
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
 
 Note the project is actively looking for package maintainers, if you are interested in assuming this role for one or more distros please see [Issue #25](https://github.com/gnunn1/terminix/issues/25).
