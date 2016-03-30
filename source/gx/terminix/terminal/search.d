@@ -198,9 +198,11 @@ private:
             text = Regex.escapeString(text);
         if (entireWordOnly)
             text = format("\\b%s\\b", text);
-        GRegexCompileFlags flags;
-        if (!matchCase)
-            flags = flags | GRegexCompileFlags.CASELESS;
+        GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE;
+        if (!matchCase) {
+            flags |= GRegexCompileFlags.CASELESS;
+            trace("Set caseless flag");
+        }
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);
             vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
