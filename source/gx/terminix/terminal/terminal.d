@@ -2004,10 +2004,15 @@ static this() {
     import std.exception : assumeUnique;
     import vte.Version : Version;
 
-    uint majorVersion = Version.getMajorVersion();
-    uint minorVersion = Version.getMinorVersion();
-    trace(format("VTE Version is %d.%d", majorVersion, minorVersion));
-
+    uint majorVersion = 0;
+    uint minorVersion = 42;
+    try {
+        majorVersion = Version.getMajorVersion();
+        minorVersion = Version.getMinorVersion();
+        trace(format("VTE Version is %d.%d", majorVersion, minorVersion));
+    } catch (Error e) {
+        //Ignore, means VTE doesn't support version API, default to 42
+    }
     Regex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
         GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
