@@ -18,6 +18,8 @@ import gio.Settings : GSettings = Settings;
 
 import glib.Util;
 
+import gobject.Value;
+
 import gtk.Application;
 import gtk.Box;
 import gtk.Button;
@@ -120,9 +122,6 @@ private:
 
     GSettings gsSettings;
 
-    immutable bool PANED_RESIZE_MODE = false;
-    immutable bool PANED_SHRINK_MODE = false;
-
     /**
      * Creates the session user interface
      */
@@ -185,25 +184,26 @@ private:
         if (Version.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
-        /*
         result.addOnButtonPress(delegate(Event event, Widget w) {
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
                 redistributePanes(cast(Paned) w);
                 return true;
-            } 
-            return false;           
+            }
+            return false;
         });
-        */
+        result.setProperty("position-set", true);
         return result;
     }
-    
+
     /**
      * Tries to evenly space all Paned of the same orientation.
      * Uses a binary tree to model the panes and calculate the
-     * sizes and then sets the sizes from outer to inner
+     * sizes and then sets the sizes from outer to inner. See comments
+     * later in file for PanedModel for more info how this
+     * works.
      */
     void redistributePanes(Paned paned) {
-        
+
         /**
          * Find the root pane of the same orientation
          * by walking up the parent-child heirarchy
@@ -213,27 +213,33 @@ private:
             Container parent = cast(Container) paned.getParent();
             while (parent !is null) {
                 Paned p = cast(Paned) parent;
-                if (p !is null && p.getOrientation() == paned.getOrientation()) {
-                    result = p;
+                if (p !is null) {
+                    if (p.getOrientation() == paned.getOrientation()) {
+                        result = p;
+                    } else {
+                        break;
+                    }
                 }
                 parent = cast(Container) parent.getParent();
             }
             return result;
         }
-        
+
         Paned root = getRootPaned();
-        if (root is null) return;
+        if (root is null)
+            return;
         PanedModel model = new PanedModel(root);
-        if (model.count <= 1) {
+        // Model count should never be 0 since root is not null but just in case...
+        if (model.count == 0) {
             trace(format("Only %d pane, not redistributing", model.count));
             return;
         }
-        int size = paned.getOrientation() == Orientation.HORIZONTAL? getAllocatedWidth(): getAllocatedHeight(); 
+        int size = paned.getOrientation() == Orientation.HORIZONTAL ? getAllocatedWidth() : getAllocatedHeight();
         int baseSize = size / (model.count + 1);
         trace(format("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size));
-        
+
         model.calculateSize(baseSize);
-        model.resize(); 
+        model.resize();
     }
 
     /**
@@ -1250,6 +1256,9 @@ public:
 
 private:
 
+immutable bool PANED_RESIZE_MODE = false;
+immutable bool PANED_SHRINK_MODE = false;
+
 /**
  * used during session serialization to store any width/height/position elements
  * as scaled entities so that if restoring a session in a smaller/larger space
@@ -1290,16 +1299,23 @@ struct MaximizedInfo {
 }
 
 /**
- * Tree model struct used to calculate sizing model for redistributing panes evenly
+ * The PanedModel is a binary tree used to calculate sizing model for redistributing GTKPaned used
+ * in a session evenly. Since GTKPaned only supports two children, the session creates a nested
+ * heirarchy of GTKPaned widgets embedded within each other. Each child of the Paned (child1/child2) can
+ * be either a Paned or a Terminal.
+ *
+ * In the model if a child is a terminal it is simply represented as a null. Once we have the model,
+ * we can simply walk recursively to calculate the size of each pane and the position of the splitter. The first
+ * step is calculate the base size, this is simply the available space divided by the number of panes. 
+ * The position of each pane is calculated by looking at the size of the children.
  */
-
 class PanedModel {
-    
+
 private:
-    
+
     PanedNode root;
     int _count = 0;
-    
+
     PanedNode createModel(Paned node) {
         _count++;
         PanedNode result = new PanedNode(node);
@@ -1307,80 +1323,139 @@ private:
         Box box2 = cast(Box) node.getChild2();
         Paned[] paned1 = gx.gtk.util.getChildren!(Paned)(box1, false);
         Paned[] paned2 = gx.gtk.util.getChildren!(Paned)(box2, false);
-        if (paned1.length > 0 && paned1[0].getOrientation() == node.getOrientation()) result.child[0] = createModel(paned1[0]);
-        if (paned2.length > 0 && paned2[0].getOrientation() == node.getOrientation()) result.child[1] = createModel(paned2[0]);
-        return result;    
+        if (paned1.length > 0 && paned1[0].getOrientation() == node.getOrientation())
+            result.child[0] = createModel(paned1[0]);
+        if (paned2.length > 0 && paned2[0].getOrientation() == node.getOrientation())
+            result.child[1] = createModel(paned2[0]);
+        return result;
     }
-    
+
+    /**
+     * Return the height (i.e. depth) of the tree
+     */
     int getHeight(PanedNode node) {
         if (node is null) {
-           return 0;
+            return 0;
         } else {
             int[2] heights;
-            foreach(i, childNode; node.child) {
-                heights[i] = childNode is null?0:getHeight(childNode);
+            foreach (i, childNode; node.child) {
+                heights[i] = childNode is null ? 0 : getHeight(childNode);
             }
-            return max(heights[0], heights[1]) + 1;             
+            return max(heights[0], heights[1]) + 1;
         }
-    } 
-    
+    }
+
+    /**
+     * Itertate over the tree recursively and calculate the size
+     * for each branch
+     */
     void calculateSize(PanedNode node, int baseSize) {
-        if (node is null) return;
+        if (node is null)
+            return;
         int size = 0;
-        foreach(i, childNode; node.child) {
-            if (childNode is null) size = size + baseSize;
+        foreach (i, childNode; node.child) {
+            if (childNode is null)
+                size = size + baseSize;
             else {
                 calculateSize(childNode, baseSize);
                 size = size + childNode.size;
             }
         }
         node.size = size;
-        node.pos = (node.child[0] is null?baseSize:node.child[0].size);
+        node.pos = (node.child[0] is null ? baseSize : node.child[0].size);
     }
-    
+
+    /**
+     * Get all branches at a specific level
+     */
+    PanedNode[] getBranch(PanedNode node, int level) {
+        PanedNode[] result;
+        if (node is null)
+            return result;
+        if (level == 0) {
+            return [node];
+        } else {
+            foreach (childNode; node.child) {
+                result ~= getBranch(childNode, level - 1);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Perform the resize by iterating over the tree from the highest branch (0) to
+     * the lowest (X). This follows the pattern of the outermost pane to the innermost which
+     * you have to do since inner panes may not have space for their size allocation until 
+     * outer ones are re-sized first.
+     */
     void resize(PanedNode node) {
-        node.paned.setPosition(node.pos);
-        Main.iterationDo(false);
-        foreach(i, childNode; node.child) {
-            if (childNode !is null) resize(childNode);
+        trace("Resizing");
+        for (int i = 0; i < height; i++) {
+            PanedNode[] nodes = getBranch(root, i);
+            trace(format("Branch %d has %d nodes", i, nodes.length));
+            foreach (n; nodes) {
+                trace(format("    1st pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                n.paned.setPosition(n.pos);
+                // Add idle handler to reset child properties and take one more stab at setting position. GTKPaned
+                // is annoying about doing things behind your back
+                gx.gtk.threads.threadsAddIdleDelegate(delegate() {
+                    trace(format("    2nd pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                    n.paned.setPosition(n.pos);
+                    n.paned.childSetProperty(n.paned.getChild1(), "resize", new Value(PANED_RESIZE_MODE));
+                    n.paned.childSetProperty(n.paned.getChild2(), "resize", new Value(PANED_RESIZE_MODE));
+                    return false;                    
+                });
+            }
         }
     }
     
-public
-   
-    this(Paned paned) {
-        this.root = createModel(paned);        
+    void updateResizeProperty(PanedNode node) {
+        trace("Updating resize property");
+        //Thanks to tip from egmontkob, see issue https://github.com/gnunn1/terminix/issues/161
+        node.paned.childSetProperty(node.paned.getChild1(), "resize", new Value(false));
+        node.paned.childSetProperty(node.paned.getChild2(), "resize", new Value(true));
+        foreach(child; node.child) {
+            if (child !is null) {
+                updateResizeProperty(child);
+            }
+        }
     }
-    
+
+public:
+
+    this(Paned paned) {
+        this.root = createModel(paned);
+    }
+
     void calculateSize(int baseSize) {
         calculateSize(root, baseSize);
     }
-    
+
     void resize() {
+        updateResizeProperty(root);
         resize(root);
     }
-    
+
     @property int height() {
         return getHeight(root);
     }
-    
+
     @property int count() {
         return _count;
     }
 }
 
 /**
- * Represents a single Paned widget
+ * Represents a single Paned widget, or branch in the model
  */
 class PanedNode {
     Paned paned;
     int size;
     int pos;
     PanedNode[2] child;
-    
+
     this(Paned paned) {
         this.paned = paned;
     }
-    
-}
 
+}
