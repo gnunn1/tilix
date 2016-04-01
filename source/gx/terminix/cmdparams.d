@@ -21,6 +21,8 @@ enum CMD_PROFILE = "profile";
 enum CMD_EXECUTE = "execute";
 enum CMD_ACTION = "action";
 enum CMD_TERMINAL_UUID = "terminalUUID";
+enum CMD_MAXIMIZE = "maximize";
+enum CMD_FULL_SCREEN = "full-screen";
 
 /**
  * Manages the terminix command line options
@@ -35,6 +37,9 @@ private:
     string _execute;
     string _cmdLine;
     string _terminalUUID;
+    
+    bool _maximize;
+    bool _fullscreen;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -101,6 +106,10 @@ public:
                 _action.length = 0;
             }
         }
+        
+        _maximize = vd.contains(CMD_MAXIMIZE);
+        _fullscreen = vd.contains(CMD_FULL_SCREEN);
+        
         trace("Command line parameters:");
         trace("\tworking-directory=" ~ _workingDir);
         trace("\tsession=" ~ _session);
@@ -118,6 +127,8 @@ public:
         _exitCode = 0;
         _cmdLine.length = 0;
         _terminalUUID.length = 0;
+        _maximize = false;
+        _fullscreen = false;
         _exit = false;
     }
 
@@ -147,6 +158,14 @@ public:
 
     @property string terminalUUID() {
         return _terminalUUID;
+    }
+    
+    @property bool maximize() {
+        return _maximize;
+    }
+
+    @property bool fullscreen() {
+        return _fullscreen;
     }
 
     @property bool exit() {

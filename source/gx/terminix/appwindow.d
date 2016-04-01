@@ -102,10 +102,10 @@ private:
     enum ACTION_SESSION_LOAD = "load";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
-    enum ACTION_WIN_FULLSCREEN = "fullscreen";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
+    enum ACTION_WIN_FULLSCREEN = "fullscreen";
 
     Notebook nb;
     HeaderBar hb;
@@ -636,6 +636,15 @@ private:
     void onWindowDestroyed(Widget) {
         terminix.removeAppWindow(this);
     }
+    
+    void onWindowShow(Widget) {
+        if (terminix.getGlobalOverrides().maximize) {
+            maximize();
+        } else if (terminix.getGlobalOverrides().fullscreen) {
+            changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
+            fullscreen();
+        }
+    }
 
     void onCompositedChanged(Widget) {
         trace("Composite changed");
@@ -773,6 +782,7 @@ public:
 
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
+        addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
     }
 
