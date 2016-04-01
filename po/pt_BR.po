@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-29 14:23-0300\n"
+"POT-Creation-Date: 2016-04-01 15:02-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Fábio Nogueira <fnogueira@gnome.org>\n"
 "Language-Team: \n"
@@ -51,8 +51,8 @@ msgstr "fechar"
 msgid "name"
 msgstr "nome"
 
-msgid "load"
-msgstr "carregar"
+msgid "open"
+msgstr ""
 
 msgid "save"
 msgstr "salvar"
@@ -514,6 +514,29 @@ msgstr "Reiniciar o comando"
 msgid "Hold the terminal open"
 msgstr "Manter o terminal aberto"
 
+#: source/gx/terminix/constants.d:38
+msgid "A VTE based terminal emulator for Linux"
+msgstr ""
+
+#: source/gx/terminix/constants.d:39
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+
+#: source/gx/terminix/constants.d:44
+msgid "GTK VTE widget team, Terminix would not be possible without their work"
+msgstr ""
+
+#: source/gx/terminix/constants.d:45
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr ""
+
+#: source/gx/terminix/constants.d:46
+msgid "Dlang.org for such an excellent language, D"
+msgstr ""
+
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
 #: source/gx/terminix/encoding.d:78
@@ -652,7 +675,7 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandês"
 
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1188
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1243
 #: source/gx/terminix/prefwindow.d:492
 msgid "New Session"
 msgstr "Nova sessão"
@@ -677,59 +700,69 @@ msgstr "Sobre"
 msgid "Quit"
 msgstr "Sair"
 
-#: source/gx/terminix/application.d:204
+#: source/gx/terminix/application.d:211
 msgid "Credits"
 msgstr "Créditos"
 
-#: source/gx/terminix/application.d:393
+#: source/gx/terminix/application.d:399
 msgid "Set the working directory of the terminal"
 msgstr "Definir o diretório de trabalho para o terminal"
 
-#: source/gx/terminix/application.d:393
+#: source/gx/terminix/application.d:399
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: source/gx/terminix/application.d:394
+#: source/gx/terminix/application.d:400
 msgid "Set the starting profile"
 msgstr "Definir o perfil de início"
 
-#: source/gx/terminix/application.d:394
+#: source/gx/terminix/application.d:400
 msgid "PROFILE_NAME"
 msgstr "NOME_DO_PERFIL"
 
-#: source/gx/terminix/application.d:395
+#: source/gx/terminix/application.d:401
 msgid "Open the specified session"
 msgstr "Abrir a sessão especificada"
 
-#: source/gx/terminix/application.d:395
+#: source/gx/terminix/application.d:401
 msgid "SESSION_NAME"
 msgstr "NOME_DA_SESSÃO"
 
-#: source/gx/terminix/application.d:396
+#: source/gx/terminix/application.d:402
 msgid "Send an action to current Terminix instance"
 msgstr "Enviar uma ação para a instância atual do Terminix"
 
-#: source/gx/terminix/application.d:396
+#: source/gx/terminix/application.d:402
 msgid "ACTION_NAME"
 msgstr "NOME_DA_AÇÃO"
 
-#: source/gx/terminix/application.d:397
+#: source/gx/terminix/application.d:403
 msgid "Execute the passed command"
 msgstr "Executar o comando passado"
 
-#: source/gx/terminix/application.d:397
+#: source/gx/terminix/application.d:403
 msgid "EXECUTE"
 msgstr "EXECUTAR"
 
-#: source/gx/terminix/application.d:398
+#: source/gx/terminix/application.d:404
 msgid "Hidden argument to pass terminal UUID"
 msgstr "Argumento oculto para passar o UUID terminal"
 
-#: source/gx/terminix/application.d:398
+#: source/gx/terminix/application.d:404
 msgid "TERMINAL_UUID"
 msgstr "UUID_DO_TERMINAL"
 
-#: source/gx/terminix/application.d:538
+#: source/gx/terminix/application.d:405
+#, fuzzy
+msgid "Maximize the terminal window"
+msgstr "Redimensionar o terminal de baixo"
+
+#: source/gx/terminix/application.d:406
+#, fuzzy
+msgid "Full-screen the terminal window"
+msgstr "Redimensionar o terminal de baixo"
+
+#: source/gx/terminix/application.d:546
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -739,27 +772,27 @@ msgstr ""
 "mas corrigi-lo irá melhorar a sua experiência. Clique no link a seguir para "
 "maiores informações: "
 
-#: source/gx/terminix/application.d:539
+#: source/gx/terminix/application.d:547
 msgid "Configuration Issue Detected"
 msgstr "Detectado problema de configuração"
 
-#: source/gx/terminix/application.d:551
+#: source/gx/terminix/application.d:559
 msgid "Do not show this message again"
 msgstr "Não exibir esta mensagem novamente"
 
-#: source/gx/terminix/session.d:450
+#: source/gx/terminix/session.d:505
 msgid "Could not locate dropped terminal"
 msgstr "Não foi possível localizar o terminal dropado"
 
-#: source/gx/terminix/session.d:455
+#: source/gx/terminix/session.d:510
 msgid "Could not locate session for dropped terminal"
 msgstr "Não foi possível localizar a sessão para o terminal dropado"
 
-#: source/gx/terminix/session.d:1154
+#: source/gx/terminix/session.d:1209
 msgid "Name"
 msgstr "Nome"
 
-#: source/gx/terminix/session.d:1165 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1220 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "Perfil"
 
@@ -1026,7 +1059,7 @@ msgid "All Text Files"
 msgstr "Todos os arquivos texto"
 
 #: source/gx/terminix/terminal/terminal.d:1560
-#: source/gx/terminix/appwindow.d:669
+#: source/gx/terminix/appwindow.d:678
 msgid "All Files"
 msgstr "Todos os arquivos"
 
@@ -1068,18 +1101,18 @@ msgstr "Não colar"
 msgid "Paste Anyway"
 msgstr "Colar mesmo assim"
 
-#: source/gx/terminix/cmdparams.d:73
+#: source/gx/terminix/cmdparams.d:78
 #, c-format
 msgid "Ignoring parameter working-directory as '%s' is not a directory"
 msgstr ""
 "Ignorando parâmetro do diretório de trabalho como '%s' não é um diretório"
 
-#: source/gx/terminix/cmdparams.d:82
+#: source/gx/terminix/cmdparams.d:87
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "Ignorando parâmetro de sessão como '%s' não existe"
 
-#: source/gx/terminix/cmdparams.d:91
+#: source/gx/terminix/cmdparams.d:96
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1104,8 +1137,8 @@ msgid "Enter a new name for the session"
 msgstr "Digite um novo nome para a sessão"
 
 #: source/gx/terminix/appwindow.d:398
-msgid "Load…"
-msgstr "Carregar…"
+msgid "Open…"
+msgstr ""
 
 #: source/gx/terminix/appwindow.d:399
 msgid "Save"
@@ -1127,32 +1160,32 @@ msgstr "Sincronizar entrada"
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:665
+#: source/gx/terminix/appwindow.d:674
 msgid "All JSON Files"
 msgstr "Todos os arquivos JSON"
 
-#: source/gx/terminix/appwindow.d:678
+#: source/gx/terminix/appwindow.d:687
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "O nome do arquivo '%s' não existe"
 
-#: source/gx/terminix/appwindow.d:703
+#: source/gx/terminix/appwindow.d:712
 msgid "Load Session"
 msgstr "Carregar sessão"
 
-#: source/gx/terminix/appwindow.d:716
+#: source/gx/terminix/appwindow.d:725
 msgid "Could not load session due to unexpected error."
 msgstr "Não foi possível carregar a sessão devido a um erro inesperado."
 
-#: source/gx/terminix/appwindow.d:716
+#: source/gx/terminix/appwindow.d:725
 msgid "Error Loading Session"
 msgstr "Erro ao carregar sessão"
 
-#: source/gx/terminix/appwindow.d:731
+#: source/gx/terminix/appwindow.d:740
 msgid "Save Session"
 msgstr "Salvar sessão"
 
-#: source/gx/terminix/appwindow.d:766
+#: source/gx/terminix/appwindow.d:775
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 msgid "Terminix"
 msgstr "Terminix"
@@ -1324,9 +1357,10 @@ msgid "Save the current session with new filename"
 msgstr "Salvar a sessão atual com um novo nome de arquivo"
 
 #: data/resources/ui/shortcuts.ui:165
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Load the current session"
-msgstr "Carregar a sessão atual"
+msgid "Open a saved session"
+msgstr "Abrir uma nova sessão"
 
 #: data/resources/ui/shortcuts.ui:173
 msgctxt "shortcut window"
@@ -1449,8 +1483,9 @@ msgid "Split horizontal"
 msgstr "Dividir horizontal"
 
 #: data/resources/ui/shortcuts.ui:323
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Split Vertical"
+msgid "Split vertical"
 msgstr "Dividir vertical"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
@@ -1547,6 +1582,20 @@ msgstr "Alternar para somente leitura"
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "Opções de layout"
+
+#~ msgid "load"
+#~ msgstr "carregar"
+
+#~ msgid "Load…"
+#~ msgstr "Carregar…"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Load the current session"
+#~ msgstr "Carregar a sessão atual"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Split Vertical"
+#~ msgstr "Dividir vertical"
 
 #~ msgid "Enable the menu accelerator key (F10 by default)"
 #~ msgstr "Habilitar a combinação de teclas do menu (F10 por padrão)"

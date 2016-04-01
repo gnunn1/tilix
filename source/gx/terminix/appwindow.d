@@ -99,7 +99,7 @@ private:
     enum ACTION_RESIZE_TERMINAL_DIRECTION = "resize-terminal-";
     enum ACTION_SESSION_SAVE = "save";
     enum ACTION_SESSION_SAVE_AS = "save-as";
-    enum ACTION_SESSION_LOAD = "load";
+    enum ACTION_SESSION_OPEN = "open";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
@@ -357,7 +357,7 @@ private:
         });
 
         //Load Session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_LOAD, gsShortcuts, delegate(GVariant, SimpleAction) { loadSession(); });
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_OPEN, gsShortcuts, delegate(GVariant, SimpleAction) { loadSession(); });
 
         //Save Session
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE, gsShortcuts, delegate(GVariant, SimpleAction) { saveSession(false); });
@@ -395,7 +395,7 @@ private:
         GMenu model = new GMenu();
 
         GMenu mFileSection = new GMenu();
-        mFileSection.appendItem(new GMenuItem(_("Load…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
+        mFileSection.appendItem(new GMenuItem(_("Open…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_OPEN)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
         mFileSection.appendItem(new GMenuItem(_("Save As…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
         mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));

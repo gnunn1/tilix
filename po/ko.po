@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-27 19:25-0400\n"
+"POT-Creation-Date: 2016-04-01 15:02-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Youngbin Han <sukso96100@gmail.com>\n"
 "Language-Team: sukso96100@gmail.com\n"
@@ -51,8 +51,8 @@ msgstr "닫기"
 msgid "name"
 msgstr "이름"
 
-msgid "load"
-msgstr "불러오기"
+msgid "open"
+msgstr ""
 
 msgid "save"
 msgstr "저장"
@@ -522,6 +522,29 @@ msgstr "명령어 다시 시작"
 msgid "Hold the terminal open"
 msgstr "터미널 열림 유지"
 
+#: source/gx/terminix/constants.d:38
+msgid "A VTE based terminal emulator for Linux"
+msgstr ""
+
+#: source/gx/terminix/constants.d:39
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+
+#: source/gx/terminix/constants.d:44
+msgid "GTK VTE widget team, Terminix would not be possible without their work"
+msgstr ""
+
+#: source/gx/terminix/constants.d:45
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr ""
+
+#: source/gx/terminix/constants.d:46
+msgid "Dlang.org for such an excellent language, D"
+msgstr ""
+
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
 #: source/gx/terminix/encoding.d:78
@@ -660,7 +683,7 @@ msgstr "베트남어"
 msgid "Thai"
 msgstr "태국어"
 
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1188
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1243
 #: source/gx/terminix/prefwindow.d:492
 msgid "New Session"
 msgstr "새 세션"
@@ -685,59 +708,69 @@ msgstr "정보"
 msgid "Quit"
 msgstr "끝내기"
 
-#: source/gx/terminix/application.d:204
+#: source/gx/terminix/application.d:211
 msgid "Credits"
 msgstr "크레딧"
 
-#: source/gx/terminix/application.d:393
+#: source/gx/terminix/application.d:399
 msgid "Set the working directory of the terminal"
 msgstr "터미널 작업 디렉터리 설정"
 
-#: source/gx/terminix/application.d:393
+#: source/gx/terminix/application.d:399
 msgid "DIRECTORY"
 msgstr ""
 
-#: source/gx/terminix/application.d:394
+#: source/gx/terminix/application.d:400
 msgid "Set the starting profile"
 msgstr "시작 프로파일 설정"
 
-#: source/gx/terminix/application.d:394
+#: source/gx/terminix/application.d:400
 msgid "PROFILE_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:395
+#: source/gx/terminix/application.d:401
 msgid "Open the specified session"
 msgstr "특정 세션 열기"
 
-#: source/gx/terminix/application.d:395
+#: source/gx/terminix/application.d:401
 msgid "SESSION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:396
+#: source/gx/terminix/application.d:402
 msgid "Send an action to current Terminix instance"
 msgstr "현재 Terminix 인스턴스로 동작 보내기"
 
-#: source/gx/terminix/application.d:396
+#: source/gx/terminix/application.d:402
 msgid "ACTION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:397
+#: source/gx/terminix/application.d:403
 msgid "Execute the passed command"
 msgstr "전달된 명령어 실행"
 
-#: source/gx/terminix/application.d:397
+#: source/gx/terminix/application.d:403
 msgid "EXECUTE"
 msgstr ""
 
-#: source/gx/terminix/application.d:398
+#: source/gx/terminix/application.d:404
 msgid "Hidden argument to pass terminal UUID"
 msgstr "터미널 UUID를 전달하기 위한 숨겨진 독립변수"
 
-#: source/gx/terminix/application.d:398
+#: source/gx/terminix/application.d:404
 msgid "TERMINAL_UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:538
+#: source/gx/terminix/application.d:405
+#, fuzzy
+msgid "Maximize the terminal window"
+msgstr "터미널 열림 유지"
+
+#: source/gx/terminix/application.d:406
+#, fuzzy
+msgid "Full-screen the terminal window"
+msgstr "터미널 열림 유지"
+
+#: source/gx/terminix/application.d:546
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -747,27 +780,27 @@ msgstr ""
 "이 이슈는 심각하지 않습니다. 그러나 고친다면 사용 경험이 향상됩니다\n"
 "자세한 정보는 아래 링크를 누르세요."
 
-#: source/gx/terminix/application.d:539
+#: source/gx/terminix/application.d:547
 msgid "Configuration Issue Detected"
 msgstr "설정 이슈 감지됨"
 
-#: source/gx/terminix/application.d:551
+#: source/gx/terminix/application.d:559
 msgid "Do not show this message again"
 msgstr "이 메시지 다시 보지 않기"
 
-#: source/gx/terminix/session.d:450
+#: source/gx/terminix/session.d:505
 msgid "Could not locate dropped terminal"
 msgstr "중단된 터미널을 위치시킬 수 없습니다"
 
-#: source/gx/terminix/session.d:455
+#: source/gx/terminix/session.d:510
 msgid "Could not locate session for dropped terminal"
 msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
 
-#: source/gx/terminix/session.d:1154
+#: source/gx/terminix/session.d:1209
 msgid "Name"
 msgstr "이름"
 
-#: source/gx/terminix/session.d:1165 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1220 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "프로파일"
 
@@ -1034,7 +1067,7 @@ msgid "All Text Files"
 msgstr "모든 텍스트 파일"
 
 #: source/gx/terminix/terminal/terminal.d:1560
-#: source/gx/terminix/appwindow.d:669
+#: source/gx/terminix/appwindow.d:678
 msgid "All Files"
 msgstr "모든 파일"
 
@@ -1076,17 +1109,17 @@ msgstr "붙여넣지 마세요"
 msgid "Paste Anyway"
 msgstr "어떻게든 붙여넣기"
 
-#: source/gx/terminix/cmdparams.d:73
+#: source/gx/terminix/cmdparams.d:78
 #, c-format
 msgid "Ignoring parameter working-directory as '%s' is not a directory"
 msgstr "'%s'이(가) 디렉터리가 아니므로, 작업 디렉터리 파라미터를 무시합니다"
 
-#: source/gx/terminix/cmdparams.d:82
+#: source/gx/terminix/cmdparams.d:87
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "'%s'이(가) 없으므로 파라미터 세션을 무시합니다"
 
-#: source/gx/terminix/cmdparams.d:91
+#: source/gx/terminix/cmdparams.d:96
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1111,8 +1144,8 @@ msgid "Enter a new name for the session"
 msgstr "새 세션 이름 입력"
 
 #: source/gx/terminix/appwindow.d:398
-msgid "Load…"
-msgstr "불러오기…"
+msgid "Open…"
+msgstr ""
 
 #: source/gx/terminix/appwindow.d:399
 msgid "Save"
@@ -1134,32 +1167,32 @@ msgstr "입력 동기화"
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:665
+#: source/gx/terminix/appwindow.d:674
 msgid "All JSON Files"
 msgstr "모든 JSON 파일"
 
-#: source/gx/terminix/appwindow.d:678
+#: source/gx/terminix/appwindow.d:687
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "파일 이름 '%s'이(가) 없습니다."
 
-#: source/gx/terminix/appwindow.d:703
+#: source/gx/terminix/appwindow.d:712
 msgid "Load Session"
 msgstr "세션 불러오기"
 
-#: source/gx/terminix/appwindow.d:716
+#: source/gx/terminix/appwindow.d:725
 msgid "Could not load session due to unexpected error."
 msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
 
-#: source/gx/terminix/appwindow.d:716
+#: source/gx/terminix/appwindow.d:725
 msgid "Error Loading Session"
 msgstr "세션 불러오기 오류"
 
-#: source/gx/terminix/appwindow.d:731
+#: source/gx/terminix/appwindow.d:740
 msgid "Save Session"
 msgstr "세션 저장"
 
-#: source/gx/terminix/appwindow.d:766
+#: source/gx/terminix/appwindow.d:775
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 msgid "Terminix"
 msgstr "Terminix"
@@ -1352,8 +1385,8 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:165
 #, fuzzy
 msgctxt "shortcut window"
-msgid "Load the current session"
-msgstr "세션 불러오기"
+msgid "Open a saved session"
+msgstr "새 세션 만들기"
 
 #: data/resources/ui/shortcuts.ui:173
 msgctxt "shortcut window"
@@ -1500,7 +1533,7 @@ msgstr "수평으로 분할"
 #: data/resources/ui/shortcuts.ui:323
 #, fuzzy
 msgctxt "shortcut window"
-msgid "Split Vertical"
+msgid "Split vertical"
 msgstr "수직으로 분할"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
@@ -1610,6 +1643,22 @@ msgstr "읽기전용"
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "레이아웃 옵션"
+
+#~ msgid "load"
+#~ msgstr "불러오기"
+
+#~ msgid "Load…"
+#~ msgstr "불러오기…"
+
+#, fuzzy
+#~ msgctxt "shortcut window"
+#~ msgid "Load the current session"
+#~ msgstr "세션 불러오기"
+
+#, fuzzy
+#~ msgctxt "shortcut window"
+#~ msgid "Split Vertical"
+#~ msgstr "수직으로 분할"
 
 #~ msgid "Enter Custom Title"
 #~ msgstr "사용자 정의 제목 입력"
