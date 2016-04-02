@@ -234,8 +234,12 @@ private:
             trace(format("Only %d pane, not redistributing", model.count));
             return;
         }
-        int size = paned.getOrientation() == Orientation.HORIZONTAL ? getAllocatedWidth() : getAllocatedHeight();
-        int baseSize = size / (model.count + 1);
+        Value handleSize = new Value(0);
+        root.styleGetProperty("handle-size", handleSize);
+        trace(format("Handle size is %d", handleSize.getInt()));
+        
+        int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
+        int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
         trace(format("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size));
 
         model.calculateSize(baseSize);
