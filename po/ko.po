@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-01 15:02-0400\n"
+"POT-Creation-Date: 2016-04-02 22:27-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Youngbin Han <sukso96100@gmail.com>\n"
 "Language-Team: sukso96100@gmail.com\n"
@@ -16,6 +16,10 @@ msgstr ""
 
 msgid "terminal"
 msgstr "터미널"
+
+#, fuzzy
+msgid "title-style"
+msgstr "제목"
 
 msgid "title"
 msgstr "제목"
@@ -482,7 +486,7 @@ msgstr "Delete 키 누를 때 생성할 것"
 
 #: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
 #: source/gx/terminix/prefwindow.d:159
-#: source/gx/terminix/terminal/terminal.d:601
+#: source/gx/terminix/terminal/terminal.d:603
 msgid "Encoding"
 msgstr "인코딩"
 
@@ -522,26 +526,26 @@ msgstr "명령어 다시 시작"
 msgid "Hold the terminal open"
 msgstr "터미널 열림 유지"
 
-#: source/gx/terminix/constants.d:38
+#: source/gx/terminix/constants.d:37
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:39
+#: source/gx/terminix/constants.d:38
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:44
+#: source/gx/terminix/constants.d:43
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:45
+#: source/gx/terminix/constants.d:44
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:46
+#: source/gx/terminix/constants.d:45
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
@@ -683,12 +687,12 @@ msgstr "베트남어"
 msgid "Thai"
 msgstr "태국어"
 
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1243
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1247
+#: source/gx/terminix/prefwindow.d:490
 msgid "New Session"
 msgstr "새 세션"
 
-#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:490
 msgid "New Window"
 msgstr "새 창"
 
@@ -788,19 +792,19 @@ msgstr "설정 이슈 감지됨"
 msgid "Do not show this message again"
 msgstr "이 메시지 다시 보지 않기"
 
-#: source/gx/terminix/session.d:505
+#: source/gx/terminix/session.d:509
 msgid "Could not locate dropped terminal"
 msgstr "중단된 터미널을 위치시킬 수 없습니다"
 
-#: source/gx/terminix/session.d:510
+#: source/gx/terminix/session.d:514
 msgid "Could not locate session for dropped terminal"
 msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
 
-#: source/gx/terminix/session.d:1209
+#: source/gx/terminix/session.d:1213
 msgid "Name"
 msgstr "이름"
 
-#: source/gx/terminix/session.d:1220 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1224 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "프로파일"
 
@@ -809,7 +813,7 @@ msgid "Global"
 msgstr "전역"
 
 #: source/gx/terminix/prefwindow.d:83
-#: source/gx/terminix/terminal/terminal.d:600
+#: source/gx/terminix/terminal/terminal.d:602
 msgid "Profiles"
 msgstr "프로파일"
 
@@ -829,7 +833,7 @@ msgstr "동작"
 msgid "Shortcut Key"
 msgstr "단축키"
 
-#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:543
+#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:536
 #: source/gx/terminix/appwindow.d:91
 msgid "Default"
 msgstr "기본값"
@@ -846,81 +850,93 @@ msgstr "편집"
 msgid "Delete"
 msgstr "삭제"
 
-#: source/gx/terminix/prefwindow.d:459
+#: source/gx/terminix/prefwindow.d:457
 msgid "Behavior"
 msgstr "행동"
 
-#: source/gx/terminix/prefwindow.d:465
+#: source/gx/terminix/prefwindow.d:463
 msgid "Prompt when creating a new session"
 msgstr "새 세션을 만들 때 세션 설정 입력받기"
 
-#: source/gx/terminix/prefwindow.d:470
+#: source/gx/terminix/prefwindow.d:468
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "마우스가 위에서 움직일 때 터미널에 포커스 하기"
 
-#: source/gx/terminix/prefwindow.d:475
+#: source/gx/terminix/prefwindow.d:473
 msgid "Autohide the mouse pointer when typing"
 msgstr "타이핑 할 때 마우스 포인터 자동으로 숨기기"
 
-#: source/gx/terminix/prefwindow.d:481
+#: source/gx/terminix/prefwindow.d:479
 msgid "Send desktop notification on process complete"
 msgstr "프로세스가 완료될때 데스크톱 알림 보내기"
 
-#: source/gx/terminix/prefwindow.d:489
+#: source/gx/terminix/prefwindow.d:487
 msgid "On new instance"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/prefwindow.d:490
 #, fuzzy
 msgid "Split Horizontal"
 msgstr "수평으로 분할"
 
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/prefwindow.d:490
 #, fuzzy
 msgid "Split Vertical"
 msgstr "수직으로 분할"
 
-#: source/gx/terminix/prefwindow.d:498
-#: source/gx/terminix/terminal/terminal.d:875
-#: source/gx/terminix/terminal/terminal.d:893
+#: source/gx/terminix/prefwindow.d:496
+#: source/gx/terminix/terminal/terminal.d:868
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: source/gx/terminix/prefwindow.d:504
+#: source/gx/terminix/prefwindow.d:502
 msgid "Warn when attempting unsafe paste"
 msgstr "위험한 붙여넣기를 할 때 경고하기"
 
-#: source/gx/terminix/prefwindow.d:509
+#: source/gx/terminix/prefwindow.d:507
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "붙여넣기 한 것이 주석 또는 변수 선언문일 경우 첫 문자 삭제하기"
 
-#: source/gx/terminix/prefwindow.d:514
+#: source/gx/terminix/prefwindow.d:512
 msgid "Appearance"
 msgstr "모양새"
 
-#: source/gx/terminix/prefwindow.d:521
+#: source/gx/terminix/prefwindow.d:519
 msgid "Enable transparency, requires re-start"
 msgstr "투명도 활성화 하기(다시 시작 필요함)"
 
-#: source/gx/terminix/prefwindow.d:527
-msgid "Use small size for terminal titlebars"
-msgstr "작은 크기의 터미널 타이틀바 사용"
+#: source/gx/terminix/prefwindow.d:529
+#, fuzzy
+msgid "Terminal title style"
+msgstr "터미널 제목"
 
-#: source/gx/terminix/prefwindow.d:532
-msgid "Use a wide handle for splitters"
-msgstr "스플라이터에 대해 넓은 핸들 사용하기"
+#: source/gx/terminix/prefwindow.d:530
+msgid "Normal"
+msgstr ""
 
-#: source/gx/terminix/prefwindow.d:539
+#: source/gx/terminix/prefwindow.d:530
+msgid "Small"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:530
+msgid "None"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:535
 msgid "Theme Variant"
 msgstr "테마 종류"
 
-#: source/gx/terminix/prefwindow.d:544
+#: source/gx/terminix/prefwindow.d:536
 msgid "Light"
 msgstr "밝음"
 
-#: source/gx/terminix/prefwindow.d:545
+#: source/gx/terminix/prefwindow.d:536
 msgid "Dark"
 msgstr "어두움"
+
+#: source/gx/terminix/prefwindow.d:543
+msgid "Use a wide handle for splitters"
+msgstr "스플라이터에 대해 넓은 핸들 사용하기"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "Layout Options"
@@ -974,8 +990,8 @@ msgstr "정규 표현식으로 일치"
 msgid "Wrap around"
 msgstr "주변 감싸기"
 
-#: source/gx/terminix/terminal/terminal.d:323
-#: source/gx/terminix/terminal/terminal.d:741
+#: source/gx/terminix/terminal/terminal.d:319
+#: source/gx/terminix/terminal/terminal.d:735
 msgid "Terminal"
 msgstr "터미널"
 
@@ -985,7 +1001,8 @@ msgid "Close"
 msgstr "닫기"
 
 #: source/gx/terminix/terminal/terminal.d:358
-#: source/gx/terminix/terminal/terminal.d:772
+#: source/gx/terminix/terminal/terminal.d:766
+#: source/gx/terminix/terminal/terminal.d:875
 msgid "Maximize"
 msgstr "최대화"
 
@@ -997,115 +1014,114 @@ msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
 msgid "Edit Profile"
 msgstr "프로파일 편집"
 
-#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/terminal/terminal.d:522
 #: source/gx/terminix/appwindow.d:622
 msgid "There are processes that are still running, close anyway?"
 msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
 
-#: source/gx/terminix/terminal/terminal.d:590
+#: source/gx/terminix/terminal/terminal.d:592
 msgid "Save…"
 msgstr "저장…"
 
-#: source/gx/terminix/terminal/terminal.d:591
+#: source/gx/terminix/terminal/terminal.d:593
 msgid "Find…"
 msgstr "찾기…"
 
-#: source/gx/terminix/terminal/terminal.d:592
+#: source/gx/terminix/terminal/terminal.d:594
 msgid "Layout Options…"
 msgstr "레이아웃 옵션…"
 
-#: source/gx/terminix/terminal/terminal.d:596
+#: source/gx/terminix/terminal/terminal.d:598
 msgid "Read-Only"
 msgstr "읽기전용"
 
-#: source/gx/terminix/terminal/terminal.d:615
+#: source/gx/terminix/terminal/terminal.d:613
 msgid "Split Right"
 msgstr "오른쪽으로 분할"
 
-#: source/gx/terminix/terminal/terminal.d:619
+#: source/gx/terminix/terminal/terminal.d:617
 msgid "Split Down"
 msgstr "아래로 분할"
 
-#: source/gx/terminix/terminal/terminal.d:769
+#: source/gx/terminix/terminal/terminal.d:763
+#: source/gx/terminix/terminal/terminal.d:875
 msgid "Restore"
 msgstr "복원"
 
-#: source/gx/terminix/terminal/terminal.d:869
+#: source/gx/terminix/terminal/terminal.d:862
 msgid "Open Link"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:870
+#: source/gx/terminix/terminal/terminal.d:863
 msgid "Copy Link Address"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:874
-#: source/gx/terminix/terminal/terminal.d:891
+#: source/gx/terminix/terminal/terminal.d:867
 msgid "Copy"
 msgstr "복사"
 
-#: source/gx/terminix/terminal/terminal.d:876
-#: source/gx/terminix/terminal/terminal.d:895
+#: source/gx/terminix/terminal/terminal.d:869
 msgid "Select All"
 msgstr "모두 선택"
 
-#: source/gx/terminix/terminal/terminal.d:1228
+#: source/gx/terminix/terminal/terminal.d:1220
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 "예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다."
 
-#: source/gx/terminix/terminal/terminal.d:1234
+#: source/gx/terminix/terminal/terminal.d:1226
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "예상하지 못한 오류가 발생했습니다. %s"
 
-#: source/gx/terminix/terminal/terminal.d:1550
+#: source/gx/terminix/terminal/terminal.d:1542
 msgid "Save Terminal Output"
 msgstr "터미널 출력 저장"
 
-#: source/gx/terminix/terminal/terminal.d:1556
+#: source/gx/terminix/terminal/terminal.d:1548
 msgid "All Text Files"
 msgstr "모든 텍스트 파일"
 
-#: source/gx/terminix/terminal/terminal.d:1560
+#: source/gx/terminix/terminal/terminal.d:1552
 #: source/gx/terminix/appwindow.d:678
 msgid "All Files"
 msgstr "모든 파일"
 
-#: source/gx/terminix/terminal/terminal.d:1863
+#: source/gx/terminix/terminal/terminal.d:1855
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
 
-#: source/gx/terminix/terminal/terminal.d:1864
+#: source/gx/terminix/terminal/terminal.d:1856
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다. %d"
 
-#: source/gx/terminix/terminal/terminal.d:1865
+#: source/gx/terminix/terminal/terminal.d:1857
 msgid "The child process was aborted."
 msgstr "자식 프로세스가 중지되었습니다."
 
-#: source/gx/terminix/terminal/terminal.d:1871
+#: source/gx/terminix/terminal/terminal.d:1863
 msgid "Relaunch"
 msgstr "다시 시작"
 
-#: source/gx/terminix/terminal/terminal.d:1911
+#: source/gx/terminix/terminal/terminal.d:1903
 msgid "This command is asking for Administrative access to your computer"
 msgstr "이 명령어가 컴퓨터로의 관리자 액세스를 요청합니다"
 
-#: source/gx/terminix/terminal/terminal.d:1912
+#: source/gx/terminix/terminal/terminal.d:1904
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "인터넷에서 명령어를 복사하는 것은 위험할 수 있습니다. "
 
-#: source/gx/terminix/terminal/terminal.d:1913
+#: source/gx/terminix/terminal/terminal.d:1905
 msgid "Be sure you understand what each part of this command does."
 msgstr "이 명령어의 각 부분이 무엇을 하는지 분명히 이해하세요."
 
-#: source/gx/terminix/terminal/terminal.d:1915
+#: source/gx/terminix/terminal/terminal.d:1907
 msgid "Don't Paste"
 msgstr "붙여넣지 마세요"
 
-#: source/gx/terminix/terminal/terminal.d:1916
+#: source/gx/terminix/terminal/terminal.d:1908
 msgid "Paste Anyway"
 msgstr "어떻게든 붙여넣기"
 
@@ -1643,6 +1659,9 @@ msgstr "읽기전용"
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "레이아웃 옵션"
+
+#~ msgid "Use small size for terminal titlebars"
+#~ msgstr "작은 크기의 터미널 타이틀바 사용"
 
 #~ msgid "load"
 #~ msgstr "불러오기"

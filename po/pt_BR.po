@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-01 15:02-0400\n"
+"POT-Creation-Date: 2016-04-02 22:27-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Fábio Nogueira <fnogueira@gnome.org>\n"
 "Language-Team: \n"
@@ -17,6 +17,10 @@ msgstr ""
 
 msgid "terminal"
 msgstr "terminal"
+
+#, fuzzy
+msgid "title-style"
+msgstr "título"
 
 msgid "title"
 msgstr "título"
@@ -474,7 +478,7 @@ msgstr "Tecla Delete gera"
 
 #: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
 #: source/gx/terminix/prefwindow.d:159
-#: source/gx/terminix/terminal/terminal.d:601
+#: source/gx/terminix/terminal/terminal.d:603
 msgid "Encoding"
 msgstr "Codificação"
 
@@ -514,26 +518,26 @@ msgstr "Reiniciar o comando"
 msgid "Hold the terminal open"
 msgstr "Manter o terminal aberto"
 
-#: source/gx/terminix/constants.d:38
+#: source/gx/terminix/constants.d:37
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:39
+#: source/gx/terminix/constants.d:38
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:44
+#: source/gx/terminix/constants.d:43
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:45
+#: source/gx/terminix/constants.d:44
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:46
+#: source/gx/terminix/constants.d:45
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
@@ -675,12 +679,12 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandês"
 
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1243
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1247
+#: source/gx/terminix/prefwindow.d:490
 msgid "New Session"
 msgstr "Nova sessão"
 
-#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:490
 msgid "New Window"
 msgstr "Nova janela"
 
@@ -780,19 +784,19 @@ msgstr "Detectado problema de configuração"
 msgid "Do not show this message again"
 msgstr "Não exibir esta mensagem novamente"
 
-#: source/gx/terminix/session.d:505
+#: source/gx/terminix/session.d:509
 msgid "Could not locate dropped terminal"
 msgstr "Não foi possível localizar o terminal dropado"
 
-#: source/gx/terminix/session.d:510
+#: source/gx/terminix/session.d:514
 msgid "Could not locate session for dropped terminal"
 msgstr "Não foi possível localizar a sessão para o terminal dropado"
 
-#: source/gx/terminix/session.d:1209
+#: source/gx/terminix/session.d:1213
 msgid "Name"
 msgstr "Nome"
 
-#: source/gx/terminix/session.d:1220 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1224 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "Perfil"
 
@@ -801,7 +805,7 @@ msgid "Global"
 msgstr "Global"
 
 #: source/gx/terminix/prefwindow.d:83
-#: source/gx/terminix/terminal/terminal.d:600
+#: source/gx/terminix/terminal/terminal.d:602
 msgid "Profiles"
 msgstr "Perfis"
 
@@ -821,7 +825,7 @@ msgstr "Ação"
 msgid "Shortcut Key"
 msgstr "Tecla de atalho"
 
-#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:543
+#: source/gx/terminix/prefwindow.d:324 source/gx/terminix/prefwindow.d:536
 #: source/gx/terminix/appwindow.d:91
 msgid "Default"
 msgstr "Padrão"
@@ -838,81 +842,93 @@ msgstr "Editar"
 msgid "Delete"
 msgstr "Excluir"
 
-#: source/gx/terminix/prefwindow.d:459
+#: source/gx/terminix/prefwindow.d:457
 msgid "Behavior"
 msgstr "Comportamento"
 
-#: source/gx/terminix/prefwindow.d:465
+#: source/gx/terminix/prefwindow.d:463
 msgid "Prompt when creating a new session"
 msgstr "Alertar ao criar uma nova sessão"
 
-#: source/gx/terminix/prefwindow.d:470
+#: source/gx/terminix/prefwindow.d:468
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Focar no terminal quando o mouse mover sobre ele"
 
-#: source/gx/terminix/prefwindow.d:475
+#: source/gx/terminix/prefwindow.d:473
 msgid "Autohide the mouse pointer when typing"
 msgstr "Ocultar automaticamente o cursor do mouse ao digitar"
 
-#: source/gx/terminix/prefwindow.d:481
+#: source/gx/terminix/prefwindow.d:479
 msgid "Send desktop notification on process complete"
 msgstr "Enviar notificação para a área de trabalho quando terminar o processo"
 
-#: source/gx/terminix/prefwindow.d:489
+#: source/gx/terminix/prefwindow.d:487
 msgid "On new instance"
 msgstr "Na nova instância"
 
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/prefwindow.d:490
 msgid "Split Horizontal"
 msgstr "Dividir horizontal"
 
-#: source/gx/terminix/prefwindow.d:492
+#: source/gx/terminix/prefwindow.d:490
 msgid "Split Vertical"
 msgstr "Dividir vertical"
 
-#: source/gx/terminix/prefwindow.d:498
-#: source/gx/terminix/terminal/terminal.d:875
-#: source/gx/terminix/terminal/terminal.d:893
+#: source/gx/terminix/prefwindow.d:496
+#: source/gx/terminix/terminal/terminal.d:868
 msgid "Paste"
 msgstr "Colar"
 
-#: source/gx/terminix/prefwindow.d:504
+#: source/gx/terminix/prefwindow.d:502
 msgid "Warn when attempting unsafe paste"
 msgstr "Alertar ao tentar colar comando inseguro"
 
-#: source/gx/terminix/prefwindow.d:509
+#: source/gx/terminix/prefwindow.d:507
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Retira o primeiro caractere da colagem se comentário ou declaração de "
 "variável"
 
-#: source/gx/terminix/prefwindow.d:514
+#: source/gx/terminix/prefwindow.d:512
 msgid "Appearance"
 msgstr "Aparência"
 
-#: source/gx/terminix/prefwindow.d:521
+#: source/gx/terminix/prefwindow.d:519
 msgid "Enable transparency, requires re-start"
 msgstr "Habilitar transparência, necessário reiniciar"
 
-#: source/gx/terminix/prefwindow.d:527
-msgid "Use small size for terminal titlebars"
-msgstr "Utilizar barra de título do terminal no tamanho pequeno"
+#: source/gx/terminix/prefwindow.d:529
+#, fuzzy
+msgid "Terminal title style"
+msgstr "Título do terminal"
 
-#: source/gx/terminix/prefwindow.d:532
-msgid "Use a wide handle for splitters"
-msgstr "Utilizar uma borda larga para os divisores"
+#: source/gx/terminix/prefwindow.d:530
+msgid "Normal"
+msgstr ""
 
-#: source/gx/terminix/prefwindow.d:539
+#: source/gx/terminix/prefwindow.d:530
+msgid "Small"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:530
+msgid "None"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:535
 msgid "Theme Variant"
 msgstr "Variante do tema"
 
-#: source/gx/terminix/prefwindow.d:544
+#: source/gx/terminix/prefwindow.d:536
 msgid "Light"
 msgstr "Claro"
 
-#: source/gx/terminix/prefwindow.d:545
+#: source/gx/terminix/prefwindow.d:536
 msgid "Dark"
 msgstr "Escuro"
+
+#: source/gx/terminix/prefwindow.d:543
+msgid "Use a wide handle for splitters"
+msgstr "Utilizar uma borda larga para os divisores"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "Layout Options"
@@ -967,8 +983,8 @@ msgstr "Coincidir como expressão regular"
 msgid "Wrap around"
 msgstr "Voltar ao início"
 
-#: source/gx/terminix/terminal/terminal.d:323
-#: source/gx/terminix/terminal/terminal.d:741
+#: source/gx/terminix/terminal/terminal.d:319
+#: source/gx/terminix/terminal/terminal.d:735
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -978,7 +994,8 @@ msgid "Close"
 msgstr "Fechar"
 
 #: source/gx/terminix/terminal/terminal.d:358
-#: source/gx/terminix/terminal/terminal.d:772
+#: source/gx/terminix/terminal/terminal.d:766
+#: source/gx/terminix/terminal/terminal.d:875
 msgid "Maximize"
 msgstr "Maximizar"
 
@@ -990,114 +1007,113 @@ msgstr "Desabilitar sincronização de entrada para este terminal"
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
-#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/terminal/terminal.d:522
 #: source/gx/terminix/appwindow.d:622
 msgid "There are processes that are still running, close anyway?"
 msgstr "Há processos que ainda estão em execução, fechar mesmo assim?"
 
-#: source/gx/terminix/terminal/terminal.d:590
+#: source/gx/terminix/terminal/terminal.d:592
 msgid "Save…"
 msgstr "Salvar…"
 
-#: source/gx/terminix/terminal/terminal.d:591
+#: source/gx/terminix/terminal/terminal.d:593
 msgid "Find…"
 msgstr "Localizar…"
 
-#: source/gx/terminix/terminal/terminal.d:592
+#: source/gx/terminix/terminal/terminal.d:594
 msgid "Layout Options…"
 msgstr "Opções de layout..."
 
-#: source/gx/terminix/terminal/terminal.d:596
+#: source/gx/terminix/terminal/terminal.d:598
 msgid "Read-Only"
 msgstr "Somente-leitura"
 
-#: source/gx/terminix/terminal/terminal.d:615
+#: source/gx/terminix/terminal/terminal.d:613
 msgid "Split Right"
 msgstr "Dividir à direita"
 
-#: source/gx/terminix/terminal/terminal.d:619
+#: source/gx/terminix/terminal/terminal.d:617
 msgid "Split Down"
 msgstr "Dividir abaixo"
 
-#: source/gx/terminix/terminal/terminal.d:769
+#: source/gx/terminix/terminal/terminal.d:763
+#: source/gx/terminix/terminal/terminal.d:875
 msgid "Restore"
 msgstr "Restaurar"
 
-#: source/gx/terminix/terminal/terminal.d:869
+#: source/gx/terminix/terminal/terminal.d:862
 msgid "Open Link"
 msgstr "Abrir link"
 
-#: source/gx/terminix/terminal/terminal.d:870
+#: source/gx/terminix/terminal/terminal.d:863
 msgid "Copy Link Address"
 msgstr "Copiar endereço do link"
 
-#: source/gx/terminix/terminal/terminal.d:874
-#: source/gx/terminix/terminal/terminal.d:891
+#: source/gx/terminix/terminal/terminal.d:867
 msgid "Copy"
 msgstr "Copiar"
 
-#: source/gx/terminix/terminal/terminal.d:876
-#: source/gx/terminix/terminal/terminal.d:895
+#: source/gx/terminix/terminal/terminal.d:869
 msgid "Select All"
 msgstr "Selecionar tudo"
 
-#: source/gx/terminix/terminal/terminal.d:1228
+#: source/gx/terminix/terminal/terminal.d:1220
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Ocorreu um erro inesperado, nenhuma informação adicional disponível"
 
-#: source/gx/terminix/terminal/terminal.d:1234
+#: source/gx/terminix/terminal/terminal.d:1226
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Ocorreu um erro inesperado: %s"
 
-#: source/gx/terminix/terminal/terminal.d:1550
+#: source/gx/terminix/terminal/terminal.d:1542
 msgid "Save Terminal Output"
 msgstr "Salvar saída do terminal"
 
-#: source/gx/terminix/terminal/terminal.d:1556
+#: source/gx/terminix/terminal/terminal.d:1548
 msgid "All Text Files"
 msgstr "Todos os arquivos texto"
 
-#: source/gx/terminix/terminal/terminal.d:1560
+#: source/gx/terminix/terminal/terminal.d:1552
 #: source/gx/terminix/appwindow.d:678
 msgid "All Files"
 msgstr "Todos os arquivos"
 
-#: source/gx/terminix/terminal/terminal.d:1863
+#: source/gx/terminix/terminal/terminal.d:1855
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "O processo filho encerrou normalmente com o estado %d"
 
-#: source/gx/terminix/terminal/terminal.d:1864
+#: source/gx/terminix/terminal/terminal.d:1856
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "O processo filho foi abortado pelo sinal %d."
 
-#: source/gx/terminix/terminal/terminal.d:1865
+#: source/gx/terminix/terminal/terminal.d:1857
 msgid "The child process was aborted."
 msgstr "O processo filho foi abortado."
 
-#: source/gx/terminix/terminal/terminal.d:1871
+#: source/gx/terminix/terminal/terminal.d:1863
 msgid "Relaunch"
 msgstr "Recarregar"
 
-#: source/gx/terminix/terminal/terminal.d:1911
+#: source/gx/terminix/terminal/terminal.d:1903
 msgid "This command is asking for Administrative access to your computer"
 msgstr "Este comando está solicitando acesso administrativo ao seu computador"
 
-#: source/gx/terminix/terminal/terminal.d:1912
+#: source/gx/terminix/terminal/terminal.d:1904
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "Copiar comandos da internet pode ser perigoso. "
 
-#: source/gx/terminix/terminal/terminal.d:1913
+#: source/gx/terminix/terminal/terminal.d:1905
 msgid "Be sure you understand what each part of this command does."
 msgstr "Tenha o conhecimento de cada parte que o comando faz."
 
-#: source/gx/terminix/terminal/terminal.d:1915
+#: source/gx/terminix/terminal/terminal.d:1907
 msgid "Don't Paste"
 msgstr "Não colar"
 
-#: source/gx/terminix/terminal/terminal.d:1916
+#: source/gx/terminix/terminal/terminal.d:1908
 msgid "Paste Anyway"
 msgstr "Colar mesmo assim"
 
@@ -1582,6 +1598,9 @@ msgstr "Alternar para somente leitura"
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "Opções de layout"
+
+#~ msgid "Use small size for terminal titlebars"
+#~ msgstr "Utilizar barra de título do terminal no tamanho pequeno"
 
 #~ msgid "load"
 #~ msgstr "carregar"
