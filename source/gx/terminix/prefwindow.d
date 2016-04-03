@@ -447,8 +447,6 @@ class GlobalPreferences : Box {
 
 private:
 
-    ComboBox cbThemeVariant;
-
     void createUI(Settings gsSettings) {
         //Set basic grid settings
         setMarginTop(18);
@@ -523,39 +521,29 @@ private:
             add(cbTransparent);
         }
 
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+
         //Render terminal titlebars smaller then default
-        CheckButton cbSmallTitlebar = new CheckButton(_("Use small size for terminal titlebars"));
-        gsSettings.bind(SETTINGS_ENABLE_SMALL_TITLE_KEY, cbSmallTitlebar, "active", GSettingsBindFlags.DEFAULT);
-        add(cbSmallTitlebar);
+        grid.attach(createLabel(_("Terminal title style")), 0, 0, 1, 1);
+        ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
+        gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbTitleStyle, 1, 0, 1, 1);
+        
+        //Dark Theme
+        grid.attach(createLabel(_("Theme Variant")), 0, 1, 1, 1);
+        ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
+        gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbThemeVariant, 1, 1, 1, 1);
+
+        add(grid);
         
         if (Version.checkVersion(3, 16, 0).length == 0) {
             CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
             gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
             add(cbWideHandle);
         }
-        
-        //Dark Theme
-        Box b = new Box(Orientation.HORIZONTAL, 6);
-        b.add(createLabel(_("Theme Variant")));
-
-        ListStore lsThemeVariant = new ListStore([GType.STRING, GType.STRING]);
-
-        appendValues(lsThemeVariant, [_("Default"), SETTINGS_THEME_VARIANT_SYSTEM_VALUE]);
-        appendValues(lsThemeVariant, [_("Light"), SETTINGS_THEME_VARIANT_LIGHT_VALUE]);
-        appendValues(lsThemeVariant, [_("Dark"), SETTINGS_THEME_VARIANT_DARK_VALUE]);
-
-        cbThemeVariant = new ComboBox(lsThemeVariant, false);
-        cbThemeVariant.setFocusOnClick(false);
-        cbThemeVariant.setIdColumn(1);
-        CellRendererText cell = new CellRendererText();
-        cell.setAlignment(0, 0);
-        cbThemeVariant.packStart(cell, false);
-        cbThemeVariant.addAttribute(cell, "text", 0);
-
-        gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
-
-        b.add(cbThemeVariant);
-        add(b);
     }
 
 public:

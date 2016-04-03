@@ -40,6 +40,13 @@
     <value nick='split-horizontal' value ='2'/>
     <value nick='split-vertical' value ='3'/>
   </enum>
+  
+  <!-- Terminal Title Options -->
+  <enum id='com.gexperts.Terminix.Terminal.Title'>
+    <value nick='normal' value ='0'/>
+    <value nick='small' value ='1'/>
+    <value nick='none' value ='2'/>
+  </enum>
 
   <!-- Cursor -->
   <enum id='com.gexperts.Terminix.Cursor.BlinkMode'>
@@ -95,10 +102,10 @@
       <summary>Whether to transparency is enabled.</summary>
       <description>If true, transparency is enabled in terminals is supported.</description>
     </key>
-    <key name="enable-small-title" type="b">
-      <default>false</default>
-      <summary>Whether terminal titlebars are shown smaller.</summary>
-      <description>If true, terminal titlebars are rendered smaller then the default by removing padding.</description>
+    <key name="terminal-title-style" enum="com.gexperts.Terminix.Terminal.Title">
+      <default>'normal'</default>
+      <summary>The style to use for terminal titles</summary>
+      <description>Which style to use for terminal titles, normal, small or none.</description>
     </key>
     <key name="enable-wide-handle" type="b">
       <default>false</default>
@@ -614,8 +621,7 @@
     <key name="win-switch-to-previous-session" type="s">
       <default>'&lt;Ctrl&gt;Page_Up'</default>
       <summary>Keyboard shortcut to switch to the previous session</summary>
-    </key>
-    
+    </key>    
     <key name="win-fullscreen" type="s">
       <default>'F11'</default>
       <summary>Keyboard shortcut to toggle fullscreen</summary>

@@ -266,13 +266,7 @@ private:
 
     SimpleAction saCopy;
     SimpleAction saPaste;
-    static if (POPOVER_CONTEXT_MENU) {
-        Popover pmContext;
-    } else {
-        Menu mContext;
-        MenuItem miCopy;
-        MenuItem miPaste;
-    }
+    Popover pmContext;
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
@@ -316,6 +310,8 @@ private:
         }
         
         bTitle = new Box(Orientation.HORIZONTAL, 0);
+        //Showing is controlled by terminal title preference
+        bTitle.setNoShowAll(true);
         bTitle.setVexpand(false);
         bTitle.getStyleContext().addClass("notebook");
         bTitle.getStyleContext().addClass("header");
@@ -338,7 +334,11 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { buildProfileMenu(); buildEncodingMenu(); return false; });
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) {
+            buildProfileMenu(); 
+            buildEncodingMenu(); 
+            return false; 
+        });
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -394,12 +394,12 @@ private:
         saProfileSelect.setState(new GVariant(profileUUID));
         ProfileInfo[] profiles = prfMgr.getProfiles();
         foreach (profile; profiles) {
-            GMenuItem menuItem = new GMenuItem(profile.name, getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
-            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
+            GMenuItem menuItem = new GMenuItem(profile.name, ACTION_PROFILE_SELECT);
+            menuItem.setActionAndTargetValue(ACTION_PROFILE_SELECT, new GVariant(profile.uuid));
             profileMenu.appendItem(menuItem);
         }
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Edit Profile"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_PREFERENCE));
+        menuSection.append(_("Edit Profile"), ACTION_PROFILE_PREFERENCE);
         profileMenu.appendSection(null, menuSection);
     }
 
@@ -411,8 +411,8 @@ private:
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {
                 string name = lookupEncoding[encoding];
-                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
-                menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new GVariant(encoding));
+                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), ACTION_ENCODING_SELECT);
+                menuItem.setActionAndTargetValue(ACTION_ENCODING_SELECT, new GVariant(encoding));
                 encodingMenu.appendItem(menuItem);
             }
         }
@@ -509,15 +509,6 @@ private:
                 _overrideCommand = dialog.command;
                 updateTitle();
             }
-            /*            
-            if (showInputDialog(null, terminalTitle, terminalTitle, _("Enter Custom Title"),
-                _("Enter a new title to override the one specified by the profile. To reset it to the profile setting, leave it blank."))) {
-                _overrideTitle = terminalTitle;
-                if (_overrideTitle.length == 0)
-                    _overrideTitle.length = 0;
-                updateTitle();
-            }
-            */
         });
 
         //Maximize Terminal
@@ -586,6 +577,17 @@ private:
         GMenuItem buttons = createSplitButtons();
         model.appendItem(buttons);
 
+        createPopoverMenuItems(model);
+
+        Popover pm = new Popover(parent);
+        pm.bindModel(model, ACTION_PREFIX);
+        return pm;
+    }
+    
+    /**
+     * Creates the popover menu items
+     */
+    void createPopoverMenuItems(GMenu model) {
         GMenu menuSection = new GMenu();
         menuSection.append(_("Save…"), ACTION_SAVE);
         menuSection.append(_("Find…"), ACTION_FIND);
@@ -600,10 +602,6 @@ private:
         menuSection.appendSubmenu(_("Profiles"), profileMenu);
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
         model.appendSection(null, menuSection);
-
-        Popover pm = new Popover(parent);
-        pm.bindModel(model, ACTION_PREFIX);
-        return pm;
     }
 
     /**
@@ -689,14 +687,10 @@ private:
             return false;
         });
 
-        // Create basic context menu, items get added dynamically
-        static if (POPOVER_CONTEXT_MENU) {
-            pmContext = new Popover(vte);
-            pmContext.setModal(true);
-            pmContext.setPosition(PositionType.BOTTOM);
-        } else {
-            mContext = new Menu();
-        }
+        pmContext = new Popover(vte);
+        pmContext.setModal(true);
+        pmContext.setPosition(PositionType.BOTTOM);
+
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
             ScrolledWindow sw = new ScrolledWindow(vte);
@@ -862,40 +856,36 @@ private:
     }
 
     void buildContextMenu() {
-        static if (POPOVER_CONTEXT_MENU) {
-            GMenu mmContext = new GMenu();
-            if (match.match) {
-                GMenu linkSection = new GMenu();
-                linkSection.append(_("Open Link"), ACTION_OPEN_LINK);
-                linkSection.append(_("Copy Link Address"), ACTION_COPY_LINK);
-                mmContext.appendSection(null, linkSection);
-            }
-            GMenu clipSection = new GMenu();
-            clipSection.append(_("Copy"), ACTION_COPY);
-            clipSection.append(_("Paste"), ACTION_PASTE);
-            clipSection.append(_("Select All"), ACTION_SELECT_ALL);
-            mmContext.appendSection(null, clipSection);
-
-            GMenuItem buttons = createSplitButtons();
-            mmContext.appendItem(buttons);
-
-            pmContext.bindModel(mmContext, ACTION_PREFIX);
-        } else {
-            //Can't get GIO Actions to work with GTKMenu, they are always disabled even though they
-            //work fine in a popover. Could switch this to a popover but popover positioning could use some
-            //work, as well popover clips in small windows.
-            //
-            // Note doesn't have new copy/open link actions, will be removing context menu support in near
-            // future since popover seems to be working well
-            mContext.removeAll();
-            miCopy = new MenuItem(delegate(MenuItem) { vte.copyClipboard(); }, _("Copy"), null);
-            mContext.add(miCopy);
-            miPaste = new MenuItem(delegate(MenuItem) { pasteClipboard(); }, _("Paste"), null);
-            mContext.add(miPaste);
-            MenuItem miSelectAll = new MenuItem(delegate(MenuItem) { vte.selectAll(); }, _("Select All"), null);
-            mContext.add(new SeparatorMenuItem());
-            mContext.add(miSelectAll);
+        GMenu mmContext = new GMenu();
+        if (match.match) {
+            GMenu linkSection = new GMenu();
+            linkSection.append(_("Open Link"), ACTION_OPEN_LINK);
+            linkSection.append(_("Copy Link Address"), ACTION_COPY_LINK);
+            mmContext.appendSection(null, linkSection);
         }
+        GMenu clipSection = new GMenu();
+        clipSection.append(_("Copy"), ACTION_COPY);
+        clipSection.append(_("Paste"), ACTION_PASTE);
+        clipSection.append(_("Select All"), ACTION_SELECT_ALL);
+        mmContext.appendSection(null, clipSection);
+
+        //Check if titlebar is turned off and add extra items
+        if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
+            GMenu windowSection = new GMenu();
+            windowSection.append(terminalState == TerminalState.MAXIMIZED?_("Restore"):_("Maximize"), ACTION_MAXIMIZE);
+            mmContext.appendSection(null, windowSection);
+
+            buildProfileMenu(); 
+            buildEncodingMenu();
+            createPopoverMenuItems(mmContext); 
+        }
+
+        GMenuItem buttons = createSplitButtons();
+        GMenu splitSection = new GMenu();
+        splitSection.appendItem(buttons);
+        mmContext.appendSection(null, splitSection);
+
+        pmContext.bindModel(mmContext, ACTION_PREFIX);
     }
 
     /**
@@ -932,18 +922,11 @@ private:
                     return true;
 
                 buildContextMenu();
-                static if (POPOVER_CONTEXT_MENU) {
-                    saCopy.setEnabled(vte.getHasSelection());
-                    saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
-                    GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
-                    pmContext.setPointingTo(&rect);
-                    pmContext.showAll();
-                } else {
-                    miCopy.setSensitive(vte.getHasSelection());
-                    miPaste.setSensitive(Clipboard.get(null).waitIsTextAvailable());
-                    mContext.showAll();
-                    mContext.popup(buttonEvent.button, buttonEvent.time);
-                }
+                saCopy.setEnabled(vte.getHasSelection());
+                saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
+                GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
+                pmContext.setPointingTo(&rect);
+                pmContext.showAll();
                 return true;
             default:
                 return false;
@@ -1109,11 +1092,20 @@ private:
         case SETTINGS_AUTO_HIDE_MOUSE_KEY:
             vte.setMouseAutohide(gsSettings.getBoolean(SETTINGS_AUTO_HIDE_MOUSE_KEY));
             break;
-        case SETTINGS_ENABLE_SMALL_TITLE_KEY:
-            if (gsSettings.getBoolean(SETTINGS_ENABLE_SMALL_TITLE_KEY)) {
+        case SETTINGS_TERMINAL_TITLE_STYLE_KEY:
+            string value = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY);
+            if (value == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_SMALL) {
                 bTitle.getStyleContext().addClass("compact");
             } else {
                 bTitle.getStyleContext().removeClass("compact");
+            }
+            if (value == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
+                bTitle.setNoShowAll(true);
+                bTitle.hide();
+            } else {
+                trace("Showing titlebar");
+                bTitle.setNoShowAll(false);
+                bTitle.showAll();
             }
             break;
         default:
@@ -1136,7 +1128,7 @@ private:
             SETTINGS_PROFILE_DELETE_BINDING_KEY,
             SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, //Only pass the one font key, will handle both cases
             SETTINGS_PROFILE_FONT_KEY,
-            SETTINGS_ENABLE_SMALL_TITLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY
+            SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY
         ];
 
         foreach (key; keys) {
@@ -1492,7 +1484,7 @@ private:
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
 
-        static if (DIM_TERMINAL_NO_FOCUS && POPOVER_CONTEXT_MENU) {
+        static if (DIM_TERMINAL_NO_FOCUS) {
             if (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible()) {
                 RGBA bg;
                 getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
