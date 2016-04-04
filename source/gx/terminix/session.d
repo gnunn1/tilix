@@ -815,8 +815,9 @@ private:
         } else {
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
         }
-        trace(format("Paned position percent: %f", percent));
-        paned.setPosition(sizeInfo.getPosition(percent, orientation));
+        int pos = sizeInfo.getPosition(percent, orientation);
+        trace(format("Paned position %f percent or %d px", percent, pos));
+        paned.setPosition(pos);
         return paned;
     }
 
@@ -906,6 +907,7 @@ public:
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         try {
+            trace(format("Parsing session %s with dimensions %d,%d", filename, width, height));
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
         }
