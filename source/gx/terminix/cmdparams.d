@@ -37,6 +37,7 @@ private:
     string _execute;
     string _cmdLine;
     string _terminalUUID;
+    string _cwd;
     
     bool _maximize;
     bool _fullscreen;
@@ -62,6 +63,17 @@ private:
             return value.getString(l);
         }
     }
+    
+    string validatePath(string path) {
+        if (path.length > 0) {
+            path = expandTilde(path);
+            if (!isDir(path)) {
+                writeln(format(_("Ignoring as '%s' is not a directory"), path));
+                path.length = 0;
+            }
+        }
+        return path;        
+    }
 
 public:
 
@@ -71,14 +83,10 @@ public:
         //Declare a string variant type
         GVariantType vts = new GVariantType("s");
         VariantDict vd = acl.getOptionsDict();
-        _workingDir = getValue(vd, CMD_WORKING_DIRECTORY, vts);
-        if (_workingDir.length > 0) {
-            _workingDir = expandTilde(_workingDir);
-            if (!isDir(_workingDir)) {
-                writeln(format(_("Ignoring parameter working-directory as '%s' is not a directory"), _workingDir));
-                _workingDir.length = 0;
-            }
-        }
+
+        _workingDir = validatePath(getValue(vd, CMD_WORKING_DIRECTORY, vts));
+        _cwd = validatePath(acl.getCwd());
+
         _session = getValues(vd, CMD_SESSION);
         if (_session.length > 0) {
             for (ulong i = _session.length - 1; i--; i >= 0) {
@@ -116,6 +124,7 @@ public:
         trace("\tprofile=" ~ _profileName);
         trace("\taction=" ~ _action);
         trace("\texecute=" ~ _execute);
+        trace("\tcwd=" ~ _cwd);
     }
 
     void clear() {
@@ -127,6 +136,7 @@ public:
         _exitCode = 0;
         _cmdLine.length = 0;
         _terminalUUID.length = 0;
+        _cwd.length = 0;
         _maximize = false;
         _fullscreen = false;
         _exit = false;
@@ -134,6 +144,10 @@ public:
 
     @property string workingDir() {
         return _workingDir;
+    }
+    
+    @property string cwd() {
+        return _cwd;
     }
 
     @property string profileName() {

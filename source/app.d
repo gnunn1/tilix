@@ -5,6 +5,7 @@
 import std.stdio;
 
 import std.experimental.logger;
+import std.file;
 import std.format;
 import std.process;
 

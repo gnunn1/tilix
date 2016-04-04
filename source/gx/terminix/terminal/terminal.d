@@ -1181,6 +1181,10 @@ private:
      */
     void spawnTerminalProcess(string workingDir, string command = null) {
         CommandParameters overrides = terminix.getGlobalOverrides();
+        //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
+        if (workingDir.length == 0 && overrides.cwd.length > 0) {
+            workingDir = overrides.cwd;
+        }
         if (overrides.workingDir.length > 0) {
             workingDir = overrides.workingDir;
             trace("Working directory overriden to " ~ workingDir);
