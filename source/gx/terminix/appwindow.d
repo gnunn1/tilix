@@ -691,10 +691,12 @@ private:
         int height = nb.getAllocatedHeight();
         // If no sessions then we are loading our first session,
         // set the window size to what was saved in session JSON file
-        if (nb.getNPages() == 0 || !nb.getRealized()) {
+        if (!nb.getRealized()) {
             try {
                 Session.getPersistedSessionSize(value, width, height);
-                setDefaultSize(width, height);
+                if (nb.getNPages() == 0) {
+                    setDefaultSize(width, height);
+                }
             }
             catch (Exception e) {
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
