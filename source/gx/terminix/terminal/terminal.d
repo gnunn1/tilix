@@ -873,6 +873,7 @@ private:
         if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
             GMenu windowSection = new GMenu();
             windowSection.append(terminalState == TerminalState.MAXIMIZED?_("Restore"):_("Maximize"), ACTION_MAXIMIZE);
+            windowSection.append(_("Close"), ACTION_CLOSE);
             mmContext.appendSection(null, windowSection);
 
             buildProfileMenu(); 
