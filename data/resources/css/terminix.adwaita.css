@@ -60,3 +60,8 @@
 .compact > button {
 	padding: 0px;
 }
+
+/* Fix Ubuntu Popover label borders, see #217 */
+GtkBox > .label.separator {
+    border: 0px;
+}
