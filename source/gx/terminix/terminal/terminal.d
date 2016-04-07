@@ -617,7 +617,7 @@ private:
         splitSection.appendItem(splitH);
         splitSection.appendItem(splitV);
 
-        GMenuItem splits = new GMenuItem(null, null);
+        GMenuItem splits = new GMenuItem(_("Split"), null);
         splits.setSection(splitSection);
         splits.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
 
@@ -861,11 +861,39 @@ private:
             mmContext.appendSection(null, linkSection);
         }
         GMenu clipSection = new GMenu();
-        clipSection.append(_("Copy"), ACTION_COPY);
-        clipSection.append(_("Paste"), ACTION_PASTE);
-        clipSection.append(_("Select All"), ACTION_SELECT_ALL);
-        mmContext.appendSection(null, clipSection);
 
+        GMenuItem buttons = createSplitButtons();
+        //GMenu splitSection = new GMenu();
+        //splitSection.appendItem(buttons);
+        mmContext.appendItem(buttons);
+
+        if (!CLIPBOARD_BTN_IN_CONTEXT) {
+            clipSection.append(_("Copy"), ACTION_COPY);
+            clipSection.append(_("Paste"), ACTION_PASTE);
+            clipSection.append(_("Select All"), ACTION_SELECT_ALL);
+            mmContext.appendSection(null, clipSection);
+        } else {
+            GMenuItem copy = new GMenuItem(null, ACTION_COPY);
+            copy.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
+            copy.setAttributeValue("label", new GVariant(_("Copy")));            
+            clipSection.appendItem(copy);            
+
+            GMenuItem paste = new GMenuItem(null, ACTION_PASTE);
+            paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
+            paste.setAttributeValue("label", new GVariant(_("Paste")));
+            clipSection.appendItem(paste);
+            
+            GMenuItem selectAll = new GMenuItem(null, ACTION_SELECT_ALL);
+            selectAll.setAttributeValue("verb-icon", new GVariant("edit-select-all-symbolic"));
+            selectAll.setAttributeValue("label", new GVariant(_("Select All")));
+            clipSection.appendItem(selectAll);
+                        
+            GMenuItem clipItem = new GMenuItem(_("Clipboard"), null);
+            clipItem.setSection(clipSection);
+            clipItem.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));                        
+            
+            mmContext.appendItem(clipItem);
+        }
         //Check if titlebar is turned off and add extra items
         if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
             GMenu windowSection = new GMenu();
@@ -877,11 +905,6 @@ private:
             buildEncodingMenu();
             createPopoverMenuItems(mmContext); 
         }
-
-        GMenuItem buttons = createSplitButtons();
-        GMenu splitSection = new GMenu();
-        splitSection.appendItem(buttons);
-        mmContext.appendSection(null, splitSection);
 
         pmContext.bindModel(mmContext, ACTION_PREFIX);
     }

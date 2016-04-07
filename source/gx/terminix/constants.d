@@ -14,6 +14,7 @@ immutable bool DIM_TERMINAL_NO_FOCUS = false;
 immutable bool USE_SCROLLED_WINDOW = false;
 immutable bool USE_PIXBUF_DND = false;
 immutable bool SHOW_DEBUG_OPTIONS = false;
+immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
