@@ -185,7 +185,7 @@ private:
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
         result.addOnButtonPress(delegate(Event event, Widget w) {
-            if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+            if (event.button.window == result.getHandleWindow().getWindowStruct() && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
                 redistributePanes(cast(Paned) w);
                 return true;
             }
