@@ -434,11 +434,8 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!rFind.getRevealChild()) {
                 rFind.setRevealChild(true);
-                rFind.focusSearchEntry();
-            } else {
-                rFind.setRevealChild(false);
-                vte.grabFocus();
-            }
+            }            
+            rFind.focusSearchEntry();
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) { 
             if (!vte.searchFindPrevious() && !vte.searchGetWrapAround) {
