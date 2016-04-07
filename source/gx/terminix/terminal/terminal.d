@@ -1210,6 +1210,14 @@ private:
             workingDir = overrides.workingDir;
             trace("Working directory overriden to " ~ workingDir);
         }
+        if (workingDir.length == 0) {
+            try {
+                workingDir = environment["PWD"];
+            } catch (Exception e) {
+                trace("No PWD environment variable found");
+            }
+        }
+        trace("Spawn setting workingDir to " ~ workingDir);
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
