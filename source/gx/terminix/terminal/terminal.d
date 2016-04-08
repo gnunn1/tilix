@@ -927,11 +927,10 @@ private:
         }
 
         if (event.type == EventType.BUTTON_PRESS) {
-            GdkEventButton* buttonEvent = event.button;
             updateMatch(event);
-            switch (buttonEvent.button) {
+            switch (event.button.button) {
             case MouseButton.PRIMARY:
-                if (match.match) {
+                if ((event.button.state & GdkModifierType.CONTROL_MASK) && match.match) {
                     openURI(match.match, match.flavor);
                     return true;
                 } else {
@@ -945,7 +944,7 @@ private:
                 buildContextMenu();
                 saCopy.setEnabled(vte.getHasSelection());
                 saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
-                GdkRectangle rect = GdkRectangle(to!int(buttonEvent.x), to!int(buttonEvent.y), 1, 1);
+                GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
                 pmContext.setPointingTo(&rect);
                 pmContext.showAll();
                 return true;
