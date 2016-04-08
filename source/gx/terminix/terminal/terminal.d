@@ -371,15 +371,7 @@ private:
         tbSyncInput.setRelief(ReliefStyle.NONE);
         tbSyncInput.setFocusOnClick(false);
         setVerticalMargins(tbSyncInput);
-        tbSyncInput.setActive(_synchronizeInputOverride);
-        tbSyncInput.addOnToggled(delegate(ToggleButton btn) {
-            _synchronizeInputOverride = btn.getActive();
-            if (_synchronizeInputOverride) {
-                btn.setTooltipText(_("Disable input synchronization for this terminal"));
-            } else {
-                btn.setTooltipText(_("Enable input synchronization for this terminal"));
-            }
-        }, ConnectFlags.AFTER);
+        tbSyncInput.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
         bTitle.packEnd(tbSyncInput, false, false, 0);
 
         EventBox evtTitle = new EventBox();
@@ -549,6 +541,19 @@ private:
             sa.setState(new GVariant(newState));
             vte.setInputEnabled(!newState);
         }, null, new GVariant(false));
+
+        //Sync Inout Override
+        registerAction(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, null, delegate(GVariant state, SimpleAction sa) {
+            bool newState = !sa.getState().getBoolean();
+            sa.setState(new GVariant(newState));
+            _synchronizeInputOverride = newState;
+            if (_synchronizeInputOverride) {
+                tbSyncInput.setTooltipText(_("Disable input synchronization for this terminal"));
+            } else {
+                tbSyncInput.setTooltipText(_("Enable input synchronization for this terminal"));
+            }
+            
+        }, null, new GVariant(true));
 
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
@@ -915,6 +920,11 @@ private:
             windowSection.append(terminalState == TerminalState.MAXIMIZED?_("Restore"):_("Maximize"), ACTION_MAXIMIZE);
             windowSection.append(_("Close"), ACTION_CLOSE);
             mmContext.appendSection(null, windowSection);
+            if (_synchronizeInput) {
+                GMenu syncInputSection = new GMenu();
+                syncInputSection.append(_("Synchronize input"), ACTION_SYNC_INPUT_OVERRIDE);
+                mmContext.appendSection(null, syncInputSection);
+            }
 
             buildProfileMenu(); 
             buildEncodingMenu();
