@@ -339,6 +339,7 @@ private:
             buildEncodingMenu(); 
             return false; 
         });
+        
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -371,13 +372,27 @@ private:
         tbSyncInput.setFocusOnClick(false);
         setVerticalMargins(tbSyncInput);
         tbSyncInput.setActive(_synchronizeInputOverride);
-        tbSyncInput.addOnToggled(delegate(ToggleButton btn) { _synchronizeInputOverride = btn.getActive(); }, ConnectFlags.AFTER);
+        tbSyncInput.addOnToggled(delegate(ToggleButton btn) {
+            _synchronizeInputOverride = btn.getActive();
+            if (_synchronizeInputOverride) {
+                btn.setTooltipText(_("Disable input synchronization for this terminal"));
+            } else {
+                btn.setTooltipText(_("Enable input synchronization for this terminal"));
+            }
+        }, ConnectFlags.AFTER);
         bTitle.packEnd(tbSyncInput, false, false, 0);
 
         EventBox evtTitle = new EventBox();
         evtTitle.add(bTitle);
         //Handle double click for window state change
         evtTitle.addOnButtonPress(delegate(Event event, Widget) {
+            int childX, childY;
+            mbTitle.translateCoordinates(evtTitle, 0, 0, childX, childY);
+            //Ignore clicks propagated from Menu Button, see #215
+            if (event.button.x >= childX && event.button.x <= childX + mbTitle.getAllocatedWidth() &&
+                event.button.y >= childY && event.button.y <= childY + mbTitle.getAllocatedHeight()) {
+                return false;
+            }
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
                     maximize();
             } else if (event.getEventType() == EventType.BUTTON_PRESS) {
