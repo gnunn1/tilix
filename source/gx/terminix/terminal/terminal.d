@@ -430,10 +430,10 @@ private:
      */
     void createActions(SimpleActionGroup group) {
         //Terminal Split actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_H, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_RIGHT, gsShortcuts, delegate(GVariant, SimpleAction) {
             notifyTerminalRequestSplit(Orientation.HORIZONTAL);
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_V, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_DOWN, gsShortcuts, delegate(GVariant, SimpleAction) {
             notifyTerminalRequestSplit(Orientation.VERTICAL);
         });
 
@@ -625,11 +625,11 @@ private:
      * Creates the horizontal/vertical split buttons
      */
     GMenuItem createSplitButtons() {
-        GMenuItem splitH = new GMenuItem(null, ACTION_SPLIT_H);
+        GMenuItem splitH = new GMenuItem(null, ACTION_SPLIT_RIGHT);
         splitH.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-right-symbolic"));
         splitH.setAttributeValue("label", new GVariant(_("Split Right")));
 
-        GMenuItem splitV = new GMenuItem(null, ACTION_SPLIT_V);
+        GMenuItem splitV = new GMenuItem(null, ACTION_SPLIT_DOWN);
         splitV.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-down-symbolic"));
         splitV.setAttributeValue("label", new GVariant(_("Split Down")));
 
@@ -769,9 +769,9 @@ private:
      * Enables/Disables actions depending on UI state
      */
     void updateActions() {
-        SimpleAction sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_H);
+        SimpleAction sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_RIGHT);
         sa.setEnabled(terminalState == TerminalState.NORMAL);
-        sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_V);
+        sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_DOWN);
         sa.setEnabled(terminalState == TerminalState.NORMAL);
         //Update button image
         string icon;
@@ -921,7 +921,7 @@ private:
             windowSection.append(_("Close"), ACTION_CLOSE);
             mmContext.appendSection(null, windowSection);
             if (_synchronizeInput) {
-                GMenu syncInputSection = new GMenu();
+                GMenu syncInputSection = new GMenu();                
                 syncInputSection.append(_("Synchronize input"), ACTION_SYNC_INPUT_OVERRIDE);
                 mmContext.appendSection(null, syncInputSection);
             }

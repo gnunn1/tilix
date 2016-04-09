@@ -5,8 +5,8 @@
 module gx.terminix.terminal.actions;
 
 enum ACTION_PREFIX = "terminal";
-enum ACTION_SPLIT_H = "split-horizontal";
-enum ACTION_SPLIT_V = "split-vertical";
+enum ACTION_SPLIT_RIGHT = "split-right";
+enum ACTION_SPLIT_DOWN = "split-down";
 enum ACTION_FIND = "find";
 enum ACTION_FIND_PREVIOUS = "find-previous";
 enum ACTION_FIND_NEXT = "find-next";

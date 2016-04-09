@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 22:27-0400\n"
+"POT-Creation-Date: 2016-04-09 12:57-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jeff Bai <jeffbai@aosc.xyz>\n"
 "Language-Team: AOSC zh_CN <aosc@member.fsf.org>\n"
@@ -168,11 +168,13 @@ msgstr "切换到下一个终端"
 msgid "switch-to-previous-terminal"
 msgstr "切换到上一个终端"
 
-msgid "split-horizontal"
-msgstr "水平分割"
+#, fuzzy
+msgid "split-right"
+msgstr "向右分割"
 
-msgid "split-vertical"
-msgstr "垂直分割"
+#, fuzzy
+msgid "split-down"
+msgstr "向下分割"
 
 msgid "find"
 msgstr "查找"
@@ -476,7 +478,7 @@ msgstr "按 Delete 键产生"
 
 #: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
 #: source/gx/terminix/prefwindow.d:159
-#: source/gx/terminix/terminal/terminal.d:603
+#: source/gx/terminix/terminal/terminal.d:620
 msgid "Encoding"
 msgstr "编码"
 
@@ -516,26 +518,26 @@ msgstr "重启命令"
 msgid "Hold the terminal open"
 msgstr "保持终端开启"
 
-#: source/gx/terminix/constants.d:37
+#: source/gx/terminix/constants.d:38
 msgid "A VTE based terminal emulator for Linux"
 msgstr "用于 Linux 的，基于 VTE 的终端模拟器"
 
-#: source/gx/terminix/constants.d:38
+#: source/gx/terminix/constants.d:39
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:43
+#: source/gx/terminix/constants.d:44
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr "GTK VTE 部件团队，Terminix 的开发离不开他们的劳动"
 
-#: source/gx/terminix/constants.d:44
+#: source/gx/terminix/constants.d:45
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr "GtkD 提供了优秀的 GTK 封装"
 
-#: source/gx/terminix/constants.d:45
+#: source/gx/terminix/constants.d:46
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org 提供了优秀的编程语言，D 语言"
 
@@ -677,7 +679,7 @@ msgstr "越南语"
 msgid "Thai"
 msgstr "泰语"
 
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1247
+#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1249
 #: source/gx/terminix/prefwindow.d:490
 msgid "New Session"
 msgstr "新建会话"
@@ -747,22 +749,22 @@ msgid "EXECUTE"
 msgstr "EXECUTE"
 
 #: source/gx/terminix/application.d:404
-msgid "Hidden argument to pass terminal UUID"
-msgstr "传入终端 UUID 的隐藏参数"
-
-#: source/gx/terminix/application.d:404
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/terminix/application.d:405
 msgid "Maximize the terminal window"
 msgstr "最大化终端窗口"
 
-#: source/gx/terminix/application.d:406
+#: source/gx/terminix/application.d:405
 msgid "Full-screen the terminal window"
 msgstr "全屏终端窗口"
 
-#: source/gx/terminix/application.d:546
+#: source/gx/terminix/application.d:408
+msgid "Hidden argument to pass terminal UUID"
+msgstr "传入终端 UUID 的隐藏参数"
+
+#: source/gx/terminix/application.d:408
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/terminix/application.d:548
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -771,11 +773,11 @@ msgstr ""
 "终端配置似乎存在问题。这并不是严重问题，但是更正这些问题将改善你的使用体验。"
 "点击如下链接以获取更多信息："
 
-#: source/gx/terminix/application.d:547
+#: source/gx/terminix/application.d:549
 msgid "Configuration Issue Detected"
 msgstr "检测到配置问题"
 
-#: source/gx/terminix/application.d:559
+#: source/gx/terminix/application.d:561
 msgid "Do not show this message again"
 msgstr "不再显示该信息"
 
@@ -787,11 +789,11 @@ msgstr "无法定位放置的终端"
 msgid "Could not locate session for dropped terminal"
 msgstr "无法定位放置的终端的会话"
 
-#: source/gx/terminix/session.d:1213
+#: source/gx/terminix/session.d:1215
 msgid "Name"
 msgstr "名称"
 
-#: source/gx/terminix/session.d:1224 source/gx/terminix/prefwindow.d:326
+#: source/gx/terminix/session.d:1226 source/gx/terminix/prefwindow.d:326
 msgid "Profile"
 msgstr "配置方案"
 
@@ -800,7 +802,7 @@ msgid "Global"
 msgstr "全局"
 
 #: source/gx/terminix/prefwindow.d:83
-#: source/gx/terminix/terminal/terminal.d:602
+#: source/gx/terminix/terminal/terminal.d:619
 msgid "Profiles"
 msgstr "配置方案"
 
@@ -870,7 +872,8 @@ msgid "Split Vertical"
 msgstr "垂直分割"
 
 #: source/gx/terminix/prefwindow.d:496
-#: source/gx/terminix/terminal/terminal.d:868
+#: source/gx/terminix/terminal/terminal.d:892
+#: source/gx/terminix/terminal/terminal.d:903
 msgid "Paste"
 msgstr "粘贴"
 
@@ -975,150 +978,174 @@ msgid "Wrap around"
 msgstr "换行"
 
 #: source/gx/terminix/terminal/terminal.d:319
-#: source/gx/terminix/terminal/terminal.d:735
+#: source/gx/terminix/terminal/terminal.d:752
 msgid "Terminal"
 msgstr "终端"
 
-#: source/gx/terminix/terminal/terminal.d:349
+#: source/gx/terminix/terminal/terminal.d:350
+#: source/gx/terminix/terminal/terminal.d:921
 #: source/gx/terminix/appwindow.d:401
 msgid "Close"
 msgstr "关闭"
 
-#: source/gx/terminix/terminal/terminal.d:358
-#: source/gx/terminix/terminal/terminal.d:766
-#: source/gx/terminix/terminal/terminal.d:875
+#: source/gx/terminix/terminal/terminal.d:359
+#: source/gx/terminix/terminal/terminal.d:783
+#: source/gx/terminix/terminal/terminal.d:920
 msgid "Maximize"
 msgstr "最大化"
 
-#: source/gx/terminix/terminal/terminal.d:369
+#: source/gx/terminix/terminal/terminal.d:370
+#: source/gx/terminix/terminal/terminal.d:551
 msgid "Disable input synchronization for this terminal"
 msgstr "为此终端关闭输入同步"
 
-#: source/gx/terminix/terminal/terminal.d:402
+#: source/gx/terminix/terminal/terminal.d:409
 msgid "Edit Profile"
 msgstr "编辑配置方案"
 
-#: source/gx/terminix/terminal/terminal.d:522
+#: source/gx/terminix/terminal/terminal.d:526
 #: source/gx/terminix/appwindow.d:622
 msgid "There are processes that are still running, close anyway?"
 msgstr "仍有正在运行的进程，依然要关闭吗？"
 
-#: source/gx/terminix/terminal/terminal.d:592
+#: source/gx/terminix/terminal/terminal.d:553
+#, fuzzy
+msgid "Enable input synchronization for this terminal"
+msgstr "为此终端关闭输入同步"
+
+#: source/gx/terminix/terminal/terminal.d:609
 msgid "Save…"
 msgstr "保存…"
 
-#: source/gx/terminix/terminal/terminal.d:593
+#: source/gx/terminix/terminal/terminal.d:610
 msgid "Find…"
 msgstr "查找…"
 
-#: source/gx/terminix/terminal/terminal.d:594
+#: source/gx/terminix/terminal/terminal.d:611
 msgid "Layout Options…"
 msgstr "布局选项…"
 
-#: source/gx/terminix/terminal/terminal.d:598
+#: source/gx/terminix/terminal/terminal.d:615
 msgid "Read-Only"
 msgstr "只读"
 
-#: source/gx/terminix/terminal/terminal.d:613
+#: source/gx/terminix/terminal/terminal.d:630
 msgid "Split Right"
 msgstr "向右分割"
 
-#: source/gx/terminix/terminal/terminal.d:617
+#: source/gx/terminix/terminal/terminal.d:634
 msgid "Split Down"
 msgstr "向下分割"
 
-#: source/gx/terminix/terminal/terminal.d:763
-#: source/gx/terminix/terminal/terminal.d:875
+#: source/gx/terminix/terminal/terminal.d:640
+#, fuzzy
+msgid "Split"
+msgstr "分割"
+
+#: source/gx/terminix/terminal/terminal.d:780
+#: source/gx/terminix/terminal/terminal.d:920
 msgid "Restore"
 msgstr "恢复"
 
-#: source/gx/terminix/terminal/terminal.d:862
+#: source/gx/terminix/terminal/terminal.d:879
 msgid "Open Link"
 msgstr "打开链接"
 
-#: source/gx/terminix/terminal/terminal.d:863
+#: source/gx/terminix/terminal/terminal.d:880
 msgid "Copy Link Address"
 msgstr "复制链接地址"
 
-#: source/gx/terminix/terminal/terminal.d:867
+#: source/gx/terminix/terminal/terminal.d:891
+#: source/gx/terminix/terminal/terminal.d:898
 msgid "Copy"
 msgstr "复制"
 
-#: source/gx/terminix/terminal/terminal.d:869
+#: source/gx/terminix/terminal/terminal.d:893
+#: source/gx/terminix/terminal/terminal.d:908
 msgid "Select All"
 msgstr "全选"
 
-#: source/gx/terminix/terminal/terminal.d:1220
+#: source/gx/terminix/terminal/terminal.d:911
+#, fuzzy
+msgid "Clipboard"
+msgstr "剪贴板"
+
+#: source/gx/terminix/terminal/terminal.d:925
+#, fuzzy
+msgid "Synchronize input"
+msgstr "同步输入"
+
+#: source/gx/terminix/terminal/terminal.d:1277
 msgid "Unexpected error occurred, no additional information available"
 msgstr "发生未知错误，无其他可用信息"
 
-#: source/gx/terminix/terminal/terminal.d:1226
+#: source/gx/terminix/terminal/terminal.d:1283
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "发生未知错误：%s"
 
-#: source/gx/terminix/terminal/terminal.d:1542
+#: source/gx/terminix/terminal/terminal.d:1599
 msgid "Save Terminal Output"
 msgstr "保存终端输出"
 
-#: source/gx/terminix/terminal/terminal.d:1548
+#: source/gx/terminix/terminal/terminal.d:1605
 msgid "All Text Files"
 msgstr "所有文本文件"
 
-#: source/gx/terminix/terminal/terminal.d:1552
+#: source/gx/terminix/terminal/terminal.d:1609
 #: source/gx/terminix/appwindow.d:678
 msgid "All Files"
 msgstr "所有文件"
 
-#: source/gx/terminix/terminal/terminal.d:1855
+#: source/gx/terminix/terminal/terminal.d:1912
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "子进程以 %d 状态正常退出"
 
-#: source/gx/terminix/terminal/terminal.d:1856
+#: source/gx/terminix/terminal/terminal.d:1913
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "子进程被 %d 信号中止。"
 
-#: source/gx/terminix/terminal/terminal.d:1857
+#: source/gx/terminix/terminal/terminal.d:1914
 msgid "The child process was aborted."
 msgstr "子进程已被中止。"
 
-#: source/gx/terminix/terminal/terminal.d:1863
+#: source/gx/terminix/terminal/terminal.d:1920
 msgid "Relaunch"
 msgstr "重新启动"
 
-#: source/gx/terminix/terminal/terminal.d:1903
+#: source/gx/terminix/terminal/terminal.d:1960
 msgid "This command is asking for Administrative access to your computer"
 msgstr "命令正在请求计算机的管理员权限"
 
-#: source/gx/terminix/terminal/terminal.d:1904
+#: source/gx/terminix/terminal/terminal.d:1961
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "从互联网复制命令有一定危险性。"
 
-#: source/gx/terminix/terminal/terminal.d:1905
+#: source/gx/terminix/terminal/terminal.d:1962
 msgid "Be sure you understand what each part of this command does."
 msgstr "你应当确认命令每个部分的作用。"
 
-#: source/gx/terminix/terminal/terminal.d:1907
+#: source/gx/terminix/terminal/terminal.d:1964
 msgid "Don't Paste"
 msgstr "不要粘贴"
 
-#: source/gx/terminix/terminal/terminal.d:1908
+#: source/gx/terminix/terminal/terminal.d:1965
 msgid "Paste Anyway"
 msgstr "依然粘贴"
 
-#: source/gx/terminix/cmdparams.d:78
-#, c-format
-msgid "Ignoring parameter working-directory as '%s' is not a directory"
+#: source/gx/terminix/cmdparams.d:71
+#, fuzzy, c-format
+msgid "Ignoring as '%s' is not a directory"
 msgstr "忽略 working-directory 参数，因为“%s”不是目录"
 
-#: source/gx/terminix/cmdparams.d:87
+#: source/gx/terminix/cmdparams.d:98
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "忽略 session 参数，因为“%s”不存在"
 
-#: source/gx/terminix/cmdparams.d:96
+#: source/gx/terminix/cmdparams.d:107
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1175,23 +1202,23 @@ msgstr "所有 JSON 文件"
 msgid "Filename '%s' does not exist"
 msgstr "文件名“%s”不存在"
 
-#: source/gx/terminix/appwindow.d:712
+#: source/gx/terminix/appwindow.d:714
 msgid "Load Session"
 msgstr "载入会话"
 
-#: source/gx/terminix/appwindow.d:725
+#: source/gx/terminix/appwindow.d:727
 msgid "Could not load session due to unexpected error."
 msgstr "发生未知错误，无法载入会话。"
 
-#: source/gx/terminix/appwindow.d:725
+#: source/gx/terminix/appwindow.d:727
 msgid "Error Loading Session"
 msgstr "载入会话出错"
 
-#: source/gx/terminix/appwindow.d:740
+#: source/gx/terminix/appwindow.d:742
 msgid "Save Session"
 msgstr "保存会话"
 
-#: source/gx/terminix/appwindow.d:775
+#: source/gx/terminix/appwindow.d:777
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 msgid "Terminix"
 msgstr "Terminix"
@@ -1200,16 +1227,16 @@ msgstr "Terminix"
 msgid "disabled"
 msgstr "已禁用"
 
-#: source/app.d:41
+#: source/app.d:42
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "你的 GTK 版本太老，需要至少 GTK %d.%d.%d！"
 
-#: source/app.d:61
+#: source/app.d:62
 msgid "Unexpected exception occurred"
 msgstr "发生未预期错误"
 
-#: source/app.d:62
+#: source/app.d:63
 msgid "Error: "
 msgstr "错误："
 
@@ -1585,6 +1612,12 @@ msgstr "切换只读模式"
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "布局选项"
+
+#~ msgid "split-horizontal"
+#~ msgstr "水平分割"
+
+#~ msgid "split-vertical"
+#~ msgstr "垂直分割"
 
 #~ msgid "Use small size for terminal titlebars"
 #~ msgstr "使用较小的终端标题栏"
