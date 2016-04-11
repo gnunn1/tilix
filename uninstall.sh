@@ -15,6 +15,7 @@ echo "Uninstalling from prefix ${PREFIX}"
 
 rm ${PREFIX}/bin/terminix
 rm ${PREFIX}/share/glib-2.0/schemas/com.gexperts.Terminix.gschema.xml
+glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
 rm -rf ${PREFIX}/share/terminix
 
 find ${PREFIX}/share/locale -type f -name "terminix.mo" -delete
