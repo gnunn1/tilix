@@ -30,6 +30,7 @@ import gtk.Revealer;
 import gtk.SearchEntry;
 import gtk.ToggleButton;
 import gtk.Widget;
+import gtk.Version;
 
 import vte.Terminal : VTE = Terminal;
 
@@ -87,7 +88,9 @@ private:
         seSearch = new SearchEntry();
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
-        seSearch.getStyleContext().addClass("terminix-search-entry");
+        if (Version.checkVersion(3, 20, 0).length != 0) {
+            seSearch.getStyleContext().addClass("terminix-search-entry");
+        }
         seSearch.addOnSearchChanged(delegate(SearchEntry) {
             setTerminalSearchCriteria(); 
         });
