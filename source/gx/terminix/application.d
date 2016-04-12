@@ -192,7 +192,7 @@ private:
 
             setWrapLicense(true);
             setLogoIconName(null);
-            setName(APPLICATION_NAME);
+            setProgramName(APPLICATION_NAME);
             setComments(_(APPLICATION_COMMENTS));
             setVersion(APPLICATION_VERSION);
             setCopyright(APPLICATION_COPYRIGHT);
