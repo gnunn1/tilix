@@ -29,8 +29,10 @@ import gtk.CheckButton;
 import gtk.ComboBox;
 import gtk.Grid;
 import gtk.HeaderBar;
+import gtk.Image;
 import gtk.Label;
 import gtk.ListStore;
+import gtk.MessageDialog;
 import gtk.Notebook;
 import gtk.ScrolledWindow;
 import gtk.Switch;
@@ -41,6 +43,7 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Version;
 import gtk.Widget;
+import gtk.Window;
 
 import vte.Terminal;
 
@@ -226,11 +229,13 @@ private:
             trace("Updating shortcut as " ~ label);
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
-            //Note accelerator changed by app which is monitoring gsetting changes
             string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
-            trace(format("Setting action %s to shortcut %s", action, label));
-            gsShortcuts.setString(action, name);
+            if (checkAndPromptChangeShortcut(action, name, label)) {
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+                trace(format("Setting action %s to shortcut %s", action, label));
+                //Note accelerator changed by app which is monitoring gsetting changes
+                gsShortcuts.setString(action, name);
+            }
         });
         column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 
@@ -244,6 +249,50 @@ private:
         add(scShortcuts);
 
         tvShortcuts.expandAll();
+    }
+    
+    /**
+     * Check if shortcut is already assigned and if so disable it
+     */
+    bool checkAndPromptChangeShortcut(string actionName, string accelName, string accelLabel) {
+        //Get first level, shortcut categories (i.e. Application, Window, Session or Terminal)
+        TreeIterRange categoryRange = TreeIterRange(tsShortcuts);
+        foreach(TreeIter categoryIter; categoryRange) {
+            //Get second level which is shortcuts
+            TreeIterRange shortcutRange = TreeIterRange(tsShortcuts, categoryIter);
+            foreach(TreeIter iter; shortcutRange) {
+                string currentActionName = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+                if (currentActionName.length > 0 && currentActionName != actionName) {
+                    if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT) == accelLabel) {
+                        MessageDialog dlg = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
+                        scope (exit) {
+                            dlg.destroy();
+                        }
+                        string title = "<span weight='bold' size='larger'>" ~ _("Overwrite Existing Shortcut") ~ "</span>";
+                        string msg = format(_("The shortcut %s is already assigned to %s.\nDisable the shortcut for the other action and assign here instead?"), accelLabel, tsShortcuts.getValueString(iter, COLUMN_NAME));
+                        with (dlg) {
+                            setTransientFor(cast(Window) this.getToplevel());
+                            setMarkup(title);
+                            getMessageArea().setMarginLeft(0);
+                            getMessageArea().setMarginRight(0);
+                            getMessageArea().add(new Label(msg));
+                            setImage(new Image("dialog-question", IconSize.DIALOG));
+                            dlg.setDefaultResponse(ResponseType.OK);
+                            showAll();
+                        }
+                        if (dlg.run() != ResponseType.CANCEL) {
+                            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+                            gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
+                            return true;                        
+                        } else {
+                            return false;
+                        }
+                    } 
+                }
+            }    
+        }
+     
+        return true;
     }
 
     void loadShortcuts(TreeStore ts) {

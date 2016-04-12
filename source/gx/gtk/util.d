@@ -357,7 +357,13 @@ private:
 public:
     this(TreeModelIF model) {
         this.model = model;
-        _empty = model.getIterFirst(iter);
+        _empty = !model.getIterFirst(iter);
+    }
+    
+    this(TreeModelIF model, TreeIter parent) {
+        this.model = model;
+        _empty = !model.iterChildren(iter, parent);
+        if (_empty) trace("TreeIter has no children");
     }
 
     @property bool empty() {
@@ -376,16 +382,16 @@ public:
      * Based on the example here https://www.sociomantic.com/blog/2010/06/opapply-recipe/#.Vm8mW7grKEI
      */
     int opApply(int delegate(ref TreeIter iter) dg) {
-        trace("Iterate on Apply Start");
         int result = 0;
-        bool hasNext = model.getIterFirst(iter);
+        //bool hasNext = model.getIterFirst(iter);
+        bool hasNext = !_empty;
         while (hasNext) {
             result = dg(iter);
-            if (result)
+            if (result) {
                 break;
+            }
             hasNext = model.iterNext(iter);
         }
-        trace("Iterate on Apply End");
         return result;
     }
 }
