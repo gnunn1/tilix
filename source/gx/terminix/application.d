@@ -272,12 +272,12 @@ private:
                     //Split Horizontal
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
                         aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-horizontal");
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
                         return cp.exitCode;
                     //Split Verical
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
                         aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-vertical");
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
                         return cp.exitCode;
                     default:
                         //Fall through to activate
