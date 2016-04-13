@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cat <<EOF >Makefile
+all:
+	LD_LIBRARY_PATH=/app/linux/release/64 dub build --build=release
+
+install:
+	./install.sh /app
+
+EOF

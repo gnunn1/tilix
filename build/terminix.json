@@ -1,0 +1,104 @@
+{
+        "id": "com.gexperts.Terminix",
+        "version": "master",
+        "runtime": "org.gnome.Platform",
+        "sdk": "org.gnome.Sdk",
+        "command": "terminix",
+        "cleanup-commands": ["rm -rf /app/lib",
+                             "rm -rf /app/src",
+                             "rm -rf /app/linux",
+                             "rm -rf /app/share/nautilus-python",
+                             "rm /app/bin/dmd",
+                             "rm /app/bin/dmd.conf",
+                             "rm /app/bin/dub",
+                             "rm /app/*-LICENSE.txt"],
+        "finish-args": ["--command=terminix",
+                        "--share=ipc",
+                        "--socket=wayland",
+                        "--socket=session-bus",
+                        "--talk-name=ca.desrt.dconf",
+                        "--filesystem=home"],
+        "modules": [
+                {
+                        "name": "dmd",
+                        "build-options": {
+                                "build-args": ["--share=network"]
+                        },
+                        "sources": [
+                                {
+                                        "type": "git",
+                                        "url": "http://github.com/D-Programming-Language/dmd",
+                                        "branch": "master"
+                                },
+                                {
+                                        "type": "file",
+                                        "path": "dmd-configure",
+                                        "dest-filename": "configure"
+                                }
+                        ]
+                },
+                {
+                        "name": "druntime",
+                        "sources": [
+                                {
+                                        "type": "git",
+                                        "url": "http://github.com/D-Programming-Language/druntime",
+                                        "branch": "master"
+                                },
+                                {
+                                        "type": "file",
+                                        "path": "druntime-configure",
+                                        "dest-filename": "configure"
+                                }
+                        ]
+                },
+                {
+                        "name": "phobos",
+                        "sources": [
+                                {
+                                        "type": "git",
+                                        "url": "http://github.com/D-Programming-Language/phobos",
+                                        "branch": "master"
+                                },
+                                {
+                                        "type": "file",
+                                        "path": "phobos-configure",
+                                        "dest-filename": "configure"
+                                }
+                        ]
+                },
+                {
+                        "name": "dub",
+                        "sources": [
+                                {
+                                        "type": "git",
+                                        "url": "http://github.com/D-Programming-Language/dub",
+                                        "branch": "master"
+                                },
+                                {
+                                        "type": "file",
+                                        "path": "dub-configure",
+                                        "dest-filename": "configure"
+                                }
+                        ]
+                },
+                {
+                        "name": "terminix",
+                        "build-options": {
+                                "build-args": ["--share=network"]
+                        },
+                        "sources": [
+                                {
+                                        "type": "git",
+                                        "url": "http://github.com/gnunn1/terminix",
+                                        "branch": "master"
+                                },
+                                {
+                                        "type": "file",
+                                        "path": "terminix-configure",
+                                        "dest-filename": "configure"
+                                }
+                       ]
+                }
+        ]
+}

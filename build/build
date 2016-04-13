@@ -1,0 +1,14 @@
+#! /bin/sh
+
+BUILD_DIR=terminix-build
+JSON=terminix.json
+REPO=$HOME/xdg-app-repos/terminix
+
+echo "Removing build dir..."
+rm -rf $BUILD_DIR
+
+echo "Building with xdg-app-builder..."
+xdg-app-builder --repo=$REPO $BUILD_DIR $JSON
+
+echo "Creating bundle file..."
+xdg-app build-bundle $REPO terminix.bundle com.gexperts.Terminix master
