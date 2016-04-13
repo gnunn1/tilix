@@ -23,6 +23,7 @@ enum CMD_ACTION = "action";
 enum CMD_TERMINAL_UUID = "terminalUUID";
 enum CMD_MAXIMIZE = "maximize";
 enum CMD_FULL_SCREEN = "full-screen";
+enum CMD_FOCUS_WINDOW = "focus-window";
 
 /**
  * Manages the terminix command line options
@@ -41,6 +42,7 @@ private:
     
     bool _maximize;
     bool _fullscreen;
+    bool _focusWindow;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -120,6 +122,7 @@ public:
         
         _maximize = vd.contains(CMD_MAXIMIZE);
         _fullscreen = vd.contains(CMD_FULL_SCREEN);
+        _focusWindow = vd.contains(CMD_FOCUS_WINDOW);
         
         trace("Command line parameters:");
         trace("\tworking-directory=" ~ _workingDir);
@@ -142,6 +145,7 @@ public:
         _cwd.length = 0;
         _maximize = false;
         _fullscreen = false;
+        _focusWindow = false;
         _exit = false;
     }
 
@@ -183,6 +187,10 @@ public:
 
     @property bool fullscreen() {
         return _fullscreen;
+    }
+    
+    @property bool focusWindow() {
+        return _focusWindow;
     }
 
     @property bool exit() {

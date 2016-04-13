@@ -262,22 +262,29 @@ private:
         
         if (acl.getIsRemote()) {
             AppWindow aw = getActiveAppWindow();
-            if (aw !is null) {    
-                switch (gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY)) {
+            if (aw !is null) {
+                string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
+                //If focus-window command line parameter was passed, override setting
+                if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];    
+                switch (instanceAction) {
                     //New Session
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
                         aw.present();
                         aw.createSession();
                         return cp.exitCode;
-                    //Split Horizontal
+                    //Split Right
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
                         aw.present();
                         executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
                         return cp.exitCode;
-                    //Split Verical
+                    //Split Down
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
                         aw.present();
                         executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
+                        return cp.exitCode;
+                    //Focus Window
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
+                        aw.present();
                         return cp.exitCode;
                     default:
                         //Fall through to activate
@@ -403,6 +410,7 @@ public:
         addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
         addMainOption(CMD_MAXIMIZE, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Maximize the terminal window"), null);
         addMainOption(CMD_FULL_SCREEN, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Full-screen the terminal window"), null);
+        addMainOption(CMD_FOCUS_WINDOW, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Focus the existing window"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, 't', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));

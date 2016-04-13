@@ -29,7 +29,7 @@ enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
 immutable string[] SETTINGS_THEME_VARIANT_VALUES = [SETTINGS_THEME_VARIANT_SYSTEM_VALUE, SETTINGS_THEME_VARIANT_LIGHT_VALUE, SETTINGS_THEME_VARIANT_DARK_VALUE];
 
 enum SETTINGS_NEW_INSTANCE_MODE_KEY = "new-instance-mode";
-immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-right", "split-down"];
+immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-right", "split-down", "focus-window"];
 
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";

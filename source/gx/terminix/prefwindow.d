@@ -536,7 +536,7 @@ private:
         Label lblNewInstance = new Label(_("On new instance"));
         lblNewInstance.setHalign(Align.END);
         bNewInstance.add(lblNewInstance);
-        ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
+        ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down"), _("Focus Window")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
         gsSettings.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
         bNewInstance.add(cbNewInstance);
         add(bNewInstance);
