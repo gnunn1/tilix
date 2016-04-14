@@ -52,6 +52,16 @@ xgettext \
   --language=Desktop \
   ${BASEDIR}/data/pkg/desktop/com.gexperts.Terminix.desktop.in
 
+xgettext \
+  --join-existing \
+  --output $OUTPUT_FILE \
+  --default-domain=$DOMAIN \
+  --package-name=$DOMAIN \
+  --directory=$BASEDIR \
+  --foreign-user \
+  --language=appdata \
+  ${BASEDIR}/data/appdata/com.gexperts.Terminix.appdata.xml.in
+
 # Merge the messages with existing po files
 echo "Merging with existing translations... "
 for file in ${BASEDIR}/po/*.po
