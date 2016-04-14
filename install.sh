@@ -47,6 +47,9 @@ done
 # Generate desktop file
 msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
 
+# Generate appdata file
+msgfmt --xml --template=data/appdata/com.gexperts.Terminix.appdata.xml.in -d po -o data/appdata/com.gexperts.Terminix.appdata.xml
+
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
 mkdir -p ${PREFIX}/share/nautilus-python/extensions/
@@ -61,3 +64,4 @@ mkdir -p ${PREFIX}/bin
 cp terminix ${PREFIX}/bin/terminix
 mkdir -p ${PREFIX}/share/applications
 cp data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications
+cp data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/appdata
