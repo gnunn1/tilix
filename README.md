@@ -38,15 +38,15 @@ Terminix requires the following libraries to be installed in order to run:
 
 ### Building
 
-Terminix is written in D and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (DMD and Phobos) along with dub itself.
+Terminix is written in D and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (DMD and Phobos) along with dub itself. Note that D supports three compilers (DMD, GDC and LDC) and Terminix only supports DMD.
 
-Once you have those installed, building the application is a one line command as follows:
+Once you have those installed, compiling the application is a one line command as follows:
 
 ```
 dub build --build=release
 ```
 
-The application depends on various resources to function correctly, run sudo ./install.sh to compile and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
+The application depends on various resources to function correctly, run sudo ./install.sh to build and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
 
 #### Build Dependencies
 
