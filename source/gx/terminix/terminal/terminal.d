@@ -1088,6 +1088,21 @@ private:
                     trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(vteFG, vteBG, vtePalette);
+            /**
+            //Fooling around with improving Ubuntu scrollbar look, nowhere near ready for primetime, do not uncomment for public builds
+
+            //Note for test purposes I just create a one-off provider and add it, obviously to support
+            //color changes this provider must be removed and a new one added which means the provider
+            //object has to be saved as a class field with the colors (vteFG, vteBG, etc)
+            static if (!USE_SCROLLED_WINDOW) {
+                import gtk.CssProvider;
+                CssProvider provider = new CssProvider();
+                string css = format("* { background-color: %s; }", vteBG); //rgbaTo8bitHex(vteBG, true, true));
+                trace(css);
+                provider.loadFromData(css);
+                sb.getStyleContext().addProvider(provider, GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+            }
+            **/
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             static if (!USE_SCROLLED_WINDOW) {
