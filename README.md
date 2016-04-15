@@ -20,7 +20,7 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 
 The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than Gnome, only Unity and has been tested officially though users have had success with other desktop environments.
 
-At this point in time the application should be considered mid alpha and has been tested to varying degrees with the following distros:
+At this point in time the application should be considered beta and has been tested to varying degrees with the following distros:
 
 * Arch Linux (primary test platform, works)
 * Ubuntu 16.04 (secondary, works)
@@ -51,7 +51,7 @@ The application depends on various resources to function correctly, run sudo ./i
 #### Build Dependencies
 
 Terminix depends on the following libraries as defined in dub.json:
-* [gtkd](http://gtkd.org/) >= 3.2.2
+* [gtkd](http://gtkd.org/) >= 3.3.0
 
 ### Install Terminix
 
