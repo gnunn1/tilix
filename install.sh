@@ -76,5 +76,4 @@ desktop-file-validate ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
 if [ "$PREFIX" == '/usr' ]; then
     echo "Updating icon cache"
     sudo gtk-update-icon-cache -f /usr/share/icons/hicolor/
-    nautilus -q
 fi
