@@ -59,9 +59,22 @@ cp data/nautilus/open-terminix.py ${PREFIX}/share/nautilus-python/extensions/ope
 mkdir -p ${PREFIX}/share/dbus-1/services
 cp data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services
 
-# Copy executable and desktop file
+# Copy Icons
+mkdir -p ${PREFIX}/share/icons/hicolor
+cp -r data/icons/hicolor/. ${PREFIX}/share/icons/hicolor
+
+# Copy executable, desktop and appdata file
 mkdir -p ${PREFIX}/bin
 cp terminix ${PREFIX}/bin/terminix
 mkdir -p ${PREFIX}/share/applications
 cp data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications
 cp data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/appdata
+
+desktop-file-validate ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
+
+# Update icon cache if Prefix is /usr
+if [ "$PREFIX" == '/usr' ]; then
+    echo "Updating icon cache"
+    sudo gtk-update-icon-cache -f /usr/share/icons/hicolor/
+    nautilus -q
+fi

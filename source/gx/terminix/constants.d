@@ -38,7 +38,7 @@ enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2016 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
 enum APPLICATION_LICENSE = N_("This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.");
-enum APPLICATION_ICON_NAME = "utilities-terminal";
+enum APPLICATION_ICON_NAME = "terminix";
 
 immutable string[] APPLICATION_AUTHORS = [APPLICATION_AUTHOR];
 string[] APPLICATION_CREDITS = [
