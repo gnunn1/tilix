@@ -47,8 +47,11 @@ done
 # Generate desktop file
 msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
 
-# Generate appdata file
+# Generate appdata file, requires xgettext 0.19.7
 msgfmt --xml --template=data/appdata/com.gexperts.Terminix.appdata.xml.in -d po -o data/appdata/com.gexperts.Terminix.appdata.xml
+if [ $? -ne 0 ]; then
+    echo "Note that localizating appdata requires xgettext 0.19.7 or later"
+fi
 
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
