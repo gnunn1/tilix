@@ -12,6 +12,9 @@ import gio.ActionMapIF;
 import gio.SimpleAction;
 import gio.Settings : GSettings = Settings;
 
+import glib.Variant: GVariant = Variant;
+import glib.VariantType: GVariantType = VariantType;
+
 import gtk.AccelGroup;
 import gtk.Application;
 import gtk.ApplicationWindow;
@@ -87,8 +90,8 @@ string keyToDetailedActionName(string key) {
     *
     * Returns: The registered action.
     */
-SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(glib.Variant.Variant,
-        SimpleAction) cbActivate = null, glib.VariantType.VariantType type = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(GVariant,
+        SimpleAction) cbActivate = null, GVariantType type = null, GVariant state = null, void delegate(GVariant,
         SimpleAction) cbStateChange = null) {
 
     string[] shortcuts;
@@ -123,8 +126,8 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
     *
     * Returns: The registered action.
     */
-SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(glib.Variant.Variant,
-        SimpleAction) cbActivate = null, glib.VariantType.VariantType parameterType = null, glib.Variant.Variant state = null, void delegate(glib.Variant.Variant,
+SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(GVariant,
+        SimpleAction) cbActivate = null, GVariantType parameterType = null, GVariant state = null, void delegate(GVariant,
         SimpleAction) cbStateChange = null) {
     SimpleAction action;
     if (state is null)
