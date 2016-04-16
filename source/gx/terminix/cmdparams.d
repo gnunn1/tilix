@@ -1,5 +1,6 @@
 module gx.terminix.cmdparams;
 
+import std.algorithm;
 import std.experimental.logger;
 import std.file;
 import std.path;
@@ -98,7 +99,7 @@ public:
                 _session[i] = expandTilde(_session[i]);
                 if (!isFile(_session[i])) {
                     writeln(format(_("Ignoring parameter session as '%s' does not exist"), _session));
-                    std.algorithm.remove(_session, i);
+                    remove(_session, i);
                 }
             }
         }

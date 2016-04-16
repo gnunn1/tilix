@@ -20,11 +20,14 @@ import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
 import glib.ListG;
+import glib.Str;
 import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
 import gobject.Value;
+
+import gtkc.gtk;
 
 import gtk.AboutDialog;
 import gtk.Application;
@@ -51,6 +54,8 @@ import gx.terminix.preferences;
 import gx.terminix.prefwindow;
 import gx.terminix.profilewindow;
 import gx.terminix.shortcuts;
+
+static import gx.util.array;
 
 Terminix terminix;
 
@@ -314,7 +319,7 @@ private:
             if (shortcut == SHORTCUT_DISABLED) {
                 char** tmp = (new char*[1]).ptr;
                 tmp[0] = cast(char*) '\0';                
-                gtkc.gtk.gtk_application_set_accels_for_action(gtkApplication, glib.Str.Str.toStringz(actionName), tmp);
+                gtk_application_set_accels_for_action(gtkApplication, Str.toStringz(actionName), tmp);
                 trace("Removing accelerator");
             } else {
                 setAccelsForAction(actionName, [shortcut]);

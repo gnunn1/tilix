@@ -14,6 +14,7 @@ import cairo.Context;
 import cairo.Surface;
 
 import gdk.Cairo;
+import gdk.Pixbuf;
 import gdk.RGBA;
 import gdk.Screen;
 import gdk.Visual;
@@ -21,7 +22,10 @@ import gdk.Window;
 
 import gdkpixbuf.Pixbuf;
 
+import gtkc.cairotypes;
+
 import gtk.Container;
+import gtk.Main;
 import gtk.OffscreenWindow;
 import gtk.Widget;
 
@@ -65,7 +69,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             solution implemented here.
             */
             while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
-                gtk.Main.Main.iterationDo(false);
+                Main.iterationDo(false);
             }
             // While we could call getPixBuf() on Offscreen Window, drawing 
             // it ourselves gives better results when dealing with transparency
@@ -93,11 +97,11 @@ Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int heigh
     trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
    
     Window window = widget.getWindow();
-    Surface surface = window.createSimilarSurface(gtkc.cairotypes.cairo_content_t.COLOR, pw, ph);
+    Surface surface = window.createSimilarSurface(cairo_content_t.COLOR, pw, ph);
     Context cr = Context.create(surface);
     cr.scale(factor, factor);
     widget.draw(cr);
-    return gdk.Pixbuf.getFromSurface(surface, 0, 0, pw, ph);
+    return getFromSurface(surface, 0, 0, pw, ph);
 }
 
 class RenderWindow: OffscreenWindow {

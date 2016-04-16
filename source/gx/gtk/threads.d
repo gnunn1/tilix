@@ -4,11 +4,12 @@
  */
 module gx.gtk.threads;
 
-import gdk.Threads;
+import core.memory;
 
 import std.algorithm;
 import std.stdio;
 
+import gdk.Threads;
 
 /**
   * Simple structure that contains a pointer to a delegate. This is necessary because delegates are not directly
@@ -116,7 +117,7 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 		}
 		
 		if (!callAgainNextIdleCycle)
-			core.memory.GC.removeRoot(delegatePointer);
+			GC.removeRoot(delegatePointer);
 		
 		return callAgainNextIdleCycle;
 	};
@@ -125,7 +126,7 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 	
 	// We're going into a separate thread and exiting here, make sure the garbage collector doesn't think the memory
 	// isn't used anymore and collects it.
-	core.memory.GC.addRoot(delegatePointer);
+	GC.addRoot(delegatePointer);
 	
 	gdk.Threads.threadsAddIdle(
 		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), bool),

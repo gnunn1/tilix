@@ -1649,7 +1649,7 @@ private:
             }
         }
         //Do work here
-        gio.FileIF.FileIF file = gio.File.File.parseName(outputFilename);
+        GFileIF file = GFile.parseName(outputFilename);
         gio.OutputStream.OutputStream stream = file.create(GFileCreateFlags.NONE, null);
         scope (exit) {
             stream.close(null);

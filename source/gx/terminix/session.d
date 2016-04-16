@@ -39,6 +39,7 @@ import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
+import gx.gtk.threads;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
@@ -1404,7 +1405,7 @@ private:
                 n.paned.setPosition(n.pos);
                 // Add idle handler to reset child properties and take one more stab at setting position. GTKPaned
                 // is annoying about doing things behind your back
-                gx.gtk.threads.threadsAddIdleDelegate(delegate() {
+                threadsAddIdleDelegate(delegate() {
                     trace(format("    2nd pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
                     n.paned.setPosition(n.pos);
                     n.paned.childSetProperty(n.paned.getChild1(), "resize", new Value(PANED_RESIZE_MODE));

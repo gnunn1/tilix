@@ -28,6 +28,8 @@ import gtk.Widget;
 import gx.gtk.cairo;
 import gx.gtk.util;
 
+static import gx.util.array;
+
 import gx.terminix.common;
 import gx.terminix.session;
 
