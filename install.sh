@@ -76,7 +76,7 @@ cp data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/appdata
 desktop-file-validate ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
 
 # Update icon cache if Prefix is /usr
-if [ "$PREFIX" == '/usr' ]; then
+if [ "$PREFIX" = '/usr' ]; then
     echo "Updating icon cache"
     sudo gtk-update-icon-cache -f /usr/share/icons/hicolor/
 fi
