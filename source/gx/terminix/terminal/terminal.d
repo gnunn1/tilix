@@ -1241,6 +1241,16 @@ private:
      * directly in case we re-spawn it later.
      */
     void spawnTerminalProcess(string workingDir, string command = null) {
+        
+        void outputError(string msg, string workingDir, string[] args, string[] envv) {
+            error(msg);
+            error(format("Working Directory=%s", workingDir));
+            error("Arguments used to execute process:");
+            foreach(i, arg; args) error(format("\targ %i=%s",i,args[i])); 
+            error("Environment used to execute process:");
+            foreach(i, arg; args) error(format("\tenv %i=%s",i,envv[i])); 
+        }
+        
         CommandParameters overrides = terminix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
         if (workingDir.length == 0 && overrides.cwd.length > 0) {
@@ -1291,13 +1301,13 @@ private:
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
-                error(msg);
+                outputError(msg, workingDir, args, envv);
                 showInfoBarMessage(msg);
             }
         }
         catch (GException ge) {
             string msg = format(_("Unexpected error occurred: %s"), ge.msg);
-            error(msg);
+            outputError(msg, workingDir, args, envv);
             showInfoBarMessage(msg);
         }
         vte.grabFocus();
