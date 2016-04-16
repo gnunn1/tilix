@@ -55,7 +55,7 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Install Terminix
 
-Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), RPMs for Fedora 23 and CentOS 7 are available via the [OpenSUSE Build Service](https://software.opensuse.org/download.html?project=home%3Agnunn&package=terminix).
+Terminix is available in Arch Linux as the AUR package [terminix](https://aur.archlinux.org/packages/terminix), RPMs for Fedora 23 and CentOS 7 are available via the [OpenSUSE Build Service](https://software.opensuse.org/download.html?project=home%3Agnunn&package=termini7).
 
 For other 64 bit distros releases can be installed manually from the releases section by downloading terminix.zip and following these instructions:
 
