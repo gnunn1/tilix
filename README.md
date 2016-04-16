@@ -55,7 +55,7 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Install Terminix
 
-Terminix is available for the following distributions:
+Terminix is available for the following distributions as a 64 bit application:
 
 | Distribution | Package
 |---|---|
