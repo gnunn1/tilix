@@ -307,7 +307,7 @@ private:
         cp.clear();
     }
 
-    void onAppStartup(GioApplication) {
+    void onAppStartup(GApplication) {
         trace("Startup App Signal");
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
@@ -333,7 +333,7 @@ private:
         installAppMenu();
     }
     
-    void onAppShutdown(GioApplication) {
+    void onAppShutdown(GApplication) {
         trace("Quit App Signal");
         terminix = null;
     }
