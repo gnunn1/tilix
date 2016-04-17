@@ -775,7 +775,7 @@ public:
         terminix.addAppWindow(this);
         gsSettings = new GSettings(SETTINGS_ID);
         setTitle(_("Terminix"));
-        setIconName("terminal");
+        setIconName("com.gexperts.Terminix");
 
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
