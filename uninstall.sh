@@ -19,6 +19,7 @@ glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
 rm -rf ${PREFIX}/share/terminix
 
 find ${PREFIX}/share/locale -type f -name "terminix.mo" -delete
+find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Terminix.png" -delete
 rm ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
 rm ${PREFIX}/share/dbus-1/services/com.gexperts.Terminix.service
 rm ${PREFIX}/share/applications/com.gexperts.Terminix.desktop

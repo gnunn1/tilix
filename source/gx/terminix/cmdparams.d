@@ -40,6 +40,7 @@ private:
     string _cmdLine;
     string _terminalUUID;
     string _cwd;
+    string _pwd;
     
     bool _maximize;
     bool _fullscreen;
@@ -88,7 +89,8 @@ public:
         VariantDict vd = acl.getOptionsDict();
 
         _workingDir = validatePath(getValue(vd, CMD_WORKING_DIRECTORY, vts));
-        _cwd = acl.getenv("PWD");
+        _pwd = acl.getenv("PWD");
+        _cwd = acl.getCwd();
 
         if (_cwd.length > 0) _cwd = validatePath(_cwd);
         else _cwd = validatePath(acl.getCwd());
@@ -132,6 +134,7 @@ public:
         trace("\taction=" ~ _action);
         trace("\texecute=" ~ _execute);
         trace("\tcwd=" ~ _cwd);
+        trace("\tpwd=" ~ _pwd);
     }
 
     void clear() {
@@ -144,6 +147,7 @@ public:
         _cmdLine.length = 0;
         _terminalUUID.length = 0;
         _cwd.length = 0;
+        _pwd.length = 0;
         _maximize = false;
         _fullscreen = false;
         _focusWindow = false;
@@ -156,6 +160,10 @@ public:
     
     @property string cwd() {
         return _cwd;
+    }
+    
+    @property string pwd() {
+        return _pwd;
     }
 
     @property string profileName() {

@@ -16,6 +16,7 @@ immutable bool USE_PIXBUF_DND = false;
 immutable bool SHOW_DEBUG_OPTIONS = false;
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
 immutable bool STYLE_TERMINAL_SCROLLBAR = false;
+immutable bool USE_FILE_LOGGING = false;
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
@@ -33,7 +34,7 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.58.0";
+enum APPLICATION_VERSION = "0.58.1";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2016 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
