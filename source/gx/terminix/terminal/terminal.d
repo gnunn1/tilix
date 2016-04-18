@@ -1271,6 +1271,15 @@ private:
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
         string shell = vte.getUserShell();
+        if (shell.length == 0) {
+            try {
+                shell = environment["SHELL"];
+                info(format("No shell returned from VTE, using '%s' from SHELL environment variable", shell));
+            } catch (Exception e) {
+                error("No SHELL environment variable found");
+                shell = "/bin/sh";
+            }
+        }
         string[] args;
         // Passed command takes precedence over global override which comes from -x flag
         if (command.length == 0 && overrides.execute.length > 0) {
