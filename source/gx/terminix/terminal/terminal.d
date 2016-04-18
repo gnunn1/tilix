@@ -309,7 +309,7 @@ private:
             widget.setMarginTop(1);
             widget.setMarginBottom(2);
         }
-        
+
         bTitle = new Box(Orientation.HORIZONTAL, 0);
         //Showing is controlled by terminal title preference
         bTitle.setNoShowAll(true);
@@ -335,12 +335,8 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) {
-            buildProfileMenu(); 
-            buildEncodingMenu(); 
-            return false; 
-        });
-        
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { buildProfileMenu(); buildEncodingMenu(); return false; });
+
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -382,14 +378,14 @@ private:
             int childX, childY;
             mbTitle.translateCoordinates(evtTitle, 0, 0, childX, childY);
             //Ignore clicks propagated from Menu Button, see #215
-            if (event.button.x >= childX && event.button.x <= childX + mbTitle.getAllocatedWidth() &&
-                event.button.y >= childY && event.button.y <= childY + mbTitle.getAllocatedHeight()) {
+            if (event.button.x >= childX && event.button.x <= childX + mbTitle.getAllocatedWidth() && event.button.y >= childY
+                && event.button.y <= childY + mbTitle.getAllocatedHeight()) {
                 return false;
             }
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
-                    maximize();
+                maximize();
             } else if (event.getEventType() == EventType.BUTTON_PRESS) {
-                    vte.grabFocus();
+                vte.grabFocus();
             }
             return false;
         });
@@ -442,17 +438,17 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!rFind.getRevealChild()) {
                 rFind.setRevealChild(true);
-            }            
+            }
             rFind.focusSearchEntry();
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) { 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!vte.searchFindPrevious() && !vte.searchGetWrapAround) {
-                vte.searchFindNext();    
+                vte.searchFindNext();
             }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!vte.searchFindNext() && !vte.searchGetWrapAround) {
-                vte.searchFindPrevious();    
+                vte.searchFindPrevious();
             }
         });
 
@@ -553,7 +549,7 @@ private:
             } else {
                 tbSyncInput.setTooltipText(_("Enable input synchronization for this terminal"));
             }
-            
+
         }, null, new GVariant(true));
 
         //SaveAs
@@ -601,7 +597,7 @@ private:
         pm.bindModel(model, ACTION_PREFIX);
         return pm;
     }
-    
+
     /**
      * Creates the popover menu items
      */
@@ -896,40 +892,40 @@ private:
         } else {
             GMenuItem copy = new GMenuItem(null, ACTION_COPY);
             copy.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
-            copy.setAttributeValue("label", new GVariant(_("Copy")));            
-            clipSection.appendItem(copy);            
+            copy.setAttributeValue("label", new GVariant(_("Copy")));
+            clipSection.appendItem(copy);
 
             GMenuItem paste = new GMenuItem(null, ACTION_PASTE);
             paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
             paste.setAttributeValue("label", new GVariant(_("Paste")));
             clipSection.appendItem(paste);
-            
+
             GMenuItem selectAll = new GMenuItem(null, ACTION_SELECT_ALL);
             selectAll.setAttributeValue("verb-icon", new GVariant("edit-select-all-symbolic"));
             selectAll.setAttributeValue("label", new GVariant(_("Select All")));
             clipSection.appendItem(selectAll);
-                        
+
             GMenuItem clipItem = new GMenuItem(_("Clipboard"), null);
             clipItem.setSection(clipSection);
-            clipItem.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));                        
-            
+            clipItem.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
+
             mmContext.appendItem(clipItem);
         }
         //Check if titlebar is turned off and add extra items
         if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
             GMenu windowSection = new GMenu();
-            windowSection.append(terminalState == TerminalState.MAXIMIZED?_("Restore"):_("Maximize"), ACTION_MAXIMIZE);
+            windowSection.append(terminalState == TerminalState.MAXIMIZED ? _("Restore") : _("Maximize"), ACTION_MAXIMIZE);
             windowSection.append(_("Close"), ACTION_CLOSE);
             mmContext.appendSection(null, windowSection);
             if (_synchronizeInput) {
-                GMenu syncInputSection = new GMenu();                
+                GMenu syncInputSection = new GMenu();
                 syncInputSection.append(_("Synchronize input"), ACTION_SYNC_INPUT_OVERRIDE);
                 mmContext.appendSection(null, syncInputSection);
             }
 
-            buildProfileMenu(); 
+            buildProfileMenu();
             buildEncodingMenu();
-            createPopoverMenuItems(mmContext); 
+            createPopoverMenuItems(mmContext);
         }
 
         pmContext.bindModel(mmContext, ACTION_PREFIX);
@@ -1044,7 +1040,7 @@ private:
     RGBA[16] vtePalette;
     static if (STYLE_TERMINAL_SCROLLBAR) {
         CssProvider provider;
-    }    
+    }
 
     void initColors() {
         vteFG = new RGBA();
@@ -1241,16 +1237,18 @@ private:
      * directly in case we re-spawn it later.
      */
     void spawnTerminalProcess(string workingDir, string command = null) {
-        
+
         void outputError(string msg, string workingDir, string[] args, string[] envv) {
             error(msg);
             error(format("Working Directory=%s", workingDir));
             error("Arguments used to execute process:");
-            foreach(i, arg; args) error(format("\targ %i=%s",i,args[i])); 
+            foreach (i, arg; args)
+                error(format("\targ %i=%s", i, args[i]));
             error("Environment used to execute process:");
-            foreach(i, arg; args) error(format("\tenv %i=%s",i,envv[i])); 
+            foreach (i, arg; args)
+                error(format("\tenv %i=%s", i, envv[i]));
         }
-        
+
         CommandParameters overrides = terminix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
         if (overrides.cwd.length > 0) {
@@ -1263,23 +1261,15 @@ private:
         if (workingDir.length == 0) {
             try {
                 workingDir = environment["PWD"];
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 trace("No PWD environment variable found");
             }
         }
         trace("Spawn setting workingDir to " ~ workingDir);
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
-        string shell = vte.getUserShell();
-        if (shell.length == 0) {
-            try {
-                shell = environment["SHELL"];
-                info(format("No shell returned from VTE, using '%s' from SHELL environment variable", shell));
-            } catch (Exception e) {
-                error("No SHELL environment variable found");
-                shell = "/bin/sh";
-            }
-        }
+        string shell = getUserShell(vte.getUserShell());
         string[] args;
         // Passed command takes precedence over global override which comes from -x flag
         if (command.length == 0 && overrides.execute.length > 0) {
@@ -1767,7 +1757,8 @@ public:
      * Determines if a child process is running in the terminal
      */
     bool isProcessRunning() {
-        if (vte.getPty() is null) return false;
+        if (vte.getPty() is null)
+            return false;
         int fd = vte.getPty().getFd();
         pid_t fg = tcgetpgrp(fd);
         trace(format("fg=%d gpid=%d", fg, gpid));
@@ -1961,7 +1952,7 @@ public:
         setHalign(Align.FILL);
         setValign(Align.START);
     }
-    
+
     void setMessage(string message) {
         lblPrompt.setText(message);
     }
@@ -2094,7 +2085,8 @@ static this() {
         majorVersion = Version.getMajorVersion();
         minorVersion = Version.getMinorVersion();
         trace(format("VTE Version is %d.%d", majorVersion, minorVersion));
-    } catch (Error e) {
+    }
+    catch (Error e) {
         //Ignore, means VTE doesn't support version API, default to 42
     }
     Regex[URL_REGEX_PATTERNS.length] tempRegex;
@@ -2106,4 +2098,52 @@ static this() {
         tempRegex[i] = new Regex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
     }
     compiledRegex = assumeUnique(tempRegex);
+}
+
+//Block for determining Shell
+private:
+
+//Cribbed from Gnome Terminal
+immutable string[] shells = [/* Note that on some systems shells can also
+        * be installed in /usr/bin */
+"/bin/bash", "/usr/bin/bash", "/bin/zsh", "/usr/bin/zsh", "/bin/tcsh", "/usr/bin/tcsh", "/bin/ksh", "/usr/bin/ksh", "/bin/csh", "/bin/sh"];
+
+string getUserShell(string shell) {
+    import std.file : exists;
+    import core.sys.posix.pwd : getpwuid, passwd;
+    
+    if (shell.length > 0 && exists(shell))
+        return shell;
+    
+    // Try environment variable next
+    try {
+        shell = environment["SHELL"];
+        if (shell.length > 0) {
+            trace(format("Using shell %s from SHELL environment variable", shell));
+            return shell;
+        }
+    }
+    catch (Exception e) {
+        trace("No SHELL environment variable found");
+    }
+    
+    //Try to get shell from getpwuid
+    passwd* pw = getpwuid(getuid());
+    if (pw && pw.pw_shell) {
+        string pw_shell = to!string(pw.pw_shell);
+        if (exists(pw_shell)) {
+            trace(format("Using shell %s from getpwuid",pw_shell));
+            return pw_shell;
+        }
+    }
+
+    //Try known shells
+    foreach (s; shells) {
+        if (exists(s)) {
+            trace(format("Found shell %s, using that", s));
+            return s;
+        }
+    }
+    error("No shell found, defaulting to /bin/sh");
+    return "/bin/sh";
 }
