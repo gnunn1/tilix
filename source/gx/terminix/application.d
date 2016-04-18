@@ -97,7 +97,6 @@ private:
         if (findResource(APPLICATION_RESOURCES, true)) {
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
                 string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
-                trace(format("Could not load CSS %s", cssURI));
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     error(format("Could not load CSS %s", cssURI));
                 }

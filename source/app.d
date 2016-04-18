@@ -21,6 +21,10 @@ import gx.terminix.cmdparams;
 import gx.terminix.constants;
 
 int main(string[] args) {
+    static if (USE_FILE_LOGGING) {
+        sharedLog = new FileLogger("/tmp/terminix.log");
+    }
+    
     trace(format("Starting terminix with %d arguments...", args.length));
     //append TERMINIX_ID to args if present
     try {
