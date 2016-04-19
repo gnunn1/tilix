@@ -32,10 +32,18 @@
     font-size: smaller;
 }
 
+.terminix-notification-count > label {
+    color: @theme_selec1ted_fg_color;
+}
+
 .terminix-session-index {
     background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_fg_color), to(transparent)), -gtk-gradient(radial, center center, 0, center center, 0.5, to(rgba(255, 255, 255, 0.76923)), to(transparent));
     color: @theme_bg_color;
     font-size: smaller;
+}
+
+.terminix-session-index > label {
+  color: @theme_bg_color;
 }
 
 .terminix-session-sidebar {
