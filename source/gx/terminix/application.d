@@ -269,7 +269,12 @@ private:
             if (aw !is null) {
                 string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
                 //If focus-window command line parameter was passed, override setting
-                if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];    
+                if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
+                //If workingDir is not set, override it with cwd so that it takes priority for
+                //executing actions below
+                if (cp.workingDir.length ==0) {
+                    cp.workingDir = cp.cwd;
+                }
                 switch (instanceAction) {
                     //New Session
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:

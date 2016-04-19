@@ -158,6 +158,10 @@ public:
         return _workingDir;
     }
     
+    @property void workingDir(string value) {
+        _workingDir = value;
+    }
+    
     @property string cwd() {
         return _cwd;
     }

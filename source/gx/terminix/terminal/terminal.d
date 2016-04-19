@@ -1248,10 +1248,12 @@ private:
             foreach (i, arg; args)
                 error(format("\tenv %i=%s", i, envv[i]));
         }
+        
+        trace("workingDir parameter=" ~ workingDir);
 
         CommandParameters overrides = terminix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
-        if (overrides.cwd.length > 0) {
+        if (workingDir.length == 0 && overrides.cwd.length > 0) {
             workingDir = overrides.cwd;
         }
         if (overrides.workingDir.length > 0) {
@@ -1266,6 +1268,7 @@ private:
                 trace("No PWD environment variable found");
             }
         }
+        
         trace("Spawn setting workingDir to " ~ workingDir);
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
