@@ -67,7 +67,6 @@ extern(C) nothrow static ReturnType invokeDelegatePointerFunc(S, ReturnType, boo
 		static if (__traits(compiles, ReturnType.init))
 		{
 			auto returnValue = callbackPointer.delegateInstance(callbackPointer.parameters);
-			
 			return returnValue;
 		}
 		
@@ -123,9 +122,8 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 		if (!callAgainNextIdleCycle) {
 			trace("Removing delegate pointer");
 			GC.removeRoot(delegatePointer);
-		}
-		
-		return false; //callAgainNextIdleCycle;
+			return false;
+		} else return true;
 	};
 	
 	delegatePointer = cast(void*) new DelegatePointer!(T, parameterTuple)(wrapperDelegate, parameters);
