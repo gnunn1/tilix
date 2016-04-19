@@ -442,12 +442,14 @@ private:
             rFind.focusSearchEntry();
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (!vte.searchFindPrevious() && !vte.searchGetWrapAround) {
+            bool result = vte.searchFindPrevious();
+            if (!result && !vte.searchGetWrapAround) {
                 vte.searchFindNext();
             }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (!vte.searchFindNext() && !vte.searchGetWrapAround) {
+            bool result = vte.searchFindNext();
+            if (!result && !vte.searchGetWrapAround) {
                 vte.searchFindPrevious();
             }
         });
@@ -650,6 +652,8 @@ private:
         // Basic widget properties
         vte.setHexpand(true);
         vte.setVexpand(true);
+        //Search Properties
+        vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
         //URL Regex Experessions
         foreach (i, regex; compiledRegex) {
             int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
