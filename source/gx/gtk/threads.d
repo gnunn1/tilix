@@ -7,6 +7,7 @@ module gx.gtk.threads;
 import core.memory;
 
 import std.algorithm;
+import std.experimental.logger;
 import std.stdio;
 
 import gdk.Threads;
@@ -109,17 +110,22 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 		try
 		{
 			callAgainNextIdleCycle = theDelegate(parameters);
+			if (callAgainNextIdleCycle) trace("Callback again is true");
+			else trace("Callback again is false");
 		}
 		
 		catch (Exception e)
 		{
+			trace("Unexpected exception occurred in wrapper");
 			// Catch exceptions here as otherwise, memory may never be freed below.
 		}
 		
-		if (!callAgainNextIdleCycle)
+		if (!callAgainNextIdleCycle) {
+			trace("Removing delegate pointer");
 			GC.removeRoot(delegatePointer);
+		}
 		
-		return callAgainNextIdleCycle;
+		return false; //callAgainNextIdleCycle;
 	};
 	
 	delegatePointer = cast(void*) new DelegatePointer!(T, parameterTuple)(wrapperDelegate, parameters);
