@@ -12,7 +12,7 @@ Once that is done you will need to install the Gnome and Freedesktop runtimes, t
 $ wget https://people.gnome.org/~alexl/keys/gnome-sdk.gpg
 $ xdg-app --user remote-add gnome --gpg-key=gnome-sdk.gpg http://sdk.gnome.org/repo/
 $ xdg-app --user install gnome org.gnome.Platform 3.20
-$ xdg-app install --user gnome org.gnome.Sdk 3.20
+$ xdg-app --user install gnome org.gnome.Sdk 3.20
 $ xdg-app --user install gnome org.freedesktop.Platform 1.4
 ```
 With all the dependencies in place, you can now build the bundle:
