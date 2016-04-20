@@ -1,4 +1,4 @@
-*** Building Terminix XDG-APP Bundle
+### Building Terminix XDG-APP Bundle
 
 This folder contains the scripts required to build Terminix as an XDG-APP bundle. XDG-APP allows desktop applications to be distributed independently of traditional Linux package managers, applications distributed in this way run in a sandboxed environment. Additional information on XDG-APP can be found [here](https://wiki.gnome.org/Projects/SandboxedApps). 
 
