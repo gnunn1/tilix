@@ -1569,17 +1569,17 @@ private:
             break;
         }
     }
-
+    
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
 
         static if (DIM_TERMINAL_NO_FOCUS) {
             if (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible()) {
                 RGBA bg;
-                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
-                cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.1);
-                cr.rectangle(0, 0, widget.getAllocatedWidth(), widget.getAllocatedHeight());
-                cr.fill();
+                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, bg);
+                cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.2);
+                cr.setOperator(cairo_operator_t.ATOP);
+                cr.paint();
             }
         }
         //Dragging happening?
