@@ -932,6 +932,14 @@ public:
         else
             return null;
     }
+    
+    string getActiveTerminalDirectory() {
+        if (lastFocused !is null) {
+            return lastFocused.currentDirectory;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Serialize the session

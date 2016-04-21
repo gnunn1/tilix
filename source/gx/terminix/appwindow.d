@@ -189,7 +189,9 @@ private:
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
-        btnNew.addOnClicked(delegate(Button) { createSession(); });
+        btnNew.addOnClicked(delegate(Button) {
+            createSession(); 
+        });
         btnNew.setTooltipText(_("Create a new session"));
 
         //Session Actions
@@ -763,9 +765,9 @@ private:
     /**
      * Creates a new session based on parameters, user is not prompted
      */
-    void createSession(string name, string profileUUID) {
+    void createSession(string name, string profileUUID, string workingDir = null) {
         //createNewSession(name, profileUUID, Util.getHomeDir());
-        createNewSession(name, profileUUID, null);
+        createNewSession(name, profileUUID, workingDir);
     }
 
 public:
@@ -853,6 +855,11 @@ public:
      * Creates a new session and prompts the user for session properties
      */
     void createSession() {
+        string workingDir;
+        Session current = getCurrentSession();
+        if (current !is null) {
+            workingDir = current.getActiveTerminalDirectory();
+        }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
             SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
             scope (exit) {
@@ -860,10 +867,10 @@ public:
             }
             sp.showAll();
             if (sp.run() == ResponseType.OK) {
-                createSession(sp.name, sp.profileUUID);
+                createSession(sp.name, sp.profileUUID, workingDir);
             }
         } else {
-            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile(), workingDir);
         }
     }
 }
