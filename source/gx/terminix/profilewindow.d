@@ -142,9 +142,9 @@ private:
         Label lblSize = new Label(_("Terminal Size"));
         lblSize.setHalign(Align.END);
         grid.attach(lblSize, 0, row, 1, 1);
-        SpinButton sbColumn = new SpinButton(16, 256, 1);
+        SpinButton sbColumn = new SpinButton(16, 511, 1);
         gsProfile.bind(SETTINGS_PROFILE_SIZE_COLUMNS_KEY, sbColumn, "value", GSettingsBindFlags.DEFAULT);
-        SpinButton sbRow = new SpinButton(4, 256, 1);
+        SpinButton sbRow = new SpinButton(4, 511, 1);
         gsProfile.bind(SETTINGS_PROFILE_SIZE_ROWS_KEY, sbRow, "value", GSettingsBindFlags.DEFAULT);
 
         Box box = new Box(Orientation.HORIZONTAL, 5);
