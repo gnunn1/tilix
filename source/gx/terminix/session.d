@@ -120,6 +120,7 @@ private:
     MaximizedInfo maximizedInfo;
 
     Terminal currentTerminal;
+    Terminal previousTerminal;
 
     GSettings gsSettings;
 
@@ -322,12 +323,19 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
-        //Fix Issue #33
-        if (id >= terminals.length)
-            id = to!int(terminals.length);
-        if (id > 0 && id <= terminals.length) {
-            focusTerminal(id);
+
+        if (previousTerminal !is null) {
+            focusTerminal(previousTerminal);
         }
+        else {
+            //Fix Issue #33
+            if (id >= terminals.length)
+                id = to!int(terminals.length);
+            if (id > 0 && id <= terminals.length) {
+                focusTerminal(id);
+            }
+        }
+
         if (maximizedTerminal !is null) {
             maximizeTerminal(terminal);
         }
@@ -577,6 +585,7 @@ private:
 
     void onTerminalInFocus(Terminal terminal) {
         //trace("Focus noted");
+        previousTerminal = currentTerminal;
         currentTerminal = terminal;
     }
 
