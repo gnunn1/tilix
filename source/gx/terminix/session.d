@@ -119,7 +119,8 @@ private:
     Box groupChild;
     MaximizedInfo maximizedInfo;
 
-    Terminal lastFocused;
+    Terminal currentTerminal;
+    Terminal previousTerminal;
 
     GSettings gsSettings;
 
@@ -135,7 +136,7 @@ private:
     void createUI(Terminal terminal) {
         createBaseUI();
         groupChild.add(terminal);
-        lastFocused = terminal;
+        currentTerminal = terminal;
     }
 
     void createBaseUI() {
@@ -288,8 +289,8 @@ private:
     void removeTerminal(Terminal terminal) {
         int id = to!int(terminal.terminalID);
         trace("Removing terminal " ~ terminal.terminalUUID);
-        if (lastFocused == terminal)
-            lastFocused = null;
+        if (currentTerminal == terminal)
+            currentTerminal = null;
         //Remove delegates
         terminal.removeOnTerminalClose(&onTerminalClose);
         terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
@@ -322,12 +323,19 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
-        //Fix Issue #33
-        if (id >= terminals.length)
-            id = to!int(terminals.length);
-        if (id > 0 && id <= terminals.length) {
-            focusTerminal(id);
+
+        if (previousTerminal !is null) {
+            focusTerminal(previousTerminal);
         }
+        else {
+            //Fix Issue #33
+            if (id >= terminals.length)
+                id = to!int(terminals.length);
+            if (id > 0 && id <= terminals.length) {
+                focusTerminal(id);
+            }
+        }
+
         if (maximizedTerminal !is null) {
             maximizeTerminal(terminal);
         }
@@ -577,7 +585,8 @@ private:
 
     void onTerminalInFocus(Terminal terminal) {
         //trace("Focus noted");
-        lastFocused = terminal;
+        previousTerminal = currentTerminal;
+        currentTerminal = terminal;
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
@@ -927,15 +936,15 @@ public:
     }
 
     string getActiveTerminalUUID() {
-        if (lastFocused !is null)
-            return lastFocused.terminalUUID;
+        if (currentTerminal !is null)
+            return currentTerminal.terminalUUID;
         else
             return null;
     }
     
     string getActiveTerminalDirectory() {
-        if (lastFocused !is null) {
-            return lastFocused.currentDirectory;
+        if (currentTerminal !is null) {
+            return currentTerminal.currentDirectory;
         } else {
             return null;
         }
@@ -1040,7 +1049,7 @@ public:
      * Resize terminal based on direction
      */
     void resizeTerminal(string direction) {
-        Terminal terminal = lastFocused;
+        Terminal terminal = currentTerminal;
         if (terminal !is null) {
             Container parent = cast(Container) terminal;
             int increment = 10;
@@ -1069,9 +1078,9 @@ public:
      * Restore focus to the terminal that last had focus in the session
      */
     void focusRestore() {
-        if (lastFocused !is null) {
+        if (currentTerminal !is null) {
             trace("Restoring focus to terminal");
-            lastFocused.focusTerminal();
+            currentTerminal.focusTerminal();
         }
     }
 
@@ -1080,8 +1089,8 @@ public:
      */
     void focusNext() {
         ulong id = 1;
-        if (lastFocused !is null) {
-            id = lastFocused.terminalID + 1;
+        if (currentTerminal !is null) {
+            id = currentTerminal.terminalID + 1;
             if (id > terminals.length)
                 id = 1;
         }
@@ -1093,8 +1102,8 @@ public:
      */
     void focusPrevious() {
         ulong id = 1;
-        if (lastFocused !is null) {
-            id = lastFocused.terminalID;
+        if (currentTerminal !is null) {
+            id = currentTerminal.terminalID;
             if (id == 1)
                 id = terminals.length;
             else
@@ -1109,13 +1118,13 @@ public:
     void focusDirection(string direction) {
         trace("Focusing ", direction);
 
-        Widget appWindow = lastFocused.getToplevel();
+        Widget appWindow = currentTerminal.getToplevel();
         GtkAllocation appWindowAllocation;
         appWindow.getClip(appWindowAllocation);
 
         // Start at the top left of the current terminal
         int xPos, yPos;
-        lastFocused.translateCoordinates(appWindow, 0, 0, xPos, yPos);
+        currentTerminal.translateCoordinates(appWindow, 0, 0, xPos, yPos);
 
         // While still in the application window, move 20 pixels per loop
         while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
@@ -1138,7 +1147,7 @@ public:
 
             // If the x/y position lands in another terminal, focus it
             foreach (terminal; terminals) {
-                if (terminal == lastFocused)
+                if (terminal == currentTerminal)
                     continue;
 
                 int termX, termY;
