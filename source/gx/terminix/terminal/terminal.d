@@ -620,12 +620,18 @@ private:
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
-        menuSection.append(_("Read-Only"), ACTION_READ_ONLY);
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
-        menuSection.append(_("Reset Terminal"), ACTION_RESET);
-        menuSection.append(_("Reset and Clear Terminal"), ACTION_RESET_AND_CLEAR);
+        // Terminal submenu
+        {
+            GMenu submenu = new GMenu();
+            GMenu submenuSection = new GMenu();
+            submenuSection.append(_("Read-Only"), ACTION_READ_ONLY);
+            submenu.appendSection(null, submenuSection);
+            submenuSection = new GMenu();
+            submenuSection.append(_("Reset Terminal"), ACTION_RESET);
+            submenuSection.append(_("Reset and Clear Terminal"), ACTION_RESET_AND_CLEAR);
+            submenu.appendSection(null, submenuSection);
+            menuSection.appendSubmenu(_("Terminal"), submenu);
+        }
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
