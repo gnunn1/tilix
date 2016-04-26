@@ -542,11 +542,11 @@ private:
         }, null, new GVariant(false));
         
 
-        //Clear terminal && Clear and reset terminal
-        registerAction(group, ACTION_PREFIX, ACTION_RESET_TERMINAL, null, delegate(GVariant, SimpleAction) {
+        //Clear Terminal && Reset and Clear Terminal
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(false, false);
         });
-        registerAction(group, ACTION_PREFIX, ACTION_CLEAR_TERMINAL, null, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(true, true);
         });
 
@@ -624,8 +624,8 @@ private:
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
-        menuSection.append(_("Reset terminal"), ACTION_RESET_TERMINAL);
-        menuSection.append(_("Clear terminal"), ACTION_CLEAR_TERMINAL);
+        menuSection.append(_("Reset Terminal"), ACTION_RESET);
+        menuSection.append(_("Reset and Clear Terminal"), ACTION_RESET_AND_CLEAR);
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
