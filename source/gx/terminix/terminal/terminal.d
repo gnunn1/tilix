@@ -540,6 +540,15 @@ private:
             sa.setState(new GVariant(newState));
             vte.setInputEnabled(!newState);
         }, null, new GVariant(false));
+        
+
+        //Clear terminal && Clear and reset terminal
+        registerAction(group, ACTION_PREFIX, ACTION_RESET_TERMINAL, null, delegate(GVariant, SimpleAction) {
+            vte.reset(false, false);
+        });
+        registerAction(group, ACTION_PREFIX, ACTION_CLEAR_TERMINAL, null, delegate(GVariant, SimpleAction) {
+            vte.reset(true, true);
+        });
 
         //Sync Inout Override
         registerAction(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, null, delegate(GVariant state, SimpleAction sa) {
@@ -612,6 +621,11 @@ private:
 
         menuSection = new GMenu();
         menuSection.append(_("Read-Only"), ACTION_READ_ONLY);
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.append(_("Reset terminal"), ACTION_RESET_TERMINAL);
+        menuSection.append(_("Clear terminal"), ACTION_CLEAR_TERMINAL);
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
