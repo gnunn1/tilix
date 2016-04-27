@@ -120,7 +120,7 @@ private:
     MaximizedInfo maximizedInfo;
 
     Terminal currentTerminal;
-    Terminal previousTerminal;
+    Terminal[] mruTerminals;
 
     GSettings gsSettings;
 
@@ -314,6 +314,7 @@ private:
         unparentTerminal(terminal);
         //Remove terminal
         gx.util.array.remove(terminals, terminal);
+        gx.util.array.remove(mruTerminals, terminal);
         //Only one terminal open, close session
         trace(format("There are %d terminals left", terminals.length));
         if (terminals.length == 0) {
@@ -323,18 +324,8 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
-
-        if (previousTerminal !is null) {
-            focusTerminal(previousTerminal);
-        }
-        else {
-            //Fix Issue #33
-            if (id >= terminals.length)
-                id = to!int(terminals.length);
-            if (id > 0 && id <= terminals.length) {
-                focusTerminal(id);
-            }
-        }
+        
+        focusTerminal(mruTerminals[$-1]);
 
         if (maximizedTerminal !is null) {
             maximizeTerminal(terminal);
@@ -585,8 +576,9 @@ private:
 
     void onTerminalInFocus(Terminal terminal) {
         //trace("Focus noted");
-        previousTerminal = currentTerminal;
         currentTerminal = terminal;
+        gx.util.array.remove(mruTerminals, terminal);
+        mruTerminals ~= terminal;
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
