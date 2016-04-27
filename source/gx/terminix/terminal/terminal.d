@@ -632,8 +632,8 @@ private:
             submenu.appendSection(null, submenuSection);
 
             submenuSection = new GMenu();
-            submenuSection.append(_("Reset Terminal"), ACTION_RESET);
-            submenuSection.append(_("Reset and Clear Terminal"), ACTION_RESET_AND_CLEAR);
+            submenuSection.append(_("Reset"), ACTION_RESET);
+            submenuSection.append(_("Reset and Clear"), ACTION_RESET_AND_CLEAR);
             submenu.appendSection(null, submenuSection);
 
             menuSection.appendSubmenu(_("Terminal"), submenu);
