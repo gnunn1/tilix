@@ -92,6 +92,7 @@ import vtec.vtetypes;
 import gx.gtk.actions;
 import gx.gtk.cairo;
 import gx.gtk.util;
+import gx.gtk.vte;
 import gx.i18n.l10n;
 import gx.util.array;
 
@@ -279,6 +280,9 @@ private:
 
     //Track match detection
     TerminalURLMatch match;
+    
+    //Whether to dim unfocused windows
+    bool dimUnfocused = false;
 
     /**
      * Create the user interface of the TerminalPane
@@ -1017,7 +1021,7 @@ private:
         foreach (dlg; terminalInFocusDelegates) {
             dlg(this);
         }
-        static if (DIM_TERMINAL_NO_FOCUS) {
+        if (dimUnfocused) {
             //Add dim effect
             vte.queueDraw();
         }
@@ -1030,7 +1034,7 @@ private:
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
         trace("Terminal lost focus" ~ terminalUUID);
         lblTitle.setSensitive(isTerminalWidgetFocused());
-        static if (DIM_TERMINAL_NO_FOCUS) {
+        if (dimUnfocused) {
             //Add dim effect
             vte.queueDraw();
         }
@@ -1041,7 +1045,14 @@ private:
 private:
     RGBA vteFG;
     RGBA vteBG;
+    RGBA vteHighlightFG;
+    RGBA vteHighlightBG;
+    RGBA vteCursorFG;
+    RGBA vteCursorBG;
+    RGBA vteDimBG;
     RGBA[16] vtePalette;
+    double dimPercent;
+    
     static if (STYLE_TERMINAL_SCROLLBAR) {
         CssProvider provider;
     }
@@ -1049,6 +1060,12 @@ private:
     void initColors() {
         vteFG = new RGBA();
         vteBG = new RGBA();
+        vteHighlightFG = new RGBA();
+        vteHighlightBG = new RGBA();
+        vteCursorFG = new RGBA();
+        vteCursorBG = new RGBA();
+        vteDimBG = new RGBA();
+
         vtePalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
             vtePalette[i] = new RGBA();
@@ -1104,6 +1121,40 @@ private:
                 provider.loadFromData(css);
                 sb.getStyleContext().addProvider(provider, GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
             }
+            break;
+        case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
+                vteHighlightFG.parse(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY));
+                vteHighlightBG.parse(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY));
+                vte.setColorHighlightForeground(vteHighlightFG);
+                vte.setColorHighlight(vteHighlightBG);
+            } else {
+                vte.setColorHighlightForeground(null);
+                vte.setColorHighlight(null);
+            }
+            break; 
+        case SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY:
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
+                vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
+                vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
+                if (checkVTEVersionNumber(0, 44)) {
+                    vte.setColorCursorForeground(vteHighlightFG);
+                }
+                vte.setColorCursor(vteHighlightBG);
+            } else {
+                vte.setColorHighlightForeground(null);
+                vte.setColorHighlight(null);
+            }
+            break; 
+        case SETTINGS_DIM_UNFOCUSED_KEY, SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
+                vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
+            } else {
+                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, vteDimBG);
+            }
+            dimUnfocused = gsSettings.getBoolean(SETTINGS_DIM_UNFOCUSED_KEY);
+            dimPercent = to!double(gsProfile.getInt(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY)) / 100.0;
+            vte.queueDraw();
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             static if (!USE_SCROLLED_WINDOW) {
@@ -1189,7 +1240,10 @@ private:
             SETTINGS_PROFILE_DELETE_BINDING_KEY,
             SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, //Only pass the one font key, will handle both cases
             SETTINGS_PROFILE_FONT_KEY,
-            SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY
+            SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY,
+            SETTINGS_PROFILE_USE_DIM_COLOR_KEY,
+            SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
+            SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY
         ];
 
         foreach (key; keys) {
@@ -1573,11 +1627,9 @@ private:
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
 
-        static if (DIM_TERMINAL_NO_FOCUS) {
+        if (dimUnfocused) {
             if (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible()) {
-                RGBA bg;
-                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, bg);
-                cr.setSourceRgba(bg.red, bg.green, bg.blue, 0.2);
+                cr.setSourceRgba(vteDimBG.red, vteDimBG.green, vteDimBG.blue, dimPercent);
                 cr.setOperator(cairo_operator_t.ATOP);
                 cr.paint();
             }
@@ -2084,22 +2136,11 @@ immutable Regex[URL_REGEX_PATTERNS.length] compiledRegex;
 
 static this() {
     import std.exception : assumeUnique;
-    import vte.Version : Version;
 
-    uint majorVersion = 0;
-    uint minorVersion = 42;
-    try {
-        majorVersion = Version.getMajorVersion();
-        minorVersion = Version.getMinorVersion();
-        trace(format("VTE Version is %d.%d", majorVersion, minorVersion));
-    }
-    catch (Error e) {
-        //Ignore, means VTE doesn't support version API, default to 42
-    }
     Regex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
         GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-        if (minorVersion >= 44) {
+        if (checkVTEVersionNumber(0, 44)) {
             flags = flags | GRegexCompileFlags.MULTILINE;
         }
         tempRegex[i] = new Regex(regex.pattern, flags, cast(GRegexMatchFlags) 0);

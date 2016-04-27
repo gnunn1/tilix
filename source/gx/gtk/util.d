@@ -23,6 +23,7 @@ import glib.Util;
 import gobject.ObjectG;
 
 import gtk.Bin;
+import gtk.Box;
 import gtk.ComboBox;
 import gtk.CellRendererText;
 import gtk.Container;
@@ -40,6 +41,18 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
+
+
+/**
+ * Convenience method for creating a box and adding children
+ */
+Box createBox(Orientation orientation, int spacing,  Widget[] children) {
+    Box result = new Box(orientation, spacing);
+    foreach(child; children) {
+        result.add(child);
+    }
+    return result;
+}
 
 /**
  * Template for finding all children of a specific type

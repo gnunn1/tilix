@@ -593,6 +593,10 @@ private:
             gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
             add(cbWideHandle);
         }
+        
+        CheckButton cbDimUnfocused = new CheckButton(_("Dim unfocused terminals"));
+        gsSettings.bind(SETTINGS_DIM_UNFOCUSED_KEY, cbDimUnfocused, "active", GSettingsBindFlags.DEFAULT);
+        add(cbDimUnfocused);
     }
 
 public:

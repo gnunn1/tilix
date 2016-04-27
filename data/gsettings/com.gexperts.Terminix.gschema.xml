@@ -192,7 +192,11 @@
       <summary>Whether the focus follows the mouse</summary>
       <description>If true, a terminal will automatically be focused when the mouse moves over it.</description>
     </key>
-    
+    <key name="dim-unfocused" type="b">
+      <default>false</default>
+      <summary>Whether unfocused terminals are rendered dimmed</summary>
+      <description>If true, unfocused terminals are rendered dimmer using an overlay color and scale factor</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->
@@ -272,6 +276,12 @@
       <default>0</default>
       <summary>The amount of transparency to apply to the background</summary>
     </key>
+    <!--Dim-->
+    <key name="dim-transparency-percent" type="i">
+      <range min="0" max="100" />
+      <default>10</default>
+      <summary>The amount of transparency to apply to the unfocused dim effect</summary>
+    </key>
     <!-- Colors -->
     <key name="foreground-color" type="s">
       <default>'#00FF00'</default>
@@ -282,6 +292,46 @@
       <default>'#000000'</default>
       <summary>Default color of terminal background</summary>
       <description>Default color of terminal background, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
+    </key>
+    <key name="cursor-colors-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom cursor colors</summary>
+      <description>If true, use the cursor colors from the profile.</description>
+    </key>
+    <key name="cursor-background-color" type="s">
+      <default>'#000000'</default>
+      <summary>Cursor background color</summary>
+      <description>Custom color of the background of the terminal's cursor, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if cursor-colors-set is false.</description>
+    </key>
+    <key name="cursor-foreground-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Cursor foreground colour</summary>
+      <description>Custom color for the foreground of the text character at the terminal's cursor position, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if cursor-colors-set is false.</description>
+    </key>
+    <key name="highlight-colors-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom highlight colors</summary>
+      <description>If true, use the highlight colors from the profile.</description>
+    </key>
+    <key name="highlight-background-color" type="s">
+      <default>'#000000'</default>
+      <summary>Highlight background color</summary>
+      <description>Custom color of the background of the terminal's highlight, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+    </key>
+    <key name="highlight-foreground-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Highlight foreground colour</summary>
+      <description>Custom color for the foreground of the text character at the terminal's highlight position, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+    </key>
+    <key name="dim-color-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom dim color</summary>
+      <description>If true, use the dim color from the profile.</description>
+    </key>
+    <key name="dim-color" type="s">
+      <default>'#000000'</default>
+      <summary>Colour to use to dim un-focused terminal</summary>
+      <description>Custom color used as an overlay to create dim effect for un-focused terminal, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
     </key>
     <key name="palette" type="as">
       <default>["#2E2E34343636",
