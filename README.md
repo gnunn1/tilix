@@ -32,9 +32,10 @@ At this point in time the application should be considered beta and has been tes
 
 Terminix requires the following libraries to be installed in order to run:
 * GTK 3.14 or later
-* GTK VTE Widget 0.42
+* GTK VTE 0.42 or later
 * Dconf
 * GSettings
+* [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required For Nautilus integration)
  
 ### Localization
 
