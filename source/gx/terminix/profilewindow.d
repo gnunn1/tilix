@@ -581,10 +581,28 @@ private:
         }
         gsProfile.setBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, scheme.useThemeColors);
         if (!scheme.useThemeColors) {
+            //System Colors
             cbFG.setRgba(scheme.foreground);
             cbBG.setRgba(scheme.background);
             gsProfile.setString(SETTINGS_PROFILE_FG_COLOR_KEY, rgbaTo8bitHex(scheme.foreground, false, true));
             gsProfile.setString(SETTINGS_PROFILE_BG_COLOR_KEY, rgbaTo8bitHex(scheme.background, false, true));
+            //Dim colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, scheme.useDimColor);
+            if (scheme.useDimColor) {
+                cbDimBG.setRgba(scheme.dimColor);
+            }
+            //Highlight colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, scheme.useHighlightColor);
+            if (scheme.useHighlightColor) {
+                cbHighlightFG.setRgba(scheme.highlightFG);
+                cbHighlightBG.setRgba(scheme.highlightBG);
+            }
+            //Cursor Colors          
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, scheme.useCursorColor);
+            if (scheme.useCursorColor) {
+                cbCursorFG.setRgba(scheme.cursorFG);
+                cbCursorBG.setRgba(scheme.cursorBG);
+            }
         }
         string[16] palette;
         foreach (i, color; scheme.palette) {

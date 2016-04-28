@@ -1172,12 +1172,14 @@ private:
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
                 vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
                 if (checkVTEVersionNumber(0, 44)) {
-                    vte.setColorCursorForeground(vteHighlightFG);
+                    vte.setColorCursorForeground(vteCursorFG);
                 }
-                vte.setColorCursor(vteHighlightBG);
+                vte.setColorCursor(vteCursorBG);
             } else {
-                vte.setColorHighlightForeground(null);
-                vte.setColorHighlight(null);
+                if (checkVTEVersionNumber(0, 44)) {
+                    vte.setColorCursorForeground(null);
+                }
+                vte.setColorCursor(null);
             }
             break; 
         case SETTINGS_DIM_UNFOCUSED_KEY, SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
