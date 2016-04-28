@@ -143,12 +143,10 @@ private:
         stackGroup = new Box(Orientation.VERTICAL, 0);
         addNamed(stackGroup, STACK_GROUP_NAME);
         stackMaximized = new Box(Orientation.VERTICAL, 0);
-        stackMaximized.getStyleContext().addClass("terminix-notebook-page");
         addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu and rawhide where background-color 
         // for widgets don't seem to take
-        groupChild.getStyleContext().addClass("terminix-notebook-page");
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized

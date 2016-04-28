@@ -10,6 +10,8 @@ import std.path;
 import std.process;
 import std.variant;
 
+import gdk.Screen;
+
 import gio.ActionGroupIF;
 import gio.ActionMapIF;
 import gio.Application : GApplication = Application;
@@ -25,6 +27,8 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.ObjectG;
+import gobject.ParamSpec;
 import gobject.Value;
 
 import gtkc.gtk;
@@ -32,6 +36,7 @@ import gtkc.gtk;
 import gtk.AboutDialog;
 import gtk.Application;
 import gtk.CheckButton;
+import gtk.CssProvider;
 import gtk.Dialog;
 import gtk.Image;
 import gtk.Label;
@@ -39,6 +44,7 @@ import gtk.LinkButton;
 import gtk.Main;
 import gtk.MessageDialog;
 import gtk.Settings;
+import gtk.StyleContext;
 import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
@@ -77,6 +83,8 @@ private:
     enum ACTION_COMMAND = "command";
     enum ACTION_SHORTCUTS = "shortcuts";
 
+    enum THEME_AMBIANCE = "Ambiance";
+
     GSettings gsShortcuts;
     GSettings gsGeneral;
     Value defaultMenuAccel;
@@ -88,6 +96,8 @@ private:
     PreferenceWindow preferenceWindow;
 
     bool warnedVTEConfigIssue = false;
+    
+    CssProvider ambianceProvider;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -101,6 +111,19 @@ private:
                     error(format("Could not load CSS %s", cssURI));
                 }
             }
+        }
+        if (getGtkTheme() == THEME_AMBIANCE) {
+            loadAmbianceResource();
+        }
+    }
+    
+    void loadAmbianceResource() {
+        string ambianceURI = buildPath(APPLICATION_RESOURCE_ROOT, APPLICATION_CSS_AMBIANCE);
+        ambianceProvider = addCssProvider(ambianceURI, ProviderPriority.APPLICATION);
+        if (!ambianceProvider) {
+            error(format("Could not load CSS %s", ambianceURI));
+        } else {
+            trace("Loaded Terminix Ambiance CSS");
         }
     }
 
@@ -310,9 +333,24 @@ private:
             createAppWindow();
         cp.clear();
     }
+    
+    void onThemeChange(ParamSpec, ObjectG) {
+        string theme = getGtkTheme();
+        trace("Theme changed to " ~ theme);
+        if (theme == THEME_AMBIANCE) {
+            if (ambianceProvider is null)
+                loadAmbianceResource();    
+        } else {
+            if (ambianceProvider !is null) {
+                StyleContext.removeProviderForScreen(Screen.getDefault(), ambianceProvider);
+                ambianceProvider = null;
+            }    
+        } 
+    }
 
     void onAppStartup(GApplication) {
         trace("Startup App Signal");
+        Settings.getDefault.addOnNotify(&onThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         trace("Monitoring shortcuts");
@@ -342,7 +380,7 @@ private:
         terminix = null;
     }
 
-    void applyPreferences() {
+    void applyPreferences() {        
         string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
         if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));

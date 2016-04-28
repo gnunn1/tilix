@@ -20,6 +20,12 @@
     background-color: @theme_bg_color;
 }
 
+/* Used to give backgrounds to widgets that end up transparent
+   due to transparent window */
+.terminix-background {
+    background-color: @theme_bg_color;
+}
+
 /* Only used when CSD is disabled */
 .terminix-toolbar {
     background-color: @theme_bg_color;
@@ -67,9 +73,4 @@
 /* Support small titlebars in 3.20 */
 .compact > button {
 	padding: 0px;
-}
-
-/* Fix Ubuntu Popover label borders, see #217 */
-GtkBox > .label.separator {
-    border: 0px;
 }

@@ -21,6 +21,7 @@ import glib.ListG;
 import glib.Util;
 
 import gobject.ObjectG;
+import gobject.Value;
 
 import gtk.Bin;
 import gtk.Box;
@@ -32,6 +33,7 @@ import gtk.Entry;
 import gtk.ListStore;
 import gtk.MessageDialog;
 import gtk.Paned;
+import gtk.Settings;
 import gtk.StyleContext;
 import gtk.TreeIter;
 import gtk.TreeModelIF;
@@ -42,6 +44,15 @@ import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
 
+
+/**
+ * Return the name of the GTK Theme
+ */
+string getGtkTheme() {
+    Value value = new Value("");
+    Settings.getDefault.getProperty("gtk-theme-name", value);
+    return value.getString();
+}
 
 /**
  * Convenience method for creating a box and adding children
@@ -259,19 +270,19 @@ Resource findResource(string resourcePath, bool register = true) {
     return null;
 }
 
-bool addCssProvider(string filename, ProviderPriority priority) {
+CssProvider addCssProvider(string filename, ProviderPriority priority) {
     try {
         CssProvider provider = new CssProvider();
         if (provider.loadFromFile(GFile.parseName(filename))) {
             StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
-            return true;
+            return provider;
         }
     }
     catch (GException ge) {
         error("Unexpected error loading resource " ~ filename);
         error("Error: " ~ ge.msg);
     }
-    return false;
+    return null;
 }
 
 /**

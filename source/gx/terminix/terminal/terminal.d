@@ -320,6 +320,7 @@ private:
         bTitle.setVexpand(false);
         bTitle.getStyleContext().addClass("notebook");
         bTitle.getStyleContext().addClass("header");
+        bTitle.getStyleContext().addClass("terminix-background");
 
         lblTitle = new Label(_("Terminal"));
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
@@ -751,6 +752,7 @@ private:
         // overlay scrollbars look awesome with VTE
         static if (!USE_SCROLLED_WINDOW) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
+            sb.getStyleContext().addClass("terminix-terminal-scrollbar");
             terminalBox.add(sb);
         }
 
@@ -1076,7 +1078,7 @@ private:
     double dimPercent;
     
     static if (STYLE_TERMINAL_SCROLLBAR) {
-        CssProvider provider;
+       CssProvider provider;
     }
 
     void initColors() {
@@ -1137,11 +1139,21 @@ private:
                 if (provider !is null) {
                     sb.getStyleContext().removeProvider(provider);
                 }
-                CssProvider provider = new CssProvider();
-                string css = format("* { background-color: %s; }", vteBG);
+                provider = new CssProvider();
+                string theme = getGtkTheme();
+                string css;
+                if (theme == "Ambiance") {
+                    css = format("*:not(.slider) { background: %s; opacity: %f; }", rgbaTo8bitHex(vteBG,false,true), vteBG.alpha);
+                } else {
+                    css = format("* { background: %s; opacity: %f; }", rgbaTo8bitHex(vteBG,false,true), vteBG.alpha);
+                }
                 trace(css);
                 provider.loadFromData(css);
-                sb.getStyleContext().addProvider(provider, GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+                if (theme == "Ambiance") {
+                    sb.getStyleContext().addProvider(provider, ProviderPriority.APPLICATION);
+                } else {
+                    sb.getStyleContext().addProvider(provider, ProviderPriority.FALLBACK);
+                }
             }
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
