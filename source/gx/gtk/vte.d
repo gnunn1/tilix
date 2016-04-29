@@ -13,7 +13,7 @@ import vte.Version;
  * Check if the VTE version is the same or higher then requested
  */
 bool checkVTEVersionNumber(uint major, uint minor) {
-    return (major > vteMajorVersion || (major == vteMajorVersion && minor >= vteMinorVersion));
+    return (major > vteMajorVersion || (major == vteMajorVersion && minor <= vteMinorVersion));
 }
 
 private:
