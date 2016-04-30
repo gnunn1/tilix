@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-16 18:46-0400\n"
+"POT-Creation-Date: 2016-04-29 21:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,6 +193,12 @@ msgstr ""
 msgid "read-only"
 msgstr ""
 
+msgid "reset"
+msgstr ""
+
+msgid "reset-and-clear"
+msgstr ""
+
 msgid "copy"
 msgstr ""
 
@@ -211,324 +217,367 @@ msgstr ""
 msgid "zoom-normal"
 msgstr ""
 
-#: source/gx/terminix/colorschemes.d:107
+#: source/gx/terminix/colorschemes.d:167
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
 msgstr ""
 
-#: source/gx/terminix/colorschemes.d:140
+#: source/gx/terminix/colorschemes.d:224
 msgid "Color scheme palette requires 16 colors"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:64
+#: source/gx/terminix/profilewindow.d:68
 #, c-format
 msgid "Editing Profile: %s"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:66
+#: source/gx/terminix/profilewindow.d:70
 msgid "New Profile"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:74
+#: source/gx/terminix/profilewindow.d:78
 msgid "General"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
+#: source/gx/terminix/profilewindow.d:79 source/gx/terminix/profilewindow.d:774
 #: source/gx/terminix/terminal/layout.d:64
 msgid "Command"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:76
+#: source/gx/terminix/profilewindow.d:80
 msgid "Color"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:77
+#: source/gx/terminix/profilewindow.d:81
 msgid "Scrolling"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:78
+#: source/gx/terminix/profilewindow.d:82
 msgid "Compatibility"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:127
+#: source/gx/terminix/profilewindow.d:131
 msgid "Profile Name"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:135
+#: source/gx/terminix/profilewindow.d:139
 #, c-format
 msgid "ID: %s"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:142
+#: source/gx/terminix/profilewindow.d:146
 msgid "Terminal Size"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:152
+#: source/gx/terminix/profilewindow.d:156
 msgid "columns"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:158
+#: source/gx/terminix/profilewindow.d:162
 msgid "rows"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:163
+#: source/gx/terminix/profilewindow.d:167
+#: source/gx/terminix/terminal/terminal.d:637
 msgid "Reset"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:169
+#: source/gx/terminix/profilewindow.d:173
+#: source/gx/terminix/profilewindow.d:420
 msgid "Cursor"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:172
+#: source/gx/terminix/profilewindow.d:176
 msgid "Block"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:172
+#: source/gx/terminix/profilewindow.d:176
 msgid "IBeam"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:172
+#: source/gx/terminix/profilewindow.d:176
 msgid "Underline"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:179
+#: source/gx/terminix/profilewindow.d:183
 msgid "Blink Mode"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:182
+#: source/gx/terminix/profilewindow.d:186
 msgid "System"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:182
+#: source/gx/terminix/profilewindow.d:186
 msgid "On"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:182
+#: source/gx/terminix/profilewindow.d:186
 msgid "Off"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:188
+#: source/gx/terminix/profilewindow.d:192
 msgid "Terminal Bell"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:198
+#: source/gx/terminix/profilewindow.d:202
 msgid "Terminal Title"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:211
+#: source/gx/terminix/profilewindow.d:215
 msgid "Text Appearance"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:217
+#: source/gx/terminix/profilewindow.d:221
 msgid "Allow bold text"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:222
+#: source/gx/terminix/profilewindow.d:226
 msgid "Rewrap on resize"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:228
+#: source/gx/terminix/profilewindow.d:232
 msgid "Custom Font"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:234
+#: source/gx/terminix/profilewindow.d:238
 msgid "Choose A Terminal Font"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:286
+#: source/gx/terminix/profilewindow.d:298
 msgid "Color scheme"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:296
+#: source/gx/terminix/profilewindow.d:308
 msgid "Custom"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:307
+#: source/gx/terminix/profilewindow.d:319
 msgid "Color palette"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:315
+#: source/gx/terminix/profilewindow.d:327
 msgid "Options"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:323
+#: source/gx/terminix/profilewindow.d:341
 msgid "Use theme colors for foreground/background"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:333
+#: source/gx/terminix/profilewindow.d:346
+msgid "Advanced"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:359
 msgid "Transparency"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:357
-msgid "Select Background Color"
+#: source/gx/terminix/profilewindow.d:373
+msgid "Unfocused Dim"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:365
+#: source/gx/terminix/profilewindow.d:415
+msgid "Text"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:416
+#: source/gx/terminix/profilewindow.d:473
 msgid "Background"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:370
-#: source/gx/terminix/profilewindow.d:384
+#: source/gx/terminix/profilewindow.d:427
+msgid "Select Cursor Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:429
+msgid "Select Cursor Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:434
+msgid "Highlight"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:439
+msgid "Select Highlight Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:441
+msgid "Select Highlight Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:446
+msgid "Dim"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:451
+msgid "Select Dim Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:465
+msgid "Select Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:478
+#: source/gx/terminix/profilewindow.d:492
 msgid "Select Foreground Color"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:383
+#: source/gx/terminix/profilewindow.d:491
 msgid "Foreground"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Black"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Red"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Green"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Orange"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Blue"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Purple"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Turquoise"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:496
 msgid "Grey"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:394
+#: source/gx/terminix/profilewindow.d:502
 #, c-format
 msgid "Select %s Color"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:401
+#: source/gx/terminix/profilewindow.d:509
 #, c-format
 msgid "Select %s Light Color"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:507
+#: source/gx/terminix/profilewindow.d:651
 msgid "Show scrollbar"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:655
 msgid "Scroll on output"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:515
+#: source/gx/terminix/profilewindow.d:659
 msgid "Scroll on keystroke"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:519
+#: source/gx/terminix/profilewindow.d:663
 msgid "Limit scrollback to:"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:560
+#: source/gx/terminix/profilewindow.d:704
 msgid "Backspace key generates"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
 msgid "Automatic"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
 msgid "Control-H"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
 msgid "ASCII DEL"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
 msgid "Escape sequence"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
 msgid "TTY"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:568
+#: source/gx/terminix/profilewindow.d:712
 msgid "Delete key generates"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:89
-#: source/gx/terminix/prefwindow.d:162
-#: source/gx/terminix/terminal/terminal.d:621
+#: source/gx/terminix/profilewindow.d:720 source/gx/terminix/prefwindow.d:92
+#: source/gx/terminix/prefwindow.d:165
+#: source/gx/terminix/terminal/terminal.d:647
 msgid "Encoding"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:591
+#: source/gx/terminix/profilewindow.d:735
 msgid "Ambiguous-width characters"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:594
+#: source/gx/terminix/profilewindow.d:738
 msgid "Narrow"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:594
+#: source/gx/terminix/profilewindow.d:738
 msgid "Wide"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:620
+#: source/gx/terminix/profilewindow.d:764
 msgid "Run command as a login shell"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:624
+#: source/gx/terminix/profilewindow.d:768
 msgid "Run a custom command instead of my shell"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:640
+#: source/gx/terminix/profilewindow.d:784
 msgid "When command exits"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:642
+#: source/gx/terminix/profilewindow.d:786
 msgid "Exit the terminal"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:642
+#: source/gx/terminix/profilewindow.d:786
 msgid "Restart the command"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:642
+#: source/gx/terminix/profilewindow.d:786
 msgid "Hold the terminal open"
 msgstr ""
 
-#: source/gx/terminix/constants.d:39
+#: source/gx/terminix/constants.d:38
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:40
+#: source/gx/terminix/constants.d:39
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:45
+#: source/gx/terminix/constants.d:44
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:46
+#: source/gx/terminix/constants.d:45
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:47
+#: source/gx/terminix/constants.d:46
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
@@ -667,123 +716,123 @@ msgstr ""
 msgid "Thai"
 msgstr ""
 
-#: source/gx/terminix/application.d:152 source/gx/terminix/session.d:1250
-#: source/gx/terminix/prefwindow.d:539
+#: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
+#: source/gx/terminix/prefwindow.d:595
 msgid "New Session"
 msgstr ""
 
-#: source/gx/terminix/application.d:153 source/gx/terminix/prefwindow.d:539
+#: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
 msgid "New Window"
 msgstr ""
 
-#: source/gx/terminix/application.d:157 source/gx/terminix/prefwindow.d:73
+#: source/gx/terminix/application.d:188 source/gx/terminix/prefwindow.d:73
 msgid "Preferences"
 msgstr ""
 
-#: source/gx/terminix/application.d:159 source/gx/terminix/prefwindow.d:83
+#: source/gx/terminix/application.d:190 source/gx/terminix/prefwindow.d:86
 msgid "Shortcuts"
 msgstr ""
 
-#: source/gx/terminix/application.d:164
+#: source/gx/terminix/application.d:195
 msgid "About"
 msgstr ""
 
-#: source/gx/terminix/application.d:165
+#: source/gx/terminix/application.d:196
 msgid "Quit"
 msgstr ""
 
-#: source/gx/terminix/application.d:216
+#: source/gx/terminix/application.d:247
 msgid "Credits"
 msgstr ""
 
-#: source/gx/terminix/application.d:411
+#: source/gx/terminix/application.d:466
 msgid "Set the working directory of the terminal"
 msgstr ""
 
-#: source/gx/terminix/application.d:411
+#: source/gx/terminix/application.d:466
 msgid "DIRECTORY"
 msgstr ""
 
-#: source/gx/terminix/application.d:412
+#: source/gx/terminix/application.d:467
 msgid "Set the starting profile"
 msgstr ""
 
-#: source/gx/terminix/application.d:412
+#: source/gx/terminix/application.d:467
 msgid "PROFILE_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:413
+#: source/gx/terminix/application.d:468
 msgid "Open the specified session"
 msgstr ""
 
-#: source/gx/terminix/application.d:413
+#: source/gx/terminix/application.d:468
 msgid "SESSION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:414
+#: source/gx/terminix/application.d:469
 msgid "Send an action to current Terminix instance"
 msgstr ""
 
-#: source/gx/terminix/application.d:414
+#: source/gx/terminix/application.d:469
 msgid "ACTION_NAME"
 msgstr ""
 
-#: source/gx/terminix/application.d:415
+#: source/gx/terminix/application.d:470
 msgid "Execute the passed command"
 msgstr ""
 
-#: source/gx/terminix/application.d:415
+#: source/gx/terminix/application.d:470
 msgid "EXECUTE"
 msgstr ""
 
-#: source/gx/terminix/application.d:416
+#: source/gx/terminix/application.d:471
 msgid "Maximize the terminal window"
 msgstr ""
 
-#: source/gx/terminix/application.d:417
+#: source/gx/terminix/application.d:472
 msgid "Full-screen the terminal window"
 msgstr ""
 
-#: source/gx/terminix/application.d:418
+#: source/gx/terminix/application.d:473
 msgid "Focus the existing window"
 msgstr ""
 
-#: source/gx/terminix/application.d:421
+#: source/gx/terminix/application.d:476
 msgid "Hidden argument to pass terminal UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:421
+#: source/gx/terminix/application.d:476
 msgid "TERMINAL_UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:561
+#: source/gx/terminix/application.d:616
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
 
-#: source/gx/terminix/application.d:562
+#: source/gx/terminix/application.d:617
 msgid "Configuration Issue Detected"
 msgstr ""
 
-#: source/gx/terminix/application.d:574
+#: source/gx/terminix/application.d:629
 msgid "Do not show this message again"
 msgstr ""
 
-#: source/gx/terminix/session.d:510
+#: source/gx/terminix/session.d:507
 msgid "Could not locate dropped terminal"
 msgstr ""
 
-#: source/gx/terminix/session.d:515
+#: source/gx/terminix/session.d:512
 msgid "Could not locate session for dropped terminal"
 msgstr ""
 
-#: source/gx/terminix/session.d:1216
+#: source/gx/terminix/session.d:1223
 msgid "Name"
 msgstr ""
 
-#: source/gx/terminix/session.d:1227 source/gx/terminix/prefwindow.d:375
+#: source/gx/terminix/session.d:1234 source/gx/terminix/prefwindow.d:378
 msgid "Profile"
 msgstr ""
 
@@ -791,145 +840,149 @@ msgstr ""
 msgid "Global"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:86
-#: source/gx/terminix/terminal/terminal.d:620
+#: source/gx/terminix/prefwindow.d:83
+msgid "Appearances"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:89
+#: source/gx/terminix/terminal/terminal.d:646
 msgid "Profiles"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:124
+#: source/gx/terminix/prefwindow.d:127
 msgid "Encodings showing in menu:"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:160
+#: source/gx/terminix/prefwindow.d:163
 msgid "Enabled"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:211
+#: source/gx/terminix/prefwindow.d:214
 msgid "Action"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:240
+#: source/gx/terminix/prefwindow.d:243
 msgid "Shortcut Key"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:271
+#: source/gx/terminix/prefwindow.d:274
 msgid "Overwrite Existing Shortcut"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:272
+#: source/gx/terminix/prefwindow.d:275
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:373 source/gx/terminix/prefwindow.d:585
+#: source/gx/terminix/prefwindow.d:376 source/gx/terminix/prefwindow.d:525
 #: source/gx/terminix/appwindow.d:91
 msgid "Default"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:389
+#: source/gx/terminix/prefwindow.d:392
 msgid "New"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:402
+#: source/gx/terminix/prefwindow.d:405
 msgid "Edit"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:405
+#: source/gx/terminix/prefwindow.d:408
 msgid "Delete"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:506
-msgid "Behavior"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:512
-msgid "Prompt when creating a new session"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:517
-msgid "Focus a terminal when the mouse moves over it"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:522
-msgid "Autohide the mouse pointer when typing"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:528
-msgid "Send desktop notification on process complete"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:536
-msgid "On new instance"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:539
-#: source/gx/terminix/terminal/terminal.d:631
-msgid "Split Right"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:539
-#: source/gx/terminix/terminal/terminal.d:635
-msgid "Split Down"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:539
-msgid "Focus Window"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:545
-#: source/gx/terminix/terminal/terminal.d:893
-#: source/gx/terminix/terminal/terminal.d:904
-msgid "Paste"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:551
-msgid "Warn when attempting unsafe paste"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:556
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:561
-msgid "Appearance"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:568
+#: source/gx/terminix/prefwindow.d:508
 msgid "Enable transparency, requires re-start"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:578
+#: source/gx/terminix/prefwindow.d:518
 msgid "Terminal title style"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:579
+#: source/gx/terminix/prefwindow.d:519
 msgid "Normal"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:579
+#: source/gx/terminix/prefwindow.d:519
 msgid "Small"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:579
+#: source/gx/terminix/prefwindow.d:519
 msgid "None"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:584
+#: source/gx/terminix/prefwindow.d:524
 msgid "Theme Variant"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:585
+#: source/gx/terminix/prefwindow.d:525
 msgid "Light"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:585
+#: source/gx/terminix/prefwindow.d:525
 msgid "Dark"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:592
+#: source/gx/terminix/prefwindow.d:532
 msgid "Use a wide handle for splitters"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:537
+msgid "Dim unfocused terminals"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:562
+msgid "Behavior"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:568
+msgid "Prompt when creating a new session"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:573
+msgid "Focus a terminal when the mouse moves over it"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:578
+msgid "Autohide the mouse pointer when typing"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:584
+msgid "Send desktop notification on process complete"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:592
+msgid "On new instance"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:595
+#: source/gx/terminix/terminal/terminal.d:657
+msgid "Split Right"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:595
+#: source/gx/terminix/terminal/terminal.d:661
+msgid "Split Down"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:595
+msgid "Focus Window"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:601
+#: source/gx/terminix/terminal/terminal.d:922
+#: source/gx/terminix/terminal/terminal.d:933
+msgid "Paste"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:607
+msgid "Warn when attempting unsafe paste"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:612
+msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
 #: source/gx/terminix/terminal/layout.d:28
@@ -982,164 +1035,169 @@ msgstr ""
 msgid "Wrap around"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:320
-#: source/gx/terminix/terminal/terminal.d:753
+#: source/gx/terminix/terminal/terminal.d:326
+#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:782
 #: data/resources/ui/shortcuts.ui:308
 msgid "Terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:351
-#: source/gx/terminix/terminal/terminal.d:922
-#: source/gx/terminix/appwindow.d:401
+#: source/gx/terminix/terminal/terminal.d:353
+#: source/gx/terminix/terminal/terminal.d:951
+#: source/gx/terminix/appwindow.d:403
 msgid "Close"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:360
-#: source/gx/terminix/terminal/terminal.d:784
-#: source/gx/terminix/terminal/terminal.d:921
+#: source/gx/terminix/terminal/terminal.d:362
+#: source/gx/terminix/terminal/terminal.d:813
+#: source/gx/terminix/terminal/terminal.d:950
 msgid "Maximize"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:371
-#: source/gx/terminix/terminal/terminal.d:552
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:565
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:410
+#: source/gx/terminix/terminal/terminal.d:412
 msgid "Edit Profile"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:527
-#: source/gx/terminix/appwindow.d:622
+#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/appwindow.d:624
 msgid "There are processes that are still running, close anyway?"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:554
+#: source/gx/terminix/terminal/terminal.d:567
 msgid "Enable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:610
+#: source/gx/terminix/terminal/terminal.d:623
 msgid "Save…"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:611
+#: source/gx/terminix/terminal/terminal.d:624
 msgid "Find…"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:612
+#: source/gx/terminix/terminal/terminal.d:625
 msgid "Layout Options…"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:616
+#: source/gx/terminix/terminal/terminal.d:633
 msgid "Read-Only"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:638
+msgid "Reset and Clear"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:667
 msgid "Split"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:781
-#: source/gx/terminix/terminal/terminal.d:921
+#: source/gx/terminix/terminal/terminal.d:810
+#: source/gx/terminix/terminal/terminal.d:950
 msgid "Restore"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:880
+#: source/gx/terminix/terminal/terminal.d:909
 msgid "Open Link"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:881
+#: source/gx/terminix/terminal/terminal.d:910
 msgid "Copy Link Address"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:892
-#: source/gx/terminix/terminal/terminal.d:899
+#: source/gx/terminix/terminal/terminal.d:921
+#: source/gx/terminix/terminal/terminal.d:928
 msgid "Copy"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:894
-#: source/gx/terminix/terminal/terminal.d:909
+#: source/gx/terminix/terminal/terminal.d:923
+#: source/gx/terminix/terminal/terminal.d:938
 msgid "Select All"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:912
+#: source/gx/terminix/terminal/terminal.d:941
 msgid "Clipboard"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:926
+#: source/gx/terminix/terminal/terminal.d:955
 msgid "Synchronize input"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1303
+#: source/gx/terminix/terminal/terminal.d:1394
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1309
+#: source/gx/terminix/terminal/terminal.d:1400
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1625
+#: source/gx/terminix/terminal/terminal.d:1714
 msgid "Save Terminal Output"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1631
+#: source/gx/terminix/terminal/terminal.d:1720
 msgid "All Text Files"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1635
-#: source/gx/terminix/appwindow.d:678
+#: source/gx/terminix/terminal/terminal.d:1724
+#: source/gx/terminix/appwindow.d:680
 msgid "All Files"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1938
+#: source/gx/terminix/terminal/terminal.d:2039
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1939
+#: source/gx/terminix/terminal/terminal.d:2040
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1940
+#: source/gx/terminix/terminal/terminal.d:2041
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1946
+#: source/gx/terminix/terminal/terminal.d:2047
 msgid "Relaunch"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1986
+#: source/gx/terminix/terminal/terminal.d:2087
 msgid "This command is asking for Administrative access to your computer"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1987
+#: source/gx/terminix/terminal/terminal.d:2088
 msgid "Copying commands from the internet can be dangerous. "
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1988
+#: source/gx/terminix/terminal/terminal.d:2089
 msgid "Be sure you understand what each part of this command does."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1990
+#: source/gx/terminix/terminal/terminal.d:2091
 msgid "Don't Paste"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1991
+#: source/gx/terminix/terminal/terminal.d:2092
 msgid "Paste Anyway"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:74
+#: source/gx/terminix/cmdparams.d:75
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:101
+#: source/gx/terminix/cmdparams.d:103
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:110
+#: source/gx/terminix/cmdparams.d:112
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1149,68 +1207,68 @@ msgstr ""
 msgid "View session sidebar"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:193
+#: source/gx/terminix/appwindow.d:195
 msgid "Create a new session"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:372
+#: source/gx/terminix/appwindow.d:374
 msgid "Change Session Name"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:372
+#: source/gx/terminix/appwindow.d:374
 msgid "Enter a new name for the session"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:398
+#: source/gx/terminix/appwindow.d:400
 msgid "Open…"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:399
+#: source/gx/terminix/appwindow.d:401
 msgid "Save"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:400
+#: source/gx/terminix/appwindow.d:402
 msgid "Save As…"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:405
+#: source/gx/terminix/appwindow.d:407
 msgid "Name…"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:406
+#: source/gx/terminix/appwindow.d:408
 msgid "Synchronize Input"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:411
+#: source/gx/terminix/appwindow.d:413
 msgid "GC"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:674
+#: source/gx/terminix/appwindow.d:676
 msgid "All JSON Files"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:687
+#: source/gx/terminix/appwindow.d:689
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:714
+#: source/gx/terminix/appwindow.d:716
 msgid "Load Session"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:727
+#: source/gx/terminix/appwindow.d:729
 msgid "Could not load session due to unexpected error."
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:727
+#: source/gx/terminix/appwindow.d:729
 msgid "Error Loading Session"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:742
+#: source/gx/terminix/appwindow.d:744
 msgid "Save Session"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:777
+#: source/gx/terminix/appwindow.d:779
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:7
 msgid "Terminix"
@@ -1220,16 +1278,16 @@ msgstr ""
 msgid "disabled"
 msgstr ""
 
-#: source/app.d:42
+#: source/app.d:46
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:62
+#: source/app.d:66
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:63
+#: source/app.d:67
 msgid "Error: "
 msgstr ""
 
@@ -1590,10 +1648,20 @@ msgstr ""
 
 #: data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
-msgid "Toggle read only"
+msgid "Reset the terminal"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:437
+msgctxt "shortcut window"
+msgid "Reset and clear the terminal"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:443
+msgctxt "shortcut window"
+msgid "Toggle read only"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr ""

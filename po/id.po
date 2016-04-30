@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 23:37+0200\n"
+"POT-Creation-Date: 2016-04-29 21:17-0400\n"
 "PO-Revision-Date: 2016-04-25 06:25+0000\n"
 "Last-Translator: Mohamad Hasan Al Banna <se7entime@protonmail.com>\n"
-"Language-Team: Indonesian "
-"<https://hosted.weblate.org/projects/terminix/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/terminix/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -195,6 +195,12 @@ msgstr "Preferensi Profil"
 msgid "read-only"
 msgstr "Hanya-baca"
 
+msgid "reset"
+msgstr ""
+
+msgid "reset-and-clear"
+msgstr ""
+
 msgid "copy"
 msgstr "Salin"
 
@@ -213,714 +219,346 @@ msgstr "Perkecil"
 msgid "zoom-normal"
 msgstr "Tampilan Normal"
 
-#: source/gx/terminix/terminal/search.d:117
-msgid "Search Options"
-msgstr "Opsi Pencarian"
-
-#: source/gx/terminix/terminal/search.d:183
-msgid "Match case"
-msgstr ""
-
-#: source/gx/terminix/terminal/search.d:184
-msgid "Match entire word only"
-msgstr ""
-
-#: source/gx/terminix/terminal/search.d:185
-msgid "Match as regular expression"
-msgstr ""
-
-#: source/gx/terminix/terminal/search.d:186
-msgid "Wrap around"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:319
-#: source/gx/terminix/terminal/terminal.d:752
-#: data/resources/ui/shortcuts.ui:308
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/terminix/terminal/terminal.d:350
-#: source/gx/terminix/terminal/terminal.d:921
-#: source/gx/terminix/appwindow.d:401
-msgid "Close"
-msgstr "Tutup"
-
-#: source/gx/terminix/terminal/terminal.d:359
-#: source/gx/terminix/terminal/terminal.d:783
-#: source/gx/terminix/terminal/terminal.d:920
-msgid "Maximize"
-msgstr "Maksimalkan"
-
-#: source/gx/terminix/terminal/terminal.d:370
-#: source/gx/terminix/terminal/terminal.d:551
-msgid "Disable input synchronization for this terminal"
-msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
-
-#: source/gx/terminix/terminal/terminal.d:409
-msgid "Edit Profile"
-msgstr "Sunting Profil"
-
-#: source/gx/terminix/terminal/terminal.d:526
-#: source/gx/terminix/appwindow.d:622
-msgid "There are processes that are still running, close anyway?"
-msgstr "Terdapat proses yang masih berjalan, tetap tutup?"
-
-#: source/gx/terminix/terminal/terminal.d:553
-msgid "Enable input synchronization for this terminal"
-msgstr "Fungsikan sinkronisasi masukan untuk terminal ini"
-
-#: source/gx/terminix/terminal/terminal.d:609
-msgid "Save…"
-msgstr "Simpan…"
-
-#: source/gx/terminix/terminal/terminal.d:610
-msgid "Find…"
-msgstr "Cari…"
-
-#: source/gx/terminix/terminal/terminal.d:611
-msgid "Layout Options…"
-msgstr "Opsi Tata Letak…"
-
-#: source/gx/terminix/terminal/terminal.d:615
-msgid "Read-Only"
-msgstr "Hanya-Baca"
-
-#: source/gx/terminix/terminal/terminal.d:619
-#: source/gx/terminix/prefwindow.d:83
-msgid "Profiles"
-msgstr "Profil"
-
-#: source/gx/terminix/terminal/terminal.d:620
-#: source/gx/terminix/profilewindow.d:576 source/gx/terminix/prefwindow.d:86
-#: source/gx/terminix/prefwindow.d:159
-msgid "Encoding"
-msgstr "Enkoding"
-
-#: source/gx/terminix/terminal/terminal.d:630
-msgid "Split Right"
-msgstr "Pisah Kanan"
-
-#: source/gx/terminix/terminal/terminal.d:634
-msgid "Split Down"
-msgstr "Pisah Bawah"
-
-#: source/gx/terminix/terminal/terminal.d:640
-msgid "Split"
-msgstr "Pisah"
-
-#: source/gx/terminix/terminal/terminal.d:780
-#: source/gx/terminix/terminal/terminal.d:920
-msgid "Restore"
-msgstr "Pulihkan"
-
-#: source/gx/terminix/terminal/terminal.d:879
-msgid "Open Link"
-msgstr "Buka Tautan"
-
-#: source/gx/terminix/terminal/terminal.d:880
-msgid "Copy Link Address"
-msgstr "Salin Alamat Tautan"
-
-#: source/gx/terminix/terminal/terminal.d:891
-#: source/gx/terminix/terminal/terminal.d:898
-msgid "Copy"
-msgstr "Salin"
-
-#: source/gx/terminix/terminal/terminal.d:892
-#: source/gx/terminix/terminal/terminal.d:903
-#: source/gx/terminix/prefwindow.d:496
-msgid "Paste"
-msgstr "Tempel"
-
-#: source/gx/terminix/terminal/terminal.d:893
-#: source/gx/terminix/terminal/terminal.d:908
-msgid "Select All"
-msgstr "Pilih Semua"
-
-#: source/gx/terminix/terminal/terminal.d:911
-msgid "Clipboard"
-msgstr "Papan Klip"
-
-#: source/gx/terminix/terminal/terminal.d:925
-msgid "Synchronize input"
-msgstr "Sinkronisasi masukan"
-
-#: source/gx/terminix/terminal/terminal.d:1277
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
-
-#: source/gx/terminix/terminal/terminal.d:1283
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Terjadi galat tak terduga: %s"
-
-#: source/gx/terminix/terminal/terminal.d:1599
-msgid "Save Terminal Output"
-msgstr "Simpan Keluaran Terminal"
-
-#: source/gx/terminix/terminal/terminal.d:1605
-msgid "All Text Files"
-msgstr "Semua Berkas Teks"
-
-#: source/gx/terminix/terminal/terminal.d:1609
-#: source/gx/terminix/appwindow.d:678
-msgid "All Files"
-msgstr "Semua Berkas"
-
-#: source/gx/terminix/terminal/terminal.d:1912
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Proses anak keluar secara normal dengan status %d"
-
-#: source/gx/terminix/terminal/terminal.d:1913
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Proses anak dibatalkan dengan sinyal %d."
-
-#: source/gx/terminix/terminal/terminal.d:1914
-msgid "The child process was aborted."
-msgstr "Proses anak telah dibatalkan."
-
-#: source/gx/terminix/terminal/terminal.d:1920
-msgid "Relaunch"
-msgstr "Jalankan ulang"
-
-#: source/gx/terminix/terminal/terminal.d:1960
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Perintah ini meminta akses Administrasi ke komputer kamu"
-
-#: source/gx/terminix/terminal/terminal.d:1961
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
-
-#: source/gx/terminix/terminal/terminal.d:1962
-msgid "Be sure you understand what each part of this command does."
-msgstr "Pastikan anda mengerti apa yang dilakukan setiap bagian perintah ini."
-
-#: source/gx/terminix/terminal/terminal.d:1964
-msgid "Don't Paste"
-msgstr "Jangan Tempel"
-
-#: source/gx/terminix/terminal/terminal.d:1965
-msgid "Paste Anyway"
-msgstr "Tempel Saja"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Layout Options"
-msgstr "Opsi Tata Letak"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr "Ok"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Cancel"
-msgstr "Batal"
-
-#: source/gx/terminix/terminal/layout.d:43
-msgid "Active"
-msgstr "Aktif"
-
-#: source/gx/terminix/terminal/layout.d:49
-msgid "Title"
-msgstr "Judul"
-
-#: source/gx/terminix/terminal/layout.d:57
-msgid "Session Load"
-msgstr "Muatan Sesi"
-
-#: source/gx/terminix/terminal/layout.d:64
-#: source/gx/terminix/profilewindow.d:75 source/gx/terminix/profilewindow.d:630
-msgid "Command"
-msgstr "Perintah"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Opsi aktif selalu berefek dan diaktifkan langsung.\n"
-"Opsi Muatan Sesi hanya diaktifkan ketika memuat berkas sesi."
-
-#: source/gx/terminix/appwindow.d:91 source/gx/terminix/prefwindow.d:324
-#: source/gx/terminix/prefwindow.d:536
-msgid "Default"
-msgstr "Bawaan"
-
-#: source/gx/terminix/appwindow.d:181
-msgid "View session sidebar"
-msgstr "Lihat bilah samping sesi"
-
-#: source/gx/terminix/appwindow.d:193
-msgid "Create a new session"
-msgstr "Buat sesi baru"
-
-#: source/gx/terminix/appwindow.d:372
-msgid "Change Session Name"
-msgstr "Ubah Nama Sesi"
-
-#: source/gx/terminix/appwindow.d:372
-msgid "Enter a new name for the session"
-msgstr "Ketik nama baru untuk sesi"
-
-#: source/gx/terminix/appwindow.d:398
-msgid "Open…"
-msgstr "Buka…"
-
-#: source/gx/terminix/appwindow.d:399
-msgid "Save"
-msgstr "Simpan"
-
-#: source/gx/terminix/appwindow.d:400
-msgid "Save As…"
-msgstr "Simpan Sebagai…"
-
-#: source/gx/terminix/appwindow.d:405
-msgid "Name…"
-msgstr "Nama…"
-
-#: source/gx/terminix/appwindow.d:406
-msgid "Synchronize Input"
-msgstr "Sinkronisasi Masukan"
-
-#: source/gx/terminix/appwindow.d:411
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:674
-msgid "All JSON Files"
-msgstr "Berkas Semua JSON"
-
-#: source/gx/terminix/appwindow.d:687
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Nama Berkas '%s' tidak ada"
-
-#: source/gx/terminix/appwindow.d:714
-msgid "Load Session"
-msgstr "Muat Sesi"
-
-#: source/gx/terminix/appwindow.d:727
-msgid "Could not load session due to unexpected error."
-msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
-
-#: source/gx/terminix/appwindow.d:727
-msgid "Error Loading Session"
-msgstr "Galat Memuat Sesi"
-
-#: source/gx/terminix/appwindow.d:742
-msgid "Save Session"
-msgstr "Simpan Sesi"
-
-#: source/gx/terminix/appwindow.d:777
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:147 source/gx/terminix/session.d:1249
-#: source/gx/terminix/prefwindow.d:490
-msgid "New Session"
-msgstr "Sesi Baru"
-
-#: source/gx/terminix/application.d:148 source/gx/terminix/prefwindow.d:490
-msgid "New Window"
-msgstr "Jendela Baru"
-
-#: source/gx/terminix/application.d:152 source/gx/terminix/prefwindow.d:70
-msgid "Preferences"
-msgstr "Preferensi"
-
-#: source/gx/terminix/application.d:154 source/gx/terminix/prefwindow.d:80
-msgid "Shortcuts"
-msgstr "Pintasan"
-
-#: source/gx/terminix/application.d:159
-msgid "About"
-msgstr "Tentang"
-
-#: source/gx/terminix/application.d:160
-msgid "Quit"
-msgstr "Keluar"
-
-#: source/gx/terminix/application.d:211
-msgid "Credits"
-msgstr "Kredit"
-
-#: source/gx/terminix/application.d:399
-msgid "Set the working directory of the terminal"
-msgstr "Atur direktori kerja terminal"
-
-#: source/gx/terminix/application.d:399
-msgid "DIRECTORY"
-msgstr "DIREKTORI"
-
-#: source/gx/terminix/application.d:400
-msgid "Set the starting profile"
-msgstr "Atur profil awalan"
-
-#: source/gx/terminix/application.d:400
-msgid "PROFILE_NAME"
-msgstr "NAMA_PROFIL"
-
-#: source/gx/terminix/application.d:401
-msgid "Open the specified session"
-msgstr "Buka sesi spesifik"
-
-#: source/gx/terminix/application.d:401
-msgid "SESSION_NAME"
-msgstr "NAMA_SESI"
-
-#: source/gx/terminix/application.d:402
-msgid "Send an action to current Terminix instance"
-msgstr "Kirim aksi ke Terminix yang sekarang saat ini"
-
-#: source/gx/terminix/application.d:402
-msgid "ACTION_NAME"
-msgstr "NAMA_AKSI"
-
-#: source/gx/terminix/application.d:403
-msgid "Execute the passed command"
-msgstr "Eksekusi perintah yang terlewati"
-
-#: source/gx/terminix/application.d:403
-msgid "EXECUTE"
-msgstr "EKSEKUSI"
-
-#: source/gx/terminix/application.d:404
-msgid "Maximize the terminal window"
-msgstr "Maksimalkan jendela terminal"
-
-#: source/gx/terminix/application.d:405
-msgid "Full-screen the terminal window"
-msgstr "Layar-penuh jendela terminal"
-
-#: source/gx/terminix/application.d:408
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Sembunyikan argumentasi untuk melewati UUID terminal"
-
-#: source/gx/terminix/application.d:408
-msgid "TERMINAL_UUID"
-msgstr "UUID_TERMINAL"
-
-#: source/gx/terminix/application.d:548
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Sepertinya ada isu dengan konfigurasi terminal.\n"
-"Isu ini tidak serius, tapi memperbaikinya akan memperbagus pengalaman anda.\n"
-"Klik tautan dibawah untuk info selanjutnya:"
-
-#: source/gx/terminix/application.d:549
-msgid "Configuration Issue Detected"
-msgstr "Isu Konfigurasi Terdeteksi"
-
-#: source/gx/terminix/application.d:561
-msgid "Do not show this message again"
-msgstr "Jangan tampilkan pesan ini lagi"
-
-#: source/gx/terminix/profilewindow.d:64
-#, c-format
-msgid "Editing Profile: %s"
-msgstr "Menyunting Profil: %s"
-
-#: source/gx/terminix/profilewindow.d:66
-msgid "New Profile"
-msgstr "Profil Baru"
-
-#: source/gx/terminix/profilewindow.d:74
-msgid "General"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:76
-msgid "Color"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:77
-msgid "Scrolling"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:78
-msgid "Compatibility"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:127
-msgid "Profile Name"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:135
-#, c-format
-msgid "ID: %s"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:142
-msgid "Terminal Size"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:152
-msgid "columns"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:158
-msgid "rows"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:163
-msgid "Reset"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:169
-msgid "Cursor"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:172
-msgid "Block"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:172
-msgid "IBeam"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:172
-msgid "Underline"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:179
-msgid "Blink Mode"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:182
-msgid "System"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:182
-msgid "On"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:182
-msgid "Off"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:188
-msgid "Terminal Bell"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:198
-msgid "Terminal Title"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:211
-msgid "Text Appearance"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:217
-msgid "Allow bold text"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:222
-msgid "Rewrap on resize"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:228
-msgid "Custom Font"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:234
-msgid "Choose A Terminal Font"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:286
-msgid "Color scheme"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:296
-msgid "Custom"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:307
-msgid "Color palette"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:315
-msgid "Options"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:323
-msgid "Use theme colors for foreground/background"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:333
-msgid "Transparency"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:357
-msgid "Select Background Color"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:365
-msgid "Background"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:370
-#: source/gx/terminix/profilewindow.d:384
-msgid "Select Foreground Color"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:383
-msgid "Foreground"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Black"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Red"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Green"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Orange"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Blue"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Purple"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Turquoise"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:388
-msgid "Grey"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:394
-#, c-format
-msgid "Select %s Color"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:401
-#, c-format
-msgid "Select %s Light Color"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:507
-msgid "Show scrollbar"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:511
-msgid "Scroll on output"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:515
-msgid "Scroll on keystroke"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:519
-msgid "Limit scrollback to:"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:560
-msgid "Backspace key generates"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
-msgid "Automatic"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
-msgid "Control-H"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
-msgid "ASCII DEL"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
-msgid "Escape sequence"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:563
-#: source/gx/terminix/profilewindow.d:571
-msgid "TTY"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:568
-msgid "Delete key generates"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:591
-msgid "Ambiguous-width characters"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:594
-msgid "Narrow"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:594
-msgid "Wide"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:620
-msgid "Run command as a login shell"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:624
-msgid "Run a custom command instead of my shell"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:640
-msgid "When command exits"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:642
-msgid "Exit the terminal"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:642
-msgid "Restart the command"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:642
-msgid "Hold the terminal open"
-msgstr ""
-
-#: source/gx/terminix/colorschemes.d:107
+#: source/gx/terminix/colorschemes.d:167
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
 msgstr ""
 
-#: source/gx/terminix/colorschemes.d:140
+#: source/gx/terminix/colorschemes.d:224
 msgid "Color scheme palette requires 16 colors"
 msgstr ""
 
-#: source/gx/terminix/session.d:509
-msgid "Could not locate dropped terminal"
+#: source/gx/terminix/profilewindow.d:68
+#, c-format
+msgid "Editing Profile: %s"
+msgstr "Menyunting Profil: %s"
+
+#: source/gx/terminix/profilewindow.d:70
+msgid "New Profile"
+msgstr "Profil Baru"
+
+#: source/gx/terminix/profilewindow.d:78
+msgid "General"
 msgstr ""
 
-#: source/gx/terminix/session.d:514
-msgid "Could not locate session for dropped terminal"
+#: source/gx/terminix/profilewindow.d:79 source/gx/terminix/profilewindow.d:774
+#: source/gx/terminix/terminal/layout.d:64
+msgid "Command"
+msgstr "Perintah"
+
+#: source/gx/terminix/profilewindow.d:80
+msgid "Color"
 msgstr ""
 
-#: source/gx/terminix/session.d:1215
-msgid "Name"
+#: source/gx/terminix/profilewindow.d:81
+msgid "Scrolling"
 msgstr ""
 
-#: source/gx/terminix/session.d:1226 source/gx/terminix/prefwindow.d:326
-msgid "Profile"
+#: source/gx/terminix/profilewindow.d:82
+msgid "Compatibility"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:131
+msgid "Profile Name"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:139
+#, c-format
+msgid "ID: %s"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:146
+msgid "Terminal Size"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:156
+msgid "columns"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:162
+msgid "rows"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:167
+#: source/gx/terminix/terminal/terminal.d:637
+msgid "Reset"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:173
+#: source/gx/terminix/profilewindow.d:420
+msgid "Cursor"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:176
+msgid "Block"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:176
+msgid "IBeam"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:176
+msgid "Underline"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:183
+msgid "Blink Mode"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:186
+msgid "System"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:186
+msgid "On"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:186
+msgid "Off"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:192
+msgid "Terminal Bell"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:202
+msgid "Terminal Title"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:215
+msgid "Text Appearance"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:221
+msgid "Allow bold text"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:226
+msgid "Rewrap on resize"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:232
+msgid "Custom Font"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:238
+msgid "Choose A Terminal Font"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:298
+msgid "Color scheme"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:308
+msgid "Custom"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:319
+msgid "Color palette"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:327
+msgid "Options"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:341
+msgid "Use theme colors for foreground/background"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:346
+msgid "Advanced"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:359
+msgid "Transparency"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:373
+msgid "Unfocused Dim"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:415
+msgid "Text"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:416
+#: source/gx/terminix/profilewindow.d:473
+msgid "Background"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:427
+msgid "Select Cursor Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:429
+msgid "Select Cursor Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:434
+msgid "Highlight"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:439
+msgid "Select Highlight Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:441
+msgid "Select Highlight Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:446
+msgid "Dim"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:451
+#, fuzzy
+msgid "Select Dim Color"
+msgstr "Pilih Semua"
+
+#: source/gx/terminix/profilewindow.d:465
+msgid "Select Background Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:478
+#: source/gx/terminix/profilewindow.d:492
+msgid "Select Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:491
+msgid "Foreground"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Black"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Red"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Green"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Orange"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Blue"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Purple"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Turquoise"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:496
+msgid "Grey"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:502
+#, c-format
+msgid "Select %s Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:509
+#, c-format
+msgid "Select %s Light Color"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:651
+msgid "Show scrollbar"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:655
+msgid "Scroll on output"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:659
+msgid "Scroll on keystroke"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:663
+msgid "Limit scrollback to:"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:704
+msgid "Backspace key generates"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
+msgid "Automatic"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
+msgid "Control-H"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
+msgid "ASCII DEL"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
+msgid "Escape sequence"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:707
+#: source/gx/terminix/profilewindow.d:715
+msgid "TTY"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:712
+msgid "Delete key generates"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:720 source/gx/terminix/prefwindow.d:92
+#: source/gx/terminix/prefwindow.d:165
+#: source/gx/terminix/terminal/terminal.d:647
+msgid "Encoding"
+msgstr "Enkoding"
+
+#: source/gx/terminix/profilewindow.d:735
+msgid "Ambiguous-width characters"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:738
+msgid "Narrow"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:738
+msgid "Wide"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:764
+msgid "Run command as a login shell"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:768
+msgid "Run a custom command instead of my shell"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:784
+msgid "When command exits"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:786
+msgid "Exit the terminal"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:786
+msgid "Restart the command"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:786
+msgid "Hold the terminal open"
 msgstr ""
 
 #: source/gx/terminix/constants.d:38
@@ -1081,148 +719,586 @@ msgstr ""
 msgid "Thai"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:77
+#: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
+#: source/gx/terminix/prefwindow.d:595
+msgid "New Session"
+msgstr "Sesi Baru"
+
+#: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
+msgid "New Window"
+msgstr "Jendela Baru"
+
+#: source/gx/terminix/application.d:188 source/gx/terminix/prefwindow.d:73
+msgid "Preferences"
+msgstr "Preferensi"
+
+#: source/gx/terminix/application.d:190 source/gx/terminix/prefwindow.d:86
+msgid "Shortcuts"
+msgstr "Pintasan"
+
+#: source/gx/terminix/application.d:195
+msgid "About"
+msgstr "Tentang"
+
+#: source/gx/terminix/application.d:196
+msgid "Quit"
+msgstr "Keluar"
+
+#: source/gx/terminix/application.d:247
+msgid "Credits"
+msgstr "Kredit"
+
+#: source/gx/terminix/application.d:466
+msgid "Set the working directory of the terminal"
+msgstr "Atur direktori kerja terminal"
+
+#: source/gx/terminix/application.d:466
+msgid "DIRECTORY"
+msgstr "DIREKTORI"
+
+#: source/gx/terminix/application.d:467
+msgid "Set the starting profile"
+msgstr "Atur profil awalan"
+
+#: source/gx/terminix/application.d:467
+msgid "PROFILE_NAME"
+msgstr "NAMA_PROFIL"
+
+#: source/gx/terminix/application.d:468
+msgid "Open the specified session"
+msgstr "Buka sesi spesifik"
+
+#: source/gx/terminix/application.d:468
+msgid "SESSION_NAME"
+msgstr "NAMA_SESI"
+
+#: source/gx/terminix/application.d:469
+msgid "Send an action to current Terminix instance"
+msgstr "Kirim aksi ke Terminix yang sekarang saat ini"
+
+#: source/gx/terminix/application.d:469
+msgid "ACTION_NAME"
+msgstr "NAMA_AKSI"
+
+#: source/gx/terminix/application.d:470
+msgid "Execute the passed command"
+msgstr "Eksekusi perintah yang terlewati"
+
+#: source/gx/terminix/application.d:470
+msgid "EXECUTE"
+msgstr "EKSEKUSI"
+
+#: source/gx/terminix/application.d:471
+msgid "Maximize the terminal window"
+msgstr "Maksimalkan jendela terminal"
+
+#: source/gx/terminix/application.d:472
+msgid "Full-screen the terminal window"
+msgstr "Layar-penuh jendela terminal"
+
+#: source/gx/terminix/application.d:473
+#, fuzzy
+msgid "Focus the existing window"
+msgstr "Layar-penuh jendela terminal"
+
+#: source/gx/terminix/application.d:476
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Sembunyikan argumentasi untuk melewati UUID terminal"
+
+#: source/gx/terminix/application.d:476
+msgid "TERMINAL_UUID"
+msgstr "UUID_TERMINAL"
+
+#: source/gx/terminix/application.d:616
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Sepertinya ada isu dengan konfigurasi terminal.\n"
+"Isu ini tidak serius, tapi memperbaikinya akan memperbagus pengalaman anda.\n"
+"Klik tautan dibawah untuk info selanjutnya:"
+
+#: source/gx/terminix/application.d:617
+msgid "Configuration Issue Detected"
+msgstr "Isu Konfigurasi Terdeteksi"
+
+#: source/gx/terminix/application.d:629
+msgid "Do not show this message again"
+msgstr "Jangan tampilkan pesan ini lagi"
+
+#: source/gx/terminix/session.d:507
+msgid "Could not locate dropped terminal"
+msgstr ""
+
+#: source/gx/terminix/session.d:512
+msgid "Could not locate session for dropped terminal"
+msgstr ""
+
+#: source/gx/terminix/session.d:1223
+msgid "Name"
+msgstr ""
+
+#: source/gx/terminix/session.d:1234 source/gx/terminix/prefwindow.d:378
+msgid "Profile"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:80
 msgid "Global"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:121
+#: source/gx/terminix/prefwindow.d:83
+#, fuzzy
+msgid "Appearances"
+msgstr "Preferensi"
+
+#: source/gx/terminix/prefwindow.d:89
+#: source/gx/terminix/terminal/terminal.d:646
+msgid "Profiles"
+msgstr "Profil"
+
+#: source/gx/terminix/prefwindow.d:127
 msgid "Encodings showing in menu:"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:157
+#: source/gx/terminix/prefwindow.d:163
 msgid "Enabled"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:208
+#: source/gx/terminix/prefwindow.d:214
 msgid "Action"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:235
+#: source/gx/terminix/prefwindow.d:243
 msgid "Shortcut Key"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:340
+#: source/gx/terminix/prefwindow.d:274
+msgid "Overwrite Existing Shortcut"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:275
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:376 source/gx/terminix/prefwindow.d:525
+#: source/gx/terminix/appwindow.d:91
+msgid "Default"
+msgstr "Bawaan"
+
+#: source/gx/terminix/prefwindow.d:392
 msgid "New"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:353
+#: source/gx/terminix/prefwindow.d:405
 msgid "Edit"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:356
+#: source/gx/terminix/prefwindow.d:408
 msgid "Delete"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:457
-msgid "Behavior"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:463
-msgid "Prompt when creating a new session"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:468
-msgid "Focus a terminal when the mouse moves over it"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:473
-msgid "Autohide the mouse pointer when typing"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:479
-msgid "Send desktop notification on process complete"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:487
-msgid "On new instance"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:490
-msgid "Split Horizontal"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:490
-msgid "Split Vertical"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:502
-msgid "Warn when attempting unsafe paste"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:507
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:512
-msgid "Appearance"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:519
+#: source/gx/terminix/prefwindow.d:508
 msgid "Enable transparency, requires re-start"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:529
+#: source/gx/terminix/prefwindow.d:518
 msgid "Terminal title style"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:530
+#: source/gx/terminix/prefwindow.d:519
 msgid "Normal"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:530
+#: source/gx/terminix/prefwindow.d:519
 msgid "Small"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:530
+#: source/gx/terminix/prefwindow.d:519
 msgid "None"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:535
+#: source/gx/terminix/prefwindow.d:524
 msgid "Theme Variant"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:536
+#: source/gx/terminix/prefwindow.d:525
 msgid "Light"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:536
+#: source/gx/terminix/prefwindow.d:525
 msgid "Dark"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:543
+#: source/gx/terminix/prefwindow.d:532
 msgid "Use a wide handle for splitters"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:71
+#: source/gx/terminix/prefwindow.d:537
+msgid "Dim unfocused terminals"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:562
+msgid "Behavior"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:568
+msgid "Prompt when creating a new session"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:573
+msgid "Focus a terminal when the mouse moves over it"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:578
+msgid "Autohide the mouse pointer when typing"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:584
+msgid "Send desktop notification on process complete"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:592
+msgid "On new instance"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:595
+#: source/gx/terminix/terminal/terminal.d:657
+msgid "Split Right"
+msgstr "Pisah Kanan"
+
+#: source/gx/terminix/prefwindow.d:595
+#: source/gx/terminix/terminal/terminal.d:661
+msgid "Split Down"
+msgstr "Pisah Bawah"
+
+#: source/gx/terminix/prefwindow.d:595
+#, fuzzy
+msgid "Focus Window"
+msgstr "Jendela Baru"
+
+#: source/gx/terminix/prefwindow.d:601
+#: source/gx/terminix/terminal/terminal.d:922
+#: source/gx/terminix/terminal/terminal.d:933
+msgid "Paste"
+msgstr "Tempel"
+
+#: source/gx/terminix/prefwindow.d:607
+msgid "Warn when attempting unsafe paste"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:612
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "Layout Options"
+msgstr "Opsi Tata Letak"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "OK"
+msgstr "Ok"
+
+#: source/gx/terminix/terminal/layout.d:28
+msgid "Cancel"
+msgstr "Batal"
+
+#: source/gx/terminix/terminal/layout.d:43
+msgid "Active"
+msgstr "Aktif"
+
+#: source/gx/terminix/terminal/layout.d:49
+msgid "Title"
+msgstr "Judul"
+
+#: source/gx/terminix/terminal/layout.d:57
+msgid "Session Load"
+msgstr "Muatan Sesi"
+
+#: source/gx/terminix/terminal/layout.d:73
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Opsi aktif selalu berefek dan diaktifkan langsung.\n"
+"Opsi Muatan Sesi hanya diaktifkan ketika memuat berkas sesi."
+
+#: source/gx/terminix/terminal/search.d:120
+msgid "Search Options"
+msgstr "Opsi Pencarian"
+
+#: source/gx/terminix/terminal/search.d:186
+msgid "Match case"
+msgstr ""
+
+#: source/gx/terminix/terminal/search.d:187
+msgid "Match entire word only"
+msgstr ""
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match as regular expression"
+msgstr ""
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Wrap around"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:326
+#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:782
+#: data/resources/ui/shortcuts.ui:308
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/terminix/terminal/terminal.d:353
+#: source/gx/terminix/terminal/terminal.d:951
+#: source/gx/terminix/appwindow.d:403
+msgid "Close"
+msgstr "Tutup"
+
+#: source/gx/terminix/terminal/terminal.d:362
+#: source/gx/terminix/terminal/terminal.d:813
+#: source/gx/terminix/terminal/terminal.d:950
+msgid "Maximize"
+msgstr "Maksimalkan"
+
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:565
+msgid "Disable input synchronization for this terminal"
+msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
+
+#: source/gx/terminix/terminal/terminal.d:412
+msgid "Edit Profile"
+msgstr "Sunting Profil"
+
+#: source/gx/terminix/terminal/terminal.d:531
+#: source/gx/terminix/appwindow.d:624
+msgid "There are processes that are still running, close anyway?"
+msgstr "Terdapat proses yang masih berjalan, tetap tutup?"
+
+#: source/gx/terminix/terminal/terminal.d:567
+msgid "Enable input synchronization for this terminal"
+msgstr "Fungsikan sinkronisasi masukan untuk terminal ini"
+
+#: source/gx/terminix/terminal/terminal.d:623
+msgid "Save…"
+msgstr "Simpan…"
+
+#: source/gx/terminix/terminal/terminal.d:624
+msgid "Find…"
+msgstr "Cari…"
+
+#: source/gx/terminix/terminal/terminal.d:625
+msgid "Layout Options…"
+msgstr "Opsi Tata Letak…"
+
+#: source/gx/terminix/terminal/terminal.d:633
+msgid "Read-Only"
+msgstr "Hanya-Baca"
+
+#: source/gx/terminix/terminal/terminal.d:638
+msgid "Reset and Clear"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:667
+msgid "Split"
+msgstr "Pisah"
+
+#: source/gx/terminix/terminal/terminal.d:810
+#: source/gx/terminix/terminal/terminal.d:950
+msgid "Restore"
+msgstr "Pulihkan"
+
+#: source/gx/terminix/terminal/terminal.d:909
+msgid "Open Link"
+msgstr "Buka Tautan"
+
+#: source/gx/terminix/terminal/terminal.d:910
+msgid "Copy Link Address"
+msgstr "Salin Alamat Tautan"
+
+#: source/gx/terminix/terminal/terminal.d:921
+#: source/gx/terminix/terminal/terminal.d:928
+msgid "Copy"
+msgstr "Salin"
+
+#: source/gx/terminix/terminal/terminal.d:923
+#: source/gx/terminix/terminal/terminal.d:938
+msgid "Select All"
+msgstr "Pilih Semua"
+
+#: source/gx/terminix/terminal/terminal.d:941
+msgid "Clipboard"
+msgstr "Papan Klip"
+
+#: source/gx/terminix/terminal/terminal.d:955
+msgid "Synchronize input"
+msgstr "Sinkronisasi masukan"
+
+#: source/gx/terminix/terminal/terminal.d:1394
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
+
+#: source/gx/terminix/terminal/terminal.d:1400
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Terjadi galat tak terduga: %s"
+
+#: source/gx/terminix/terminal/terminal.d:1714
+msgid "Save Terminal Output"
+msgstr "Simpan Keluaran Terminal"
+
+#: source/gx/terminix/terminal/terminal.d:1720
+msgid "All Text Files"
+msgstr "Semua Berkas Teks"
+
+#: source/gx/terminix/terminal/terminal.d:1724
+#: source/gx/terminix/appwindow.d:680
+msgid "All Files"
+msgstr "Semua Berkas"
+
+#: source/gx/terminix/terminal/terminal.d:2039
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Proses anak keluar secara normal dengan status %d"
+
+#: source/gx/terminix/terminal/terminal.d:2040
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Proses anak dibatalkan dengan sinyal %d."
+
+#: source/gx/terminix/terminal/terminal.d:2041
+msgid "The child process was aborted."
+msgstr "Proses anak telah dibatalkan."
+
+#: source/gx/terminix/terminal/terminal.d:2047
+msgid "Relaunch"
+msgstr "Jalankan ulang"
+
+#: source/gx/terminix/terminal/terminal.d:2087
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Perintah ini meminta akses Administrasi ke komputer kamu"
+
+#: source/gx/terminix/terminal/terminal.d:2088
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
+
+#: source/gx/terminix/terminal/terminal.d:2089
+msgid "Be sure you understand what each part of this command does."
+msgstr "Pastikan anda mengerti apa yang dilakukan setiap bagian perintah ini."
+
+#: source/gx/terminix/terminal/terminal.d:2091
+msgid "Don't Paste"
+msgstr "Jangan Tempel"
+
+#: source/gx/terminix/terminal/terminal.d:2092
+msgid "Paste Anyway"
+msgstr "Tempel Saja"
+
+#: source/gx/terminix/cmdparams.d:75
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:103
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:107
+#: source/gx/terminix/cmdparams.d:112
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
 
-#: source/gx/gtk/actions.d:23
+#: source/gx/terminix/appwindow.d:181
+msgid "View session sidebar"
+msgstr "Lihat bilah samping sesi"
+
+#: source/gx/terminix/appwindow.d:195
+msgid "Create a new session"
+msgstr "Buat sesi baru"
+
+#: source/gx/terminix/appwindow.d:374
+msgid "Change Session Name"
+msgstr "Ubah Nama Sesi"
+
+#: source/gx/terminix/appwindow.d:374
+msgid "Enter a new name for the session"
+msgstr "Ketik nama baru untuk sesi"
+
+#: source/gx/terminix/appwindow.d:400
+msgid "Open…"
+msgstr "Buka…"
+
+#: source/gx/terminix/appwindow.d:401
+msgid "Save"
+msgstr "Simpan"
+
+#: source/gx/terminix/appwindow.d:402
+msgid "Save As…"
+msgstr "Simpan Sebagai…"
+
+#: source/gx/terminix/appwindow.d:407
+msgid "Name…"
+msgstr "Nama…"
+
+#: source/gx/terminix/appwindow.d:408
+msgid "Synchronize Input"
+msgstr "Sinkronisasi Masukan"
+
+#: source/gx/terminix/appwindow.d:413
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:676
+msgid "All JSON Files"
+msgstr "Berkas Semua JSON"
+
+#: source/gx/terminix/appwindow.d:689
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Nama Berkas '%s' tidak ada"
+
+#: source/gx/terminix/appwindow.d:716
+msgid "Load Session"
+msgstr "Muat Sesi"
+
+#: source/gx/terminix/appwindow.d:729
+msgid "Could not load session due to unexpected error."
+msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
+
+#: source/gx/terminix/appwindow.d:729
+msgid "Error Loading Session"
+msgstr "Galat Memuat Sesi"
+
+#: source/gx/terminix/appwindow.d:744
+msgid "Save Session"
+msgstr "Simpan Sesi"
+
+#: source/gx/terminix/appwindow.d:779
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:7
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/gtk/actions.d:26
 msgid "disabled"
 msgstr ""
 
-#: source/app.d:42
+#: source/app.d:46
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:62
+#: source/app.d:66
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:63
+#: source/app.d:67
 msgid "Error: "
 msgstr ""
 
@@ -1492,14 +1568,16 @@ msgid "Split"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:317
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Split horizontal"
-msgstr ""
+msgid "Split right"
+msgstr "Pisah Kanan"
 
 #: data/resources/ui/shortcuts.ui:323
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Split vertical"
-msgstr ""
+msgid "Split down"
+msgstr "Pisah Bawah"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
 msgctxt "shortcut window"
@@ -1582,11 +1660,22 @@ msgid "Current profile preferences"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:431
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Reset the terminal"
+msgstr "Terminal"
+
+#: data/resources/ui/shortcuts.ui:437
+msgctxt "shortcut window"
+msgid "Reset and clear the terminal"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:443
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:437
+#: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr ""
@@ -1596,5 +1685,71 @@ msgid "A tiling terminal for Gnome"
 msgstr ""
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:10
-msgid "utilities-terminal"
+msgid "com.gexperts.Terminix"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "A tiling terminal for GNOME"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:10
+msgid "Terminix is a tiling terminal emulator."
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:13
+msgid "It lets you:"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:15
+msgid ""
+"Layout terminals in any fashion by splitting them horizontally or vertically"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:16
+msgid ""
+"Terminals can be re-arranged using drag and drop both within and between "
+"windows"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:17
+msgid "Terminals can be detached into a new window via drag and drop"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:18
+msgid ""
+"Input can be synchronized between terminals so commands typed in one "
+"terminal are replicated to the others"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:19
+msgid "The grouping of terminals can be saved and loaded from disk"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:20
+msgid "Terminals support custom titles"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:21
+msgid ""
+"Color schemes are stored in files and custom color schemes can be created by "
+"simply creating a new file"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:22
+msgid "Transparent background"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:23
+msgid "Supports notifications when processes are completed out of view"
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:25
+msgid ""
+"The application was written using GTK 3 and an effort was made to conform to "
+"GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
+"decorations, though it can be disabled if necessary."
+msgstr ""
+
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:29
+msgid "Terminix has been tested with GNOME and with Unity."
 msgstr ""
