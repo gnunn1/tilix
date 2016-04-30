@@ -50,6 +50,7 @@ import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.actions;
+import gx.gtk.resource;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.terminix.appwindow;
@@ -63,7 +64,19 @@ import gx.terminix.shortcuts;
 
 static import gx.util.array;
 
+
+/**
+ * Global variable to application
+ */
 Terminix terminix;
+
+/**
+ * Invoked when the GTK theme has changed. While things could
+ * listen to gtk.Settings.addOnNotify directly, because this is a
+ * long lived object and GtkD doesn't provide a way to remove
+ * listeners it will lead to memory leaks so we use this instead
+ */
+alias OnThemeChanged = void delegate(string theme);
 
 /**
  * The GTK Application used by Terminix.
@@ -97,7 +110,9 @@ private:
 
     bool warnedVTEConfigIssue = false;
     
-    CssProvider ambianceProvider;
+    CssProvider themeCssProvider;
+    
+    OnThemeChanged[] themeChangedDelegates;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -106,24 +121,18 @@ private:
         //Load resources
         if (findResource(APPLICATION_RESOURCES, true)) {
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
-                string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
+                string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     error(format("Could not load CSS %s", cssURI));
                 }
             }
         }
-        if (getGtkTheme() == THEME_AMBIANCE) {
-            loadAmbianceResource();
-        }
-    }
-    
-    void loadAmbianceResource() {
-        string ambianceURI = buildPath(APPLICATION_RESOURCE_ROOT, APPLICATION_CSS_AMBIANCE);
-        ambianceProvider = addCssProvider(ambianceURI, ProviderPriority.APPLICATION);
-        if (!ambianceProvider) {
-            error(format("Could not load CSS %s", ambianceURI));
-        } else {
-            trace("Loaded Terminix Ambiance CSS");
+        //Check if terminix has a theme specific CSS file to load
+        string theme = getGtkTheme();
+        string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        if (!themeCssProvider) {
+            trace(format("No specific CSS found %s", cssURI));
         }
     }
 
@@ -337,15 +346,19 @@ private:
     void onThemeChange(ParamSpec, ObjectG) {
         string theme = getGtkTheme();
         trace("Theme changed to " ~ theme);
-        if (theme == THEME_AMBIANCE) {
-            if (ambianceProvider is null)
-                loadAmbianceResource();    
-        } else {
-            if (ambianceProvider !is null) {
-                StyleContext.removeProviderForScreen(Screen.getDefault(), ambianceProvider);
-                ambianceProvider = null;
-            }    
-        } 
+        if (themeCssProvider !is null) {
+            StyleContext.removeProviderForScreen(Screen.getDefault(), themeCssProvider);
+            themeCssProvider = null;
+        }
+        //Check if terminix has a theme specific CSS file to load
+        string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        if (!themeCssProvider) {
+            trace(format("No specific CSS found %s", cssURI));
+        }
+        foreach(dlg; themeChangedDelegates) {
+            dlg(theme);
+        }
     }
 
     void onAppStartup(GApplication) {
@@ -623,5 +636,13 @@ public:
                 }
             }
         }
+    }
+    
+    void addOnThemeChanged(OnThemeChanged dlg) {
+        themeChangedDelegates ~= dlg;
+    }
+    
+    void removeOnThemeChanged(OnThemeChanged dlg) {
+        gx.util.array.remove(themeChangedDelegates, dlg);
     }
 }

@@ -91,6 +91,7 @@ import vtec.vtetypes;
 
 import gx.gtk.actions;
 import gx.gtk.cairo;
+import gx.gtk.resource;
 import gx.gtk.util;
 import gx.gtk.vte;
 import gx.i18n.l10n;
@@ -1077,9 +1078,10 @@ private:
     RGBA[16] vtePalette;
     double dimPercent;
     
-    static if (STYLE_TERMINAL_SCROLLBAR) {
-       CssProvider provider;
-    }
+    /**
+     * CSSProvider to enhance terminal scrollbar
+     */
+    CssProvider sbProvider;
 
     void initColors() {
         vteFG = new RGBA();
@@ -1133,27 +1135,20 @@ private:
                     trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(vteFG, vteBG, vtePalette);
-            //Fooling around with improving Ubuntu scrollbar look, nowhere near ready for primetime, do not uncomment for public builds
 
-            static if (STYLE_TERMINAL_SCROLLBAR && !USE_SCROLLED_WINDOW) {
-                if (provider !is null) {
-                    sb.getStyleContext().removeProvider(provider);
-                }
-                provider = new CssProvider();
-                string theme = getGtkTheme();
-                string css;
-                if (theme == "Ambiance") {
-                    css = format("*:not(.slider) { background: %s; opacity: %f; }", rgbaTo8bitHex(vteBG,false,true), vteBG.alpha);
-                } else {
-                    css = format("* { background: %s; opacity: %f; }", rgbaTo8bitHex(vteBG,false,true), vteBG.alpha);
-                }
-                trace(css);
-                provider.loadFromData(css);
-                if (theme == "Ambiance") {
-                    sb.getStyleContext().addProvider(provider, ProviderPriority.APPLICATION);
-                } else {
-                    sb.getStyleContext().addProvider(provider, ProviderPriority.FALLBACK);
-                }
+            // Enhance scrollbar for supported themes, requires a theme specific css file in
+            // terminix resources
+            if (sbProvider !is null) {
+                sb.getStyleContext().removeProvider(sbProvider);
+                sbProvider = null;
+            }
+            string theme = getGtkTheme();
+            string[string] variables;
+            variables["$TERMINAL_BG"] = rgbaTo8bitHex(vteBG,false,true);
+            variables["$TERMINAL_OPACITY"] = to!string(vteBG.alpha);
+            sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".scrollbar.css", variables);
+            if (sbProvider !is null) { 
+                sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
             }
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
@@ -1750,6 +1745,11 @@ private:
         }
         vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
     }
+    
+    void onThemeChanged(string theme) {
+        //Get CSS Provider updated via preference
+        applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
+    }
 
 public:
 
@@ -1758,7 +1758,11 @@ public:
      */
     this(string profileUUID) {
         super();
-        addOnDestroy(delegate(Widget) { trace("Terminal destroy"); stopProcess(); });
+        addOnDestroy(delegate(Widget) { 
+            trace("Terminal destroy"); 
+            stopProcess();
+            terminix.removeOnThemeChanged(&onThemeChanged); 
+        });
         initColors();
         _terminalUUID = randomUUID().toString();
         _profileUUID = profileUUID;
@@ -1785,6 +1789,8 @@ public:
         applyPreferences();
         trace("Profile Event Handler");
         gsProfile.addOnChanged(delegate(string key, Settings) { applyPreference(key); });
+        //Get when theme changed
+        terminix.addOnThemeChanged(&onThemeChanged);
         trace("Finished creation");
     }
 

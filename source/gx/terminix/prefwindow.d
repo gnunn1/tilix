@@ -78,6 +78,9 @@ private:
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
         nb.appendPage(gp, _("Global"));
+        
+        AppearancePreferences ap = new AppearancePreferences(gsSettings);
+        nb.appendPage(ap, _("Appearances"));
 
         ShortcutPreferences sp = new ShortcutPreferences();
         nb.appendPage(sp, _("Shortcuts"));
@@ -490,6 +493,60 @@ public:
 }
 
 /**
+ * Appearance preferences page
+ */
+class AppearancePreferences: Box {
+    private:
+        void createUI(Settings gsSettings) {
+            setMarginTop(18);
+            setMarginBottom(18);
+            setMarginLeft(18);
+            setMarginRight(18);
+
+            //Enable Transparency, only enabled if less then 3.18
+            if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
+                CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
+                gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+                add(cbTransparent);
+            }
+
+            Grid grid = new Grid();
+            grid.setColumnSpacing(12);
+            grid.setRowSpacing(6);
+
+            //Render terminal titlebars smaller then default
+            grid.attach(createLabel(_("Terminal title style")), 0, 0, 1, 1);
+            ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
+            gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbTitleStyle, 1, 0, 1, 1);
+            
+            //Dark Theme
+            grid.attach(createLabel(_("Theme Variant")), 0, 1, 1, 1);
+            ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
+            gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbThemeVariant, 1, 1, 1, 1);
+
+            add(grid);
+            
+            if (Version.checkVersion(3, 16, 0).length == 0) {
+                CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
+                gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
+                add(cbWideHandle);
+            }
+            
+            CheckButton cbDimUnfocused = new CheckButton(_("Dim unfocused terminals"));
+            gsSettings.bind(SETTINGS_DIM_UNFOCUSED_KEY, cbDimUnfocused, "active", GSettingsBindFlags.DEFAULT);
+            add(cbDimUnfocused);
+        }
+        
+    public:
+        this(Settings gsSettings) {
+            super(Orientation.VERTICAL, 6);
+            createUI(gsSettings);
+        }
+}
+
+/**
  * Global preferences page *
  */
 class GlobalPreferences : Box {
@@ -497,7 +554,6 @@ class GlobalPreferences : Box {
 private:
 
     void createUI(Settings gsSettings) {
-        //Set basic grid settings
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -556,47 +612,6 @@ private:
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
         gsSettings.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
-        
-        // *********** Appearance Options
-        Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
-        lblAppearance.setUseMarkup(true);
-        lblAppearance.setHalign(Align.START);
-        add(lblAppearance);
-
-        //Enable Transparency, only enabled if less then 3.18
-        if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
-            CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
-            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
-            add(cbTransparent);
-        }
-
-        Grid grid = new Grid();
-        grid.setColumnSpacing(12);
-        grid.setRowSpacing(6);
-
-        //Render terminal titlebars smaller then default
-        grid.attach(createLabel(_("Terminal title style")), 0, 0, 1, 1);
-        ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
-        gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
-        grid.attach(cbTitleStyle, 1, 0, 1, 1);
-        
-        //Dark Theme
-        grid.attach(createLabel(_("Theme Variant")), 0, 1, 1, 1);
-        ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
-        gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
-        grid.attach(cbThemeVariant, 1, 1, 1, 1);
-
-        add(grid);
-        
-        if (Version.checkVersion(3, 16, 0).length == 0) {
-            CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
-            gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
-            add(cbWideHandle);
-        }
-        
-        CheckButton cbDimUnfocused = new CheckButton(_("Dim unfocused terminals"));
-        gsSettings.bind(SETTINGS_DIM_UNFOCUSED_KEY, cbDimUnfocused, "active", GSettingsBindFlags.DEFAULT);
-        add(cbDimUnfocused);
     }
 
 public:

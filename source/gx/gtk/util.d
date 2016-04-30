@@ -6,19 +6,12 @@ module gx.gtk.util;
 
 import std.conv;
 import std.experimental.logger;
-import std.file;
 import std.format;
-import std.path;
 
 import gdk.RGBA;
-import gdk.Screen;
-
-import gio.File : GFile = File;
-import gio.Resource;
 
 import glib.GException;
 import glib.ListG;
-import glib.Util;
 
 import gobject.ObjectG;
 import gobject.Value;
@@ -28,7 +21,6 @@ import gtk.Box;
 import gtk.ComboBox;
 import gtk.CellRendererText;
 import gtk.Container;
-import gtk.CssProvider;
 import gtk.Entry;
 import gtk.ListStore;
 import gtk.MessageDialog;
@@ -174,17 +166,6 @@ bool showInputDialog(Window parent, out string value, string initialValue = null
 /**
  * Defined here since not defined in GtkD
  */
-enum ProviderPriority : uint {
-    FALLBACK = 1,
-    THEME = 200,
-    SETTINGS = 400,
-    APPLICATION = 600,
-    USER = 800
-}
-
-/**
- * Defined here since not defined in GtkD
- */
 enum MouseButton : uint {
     PRIMARY = 1,
     MIDDLE = 2,
@@ -251,38 +232,6 @@ string rgbaTo16bitHex(RGBA color, bool includeAlpha = false, bool includeHash = 
     } else {
         return prepend ~ format("%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue);
     }
-}
-
-Resource findResource(string resourcePath, bool register = true) {
-    foreach (path; Util.getSystemDataDirs()) {
-        auto fullpath = buildPath(path, resourcePath);
-        trace("looking for resource " ~ fullpath);
-        if (exists(fullpath)) {
-            Resource resource = Resource.load(fullpath);
-            if (register && resource) {
-                trace("Resource found and registered " ~ fullpath);
-                Resource.register(resource);
-            }
-            return resource;
-        }
-    }
-    error(format("Resource %s could not be found", resourcePath));
-    return null;
-}
-
-CssProvider addCssProvider(string filename, ProviderPriority priority) {
-    try {
-        CssProvider provider = new CssProvider();
-        if (provider.loadFromFile(GFile.parseName(filename))) {
-            StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
-            return provider;
-        }
-    }
-    catch (GException ge) {
-        error("Unexpected error loading resource " ~ filename);
-        error("Error: " ~ ge.msg);
-    }
-    return null;
 }
 
 /**

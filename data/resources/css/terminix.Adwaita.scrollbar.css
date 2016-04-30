@@ -1,0 +1,11 @@
+/* GTK 3.20 */
+scrollbar { 
+    background: $TERMINAL_BG; 
+    opacity: $TERMINAL_OPACITY; 
+}
+/* GTK 3.18 */
+.scrollbar:not(.slider) { 
+    background: $TERMINAL_BG; 
+    opacity: $TERMINAL_OPACITY;
+    border-left: 0px; 
+}

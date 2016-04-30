@@ -14,7 +14,6 @@ immutable bool USE_SCROLLED_WINDOW = false;
 immutable bool USE_PIXBUF_DND = false;
 immutable bool SHOW_DEBUG_OPTIONS = false;
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
-immutable bool STYLE_TERMINAL_SCROLLBAR = false;
 immutable bool USE_FILE_LOGGING = false;
 
 //GTK Version required
@@ -33,7 +32,7 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.58.1";
+enum APPLICATION_VERSION = "0.59.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2016 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
@@ -59,6 +58,5 @@ enum APPLICATION_CONFIG_FOLDER = "terminix";
 
 //RESOURCES
 enum APPLICATION_RESOURCES = buildPath(APPLICATION_CONFIG_FOLDER, "resources/terminix.gresource");
-enum APPLICATION_RESOURCE_ROOT = "resource:///com/gexperts/Terminix";
-enum APPLICATION_CSS_AMBIANCE = "css/terminix.ambiance.css";
-immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.adwaita.css"];
+enum APPLICATION_RESOURCE_ROOT = "/com/gexperts/Terminix";
+immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.base.css"];
