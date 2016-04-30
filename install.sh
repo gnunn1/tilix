@@ -11,6 +11,11 @@ else
     export PREFIX=$1
 fi
 
+if [ ! -f terminix ]; then
+    echo "The terminix executable does not exist, please run 'dub build --build=release' before using this script"
+    exit 1
+fi
+
 echo "Installing to prefix ${PREFIX}"
 
 # Copy and compile schema
@@ -46,11 +51,16 @@ done
 
 # Generate desktop file
 msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
+if [ $? -ne 0 ]; then
+    echo "Note that localizating appdata requires a newer version of xgettext, copying instead"
+    cp data/pkg/desktop/com.gexperts.Terminix.desktop.in data/pkg/desktop/com.gexperts.Terminix.desktop
+fi
 
 # Generate appdata file, requires xgettext 0.19.7
 msgfmt --xml --template=data/appdata/com.gexperts.Terminix.appdata.xml.in -d po -o data/appdata/com.gexperts.Terminix.appdata.xml
 if [ $? -ne 0 ]; then
-    echo "Note that localizating appdata requires xgettext 0.19.7 or later"
+    echo "Note that localizating appdata requires xgettext 0.19.7 or later, copying instead"
+    cp data/appdata/com.gexperts.Terminix.appdata.xml.in data/appdata/com.gexperts.Terminix.appdata.xml
 fi
 
 # Copying Nautilus extension
