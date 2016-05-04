@@ -99,8 +99,7 @@ string getResource(string filename, string[string] variables = null) {
     try {
         bytes = Resource.resourcesLookupData(filename, GResourceLookupFlags.NONE);
     } catch (GException ge) {
-        error("Unexpected error loading resource " ~ filename);
-        error("Error: " ~ ge.msg);
+        return null;
     }
     if (bytes is null || bytes.getSize() == 0) return null;
     else {
