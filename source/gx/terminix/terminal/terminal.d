@@ -341,8 +341,12 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { buildProfileMenu(); buildEncodingMenu(); return false; });
-
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { 
+            buildProfileMenu(); 
+            buildEncodingMenu();
+            return false; 
+        });
+        
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -611,6 +615,13 @@ private:
         createPopoverMenuItems(model);
 
         Popover pm = new Popover(parent);
+        // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
+        pm.addOnMap(delegate(Widget) {
+           if (dimUnfocused) vte.queueDraw(); 
+        }, ConnectFlags.AFTER);
+        pm.addOnUnmap(delegate(Widget) {
+           if (dimUnfocused) vte.queueDraw(); 
+        }, ConnectFlags.AFTER);
         pm.bindModel(model, ACTION_PREFIX);
         return pm;
     }
@@ -1035,7 +1046,7 @@ private:
     bool isTerminalWidgetFocused() {
         return vte.hasFocus || rFind.hasSearchEntryFocus();
     }
-
+    
     /**
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
@@ -1047,7 +1058,6 @@ private:
             dlg(this);
         }
         if (dimUnfocused) {
-            //Add dim effect
             vte.queueDraw();
         }
         return false;
@@ -1060,7 +1070,6 @@ private:
         trace("Terminal lost focus" ~ terminalUUID);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         if (dimUnfocused) {
-            //Add dim effect
             vte.queueDraw();
         }
         return false;
