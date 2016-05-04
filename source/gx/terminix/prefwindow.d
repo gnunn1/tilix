@@ -80,7 +80,7 @@ private:
         nb.appendPage(gp, _("Global"));
         
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
-        nb.appendPage(ap, _("Appearances"));
+        nb.appendPage(ap, _("Appearance"));
 
         ShortcutPreferences sp = new ShortcutPreferences();
         nb.appendPage(sp, _("Shortcuts"));
