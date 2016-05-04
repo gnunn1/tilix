@@ -93,7 +93,6 @@ public:
         _cwd = acl.getCwd();
 
         if (_cwd.length > 0) _cwd = validatePath(_cwd);
-        else _cwd = validatePath(acl.getCwd());
 
         _session = getValues(vd, CMD_SESSION);
         if (_session.length > 0) {
