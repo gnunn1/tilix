@@ -747,6 +747,13 @@ private:
         pmContext = new Popover(vte);
         pmContext.setModal(true);
         pmContext.setPosition(PositionType.BOTTOM);
+        // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
+        pmContext.addOnMap(delegate(Widget) {
+           if (dimUnfocused) vte.queueDraw(); 
+        }, ConnectFlags.AFTER);
+        pmContext.addOnUnmap(delegate(Widget) {
+           if (dimUnfocused) vte.queueDraw(); 
+        }, ConnectFlags.AFTER);
 
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
