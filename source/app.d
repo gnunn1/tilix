@@ -25,6 +25,15 @@ int main(string[] args) {
         sharedLog = new FileLogger("/tmp/terminix.log");
     }
     
+    trace("CWD = " ~ getcwd());
+    try {
+        string pwd = environment["PWD"];
+        trace("PWD = " ~ pwd);
+    } catch (Exception e) {
+        trace("No PWD environment variable found");
+    }
+    
+    
     trace(format("Starting terminix with %d arguments...", args.length));
     //append TERMINIX_ID to args if present
     try {
