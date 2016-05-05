@@ -144,6 +144,9 @@ private:
             updateUIState();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
+            if (sb.getChildRevealed()) {
+                sb.selectSession(getCurrentSession().sessionUUID);
+            }
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
@@ -156,6 +159,7 @@ private:
                 getCurrentSession().focusRestore();
             }
         });
+        sb.addOnSessionClose(&onUserSessionClose);
 
         Overlay overlay = new Overlay();
         overlay.add(nb);
@@ -354,7 +358,7 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                closeSession(getCurrentSession());
+                onUserSessionClose(getCurrentSession().sessionUUID);                
             }
         });
 
@@ -477,6 +481,24 @@ private:
     Session getSession(int i) {
         return cast(Session) nb.getNthPage(i);
     }
+    
+    /**
+     * Used to handle cases where the user requests a session be closed
+     */
+    bool onUserSessionClose(string sessionUUID) {
+        trace("Sidebar requested to close session " ~ sessionUUID);
+        if (sessionUUID.length > 0) {
+            Session session = getSession(sessionUUID);
+            if (session !is null) {
+                if (session.isProcessRunning()) {
+                    if (!showCanClosePrompt) return false;
+                }
+                closeSession(session);
+                return true;
+            }
+        }
+        return false;
+    }    
 
     void closeSession(Session session) {
         removeSession(session);
@@ -610,6 +632,24 @@ private:
             updateUIState();
         }
     }
+    
+    /**
+     * Prompts the user if we can close. This is used both when closing a single
+     * session and when closing the application window
+     */
+    bool showCanClosePrompt() {
+        MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
+                _("There are processes that are still running, close anyway?"), null);
+
+        dialog.setDefaultResponse(ResponseType.CANCEL);
+        scope (exit) {
+            dialog.destroy();
+        }
+        if (dialog.run() != ResponseType.OK) {
+            return false;
+        }
+        return true;
+    }
 
     bool onWindowClosed(Event event, Widget widget) {
         bool promptForClose = false;
@@ -620,17 +660,7 @@ private:
             }
         }
         if (promptForClose) {
-            MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                    _("There are processes that are still running, close anyway?"), null);
-
-            dialog.setDefaultResponse(ResponseType.CANCEL);
-            scope (exit) {
-                dialog.destroy();
-            }
-            if (dialog.run() != ResponseType.OK) {
-                trace("Abort close");
-                return true;
-            }
+            return !showCanClosePrompt();
         }
         return false;
     }
