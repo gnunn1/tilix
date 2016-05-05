@@ -586,16 +586,16 @@ public:
     }
 
     /**
-     * Even those these are parameters passed on the command-line
+     * Even though these are parameters passed on the command-line
      * they are used by the terminal when it is created as a global
-     * override.
+     * override and referenced via the application object which is global.
      *
      * Originally I was passing command line parameters to the terminal
      * via the heirarchy App > AppWindow > Session > Terminal but this
      * is unwiedly. It's also not feasible when supporting using the
      * command line to create terminals in the current instance since
-     * that uses actions and it's not feasible to pass these via the
-     * action mechanism.
+     * that uses actions. GIO Actions don't have a way to pass arbrirtary
+     * parameters, basically it's not feasible to pass these.
      *
      * When a terminal is created, it will check this global overrides and
      * use it where applicaable. The application is responsible for setiing
