@@ -521,7 +521,7 @@ class AppearancePreferences: Box {
             grid.attach(cbTitleStyle, 1, 0, 1, 1);
             
             //Dark Theme
-            grid.attach(createLabel(_("Theme Variant")), 0, 1, 1, 1);
+            grid.attach(createLabel(_("Theme variant")), 0, 1, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
             gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
             grid.attach(cbThemeVariant, 1, 1, 1, 1);

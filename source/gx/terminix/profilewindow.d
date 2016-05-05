@@ -128,7 +128,7 @@ private:
         grid.setRowSpacing(6);
 
         //Profile Name
-        Label lblName = new Label(_("Profile Name"));
+        Label lblName = new Label(_("Profile name"));
         lblName.setHalign(Align.END);
         grid.attach(lblName, 0, row, 1, 1);
         Entry eName = new Entry();
@@ -143,7 +143,7 @@ private:
         row++;
 
         //Terminal Size
-        Label lblSize = new Label(_("Terminal Size"));
+        Label lblSize = new Label(_("Terminal size"));
         lblSize.setHalign(Align.END);
         grid.attach(lblSize, 0, row, 1, 1);
         SpinButton sbColumn = new SpinButton(16, 511, 1);
@@ -180,7 +180,7 @@ private:
         row++;
 
         //Blink Mode
-        Label lblBlinkMode = new Label(_("Blink Mode"));
+        Label lblBlinkMode = new Label(_("Blink mode"));
         lblBlinkMode.setHalign(Align.END);
         grid.attach(lblBlinkMode, 0, row, 1, 1);
         ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
@@ -189,7 +189,7 @@ private:
         row++;
 
         //Terminal Bell
-        Label lblBell = new Label(_("Terminal Bell"));
+        Label lblBell = new Label(_("Terminal bell"));
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
         Switch sBell = new Switch();
@@ -199,7 +199,7 @@ private:
         row++;
 
         //Terminal Title
-        Label lblTerminalTitle = new Label(_("Terminal Title"));
+        Label lblTerminalTitle = new Label(_("Terminal title"));
         lblTerminalTitle.setHalign(Align.END);
         grid.attach(lblTerminalTitle, 0, row, 1, 1);
         Entry eTerminalTitle = new Entry();
@@ -229,7 +229,7 @@ private:
 
         //Custom Font
         Box bFont = new Box(Orientation.HORIZONTAL, 12);
-        CheckButton cbCustomFont = new CheckButton(_("Custom Font"));
+        CheckButton cbCustomFont = new CheckButton(_("Custom font"));
         gsProfile.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
         bFont.add(cbCustomFont);
 
@@ -370,7 +370,7 @@ private:
             row++;
         }
         
-        Label lblDim = new Label(_("Unfocused Dim"));
+        Label lblDim = new Label(_("Unfocused dim"));
         lblDim.setHalign(Align.END);
         lblDim.setHexpand(false);
         gSliders.attach(lblDim, 0, row, 1, 1);
