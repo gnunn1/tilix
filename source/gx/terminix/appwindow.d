@@ -816,6 +816,11 @@ public:
 
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
+        addOnRealize(delegate (Widget) {
+            if (terminix.getGlobalOverrides().x > 0) {
+                move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
+            }
+        });
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
     }
