@@ -618,10 +618,10 @@ private:
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pm.addOnMap(delegate(Widget) {
            if (dimUnfocused) vte.queueDraw(); 
-        }, ConnectFlags.AFTER);
+        });
         pm.addOnUnmap(delegate(Widget) {
            if (dimUnfocused) vte.queueDraw(); 
-        }, ConnectFlags.AFTER);
+        });
         pm.bindModel(model, ACTION_PREFIX);
         return pm;
     }
@@ -750,10 +750,10 @@ private:
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pmContext.addOnMap(delegate(Widget) {
            if (dimUnfocused) vte.queueDraw(); 
-        }, ConnectFlags.AFTER);
+        });
         pmContext.addOnUnmap(delegate(Widget) {
            if (dimUnfocused) vte.queueDraw(); 
-        }, ConnectFlags.AFTER);
+        });
 
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
