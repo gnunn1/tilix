@@ -79,6 +79,7 @@ static if (USE_SCROLLED_WINDOW) {
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
+import gtk.StyleContext;
 import gtk.TargetEntry;
 import gtk.ToggleButton;
 import gtk.Widget;
@@ -319,9 +320,6 @@ private:
         //Showing is controlled by terminal title preference
         bTitle.setNoShowAll(true);
         bTitle.setVexpand(false);
-        bTitle.getStyleContext().addClass("notebook");
-        bTitle.getStyleContext().addClass("header");
-        bTitle.getStyleContext().addClass("terminix-background");
 
         lblTitle = new Label(_("Terminal"));
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
@@ -382,6 +380,11 @@ private:
         bTitle.packEnd(tbSyncInput, false, false, 0);
 
         EventBox evtTitle = new EventBox();
+        static if (!MANUAL_BACKGROUND_DRAW) {
+            // Since window is transparent we need to set backgrounds of
+            // widgets that should not be transparent, done via CSS classes
+            evtTitle.getStyleContext().addClass("terminix-background");
+        }
         evtTitle.add(bTitle);
         //Handle double click for window state change
         evtTitle.addOnButtonPress(delegate(Event event, Widget) {
@@ -764,6 +767,21 @@ private:
         }
 
         Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
+        
+        static if (MANUAL_BACKGROUND_DRAW) {
+            //Draw a transparent background to override Window draw
+            //to support transparent terminal scrollbars without
+            //impacting other chrome
+            terminalBox.addOnDraw(delegate(Scoped!Context cr, Widget) {
+                cr.save();
+                //Paint Transparent
+                cr.setSourceRgba(1, 1, 1, 0);
+                cr.setOperator(cairo_operator_t.SOURCE);
+                cr.paint();
+                cr.restore();
+                return false;
+            });
+        }
         terminalBox.add(terminalOverlay);
 
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
@@ -1163,9 +1181,12 @@ private:
             variables["$TERMINAL_BG"] = rgbaTo8bitHex(vteBG,false,true);
             variables["$TERMINAL_OPACITY"] = to!string(vteBG.alpha);
             sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".scrollbar.css", variables);
-            if (sbProvider !is null) { 
-                sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
+            if (sbProvider is null) {
+                // If theme specific css not found, load a base one that sets background to theme so scrollbar isn't rendered transparent 
+                sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix.base.scrollbar.css", variables);
+                trace("Scrollbar CSS Provider not found, base used instead");
             }
+            sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {

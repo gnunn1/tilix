@@ -9,18 +9,37 @@ import std.path;
 
 import gx.i18n.l10n;
 
-//Compilation Flags, these are used to test various things
+/****************************************************************
+ * Compilation Flags, these are used to test various things or
+ * to turn off work that is in process
+ ****************************************************************/
+
+// If true, a scrolled window with overlay scrollbar is used instead of
+// a scrollbar. Looks better but has issues and unsupported by upstream VTE.
 immutable bool USE_SCROLLED_WINDOW = false;
+// Whether to use a pixbuf for drag and Drop image
 immutable bool USE_PIXBUF_DND = false;
+//Add debug options to session menu
 immutable bool SHOW_DEBUG_OPTIONS = false;
+// Renders clipboard options as buttons in context menu
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
+// All logs go to the file /tmp/terminix.log, useful
+// when debugging launchers or other spots where
+// stdout isn't easily viewed
 immutable bool USE_FILE_LOGGING = false;
+// Draw backgrounds manually instead of using CSS to set backgrounds
+// colors of non-transparent widgets. Works really well 0n 3.20
+// but popovers draw artifacts pre 3.20 so stick with CSS.
+immutable bool MANUAL_BACKGROUND_DRAW = false; 
+
+/**************************************
+ * Application Constants
+ **************************************/
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
 immutable uint GTK_VERSION_MINOR = 14;
 immutable uint GTK_VERSION_PATCH = 0;
-
 
 // GetText Domain
 enum TERMINIX_DOMAIN = "terminix";

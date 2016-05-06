@@ -37,8 +37,9 @@ import vte.Terminal : VTE = Terminal;
 import gx.gtk.actions;
 import gx.i18n.l10n;
 
-import gx.terminix.terminal.actions;
+import gx.terminix.constants;
 import gx.terminix.preferences;
+import gx.terminix.terminal.actions;
 
 /**
  * Widget that displays the Find UI for a terminal and manages the search actions
@@ -142,10 +143,9 @@ private:
         bSearch.add(bButtons);
 
         Frame frame = new Frame(bSearch, null);
-        frame.getStyleContext().addClass("notebook");
-        frame.getStyleContext().addClass("header");
-        frame.getStyleContext().addClass("terminix-search-slider");
-
+        static if (!MANUAL_BACKGROUND_DRAW) {
+            frame.getStyleContext().addClass("terminix-background");
+        }
         add(frame);
     }
 
