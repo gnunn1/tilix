@@ -322,8 +322,15 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
-        
-        focusTerminal(mruTerminals[$-1]);
+        if (mruTerminals.length > 0) {
+            focusTerminal(mruTerminals[$-1]);
+        } else {
+            if (id >= terminals.length)
+                id = to!int(terminals.length);
+            if (id > 0 && id <= terminals.length) {
+                focusTerminal(id);
+            }        
+        }
 
         if (maximizedTerminal !is null) {
             maximizeTerminal(terminal);
