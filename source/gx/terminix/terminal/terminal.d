@@ -1843,12 +1843,12 @@ public:
         initialWorkingDir = initialPath;
         spawnTerminalProcess(initialPath, overrideCommand);
         if (firstRun) {
-            trace("Set VTE Size for rows " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY)));
-            trace("Set VTE Size for columns " ~ to!string(gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY)));
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
             int height = gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY);
             if (terminix.getGlobalOverrides().width > 0) width = terminix.getGlobalOverrides().width;
             if (terminix.getGlobalOverrides().height > 0) height = terminix.getGlobalOverrides().height;
+            trace("Set VTE Size for rows " ~ to!string(width));
+            trace("Set VTE Size for columns " ~ to!string(height));
             vte.setSize(width, height);
         }
         trace("Terminal initialized");
