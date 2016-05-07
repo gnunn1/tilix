@@ -68,7 +68,7 @@ Terminix is available for the following distributions as a 64 bit application:
 |Fedora|[COPR Repository](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
 |Cent OS 7.2|[EPEL Package via COPR](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
 |Ubuntu|[Not yet available](https://github.com/gnunn1/terminix/issues/25)|
-|OpenSUSE|[Not yet availabe](https://github.com/gnunn1/terminix/issues/25)|
+|OpenSUSE|[Package Search](https://software.opensuse.org/package/terminix)|
 
 For 64 bit distros where a package is not available, Terminix can be installed manually from the releases section by downloading terminix.zip and following these instructions:
 
