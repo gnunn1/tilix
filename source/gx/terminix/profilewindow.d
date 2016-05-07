@@ -165,6 +165,11 @@ private:
         box.add(lblRows);
 
         Button btnReset = new Button(_("Reset"));
+        btnReset.addOnClicked(delegate(Button) {
+           gsProfile.reset(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
+           gsProfile.reset(SETTINGS_PROFILE_SIZE_ROWS_KEY);
+            
+        });
         box.add(btnReset);
         grid.attach(box, 1, row, 1, 1);
         row++;
