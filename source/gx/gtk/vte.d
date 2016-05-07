@@ -25,7 +25,6 @@ static this() {
     try {
         vteMajorVersion = Version.getMajorVersion();
         vteMinorVersion = Version.getMinorVersion();
-        trace(format("VTE Version is %d.%d", vteMajorVersion, vteMinorVersion));
     }
     catch (Error e) {
         //Ignore, means VTE doesn't support version API, default to 42

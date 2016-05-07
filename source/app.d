@@ -9,6 +9,9 @@ import std.file;
 import std.format;
 import std.process;
 
+import glib.FileUtils;
+import glib.Util;
+
 import gtk.Main;
 import gtk.Version;
 import gtk.MessageDialog;
@@ -25,16 +28,30 @@ int main(string[] args) {
         sharedLog = new FileLogger("/tmp/terminix.log");
     }
     
-    trace("CWD = " ~ getcwd());
+    string cwd = Util.getCurrentDir();
+    string pwd;
+    trace("CWD = " ~ cwd);
     try {
-        string pwd = environment["PWD"];
+        pwd = environment["PWD"];
         trace("PWD = " ~ pwd);
     } catch (Exception e) {
         trace("No PWD environment variable found");
     }
     
-    
     trace(format("Starting terminix with %d arguments...", args.length));
+    foreach(i, arg; args) {
+        trace(format("arg[%d] = %s",i, arg));
+        // Workaround issue with Unity DBusActivatable where sometimes CWD is set to /, see #285
+        if (arg == "--gapplication-service") {
+            if (pwd.length > 0 && pwd != cwd) {
+                info("Detecting DBusActivatable with improper directory, correcting by setting CWD to PWD");
+                info(format("CWD = %s", cwd));                
+                info(format("PWD = %s", pwd));                
+                cwd = pwd;
+                FileUtils.chdir(cwd);
+            }
+        }
+    }
     //append TERMINIX_ID to args if present
     try {
         string terminalUUID = environment["TERMINIX_ID"];

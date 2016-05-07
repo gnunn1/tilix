@@ -44,6 +44,7 @@ import glib.Regex;
 import glib.ShellUtils;
 import glib.SimpleXML;
 import glib.Str;
+import glib.Util;
 import glib.URI;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
@@ -1387,12 +1388,9 @@ private:
             trace("Working directory overriden to " ~ workingDir);
         }
         if (workingDir.length == 0) {
-            try {
-                workingDir = environment["PWD"];
-            }
-            catch (Exception e) {
-                trace("No PWD environment variable found");
-            }
+            string cwd = Util.getCurrentDir();
+            trace("No working directory set, using cwd");
+            workingDir = cwd;
         }
         
         trace("Spawn setting workingDir to " ~ workingDir);
