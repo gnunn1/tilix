@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-04 20:33-0600\n"
-"PO-Revision-Date: 2016-05-06 23:29+0000\n"
+"PO-Revision-Date: 2016-05-07 20:02+0000\n"
 "Last-Translator: Ivaylo Kuzev <ivkuzev@gmail.com>\n"
 "Language-Team: Bulgarian "
 "<https://hosted.weblate.org/projects/terminix/translations/bg/>\n"
@@ -46,7 +46,7 @@ msgid "session"
 msgstr "Сесия"
 
 msgid "synchronize-input"
-msgstr ""
+msgstr "Синхронизация Вход"
 
 msgid "close"
 msgstr "Затваряне"
@@ -121,7 +121,7 @@ msgid "win"
 msgstr "Прозорец"
 
 msgid "view-sidebar"
-msgstr "Показване на страничния панел"
+msgstr "Покажи страничната лента"
 
 msgid "switch-to-session-0"
 msgstr "Преминаване в сесия 10"
@@ -168,11 +168,13 @@ msgstr "Преминаване в следващ терминал"
 msgid "switch-to-previous-terminal"
 msgstr "Преминаване в предишен терминал"
 
+#, fuzzy
 msgid "split-right"
-msgstr ""
+msgstr "Разделяне надясно"
 
+#, fuzzy
 msgid "split-down"
-msgstr ""
+msgstr "Разделяне надолу"
 
 msgid "find"
 msgstr "Търсене"
@@ -184,9 +186,8 @@ msgid "find-previous"
 msgstr "Предишна поява"
 
 msgid "layout"
-msgstr ""
+msgstr "Разпределение"
 
-#, fuzzy
 msgid "maximize"
 msgstr "Максимизиране"
 
@@ -197,10 +198,10 @@ msgid "read-only"
 msgstr "Само за четене"
 
 msgid "reset"
-msgstr "Нулиране"
+msgstr "Възстановяване"
 
 msgid "reset-and-clear"
-msgstr "Нулиране и изчистване"
+msgstr "Възстановяване и изчистване"
 
 msgid "copy"
 msgstr "Копиране"
@@ -221,7 +222,7 @@ msgid "zoom-normal"
 msgstr "Нормален размер"
 
 #: source/gx/terminix/colorschemes.d:167
-#, fuzzy, c-format
+#, c-format
 msgid "File %s is not a color scheme compliant JSON file"
 msgstr "Файла %s не е цветова схема съвместима с JSON файла"
 
@@ -261,19 +262,17 @@ msgid "Compatibility"
 msgstr "Съвместимост"
 
 #: source/gx/terminix/profilewindow.d:131
-#, fuzzy
 msgid "Profile name"
 msgstr "Име на профила"
 
 #: source/gx/terminix/profilewindow.d:139
 #, c-format
 msgid "ID: %s"
-msgstr ""
+msgstr "ID: %s"
 
 #: source/gx/terminix/profilewindow.d:146
-#, fuzzy
 msgid "Terminal size"
-msgstr "Размер на терминала"
+msgstr "Начален размер на терминала"
 
 #: source/gx/terminix/profilewindow.d:156
 msgid "columns"
@@ -286,27 +285,26 @@ msgstr "Реда"
 #: source/gx/terminix/profilewindow.d:167
 #: source/gx/terminix/terminal/terminal.d:648
 msgid "Reset"
-msgstr "Нулиране"
+msgstr "Възстановяване"
 
 #: source/gx/terminix/profilewindow.d:173
 #: source/gx/terminix/profilewindow.d:420
 msgid "Cursor"
-msgstr "Курсор"
+msgstr "Форма на курсора"
 
 #: source/gx/terminix/profilewindow.d:176
 msgid "Block"
-msgstr ""
+msgstr "Правоъгълник"
 
 #: source/gx/terminix/profilewindow.d:176
 msgid "IBeam"
-msgstr ""
+msgstr "Вертикална черта"
 
 #: source/gx/terminix/profilewindow.d:176
 msgid "Underline"
-msgstr ""
+msgstr "Подчертаване"
 
 #: source/gx/terminix/profilewindow.d:183
-#, fuzzy
 msgid "Blink mode"
 msgstr "Режим на примигване"
 
@@ -330,7 +328,6 @@ msgid "Terminal bell"
 msgstr "Звук на терминала"
 
 #: source/gx/terminix/profilewindow.d:202
-#, fuzzy
 msgid "Terminal title"
 msgstr "Заглавие на терминала"
 
@@ -339,16 +336,14 @@ msgid "Text Appearance"
 msgstr "Външен вид на текста"
 
 #: source/gx/terminix/profilewindow.d:221
-#, fuzzy
 msgid "Allow bold text"
-msgstr "Позволяване на удебелен текст"
+msgstr "Позволяване на получер текст"
 
 #: source/gx/terminix/profilewindow.d:226
 msgid "Rewrap on resize"
 msgstr ""
 
 #: source/gx/terminix/profilewindow.d:232
-#, fuzzy
 msgid "Custom font"
 msgstr "Потребителски шрифт"
 
@@ -501,7 +496,6 @@ msgid "Limit scrollback to:"
 msgstr "Ограничаване на придвижването назад до:"
 
 #: source/gx/terminix/profilewindow.d:704
-#, fuzzy
 msgid "Backspace key generates"
 msgstr "Клавишът Backspace генерира"
 
@@ -522,7 +516,6 @@ msgstr ""
 
 #: source/gx/terminix/profilewindow.d:707
 #: source/gx/terminix/profilewindow.d:715
-#, fuzzy
 msgid "Escape sequence"
 msgstr "Екранираща последователност"
 
@@ -532,7 +525,6 @@ msgid "TTY"
 msgstr ""
 
 #: source/gx/terminix/profilewindow.d:712
-#, fuzzy
 msgid "Delete key generates"
 msgstr "Връщане на настройките"
 
@@ -575,12 +567,10 @@ msgid "Restart the command"
 msgstr "Рестартиране на командата"
 
 #: source/gx/terminix/profilewindow.d:786
-#, fuzzy
 msgid "Hold the terminal open"
 msgstr "Задържане на терминала отворен"
 
 #: source/gx/terminix/constants.d:38
-#, fuzzy
 msgid "A VTE based terminal emulator for Linux"
 msgstr "VTE базиран терминала емулатор за Linux"
 
@@ -760,7 +750,6 @@ msgid "About"
 msgstr "Относно"
 
 #: source/gx/terminix/application.d:196
-#, fuzzy
 msgid "Quit"
 msgstr "Изход"
 
@@ -769,7 +758,6 @@ msgid "Credits"
 msgstr ""
 
 #: source/gx/terminix/application.d:466
-#, fuzzy
 msgid "Set the working directory of the terminal"
 msgstr "Задаване работната директория на терминала"
 
@@ -778,7 +766,6 @@ msgid "DIRECTORY"
 msgstr ""
 
 #: source/gx/terminix/application.d:467
-#, fuzzy
 msgid "Set the starting profile"
 msgstr "Задаване на стартов профил"
 
@@ -795,9 +782,8 @@ msgid "SESSION_NAME"
 msgstr ""
 
 #: source/gx/terminix/application.d:469
-#, fuzzy
 msgid "Send an action to current Terminix instance"
-msgstr "Изпратете действие до текущата инстанция на Terminix"
+msgstr "Изпращане на действие до текущата инстанция на Terminix"
 
 #: source/gx/terminix/application.d:469
 msgid "ACTION_NAME"
@@ -812,7 +798,6 @@ msgid "EXECUTE"
 msgstr ""
 
 #: source/gx/terminix/application.d:471
-#, fuzzy
 msgid "Maximize the terminal window"
 msgstr "Максимизирай прозореца на терминала"
 
@@ -844,7 +829,7 @@ msgstr ""
 #: source/gx/terminix/application.d:617
 #, fuzzy
 msgid "Configuration Issue Detected"
-msgstr "Открита е Грешка със Конфигурацията"
+msgstr "Открита е грешка със конфигурацията"
 
 #: source/gx/terminix/application.d:629
 #, fuzzy
@@ -928,7 +913,6 @@ msgid "Delete"
 msgstr "Изтриване"
 
 #: source/gx/terminix/prefwindow.d:508
-#, fuzzy
 msgid "Enable transparency, requires re-start"
 msgstr "Разрешаване на прозрачност, нужен е рестарт"
 
@@ -980,17 +964,14 @@ msgid "Prompt when creating a new session"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:573
-#, fuzzy
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Фокус на терминал когато мишката е над него"
 
 #: source/gx/terminix/prefwindow.d:578
-#, fuzzy
 msgid "Autohide the mouse pointer when typing"
 msgstr "Автоматично скриване на показалеца на мишката когато пишете"
 
 #: source/gx/terminix/prefwindow.d:584
-#, fuzzy
 msgid "Send desktop notification on process complete"
 msgstr "Изпратете уведомяване на десктопа когато процеса завърши"
 
@@ -1000,13 +981,15 @@ msgstr "На нова инстанция"
 
 #: source/gx/terminix/prefwindow.d:595
 #: source/gx/terminix/terminal/terminal.d:668
+#, fuzzy
 msgid "Split Right"
-msgstr ""
+msgstr "Разделяне Надясно"
 
 #: source/gx/terminix/prefwindow.d:595
 #: source/gx/terminix/terminal/terminal.d:672
+#, fuzzy
 msgid "Split Down"
-msgstr ""
+msgstr "Разделяне Надолу"
 
 #: source/gx/terminix/prefwindow.d:595
 msgid "Focus Window"
@@ -1027,15 +1010,15 @@ msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
 #: source/gx/terminix/terminal/layout.d:28
+#, fuzzy
 msgid "Layout Options"
-msgstr ""
+msgstr "Разпределение Опции"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "OK"
 msgstr ""
 
 #: source/gx/terminix/terminal/layout.d:28
-#, fuzzy
 msgid "Cancel"
 msgstr "Отменете"
 
@@ -1048,7 +1031,6 @@ msgid "Title"
 msgstr "Заглавие"
 
 #: source/gx/terminix/terminal/layout.d:57
-#, fuzzy
 msgid "Session Load"
 msgstr "Зареждане на сесия"
 
@@ -1059,9 +1041,8 @@ msgid ""
 msgstr ""
 
 #: source/gx/terminix/terminal/search.d:120
-#, fuzzy
 msgid "Search Options"
-msgstr "Търсене на Опции"
+msgstr "Търсене на опции"
 
 #: source/gx/terminix/terminal/search.d:186
 msgid "Match case"
@@ -1100,7 +1081,6 @@ msgstr "Максимизиране"
 
 #: source/gx/terminix/terminal/terminal.d:377
 #: source/gx/terminix/terminal/terminal.d:569
-#, fuzzy
 msgid "Disable input synchronization for this terminal"
 msgstr "Изключване входната синхронизация за този терминал"
 
@@ -1128,17 +1108,17 @@ msgid "Find…"
 msgstr "Търсене…"
 
 #: source/gx/terminix/terminal/terminal.d:636
+#, fuzzy
 msgid "Layout Options…"
-msgstr ""
+msgstr "Разпределение Опции…"
 
 #: source/gx/terminix/terminal/terminal.d:644
 msgid "Read-Only"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:649
-#, fuzzy
 msgid "Reset and Clear"
-msgstr "Нулиране и изчистване"
+msgstr "Възстановяване и изчистване"
 
 #: source/gx/terminix/terminal/terminal.d:678
 msgid "Split"
@@ -1168,12 +1148,14 @@ msgid "Select All"
 msgstr "Избиране на всичко"
 
 #: source/gx/terminix/terminal/terminal.d:959
+#, fuzzy
 msgid "Clipboard"
-msgstr ""
+msgstr "Клипборд"
 
 #: source/gx/terminix/terminal/terminal.d:973
+#, fuzzy
 msgid "Synchronize input"
-msgstr ""
+msgstr "Синхронизация вход"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 msgid "Unexpected error occurred, no additional information available"
@@ -1190,7 +1172,7 @@ msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1736
 msgid "All Text Files"
-msgstr ""
+msgstr "Всички текстови Файлове"
 
 #: source/gx/terminix/terminal/terminal.d:1740
 #: source/gx/terminix/appwindow.d:710
@@ -1228,7 +1210,7 @@ msgstr "Копиране на команди от интернет може да
 #: source/gx/terminix/terminal/terminal.d:2105
 #, fuzzy
 msgid "Be sure you understand what each part of this command does."
-msgstr "Бъдете сигурни че разбирате  всяка част от тази команда какво прави."
+msgstr "Бъдете сигурни че разбирате всяка част от тази команда какво прави."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 msgid "Don't Paste"
@@ -1255,8 +1237,9 @@ msgid ""
 msgstr ""
 
 #: source/gx/terminix/appwindow.d:185
+#, fuzzy
 msgid "View session sidebar"
-msgstr ""
+msgstr "Покажи сесия в страничната лента"
 
 #: source/gx/terminix/appwindow.d:199
 msgid "Create a new session"
@@ -1288,8 +1271,9 @@ msgid "Name…"
 msgstr "Име…"
 
 #: source/gx/terminix/appwindow.d:412
+#, fuzzy
 msgid "Synchronize Input"
-msgstr ""
+msgstr "Синхронизация Вход"
 
 #: source/gx/terminix/appwindow.d:417
 msgid "GC"
@@ -1404,9 +1388,10 @@ msgid "Toggle fullscreen mode"
 msgstr "Превключване на режим на цял екран"
 
 #: data/resources/ui/shortcuts.ui:55
+#, fuzzy
 msgctxt "shortcut window"
 msgid "View session sidebar"
-msgstr ""
+msgstr "Покажи сесия в страничната лента"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
@@ -1611,17 +1596,19 @@ msgstr "Преминаване в терминал 10"
 #: data/resources/ui/shortcuts.ui:313
 msgctxt "shortcut window"
 msgid "Split"
-msgstr ""
+msgstr "Разделяне"
 
 #: data/resources/ui/shortcuts.ui:317
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Split right"
-msgstr ""
+msgstr "Разделяне надясно"
 
 #: data/resources/ui/shortcuts.ui:323
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Split down"
-msgstr ""
+msgstr "Разделяне надолу"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
 msgctxt "shortcut window"
@@ -1641,9 +1628,10 @@ msgid "Find previous"
 msgstr "Предишна поява"
 
 #: data/resources/ui/shortcuts.ui:355
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Clipboard"
-msgstr ""
+msgstr "Клипборд"
 
 #: data/resources/ui/shortcuts.ui:359
 msgctxt "shortcut window"
@@ -1711,12 +1699,12 @@ msgstr "Текущи настройки на профила"
 #: data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
 msgid "Reset the terminal"
-msgstr "Нулиране на терминал"
+msgstr "Възстановяване на терминал"
 
 #: data/resources/ui/shortcuts.ui:437
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
-msgstr "Нулиране и изтриване на терминал"
+msgstr "Възстановяване и изтриване на терминал"
 
 #: data/resources/ui/shortcuts.ui:443
 #, fuzzy
@@ -1725,9 +1713,10 @@ msgid "Toggle read only"
 msgstr "Превключване на само за четене"
 
 #: data/resources/ui/shortcuts.ui:449
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Layout options"
-msgstr ""
+msgstr "Разпределение опции"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 msgid "A tiling terminal for Gnome"
@@ -1750,9 +1739,12 @@ msgid "It lets you:"
 msgstr ""
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:15
+#, fuzzy
 msgid ""
 "Layout terminals in any fashion by splitting them horizontally or vertically"
 msgstr ""
+"Разпределение на терминалите по всякакъв начин като ги разделяте "
+"хоризонтално или вертикално"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:16
 msgid ""
@@ -1765,10 +1757,13 @@ msgid "Terminals can be detached into a new window via drag and drop"
 msgstr ""
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:18
+#, fuzzy
 msgid ""
 "Input can be synchronized between terminals so commands typed in one "
 "terminal are replicated to the others"
 msgstr ""
+"Входа може да се синхронизира между терминалите като командите въвеждани в "
+"един терминал се повтарят в останалите"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:19
 msgid "The grouping of terminals can be saved and loaded from disk"
