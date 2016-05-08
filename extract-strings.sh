@@ -5,18 +5,6 @@ OUTPUT_FILE=${BASEDIR}/po/${DOMAIN}.pot
 
 echo "Extracting translatable strings... "
 
-# Attempt to extract the keyboard shortcut action names from the GSettings schema
-sed -n '/<key name="\(app\|session\|terminal\|win\)-/p' \
-  ${BASEDIR}/data/gsettings/com.gexperts.Terminix.gschema.xml \
-  | sed 's/\s*<key name="\(app\|session\|terminal\|win\)-\([^"]*\).*/"\1"\;\n"\2";/' \
-  | xgettext \
-  --extract-all \
-  --no-location \
-  --force-po \
-  --output $OUTPUT_FILE \
-  --language=C \
-  -
-
 # Extract the strings from D source code. Since xgettext does not support D
 # as a language we use Vala, which works reasonable well.
 find ${BASEDIR}/source -name '*.d' | xgettext \

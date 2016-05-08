@@ -30,8 +30,8 @@ public:
 ShortcutsWindow getShortcutWindow() {
     Builder builder = new Builder();
     builder.setTranslationDomain(TERMINIX_DOMAIN);
-    if (!builder.addFromResource(SHORTCUTS_UI)) {
-        error("Could not load shortcuts from " ~ SHORTCUTS_UI);
+    if (!builder.addFromResource(SHORTCUT_UI_RESOURCE)) {
+        error("Could not load shortcuts from " ~ SHORTCUT_UI_RESOURCE);
         return null;
     }
     Settings gsShortcuts = new Settings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
@@ -49,7 +49,3 @@ ShortcutsWindow getShortcutWindow() {
 
     return cast(ShortcutsWindow) builder.getObject("shortcuts-terminix");
 }
-
-private:
-
-enum SHORTCUTS_UI = "/com/gexperts/Terminix/ui/shortcuts.ui";

@@ -79,3 +79,5 @@ enum APPLICATION_CONFIG_FOLDER = "terminix";
 enum APPLICATION_RESOURCES = buildPath(APPLICATION_CONFIG_FOLDER, "resources/terminix.gresource");
 enum APPLICATION_RESOURCE_ROOT = "/com/gexperts/Terminix";
 immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.base.css"];
+
+immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";

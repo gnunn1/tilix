@@ -48,15 +48,17 @@ import gtk.Window;
 import vte.Terminal;
 
 import gx.gtk.actions;
+import gx.gtk.resource;
 import gx.gtk.util;
 
 import gx.i18n.l10n;
+import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.profilewindow;
-import gx.util.array;
 
 /**
  * UI for managing Terminix preferences
@@ -193,6 +195,7 @@ private:
     Settings gsShortcuts;
 
     TreeStore tsShortcuts;
+    string[string] labels;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -297,8 +300,46 @@ private:
      
         return true;
     }
+    
+    /**
+     * Parses the shortcuts.ui XML to extract the localized text, weight
+     * parse instead of loading it in Builder to maintain compatibility with
+     * pre GTK 3.20
+     */
+    void loadLocalizedShortcutLabels() {
+        labels.clear();
+
+        string ui = getResource(SHORTCUT_UI_RESOURCE);
+        if (ui.length == 0) {
+            error(format("Could not load '%s' resource",SHORTCUT_UI_RESOURCE));
+            return;
+        }
+        
+        import std.xml: DocumentParser, ElementParser, Element, XMLException;
+        
+        try {
+            DocumentParser parser = new DocumentParser(ui);
+            parser.onStartTag["object"] = (ElementParser xml) {
+                if (xml.tag.attr["class"] == "GtkShortcutsShortcut") {
+                    string id = xml.tag.attr["id"];
+                    xml.onEndTag["property"] = (in Element e) {
+                        if (e.tag.attr["name"] == "title") {
+                            labels[id] = e.text;
+                        } 
+                    };
+                    xml.parse();
+                } 
+            };
+            parser.parse();
+        } catch (XMLException e) {
+            error("Failed to parse shortcuts.ui", e);
+        }
+    }    
 
     void loadShortcuts(TreeStore ts) {
+        
+        loadLocalizedShortcutLabels();
+        
         string[] keys = gsShortcuts.listKeys();
         sort(keys);
 
@@ -311,7 +352,12 @@ private:
                 currentPrefix = prefix;
                 currentIter = appendValues(ts, null, [_(prefix)]);
             }
-            appendValues(ts, currentIter, [_(id), acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
+            string label = _(id);
+            if (key in labels) {
+                label = labels[key];
+            }
+            
+            appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
         }
     }
 

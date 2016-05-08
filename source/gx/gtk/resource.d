@@ -89,8 +89,6 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
     return null;
 }
 
-private:
-
 /**
  * Loads a textual resource and performs string subsitution based on key-value pairs
  */
