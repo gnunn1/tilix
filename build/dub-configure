@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cat <<EOF >Makefile
+all:
+	/app/bin/dmd -ofbin/dub -w -version=DubUseCurl -Isource -L-L/app/linux/release/64/ -L-lphobos2 @build-files.txt
+
+install:
+	cp bin/dub /app/bin
+
+EOF

@@ -30,14 +30,16 @@ import gtk.Revealer;
 import gtk.SearchEntry;
 import gtk.ToggleButton;
 import gtk.Widget;
+import gtk.Version;
 
 import vte.Terminal : VTE = Terminal;
 
 import gx.gtk.actions;
 import gx.i18n.l10n;
 
-import gx.terminix.terminal.actions;
+import gx.terminix.constants;
 import gx.terminix.preferences;
+import gx.terminix.terminal.actions;
 
 /**
  * Widget that displays the Find UI for a terminal and manages the search actions
@@ -87,7 +89,9 @@ private:
         seSearch = new SearchEntry();
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
-        seSearch.getStyleContext().addClass("terminix-search-entry");
+        if (Version.checkVersion(3, 20, 0).length != 0) {
+            seSearch.getStyleContext().addClass("terminix-search-entry");
+        }
         seSearch.addOnSearchChanged(delegate(SearchEntry) {
             setTerminalSearchCriteria(); 
         });
@@ -139,10 +143,9 @@ private:
         bSearch.add(bButtons);
 
         Frame frame = new Frame(bSearch, null);
-        frame.getStyleContext().addClass("notebook");
-        frame.getStyleContext().addClass("header");
-        frame.getStyleContext().addClass("terminix-search-slider");
-
+        static if (!MANUAL_BACKGROUND_DRAW) {
+            frame.getStyleContext().addClass("terminix-background");
+        }
         add(frame);
     }
 
@@ -198,9 +201,11 @@ private:
             text = Regex.escapeString(text);
         if (entireWordOnly)
             text = format("\\b%s\\b", text);
-        GRegexCompileFlags flags;
-        if (!matchCase)
-            flags = flags | GRegexCompileFlags.CASELESS;
+        GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE;
+        if (!matchCase) {
+            flags |= GRegexCompileFlags.CASELESS;
+            trace("Set caseless flag");
+        }
         if (text.length > 0) {
             Regex regex = new Regex(text, flags, cast(GRegexMatchFlags) 0);
             vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);

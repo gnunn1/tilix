@@ -28,15 +28,19 @@ import gtk.Entry;
 import gtk.FontButton;
 import gtk.Grid;
 import gtk.HeaderBar;
+import gtk.Image;
 import gtk.Label;
 import gtk.ListStore;
+import gtk.MenuButton;
 import gtk.Notebook;
+import gtk.Popover;
 import gtk.Scale;
 import gtk.SpinButton;
 import gtk.Switch;
 import gtk.Widget;
 
 import gx.gtk.util;
+import gx.gtk.vte;
 
 import gx.i18n.l10n;
 
@@ -124,7 +128,7 @@ private:
         grid.setRowSpacing(6);
 
         //Profile Name
-        Label lblName = new Label(_("Profile Name"));
+        Label lblName = new Label(_("Profile name"));
         lblName.setHalign(Align.END);
         grid.attach(lblName, 0, row, 1, 1);
         Entry eName = new Entry();
@@ -139,12 +143,12 @@ private:
         row++;
 
         //Terminal Size
-        Label lblSize = new Label(_("Terminal Size"));
+        Label lblSize = new Label(_("Terminal size"));
         lblSize.setHalign(Align.END);
         grid.attach(lblSize, 0, row, 1, 1);
-        SpinButton sbColumn = new SpinButton(16, 256, 1);
+        SpinButton sbColumn = new SpinButton(16, 511, 1);
         gsProfile.bind(SETTINGS_PROFILE_SIZE_COLUMNS_KEY, sbColumn, "value", GSettingsBindFlags.DEFAULT);
-        SpinButton sbRow = new SpinButton(4, 256, 1);
+        SpinButton sbRow = new SpinButton(4, 511, 1);
         gsProfile.bind(SETTINGS_PROFILE_SIZE_ROWS_KEY, sbRow, "value", GSettingsBindFlags.DEFAULT);
 
         Box box = new Box(Orientation.HORIZONTAL, 5);
@@ -161,6 +165,11 @@ private:
         box.add(lblRows);
 
         Button btnReset = new Button(_("Reset"));
+        btnReset.addOnClicked(delegate(Button) {
+           gsProfile.reset(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
+           gsProfile.reset(SETTINGS_PROFILE_SIZE_ROWS_KEY);
+            
+        });
         box.add(btnReset);
         grid.attach(box, 1, row, 1, 1);
         row++;
@@ -176,7 +185,7 @@ private:
         row++;
 
         //Blink Mode
-        Label lblBlinkMode = new Label(_("Blink Mode"));
+        Label lblBlinkMode = new Label(_("Blink mode"));
         lblBlinkMode.setHalign(Align.END);
         grid.attach(lblBlinkMode, 0, row, 1, 1);
         ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
@@ -185,7 +194,7 @@ private:
         row++;
 
         //Terminal Bell
-        Label lblBell = new Label(_("Terminal Bell"));
+        Label lblBell = new Label(_("Terminal bell"));
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
         Switch sBell = new Switch();
@@ -195,7 +204,7 @@ private:
         row++;
 
         //Terminal Title
-        Label lblTerminalTitle = new Label(_("Terminal Title"));
+        Label lblTerminalTitle = new Label(_("Terminal title"));
         lblTerminalTitle.setHalign(Align.END);
         grid.attach(lblTerminalTitle, 0, row, 1, 1);
         Entry eTerminalTitle = new Entry();
@@ -225,7 +234,7 @@ private:
 
         //Custom Font
         Box bFont = new Box(Orientation.HORIZONTAL, 12);
-        CheckButton cbCustomFont = new CheckButton(_("Custom Font"));
+        CheckButton cbCustomFont = new CheckButton(_("Custom font"));
         gsProfile.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
         bFont.add(cbCustomFont);
 
@@ -270,6 +279,14 @@ private:
     ComboBoxText cbScheme;
     ColorButton cbFG;
     ColorButton cbBG;
+    CheckButton cbUseHighlightColor;
+    ColorButton cbHighlightFG;
+    ColorButton cbHighlightBG;
+    CheckButton cbUseCursorColor;
+    ColorButton cbCursorFG;
+    ColorButton cbCursorBG;
+    CheckButton cbUseDimColor;
+    ColorButton cbDimBG;
     ColorButton[16] cbPalette;
 
     void createUI() {
@@ -317,34 +334,130 @@ private:
         lblOptions.setValign(Align.START);
         lblOptions.setHalign(Align.END);
         grid.attach(lblOptions, 0, row, 1, 1);
+        grid.attach(createOptions(), 1, row, 1, 1);
+        row++;
 
-        Box bOptions = new Box(Orientation.VERTICAL, 3);
-
+        add(grid);
+    }
+    
+    Widget createOptions() {
+        Box box = new Box(Orientation.VERTICAL, 6);
+        
         cbUseThemeColors = new CheckButton(_("Use theme colors for foreground/background"));
         cbUseThemeColors.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbUseThemeColors, "active", GSettingsBindFlags.DEFAULT);
-
-        bOptions.add(cbUseThemeColors);
+        
+        MenuButton mbAdvanced = new MenuButton();
+        mbAdvanced.add(createBox(Orientation.HORIZONTAL, 6, [new Label(_("Advanced")), new Image("pan-down-symbolic", IconSize.MENU)]));
+        mbAdvanced.setPopover(createPopover(mbAdvanced));
+        gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, mbAdvanced, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+                .INVERT_BOOLEAN);
+        box.add(createBox(Orientation.HORIZONTAL, 6, [cbUseThemeColors, mbAdvanced]));
+        
+        Grid gSliders = new Grid();
+        gSliders.setColumnSpacing(6);
+        gSliders.setRowSpacing(6);
+        int row = 0;
+        
         GSettings gsSettings = new GSettings(SETTINGS_ID);
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
-            Box bTransparent = new Box(Orientation.HORIZONTAL, 6);
-            bTransparent.setHexpand(true);
-
             Label lblTransparent = new Label(_("Transparency"));
-            bTransparent.add(lblTransparent);
+            lblTransparent.setHalign(Align.END);
+            lblTransparent.setHexpand(false);
+            gSliders.attach(lblTransparent, 0, row, 1, 1);
 
             Scale sTransparent = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
             sTransparent.setDrawValue(false);
             sTransparent.setHexpand(true);
+            sTransparent.setHalign(Align.FILL);
             gsProfile.bind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
-            bTransparent.add(sTransparent);
-
-            bOptions.add(bTransparent);
+            gSliders.attach(sTransparent, 1, row, 1, 1);
+            row++;
         }
-        grid.attach(bOptions, 1, row, 1, 1);
+        
+        Label lblDim = new Label(_("Unfocused dim"));
+        lblDim.setHalign(Align.END);
+        lblDim.setHexpand(false);
+        gSliders.attach(lblDim, 0, row, 1, 1);
+        
+        Scale sDim = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
+        sDim.setDrawValue(false);
+        sDim.setHexpand(true);
+        sDim.setHalign(Align.FILL);
+        gsProfile.bind(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY, sDim.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        gSliders.attach(sDim, 1, row, 1, 1);
+
+        box.add(gSliders);
+        return box;        
+    }
+    
+    Popover createPopover(Widget widget) {
+        
+        ColorButton createColorButton(string settingKey, string title, string sensitiveKey) {
+            ColorButton result = new ColorButton(parseColor(gsProfile.getString(settingKey)));
+            if (sensitiveKey.length > 0) {
+                gsProfile.bind(sensitiveKey, result, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+            }
+            result.setTitle(title);
+            result.setHalign(Align.START);
+            result.addOnColorSet(delegate(ColorButton cb) {
+                setCustomScheme();
+                RGBA color;
+                cb.getRgba(color);
+                gsProfile.setString(settingKey, rgbaTo16bitHex(color, false, true));
+            });
+            return result;
+        }
+        
+        Popover popAdvanced = new Popover(widget);
+        
+        Grid gColors = new Grid();
+        gColors.setColumnSpacing(6);
+        gColors.setRowSpacing(6);
+        setAllMargins(gColors, 6);
+
+        int row = 0;
+        gColors.attach(new Label(_("Text")), 1, row, 1, 1);
+        gColors.attach(new Label(_("Background")), 2, row, 1, 1);
+        row++;
+        
+        //Cursor
+        cbUseCursorColor = new CheckButton(_("Cursor"));
+        cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+        gsProfile.bind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
+        if (checkVTEVersionNumber(0, 44)) {
+            gColors.attach(cbUseCursorColor, 0, row, 1, 1);
+        }
+        
+        cbCursorFG = createColorButton(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, _("Select Cursor Foreground Color"), SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY);
+        gColors.attach(cbCursorFG, 1, row, 1, 1);
+        cbCursorBG = createColorButton(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY, _("Select Cursor Background Color"), SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY);
+        gColors.attach(cbCursorBG, 2, row, 1, 1);
         row++;
 
-        add(grid);
+        //Highlight
+        cbUseHighlightColor = new CheckButton(_("Highlight"));
+        cbUseHighlightColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+        gsProfile.bind(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, cbUseHighlightColor, "active", GSettingsBindFlags.DEFAULT);
+        gColors.attach(cbUseHighlightColor, 0, row, 1, 1);
+        
+        cbHighlightFG = createColorButton(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, _("Select Highlight Foreground Color"), SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY);
+        gColors.attach(cbHighlightFG, 1, row, 1, 1);
+        cbHighlightBG = createColorButton(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY, _("Select Highlight Background Color"), SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY);
+        gColors.attach(cbHighlightBG, 2, row, 1, 1);
+        row++;
+        
+        //Dim
+        cbUseDimColor = new CheckButton(_("Dim"));
+        cbUseDimColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+        gsProfile.bind(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, cbUseDimColor, "active", GSettingsBindFlags.DEFAULT);
+        gColors.attach(cbUseDimColor, 0, row, 1, 1);
+        
+        cbDimBG = createColorButton(SETTINGS_PROFILE_DIM_COLOR_KEY, _("Select Dim Color"), SETTINGS_PROFILE_USE_DIM_COLOR_KEY);
+        gColors.attach(cbDimBG, 2, row, 1, 1);
+        gColors.showAll();
+        popAdvanced.add(gColors);
+        return popAdvanced;
     }
 
     Grid createColorGrid(int row) {
@@ -428,23 +541,41 @@ private:
         return result;
     }
 
+    /**
+     * This method checks to see if a color scheme matches
+     * the current color settings and then set the scheme combobox
+     * to that scheme. This provides the user some feedback that
+     * they have selected a matching color scheme.
+     *
+     * Since we don't store the scheme in GSettings this is 
+     * really useful when re-loading the app to show the same
+     * scheme they selected previously instead of custom
+     */
     void initColorSchemeCombo() {
         //Initialize ColorScheme combobox
-        RGBA[16] colors;
+        ColorScheme scheme = new ColorScheme();
+        scheme.useThemeColors = cbUseThemeColors.getActive();
         foreach (i, cb; cbPalette) {
-            cb.getRgba(colors[i]);
+            cb.getRgba(scheme.palette[i]);
         }
-        RGBA fg;
-        RGBA bg;
-        cbFG.getRgba(fg);
-        cbBG.getRgba(bg);
-        int index = findSchemeByColors(schemes, cbUseThemeColors.getActive(), fg, bg, colors);
+        cbFG.getRgba(scheme.foreground);
+        cbBG.getRgba(scheme.background);
+        scheme.useHighlightColor = cbUseHighlightColor.getActive();
+        cbHighlightFG.getRgba(scheme.highlightFG);
+        cbHighlightBG.getRgba(scheme.highlightBG);
+        scheme.useCursorColor = cbUseCursorColor.getActive();
+        cbCursorFG.getRgba(scheme.cursorFG);
+        cbCursorBG.getRgba(scheme.cursorBG);
+        scheme.useDimColor = cbUseDimColor.getActive();
+        cbDimBG.getRgba(scheme.dimColor);         
+        
+        int index = findSchemeByColors(schemes, scheme);
         if (index < 0)
             cbScheme.setActive(to!int(schemes.length));
         else
             cbScheme.setActive(index);
     }
-
+    
     /**
      * Sets a color scheme and updates profile and controls
      */
@@ -455,10 +586,28 @@ private:
         }
         gsProfile.setBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, scheme.useThemeColors);
         if (!scheme.useThemeColors) {
+            //System Colors
             cbFG.setRgba(scheme.foreground);
             cbBG.setRgba(scheme.background);
             gsProfile.setString(SETTINGS_PROFILE_FG_COLOR_KEY, rgbaTo8bitHex(scheme.foreground, false, true));
             gsProfile.setString(SETTINGS_PROFILE_BG_COLOR_KEY, rgbaTo8bitHex(scheme.background, false, true));
+            //Dim colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, scheme.useDimColor);
+            if (scheme.useDimColor) {
+                cbDimBG.setRgba(scheme.dimColor);
+            }
+            //Highlight colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, scheme.useHighlightColor);
+            if (scheme.useHighlightColor) {
+                cbHighlightFG.setRgba(scheme.highlightFG);
+                cbHighlightBG.setRgba(scheme.highlightBG);
+            }
+            //Cursor Colors          
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, scheme.useCursorColor);
+            if (scheme.useCursorColor) {
+                cbCursorFG.setRgba(scheme.cursorFG);
+                cbCursorBG.setRgba(scheme.cursorBG);
+            }
         }
         string[16] palette;
         foreach (i, color; scheme.palette) {

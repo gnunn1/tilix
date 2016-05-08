@@ -10,6 +10,8 @@ import std.path;
 import std.process;
 import std.variant;
 
+import gdk.Screen;
+
 import gio.ActionGroupIF;
 import gio.ActionMapIF;
 import gio.Application : GApplication = Application;
@@ -20,15 +22,21 @@ import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
 import glib.ListG;
+import glib.Str;
 import glib.Variant : GVariant = Variant;
 import glib.VariantDict : GVariantDict = VariantDict;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.ObjectG;
+import gobject.ParamSpec;
 import gobject.Value;
+
+import gtkc.gtk;
 
 import gtk.AboutDialog;
 import gtk.Application;
 import gtk.CheckButton;
+import gtk.CssProvider;
 import gtk.Dialog;
 import gtk.Image;
 import gtk.Label;
@@ -36,11 +44,13 @@ import gtk.LinkButton;
 import gtk.Main;
 import gtk.MessageDialog;
 import gtk.Settings;
+import gtk.StyleContext;
 import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.actions;
+import gx.gtk.resource;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.terminix.appwindow;
@@ -52,7 +62,21 @@ import gx.terminix.prefwindow;
 import gx.terminix.profilewindow;
 import gx.terminix.shortcuts;
 
+static import gx.util.array;
+
+
+/**
+ * Global variable to application
+ */
 Terminix terminix;
+
+/**
+ * Invoked when the GTK theme has changed. While things could
+ * listen to gtk.Settings.addOnNotify directly, because this is a
+ * long lived object and GtkD doesn't provide a way to remove
+ * listeners it will lead to memory leaks so we use this instead
+ */
+alias OnThemeChanged = void delegate(string theme);
 
 /**
  * The GTK Application used by Terminix.
@@ -72,6 +96,8 @@ private:
     enum ACTION_COMMAND = "command";
     enum ACTION_SHORTCUTS = "shortcuts";
 
+    enum THEME_AMBIANCE = "Ambiance";
+
     GSettings gsShortcuts;
     GSettings gsGeneral;
     Value defaultMenuAccel;
@@ -83,6 +109,10 @@ private:
     PreferenceWindow preferenceWindow;
 
     bool warnedVTEConfigIssue = false;
+    
+    CssProvider themeCssProvider;
+    
+    OnThemeChanged[] themeChangedDelegates;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -91,12 +121,18 @@ private:
         //Load resources
         if (findResource(APPLICATION_RESOURCES, true)) {
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
-                string cssURI = buildPath(APPLICATION_RESOURCE_ROOT, cssFile);
-                trace(format("Could not load CSS %s", cssURI));
+                string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     error(format("Could not load CSS %s", cssURI));
                 }
             }
+        }
+        //Check if terminix has a theme specific CSS file to load
+        string theme = getGtkTheme();
+        string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        if (!themeCssProvider) {
+            trace(format("No specific CSS found %s", cssURI));
         }
     }
 
@@ -192,7 +228,7 @@ private:
 
             setWrapLicense(true);
             setLogoIconName(null);
-            setName(APPLICATION_NAME);
+            setProgramName(APPLICATION_NAME);
             setComments(_(APPLICATION_COMMENTS));
             setVersion(APPLICATION_VERSION);
             setCopyright(APPLICATION_COPYRIGHT);
@@ -262,22 +298,34 @@ private:
         
         if (acl.getIsRemote()) {
             AppWindow aw = getActiveAppWindow();
-            if (aw !is null) {    
-                switch (gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY)) {
+            if (aw !is null) {
+                string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
+                //If focus-window command line parameter was passed, override setting
+                if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
+                //If workingDir is not set, override it with cwd so that it takes priority for
+                //executing actions below
+                if (cp.workingDir.length ==0) {
+                    cp.workingDir = cp.cwd;
+                }
+                switch (instanceAction) {
                     //New Session
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
                         aw.present();
                         aw.createSession();
                         return cp.exitCode;
-                    //Split Horizontal
+                    //Split Right
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
                         aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-horizontal");
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
                         return cp.exitCode;
-                    //Split Verical
+                    //Split Down
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
                         aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-vertical");
+                        executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
+                        return cp.exitCode;
+                    //Focus Window
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
+                        aw.present();
                         return cp.exitCode;
                     default:
                         //Fall through to activate
@@ -294,9 +342,28 @@ private:
             createAppWindow();
         cp.clear();
     }
+    
+    void onThemeChange(ParamSpec, ObjectG) {
+        string theme = getGtkTheme();
+        trace("Theme changed to " ~ theme);
+        if (themeCssProvider !is null) {
+            StyleContext.removeProviderForScreen(Screen.getDefault(), themeCssProvider);
+            themeCssProvider = null;
+        }
+        //Check if terminix has a theme specific CSS file to load
+        string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        if (!themeCssProvider) {
+            trace(format("No specific CSS found %s", cssURI));
+        }
+        foreach(dlg; themeChangedDelegates) {
+            dlg(theme);
+        }
+    }
 
-    void onAppStartup(GioApplication) {
+    void onAppStartup(GApplication) {
         trace("Startup App Signal");
+        Settings.getDefault.addOnNotify(&onThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         trace("Monitoring shortcuts");
@@ -307,7 +374,7 @@ private:
             if (shortcut == SHORTCUT_DISABLED) {
                 char** tmp = (new char*[1]).ptr;
                 tmp[0] = cast(char*) '\0';                
-                gtkc.gtk.gtk_application_set_accels_for_action(gtkApplication, glib.Str.Str.toStringz(actionName), tmp);
+                gtk_application_set_accels_for_action(gtkApplication, Str.toStringz(actionName), tmp);
                 trace("Removing accelerator");
             } else {
                 setAccelsForAction(actionName, [shortcut]);
@@ -321,12 +388,12 @@ private:
         installAppMenu();
     }
     
-    void onAppShutdown(GioApplication) {
+    void onAppShutdown(GApplication) {
         trace("Quit App Signal");
         terminix = null;
     }
 
-    void applyPreferences() {
+    void applyPreferences() {        
         string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
         if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
             Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
@@ -401,6 +468,12 @@ public:
         addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING_ARRAY, _("Open the specified session"), _("SESSION_NAME"));
         addMainOption(CMD_ACTION, 'a', GOptionFlags.NONE, GOptionArg.STRING, _("Send an action to current Terminix instance"), _("ACTION_NAME"));
         addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
+        addMainOption(CMD_MAXIMIZE, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Maximize the terminal window"), null);
+        addMainOption(CMD_FULL_SCREEN, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Full-screen the terminal window"), null);
+        addMainOption(CMD_FOCUS_WINDOW, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Focus the existing window"), null);
+        addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
+
+        //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, 't', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
 
         this.addOnActivate(&onAppActivate);
@@ -513,16 +586,16 @@ public:
     }
 
     /**
-     * Even those these are parameters passed on the command-line
+     * Even though these are parameters passed on the command-line
      * they are used by the terminal when it is created as a global
-     * override.
+     * override and referenced via the application object which is global.
      *
      * Originally I was passing command line parameters to the terminal
      * via the heirarchy App > AppWindow > Session > Terminal but this
      * is unwiedly. It's also not feasible when supporting using the
      * command line to create terminals in the current instance since
-     * that uses actions and it's not feasible to pass these via the
-     * action mechanism.
+     * that uses actions. GIO Actions don't have a way to pass arbrirtary
+     * parameters, basically it's not feasible to pass these.
      *
      * When a terminal is created, it will check this global overrides and
      * use it where applicaable. The application is responsible for setiing
@@ -564,5 +637,13 @@ public:
                 }
             }
         }
+    }
+    
+    void addOnThemeChanged(OnThemeChanged dlg) {
+        themeChangedDelegates ~= dlg;
+    }
+    
+    void removeOnThemeChanged(OnThemeChanged dlg) {
+        gx.util.array.remove(themeChangedDelegates, dlg);
     }
 }

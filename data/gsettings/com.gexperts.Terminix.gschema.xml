@@ -37,8 +37,16 @@
   <enum id='com.gexperts.Terminix.NewInstance.Mode'>
     <value nick='new-window' value ='0'/>
     <value nick='new-session' value ='1'/>
-    <value nick='split-horizontal' value ='2'/>
-    <value nick='split-vertical' value ='3'/>
+    <value nick='split-right' value ='2'/>
+    <value nick='split-down' value ='3'/>
+    <value nick='focus-window' value='4'/>
+  </enum>
+  
+  <!-- Terminal Title Options -->
+  <enum id='com.gexperts.Terminix.Terminal.Title'>
+    <value nick='normal' value ='0'/>
+    <value nick='small' value ='1'/>
+    <value nick='none' value ='2'/>
   </enum>
 
   <!-- Cursor -->
@@ -95,10 +103,10 @@
       <summary>Whether to transparency is enabled.</summary>
       <description>If true, transparency is enabled in terminals is supported.</description>
     </key>
-    <key name="enable-small-title" type="b">
-      <default>false</default>
-      <summary>Whether terminal titlebars are shown smaller.</summary>
-      <description>If true, terminal titlebars are rendered smaller then the default by removing padding.</description>
+    <key name="terminal-title-style" enum="com.gexperts.Terminix.Terminal.Title">
+      <default>'normal'</default>
+      <summary>The style to use for terminal titles</summary>
+      <description>Which style to use for terminal titles, normal, small or none.</description>
     </key>
     <key name="enable-wide-handle" type="b">
       <default>false</default>
@@ -154,7 +162,7 @@
       <description>If true, the search will be done treating the search text as a regular expression.</description>
     </key>
     <key name="search-default-wrap-around" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Whether searches wrap the terminal buffer</summary>
       <description>If true, a search will move to the bottom of the terminal buffer when it reaches the top item and vice versa.</description>
     </key>
@@ -184,7 +192,11 @@
       <summary>Whether the focus follows the mouse</summary>
       <description>If true, a terminal will automatically be focused when the mouse moves over it.</description>
     </key>
-    
+    <key name="dim-unfocused" type="b">
+      <default>false</default>
+      <summary>Whether unfocused terminals are rendered dimmed</summary>
+      <description>If true, unfocused terminals are rendered dimmer using an overlay color and scale factor</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->
@@ -216,13 +228,13 @@
       <description>Human-readable name of the profile.</description>
     </key>
     <key name="default-size-columns" type="i">
-      <range min="16" max="256" />
+      <range min="16" max="511" />
       <default>80</default>
       <summary>Default number of columns</summary>
       <description>Number of columns in newly created terminal windows. Has no effect if use_custom_default_size is not enabled.</description>
     </key>
     <key name="default-size-rows" type="i">
-      <range min="4" max="256" />
+      <range min="4" max="511" />
       <default>24</default>
       <summary>Default number of rows</summary>
       <description>Number of rows in newly created terminal windows. Has no effect if use_custom_default_size is not enabled.</description>
@@ -264,6 +276,12 @@
       <default>0</default>
       <summary>The amount of transparency to apply to the background</summary>
     </key>
+    <!--Dim-->
+    <key name="dim-transparency-percent" type="i">
+      <range min="0" max="100" />
+      <default>10</default>
+      <summary>The amount of transparency to apply to the unfocused dim effect</summary>
+    </key>
     <!-- Colors -->
     <key name="foreground-color" type="s">
       <default>'#00FF00'</default>
@@ -274,6 +292,46 @@
       <default>'#000000'</default>
       <summary>Default color of terminal background</summary>
       <description>Default color of terminal background, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
+    </key>
+    <key name="cursor-colors-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom cursor colors</summary>
+      <description>If true, use the cursor colors from the profile.</description>
+    </key>
+    <key name="cursor-background-color" type="s">
+      <default>'#000000'</default>
+      <summary>Cursor background color</summary>
+      <description>Custom color of the background of the terminal's cursor, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if cursor-colors-set is false.</description>
+    </key>
+    <key name="cursor-foreground-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Cursor foreground colour</summary>
+      <description>Custom color for the foreground of the text character at the terminal's cursor position, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if cursor-colors-set is false.</description>
+    </key>
+    <key name="highlight-colors-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom highlight colors</summary>
+      <description>If true, use the highlight colors from the profile.</description>
+    </key>
+    <key name="highlight-background-color" type="s">
+      <default>'#000000'</default>
+      <summary>Highlight background color</summary>
+      <description>Custom color of the background of the terminal's highlight, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+    </key>
+    <key name="highlight-foreground-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Highlight foreground colour</summary>
+      <description>Custom color for the foreground of the text character at the terminal's highlight position, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+    </key>
+    <key name="dim-color-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom dim color</summary>
+      <description>If true, use the dim color from the profile.</description>
+    </key>
+    <key name="dim-color" type="s">
+      <default>'#000000'</default>
+      <summary>Colour to use to dim un-focused terminal</summary>
+      <description>Custom color used as an overlay to create dim effect for un-focused terminal, as a color specification (can be HTML-style hex digits, or a color name such as "red").</description>
     </key>
     <key name="palette" type="as">
       <default>["#2E2E34343636",
@@ -456,7 +514,7 @@
       <summary>Keyboard shortcut to create a new window</summary>
     </key>
     <key name="app-new-session" type="s">
-      <default>'&lt;Shift&gt;&lt;Ctrl&gt;S'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;T'</default>
       <summary>Keyboard shortcut to create a new session</summary>
     </key>
     <key name="app-preferences" type="s">
@@ -472,23 +530,23 @@
       <summary>Keyboard shortcut to synchronize input for the session</summary>
     </key>
     <key name="session-close" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;Q'</default>
       <summary>Keyboard shortcut to close a session</summary>
     </key>
     <key name="session-name" type="s">
       <default>'disabled'</default>
       <summary>Keyboard shortcut to change the name of the session</summary>
     </key>
-    <key name="session-load" type="s">
-      <default>'disabled'</default>
-      <summary>Keyboard shortcut to load a previously saved session</summary>
+    <key name="session-open" type="s">
+      <default>'&lt;Ctrl&gt;o'</default>
+      <summary>Keyboard shortcut to open a previously saved session</summary>
     </key>
     <key name="session-save" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;s'</default>
       <summary>Keyboard shortcut to save the current session</summary>
     </key>
     <key name="session-save-as" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;s'</default>
       <summary>Keyboard shortcut to save the current session as a new file</summary>
     </key>
     <key name="session-switch-to-terminal-0" type="s">
@@ -564,7 +622,7 @@
       <summary>Keyboard shortcut to resize terminal right</summary>
     </key>
     <key name="win-view-sidebar" type="s">
-      <default>'&lt;Ctrl&gt;s'</default>
+      <default>'F12'</default>
       <summary>Keyboard shortcut to view session sidebar</summary>
     </key>  
     <key name="win-switch-to-session-0" type="s">
@@ -608,14 +666,13 @@
       <summary>Keyboard shortcut to switch to session 9</summary>
     </key>
     <key name="win-switch-to-next-session" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;Page_Down'</default>
       <summary>Keyboard shortcut to switch to the next session</summary>
     </key>
     <key name="win-switch-to-previous-session" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Ctrl&gt;Page_Up'</default>
       <summary>Keyboard shortcut to switch to the previous session</summary>
-    </key>
-    
+    </key>    
     <key name="win-fullscreen" type="s">
       <default>'F11'</default>
       <summary>Keyboard shortcut to toggle fullscreen</summary>
@@ -629,13 +686,13 @@
       <default>'&lt;Ctrl&gt;&lt;Shift&gt;Tab'</default>
       <summary>Keyboard shortcut to switch to the previous terminal</summary>
     </key>
-    <key name="terminal-split-horizontal" type="s">
-      <default>'&lt;Ctrl&gt;&lt;Alt&gt;h'</default>
-      <summary>Keyboard shortcut to split terminal horizontally</summary>
+    <key name="terminal-split-right" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;r'</default>
+      <summary>Keyboard shortcut to split terminal right</summary>
     </key>
-    <key name="terminal-split-vertical" type="s">
-      <default>'&lt;Ctrl&gt;&lt;Alt&gt;v'</default>
-      <summary>Keyboard shortcut to split terminal vertically</summary>
+    <key name="terminal-split-down" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;d'</default>
+      <summary>Keyboard shortcut to split terminal down</summary>
     </key>
     <key name="terminal-find" type="s">
       <default>'&lt;Ctrl&gt;&lt;Shift&gt;f'</default>
@@ -658,7 +715,7 @@
       <summary>Keyboard shortcut to close the terminal</summary>
     </key>
     <key name="terminal-maximize" type="s">
-      <default>'disabled'</default>
+      <default>'&lt;Shift&gt;&lt;Ctrl&gt;X'</default>
       <summary>Keyboard shortcut to maximize or restore the terminal</summary>
     </key>
     <key name="terminal-profile-preference" type="s">
@@ -668,6 +725,14 @@
     <key name="terminal-read-only" type="s">
       <default>'disabled'</default>
       <summary>Keyboard shortcut to toggle whether the terminal is read-only</summary>
+    </key>
+    <key name="terminal-reset" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to reset the terminal states</summary>
+    </key>
+    <key name="terminal-reset-and-clear" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to reset the terminal states and clear the output buffer</summary>
     </key>
     <key name="terminal-copy" type="s">
       <default>'&lt;Ctrl&gt;&lt;Shift&gt;c'</default>

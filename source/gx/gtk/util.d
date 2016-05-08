@@ -6,31 +6,26 @@ module gx.gtk.util;
 
 import std.conv;
 import std.experimental.logger;
-import std.file;
 import std.format;
-import std.path;
 
 import gdk.RGBA;
-import gdk.Screen;
-
-import gio.File : GFile = File;
-import gio.Resource;
 
 import glib.GException;
 import glib.ListG;
-import glib.Util;
 
 import gobject.ObjectG;
+import gobject.Value;
 
 import gtk.Bin;
+import gtk.Box;
 import gtk.ComboBox;
 import gtk.CellRendererText;
 import gtk.Container;
-import gtk.CssProvider;
 import gtk.Entry;
 import gtk.ListStore;
 import gtk.MessageDialog;
 import gtk.Paned;
+import gtk.Settings;
 import gtk.StyleContext;
 import gtk.TreeIter;
 import gtk.TreeModelIF;
@@ -40,6 +35,27 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
+
+
+/**
+ * Return the name of the GTK Theme
+ */
+string getGtkTheme() {
+    Value value = new Value("");
+    Settings.getDefault.getProperty("gtk-theme-name", value);
+    return value.getString();
+}
+
+/**
+ * Convenience method for creating a box and adding children
+ */
+Box createBox(Orientation orientation, int spacing,  Widget[] children) {
+    Box result = new Box(orientation, spacing);
+    foreach(child; children) {
+        result.add(child);
+    }
+    return result;
+}
 
 /**
  * Template for finding all children of a specific type
@@ -150,17 +166,6 @@ bool showInputDialog(Window parent, out string value, string initialValue = null
 /**
  * Defined here since not defined in GtkD
  */
-enum ProviderPriority : uint {
-    FALLBACK = 1,
-    THEME = 200,
-    SETTINGS = 400,
-    APPLICATION = 600,
-    USER = 800
-}
-
-/**
- * Defined here since not defined in GtkD
- */
 enum MouseButton : uint {
     PRIMARY = 1,
     MIDDLE = 2,
@@ -227,38 +232,6 @@ string rgbaTo16bitHex(RGBA color, bool includeAlpha = false, bool includeHash = 
     } else {
         return prepend ~ format("%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue);
     }
-}
-
-Resource findResource(string resourcePath, bool register = true) {
-    foreach (path; Util.getSystemDataDirs()) {
-        auto fullpath = buildPath(path, resourcePath);
-        trace("looking for resource " ~ fullpath);
-        if (exists(fullpath)) {
-            Resource resource = Resource.load(fullpath);
-            if (register && resource) {
-                trace("Resource found and registered " ~ fullpath);
-                Resource.register(resource);
-            }
-            return resource;
-        }
-    }
-    error(format("Resource %s could not be found", resourcePath));
-    return null;
-}
-
-bool addCssProvider(string filename, ProviderPriority priority) {
-    try {
-        CssProvider provider = new CssProvider();
-        if (provider.loadFromFile(GFile.parseName(filename))) {
-            StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
-            return true;
-        }
-    }
-    catch (GException ge) {
-        error("Unexpected error loading resource " ~ filename);
-        error("Error: " ~ ge.msg);
-    }
-    return false;
 }
 
 /**
@@ -357,7 +330,13 @@ private:
 public:
     this(TreeModelIF model) {
         this.model = model;
-        _empty = model.getIterFirst(iter);
+        _empty = !model.getIterFirst(iter);
+    }
+    
+    this(TreeModelIF model, TreeIter parent) {
+        this.model = model;
+        _empty = !model.iterChildren(iter, parent);
+        if (_empty) trace("TreeIter has no children");
     }
 
     @property bool empty() {
@@ -376,16 +355,16 @@ public:
      * Based on the example here https://www.sociomantic.com/blog/2010/06/opapply-recipe/#.Vm8mW7grKEI
      */
     int opApply(int delegate(ref TreeIter iter) dg) {
-        trace("Iterate on Apply Start");
         int result = 0;
-        bool hasNext = model.getIterFirst(iter);
+        //bool hasNext = model.getIterFirst(iter);
+        bool hasNext = !_empty;
         while (hasNext) {
             result = dg(iter);
-            if (result)
+            if (result) {
                 break;
+            }
             hasNext = model.iterNext(iter);
         }
-        trace("Iterate on Apply End");
         return result;
     }
 }

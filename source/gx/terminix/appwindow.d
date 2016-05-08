@@ -99,13 +99,13 @@ private:
     enum ACTION_RESIZE_TERMINAL_DIRECTION = "resize-terminal-";
     enum ACTION_SESSION_SAVE = "save";
     enum ACTION_SESSION_SAVE_AS = "save-as";
-    enum ACTION_SESSION_LOAD = "load";
+    enum ACTION_SESSION_OPEN = "open";
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
-    enum ACTION_WIN_FULLSCREEN = "fullscreen";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
+    enum ACTION_WIN_FULLSCREEN = "fullscreen";
 
     Notebook nb;
     HeaderBar hb;
@@ -144,6 +144,9 @@ private:
             updateUIState();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
+            if (sb.getChildRevealed()) {
+                sb.selectSession(getCurrentSession().sessionUUID);
+            }
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
@@ -156,6 +159,7 @@ private:
                 getCurrentSession().focusRestore();
             }
         });
+        sb.addOnSessionClose(&onUserSessionClose);
 
         Overlay overlay = new Overlay();
         overlay.add(nb);
@@ -189,7 +193,9 @@ private:
         Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
-        btnNew.addOnClicked(delegate(Button) { createSession(); });
+        btnNew.addOnClicked(delegate(Button) {
+            createSession(); 
+        });
         btnNew.setTooltipText(_("Create a new session"));
 
         //Session Actions
@@ -352,12 +358,12 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                closeSession(getCurrentSession());
+                onUserSessionClose(getCurrentSession().sessionUUID);                
             }
         });
 
         //Load Session
-        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_LOAD, gsShortcuts, delegate(GVariant, SimpleAction) { loadSession(); });
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_OPEN, gsShortcuts, delegate(GVariant, SimpleAction) { loadSession(); });
 
         //Save Session
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_SAVE, gsShortcuts, delegate(GVariant, SimpleAction) { saveSession(false); });
@@ -395,7 +401,7 @@ private:
         GMenu model = new GMenu();
 
         GMenu mFileSection = new GMenu();
-        mFileSection.appendItem(new GMenuItem(_("Load…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_LOAD)));
+        mFileSection.appendItem(new GMenuItem(_("Open…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_OPEN)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
         mFileSection.appendItem(new GMenuItem(_("Save As…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
         mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
@@ -475,6 +481,24 @@ private:
     Session getSession(int i) {
         return cast(Session) nb.getNthPage(i);
     }
+    
+    /**
+     * Used to handle cases where the user requests a session be closed
+     */
+    bool onUserSessionClose(string sessionUUID) {
+        trace("Sidebar requested to close session " ~ sessionUUID);
+        if (sessionUUID.length > 0) {
+            Session session = getSession(sessionUUID);
+            if (session !is null) {
+                if (session.isProcessRunning()) {
+                    if (!showCanClosePrompt) return false;
+                }
+                closeSession(session);
+                return true;
+            }
+        }
+        return false;
+    }    
 
     void closeSession(Session session) {
         removeSession(session);
@@ -608,6 +632,24 @@ private:
             updateUIState();
         }
     }
+    
+    /**
+     * Prompts the user if we can close. This is used both when closing a single
+     * session and when closing the application window
+     */
+    bool showCanClosePrompt() {
+        MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
+                _("There are processes that are still running, close anyway?"), null);
+
+        dialog.setDefaultResponse(ResponseType.CANCEL);
+        scope (exit) {
+            dialog.destroy();
+        }
+        if (dialog.run() != ResponseType.OK) {
+            return false;
+        }
+        return true;
+    }
 
     bool onWindowClosed(Event event, Widget widget) {
         bool promptForClose = false;
@@ -618,23 +660,37 @@ private:
             }
         }
         if (promptForClose) {
-            MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                    _("There are processes that are still running, close anyway?"), null);
-
-            dialog.setDefaultResponse(ResponseType.CANCEL);
-            scope (exit) {
-                dialog.destroy();
-            }
-            if (dialog.run() != ResponseType.OK) {
-                trace("Abort close");
-                return true;
-            }
+            return !showCanClosePrompt();
         }
         return false;
     }
 
     void onWindowDestroyed(Widget) {
         terminix.removeAppWindow(this);
+    }
+    
+    void onWindowShow(Widget) {
+        if (terminix.getGlobalOverrides().maximize) {
+            maximize();
+        } else if (terminix.getGlobalOverrides().fullscreen) {
+            changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
+            fullscreen();
+        }
+    }
+    
+    static if (MANUAL_BACKGROUND_DRAW) {
+        bool onWindowDraw(Scoped!Context cr, Widget w) {
+            // Only works for GTK 3.20, default is to use CSS classes to give widgets
+            // backgrounds, see issue #303
+            if (getAppPaintable) {
+                if (cast(Popover)getFocus() !is null) return false;
+                Widget child = getChild();
+                GdkRectangle rect;
+                child.getAllocation(rect);
+                StyleContext.renderBackground(getStyleContext(), cr, rect.x, rect.y, rect.width, rect.height);
+            } 
+            return false;
+        }
     }
 
     void onCompositedChanged(Widget) {
@@ -682,16 +738,18 @@ private:
         int height = nb.getAllocatedHeight();
         // If no sessions then we are loading our first session,
         // set the window size to what was saved in session JSON file
-        if (nb.getNPages() == 0) {
+        if (!nb.getRealized()) {
             try {
                 Session.getPersistedSessionSize(value, width, height);
-                setDefaultSize(width, height);
+                if (nb.getNPages() == 0) {
+                    setDefaultSize(width, height);
+                }
             }
             catch (Exception e) {
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
             }
         }
-        trace("Session dimensions: w=%d, h=%d", width, height);
+        trace(format("Session dimensions: w=%d, h=%d", width, height));
         Session session = new Session(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
     }
@@ -752,9 +810,9 @@ private:
     /**
      * Creates a new session based on parameters, user is not prompted
      */
-    void createSession(string name, string profileUUID) {
+    void createSession(string name, string profileUUID, string workingDir = null) {
         //createNewSession(name, profileUUID, Util.getHomeDir());
-        createNewSession(name, profileUUID, null);
+        createNewSession(name, profileUUID, workingDir);
     }
 
 public:
@@ -764,7 +822,7 @@ public:
         terminix.addAppWindow(this);
         gsSettings = new GSettings(SETTINGS_ID);
         setTitle(_("Terminix"));
-        setIconName("terminal");
+        setIconName("com.gexperts.Terminix");
 
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
@@ -773,6 +831,15 @@ public:
 
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
+        static if (MANUAL_BACKGROUND_DRAW) {
+            addOnDraw(&onWindowDraw);
+        }
+        addOnRealize(delegate (Widget) {
+            if (terminix.getGlobalOverrides().x > 0) {
+                move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
+            }
+        });
+        addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
     }
 
@@ -841,6 +908,11 @@ public:
      * Creates a new session and prompts the user for session properties
      */
     void createSession() {
+        string workingDir;
+        Session current = getCurrentSession();
+        if (current !is null) {
+            workingDir = current.getActiveTerminalDirectory();
+        }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
             SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
             scope (exit) {
@@ -848,10 +920,10 @@ public:
             }
             sp.showAll();
             if (sp.run() == ResponseType.OK) {
-                createSession(sp.name, sp.profileUUID);
+                createSession(sp.name, sp.profileUUID, workingDir);
             }
         } else {
-            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile(), workingDir);
         }
     }
 }

@@ -26,17 +26,25 @@ enum SETTINGS_THEME_VARIANT_KEY = "theme-variant";
 enum SETTINGS_THEME_VARIANT_SYSTEM_VALUE = "system";
 enum SETTINGS_THEME_VARIANT_LIGHT_VALUE = "light";
 enum SETTINGS_THEME_VARIANT_DARK_VALUE = "dark";
+immutable string[] SETTINGS_THEME_VARIANT_VALUES = [SETTINGS_THEME_VARIANT_SYSTEM_VALUE, SETTINGS_THEME_VARIANT_LIGHT_VALUE, SETTINGS_THEME_VARIANT_DARK_VALUE];
 
 enum SETTINGS_NEW_INSTANCE_MODE_KEY = "new-instance-mode";
-immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-horizontal", "split-vertical"];
+immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-right", "split-down", "focus-window"];
 
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
-enum SETTINGS_ENABLE_SMALL_TITLE_KEY = "enable-small-title";
+
+enum SETTINGS_TERMINAL_TITLE_STYLE_KEY = "terminal-title-style";
+enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NORMAL = "normal";
+enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_SMALL = "small";
+enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE = "none";
+immutable string[] SETTINGS_TERMINAL_TITLE_STYLE_VALUES = [SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NORMAL, SETTINGS_TERMINAL_TITLE_STYLE_VALUE_SMALL, SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE];
+
 enum SETTINGS_ENABLE_WIDE_HANDLE_KEY = "enable-wide-handle";
+enum SETTINGS_DIM_UNFOCUSED_KEY = "dim-unfocused";
 enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 enum SETTINGS_UNSAFE_PASTE_ALERT_KEY = "unsafe-paste-alert";
 enum SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY = "paste-strip-first-char";
@@ -77,6 +85,15 @@ enum SETTINGS_PROFILE_FG_COLOR_KEY = "foreground-color";
 enum SETTINGS_PROFILE_BG_TRANSPARENCY_KEY = "background-transparency-percent";
 enum SETTINGS_PROFILE_PALETTE_COLOR_KEY = "palette";
 enum SETTINGS_PROFILE_USE_THEME_COLORS_KEY = "use-theme-colors";
+enum SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY = "highlight-colors-set";
+enum SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY = "highlight-foreground-color";
+enum SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY = "highlight-background-color";
+enum SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY = "cursor-colors-set";
+enum SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY = "cursor-foreground-color";
+enum SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY = "cursor-background-color";
+enum SETTINGS_PROFILE_USE_DIM_COLOR_KEY = "dim-color-set";
+enum SETTINGS_PROFILE_DIM_COLOR_KEY = "dim-color";
+enum SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY = "dim-transparency-percent";
 
 enum SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY = "show-scrollbar";
 enum SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY = "scroll-on-output";

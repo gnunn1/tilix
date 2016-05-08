@@ -4,6 +4,7 @@
  */
 module gx.terminix.session;
 
+import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.format;
@@ -16,6 +17,8 @@ import gdk.Event;
 import gio.Settings : GSettings = Settings;
 
 import glib.Util;
+
+import gobject.Value;
 
 import gtk.Application;
 import gtk.Box;
@@ -36,6 +39,7 @@ import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
+import gx.gtk.threads;
 import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
@@ -115,12 +119,10 @@ private:
     Box groupChild;
     MaximizedInfo maximizedInfo;
 
-    Terminal lastFocused;
+    Terminal currentTerminal;
+    Terminal[] mruTerminals;
 
     GSettings gsSettings;
-
-    immutable bool PANED_RESIZE_MODE = false;
-    immutable bool PANED_SHRINK_MODE = false;
 
     /**
      * Creates the session user interface
@@ -134,19 +136,17 @@ private:
     void createUI(Terminal terminal) {
         createBaseUI();
         groupChild.add(terminal);
-        lastFocused = terminal;
+        currentTerminal = terminal;
     }
 
     void createBaseUI() {
         stackGroup = new Box(Orientation.VERTICAL, 0);
         addNamed(stackGroup, STACK_GROUP_NAME);
         stackMaximized = new Box(Orientation.VERTICAL, 0);
-        stackMaximized.getStyleContext().addClass("terminix-notebook-page");
         addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
         // Fix transparency bugs on ubuntu and rawhide where background-color 
         // for widgets don't seem to take
-        groupChild.getStyleContext().addClass("terminix-notebook-page");
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
@@ -184,7 +184,66 @@ private:
         if (Version.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
+        result.addOnButtonPress(delegate(Event event, Widget w) {
+            if (event.button.window == result.getHandleWindow().getWindowStruct() && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+                redistributePanes(cast(Paned) w);
+                return true;
+            }
+            return false;
+        });
+        result.setProperty("position-set", true);
         return result;
+    }
+
+    /**
+     * Tries to evenly space all Paned of the same orientation.
+     * Uses a binary tree to model the panes and calculate the
+     * sizes and then sets the sizes from outer to inner. See comments
+     * later in file for PanedModel for more info how this
+     * works.
+     */
+    void redistributePanes(Paned paned) {
+
+        /**
+         * Find the root pane of the same orientation
+         * by walking up the parent-child heirarchy
+         */
+        Paned getRootPaned() {
+            Paned result = paned;
+            Container parent = cast(Container) paned.getParent();
+            while (parent !is null) {
+                Paned p = cast(Paned) parent;
+                if (p !is null) {
+                    if (p.getOrientation() == paned.getOrientation()) {
+                        result = p;
+                    } else {
+                        break;
+                    }
+                }
+                parent = cast(Container) parent.getParent();
+            }
+            return result;
+        }
+
+        Paned root = getRootPaned();
+        if (root is null)
+            return;
+        PanedModel model = new PanedModel(root);
+        // Model count should never be 0 since root is not null but just in case...
+        if (model.count == 0) {
+            trace(format("Only %d pane, not redistributing", model.count));
+            return;
+        }
+        Value handleSize = new Value(0);
+        root.styleGetProperty("handle-size", handleSize);
+        trace(format("Handle size is %d", handleSize.getInt()));
+        
+        int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
+        int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
+        trace(format("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size));
+
+        model.calculateSize(baseSize);
+        model.resize();
     }
 
     /**
@@ -228,8 +287,8 @@ private:
     void removeTerminal(Terminal terminal) {
         int id = to!int(terminal.terminalID);
         trace("Removing terminal " ~ terminal.terminalUUID);
-        if (lastFocused == terminal)
-            lastFocused = null;
+        if (currentTerminal == terminal)
+            currentTerminal = null;
         //Remove delegates
         terminal.removeOnTerminalClose(&onTerminalClose);
         terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
@@ -253,6 +312,7 @@ private:
         unparentTerminal(terminal);
         //Remove terminal
         gx.util.array.remove(terminals, terminal);
+        gx.util.array.remove(mruTerminals, terminal);
         //Only one terminal open, close session
         trace(format("There are %d terminals left", terminals.length));
         if (terminals.length == 0) {
@@ -262,12 +322,16 @@ private:
         }
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
-        //Fix Issue #33
-        if (id >= terminals.length)
-            id = to!int(terminals.length);
-        if (id > 0 && id <= terminals.length) {
-            focusTerminal(id);
+        if (mruTerminals.length > 0) {
+            focusTerminal(mruTerminals[$-1]);
+        } else {
+            if (id >= terminals.length)
+                id = to!int(terminals.length);
+            if (id > 0 && id <= terminals.length) {
+                focusTerminal(id);
+            }        
         }
+
         if (maximizedTerminal !is null) {
             maximizeTerminal(terminal);
         }
@@ -517,7 +581,9 @@ private:
 
     void onTerminalInFocus(Terminal terminal) {
         //trace("Focus noted");
-        lastFocused = terminal;
+        currentTerminal = terminal;
+        gx.util.array.remove(mruTerminals, terminal);
+        mruTerminals ~= terminal;
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
@@ -756,8 +822,9 @@ private:
         } else {
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
         }
-        trace(format("Paned position percent: %f", percent));
-        paned.setPosition(sizeInfo.getPosition(percent, orientation));
+        int pos = sizeInfo.getPosition(percent, orientation);
+        trace(format("Paned position %f percent or %d px", percent, pos));
+        paned.setPosition(pos);
         return paned;
     }
 
@@ -847,6 +914,7 @@ public:
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         try {
+            trace(format("Parsing session %s with dimensions %d,%d", filename, width, height));
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
         }
@@ -865,10 +933,18 @@ public:
     }
 
     string getActiveTerminalUUID() {
-        if (lastFocused !is null)
-            return lastFocused.terminalUUID;
+        if (currentTerminal !is null)
+            return currentTerminal.terminalUUID;
         else
             return null;
+    }
+    
+    string getActiveTerminalDirectory() {
+        if (currentTerminal !is null) {
+            return currentTerminal.currentDirectory;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -970,7 +1046,7 @@ public:
      * Resize terminal based on direction
      */
     void resizeTerminal(string direction) {
-        Terminal terminal = lastFocused;
+        Terminal terminal = currentTerminal;
         if (terminal !is null) {
             Container parent = cast(Container) terminal;
             int increment = 10;
@@ -999,9 +1075,9 @@ public:
      * Restore focus to the terminal that last had focus in the session
      */
     void focusRestore() {
-        if (lastFocused !is null) {
+        if (currentTerminal !is null) {
             trace("Restoring focus to terminal");
-            lastFocused.focusTerminal();
+            currentTerminal.focusTerminal();
         }
     }
 
@@ -1010,8 +1086,8 @@ public:
      */
     void focusNext() {
         ulong id = 1;
-        if (lastFocused !is null) {
-            id = lastFocused.terminalID + 1;
+        if (currentTerminal !is null) {
+            id = currentTerminal.terminalID + 1;
             if (id > terminals.length)
                 id = 1;
         }
@@ -1023,8 +1099,8 @@ public:
      */
     void focusPrevious() {
         ulong id = 1;
-        if (lastFocused !is null) {
-            id = lastFocused.terminalID;
+        if (currentTerminal !is null) {
+            id = currentTerminal.terminalID;
             if (id == 1)
                 id = terminals.length;
             else
@@ -1039,13 +1115,13 @@ public:
     void focusDirection(string direction) {
         trace("Focusing ", direction);
 
-        Widget appWindow = lastFocused.getToplevel();
+        Widget appWindow = currentTerminal.getToplevel();
         GtkAllocation appWindowAllocation;
         appWindow.getClip(appWindowAllocation);
 
         // Start at the top left of the current terminal
         int xPos, yPos;
-        lastFocused.translateCoordinates(appWindow, 0, 0, xPos, yPos);
+        currentTerminal.translateCoordinates(appWindow, 0, 0, xPos, yPos);
 
         // While still in the application window, move 20 pixels per loop
         while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
@@ -1068,7 +1144,7 @@ public:
 
             // If the x/y position lands in another terminal, focus it
             foreach (terminal; terminals) {
-                if (terminal == lastFocused)
+                if (terminal == currentTerminal)
                     continue;
 
                 int termX, termY;
@@ -1201,6 +1277,9 @@ public:
 
 private:
 
+immutable bool PANED_RESIZE_MODE = false;
+immutable bool PANED_SHRINK_MODE = false;
+
 /**
  * used during session serialization to store any width/height/position elements
  * as scaled entities so that if restoring a session in a smaller/larger space
@@ -1238,4 +1317,166 @@ struct MaximizedInfo {
     bool isMaximized;
     Box parent;
     Terminal terminal;
+}
+
+/**
+ * The PanedModel is a binary tree used to calculate sizing model for redistributing GTKPaned used
+ * in a session evenly. Since GTKPaned only supports two children, the session creates a nested
+ * heirarchy of GTKPaned widgets embedded within each other. Each child of the Paned (child1/child2) can
+ * be either a Paned or a Terminal.
+ *
+ * In the model if a child is a terminal it is simply represented as a null. Once we have the model,
+ * we can simply walk recursively to calculate the size of each pane and the position of the splitter. The first
+ * step is calculate the base size, this is simply the available space divided by the number of panes. 
+ * The position of each pane is calculated by looking at the size of the children.
+ */
+class PanedModel {
+
+private:
+
+    PanedNode root;
+    int _count = 0;
+
+    PanedNode createModel(Paned node) {
+        _count++;
+        PanedNode result = new PanedNode(node);
+        Box box1 = cast(Box) node.getChild1();
+        Box box2 = cast(Box) node.getChild2();
+        Paned[] paned1 = gx.gtk.util.getChildren!(Paned)(box1, false);
+        Paned[] paned2 = gx.gtk.util.getChildren!(Paned)(box2, false);
+        if (paned1.length > 0 && paned1[0].getOrientation() == node.getOrientation())
+            result.child[0] = createModel(paned1[0]);
+        if (paned2.length > 0 && paned2[0].getOrientation() == node.getOrientation())
+            result.child[1] = createModel(paned2[0]);
+        return result;
+    }
+
+    /**
+     * Return the height (i.e. depth) of the tree
+     */
+    int getHeight(PanedNode node) {
+        if (node is null) {
+            return 0;
+        } else {
+            int[2] heights;
+            foreach (i, childNode; node.child) {
+                heights[i] = childNode is null ? 0 : getHeight(childNode);
+            }
+            return max(heights[0], heights[1]) + 1;
+        }
+    }
+
+    /**
+     * Itertate over the tree recursively and calculate the size
+     * for each branch
+     */
+    void calculateSize(PanedNode node, int baseSize) {
+        if (node is null)
+            return;
+        int size = 0;
+        foreach (i, childNode; node.child) {
+            if (childNode is null)
+                size = size + baseSize;
+            else {
+                calculateSize(childNode, baseSize);
+                size = size + childNode.size;
+            }
+        }
+        node.size = size;
+        node.pos = (node.child[0] is null ? baseSize : node.child[0].size);
+    }
+
+    /**
+     * Get all branches at a specific level
+     */
+    PanedNode[] getBranch(PanedNode node, int level) {
+        PanedNode[] result;
+        if (node is null)
+            return result;
+        if (level == 0) {
+            return [node];
+        } else {
+            foreach (childNode; node.child) {
+                result ~= getBranch(childNode, level - 1);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Perform the resize by iterating over the tree from the highest branch (0) to
+     * the lowest (X). This follows the pattern of the outermost pane to the innermost which
+     * you have to do since inner panes may not have space for their size allocation until 
+     * outer ones are re-sized first.
+     */
+    void resize(PanedNode node) {
+        trace("Resizing");
+        for (int i = 0; i < height; i++) {
+            PanedNode[] nodes = getBranch(root, i);
+            trace(format("Branch %d has %d nodes", i, nodes.length));
+            foreach (n; nodes) {
+                trace(format("    1st pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                n.paned.setPosition(n.pos);
+                // Add idle handler to reset child properties and take one more stab at setting position. GTKPaned
+                // is annoying about doing things behind your back
+                threadsAddIdleDelegate(delegate() {
+                    trace(format("    2nd pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                    n.paned.setPosition(n.pos);
+                    n.paned.childSetProperty(n.paned.getChild1(), "resize", new Value(PANED_RESIZE_MODE));
+                    n.paned.childSetProperty(n.paned.getChild2(), "resize", new Value(PANED_RESIZE_MODE));
+                    return false;                    
+                });
+            }
+        }
+    }
+    
+    void updateResizeProperty(PanedNode node) {
+        trace("Updating resize property");
+        //Thanks to tip from egmontkob, see issue https://github.com/gnunn1/terminix/issues/161
+        node.paned.childSetProperty(node.paned.getChild1(), "resize", new Value(false));
+        node.paned.childSetProperty(node.paned.getChild2(), "resize", new Value(true));
+        foreach(child; node.child) {
+            if (child !is null) {
+                updateResizeProperty(child);
+            }
+        }
+    }
+
+public:
+
+    this(Paned paned) {
+        this.root = createModel(paned);
+    }
+
+    void calculateSize(int baseSize) {
+        calculateSize(root, baseSize);
+    }
+
+    void resize() {
+        updateResizeProperty(root);
+        resize(root);
+    }
+
+    @property int height() {
+        return getHeight(root);
+    }
+
+    @property int count() {
+        return _count;
+    }
+}
+
+/**
+ * Represents a single Paned widget, or branch in the model
+ */
+class PanedNode {
+    Paned paned;
+    int size;
+    int pos;
+    PanedNode[2] child;
+
+    this(Paned paned) {
+        this.paned = paned;
+    }
+
 }

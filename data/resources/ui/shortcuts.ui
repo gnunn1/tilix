@@ -7,7 +7,7 @@
       <object class="GtkShortcutsSection">
         <property name="visible">1</property>
         <property name="section-name">app</property>
-        <property name="title">Application</property>
+        <property name="title" translatable="yes">Application</property>
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup">
@@ -135,7 +135,7 @@
       <object class="GtkShortcutsSection">
         <property name="visible">1</property>
         <property name="section-name">session</property>
-        <property name="title">Session</property>
+        <property name="title" translatable="yes">Session</property>
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup">
@@ -160,12 +160,12 @@
               </object>
             </child>
             <child>
-              <object class="GtkShortcutsShortcut" id ="session-load">
+              <object class="GtkShortcutsShortcut" id ="session-open">
                 <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Load the current session</property>
+                <property name="title" translatable="yes" context="shortcut window">Open a saved session</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -195,7 +195,7 @@
                 <property name="title" translatable="yes" context="shortcut window">Resize the terminal right</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -305,25 +305,25 @@
       <object class="GtkShortcutsSection">
         <property name="visible">1</property>
         <property name="section-name">terminal</property>
-        <property name="title">Terminal</property>
+        <property name="title" translatable="yes">Terminal</property>
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">1</property>
             <property name="title" translatable="yes" context="shortcut window">Split</property>
             <child>
-              <object class="GtkShortcutsShortcut" id ="terminal-split-horizontal">
+              <object class="GtkShortcutsShortcut" id ="terminal-split-right">
                 <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Split horizontal</property>
+                <property name="title" translatable="yes" context="shortcut window">Split right</property>
               </object>
             </child>
             <child>
-              <object class="GtkShortcutsShortcut" id ="terminal-split-vertical">
+              <object class="GtkShortcutsShortcut" id ="terminal-split-down">
                 <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Split vertical</property>
+                <property name="title" translatable="yes" context="shortcut window">Split down</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -347,7 +347,7 @@
                 <property name="title" translatable="yes" context="shortcut window">Find previous</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -371,7 +371,7 @@
                 <property name="title" translatable="yes" context="shortcut window">Select all</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -395,7 +395,7 @@
                 <property name="title" translatable="yes" context="shortcut window">Zoom normal size</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
         <child>
           <object class="GtkShortcutsGroup">
@@ -426,6 +426,18 @@
               </object>
             </child>
             <child>
+              <object class="GtkShortcutsShortcut" id ="terminal-reset">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Reset the terminal</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="terminal-reset-and-clear">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Reset and clear the terminal</property>
+              </object>
+            </child>
+            <child>
               <object class="GtkShortcutsShortcut" id ="terminal-read-only">
                 <property name="visible">1</property>
                 <property name="title" translatable="yes" context="shortcut window">Toggle read only</property>
@@ -437,9 +449,9 @@
                 <property name="title" translatable="yes" context="shortcut window">Layout options</property>
               </object>
             </child>
-          </object>            
+          </object>
         </child>
       </object>
-    </child>  
+    </child>
   </object>
-</interface>                         
+</interface>

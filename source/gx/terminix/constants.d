@@ -9,18 +9,37 @@ import std.path;
 
 import gx.i18n.l10n;
 
-//Compilation Flags, these are used to test various things
-immutable bool POPOVER_CONTEXT_MENU = true;
-immutable bool DIM_TERMINAL_NO_FOCUS = false;
+/****************************************************************
+ * Compilation Flags, these are used to test various things or
+ * to turn off work that is in process
+ ****************************************************************/
+
+// If true, a scrolled window with overlay scrollbar is used instead of
+// a scrollbar. Looks better but has issues and unsupported by upstream VTE.
 immutable bool USE_SCROLLED_WINDOW = false;
+// Whether to use a pixbuf for drag and Drop image
 immutable bool USE_PIXBUF_DND = false;
+//Add debug options to session menu
 immutable bool SHOW_DEBUG_OPTIONS = false;
+// Renders clipboard options as buttons in context menu
+immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
+// All logs go to the file /tmp/terminix.log, useful
+// when debugging launchers or other spots where
+// stdout isn't easily viewed
+immutable bool USE_FILE_LOGGING = false;
+// Draw backgrounds manually instead of using CSS to set backgrounds
+// colors of non-transparent widgets. Works really well 0n 3.20
+// but popovers draw artifacts pre 3.20 so stick with CSS.
+immutable bool MANUAL_BACKGROUND_DRAW = false; 
+
+/**************************************
+ * Application Constants
+ **************************************/
 
 //GTK Version required
 immutable uint GTK_VERSION_MAJOR = 3;
 immutable uint GTK_VERSION_MINOR = 14;
 immutable uint GTK_VERSION_PATCH = 0;
-
 
 // GetText Domain
 enum TERMINIX_DOMAIN = "terminix";
@@ -32,12 +51,12 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "0.55.0";
+enum APPLICATION_VERSION = "0.59.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2016 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
 enum APPLICATION_LICENSE = N_("This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.");
-enum APPLICATION_ICON_NAME = "utilities-terminal";
+enum APPLICATION_ICON_NAME = "com.gexperts.Terminix";
 
 immutable string[] APPLICATION_AUTHORS = [APPLICATION_AUTHOR];
 string[] APPLICATION_CREDITS = [
@@ -58,5 +77,7 @@ enum APPLICATION_CONFIG_FOLDER = "terminix";
 
 //RESOURCES
 enum APPLICATION_RESOURCES = buildPath(APPLICATION_CONFIG_FOLDER, "resources/terminix.gresource");
-enum APPLICATION_RESOURCE_ROOT = "resource:///com/gexperts/Terminix";
-immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.adwaita.css"];
+enum APPLICATION_RESOURCE_ROOT = "/com/gexperts/Terminix";
+immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.base.css"];
+
+immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";

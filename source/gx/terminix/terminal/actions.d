@@ -5,8 +5,8 @@
 module gx.terminix.terminal.actions;
 
 enum ACTION_PREFIX = "terminal";
-enum ACTION_SPLIT_H = "split-horizontal";
-enum ACTION_SPLIT_V = "split-vertical";
+enum ACTION_SPLIT_RIGHT = "split-right";
+enum ACTION_SPLIT_DOWN = "split-down";
 enum ACTION_FIND = "find";
 enum ACTION_FIND_PREVIOUS = "find-previous";
 enum ACTION_FIND_NEXT = "find-next";
@@ -17,6 +17,8 @@ enum ACTION_PROFILE_SELECT = "profile-select";
 enum ACTION_ENCODING_SELECT = "encoding-select";
 enum ACTION_PROFILE_PREFERENCE = "profile-preference";
 enum ACTION_READ_ONLY = "read-only";
+enum ACTION_RESET = "reset";
+enum ACTION_RESET_AND_CLEAR = "reset-and-clear";
 enum ACTION_COPY = "copy";
 enum ACTION_PASTE = "paste";
 enum ACTION_COPY_LINK = "copy-link";
@@ -26,3 +28,4 @@ enum ACTION_ZOOM_IN = "zoom-in";
 enum ACTION_ZOOM_OUT = "zoom-out";
 enum ACTION_ZOOM_NORMAL = "zoom-normal";
 enum ACTION_SAVE = "save";
+enum ACTION_SYNC_INPUT_OVERRIDE = "sync-input-override";

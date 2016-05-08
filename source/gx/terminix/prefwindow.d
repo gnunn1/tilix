@@ -29,8 +29,10 @@ import gtk.CheckButton;
 import gtk.ComboBox;
 import gtk.Grid;
 import gtk.HeaderBar;
+import gtk.Image;
 import gtk.Label;
 import gtk.ListStore;
+import gtk.MessageDialog;
 import gtk.Notebook;
 import gtk.ScrolledWindow;
 import gtk.Switch;
@@ -41,19 +43,22 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Version;
 import gtk.Widget;
+import gtk.Window;
 
 import vte.Terminal;
 
 import gx.gtk.actions;
+import gx.gtk.resource;
 import gx.gtk.util;
 
 import gx.i18n.l10n;
+import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.profilewindow;
-import gx.util.array;
 
 /**
  * UI for managing Terminix preferences
@@ -75,6 +80,9 @@ private:
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
         nb.appendPage(gp, _("Global"));
+        
+        AppearancePreferences ap = new AppearancePreferences(gsSettings);
+        nb.appendPage(ap, _("Appearance"));
 
         ShortcutPreferences sp = new ShortcutPreferences();
         nb.appendPage(sp, _("Shortcuts"));
@@ -187,6 +195,8 @@ private:
     Settings gsShortcuts;
 
     TreeStore tsShortcuts;
+    string[string] labels;
+    string[string] prefixes;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -226,11 +236,13 @@ private:
             trace("Updating shortcut as " ~ label);
             TreeIter iter = new TreeIter();
             tsShortcuts.getIter(iter, new TreePath(path));
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
-            //Note accelerator changed by app which is monitoring gsetting changes
             string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
-            trace(format("Setting action %s to shortcut %s", action, label));
-            gsShortcuts.setString(action, name);
+            if (checkAndPromptChangeShortcut(action, name, label)) {
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+                trace(format("Setting action %s to shortcut %s", action, label));
+                //Note accelerator changed by app which is monitoring gsetting changes
+                gsShortcuts.setString(action, name);
+            }
         });
         column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 
@@ -245,8 +257,110 @@ private:
 
         tvShortcuts.expandAll();
     }
+    
+    /**
+     * Check if shortcut is already assigned and if so disable it
+     */
+    bool checkAndPromptChangeShortcut(string actionName, string accelName, string accelLabel) {
+        //Get first level, shortcut categories (i.e. Application, Window, Session or Terminal)
+        TreeIterRange categoryRange = TreeIterRange(tsShortcuts);
+        foreach(TreeIter categoryIter; categoryRange) {
+            //Get second level which is shortcuts
+            TreeIterRange shortcutRange = TreeIterRange(tsShortcuts, categoryIter);
+            foreach(TreeIter iter; shortcutRange) {
+                string currentActionName = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+                if (currentActionName.length > 0 && currentActionName != actionName) {
+                    if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT) == accelLabel) {
+                        MessageDialog dlg = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
+                        scope (exit) {
+                            dlg.destroy();
+                        }
+                        string title = "<span weight='bold' size='larger'>" ~ _("Overwrite Existing Shortcut") ~ "</span>";
+                        string msg = format(_("The shortcut %s is already assigned to %s.\nDisable the shortcut for the other action and assign here instead?"), accelLabel, tsShortcuts.getValueString(iter, COLUMN_NAME));
+                        with (dlg) {
+                            setTransientFor(cast(Window) this.getToplevel());
+                            setMarkup(title);
+                            getMessageArea().setMarginLeft(0);
+                            getMessageArea().setMarginRight(0);
+                            getMessageArea().add(new Label(msg));
+                            setImage(new Image("dialog-question", IconSize.DIALOG));
+                            dlg.setDefaultResponse(ResponseType.OK);
+                            showAll();
+                        }
+                        if (dlg.run() != ResponseType.CANCEL) {
+                            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+                            gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
+                            return true;                        
+                        } else {
+                            return false;
+                        }
+                    } 
+                }
+            }    
+        }
+     
+        return true;
+    }
+    
+    /**
+     * Parses the shortcuts.ui XML to extract the localized text, weight
+     * parse instead of loading it in Builder to maintain compatibility with
+     * pre GTK 3.20
+     */
+    void loadLocalizedShortcutLabels() {
+        labels.clear();
+
+        string ui = getResource(SHORTCUT_UI_RESOURCE);
+        if (ui.length == 0) {
+            error(format("Could not load '%s' resource",SHORTCUT_UI_RESOURCE));
+            return;
+        }
+        
+        import std.xml: DocumentParser, ElementParser, Element, XMLException;
+        
+        try {
+            DocumentParser parser = new DocumentParser(ui);
+            parser.onStartTag["object"] = (ElementParser xml) {
+                if (xml.tag.attr["class"] == "GtkShortcutsShortcut") {
+                    string id = xml.tag.attr["id"];
+                    xml.onEndTag["property"] = (in Element e) {
+                        if (e.tag.attr["name"] == "title") {
+                            labels[id] = e.text;
+                        } 
+                    };
+                    xml.parse();
+                } else if (xml.tag.attr["class"] == "GtkShortcutsSection") {
+                    string prefix;
+                    string title;
+                    xml.onEndTag["property"] = (in Element e) {
+                        if (e.tag.attr["name"] == "title") {
+                            // TODO: Figure out better way not to pick up subsequent title tags
+                            if (title.length == 0)
+                                title = e.text;
+                        } else if (e.tag.attr["name"] == "section-name") {
+                            if (prefix.length == 0)
+                                prefix = e.text;   
+                        }
+                    };
+                    xml.parse();
+                    if (prefix.length > 0 && title.length > 0) {
+                        trace(format("Prefix %s=%s",prefix,title));
+                        prefixes[prefix] = title;
+                    }
+                }
+            };
+            parser.parse();
+            //Work around the fact there is no Window section in shortcuts.ui
+            prefixes["win"] = "Window";
+        } catch (XMLException e) {
+            error("Failed to parse shortcuts.ui", e);
+        }
+    }    
 
     void loadShortcuts(TreeStore ts) {
+        
+        loadLocalizedShortcutLabels();
+        
         string[] keys = gsShortcuts.listKeys();
         sort(keys);
 
@@ -257,9 +371,19 @@ private:
             getActionNameFromKey(key, prefix, id);
             if (prefix != currentPrefix) {
                 currentPrefix = prefix;
-                currentIter = appendValues(ts, null, [_(prefix)]);
+                string localizedPrefix = _(prefix);
+                if (prefix in prefixes) {
+                    localizedPrefix = _(prefixes[prefix]);
+                }
+                trace(format("Localizing %s=%s", prefix, localizedPrefix));
+                currentIter = appendValues(ts, null, [localizedPrefix]);
             }
-            appendValues(ts, currentIter, [_(id), acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
+            string label = _(id);
+            if (key in labels) {
+                label = labels[key];
+            }
+            
+            appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
         }
     }
 
@@ -441,16 +565,67 @@ public:
 }
 
 /**
+ * Appearance preferences page
+ */
+class AppearancePreferences: Box {
+    private:
+        void createUI(Settings gsSettings) {
+            setMarginTop(18);
+            setMarginBottom(18);
+            setMarginLeft(18);
+            setMarginRight(18);
+
+            //Enable Transparency, only enabled if less then 3.18
+            if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
+                CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
+                gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+                add(cbTransparent);
+            }
+
+            Grid grid = new Grid();
+            grid.setColumnSpacing(12);
+            grid.setRowSpacing(6);
+
+            //Render terminal titlebars smaller then default
+            grid.attach(createLabel(_("Terminal title style")), 0, 0, 1, 1);
+            ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
+            gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbTitleStyle, 1, 0, 1, 1);
+            
+            //Dark Theme
+            grid.attach(createLabel(_("Theme variant")), 0, 1, 1, 1);
+            ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
+            gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbThemeVariant, 1, 1, 1, 1);
+
+            add(grid);
+            
+            if (Version.checkVersion(3, 16, 0).length == 0) {
+                CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
+                gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
+                add(cbWideHandle);
+            }
+            
+            CheckButton cbDimUnfocused = new CheckButton(_("Dim unfocused terminals"));
+            gsSettings.bind(SETTINGS_DIM_UNFOCUSED_KEY, cbDimUnfocused, "active", GSettingsBindFlags.DEFAULT);
+            add(cbDimUnfocused);
+        }
+        
+    public:
+        this(Settings gsSettings) {
+            super(Orientation.VERTICAL, 6);
+            createUI(gsSettings);
+        }
+}
+
+/**
  * Global preferences page *
  */
 class GlobalPreferences : Box {
 
 private:
 
-    ComboBox cbThemeVariant;
-
     void createUI(Settings gsSettings) {
-        //Set basic grid settings
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -489,7 +664,7 @@ private:
         Label lblNewInstance = new Label(_("On new instance"));
         lblNewInstance.setHalign(Align.END);
         bNewInstance.add(lblNewInstance);
-        ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Horizontal"), _("Split Vertical")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
+        ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down"), _("Focus Window")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
         gsSettings.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
         bNewInstance.add(cbNewInstance);
         add(bNewInstance);
@@ -509,53 +684,6 @@ private:
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
         gsSettings.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
-        
-        // *********** Appearance Options
-        Label lblAppearance = new Label(format("<b>%s</b>", _("Appearance")));
-        lblAppearance.setUseMarkup(true);
-        lblAppearance.setHalign(Align.START);
-        add(lblAppearance);
-
-        //Enable Transparency, only enabled if less then 3.18
-        if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
-            CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
-            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
-            add(cbTransparent);
-        }
-
-        //Render terminal titlebars smaller then default
-        CheckButton cbSmallTitlebar = new CheckButton(_("Use small size for terminal titlebars"));
-        gsSettings.bind(SETTINGS_ENABLE_SMALL_TITLE_KEY, cbSmallTitlebar, "active", GSettingsBindFlags.DEFAULT);
-        add(cbSmallTitlebar);
-        
-        if (Version.checkVersion(3, 16, 0).length == 0) {
-            CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
-            gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
-            add(cbWideHandle);
-        }
-        
-        //Dark Theme
-        Box b = new Box(Orientation.HORIZONTAL, 6);
-        b.add(createLabel(_("Theme Variant")));
-
-        ListStore lsThemeVariant = new ListStore([GType.STRING, GType.STRING]);
-
-        appendValues(lsThemeVariant, [_("Default"), SETTINGS_THEME_VARIANT_SYSTEM_VALUE]);
-        appendValues(lsThemeVariant, [_("Light"), SETTINGS_THEME_VARIANT_LIGHT_VALUE]);
-        appendValues(lsThemeVariant, [_("Dark"), SETTINGS_THEME_VARIANT_DARK_VALUE]);
-
-        cbThemeVariant = new ComboBox(lsThemeVariant, false);
-        cbThemeVariant.setFocusOnClick(false);
-        cbThemeVariant.setIdColumn(1);
-        CellRendererText cell = new CellRendererText();
-        cell.setAlignment(0, 0);
-        cbThemeVariant.packStart(cell, false);
-        cbThemeVariant.addAttribute(cell, "text", 0);
-
-        gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
-
-        b.add(cbThemeVariant);
-        add(b);
     }
 
 public:

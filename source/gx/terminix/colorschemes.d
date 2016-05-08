@@ -29,6 +29,14 @@ enum SCHEME_KEY_FOREGROUND = "foreground-color";
 enum SCHEME_KEY_BACKGROUND = "background-color";
 enum SCHEME_KEY_PALETTE = "palette";
 enum SCHEME_KEY_USE_THEME_COLORS = "use-theme-colors";
+enum SCHEME_KEY_DIM_COLOR = "dim-color";
+enum SCHEME_KEY_USE_DIM_COLOR = "use-dim-color";
+enum SCHEME_KEY_USE_HIGHLIGHT_COLOR = "use-highlight-color";
+enum SCHEME_KEY_USE_CURSOR_COLOR = "use-cursor-color";
+enum SCHEME_KEY_HIGHLIGHT_FG = "highlight-foreground-color";
+enum SCHEME_KEY_HIGHLIGHT_BG = "highlight-background-color";
+enum SCHEME_KEY_CURSOR_FG = "cursor-foreground-color";
+enum SCHEME_KEY_CURSOR_BG = "cursor-background-color";
 
 /**
   * A Terminix color scheme.
@@ -42,33 +50,52 @@ class ColorScheme {
     string name;
     string comment;
     bool useThemeColors;
+    bool useHighlightColor;
+    bool useCursorColor;
+    bool useDimColor;
     RGBA foreground;
     RGBA background;
+    RGBA highlightFG;
+    RGBA highlightBG;
+    RGBA cursorFG;
+    RGBA cursorBG;
+    RGBA dimColor;
     RGBA[16] palette;
 
     this() {
         id = randomUUID().toString();
         foreground = new RGBA();
         background = new RGBA();
+        highlightFG = new RGBA();
+        highlightBG = new RGBA();
+        cursorFG = new RGBA();
+        cursorBG = new RGBA();
+        dimColor = new RGBA();
+        
         for (int i = 0; i < 16; i++) {
             palette[i] = new RGBA();
         }
     }
-}
-
-/**
- * Finds a matching color scheme based on colors. This is used
- * in ProfilePreference since we don't store the selected color
- * scheme, just the colors chosen.
- */
-int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA bg, RGBA[16] palette) {
-    foreach (pi, scheme; schemes) {
+    
+    bool equalColor(ColorScheme scheme) {
         if (useThemeColors != scheme.useThemeColors) {
-            continue;
+            return false;
         }
         if (!useThemeColors) {
-            if (!(equal(fg, scheme.foreground) && equal(bg, scheme.background)))
-                continue;
+            if (!(equal(foreground, scheme.foreground) && equal(background, scheme.background)))
+                return false;
+            if (useCursorColor) {
+                if (!(equal(cursorFG, scheme.cursorFG) && equal(cursorBG, scheme.cursorBG)))
+                    return false;
+            }
+            if (useHighlightColor) {
+                if (!(equal(highlightFG, scheme.highlightFG) && equal(highlightBG, scheme.highlightBG)))
+                    return false;
+            }
+            if (useDimColor) {
+                if (!(equal(dimColor, scheme.dimColor)))
+                    return false;
+            }
         }
         bool match = true;
         foreach (i, color; palette) {
@@ -77,7 +104,40 @@ int findSchemeByColors(ColorScheme[] schemes, bool useThemeColors, RGBA fg, RGBA
                 break;
             }
         }
-        if (match)
+        return match;
+    }
+    
+    override bool opEquals(Object o) {
+        
+        import gx.gtk.util: equal;
+        
+        if (auto scheme = cast(ColorScheme) o)
+            return scheme.id == id &&
+                   scheme.name == name &&
+                   scheme.comment == comment &&
+                   scheme.useThemeColors == useThemeColors &&
+                   scheme.useHighlightColor == useHighlightColor &&
+                   scheme.useCursorColor == useCursorColor &&
+                   equal(scheme.background, this.background) &&
+                   equal(scheme.foreground, this.foreground) &&
+                   equal(scheme.highlightFG, this.highlightFG) &&
+                   equal(scheme.highlightBG, this.highlightBG) &&
+                   equal(scheme.cursorFG, this.cursorFG) &&
+                   equal(scheme.cursorBG, this.cursorBG) &&
+                   equal(scheme.dimColor, this.dimColor);
+        else
+            return false;
+   }
+}
+
+/**
+ * Finds a matching color scheme based on colors. This is used
+ * in ProfilePreference since we don't store the selected color
+ * scheme, just the colors chosen.
+ */
+int findSchemeByColors(ColorScheme[] schemes, ColorScheme scheme) {
+    foreach (pi, s; schemes) {
+        if (scheme.equalColor(s))
             return to!int(pi);
     }
     return -1;
@@ -134,6 +194,30 @@ private ColorScheme loadScheme(string fileName) {
     }
     if (SCHEME_KEY_BACKGROUND in root) {
         parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
+    }
+    if (SCHEME_KEY_USE_DIM_COLOR in root) {
+        cs.useDimColor = root[SCHEME_KEY_USE_DIM_COLOR].type == JSON_TYPE.TRUE ? true : false;
+    }
+    if (SCHEME_KEY_USE_HIGHLIGHT_COLOR in root) {
+        cs.useHighlightColor = root[SCHEME_KEY_USE_HIGHLIGHT_COLOR].type == JSON_TYPE.TRUE ? true : false;
+    }
+    if (SCHEME_KEY_USE_CURSOR_COLOR in root) {
+        cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == JSON_TYPE.TRUE ? true : false;
+    }
+    if (SCHEME_KEY_HIGHLIGHT_FG in root) {
+        parseColor(cs.highlightFG, root[SCHEME_KEY_HIGHLIGHT_FG].str());
+    }
+    if (SCHEME_KEY_HIGHLIGHT_BG in root) {
+        parseColor(cs.highlightBG, root[SCHEME_KEY_HIGHLIGHT_BG].str());
+    }
+    if (SCHEME_KEY_CURSOR_FG in root) {
+        parseColor(cs.cursorFG, root[SCHEME_KEY_CURSOR_FG].str());
+    }
+    if (SCHEME_KEY_CURSOR_BG in root) {
+        parseColor(cs.cursorBG, root[SCHEME_KEY_CURSOR_BG].str());
+    }
+    if (SCHEME_KEY_DIM_COLOR in root) {
+        parseColor(cs.dimColor, root[SCHEME_KEY_DIM_COLOR].str());
     }
     JSONValue[] rawPalette = root[SCHEME_KEY_PALETTE].array();
     if (rawPalette.length != 16) {
