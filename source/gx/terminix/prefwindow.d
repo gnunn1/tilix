@@ -196,6 +196,7 @@ private:
 
     TreeStore tsShortcuts;
     string[string] labels;
+    string[string] prefixes;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -328,9 +329,29 @@ private:
                         } 
                     };
                     xml.parse();
-                } 
+                } else if (xml.tag.attr["class"] == "GtkShortcutsSection") {
+                    string prefix;
+                    string title;
+                    xml.onEndTag["property"] = (in Element e) {
+                        if (e.tag.attr["name"] == "title") {
+                            // TODO: Figure out better way not to pick up subsequent title tags
+                            if (title.length == 0)
+                                title = e.text;
+                        } else if (e.tag.attr["name"] == "section-name") {
+                            if (prefix.length == 0)
+                                prefix = e.text;   
+                        }
+                    };
+                    xml.parse();
+                    if (prefix.length > 0 && title.length > 0) {
+                        trace(format("Prefix %s=%s",prefix,title));
+                        prefixes[prefix] = title;
+                    }
+                }
             };
             parser.parse();
+            //Work around the fact there is no Window section in shortcuts.ui
+            prefixes["win"] = "Window";
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
@@ -350,7 +371,12 @@ private:
             getActionNameFromKey(key, prefix, id);
             if (prefix != currentPrefix) {
                 currentPrefix = prefix;
-                currentIter = appendValues(ts, null, [_(prefix)]);
+                string localizedPrefix = _(prefix);
+                if (prefix in prefixes) {
+                    localizedPrefix = _(prefixes[prefix]);
+                }
+                trace(format("Localizing %s=%s", prefix, localizedPrefix));
+                currentIter = appendValues(ts, null, [localizedPrefix]);
             }
             string label = _(id);
             if (key in labels) {
