@@ -1122,6 +1122,9 @@ public:
         // Start at the top left of the current terminal
         int xPos, yPos;
         currentTerminal.translateCoordinates(appWindow, 0, 0, xPos, yPos);
+        //Offset 5 pixels to avoid edge matches
+        xPos = xPos + 5;
+        yPos = yPos + 5;
 
         // While still in the application window, move 20 pixels per loop
         while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
