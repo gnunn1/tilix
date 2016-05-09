@@ -458,11 +458,11 @@ private:
         }
         return null;
     }
-
-public:
-
-    this() {
-        super(APPLICATION_ID, ApplicationFlags.HANDLES_COMMAND_LINE);
+    
+    /**
+     * Add main options supported by application
+     */
+    void addOptions() {
         addMainOption(CMD_WORKING_DIRECTORY, 'w', GOptionFlags.NONE, GOptionArg.STRING, _("Set the working directory of the terminal"), _("DIRECTORY"));
         addMainOption(CMD_PROFILE, 'p', GOptionFlags.NONE, GOptionArg.STRING, _("Set the starting profile"), _("PROFILE_NAME"));
         addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING_ARRAY, _("Open the specified session"), _("SESSION_NAME"));
@@ -475,7 +475,14 @@ public:
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, 't', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
+    }
 
+public:
+
+    this() {
+        super(APPLICATION_ID, ApplicationFlags.HANDLES_COMMAND_LINE);
+        addOptions();
+        
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);

@@ -63,10 +63,14 @@ int main(string[] args) {
     }
     //textdomain
     textdomain(TERMINIX_DOMAIN);
+    // Init GTK early so localization is available, pass empty
+    // args so GTK doesn't attempt to interpret them
+    string[] tempargs;
+    Main.init(tempargs);
     //Version checking cribbed from grestful, thanks!
     string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
     if (gtkError !is null) {
-        Main.init(args);
+        //Main.init(args);
 
         MessageDialog dialog = new MessageDialog(null, DialogFlags.MODAL, MessageType.ERROR, ButtonsType.OK,
                 format(_("Your GTK version is too old, you need at least GTK %d.%d.%d!"), GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH), null);
