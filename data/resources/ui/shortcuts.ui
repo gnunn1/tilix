@@ -299,6 +299,24 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Other</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-name">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Edit the session name</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-synchronize-input">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Synchronize the input</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
     <child>

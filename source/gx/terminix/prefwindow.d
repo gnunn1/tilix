@@ -329,29 +329,15 @@ private:
                         } 
                     };
                     xml.parse();
-                } else if (xml.tag.attr["class"] == "GtkShortcutsSection") {
-                    string prefix;
-                    string title;
-                    xml.onEndTag["property"] = (in Element e) {
-                        if (e.tag.attr["name"] == "title") {
-                            // TODO: Figure out better way not to pick up subsequent title tags
-                            if (title.length == 0)
-                                title = e.text;
-                        } else if (e.tag.attr["name"] == "section-name") {
-                            if (prefix.length == 0)
-                                prefix = e.text;   
-                        }
-                    };
-                    xml.parse();
-                    if (prefix.length > 0 && title.length > 0) {
-                        trace(format("Prefix %s=%s",prefix,title));
-                        prefixes[prefix] = title;
-                    }
-                }
+                } 
             };
             parser.parse();
-            //Work around the fact there is no Window section in shortcuts.ui
-            prefixes["win"] = "Window";
+            // While you could use sections to get prefixes, not all sections are there
+            // and it's not inutituve from a localization perspective. Just add them manually
+            prefixes["win"] = _("Window");
+            prefixes["app"] = _("Application");
+            prefixes["terminal"] = _("Terminal");
+            prefixes["session"] = _("Session");
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
@@ -372,10 +358,7 @@ private:
             if (prefix != currentPrefix) {
                 currentPrefix = prefix;
                 string localizedPrefix = _(prefix);
-                if (prefix in prefixes) {
-                    localizedPrefix = _(prefixes[prefix]);
-                }
-                trace(format("Localizing %s=%s", prefix, localizedPrefix));
+                if (prefix in prefixes) localizedPrefix = prefixes[prefix];
                 currentIter = appendValues(ts, null, [localizedPrefix]);
             }
             string label = _(id);

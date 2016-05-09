@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 21:14-0400\n"
+"POT-Creation-Date: 2016-05-09 13:12-0600\n"
 "PO-Revision-Date: 2016-05-07 20:02+0000\n"
 "Last-Translator: Ivaylo Kuzev <ivkuzev@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/terminix/"
@@ -605,12 +605,13 @@ msgstr ""
 
 #: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/session.d:1264
-#: source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:641 source/gx/terminix/session.d:1267
+#: source/gx/terminix/prefwindow.d:650
 msgid "New Session"
 msgstr "Нова сесия"
 
 #: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
-#: source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:641 source/gx/terminix/prefwindow.d:650
 msgid "New Window"
 msgstr "Нов прозорец"
 
@@ -699,6 +700,7 @@ msgid "TERMINAL_UUID"
 msgstr ""
 
 #: source/gx/terminix/application.d:616 source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:624
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -706,11 +708,13 @@ msgid ""
 msgstr ""
 
 #: source/gx/terminix/application.d:617 source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:625
 #, fuzzy
 msgid "Configuration Issue Detected"
 msgstr "Открита е грешка със конфигурацията"
 
 #: source/gx/terminix/application.d:629 source/gx/terminix/application.d:630
+#: source/gx/terminix/application.d:637
 #, fuzzy
 msgid "Do not show this message again"
 msgstr "Не показвай отново това съобщение"
@@ -724,11 +728,13 @@ msgid "Could not locate session for dropped terminal"
 msgstr ""
 
 #: source/gx/terminix/session.d:1223 source/gx/terminix/session.d:1230
+#: source/gx/terminix/session.d:1233
 msgid "Name"
 msgstr "Име"
 
 #: source/gx/terminix/session.d:1234 source/gx/terminix/prefwindow.d:378
 #: source/gx/terminix/session.d:1241 source/gx/terminix/prefwindow.d:424
+#: source/gx/terminix/session.d:1244 source/gx/terminix/prefwindow.d:433
 msgid "Profile"
 msgstr "Профил"
 
@@ -758,19 +764,23 @@ msgid "Enabled"
 msgstr "Разрешено"
 
 #: source/gx/terminix/prefwindow.d:214 source/gx/terminix/prefwindow.d:217
+#: source/gx/terminix/prefwindow.d:218
 msgid "Action"
 msgstr "Действие"
 
 #: source/gx/terminix/prefwindow.d:243 source/gx/terminix/prefwindow.d:246
+#: source/gx/terminix/prefwindow.d:247
 msgid "Shortcut Key"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:274 source/gx/terminix/prefwindow.d:277
+#: source/gx/terminix/prefwindow.d:278
 #, fuzzy
 msgid "Overwrite Existing Shortcut"
 msgstr "Презапиши Съществуващите Комбинации"
 
 #: source/gx/terminix/prefwindow.d:275 source/gx/terminix/prefwindow.d:278
+#: source/gx/terminix/prefwindow.d:279
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
@@ -779,86 +789,106 @@ msgstr ""
 
 #: source/gx/terminix/prefwindow.d:376 source/gx/terminix/prefwindow.d:525
 #: source/gx/terminix/appwindow.d:91 source/gx/terminix/prefwindow.d:422
-#: source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:571 source/gx/terminix/prefwindow.d:431
+#: source/gx/terminix/prefwindow.d:580
 msgid "Default"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:392 source/gx/terminix/prefwindow.d:438
+#: source/gx/terminix/prefwindow.d:447
 msgid "New"
 msgstr "Нов"
 
 #: source/gx/terminix/prefwindow.d:405 source/gx/terminix/prefwindow.d:451
+#: source/gx/terminix/prefwindow.d:460
 msgid "Edit"
 msgstr "Редактиране"
 
 #: source/gx/terminix/prefwindow.d:408 source/gx/terminix/prefwindow.d:454
+#: source/gx/terminix/prefwindow.d:463
 msgid "Delete"
 msgstr "Изтриване"
 
 #: source/gx/terminix/prefwindow.d:508 source/gx/terminix/prefwindow.d:554
+#: source/gx/terminix/prefwindow.d:563
 msgid "Enable transparency, requires re-start"
 msgstr "Разрешаване на прозрачност, нужен е рестарт"
 
 #: source/gx/terminix/prefwindow.d:518 source/gx/terminix/prefwindow.d:564
+#: source/gx/terminix/prefwindow.d:573
 msgid "Terminal title style"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "Normal"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "Small"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "None"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:524 source/gx/terminix/prefwindow.d:570
+#: source/gx/terminix/prefwindow.d:579
 #, fuzzy
 msgid "Theme variant"
 msgstr "Вариант на темата"
 
 #: source/gx/terminix/prefwindow.d:525 source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:580
 #, fuzzy
 msgid "Light"
 msgstr "Светъл"
 
 #: source/gx/terminix/prefwindow.d:525 source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:580
 #, fuzzy
 msgid "Dark"
 msgstr "Тъмен"
 
 #: source/gx/terminix/prefwindow.d:532 source/gx/terminix/prefwindow.d:578
+#: source/gx/terminix/prefwindow.d:587
 msgid "Use a wide handle for splitters"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:537 source/gx/terminix/prefwindow.d:583
+#: source/gx/terminix/prefwindow.d:592
 msgid "Dim unfocused terminals"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:562 source/gx/terminix/prefwindow.d:608
+#: source/gx/terminix/prefwindow.d:617
 msgid "Behavior"
 msgstr "Поведение"
 
 #: source/gx/terminix/prefwindow.d:568 source/gx/terminix/prefwindow.d:614
+#: source/gx/terminix/prefwindow.d:623
 msgid "Prompt when creating a new session"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:573 source/gx/terminix/prefwindow.d:619
+#: source/gx/terminix/prefwindow.d:628
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Фокус на терминал когато мишката е над него"
 
 #: source/gx/terminix/prefwindow.d:578 source/gx/terminix/prefwindow.d:624
+#: source/gx/terminix/prefwindow.d:633
 msgid "Autohide the mouse pointer when typing"
 msgstr "Автоматично скриване на показалеца на мишката когато пишете"
 
 #: source/gx/terminix/prefwindow.d:584 source/gx/terminix/prefwindow.d:630
+#: source/gx/terminix/prefwindow.d:639
 msgid "Send desktop notification on process complete"
 msgstr "Изпратете уведомяване на десктопа когато процеса завърши"
 
 #: source/gx/terminix/prefwindow.d:592 source/gx/terminix/prefwindow.d:638
+#: source/gx/terminix/prefwindow.d:647
 msgid "On new instance"
 msgstr "На нова инстанция"
 
@@ -866,6 +896,7 @@ msgstr "На нова инстанция"
 #: source/gx/terminix/terminal/terminal.d:668
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:672
+#: source/gx/terminix/prefwindow.d:650
 #, fuzzy
 msgid "Split Right"
 msgstr "Разделяне Надясно"
@@ -874,11 +905,13 @@ msgstr "Разделяне Надясно"
 #: source/gx/terminix/terminal/terminal.d:672
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:676
+#: source/gx/terminix/prefwindow.d:650
 #, fuzzy
 msgid "Split Down"
 msgstr "Разделяне Надолу"
 
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:650
 msgid "Focus Window"
 msgstr "Фокусирай Прозорец"
 
@@ -888,14 +921,17 @@ msgstr "Фокусирай Прозорец"
 #: source/gx/terminix/prefwindow.d:647
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:970
+#: source/gx/terminix/prefwindow.d:656
 msgid "Paste"
 msgstr "Поставяне"
 
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
+#: source/gx/terminix/prefwindow.d:662
 msgid "Warn when attempting unsafe paste"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
+#: source/gx/terminix/prefwindow.d:667
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
@@ -958,6 +994,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:325
 #: source/gx/terminix/terminal/terminal.d:656
 #: source/gx/terminix/terminal/terminal.d:819
+#: source/gx/terminix/prefwindow.d:339 data/resources/ui/shortcuts.ui:326
 msgid "Terminal"
 msgstr "Терминал"
 
@@ -1251,16 +1288,16 @@ msgstr ""
 msgid "disabled"
 msgstr ""
 
-#: source/app.d:46 source/app.d:72
+#: source/app.d:46 source/app.d:72 source/app.d:76
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:66 source/app.d:92
+#: source/app.d:66 source/app.d:92 source/app.d:96
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:67 source/app.d:93
+#: source/app.d:67 source/app.d:93 source/app.d:97
 msgid "Error: "
 msgstr "Грешка: "
 
@@ -1281,7 +1318,7 @@ msgstr ""
 msgid "Open Terminix In This Directory"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:10
+#: data/resources/ui/shortcuts.ui:10 source/gx/terminix/prefwindow.d:338
 msgid "Application"
 msgstr "Приложение"
 
@@ -1389,7 +1426,7 @@ msgctxt "shortcut window"
 msgid "Switch to session 10"
 msgstr "Преминаване в сесия 10"
 
-#: data/resources/ui/shortcuts.ui:138
+#: data/resources/ui/shortcuts.ui:138 source/gx/terminix/prefwindow.d:340
 msgid "Session"
 msgstr "Сесия"
 
@@ -1529,126 +1566,128 @@ msgctxt "shortcut window"
 msgid "Switch to terminal 10"
 msgstr "Преминаване в терминал 10"
 
-#: data/resources/ui/shortcuts.ui:313
+#: data/resources/ui/shortcuts.ui:313 data/resources/ui/shortcuts.ui:331
 msgctxt "shortcut window"
 msgid "Split"
 msgstr "Разделяне"
 
-#: data/resources/ui/shortcuts.ui:317
+#: data/resources/ui/shortcuts.ui:317 data/resources/ui/shortcuts.ui:335
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Split right"
 msgstr "Разделяне надясно"
 
-#: data/resources/ui/shortcuts.ui:323
+#: data/resources/ui/shortcuts.ui:323 data/resources/ui/shortcuts.ui:341
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Split down"
 msgstr "Разделяне надолу"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
+#: data/resources/ui/shortcuts.ui:349 data/resources/ui/shortcuts.ui:353
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "Търсене"
 
-#: data/resources/ui/shortcuts.ui:341
+#: data/resources/ui/shortcuts.ui:341 data/resources/ui/shortcuts.ui:359
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Find next"
 msgstr "Следваща поява"
 
-#: data/resources/ui/shortcuts.ui:347
+#: data/resources/ui/shortcuts.ui:347 data/resources/ui/shortcuts.ui:365
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Find previous"
 msgstr "Предишна поява"
 
-#: data/resources/ui/shortcuts.ui:355
+#: data/resources/ui/shortcuts.ui:355 data/resources/ui/shortcuts.ui:373
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Clipboard"
 msgstr "Клипборд"
 
-#: data/resources/ui/shortcuts.ui:359
+#: data/resources/ui/shortcuts.ui:359 data/resources/ui/shortcuts.ui:377
 msgctxt "shortcut window"
 msgid "Copy"
 msgstr "Копиране"
 
-#: data/resources/ui/shortcuts.ui:365
+#: data/resources/ui/shortcuts.ui:365 data/resources/ui/shortcuts.ui:383
 msgctxt "shortcut window"
 msgid "Paste"
 msgstr "Поставяне"
 
-#: data/resources/ui/shortcuts.ui:371
+#: data/resources/ui/shortcuts.ui:371 data/resources/ui/shortcuts.ui:389
 msgctxt "shortcut window"
 msgid "Select all"
 msgstr "Избиране на всичко"
 
-#: data/resources/ui/shortcuts.ui:379
+#: data/resources/ui/shortcuts.ui:379 data/resources/ui/shortcuts.ui:397
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Мащабиране"
 
-#: data/resources/ui/shortcuts.ui:383
+#: data/resources/ui/shortcuts.ui:383 data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Увеличаване"
 
-#: data/resources/ui/shortcuts.ui:389
+#: data/resources/ui/shortcuts.ui:389 data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Намаляване"
 
-#: data/resources/ui/shortcuts.ui:395
+#: data/resources/ui/shortcuts.ui:395 data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "Нормален размер"
 
-#: data/resources/ui/shortcuts.ui:403
+#: data/resources/ui/shortcuts.ui:403 data/resources/ui/shortcuts.ui:305
+#: data/resources/ui/shortcuts.ui:421
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Other"
 msgstr "Други"
 
-#: data/resources/ui/shortcuts.ui:407
+#: data/resources/ui/shortcuts.ui:407 data/resources/ui/shortcuts.ui:425
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "Запазете съдържанието на терминала"
 
-#: data/resources/ui/shortcuts.ui:413
+#: data/resources/ui/shortcuts.ui:413 data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "Затваряне на терминала"
 
-#: data/resources/ui/shortcuts.ui:419
+#: data/resources/ui/shortcuts.ui:419 data/resources/ui/shortcuts.ui:437
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "Максимизиране на терминала"
 
-#: data/resources/ui/shortcuts.ui:425
+#: data/resources/ui/shortcuts.ui:425 data/resources/ui/shortcuts.ui:443
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "Текущи настройки на профила"
 
-#: data/resources/ui/shortcuts.ui:431
+#: data/resources/ui/shortcuts.ui:431 data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "Възстановяване на терминал"
 
-#: data/resources/ui/shortcuts.ui:437
+#: data/resources/ui/shortcuts.ui:437 data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr "Възстановяване и изтриване на терминал"
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:443 data/resources/ui/shortcuts.ui:461
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr "Превключване на само за четене"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:449 data/resources/ui/shortcuts.ui:467
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Layout options"
@@ -1742,6 +1781,23 @@ msgstr ""
 #: source/gx/terminix/application.d:474
 msgid "GEOMETRY"
 msgstr ""
+
+#: source/gx/terminix/prefwindow.d:337
+#, fuzzy
+msgid "Window"
+msgstr "Прозорец"
+
+#: data/resources/ui/shortcuts.ui:309
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Edit the session name"
+msgstr "Преминаване в сесия 1"
+
+#: data/resources/ui/shortcuts.ui:315
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Synchronize the input"
+msgstr "Синхронизация вход"
 
 #~ msgid "terminal"
 #~ msgstr "Терминал"

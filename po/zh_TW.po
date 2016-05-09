@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 21:14-0400\n"
+"POT-Creation-Date: 2016-05-09 13:12-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Mingye Wang (Arthur2e5) <arthur200126@gmail.com>\n"
 "Language-Team: AOSC zh_TW <aosc@member.fsf.org>\n"
@@ -611,12 +611,13 @@ msgstr "泰語"
 
 #: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/session.d:1264
-#: source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:641 source/gx/terminix/session.d:1267
+#: source/gx/terminix/prefwindow.d:650
 msgid "New Session"
 msgstr "新建會話"
 
 #: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
-#: source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:641 source/gx/terminix/prefwindow.d:650
 msgid "New Window"
 msgstr "新建視窗"
 
@@ -706,6 +707,7 @@ msgid "TERMINAL_UUID"
 msgstr ""
 
 #: source/gx/terminix/application.d:616 source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:624
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -715,10 +717,12 @@ msgstr ""
 "點選如下連結以獲取更多資訊："
 
 #: source/gx/terminix/application.d:617 source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:625
 msgid "Configuration Issue Detected"
 msgstr "檢測到配置問題"
 
 #: source/gx/terminix/application.d:629 source/gx/terminix/application.d:630
+#: source/gx/terminix/application.d:637
 msgid "Do not show this message again"
 msgstr "不再顯示該資訊"
 
@@ -731,11 +735,13 @@ msgid "Could not locate session for dropped terminal"
 msgstr "無法定位放置的終端的會話"
 
 #: source/gx/terminix/session.d:1223 source/gx/terminix/session.d:1230
+#: source/gx/terminix/session.d:1233
 msgid "Name"
 msgstr "名稱"
 
 #: source/gx/terminix/session.d:1234 source/gx/terminix/prefwindow.d:378
 #: source/gx/terminix/session.d:1241 source/gx/terminix/prefwindow.d:424
+#: source/gx/terminix/session.d:1244 source/gx/terminix/prefwindow.d:433
 msgid "Profile"
 msgstr "配置方案"
 
@@ -764,18 +770,22 @@ msgid "Enabled"
 msgstr "已啟用"
 
 #: source/gx/terminix/prefwindow.d:214 source/gx/terminix/prefwindow.d:217
+#: source/gx/terminix/prefwindow.d:218
 msgid "Action"
 msgstr "動作"
 
 #: source/gx/terminix/prefwindow.d:243 source/gx/terminix/prefwindow.d:246
+#: source/gx/terminix/prefwindow.d:247
 msgid "Shortcut Key"
 msgstr "快捷鍵"
 
 #: source/gx/terminix/prefwindow.d:274 source/gx/terminix/prefwindow.d:277
+#: source/gx/terminix/prefwindow.d:278
 msgid "Overwrite Existing Shortcut"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:275 source/gx/terminix/prefwindow.d:278
+#: source/gx/terminix/prefwindow.d:279
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
@@ -784,86 +794,106 @@ msgstr ""
 
 #: source/gx/terminix/prefwindow.d:376 source/gx/terminix/prefwindow.d:525
 #: source/gx/terminix/appwindow.d:91 source/gx/terminix/prefwindow.d:422
-#: source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:571 source/gx/terminix/prefwindow.d:431
+#: source/gx/terminix/prefwindow.d:580
 msgid "Default"
 msgstr "預設"
 
 #: source/gx/terminix/prefwindow.d:392 source/gx/terminix/prefwindow.d:438
+#: source/gx/terminix/prefwindow.d:447
 msgid "New"
 msgstr "新建"
 
 #: source/gx/terminix/prefwindow.d:405 source/gx/terminix/prefwindow.d:451
+#: source/gx/terminix/prefwindow.d:460
 msgid "Edit"
 msgstr "編輯"
 
 #: source/gx/terminix/prefwindow.d:408 source/gx/terminix/prefwindow.d:454
+#: source/gx/terminix/prefwindow.d:463
 msgid "Delete"
 msgstr "刪除"
 
 #: source/gx/terminix/prefwindow.d:508 source/gx/terminix/prefwindow.d:554
+#: source/gx/terminix/prefwindow.d:563
 msgid "Enable transparency, requires re-start"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:518 source/gx/terminix/prefwindow.d:564
+#: source/gx/terminix/prefwindow.d:573
 #, fuzzy
 msgid "Terminal title style"
 msgstr "終端標題"
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "Normal"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "Small"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
+#: source/gx/terminix/prefwindow.d:574
 msgid "None"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:524 source/gx/terminix/prefwindow.d:570
+#: source/gx/terminix/prefwindow.d:579
 #, fuzzy
 msgid "Theme variant"
 msgstr "主題變種"
 
 #: source/gx/terminix/prefwindow.d:525 source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:580
 msgid "Light"
 msgstr "淡色"
 
 #: source/gx/terminix/prefwindow.d:525 source/gx/terminix/prefwindow.d:571
+#: source/gx/terminix/prefwindow.d:580
 msgid "Dark"
 msgstr "深色"
 
 #: source/gx/terminix/prefwindow.d:532 source/gx/terminix/prefwindow.d:578
+#: source/gx/terminix/prefwindow.d:587
 msgid "Use a wide handle for splitters"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:537 source/gx/terminix/prefwindow.d:583
+#: source/gx/terminix/prefwindow.d:592
 #, fuzzy
 msgid "Dim unfocused terminals"
 msgstr "終端"
 
 #: source/gx/terminix/prefwindow.d:562 source/gx/terminix/prefwindow.d:608
+#: source/gx/terminix/prefwindow.d:617
 msgid "Behavior"
 msgstr "行為"
 
 #: source/gx/terminix/prefwindow.d:568 source/gx/terminix/prefwindow.d:614
+#: source/gx/terminix/prefwindow.d:623
 msgid "Prompt when creating a new session"
 msgstr "建立新會話時提示"
 
 #: source/gx/terminix/prefwindow.d:573 source/gx/terminix/prefwindow.d:619
+#: source/gx/terminix/prefwindow.d:628
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "在滑鼠移入時啟用終端"
 
 #: source/gx/terminix/prefwindow.d:578 source/gx/terminix/prefwindow.d:624
+#: source/gx/terminix/prefwindow.d:633
 msgid "Autohide the mouse pointer when typing"
 msgstr "打字時自動隱藏滑鼠指針"
 
 #: source/gx/terminix/prefwindow.d:584 source/gx/terminix/prefwindow.d:630
+#: source/gx/terminix/prefwindow.d:639
 msgid "Send desktop notification on process complete"
 msgstr "程序完成時傳送桌面通知"
 
 #: source/gx/terminix/prefwindow.d:592 source/gx/terminix/prefwindow.d:638
+#: source/gx/terminix/prefwindow.d:647
 msgid "On new instance"
 msgstr ""
 
@@ -871,6 +901,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:668
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:672
+#: source/gx/terminix/prefwindow.d:650
 msgid "Split Right"
 msgstr "向右分割"
 
@@ -878,10 +909,12 @@ msgstr "向右分割"
 #: source/gx/terminix/terminal/terminal.d:672
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:676
+#: source/gx/terminix/prefwindow.d:650
 msgid "Split Down"
 msgstr "向下分割"
 
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/prefwindow.d:641
+#: source/gx/terminix/prefwindow.d:650
 #, fuzzy
 msgid "Focus Window"
 msgstr "新建視窗"
@@ -892,14 +925,17 @@ msgstr "新建視窗"
 #: source/gx/terminix/prefwindow.d:647
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:970
+#: source/gx/terminix/prefwindow.d:656
 msgid "Paste"
 msgstr "貼上"
 
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
+#: source/gx/terminix/prefwindow.d:662
 msgid "Warn when attempting unsafe paste"
 msgstr "進行不安全複製時警告"
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
+#: source/gx/terminix/prefwindow.d:667
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "如果貼上內容為註釋或變數聲明則切除第一個字元"
 
@@ -965,6 +1001,7 @@ msgstr "折列"
 #: source/gx/terminix/terminal/terminal.d:325
 #: source/gx/terminix/terminal/terminal.d:656
 #: source/gx/terminix/terminal/terminal.d:819
+#: source/gx/terminix/prefwindow.d:339 data/resources/ui/shortcuts.ui:326
 msgid "Terminal"
 msgstr "終端"
 
@@ -1253,16 +1290,16 @@ msgstr "Terminix"
 msgid "disabled"
 msgstr "已啟用"
 
-#: source/app.d:46 source/app.d:72
+#: source/app.d:46 source/app.d:72 source/app.d:76
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:66 source/app.d:92
+#: source/app.d:66 source/app.d:92 source/app.d:96
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:67 source/app.d:93
+#: source/app.d:67 source/app.d:93 source/app.d:97
 msgid "Error: "
 msgstr ""
 
@@ -1286,7 +1323,7 @@ msgstr "在此開啟 Terminix…"
 msgid "Open Terminix In This Directory"
 msgstr "在此目錄開啟 Terminix"
 
-#: data/resources/ui/shortcuts.ui:10
+#: data/resources/ui/shortcuts.ui:10 source/gx/terminix/prefwindow.d:338
 #, fuzzy
 msgid "Application"
 msgstr "動作"
@@ -1410,7 +1447,7 @@ msgctxt "shortcut window"
 msgid "Switch to session 10"
 msgstr "切換到會話 10"
 
-#: data/resources/ui/shortcuts.ui:138
+#: data/resources/ui/shortcuts.ui:138 source/gx/terminix/prefwindow.d:340
 #, fuzzy
 msgid "Session"
 msgstr "會話"
@@ -1573,31 +1610,32 @@ msgctxt "shortcut window"
 msgid "Switch to terminal 10"
 msgstr "切換到終端 10"
 
-#: data/resources/ui/shortcuts.ui:313
+#: data/resources/ui/shortcuts.ui:313 data/resources/ui/shortcuts.ui:331
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Split"
 msgstr "向下分割"
 
-#: data/resources/ui/shortcuts.ui:317
+#: data/resources/ui/shortcuts.ui:317 data/resources/ui/shortcuts.ui:335
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Split right"
 msgstr "向右分割"
 
-#: data/resources/ui/shortcuts.ui:323
+#: data/resources/ui/shortcuts.ui:323 data/resources/ui/shortcuts.ui:341
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Split down"
 msgstr "向下分割"
 
 #: data/resources/ui/shortcuts.ui:331 data/resources/ui/shortcuts.ui:335
+#: data/resources/ui/shortcuts.ui:349 data/resources/ui/shortcuts.ui:353
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "查詢…"
 
-#: data/resources/ui/shortcuts.ui:341
+#: data/resources/ui/shortcuts.ui:341 data/resources/ui/shortcuts.ui:359
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Find next"
@@ -1608,104 +1646,105 @@ msgstr "查詢下一個"
 # in the Shortcut preferences and in the future
 # the shortcut overview if available in Gnome 3.20
 # ***********************************************
-#: data/resources/ui/shortcuts.ui:347
+#: data/resources/ui/shortcuts.ui:347 data/resources/ui/shortcuts.ui:365
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Find previous"
 msgstr "查詢上一個"
 
-#: data/resources/ui/shortcuts.ui:355
+#: data/resources/ui/shortcuts.ui:355 data/resources/ui/shortcuts.ui:373
 msgctxt "shortcut window"
 msgid "Clipboard"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:359
+#: data/resources/ui/shortcuts.ui:359 data/resources/ui/shortcuts.ui:377
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Copy"
 msgstr "複製"
 
-#: data/resources/ui/shortcuts.ui:365
+#: data/resources/ui/shortcuts.ui:365 data/resources/ui/shortcuts.ui:383
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Paste"
 msgstr "貼上"
 
-#: data/resources/ui/shortcuts.ui:371
+#: data/resources/ui/shortcuts.ui:371 data/resources/ui/shortcuts.ui:389
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Select all"
 msgstr "全選"
 
-#: data/resources/ui/shortcuts.ui:379
+#: data/resources/ui/shortcuts.ui:379 data/resources/ui/shortcuts.ui:397
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:383
+#: data/resources/ui/shortcuts.ui:383 data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:389
+#: data/resources/ui/shortcuts.ui:389 data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:395
+#: data/resources/ui/shortcuts.ui:395 data/resources/ui/shortcuts.ui:413
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "正常縮放"
 
-#: data/resources/ui/shortcuts.ui:403
+#: data/resources/ui/shortcuts.ui:403 data/resources/ui/shortcuts.ui:305
+#: data/resources/ui/shortcuts.ui:421
 msgctxt "shortcut window"
 msgid "Other"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:407
+#: data/resources/ui/shortcuts.ui:407 data/resources/ui/shortcuts.ui:425
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "保持終端開啟"
 
-#: data/resources/ui/shortcuts.ui:413
+#: data/resources/ui/shortcuts.ui:413 data/resources/ui/shortcuts.ui:431
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "終端"
 
-#: data/resources/ui/shortcuts.ui:419
+#: data/resources/ui/shortcuts.ui:419 data/resources/ui/shortcuts.ui:437
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "退出此終端"
 
-#: data/resources/ui/shortcuts.ui:425
+#: data/resources/ui/shortcuts.ui:425 data/resources/ui/shortcuts.ui:443
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "配置方案偏好設定"
 
-#: data/resources/ui/shortcuts.ui:431
+#: data/resources/ui/shortcuts.ui:431 data/resources/ui/shortcuts.ui:449
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "退出此終端"
 
-#: data/resources/ui/shortcuts.ui:437
+#: data/resources/ui/shortcuts.ui:437 data/resources/ui/shortcuts.ui:455
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr "退出此終端"
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:443 data/resources/ui/shortcuts.ui:461
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr "只讀"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:449 data/resources/ui/shortcuts.ui:467
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Layout options"
@@ -1795,6 +1834,23 @@ msgstr ""
 #: source/gx/terminix/application.d:474
 msgid "GEOMETRY"
 msgstr ""
+
+#: source/gx/terminix/prefwindow.d:337
+#, fuzzy
+msgid "Window"
+msgstr "新建視窗"
+
+#: data/resources/ui/shortcuts.ui:309
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Edit the session name"
+msgstr "切換到會話 1"
+
+#: data/resources/ui/shortcuts.ui:315
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Synchronize the input"
+msgstr "同步輸入"
 
 #~ msgid "terminal"
 #~ msgstr "終端"
