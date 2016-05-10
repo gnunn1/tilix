@@ -325,7 +325,7 @@ private:
                     string id = xml.tag.attr["id"];
                     xml.onEndTag["property"] = (in Element e) {
                         if (e.tag.attr["name"] == "title") {
-                            labels[id] = e.text;
+                            labels[id] = C_(SHORTCUT_LOCALIZATION_CONTEXT, e.text);
                         } 
                     };
                     xml.parse();
@@ -334,10 +334,10 @@ private:
             parser.parse();
             // While you could use sections to get prefixes, not all sections are there
             // and it's not inutituve from a localization perspective. Just add them manually
-            prefixes["win"] = _("Window");
-            prefixes["app"] = _("Application");
-            prefixes["terminal"] = _("Terminal");
-            prefixes["session"] = _("Session");
+            prefixes["win"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Window");
+            prefixes["app"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Application");
+            prefixes["terminal"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Terminal");
+            prefixes["session"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Session");
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
