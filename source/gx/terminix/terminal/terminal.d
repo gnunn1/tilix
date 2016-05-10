@@ -1382,6 +1382,7 @@ private:
         CommandParameters overrides = terminix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
         if (workingDir.length == 0 && overrides.cwd.length > 0) {
+            trace("Using cwd provided");
             workingDir = overrides.cwd;
         }
         if (overrides.workingDir.length > 0) {

@@ -287,7 +287,12 @@ private:
                 if (terminalUUID.length == 0) {
                     AppWindow window = getActiveAppWindow();
                     if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
-                } 
+                }
+                //If workingDir is not set, override it with cwd so that it takes priority for
+                //executing actions below
+                if (cp.workingDir.length == 0) {
+                    cp.workingDir = cp.cwd;
+                }
                 executeAction(terminalUUID, cp.action);
                 return cp.exitCode;
             }
@@ -302,29 +307,37 @@ private:
                 string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
                 //If focus-window command line parameter was passed, override setting
                 if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
-                //If workingDir is not set, override it with cwd so that it takes priority for
-                //executing actions below
-                if (cp.workingDir.length ==0) {
-                    cp.workingDir = cp.cwd;
-                }
                 switch (instanceAction) {
                     //New Session
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
                         aw.present();
-                        aw.createSession();
+                        if (cp.session.length > 0) {
+                            // This will use global override and load sessions
+                            aw.initialize();
+                        } else {
+                            aw.createSession();
+                        }
                         return cp.exitCode;
-                    //Split Right
-                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[2]:
+                    //Split Right, Split Down
+                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[2], SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
+                        if (cp.session.length > 0) break;
                         aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
-                        return cp.exitCode;
-                    //Split Down
-                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
-                        aw.present();
-                        executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
+                        //If workingDir is not set, override it with cwd so that it takes priority for
+                        //executing actions below
+                        if (cp.workingDir.length == 0) {
+                            cp.workingDir = cp.cwd;
+                        }
+                        if (instanceAction == SETTINGS_NEW_INSTANCE_MODE_VALUES[2])
+                            executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
+                        else
+                            executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
                         return cp.exitCode;
                     //Focus Window
                     case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
+                        if (cp.session.length > 0) {
+                            // This will use global override and load sessions
+                            aw.initialize();
+                        }
                         aw.present();
                         return cp.exitCode;
                     default:

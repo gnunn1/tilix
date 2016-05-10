@@ -865,7 +865,7 @@ public:
     void initialize(Session session) {
         addSession(session);
     }
-
+    
     /**
      * Activates the specified sessionUUID
      */
