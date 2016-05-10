@@ -13,6 +13,7 @@ find ${BASEDIR}/source -name '*.d' | xgettext \
   --files-from=- \
   --directory=$BASEDIR \
   --language=Vala \
+  --keyword=C_:1c,2 \
   --from-code=utf-8
 
 xgettext \

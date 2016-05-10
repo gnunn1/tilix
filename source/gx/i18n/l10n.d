@@ -66,6 +66,15 @@ string _(string text) {
 }
 
 /**
+ * Uses gettext to get the translation for text in the given context.
+ * This is mainly useful for short strings which may need different
+ * translations, depending on the context in which they are used.
+ */
+string C_(string context, string text) {
+    return Internationalization.dpgettext2(_textdomain, context, text);
+}
+
+/**
  * Only marks a string for translation. This is useful in situations where the
  * translated strings can't be directly used, e.g. in string array initializers.
  * To get the translated string, call _() at runtime.
