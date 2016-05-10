@@ -284,9 +284,6 @@ private:
     //Track match detection
     TerminalURLMatch match;
     
-    //Whether to dim unfocused windows
-    bool dimUnfocused = false;
-
     /**
      * Create the user interface of the TerminalPane
      */
@@ -621,10 +618,10 @@ private:
         Popover pm = new Popover(parent);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pm.addOnMap(delegate(Widget) {
-           if (dimUnfocused) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw(); 
         });
         pm.addOnUnmap(delegate(Widget) {
-           if (dimUnfocused) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw(); 
         });
         pm.bindModel(model, ACTION_PREFIX);
         return pm;
@@ -753,10 +750,10 @@ private:
         pmContext.setPosition(PositionType.BOTTOM);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pmContext.addOnMap(delegate(Widget) {
-           if (dimUnfocused) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw(); 
         });
         pmContext.addOnUnmap(delegate(Widget) {
-           if (dimUnfocused) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw(); 
         });
 
         terminalOverlay = new Overlay();
@@ -1083,7 +1080,7 @@ private:
         foreach (dlg; terminalInFocusDelegates) {
             dlg(this);
         }
-        if (dimUnfocused) {
+        if (dimPercent > 0) {
             vte.queueDraw();
         }
         return false;
@@ -1095,7 +1092,7 @@ private:
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
         trace("Terminal lost focus" ~ terminalUUID);
         lblTitle.setSensitive(isTerminalWidgetFocused());
-        if (dimUnfocused) {
+        if (dimPercent > 0) {
             vte.queueDraw();
         }
         return false;
@@ -1215,13 +1212,12 @@ private:
                 vte.setColorCursor(null);
             }
             break; 
-        case SETTINGS_DIM_UNFOCUSED_KEY, SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
+        case SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
                 vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
             } else {
                 getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, vteDimBG);
             }
-            dimUnfocused = gsSettings.getBoolean(SETTINGS_DIM_UNFOCUSED_KEY);
             dimPercent = to!double(gsProfile.getInt(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY)) / 100.0;
             vte.queueDraw();
             break;
@@ -1693,8 +1689,10 @@ private:
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
 
-        if (dimUnfocused) {
-            if (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible()) {
+        if (dimPercent > 0) {
+            Window window = cast(Window) getToplevel();
+            bool windowActive = (window is null)?false:window.isActive();
+            if (!windowActive || (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible())) {
                 cr.setSourceRgba(vteDimBG.red, vteDimBG.green, vteDimBG.blue, dimPercent);
                 cr.setOperator(cairo_operator_t.ATOP);
                 cr.paint();

@@ -192,11 +192,6 @@
       <summary>Whether the focus follows the mouse</summary>
       <description>If true, a terminal will automatically be focused when the mouse moves over it.</description>
     </key>
-    <key name="dim-unfocused" type="b">
-      <default>false</default>
-      <summary>Whether unfocused terminals are rendered dimmed</summary>
-      <description>If true, unfocused terminals are rendered dimmer using an overlay color and scale factor</description>
-    </key>
   </schema>
 
   <!-- SettingsList base schema -->
@@ -279,7 +274,7 @@
     <!--Dim-->
     <key name="dim-transparency-percent" type="i">
       <range min="0" max="100" />
-      <default>10</default>
+      <default>0</default>
       <summary>The amount of transparency to apply to the unfocused dim effect</summary>
     </key>
     <!-- Colors -->
