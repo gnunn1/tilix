@@ -755,6 +755,11 @@ private:
         pmContext.addOnUnmap(delegate(Widget) {
            if (dimPercent > 0) vte.queueDraw(); 
         });
+        pmContext.addOnClosed(delegate(Popover) {
+            // See #305 for more info on why this is here
+            saCopy.setEnabled(true);
+            saPaste.setEnabled(true);
+        });
 
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
