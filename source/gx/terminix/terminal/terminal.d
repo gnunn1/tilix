@@ -1744,7 +1744,11 @@ private:
     void saveTerminalOutput(bool showSaveAsDialog = true) {
         if (outputFilename.length == 0 || showSaveAsDialog) {
             Window window = cast(Window) getToplevel();
-            FileChooserDialog fcd = new FileChooserDialog(_("Save Terminal Output"), window, FileChooserAction.SAVE);
+            FileChooserDialog fcd = new FileChooserDialog(
+              _("Save Terminal Output"),
+              window,
+              FileChooserAction.SAVE,
+              [_("Save"), _("Cancel")]);
             scope (exit)
                 fcd.destroy();
 

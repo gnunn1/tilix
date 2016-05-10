@@ -758,7 +758,11 @@ private:
      * Loads session from a file, prompt user to select file
      */
     void loadSession() {
-        FileChooserDialog fcd = new FileChooserDialog(_("Load Session"), this, FileChooserAction.OPEN);
+        FileChooserDialog fcd = new FileChooserDialog(
+          _("Load Session"),
+          this,
+          FileChooserAction.OPEN,
+          [_("Open"), _("Cancel")]);
         scope (exit) {
             fcd.destroy();
         }
@@ -786,7 +790,11 @@ private:
         Session session = getCurrentSession();
         string filename = session.filename;
         if (filename.length <= 0 || showSaveAsDialog) {
-            FileChooserDialog fcd = new FileChooserDialog(_("Save Session"), this, FileChooserAction.SAVE);
+            FileChooserDialog fcd = new FileChooserDialog(
+              _("Save Session"),
+              this,
+              FileChooserAction.SAVE,
+              [_("Save"), _("Cancel")]);
             scope (exit)
                 fcd.destroy();
 
