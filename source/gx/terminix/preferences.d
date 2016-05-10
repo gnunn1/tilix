@@ -202,11 +202,6 @@ public:
         string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
         trace("Get list of profiles");
 
-        //Remove default if it is there, only happens on first run
-        //TODO: Remove defaults from preference XML?
-        gx.util.array.remove(ps, GSETTINGS_DEFAULT_UUID);
-        trace("Remove default profile");
-
         ps ~= uuid;
         gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
         trace("Update list to include new profile");
