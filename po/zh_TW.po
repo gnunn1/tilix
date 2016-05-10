@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-09 13:12-0600\n"
+"POT-Creation-Date: 2016-05-10 15:29+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Mingye Wang (Arthur2e5) <arthur200126@gmail.com>\n"
 "Language-Team: AOSC zh_TW <aosc@member.fsf.org>\n"
@@ -83,6 +83,7 @@ msgstr "列"
 #: source/gx/terminix/profilewindow.d:167
 #: source/gx/terminix/terminal/terminal.d:648
 #: source/gx/terminix/terminal/terminal.d:652
+#: source/gx/terminix/terminal/terminal.d:649
 msgid "Reset"
 msgstr "重置"
 
@@ -399,6 +400,7 @@ msgstr "按 Delete 鍵生成"
 #: source/gx/terminix/profilewindow.d:725 source/gx/terminix/prefwindow.d:94
 #: source/gx/terminix/prefwindow.d:167
 #: source/gx/terminix/terminal/terminal.d:662
+#: source/gx/terminix/terminal/terminal.d:659
 msgid "Encoding"
 msgstr "編碼"
 
@@ -612,12 +614,13 @@ msgstr "泰語"
 #: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/session.d:1264
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/session.d:1267
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 msgid "New Session"
 msgstr "新建會話"
 
 #: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:646
 msgid "New Window"
 msgstr "新建視窗"
 
@@ -758,6 +761,7 @@ msgstr "外觀"
 #: source/gx/terminix/terminal/terminal.d:657
 #: source/gx/terminix/prefwindow.d:91
 #: source/gx/terminix/terminal/terminal.d:661
+#: source/gx/terminix/terminal/terminal.d:658
 msgid "Profiles"
 msgstr "配置方案"
 
@@ -868,32 +872,32 @@ msgid "Dim unfocused terminals"
 msgstr "終端"
 
 #: source/gx/terminix/prefwindow.d:562 source/gx/terminix/prefwindow.d:608
-#: source/gx/terminix/prefwindow.d:617
+#: source/gx/terminix/prefwindow.d:617 source/gx/terminix/prefwindow.d:613
 msgid "Behavior"
 msgstr "行為"
 
 #: source/gx/terminix/prefwindow.d:568 source/gx/terminix/prefwindow.d:614
-#: source/gx/terminix/prefwindow.d:623
+#: source/gx/terminix/prefwindow.d:623 source/gx/terminix/prefwindow.d:619
 msgid "Prompt when creating a new session"
 msgstr "建立新會話時提示"
 
 #: source/gx/terminix/prefwindow.d:573 source/gx/terminix/prefwindow.d:619
-#: source/gx/terminix/prefwindow.d:628
+#: source/gx/terminix/prefwindow.d:628 source/gx/terminix/prefwindow.d:624
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "在滑鼠移入時啟用終端"
 
 #: source/gx/terminix/prefwindow.d:578 source/gx/terminix/prefwindow.d:624
-#: source/gx/terminix/prefwindow.d:633
+#: source/gx/terminix/prefwindow.d:633 source/gx/terminix/prefwindow.d:629
 msgid "Autohide the mouse pointer when typing"
 msgstr "打字時自動隱藏滑鼠指針"
 
 #: source/gx/terminix/prefwindow.d:584 source/gx/terminix/prefwindow.d:630
-#: source/gx/terminix/prefwindow.d:639
+#: source/gx/terminix/prefwindow.d:639 source/gx/terminix/prefwindow.d:635
 msgid "Send desktop notification on process complete"
 msgstr "程序完成時傳送桌面通知"
 
 #: source/gx/terminix/prefwindow.d:592 source/gx/terminix/prefwindow.d:638
-#: source/gx/terminix/prefwindow.d:647
+#: source/gx/terminix/prefwindow.d:647 source/gx/terminix/prefwindow.d:643
 msgid "On new instance"
 msgstr ""
 
@@ -902,6 +906,8 @@ msgstr ""
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:672
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:669
+#: source/gx/terminix/prefwindow.d:646
 msgid "Split Right"
 msgstr "向右分割"
 
@@ -910,11 +916,13 @@ msgstr "向右分割"
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:676
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:673
+#: source/gx/terminix/prefwindow.d:646
 msgid "Split Down"
 msgstr "向下分割"
 
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/prefwindow.d:641
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 #, fuzzy
 msgid "Focus Window"
 msgstr "新建視窗"
@@ -926,16 +934,19 @@ msgstr "新建視窗"
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:970
 #: source/gx/terminix/prefwindow.d:656
+#: source/gx/terminix/terminal/terminal.d:956
+#: source/gx/terminix/terminal/terminal.d:967
+#: source/gx/terminix/prefwindow.d:652
 msgid "Paste"
 msgstr "貼上"
 
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
-#: source/gx/terminix/prefwindow.d:662
+#: source/gx/terminix/prefwindow.d:662 source/gx/terminix/prefwindow.d:658
 msgid "Warn when attempting unsafe paste"
 msgstr "進行不安全複製時警告"
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
-#: source/gx/terminix/prefwindow.d:667
+#: source/gx/terminix/prefwindow.d:667 source/gx/terminix/prefwindow.d:663
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "如果貼上內容為註釋或變數聲明則切除第一個字元"
 
@@ -1002,6 +1013,9 @@ msgstr "折列"
 #: source/gx/terminix/terminal/terminal.d:656
 #: source/gx/terminix/terminal/terminal.d:819
 #: source/gx/terminix/prefwindow.d:339 data/resources/ui/shortcuts.ui:326
+#: source/gx/terminix/terminal/terminal.d:322
+#: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:816
 msgid "Terminal"
 msgstr "終端"
 
@@ -1010,6 +1024,8 @@ msgstr "終端"
 #: source/gx/terminix/appwindow.d:407
 #: source/gx/terminix/terminal/terminal.d:356
 #: source/gx/terminix/terminal/terminal.d:988
+#: source/gx/terminix/terminal/terminal.d:353
+#: source/gx/terminix/terminal/terminal.d:985
 msgid "Close"
 msgstr "關閉"
 
@@ -1019,6 +1035,9 @@ msgstr "關閉"
 #: source/gx/terminix/terminal/terminal.d:365
 #: source/gx/terminix/terminal/terminal.d:850
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:362
+#: source/gx/terminix/terminal/terminal.d:847
+#: source/gx/terminix/terminal/terminal.d:984
 #, fuzzy
 msgid "Maximize"
 msgstr "最大化"
@@ -1027,52 +1046,63 @@ msgstr "最大化"
 #: source/gx/terminix/terminal/terminal.d:569
 #: source/gx/terminix/terminal/terminal.d:376
 #: source/gx/terminix/terminal/terminal.d:573
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:570
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:416
 #: source/gx/terminix/terminal/terminal.d:420
+#: source/gx/terminix/terminal/terminal.d:417
 msgid "Edit Profile"
 msgstr "編輯配置檔"
 
 #: source/gx/terminix/terminal/terminal.d:535
 #: source/gx/terminix/appwindow.d:642
 #: source/gx/terminix/terminal/terminal.d:539
+#: source/gx/terminix/terminal/terminal.d:536
 msgid "There are processes that are still running, close anyway?"
 msgstr "仍有正在執行的程序，依然要關閉嗎？"
 
 #: source/gx/terminix/terminal/terminal.d:571
 #: source/gx/terminix/terminal/terminal.d:575
+#: source/gx/terminix/terminal/terminal.d:572
 msgid "Enable input synchronization for this terminal"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:634
 #: source/gx/terminix/terminal/terminal.d:638
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Save…"
 msgstr "儲存…"
 
 #: source/gx/terminix/terminal/terminal.d:635
 #: source/gx/terminix/terminal/terminal.d:639
+#: source/gx/terminix/terminal/terminal.d:636
 msgid "Find…"
 msgstr "查詢…"
 
 #: source/gx/terminix/terminal/terminal.d:636
 #: source/gx/terminix/terminal/terminal.d:640
+#: source/gx/terminix/terminal/terminal.d:637
 msgid "Layout Options…"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:644
 #: source/gx/terminix/terminal/terminal.d:648
+#: source/gx/terminix/terminal/terminal.d:645
 msgid "Read-Only"
 msgstr "只讀"
 
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:650
 msgid "Reset and Clear"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:678
 #: source/gx/terminix/terminal/terminal.d:682
+#: source/gx/terminix/terminal/terminal.d:679
 #, fuzzy
 msgid "Split"
 msgstr "向下分割"
@@ -1081,16 +1111,20 @@ msgstr "向下分割"
 #: source/gx/terminix/terminal/terminal.d:968
 #: source/gx/terminix/terminal/terminal.d:847
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:844
+#: source/gx/terminix/terminal/terminal.d:984
 msgid "Restore"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:927
 #: source/gx/terminix/terminal/terminal.d:946
+#: source/gx/terminix/terminal/terminal.d:943
 msgid "Open Link"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:928
 #: source/gx/terminix/terminal/terminal.d:947
+#: source/gx/terminix/terminal/terminal.d:944
 msgid "Copy Link Address"
 msgstr ""
 
@@ -1098,6 +1132,8 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:946
 #: source/gx/terminix/terminal/terminal.d:958
 #: source/gx/terminix/terminal/terminal.d:965
+#: source/gx/terminix/terminal/terminal.d:955
+#: source/gx/terminix/terminal/terminal.d:962
 msgid "Copy"
 msgstr "複製"
 
@@ -1105,38 +1141,46 @@ msgstr "複製"
 #: source/gx/terminix/terminal/terminal.d:956
 #: source/gx/terminix/terminal/terminal.d:960
 #: source/gx/terminix/terminal/terminal.d:975
+#: source/gx/terminix/terminal/terminal.d:957
+#: source/gx/terminix/terminal/terminal.d:972
 msgid "Select All"
 msgstr "全選"
 
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:978
+#: source/gx/terminix/terminal/terminal.d:975
 msgid "Clipboard"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:973
 #: source/gx/terminix/terminal/terminal.d:992
+#: source/gx/terminix/terminal/terminal.d:989
 #, fuzzy
 msgid "Synchronize input"
 msgstr "同步輸入"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 #: source/gx/terminix/terminal/terminal.d:1429
+#: source/gx/terminix/terminal/terminal.d:1425
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1416
 #: source/gx/terminix/terminal/terminal.d:1435
+#: source/gx/terminix/terminal/terminal.d:1431
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1730
 #: source/gx/terminix/terminal/terminal.d:1749
+#: source/gx/terminix/terminal/terminal.d:1747
 msgid "Save Terminal Output"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1736
 #: source/gx/terminix/terminal/terminal.d:1755
+#: source/gx/terminix/terminal/terminal.d:1753
 msgid "All Text Files"
 msgstr ""
 
@@ -1144,54 +1188,64 @@ msgstr ""
 #: source/gx/terminix/appwindow.d:710
 #: source/gx/terminix/terminal/terminal.d:1759
 #: source/gx/terminix/appwindow.d:725
+#: source/gx/terminix/terminal/terminal.d:1757
 msgid "All Files"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2055
 #: source/gx/terminix/terminal/terminal.d:2078
+#: source/gx/terminix/terminal/terminal.d:2076
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
+#: source/gx/terminix/terminal/terminal.d:2077
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
+#: source/gx/terminix/terminal/terminal.d:2078
 msgid "The child process was aborted."
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2063
 #: source/gx/terminix/terminal/terminal.d:2086
+#: source/gx/terminix/terminal/terminal.d:2084
 msgid "Relaunch"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2103
 #: source/gx/terminix/terminal/terminal.d:2126
+#: source/gx/terminix/terminal/terminal.d:2124
 msgid "This command is asking for Administrative access to your computer"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2104
 #: source/gx/terminix/terminal/terminal.d:2127
+#: source/gx/terminix/terminal/terminal.d:2125
 msgid "Copying commands from the internet can be dangerous. "
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2105
 #: source/gx/terminix/terminal/terminal.d:2128
+#: source/gx/terminix/terminal/terminal.d:2126
 msgid "Be sure you understand what each part of this command does."
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
+#: source/gx/terminix/terminal/terminal.d:2128
 #, fuzzy
 msgid "Don't Paste"
 msgstr "貼上"
 
 #: source/gx/terminix/terminal/terminal.d:2108
 #: source/gx/terminix/terminal/terminal.d:2131
+#: source/gx/terminix/terminal/terminal.d:2129
 msgid "Paste Anyway"
 msgstr ""
 
@@ -1328,7 +1382,7 @@ msgstr "在此目錄開啟 Terminix"
 msgid "Application"
 msgstr "動作"
 
-#: data/resources/ui/shortcuts.ui:15
+#: data/resources/ui/shortcuts.ui:15 data/resources/ui/shortcuts.ui:10
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Application"
@@ -1852,274 +1906,8 @@ msgctxt "shortcut window"
 msgid "Synchronize the input"
 msgstr "同步輸入"
 
-#~ msgid "terminal"
-#~ msgstr "終端"
-
+#: data/resources/ui/shortcuts.ui:138
 #, fuzzy
-#~ msgid "title-style"
-#~ msgstr "標題"
-
-#~ msgid "title"
-#~ msgstr "標題"
-
-# *****************************************
-# Keyboard shortcut categories
-# *****************************************
-#~ msgid "app"
-#~ msgstr "應用程式"
-
-#~ msgid "new-window"
-#~ msgstr "新建視窗"
-
-#~ msgid "new-session"
-#~ msgstr "新建會話"
-
-#~ msgid "preferences"
-#~ msgstr "偏好設定"
-
-#, fuzzy
-#~ msgid "shortcuts"
-#~ msgstr "快捷鍵"
-
-#~ msgid "session"
-#~ msgstr "會話"
-
-#~ msgid "synchronize-input"
-#~ msgstr "同步輸入"
-
-#~ msgid "close"
-#~ msgstr "關閉"
-
-#~ msgid "name"
-#~ msgstr "名稱"
-
-#~ msgid "save"
-#~ msgstr "儲存"
-
-#~ msgid "save-as"
-#~ msgstr "另存為"
-
-#~ msgid "switch-to-terminal-0"
-#~ msgstr "切換到終端 10"
-
-#~ msgid "switch-to-terminal-1"
-#~ msgstr "切換到終端 1"
-
-#~ msgid "switch-to-terminal-2"
-#~ msgstr "切換到終端 2"
-
-#~ msgid "switch-to-terminal-3"
-#~ msgstr "切換到終端 3"
-
-#~ msgid "switch-to-terminal-4"
-#~ msgstr "切換到終端 4"
-
-#~ msgid "switch-to-terminal-5"
-#~ msgstr "切換到終端 5"
-
-#~ msgid "switch-to-terminal-6"
-#~ msgstr "切換到終端 6"
-
-#~ msgid "switch-to-terminal-7"
-#~ msgstr "切換到終端 7"
-
-#~ msgid "switch-to-terminal-8"
-#~ msgstr "切換到終端 8"
-
-#~ msgid "switch-to-terminal-9"
-#~ msgstr "切換到終端 9"
-
-#, fuzzy
-#~ msgid "switch-to-terminal-up"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "switch-to-terminal-down"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "switch-to-terminal-left"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "switch-to-terminal-right"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "resize-terminal-up"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "resize-terminal-down"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "resize-terminal-left"
-#~ msgstr "切換到終端 10"
-
-#, fuzzy
-#~ msgid "resize-terminal-right"
-#~ msgstr "切換到終端 10"
-
-#~ msgid "win"
-#~ msgstr "win"
-
-#~ msgid "view-sidebar"
-#~ msgstr "顯示側邊列"
-
-#~ msgid "switch-to-session-0"
-#~ msgstr "切換到會話 10"
-
-#~ msgid "switch-to-session-1"
-#~ msgstr "切換到會話 1"
-
-#~ msgid "switch-to-session-2"
-#~ msgstr "切換到會話 2"
-
-#~ msgid "switch-to-session-3"
-#~ msgstr "切換到會話 3"
-
-#~ msgid "switch-to-session-4"
-#~ msgstr "切換到會話 4"
-
-#~ msgid "switch-to-session-5"
-#~ msgstr "切換到會話 5"
-
-#~ msgid "switch-to-session-6"
-#~ msgstr "切換到會話 6"
-
-#~ msgid "switch-to-session-7"
-#~ msgstr "切換到會話 7"
-
-#~ msgid "switch-to-session-8"
-#~ msgstr "切換到會話 8"
-
-#~ msgid "switch-to-session-9"
-#~ msgstr "切換到會話 9"
-
-#, fuzzy
-#~ msgid "switch-to-next-session"
-#~ msgstr "切換到會話 10"
-
-#, fuzzy
-#~ msgid "switch-to-previous-session"
-#~ msgstr "切換到上一個終端"
-
-#~ msgid "fullscreen"
-#~ msgstr "全屏"
-
-#~ msgid "switch-to-next-terminal"
-#~ msgstr "切換到下一個終端"
-
-#~ msgid "switch-to-previous-terminal"
-#~ msgstr "切換到上一個終端"
-
-#, fuzzy
-#~ msgid "split-right"
-#~ msgstr "向右分割"
-
-#, fuzzy
-#~ msgid "split-down"
-#~ msgstr "向下分割"
-
-#~ msgid "find"
-#~ msgstr "查詢"
-
-#~ msgid "find-next"
-#~ msgstr "查詢下一個"
-
-# ***********************************************
-# Keyboard shortcuts to the end, these are shown
-# in the Shortcut preferences and in the future
-# the shortcut overview if available in Gnome 3.20
-# ***********************************************
-#~ msgid "find-previous"
-#~ msgstr "查詢上一個"
-
-#~ msgid "maximize"
-#~ msgstr "最大化"
-
-#~ msgid "profile-preference"
-#~ msgstr "配置方案偏好設定"
-
-#~ msgid "read-only"
-#~ msgstr "只讀"
-
-#, fuzzy
-#~ msgid "reset"
-#~ msgstr "重置"
-
-#~ msgid "copy"
-#~ msgstr "複製"
-
-#~ msgid "paste"
-#~ msgstr "貼上"
-
-#~ msgid "select-all"
-#~ msgstr "全選"
-
-#~ msgid "zoom-in"
-#~ msgstr "放大"
-
-#~ msgid "zoom-out"
-#~ msgstr "縮小"
-
-#~ msgid "zoom-normal"
-#~ msgstr "正常縮放"
-
-#, fuzzy
-#~ msgid "Split Horizontal"
-#~ msgstr "水平分割"
-
-#, fuzzy
-#~ msgid "Split Vertical"
-#~ msgstr "垂直分割"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Split horizontal"
-#~ msgstr "水平分割"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Split vertical"
-#~ msgstr "垂直分割"
-
-#~ msgid "utilities-terminal"
-#~ msgstr "utilities-terminal"
-
-#~ msgid "split-horizontal"
-#~ msgstr "水平分割"
-
-#~ msgid "split-vertical"
-#~ msgstr "垂直分割"
-
-#~ msgid "load"
-#~ msgstr "載入"
-
-#~ msgid "Load…"
-#~ msgstr "載入…"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Load the current session"
-#~ msgstr "載入會話"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Split Vertical"
-#~ msgstr "垂直分割"
-
-#~ msgid "Enable the menu accelerator key (F10 by default)"
-#~ msgstr "啟用選單快捷鍵（預設為 F10）"
-
-#~ msgid "Enter Custom Title"
-#~ msgstr "輸入自訂標題"
-
-#~ msgid ""
-#~ "Enter a new title to override the one specified by the profile. To reset "
-#~ "it to the profile setting, leave it blank."
-#~ msgstr "輸入新標題以替換配置方案指定的標題。留空以重置為配置方案預設值。"
-
-#~ msgid "Title…"
-#~ msgstr "標題…"
+msgctxt "shortcut window"
+msgid "Session"
+msgstr "會話"
