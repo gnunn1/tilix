@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-09 13:12-0600\n"
+"POT-Creation-Date: 2016-05-10 15:29+0200\n"
 "PO-Revision-Date: 2016-05-08 14:10+0000\n"
 "Last-Translator: Aan <cacaddv@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/terminix/"
@@ -83,6 +83,7 @@ msgstr ""
 #: source/gx/terminix/profilewindow.d:167
 #: source/gx/terminix/terminal/terminal.d:648
 #: source/gx/terminix/terminal/terminal.d:652
+#: source/gx/terminix/terminal/terminal.d:649
 msgid "Reset"
 msgstr ""
 
@@ -393,6 +394,7 @@ msgstr ""
 #: source/gx/terminix/profilewindow.d:725 source/gx/terminix/prefwindow.d:94
 #: source/gx/terminix/prefwindow.d:167
 #: source/gx/terminix/terminal/terminal.d:662
+#: source/gx/terminix/terminal/terminal.d:659
 msgid "Encoding"
 msgstr "Enkoding"
 
@@ -602,12 +604,13 @@ msgstr ""
 #: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/session.d:1264
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/session.d:1267
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 msgid "New Session"
 msgstr "Sesi Baru"
 
 #: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:646
 msgid "New Window"
 msgstr "Jendela Baru"
 
@@ -747,6 +750,7 @@ msgstr "Preferensi"
 #: source/gx/terminix/terminal/terminal.d:657
 #: source/gx/terminix/prefwindow.d:91
 #: source/gx/terminix/terminal/terminal.d:661
+#: source/gx/terminix/terminal/terminal.d:658
 msgid "Profiles"
 msgstr "Profil"
 
@@ -854,32 +858,32 @@ msgid "Dim unfocused terminals"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:562 source/gx/terminix/prefwindow.d:608
-#: source/gx/terminix/prefwindow.d:617
+#: source/gx/terminix/prefwindow.d:617 source/gx/terminix/prefwindow.d:613
 msgid "Behavior"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:568 source/gx/terminix/prefwindow.d:614
-#: source/gx/terminix/prefwindow.d:623
+#: source/gx/terminix/prefwindow.d:623 source/gx/terminix/prefwindow.d:619
 msgid "Prompt when creating a new session"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:573 source/gx/terminix/prefwindow.d:619
-#: source/gx/terminix/prefwindow.d:628
+#: source/gx/terminix/prefwindow.d:628 source/gx/terminix/prefwindow.d:624
 msgid "Focus a terminal when the mouse moves over it"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:578 source/gx/terminix/prefwindow.d:624
-#: source/gx/terminix/prefwindow.d:633
+#: source/gx/terminix/prefwindow.d:633 source/gx/terminix/prefwindow.d:629
 msgid "Autohide the mouse pointer when typing"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:584 source/gx/terminix/prefwindow.d:630
-#: source/gx/terminix/prefwindow.d:639
+#: source/gx/terminix/prefwindow.d:639 source/gx/terminix/prefwindow.d:635
 msgid "Send desktop notification on process complete"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:592 source/gx/terminix/prefwindow.d:638
-#: source/gx/terminix/prefwindow.d:647
+#: source/gx/terminix/prefwindow.d:647 source/gx/terminix/prefwindow.d:643
 msgid "On new instance"
 msgstr ""
 
@@ -888,6 +892,8 @@ msgstr ""
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:672
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:669
+#: source/gx/terminix/prefwindow.d:646
 msgid "Split Right"
 msgstr "Pisah Kanan"
 
@@ -896,11 +902,13 @@ msgstr "Pisah Kanan"
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:676
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:673
+#: source/gx/terminix/prefwindow.d:646
 msgid "Split Down"
 msgstr "Pisah Bawah"
 
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/prefwindow.d:641
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 #, fuzzy
 msgid "Focus Window"
 msgstr "Jendela Baru"
@@ -912,16 +920,19 @@ msgstr "Jendela Baru"
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:970
 #: source/gx/terminix/prefwindow.d:656
+#: source/gx/terminix/terminal/terminal.d:956
+#: source/gx/terminix/terminal/terminal.d:967
+#: source/gx/terminix/prefwindow.d:652
 msgid "Paste"
 msgstr "Tempel"
 
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
-#: source/gx/terminix/prefwindow.d:662
+#: source/gx/terminix/prefwindow.d:662 source/gx/terminix/prefwindow.d:658
 msgid "Warn when attempting unsafe paste"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
-#: source/gx/terminix/prefwindow.d:667
+#: source/gx/terminix/prefwindow.d:667 source/gx/terminix/prefwindow.d:663
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
@@ -986,6 +997,9 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:656
 #: source/gx/terminix/terminal/terminal.d:819
 #: source/gx/terminix/prefwindow.d:339 data/resources/ui/shortcuts.ui:326
+#: source/gx/terminix/terminal/terminal.d:322
+#: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:816
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -994,6 +1008,8 @@ msgstr "Terminal"
 #: source/gx/terminix/appwindow.d:407
 #: source/gx/terminix/terminal/terminal.d:356
 #: source/gx/terminix/terminal/terminal.d:988
+#: source/gx/terminix/terminal/terminal.d:353
+#: source/gx/terminix/terminal/terminal.d:985
 msgid "Close"
 msgstr "Tutup"
 
@@ -1003,6 +1019,9 @@ msgstr "Tutup"
 #: source/gx/terminix/terminal/terminal.d:365
 #: source/gx/terminix/terminal/terminal.d:850
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:362
+#: source/gx/terminix/terminal/terminal.d:847
+#: source/gx/terminix/terminal/terminal.d:984
 msgid "Maximize"
 msgstr "Maksimalkan"
 
@@ -1010,52 +1029,63 @@ msgstr "Maksimalkan"
 #: source/gx/terminix/terminal/terminal.d:569
 #: source/gx/terminix/terminal/terminal.d:376
 #: source/gx/terminix/terminal/terminal.d:573
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:570
 msgid "Disable input synchronization for this terminal"
 msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
 
 #: source/gx/terminix/terminal/terminal.d:416
 #: source/gx/terminix/terminal/terminal.d:420
+#: source/gx/terminix/terminal/terminal.d:417
 msgid "Edit Profile"
 msgstr "Sunting Profil"
 
 #: source/gx/terminix/terminal/terminal.d:535
 #: source/gx/terminix/appwindow.d:642
 #: source/gx/terminix/terminal/terminal.d:539
+#: source/gx/terminix/terminal/terminal.d:536
 msgid "There are processes that are still running, close anyway?"
 msgstr "Terdapat proses yang masih berjalan, tetap tutup?"
 
 #: source/gx/terminix/terminal/terminal.d:571
 #: source/gx/terminix/terminal/terminal.d:575
+#: source/gx/terminix/terminal/terminal.d:572
 msgid "Enable input synchronization for this terminal"
 msgstr "Fungsikan sinkronisasi masukan untuk terminal ini"
 
 #: source/gx/terminix/terminal/terminal.d:634
 #: source/gx/terminix/terminal/terminal.d:638
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Save…"
 msgstr "Simpan…"
 
 #: source/gx/terminix/terminal/terminal.d:635
 #: source/gx/terminix/terminal/terminal.d:639
+#: source/gx/terminix/terminal/terminal.d:636
 msgid "Find…"
 msgstr "Cari…"
 
 #: source/gx/terminix/terminal/terminal.d:636
 #: source/gx/terminix/terminal/terminal.d:640
+#: source/gx/terminix/terminal/terminal.d:637
 msgid "Layout Options…"
 msgstr "Opsi Tata Letak…"
 
 #: source/gx/terminix/terminal/terminal.d:644
 #: source/gx/terminix/terminal/terminal.d:648
+#: source/gx/terminix/terminal/terminal.d:645
 msgid "Read-Only"
 msgstr "Hanya-Baca"
 
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:650
 msgid "Reset and Clear"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:678
 #: source/gx/terminix/terminal/terminal.d:682
+#: source/gx/terminix/terminal/terminal.d:679
 msgid "Split"
 msgstr "Pisah"
 
@@ -1063,16 +1093,20 @@ msgstr "Pisah"
 #: source/gx/terminix/terminal/terminal.d:968
 #: source/gx/terminix/terminal/terminal.d:847
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:844
+#: source/gx/terminix/terminal/terminal.d:984
 msgid "Restore"
 msgstr "Pulihkan"
 
 #: source/gx/terminix/terminal/terminal.d:927
 #: source/gx/terminix/terminal/terminal.d:946
+#: source/gx/terminix/terminal/terminal.d:943
 msgid "Open Link"
 msgstr "Buka Tautan"
 
 #: source/gx/terminix/terminal/terminal.d:928
 #: source/gx/terminix/terminal/terminal.d:947
+#: source/gx/terminix/terminal/terminal.d:944
 msgid "Copy Link Address"
 msgstr "Salin Alamat Tautan"
 
@@ -1080,6 +1114,8 @@ msgstr "Salin Alamat Tautan"
 #: source/gx/terminix/terminal/terminal.d:946
 #: source/gx/terminix/terminal/terminal.d:958
 #: source/gx/terminix/terminal/terminal.d:965
+#: source/gx/terminix/terminal/terminal.d:955
+#: source/gx/terminix/terminal/terminal.d:962
 msgid "Copy"
 msgstr "Salin"
 
@@ -1087,37 +1123,45 @@ msgstr "Salin"
 #: source/gx/terminix/terminal/terminal.d:956
 #: source/gx/terminix/terminal/terminal.d:960
 #: source/gx/terminix/terminal/terminal.d:975
+#: source/gx/terminix/terminal/terminal.d:957
+#: source/gx/terminix/terminal/terminal.d:972
 msgid "Select All"
 msgstr "Pilih Semua"
 
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:978
+#: source/gx/terminix/terminal/terminal.d:975
 msgid "Clipboard"
 msgstr "Papan Klip"
 
 #: source/gx/terminix/terminal/terminal.d:973
 #: source/gx/terminix/terminal/terminal.d:992
+#: source/gx/terminix/terminal/terminal.d:989
 msgid "Synchronize input"
 msgstr "Sinkronisasi masukan"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 #: source/gx/terminix/terminal/terminal.d:1429
+#: source/gx/terminix/terminal/terminal.d:1425
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
 
 #: source/gx/terminix/terminal/terminal.d:1416
 #: source/gx/terminix/terminal/terminal.d:1435
+#: source/gx/terminix/terminal/terminal.d:1431
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Terjadi galat tak terduga: %s"
 
 #: source/gx/terminix/terminal/terminal.d:1730
 #: source/gx/terminix/terminal/terminal.d:1749
+#: source/gx/terminix/terminal/terminal.d:1747
 msgid "Save Terminal Output"
 msgstr "Simpan Keluaran Terminal"
 
 #: source/gx/terminix/terminal/terminal.d:1736
 #: source/gx/terminix/terminal/terminal.d:1755
+#: source/gx/terminix/terminal/terminal.d:1753
 msgid "All Text Files"
 msgstr "Semua Berkas Teks"
 
@@ -1125,53 +1169,63 @@ msgstr "Semua Berkas Teks"
 #: source/gx/terminix/appwindow.d:710
 #: source/gx/terminix/terminal/terminal.d:1759
 #: source/gx/terminix/appwindow.d:725
+#: source/gx/terminix/terminal/terminal.d:1757
 msgid "All Files"
 msgstr "Semua Berkas"
 
 #: source/gx/terminix/terminal/terminal.d:2055
 #: source/gx/terminix/terminal/terminal.d:2078
+#: source/gx/terminix/terminal/terminal.d:2076
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Proses anak keluar secara normal dengan status %d"
 
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
+#: source/gx/terminix/terminal/terminal.d:2077
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Proses anak dibatalkan dengan sinyal %d."
 
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
+#: source/gx/terminix/terminal/terminal.d:2078
 msgid "The child process was aborted."
 msgstr "Proses anak telah dibatalkan."
 
 #: source/gx/terminix/terminal/terminal.d:2063
 #: source/gx/terminix/terminal/terminal.d:2086
+#: source/gx/terminix/terminal/terminal.d:2084
 msgid "Relaunch"
 msgstr "Jalankan ulang"
 
 #: source/gx/terminix/terminal/terminal.d:2103
 #: source/gx/terminix/terminal/terminal.d:2126
+#: source/gx/terminix/terminal/terminal.d:2124
 msgid "This command is asking for Administrative access to your computer"
 msgstr "Perintah ini meminta akses Administrasi ke komputer kamu"
 
 #: source/gx/terminix/terminal/terminal.d:2104
 #: source/gx/terminix/terminal/terminal.d:2127
+#: source/gx/terminix/terminal/terminal.d:2125
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
 
 #: source/gx/terminix/terminal/terminal.d:2105
 #: source/gx/terminix/terminal/terminal.d:2128
+#: source/gx/terminix/terminal/terminal.d:2126
 msgid "Be sure you understand what each part of this command does."
 msgstr "Pastikan anda mengerti apa yang dilakukan setiap bagian perintah ini."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
+#: source/gx/terminix/terminal/terminal.d:2128
 msgid "Don't Paste"
 msgstr "Jangan Tempel"
 
 #: source/gx/terminix/terminal/terminal.d:2108
 #: source/gx/terminix/terminal/terminal.d:2131
+#: source/gx/terminix/terminal/terminal.d:2129
 msgid "Paste Anyway"
 msgstr "Tempel Saja"
 
@@ -1301,7 +1355,7 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:15
+#: data/resources/ui/shortcuts.ui:15 data/resources/ui/shortcuts.ui:10
 msgctxt "shortcut window"
 msgid "Application"
 msgstr ""
@@ -1760,197 +1814,8 @@ msgctxt "shortcut window"
 msgid "Synchronize the input"
 msgstr "Sinkronisasi masukan"
 
-#~ msgid "terminal"
-#~ msgstr "Terminal"
-
-#~ msgid "title-style"
-#~ msgstr "Gaya judul"
-
-#~ msgid "title"
-#~ msgstr "Judul"
-
-#~ msgid "app"
-#~ msgstr "Aplikasi"
-
-#~ msgid "new-window"
-#~ msgstr "Jendela Baru"
-
-#~ msgid "new-session"
-#~ msgstr "Sesi Baru"
-
-#~ msgid "preferences"
-#~ msgstr "Preferensi"
-
-#~ msgid "shortcuts"
-#~ msgstr "Pintasan"
-
-#~ msgid "session"
-#~ msgstr "Sesi"
-
-#~ msgid "synchronize-input"
-#~ msgstr "Masukan Sinkronisasi"
-
-#~ msgid "close"
-#~ msgstr "Tutup"
-
-#~ msgid "name"
-#~ msgstr "Nama"
-
-#~ msgid "open"
-#~ msgstr "Buka"
-
-#~ msgid "save"
-#~ msgstr "Simpan"
-
-#~ msgid "save-as"
-#~ msgstr "Simpan Sebagai"
-
-#~ msgid "switch-to-terminal-0"
-#~ msgstr "Pindah Ke Terminal 10"
-
-#~ msgid "switch-to-terminal-1"
-#~ msgstr "Pindah Ke Terminal 1"
-
-#~ msgid "switch-to-terminal-2"
-#~ msgstr "Pindah Ke Terminal 2"
-
-#~ msgid "switch-to-terminal-3"
-#~ msgstr "Pindah Ke Terminal 3"
-
-#~ msgid "switch-to-terminal-4"
-#~ msgstr "Pindah Ke Terminal 4"
-
-#~ msgid "switch-to-terminal-5"
-#~ msgstr "Pindah Ke Terminal 5"
-
-#~ msgid "switch-to-terminal-6"
-#~ msgstr "Pindah Ke Terminal 6"
-
-#~ msgid "switch-to-terminal-7"
-#~ msgstr "Pindah Ke Terminal 7"
-
-#~ msgid "switch-to-terminal-8"
-#~ msgstr "Pindah Ke Terminal 8"
-
-#~ msgid "switch-to-terminal-9"
-#~ msgstr "Pindah Ke Terminal 9"
-
-#~ msgid "switch-to-terminal-up"
-#~ msgstr "Pindah Ke Terminal Atas"
-
-#~ msgid "switch-to-terminal-down"
-#~ msgstr "Pindah Ke Terminal Bawah"
-
-#~ msgid "switch-to-terminal-left"
-#~ msgstr "Pindah Ke Terminal Kiri"
-
-#~ msgid "switch-to-terminal-right"
-#~ msgstr "Pindah Ke Terminal Kanan"
-
-#~ msgid "resize-terminal-up"
-#~ msgstr "Ubah Ukuran Terminal Atas"
-
-#~ msgid "resize-terminal-down"
-#~ msgstr "Ubah Ukuran Terminal Bawah"
-
-#~ msgid "resize-terminal-left"
-#~ msgstr "Ubah Ukuran Terminal Kiri"
-
-#~ msgid "resize-terminal-right"
-#~ msgstr "Ubah Ukuran Terminal Kanan"
-
-#~ msgid "win"
-#~ msgstr "Jendela"
-
-#~ msgid "view-sidebar"
-#~ msgstr "Lihat Panel Samping"
-
-#~ msgid "switch-to-session-0"
-#~ msgstr "Pindah Ke Sesi 10"
-
-#~ msgid "switch-to-session-1"
-#~ msgstr "Pindah Ke Sesi 1"
-
-#~ msgid "switch-to-session-2"
-#~ msgstr "Pindah Ke Sesi 2"
-
-#~ msgid "switch-to-session-3"
-#~ msgstr "Pindah Ke Sesi 3"
-
-#~ msgid "switch-to-session-4"
-#~ msgstr "Pindah Ke Sesi 4"
-
-#~ msgid "switch-to-session-5"
-#~ msgstr "Pindah Ke Sesi 5"
-
-#~ msgid "switch-to-session-6"
-#~ msgstr "Pindah Ke Sesi 6"
-
-#~ msgid "switch-to-session-7"
-#~ msgstr "Pindah Ke Sesi 7"
-
-#~ msgid "switch-to-session-8"
-#~ msgstr "Pindah Ke Sesi 8"
-
-#~ msgid "switch-to-session-9"
-#~ msgstr "Pindah Ke Sesi 9"
-
-#~ msgid "switch-to-next-session"
-#~ msgstr "Pindah Ke Sesi Selanjutnya"
-
-#~ msgid "switch-to-previous-session"
-#~ msgstr "Pindah Ke Sesi Sebelumnya"
-
-#~ msgid "fullscreen"
-#~ msgstr "Layar Penuh"
-
-#~ msgid "switch-to-next-terminal"
-#~ msgstr "Pindah Ke Terminal Selanjutnya"
-
-#~ msgid "switch-to-previous-terminal"
-#~ msgstr "Pindah Ke Terminal Sebelumnya"
-
-#~ msgid "split-right"
-#~ msgstr "Pisah Kanan"
-
-#~ msgid "split-down"
-#~ msgstr "Pisah Bawah"
-
-#~ msgid "find"
-#~ msgstr "Cari"
-
-#~ msgid "find-next"
-#~ msgstr "Cari Selanjutnya"
-
-#~ msgid "find-previous"
-#~ msgstr "Cari Sebelumnya"
-
-#~ msgid "layout"
-#~ msgstr "Tata Letak"
-
-#~ msgid "maximize"
-#~ msgstr "Maksimalkan"
-
-#~ msgid "profile-preference"
-#~ msgstr "Preferensi Profil"
-
-#~ msgid "read-only"
-#~ msgstr "Hanya-baca"
-
-#~ msgid "copy"
-#~ msgstr "Salin"
-
-#~ msgid "paste"
-#~ msgstr "Tempel"
-
-#~ msgid "select-all"
-#~ msgstr "Pilih Semua"
-
-#~ msgid "zoom-in"
-#~ msgstr "Perbesar"
-
-#~ msgid "zoom-out"
-#~ msgstr "Perkecil"
-
-#~ msgid "zoom-normal"
-#~ msgstr "Tampilan Normal"
+#: data/resources/ui/shortcuts.ui:138
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Session"
+msgstr "Sesi"

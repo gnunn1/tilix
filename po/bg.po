@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-09 13:12-0600\n"
+"POT-Creation-Date: 2016-05-10 15:29+0200\n"
 "PO-Revision-Date: 2016-05-07 20:02+0000\n"
 "Last-Translator: Ivaylo Kuzev <ivkuzev@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/terminix/"
@@ -83,6 +83,7 @@ msgstr "Реда"
 #: source/gx/terminix/profilewindow.d:167
 #: source/gx/terminix/terminal/terminal.d:648
 #: source/gx/terminix/terminal/terminal.d:652
+#: source/gx/terminix/terminal/terminal.d:649
 msgid "Reset"
 msgstr "Възстановяване"
 
@@ -397,6 +398,7 @@ msgstr "Връщане на настройките"
 #: source/gx/terminix/profilewindow.d:725 source/gx/terminix/prefwindow.d:94
 #: source/gx/terminix/prefwindow.d:167
 #: source/gx/terminix/terminal/terminal.d:662
+#: source/gx/terminix/terminal/terminal.d:659
 msgid "Encoding"
 msgstr "Кодиране"
 
@@ -606,12 +608,13 @@ msgstr ""
 #: source/gx/terminix/application.d:183 source/gx/terminix/session.d:1257
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/session.d:1264
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/session.d:1267
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 msgid "New Session"
 msgstr "Нова сесия"
 
 #: source/gx/terminix/application.d:184 source/gx/terminix/prefwindow.d:595
 #: source/gx/terminix/prefwindow.d:641 source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:646
 msgid "New Window"
 msgstr "Нов прозорец"
 
@@ -751,6 +754,7 @@ msgstr "Външен вид"
 #: source/gx/terminix/terminal/terminal.d:657
 #: source/gx/terminix/prefwindow.d:91
 #: source/gx/terminix/terminal/terminal.d:661
+#: source/gx/terminix/terminal/terminal.d:658
 msgid "Profiles"
 msgstr "Профили"
 
@@ -863,32 +867,32 @@ msgid "Dim unfocused terminals"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:562 source/gx/terminix/prefwindow.d:608
-#: source/gx/terminix/prefwindow.d:617
+#: source/gx/terminix/prefwindow.d:617 source/gx/terminix/prefwindow.d:613
 msgid "Behavior"
 msgstr "Поведение"
 
 #: source/gx/terminix/prefwindow.d:568 source/gx/terminix/prefwindow.d:614
-#: source/gx/terminix/prefwindow.d:623
+#: source/gx/terminix/prefwindow.d:623 source/gx/terminix/prefwindow.d:619
 msgid "Prompt when creating a new session"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:573 source/gx/terminix/prefwindow.d:619
-#: source/gx/terminix/prefwindow.d:628
+#: source/gx/terminix/prefwindow.d:628 source/gx/terminix/prefwindow.d:624
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Фокус на терминал когато мишката е над него"
 
 #: source/gx/terminix/prefwindow.d:578 source/gx/terminix/prefwindow.d:624
-#: source/gx/terminix/prefwindow.d:633
+#: source/gx/terminix/prefwindow.d:633 source/gx/terminix/prefwindow.d:629
 msgid "Autohide the mouse pointer when typing"
 msgstr "Автоматично скриване на показалеца на мишката когато пишете"
 
 #: source/gx/terminix/prefwindow.d:584 source/gx/terminix/prefwindow.d:630
-#: source/gx/terminix/prefwindow.d:639
+#: source/gx/terminix/prefwindow.d:639 source/gx/terminix/prefwindow.d:635
 msgid "Send desktop notification on process complete"
 msgstr "Изпратете уведомяване на десктопа когато процеса завърши"
 
 #: source/gx/terminix/prefwindow.d:592 source/gx/terminix/prefwindow.d:638
-#: source/gx/terminix/prefwindow.d:647
+#: source/gx/terminix/prefwindow.d:647 source/gx/terminix/prefwindow.d:643
 msgid "On new instance"
 msgstr "На нова инстанция"
 
@@ -897,6 +901,8 @@ msgstr "На нова инстанция"
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:672
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:669
+#: source/gx/terminix/prefwindow.d:646
 #, fuzzy
 msgid "Split Right"
 msgstr "Разделяне Надясно"
@@ -906,12 +912,14 @@ msgstr "Разделяне Надясно"
 #: source/gx/terminix/prefwindow.d:641
 #: source/gx/terminix/terminal/terminal.d:676
 #: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/terminal/terminal.d:673
+#: source/gx/terminix/prefwindow.d:646
 #, fuzzy
 msgid "Split Down"
 msgstr "Разделяне Надолу"
 
 #: source/gx/terminix/prefwindow.d:595 source/gx/terminix/prefwindow.d:641
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:646
 msgid "Focus Window"
 msgstr "Фокусирай Прозорец"
 
@@ -922,16 +930,19 @@ msgstr "Фокусирай Прозорец"
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:970
 #: source/gx/terminix/prefwindow.d:656
+#: source/gx/terminix/terminal/terminal.d:956
+#: source/gx/terminix/terminal/terminal.d:967
+#: source/gx/terminix/prefwindow.d:652
 msgid "Paste"
 msgstr "Поставяне"
 
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
-#: source/gx/terminix/prefwindow.d:662
+#: source/gx/terminix/prefwindow.d:662 source/gx/terminix/prefwindow.d:658
 msgid "Warn when attempting unsafe paste"
 msgstr ""
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
-#: source/gx/terminix/prefwindow.d:667
+#: source/gx/terminix/prefwindow.d:667 source/gx/terminix/prefwindow.d:663
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
@@ -995,6 +1006,9 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:656
 #: source/gx/terminix/terminal/terminal.d:819
 #: source/gx/terminix/prefwindow.d:339 data/resources/ui/shortcuts.ui:326
+#: source/gx/terminix/terminal/terminal.d:322
+#: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:816
 msgid "Terminal"
 msgstr "Терминал"
 
@@ -1003,6 +1017,8 @@ msgstr "Терминал"
 #: source/gx/terminix/appwindow.d:407
 #: source/gx/terminix/terminal/terminal.d:356
 #: source/gx/terminix/terminal/terminal.d:988
+#: source/gx/terminix/terminal/terminal.d:353
+#: source/gx/terminix/terminal/terminal.d:985
 msgid "Close"
 msgstr "Затваряне"
 
@@ -1012,6 +1028,9 @@ msgstr "Затваряне"
 #: source/gx/terminix/terminal/terminal.d:365
 #: source/gx/terminix/terminal/terminal.d:850
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:362
+#: source/gx/terminix/terminal/terminal.d:847
+#: source/gx/terminix/terminal/terminal.d:984
 msgid "Maximize"
 msgstr "Максимизиране"
 
@@ -1019,55 +1038,66 @@ msgstr "Максимизиране"
 #: source/gx/terminix/terminal/terminal.d:569
 #: source/gx/terminix/terminal/terminal.d:376
 #: source/gx/terminix/terminal/terminal.d:573
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:570
 msgid "Disable input synchronization for this terminal"
 msgstr "Изключване входната синхронизация за този терминал"
 
 #: source/gx/terminix/terminal/terminal.d:416
 #: source/gx/terminix/terminal/terminal.d:420
+#: source/gx/terminix/terminal/terminal.d:417
 msgid "Edit Profile"
 msgstr "Редактиране на профила"
 
 #: source/gx/terminix/terminal/terminal.d:535
 #: source/gx/terminix/appwindow.d:642
 #: source/gx/terminix/terminal/terminal.d:539
+#: source/gx/terminix/terminal/terminal.d:536
 #, fuzzy
 msgid "There are processes that are still running, close anyway?"
 msgstr "Има процеси които все още се изпълняват, затворете при всички случай?"
 
 #: source/gx/terminix/terminal/terminal.d:571
 #: source/gx/terminix/terminal/terminal.d:575
+#: source/gx/terminix/terminal/terminal.d:572
 #, fuzzy
 msgid "Enable input synchronization for this terminal"
 msgstr "Разрешаване входната синхронизация за този терминал"
 
 #: source/gx/terminix/terminal/terminal.d:634
 #: source/gx/terminix/terminal/terminal.d:638
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Save…"
 msgstr "Запазване…"
 
 #: source/gx/terminix/terminal/terminal.d:635
 #: source/gx/terminix/terminal/terminal.d:639
+#: source/gx/terminix/terminal/terminal.d:636
 msgid "Find…"
 msgstr "Търсене…"
 
 #: source/gx/terminix/terminal/terminal.d:636
 #: source/gx/terminix/terminal/terminal.d:640
+#: source/gx/terminix/terminal/terminal.d:637
 #, fuzzy
 msgid "Layout Options…"
 msgstr "Разпределение Опции…"
 
 #: source/gx/terminix/terminal/terminal.d:644
 #: source/gx/terminix/terminal/terminal.d:648
+#: source/gx/terminix/terminal/terminal.d:645
 msgid "Read-Only"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/terminal/terminal.d:653
+#: source/gx/terminix/terminal/terminal.d:650
 msgid "Reset and Clear"
 msgstr "Възстановяване и изчистване"
 
 #: source/gx/terminix/terminal/terminal.d:678
 #: source/gx/terminix/terminal/terminal.d:682
+#: source/gx/terminix/terminal/terminal.d:679
 msgid "Split"
 msgstr "Разделяне"
 
@@ -1075,16 +1105,20 @@ msgstr "Разделяне"
 #: source/gx/terminix/terminal/terminal.d:968
 #: source/gx/terminix/terminal/terminal.d:847
 #: source/gx/terminix/terminal/terminal.d:987
+#: source/gx/terminix/terminal/terminal.d:844
+#: source/gx/terminix/terminal/terminal.d:984
 msgid "Restore"
 msgstr "Възстановяване"
 
 #: source/gx/terminix/terminal/terminal.d:927
 #: source/gx/terminix/terminal/terminal.d:946
+#: source/gx/terminix/terminal/terminal.d:943
 msgid "Open Link"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:928
 #: source/gx/terminix/terminal/terminal.d:947
+#: source/gx/terminix/terminal/terminal.d:944
 msgid "Copy Link Address"
 msgstr ""
 
@@ -1092,6 +1126,8 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:946
 #: source/gx/terminix/terminal/terminal.d:958
 #: source/gx/terminix/terminal/terminal.d:965
+#: source/gx/terminix/terminal/terminal.d:955
+#: source/gx/terminix/terminal/terminal.d:962
 msgid "Copy"
 msgstr "Копиране"
 
@@ -1099,39 +1135,47 @@ msgstr "Копиране"
 #: source/gx/terminix/terminal/terminal.d:956
 #: source/gx/terminix/terminal/terminal.d:960
 #: source/gx/terminix/terminal/terminal.d:975
+#: source/gx/terminix/terminal/terminal.d:957
+#: source/gx/terminix/terminal/terminal.d:972
 msgid "Select All"
 msgstr "Избиране на всичко"
 
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:978
+#: source/gx/terminix/terminal/terminal.d:975
 #, fuzzy
 msgid "Clipboard"
 msgstr "Клипборд"
 
 #: source/gx/terminix/terminal/terminal.d:973
 #: source/gx/terminix/terminal/terminal.d:992
+#: source/gx/terminix/terminal/terminal.d:989
 #, fuzzy
 msgid "Synchronize input"
 msgstr "Синхронизация вход"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 #: source/gx/terminix/terminal/terminal.d:1429
+#: source/gx/terminix/terminal/terminal.d:1425
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1416
 #: source/gx/terminix/terminal/terminal.d:1435
+#: source/gx/terminix/terminal/terminal.d:1431
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1730
 #: source/gx/terminix/terminal/terminal.d:1749
+#: source/gx/terminix/terminal/terminal.d:1747
 msgid "Save Terminal Output"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:1736
 #: source/gx/terminix/terminal/terminal.d:1755
+#: source/gx/terminix/terminal/terminal.d:1753
 msgid "All Text Files"
 msgstr "Всички текстови Файлове"
 
@@ -1139,56 +1183,66 @@ msgstr "Всички текстови Файлове"
 #: source/gx/terminix/appwindow.d:710
 #: source/gx/terminix/terminal/terminal.d:1759
 #: source/gx/terminix/appwindow.d:725
+#: source/gx/terminix/terminal/terminal.d:1757
 msgid "All Files"
 msgstr "Всички файлове"
 
 #: source/gx/terminix/terminal/terminal.d:2055
 #: source/gx/terminix/terminal/terminal.d:2078
+#: source/gx/terminix/terminal/terminal.d:2076
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
+#: source/gx/terminix/terminal/terminal.d:2077
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
+#: source/gx/terminix/terminal/terminal.d:2078
 msgid "The child process was aborted."
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2063
 #: source/gx/terminix/terminal/terminal.d:2086
+#: source/gx/terminix/terminal/terminal.d:2084
 msgid "Relaunch"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2103
 #: source/gx/terminix/terminal/terminal.d:2126
+#: source/gx/terminix/terminal/terminal.d:2124
 #, fuzzy
 msgid "This command is asking for Administrative access to your computer"
 msgstr "Тази команда изисква права на администратор за компютъра"
 
 #: source/gx/terminix/terminal/terminal.d:2104
 #: source/gx/terminix/terminal/terminal.d:2127
+#: source/gx/terminix/terminal/terminal.d:2125
 #, fuzzy
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "Копиране на команди от интернет може да бъде опасно. "
 
 #: source/gx/terminix/terminal/terminal.d:2105
 #: source/gx/terminix/terminal/terminal.d:2128
+#: source/gx/terminix/terminal/terminal.d:2126
 #, fuzzy
 msgid "Be sure you understand what each part of this command does."
 msgstr "Бъдете сигурни че разбирате всяка част от тази команда какво прави."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
+#: source/gx/terminix/terminal/terminal.d:2128
 msgid "Don't Paste"
 msgstr ""
 
 #: source/gx/terminix/terminal/terminal.d:2108
 #: source/gx/terminix/terminal/terminal.d:2131
+#: source/gx/terminix/terminal/terminal.d:2129
 msgid "Paste Anyway"
 msgstr ""
 
@@ -1322,7 +1376,7 @@ msgstr ""
 msgid "Application"
 msgstr "Приложение"
 
-#: data/resources/ui/shortcuts.ui:15
+#: data/resources/ui/shortcuts.ui:15 data/resources/ui/shortcuts.ui:10
 msgctxt "shortcut window"
 msgid "Application"
 msgstr "Приложение"
@@ -1799,190 +1853,7 @@ msgctxt "shortcut window"
 msgid "Synchronize the input"
 msgstr "Синхронизация вход"
 
-#~ msgid "terminal"
-#~ msgstr "Терминал"
-
-#~ msgid "title"
-#~ msgstr "Заглавие"
-
-#~ msgid "app"
-#~ msgstr "Приложение"
-
-#~ msgid "new-window"
-#~ msgstr "Нов прозорец"
-
-#~ msgid "new-session"
-#~ msgstr "Нова сесия"
-
-#~ msgid "preferences"
-#~ msgstr "Настройки"
-
-#~ msgid "shortcuts"
-#~ msgstr "Клавишни комбинации"
-
-#~ msgid "session"
-#~ msgstr "Сесия"
-
-#~ msgid "synchronize-input"
-#~ msgstr "Синхронизация Вход"
-
-#~ msgid "close"
-#~ msgstr "Затваряне"
-
-#~ msgid "name"
-#~ msgstr "Име"
-
-#~ msgid "open"
-#~ msgstr "Отваряне"
-
-#~ msgid "save"
-#~ msgstr "Запазване"
-
-#~ msgid "save-as"
-#~ msgstr "Запазване като"
-
-#~ msgid "switch-to-terminal-0"
-#~ msgstr "Преминаване в терминал 10"
-
-#~ msgid "switch-to-terminal-1"
-#~ msgstr "Преминаване в терминал 1"
-
-#~ msgid "switch-to-terminal-2"
-#~ msgstr "Преминаване в терминал 2"
-
-#~ msgid "switch-to-terminal-3"
-#~ msgstr "Преминаване в терминал 3"
-
-#~ msgid "switch-to-terminal-4"
-#~ msgstr "Преминаване в терминал 4"
-
-#~ msgid "switch-to-terminal-5"
-#~ msgstr "Преминаване в терминал 5"
-
-#~ msgid "switch-to-terminal-6"
-#~ msgstr "Преминаване в терминал 6"
-
-#~ msgid "switch-to-terminal-7"
-#~ msgstr "Преминаване в терминал 7"
-
-#~ msgid "switch-to-terminal-8"
-#~ msgstr "Преминаване в терминал 8"
-
-#~ msgid "switch-to-terminal-9"
-#~ msgstr "Преминаване в терминал 9"
-
-#~ msgid "switch-to-terminal-up"
-#~ msgstr "Преминаване в горен терминал"
-
-#~ msgid "switch-to-terminal-down"
-#~ msgstr "Преминаване в долен терминал"
-
-#~ msgid "switch-to-terminal-left"
-#~ msgstr "Преминаване в ляв терминал"
-
-#~ msgid "switch-to-terminal-right"
-#~ msgstr "Преминаване в десен терминал"
-
-#~ msgid "win"
-#~ msgstr "Прозорец"
-
-#~ msgid "view-sidebar"
-#~ msgstr "Покажи страничната лента"
-
-#~ msgid "switch-to-session-0"
-#~ msgstr "Преминаване в сесия 10"
-
-#~ msgid "switch-to-session-1"
-#~ msgstr "Преминаване в сесия 1"
-
-#~ msgid "switch-to-session-2"
-#~ msgstr "Преминаване в сесия 2"
-
-#~ msgid "switch-to-session-3"
-#~ msgstr "Преминаване в сесия 3"
-
-#~ msgid "switch-to-session-4"
-#~ msgstr "Преминаване в сесия 4"
-
-#~ msgid "switch-to-session-5"
-#~ msgstr "Преминаване в сесия 5"
-
-#~ msgid "switch-to-session-6"
-#~ msgstr "Преминаване в сесия 6"
-
-#~ msgid "switch-to-session-7"
-#~ msgstr "Преминаване в сесия 7"
-
-#~ msgid "switch-to-session-8"
-#~ msgstr "Преминаване в сесия 8"
-
-#~ msgid "switch-to-session-9"
-#~ msgstr "Преминаване в сесия 9"
-
-#~ msgid "switch-to-next-session"
-#~ msgstr "Преминаване в следваща сесия"
-
-#~ msgid "switch-to-previous-session"
-#~ msgstr "Преминаване в предишна сесия"
-
-#~ msgid "fullscreen"
-#~ msgstr "На цял екран"
-
-#~ msgid "switch-to-next-terminal"
-#~ msgstr "Преминаване в следващ терминал"
-
-#~ msgid "switch-to-previous-terminal"
-#~ msgstr "Преминаване в предишен терминал"
-
-#, fuzzy
-#~ msgid "split-right"
-#~ msgstr "Разделяне надясно"
-
-#, fuzzy
-#~ msgid "split-down"
-#~ msgstr "Разделяне надолу"
-
-#~ msgid "find"
-#~ msgstr "Търсене"
-
-#~ msgid "find-next"
-#~ msgstr "Следваща поява"
-
-#~ msgid "find-previous"
-#~ msgstr "Предишна поява"
-
-#~ msgid "layout"
-#~ msgstr "Разпределение"
-
-#~ msgid "maximize"
-#~ msgstr "Максимизиране"
-
-#~ msgid "profile-preference"
-#~ msgstr "Настройки на профила"
-
-#~ msgid "read-only"
-#~ msgstr "Само за четене"
-
-#~ msgid "reset"
-#~ msgstr "Възстановяване"
-
-#~ msgid "reset-and-clear"
-#~ msgstr "Възстановяване и изчистване"
-
-#~ msgid "copy"
-#~ msgstr "Копиране"
-
-#~ msgid "paste"
-#~ msgstr "Поставяне"
-
-#~ msgid "select-all"
-#~ msgstr "Избор на всичко"
-
-#~ msgid "zoom-in"
-#~ msgstr "Увеличаване"
-
-#~ msgid "zoom-out"
-#~ msgstr "Намаляване"
-
-#~ msgid "zoom-normal"
-#~ msgstr "Нормален размер"
+#: data/resources/ui/shortcuts.ui:138
+msgctxt "shortcut window"
+msgid "Session"
+msgstr "Сесия"
