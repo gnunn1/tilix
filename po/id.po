@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-10 15:29+0200\n"
+"POT-Creation-Date: 2016-05-11 08:32+0200\n"
 "PO-Revision-Date: 2016-05-08 14:10+0000\n"
 "Last-Translator: Aan <cacaddv@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/terminix/"
@@ -636,69 +636,71 @@ msgstr "Keluar"
 msgid "Credits"
 msgstr "Kredit"
 
-#: source/gx/terminix/application.d:466
+#: source/gx/terminix/application.d:466 source/gx/terminix/application.d:479
 msgid "Set the working directory of the terminal"
 msgstr "Atur direktori kerja terminal"
 
-#: source/gx/terminix/application.d:466
+#: source/gx/terminix/application.d:466 source/gx/terminix/application.d:479
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: source/gx/terminix/application.d:467
+#: source/gx/terminix/application.d:467 source/gx/terminix/application.d:480
 msgid "Set the starting profile"
 msgstr "Atur profil awalan"
 
-#: source/gx/terminix/application.d:467
+#: source/gx/terminix/application.d:467 source/gx/terminix/application.d:480
 msgid "PROFILE_NAME"
 msgstr "NAMA_PROFIL"
 
-#: source/gx/terminix/application.d:468
+#: source/gx/terminix/application.d:468 source/gx/terminix/application.d:481
 msgid "Open the specified session"
 msgstr "Buka sesi spesifik"
 
-#: source/gx/terminix/application.d:468
+#: source/gx/terminix/application.d:468 source/gx/terminix/application.d:481
 msgid "SESSION_NAME"
 msgstr "NAMA_SESI"
 
-#: source/gx/terminix/application.d:469
+#: source/gx/terminix/application.d:469 source/gx/terminix/application.d:482
 msgid "Send an action to current Terminix instance"
 msgstr "Kirim aksi ke Terminix yang sekarang saat ini"
 
-#: source/gx/terminix/application.d:469
+#: source/gx/terminix/application.d:469 source/gx/terminix/application.d:482
 msgid "ACTION_NAME"
 msgstr "NAMA_AKSI"
 
-#: source/gx/terminix/application.d:470
+#: source/gx/terminix/application.d:470 source/gx/terminix/application.d:483
 msgid "Execute the passed command"
 msgstr "Eksekusi perintah yang terlewati"
 
-#: source/gx/terminix/application.d:470
+#: source/gx/terminix/application.d:470 source/gx/terminix/application.d:483
 msgid "EXECUTE"
 msgstr "EKSEKUSI"
 
-#: source/gx/terminix/application.d:471
+#: source/gx/terminix/application.d:471 source/gx/terminix/application.d:484
 msgid "Maximize the terminal window"
 msgstr "Maksimalkan jendela terminal"
 
-#: source/gx/terminix/application.d:472
+#: source/gx/terminix/application.d:472 source/gx/terminix/application.d:485
 msgid "Full-screen the terminal window"
 msgstr "Layar-penuh jendela terminal"
 
-#: source/gx/terminix/application.d:473
+#: source/gx/terminix/application.d:473 source/gx/terminix/application.d:486
 #, fuzzy
 msgid "Focus the existing window"
 msgstr "Layar-penuh jendela terminal"
 
 #: source/gx/terminix/application.d:476 source/gx/terminix/application.d:477
+#: source/gx/terminix/application.d:490
 msgid "Hidden argument to pass terminal UUID"
 msgstr "Sembunyikan argumentasi untuk melewati UUID terminal"
 
 #: source/gx/terminix/application.d:476 source/gx/terminix/application.d:477
+#: source/gx/terminix/application.d:490
 msgid "TERMINAL_UUID"
 msgstr "UUID_TERMINAL"
 
 #: source/gx/terminix/application.d:616 source/gx/terminix/application.d:617
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:624 source/gx/terminix/application.d:637
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -709,12 +711,12 @@ msgstr ""
 "Klik tautan dibawah untuk info selanjutnya:"
 
 #: source/gx/terminix/application.d:617 source/gx/terminix/application.d:618
-#: source/gx/terminix/application.d:625
+#: source/gx/terminix/application.d:625 source/gx/terminix/application.d:638
 msgid "Configuration Issue Detected"
 msgstr "Isu Konfigurasi Terdeteksi"
 
 #: source/gx/terminix/application.d:629 source/gx/terminix/application.d:630
-#: source/gx/terminix/application.d:637
+#: source/gx/terminix/application.d:637 source/gx/terminix/application.d:650
 msgid "Do not show this message again"
 msgstr "Jangan tampilkan pesan ini lagi"
 
@@ -923,6 +925,8 @@ msgstr "Jendela Baru"
 #: source/gx/terminix/terminal/terminal.d:956
 #: source/gx/terminix/terminal/terminal.d:967
 #: source/gx/terminix/prefwindow.d:652
+#: source/gx/terminix/terminal/terminal.d:961
+#: source/gx/terminix/terminal/terminal.d:972
 msgid "Paste"
 msgstr "Tempel"
 
@@ -945,6 +949,8 @@ msgid "OK"
 msgstr "Ok"
 
 #: source/gx/terminix/terminal/layout.d:28
+#: source/gx/terminix/terminal/terminal.d:1757
+#: source/gx/terminix/appwindow.d:765 source/gx/terminix/appwindow.d:797
 msgid "Cancel"
 msgstr "Batal"
 
@@ -1000,6 +1006,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:322
 #: source/gx/terminix/terminal/terminal.d:653
 #: source/gx/terminix/terminal/terminal.d:816
+#: source/gx/terminix/terminal/terminal.d:821
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -1010,6 +1017,7 @@ msgstr "Terminal"
 #: source/gx/terminix/terminal/terminal.d:988
 #: source/gx/terminix/terminal/terminal.d:353
 #: source/gx/terminix/terminal/terminal.d:985
+#: source/gx/terminix/terminal/terminal.d:990
 msgid "Close"
 msgstr "Tutup"
 
@@ -1022,6 +1030,8 @@ msgstr "Tutup"
 #: source/gx/terminix/terminal/terminal.d:362
 #: source/gx/terminix/terminal/terminal.d:847
 #: source/gx/terminix/terminal/terminal.d:984
+#: source/gx/terminix/terminal/terminal.d:852
+#: source/gx/terminix/terminal/terminal.d:989
 msgid "Maximize"
 msgstr "Maksimalkan"
 
@@ -1095,18 +1105,22 @@ msgstr "Pisah"
 #: source/gx/terminix/terminal/terminal.d:987
 #: source/gx/terminix/terminal/terminal.d:844
 #: source/gx/terminix/terminal/terminal.d:984
+#: source/gx/terminix/terminal/terminal.d:849
+#: source/gx/terminix/terminal/terminal.d:989
 msgid "Restore"
 msgstr "Pulihkan"
 
 #: source/gx/terminix/terminal/terminal.d:927
 #: source/gx/terminix/terminal/terminal.d:946
 #: source/gx/terminix/terminal/terminal.d:943
+#: source/gx/terminix/terminal/terminal.d:948
 msgid "Open Link"
 msgstr "Buka Tautan"
 
 #: source/gx/terminix/terminal/terminal.d:928
 #: source/gx/terminix/terminal/terminal.d:947
 #: source/gx/terminix/terminal/terminal.d:944
+#: source/gx/terminix/terminal/terminal.d:949
 msgid "Copy Link Address"
 msgstr "Salin Alamat Tautan"
 
@@ -1116,6 +1130,8 @@ msgstr "Salin Alamat Tautan"
 #: source/gx/terminix/terminal/terminal.d:965
 #: source/gx/terminix/terminal/terminal.d:955
 #: source/gx/terminix/terminal/terminal.d:962
+#: source/gx/terminix/terminal/terminal.d:960
+#: source/gx/terminix/terminal/terminal.d:967
 msgid "Copy"
 msgstr "Salin"
 
@@ -1125,30 +1141,36 @@ msgstr "Salin"
 #: source/gx/terminix/terminal/terminal.d:975
 #: source/gx/terminix/terminal/terminal.d:957
 #: source/gx/terminix/terminal/terminal.d:972
+#: source/gx/terminix/terminal/terminal.d:962
+#: source/gx/terminix/terminal/terminal.d:977
 msgid "Select All"
 msgstr "Pilih Semua"
 
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:978
 #: source/gx/terminix/terminal/terminal.d:975
+#: source/gx/terminix/terminal/terminal.d:980
 msgid "Clipboard"
 msgstr "Papan Klip"
 
 #: source/gx/terminix/terminal/terminal.d:973
 #: source/gx/terminix/terminal/terminal.d:992
 #: source/gx/terminix/terminal/terminal.d:989
+#: source/gx/terminix/terminal/terminal.d:994
 msgid "Synchronize input"
 msgstr "Sinkronisasi masukan"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 #: source/gx/terminix/terminal/terminal.d:1429
 #: source/gx/terminix/terminal/terminal.d:1425
+#: source/gx/terminix/terminal/terminal.d:1431
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
 
 #: source/gx/terminix/terminal/terminal.d:1416
 #: source/gx/terminix/terminal/terminal.d:1435
 #: source/gx/terminix/terminal/terminal.d:1431
+#: source/gx/terminix/terminal/terminal.d:1437
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Terjadi galat tak terduga: %s"
@@ -1156,12 +1178,14 @@ msgstr "Terjadi galat tak terduga: %s"
 #: source/gx/terminix/terminal/terminal.d:1730
 #: source/gx/terminix/terminal/terminal.d:1749
 #: source/gx/terminix/terminal/terminal.d:1747
+#: source/gx/terminix/terminal/terminal.d:1754
 msgid "Save Terminal Output"
 msgstr "Simpan Keluaran Terminal"
 
 #: source/gx/terminix/terminal/terminal.d:1736
 #: source/gx/terminix/terminal/terminal.d:1755
 #: source/gx/terminix/terminal/terminal.d:1753
+#: source/gx/terminix/terminal/terminal.d:1763
 msgid "All Text Files"
 msgstr "Semua Berkas Teks"
 
@@ -1170,12 +1194,14 @@ msgstr "Semua Berkas Teks"
 #: source/gx/terminix/terminal/terminal.d:1759
 #: source/gx/terminix/appwindow.d:725
 #: source/gx/terminix/terminal/terminal.d:1757
+#: source/gx/terminix/terminal/terminal.d:1767
 msgid "All Files"
 msgstr "Semua Berkas"
 
 #: source/gx/terminix/terminal/terminal.d:2055
 #: source/gx/terminix/terminal/terminal.d:2078
 #: source/gx/terminix/terminal/terminal.d:2076
+#: source/gx/terminix/terminal/terminal.d:2086
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Proses anak keluar secara normal dengan status %d"
@@ -1183,6 +1209,7 @@ msgstr "Proses anak keluar secara normal dengan status %d"
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
 #: source/gx/terminix/terminal/terminal.d:2077
+#: source/gx/terminix/terminal/terminal.d:2087
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Proses anak dibatalkan dengan sinyal %d."
@@ -1190,42 +1217,49 @@ msgstr "Proses anak dibatalkan dengan sinyal %d."
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
 #: source/gx/terminix/terminal/terminal.d:2078
+#: source/gx/terminix/terminal/terminal.d:2088
 msgid "The child process was aborted."
 msgstr "Proses anak telah dibatalkan."
 
 #: source/gx/terminix/terminal/terminal.d:2063
 #: source/gx/terminix/terminal/terminal.d:2086
 #: source/gx/terminix/terminal/terminal.d:2084
+#: source/gx/terminix/terminal/terminal.d:2094
 msgid "Relaunch"
 msgstr "Jalankan ulang"
 
 #: source/gx/terminix/terminal/terminal.d:2103
 #: source/gx/terminix/terminal/terminal.d:2126
 #: source/gx/terminix/terminal/terminal.d:2124
+#: source/gx/terminix/terminal/terminal.d:2134
 msgid "This command is asking for Administrative access to your computer"
 msgstr "Perintah ini meminta akses Administrasi ke komputer kamu"
 
 #: source/gx/terminix/terminal/terminal.d:2104
 #: source/gx/terminix/terminal/terminal.d:2127
 #: source/gx/terminix/terminal/terminal.d:2125
+#: source/gx/terminix/terminal/terminal.d:2135
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
 
 #: source/gx/terminix/terminal/terminal.d:2105
 #: source/gx/terminix/terminal/terminal.d:2128
 #: source/gx/terminix/terminal/terminal.d:2126
+#: source/gx/terminix/terminal/terminal.d:2136
 msgid "Be sure you understand what each part of this command does."
 msgstr "Pastikan anda mengerti apa yang dilakukan setiap bagian perintah ini."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
 #: source/gx/terminix/terminal/terminal.d:2128
+#: source/gx/terminix/terminal/terminal.d:2138
 msgid "Don't Paste"
 msgstr "Jangan Tempel"
 
 #: source/gx/terminix/terminal/terminal.d:2108
 #: source/gx/terminix/terminal/terminal.d:2131
 #: source/gx/terminix/terminal/terminal.d:2129
+#: source/gx/terminix/terminal/terminal.d:2139
 msgid "Paste Anyway"
 msgstr "Tempel Saja"
 
@@ -1266,6 +1300,8 @@ msgid "Open…"
 msgstr "Buka…"
 
 #: source/gx/terminix/appwindow.d:405
+#: source/gx/terminix/terminal/terminal.d:1757
+#: source/gx/terminix/appwindow.d:797
 msgid "Save"
 msgstr "Simpan"
 
@@ -1295,25 +1331,29 @@ msgid "Filename '%s' does not exist"
 msgstr "Nama Berkas '%s' tidak ada"
 
 #: source/gx/terminix/appwindow.d:746 source/gx/terminix/appwindow.d:761
+#: source/gx/terminix/appwindow.d:762
 msgid "Load Session"
 msgstr "Muat Sesi"
 
 #: source/gx/terminix/appwindow.d:759 source/gx/terminix/appwindow.d:774
+#: source/gx/terminix/appwindow.d:778
 msgid "Could not load session due to unexpected error."
 msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
 
 #: source/gx/terminix/appwindow.d:759 source/gx/terminix/appwindow.d:774
+#: source/gx/terminix/appwindow.d:778
 msgid "Error Loading Session"
 msgstr "Galat Memuat Sesi"
 
 #: source/gx/terminix/appwindow.d:774 source/gx/terminix/appwindow.d:789
+#: source/gx/terminix/appwindow.d:794
 msgid "Save Session"
 msgstr "Simpan Sesi"
 
 #: source/gx/terminix/appwindow.d:809
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:7
-#: source/gx/terminix/appwindow.d:824
+#: source/gx/terminix/appwindow.d:824 source/gx/terminix/appwindow.d:832
 msgid "Terminix"
 msgstr "Terminix"
 
@@ -1326,11 +1366,11 @@ msgstr ""
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:66 source/app.d:92 source/app.d:96
+#: source/app.d:66 source/app.d:92 source/app.d:96 source/app.d:93
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:67 source/app.d:93 source/app.d:97
+#: source/app.d:67 source/app.d:93 source/app.d:97 source/app.d:94
 msgid "Error: "
 msgstr ""
 
@@ -1788,12 +1828,12 @@ msgstr ""
 msgid "Terminix has been tested with GNOME and with Unity."
 msgstr ""
 
-#: source/gx/terminix/application.d:474
+#: source/gx/terminix/application.d:474 source/gx/terminix/application.d:487
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
 
-#: source/gx/terminix/application.d:474
+#: source/gx/terminix/application.d:474 source/gx/terminix/application.d:487
 msgid "GEOMETRY"
 msgstr ""
 
@@ -1819,3 +1859,13 @@ msgstr "Sinkronisasi masukan"
 msgctxt "shortcut window"
 msgid "Session"
 msgstr "Sesi"
+
+#: source/gx/terminix/terminal/terminal.d:635
+#, fuzzy
+msgid "Save Output…"
+msgstr "Simpan Sebagai…"
+
+#: source/gx/terminix/appwindow.d:765
+#, fuzzy
+msgid "Open"
+msgstr "Buka…"
