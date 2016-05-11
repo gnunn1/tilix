@@ -632,7 +632,7 @@ private:
      */
     void createPopoverMenuItems(GMenu model) {
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Save…"), ACTION_SAVE);
+        menuSection.append(_("Save Output…"), ACTION_SAVE);
         menuSection.append(_("Find…"), ACTION_FIND);
         menuSection.append(_("Layout Options…"), ACTION_LAYOUT);
         model.appendSection(null, menuSection);
