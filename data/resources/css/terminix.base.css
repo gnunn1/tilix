@@ -82,7 +82,12 @@
     margin: 0px;
 }
 
-/* Add background to pane-separator */
+/* Add background color to pane-separator to fix transparency in some themes like Adapta */
 .pane-separator {
     background-color: @theme_bg_color;
+}
+
+/* Add background color to pane-separator to fix transparency in some themes like Adapta for 3.20 */
+paned > separator {
+	background-color: @theme_bg_color;
 }
