@@ -27,10 +27,6 @@ immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
 // when debugging launchers or other spots where
 // stdout isn't easily viewed
 immutable bool USE_FILE_LOGGING = false;
-// Draw backgrounds manually instead of using CSS to set backgrounds
-// colors of non-transparent widgets. Works really well 0n 3.20
-// but popovers draw artifacts pre 3.20 so stick with CSS.
-immutable bool MANUAL_BACKGROUND_DRAW = false; 
 
 /**************************************
  * Application Constants

@@ -1,15 +1,10 @@
-/** Ambiance specific CSS to fix Ubuntu problems so the rest of us can have nice things **/
+/** Radiance specific CSS to fix Ubuntu problems so the rest of us can have nice things **/
 
 /* Fix Ubuntu Popover label borders, see #217 */
 GtkBox > .label.separator {
     border: 0px;
     color: @theme_fg_color;
     opacity: 0.4;
-}
-
-/* Add background to pane-separator */
-.pane-separator {
-    background-color: @theme_bg_color;
 }
 
 /* Attempt to improve scrollbars */

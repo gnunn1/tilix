@@ -143,9 +143,6 @@ private:
         bSearch.add(bButtons);
 
         Frame frame = new Frame(bSearch, null);
-        static if (!MANUAL_BACKGROUND_DRAW) {
-            frame.getStyleContext().addClass("terminix-background");
-        }
         add(frame);
     }
 

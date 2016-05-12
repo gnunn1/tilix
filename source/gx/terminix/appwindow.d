@@ -678,21 +678,6 @@ private:
         }
     }
     
-    static if (MANUAL_BACKGROUND_DRAW) {
-        bool onWindowDraw(Scoped!Context cr, Widget w) {
-            // Only works for GTK 3.20, default is to use CSS classes to give widgets
-            // backgrounds, see issue #303
-            if (getAppPaintable) {
-                if (cast(Popover)getFocus() !is null) return false;
-                Widget child = getChild();
-                GdkRectangle rect;
-                child.getAllocation(rect);
-                StyleContext.renderBackground(getStyleContext(), cr, rect.x, rect.y, rect.width, rect.height);
-            } 
-            return false;
-        }
-    }
-
     void onCompositedChanged(Widget) {
         trace("Composite changed");
         updateVisual();
@@ -839,9 +824,6 @@ public:
 
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
-        static if (MANUAL_BACKGROUND_DRAW) {
-            addOnDraw(&onWindowDraw);
-        }
         addOnRealize(delegate (Widget) {
             if (terminix.getGlobalOverrides().x > 0) {
                 move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);

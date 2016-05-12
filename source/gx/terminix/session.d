@@ -46,6 +46,7 @@ import gx.util.array;
 
 import gx.terminix.application;
 import gx.terminix.common;
+import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.terminal.terminal;
 
@@ -868,6 +869,7 @@ private:
                 updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
             }
         });
+        getStyleContext.addClass("terminix-background");
     }
 
     void updateWideHandle(bool value) {
