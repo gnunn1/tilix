@@ -794,13 +794,18 @@ private:
                 // Paint Transparent
                 cr.setSourceRgba(0, 0, 0, 0);
                 cr.setOperator(cairo_operator_t.SOURCE);
+
+                // Switched to just painting the scrollbar area, that 1 pixel clip that was required was giving
+                // me the twitches
+                int x, y;
+                sb.translateCoordinates(w, 0, 0, x, y);
+                cr.rectangle(to!double(x), to!double(y), to!double(x + sb.getAllocatedWidth()), to!double(y + sb.getAllocatedHeight()));
+
+                // Original implementation that painted whole box transparent
                 // Fix problem with VTE not painting top line by clipping one pixel lower
                 // otherwise you get a one pixel transparent line :(
-                // Not sure if there would be an issue with this on hidpi or not, if issues
-                // consider moving this paint code to just the scrollbar. I decided to paint
-                // everything so it's seamless but painting the scrollbar only transparent is
-                // a valid option considering VTE already paints transparently. 
-                cr.rectangle(0.0, 1.0, to!double(w.getAllocatedWidth()), to!double(w.getAllocatedHeight()));
+                //cr.rectangle(0.0, 1.0, to!double(w.getAllocatedWidth()), to!double(w.getAllocatedHeight()));
+
                 cr.clip();
                 cr.paint();
                 cr.restore();
