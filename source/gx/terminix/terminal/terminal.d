@@ -796,6 +796,10 @@ private:
                 cr.setOperator(cairo_operator_t.SOURCE);
                 // Fix problem with VTE not painting top line by clipping one pixel lower
                 // otherwise you get a one pixel transparent line :(
+                // Not sure if there would be an issue with this on hidpi or not, if issues
+                // consider moving this paint code to just the scrollbar. I decided to paint
+                // everything so it's seamless but painting the scrollbar only transparent is
+                // a valid option considering VTE already paints transparently. 
                 cr.rectangle(0.0, 1.0, to!double(w.getAllocatedWidth()), to!double(w.getAllocatedHeight()));
                 cr.clip();
                 cr.paint();
