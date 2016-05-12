@@ -192,6 +192,8 @@ enum TERMINAL_TITLE = "${title}";
 enum TERMINAL_ICON_TITLE = "${iconTitle}";
 enum TERMINAL_ID = "${id}";
 enum TERMINAL_DIR = "${directory}";
+enum TERMINAL_COLUMNS = "${columns}";
+enum TERMINAL_ROWS = "${rows}";
 
 /**
  * This class is a composite widget that consists of the VTE Terminal
@@ -728,6 +730,9 @@ private:
                 terminix.warnVTEConfigIssue();
             }
         });
+        vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
+            updateTitle();
+        }, GConnectFlags.AFTER);
         vte.addOnEnterNotify(delegate(Event event, Widget) {
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
                 vte.grabFocus();
@@ -822,6 +827,8 @@ private:
         title = title.replace(TERMINAL_TITLE, windowTitle);
         title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
         title = title.replace(TERMINAL_ID, to!string(terminalID));
+        title = title.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
         string path;
         if (terminalInitialized) {
             path = currentDirectory;
