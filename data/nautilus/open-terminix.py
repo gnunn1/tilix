@@ -2,8 +2,8 @@
 
 # This example is contributed by Martin Enlund
 # Example modified for Terminix
-from os import system
-urllib import unquote
+from subprocess import PIPE, Popen, call
+from urllib import unquote
 
 import gettext
 gettext.textdomain("terminix")
@@ -23,7 +23,8 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         terminal = "terminix"
 
         #print "Opening file:", filename
-        system('%s -w "%s" &' % (terminal, filename))
+        p = Popen([terminal, " -w ", filname, " &"], stdout=PIPE, stderr=PIPE)
+        output, error = p.communicate()
 
     def menu_activate_cb(self, menu, file):
         self._open_terminal(file)
