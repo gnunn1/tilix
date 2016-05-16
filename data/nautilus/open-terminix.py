@@ -22,8 +22,7 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         filename = unquote(gfile.get_path());
         terminal = "terminix"
 
-        #print "Opening file:", filename
-        p = Popen([terminal, " -w ", filname, " &"], stdout=PIPE, stderr=PIPE)
+        p = Popen([terminal, ' -w "', filname, '" &'], stdout=PIPE, stderr=PIPE)
         output, error = p.communicate()
 
     def menu_activate_cb(self, menu, file):
