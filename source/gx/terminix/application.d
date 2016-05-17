@@ -464,6 +464,7 @@ private:
         if (appWindow !is null) return appWindow;
         
         ListG list = getWindows();
+        if (list is null) return null;
         Window[] windows = list.toArray!(Window)();
         foreach(window; windows) {
             appWindow = cast(AppWindow) window;
