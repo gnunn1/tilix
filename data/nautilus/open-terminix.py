@@ -39,9 +39,14 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         if not file.is_directory() or file.get_uri_scheme() != 'file':
             return
 
+        gfile = Gio.File.new_for_uri(file.get_uri())
+        info = gfile.query_info("standard::*", Gio.FileQueryInfoFlags.NONE, None)
+        # Get UTF-8 version of basename
+        filename = info.get_attribute_as_string("standard::name")
+
         item = Nautilus.MenuItem(name='NautilusPython::openterminal_file_item',
                                  label=_(u'Open in Terminix…'),
-                                 tip=_(u'Open Terminix In %s') % file.get_name())
+                                 tip=_(u'Open Terminix In %s') % filename)
         item.connect('activate', self.menu_activate_cb, file)
         return item,
 
