@@ -2,13 +2,8 @@
 
 # This example is contributed by Martin Enlund
 # Example modified for Terminix
-<<<<<<< HEAD
-from subprocess import PIPE, Popen, call
-from urllib import unquote
-=======
 import os
 import urllib
->>>>>>> parent of 41c52ff... Fix #325
 
 import gettext
 gettext.textdomain("terminix")
