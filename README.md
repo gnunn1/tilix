@@ -53,6 +53,8 @@ dub build --build=release
 
 The application depends on various resources to function correctly, run sudo ./install.sh to build and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
 
+Note there is also experimental support for autotools, please see the wiki page on [autotools](https://github.com/gnunn1/terminix/wiki/Building-with-Autotools) for more information.
+
 #### Build Dependencies
 
 Terminix depends on the following libraries as defined in dub.json:
