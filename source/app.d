@@ -30,9 +30,11 @@ int main(string[] args) {
     
     string cwd = Util.getCurrentDir();
     string pwd;
+    string de;
     trace("CWD = " ~ cwd);
     try {
         pwd = environment["PWD"];
+        de = environment["XDG_CURRENT_DESKTOP"];
         trace("PWD = " ~ pwd);
     } catch (Exception e) {
         trace("No PWD environment variable found");
@@ -42,9 +44,9 @@ int main(string[] args) {
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));
         // Workaround issue with Unity DBusActivatable where sometimes CWD is set to /, see #285
-        if (arg == "--gapplication-service") {
+        if (arg == "--gapplication-service" && de == "Unity" && cwd == "/") {
             if (pwd.length > 0 && pwd != cwd) {
-                info("Detecting DBusActivatable with improper directory, correcting by setting CWD to PWD");
+                info("Detecting DBusActivatable with improper directory in Unity, correcting by setting CWD to PWD");
                 info(format("CWD = %s", cwd));                
                 info(format("PWD = %s", pwd));                
                 cwd = pwd;
