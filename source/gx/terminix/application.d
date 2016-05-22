@@ -5,12 +5,15 @@
 module gx.terminix.application;
 
 import std.experimental.logger;
+import std.file;
 import std.format;
 import std.path;
 import std.process;
 import std.variant;
 
 import gdk.Screen;
+
+import gdkpixbuf.Pixbuf;
 
 import gio.ActionGroupIF;
 import gio.ActionMapIF;
@@ -21,6 +24,7 @@ import gio.MenuModel;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 
+import glib.GException;
 import glib.ListG;
 import glib.Str;
 import glib.Variant : GVariant = Variant;
@@ -107,6 +111,9 @@ private:
     AppWindow[] appWindows;
     ProfileWindow[] profileWindows;
     PreferenceWindow preferenceWindow;
+    
+    //Background Image for terminals, store it here as singleton instance
+    Pixbuf pbBGImage;
 
     bool warnedVTEConfigIssue = false;
     
@@ -271,6 +278,20 @@ private:
         if (preferenceWindow !is null)
             preferenceWindow.close();
     }
+    
+    void loadBackgroundImage() {
+        string filename = gsGeneral.getString(SETTINGS_BACKGROUND_IMAGE_KEY);
+        try {
+            if (exists(filename)) {
+                pbBGImage = new Pixbuf(filename);
+            } else {
+                pbBGImage = null;
+            }
+        } catch (GException ge) {
+            error(format("Could not load image '%s'", filename));
+            pbBGImage = null;
+        }
+    }
 
     int onCommandLine(ApplicationCommandLine acl, GApplication) {
         trace("App processing command line");
@@ -394,7 +415,9 @@ private:
             }
         });
         gsGeneral = new GSettings(SETTINGS_ID);
-        gsGeneral.addOnChanged(delegate(string, Settings) { applyPreferences(); });
+        gsGeneral.addOnChanged(delegate(string key, Settings) { 
+            applyPreference(key); 
+        });
 
         initProfileManager();
         applyPreferences();
@@ -405,31 +428,53 @@ private:
         trace("Quit App Signal");
         terminix = null;
     }
+    
+    void applyPreferences() {
+        foreach(key; [SETTINGS_THEME_VARIANT_KEY,SETTINGS_MENU_ACCELERATOR_KEY,SETTINGS_BACKGROUND_IMAGE_KEY]) {
+            applyPreference(key);
+        }
+    }
 
-    void applyPreferences() {        
-        string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
-        if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
-            Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
-        } else {
-            /*
-             * Resetting the theme variant to "Default" depends on new 
-             * gtk_settings_reset_property API in Gnome 3.20. Once
-             * GtkD is updated to include this it will be added here.
-             */ 
-            if (Version.checkVersion(3, 19, 0).length == 0) {
-                Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
-            }
-        }
-        if (defaultMenuAccel is null) {
-            defaultMenuAccel = new Value("F10");
-            Settings.getDefault().getProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
-            trace("Default menu accelerator is " ~ defaultMenuAccel.getString());
-        }
-        if (!gsGeneral.getBoolean(SETTINGS_MENU_ACCELERATOR_KEY)) {
-            Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, new Value(""));
-        } else {
-            Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
-        }
+    void applyPreference(string key) {
+        switch (key) {
+            case SETTINGS_THEME_VARIANT_KEY:
+                string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
+                if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
+                    Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
+                } else {
+                    /*
+                    * Resetting the theme variant to "Default" depends on new 
+                    * gtk_settings_reset_property API in Gnome 3.20. Once
+                    * GtkD is updated to include this it will be added here.
+                    */ 
+                    if (Version.checkVersion(3, 19, 0).length == 0) {
+                        Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
+                    }
+                }
+                break;
+            case SETTINGS_MENU_ACCELERATOR_KEY:
+                if (defaultMenuAccel is null) {
+                    defaultMenuAccel = new Value("F10");
+                    Settings.getDefault().getProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
+                    trace("Default menu accelerator is " ~ defaultMenuAccel.getString());
+                }
+                if (!gsGeneral.getBoolean(SETTINGS_MENU_ACCELERATOR_KEY)) {
+                    Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, new Value(""));
+                } else {
+                    Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
+                }
+                break;
+            case SETTINGS_BACKGROUND_IMAGE_KEY, SETTINGS_BACKGROUND_IMAGE_MODE_KEY:
+                if (key == SETTINGS_BACKGROUND_IMAGE_KEY) {
+                    loadBackgroundImage();
+                }
+                foreach(window; appWindows) {
+                    window.queueDraw();
+                }
+                break;
+            default:
+                break;
+        }        
     }
 
     void executeAction(string terminalUUID, string action) {
@@ -625,6 +670,10 @@ public:
      */
     CommandParameters getGlobalOverrides() {
         return cp;
+    }
+    
+    Pixbuf getBackgroundImage() {
+        return pbBGImage;
     }
 
     /**

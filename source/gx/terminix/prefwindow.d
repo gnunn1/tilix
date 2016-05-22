@@ -7,6 +7,7 @@ module gx.terminix.prefwindow;
 import std.algorithm;
 import std.conv;
 import std.experimental.logger;
+import std.file;
 import std.format;
 import std.variant;
 
@@ -27,6 +28,8 @@ import gtk.CellRendererText;
 import gtk.CellRendererToggle;
 import gtk.CheckButton;
 import gtk.ComboBox;
+import gtk.FileChooserButton;
+import gtk.FileFilter;
 import gtk.Grid;
 import gtk.HeaderBar;
 import gtk.Image;
@@ -568,18 +571,67 @@ class AppearancePreferences: Box {
             Grid grid = new Grid();
             grid.setColumnSpacing(12);
             grid.setRowSpacing(6);
+            int row = 0;
 
             //Render terminal titlebars smaller then default
-            grid.attach(createLabel(_("Terminal title style")), 0, 0, 1, 1);
+            grid.attach(createLabel(_("Terminal title style")), 0, row, 1, 1);
             ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
             gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
-            grid.attach(cbTitleStyle, 1, 0, 1, 1);
+            grid.attach(cbTitleStyle, 1, row, 1, 1);
+            row++;
             
             //Dark Theme
-            grid.attach(createLabel(_("Theme variant")), 0, 1, 1, 1);
+            grid.attach(createLabel(_("Theme variant")), 0, row, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
             gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
-            grid.attach(cbThemeVariant, 1, 1, 1, 1);
+            grid.attach(cbThemeVariant, 1, row, 1, 1);
+            row++;
+
+            //Background Image
+            grid.attach(createLabel(_("Background image")), 0, row, 1, 1);
+            
+            FileChooserButton fcbImage = new FileChooserButton(_("Select Image"), FileChooserAction.OPEN);
+            FileFilter ff = new FileFilter();
+            ff.setName(_("All Image Files"));
+            ff.addMimeType("image/jpeg");
+            ff.addMimeType("image/png");
+            ff.addMimeType("image/bmp");
+            fcbImage.addFilter(ff);
+            ff = new FileFilter();
+            ff.addPattern("*");
+            ff.setName(_("All Files"));
+            fcbImage.addFilter(ff);
+            string filename = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_KEY);
+            if (exists(filename)) {
+                fcbImage.setFilename(filename);
+            }
+            fcbImage.addOnFileSet(delegate(FileChooserButton fcb) {
+               string selectedFilename = fcb.getFilename();
+               if (exists(selectedFilename)) {
+                   gsSettings.setString(SETTINGS_BACKGROUND_IMAGE_KEY, selectedFilename);
+               } 
+            });
+            
+            Button btnReset = new Button("edit-delete-symbolic", IconSize.BUTTON);
+            btnReset.setTooltipText(_("Reset background image"));
+            btnReset.addOnClicked(delegate(Button) {
+                fcbImage.unselectAll();
+                gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);        
+            });
+            
+            ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
+            gsSettings.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
+            
+            Box bChooser = new Box(Orientation.HORIZONTAL, 2);
+            bChooser.add(fcbImage);
+            bChooser.add(btnReset);
+            
+            Box bImage = new Box(Orientation.HORIZONTAL, 6);
+            bImage.add(bChooser);
+            bImage.add(cbImageMode);
+            
+            grid.attach(bImage, 1, row, 1, 1);
+            row++;
 
             add(grid);
             
@@ -588,6 +640,8 @@ class AppearancePreferences: Box {
                 gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
                 add(cbWideHandle);
             }
+            
+            
         }
         
     public:
