@@ -40,18 +40,19 @@ int main(string[] args) {
         trace("No PWD environment variable found");
     }
     
+    string uhd = Util.getHomeDir();
+    trace("UHD = " ~ uhd);
+    
     trace(format("Starting terminix with %d arguments...", args.length));
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));
-        // Workaround issue with Unity DBusActivatable where sometimes CWD is set to /, see #285
-        if (arg == "--gapplication-service" && de == "Unity" && cwd == "/") {
-            if (pwd.length > 0 && pwd != cwd) {
-                info("Detecting DBusActivatable with improper directory in Unity, correcting by setting CWD to PWD");
-                info(format("CWD = %s", cwd));                
-                info(format("PWD = %s", pwd));                
-                cwd = pwd;
-                FileUtils.chdir(cwd);
-            }
+        // Workaround issue with Unity and older Gnome Shell when DBusActivatable sometimes CWD is set to /, see #285
+        if (arg == "--gapplication-service" && pwd == uhd && cwd == "/") {
+            info("Detecting DBusActivatable with improper directory, correcting by setting CWD to PWD");
+            info(format("CWD = %s", cwd));                
+            info(format("PWD = %s", pwd));                
+            cwd = pwd;
+            FileUtils.chdir(cwd);
         }
     }
     //append TERMINIX_ID to args if present
