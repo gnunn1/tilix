@@ -11,7 +11,13 @@ import std.format;
 import std.json;
 import std.uuid;
 
+import cairo.Context;
+import cairo.ImageSurface;
+
+import gdkpixbuf.Pixbuf;
+
 import gdk.Atom;
+import gdk.Cairo;
 import gdk.Event;
 
 import gio.Settings : GSettings = Settings;
@@ -142,12 +148,12 @@ private:
 
     void createBaseUI() {
         stackGroup = new Box(Orientation.VERTICAL, 0);
+        stackGroup.getStyleContext().addClass("terminix-background");
         addNamed(stackGroup, STACK_GROUP_NAME);
         stackMaximized = new Box(Orientation.VERTICAL, 0);
+        stackMaximized.getStyleContext().addClass("terminix-background");
         addNamed(stackMaximized, STACK_MAX_NAME);
         groupChild = new Box(Orientation.VERTICAL, 0);
-        // Fix transparency bugs on ubuntu and rawhide where background-color 
-        // for widgets don't seem to take
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
@@ -860,8 +866,9 @@ private:
         addTerminal(terminal);
         createUI(terminal);
     }
-
+    
     void initSession() {
+
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
             if (key == SETTINGS_ENABLE_WIDE_HANDLE_KEY) {
@@ -870,7 +877,68 @@ private:
             }
         });
         getStyleContext.addClass("terminix-background");
+
+        addOnDraw(&onDraw);
     }
+    
+    bool onDraw(Scoped!Context cr, Widget w) {
+        
+        Pixbuf pbBGImage = terminix.getBackgroundImage();
+        if (pbBGImage !is null) {
+            Container child = cast(Container) this.getVisibleChild();
+            int width = child.getAllocatedWidth();
+            int height = child.getAllocatedHeight();
+            
+            string mode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
+            final switch (mode) {
+                //Scale
+                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[0]:
+                    double xScale = to!double(width) / to!double(pbBGImage.getWidth());
+                    double yScale = to!double(height) / to!double(pbBGImage.getHeight());
+                    cr.save();
+                    cr.scale(xScale, yScale);
+                    setSourcePixbuf(cr, pbBGImage, 0, 0);
+                    cr.paint();
+                    cr.restore();
+                    break;
+                //Tile
+                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[1]:
+                    for (double y = 0; y <= height; y = y + pbBGImage.getHeight()) {
+                        for (double x = 0; x <= width; x = x + pbBGImage.getWidth()) {
+                            cr.save();
+                            cr.translate(x,y);
+                            setSourcePixbuf(cr, pbBGImage, 0, 0);
+                            cr.paint();
+                            cr.restore();
+                        }
+                    }
+                    break;
+                //Center
+                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[2]:
+                    double x = (width - pbBGImage.getWidth())/2;
+                    double y = (height - pbBGImage.getHeight())/2;
+                    cr.save();
+                    cr.rectangle(0, 0, width, height);
+                    cr.clip();
+                    cr.translate(x,y);
+                    setSourcePixbuf(cr, pbBGImage, 0, 0);
+                    cr.paint();
+                    cr.restore();
+                    break;
+                
+            }
+                    
+            //Draw child onto temporary image so it doesn't overdraw background
+            ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, width, height);
+            Context crChild = Context.create(isChildSurface);
+            propagateDraw(child, crChild);
+            cr.setSourceSurface(isChildSurface, 0, 0);
+            cr.paint();
+            return true;
+        } else {
+            return false;
+        }        
+    }    
 
     void updateWideHandle(bool value) {
         Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);

@@ -27,10 +27,18 @@
 -->
 <schemalist gettext-domain="Terminix">
 
+   <!-- Theme variants -->
    <enum id='com.gexperts.Terminix.ThemeVariant'>
     <value nick='system' value='0'/>
     <value nick='light'  value='1'/>
     <value nick='dark'   value='2'/>
+  </enum>
+  
+  <!-- Background Image Options -->
+  <enum id='com.gexperts.Terminix.Background.Image.Mode'>
+    <value nick='scale' value='0'/>
+    <value nick='tile' value='1'/>
+    <value nick='center' value='2'/>
   </enum>
   
   <!-- Second Instance Options -->
@@ -192,6 +200,17 @@
       <summary>Whether the focus follows the mouse</summary>
       <description>If true, a terminal will automatically be focused when the mouse moves over it.</description>
     </key>
+    <!-- Background Image -->
+    <key name="background-image" type="s">
+      <default>''</default>
+      <summary>Path of the background image</summary>
+      <description>The path of the image to use for the background, requires transparency support</description>
+    </key>
+    <key name="background-image-mode" enum="com.gexperts.Terminix.Background.Image.Mode">
+      <default>'scale'</default>
+      <summary>The mode to use when rendering the background image</summary>
+      <description>Whether the background image is rendered scaled, tiled or centered in Terminix</description>
+    </key>   
   </schema>
 
   <!-- SettingsList base schema -->
