@@ -301,24 +301,20 @@ private:
             acl.destroy();
         }
         cp = CommandParameters(acl);
-        if (cp.exitCode == 0) {
-            if (cp.action.length > 0) {
-                trace("Executing action  " ~ cp.action);
-                string terminalUUID = cp.terminalUUID;
-                if (terminalUUID.length == 0) {
-                    AppWindow window = getActiveAppWindow();
-                    if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
-                }
-                //If workingDir is not set, override it with cwd so that it takes priority for
-                //executing actions below
-                if (cp.workingDir.length == 0) {
-                    cp.workingDir = cp.cwd;
-                }
-                executeAction(terminalUUID, cp.action);
-                return cp.exitCode;
+        if (cp.exitCode == 0 && cp.action.length > 0) {
+            trace("Executing action  " ~ cp.action);
+            string terminalUUID = cp.terminalUUID;
+            if (terminalUUID.length == 0) {
+                AppWindow window = getActiveAppWindow();
+                if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
             }
-        } else {
-            trace(format("Exit code is %d", cp.exitCode));
+            //If workingDir is not set, override it with cwd so that it takes priority for
+            //executing actions below
+            if (cp.workingDir.length == 0 || cp.cwd.length > 0) {
+                cp.workingDir = cp.cwd;
+            }
+            executeAction(terminalUUID, cp.action);
+            return cp.exitCode;
         }
         trace("Activating app");
         

@@ -899,9 +899,12 @@ public:
      */
     void createSession() {
         string workingDir;
-        Session current = getCurrentSession();
-        if (current !is null) {
-            workingDir = current.getActiveTerminalDirectory();
+        // Inherit current session directory unless overrides exist, fix #343
+        if (terminix.getGlobalOverrides().cwd.length ==0 && terminix.getGlobalOverrides().workingDir.length == 0) {
+            Session current = getCurrentSession();
+            if (current !is null) {
+                workingDir = current.getActiveTerminalDirectory();
+            }
         }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
             SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
