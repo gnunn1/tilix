@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([Terminix], [1.0.0], [https://github.com/gnunn1/terminix/issues], [terminix], [https://github.com/gnunn1/terminix])
+AC_INIT([Terminix], [1.1.0], [https://github.com/gnunn1/terminix/issues], [terminix], [https://github.com/gnunn1/terminix])
 AC_CONFIG_SRCDIR([source/gx/terminix/application.d])
 AC_CONFIG_AUX_DIR([acaux])
 
