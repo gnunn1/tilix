@@ -200,6 +200,24 @@
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Other</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-name">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Edit the session name</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-synchronize-input">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Synchronize the input</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">1</property>
             <property name="title" translatable="yes" context="shortcut window">Switch</property>
             <child>
               <object class="GtkShortcutsShortcut" id ="session-switch-to-next-terminal">
@@ -237,6 +255,12 @@
                 <property name="title" translatable="yes" context="shortcut window">Switch to the terminal right</property>
               </object>
             </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Switch</property>
             <child>
               <object class="GtkShortcutsShortcut" id ="session-switch-to-terminal-1">
                 <property name="visible">1</property>
@@ -295,24 +319,6 @@
               <object class="GtkShortcutsShortcut" id ="session-switch-to-terminal-0">
                 <property name="visible">1</property>
                 <property name="title" translatable="yes" context="shortcut window">Switch to terminal 10</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="visible">1</property>
-            <property name="title" translatable="yes" context="shortcut window">Other</property>
-            <child>
-              <object class="GtkShortcutsShortcut" id ="session-name">
-                <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Edit the session name</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id ="session-synchronize-input">
-                <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Synchronize the input</property>
               </object>
             </child>
           </object>
