@@ -840,7 +840,6 @@ private:
         string path;
         if (terminalInitialized) {
             path = currentDirectory;
-            trace("Current directory is " ~ path);
         } else {
             trace("Terminal not initialized yet, no path available");
             path = "";
