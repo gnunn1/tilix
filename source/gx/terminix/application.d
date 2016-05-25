@@ -465,7 +465,7 @@ private:
                     loadBackgroundImage();
                 }
                 foreach(window; appWindows) {
-                    window.queueDraw();
+                    window.updateBackgroundImage();
                 }
                 break;
             default:

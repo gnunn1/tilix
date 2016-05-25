@@ -51,6 +51,7 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.appwindow;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
@@ -882,62 +883,27 @@ private:
     }
     
     bool onDraw(Scoped!Context cr, Widget w) {
+        ImageSurface isBGImage = null;
+        Container child = cast(Container) getVisibleChild();
         
-        Pixbuf pbBGImage = terminix.getBackgroundImage();
-        if (pbBGImage !is null) {
-            Container child = cast(Container) this.getVisibleChild();
-            int width = child.getAllocatedWidth();
-            int height = child.getAllocatedHeight();
-            
-            string mode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
-            final switch (mode) {
-                //Scale
-                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[0]:
-                    double xScale = to!double(width) / to!double(pbBGImage.getWidth());
-                    double yScale = to!double(height) / to!double(pbBGImage.getHeight());
-                    cr.save();
-                    cr.scale(xScale, yScale);
-                    setSourcePixbuf(cr, pbBGImage, 0, 0);
-                    cr.paint();
-                    cr.restore();
-                    break;
-                //Tile
-                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[1]:
-                    for (double y = 0; y <= height; y = y + pbBGImage.getHeight()) {
-                        for (double x = 0; x <= width; x = x + pbBGImage.getWidth()) {
-                            cr.save();
-                            cr.translate(x,y);
-                            setSourcePixbuf(cr, pbBGImage, 0, 0);
-                            cr.paint();
-                            cr.restore();
-                        }
-                    }
-                    break;
-                //Center
-                case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[2]:
-                    double x = (width - pbBGImage.getWidth())/2;
-                    double y = (height - pbBGImage.getHeight())/2;
-                    cr.save();
-                    cr.rectangle(0, 0, width, height);
-                    cr.clip();
-                    cr.translate(x,y);
-                    setSourcePixbuf(cr, pbBGImage, 0, 0);
-                    cr.paint();
-                    cr.restore();
-                    break;
-                
-            }
+        AppWindow window = cast(AppWindow)getToplevel();
+        if (window !is null) {
+            isBGImage = window.getBackgroundImage(child);
+        }
+
+        if (isBGImage is null) return false;
+        
+        //Draw Image first
+        cr.setSourceSurface(isBGImage, 0, 0);
+        cr.paint();        
                     
-            //Draw child onto temporary image so it doesn't overdraw background
-            ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, width, height);
-            Context crChild = Context.create(isChildSurface);
-            propagateDraw(child, crChild);
-            cr.setSourceSurface(isChildSurface, 0, 0);
-            cr.paint();
-            return true;
-        } else {
-            return false;
-        }        
+        //Draw child onto temporary image so it doesn't overdraw background
+        ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
+        Context crChild = Context.create(isChildSurface);
+        propagateDraw(child, crChild);
+        cr.setSourceSurface(isChildSurface, 0, 0);
+        cr.paint();
+        return true;
     }    
 
     void updateWideHandle(bool value) {

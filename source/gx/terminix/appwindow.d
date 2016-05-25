@@ -15,11 +15,14 @@ import std.json;
 import std.string;
 
 import cairo.Context;
+import cairo.ImageSurface;
 
 import gtk.Application : Application;
 import gio.Application : GioApplication = Application;
 import gtk.ApplicationWindow : ApplicationWindow;
 import gtkc.giotypes : GApplicationFlags;
+
+import gdkpixbuf.Pixbuf;
 
 import gdk.Event;
 import gdk.RGBA;
@@ -64,6 +67,7 @@ import vte.Pty;
 import vte.Terminal;
 
 import gx.gtk.actions;
+import gx.gtk.cairo;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -121,6 +125,9 @@ private:
     SessionNotification[string] sessionNotifications;
 
     GSettings gsSettings;
+    
+    // Cached rendered background image
+    ImageSurface isBGImage;
 
     /**
      * Create the user interface
@@ -830,6 +837,10 @@ public:
             }
         });
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
+        addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
+            //invalidate rendered background
+            isBGImage = null;    
+        });
         addOnCompositedChanged(&onCompositedChanged);
     }
 
@@ -918,5 +929,51 @@ public:
         } else {
             createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile(), workingDir);
         }
+    }
+    
+    /**
+     * Invaidates background image cache and redraws
+     */
+    void updateBackgroundImage() {
+        isBGImage = null;
+        queueDraw();
+    }
+    
+    /**
+     * Returns an image surface that contains the rendered background
+     * image. This returns null if no background image has been set.
+     *
+     * The image surface is cached between invocations to improve drawBadge
+     * performance as per #340.
+     */
+    ImageSurface getBackgroundImage(Widget widget) {
+        if (isBGImage !is null) {
+            return isBGImage;
+        } 
+
+        Pixbuf pbBGImage = terminix.getBackgroundImage();
+        if (pbBGImage is null) {
+            isBGImage = null;
+            return isBGImage;
+        }
+        
+        ImageLayoutMode mode;
+        string bgMode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
+        final switch (bgMode) {
+            //Scale
+            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[0]:
+                mode = ImageLayoutMode.SCALE;
+                break;
+            //Tile
+            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[1]:
+                mode = ImageLayoutMode.TILE;
+                break;
+            //Center
+            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[2]:
+                mode = ImageLayoutMode.CENTER;
+                break;
+        }
+        isBGImage = renderImage(pbBGImage, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode);
+        return isBGImage;
     }
 }

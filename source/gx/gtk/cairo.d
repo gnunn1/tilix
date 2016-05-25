@@ -11,6 +11,7 @@ import std.experimental.logger;
 import std.format;
 
 import cairo.Context;
+import cairo.ImageSurface;
 import cairo.Surface;
 
 import gdk.Cairo;
@@ -85,6 +86,45 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             window.destroy();
         }
     }
+}
+
+enum ImageLayoutMode {SCALE, TILE, CENTER};
+
+ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayoutMode mode) {
+    ImageSurface surface = ImageSurface.create(cairo_format_t.ARGB32, outputWidth, outputHeight);
+    Context cr = Context.create(surface);
+    
+    final switch (mode) {
+        case ImageLayoutMode.SCALE:
+            double xScale = to!double(outputWidth) / to!double(pb.getWidth());
+            double yScale = to!double(outputHeight) / to!double(pb.getHeight());
+            cr.scale(xScale, yScale);
+            setSourcePixbuf(cr, pb, 0, 0);
+            cr.paint();
+            break;
+        case ImageLayoutMode.TILE:
+            for (double y = 0; y <= outputHeight; y = y + pb.getHeight()) {
+                for (double x = 0; x <= outputWidth; x = x + pb.getWidth()) {
+                    cr.save();
+                    cr.translate(x,y);
+                    setSourcePixbuf(cr, pb, 0, 0);
+                    cr.paint();
+                    cr.restore();
+                }
+            }
+            break;
+        case ImageLayoutMode.CENTER:
+            double x = (outputWidth - pb.getWidth())/2;
+            double y = (outputHeight - pb.getHeight())/2;
+            //cr.rectangle(0, 0, width, height);
+            //cr.clip();
+            cr.translate(x,y);
+            setSourcePixbuf(cr, pb, 0, 0);
+            cr.paint();
+            break;
+        
+    }
+    return surface;
 }
 
 private:
