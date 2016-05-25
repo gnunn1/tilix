@@ -88,7 +88,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     }
 }
 
-enum ImageLayoutMode {SCALE, TILE, CENTER};
+enum ImageLayoutMode {SCALE, TILE, CENTER, STRETCH};
 
 ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayoutMode mode) {
     ImageSurface surface = ImageSurface.create(cairo_format_t.ARGB32, outputWidth, outputHeight);
@@ -98,10 +98,16 @@ ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayo
         case ImageLayoutMode.SCALE:
             double xScale = to!double(outputWidth) / to!double(pb.getWidth());
             double yScale = to!double(outputHeight) / to!double(pb.getHeight());
-            cr.scale(xScale, yScale);
+        
+            double ratio = min(xScale, yScale);
+            trace(format("Ratio: %f", ratio));
+            double xOffset = (outputWidth - (pb.getWidth() * ratio)) / 2.0;
+            double yOffset = (outputHeight - (pb.getHeight() * ratio)) / 2.0;
+            cr.translate(xOffset, yOffset);
+            cr.scale(ratio, ratio);
             setSourcePixbuf(cr, pb, 0, 0);
             cr.paint();
-            break;
+            break;            
         case ImageLayoutMode.TILE:
             for (double y = 0; y <= outputHeight; y = y + pb.getHeight()) {
                 for (double x = 0; x <= outputWidth; x = x + pb.getWidth()) {
@@ -122,7 +128,13 @@ ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayo
             setSourcePixbuf(cr, pb, 0, 0);
             cr.paint();
             break;
-        
+        case ImageLayoutMode.STRETCH:
+            double xScale = to!double(outputWidth) / to!double(pb.getWidth());
+            double yScale = to!double(outputHeight) / to!double(pb.getHeight());
+            cr.scale(xScale, yScale);
+            setSourcePixbuf(cr, pb, 0, 0);
+            cr.paint();
+            break;
     }
     return surface;
 }

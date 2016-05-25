@@ -960,17 +960,17 @@ public:
         ImageLayoutMode mode;
         string bgMode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
         final switch (bgMode) {
-            //Scale
-            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[0]:
+            case SETTINGS_BACKGROUND_IMAGE_MODE_SCALE_VALUE:
                 mode = ImageLayoutMode.SCALE;
                 break;
-            //Tile
-            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[1]:
+            case SETTINGS_BACKGROUND_IMAGE_MODE_TILE_VALUE:
                 mode = ImageLayoutMode.TILE;
                 break;
-            //Center
-            case SETTINGS_BACKGROUND_IMAGE_MODE_VALUES[2]:
+            case SETTINGS_BACKGROUND_IMAGE_MODE_CENTER_VALUE:
                 mode = ImageLayoutMode.CENTER;
+                break;
+            case SETTINGS_BACKGROUND_IMAGE_MODE_STRETCH_VALUE:
+                mode = ImageLayoutMode.STRETCH;
                 break;
         }
         isBGImage = renderImage(pbBGImage, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode);

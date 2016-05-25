@@ -619,7 +619,7 @@ class AppearancePreferences: Box {
                 gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);        
             });
             
-            ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
+            ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
             gsSettings.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
             
             Box bChooser = new Box(Orientation.HORIZONTAL, 2);
