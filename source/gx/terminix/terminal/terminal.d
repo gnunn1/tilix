@@ -1948,7 +1948,14 @@ public:
             break;
         }
     }
-
+    
+    void triggerAction(string name, GVariant value) {
+        SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(name);
+        if (action !is null && action.getEnabled()) {
+            action.activate(value);
+        }
+    }
+    
     @property string currentDirectory() {
         if (gpid == 0)
             return null;

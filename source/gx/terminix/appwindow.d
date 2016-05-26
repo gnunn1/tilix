@@ -61,6 +61,7 @@ import gtk.Revealer;
 import gtk.ScrolledWindow;
 import gtk.StyleContext;
 import gtk.ToggleButton;
+import gtk.Version;
 import gtk.Widget;
 
 import vte.Pty;
@@ -137,6 +138,7 @@ private:
 
         createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
+        createDelegatedTerminalActions(gsShortcuts);
 
         //Notebook
         nb = new Notebook();
@@ -400,7 +402,36 @@ private:
 
         insertActionGroup(ACTION_PREFIX, sessionActions);
     }
+    
+    /**
+     * Create actions that will be delegated to the active terminal.
+     * This is required due to a bug in GTK+ < 3.5.15.
+     *
+     * https://bugzilla.gnome.org/show_bug.cgi?id=740682
+     * https://github.com/gnunn1/terminix/issues/342
+     */
+    void createDelegatedTerminalActions(GSettings gsShortcuts) {
+        if (Version.checkVersion(3, 15, 3).length != 0) {
+            SimpleActionGroup terminalActions = new SimpleActionGroup();
 
+            foreach (string action; gsShortcuts.listKeys) {
+                if (action.startsWith("terminal-")) {
+                    logf(LogLevel.trace, "Registering terminal shortcut delegation for action %s", action[9..$]);
+                    registerActionWithSettings(terminalActions, "terminal", action[9..$], gsShortcuts, delegate(GVariant va, SimpleAction sa) {
+                        string terminalUUID = getActiveTerminalUUID();
+                        logf(LogLevel.trace, "Delegating terminal action '%s' to terminal '%s'", sa.getName(), terminalUUID);
+                        gx.terminix.terminal.terminal.Terminal terminal = cast(gx.terminix.terminal.terminal.Terminal)findWidgetForUUID(terminalUUID);
+                        if (terminal !is null) {
+                            terminal.triggerAction(sa.getName(), va);
+                        }
+                    });
+                }
+            }
+
+            insertActionGroup("terminal", terminalActions);
+        }
+    }    
+    
     /**
      * Creates the session action popover
      */
