@@ -28,6 +28,7 @@ enum CMD_MAXIMIZE = "maximize";
 enum CMD_FULL_SCREEN = "full-screen";
 enum CMD_FOCUS_WINDOW = "focus-window";
 enum CMD_GEOMETRY = "geometry";
+enum CMD_NEW_PROCESS = "new-process";
 
 /**
  * Manages the terminix command line options
@@ -50,6 +51,7 @@ private:
     bool _maximize;
     bool _fullscreen;
     bool _focusWindow;
+    bool _newProcess;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -154,6 +156,7 @@ public:
         _maximize = vd.contains(CMD_MAXIMIZE);
         _fullscreen = vd.contains(CMD_FULL_SCREEN);
         _focusWindow = vd.contains(CMD_FOCUS_WINDOW);
+        _newProcess = vd.contains(CMD_NEW_PROCESS);
         
         _geometry = getValue(vd, CMD_GEOMETRY, vts);
         if (_geometry.length>0)
@@ -185,6 +188,7 @@ public:
         _maximize = false;
         _fullscreen = false;
         _focusWindow = false;
+        _newProcess = false;
         _width = 0;
         _height = 0;
         _x = 0;
@@ -266,5 +270,9 @@ public:
     
     @property int y() {
         return _y;
+    }
+    
+    @property bool newProcess() {
+        return _newProcess;
     }
 }

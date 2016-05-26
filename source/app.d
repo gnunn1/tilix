@@ -28,6 +28,7 @@ int main(string[] args) {
         sharedLog = new FileLogger("/tmp/terminix.log");
     }
     
+    bool newProcess = false;
     string cwd = Util.getCurrentDir();
     string pwd;
     string de;
@@ -53,6 +54,8 @@ int main(string[] args) {
             info(format("PWD = %s", pwd));                
             cwd = pwd;
             FileUtils.chdir(cwd);
+        } else if (arg == "--new-process") {
+            newProcess = true;
         }
     }
     //append TERMINIX_ID to args if present
@@ -85,7 +88,7 @@ int main(string[] args) {
     }
     
     trace("Creating app");
-    auto terminixApp = new Terminix();
+    auto terminixApp = new Terminix(newProcess);
     int result;
     try {
         trace("Running application...");

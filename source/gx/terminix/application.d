@@ -526,6 +526,7 @@ private:
         addMainOption(CMD_MAXIMIZE, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Maximize the terminal window"), null);
         addMainOption(CMD_FULL_SCREEN, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Full-screen the terminal window"), null);
         addMainOption(CMD_FOCUS_WINDOW, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Focus the existing window"), null);
+        addMainOption(CMD_NEW_PROCESS, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Start additional instance as new process (Not Recommended)"), null);
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
 
         //Hidden options used to communicate with primary instance
@@ -534,8 +535,10 @@ private:
 
 public:
 
-    this() {
-        super(APPLICATION_ID, ApplicationFlags.HANDLES_COMMAND_LINE);
+    this(bool newProcess) {
+        ApplicationFlags flags = ApplicationFlags.HANDLES_COMMAND_LINE;
+        if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
+        super(APPLICATION_ID, flags);
         addOptions();
         
         this.addOnActivate(&onAppActivate);
