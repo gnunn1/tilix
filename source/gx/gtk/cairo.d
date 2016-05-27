@@ -90,6 +90,9 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
 
 enum ImageLayoutMode {SCALE, TILE, CENTER, STRETCH};
 
+/**
+ * Renders an image onto an ImageSurface using different modes
+ */ 
 ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayoutMode mode) {
     ImageSurface surface = ImageSurface.create(cairo_format_t.ARGB32, outputWidth, outputHeight);
     Context cr = Context.create(surface);
@@ -99,10 +102,9 @@ ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayo
             double xScale = to!double(outputWidth) / to!double(pb.getWidth());
             double yScale = to!double(outputHeight) / to!double(pb.getHeight());
         
-            double ratio = min(xScale, yScale);
-            trace(format("Ratio: %f", ratio));
-            double xOffset = (outputWidth - (pb.getWidth() * ratio)) / 2.0;
-            double yOffset = (outputHeight - (pb.getHeight() * ratio)) / 2.0;
+            double ratio = max(xScale, yScale);
+            double xOffset = outputWidth - (pb.getWidth() * ratio);
+            double yOffset = outputHeight - (pb.getHeight() * ratio);
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             setSourcePixbuf(cr, pb, 0, 0);
