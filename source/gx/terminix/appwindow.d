@@ -129,6 +129,8 @@ private:
     
     // Cached rendered background image
     ImageSurface isBGImage;
+    // Track size changes, only invalidate if size really changed
+    int lastWidth, lastHeight;
 
     /**
      * Create the user interface
@@ -868,11 +870,16 @@ public:
             }
         });
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
-        addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
-            //invalidate rendered background
-            trace("Size changed, invalidate cached image");
-            isBGImage = null;    
-        });
+        addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
+            if (lastWidth != rect.width || lastHeight != rect.height) {
+                //invalidate rendered background
+                trace("Size changed, invalidate cached image");
+                isBGImage = null;
+                lastWidth = rect.width;
+                lastHeight = rect.height;
+                
+            }
+        }, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
     }
 

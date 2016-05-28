@@ -27,6 +27,12 @@ immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
 // when debugging launchers or other spots where
 // stdout isn't easily viewed
 immutable bool USE_FILE_LOGGING = false;
+// This flag when true causes Terminix to cache the
+// rendered background image in addition to caching
+// the rendered image. This can improve performance
+// when using the scale/stretch options but generates
+// a lot of ImageSurface obhects when resizing  
+immutable bool CACHE_RENDERED_BG_IMAGE = false;
 
 /**************************************
  * Application Constants
