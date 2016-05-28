@@ -94,6 +94,9 @@ ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
     cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
     ImageSurface surface = ImageSurface.create(format, pb.getWidth(), pb.getHeight());
     Context cr = Context.create(surface);
+    scope(exit) {
+        cr.destroy();
+    }
     setSourcePixbuf(cr, pb, 0, 0);
     cr.paint();
     return surface;    
@@ -111,38 +114,39 @@ ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, Ima
 }
 
 ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false) {
+    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
+    ImageSurface surface = ImageSurface.create(format, outputWidth, outputHeight);
+    Context cr = Context.create(surface);
+    scope(exit) {
+        cr.destroy();
+    }
+    renderImage(cr, isSource, outputWidth, outputHeight, mode);
+    return surface;
+}
+
+void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
         trace(format("Total time getting image: %d msecs", sw.peek().msecs));
     }
-    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
-    ImageSurface surface = ImageSurface.create(format, outputWidth, outputHeight);
-    Context cr = Context.create(surface);
-    
     final switch (mode) {
         case ImageLayoutMode.SCALE:
             double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
-        
             double ratio = max(xScale, yScale);
             double xOffset = outputWidth - (isSource.getWidth() * ratio);
             double yOffset = outputHeight - (isSource.getHeight() * ratio);
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             cr.setSourceSurface(isSource, 0, 0);
+            cr.getSource().setFilter(cairo_filter_t.NEAREST);
             cr.paint();
             break;            
         case ImageLayoutMode.TILE:
-            for (double y = 0; y <= outputHeight; y = y + isSource.getHeight()) {
-                for (double x = 0; x <= outputWidth; x = x + isSource.getWidth()) {
-                    cr.save();
-                    cr.translate(x,y);
-                    cr.setSourceSurface(isSource, 0, 0);
-                    cr.paint();
-                    cr.restore();
-                }
-            }
+            cr.setSourceSurface(isSource, 0, 0);
+            cr.getSource().setExtend(cairo_extend_t.REPEAT);
+            cr.paint();
             break;
         case ImageLayoutMode.CENTER:
             double x = (outputWidth - isSource.getWidth())/2;
@@ -156,10 +160,10 @@ ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeigh
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
             cr.scale(xScale, yScale);
             cr.setSourceSurface(isSource, 0, 0);
+            cr.getSource().setFilter(cairo_filter_t.NEAREST);
             cr.paint();
             break;
     }
-    return surface;
 }
 
 private:

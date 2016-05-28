@@ -45,6 +45,7 @@ import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
+import gx.gtk.cairo;
 import gx.gtk.threads;
 import gx.gtk.util;
 import gx.i18n.l10n;
@@ -883,23 +884,60 @@ private:
     }
     
     bool onDraw(Scoped!Context cr, Widget w) {
-        ImageSurface isBGImage = null;
-        Container child = cast(Container) getVisibleChild();
-        
         AppWindow window = cast(AppWindow)getToplevel();
-        if (window !is null) {
-            isBGImage = window.getBackgroundImage(child);
+        if (window is null) return false;
+        Container child = cast(Container) getVisibleChild();
+        if (child is null) return false;
+        
+        static if (CACHE_RENDERED_BG_IMAGE) {
+            //Cached render
+            ImageSurface isBGImage = null;
+            AppWindow window = cast(AppWindow)getToplevel();
+            if (window !is null) {
+                isBGImage = window.getBackgroundImage(child);
+            }
+
+            if (isBGImage is null) return false;
+            cr.setSourceSurface(isBGImage, 0, 0);
+            cr.paint();
+        } else {
+            //Directky render background to widget context
+            ImageSurface surface = terminix.getBackgroundImage();
+            if (surface is null) {
+                trace("Surface is null");
+                return false;
+            }
+            
+            ImageLayoutMode mode;
+            string bgMode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
+            final switch (bgMode) {
+                case SETTINGS_BACKGROUND_IMAGE_MODE_SCALE_VALUE:
+                    mode = ImageLayoutMode.SCALE;
+                    break;
+                case SETTINGS_BACKGROUND_IMAGE_MODE_TILE_VALUE:
+                    mode = ImageLayoutMode.TILE;
+                    break;
+                case SETTINGS_BACKGROUND_IMAGE_MODE_CENTER_VALUE:
+                    mode = ImageLayoutMode.CENTER;
+                    break;
+                case SETTINGS_BACKGROUND_IMAGE_MODE_STRETCH_VALUE:
+                    mode = ImageLayoutMode.STRETCH;
+                    break;
+            }
+            cr.save();
+            cr.rectangle(0, 0, getAllocatedWidth(), getAllocatedHeight());
+            cr.clip();
+            renderImage(cr, surface, getAllocatedWidth(), getAllocatedHeight(), mode);
+            cr.restore();
         }
 
-        if (isBGImage is null) return false;
-        
-        //Draw Image first
-        cr.setSourceSurface(isBGImage, 0, 0);
-        cr.paint();        
-                    
         //Draw child onto temporary image so it doesn't overdraw background
         ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
         Context crChild = Context.create(isChildSurface);
+        scope (exit) {
+            crChild.destroy();
+            isChildSurface.destroy();
+        }
         propagateDraw(child, crChild);
         cr.setSourceSurface(isChildSurface, 0, 0);
         cr.paint();
