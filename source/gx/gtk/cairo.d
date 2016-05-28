@@ -90,51 +90,72 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
 
 enum ImageLayoutMode {SCALE, TILE, CENTER, STRETCH};
 
+ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
+    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
+    ImageSurface surface = ImageSurface.create(format, pb.getWidth(), pb.getHeight());
+    Context cr = Context.create(surface);
+    setSourcePixbuf(cr, pb, 0, 0);
+    cr.paint();
+    return surface;    
+}
+
 /**
  * Renders an image onto an ImageSurface using different modes
  */ 
-ImageSurface renderImage(Pixbuf pb, int outputWidth, int outputHeight, ImageLayoutMode mode) {
-    ImageSurface surface = ImageSurface.create(cairo_format_t.ARGB32, outputWidth, outputHeight);
+ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false) {
+    ImageSurface surface = renderImage(pbSource);
+    scope(exit) {
+        surface.destroy();
+    }
+    return renderImage(surface, outputWidth, outputHeight, mode, alpha);
+}
+
+ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false) {
+    StopWatch sw = StopWatch(AutoStart.yes);
+    scope (exit) {
+        sw.stop();
+        trace(format("Total time getting image: %d msecs", sw.peek().msecs));
+    }
+    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
+    ImageSurface surface = ImageSurface.create(format, outputWidth, outputHeight);
     Context cr = Context.create(surface);
     
     final switch (mode) {
         case ImageLayoutMode.SCALE:
-            double xScale = to!double(outputWidth) / to!double(pb.getWidth());
-            double yScale = to!double(outputHeight) / to!double(pb.getHeight());
+            double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
+            double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
         
             double ratio = max(xScale, yScale);
-            double xOffset = outputWidth - (pb.getWidth() * ratio);
-            double yOffset = outputHeight - (pb.getHeight() * ratio);
+            double xOffset = outputWidth - (isSource.getWidth() * ratio);
+            double yOffset = outputHeight - (isSource.getHeight() * ratio);
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
-            setSourcePixbuf(cr, pb, 0, 0);
+            cr.setSourceSurface(isSource, 0, 0);
             cr.paint();
             break;            
         case ImageLayoutMode.TILE:
-            for (double y = 0; y <= outputHeight; y = y + pb.getHeight()) {
-                for (double x = 0; x <= outputWidth; x = x + pb.getWidth()) {
+            for (double y = 0; y <= outputHeight; y = y + isSource.getHeight()) {
+                for (double x = 0; x <= outputWidth; x = x + isSource.getWidth()) {
                     cr.save();
                     cr.translate(x,y);
-                    setSourcePixbuf(cr, pb, 0, 0);
+                    cr.setSourceSurface(isSource, 0, 0);
                     cr.paint();
                     cr.restore();
                 }
             }
             break;
         case ImageLayoutMode.CENTER:
-            double x = (outputWidth - pb.getWidth())/2;
-            double y = (outputHeight - pb.getHeight())/2;
-            //cr.rectangle(0, 0, width, height);
-            //cr.clip();
+            double x = (outputWidth - isSource.getWidth())/2;
+            double y = (outputHeight - isSource.getHeight())/2;
             cr.translate(x,y);
-            setSourcePixbuf(cr, pb, 0, 0);
+            cr.setSourceSurface(isSource, 0, 0);
             cr.paint();
             break;
         case ImageLayoutMode.STRETCH:
-            double xScale = to!double(outputWidth) / to!double(pb.getWidth());
-            double yScale = to!double(outputHeight) / to!double(pb.getHeight());
+            double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
+            double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
             cr.scale(xScale, yScale);
-            setSourcePixbuf(cr, pb, 0, 0);
+            cr.setSourceSurface(isSource, 0, 0);
             cr.paint();
             break;
     }

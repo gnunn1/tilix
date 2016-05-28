@@ -870,6 +870,7 @@ public:
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             //invalidate rendered background
+            trace("Size changed, invalidate cached image");
             isBGImage = null;    
         });
         addOnCompositedChanged(&onCompositedChanged);
@@ -966,6 +967,9 @@ public:
      * Invaidates background image cache and redraws
      */
     void updateBackgroundImage() {
+        if (isBGImage !is null) {
+            isBGImage.destroy();
+        }
         isBGImage = null;
         queueDraw();
     }
@@ -982,8 +986,9 @@ public:
             return isBGImage;
         } 
 
-        Pixbuf pbBGImage = terminix.getBackgroundImage();
-        if (pbBGImage is null) {
+        ImageSurface surface = terminix.getBackgroundImage();
+        if (surface is null) {
+            trace("Surface is null");
             isBGImage = null;
             return isBGImage;
         }
@@ -1004,7 +1009,7 @@ public:
                 mode = ImageLayoutMode.STRETCH;
                 break;
         }
-        isBGImage = renderImage(pbBGImage, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode);
+        isBGImage = renderImage(surface, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode);
         return isBGImage;
     }
 }

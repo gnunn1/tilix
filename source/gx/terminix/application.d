@@ -4,12 +4,16 @@
  */
 module gx.terminix.application;
 
+import std.algorithm;
+import std.conv;
 import std.experimental.logger;
 import std.file;
 import std.format;
 import std.path;
 import std.process;
 import std.variant;
+
+import cairo.ImageSurface;
 
 import gdk.Screen;
 
@@ -54,6 +58,7 @@ import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.actions;
+import gx.gtk.cairo;
 import gx.gtk.resource;
 import gx.gtk.util;
 import gx.i18n.l10n;
@@ -101,6 +106,9 @@ private:
     enum ACTION_SHORTCUTS = "shortcuts";
 
     enum THEME_AMBIANCE = "Ambiance";
+    
+    enum MAX_BG_WIDTH = 3840;
+    enum MAX_BG_HEIGHT = 2160;
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
@@ -113,7 +121,7 @@ private:
     PreferenceWindow preferenceWindow;
     
     //Background Image for terminals, store it here as singleton instance
-    Pixbuf pbBGImage;
+    ImageSurface isFullBGImage;
 
     bool warnedVTEConfigIssue = false;
     
@@ -281,15 +289,28 @@ private:
     
     void loadBackgroundImage() {
         string filename = gsGeneral.getString(SETTINGS_BACKGROUND_IMAGE_KEY);
+        if (isFullBGImage !is null) {
+            isFullBGImage.destroy();
+            isFullBGImage = null;
+        }
+        Pixbuf image;
         try {
             if (exists(filename)) {
-                pbBGImage = new Pixbuf(filename);
-            } else {
-                pbBGImage = null;
-            }
+                image = new Pixbuf(filename);
+                if (image.getWidth() > MAX_BG_WIDTH || image.getHeight() > MAX_BG_HEIGHT) {
+                    trace("Background image is too large, scaling");
+                    double xScale = to!double(MAX_BG_WIDTH) / to!double(image.getWidth());
+                    double yScale = to!double(MAX_BG_HEIGHT) / to!double(image.getHeight());
+                    double ratio = min(xScale, yScale);
+                    double width = image.getWidth() * ratio;
+                    double height = image.getHeight() * ratio;
+                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH);   
+                } else {
+                    isFullBGImage = renderImage(image);
+                }
+            } 
         } catch (GException ge) {
             error(format("Could not load image '%s'", filename));
-            pbBGImage = null;
         }
     }
 
@@ -671,8 +692,8 @@ public:
         return cp;
     }
     
-    Pixbuf getBackgroundImage() {
-        return pbBGImage;
+    ImageSurface getBackgroundImage() {
+        return isFullBGImage;
     }
 
     /**

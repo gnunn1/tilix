@@ -622,6 +622,11 @@ class AppearancePreferences: Box {
             ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
             gsSettings.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
             
+            // Background image settings only enabled if transparency is enabled
+            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", GSettingsBindFlags.DEFAULT);
+            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", GSettingsBindFlags.DEFAULT);
+            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbImageMode, "sensitive", GSettingsBindFlags.DEFAULT);
+
             Box bChooser = new Box(Orientation.HORIZONTAL, 2);
             bChooser.add(fcbImage);
             bChooser.add(btnReset);
