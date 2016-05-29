@@ -311,7 +311,9 @@ private:
      * pre GTK 3.20
      */
     void loadLocalizedShortcutLabels() {
-        labels.clear();
+        //Clear associative arrays since clear method isn't compatible with LDC
+        labels = null;
+        prefixes = null;
 
         string ui = getResource(SHORTCUT_UI_RESOURCE);
         if (ui.length == 0) {
