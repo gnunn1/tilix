@@ -891,12 +891,7 @@ private:
         
         static if (CACHE_RENDERED_BG_IMAGE) {
             //Cached render
-            ImageSurface isBGImage = null;
-            AppWindow window = cast(AppWindow)getToplevel();
-            if (window !is null) {
-                isBGImage = window.getBackgroundImage(child);
-            }
-
+            ImageSurface isBGImage = window.getBackgroundImage(child);
             if (isBGImage is null) return false;
             cr.setSourceSurface(isBGImage, 0, 0);
             cr.paint();
