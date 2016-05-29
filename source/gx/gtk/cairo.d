@@ -105,26 +105,26 @@ ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
 /**
  * Renders an image onto an ImageSurface using different modes
  */ 
-ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false) {
+ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
     ImageSurface surface = renderImage(pbSource);
     scope(exit) {
         surface.destroy();
     }
-    return renderImage(surface, outputWidth, outputHeight, mode, alpha);
+    return renderImage(surface, outputWidth, outputHeight, mode, alpha, scaleMode);
 }
 
-ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false) {
+ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
     cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
     ImageSurface surface = ImageSurface.create(format, outputWidth, outputHeight);
     Context cr = Context.create(surface);
     scope(exit) {
         cr.destroy();
     }
-    renderImage(cr, isSource, outputWidth, outputHeight, mode);
+    renderImage(cr, isSource, outputWidth, outputHeight, mode, scaleMode);
     return surface;
 }
 
-void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode) {
+void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
@@ -140,7 +140,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             cr.setSourceSurface(isSource, 0, 0);
-            cr.getSource().setFilter(cairo_filter_t.BILINEAR);
+            cr.getSource().setFilter(scaleMode);
             cr.paint();
             break;            
         case ImageLayoutMode.TILE:
@@ -160,7 +160,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
             cr.scale(xScale, yScale);
             cr.setSourceSurface(isSource, 0, 0);
-            cr.getSource().setFilter(cairo_filter_t.BILINEAR);
+            cr.getSource().setFilter(scaleMode);
             cr.paint();
             break;
     }

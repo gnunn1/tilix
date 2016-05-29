@@ -880,7 +880,6 @@ public:
                 }
                 lastWidth = rect.width;
                 lastHeight = rect.height;
-                
             }
         }, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
@@ -1020,7 +1019,8 @@ public:
                 mode = ImageLayoutMode.STRETCH;
                 break;
         }
-        isBGImage = renderImage(surface, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode);
+        int scale = gsSettings.getEnum(SETTINGS_BACKGROUND_IMAGE_SCALE_KEY);
+        isBGImage = renderImage(surface, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode, false, cast(cairo_filter_t) scale);
         return isBGImage;
     }
 }

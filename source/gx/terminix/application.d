@@ -481,7 +481,7 @@ private:
                     Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
                 }
                 break;
-            case SETTINGS_BACKGROUND_IMAGE_KEY, SETTINGS_BACKGROUND_IMAGE_MODE_KEY:
+            case SETTINGS_BACKGROUND_IMAGE_KEY, SETTINGS_BACKGROUND_IMAGE_MODE_KEY, SETTINGS_BACKGROUND_IMAGE_SCALE_KEY:
                 if (key == SETTINGS_BACKGROUND_IMAGE_KEY) {
                     loadBackgroundImage();
                 }

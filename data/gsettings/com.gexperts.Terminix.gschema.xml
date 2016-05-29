@@ -42,6 +42,21 @@
     <value nick='stretch' value='3'/>
   </enum>
   
+  <!-- Background Image Scaling Options, note these
+       options mirror the cairo_filter_t options covered
+       in the documentation at the link below. Also note that
+       selecting higher quality algorithms will produce better
+       results but at the expense of performance, particularly 
+       when re-sizing windows.
+   -->
+  <enum id='com.gexperts.Terminix.Background.Image.Scale'>
+    <value nick='fast' value='0'/>
+    <value nick='good' value='1'/>
+    <value nick='best' value='2'/>
+    <value nick='nearest' value='3'/>
+    <value nick='bilinear' value='4'/>
+  </enum>
+  
   <!-- Second Instance Options -->
   <enum id='com.gexperts.Terminix.NewInstance.Mode'>
     <value nick='new-window' value ='0'/>
@@ -162,7 +177,7 @@
     </key>
     <key name="search-default-match-entire-word" type="b">
       <default>false</default>
-      <summary>Whether to only match the entire word</summary>
+      <summary>Whether to onwhenly match the entire word</summary>
       <description>If true, search must be the entire word in order to be considered a match.</description>
     </key>
     <key name="search-default-match-as-regex" type="b">
@@ -211,6 +226,11 @@
       <default>'scale'</default>
       <summary>The mode to use when rendering the background image</summary>
       <description>Whether the background image is rendered scaled, tiled or centered in Terminix</description>
+    </key>
+    <key name="background-image-scale" enum="com.gexperts.Terminix.Background.Image.Scale">
+      <default>'bilinear'</default>
+      <summary>The algorithm to use when scaling the background image</summary>
+      <description>The cairo filter algorithm used to scale the background image, performance will deteroriate with higher quality</description>
     </key>   
   </schema>
 

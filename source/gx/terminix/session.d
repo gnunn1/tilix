@@ -919,10 +919,11 @@ private:
                     mode = ImageLayoutMode.STRETCH;
                     break;
             }
+            int scale = gsSettings.getEnum(SETTINGS_BACKGROUND_IMAGE_SCALE_KEY);
             cr.save();
             cr.rectangle(0, 0, getAllocatedWidth(), getAllocatedHeight());
             cr.clip();
-            renderImage(cr, surface, getAllocatedWidth(), getAllocatedHeight(), mode);
+            renderImage(cr, surface, getAllocatedWidth(), getAllocatedHeight(), mode, false, cast(cairo_filter_t) scale);
             cr.restore();
         }
 
