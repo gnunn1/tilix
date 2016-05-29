@@ -57,6 +57,13 @@
     <value nick='bilinear' value='4'/>
   </enum>
   
+  <enum id='com.gexperts.Terminix.Bell.Mode'>
+    <value nick='none' value='0'/>
+    <value nick='sound' value='1'/>
+    <value nick='icon' value='2'/>
+    <value nick='icon-sound' value='3'/>
+  </enum>
+  
   <!-- Second Instance Options -->
   <enum id='com.gexperts.Terminix.NewInstance.Mode'>
     <value nick='new-window' value ='0'/>
@@ -109,23 +116,23 @@
 
     <key name="disable-csd" type="b">
       <default>false</default>
-      <summary>Whether to disable the client-side-decorations.</summary>
-      <description>If true, the default titlebar will be used as created by the WM rather then the CSD.</description>
+      <summary>Whether to disable the client-side-decorations</summary>
+      <description>If true, the default titlebar will be used as created by the WM rather than the CSD.</description>
     </key>
     <key name="auto-hide-mouse" type="b">
       <default>false</default>
-      <summary>Whether to automatically hide the mouse pointer when typing.</summary>
+      <summary>Whether to automatically hide the mouse pointer when typing</summary>
       <description>If true, the mouse pointer is hidden when the user starts typing and shown again when interaction with the mouse occurs.</description>
     </key>
     <key name="prompt-on-new-session" type="b">
       <default>false</default>
-      <summary>Whether to prompt for session settings or use defaults.</summary>
+      <summary>Whether to prompt for session settings or use defaults</summary>
       <description>If true, when creating a new session a prompt will appear to pick the session name and profile used.</description>
     </key>
     <key name="enable-transparency" type="b">
       <default>true</default>
-      <summary>Whether to transparency is enabled.</summary>
-      <description>If true, transparency is enabled in terminals is supported.</description>
+      <summary>Whether transparency is enabled</summary>
+      <description>If true, transparency is enabled in terminals.</description>
     </key>
     <key name="terminal-title-style" enum="com.gexperts.Terminix.Terminal.Title">
       <default>'normal'</default>
@@ -161,23 +168,23 @@
     </key>    <!-- Unsafe Paste, cribbed from Pantheon -->
     <key name="unsafe-paste-alert" type="b">
       <default>true</default>
-      <summary>Alert the user about unsafe paste.</summary>
-      <description>If the user paste's a command into the terminal that might be considered unsafe, when them.</description>
+      <summary>Alert the user about unsafe paste</summary>
+      <description>Warn the user when pasting a command into the terminal that might be considered unsafe.</description>
     </key>
     <key name="paste-strip-first-char" type="b">
       <default>false</default>
-      <summary>Strip the first character from a paste if comment or variable declaration </summary>
+      <summary>Strip the first character from a paste when comment or variable declaration</summary>
       <description>If true, if the first character is a comment (#) or a variable declaration($) it will be stripped on paste.</description>
     </key>
     <!-- Search Options -->
     <key name="search-default-match-case" type="b">
       <default>false</default>
-      <summary>Whether to match case when searching</summary>
+      <summary>Whether to match case</summary>
       <description>If true, searches will be case sensitive.</description>
     </key>
     <key name="search-default-match-entire-word" type="b">
       <default>false</default>
-      <summary>Whether to onwhenly match the entire word</summary>
+      <summary>Whether to match the entire word</summary>
       <description>If true, search must be the entire word in order to be considered a match.</description>
     </key>
     <key name="search-default-match-as-regex" type="b">
@@ -220,17 +227,17 @@
     <key name="background-image" type="s">
       <default>''</default>
       <summary>Path of the background image</summary>
-      <description>The path of the image to use for the background, requires transparency support</description>
+      <description>The path of the image to use for the background, requires transparency support.</description>
     </key>
     <key name="background-image-mode" enum="com.gexperts.Terminix.Background.Image.Mode">
       <default>'scale'</default>
       <summary>The mode to use when rendering the background image</summary>
-      <description>Whether the background image is rendered scaled, tiled or centered in Terminix</description>
+      <description>Whether the background image is rendered scaled, tiled or centered in Terminix.</description>
     </key>
     <key name="background-image-scale" enum="com.gexperts.Terminix.Background.Image.Scale">
       <default>'bilinear'</default>
       <summary>The algorithm to use when scaling the background image</summary>
-      <description>The cairo filter algorithm used to scale the background image, performance will deteroriate with higher quality</description>
+      <description>The cairo filter algorithm used to scale the background image, performance will deteroriate with higher quality.</description>
     </key>   
   </schema>
 
@@ -283,9 +290,10 @@
       <default>'block'</default>
       <summary>The cursor appearance</summary>
     </key>
-    <key name="audible-bell" type="b">
-      <default>true</default>
-      <summary>Whether to ring the terminal bell</summary>
+    <key name="terminal-bell" enum="com.gexperts.Terminix.Bell.Mode">
+      <default>'sound'</default>
+      <summary>What to do when a bell signal is emitted in a terminal</summary>
+      <description>Determines whether to do nothing, play a sound, show an icon or do both when a bell signal is emitted.</description>
     </key>
     <key name="allow-bold" type="b">
       <default>true</default>
@@ -433,7 +441,7 @@
     <key name="terminal-title" type="s">
       <default>'${id}: ${title}'</default>
       <summary>The string to display as the terminal title</summary>
-      <description>The title supports tokens which are replaced at runtime, additionally pango markup can be used as well</description>
+      <description>The title supports tokens which are replaced at runtime, additionally pango markup can be used as well.</description>
     </key>
     <!-- Command Tab Options -->
     <key name="exit-action" enum="com.gexperts.Terminix.ExitAction">

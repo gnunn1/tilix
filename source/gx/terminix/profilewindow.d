@@ -197,10 +197,9 @@ private:
         Label lblBell = new Label(_("Terminal bell"));
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
-        Switch sBell = new Switch();
-        sBell.setHalign(Align.START);
-        gsProfile.bind(SETTINGS_PROFILE_AUDIBLE_BELL_KEY, sBell, "active", GSettingsBindFlags.DEFAULT);
-        grid.attach(sBell, 1, row, 1, 1);
+        ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and Sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
+        gsProfile.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbBell, 1, row, 1, 1);
         row++;
 
         //Terminal Title

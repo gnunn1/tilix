@@ -12,6 +12,7 @@ import std.algorithm;
 import std.array;
 import std.conv;
 import std.concurrency;
+import std.datetime;
 import std.experimental.logger;
 import std.format;
 import std.process;
@@ -41,6 +42,7 @@ import gio.ThemedIcon;
 
 import glib.GException;
 import glib.Regex;
+import glib.Timeout;
 import glib.ShellUtils;
 import glib.SimpleXML;
 import glib.Str;
@@ -242,6 +244,7 @@ private:
     MenuButton mbTitle;
     Label lblTitle;
     ToggleButton tbSyncInput;
+    Image imgBell;
 
     string _profileUUID;
     //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
@@ -285,6 +288,10 @@ private:
 
     //Track match detection
     TerminalURLMatch match;
+    
+    //Track last time bell was shown
+    long bellStart = 0;
+    Timeout timer;
     
     /**
      * Create the user interface of the TerminalPane
@@ -378,6 +385,13 @@ private:
         setVerticalMargins(tbSyncInput);
         tbSyncInput.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
         bTitle.packEnd(tbSyncInput, false, false, 0);
+        
+        //Terminal Bell Image
+        imgBell = new Image("alarm-symbolic", IconSize.MENU);
+        imgBell.setNoShowAll(true);
+        imgBell.setTooltipText(_("Terminal bell"));
+        setVerticalMargins(imgBell);
+        bTitle.packEnd(imgBell, false, false, 0);
 
         EventBox evtTitle = new EventBox();
         evtTitle.add(bTitle);
@@ -700,6 +714,29 @@ private:
 
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
+        vte.addOnBell(delegate(VTE) {
+            string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
+            if (value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE) {
+                if (!imgBell.getVisible()) {
+                    imgBell.show();
+                    if (timer !is null) {
+                        timer.stop();
+                    }
+                    timer = new Timeout(5000, delegate() {
+                        trace(format("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000)));
+                        if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
+                            trace("Timer expired, hiding Bell");
+                            imgBell.hide();
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+                bellStart = Clock.currStdTime();
+                
+            }    
+        });
+        
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
             trace(format("Window title changed, pid=%d '%s'", gpid, vte.getWindowTitle()));
             terminalInitialized = true;
@@ -1156,8 +1193,9 @@ private:
      */
     void applyPreference(string key) {
         switch (key) {
-        case SETTINGS_PROFILE_AUDIBLE_BELL_KEY:
-            vte.setAudibleBell(gsProfile.getBoolean(SETTINGS_PROFILE_AUDIBLE_BELL_KEY));
+        case SETTINGS_PROFILE_TERMINAL_BELL_KEY:
+            string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
+            vte.setAudibleBell(value == SETTINGS_PROFILE_TERMINAL_BELL_SOUND_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE);
             break;
         case SETTINGS_PROFILE_ALLOW_BOLD_KEY:
             vte.setAllowBold(gsProfile.getBoolean(SETTINGS_PROFILE_ALLOW_BOLD_KEY));
@@ -1316,7 +1354,7 @@ private:
      */
     void applyPreferences() {
         string[] keys = [
-            SETTINGS_PROFILE_AUDIBLE_BELL_KEY, SETTINGS_PROFILE_ALLOW_BOLD_KEY,
+            SETTINGS_PROFILE_TERMINAL_BELL_KEY, SETTINGS_PROFILE_ALLOW_BOLD_KEY,
             SETTINGS_PROFILE_REWRAP_KEY,
             SETTINGS_PROFILE_CURSOR_SHAPE_KEY, // Only pass one color key, all colors will be applied
             SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY,
@@ -1820,7 +1858,8 @@ public:
         addOnDestroy(delegate(Widget) { 
             trace("Terminal destroy"); 
             stopProcess();
-            terminix.removeOnThemeChanged(&onThemeChanged); 
+            terminix.removeOnThemeChanged(&onThemeChanged);
+            if (timer !is null) timer.stop(); 
         });
         initColors();
         _terminalUUID = randomUUID().toString();

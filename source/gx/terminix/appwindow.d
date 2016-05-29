@@ -998,7 +998,6 @@ public:
 
         ImageSurface surface = terminix.getBackgroundImage();
         if (surface is null) {
-            trace("No application picture is loaded");
             isBGImage = null;
             return isBGImage;
         }
