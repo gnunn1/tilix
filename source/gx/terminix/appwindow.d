@@ -874,7 +874,10 @@ public:
             if (lastWidth != rect.width || lastHeight != rect.height) {
                 //invalidate rendered background
                 trace("Size changed, invalidate cached image");
-                isBGImage = null;
+                if (isBGImage !is null) {
+                    isBGImage.destroy();
+                    isBGImage = null;
+                }
                 lastWidth = rect.width;
                 lastHeight = rect.height;
                 
@@ -975,6 +978,7 @@ public:
      */
     void updateBackgroundImage() {
         if (isBGImage !is null) {
+            trace("Destroying cached background image");
             isBGImage.destroy();
         }
         isBGImage = null;
@@ -995,7 +999,7 @@ public:
 
         ImageSurface surface = terminix.getBackgroundImage();
         if (surface is null) {
-            trace("Surface is null");
+            trace("No application picture is loaded");
             isBGImage = null;
             return isBGImage;
         }

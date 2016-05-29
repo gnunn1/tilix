@@ -140,7 +140,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             cr.setSourceSurface(isSource, 0, 0);
-            cr.getSource().setFilter(cairo_filter_t.NEAREST);
+            cr.getSource().setFilter(cairo_filter_t.GOOD);
             cr.paint();
             break;            
         case ImageLayoutMode.TILE:
@@ -160,7 +160,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
             cr.scale(xScale, yScale);
             cr.setSourceSurface(isSource, 0, 0);
-            cr.getSource().setFilter(cairo_filter_t.NEAREST);
+            cr.getSource().setFilter(cairo_filter_t.GOOD);
             cr.paint();
             break;
     }

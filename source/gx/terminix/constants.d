@@ -32,7 +32,7 @@ immutable bool USE_FILE_LOGGING = false;
 // the rendered image. This can improve performance
 // when using the scale/stretch options but generates
 // a lot of ImageSurface obhects when resizing  
-immutable bool CACHE_RENDERED_BG_IMAGE = false;
+immutable bool CACHE_RENDERED_BG_IMAGE = true;
 
 /**************************************
  * Application Constants
