@@ -135,8 +135,8 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
             double ratio = max(xScale, yScale);
-            double xOffset = outputWidth - (isSource.getWidth() * ratio);
-            double yOffset = outputHeight - (isSource.getHeight() * ratio);
+            double xOffset = (outputWidth - (isSource.getWidth() * ratio)) / 2.0;
+            double yOffset = (outputHeight - (isSource.getHeight() * ratio)) / 2.0;
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             cr.setSourceSurface(isSource, 0, 0);
