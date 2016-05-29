@@ -1,0 +1,7 @@
+language: d
+d:
+ - dmd-2.071.0
+ - dmd-2.070.2
+ - ldc-1.0.0-beta2
+script:
+ - dub build
