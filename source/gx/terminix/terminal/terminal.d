@@ -82,6 +82,7 @@ static if (USE_SCROLLED_WINDOW) {
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
+import gtk.Spinner;
 import gtk.StyleContext;
 import gtk.TargetEntry;
 import gtk.ToggleButton;
@@ -244,7 +245,7 @@ private:
     MenuButton mbTitle;
     Label lblTitle;
     ToggleButton tbSyncInput;
-    Image imgBell;
+    Spinner spBell;
 
     string _profileUUID;
     //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
@@ -388,12 +389,12 @@ private:
         bTitle.packEnd(tbSyncInput, false, false, 0);
         
         //Terminal Bell Image
-        imgBell = new Image("alarm-symbolic", IconSize.MENU);
-        imgBell.setNoShowAll(true);
-        imgBell.setTooltipText(_("Terminal bell"));
-        imgBell.getStyleContext().addClass("terminix-bell");
-        setVerticalMargins(imgBell);
-        bTitle.packEnd(imgBell, false, false, 0);
+        spBell = new Spinner();
+        spBell.setNoShowAll(true);
+        spBell.setTooltipText(_("Terminal bell"));
+        spBell.getStyleContext().addClass("terminix-bell");
+        setVerticalMargins(spBell);
+        bTitle.packEnd(spBell, false, false, 0);
 
         EventBox evtTitle = new EventBox();
         evtTitle.add(bTitle);
@@ -717,8 +718,11 @@ private:
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnBell(delegate(VTE) {
-            Window window = cast(Window)getToplevel();
-            if (vte.getMapped() && (window !is null && window.isVisible() && window.isActive())) {
+            // Originally planned on not showing bell when window is not active but too many edge cases
+            // like window is active in different monitor, window is visible but not active, just a message
+            // to deal with IMHO. Notifications right solution for that
+            // Window window = cast(Window)getToplevel();
+            if (vte.getMapped()) { //&& (window !is null && window.isVisible() && window.isActive())) {
                 showBell();
             } else {
                 deferShowBell = true;
@@ -852,8 +856,9 @@ private:
     void showBell() {    
         string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
         if (value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE) {
-            if (!imgBell.getVisible()) {
-                imgBell.show();
+            if (!spBell.getVisible()) {
+                spBell.show();
+                spBell.start();
                 if (timer !is null) {
                     timer.stop();
                 }
@@ -861,7 +866,8 @@ private:
                     trace(format("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000)));
                     if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
                         trace("Timer expired, hiding Bell");
-                        imgBell.hide();
+                        spBell.stop();
+                        spBell.hide();
                         return false;
                     }
                     return true;

@@ -75,3 +75,35 @@
     padding: 0px;
     margin: 0px;
 }
+
+/* Visual Bell Animation, note each frame defined
+   separately because GTK doesn't support grouping them
+   together like normal CSS
+ */
+@keyframes shake {
+    0%   {-gtk-icon-transform: translateX(0);}
+    100% {-gtk-icon-transform: translateX(0);}
+    10%  {-gtk-icon-transform: translateX(-1px);}
+    30%  {-gtk-icon-transform: translateX(-1px);}
+    50%  {-gtk-icon-transform: translateX(-1px);}
+    70%  {-gtk-icon-transform: translateX(-1px);}
+    90%  {-gtk-icon-transform: translateX(-1px);}
+    20%  {-gtk-icon-transform: translateX(1px);}
+    40%  {-gtk-icon-transform: translateX(1px);}
+    60%  {-gtk-icon-transform: translateX(1px);}
+    80%  {-gtk-icon-transform: translateX(1px);}
+}
+
+.terminix-bell {
+  background: none;
+  opacity: 0;
+  -gtk-icon-source: -gtk-icontheme("alarm-symbolic");
+}
+.terminix-bell:checked {
+    opacity: 1;
+    animation: shake 1s linear infinite; 
+}
+
+.terminix-bell:checked:disabled {
+      opacity: 0.5; 
+}
