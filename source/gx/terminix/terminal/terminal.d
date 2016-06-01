@@ -291,6 +291,7 @@ private:
     
     //Track last time bell was shown
     long bellStart = 0;
+    bool deferShowBell;
     Timeout timer;
     
     /**
@@ -390,6 +391,7 @@ private:
         imgBell = new Image("alarm-symbolic", IconSize.MENU);
         imgBell.setNoShowAll(true);
         imgBell.setTooltipText(_("Terminal bell"));
+        imgBell.getStyleContext().addClass("terminix-bell");
         setVerticalMargins(imgBell);
         bTitle.packEnd(imgBell, false, false, 0);
 
@@ -715,26 +717,12 @@ private:
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnBell(delegate(VTE) {
-            string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
-            if (value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE) {
-                if (!imgBell.getVisible()) {
-                    imgBell.show();
-                    if (timer !is null) {
-                        timer.stop();
-                    }
-                    timer = new Timeout(5000, delegate() {
-                        trace(format("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000)));
-                        if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
-                            trace("Timer expired, hiding Bell");
-                            imgBell.hide();
-                            return false;
-                        }
-                        return true;
-                    });
-                }
-                bellStart = Clock.currStdTime();
-                
-            }    
+            Window window = cast(Window)getToplevel();
+            if (vte.getMapped() && (window !is null && window.isVisible() && window.isActive())) {
+                showBell();
+            } else {
+                deferShowBell = true;
+            }                
         });
         
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
@@ -860,6 +848,28 @@ private:
     bool isSynchronizedInput() {
         return _synchronizeInput && _synchronizeInputOverride;
     }
+
+    void showBell() {    
+        string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
+        if (value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE) {
+            if (!imgBell.getVisible()) {
+                imgBell.show();
+                if (timer !is null) {
+                    timer.stop();
+                }
+                timer = new Timeout(5000, delegate() {
+                    trace(format("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000)));
+                    if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
+                        trace("Timer expired, hiding Bell");
+                        imgBell.hide();
+                        return false;
+                    }
+                    return true;
+                });
+            }
+            bellStart = Clock.currStdTime();
+        }
+    }    
 
     /**
      * Updates the terminal title in response to UI changes
@@ -1955,6 +1965,19 @@ public:
     void focusTerminal() {
         vte.grabFocus();
     }
+    
+    /**
+     * Called when the session the terminal is associated with
+     * becomes active, i.e. is visible to the user
+     *
+     * Can't rely on events like map or realized because
+     * thumbnail drawing triggers them.
+     */
+    void notifySessionActive() {
+        if (deferShowBell) {
+            showBell();
+        }    
+    }
 
     /**
      * Determines if a child process is running in the terminal
@@ -2003,7 +2026,9 @@ public:
         if (cwd.length == 0) {
             return null;
         }
+        trace("Current directory " ~ cwd);
         string result = URI.filenameFromUri(cwd, hostname);
+        trace("Hostname " ~ hostname);
         return result;
     }
 

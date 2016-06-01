@@ -272,7 +272,7 @@ private:
             ev.add(lblNCount);
             AspectFrame af = wrapWidget(ev, "terminix-notification-count");
             ev.setTooltipText(tooltip);
-            grid.attach(lblNCount, 0, 2, 1, 1);
+            grid.attach(af, 0, 2, 1, 1);
         }
         
         Label leftSpacer = new Label("");

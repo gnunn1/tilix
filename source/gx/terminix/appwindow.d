@@ -153,6 +153,7 @@ private:
             sessionNotifications.remove(session.sessionUUID);
             updateTitle();
             updateUIState();
+            session.notifyActive();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
             if (sb.getChildRevealed()) {

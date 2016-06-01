@@ -1016,6 +1016,19 @@ public:
             return null;
         }
     }
+    
+    /**
+     * Called when the session becomes active, 
+     * i.e. is visible to the user
+     *
+     * Can't rely on events like map or realized because
+     * thumbnail drawing triggers them.
+     */
+    void notifyActive() {
+        foreach (terminal; terminals) {
+            terminal.notifySessionActive();
+        }        
+    }
 
     /**
      * Serialize the session
