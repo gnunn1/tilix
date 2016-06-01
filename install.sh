@@ -40,6 +40,9 @@ cd ../..
 echo "Copying color schemes..."
 cp data/schemes/* ${TERMINIX_SHARE}/schemes
 
+# Create/Update LINGUAS file
+find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
+
 # Compile po files
 echo "Copying and installing localization files"
 for f in po/*.po; do
