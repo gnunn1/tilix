@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/gnunn1/terminix.svg?branch=master)](https://travis-ci.org/gnunn1/terminix)
 # Terminix
 A tiling terminal emulator for Linux using GTK+ 3
 
