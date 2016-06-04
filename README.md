@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/gnunn1/terminix.svg?branch=master)](https://travis-ci.org/gnunn1/terminix)
 # Terminix
 A tiling terminal emulator for Linux using GTK+ 3
 
@@ -16,11 +17,12 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 * Terminals support custom titles
 * Color schemes are stored in files and custom color schemes can be created by simply creating a new file
 * Transparent background
+* Background images
 * Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
 
-The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than Gnome, only Unity and has been tested officially though users have had success with other desktop environments.
+The application was written using GTK 3 and an effort was made to conform to Gnome Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than Gnome, only Unity has been tested officially though users have had success with other desktop environments.
 
-At this point in time the application should be considered beta and has been tested to varying degrees with the following distros:
+At this point in time the application has been tested to varying degrees with the following distros:
 
 * Arch Linux (primary test platform, works)
 * Ubuntu 16.04 (secondary, works)
