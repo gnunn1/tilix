@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-11 08:32+0200\n"
-"PO-Revision-Date: 2016-06-03 11:36+0000\n"
+"PO-Revision-Date: 2016-06-06 14:04+0000\n"
 "Last-Translator: Giray Devlet <giray.devlet@gmail.com>\n"
 "Language-Team: Turkish "
 "<https://hosted.weblate.org/projects/terminix/translations/tr/>\n"
@@ -21,20 +21,20 @@ msgstr ""
 #: source/gx/terminix/colorschemes.d:167
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
-msgstr ""
+msgstr "%s uygun bir renk planı JSON dosyası değil"
 
 #: source/gx/terminix/colorschemes.d:224
 msgid "Color scheme palette requires 16 colors"
-msgstr ""
+msgstr "Renk planı paleti 16 renk gerektirmektedir"
 
 #: source/gx/terminix/profilewindow.d:68
 #, c-format
 msgid "Editing Profile: %s"
-msgstr ""
+msgstr "Düzenlenecek Profil: %s"
 
 #: source/gx/terminix/profilewindow.d:70
 msgid "New Profile"
-msgstr ""
+msgstr "Yeni Profil"
 
 #: source/gx/terminix/profilewindow.d:78
 msgid "General"
@@ -697,7 +697,6 @@ msgstr "Terminal UUIDsine yollanacak gizli değişken"
 
 #: source/gx/terminix/application.d:476 source/gx/terminix/application.d:477
 #: source/gx/terminix/application.d:490
-#, fuzzy
 msgid "TERMINAL_UUID"
 msgstr "TERMINAL_UUID"
 
@@ -936,65 +935,67 @@ msgstr "Yapıştır"
 #: source/gx/terminix/prefwindow.d:607 source/gx/terminix/prefwindow.d:653
 #: source/gx/terminix/prefwindow.d:662 source/gx/terminix/prefwindow.d:658
 msgid "Warn when attempting unsafe paste"
-msgstr ""
+msgstr "Emminyetsiz yapıştırmada beni uyar"
 
 #: source/gx/terminix/prefwindow.d:612 source/gx/terminix/prefwindow.d:658
 #: source/gx/terminix/prefwindow.d:667 source/gx/terminix/prefwindow.d:663
 msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
+msgstr "Açıklama (comment) veya değişken yapıştırken ilk harfi a"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "Layout Options"
-msgstr ""
+msgstr "Düzenleme Ayaları"
 
 #: source/gx/terminix/terminal/layout.d:28
 msgid "OK"
-msgstr ""
+msgstr "Tamam"
 
 #: source/gx/terminix/terminal/layout.d:28
 #: source/gx/terminix/terminal/terminal.d:1757
 #: source/gx/terminix/appwindow.d:765 source/gx/terminix/appwindow.d:797
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: source/gx/terminix/terminal/layout.d:43
 msgid "Active"
-msgstr ""
+msgstr "Etkin"
 
 #: source/gx/terminix/terminal/layout.d:49
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: source/gx/terminix/terminal/layout.d:57
 msgid "Session Load"
-msgstr ""
+msgstr "Oturum Yükle"
 
 #: source/gx/terminix/terminal/layout.d:73
 msgid ""
 "Active options are always in effect and apply immediately.\n"
 "Session Load options only apply when loading a session file."
 msgstr ""
+"Etkin ayalar her zaman etkin olup hemen gerçerli kılınır.\n"
+"Oturum Yükleme ayaları sadece oturum dosyası yüklenince etkin olur."
 
 #: source/gx/terminix/terminal/search.d:120
 #: source/gx/terminix/terminal/search.d:121
 msgid "Search Options"
-msgstr ""
+msgstr "Arama Seçenekleri"
 
 #: source/gx/terminix/terminal/search.d:186
 msgid "Match case"
-msgstr ""
+msgstr "Büyük - Küçük Harf Duyarlı"
 
 #: source/gx/terminix/terminal/search.d:187
 msgid "Match entire word only"
-msgstr ""
+msgstr "Bütün kelimle bul"
 
 #: source/gx/terminix/terminal/search.d:188
 msgid "Match as regular expression"
-msgstr ""
+msgstr "Regular Expression olarak bul"
 
 #: source/gx/terminix/terminal/search.d:189
 msgid "Wrap around"
-msgstr ""
+msgstr "Başa sar"
 
 #: source/gx/terminix/terminal/terminal.d:326
 #: source/gx/terminix/terminal/terminal.d:652
@@ -1009,7 +1010,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:816
 #: source/gx/terminix/terminal/terminal.d:821
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: source/gx/terminix/terminal/terminal.d:357
 #: source/gx/terminix/terminal/terminal.d:969 source/gx/terminix/sidebar.d:308
@@ -1020,7 +1021,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:985
 #: source/gx/terminix/terminal/terminal.d:990
 msgid "Close"
-msgstr ""
+msgstr "Kapa"
 
 #: source/gx/terminix/terminal/terminal.d:366
 #: source/gx/terminix/terminal/terminal.d:831
@@ -1034,7 +1035,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:852
 #: source/gx/terminix/terminal/terminal.d:989
 msgid "Maximize"
-msgstr ""
+msgstr "Enbüyüt"
 
 #: source/gx/terminix/terminal/terminal.d:377
 #: source/gx/terminix/terminal/terminal.d:569
@@ -1043,62 +1044,62 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:373
 #: source/gx/terminix/terminal/terminal.d:570
 msgid "Disable input synchronization for this terminal"
-msgstr ""
+msgstr "Girdi senkronizasyonunu bu terminal için kapa"
 
 #: source/gx/terminix/terminal/terminal.d:416
 #: source/gx/terminix/terminal/terminal.d:420
 #: source/gx/terminix/terminal/terminal.d:417
 msgid "Edit Profile"
-msgstr ""
+msgstr "Profil Düzenle"
 
 #: source/gx/terminix/terminal/terminal.d:535
 #: source/gx/terminix/appwindow.d:642
 #: source/gx/terminix/terminal/terminal.d:539
 #: source/gx/terminix/terminal/terminal.d:536
 msgid "There are processes that are still running, close anyway?"
-msgstr ""
+msgstr "Çalışan işlemler mevcut, yinede kapatalım mı?"
 
 #: source/gx/terminix/terminal/terminal.d:571
 #: source/gx/terminix/terminal/terminal.d:575
 #: source/gx/terminix/terminal/terminal.d:572
 msgid "Enable input synchronization for this terminal"
-msgstr ""
+msgstr "Girdi senkronizasyonunu bu terminal için aç"
 
 #: source/gx/terminix/terminal/terminal.d:634
 #: source/gx/terminix/terminal/terminal.d:638
 #: source/gx/terminix/terminal/terminal.d:635
 msgid "Save…"
-msgstr ""
+msgstr "Kaydet…"
 
 #: source/gx/terminix/terminal/terminal.d:635
 #: source/gx/terminix/terminal/terminal.d:639
 #: source/gx/terminix/terminal/terminal.d:636
 msgid "Find…"
-msgstr ""
+msgstr "Bul…"
 
 #: source/gx/terminix/terminal/terminal.d:636
 #: source/gx/terminix/terminal/terminal.d:640
 #: source/gx/terminix/terminal/terminal.d:637
 msgid "Layout Options…"
-msgstr ""
+msgstr "Yerleşim Seçenekleri…"
 
 #: source/gx/terminix/terminal/terminal.d:644
 #: source/gx/terminix/terminal/terminal.d:648
 #: source/gx/terminix/terminal/terminal.d:645
 msgid "Read-Only"
-msgstr ""
+msgstr "Salt-Okunur"
 
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/terminal/terminal.d:653
 #: source/gx/terminix/terminal/terminal.d:650
 msgid "Reset and Clear"
-msgstr ""
+msgstr "Sıfırla ve Temizle"
 
 #: source/gx/terminix/terminal/terminal.d:678
 #: source/gx/terminix/terminal/terminal.d:682
 #: source/gx/terminix/terminal/terminal.d:679
 msgid "Split"
-msgstr ""
+msgstr "Yarık Ekran"
 
 #: source/gx/terminix/terminal/terminal.d:828
 #: source/gx/terminix/terminal/terminal.d:968
@@ -1109,21 +1110,21 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:849
 #: source/gx/terminix/terminal/terminal.d:989
 msgid "Restore"
-msgstr ""
+msgstr "Geri al"
 
 #: source/gx/terminix/terminal/terminal.d:927
 #: source/gx/terminix/terminal/terminal.d:946
 #: source/gx/terminix/terminal/terminal.d:943
 #: source/gx/terminix/terminal/terminal.d:948
 msgid "Open Link"
-msgstr ""
+msgstr "Link'i Aç"
 
 #: source/gx/terminix/terminal/terminal.d:928
 #: source/gx/terminix/terminal/terminal.d:947
 #: source/gx/terminix/terminal/terminal.d:944
 #: source/gx/terminix/terminal/terminal.d:949
 msgid "Copy Link Address"
-msgstr ""
+msgstr "Link Adresini Kopyala"
 
 #: source/gx/terminix/terminal/terminal.d:939
 #: source/gx/terminix/terminal/terminal.d:946
@@ -1134,7 +1135,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:960
 #: source/gx/terminix/terminal/terminal.d:967
 msgid "Copy"
-msgstr ""
+msgstr "Kopyala"
 
 #: source/gx/terminix/terminal/terminal.d:941
 #: source/gx/terminix/terminal/terminal.d:956
@@ -1145,28 +1146,28 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:962
 #: source/gx/terminix/terminal/terminal.d:977
 msgid "Select All"
-msgstr ""
+msgstr "Hepsini Seç"
 
 #: source/gx/terminix/terminal/terminal.d:959
 #: source/gx/terminix/terminal/terminal.d:978
 #: source/gx/terminix/terminal/terminal.d:975
 #: source/gx/terminix/terminal/terminal.d:980
 msgid "Clipboard"
-msgstr ""
+msgstr "Pano"
 
 #: source/gx/terminix/terminal/terminal.d:973
 #: source/gx/terminix/terminal/terminal.d:992
 #: source/gx/terminix/terminal/terminal.d:989
 #: source/gx/terminix/terminal/terminal.d:994
 msgid "Synchronize input"
-msgstr ""
+msgstr "Grirdiyi Senkronize et"
 
 #: source/gx/terminix/terminal/terminal.d:1410
 #: source/gx/terminix/terminal/terminal.d:1429
 #: source/gx/terminix/terminal/terminal.d:1425
 #: source/gx/terminix/terminal/terminal.d:1431
 msgid "Unexpected error occurred, no additional information available"
-msgstr ""
+msgstr "Beklenmeyen bir hata oluştu, daha fazla bilgi mevcut değil"
 
 #: source/gx/terminix/terminal/terminal.d:1416
 #: source/gx/terminix/terminal/terminal.d:1435
@@ -1174,21 +1175,21 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:1437
 #, c-format
 msgid "Unexpected error occurred: %s"
-msgstr ""
+msgstr "Beklenmeyen hata oluştu: %s"
 
 #: source/gx/terminix/terminal/terminal.d:1730
 #: source/gx/terminix/terminal/terminal.d:1749
 #: source/gx/terminix/terminal/terminal.d:1747
 #: source/gx/terminix/terminal/terminal.d:1754
 msgid "Save Terminal Output"
-msgstr ""
+msgstr "Terminal Çıktısını Kaydet"
 
 #: source/gx/terminix/terminal/terminal.d:1736
 #: source/gx/terminix/terminal/terminal.d:1755
 #: source/gx/terminix/terminal/terminal.d:1753
 #: source/gx/terminix/terminal/terminal.d:1763
 msgid "All Text Files"
-msgstr ""
+msgstr "Bütün Metin Dosyaları"
 
 #: source/gx/terminix/terminal/terminal.d:1740
 #: source/gx/terminix/appwindow.d:710
@@ -1197,7 +1198,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:1757
 #: source/gx/terminix/terminal/terminal.d:1767
 msgid "All Files"
-msgstr ""
+msgstr "Bütün Dosyalar"
 
 #: source/gx/terminix/terminal/terminal.d:2055
 #: source/gx/terminix/terminal/terminal.d:2078
@@ -1205,7 +1206,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:2086
 #, c-format
 msgid "The child process exited normally with status %d"
-msgstr ""
+msgstr "Alt işlem beklenmedik bir şekilde kapandı: %d"
 
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
@@ -1213,143 +1214,145 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:2087
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr ""
+msgstr "Alt işlem sinyal %d ile durduruldu."
 
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
 #: source/gx/terminix/terminal/terminal.d:2078
 #: source/gx/terminix/terminal/terminal.d:2088
 msgid "The child process was aborted."
-msgstr ""
+msgstr "Alt işlem durduruldu."
 
 #: source/gx/terminix/terminal/terminal.d:2063
 #: source/gx/terminix/terminal/terminal.d:2086
 #: source/gx/terminix/terminal/terminal.d:2084
 #: source/gx/terminix/terminal/terminal.d:2094
 msgid "Relaunch"
-msgstr ""
+msgstr "Tekrar başlat"
 
 #: source/gx/terminix/terminal/terminal.d:2103
 #: source/gx/terminix/terminal/terminal.d:2126
 #: source/gx/terminix/terminal/terminal.d:2124
 #: source/gx/terminix/terminal/terminal.d:2134
 msgid "This command is asking for Administrative access to your computer"
-msgstr ""
+msgstr "Bu komut bilgisayara yönetici erişimi istemekte"
 
 #: source/gx/terminix/terminal/terminal.d:2104
 #: source/gx/terminix/terminal/terminal.d:2127
 #: source/gx/terminix/terminal/terminal.d:2125
 #: source/gx/terminix/terminal/terminal.d:2135
 msgid "Copying commands from the internet can be dangerous. "
-msgstr ""
+msgstr "İnternetden komut kopyalamak tehlike arz edebilir "
 
 #: source/gx/terminix/terminal/terminal.d:2105
 #: source/gx/terminix/terminal/terminal.d:2128
 #: source/gx/terminix/terminal/terminal.d:2126
 #: source/gx/terminix/terminal/terminal.d:2136
 msgid "Be sure you understand what each part of this command does."
-msgstr ""
+msgstr "Komutun her bölümünün ne yaptığını anladığından emmin ol."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
 #: source/gx/terminix/terminal/terminal.d:2128
 #: source/gx/terminix/terminal/terminal.d:2138
 msgid "Don't Paste"
-msgstr ""
+msgstr "Yapıştırma"
 
 #: source/gx/terminix/terminal/terminal.d:2108
 #: source/gx/terminix/terminal/terminal.d:2131
 #: source/gx/terminix/terminal/terminal.d:2129
 #: source/gx/terminix/terminal/terminal.d:2139
 msgid "Paste Anyway"
-msgstr ""
+msgstr "Yinede Yapıştır"
 
 #: source/gx/terminix/cmdparams.d:75 source/gx/terminix/cmdparams.d:83
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
-msgstr ""
+msgstr "'%s' dizin olmadığı için önemsemiyorum"
 
 #: source/gx/terminix/cmdparams.d:102 source/gx/terminix/cmdparams.d:131
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
-msgstr ""
+msgstr "Oturum parametresi '%s' var olmadığı için önemsemiyorum"
 
 #: source/gx/terminix/cmdparams.d:111 source/gx/terminix/cmdparams.d:140
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
+"Aynı anda hem oturum yükleyip hem de profil/çalışma dizini/komut "
+"seçemiyoruz, lütfen birini yada diğerini seç"
 
 #: source/gx/terminix/appwindow.d:185
 msgid "View session sidebar"
-msgstr ""
+msgstr "Oturum kenar çubuğunü göster"
 
 #: source/gx/terminix/appwindow.d:199
 msgid "Create a new session"
-msgstr ""
+msgstr "Yeni oturum aç"
 
 #: source/gx/terminix/appwindow.d:378
 msgid "Change Session Name"
-msgstr ""
+msgstr "Oturum ismini değiştir"
 
 #: source/gx/terminix/appwindow.d:378
 msgid "Enter a new name for the session"
-msgstr ""
+msgstr "Oturum için yeni isim gir"
 
 #: source/gx/terminix/appwindow.d:404
 msgid "Open…"
-msgstr ""
+msgstr "Aç…"
 
 #: source/gx/terminix/appwindow.d:405
 #: source/gx/terminix/terminal/terminal.d:1757
 #: source/gx/terminix/appwindow.d:797
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: source/gx/terminix/appwindow.d:406
 msgid "Save As…"
-msgstr ""
+msgstr "Yeni Adla Kaydet…"
 
 #: source/gx/terminix/appwindow.d:411
 msgid "Name…"
-msgstr ""
+msgstr "İsim…"
 
 #: source/gx/terminix/appwindow.d:412
 msgid "Synchronize Input"
-msgstr ""
+msgstr "Girdiyi Senkronize et"
 
 #: source/gx/terminix/appwindow.d:417
 msgid "GC"
-msgstr ""
+msgstr "GC"
 
 #: source/gx/terminix/appwindow.d:706 source/gx/terminix/appwindow.d:721
 msgid "All JSON Files"
-msgstr ""
+msgstr "Bütün JSON Dosyaları"
 
 #: source/gx/terminix/appwindow.d:719 source/gx/terminix/appwindow.d:734
 #, c-format
 msgid "Filename '%s' does not exist"
-msgstr ""
+msgstr "'%s' dosyası bulunamadı"
 
 #: source/gx/terminix/appwindow.d:746 source/gx/terminix/appwindow.d:761
 #: source/gx/terminix/appwindow.d:762
 msgid "Load Session"
-msgstr ""
+msgstr "Oturum Yükle"
 
 #: source/gx/terminix/appwindow.d:759 source/gx/terminix/appwindow.d:774
 #: source/gx/terminix/appwindow.d:778
 msgid "Could not load session due to unexpected error."
-msgstr ""
+msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
 
 #: source/gx/terminix/appwindow.d:759 source/gx/terminix/appwindow.d:774
 #: source/gx/terminix/appwindow.d:778
 msgid "Error Loading Session"
-msgstr ""
+msgstr "Oturum Yükeleme Hatası"
 
 #: source/gx/terminix/appwindow.d:774 source/gx/terminix/appwindow.d:789
 #: source/gx/terminix/appwindow.d:794
 msgid "Save Session"
-msgstr ""
+msgstr "Oturumu Kaydet"
 
 #: source/gx/terminix/appwindow.d:809
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:3
@@ -1361,81 +1364,81 @@ msgstr ""
 
 #: source/gx/gtk/actions.d:26
 msgid "disabled"
-msgstr ""
+msgstr "etkisiz"
 
 #: source/app.d:46 source/app.d:72 source/app.d:76
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
+msgstr "GTK sürümün çok eski, en azından GTK %d.%d.%d. lazım!"
 
 #: source/app.d:66 source/app.d:92 source/app.d:96 source/app.d:93
 msgid "Unexpected exception occurred"
-msgstr ""
+msgstr "Kuraldışı bir durum oluştu"
 
 #: source/app.d:67 source/app.d:93 source/app.d:97 source/app.d:94
 msgid "Error: "
-msgstr ""
+msgstr "Hata: "
 
 #: data/nautilus/open-terminix.py:43
 msgid "Open in Terminix…"
-msgstr ""
+msgstr "Terminix de aç…"
 
 #: data/nautilus/open-terminix.py:44
 #, python-format
 msgid "Open Terminix In %s"
-msgstr ""
+msgstr "Terminixi %s'de aç"
 
 #: data/nautilus/open-terminix.py:50
 msgid "Open Terminix Here…"
-msgstr ""
+msgstr "Terminix'i Burada Aç…"
 
 #: data/nautilus/open-terminix.py:51
 msgid "Open Terminix In This Directory"
-msgstr ""
+msgstr "Terminix'i bu dizinde aç"
 
 #: data/resources/ui/shortcuts.ui:10 source/gx/terminix/prefwindow.d:338
 msgid "Application"
-msgstr ""
+msgstr "Uygulama"
 
 #: data/resources/ui/shortcuts.ui:15 data/resources/ui/shortcuts.ui:10
 msgctxt "shortcut window"
 msgid "Application"
-msgstr ""
+msgstr "Uygulama"
 
 #: data/resources/ui/shortcuts.ui:19
 msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr ""
+msgstr "Yeni pencerede aç"
 
 #: data/resources/ui/shortcuts.ui:25
 msgctxt "shortcut window"
 msgid "Open a new session"
-msgstr ""
+msgstr "Yeni oturum aç"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "Open preferences"
-msgstr ""
+msgstr "Tercihleri aç"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "View configured shortcuts"
-msgstr ""
+msgstr "Ayarlı kısayolları göster"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Window"
-msgstr ""
+msgstr "Pencere"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Toggle fullscreen mode"
-msgstr ""
+msgstr "Tam ekran kipi"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "View session sidebar"
-msgstr ""
+msgstr "Oturum kenar çubuğunu göster"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
