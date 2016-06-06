@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-06 18:17+0200\n"
+"POT-Creation-Date: 2016-06-06 21:17+0200\n"
 "PO-Revision-Date: 2016-04-21 00:10+0000\n"
 "Last-Translator: Igor Dyatlov <dyatlov.igor@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/terminix/"
@@ -363,28 +363,28 @@ msgstr "Автоматически"
 #: source/gx/terminix/profilewindow.d:712
 #: source/gx/terminix/profilewindow.d:720
 msgid "Control-H"
-msgstr ""
+msgstr "Control-H"
 
 #: source/gx/terminix/profilewindow.d:707
 #: source/gx/terminix/profilewindow.d:715
 #: source/gx/terminix/profilewindow.d:712
 #: source/gx/terminix/profilewindow.d:720
 msgid "ASCII DEL"
-msgstr ""
+msgstr "ASCII DEL"
 
 #: source/gx/terminix/profilewindow.d:707
 #: source/gx/terminix/profilewindow.d:715
 #: source/gx/terminix/profilewindow.d:712
 #: source/gx/terminix/profilewindow.d:720
 msgid "Escape sequence"
-msgstr "Esc-последовательность"
+msgstr "Управляющая последовательность"
 
 #: source/gx/terminix/profilewindow.d:707
 #: source/gx/terminix/profilewindow.d:715
 #: source/gx/terminix/profilewindow.d:712
 #: source/gx/terminix/profilewindow.d:720
 msgid "TTY"
-msgstr ""
+msgstr "TTY"
 
 #: source/gx/terminix/profilewindow.d:712
 #: source/gx/terminix/profilewindow.d:717
@@ -419,27 +419,27 @@ msgstr "Широкие"
 #: source/gx/terminix/profilewindow.d:764
 #: source/gx/terminix/profilewindow.d:769
 msgid "Run command as a login shell"
-msgstr "Выполнить команду как вход в оболочку"
+msgstr "Запускать команду как оболочку входа"
 
 #: source/gx/terminix/profilewindow.d:768
 #: source/gx/terminix/profilewindow.d:773
 msgid "Run a custom command instead of my shell"
-msgstr "Пользовательская команда вместо встроенной  оболочки"
+msgstr "Запускать другую команду вместо моей оболочки"
 
 #: source/gx/terminix/profilewindow.d:784
 #: source/gx/terminix/profilewindow.d:789
 msgid "When command exits"
-msgstr "При завершении команды"
+msgstr "При выходе из команды:"
 
 #: source/gx/terminix/profilewindow.d:786
 #: source/gx/terminix/profilewindow.d:791
 msgid "Exit the terminal"
-msgstr "Выход их терминала"
+msgstr "Выйти из терминала"
 
 #: source/gx/terminix/profilewindow.d:786
 #: source/gx/terminix/profilewindow.d:791
 msgid "Restart the command"
-msgstr "Перезапуск команды"
+msgstr "Перезапустить команду"
 
 #: source/gx/terminix/profilewindow.d:786
 #: source/gx/terminix/profilewindow.d:791
@@ -448,7 +448,7 @@ msgstr "Держать терминал открытым"
 
 #: source/gx/terminix/constants.d:38 source/gx/terminix/constants.d:57
 msgid "A VTE based terminal emulator for Linux"
-msgstr ""
+msgstr "Эмулятор терминала для Linux основанный на VTE"
 
 #: source/gx/terminix/constants.d:39 source/gx/terminix/constants.d:58
 msgid ""
@@ -625,7 +625,7 @@ msgstr "Параметры"
 #: source/gx/terminix/application.d:190 source/gx/terminix/prefwindow.d:86
 #: source/gx/terminix/prefwindow.d:88
 msgid "Shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Комбинации клавиш"
 
 #: source/gx/terminix/application.d:195
 msgid "About"
@@ -645,7 +645,7 @@ msgstr "Установить рабочую папку терминала"
 
 #: source/gx/terminix/application.d:466 source/gx/terminix/application.d:479
 msgid "DIRECTORY"
-msgstr ""
+msgstr "КАТАЛОГ"
 
 #: source/gx/terminix/application.d:467 source/gx/terminix/application.d:480
 msgid "Set the starting profile"
@@ -653,7 +653,7 @@ msgstr "Установить стартовый профиль"
 
 #: source/gx/terminix/application.d:467 source/gx/terminix/application.d:480
 msgid "PROFILE_NAME"
-msgstr ""
+msgstr "ИМЯ-ПРОФИЛЯ"
 
 #: source/gx/terminix/application.d:468 source/gx/terminix/application.d:481
 msgid "Open the specified session"
@@ -661,7 +661,7 @@ msgstr "Открыть специальную сессию"
 
 #: source/gx/terminix/application.d:468 source/gx/terminix/application.d:481
 msgid "SESSION_NAME"
-msgstr ""
+msgstr "ИМЯ-СЕАНСА"
 
 #: source/gx/terminix/application.d:469 source/gx/terminix/application.d:482
 msgid "Send an action to current Terminix instance"
@@ -1474,51 +1474,43 @@ msgid "Switch to session 3"
 msgstr "Переключить на сеанс 3"
 
 #: data/resources/ui/shortcuts.ui:91
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 4"
 msgstr "Переключить на сеанс 4"
 
 #: data/resources/ui/shortcuts.ui:97
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 5"
 msgstr "Переключить на сеанс 5"
 
 #: data/resources/ui/shortcuts.ui:103
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 6"
 msgstr "Переключить на сеанс 6"
 
 #: data/resources/ui/shortcuts.ui:109
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 7"
 msgstr "Переключить на сеанс 7"
 
 #: data/resources/ui/shortcuts.ui:115
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 8"
 msgstr "Переключить на сеанс 8"
 
 #: data/resources/ui/shortcuts.ui:121
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 9"
 msgstr "Переключить на сеанс 9"
 
 #: data/resources/ui/shortcuts.ui:127
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Switch to session 10"
 msgstr "Переключить на сеанс 10"
 
 #: data/resources/ui/shortcuts.ui:138 source/gx/terminix/prefwindow.d:340
-#, fuzzy
 msgid "Session"
-msgstr "сеанс"
+msgstr "Сеанс"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
@@ -1526,16 +1518,14 @@ msgid "File"
 msgstr "Файл"
 
 #: data/resources/ui/shortcuts.ui:147
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Close the current session"
-msgstr "Открыть специальную сессию"
+msgstr "Закрыть текущую сессию"
 
 #: data/resources/ui/shortcuts.ui:153
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Save the current session"
-msgstr "Открыть специальную сессию"
+msgstr "Сохранить текущей сессии"
 
 #: data/resources/ui/shortcuts.ui:159
 msgctxt "shortcut window"
@@ -1543,10 +1533,9 @@ msgid "Save the current session with new filename"
 msgstr "Сохранить текущую сессию с новым именем"
 
 #: data/resources/ui/shortcuts.ui:165
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open a saved session"
-msgstr "Открыть новый сеанс"
+msgstr "Открытие сохраненной сессии"
 
 #: data/resources/ui/shortcuts.ui:173
 msgctxt "shortcut window"
@@ -1799,7 +1788,7 @@ msgstr "Параметры оформления"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 msgid "A tiling terminal for Gnome"
-msgstr "Тайлинг терминала в GNOME"
+msgstr "Тайлинговый терминал для Gnome"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:10
 msgid "com.gexperts.Terminix"
@@ -1810,9 +1799,8 @@ msgid "New Terminal"
 msgstr "Новый терминал"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-#, fuzzy
 msgid "A tiling terminal for GNOME"
-msgstr "Тайлинг терминала в GNOME"
+msgstr "Тайлинговый терминал для GNOME"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:10
 msgid "Terminix is a tiling terminal emulator."
@@ -1820,7 +1808,7 @@ msgstr "Terminix является тайлинговым эмулятором т
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:13
 msgid "It lets you:"
-msgstr ""
+msgstr "Это позволяет:"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:15
 msgid ""
