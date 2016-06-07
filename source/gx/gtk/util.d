@@ -150,7 +150,12 @@ bool showInputDialog(Window parent, out string value, string initialValue = null
     }
     dialog.setTransientFor(parent);
     dialog.setTitle(title);
-    Entry entry = new Entry(initialValue);
+    Entry entry;
+    if (initialValue.length > 0) {
+        entry = new Entry(initialValue);
+    } else {
+        entry = new Entry();
+    }
     entry.addOnActivate(delegate(Entry) { dialog.response(ResponseType.OK); });
     dialog.getMessageArea().add(entry);
     entry.showAll();

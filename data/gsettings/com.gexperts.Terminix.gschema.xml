@@ -538,6 +538,11 @@
       <default>'UTF-8'</default>
       <summary>Which encoding to use</summary>
     </key>
+    <key name='automatic-switch' type='as'>
+      <default>[]</default>
+      <summary>Automatically make this profile active when match detected</summary>
+      <description>Profile becomes active automatically when the current hostname and directory match one of the hostname:value pairs in this list.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->

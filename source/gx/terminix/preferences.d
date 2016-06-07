@@ -135,6 +135,8 @@ enum SETTINGS_PROFILE_CUSTOM_COMMAND_KEY = "custom-command";
 
 enum SETTINGS_PROFILE_TITLE_KEY = "terminal-title";
 
+enum SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY = "automatic-switch";
+
 //Shortcuts
 enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Terminix.Keybindings";
 
@@ -294,6 +296,28 @@ public:
         foreach (profile; profiles) {
             if (profile.name == profileName)
                 return profile.uuid;
+        }
+        return null;
+    }
+    
+    /**
+     * Finds the profile that matches the current hostname and directory
+     */
+    string findProfileForHostnameAndDir(string hostname, string directory) {
+        string[] tests;
+        tests ~= (hostname ~ ":" ~ directory);
+        tests ~= (":" ~ directory);
+        tests ~= (hostname ~ ":");
+        
+        string[] uuids = getProfileUUIDs();
+        foreach (uuid; uuids) {
+            GSettings settings = getProfileSettings(uuid);
+            string[] matches = settings.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
+            foreach (match; matches) {
+                foreach(test; tests) {
+                    if (match == test) return uuid;
+                }
+            } 
         }
         return null;
     }
