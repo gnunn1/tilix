@@ -240,6 +240,8 @@ private:
 
     GPid gpid = 0;
     bool _terminalInitialized = false;
+    string _currentDirectory;
+    string _currentHostname;
 
     Box bTitle;
     MenuButton mbTitle;
@@ -247,7 +249,12 @@ private:
     ToggleButton tbSyncInput;
     Spinner spBell;
 
+    //The UUID of the profile which is currently active
     string _profileUUID;
+    // The UUID of the default profile, this will always be null unless 
+    // automatic profile switching has occurred then the UUID of the
+    // default profile will be stored here.
+    string _defaultProfileUUID;
     //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
     ulong _terminalID;
     //Unique identifier for this terminal, never shown to user, never changes
@@ -730,15 +737,25 @@ private:
         });
         
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
-            trace(format("Window title changed, pid=%d '%s'", gpid, vte.getWindowTitle()));
             terminalInitialized = true;
             updateTitle();
         });
-        vte.addOnIconTitleChanged(delegate(VTE terminal) { trace(format("Icon title changed, pid=%d '%s'", gpid, vte.getIconTitle())); updateTitle(); });
+        vte.addOnIconTitleChanged(delegate(VTE terminal) {
+            updateTitle(); 
+        });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
-            trace(format("Current directory changed, pid=%d '%s'", gpid, currentDirectory));
-            terminalInitialized = true;
-            updateTitle();
+            string hostname, directory;
+            getHostnameAndDirectory(hostname, directory);
+            if (hostname != _currentHostname || directory != _currentDirectory) {
+                _currentHostname = hostname;
+                _currentDirectory = directory;
+                trace(format("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory));
+                terminalInitialized = true;
+                updateTitle();
+                static if (AUTOMATIC_PROFILE_SWITCH) {
+                    checkAutomaticProfileSwitch();
+                }
+            }
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalWidgetFocusIn);
@@ -875,7 +892,27 @@ private:
             }
             bellStart = Clock.currStdTime();
         }
-    }    
+    }
+    
+    /**
+     * Check automatic profile switch and make switch if necessary
+     */
+    void checkAutomaticProfileSwitch() {
+        string UUID = prfMgr.findProfileForHostnameAndDir(currentHostname, currentDirectory);
+        if (UUID.length > 0) {
+            // If defaultProfileUUID is not alredy set, update it with last profile
+            if (_defaultProfileUUID.length == 0) {
+                _defaultProfileUUID = _profileUUID;
+                profileUUID = UUID;
+            }
+        } else {
+            // Switch back to default profile?
+            if (_defaultProfileUUID.length > 0) {
+                profileUUID = _defaultProfileUUID;
+                _defaultProfileUUID.length = 0;
+            }
+        }
+    }   
 
     /**
      * Updates the terminal title in response to UI changes
@@ -1426,6 +1463,17 @@ private:
         terminalOverlay.addOverlay(ibRelaunch);
         ibRelaunch.showAll();
     }
+    
+    void getHostnameAndDirectory(out string hostname, out string directory) {
+        if (gpid == 0)
+            return;
+        string cwd = vte.getCurrentDirectoryUri();
+        if (cwd.length == 0) {      
+            return;
+        }
+        trace("Current directory: " ~ cwd);
+        directory = URI.filenameFromUri(cwd, hostname);
+    }
 
     /**
      * Spawns the child process in the Terminal depending on the Profile
@@ -1858,7 +1906,9 @@ private:
         }
         vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
     }
-    
+
+// Theme changed    
+private:    
     void onThemeChanged(string theme) {
         //Get CSS Provider updated via preference
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
@@ -2025,17 +2075,11 @@ public:
     }
     
     @property string currentDirectory() {
-        if (gpid == 0)
-            return null;
-        string hostname;
-        string cwd = vte.getCurrentDirectoryUri();
-        if (cwd.length == 0) {
-            return null;
-        }
-        trace("Current directory " ~ cwd);
-        string result = URI.filenameFromUri(cwd, hostname);
-        trace("Hostname " ~ hostname);
-        return result;
+        return _currentDirectory;
+    }
+    
+    @property string currentHostname() {
+        return _currentHostname;
     }
 
     @property string profileUUID() {

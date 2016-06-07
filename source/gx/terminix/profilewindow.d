@@ -8,11 +8,14 @@ import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.format;
+import std.string;
 
 import gdk.RGBA;
 
 import gio.Settings : GSettings = Settings;
 
+import glib.GException;
+import glib.URI;
 import glib.Util;
 
 import gtk.Application;
@@ -35,8 +38,12 @@ import gtk.MenuButton;
 import gtk.Notebook;
 import gtk.Popover;
 import gtk.Scale;
+import gtk.ScrolledWindow;
 import gtk.SpinButton;
 import gtk.Switch;
+import gtk.TreeIter;
+import gtk.TreeView;
+import gtk.TreeViewColumn;
 import gtk.Widget;
 
 import gx.gtk.util;
@@ -46,6 +53,7 @@ import gx.i18n.l10n;
 
 import gx.terminix.application;
 import gx.terminix.colorschemes;
+import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 
@@ -80,7 +88,10 @@ private:
         nb.appendPage(new ColorPage(profile, gsProfile), _("Color"));
         nb.appendPage(new ScrollPage(profile, gsProfile), _("Scrolling"));
         nb.appendPage(new CompatibilityPage(profile, gsProfile), _("Compatibility"));
-
+        static if (AUTOMATIC_PROFILE_SWITCH) {
+            nb.appendPage(new AdvancedPage(profile, gsProfile), _("Advanced"));
+        }
+        
         add(nb);
     }
 
@@ -800,4 +811,148 @@ public:
         this.gsProfile = gsProfile;
         createUI();
     }
+}
+
+class AdvancedPage: Box {
+
+private:
+    GSettings gsProfile;
+    TreeView tvValues;
+    ListStore lsValues;
+    
+    Button btnAdd;
+    Button btnEdit;
+    Button btnDelete;
+    
+    void createUI() {
+        setMarginLeft(18);
+        setMarginRight(18);
+        setMarginTop(18);
+        setMarginBottom(18);
+        
+        Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
+        lblProfileSwitching.setUseMarkup(true);
+        lblProfileSwitching.setHalign(Align.START);
+        add(lblProfileSwitching);
+        
+        string desc = "Profiles are automatically selected based on the values entered here.\n" ~
+                      "Values are entered using a <i>hostname:directory</i> format.\n" ~ 
+                      "Either the hostname or directory can be ommitted but the colon must be present.\n" ~
+                      "Entries with neither hostname or directory are not permitted";
+        
+        Label lblDescription = new Label(_(desc));
+        lblDescription.setUseMarkup(true);
+        lblDescription.setLineWrap(true);
+        lblDescription.setSensitive(false);
+        packStart(lblDescription, false, false, 0);
+        
+        lsValues = new ListStore([GType.STRING]);
+        string[] values = gsProfile.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
+        foreach(value; values) {
+            TreeIter iter = lsValues.createIter();
+            lsValues.setValue(iter, 0, value);
+        }
+        tvValues = new TreeView(lsValues);
+        tvValues.setActivateOnSingleClick(true);
+        tvValues.addOnCursorChanged(delegate(TreeView) {
+            updateUI(); 
+        });
+        
+        TreeViewColumn column = new TreeViewColumn(_("Match"), new CellRendererText(), "text", 0);
+        tvValues.appendColumn(column);
+        
+        ScrolledWindow scValues = new ScrolledWindow(tvValues);
+        scValues.setShadowType(ShadowType.ETCHED_IN);
+        scValues.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        scValues.setHexpand(true);
+
+        Box bButtons = new Box(Orientation.VERTICAL, 4);
+        bButtons.setVexpand(true);
+
+        btnAdd = new Button(_("Add"));
+        btnAdd.addOnClicked(delegate(Button) {
+            string value;
+            bool validated = true;
+            do {
+                if (showInputDialog(cast(ProfileWindow)getToplevel(), value, null, _("Add New Match"), _("Enter hostname:directory to match"))) {
+                    validated = validateInput(value);
+                    if (validated) {
+                        TreeIter iter = lsValues.createIter();
+                        lsValues.setValue(iter, 0, value);
+                        storeValues();                
+                        selectRow(tvValues, lsValues.iterNChildren(null) - 1, null);
+                    } 
+                } else {
+                    validated = true;
+                }
+            } while (!validated);
+        });
+        
+        bButtons.add(btnAdd);
+
+        btnEdit = new Button(_("Edit"));
+        btnEdit.addOnClicked(delegate(Button) {
+            TreeIter iter = tvValues.getSelectedIter();
+            if (iter !is null) {
+                string value = lsValues.getValueString(iter, 0);
+                bool validated = true;
+                do {
+                    if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), _("Edit hostname:directory to match"))) {
+                        validated = validateInput(value);
+                        if (validated) {
+                            lsValues.setValue(iter, 0, value);
+                            storeValues();
+                        }                
+                    } else {
+                        validated = true;
+                    }
+                } while (!validated); 
+            }
+        });
+        bButtons.add(btnEdit);
+        
+        btnDelete = new Button(_("Delete"));
+        btnDelete.addOnClicked(delegate(Button) {
+            TreeIter iter = tvValues.getSelectedIter();
+            if (iter !is null) {
+                lsValues.remove(iter);
+                storeValues();                
+            }
+        });
+        bButtons.add(btnDelete);
+        
+        Box box = new Box(Orientation.HORIZONTAL, 6);
+        box.add(scValues);
+        box.add(bButtons);
+        add(box);
+    }
+    
+    void updateUI() {
+        TreeIter selected = tvValues.getSelectedIter();
+        btnDelete.setSensitive(selected !is null && lsValues.iterNChildren(null) > 1);
+        btnEdit.setSensitive(selected !is null);
+    }
+    
+    // Validate whether the input conforms to hostname:directory
+    // where either hostname or directory can be empty but not both
+    bool validateInput(string match) {
+        return (match.length > 1 || match.indexOf(':') >= 0);
+    }
+    
+    // Store the values in the ListStore into settings
+    void storeValues() {
+        string[] values;
+        foreach (TreeIter iter; TreeIterRange(lsValues)) {
+            values ~= lsValues.getValueString(iter, 0);
+        }
+        gsProfile.setStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY, values);
+    }
+
+public:
+    this(ProfileInfo profile, GSettings gsProfile) {
+        super(Orientation.VERTICAL, 6);
+        this.gsProfile = gsProfile;
+        createUI();
+        updateUI();
+    }    
 }
