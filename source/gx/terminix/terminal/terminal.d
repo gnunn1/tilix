@@ -1591,8 +1591,9 @@ private:
         TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
         TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
         TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
+        TargetEntry colorEntry = new TargetEntry("application/x-color", TargetFlags.OTHER_APP, DropTargets.COLOR);
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
-        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, vteEntry];
+        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
         dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
         //vte.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
@@ -1802,6 +1803,15 @@ private:
             if (text.length > 0) {
                 vte.feedChild(text, text.length);
             }
+            break;
+        case DropTargets.COLOR:
+            if (data.getLength() != 8) return;
+            char[] colors = data.getDataWithLength();
+            string hexColor = format("#%02X%02X%02X", colors[0], colors[1], colors[2]);
+            trace("Hex Color " ~ hexColor);
+            trace(format("Red=%d,Green=%d,Blue=%d,Alpha=%d", colors[0], colors[1], colors[2], colors[3]));
+            gsProfile.setString(SETTINGS_PROFILE_BG_COLOR_KEY, hexColor);
+            applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
             break;
         case DropTargets.VTE:
             //Don't allow drop on the same terminal
@@ -2305,6 +2315,7 @@ enum DropTargets {
     URILIST,
     STRING,
     TEXT,
+    COLOR,
     /**
         * Used when one VTE is dropped on another
         */
