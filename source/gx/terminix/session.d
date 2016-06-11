@@ -46,6 +46,7 @@ import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.cairo;
+import gx.gtk.dialog;
 import gx.gtk.threads;
 import gx.gtk.util;
 import gx.i18n.l10n;
@@ -377,8 +378,8 @@ private:
         Terminal newTerminal = createTerminal(terminal.profileUUID);
         trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);
-        trace("Intializing terminal with " ~ terminal.currentDirectory);
-        newTerminal.initTerminal(terminal.currentDirectory, false);
+        trace("Intializing terminal with " ~ terminal.currentLocalDirectory);
+        newTerminal.initTerminal(terminal.currentLocalDirectory, false);
     }
 
     /**
@@ -649,10 +650,10 @@ private:
     /**
      * Manages changing a terminal from maximized to normal
      */
-    bool onTerminalRequestStateChange(Terminal terminal, TerminalState state) {
+    bool onTerminalRequestStateChange(Terminal terminal, TerminalWindowState state) {
         trace("Changing window state");
         bool result;
-        if (state == TerminalState.MAXIMIZED) {
+        if (state == TerminalWindowState.MAXIMIZED) {
             result = maximizeTerminal(terminal);
         } else {
             result = restoreTerminal(terminal);
@@ -763,7 +764,7 @@ private:
      */
     JSONValue serializeTerminal(JSONValue value, Terminal terminal) {
         value[NODE_PROFILE] = terminal.profileUUID;
-        value[NODE_DIRECTORY] = terminal.currentDirectory;
+        value[NODE_DIRECTORY] = terminal.currentLocalDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
         if (terminal.overrideTitle.length > 0) {
@@ -1011,7 +1012,7 @@ public:
     
     string getActiveTerminalDirectory() {
         if (currentTerminal !is null) {
-            return currentTerminal.currentDirectory;
+            return currentTerminal.currentLocalDirectory;
         } else {
             return null;
         }

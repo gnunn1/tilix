@@ -23,7 +23,6 @@ import gtk.CellRendererText;
 import gtk.Container;
 import gtk.Entry;
 import gtk.ListStore;
-import gtk.MessageDialog;
 import gtk.Paned;
 import gtk.Settings;
 import gtk.StyleContext;
@@ -127,45 +126,6 @@ void setMargins(Widget widget, int left, int top, int right, int bottom) {
     widget.setMarginTop(top);
     widget.setMarginRight(right);
     widget.setMarginBottom(bottom);
-}
-
-/**
- * Displays an error message in a dialog
- */
-void showErrorDialog(Window parent, string message, string title = null) {
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.ERROR, ButtonsType.OK, message, null);
-    scope (exit) {
-        dialog.destroy();
-    }
-    dialog.setTransientFor(parent);
-    if (title.length > 0)
-        dialog.setTitle(title);
-    dialog.run();
-}
-
-bool showInputDialog(Window parent, out string value, string initialValue = null, string title = null, string message = null) {
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL, message, null);
-    scope (exit) {
-        dialog.destroy();
-    }
-    dialog.setTransientFor(parent);
-    dialog.setTitle(title);
-    Entry entry;
-    if (initialValue.length > 0) {
-        entry = new Entry(initialValue);
-    } else {
-        entry = new Entry();
-    }
-    entry.addOnActivate(delegate(Entry) { dialog.response(ResponseType.OK); });
-    dialog.getMessageArea().add(entry);
-    entry.showAll();
-    dialog.setDefaultResponse(ResponseType.OK);
-    if (dialog.run() == ResponseType.OK) {
-        value = entry.getText();
-        return true;
-    } else {
-        return false;
-    }
 }
 
 /**

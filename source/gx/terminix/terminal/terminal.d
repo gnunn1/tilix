@@ -127,7 +127,7 @@ enum DragQuadrant {
 /**
  * The window state of the terminal
  */
-enum TerminalState {
+enum TerminalWindowState {
     NORMAL,
     MAXIMIZED
 }
@@ -185,7 +185,7 @@ alias OnTerminalSyncInput = void delegate(Terminal terminal, SyncInputEvent even
  * Triggered when the terminal needs to change state. Delegate returns whether
  * state change was successful.
  */
-alias OnTerminalRequestStateChange = bool delegate(Terminal terminal, TerminalState state);
+alias OnTerminalRequestStateChange = bool delegate(Terminal terminal, TerminalWindowState state);
 
 /**
  * Constants used for the various variables permitted when defining
@@ -227,7 +227,7 @@ private:
     OnTerminalSyncInput[] terminalSyncInputDelegates;
     OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
 
-    TerminalState terminalState = TerminalState.NORMAL;
+    TerminalWindowState terminalWindowState = TerminalWindowState.NORMAL;
     Button btnMaximize;
 
     SearchRevealer rFind;
@@ -239,9 +239,6 @@ private:
     }
 
     GPid gpid = 0;
-    bool _terminalInitialized = false;
-    string _currentDirectory;
-    string _currentHostname;
 
     Box bTitle;
     MenuButton mbTitle;
@@ -272,7 +269,7 @@ private:
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
 
-    string initialWorkingDir;
+    GlobalTerminalState gst;
 
     SimpleActionGroup sagTerminalActions;
 
@@ -737,7 +734,7 @@ private:
         });
         
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
-            terminalInitialized = true;
+            //terminalInitialized = true;
             updateTitle();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
@@ -746,15 +743,10 @@ private:
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
-            if (hostname != _currentHostname || directory != _currentDirectory) {
-                _currentHostname = hostname;
-                _currentDirectory = directory;
-                trace(format("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory));
-                terminalInitialized = true;
+            if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
+                gst.updateState(hostname, directory);
                 updateTitle();
-                static if (AUTOMATIC_PROFILE_SWITCH) {
-                    checkAutomaticProfileSwitch();
-                }
+                checkAutomaticProfileSwitch();
             }
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
@@ -767,7 +759,7 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
-            if (terminalInitialized && terminix.testVTEConfig() && currentDirectory.length == 0) {
+            if (terminalInitialized && terminix.testVTEConfig() && gst.currentDirectory.length == 0) {
                 terminix.warnVTEConfigIssue();
             }
         });
@@ -898,7 +890,7 @@ private:
      * Check automatic profile switch and make switch if necessary
      */
     void checkAutomaticProfileSwitch() {
-        string UUID = prfMgr.findProfileForHostnameAndDir(currentHostname, currentDirectory);
+        string UUID = prfMgr.findProfileForHostnameAndDir(gst.currentHostname, gst.currentDirectory);
         if (UUID.length > 0) {
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
@@ -929,7 +921,7 @@ private:
         title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
         string path;
         if (terminalInitialized) {
-            path = currentDirectory;
+            path = gst.currentDirectory;
         } else {
             trace("Terminal not initialized yet, no path available");
             path = "";
@@ -943,12 +935,12 @@ private:
      */
     void updateActions() {
         SimpleAction sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_RIGHT);
-        sa.setEnabled(terminalState == TerminalState.NORMAL);
+        sa.setEnabled(terminalWindowState == TerminalWindowState.NORMAL);
         sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_DOWN);
-        sa.setEnabled(terminalState == TerminalState.NORMAL);
+        sa.setEnabled(terminalWindowState == TerminalWindowState.NORMAL);
         //Update button image
         string icon;
-        if (terminalState == TerminalState.MAXIMIZED) {
+        if (terminalWindowState == TerminalWindowState.MAXIMIZED) {
             icon = "window-restore-symbolic";
             btnMaximize.setTooltipText(_("Restore"));
         } else {
@@ -1023,7 +1015,7 @@ private:
         trace("Exit code received is " ~ to!string(status));
         switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
         case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE:
-            spawnTerminalProcess(initialWorkingDir);
+            spawnTerminalProcess(gst.initialCWD);
             return;
         case SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE:
             notifyTerminalClose();
@@ -1033,7 +1025,7 @@ private:
             ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
                 if (response == ResponseType.OK) {
                     ibRelaunch.destroy();
-                    spawnTerminalProcess(initialWorkingDir);
+                    spawnTerminalProcess(gst.initialCWD);
                 }
             });
             ibRelaunch.setStatus(status);
@@ -1090,7 +1082,7 @@ private:
         //Check if titlebar is turned off and add extra items
         if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
             GMenu windowSection = new GMenu();
-            windowSection.append(terminalState == TerminalState.MAXIMIZED ? _("Restore") : _("Maximize"), ACTION_MAXIMIZE);
+            windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), ACTION_MAXIMIZE);
             windowSection.append(_("Close"), ACTION_CLOSE);
             mmContext.appendSection(null, windowSection);
             if (_synchronizeInput) {
@@ -1456,7 +1448,7 @@ private:
         ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
             if (response == ResponseType.OK) {
                 ibRelaunch.destroy();
-                spawnTerminalProcess(initialWorkingDir);
+                spawnTerminalProcess(gst.initialCWD);
             }
         });
         ibRelaunch.setMessage(message);
@@ -1663,7 +1655,7 @@ private:
             if (terminal !is null) {
                 trace("Detaching terminal ", dr);
                 notifyTerminalRequestDetach(terminal, x, y);
-                terminalState = TerminalState.NORMAL;
+                terminalWindowState = TerminalWindowState.NORMAL;
                 updateActions();
             } else {
                 error("Failed to get terminal therefore detach request failed");
@@ -1696,7 +1688,7 @@ private:
         if (!dc.listTargets().find(intern(VTE_DND, false)))
             return true;
         //Don't allow drop on the same terminal or if it is maximized
-        if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED) {
+        if (isSourceAndDestEqual(dc, this) || terminalWindowState == TerminalWindowState.MAXIMIZED) {
             //trace("Invalid drop");
             return false;
         }
@@ -1799,7 +1791,7 @@ private:
             break;
         case DropTargets.VTE:
             //Don't allow drop on the same terminal
-            if (isSourceAndDestEqual(dc, this) || terminalState == TerminalState.MAXIMIZED)
+            if (isSourceAndDestEqual(dc, this) || terminalWindowState == TerminalWindowState.MAXIMIZED)
                 return;
             string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
             DragQuadrant dq = getDragQuadrant(x, y, vte);
@@ -1967,7 +1959,7 @@ public:
      */
     void initTerminal(string initialPath, bool firstRun) {
         trace("Initializing Terminal with directory " ~ initialPath);
-        initialWorkingDir = initialPath;
+        gst.initialCWD = initialPath;
         spawnTerminalProcess(initialPath, overrideCommand);
         if (firstRun) {
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
@@ -1987,7 +1979,7 @@ public:
      * state change from container.
      */
     void maximize() {
-        TerminalState newState = (terminalState == TerminalState.NORMAL) ? TerminalState.MAXIMIZED : TerminalState.NORMAL;
+        TerminalWindowState newState = (terminalWindowState == TerminalWindowState.NORMAL) ? TerminalWindowState.MAXIMIZED : TerminalWindowState.NORMAL;
         bool result = true;
         foreach (dlg; terminalRequestStateChangeDelegates) {
             if (!dlg(this, newState)) {
@@ -1995,7 +1987,7 @@ public:
             }
         }
         if (result) {
-            terminalState = newState;
+            terminalWindowState = newState;
             updateActions();
         }
     }
@@ -2074,12 +2066,9 @@ public:
         }
     }
     
-    @property string currentDirectory() {
-        return _currentDirectory;
-    }
     
-    @property string currentHostname() {
-        return _currentHostname;
+    @property string currentLocalDirectory() {
+        return gst.getState(TerminalStateType.LOCAL).directory;
     }
 
     @property string profileUUID() {
@@ -2123,14 +2112,16 @@ public:
     }
 
     @property bool terminalInitialized() {
-        return _terminalInitialized;
+        return gst.initialized;
     }
 
+    /*
     @property void terminalInitialized(bool value) {
         if (value != _terminalInitialized) {
             _terminalInitialized = value;
         }
     }
+    */
 
     @property string overrideCommand() {
         return _overrideCommand;
@@ -2304,6 +2295,108 @@ enum DropTargets {
 struct DragInfo {
     bool isDragActive;
     DragQuadrant dq;
+}
+
+//Block for managing terminal state
+private:
+
+/**
+ * Struct for remembering terminal state, used to track
+ * local and remote (i.e. SSH) states.
+ */
+struct TerminalState {
+    string hostname;
+    string directory;
+
+    void clear() {
+        hostname.length = 0;
+        directory.length = 0;
+    }
+
+    bool hasState() {
+        return (hostname.length > 0 || directory.length > 0);
+    }
+}
+
+enum TerminalStateType {LOCAL, REMOTE};
+
+struct GlobalTerminalState {
+private:
+    TerminalState local;
+    TerminalState remote;
+    string localHostname;
+    string _initialCWD;
+    bool _initialized;
+
+public:
+
+    void clear() {
+        local.clear();
+        remote.clear();
+    }
+
+    TerminalState getState(TerminalStateType type) {
+        final switch (type) {
+            case TerminalStateType.LOCAL: return local;
+            case TerminalStateType.REMOTE: return remote;
+        }
+    }
+
+    bool hasState(TerminalStateType type) {
+        final switch (type) {
+            case TerminalStateType.LOCAL: return local.hasState();
+            case TerminalStateType.REMOTE: return remote.hasState();
+        }
+    }
+
+    void updateState(string hostname, string directory) {
+        if (localHostname.length == 0) {
+            char[1024] systemHostname;
+            if (gethostname(cast(char*)&systemHostname, 1024) == 0) {
+                localHostname = to!string(cast(char*)&systemHostname);
+                trace("Local Hostname: " ~ localHostname);
+            }
+        }
+        //Is this a remote host?
+        if (hostname != localHostname) {
+            remote.hostname = hostname;
+            remote.directory = directory;
+        } else {
+            local.hostname = hostname;
+            local.directory = directory;
+            remote.clear();
+        }
+        if (!_initialized) _initialized = true;
+        trace(format("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory));
+    }
+
+    /**
+     * if Remote is set returns that otherwise returns local
+     */
+    @property string currentHostname() {
+        if (remote.hasState()) return remote.hostname;
+        return local.hostname;
+    }
+
+    /**
+     * if Remote is set returns that otherwise returns local
+     */
+    @property string currentDirectory() {
+        if (remote.hasState()) return remote.directory;
+        return local.directory;
+    }
+
+    @property string initialCWD() {
+        return _initialCWD;
+    }
+
+    @property void initialCWD(string value) {
+        _initialCWD = value;
+    }
+
+    @property bool initialized() {
+        return _initialized;
+    }
 }
 
 //Block for handling default regex in vte

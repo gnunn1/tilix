@@ -69,6 +69,7 @@ import vte.Terminal;
 
 import gx.gtk.actions;
 import gx.gtk.cairo;
+import gx.gtk.dialog;
 import gx.gtk.util;
 import gx.i18n.l10n;
 

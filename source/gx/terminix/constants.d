@@ -33,9 +33,6 @@ immutable bool USE_FILE_LOGGING = false;
 // when using the scale/stretch options but generates
 // a lot of ImageSurface obhects when resizing  
 immutable bool CACHE_RENDERED_BG_IMAGE = true;
-// Enables Automatic Profile Switching based one
-// hostname and directory
-immutable bool AUTOMATIC_PROFILE_SWITCH = false;
 
 /**************************************
  * Application Constants

@@ -46,6 +46,7 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
 
+import gx.gtk.dialog;
 import gx.gtk.util;
 import gx.gtk.vte;
 
@@ -88,9 +89,7 @@ private:
         nb.appendPage(new ColorPage(profile, gsProfile), _("Color"));
         nb.appendPage(new ScrollPage(profile, gsProfile), _("Scrolling"));
         nb.appendPage(new CompatibilityPage(profile, gsProfile), _("Compatibility"));
-        static if (AUTOMATIC_PROFILE_SWITCH) {
-            nb.appendPage(new AdvancedPage(profile, gsProfile), _("Advanced"));
-        }
+        nb.appendPage(new AdvancedPage(profile, gsProfile), _("Advanced"));
         
         add(nb);
     }
@@ -872,20 +871,12 @@ private:
         btnAdd = new Button(_("Add"));
         btnAdd.addOnClicked(delegate(Button) {
             string value;
-            bool validated = true;
-            do {
-                if (showInputDialog(cast(ProfileWindow)getToplevel(), value, null, _("Add New Match"), _("Enter hostname:directory to match"))) {
-                    validated = validateInput(value);
-                    if (validated) {
-                        TreeIter iter = lsValues.createIter();
-                        lsValues.setValue(iter, 0, value);
-                        storeValues();                
-                        selectRow(tvValues, lsValues.iterNChildren(null) - 1, null);
-                    } 
-                } else {
-                    validated = true;
-                }
-            } while (!validated);
+            if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), _("Enter hostname:directory to match"), &validateInput)) {
+                TreeIter iter = lsValues.createIter();
+                lsValues.setValue(iter, 0, value);
+                storeValues();                
+                selectRow(tvValues, lsValues.iterNChildren(null) - 1, null);
+            }
         });
         
         bButtons.add(btnAdd);
@@ -895,18 +886,10 @@ private:
             TreeIter iter = tvValues.getSelectedIter();
             if (iter !is null) {
                 string value = lsValues.getValueString(iter, 0);
-                bool validated = true;
-                do {
-                    if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), _("Edit hostname:directory to match"))) {
-                        validated = validateInput(value);
-                        if (validated) {
-                            lsValues.setValue(iter, 0, value);
-                            storeValues();
-                        }                
-                    } else {
-                        validated = true;
-                    }
-                } while (!validated); 
+                if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), _("Edit hostname:directory to match"), &validateInput)) {
+                    lsValues.setValue(iter, 0, value);
+                    storeValues();
+                } 
             }
         });
         bButtons.add(btnEdit);
@@ -929,14 +912,14 @@ private:
     
     void updateUI() {
         TreeIter selected = tvValues.getSelectedIter();
-        btnDelete.setSensitive(selected !is null && lsValues.iterNChildren(null) > 1);
+        btnDelete.setSensitive(selected !is null);
         btnEdit.setSensitive(selected !is null);
     }
     
     // Validate whether the input conforms to hostname:directory
     // where either hostname or directory can be empty but not both
     bool validateInput(string match) {
-        return (match.length > 1 || match.indexOf(':') >= 0);
+        return (match.length > 1 && match.indexOf(':') >= 0);
     }
     
     // Store the values in the ListStore into settings
