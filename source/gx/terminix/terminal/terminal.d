@@ -245,6 +245,7 @@ private:
     Label lblTitle;
     ToggleButton tbSyncInput;
     Spinner spBell;
+    Image imgReadOnly;
 
     //The UUID of the profile which is currently active
     string _activeProfileUUID;
@@ -391,8 +392,15 @@ private:
         setVerticalMargins(tbSyncInput);
         tbSyncInput.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
         bTitle.packEnd(tbSyncInput, false, false, 0);
+
+        //Read Only Image
+        imgReadOnly = new Image("changes-prevent-symbolic", IconSize.MENU);
+        imgReadOnly.setNoShowAll(true);
+        imgReadOnly.setTooltipText(_("Read-Only"));
+        setVerticalMargins(imgReadOnly);
+        bTitle.packEnd(imgReadOnly, false, false, 0);
         
-        //Terminal Bell Image
+        //Terminal Bell Spinner
         spBell = new Spinner();
         spBell.setNoShowAll(true);
         spBell.setTooltipText(_("Terminal bell"));
@@ -572,6 +580,8 @@ private:
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             vte.setInputEnabled(!newState);
+            if (newState) imgReadOnly.show();
+            else imgReadOnly.hide();
         }, null, new GVariant(false));
         
 
