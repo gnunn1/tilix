@@ -375,7 +375,7 @@ private:
      */
     void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
-        Terminal newTerminal = createTerminal(terminal.profileUUID);
+        Terminal newTerminal = createTerminal(terminal.defaultProfileUUID);
         trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);
         trace("Intializing terminal with " ~ terminal.currentLocalDirectory);
@@ -763,7 +763,7 @@ private:
      * Serialize the TerminalPane widget
      */
     JSONValue serializeTerminal(JSONValue value, Terminal terminal) {
-        value[NODE_PROFILE] = terminal.profileUUID;
+        value[NODE_PROFILE] = terminal.defaultProfileUUID;
         value[NODE_DIRECTORY] = terminal.currentLocalDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());

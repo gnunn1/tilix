@@ -247,7 +247,7 @@ private:
     Spinner spBell;
 
     //The UUID of the profile which is currently active
-    string _profileUUID;
+    string _activeProfileUUID;
     // The UUID of the default profile, this will always be null unless 
     // automatic profile switching has occurred then the UUID of the
     // default profile will be stored here.
@@ -424,7 +424,11 @@ private:
     //Dynamically build the menus for selecting a profile
     void buildProfileMenu() {
         profileMenu.removeAll();
-        saProfileSelect.setState(new GVariant(profileUUID));
+        SimpleAction aProfileSelect = cast(SimpleAction)sagTerminalActions.lookupAction(ACTION_PROFILE_SELECT);
+        if (aProfileSelect !is null) {
+            aProfileSelect.setEnabled(_defaultProfileUUID.length == 0);
+        }
+        saProfileSelect.setState(new GVariant(activeProfileUUID));
         ProfileInfo[] profiles = prfMgr.getProfiles();
         foreach (profile; profiles) {
             GMenuItem menuItem = new GMenuItem(profile.name, ACTION_PROFILE_SELECT);
@@ -597,15 +601,15 @@ private:
 
         //Edit Profile Preference
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            terminix.presentProfilePreferences(prfMgr.getProfile(_profileUUID));
+            terminix.presentProfilePreferences(prfMgr.getProfile(_activeProfileUUID));
         }, null, null);
 
         //Select Profile
-        GVariant pu = new GVariant(profileUUID);
+        GVariant pu = new GVariant(activeProfileUUID);
         saProfileSelect = registerAction(group, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
             ulong l;
             string uuid = value.getString(l);
-            profileUUID = uuid;
+            activeProfileUUID = uuid;
             saProfileSelect.setState(value);
         }, pu.getType(), pu);
 
@@ -894,13 +898,13 @@ private:
         if (UUID.length > 0) {
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
-                _defaultProfileUUID = _profileUUID;
-                profileUUID = UUID;
+                _defaultProfileUUID = _activeProfileUUID;
+                activeProfileUUID = UUID;
             }
         } else {
             // Switch back to default profile?
             if (_defaultProfileUUID.length > 0) {
-                profileUUID = _defaultProfileUUID;
+                activeProfileUUID = _defaultProfileUUID;
                 _defaultProfileUUID.length = 0;
             }
         }
@@ -1921,18 +1925,18 @@ public:
         });
         initColors();
         _terminalUUID = randomUUID().toString();
-        _profileUUID = profileUUID;
+        _activeProfileUUID = profileUUID;
         // Check if profile is overriden globally
         if (terminix.getGlobalOverrides().profileName.length > 0) {
             string newProfileUUID = prfMgr.getProfileUUIDFromName(terminix.getGlobalOverrides().profileName);
             if (newProfileUUID.length > 0) {
-                _profileUUID = newProfileUUID;
-                trace("Overriding profile with global: " ~ _profileUUID);
+                _activeProfileUUID = newProfileUUID;
+                trace("Overriding profile with global: " ~ _activeProfileUUID);
             }
         }
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
-        gsProfile = prfMgr.getProfileSettings(_profileUUID);
+        gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
         gsDesktop.addOnChanged(delegate(string key, GSettings) {
@@ -2071,14 +2075,19 @@ public:
         return gst.getState(TerminalStateType.LOCAL).directory;
     }
 
-    @property string profileUUID() {
-        return _profileUUID;
+    @property string defaultProfileUUID() {
+        if (_defaultProfileUUID.length > 0) return _defaultProfileUUID;
+        else return _activeProfileUUID;
     }
 
-    @property void profileUUID(string uuid) {
-        if (_profileUUID != uuid) {
-            _profileUUID = uuid;
-            gsProfile = prfMgr.getProfileSettings(profileUUID);
+    @property string activeProfileUUID() {
+        return _activeProfileUUID;
+    }
+
+    @property void activeProfileUUID(string uuid) {
+        if (_activeProfileUUID != uuid) {
+            _activeProfileUUID = uuid;
+            gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
             applyPreferences();
         }
     }

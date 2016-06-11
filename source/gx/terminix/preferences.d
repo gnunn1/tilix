@@ -4,9 +4,12 @@
  */
 module gx.terminix.preferences;
 
+import std.algorithm;
 import std.experimental.logger;
 import std.format;
+import std.path;
 import std.range;
+import std.string;
 import std.uuid;
 
 import gio.Settings : GSettings = Settings;
@@ -235,7 +238,7 @@ public:
 	 */
     void deleteProfile(string uuid) {
         string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
-        remove(ps, uuid);
+        gx.util.array.remove(ps, uuid);
         gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
         if (uuid == getDefaultProfile() && ps.length > 0) {
             //Update default profile to be the first one
@@ -314,8 +317,16 @@ public:
             GSettings settings = getProfileSettings(uuid);
             string[] matches = settings.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
             foreach (match; matches) {
+                //is there a tilde in the directory right after the first colon?
+                long isTilde = match.indexOf(":~");
+                if (isTilde >= 0) {
+                    string path = match[(isTilde + 1) .. $];
+                    path = expandTilde(path);
+                    match = match[0 .. isTilde] ~ ":" ~ path; 
+                }
+                trace("Testing match " ~ match);
                 foreach(test; tests) {
-                    if (match == test) return uuid;
+                    if (test.startsWith(match)) return uuid;
                 }
             } 
         }
