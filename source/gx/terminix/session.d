@@ -890,43 +890,11 @@ private:
         Container child = cast(Container) getVisibleChild();
         if (child is null) return false;
         
-        static if (CACHE_RENDERED_BG_IMAGE) {
-            //Cached render
-            ImageSurface isBGImage = window.getBackgroundImage(child);
-            if (isBGImage is null) return false;
-            cr.setSourceSurface(isBGImage, 0, 0);
-            cr.paint();
-        } else {
-            //Directky render background to widget context
-            ImageSurface surface = terminix.getBackgroundImage();
-            if (surface is null) {
-                trace("Surface is null");
-                return false;
-            }
-            
-            ImageLayoutMode mode;
-            string bgMode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
-            final switch (bgMode) {
-                case SETTINGS_BACKGROUND_IMAGE_MODE_SCALE_VALUE:
-                    mode = ImageLayoutMode.SCALE;
-                    break;
-                case SETTINGS_BACKGROUND_IMAGE_MODE_TILE_VALUE:
-                    mode = ImageLayoutMode.TILE;
-                    break;
-                case SETTINGS_BACKGROUND_IMAGE_MODE_CENTER_VALUE:
-                    mode = ImageLayoutMode.CENTER;
-                    break;
-                case SETTINGS_BACKGROUND_IMAGE_MODE_STRETCH_VALUE:
-                    mode = ImageLayoutMode.STRETCH;
-                    break;
-            }
-            int scale = gsSettings.getEnum(SETTINGS_BACKGROUND_IMAGE_SCALE_KEY);
-            cr.save();
-            cr.rectangle(0, 0, getAllocatedWidth(), getAllocatedHeight());
-            cr.clip();
-            renderImage(cr, surface, getAllocatedWidth(), getAllocatedHeight(), mode, false, cast(cairo_filter_t) scale);
-            cr.restore();
-        }
+        //Cached render
+        ImageSurface isBGImage = window.getBackgroundImage(child);
+        if (isBGImage is null) return false;
+        cr.setSourceSurface(isBGImage, 0, 0);
+        cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
         ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
