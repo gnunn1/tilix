@@ -28,6 +28,7 @@ export TERMINIX_SHARE=${PREFIX}/share/terminix
 
 mkdir -p ${TERMINIX_SHARE}/resources
 mkdir -p ${TERMINIX_SHARE}/schemes
+mkdir -p ${TERMINIX_SHARE}/scripts
 
 # Copy and compile icons
 echo "Building and copy resources..."
@@ -35,6 +36,10 @@ cd data/resources
 glib-compile-resources terminix.gresource.xml
 cp terminix.gresource ${TERMINIX_SHARE}/resources/terminix.gresource
 cd ../..
+
+# Copy shell integration script
+echo "Copying scripts..."
+cp data/scripts/* ${TERMINIX_SHARE}/scripts
 
 # Copy color schemes
 echo "Copying color schemes..."
