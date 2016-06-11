@@ -17,6 +17,9 @@ dist_dbusservices_DATA = $(srcdir)/data/dbus/com.gexperts.Terminix.service
 nautilusextdir = $(datadir)/nautilus-python/extensions/
 dist_nautilusext_DATA = $(srcdir)/data/nautilus/open-terminix.py
 
+scriptsdir = $(datadir)/terminix/scripts/
+dist_scripts_DATA = $(srcdir)/data/scripts/terminix_int.sh
+
 EXTRA_DIST = LICENSE README.md
 CLEANFILES = terminix.o
 
