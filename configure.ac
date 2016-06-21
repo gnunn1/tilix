@@ -18,14 +18,25 @@ AC_SUBST([DCFLAGS])
 
 # Checks for programs.
 AC_PROG_INSTALL
-AC_PATH_PROG([DC], [dmd])
+# Look for D compiler. Use dmd-compatible wrapper for ldc and gdc.
+# NOTE: Terminix cannot be compiled with gdc currently.
+AC_PATH_PROG([DC], [ldmd dmd gdmd])
 AC_PATH_PROG([GLIB_COMPILE_RES], [glib-compile-resources])
 PKG_PROG_PKG_CONFIG
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.7])
 
+GTKD_SUFFIX=
+case $(basename $DC) in
+	dmd) GTKD_SUFFIX=-dmd ;;
+	ldmd) GTKD_SUFFIX=-ldc ;;
+	gdmd) GTKD_SUFFIX=-gdc ;;
+esac
+
 # Checks for libraries.
-PKG_CHECK_MODULES([DEPS], [gtkd-3-dmd >= 3.3.0 vted-3-dmd >= 3.3.0],,
+
+# Use pkg-config to look for gtkd. Tries to find a compiler specific suffix, then falls back to suffix-less
+PKG_CHECK_MODULES([DEPS], [gtkd-3$GTKD_SUFFIX >= 3.3.0 vted-3$GTKD_SUFFIX >= 3.3.0],,
 				  [PKG_CHECK_MODULES([DEPS], [gtkd-3 >= 3.3.0 vted-3 >= 3.3.0])])
 # TODO: test if library was compiled with @DC@?
 
