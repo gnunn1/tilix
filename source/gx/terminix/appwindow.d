@@ -224,7 +224,7 @@ private:
         //New tab button
         Button btnNew;
         static if (USE_ALTERNATE_UI) {
-            btnNew = new Button("+");
+            btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
         } else {
             btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
         }
