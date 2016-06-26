@@ -50,6 +50,7 @@ import gtk.FileFilter;
 import gtk.Frame;
 import gtk.HeaderBar;
 import gtk.Image;
+import gtk.Label;
 import gtk.ListBox;
 import gtk.ListBoxRow;
 import gtk.MenuButton;
@@ -124,6 +125,12 @@ private:
     SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
 
+    static if (USE_ALTERNATE_UI) {
+        Label lblSideBar;
+        Button btnSplitHorizontal;
+        Button btnSplitVertical;        
+    }
+
     SessionNotification[string] sessionNotifications;
 
     GSettings gsSettings;
@@ -160,6 +167,9 @@ private:
             if (sb.getChildRevealed()) {
                 sb.selectSession(getCurrentSession().sessionUUID);
             }
+            static if (USE_ALTERNATE_UI) {
+                lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
+            }
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
@@ -195,15 +205,30 @@ private:
     Widget createHeaderBar() {
         //View sessions button
         tbSideBar = new ToggleButton();
+        static if (USE_ALTERNATE_UI) {
+            Box b = new Box(Orientation.HORIZONTAL, 6);
+            lblSideBar = new Label("1 / 1");
+            Image img = new Image("pan-down-symbolic", IconSize.MENU);
+            b.add(lblSideBar);
+            b.add(img);
+            tbSideBar.add(b);
+        } else {
+            Image iList = new Image("view-list-symbolic", IconSize.MENU);
+            tbSideBar.add(iList);
+        }
         tbSideBar.setTooltipText(_("View session sidebar"));
         tbSideBar.setFocusOnClick(false);
-        Image iList = new Image("view-list-symbolic", IconSize.MENU);
-        tbSideBar.add(iList);
         tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
         tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
 
         //New tab button
-        Button btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
+        Button btnNew;
+        static if (USE_ALTERNATE_UI) {
+            btnNew = new Button("+");
+        } else {
+            btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
+        }
+        
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
         btnNew.addOnClicked(delegate(Button) {
@@ -218,10 +243,22 @@ private:
         mbSessionActions.add(iHamburger);
         mbSessionActions.setPopover(createPopover(mbSessionActions));
 
+        static if (USE_ALTERNATE_UI) {
+            Box bSessionButtons = new Box(Orientation.HORIZONTAL, 0);
+            bSessionButtons.getStyleContext().addClass("linked");
+            btnNew.getStyleContext().addClass("session-new-button");
+            bSessionButtons.packStart(tbSideBar, false, false, 0);
+            bSessionButtons.packStart(btnNew, false, false, 0);
+        }
+
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
-            tb.packStart(tbSideBar, false, false, 4);
-            tb.packStart(btnNew, false, false, 4);
+            static if (USE_ALTERNATE_UI) {
+                tb.packStart(bSessionButtons, false, false, 4);
+            } else {
+                tb.packStart(tbSideBar, false, false, 4);
+                tb.packStart(btnNew, false, false, 4);
+            }
             tb.packEnd(mbSessionActions, false, false, 4);
             tb.setMarginBottom(4);
 
@@ -235,9 +272,40 @@ private:
             hb = new HeaderBar();
             hb.setShowCloseButton(true);
             hb.setTitle(_(APPLICATION_NAME));
-            hb.packStart(tbSideBar);
-            hb.packStart(btnNew);
+            static if (USE_ALTERNATE_UI) {
+                hb.packStart(bSessionButtons);
+                btnSplitHorizontal = new Button("terminix-split-tab-right-symbolic", IconSize.MENU);
+                btnSplitHorizontal.setFocusOnClick(false);
+                btnSplitHorizontal.addOnClicked(delegate(Button) {
+                    if (getCurrentSession() !is null) {
+                        getCurrentSession().splitTerminal(Orientation.HORIZONTAL);
+                    }
+                });
+                hb.packStart(btnSplitHorizontal);
+                btnSplitVertical = new Button("terminix-split-tab-down-symbolic", IconSize.MENU);
+                btnSplitVertical.setFocusOnClick(false);
+                btnSplitVertical.addOnClicked(delegate(Button) {
+                    if (getCurrentSession() !is null) {
+                        getCurrentSession().splitTerminal(Orientation.VERTICAL);
+                    }
+                });
+                hb.packStart(btnSplitVertical);
+            } else {
+                hb.packStart(tbSideBar);
+                hb.packStart(btnNew);
+            }
             hb.packEnd(mbSessionActions);
+            static if (USE_ALTERNATE_UI) {
+                // Add find button
+                Button btnFind = new Button("edit-find-symbolic", IconSize.MENU);
+                btnFind.setFocusOnClick(false);
+                btnFind.addOnClicked(delegate(Button) {
+                    if (getCurrentSession() !is null) {
+                        getCurrentSession().toggleTerminalFind();
+                    }
+                });
+                hb.packEnd(btnFind);
+            }
             return hb;
         }
     }
@@ -490,6 +558,9 @@ private:
         session.addOnIsActionAllowed(&onSessionIsActionAllowed);
         session.addOnSessionDetach(&onSessionDetach);
         session.addOnProcessNotification(&onSessionProcessNotification);
+        static if (USE_ALTERNATE_UI) {
+            session.addOnSessionStateChange(&onSessionStateChange);
+        }
         int index = nb.appendPage(session, session.name);
         nb.showAll();
         nb.setCurrentPage(index);
@@ -502,6 +573,9 @@ private:
         session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
         session.removeOnSessionDetach(&onSessionDetach);
         session.removeOnProcessNotification(&onSessionProcessNotification);
+        static if (USE_ALTERNATE_UI) {
+            session.removeOnSessionStateChange(&onSessionStateChange);
+        }
         //remove session from Notebook
         nb.remove(session);
         updateUIState();
@@ -565,9 +639,24 @@ private:
         window.showAll();
     }
 
+    static if (USE_ALTERNATE_UI) {
+        void onSessionStateChange(Session session, SessionStateChange stateChange) {
+            if (getCurrentSession() ==  session) {
+                updateUIState();
+            }
+        }
+    }
+
     void updateUIState() {
         tbSideBar.queueDraw();
         saCloseSession.setEnabled(nb.getNPages > 1);
+        static if (USE_ALTERNATE_UI) {
+            Session session = getCurrentSession();
+            if (session !is null) {
+                btnSplitHorizontal.setSensitive(!session.maximized);
+                btnSplitVertical.setSensitive(!session.maximized);
+            }
+        }
     }
 
     void updateTitle() {
@@ -616,12 +705,16 @@ private:
         
         RGBA fg;
         RGBA bg;
-        if (nb.getNPages() > 1) {
-            widget.getStyleContext().lookupColor("theme_fg_color", bg);
-            widget.getStyleContext().lookupColor("theme_bg_color", fg);
-            bg.alpha = 0.9;
-            drawBadge(0.72, 0.70, 0.19, fg, bg, nb.getNPages());
+        //Draw number of sessions on button
+        static if (!USE_ALTERNATE_UI) {
+            if (nb.getNPages() > 1) {
+                widget.getStyleContext().lookupColor("theme_fg_color", bg);
+                widget.getStyleContext().lookupColor("theme_bg_color", fg);
+                bg.alpha = 0.9;
+                drawBadge(0.72, 0.70, 0.19, fg, bg, nb.getNPages());
+            }
         }
+        //Draw number of notifications on button
         ulong count = 0;
         foreach (sn; sessionNotifications.values) {
             count = count + sn.messages.length;

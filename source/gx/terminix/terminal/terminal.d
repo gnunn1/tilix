@@ -642,9 +642,11 @@ private:
     Popover createPopover(Widget parent) {
         GMenu model = new GMenu();
 
-        GMenuItem buttons = createSplitButtons();
-        model.appendItem(buttons);
-
+        if (!USE_ALTERNATE_UI) {
+            GMenuItem buttons = createSplitButtons();
+            model.appendItem(buttons);
+        }
+        
         createPopoverMenuItems(model);
 
         Popover pm = new Popover(parent);
@@ -1061,10 +1063,12 @@ private:
         }
         GMenu clipSection = new GMenu();
 
-        GMenuItem buttons = createSplitButtons();
-        //GMenu splitSection = new GMenu();
-        //splitSection.appendItem(buttons);
-        mmContext.appendItem(buttons);
+        static if (!USE_ALTERNATE_UI) {
+            GMenuItem buttons = createSplitButtons();
+            //GMenu splitSection = new GMenu();
+            //splitSection.appendItem(buttons);
+            mmContext.appendItem(buttons);
+        }
 
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), ACTION_COPY);
@@ -2089,7 +2093,17 @@ public:
             action.activate(value);
         }
     }
-    
+
+    static if (USE_ALTERNATE_UI) {
+        void toggleFind() {
+            if (!rFind.getRevealChild()) {
+                rFind.setRevealChild(true);
+                rFind.focusSearchEntry();
+            } else {
+                rFind.setRevealChild(false);
+            }
+        }
+    }
     
     @property string currentLocalDirectory() {
         return gst.getState(TerminalStateType.LOCAL).directory;

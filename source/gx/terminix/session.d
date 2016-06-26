@@ -67,6 +67,17 @@ alias OnSessionClose = void delegate(Session session);
 
 alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewSession);
 
+static if (USE_ALTERNATE_UI) {
+
+    enum SessionStateChange {
+        TERMINAL_MAXIMIZED,
+        TERMINAL_RESTORED, 
+        TERMINAL_FOCUSED
+    };
+
+    alias OnSessionStateChange = void delegate(Session session, SessionStateChange stateChange);
+}
+
 /**
  * An exception that is thrown when a session cannot be created, typically
  * when a failure indeserialization occurs.
@@ -111,6 +122,10 @@ private:
 
     OnSessionDetach[] sessionDetachDelegates;
     OnSessionClose[] sessionCloseDelegates;
+
+    static if (USE_ALTERNATE_UI) {
+        OnSessionStateChange[] sessionStateChangeDelegates;
+    }
 
     Terminal[] terminals;
     string _name;
@@ -176,6 +191,14 @@ private:
     void notifySessionDetach(Session session, int x, int y, bool isNewSession) {
         foreach (dlg; sessionDetachDelegates) {
             dlg(session, x, y, isNewSession);
+        }
+    }
+
+    static if (USE_ALTERNATE_UI) {
+        void notifySessionStateChange(SessionStateChange stateChange) {
+            foreach (dlg; sessionStateChangeDelegates) {
+                dlg(this, stateChange);
+            }
         }
     }
 
@@ -594,6 +617,9 @@ private:
         currentTerminal = terminal;
         gx.util.array.remove(mruTerminals, terminal);
         mruTerminals ~= terminal;
+        static if (USE_ALTERNATE_UI) {
+            notifySessionStateChange(SessionStateChange.TERMINAL_FOCUSED);
+        }        
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
@@ -625,6 +651,9 @@ private:
         trace("Switching stack to maximized page");
         terminal.show();
         setVisibleChild(stackMaximized);
+        static if (USE_ALTERNATE_UI) {
+            notifySessionStateChange(SessionStateChange.TERMINAL_MAXIMIZED);
+        }        
         return true;
     }
 
@@ -644,6 +673,9 @@ private:
         maximizedInfo.parent = null;
         maximizedInfo.terminal = null;
         setVisibleChild(stackGroup);
+        static if (USE_ALTERNATE_UI) {
+            notifySessionStateChange(SessionStateChange.TERMINAL_RESTORED);
+        }        
         return true;
     }
 
@@ -1259,6 +1291,36 @@ public:
 
     void removeOnSessionDetach(OnSessionDetach dlg) {
         gx.util.array.remove(sessionDetachDelegates, dlg);
+    }
+
+    static if (USE_ALTERNATE_UI) {
+
+        void toggleTerminalFind() {
+            if (currentTerminal !is null) {
+                currentTerminal.toggleFind();
+            }
+        }
+
+        //TODO - If alternate UI goes mainstream refactor onTerminalRequestSplit into here
+        //No need to have terminal requesting splits anymore, also remove check if action is doable in terminal
+        void splitTerminal(Orientation orientation) {
+            if (currentTerminal !is null) {
+                onTerminalRequestSplit(currentTerminal, orientation);
+            }
+        }
+
+        @property bool maximized() {
+            return maximizedInfo.isMaximized;
+        } 
+
+        void addOnSessionStateChange(OnSessionStateChange dlg) {
+            sessionStateChangeDelegates ~= dlg;
+        }
+
+        void removeOnSessionStateChange(OnSessionStateChange dlg) {
+            gx.util.array.remove(sessionStateChangeDelegates, dlg);
+        }
+        
     }
 }
 
