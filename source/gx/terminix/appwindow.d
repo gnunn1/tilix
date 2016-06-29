@@ -274,7 +274,7 @@ private:
             hb.setTitle(_(APPLICATION_NAME));
             static if (USE_ALTERNATE_UI) {
                 hb.packStart(bSessionButtons);
-                btnSplitHorizontal = new Button("terminix-split-tab-right-symbolic", IconSize.MENU);
+                btnSplitHorizontal = new Button("terminix-add-horizontal-symbolic", IconSize.MENU);
                 btnSplitHorizontal.setFocusOnClick(false);
                 btnSplitHorizontal.addOnClicked(delegate(Button) {
                     if (getCurrentSession() !is null) {
@@ -282,7 +282,7 @@ private:
                     }
                 });
                 hb.packStart(btnSplitHorizontal);
-                btnSplitVertical = new Button("terminix-split-tab-down-symbolic", IconSize.MENU);
+                btnSplitVertical = new Button("terminix-add-vertical-symbolic", IconSize.MENU);
                 btnSplitVertical.setFocusOnClick(false);
                 btnSplitVertical.addOnClicked(delegate(Button) {
                     if (getCurrentSession() !is null) {
