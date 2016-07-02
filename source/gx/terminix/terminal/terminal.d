@@ -743,6 +743,12 @@ private:
             return false;
         });
 
+        vte.addOnSelectionChanged(delegate(VTE) {
+            if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
+                vte.copyClipboard();
+            }
+        });
+
         pmContext = new Popover(vte);
         pmContext.setModal(true);
         pmContext.setPosition(PositionType.BOTTOM);

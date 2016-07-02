@@ -709,11 +709,11 @@ private:
         bNewInstance.add(cbNewInstance);
         add(bNewInstance);
 
-        // *********** Paste Options
-        Label lblPaste = new Label(format("<b>%s</b>", _("Paste")));
-        lblPaste.setUseMarkup(true);
-        lblPaste.setHalign(Align.START);
-        add(lblPaste);
+        // *********** Clipboard Options
+        Label lblClipboard = new Label(format("<b>%s</b>", _("Clipboard")));
+        lblClipboard.setUseMarkup(true);
+        lblClipboard.setHalign(Align.START);
+        add(lblClipboard);
 
         //Unsafe Paste Warning
         CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
@@ -724,6 +724,11 @@ private:
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
         gsSettings.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
+
+        //Copy on Select
+        CheckButton cbCopyOnSelect = new CheckButton(_("Automatically copy text to clipboard when selecting"));
+        gsSettings.bind(SETTINGS_COPY_ON_SELECT_KEY, cbCopyOnSelect, "active", GSettingsBindFlags.DEFAULT);
+        add(cbCopyOnSelect);
     }
 
 public:
