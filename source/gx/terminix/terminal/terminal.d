@@ -262,7 +262,7 @@ private:
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
 
-    GlobalTerminalState gst;
+    GlobalTerminalState gst = new GlobalTerminalState();
 
     SimpleActionGroup sagTerminalActions;
 
@@ -694,20 +694,24 @@ private:
         });
         
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
-            //terminalInitialized = true;
+            trace("Window title changed");
+            gst.updateState();
             updateTitle();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
+            trace("Icon title changed");
+            //gst.updateState();
             updateTitle(); 
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
+            trace("Current directory is " ~ vte.getCurrentDirectoryUri);            
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
                 gst.updateState(hostname, directory);
                 updateTitle();
                 checkAutomaticProfileSwitch();
-            }
+            } 
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalWidgetFocusIn);
@@ -719,6 +723,7 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
+            trace("Contents changed");
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentDirectory.length == 0) {
                 terminix.warnVTEConfigIssue();
             }
@@ -889,7 +894,7 @@ private:
         if (terminalInitialized) {
             path = gst.currentDirectory;
         } else {
-            trace("Terminal not initialized yet, no path available");
+            trace("Terminal not initialized yet or VTE not configured, no path available");
             path = "";
         }
         title = title.replace(TERMINAL_DIR, path);
@@ -2096,14 +2101,6 @@ public:
         return gst.initialized;
     }
 
-    /*
-    @property void terminalInitialized(bool value) {
-        if (value != _terminalInitialized) {
-            _terminalInitialized = value;
-        }
-    }
-    */
-
     @property string overrideCommand() {
         return _overrideCommand;
     }
@@ -2294,13 +2291,13 @@ struct TerminalState {
 
 enum TerminalStateType {LOCAL, REMOTE};
 
-struct GlobalTerminalState {
+class GlobalTerminalState {
 private:
     TerminalState local;
     TerminalState remote;
     string localHostname;
     string _initialCWD;
-    bool _initialized;
+    bool _initialized = false;
 
 public:
 
@@ -2323,6 +2320,13 @@ public:
         }
     }
 
+    void updateState() {
+        if (!_initialized) {
+            _initialized = true;
+            trace("Terminal in initialized state");
+        } 
+    }
+
     void updateState(string hostname, string directory) {
         if (localHostname.length == 0) {
             char[1024] systemHostname;
@@ -2340,7 +2344,9 @@ public:
             local.directory = directory;
             remote.clear();
         }
-        if (!_initialized) _initialized = true;
+        if (directory.length > 0) {
+            updateState();
+        }
         trace(format("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory));
     }
 

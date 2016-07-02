@@ -938,7 +938,6 @@ public:
         addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
             if (lastWidth != rect.width || lastHeight != rect.height) {
                 //invalidate rendered background
-                trace("Size changed, invalidate cached image");
                 if (isBGImage !is null) {
                     isBGImage.destroy();
                     isBGImage = null;
