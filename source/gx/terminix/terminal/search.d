@@ -131,11 +131,13 @@ private:
         bButtons.getStyleContext().addClass("linked");
 
         Button btnNext = new Button("go-up-symbolic", IconSize.MENU);
+        btnNext.setTooltipText(_("Find next"));
         btnNext.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
         btnNext.setCanFocus(false);
         bButtons.add(btnNext);
 
         Button btnPrevious = new Button("go-down-symbolic", IconSize.MENU);
+        btnPrevious.setTooltipText(_("Find previous"));
         btnPrevious.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
         btnPrevious.setCanFocus(false);
         bButtons.add(btnPrevious);

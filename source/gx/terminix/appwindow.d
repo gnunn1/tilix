@@ -103,6 +103,8 @@ private:
     enum ACTION_SESSION_NEXT_TERMINAL = "switch-to-next-terminal";
     enum ACTION_SESSION_PREV_TERMINAL = "switch-to-previous-terminal";
     enum ACTION_SESSION_TERMINAL_X = "switch-to-terminal-";
+    enum ACTION_SESSION_ADD_RIGHT = "add-right";
+    enum ACTION_SESSION_ADD_DOWN = "add-down";
     enum ACTION_RESIZE_TERMINAL_DIRECTION = "resize-terminal-";
     enum ACTION_SESSION_SAVE = "save";
     enum ACTION_SESSION_SAVE_AS = "save-as";
@@ -124,12 +126,10 @@ private:
     SimpleAction saSyncInput;
     SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
+    SimpleAction saSessionAddRight;
+    SimpleAction saSessionAddDown;
 
-    static if (USE_ALTERNATE_UI) {
-        Label lblSideBar;
-        Button btnSplitHorizontal;
-        Button btnSplitVertical;        
-    }
+    Label lblSideBar;
 
     SessionNotification[string] sessionNotifications;
 
@@ -167,9 +167,7 @@ private:
             if (sb.getChildRevealed()) {
                 sb.selectSession(getCurrentSession().sessionUUID);
             }
-            static if (USE_ALTERNATE_UI) {
-                lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
-            }
+            lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
@@ -205,30 +203,19 @@ private:
     Widget createHeaderBar() {
         //View sessions button
         tbSideBar = new ToggleButton();
-        static if (USE_ALTERNATE_UI) {
-            Box b = new Box(Orientation.HORIZONTAL, 6);
-            lblSideBar = new Label("1 / 1");
-            Image img = new Image("pan-down-symbolic", IconSize.MENU);
-            b.add(lblSideBar);
-            b.add(img);
-            tbSideBar.add(b);
-        } else {
-            Image iList = new Image("view-list-symbolic", IconSize.MENU);
-            tbSideBar.add(iList);
-        }
+        Box b = new Box(Orientation.HORIZONTAL, 6);
+        lblSideBar = new Label("1 / 1");
+        Image img = new Image("pan-down-symbolic", IconSize.MENU);
+        b.add(lblSideBar);
+        b.add(img);
+        tbSideBar.add(b);
         tbSideBar.setTooltipText(_("View session sidebar"));
         tbSideBar.setFocusOnClick(false);
         tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
         tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
 
         //New tab button
-        Button btnNew;
-        static if (USE_ALTERNATE_UI) {
-            btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
-        } else {
-            btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
-        }
-        
+        Button btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
         btnNew.addOnClicked(delegate(Button) {
@@ -243,23 +230,39 @@ private:
         mbSessionActions.add(iHamburger);
         mbSessionActions.setPopover(createPopover(mbSessionActions));
 
-        static if (USE_ALTERNATE_UI) {
-            Box bSessionButtons = new Box(Orientation.HORIZONTAL, 0);
-            bSessionButtons.getStyleContext().addClass("linked");
-            btnNew.getStyleContext().addClass("session-new-button");
-            bSessionButtons.packStart(tbSideBar, false, false, 0);
-            bSessionButtons.packStart(btnNew, false, false, 0);
-        }
+        Box bSessionButtons = new Box(Orientation.HORIZONTAL, 0);
+        bSessionButtons.getStyleContext().addClass("linked");
+        btnNew.getStyleContext().addClass("session-new-button");
+        bSessionButtons.packStart(tbSideBar, false, false, 0);
+        bSessionButtons.packStart(btnNew, false, false, 0);
+
+        Button btnAddHorizontal = new Button("terminix-add-horizontal-symbolic", IconSize.MENU);
+        btnAddHorizontal.setDetailedActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_ADD_RIGHT));
+        btnAddHorizontal.setFocusOnClick(false);
+        btnAddHorizontal.setTooltipText(_("Add terminal right"));
+
+        Button btnAddVertical = new Button("terminix-add-vertical-symbolic", IconSize.MENU);
+        btnAddVertical.setDetailedActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_ADD_DOWN));
+        btnAddVertical.setTooltipText(_("Add terminal down"));
+        btnAddVertical.setFocusOnClick(false);
+
+        // Add find button
+        Button btnFind = new Button("edit-find-symbolic", IconSize.MENU);
+        btnFind.setTooltipText(_("Find text in terminal"));
+        btnFind.setFocusOnClick(false);
+        btnFind.addOnClicked(delegate(Button) {
+            if (getCurrentSession() !is null) {
+                getCurrentSession().toggleTerminalFind();
+            }
+        });
 
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             Box tb = new Box(Orientation.HORIZONTAL, 0);
-            static if (USE_ALTERNATE_UI) {
-                tb.packStart(bSessionButtons, false, false, 4);
-            } else {
-                tb.packStart(tbSideBar, false, false, 4);
-                tb.packStart(btnNew, false, false, 4);
-            }
+            tb.packStart(bSessionButtons, false, false, 4);
+            tb.packStart(btnAddHorizontal, false, false, 4);
+            tb.packStart(btnAddVertical, false, false, 4);
             tb.packEnd(mbSessionActions, false, false, 4);
+            tb.packEnd(btnFind, false, false, 4);
             tb.setMarginBottom(4);
 
             Box spacer = new Box(Orientation.VERTICAL, 0);
@@ -272,40 +275,11 @@ private:
             hb = new HeaderBar();
             hb.setShowCloseButton(true);
             hb.setTitle(_(APPLICATION_NAME));
-            static if (USE_ALTERNATE_UI) {
-                hb.packStart(bSessionButtons);
-                btnSplitHorizontal = new Button("terminix-add-horizontal-symbolic", IconSize.MENU);
-                btnSplitHorizontal.setFocusOnClick(false);
-                btnSplitHorizontal.addOnClicked(delegate(Button) {
-                    if (getCurrentSession() !is null) {
-                        getCurrentSession().splitTerminal(Orientation.HORIZONTAL);
-                    }
-                });
-                hb.packStart(btnSplitHorizontal);
-                btnSplitVertical = new Button("terminix-add-vertical-symbolic", IconSize.MENU);
-                btnSplitVertical.setFocusOnClick(false);
-                btnSplitVertical.addOnClicked(delegate(Button) {
-                    if (getCurrentSession() !is null) {
-                        getCurrentSession().splitTerminal(Orientation.VERTICAL);
-                    }
-                });
-                hb.packStart(btnSplitVertical);
-            } else {
-                hb.packStart(tbSideBar);
-                hb.packStart(btnNew);
-            }
+            hb.packStart(bSessionButtons);
+            hb.packStart(btnAddHorizontal);
+            hb.packStart(btnAddVertical);
             hb.packEnd(mbSessionActions);
-            static if (USE_ALTERNATE_UI) {
-                // Add find button
-                Button btnFind = new Button("edit-find-symbolic", IconSize.MENU);
-                btnFind.setFocusOnClick(false);
-                btnFind.addOnClicked(delegate(Button) {
-                    if (getCurrentSession() !is null) {
-                        getCurrentSession().toggleTerminalFind();
-                    }
-                });
-                hb.packEnd(btnFind);
-            }
+            hb.packEnd(btnFind);
             return hb;
         }
     }
@@ -423,6 +397,18 @@ private:
                 }
             });
         }
+
+        //Add Terminal Actions
+        saSessionAddRight = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_RIGHT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            Session session = getCurrentSession();
+            if (session !is null)
+                session.addTerminal(Orientation.HORIZONTAL);
+        });
+        saSessionAddDown = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_DOWN, gsShortcuts, delegate(GVariant, SimpleAction) {
+            Session session = getCurrentSession();
+            if (session !is null)
+                session.addTerminal(Orientation.VERTICAL);
+        });
 
         /* TODO - GTK doesn't support settings Tab for accelerators, need to look into this more */
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NEXT_TERMINAL, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -558,9 +544,7 @@ private:
         session.addOnIsActionAllowed(&onSessionIsActionAllowed);
         session.addOnSessionDetach(&onSessionDetach);
         session.addOnProcessNotification(&onSessionProcessNotification);
-        static if (USE_ALTERNATE_UI) {
-            session.addOnSessionStateChange(&onSessionStateChange);
-        }
+        session.addOnSessionStateChange(&onSessionStateChange);
         int index = nb.appendPage(session, session.name);
         nb.showAll();
         nb.setCurrentPage(index);
@@ -573,9 +557,7 @@ private:
         session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
         session.removeOnSessionDetach(&onSessionDetach);
         session.removeOnProcessNotification(&onSessionProcessNotification);
-        static if (USE_ALTERNATE_UI) {
-            session.removeOnSessionStateChange(&onSessionStateChange);
-        }
+        session.removeOnSessionStateChange(&onSessionStateChange);
         //remove session from Notebook
         nb.remove(session);
         updateUIState();
@@ -639,23 +621,19 @@ private:
         window.showAll();
     }
 
-    static if (USE_ALTERNATE_UI) {
-        void onSessionStateChange(Session session, SessionStateChange stateChange) {
-            if (getCurrentSession() ==  session) {
-                updateUIState();
-            }
+    void onSessionStateChange(Session session, SessionStateChange stateChange) {
+        if (getCurrentSession() ==  session) {
+            updateUIState();
         }
     }
 
     void updateUIState() {
         tbSideBar.queueDraw();
         saCloseSession.setEnabled(nb.getNPages > 1);
-        static if (USE_ALTERNATE_UI) {
-            Session session = getCurrentSession();
-            if (session !is null) {
-                btnSplitHorizontal.setSensitive(!session.maximized);
-                btnSplitVertical.setSensitive(!session.maximized);
-            }
+        Session session = getCurrentSession();
+        if (session !is null) {
+            saSessionAddRight.setEnabled(!session.maximized);
+            saSessionAddDown.setEnabled(!session.maximized);
         }
     }
 
@@ -705,16 +683,8 @@ private:
         
         RGBA fg;
         RGBA bg;
-        //Draw number of sessions on button
-        static if (!USE_ALTERNATE_UI) {
-            if (nb.getNPages() > 1) {
-                widget.getStyleContext().lookupColor("theme_fg_color", bg);
-                widget.getStyleContext().lookupColor("theme_bg_color", fg);
-                bg.alpha = 0.9;
-                drawBadge(0.72, 0.70, 0.19, fg, bg, nb.getNPages());
-            }
-        }
         //Draw number of notifications on button
+        //TODO - Fix this for change in button style
         ulong count = 0;
         foreach (sn; sessionNotifications.values) {
             count = count + sn.messages.length;

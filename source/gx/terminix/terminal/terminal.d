@@ -146,15 +146,8 @@ alias OnTerminalInFocus = void delegate(Terminal terminal);
 alias OnTerminalClose = void delegate(Terminal terminal);
 
 /**
- * An event that is triggered when the terminal requests to be split into two,
- * either vertrically or horizontally. The session is reponsible for actually
- * making the split happen.
- */
-alias OnTerminalRequestSplit = void delegate(Terminal terminal, Orientation orientation);
-
-/**
  * An event that is triggered when a terminal requests to moved from it's
- * original location (src) and split with another terminal (dest).
+ * original location (src) and moved into another terminal (dest).
  *
  * This typically happens after a drag and drop of a terminal
  */
@@ -221,7 +214,6 @@ private:
 
     OnTerminalInFocus[] terminalInFocusDelegates;
     OnTerminalClose[] terminalCloseDelegates;
-    OnTerminalRequestSplit[] terminalRequestSplitDelegates;
     OnTerminalRequestMove[] terminalRequestMoveDelegates;
     OnTerminalRequestDetach[] terminalRequestDetachDelegates;
     OnTerminalSyncInput[] terminalSyncInputDelegates;
@@ -358,7 +350,7 @@ private:
             buildEncodingMenu();
             return false; 
         });
-        
+
         mbTitle.add(bTitleLabel);
 
         bTitle.packStart(mbTitle, false, false, 4);
@@ -467,14 +459,6 @@ private:
      * Creates the common actions used by the terminal pane
      */
     void createActions(SimpleActionGroup group) {
-        //Terminal Split actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_RIGHT, gsShortcuts, delegate(GVariant, SimpleAction) {
-            notifyTerminalRequestSplit(Orientation.HORIZONTAL);
-        });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SPLIT_DOWN, gsShortcuts, delegate(GVariant, SimpleAction) {
-            notifyTerminalRequestSplit(Orientation.VERTICAL);
-        });
-
         //Find actions
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!rFind.getRevealChild()) {
@@ -642,11 +626,6 @@ private:
     Popover createPopover(Widget parent) {
         GMenu model = new GMenu();
 
-        if (!USE_ALTERNATE_UI) {
-            GMenuItem buttons = createSplitButtons();
-            model.appendItem(buttons);
-        }
-        
         createPopoverMenuItems(model);
 
         Popover pm = new Popover(parent);
@@ -667,54 +646,19 @@ private:
     void createPopoverMenuItems(GMenu model) {
         GMenu menuSection = new GMenu();
         menuSection.append(_("Save Output…"), ACTION_SAVE);
-        menuSection.append(_("Find…"), ACTION_FIND);
-        menuSection.append(_("Layout Options…"), ACTION_LAYOUT);
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
-        {   /* 'Terminal' submenu */
-            GMenu submenu = new GMenu();
-
-            GMenu submenuSection = new GMenu();
-            submenuSection.append(_("Read-Only"), ACTION_READ_ONLY);
-            submenu.appendSection(null, submenuSection);
-
-            submenuSection = new GMenu();
-            submenuSection.append(_("Reset"), ACTION_RESET);
-            submenuSection.append(_("Reset and Clear"), ACTION_RESET_AND_CLEAR);
-            submenu.appendSection(null, submenuSection);
-
-            menuSection.appendSubmenu(_("Terminal"), submenu);
-        }
+        menuSection.append(_("Reset"), ACTION_RESET);
+        menuSection.append(_("Reset and Clear"), ACTION_RESET_AND_CLEAR);
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
         menuSection.appendSubmenu(_("Profiles"), profileMenu);
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
         model.appendSection(null, menuSection);
-    }
 
-    /**
-     * Creates the horizontal/vertical split buttons
-     */
-    GMenuItem createSplitButtons() {
-        GMenuItem splitH = new GMenuItem(null, ACTION_SPLIT_RIGHT);
-        splitH.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-right-symbolic"));
-        splitH.setAttributeValue("label", new GVariant(_("Split Right")));
-
-        GMenuItem splitV = new GMenuItem(null, ACTION_SPLIT_DOWN);
-        splitV.setAttributeValue("verb-icon", new GVariant("terminix-split-tab-down-symbolic"));
-        splitV.setAttributeValue("label", new GVariant(_("Split Down")));
-
-        GMenu splitSection = new GMenu();
-        splitSection.appendItem(splitH);
-        splitSection.appendItem(splitV);
-
-        GMenuItem splits = new GMenuItem(_("Split"), null);
-        splits.setSection(splitSection);
-        splits.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
-
-        return splits;
+        menuSection = new GMenu();
+        menuSection.append(_("Layout Options…"), ACTION_LAYOUT);
+        menuSection.append(_("Read-Only"), ACTION_READ_ONLY);
+        model.appendSection(null, menuSection);
     }
 
     /**
@@ -950,11 +894,7 @@ private:
      * Enables/Disables actions depending on UI state
      */
     void updateActions() {
-        SimpleAction sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_RIGHT);
-        sa.setEnabled(terminalWindowState == TerminalWindowState.NORMAL);
-        sa = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SPLIT_DOWN);
-        sa.setEnabled(terminalWindowState == TerminalWindowState.NORMAL);
-        //Update button image
+        //Update maximize button image
         string icon;
         if (terminalWindowState == TerminalWindowState.MAXIMIZED) {
             icon = "window-restore-symbolic";
@@ -997,12 +937,6 @@ private:
             }
         }
         vte.pasteClipboard();
-    }
-
-    void notifyTerminalRequestSplit(Orientation orientation) {
-        foreach (OnTerminalRequestSplit dlg; terminalRequestSplitDelegates) {
-            dlg(this, orientation);
-        }
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -1062,13 +996,6 @@ private:
             mmContext.appendSection(null, linkSection);
         }
         GMenu clipSection = new GMenu();
-
-        static if (!USE_ALTERNATE_UI) {
-            GMenuItem buttons = createSplitButtons();
-            //GMenu splitSection = new GMenu();
-            //splitSection.appendItem(buttons);
-            mmContext.appendItem(buttons);
-        }
 
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), ACTION_COPY);
@@ -1829,6 +1756,8 @@ private:
             break;
         }
     }
+
+    enum STROKE_WIDTH = 4;
     
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
@@ -1845,33 +1774,38 @@ private:
         //Dragging happening?
         if (!dragInfo.isDragActive)
             return false;
+
         RGBA color;
-        getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, color);
+        
+        if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", color)) {
+            getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, color);
+        }
         /*
         if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", bg)) {
             getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
         }
         */
-        cr.setSourceRgba(color.red, color.green, color.blue, 0.3);
-        cr.setLineWidth(1);
+        cr.setSourceRgba(color.red, color.green, color.blue, 1.0);
+        cr.setLineWidth(STROKE_WIDTH);
         int w = widget.getAllocatedWidth();
         int h = widget.getAllocatedHeight();
+        int offset = STROKE_WIDTH;
         final switch (dragInfo.dq) {
         case DragQuadrant.LEFT:
-            cr.rectangle(0, 0, w / 2, h);
+            cr.rectangle(offset, offset, w / 2, h - (offset * 2));
             break;
         case DragQuadrant.TOP:
-            cr.rectangle(0, 0, w, h / 2);
+            cr.rectangle(offset, offset, w - (offset * 2), h / 2);
             break;
         case DragQuadrant.BOTTOM:
-            cr.rectangle(0, h / 2, w, h);
+            cr.rectangle(offset, h / 2, w - (offset * 2), h / 2 - offset);
             break;
         case DragQuadrant.RIGHT:
-            cr.rectangle(w / 2, 0, w, h);
+            cr.rectangle(w / 2, offset, w / 2, h - (offset * 2));
             break;
         }
         cr.strokePreserve();
-        cr.fill();
+        //cr.fill();
         return false;
     }
 
@@ -2094,14 +2028,12 @@ public:
         }
     }
 
-    static if (USE_ALTERNATE_UI) {
-        void toggleFind() {
-            if (!rFind.getRevealChild()) {
-                rFind.setRevealChild(true);
-                rFind.focusSearchEntry();
-            } else {
-                rFind.setRevealChild(false);
-            }
+    void toggleFind() {
+        if (!rFind.getRevealChild()) {
+            rFind.setRevealChild(true);
+            rFind.focusSearchEntry();
+        } else {
+            rFind.setRevealChild(false);
         }
     }
     
@@ -2188,14 +2120,6 @@ public:
      */
     @property string terminalUUID() {
         return _terminalUUID;
-    }
-
-    void addOnTerminalRequestSplit(OnTerminalRequestSplit dlg) {
-        terminalRequestSplitDelegates ~= dlg;
-    }
-
-    void removeOnTerminalRequestSplit(OnTerminalRequestSplit dlg) {
-        gx.util.array.remove(terminalRequestSplitDelegates, dlg);
     }
 
     void addOnTerminalRequestMove(OnTerminalRequestMove dlg) {

@@ -22,15 +22,11 @@ immutable bool USE_PIXBUF_DND = false;
 //Add debug options to session menu
 immutable bool SHOW_DEBUG_OPTIONS = false;
 // Renders clipboard options as buttons in context menu
-immutable bool CLIPBOARD_BTN_IN_CONTEXT = true;
+immutable bool CLIPBOARD_BTN_IN_CONTEXT = false;
 // All logs go to the file /tmp/terminix.log, useful
 // when debugging launchers or other spots where
 // stdout isn't easily viewed
 immutable bool USE_FILE_LOGGING = false;
-// When true use an alternate ui as per design in issue #372. This
-// flag let's us play with options and styles while not impacting users
-// until it is ready.
-immutable bool USE_ALTERNATE_UI = false;
 
 /**************************************
  * Application Constants

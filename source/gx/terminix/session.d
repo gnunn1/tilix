@@ -67,16 +67,13 @@ alias OnSessionClose = void delegate(Session session);
 
 alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewSession);
 
-static if (USE_ALTERNATE_UI) {
+enum SessionStateChange {
+    TERMINAL_MAXIMIZED,
+    TERMINAL_RESTORED, 
+    TERMINAL_FOCUSED
+};
 
-    enum SessionStateChange {
-        TERMINAL_MAXIMIZED,
-        TERMINAL_RESTORED, 
-        TERMINAL_FOCUSED
-    };
-
-    alias OnSessionStateChange = void delegate(Session session, SessionStateChange stateChange);
-}
+alias OnSessionStateChange = void delegate(Session session, SessionStateChange stateChange);
 
 /**
  * An exception that is thrown when a session cannot be created, typically
@@ -122,10 +119,7 @@ private:
 
     OnSessionDetach[] sessionDetachDelegates;
     OnSessionClose[] sessionCloseDelegates;
-
-    static if (USE_ALTERNATE_UI) {
-        OnSessionStateChange[] sessionStateChangeDelegates;
-    }
+    OnSessionStateChange[] sessionStateChangeDelegates;
 
     Terminal[] terminals;
     string _name;
@@ -194,11 +188,9 @@ private:
         }
     }
 
-    static if (USE_ALTERNATE_UI) {
-        void notifySessionStateChange(SessionStateChange stateChange) {
-            foreach (dlg; sessionStateChangeDelegates) {
-                dlg(this, stateChange);
-            }
+    void notifySessionStateChange(SessionStateChange stateChange) {
+        foreach (dlg; sessionStateChangeDelegates) {
+            dlg(this, stateChange);
         }
     }
 
@@ -300,7 +292,6 @@ private:
     void addTerminal(Terminal terminal) {
         terminal.addOnTerminalClose(&onTerminalClose);
         terminal.addOnTerminalRequestDetach(&onTerminalRequestDetach);
-        terminal.addOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.addOnTerminalInFocus(&onTerminalInFocus);
         terminal.addOnTerminalSyncInput(&onTerminalSyncInput);
@@ -325,7 +316,6 @@ private:
         //Remove delegates
         terminal.removeOnTerminalClose(&onTerminalClose);
         terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
-        terminal.removeOnTerminalRequestSplit(&onTerminalRequestSplit);
         terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
         terminal.removeOnTerminalInFocus(&onTerminalInFocus);
         terminal.removeOnTerminalSyncInput(&onTerminalSyncInput);
@@ -383,20 +373,20 @@ private:
     }
 
     /**
-     * Splits the terminal into two by removing the existing terminal, add
+     * Adds a new terminal into an existing terminal, by adding
      * a Paned (i.e. Splitter) and then placing the original terminal and a 
      * new terminal in the new Paned.
      *
      * Note that we do not insert the Terminal widget directly into a Paned,
      * instead a Box is added first as a shim. This is required so that if the
-     * user splits the terminal again, the box forces the parent Paned to keep
+     * user adds a new terminal again, the box forces the parent Paned to keep
      * it's layout while we remove the terminal and insert a new Paned in it's
      * spot. Without this shim the layout becomes screwed up.
      *
      * If there is some magic way in GTK to do this without the extra Box shim
      * it would be nice to eliminate this. 
      */
-    void onTerminalRequestSplit(Terminal terminal, Orientation orientation) {
+    void addNewTerminal(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal");
         Terminal newTerminal = createTerminal(terminal.defaultProfileUUID);
         trace("Inserting terminal");
@@ -617,9 +607,7 @@ private:
         currentTerminal = terminal;
         gx.util.array.remove(mruTerminals, terminal);
         mruTerminals ~= terminal;
-        static if (USE_ALTERNATE_UI) {
-            notifySessionStateChange(SessionStateChange.TERMINAL_FOCUSED);
-        }        
+        notifySessionStateChange(SessionStateChange.TERMINAL_FOCUSED);
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
@@ -651,9 +639,7 @@ private:
         trace("Switching stack to maximized page");
         terminal.show();
         setVisibleChild(stackMaximized);
-        static if (USE_ALTERNATE_UI) {
-            notifySessionStateChange(SessionStateChange.TERMINAL_MAXIMIZED);
-        }        
+        notifySessionStateChange(SessionStateChange.TERMINAL_MAXIMIZED);
         return true;
     }
 
@@ -673,9 +659,7 @@ private:
         maximizedInfo.parent = null;
         maximizedInfo.terminal = null;
         setVisibleChild(stackGroup);
-        static if (USE_ALTERNATE_UI) {
-            notifySessionStateChange(SessionStateChange.TERMINAL_RESTORED);
-        }        
+        notifySessionStateChange(SessionStateChange.TERMINAL_RESTORED);
         return true;
     }
 
@@ -1277,6 +1261,21 @@ public:
         return false;
     }
 
+    void toggleTerminalFind() {
+        if (currentTerminal !is null) {
+            currentTerminal.toggleFind();
+        }
+    }
+
+    /**
+     * Adds a new terminal to the currently focused terminal
+     */
+    void addTerminal(Orientation orientation) {
+        if (currentTerminal !is null) {
+            addNewTerminal(currentTerminal, orientation);
+        }
+    }
+
     void addOnSessionClose(OnSessionClose dlg) {
         sessionCloseDelegates ~= dlg;
     }
@@ -1293,34 +1292,16 @@ public:
         gx.util.array.remove(sessionDetachDelegates, dlg);
     }
 
-    static if (USE_ALTERNATE_UI) {
+    @property bool maximized() {
+        return maximizedInfo.isMaximized;
+    } 
 
-        void toggleTerminalFind() {
-            if (currentTerminal !is null) {
-                currentTerminal.toggleFind();
-            }
-        }
+    void addOnSessionStateChange(OnSessionStateChange dlg) {
+        sessionStateChangeDelegates ~= dlg;
+    }
 
-        //TODO - If alternate UI goes mainstream refactor onTerminalRequestSplit into here
-        //No need to have terminal requesting splits anymore, also remove check if action is doable in terminal
-        void splitTerminal(Orientation orientation) {
-            if (currentTerminal !is null) {
-                onTerminalRequestSplit(currentTerminal, orientation);
-            }
-        }
-
-        @property bool maximized() {
-            return maximizedInfo.isMaximized;
-        } 
-
-        void addOnSessionStateChange(OnSessionStateChange dlg) {
-            sessionStateChangeDelegates ~= dlg;
-        }
-
-        void removeOnSessionStateChange(OnSessionStateChange dlg) {
-            gx.util.array.remove(sessionStateChangeDelegates, dlg);
-        }
-        
+    void removeOnSessionStateChange(OnSessionStateChange dlg) {
+        gx.util.array.remove(sessionStateChangeDelegates, dlg);
     }
 }
 
