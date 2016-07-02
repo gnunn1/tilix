@@ -6,6 +6,7 @@ module gx.terminix.appwindow;
 
 import core.memory;
 
+import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.file;
@@ -662,7 +663,7 @@ private:
 
             double x = w * pw;
             double y = h * ph;
-            double radius = w * ps;
+            double radius = min(w,h) * ps;
             
             cr.save();
             cr.setSourceRgba(bg.red, bg.green, bg.blue, bg.alpha);
@@ -670,7 +671,7 @@ private:
             cr.fillPreserve();
             cr.stroke();
             cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
-            cr.setFontSize(11);
+            cr.setFontSize(10);
             cr.setSourceRgba(fg.red, fg.green, fg.blue, 1.0);
             string text = to!string(value);
             cairo_text_extents_t extents;
@@ -684,7 +685,6 @@ private:
         RGBA fg;
         RGBA bg;
         //Draw number of notifications on button
-        //TODO - Fix this for change in button style
         ulong count = 0;
         foreach (sn; sessionNotifications.values) {
             count = count + sn.messages.length;
@@ -693,7 +693,7 @@ private:
             widget.getStyleContext().lookupColor("theme_selected_fg_color", fg);
             widget.getStyleContext().lookupColor("theme_selected_bg_color", bg);
             bg.alpha = 0.9;
-            drawBadge(0.28, 0.70, 0.19, fg, bg, to!int(count));
+            drawBadge(0.87, 0.68, 0.15, fg, bg, to!int(count));
         }
         return false;
     }
