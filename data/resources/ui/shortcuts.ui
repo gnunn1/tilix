@@ -170,6 +170,24 @@
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Add</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-add-right">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Add terminal right</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="session-add-down">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Add terminal down</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">1</property>
             <property name="title" translatable="yes" context="shortcut window">Resize</property>
             <child>
               <object class="GtkShortcutsShortcut" id ="session-resize-terminal-up">
@@ -331,24 +349,6 @@
         <property name="section-name">terminal</property>
         <property name="title" translatable="yes">Terminal</property>
         <property name="max-height">12</property>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="visible">1</property>
-            <property name="title" translatable="yes" context="shortcut window">Split</property>
-            <child>
-              <object class="GtkShortcutsShortcut" id ="terminal-split-right">
-                <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Split right</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id ="terminal-split-down">
-                <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Split down</property>
-              </object>
-            </child>
-          </object>
-        </child>
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">1</property>
