@@ -699,14 +699,12 @@ private:
             updateTitle();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
-            trace("Icon title changed");
             //gst.updateState();
             updateTitle(); 
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
-            trace("Current directory is " ~ vte.getCurrentDirectoryUri);            
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
                 gst.updateState(hostname, directory);
                 updateTitle();
@@ -723,7 +721,6 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
-            trace("Contents changed");
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentDirectory.length == 0) {
                 terminix.warnVTEConfigIssue();
             }
@@ -1791,11 +1788,6 @@ private:
         if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", color)) {
             getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, color);
         }
-        /*
-        if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", bg)) {
-            getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, bg);
-        }
-        */
         cr.setSourceRgba(color.red, color.green, color.blue, 1.0);
         cr.setLineWidth(STROKE_WIDTH);
         int w = widget.getAllocatedWidth();
