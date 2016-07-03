@@ -2328,7 +2328,7 @@ public:
             }
         }
         //Is this a remote host?
-        if (hostname != localHostname) {
+        if (hostname.length > 0 && hostname != localHostname) {
             remote.hostname = hostname;
             remote.directory = directory;
         } else {
