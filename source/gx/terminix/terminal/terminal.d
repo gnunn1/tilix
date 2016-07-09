@@ -431,12 +431,12 @@ private:
         saProfileSelect.setState(new GVariant(activeProfileUUID));
         ProfileInfo[] profiles = prfMgr.getProfiles();
         foreach (profile; profiles) {
-            GMenuItem menuItem = new GMenuItem(profile.name, ACTION_PROFILE_SELECT);
-            menuItem.setActionAndTargetValue(ACTION_PROFILE_SELECT, new GVariant(profile.uuid));
+            GMenuItem menuItem = new GMenuItem(profile.name, getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
+            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
             profileMenu.appendItem(menuItem);
         }
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Edit Profile"), ACTION_PROFILE_PREFERENCE);
+        menuSection.append(_("Edit Profile"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_PREFERENCE));
         profileMenu.appendSection(null, menuSection);
     }
 
@@ -448,8 +448,8 @@ private:
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {
                 string name = lookupEncoding[encoding];
-                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), ACTION_ENCODING_SELECT);
-                menuItem.setActionAndTargetValue(ACTION_ENCODING_SELECT, new GVariant(encoding));
+                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
+                menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new GVariant(encoding));
                 encodingMenu.appendItem(menuItem);
             }
         }
@@ -636,7 +636,7 @@ private:
         pm.addOnUnmap(delegate(Widget) {
            if (dimPercent > 0) vte.queueDraw(); 
         });
-        pm.bindModel(model, ACTION_PREFIX);
+        pm.bindModel(model, null);
         return pm;
     }
 
@@ -645,9 +645,9 @@ private:
      */
     void createPopoverMenuItems(GMenu model) {
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Save Output…"), ACTION_SAVE);
-        menuSection.append(_("Reset"), ACTION_RESET);
-        menuSection.append(_("Reset and Clear"), ACTION_RESET_AND_CLEAR);
+        menuSection.append(_("Save Output…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
+        menuSection.append(_("Reset"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET));
+        menuSection.append(_("Reset and Clear"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET_AND_CLEAR));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
@@ -656,10 +656,34 @@ private:
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
-        menuSection.append(_("Layout Options…"), ACTION_LAYOUT);
-        menuSection.append(_("Read-Only"), ACTION_READ_ONLY);
+        menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
+        menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
     }
+
+    /**
+     * Creates the horizontal/vertical add buttons
+     */
+    GMenuItem createAddButtons() {
+        GMenuItem addH = new GMenuItem(null, "session.add-right");
+        addH.setAttributeValue("verb-icon", new GVariant("terminix-add-horizontal-symbolic"));
+        addH.setAttributeValue("label", new GVariant(_("Add Right")));
+
+        GMenuItem addV = new GMenuItem(null, "session.add-down");
+        addV.setAttributeValue("verb-icon", new GVariant("terminix-add-vertical-symbolic"));
+        addV.setAttributeValue("label", new GVariant(_("Add Down")));
+
+        GMenu addSection = new GMenu();
+        addSection.appendItem(addH);
+        addSection.appendItem(addV);
+
+        GMenuItem add = new GMenuItem(_("Add"), null);
+        add.setSection(addSection);
+        add.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
+
+        return add;
+    }    
 
     /**
      * Creates the actual VTE terminal inside an Overlay along with some support
@@ -997,31 +1021,36 @@ private:
 
     void buildContextMenu() {
         GMenu mmContext = new GMenu();
+
         if (match.match) {
             GMenu linkSection = new GMenu();
-            linkSection.append(_("Open Link"), ACTION_OPEN_LINK);
-            linkSection.append(_("Copy Link Address"), ACTION_COPY_LINK);
+            linkSection.append(_("Open Link"), getActionDetailedName(ACTION_PREFIX, ACTION_OPEN_LINK));
+            linkSection.append(_("Copy Link Address"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_LINK));
             mmContext.appendSection(null, linkSection);
         }
-        GMenu clipSection = new GMenu();
 
+        //Add split buttons
+        GMenuItem buttons = createAddButtons();
+        mmContext.appendItem(buttons);
+
+        GMenu clipSection = new GMenu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
-            clipSection.append(_("Copy"), ACTION_COPY);
-            clipSection.append(_("Paste"), ACTION_PASTE);
-            clipSection.append(_("Select All"), ACTION_SELECT_ALL);
+            clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
+            clipSection.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
+            clipSection.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             mmContext.appendSection(null, clipSection);
         } else {
-            GMenuItem copy = new GMenuItem(null, ACTION_COPY);
+            GMenuItem copy = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
             copy.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
             copy.setAttributeValue("label", new GVariant(_("Copy")));
             clipSection.appendItem(copy);
 
-            GMenuItem paste = new GMenuItem(null, ACTION_PASTE);
+            GMenuItem paste = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
             paste.setAttributeValue("label", new GVariant(_("Paste")));
             clipSection.appendItem(paste);
 
-            GMenuItem selectAll = new GMenuItem(null, ACTION_SELECT_ALL);
+            GMenuItem selectAll = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             selectAll.setAttributeValue("verb-icon", new GVariant("edit-select-all-symbolic"));
             selectAll.setAttributeValue("label", new GVariant(_("Select All")));
             clipSection.appendItem(selectAll);
@@ -1035,12 +1064,12 @@ private:
         //Check if titlebar is turned off and add extra items
         if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
             GMenu windowSection = new GMenu();
-            windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), ACTION_MAXIMIZE);
-            windowSection.append(_("Close"), ACTION_CLOSE);
+            windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
+            windowSection.append(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
             mmContext.appendSection(null, windowSection);
             if (_synchronizeInput) {
                 GMenu syncInputSection = new GMenu();
-                syncInputSection.append(_("Synchronize input"), ACTION_SYNC_INPUT_OVERRIDE);
+                syncInputSection.append(_("Synchronize input"), getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
                 mmContext.appendSection(null, syncInputSection);
             }
 
@@ -1049,7 +1078,7 @@ private:
             createPopoverMenuItems(mmContext);
         }
 
-        pmContext.bindModel(mmContext, ACTION_PREFIX);
+        pmContext.bindModel(mmContext, null);
     }
 
     /**
