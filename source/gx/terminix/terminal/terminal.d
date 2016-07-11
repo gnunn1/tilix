@@ -678,7 +678,7 @@ private:
         addSection.appendItem(addH);
         addSection.appendItem(addV);
 
-        GMenuItem add = new GMenuItem(_("Add"), null);
+        GMenuItem add = new GMenuItem(null, null);
         add.setSection(addSection);
         add.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
 
