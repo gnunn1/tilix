@@ -1,19 +1,23 @@
 {
-	"name": "terminix",
-	"description": "A VTE based terminal emulator for Linux",
-	"copyright": "Copyright © 2016, Gerald Nunn",
-	"authors": ["Gerald Nunn"],
+    "name": "terminix",
+    "description": "A VTE based terminal emulator for Linux",
+    "copyright": "Copyright © 2016, Gerald Nunn",
+    "authors": ["Gerald Nunn"],
+
     "dependencies": {
-		"gtk-d": "~>3.3.0"
-	},
-	"buildTypes": {
-		"release": {
+        "gtk-d": "~>3.3.0"
+    },
+
+    "buildTypes": {
+        "release": {
             "versions": ["StdLoggerDisableTrace"]
-		},
+        },
+
         "localize": {
             "versions": ["Localize"]
         }
-	},
+    },
+
     "configurations": [
         {
             "name": "default",
