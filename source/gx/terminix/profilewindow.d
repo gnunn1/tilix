@@ -79,6 +79,7 @@ private:
             hb.setTitle(format(_("New Profile"), name));
         }
         this.setTitlebar(hb);
+        this.setDefaultSize(400, -1);
 
         nb = new Notebook();
         nb.setHexpand(true);
@@ -834,15 +835,13 @@ private:
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        string desc = "Profiles are automatically selected based on the values entered here.\n" ~
-                      "Values are entered using a <i>hostname:directory</i> format.\n" ~ 
-                      "Either the hostname or directory can be ommitted but the colon must be present.\n" ~
-                      "Entries with neither hostname or directory are not permitted";
+        string desc = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be ommitted but the colon must be present. Entries with neither hostname or directory are not permitted");
         
         Label lblDescription = new Label(_(desc));
         lblDescription.setUseMarkup(true);
         lblDescription.setLineWrap(true);
         lblDescription.setSensitive(false);
+        lblDescription.setLineWrap(true);
         packStart(lblDescription, false, false, 0);
         
         lsValues = new ListStore([GType.STRING]);
