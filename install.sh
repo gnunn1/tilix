@@ -88,9 +88,9 @@ cp -r data/icons/hicolor/. ${PREFIX}/share/icons/hicolor
 mkdir -p ${PREFIX}/bin
 cp terminix ${PREFIX}/bin/terminix
 mkdir -p ${PREFIX}/share/applications
-mkdir -p ${PREFIX}/share/appdata
+mkdir -p ${PREFIX}/share/metainfo
 cp data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications
-cp data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/appdata
+cp data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/metainfo
 
 desktop-file-validate ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
 
