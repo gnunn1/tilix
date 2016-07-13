@@ -35,6 +35,7 @@ enum SETTINGS_NEW_INSTANCE_MODE_KEY = "new-instance-mode";
 immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-session", "split-right", "split-down", "focus-window"];
 
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
+enum SETTINGS_ACCELERATORS_ENABLED = "accelerators-enabled";
 enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";

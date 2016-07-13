@@ -87,7 +87,7 @@ private:
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
         nb.appendPage(ap, _("Appearance"));
 
-        ShortcutPreferences sp = new ShortcutPreferences();
+        ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         nb.appendPage(sp, _("Shortcuts"));
 
         ProfilePreferences pp = new ProfilePreferences(app);
@@ -196,6 +196,7 @@ class ShortcutPreferences : Box {
 
 private:
     Settings gsShortcuts;
+    Settings gsSettings;
 
     TreeStore tsShortcuts;
     string[string] labels;
@@ -256,7 +257,12 @@ private:
         scShortcuts.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         scShortcuts.setHexpand(true);
         scShortcuts.setVexpand(true);
+        
         add(scShortcuts);
+
+        CheckButton cbAccelerators = new CheckButton(_("Enable shortcuts"));
+        gsSettings.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
+        add(cbAccelerators);
 
         tvShortcuts.expandAll();
     }
@@ -377,8 +383,9 @@ private:
 
 public:
 
-    this() {
+    this(Settings gsSettings) {
         super(Orientation.VERTICAL, 6);
+        this.gsSettings = gsSettings;
         gsShortcuts = new Settings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         createUI();
     }

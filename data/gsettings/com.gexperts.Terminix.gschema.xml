@@ -165,7 +165,14 @@
       <default>false</default>
       <summary>Whether the standard GTK shortcut for menubar access is enabled</summary>
       <description>Normally you can access the menubar with F10. This can also be customized via gtkrc (gtk-menu-bar-accel = "whatever"). This option allows the standard menubar accelerator to be disabled.</description>
-    </key>    <!-- Unsafe Paste, cribbed from Pantheon -->
+    </key>
+    <!-- Accelerators Enabled-->
+    <key name="accelerators-enabled" type="b">
+      <default>true</default>
+      <summary>Whether accelerators for shortcuts are enabled</summary>
+      <description>When this is false, accelerators are disabled and any accelerators set will be ignored.</description>
+    </key>
+    <!-- Unsafe Paste, cribbed from Pantheon -->
     <key name="unsafe-paste-alert" type="b">
       <default>true</default>
       <summary>Alert the user about unsafe paste</summary>

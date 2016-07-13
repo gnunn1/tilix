@@ -447,7 +447,7 @@ private:
     }
     
     void applyPreferences() {
-        foreach(key; [SETTINGS_THEME_VARIANT_KEY,SETTINGS_MENU_ACCELERATOR_KEY,SETTINGS_BACKGROUND_IMAGE_KEY]) {
+        foreach(key; [SETTINGS_THEME_VARIANT_KEY,SETTINGS_MENU_ACCELERATOR_KEY,SETTINGS_ACCELERATORS_ENABLED,SETTINGS_BACKGROUND_IMAGE_KEY]) {
             applyPreference(key);
         }
     }
@@ -480,6 +480,9 @@ private:
                 } else {
                     Settings.getDefault().setProperty(GTK_MENU_BAR_ACCEL, defaultMenuAccel);
                 }
+                break;
+            case SETTINGS_ACCELERATORS_ENABLED:
+                Settings.getDefault().setProperty(GTK_ENABLE_ACCELS, gsGeneral.getBoolean(SETTINGS_ACCELERATORS_ENABLED));
                 break;
             case SETTINGS_BACKGROUND_IMAGE_KEY, SETTINGS_BACKGROUND_IMAGE_MODE_KEY, SETTINGS_BACKGROUND_IMAGE_SCALE_KEY:
                 if (key == SETTINGS_BACKGROUND_IMAGE_KEY) {
