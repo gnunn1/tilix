@@ -23,4 +23,4 @@ find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Terminix.png" -de
 rm ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
 rm ${PREFIX}/share/dbus-1/services/com.gexperts.Terminix.service
 rm ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
-rm ${PREFIX}/share/appdata/com.gexperts.Terminix.appdata.xml
+rm ${PREFIX}/share/metainfo/com.gexperts.Terminix.appdata.xml
