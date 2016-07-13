@@ -391,7 +391,7 @@ private:
         Terminal newTerminal = createTerminal(terminal.defaultProfileUUID);
         trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);
-        trace("Intializing terminal with " ~ terminal.currentLocalDirectory);
+        trace("Initializing terminal with " ~ terminal.currentLocalDirectory);
         newTerminal.initTerminal(terminal.currentLocalDirectory, false);
     }
 

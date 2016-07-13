@@ -1479,7 +1479,7 @@ private:
         }
         if (overrides.workingDir.length > 0) {
             workingDir = overrides.workingDir;
-            trace("Working directory overriden to " ~ workingDir);
+            trace("Working directory overridden to " ~ workingDir);
         }
         if (workingDir.length == 0) {
             string cwd = Util.getCurrentDir();
@@ -1745,7 +1745,7 @@ private:
      * Called when the drag operation ends and a drop occurred
      */
     void onVTEDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
-        trace("Drag data recieved for " ~ to!string(info));
+        trace("Drag data received for " ~ to!string(info));
         final switch (info) {
         case DropTargets.URILIST:
             string[] uris = data.getUris();
@@ -1916,7 +1916,7 @@ public:
         initColors();
         _terminalUUID = randomUUID().toString();
         _activeProfileUUID = profileUUID;
-        // Check if profile is overriden globally
+        // Check if profile is overridden globally
         if (terminix.getGlobalOverrides().profileName.length > 0) {
             string newProfileUUID = prfMgr.getProfileUUIDFromName(terminix.getGlobalOverrides().profileName);
             if (newProfileUUID.length > 0) {
