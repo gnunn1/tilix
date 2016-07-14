@@ -342,6 +342,11 @@ private:
         if (acl.getIsRemote()) {
             AppWindow aw = getActiveAppWindow();
             if (aw !is null) {
+                if (cp.terminalUUID.length > 0 && cp.title.length > 0) {
+                    aw.getActiveTerminal().overrideTitle = cp.title;
+                    //No further processing, setting title ignores everything else
+                    return cp.exitCode;
+                }
                 string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
                 //If focus-window command line parameter was passed, override setting
                 if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
@@ -544,6 +549,7 @@ private:
     void addOptions() {
         addMainOption(CMD_WORKING_DIRECTORY, 'w', GOptionFlags.NONE, GOptionArg.STRING, _("Set the working directory of the terminal"), _("DIRECTORY"));
         addMainOption(CMD_PROFILE, 'p', GOptionFlags.NONE, GOptionArg.STRING, _("Set the starting profile"), _("PROFILE_NAME"));
+        addMainOption(CMD_TITLE, 't', GOptionFlags.NONE, GOptionArg.STRING, _("Set the title of the current terminal"), _("TITLE"));
         addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING_ARRAY, _("Open the specified session"), _("SESSION_NAME"));
         addMainOption(CMD_ACTION, 'a', GOptionFlags.NONE, GOptionArg.STRING, _("Send an action to current Terminix instance"), _("ACTION_NAME"));
         addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
@@ -554,7 +560,7 @@ private:
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
 
         //Hidden options used to communicate with primary instance
-        addMainOption(CMD_TERMINAL_UUID, 't', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
+        addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
     }
 
 public:

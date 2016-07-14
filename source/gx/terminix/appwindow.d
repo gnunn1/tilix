@@ -159,14 +159,14 @@ private:
             trace("Switched Sessions");
             Session session = cast(Session) page;
             //Remove any sessions associated with current page
-            sessionNotifications.remove(session.sessionUUID);
+            sessionNotifications.remove(session.uuid);
             updateTitle();
             updateUIState();
             session.notifyActive();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
             if (sb.getChildRevealed()) {
-                sb.selectSession(getCurrentSession().sessionUUID);
+                sb.selectSession(getCurrentSession().uuid);
             }
             lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
         }, ConnectFlags.AFTER);
@@ -341,7 +341,7 @@ private:
             // handling, don't trigger UI activity until after it is done
             // See comments in gx.gtk.cairo.getWidgetImage
             if (newState) {
-                sb.populateSessions(getSessions(), getCurrentSession().sessionUUID, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
+                sb.populateSessions(getSessions(), getCurrentSession().uuid, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
                 sb.showAll();
             } 
             sb.setRevealChild(newState);
@@ -426,7 +426,7 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                onUserSessionClose(getCurrentSession().sessionUUID);                
+                onUserSessionClose(getCurrentSession().uuid);                
             }
         });
 
@@ -719,8 +719,8 @@ private:
             //if session not visible send to local handler
         }
         // If session not active, keep copy locally
-        if (sessionUUID != getCurrentSession().sessionUUID) {
-            trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().sessionUUID));
+        if (sessionUUID != getCurrentSession().uuid) {
+            trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().uuid));
             //handle session level notifications here
             ProcessNotificationMessage msg = ProcessNotificationMessage(terminalUUID, summary, _body);
             if (sessionUUID in sessionNotifications) {
@@ -798,7 +798,7 @@ private:
     Session getSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = getSession(i);
-            if (session.sessionUUID == sessionUUID) {
+            if (session.uuid == sessionUUID) {
                 return session;
             }
         }
@@ -970,7 +970,7 @@ public:
     bool activateSession(string sessionUUID) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = getSession(i);
-            if (session.sessionUUID == sessionUUID) {
+            if (session.uuid == sessionUUID) {
                 nb.setCurrentPage(i);
                 return true;
             }
@@ -988,9 +988,18 @@ public:
         return false;
     }
     
-    string getActiveTerminalUUID() {
+    ITerminal getActiveTerminal() {
         Session session = getCurrentSession();
-        return session.getActiveTerminalUUID();
+        if (session !is null) {
+            return session.getActiveTerminal();
+        }
+        return null;
+    }
+
+    string getActiveTerminalUUID() {
+        ITerminal terminal = getActiveTerminal();
+        if (terminal !is null) return terminal.uuid;
+        return null;
     }
 
     /**
@@ -1000,7 +1009,7 @@ public:
     Widget findWidgetForUUID(string uuid) {
         for (int i = 0; i < nb.getNPages(); i++) {
             Session session = cast(Session) nb.getNthPage(i);
-            if (session.sessionUUID == uuid)
+            if (session.uuid == uuid)
                 return session;
             trace("Searching session");
             Widget result = session.findWidgetForUUID(uuid);
@@ -1017,9 +1026,9 @@ public:
         string workingDir;
         // Inherit current session directory unless overrides exist, fix #343
         if (terminix.getGlobalOverrides().cwd.length ==0 && terminix.getGlobalOverrides().workingDir.length == 0) {
-            Session current = getCurrentSession();
-            if (current !is null) {
-                workingDir = current.getActiveTerminalDirectory();
+            ITerminal terminal = getActiveTerminal();
+            if (terminal !is null) {
+                workingDir = terminal.currentLocalDirectory;
             }
         }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {

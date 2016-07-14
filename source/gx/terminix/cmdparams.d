@@ -29,6 +29,7 @@ enum CMD_FULL_SCREEN = "full-screen";
 enum CMD_FOCUS_WINDOW = "focus-window";
 enum CMD_GEOMETRY = "geometry";
 enum CMD_NEW_PROCESS = "new-process";
+enum CMD_TITLE = "title";
 
 /**
  * Manages the terminix command line options
@@ -46,6 +47,7 @@ private:
     string _cwd;
     string _pwd;
     string _geometry;
+    string _title;
     int _width, _height, _x, _y;
         
     bool _maximize;
@@ -136,6 +138,7 @@ public:
             }
         }
         _profileName = getValue(vd, CMD_PROFILE, vts);
+        _title = getValue(vd, CMD_TITLE, vts);
         _execute = getValue(vd, CMD_EXECUTE, vts);
         _action = getValue(vd, CMD_ACTION, vts);
         if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _execute.length > 0)) {
@@ -166,6 +169,7 @@ public:
         trace("\tworking-directory=" ~ _workingDir);
         trace("\tsession=" ~ _session);
         trace("\tprofile=" ~ _profileName);
+        trace("\ttitle=" ~ _title);
         trace("\taction=" ~ _action);
         trace("\texecute=" ~ _execute);
         trace("\tcwd=" ~ _cwd);
@@ -194,6 +198,7 @@ public:
         _x = 0;
         _y = 0;
         _exit = false;
+        _title.length = 0;
     }
 
     @property string workingDir() {
@@ -274,5 +279,9 @@ public:
     
     @property bool newProcess() {
         return _newProcess;
+    }
+
+    @property string title() {
+        return _title;
     }
 }

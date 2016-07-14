@@ -202,7 +202,7 @@ enum TERMINAL_ROWS = "${rows}";
  * various event handlers defined in this Terminal widget. Note these event handlers
  * do not correspond to GTK signals, they are pure D code.
  */
-class Terminal : EventBox {
+class Terminal : EventBox, ITerminal {
 
 private:
 
@@ -740,7 +740,7 @@ private:
         vte.addOnFocusOut(&onTerminalWidgetFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (terminalInitialized && !terminal.hasFocus()) {
-                notifyProcessNotification(summary, _body, terminalUUID);
+                notifyProcessNotification(summary, _body, uuid);
             }
         });
         vte.addOnContentsChanged(delegate(VTE) {
@@ -1157,7 +1157,7 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusIn(Event event, Widget widget) {
-        trace("Terminal gained focus " ~ terminalUUID);
+        trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
         //Fire focus events so session can track which terminal last had focus
         foreach (dlg; terminalInFocusDelegates) {
@@ -1173,7 +1173,7 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
-        trace("Terminal lost focus" ~ terminalUUID);
+        trace("Terminal lost focus" ~ uuid);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         if (dimPercent > 0) {
             vte.queueDraw();
@@ -1510,7 +1510,7 @@ private:
                 flags = flags | GSpawnFlags.FILE_AND_ARGV_ZERO;
             }
         }
-        string[] envv = ["TERMINIX_ID=" ~ terminalUUID];
+        string[] envv = ["TERMINIX_ID=" ~ uuid];
         foreach (arg; args)
             trace("Argument: " ~ arg);
         try {
@@ -1586,7 +1586,7 @@ private:
      * so it knows which terminal was dropped, in this case the terminal UUID
      */
     void onTitleDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
-        char[] buffer = (terminalUUID ~ '\0').dup;
+        char[] buffer = (uuid ~ '\0').dup;
         data.set(intern(VTE_DND, false), 8, buffer);
     }
 
@@ -1659,7 +1659,7 @@ private:
 
     bool isSourceAndDestEqual(DragContext dc, Terminal dest) {
         Terminal dragTerminal = getDragTerminal(dc);
-        return (dragTerminal.terminalUUID == _terminalUUID);
+        return (dragTerminal.uuid == _terminalUUID);
     }
 
     /**
@@ -2142,7 +2142,7 @@ public:
      * A unique ID for the terminal, it is constant for the lifespan
      * of the terminal
      */
-    @property string terminalUUID() {
+    @property string uuid() {
         return _terminalUUID;
     }
 

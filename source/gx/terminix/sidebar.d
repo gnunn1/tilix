@@ -178,7 +178,7 @@ public:
             SideBarRow row = new SideBarRow(this, session, notifications, width, height);
             row.sessionIndex = i + 1;
             lbSessions.add(row);
-            if (session.sessionUUID == currentSessionUUID) {
+            if (session.uuid == currentSessionUUID) {
                 lbSessions.selectRow(row);
             }
         }
@@ -255,8 +255,8 @@ private:
         Grid grid = new Grid();
         setAllMargins(grid, 4);
 
-        if (session.sessionUUID in notifications) {
-            SessionNotification sn = notifications[session.sessionUUID];
+        if (session.uuid in notifications) {
+            SessionNotification sn = notifications[session.uuid];
             Label lblNCount = new Label(format("%d", sn.messages.length));
             lblNCount.setUseMarkup(true);
             lblNCount.setWidthChars(2);
@@ -322,7 +322,7 @@ public:
     this(SideBar sidebar, Session session, SessionNotification[string] notifications, int width, int height) {
         super();
         this.sidebar = sidebar;
-        _sessionUUID = session.sessionUUID;
+        _sessionUUID = session.uuid;
         createUI(session, notifications, width, height);
     }
 

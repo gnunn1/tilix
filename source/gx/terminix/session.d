@@ -107,7 +107,7 @@ class SessionCreationException : Exception {
  * takes too much vertical space and I'll like the UI in Builder which also doesn't do this
  * and which inspired this application.
  */
-class Session : Stack {
+class Session : Stack, IIdentifiable {
 
 private:
 
@@ -310,7 +310,7 @@ private:
      */
     void removeTerminal(Terminal terminal) {
         int id = to!int(terminal.terminalID);
-        trace("Removing terminal " ~ terminal.terminalUUID);
+        trace("Removing terminal " ~ terminal.uuid);
         if (currentTerminal == terminal)
             currentTerminal = null;
         //Remove delegates
@@ -364,9 +364,9 @@ private:
     /**
      * Find a terminal based on it's UUID
      */
-    Terminal findTerminal(string terminalUUID) {
+    Terminal findTerminal(string uuid) {
         foreach (terminal; terminals) {
-            if (terminal.terminalUUID == terminalUUID)
+            if (terminal.uuid == uuid)
                 return terminal;
         }
         return null;
@@ -437,7 +437,7 @@ private:
         }
 
         Paned paned;
-        if (maximizedInfo.isMaximized && terminal.terminalUUID == maximizedInfo.terminal.terminalUUID) {
+        if (maximizedInfo.isMaximized && terminal.uuid == maximizedInfo.terminal.uuid) {
             paned = cast(Paned) maximizedInfo.parent.getParent();
         } else {
             paned = cast(Paned) terminal.getParent().getParent();
@@ -566,8 +566,8 @@ private:
         closeTerminal(terminal);
     }
 
-    void onTerminalProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
-        notifyProcessNotification(summary, _body, terminalUUID, _sessionUUID);
+    void onTerminalProcessNotification(string summary, string _body, string uuid, string sessionUUID = null) {
+        notifyProcessNotification(summary, _body, uuid, _sessionUUID);
     }
 
     bool onTerminalIsActionAllowed(ActionType actionType) {
@@ -684,7 +684,7 @@ private:
 private:
 
     string _filename;
-    string maximizedTerminalUUID;
+    string maximizedUUID;
 
     enum NODE_TYPE = "type";
     enum NODE_NAME = "name";
@@ -822,7 +822,7 @@ private:
         }
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
-            maximizedTerminalUUID = terminal.terminalUUID;
+            maximizedUUID = terminal.uuid;
         }
         return terminal;
     }
@@ -858,15 +858,15 @@ private:
      * De-serialize a session
      */
     void parseSession(JSONValue value, SessionSizeInfo sizeInfo) {
-        maximizedTerminalUUID.length = 0;
+        maximizedUUID.length = 0;
         _name = value[NODE_NAME].str();
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
         groupChild.add(parseNode(child, sizeInfo));
-        if (maximizedTerminalUUID.length > 0) {
-            Terminal terminal = findTerminal(maximizedTerminalUUID);
+        if (maximizedUUID.length > 0) {
+            Terminal terminal = findTerminal(maximizedUUID);
             if (terminal !is null) {
-                trace("Maximizing terminal " ~ maximizedTerminalUUID);
+                trace("Maximizing terminal " ~ maximizedUUID);
                 terminal.maximize();
             }
         }
@@ -987,21 +987,13 @@ public:
         return findTerminal(uuid);
     }
 
-    string getActiveTerminalUUID() {
+    ITerminal getActiveTerminal() {
         if (currentTerminal !is null)
-            return currentTerminal.terminalUUID;
+            return currentTerminal;
         else
-            return null;
+            return null;        
     }
-    
-    string getActiveTerminalDirectory() {
-        if (currentTerminal !is null) {
-            return currentTerminal.currentLocalDirectory;
-        } else {
-            return null;
-        }
-    }
-    
+
     /**
      * Called when the session becomes active, 
      * i.e. is visible to the user
@@ -1058,7 +1050,7 @@ public:
     /**
      * Unique and immutable session ID
      */
-    @property string sessionUUID() {
+    @property string uuid() {
         return _sessionUUID;
     }
 
@@ -1252,9 +1244,9 @@ public:
     /**
      * Focus the terminal designated by the UUID
      */
-    bool focusTerminal(string terminalUUID) {
+    bool focusTerminal(string uuid) {
         foreach (terminal; terminals) {
-            if (terminal.terminalUUID == terminalUUID) {
+            if (terminal.uuid == uuid) {
                 return focusTerminal(terminal);
             }
         }

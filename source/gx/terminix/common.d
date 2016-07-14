@@ -109,3 +109,35 @@ class SessionNotification {
         this.sessionUUID = sessionUUID;
     }
 }
+
+interface IIdentifiable {
+
+    /**
+     * The immutable unique identifier for a terminal
+     */
+    //string getUUID();
+
+    @property string uuid();
+
+}
+
+interface ITerminal : IIdentifiable {
+
+    /**
+     * Overrides the current title of the terminal
+     */
+    @property void overrideTitle(string value);
+
+    /**
+     * Toggles the terminal find
+     */
+    void toggleFind();
+
+    /**
+     * Returns the current directory of the terminal, may be
+     * null if information is not available due to VTE
+     * configuration issue
+     */
+    @property string currentLocalDirectory();
+
+}
