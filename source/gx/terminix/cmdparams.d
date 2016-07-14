@@ -155,7 +155,7 @@ public:
                 _action.length = 0;
             }
         }
-        
+
         _maximize = vd.contains(CMD_MAXIMIZE);
         _fullscreen = vd.contains(CMD_FULL_SCREEN);
         _focusWindow = vd.contains(CMD_FOCUS_WINDOW);

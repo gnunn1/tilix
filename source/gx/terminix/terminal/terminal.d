@@ -1924,6 +1924,11 @@ public:
                 trace("Overriding profile with global: " ~ _activeProfileUUID);
             }
         }
+        //Check if title is overridden globally
+        if (terminix.getGlobalOverrides().title.length > 0) {
+            overrideTitle = terminix.getGlobalOverrides().title;
+        }
+
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);

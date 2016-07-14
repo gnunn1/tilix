@@ -342,11 +342,13 @@ private:
         if (acl.getIsRemote()) {
             AppWindow aw = getActiveAppWindow();
             if (aw !is null) {
+                /*
                 if (cp.terminalUUID.length > 0 && cp.title.length > 0) {
                     aw.getActiveTerminal().overrideTitle = cp.title;
                     //No further processing, setting title ignores everything else
                     return cp.exitCode;
                 }
+                */
                 string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
                 //If focus-window command line parameter was passed, override setting
                 if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
@@ -549,7 +551,7 @@ private:
     void addOptions() {
         addMainOption(CMD_WORKING_DIRECTORY, 'w', GOptionFlags.NONE, GOptionArg.STRING, _("Set the working directory of the terminal"), _("DIRECTORY"));
         addMainOption(CMD_PROFILE, 'p', GOptionFlags.NONE, GOptionArg.STRING, _("Set the starting profile"), _("PROFILE_NAME"));
-        addMainOption(CMD_TITLE, 't', GOptionFlags.NONE, GOptionArg.STRING, _("Set the title of the current terminal"), _("TITLE"));
+        addMainOption(CMD_TITLE, 't', GOptionFlags.NONE, GOptionArg.STRING, _("Set the title of the new terminal"), _("TITLE"));
         addMainOption(CMD_SESSION, 's', GOptionFlags.NONE, GOptionArg.STRING_ARRAY, _("Open the specified session"), _("SESSION_NAME"));
         addMainOption(CMD_ACTION, 'a', GOptionFlags.NONE, GOptionArg.STRING, _("Send an action to current Terminix instance"), _("ACTION_NAME"));
         addMainOption(CMD_EXECUTE, 'x', GOptionFlags.NONE, GOptionArg.STRING, _("Execute the passed command"), _("EXECUTE"));
