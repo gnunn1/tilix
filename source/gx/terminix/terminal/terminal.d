@@ -745,7 +745,7 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
-            if (terminalInitialized && terminix.testVTEConfig() && gst.currentDirectory.length == 0) {
+            if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0) {
                 terminix.warnVTEConfigIssue();
             }
         });
@@ -2389,6 +2389,10 @@ public:
      */
     @property string currentDirectory() {
         if (remote.hasState()) return remote.directory;
+        return local.directory;
+    }
+
+    @property string currentLocalDirectory() {
         return local.directory;
     }
 
