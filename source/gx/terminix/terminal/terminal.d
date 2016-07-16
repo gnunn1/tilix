@@ -246,7 +246,7 @@ private:
     // default profile will be stored here.
     string _defaultProfileUUID;
     //Sequential identifier, used to enable user to select terminal by number. Can change, not constant
-    ulong _terminalID;
+    size_t _terminalID;
     //Unique identifier for this terminal, never shown to user, never changes
     immutable string _terminalUUID;
     //overrides profile title
@@ -601,7 +601,7 @@ private:
         //Select Profile
         GVariant pu = new GVariant(activeProfileUUID);
         saProfileSelect = registerAction(group, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
-            ulong l;
+            size_t l;
             string uuid = value.getString(l);
             activeProfileUUID = uuid;
             saProfileSelect.setState(value);
@@ -611,7 +611,7 @@ private:
         // 
         GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
         saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
-            ulong l;
+            size_t l;
             sa.setState(value);
             vte.setEncoding(value.getString(l));
         }, encoding.getType(), encoding);
@@ -1319,7 +1319,7 @@ private:
             vte.setScrollOnKeystroke(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
             break;
         case SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, SETTINGS_PROFILE_SCROLLBACK_LINES_KEY:
-            long scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getInt(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY);
+            auto scrollLines = gsProfile.getBoolean(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY) ? -1 : gsProfile.getInt(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY);
             vte.setScrollbackLines(scrollLines);
             break;
         case SETTINGS_PROFILE_BACKSPACE_BINDING_KEY:
@@ -2111,11 +2111,11 @@ public:
     /**
      * A numeric ID managed by the session, this ID can and does change
      */
-    @property ulong terminalID() {
+    @property size_t terminalID() {
         return _terminalID;
     }
 
-    @property void terminalID(ulong ID) {
+    @property void terminalID(size_t ID) {
         if (this._terminalID != ID) {
             this._terminalID = ID;
             updateTitle();

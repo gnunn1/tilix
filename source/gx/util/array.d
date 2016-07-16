@@ -17,7 +17,7 @@ import std.array;
  * Adapted from grestful, modified to explicitly check index
  */
 void remove(T)(ref T[] array, T element) {
-    long index = array.countUntil(element);
+    auto index = array.countUntil(element);
     if (index >= 0)
         array = std.algorithm.remove(array, index);
 }
