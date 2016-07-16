@@ -161,7 +161,7 @@ private:
         Menu appMenu = new Menu();
 
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction) {
-            ulong l;
+            size_t l;
             string sessionUUID = value.getString(l);
             trace("activate-session triggered for session " ~ sessionUUID);
             foreach (window; appWindows) {
