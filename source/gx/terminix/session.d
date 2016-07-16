@@ -1145,7 +1145,7 @@ public:
      * Focus the next terminal in the session
      */
     void focusNext() {
-        ulong id = 1;
+        size_t id = 1;
         if (currentTerminal !is null) {
             id = currentTerminal.terminalID + 1;
             if (id > terminals.length)
@@ -1158,7 +1158,7 @@ public:
      * Focus the previous terminal in the session
      */
     void focusPrevious() {
-        ulong id = 1;
+        size_t id = 1;
         if (currentTerminal !is null) {
             id = currentTerminal.terminalID;
             if (id == 1)
@@ -1234,7 +1234,7 @@ public:
     /**
      * Focus the terminal designated by the ID
      */
-    bool focusTerminal(ulong terminalID) {
+    bool focusTerminal(size_t terminalID) {
         if (terminalID > 0 && terminalID <= terminals.length) {
             return focusTerminal(terminals[terminalID - 1]);
         }

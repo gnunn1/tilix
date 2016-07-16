@@ -320,7 +320,7 @@ public:
             string[] matches = settings.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
             foreach (match; matches) {
                 //is there a tilde in the directory right after the first colon?
-                long isTilde = match.indexOf(":~");
+                auto isTilde = match.indexOf(":~");
                 if (isTilde >= 0) {
                     string path = match[(isTilde + 1) .. $];
                     path = expandTilde(path);

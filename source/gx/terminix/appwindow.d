@@ -366,7 +366,7 @@ private:
             registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 Session session = getCurrentSession();
                 if (session !is null) {
-                    ulong terminalID = to!ulong(sa.getName()[$ - 1 .. $]);
+                    auto terminalID = to!size_t(sa.getName()[$ - 1 .. $]);
                     if (terminalID == 0)
                         terminalID = 10;
                     session.focusTerminal(terminalID);
