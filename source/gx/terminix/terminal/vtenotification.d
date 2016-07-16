@@ -21,6 +21,9 @@ import vtec.vtetypes;
  */
 class VTENotification : Terminal {
 
+private:
+    bool ignoreFirstNotification = true;
+
 public:
 
     /**
@@ -61,6 +64,11 @@ public:
     }
 
     extern (C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, VTENotification _terminal) {
+        if (_terminal.ignoreFirstNotification) {
+            _terminal.ignoreFirstNotification = false;
+            trace("Ignoring first notification");
+            return;
+        }
         string s = Str.toString(_summary);
         string b = Str.toString(_body);
         foreach (void delegate(string, string, Terminal) dlg; _terminal.onNotificationReceivedListeners) {

@@ -723,7 +723,6 @@ private:
             updateTitle();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
-            //gst.updateState();
             updateTitle(); 
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
