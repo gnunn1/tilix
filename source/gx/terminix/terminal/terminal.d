@@ -42,7 +42,7 @@ import gio.ThemedIcon;
 
 import glib.ArrayG;
 import glib.GException;
-import glib.Regex;
+import glib.Regex : GRegex = Regex;
 import glib.Timeout;
 import glib.ShellUtils;
 import glib.SimpleXML;
@@ -699,7 +699,7 @@ private:
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
         //URL Regex Experessions
         foreach (i, regex; compiledRegex) {
-            int id = vte.matchAddGregex(cast(Regex) regex, cast(GRegexMatchFlags) 0);
+            int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
             regexTag[id] = URL_REGEX_PATTERNS[i];
             vte.matchSetCursorType(id, CursorType.HAND2);
         }
@@ -765,16 +765,9 @@ private:
          * Some test code to possibly implement iterm2 style triggers down the road.
          * Do not uncomment for now.
          */
-        /*
-        vte.addOnTextInserted(delegate(VTE) {
-            ArrayG attr = new ArrayG(false, false, 16);
-            long cursorRow;
-            long cursorCol;
-            vte.getCursorPosition(cursorCol, cursorRow);
-            string text = vte.getTextRange(max(0, cursorRow - 1), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
-            trace("Contents: " ~ text);
-        });
-        */
+        static if (USE_EXPERIMENTAL_TRIGGER) {
+            vte.addOnTextInserted(&onVTECheckTriggers);
+        }
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
         }, GConnectFlags.AFTER);
@@ -1013,6 +1006,40 @@ private:
         foreach (OnTerminalClose dlg; terminalCloseDelegates) {
             dlg(this);
         }
+    }
+
+
+    static if (USE_EXPERIMENTAL_TRIGGER) {
+
+            import std.regex : regex, matchAll;
+
+            // Regex to extract user from command prompt, i.e. [gnunn@gnunn-macbook ~]$
+            // Create regex to support multiline mode
+            auto userReg = regex(r"^\[(?P<user>.*)@(?P<host>[-a-zA-Z0-9]*)","m");
+            long lastRow = -1;
+
+            void onVTECheckTriggers(VTE) {
+                ArrayG attr = new ArrayG(false, false, 16);
+                long cursorRow;
+                long cursorCol;
+                vte.getCursorPosition(cursorCol, cursorRow);
+                if (cursorRow != lastRow) {
+                    trace(format("Testing trigger for lines %d->%d", lastRow, cursorRow));
+                    string text = vte.getTextRange(max(0, lastRow), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
+                    auto matches = matchAll(text, userReg);
+                    if (matches) {
+                        string user;
+                        string host;
+                        foreach (m; matches) {
+                            user = matches.captures["user"];
+                            host = matches.captures["host"];
+                        }
+                        trace("Found user: " ~ user); 
+                        trace("Found host: " ~ host); 
+                    }
+                    lastRow = cursorRow;
+                }
+            }
     }
 
     /**
@@ -2489,18 +2516,18 @@ immutable TerminalRegex[] URL_REGEX_PATTERNS = [
         TerminalURLFlavor.EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
 ];
 
-immutable Regex[URL_REGEX_PATTERNS.length] compiledRegex;
+immutable GRegex[URL_REGEX_PATTERNS.length] compiledRegex;
 
 static this() {
     import std.exception : assumeUnique;
 
-    Regex[URL_REGEX_PATTERNS.length] tempRegex;
+    GRegex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
         GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
         if (checkVTEVersionNumber(0, 44)) {
             flags = flags | GRegexCompileFlags.MULTILINE;
         }
-        tempRegex[i] = new Regex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
+        tempRegex[i] = new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
     }
     compiledRegex = assumeUnique(tempRegex);
 }

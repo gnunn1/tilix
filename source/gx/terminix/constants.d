@@ -27,6 +27,9 @@ immutable bool CLIPBOARD_BTN_IN_CONTEXT = false;
 // when debugging launchers or other spots where
 // stdout isn't easily viewed
 immutable bool USE_FILE_LOGGING = false;
+// Enables some code to test supporting iterm2 style triggers.
+// Not useful at this stage to end users.
+immutable bool USE_EXPERIMENTAL_TRIGGER = false;
 
 /**************************************
  * Application Constants
