@@ -744,9 +744,19 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
-            if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0) {
+            /*
+            trace("Contents changed:");
+            trace("\tdirectory.length=" ~ to!string(gst.currentLocalDirectory.length));
+            trace("\toverrideCommand.length=" ~ to!string(overrideCommand.length));
+            trace("\tterminalInitialized " ~ to!string(terminalInitialized));
+            trace("\ttestVTEConfig " ~ to!string(terminix.testVTEConfig()));
+            */
+            if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && overrideCommand.length == 0) {
+                trace("Warning VTE Configuration");
                 terminix.warnVTEConfigIssue();
             }
+            // Update initialized state after initial content change to give prompt_command a chance to kick in
+            gst.updateState();
         });
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
@@ -1496,6 +1506,8 @@ private:
             command = overrides.execute;
         }
         if (command.length > 0) {
+            //keep copy of command around
+            overrideCommand = command;
             trace("Overriding the command from command prompt: " ~ overrides.execute);
             ShellUtils.shellParseArgv(command, args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
