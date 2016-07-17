@@ -835,7 +835,7 @@ private:
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        string desc = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be ommitted but the colon must be present. Entries with neither hostname or directory are not permitted");
+        string desc = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted");
         
         Label lblDescription = new Label(_(desc));
         lblDescription.setUseMarkup(true);
