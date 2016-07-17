@@ -3,7 +3,7 @@
 A tiling terminal emulator for Linux using GTK+ 3
 
 ###### Screenshot
-![Screenshot](http://www.gexperts.com/img/terminix/terminix2.png)
+![Screenshot](http://www.gexperts.com/img/terminix/terminix11.png)
 
 ### About
 
