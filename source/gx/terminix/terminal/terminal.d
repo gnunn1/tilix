@@ -40,6 +40,7 @@ import gio.SimpleAction;
 import gio.SimpleActionGroup;
 import gio.ThemedIcon;
 
+import glib.ArrayG;
 import glib.GException;
 import glib.Regex;
 import glib.Timeout;
@@ -757,7 +758,23 @@ private:
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
+            
         });
+
+        /*
+         * Some test code to possibly implement iterm2 style triggers down the road.
+         * Do not uncomment for now.
+         */
+        /*
+        vte.addOnTextInserted(delegate(VTE) {
+            ArrayG attr = new ArrayG(false, false, 16);
+            long cursorRow;
+            long cursorCol;
+            vte.getCursorPosition(cursorCol, cursorRow);
+            string text = vte.getTextRange(max(0, cursorRow - 1), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
+            trace("Contents: " ~ text);
+        });
+        */
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
         }, GConnectFlags.AFTER);
