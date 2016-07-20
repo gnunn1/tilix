@@ -20,7 +20,7 @@ AC_SUBST([DCFLAGS])
 AC_PROG_INSTALL
 # Look for D compiler. Use dmd-compatible wrapper for ldc and gdc.
 # NOTE: Terminix cannot be compiled with gdc currently.
-AC_PATH_PROG([DC], [ldmd dmd gdmd])
+AC_PATH_PROGS([DC], [ldmd dmd gdmd])
 AC_PATH_PROG([GLIB_COMPILE_RES], [glib-compile-resources])
 PKG_PROG_PKG_CONFIG
 AM_GNU_GETTEXT([external])
