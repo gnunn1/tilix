@@ -1166,6 +1166,7 @@ private:
                 if (!(event.button.state & (GdkModifierType.SHIFT_MASK | GdkModifierType.CONTROL_MASK | GdkModifierType.MOD1_MASK)) && vte.onButtonPressEvent(event.button))
                     return true;
 
+                widget.grabFocus();
                 buildContextMenu();
                 saCopy.setEnabled(vte.getHasSelection());
                 saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
