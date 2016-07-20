@@ -44,6 +44,10 @@ Terminix requires the following libraries to be installed in order to run:
 
 Terminix is localized using Weblate, please visit the Weblate hosted [Terminix translations site](https://hosted.weblate.org/projects/terminix/translations) in order to assist with translations, pease do not submit direct pull requests to this repository for translations.
 
+### Themes
+
+While Terminix only includes a small number of themes, additional themes can be easily downloaded and installed. The github repo [Terminix-Themes](https://github.com/storm119/Terminix-Themes) has a wide variety of pre-built themes to choose from.
+
 ### Building
 
 Terminix is written in D and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (DMD and Phobos) along with dub itself. Note that D supports three compilers (DMD, GDC and LDC) and Terminix only supports DMD.
