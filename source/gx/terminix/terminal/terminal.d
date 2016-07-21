@@ -1174,6 +1174,9 @@ private:
                 pmContext.setPointingTo(&rect);
                 pmContext.showAll();
                 return true;
+            case MouseButton.MIDDLE:
+                widget.grabFocus();
+                return false;
             default:
                 return false;
             }
