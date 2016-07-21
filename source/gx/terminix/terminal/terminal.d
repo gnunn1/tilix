@@ -1176,7 +1176,8 @@ private:
                 return true;
             case MouseButton.MIDDLE:
                 widget.grabFocus();
-                return false;
+                pasteClipboard();
+                return true;
             default:
                 return false;
             }
