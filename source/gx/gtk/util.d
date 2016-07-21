@@ -8,6 +8,7 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 
+import gdk.Atom;
 import gdk.RGBA;
 
 import glib.GException;
@@ -34,7 +35,6 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
-
 
 /**
  * Return the name of the GTK Theme

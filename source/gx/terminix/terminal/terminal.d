@@ -97,6 +97,7 @@ import vtec.vtetypes;
 
 import gx.gtk.actions;
 import gx.gtk.cairo;
+import gx.gtk.clipboard;
 import gx.gtk.resource;
 import gx.gtk.util;
 import gx.gtk.vte;
@@ -161,7 +162,8 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 
 enum SyncInputEventType {
     KEY_PRESS,
-    PASTE
+    PASTE_CLIPBOARD,
+    PASTE_PRIMARY
 };
 
 struct SyncInputEvent {
@@ -488,7 +490,7 @@ private:
         });
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
-                pasteClipboard();
+                paste(GDK_SELECTION_CLIPBOARD);
             }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
@@ -957,8 +959,11 @@ private:
         btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
 
-    void pasteClipboard(bool inputSync = false) {
-        string pasteText = Clipboard.get(null).waitForText();
+    void paste(GdkAtom source, bool inputSync = false) {
+
+        string pasteText = Clipboard.get(source).waitForText();
+        if (pasteText.length == 0) return;
+
         // Don't check for unsafe paste if doing sync input, original paste checked it
         if (!inputSync && (pasteText.indexOf("sudo") > -1) && (pasteText.indexOf("\n") != 0)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
@@ -976,7 +981,8 @@ private:
             // Only call handler if synchronized input is active and we are
             // not doing this paste as a result of a synchronized input
             if (!inputSync && isSynchronizedInput()) {
-                SyncInputEvent se = SyncInputEvent(SyncInputEventType.PASTE, null);
+                SyncInputEventType pasteType = (source==GDK_SELECTION_CLIPBOARD?SyncInputEventType.PASTE_CLIPBOARD:SyncInputEventType.PASTE_PRIMARY);
+                SyncInputEvent se = SyncInputEvent(pasteType, null);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
             }
@@ -987,7 +993,8 @@ private:
                 return;
             }
         }
-        vte.pasteClipboard();
+        if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
+        else vte.pastePrimary(); 
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -1176,7 +1183,8 @@ private:
                 return true;
             case MouseButton.MIDDLE:
                 widget.grabFocus();
-                return false;
+                paste(GDK_SELECTION_PRIMARY);
+                return true;
             default:
                 return false;
             }
@@ -2111,8 +2119,11 @@ public:
             newEvent.key.window = vte.getWindow().getWindowStruct();
             vte.event(newEvent);
             break;
-        case SyncInputEventType.PASTE:
-            pasteClipboard(true);
+        case SyncInputEventType.PASTE_CLIPBOARD:
+            paste(GDK_SELECTION_CLIPBOARD, true);
+            break;
+        case SyncInputEventType.PASTE_PRIMARY:
+            paste(GDK_SELECTION_PRIMARY, true);
             break;
         }
     }
