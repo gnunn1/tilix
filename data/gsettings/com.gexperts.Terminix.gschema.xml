@@ -555,6 +555,11 @@
       <summary>Automatically make this profile active when match detected</summary>
       <description>Profile becomes active automatically when the current hostname and directory match one of the hostname:value pairs in this list.</description>
     </key>
+    <key name="custom-hyperlinks" type="as">
+      <default>[]</default>
+      <summary>A list of custom links that can be clicked on in the terminal</summary>
+      <description>A list of custom links, each link consists of a regex and optional launcher encoded according to CSV rules.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->

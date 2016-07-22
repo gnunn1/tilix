@@ -141,6 +141,7 @@ enum SETTINGS_PROFILE_CUSTOM_COMMAND_KEY = "custom-command";
 enum SETTINGS_PROFILE_TITLE_KEY = "terminal-title";
 
 enum SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY = "automatic-switch";
+enum SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY = "custom-hyperlinks";
 
 //Shortcuts
 enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Terminix.Keybindings";

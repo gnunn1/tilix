@@ -5,10 +5,13 @@
 module gx.terminix.profilewindow;
 
 import std.algorithm;
+import std.array;
 import std.conv;
+import std.csv;
 import std.experimental.logger;
 import std.format;
 import std.string;
+import std.typecons;
 
 import gdk.RGBA;
 
@@ -27,6 +30,7 @@ import gtk.CheckButton;
 import gtk.ColorButton;
 import gtk.ComboBox;
 import gtk.ComboBoxText;
+import gtk.Dialog;
 import gtk.Entry;
 import gtk.FontButton;
 import gtk.Grid;
@@ -42,9 +46,11 @@ import gtk.ScrolledWindow;
 import gtk.SpinButton;
 import gtk.Switch;
 import gtk.TreeIter;
+import gtk.TreePath;
 import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
+import gtk.Window;
 
 import gx.gtk.dialog;
 import gx.gtk.util;
@@ -813,6 +819,9 @@ public:
     }
 }
 
+/**
+ * Page for advanced profile options such as custom hyperlinks and profile switching
+ */
 class AdvancedPage: Box {
 
 private:
@@ -823,26 +832,53 @@ private:
     Button btnAdd;
     Button btnEdit;
     Button btnDelete;
+
+    Label createDescriptionLabel(string desc) {
+        Label lblDescription = new Label(desc);
+        lblDescription.setUseMarkup(true);
+        lblDescription.setLineWrap(true);
+        lblDescription.setSensitive(false);
+        lblDescription.setLineWrap(true);
+        return lblDescription;
+    }
     
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
         setMarginTop(18);
         setMarginBottom(18);
+
+        Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
+        lblCustomLinks.setUseMarkup(true);
+        lblCustomLinks.setHalign(Align.START);
+        add(lblCustomLinks);
+
+        string customLinksDescription = _("A list of user defined links that can be clicked on in the terminal based on regular expression definitions.");
+        packStart(createDescriptionLabel(customLinksDescription), false, false, 0);
+        
+        Button btnEditLink = new Button(_("Edit"));
+        btnEditLink.setHexpand(false);
+        btnEditLink.setHalign(Align.START);
+        btnEditLink.addOnClicked(delegate(Button) {
+            string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
+            EditCustomLinksDialog dlg = new EditCustomLinksDialog(cast(Window) getToplevel(), links);
+            scope (exit) {
+                dlg.destroy();
+            }
+            dlg.showAll();
+            if (dlg.run() != ResponseType.CANCEL) {
+                gsProfile.setStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
+            }
+        });
+        add(btnEditLink);
         
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        string desc = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted");
-        
-        Label lblDescription = new Label(_(desc));
-        lblDescription.setUseMarkup(true);
-        lblDescription.setLineWrap(true);
-        lblDescription.setSensitive(false);
-        lblDescription.setLineWrap(true);
-        packStart(lblDescription, false, false, 0);
+        string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
         
         lsValues = new ListStore([GType.STRING]);
         string[] values = gsProfile.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
@@ -937,4 +973,122 @@ public:
         createUI();
         updateUI();
     }    
+}
+
+
+class EditCustomLinksDialog: Dialog {
+
+private:
+    enum COLUMN_REGEX = 0;
+    enum COLUMN_CMD = 1;
+
+    TreeView tv;
+    ListStore ls;
+    Button btnDelete;
+
+    void createUI(string[] links) {
+        
+        Box box = new Box(Orientation.HORIZONTAL, 6);
+        with (box) {
+            setMarginLeft(18);
+            setMarginRight(18);
+            setMarginTop(18);
+            setMarginBottom(18);
+        }
+
+        ls = new ListStore([GType.STRING, GType.STRING]);
+        foreach(link; links) {
+            foreach(value; csvReader!(Tuple!(string, string))(link)) {
+                TreeIter iter = ls.createIter();
+                ls.setValue(iter, COLUMN_REGEX, value[0]);
+                ls.setValue(iter, COLUMN_CMD, value[1]);
+            }
+        }
+
+        tv = new TreeView(ls);
+        tv.setActivateOnSingleClick(false);
+        tv.addOnCursorChanged(delegate(TreeView) { 
+            updateUI(); 
+        });
+        
+        tv.setHeadersVisible(true);
+        CellRendererText crtRegex = new CellRendererText();
+        crtRegex.setProperty("editable", 1);
+        crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            ls.setValue(iter, COLUMN_REGEX, newText);
+        });
+        TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
+        column.setMinWidth(200);
+        tv.appendColumn(column);
+
+        CellRendererText crtCommand = new CellRendererText();
+        crtCommand.setProperty("editable", 1);
+        crtCommand.addOnEdited(delegate(string path, string newText, CellRendererText) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            ls.setValue(iter, COLUMN_CMD, newText);
+        });
+        column = new TreeViewColumn(_("Command"), crtCommand, "text", COLUMN_CMD);
+        column.setMinWidth(200);
+        tv.appendColumn(column);
+
+        ScrolledWindow sc = new ScrolledWindow(tv);
+        sc.setShadowType(ShadowType.ETCHED_IN);
+        sc.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sc.setHexpand(true);
+        sc.setVexpand(true);
+        sc.setSizeRequest(-1, 250);
+
+        box.add(sc);
+
+        Box buttons = new Box(Orientation.VERTICAL, 6);
+        Button btnAdd = new Button(_("Add"));
+        btnAdd.addOnClicked(delegate(Button) {
+            ls.createIter();
+            selectRow(tv, ls.iterNChildren(null) - 1, null);
+        });
+        buttons.add(btnAdd);
+        btnDelete = new Button(_("Delete"));
+        btnDelete.addOnClicked(delegate(Button) {
+            TreeIter selected = tv.getSelectedIter();
+            if (selected) {
+                ls.remove(selected);
+            }
+        });
+        buttons.add(btnDelete);
+        
+        box.add(buttons);
+
+        getContentArea().add(box);
+        updateUI();
+    }
+
+    void updateUI() {
+        btnDelete.setSensitive(tv.getSelectedIter() !is null);
+    }
+
+    string escapeCSV(string value) {
+        value = value.replace("\"\"", "\"\"\"\"");
+        if (value.indexOf('\n') >= 0 || value.indexOf(',')  >= 0 || value.indexOf("\"\"") >= 0) {
+            value = "\"\"" ~ value ~ "\"\"";
+        }
+        return value;
+    }
+
+public:
+    this(Window parent, string[] links) {
+        super(_("Edit Custom Links"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Apply"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
+        setDefaultResponse(GtkResponseType.APPLY);
+        createUI(links);
+    }
+
+    string[] getLinks() {
+        string[] results;
+        foreach (TreeIter iter; TreeIterRange(ls)) {
+            results ~= escapeCSV(ls.getValueString(iter, COLUMN_REGEX)) ~ ',' ~ escapeCSV(ls.getValueString(iter, COLUMN_CMD));
+        }
+        return results;        
+    }
 }

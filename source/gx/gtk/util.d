@@ -11,6 +11,8 @@ import std.format;
 import gdk.Atom;
 import gdk.RGBA;
 
+import gio.ListModelIF;
+
 import glib.GException;
 import glib.ListG;
 
