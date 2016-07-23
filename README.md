@@ -76,7 +76,9 @@ Terminix is available for the following distributions as a 64 bit application:
 |Arch|[AUR Terminix Package](https://aur.archlinux.org/packages/terminix)|
 |Fedora|[COPR Repository](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
 |Cent OS 7.2|[EPEL Package via COPR](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
-|Ubuntu|[Not yet available](https://github.com/gnunn1/terminix/issues/25)|
+|Debian|[Package, 32bit version available](https://packages.debian.org/sid/terminix)|
+|Ubuntu|[Waiting on LDC](https://launchpad.net/ubuntu/+source/terminix)|
+|Tanglu|[Part of Tanglu 4](http://packages.tanglu.org/dasyatis/terminix)|
 |OpenSUSE|[Package Search](https://software.opensuse.org/package/terminix)|
 |AOSC OS|[ABBS Manifest](https://github.com/AOSC-Dev/aosc-os-abbs/tree/staging/extra-utils/terminix)|
 
