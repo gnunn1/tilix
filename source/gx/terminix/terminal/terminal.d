@@ -12,12 +12,14 @@ import std.algorithm;
 import std.array;
 import std.conv;
 import std.concurrency;
+import std.csv;
 import std.datetime;
 import std.experimental.logger;
 import std.format;
 import std.process;
 import std.stdio;
 import std.string;
+import std.typecons;
 import std.uuid;
 
 import cairo.Context;
@@ -503,7 +505,7 @@ private:
         });
         registerAction(group, ACTION_PREFIX, ACTION_OPEN_LINK, null, delegate(GVariant, SimpleAction) {
             if (match.match) {
-                openURI(match.match, match.flavor);
+                openURI(match);
             }
         });
 
@@ -1146,14 +1148,18 @@ private:
      */
     bool onTerminalButtonPress(Event event, Widget widget) {
 
+        // Find the matching regex that was clicked
         void updateMatch(Event event) {
             match.clear;
             int tag;
             match.match = vte.matchCheckEvent(event, tag);
             if (match.match) {
+                trace(format("Match checked: %s for tag %d", match.match, tag));
                 if (tag in regexTag) {
                     TerminalRegex regex = regexTag[tag];
                     match.flavor = regex.flavor;
+                    match.tag = tag;
+                    trace("Found matching regex");
                 }
             }
         }
@@ -1163,7 +1169,8 @@ private:
             switch (event.button.button) {
             case MouseButton.PRIMARY:
                 if ((event.button.state & GdkModifierType.CONTROL_MASK) && match.match) {
-                    openURI(match.match, match.flavor);
+                    trace("Opening match");
+                    openURI(match);
                     return true;
                 } else {
                     return false;
@@ -1192,8 +1199,10 @@ private:
         return false;
     }
 
-    void openURI(string uri, TerminalURLFlavor flavor) {
-        switch (flavor) {
+    void openURI(TerminalURLMatch match) {
+        trace("Match clicked");
+        string uri = match.match;
+        switch (match.flavor) {
         case TerminalURLFlavor.DEFAULT_TO_HTTP:
             uri = "http://" ~ uri;
             break;
@@ -1202,6 +1211,29 @@ private:
                 uri = "mailto:" ~ uri;
             }
             break;
+        case TerminalURLFlavor.CUSTOM:
+            // TODO - Optimize this by caching compiled regex
+            // Also I'm mixing GRegex which is used to detect initial click
+            // with D's regex library to parse out groups, might cause some
+            // incompatibilities but we'll see
+
+            if (match.tag in regexTag) {
+                import std.regex : regex, matchAll;
+                import std.process : executeShell;
+
+                TerminalRegex tr = regexTag[match.tag];
+                string command = tr.command.replace("$0", match.match); 
+                
+                auto matches = matchAll(match.match, regex(tr.pattern, ""));
+                int i = 0;
+                foreach(group; matches.captures) {
+                    command = command.replace("$" ~ to!string(i), group);
+                    i++;
+                }
+                trace("Command: " ~ command);
+                executeShell(command);
+            }
+            return;
         default:
             break;
         }
@@ -1436,6 +1468,9 @@ private:
                 bTitle.showAll();
             }
             break;
+        case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
+            loadCustomRegex();
+            break;
         default:
             break;
         }
@@ -1459,7 +1494,8 @@ private:
             SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY,
             SETTINGS_PROFILE_USE_DIM_COLOR_KEY,
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
-            SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY
+            SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
+            SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY            
         ];
 
         foreach (key; keys) {
@@ -1485,6 +1521,31 @@ private:
             return VteCursorShape.IBEAM;
         case SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE:
             return VteCursorShape.UNDERLINE;
+        }
+    }
+
+    /**
+     * Loads the custom regex defined by the user for custom hyperlinks
+     */
+    void loadCustomRegex() {
+        //Remove all of the custom regex
+        foreach (entry; regexTag.byKeyValue()) {
+            if (entry.value.flavor == TerminalURLFlavor.CUSTOM) {
+                vte.matchRemove(entry.key);
+                regexTag.remove(entry.key);
+            }
+        }
+
+        //Re-load custom regex
+        string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
+        foreach(link; links) {
+            foreach(value; csvReader!(Tuple!(string, string))(link)) {
+                TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, true, value[1]);
+                int id = vte.matchAddGregex(compileRegex(regex), cast(GRegexMatchFlags) 0);
+                regexTag[id] = regex;
+                vte.matchSetCursorType(id, CursorType.HAND2);
+                trace(format("Added regex: %s with tag %d",value[0], id));
+            }
         }
     }
 
@@ -2489,6 +2550,7 @@ private:
 struct TerminalURLMatch {
     TerminalURLFlavor flavor;
     string match;
+    int tag;
 
     void clear() {
         flavor = TerminalURLFlavor.AS_IS;
@@ -2515,34 +2577,48 @@ enum TerminalURLFlavor {
     VOIP_CALL,
     EMAIL,
     NUMBER,
+    CUSTOM
 };
 
 struct TerminalRegex {
     string pattern;
     TerminalURLFlavor flavor;
     bool caseless;
+    // Only used for custom regex
+    string command;
 }
 
 immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.AS_IS, true),
-    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH,
-        TerminalURLFlavor.DEFAULT_TO_HTTP, true), TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST,
-        TerminalURLFlavor.VOIP_CALL, true), TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST,
-        TerminalURLFlavor.EMAIL, true), TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
+    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.DEFAULT_TO_HTTP, true), 
+    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST, TerminalURLFlavor.VOIP_CALL, true), 
+    TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST, TerminalURLFlavor.EMAIL, true), 
+    TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
 ];
 
 immutable GRegex[URL_REGEX_PATTERNS.length] compiledRegex;
+
+GRegex compileRegex(TerminalRegex regex) {
+    GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
+    if (checkVTEVersionNumber(0, 44)) {
+        flags = flags | GRegexCompileFlags.MULTILINE;
+    }
+    return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
+}
 
 static this() {
     import std.exception : assumeUnique;
 
     GRegex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
+        /*
         GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
         if (checkVTEVersionNumber(0, 44)) {
             flags = flags | GRegexCompileFlags.MULTILINE;
         }
         tempRegex[i] = new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
+        */
+        tempRegex[i] = compileRegex(regex);
     }
     compiledRegex = assumeUnique(tempRegex);
 }
