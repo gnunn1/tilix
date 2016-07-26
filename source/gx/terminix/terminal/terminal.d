@@ -2014,7 +2014,7 @@ private:
         }
         //Do work here
         GFileIF file = GFile.parseName(outputFilename);
-        gio.OutputStream.OutputStream stream = file.create(GFileCreateFlags.NONE, null);
+        gio.OutputStream.OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
         scope (exit) {
             stream.close(null);
         }
