@@ -1219,7 +1219,7 @@ private:
 
             if (match.tag in regexTag) {
                 import std.regex : regex, matchAll;
-                import std.process : executeShell;
+                import std.process : spawnShell;
 
                 TerminalRegex tr = regexTag[match.tag];
                 string command = tr.command.replace("$0", match.match); 
@@ -1231,7 +1231,7 @@ private:
                     i++;
                 }
                 trace("Command: " ~ command);
-                executeShell(command);
+                spawnShell(command);
             }
             return;
         default:
