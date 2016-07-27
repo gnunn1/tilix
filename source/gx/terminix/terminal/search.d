@@ -145,6 +145,8 @@ private:
         bSearch.add(bButtons);
 
         Frame frame = new Frame(bSearch, null);
+        frame.setShadowType(ShadowType.NONE);
+        frame.getStyleContext().addClass("terminix-search-frame");
         add(frame);
     }
 
