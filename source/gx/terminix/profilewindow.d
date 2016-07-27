@@ -18,6 +18,7 @@ import gdk.RGBA;
 import gio.Settings : GSettings = Settings;
 
 import glib.GException;
+import glib.Regex : GRegex = Regex;
 import glib.URI;
 import glib.Util;
 
@@ -1017,7 +1018,12 @@ private:
         crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
-            ls.setValue(iter, COLUMN_REGEX, newText);
+            GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+            if (check !is null) {
+                ls.setValue(iter, COLUMN_REGEX, newText);
+            } else {
+                showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+            }
         });
         TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
         column.setMinWidth(200);

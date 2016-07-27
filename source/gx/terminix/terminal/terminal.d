@@ -2611,13 +2611,6 @@ static this() {
 
     GRegex[URL_REGEX_PATTERNS.length] tempRegex;
     foreach (i, regex; URL_REGEX_PATTERNS) {
-        /*
-        GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-        if (checkVTEVersionNumber(0, 44)) {
-            flags = flags | GRegexCompileFlags.MULTILINE;
-        }
-        tempRegex[i] = new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
-        */
         tempRegex[i] = compileRegex(regex);
     }
     compiledRegex = assumeUnique(tempRegex);
