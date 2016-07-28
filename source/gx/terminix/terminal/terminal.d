@@ -1224,7 +1224,7 @@ private:
                 TerminalRegex tr = regexTag[match.tag];
                 string command = tr.command.replace("$0", match.match); 
                 
-                auto matches = matchAll(match.match, regex(tr.pattern, ""));
+                auto matches = matchAll(match.match, regex(tr.pattern, tr.caseless?"i":""));
                 int i = 0;
                 foreach(group; matches.captures) {
                     command = command.replace("$" ~ to!string(i), group);
@@ -1539,8 +1539,14 @@ private:
         //Re-load custom regex
         string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
         foreach(link; links) {
-            foreach(value; csvReader!(Tuple!(string, string))(link)) {
-                TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, true, value[1]);
+            foreach(value; csvReader!(Tuple!(string, string, string))(link)) {
+                bool caseInsensitive = false;
+                try {
+                    caseInsensitive = to!bool(value[2]);
+                } catch (Exception e) {
+                    trace("Bool CaseInsensitive invalid string, ignoring");
+                }
+                TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 int id = vte.matchAddGregex(compileRegex(regex), cast(GRegexMatchFlags) 0);
                 regexTag[id] = regex;
                 vte.matchSetCursorType(id, CursorType.HAND2);

@@ -27,6 +27,7 @@ import gtk.ApplicationWindow;
 import gtk.Box;
 import gtk.Button;
 import gtk.CellRendererText;
+import gtk.CellRendererToggle;
 import gtk.CheckButton;
 import gtk.ColorButton;
 import gtk.ComboBox;
@@ -982,6 +983,7 @@ class EditCustomLinksDialog: Dialog {
 private:
     enum COLUMN_REGEX = 0;
     enum COLUMN_CMD = 1;
+    enum COLUMN_CASE = 2;
 
     TreeView tv;
     ListStore ls;
@@ -997,12 +999,17 @@ private:
             setMarginBottom(18);
         }
 
-        ls = new ListStore([GType.STRING, GType.STRING]);
+        ls = new ListStore([GType.STRING, GType.STRING, GType.BOOLEAN]);
         foreach(link; links) {
-            foreach(value; csvReader!(Tuple!(string, string))(link)) {
+            foreach(value; csvReader!(Tuple!(string, string, string))(link)) {
                 TreeIter iter = ls.createIter();
                 ls.setValue(iter, COLUMN_REGEX, value[0]);
                 ls.setValue(iter, COLUMN_CMD, value[1]);
+                try {
+                    ls.setValue(iter, COLUMN_CASE, to!bool(value[2]));
+                } catch (Exception e) {
+                    ls.setValue(iter, COLUMN_CASE, false);
+                }
             }
         }
 
@@ -1011,8 +1018,9 @@ private:
         tv.addOnCursorChanged(delegate(TreeView) { 
             updateUI(); 
         });
-        
         tv.setHeadersVisible(true);
+
+        //Regex column
         CellRendererText crtRegex = new CellRendererText();
         crtRegex.setProperty("editable", 1);
         crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
@@ -1029,6 +1037,7 @@ private:
         column.setMinWidth(200);
         tv.appendColumn(column);
 
+        //Command column 
         CellRendererText crtCommand = new CellRendererText();
         crtCommand.setProperty("editable", 1);
         crtCommand.addOnEdited(delegate(string path, string newText, CellRendererText) {
@@ -1038,6 +1047,17 @@ private:
         });
         column = new TreeViewColumn(_("Command"), crtCommand, "text", COLUMN_CMD);
         column.setMinWidth(200);
+        tv.appendColumn(column);
+
+        //Case Insensitive Column
+        CellRendererToggle crtCase = new CellRendererToggle();
+        crtCase.setActivatable(true);
+        crtCase.addOnToggled(delegate(string path, CellRendererToggle crt) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            ls.setValue(iter, COLUMN_CASE, !crt.getActive());
+        });
+        column = new TreeViewColumn(_("Case Insensitive"), crtCase, "active", COLUMN_CASE);
         tv.appendColumn(column);
 
         ScrolledWindow sc = new ScrolledWindow(tv);
@@ -1093,7 +1113,9 @@ public:
     string[] getLinks() {
         string[] results;
         foreach (TreeIter iter; TreeIterRange(ls)) {
-            results ~= escapeCSV(ls.getValueString(iter, COLUMN_REGEX)) ~ ',' ~ escapeCSV(ls.getValueString(iter, COLUMN_CMD));
+            results ~= escapeCSV(ls.getValueString(iter, COLUMN_REGEX)) ~ ',' ~ 
+                       escapeCSV(ls.getValueString(iter, COLUMN_CMD)) ~ ',' ~
+                       to!string(ls.getValue(iter, COLUMN_CASE).getBoolean());
         }
         return results;        
     }
