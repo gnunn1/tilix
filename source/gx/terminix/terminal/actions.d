@@ -27,3 +27,4 @@ enum ACTION_ZOOM_OUT = "zoom-out";
 enum ACTION_ZOOM_NORMAL = "zoom-normal";
 enum ACTION_SAVE = "save";
 enum ACTION_SYNC_INPUT_OVERRIDE = "sync-input-override";
+enum ACTION_INSERT_NUMBER = "insert-number";

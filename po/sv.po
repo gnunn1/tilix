@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-17 14:28-0400\n"
+"POT-Creation-Date: 2016-07-31 14:11-0400\n"
 "PO-Revision-Date: 2016-07-28 00:12+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish "
-"<https://hosted.weblate.org/projects/terminix/translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/terminix/"
+"translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,16 +28,18 @@ msgid "Color scheme palette requires 16 colors"
 msgstr "Palett för färgschema kräver 16 färger"
 
 #: source/gx/terminix/profilewindow.d:68 source/gx/terminix/profilewindow.d:77
+#: source/gx/terminix/profilewindow.d:85
 #, c-format
 msgid "Editing Profile: %s"
 msgstr "Redigerar profil: %s"
 
 #: source/gx/terminix/profilewindow.d:70 source/gx/terminix/profilewindow.d:79
+#: source/gx/terminix/profilewindow.d:87
 msgid "New Profile"
 msgstr "Ny profil"
 
 #: source/gx/terminix/profilewindow.d:78 source/gx/terminix/profilewindow.d:87
-#: source/gx/terminix/profilewindow.d:88
+#: source/gx/terminix/profilewindow.d:88 source/gx/terminix/profilewindow.d:96
 msgid "General"
 msgstr "Allmänt"
 
@@ -45,34 +47,38 @@ msgstr "Allmänt"
 #: source/gx/terminix/terminal/layout.d:64
 #: source/gx/terminix/profilewindow.d:779 source/gx/terminix/profilewindow.d:88
 #: source/gx/terminix/profilewindow.d:788 source/gx/terminix/profilewindow.d:89
-#: source/gx/terminix/profilewindow.d:789
+#: source/gx/terminix/profilewindow.d:789 source/gx/terminix/profilewindow.d:97
+#: source/gx/terminix/profilewindow.d:797
+#: source/gx/terminix/profilewindow.d:1048
 msgid "Command"
 msgstr "Kommando"
 
 #: source/gx/terminix/profilewindow.d:80 source/gx/terminix/profilewindow.d:89
-#: source/gx/terminix/profilewindow.d:90
+#: source/gx/terminix/profilewindow.d:90 source/gx/terminix/profilewindow.d:98
 msgid "Color"
 msgstr "Färg"
 
 #: source/gx/terminix/profilewindow.d:81 source/gx/terminix/profilewindow.d:90
-#: source/gx/terminix/profilewindow.d:91
+#: source/gx/terminix/profilewindow.d:91 source/gx/terminix/profilewindow.d:99
 msgid "Scrolling"
 msgstr "Rullning"
 
 #: source/gx/terminix/profilewindow.d:82 source/gx/terminix/profilewindow.d:91
-#: source/gx/terminix/profilewindow.d:92
+#: source/gx/terminix/profilewindow.d:92 source/gx/terminix/profilewindow.d:100
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
 #: source/gx/terminix/profilewindow.d:131
 #: source/gx/terminix/profilewindow.d:141
 #: source/gx/terminix/profilewindow.d:142
+#: source/gx/terminix/profilewindow.d:150
 msgid "Profile name"
 msgstr "Profilnamn"
 
 #: source/gx/terminix/profilewindow.d:139
 #: source/gx/terminix/profilewindow.d:149
 #: source/gx/terminix/profilewindow.d:150
+#: source/gx/terminix/profilewindow.d:158
 #, c-format
 msgid "ID: %s"
 msgstr "ID: %s"
@@ -80,18 +86,21 @@ msgstr "ID: %s"
 #: source/gx/terminix/profilewindow.d:146
 #: source/gx/terminix/profilewindow.d:156
 #: source/gx/terminix/profilewindow.d:157
+#: source/gx/terminix/profilewindow.d:165
 msgid "Terminal size"
 msgstr "Terminalstorlek"
 
 #: source/gx/terminix/profilewindow.d:156
 #: source/gx/terminix/profilewindow.d:166
 #: source/gx/terminix/profilewindow.d:167
+#: source/gx/terminix/profilewindow.d:175
 msgid "columns"
 msgstr "kolumner"
 
 #: source/gx/terminix/profilewindow.d:162
 #: source/gx/terminix/profilewindow.d:172
 #: source/gx/terminix/profilewindow.d:173
+#: source/gx/terminix/profilewindow.d:181
 msgid "rows"
 msgstr "rader"
 
@@ -101,6 +110,8 @@ msgstr "rader"
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/profilewindow.d:177
 #: source/gx/terminix/profilewindow.d:178
+#: source/gx/terminix/terminal/terminal.d:666
+#: source/gx/terminix/profilewindow.d:186
 msgid "Reset"
 msgstr "Återställ"
 
@@ -112,6 +123,8 @@ msgstr "Återställ"
 #: source/gx/terminix/profilewindow.d:434
 #: source/gx/terminix/profilewindow.d:189
 #: source/gx/terminix/profilewindow.d:435
+#: source/gx/terminix/profilewindow.d:197
+#: source/gx/terminix/profilewindow.d:443
 msgid "Cursor"
 msgstr "Markör"
 
@@ -119,6 +132,7 @@ msgstr "Markör"
 #: source/gx/terminix/profilewindow.d:181
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:192
+#: source/gx/terminix/profilewindow.d:200
 msgid "Block"
 msgstr "Block"
 
@@ -126,6 +140,7 @@ msgstr "Block"
 #: source/gx/terminix/profilewindow.d:181
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:192
+#: source/gx/terminix/profilewindow.d:200
 msgid "IBeam"
 msgstr "I-balk"
 
@@ -133,6 +148,7 @@ msgstr "I-balk"
 #: source/gx/terminix/profilewindow.d:181
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:192
+#: source/gx/terminix/profilewindow.d:200
 msgid "Underline"
 msgstr "Understreck"
 
@@ -140,6 +156,7 @@ msgstr "Understreck"
 #: source/gx/terminix/profilewindow.d:188
 #: source/gx/terminix/profilewindow.d:198
 #: source/gx/terminix/profilewindow.d:199
+#: source/gx/terminix/profilewindow.d:207
 msgid "Blink mode"
 msgstr "Blinkningsläge"
 
@@ -147,6 +164,7 @@ msgstr "Blinkningsläge"
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:201
 #: source/gx/terminix/profilewindow.d:202
+#: source/gx/terminix/profilewindow.d:210
 msgid "System"
 msgstr "System"
 
@@ -154,6 +172,7 @@ msgstr "System"
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:201
 #: source/gx/terminix/profilewindow.d:202
+#: source/gx/terminix/profilewindow.d:210
 msgid "On"
 msgstr "På"
 
@@ -161,6 +180,7 @@ msgstr "På"
 #: source/gx/terminix/profilewindow.d:191
 #: source/gx/terminix/profilewindow.d:201
 #: source/gx/terminix/profilewindow.d:202
+#: source/gx/terminix/profilewindow.d:210
 msgid "Off"
 msgstr "Av"
 
@@ -169,6 +189,8 @@ msgstr "Av"
 #: source/gx/terminix/terminal/terminal.d:398
 #: source/gx/terminix/profilewindow.d:207
 #: source/gx/terminix/profilewindow.d:208
+#: source/gx/terminix/terminal/terminal.d:404
+#: source/gx/terminix/profilewindow.d:216
 msgid "Terminal bell"
 msgstr "Terminalljud"
 
@@ -176,6 +198,7 @@ msgstr "Terminalljud"
 #: source/gx/terminix/profilewindow.d:207
 #: source/gx/terminix/profilewindow.d:216
 #: source/gx/terminix/profilewindow.d:217
+#: source/gx/terminix/profilewindow.d:225
 msgid "Terminal title"
 msgstr "Terminaltitel"
 
@@ -183,6 +206,7 @@ msgstr "Terminaltitel"
 #: source/gx/terminix/profilewindow.d:220
 #: source/gx/terminix/profilewindow.d:229
 #: source/gx/terminix/profilewindow.d:230
+#: source/gx/terminix/profilewindow.d:238
 msgid "Text Appearance"
 msgstr "Textutseende"
 
@@ -190,6 +214,7 @@ msgstr "Textutseende"
 #: source/gx/terminix/profilewindow.d:226
 #: source/gx/terminix/profilewindow.d:235
 #: source/gx/terminix/profilewindow.d:236
+#: source/gx/terminix/profilewindow.d:244
 msgid "Allow bold text"
 msgstr "Tillåt fet text"
 
@@ -197,6 +222,7 @@ msgstr "Tillåt fet text"
 #: source/gx/terminix/profilewindow.d:231
 #: source/gx/terminix/profilewindow.d:240
 #: source/gx/terminix/profilewindow.d:241
+#: source/gx/terminix/profilewindow.d:249
 msgid "Rewrap on resize"
 msgstr "Justera radbrytningar vid storleksförändring"
 
@@ -204,6 +230,7 @@ msgstr "Justera radbrytningar vid storleksförändring"
 #: source/gx/terminix/profilewindow.d:237
 #: source/gx/terminix/profilewindow.d:246
 #: source/gx/terminix/profilewindow.d:247
+#: source/gx/terminix/profilewindow.d:255
 msgid "Custom font"
 msgstr "Anpassat typsnitt"
 
@@ -211,6 +238,7 @@ msgstr "Anpassat typsnitt"
 #: source/gx/terminix/profilewindow.d:243
 #: source/gx/terminix/profilewindow.d:252
 #: source/gx/terminix/profilewindow.d:253
+#: source/gx/terminix/profilewindow.d:261
 msgid "Choose A Terminal Font"
 msgstr "Välj ett terminaltypsnitt"
 
@@ -218,6 +246,7 @@ msgstr "Välj ett terminaltypsnitt"
 #: source/gx/terminix/profilewindow.d:303
 #: source/gx/terminix/profilewindow.d:312
 #: source/gx/terminix/profilewindow.d:313
+#: source/gx/terminix/profilewindow.d:321
 msgid "Color scheme"
 msgstr "Färgschema"
 
@@ -225,6 +254,7 @@ msgstr "Färgschema"
 #: source/gx/terminix/profilewindow.d:313
 #: source/gx/terminix/profilewindow.d:322
 #: source/gx/terminix/profilewindow.d:323
+#: source/gx/terminix/profilewindow.d:331
 msgid "Custom"
 msgstr "Anpassat"
 
@@ -232,6 +262,7 @@ msgstr "Anpassat"
 #: source/gx/terminix/profilewindow.d:324
 #: source/gx/terminix/profilewindow.d:333
 #: source/gx/terminix/profilewindow.d:334
+#: source/gx/terminix/profilewindow.d:342
 msgid "Color palette"
 msgstr "Färgpalett"
 
@@ -239,6 +270,7 @@ msgstr "Färgpalett"
 #: source/gx/terminix/profilewindow.d:332
 #: source/gx/terminix/profilewindow.d:341
 #: source/gx/terminix/profilewindow.d:342
+#: source/gx/terminix/profilewindow.d:350
 msgid "Options"
 msgstr "Alternativ"
 
@@ -246,6 +278,7 @@ msgstr "Alternativ"
 #: source/gx/terminix/profilewindow.d:346
 #: source/gx/terminix/profilewindow.d:355
 #: source/gx/terminix/profilewindow.d:356
+#: source/gx/terminix/profilewindow.d:364
 msgid "Use theme colors for foreground/background"
 msgstr "Använd temafärger för förgrund/bakgrund"
 
@@ -253,6 +286,8 @@ msgstr "Använd temafärger för förgrund/bakgrund"
 #: source/gx/terminix/profilewindow.d:351 source/gx/terminix/profilewindow.d:92
 #: source/gx/terminix/profilewindow.d:360 source/gx/terminix/profilewindow.d:93
 #: source/gx/terminix/profilewindow.d:361
+#: source/gx/terminix/profilewindow.d:101
+#: source/gx/terminix/profilewindow.d:369
 msgid "Advanced"
 msgstr "Avancerat"
 
@@ -260,6 +295,7 @@ msgstr "Avancerat"
 #: source/gx/terminix/profilewindow.d:364
 #: source/gx/terminix/profilewindow.d:373
 #: source/gx/terminix/profilewindow.d:374
+#: source/gx/terminix/profilewindow.d:382
 msgid "Transparency"
 msgstr "Transparens"
 
@@ -267,6 +303,7 @@ msgstr "Transparens"
 #: source/gx/terminix/profilewindow.d:378
 #: source/gx/terminix/profilewindow.d:387
 #: source/gx/terminix/profilewindow.d:388
+#: source/gx/terminix/profilewindow.d:396
 msgid "Unfocused dim"
 msgstr "Ofokuserad dämpad"
 
@@ -274,6 +311,7 @@ msgstr "Ofokuserad dämpad"
 #: source/gx/terminix/profilewindow.d:420
 #: source/gx/terminix/profilewindow.d:429
 #: source/gx/terminix/profilewindow.d:430
+#: source/gx/terminix/profilewindow.d:438
 msgid "Text"
 msgstr "Text"
 
@@ -285,6 +323,8 @@ msgstr "Text"
 #: source/gx/terminix/profilewindow.d:487
 #: source/gx/terminix/profilewindow.d:431
 #: source/gx/terminix/profilewindow.d:488
+#: source/gx/terminix/profilewindow.d:439
+#: source/gx/terminix/profilewindow.d:496
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -292,6 +332,7 @@ msgstr "Bakgrund"
 #: source/gx/terminix/profilewindow.d:432
 #: source/gx/terminix/profilewindow.d:441
 #: source/gx/terminix/profilewindow.d:442
+#: source/gx/terminix/profilewindow.d:450
 msgid "Select Cursor Foreground Color"
 msgstr "Välj förgrundsfärg för markör"
 
@@ -299,6 +340,7 @@ msgstr "Välj förgrundsfärg för markör"
 #: source/gx/terminix/profilewindow.d:434
 #: source/gx/terminix/profilewindow.d:443
 #: source/gx/terminix/profilewindow.d:444
+#: source/gx/terminix/profilewindow.d:452
 msgid "Select Cursor Background Color"
 msgstr "Välj bakgrundsfärg för markör"
 
@@ -306,6 +348,7 @@ msgstr "Välj bakgrundsfärg för markör"
 #: source/gx/terminix/profilewindow.d:439
 #: source/gx/terminix/profilewindow.d:448
 #: source/gx/terminix/profilewindow.d:449
+#: source/gx/terminix/profilewindow.d:457
 msgid "Highlight"
 msgstr "Färgmarkering"
 
@@ -313,6 +356,7 @@ msgstr "Färgmarkering"
 #: source/gx/terminix/profilewindow.d:444
 #: source/gx/terminix/profilewindow.d:453
 #: source/gx/terminix/profilewindow.d:454
+#: source/gx/terminix/profilewindow.d:462
 msgid "Select Highlight Foreground Color"
 msgstr "Välj förgrundsfärg för färgmarkering"
 
@@ -320,6 +364,7 @@ msgstr "Välj förgrundsfärg för färgmarkering"
 #: source/gx/terminix/profilewindow.d:446
 #: source/gx/terminix/profilewindow.d:455
 #: source/gx/terminix/profilewindow.d:456
+#: source/gx/terminix/profilewindow.d:464
 msgid "Select Highlight Background Color"
 msgstr "Välj bakgrundsfärg för färgmarkering"
 
@@ -327,6 +372,7 @@ msgstr "Välj bakgrundsfärg för färgmarkering"
 #: source/gx/terminix/profilewindow.d:451
 #: source/gx/terminix/profilewindow.d:460
 #: source/gx/terminix/profilewindow.d:461
+#: source/gx/terminix/profilewindow.d:469
 msgid "Dim"
 msgstr "Dämpad"
 
@@ -334,6 +380,7 @@ msgstr "Dämpad"
 #: source/gx/terminix/profilewindow.d:456
 #: source/gx/terminix/profilewindow.d:465
 #: source/gx/terminix/profilewindow.d:466
+#: source/gx/terminix/profilewindow.d:474
 msgid "Select Dim Color"
 msgstr "Välj färg för dämpad"
 
@@ -341,6 +388,7 @@ msgstr "Välj färg för dämpad"
 #: source/gx/terminix/profilewindow.d:470
 #: source/gx/terminix/profilewindow.d:479
 #: source/gx/terminix/profilewindow.d:480
+#: source/gx/terminix/profilewindow.d:488
 msgid "Select Background Color"
 msgstr "Välj bakgrundsfärg"
 
@@ -351,6 +399,8 @@ msgstr "Välj bakgrundsfärg"
 #: source/gx/terminix/profilewindow.d:506
 #: source/gx/terminix/profilewindow.d:493
 #: source/gx/terminix/profilewindow.d:507
+#: source/gx/terminix/profilewindow.d:501
+#: source/gx/terminix/profilewindow.d:515
 msgid "Select Foreground Color"
 msgstr "Välj förgrundsfärg"
 
@@ -358,6 +408,7 @@ msgstr "Välj förgrundsfärg"
 #: source/gx/terminix/profilewindow.d:496
 #: source/gx/terminix/profilewindow.d:505
 #: source/gx/terminix/profilewindow.d:506
+#: source/gx/terminix/profilewindow.d:514
 msgid "Foreground"
 msgstr "Förgrund"
 
@@ -365,6 +416,7 @@ msgstr "Förgrund"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Black"
 msgstr "Svart"
 
@@ -372,6 +424,7 @@ msgstr "Svart"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Red"
 msgstr "Röd"
 
@@ -379,6 +432,7 @@ msgstr "Röd"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Green"
 msgstr "Grön"
 
@@ -386,6 +440,7 @@ msgstr "Grön"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Orange"
 msgstr "Orange"
 
@@ -393,6 +448,7 @@ msgstr "Orange"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Blue"
 msgstr "Blå"
 
@@ -400,6 +456,7 @@ msgstr "Blå"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Purple"
 msgstr "Lila"
 
@@ -407,6 +464,7 @@ msgstr "Lila"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Turquoise"
 msgstr "Turkos"
 
@@ -414,6 +472,7 @@ msgstr "Turkos"
 #: source/gx/terminix/profilewindow.d:501
 #: source/gx/terminix/profilewindow.d:510
 #: source/gx/terminix/profilewindow.d:511
+#: source/gx/terminix/profilewindow.d:519
 msgid "Grey"
 msgstr "Grå"
 
@@ -421,6 +480,7 @@ msgstr "Grå"
 #: source/gx/terminix/profilewindow.d:507
 #: source/gx/terminix/profilewindow.d:516
 #: source/gx/terminix/profilewindow.d:517
+#: source/gx/terminix/profilewindow.d:525
 #, c-format
 msgid "Select %s Color"
 msgstr "Välj %s färg"
@@ -429,6 +489,7 @@ msgstr "Välj %s färg"
 #: source/gx/terminix/profilewindow.d:514
 #: source/gx/terminix/profilewindow.d:523
 #: source/gx/terminix/profilewindow.d:524
+#: source/gx/terminix/profilewindow.d:532
 #, c-format
 msgid "Select %s Light Color"
 msgstr "Välj %s färg (ljus)"
@@ -437,6 +498,7 @@ msgstr "Välj %s färg (ljus)"
 #: source/gx/terminix/profilewindow.d:656
 #: source/gx/terminix/profilewindow.d:665
 #: source/gx/terminix/profilewindow.d:666
+#: source/gx/terminix/profilewindow.d:674
 msgid "Show scrollbar"
 msgstr "Visa rullningslist"
 
@@ -444,6 +506,7 @@ msgstr "Visa rullningslist"
 #: source/gx/terminix/profilewindow.d:660
 #: source/gx/terminix/profilewindow.d:669
 #: source/gx/terminix/profilewindow.d:670
+#: source/gx/terminix/profilewindow.d:678
 msgid "Scroll on output"
 msgstr "Rulla vid utdata"
 
@@ -451,6 +514,7 @@ msgstr "Rulla vid utdata"
 #: source/gx/terminix/profilewindow.d:664
 #: source/gx/terminix/profilewindow.d:673
 #: source/gx/terminix/profilewindow.d:674
+#: source/gx/terminix/profilewindow.d:682
 msgid "Scroll on keystroke"
 msgstr "Rulla vid tangentnedtryckning"
 
@@ -458,6 +522,7 @@ msgstr "Rulla vid tangentnedtryckning"
 #: source/gx/terminix/profilewindow.d:668
 #: source/gx/terminix/profilewindow.d:677
 #: source/gx/terminix/profilewindow.d:678
+#: source/gx/terminix/profilewindow.d:686
 msgid "Limit scrollback to:"
 msgstr "Begränsa rullningshistorik till:"
 
@@ -465,6 +530,7 @@ msgstr "Begränsa rullningshistorik till:"
 #: source/gx/terminix/profilewindow.d:709
 #: source/gx/terminix/profilewindow.d:718
 #: source/gx/terminix/profilewindow.d:719
+#: source/gx/terminix/profilewindow.d:727
 msgid "Backspace key generates"
 msgstr "Backstegstangenten genererar"
 
@@ -476,6 +542,7 @@ msgstr "Backstegstangenten genererar"
 #: source/gx/terminix/profilewindow.d:729
 #: source/gx/terminix/profilewindow.d:722
 #: source/gx/terminix/profilewindow.d:730
+#: source/gx/terminix/profilewindow.d:738
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -487,6 +554,7 @@ msgstr "Automatisk"
 #: source/gx/terminix/profilewindow.d:729
 #: source/gx/terminix/profilewindow.d:722
 #: source/gx/terminix/profilewindow.d:730
+#: source/gx/terminix/profilewindow.d:738
 msgid "Control-H"
 msgstr "Control-H"
 
@@ -498,6 +566,7 @@ msgstr "Control-H"
 #: source/gx/terminix/profilewindow.d:729
 #: source/gx/terminix/profilewindow.d:722
 #: source/gx/terminix/profilewindow.d:730
+#: source/gx/terminix/profilewindow.d:738
 msgid "ASCII DEL"
 msgstr "ASCII DEL"
 
@@ -509,6 +578,7 @@ msgstr "ASCII DEL"
 #: source/gx/terminix/profilewindow.d:729
 #: source/gx/terminix/profilewindow.d:722
 #: source/gx/terminix/profilewindow.d:730
+#: source/gx/terminix/profilewindow.d:738
 msgid "Escape sequence"
 msgstr "Kontrollsekvens"
 
@@ -520,6 +590,7 @@ msgstr "Kontrollsekvens"
 #: source/gx/terminix/profilewindow.d:729
 #: source/gx/terminix/profilewindow.d:722
 #: source/gx/terminix/profilewindow.d:730
+#: source/gx/terminix/profilewindow.d:738
 msgid "TTY"
 msgstr "TTY"
 
@@ -527,6 +598,7 @@ msgstr "TTY"
 #: source/gx/terminix/profilewindow.d:717
 #: source/gx/terminix/profilewindow.d:726
 #: source/gx/terminix/profilewindow.d:727
+#: source/gx/terminix/profilewindow.d:735
 msgid "Delete key generates"
 msgstr "Delete-tangenten genererar"
 
@@ -540,6 +612,8 @@ msgstr "Delete-tangenten genererar"
 #: source/gx/terminix/terminal/terminal.d:655
 #: source/gx/terminix/profilewindow.d:734 source/gx/terminix/prefwindow.d:97
 #: source/gx/terminix/prefwindow.d:170 source/gx/terminix/profilewindow.d:735
+#: source/gx/terminix/terminal/terminal.d:672
+#: source/gx/terminix/profilewindow.d:743
 msgid "Encoding"
 msgstr "Kodning"
 
@@ -547,6 +621,7 @@ msgstr "Kodning"
 #: source/gx/terminix/profilewindow.d:740
 #: source/gx/terminix/profilewindow.d:749
 #: source/gx/terminix/profilewindow.d:750
+#: source/gx/terminix/profilewindow.d:758
 msgid "Ambiguous-width characters"
 msgstr "Tecken med tvetydig bredd"
 
@@ -554,6 +629,7 @@ msgstr "Tecken med tvetydig bredd"
 #: source/gx/terminix/profilewindow.d:743
 #: source/gx/terminix/profilewindow.d:752
 #: source/gx/terminix/profilewindow.d:753
+#: source/gx/terminix/profilewindow.d:761
 msgid "Narrow"
 msgstr "Smal"
 
@@ -561,6 +637,7 @@ msgstr "Smal"
 #: source/gx/terminix/profilewindow.d:743
 #: source/gx/terminix/profilewindow.d:752
 #: source/gx/terminix/profilewindow.d:753
+#: source/gx/terminix/profilewindow.d:761
 msgid "Wide"
 msgstr "Bred"
 
@@ -568,6 +645,7 @@ msgstr "Bred"
 #: source/gx/terminix/profilewindow.d:769
 #: source/gx/terminix/profilewindow.d:778
 #: source/gx/terminix/profilewindow.d:779
+#: source/gx/terminix/profilewindow.d:787
 msgid "Run command as a login shell"
 msgstr "Kör kommando som ett inloggningsskal"
 
@@ -575,6 +653,7 @@ msgstr "Kör kommando som ett inloggningsskal"
 #: source/gx/terminix/profilewindow.d:773
 #: source/gx/terminix/profilewindow.d:782
 #: source/gx/terminix/profilewindow.d:783
+#: source/gx/terminix/profilewindow.d:791
 msgid "Run a custom command instead of my shell"
 msgstr "Kör ett eget kommando istället för mitt skal"
 
@@ -582,6 +661,7 @@ msgstr "Kör ett eget kommando istället för mitt skal"
 #: source/gx/terminix/profilewindow.d:789
 #: source/gx/terminix/profilewindow.d:798
 #: source/gx/terminix/profilewindow.d:799
+#: source/gx/terminix/profilewindow.d:807
 msgid "When command exits"
 msgstr "Då kommandot avslutar"
 
@@ -589,6 +669,7 @@ msgstr "Då kommandot avslutar"
 #: source/gx/terminix/profilewindow.d:791
 #: source/gx/terminix/profilewindow.d:800
 #: source/gx/terminix/profilewindow.d:801
+#: source/gx/terminix/profilewindow.d:809
 msgid "Exit the terminal"
 msgstr "Avsluta terminal"
 
@@ -596,6 +677,7 @@ msgstr "Avsluta terminal"
 #: source/gx/terminix/profilewindow.d:791
 #: source/gx/terminix/profilewindow.d:800
 #: source/gx/terminix/profilewindow.d:801
+#: source/gx/terminix/profilewindow.d:809
 msgid "Restart the command"
 msgstr "Starta om kommandot"
 
@@ -603,16 +685,17 @@ msgstr "Starta om kommandot"
 #: source/gx/terminix/profilewindow.d:791
 #: source/gx/terminix/profilewindow.d:800
 #: source/gx/terminix/profilewindow.d:801
+#: source/gx/terminix/profilewindow.d:809
 msgid "Hold the terminal open"
 msgstr "Håll terminalen öppen"
 
 #: source/gx/terminix/constants.d:38 source/gx/terminix/constants.d:57
-#: source/gx/terminix/constants.d:53
+#: source/gx/terminix/constants.d:53 source/gx/terminix/constants.d:56
 msgid "A VTE based terminal emulator for Linux"
 msgstr "En VTE-baserad terminalemulator för Linux"
 
 #: source/gx/terminix/constants.d:39 source/gx/terminix/constants.d:58
-#: source/gx/terminix/constants.d:54
+#: source/gx/terminix/constants.d:54 source/gx/terminix/constants.d:57
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
@@ -623,19 +706,19 @@ msgstr ""
 "http://mozilla.org/MPL/2.0/."
 
 #: source/gx/terminix/constants.d:44 source/gx/terminix/constants.d:63
-#: source/gx/terminix/constants.d:59
+#: source/gx/terminix/constants.d:59 source/gx/terminix/constants.d:62
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 "Gruppen för VTE-komponenter i GTK, Terminix skulle inte vara möjligt utan "
 "deras arbete"
 
 #: source/gx/terminix/constants.d:45 source/gx/terminix/constants.d:64
-#: source/gx/terminix/constants.d:60
+#: source/gx/terminix/constants.d:60 source/gx/terminix/constants.d:63
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr "GtkD för att ha tillhandahållit ett utmärkt GTK-omslag"
 
 #: source/gx/terminix/constants.d:46 source/gx/terminix/constants.d:65
-#: source/gx/terminix/constants.d:61
+#: source/gx/terminix/constants.d:61 source/gx/terminix/constants.d:64
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org för det fantastiska språket D"
 
@@ -958,6 +1041,7 @@ msgstr "Utseende"
 #: source/gx/terminix/terminal/terminal.d:658
 #: source/gx/terminix/terminal/terminal.d:654
 #: source/gx/terminix/prefwindow.d:94
+#: source/gx/terminix/terminal/terminal.d:671
 msgid "Profiles"
 msgstr "Profiler"
 
@@ -1020,14 +1104,16 @@ msgstr "Ny"
 #: source/gx/terminix/prefwindow.d:405 source/gx/terminix/prefwindow.d:451
 #: source/gx/terminix/prefwindow.d:460 source/gx/terminix/profilewindow.d:884
 #: source/gx/terminix/prefwindow.d:465 source/gx/terminix/profilewindow.d:883
-#: source/gx/terminix/prefwindow.d:472
+#: source/gx/terminix/prefwindow.d:472 source/gx/terminix/profilewindow.d:861
+#: source/gx/terminix/profilewindow.d:921
 msgid "Edit"
 msgstr "Redigera"
 
 #: source/gx/terminix/prefwindow.d:408 source/gx/terminix/prefwindow.d:454
 #: source/gx/terminix/prefwindow.d:463 source/gx/terminix/profilewindow.d:897
 #: source/gx/terminix/prefwindow.d:468 source/gx/terminix/profilewindow.d:896
-#: source/gx/terminix/prefwindow.d:475
+#: source/gx/terminix/prefwindow.d:475 source/gx/terminix/profilewindow.d:934
+#: source/gx/terminix/profilewindow.d:1079
 msgid "Delete"
 msgstr "Ta bort"
 
@@ -1058,7 +1144,7 @@ msgstr "Liten"
 #: source/gx/terminix/prefwindow.d:519 source/gx/terminix/prefwindow.d:565
 #: source/gx/terminix/prefwindow.d:574 source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/prefwindow.d:580 source/gx/terminix/profilewindow.d:211
-#: source/gx/terminix/prefwindow.d:587
+#: source/gx/terminix/prefwindow.d:587 source/gx/terminix/profilewindow.d:219
 msgid "None"
 msgstr "Ingen"
 
@@ -1174,6 +1260,8 @@ msgstr "Fokusera fönster"
 #: source/gx/terminix/terminal/terminal.d:1019
 #: source/gx/terminix/terminal/terminal.d:1048
 #: source/gx/terminix/terminal/terminal.d:1059
+#: source/gx/terminix/terminal/terminal.d:1113
+#: source/gx/terminix/terminal/terminal.d:1124
 msgid "Paste"
 msgstr "Klistra in"
 
@@ -1205,6 +1293,8 @@ msgstr "OK"
 #: source/gx/terminix/appwindow.d:855 source/gx/terminix/appwindow.d:887
 #: source/gx/terminix/terminal/terminal.d:1835
 #: source/gx/terminix/terminal/terminal.d:1872
+#: source/gx/terminix/terminal/terminal.d:2007
+#: source/gx/terminix/profilewindow.d:1108
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -1235,21 +1325,25 @@ msgstr "Sökalternativ"
 
 #: source/gx/terminix/terminal/search.d:186
 #: source/gx/terminix/terminal/search.d:185
+#: source/gx/terminix/terminal/search.d:187
 msgid "Match case"
 msgstr "Gör skillnad på gemener/VERSALER"
 
 #: source/gx/terminix/terminal/search.d:187
 #: source/gx/terminix/terminal/search.d:186
+#: source/gx/terminix/terminal/search.d:188
 msgid "Match entire word only"
 msgstr "Sök endast hela ord"
 
 #: source/gx/terminix/terminal/search.d:188
 #: source/gx/terminix/terminal/search.d:187
+#: source/gx/terminix/terminal/search.d:189
 msgid "Match as regular expression"
 msgstr "Matcha som reguljärt uttryck"
 
 #: source/gx/terminix/terminal/search.d:189
 #: source/gx/terminix/terminal/search.d:188
+#: source/gx/terminix/terminal/search.d:190
 msgid "Wrap around"
 msgstr "Börja om från början"
 
@@ -1270,6 +1364,8 @@ msgstr "Börja om från början"
 #: data/resources/ui/shortcuts.ui:332 data/resources/ui/shortcuts.ui:350
 #: source/gx/terminix/terminal/terminal.d:882
 #: source/gx/terminix/terminal/terminal.d:917
+#: source/gx/terminix/terminal/terminal.d:336
+#: source/gx/terminix/terminal/terminal.d:943
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -1287,6 +1383,8 @@ msgstr "Terminal"
 #: source/gx/terminix/terminal/terminal.d:1037
 #: source/gx/terminix/terminal/terminal.d:1077
 #: source/gx/terminix/appwindow.d:504
+#: source/gx/terminix/terminal/terminal.d:367
+#: source/gx/terminix/terminal/terminal.d:1142
 msgid "Close"
 msgstr "Stäng"
 
@@ -1308,6 +1406,9 @@ msgstr "Stäng"
 #: source/gx/terminix/terminal/terminal.d:1036
 #: source/gx/terminix/terminal/terminal.d:945
 #: source/gx/terminix/terminal/terminal.d:1076
+#: source/gx/terminix/terminal/terminal.d:376
+#: source/gx/terminix/terminal/terminal.d:971
+#: source/gx/terminix/terminal/terminal.d:1141
 msgid "Maximize"
 msgstr "Maximera"
 
@@ -1319,6 +1420,8 @@ msgstr "Maximera"
 #: source/gx/terminix/terminal/terminal.d:570
 #: source/gx/terminix/terminal/terminal.d:381
 #: source/gx/terminix/terminal/terminal.d:586
+#: source/gx/terminix/terminal/terminal.d:387
+#: source/gx/terminix/terminal/terminal.d:592
 msgid "Disable input synchronization for this terminal"
 msgstr "Inaktivera inmatningssynkronisering för denna terminal"
 
@@ -1326,6 +1429,7 @@ msgstr "Inaktivera inmatningssynkronisering för denna terminal"
 #: source/gx/terminix/terminal/terminal.d:420
 #: source/gx/terminix/terminal/terminal.d:417
 #: source/gx/terminix/terminal/terminal.d:439
+#: source/gx/terminix/terminal/terminal.d:445
 msgid "Edit Profile"
 msgstr "Redigera profil"
 
@@ -1335,6 +1439,7 @@ msgstr "Redigera profil"
 #: source/gx/terminix/terminal/terminal.d:536
 #: source/gx/terminix/terminal/terminal.d:550
 #: source/gx/terminix/appwindow.d:747
+#: source/gx/terminix/terminal/terminal.d:556
 msgid "There are processes that are still running, close anyway?"
 msgstr "Det finns fortfarande processer som är igång, stäng i alla fall?"
 
@@ -1342,6 +1447,7 @@ msgstr "Det finns fortfarande processer som är igång, stäng i alla fall?"
 #: source/gx/terminix/terminal/terminal.d:575
 #: source/gx/terminix/terminal/terminal.d:572
 #: source/gx/terminix/terminal/terminal.d:588
+#: source/gx/terminix/terminal/terminal.d:594
 msgid "Enable input synchronization for this terminal"
 msgstr "Aktivera inmatningssynkronisering för denna terminal"
 
@@ -1355,6 +1461,7 @@ msgstr "Spara…"
 #: source/gx/terminix/terminal/terminal.d:639
 #: source/gx/terminix/terminal/terminal.d:636
 #: source/gx/terminix/terminal/terminal.d:659
+#: source/gx/terminix/terminal/terminal.d:676
 msgid "Find…"
 msgstr "Sök…"
 
@@ -1363,6 +1470,7 @@ msgstr "Sök…"
 #: source/gx/terminix/terminal/terminal.d:637
 #: source/gx/terminix/terminal/terminal.d:659
 #: source/gx/terminix/terminal/terminal.d:660
+#: source/gx/terminix/terminal/terminal.d:677
 msgid "Layout Options…"
 msgstr "Layoutalternativ…"
 
@@ -1372,12 +1480,15 @@ msgstr "Layoutalternativ…"
 #: source/gx/terminix/terminal/terminal.d:391
 #: source/gx/terminix/terminal/terminal.d:660
 #: source/gx/terminix/terminal/terminal.d:661
+#: source/gx/terminix/terminal/terminal.d:397
+#: source/gx/terminix/terminal/terminal.d:678
 msgid "Read-Only"
 msgstr "Skrivskyddad"
 
 #: source/gx/terminix/terminal/terminal.d:649
 #: source/gx/terminix/terminal/terminal.d:653
 #: source/gx/terminix/terminal/terminal.d:650
+#: source/gx/terminix/terminal/terminal.d:667
 msgid "Reset and Clear"
 msgstr "Återställ och töm"
 
@@ -1401,6 +1512,7 @@ msgstr "Dela"
 #: source/gx/terminix/terminal/terminal.d:1036
 #: source/gx/terminix/terminal/terminal.d:942
 #: source/gx/terminix/terminal/terminal.d:1076
+#: source/gx/terminix/terminal/terminal.d:1141
 msgid "Restore"
 msgstr "Återställ"
 
@@ -1411,6 +1523,7 @@ msgstr "Återställ"
 #: source/gx/terminix/terminal/terminal.d:994
 #: source/gx/terminix/terminal/terminal.d:1000
 #: source/gx/terminix/terminal/terminal.d:1036
+#: source/gx/terminix/terminal/terminal.d:1101
 msgid "Open Link"
 msgstr "Öppna länk"
 
@@ -1421,6 +1534,7 @@ msgstr "Öppna länk"
 #: source/gx/terminix/terminal/terminal.d:995
 #: source/gx/terminix/terminal/terminal.d:1001
 #: source/gx/terminix/terminal/terminal.d:1037
+#: source/gx/terminix/terminal/terminal.d:1102
 msgid "Copy Link Address"
 msgstr "Kopiera länkadress"
 
@@ -1438,6 +1552,8 @@ msgstr "Kopiera länkadress"
 #: source/gx/terminix/terminal/terminal.d:1014
 #: source/gx/terminix/terminal/terminal.d:1047
 #: source/gx/terminix/terminal/terminal.d:1054
+#: source/gx/terminix/terminal/terminal.d:1112
+#: source/gx/terminix/terminal/terminal.d:1119
 msgid "Copy"
 msgstr "Kopiera"
 
@@ -1455,6 +1571,8 @@ msgstr "Kopiera"
 #: source/gx/terminix/terminal/terminal.d:1024
 #: source/gx/terminix/terminal/terminal.d:1049
 #: source/gx/terminix/terminal/terminal.d:1064
+#: source/gx/terminix/terminal/terminal.d:1114
+#: source/gx/terminix/terminal/terminal.d:1129
 msgid "Select All"
 msgstr "Markera allt"
 
@@ -1467,6 +1585,7 @@ msgstr "Markera allt"
 #: source/gx/terminix/prefwindow.d:713
 #: source/gx/terminix/terminal/terminal.d:1067
 #: source/gx/terminix/prefwindow.d:720
+#: source/gx/terminix/terminal/terminal.d:1132
 msgid "Clipboard"
 msgstr "Urklipp"
 
@@ -1477,6 +1596,7 @@ msgstr "Urklipp"
 #: source/gx/terminix/terminal/terminal.d:1035
 #: source/gx/terminix/terminal/terminal.d:1041
 #: source/gx/terminix/terminal/terminal.d:1081
+#: source/gx/terminix/terminal/terminal.d:1146
 msgid "Synchronize input"
 msgstr "Synkronisera inmatning"
 
@@ -1487,6 +1607,7 @@ msgstr "Synkronisera inmatning"
 #: source/gx/terminix/terminal/terminal.d:1486
 #: source/gx/terminix/terminal/terminal.d:1492
 #: source/gx/terminix/terminal/terminal.d:1534
+#: source/gx/terminix/terminal/terminal.d:1669
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Oväntat fel inträffade, ingen ytterligare information tillgänglig"
 
@@ -1497,6 +1618,7 @@ msgstr "Oväntat fel inträffade, ingen ytterligare information tillgänglig"
 #: source/gx/terminix/terminal/terminal.d:1492
 #: source/gx/terminix/terminal/terminal.d:1498
 #: source/gx/terminix/terminal/terminal.d:1540
+#: source/gx/terminix/terminal/terminal.d:1675
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Oväntat fel inträffade: %s"
@@ -1508,6 +1630,7 @@ msgstr "Oväntat fel inträffade: %s"
 #: source/gx/terminix/terminal/terminal.d:1826
 #: source/gx/terminix/terminal/terminal.d:1832
 #: source/gx/terminix/terminal/terminal.d:1869
+#: source/gx/terminix/terminal/terminal.d:2004
 msgid "Save Terminal Output"
 msgstr "Spara terminalutdata"
 
@@ -1518,6 +1641,7 @@ msgstr "Spara terminalutdata"
 #: source/gx/terminix/terminal/terminal.d:1835
 #: source/gx/terminix/terminal/terminal.d:1841
 #: source/gx/terminix/terminal/terminal.d:1878
+#: source/gx/terminix/terminal/terminal.d:2013
 msgid "All Text Files"
 msgstr "Alla textfiler"
 
@@ -1532,6 +1656,7 @@ msgstr "Alla textfiler"
 #: source/gx/terminix/terminal/terminal.d:1845
 #: source/gx/terminix/terminal/terminal.d:1882
 #: source/gx/terminix/prefwindow.d:611
+#: source/gx/terminix/terminal/terminal.d:2017
 msgid "All Files"
 msgstr "Alla filer"
 
@@ -1542,6 +1667,7 @@ msgstr "Alla filer"
 #: source/gx/terminix/terminal/terminal.d:2181
 #: source/gx/terminix/terminal/terminal.d:2187
 #: source/gx/terminix/terminal/terminal.d:2221
+#: source/gx/terminix/terminal/terminal.d:2362
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Underprocessen avslutades normalt med status %d"
@@ -1553,6 +1679,7 @@ msgstr "Underprocessen avslutades normalt med status %d"
 #: source/gx/terminix/terminal/terminal.d:2182
 #: source/gx/terminix/terminal/terminal.d:2188
 #: source/gx/terminix/terminal/terminal.d:2222
+#: source/gx/terminix/terminal/terminal.d:2363
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Underprocessen terminerades av signal %d."
@@ -1564,6 +1691,7 @@ msgstr "Underprocessen terminerades av signal %d."
 #: source/gx/terminix/terminal/terminal.d:2183
 #: source/gx/terminix/terminal/terminal.d:2189
 #: source/gx/terminix/terminal/terminal.d:2223
+#: source/gx/terminix/terminal/terminal.d:2364
 msgid "The child process was aborted."
 msgstr "Underprocessen terminerades."
 
@@ -1574,6 +1702,7 @@ msgstr "Underprocessen terminerades."
 #: source/gx/terminix/terminal/terminal.d:2189
 #: source/gx/terminix/terminal/terminal.d:2195
 #: source/gx/terminix/terminal/terminal.d:2229
+#: source/gx/terminix/terminal/terminal.d:2370
 msgid "Relaunch"
 msgstr "Starta om"
 
@@ -1584,6 +1713,7 @@ msgstr "Starta om"
 #: source/gx/terminix/terminal/terminal.d:2229
 #: source/gx/terminix/terminal/terminal.d:2235
 #: source/gx/terminix/terminal/terminal.d:2269
+#: source/gx/terminix/terminal/terminal.d:2410
 msgid "This command is asking for Administrative access to your computer"
 msgstr "Det här kommandot efterfrågar administratörsåtkomst till din dator"
 
@@ -1594,6 +1724,7 @@ msgstr "Det här kommandot efterfrågar administratörsåtkomst till din dator"
 #: source/gx/terminix/terminal/terminal.d:2230
 #: source/gx/terminix/terminal/terminal.d:2236
 #: source/gx/terminix/terminal/terminal.d:2270
+#: source/gx/terminix/terminal/terminal.d:2411
 msgid "Copying commands from the internet can be dangerous. "
 msgstr "Att kopiera kommandon från internet kan vara farligt. "
 
@@ -1604,6 +1735,7 @@ msgstr "Att kopiera kommandon från internet kan vara farligt. "
 #: source/gx/terminix/terminal/terminal.d:2231
 #: source/gx/terminix/terminal/terminal.d:2237
 #: source/gx/terminix/terminal/terminal.d:2271
+#: source/gx/terminix/terminal/terminal.d:2412
 msgid "Be sure you understand what each part of this command does."
 msgstr "Säkerställ att du förstår vad varje del av det här kommandot gör."
 
@@ -1614,6 +1746,7 @@ msgstr "Säkerställ att du förstår vad varje del av det här kommandot gör."
 #: source/gx/terminix/terminal/terminal.d:2233
 #: source/gx/terminix/terminal/terminal.d:2239
 #: source/gx/terminix/terminal/terminal.d:2273
+#: source/gx/terminix/terminal/terminal.d:2414
 msgid "Don't Paste"
 msgstr "Klistra inte in"
 
@@ -1624,6 +1757,7 @@ msgstr "Klistra inte in"
 #: source/gx/terminix/terminal/terminal.d:2234
 #: source/gx/terminix/terminal/terminal.d:2240
 #: source/gx/terminix/terminal/terminal.d:2274
+#: source/gx/terminix/terminal/terminal.d:2415
 msgid "Paste Anyway"
 msgstr "Klistra in i alla fall"
 
@@ -1681,6 +1815,7 @@ msgstr "Öppna…"
 #: source/gx/terminix/terminal/terminal.d:1835
 #: source/gx/terminix/terminal/terminal.d:1872
 #: source/gx/terminix/appwindow.d:502
+#: source/gx/terminix/terminal/terminal.d:2007
 msgid "Save"
 msgstr "Spara"
 
@@ -2326,6 +2461,7 @@ msgstr "Session"
 
 #: source/gx/terminix/terminal/terminal.d:635
 #: source/gx/terminix/terminal/terminal.d:648
+#: source/gx/terminix/terminal/terminal.d:665
 msgid "Save Output…"
 msgstr "Spara utdata…"
 
@@ -2359,51 +2495,62 @@ msgstr "Sök nästa i terminal"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
+#: source/gx/terminix/profilewindow.d:219
 msgid "Sound"
 msgstr "Ljud"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
+#: source/gx/terminix/profilewindow.d:219
 msgid "Icon"
 msgstr "Ikon"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
+#: source/gx/terminix/profilewindow.d:219
 msgid "Icon and Sound"
 msgstr "Ikon och ljud"
 
 #: source/gx/terminix/profilewindow.d:832
 #: source/gx/terminix/profilewindow.d:833
+#: source/gx/terminix/profilewindow.d:877
 msgid "Automatic Profile Switching"
 msgstr "Automatisk profilväxling"
 
 #: source/gx/terminix/profilewindow.d:860
 #: source/gx/terminix/profilewindow.d:859
+#: source/gx/terminix/profilewindow.d:897
 msgid "Match"
 msgstr "Matchning"
 
 #: source/gx/terminix/profilewindow.d:871
 #: source/gx/terminix/profilewindow.d:870
+#: source/gx/terminix/profilewindow.d:908
+#: source/gx/terminix/profilewindow.d:1073
 msgid "Add"
 msgstr "Lägg till"
 
 #: source/gx/terminix/profilewindow.d:874
 #: source/gx/terminix/profilewindow.d:873
+#: source/gx/terminix/profilewindow.d:911
 msgid "Add New Match"
 msgstr "Lägg till ny matchning"
 
 #: source/gx/terminix/profilewindow.d:874
 #: source/gx/terminix/profilewindow.d:873
+#: source/gx/terminix/profilewindow.d:911
 msgid "Enter hostname:directory to match"
 msgstr "Ange värdnamn:katalog att matcha"
 
 #: source/gx/terminix/profilewindow.d:889
 #: source/gx/terminix/profilewindow.d:888
+#: source/gx/terminix/profilewindow.d:926
 msgid "Edit Match"
 msgstr "Redigera matchning"
 
 #: source/gx/terminix/profilewindow.d:889
 #: source/gx/terminix/profilewindow.d:888
+#: source/gx/terminix/profilewindow.d:926
 msgid "Edit hostname:directory to match"
 msgstr "Redigera värdnamn:katalog att matcha"
 
@@ -2459,10 +2606,12 @@ msgid "Automatically copy text to clipboard when selecting"
 msgstr "Kopiera automatiskt text till urklipp vid markering"
 
 #: source/gx/terminix/terminal/terminal.d:671
+#: source/gx/terminix/terminal/terminal.d:688
 msgid "Add Right"
 msgstr "Lägg till åt höger"
 
 #: source/gx/terminix/terminal/terminal.d:675
+#: source/gx/terminix/terminal/terminal.d:692
 msgid "Add Down"
 msgstr "Lägg till nedåt"
 
@@ -2489,3 +2638,54 @@ msgstr ""
 #: source/gx/terminix/prefwindow.d:263
 msgid "Enable shortcuts"
 msgstr "Aktivera genvägar"
+
+#: source/gx/terminix/profilewindow.d:853
+#, fuzzy
+msgid "Custom Links"
+msgstr "Anpassat typsnitt"
+
+#: source/gx/terminix/profilewindow.d:858
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:882
+#, fuzzy
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Profiler väljs automatiskt baserat på värdena som matas in här.\n"
+"Värden matas in med ett <i>värdnamn:katalog</i>-format. Antingen värdnamnet "
+"eller katalogen kan uteslutas men kolonet måste finnas med. Värden med "
+"varken värdnamn eller katalog tillåts inte"
+
+#: source/gx/terminix/profilewindow.d:1033
+#, c-format
+msgid "The expression %s is not a valid regex"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:1036
+msgid "Regex"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:1060
+msgid "Case Insensitive"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:1108
+msgid "Edit Custom Links"
+msgstr ""
+
+#: source/gx/terminix/profilewindow.d:1108
+msgid "Apply"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:479
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Insert terminal number"
+msgstr "Ändra storlek på terminalen uppåt"

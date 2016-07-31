@@ -165,7 +165,8 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 enum SyncInputEventType {
     KEY_PRESS,
     PASTE_CLIPBOARD,
-    PASTE_PRIMARY
+    PASTE_PRIMARY,
+    INSERT_TERMINAL_NUMBER
 };
 
 struct SyncInputEvent {
@@ -594,6 +595,17 @@ private:
             }
 
         }, null, new GVariant(true));
+
+        //Insert Terminal Number
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_NUMBER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+            string text = to!string(terminalID); 
+            vte.feedChild(text, text.length);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(SyncInputEventType.INSERT_TERMINAL_NUMBER, null);
+                foreach (dlg; terminalSyncInputDelegates)
+                    dlg(this, se);
+            }
+        }, null, null);
 
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
@@ -2192,6 +2204,9 @@ public:
         case SyncInputEventType.PASTE_PRIMARY:
             paste(GDK_SELECTION_PRIMARY, true);
             break;
+        case SyncInputEventType.INSERT_TERMINAL_NUMBER:
+            string text = to!string(terminalID); 
+            vte.feedChild(text, text.length);
         }
     }
     
