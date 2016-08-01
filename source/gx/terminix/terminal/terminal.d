@@ -2223,6 +2223,7 @@ public:
             rFind.focusSearchEntry();
         } else {
             rFind.setRevealChild(false);
+            focusTerminal();
         }
     }
     
