@@ -105,15 +105,29 @@ private:
         foreach(i, row; rows) {
             row.sessionIndex = i + 1;
         }
-    }    
+    }
 
     bool onKeyRelease(Event event, Widget w) {
         uint keyval;
-        //If escape key is pressed, close sidebar
         if (event.getKeyval(keyval)) {
             switch (keyval) {
+            //If escape key is pressed, close sidebar
             case GdkKeysyms.GDK_Escape:
                 notifySessionSelected(null);
+                break;
+            case GdkKeysyms.GDK_0:
+            ..
+            case GdkKeysyms.GDK_9:
+                int num = keyval - GdkKeysyms.GDK_0 - 1;
+                if (num == -1) num = 10;
+                ListBoxRow row = lbSessions.getRowAtIndex(num);
+                if (row !is null) {
+                    lbSessions.selectRow(row);
+                    SideBarRow sr = cast(SideBarRow) row;
+                    if (sr !is null && !blockSelectedHandler) {
+                        notifySessionSelected(sr.sessionUUID);
+                    }
+                }
                 break;
             default:
                 //Ignore other keys    
@@ -121,7 +135,34 @@ private:
         }
         return false;
     }
-    
+
+    /*
+     * Attempt to wrap navigation when hitting edges, works but subsequent navigation becomes wonky
+     */
+    /*
+    bool onKeyNavFailed(GtkDirectionType direction, Widget) {
+        trace("OnKeyNavFailed called");
+        SideBarRow[] rows = gx.gtk.util.getChildren!(SideBarRow)(lbSessions, false);        
+        switch (direction) {
+            case GtkDirectionType.DOWN:
+                if (lbSessions.getSelectedRow() == rows[rows.length - 1]) {
+                    lbSessions.selectRow(rows[0]);
+                    return false;
+                }
+                break;
+            case GtkDirectionType.UP:
+                if (lbSessions.getSelectedRow() == rows[0]) {
+                    lbSessions.selectRow(rows[rows.length - 1]);
+                    return false;
+                }
+                break;
+            default:
+        }
+        trace("OnKeyNavFailed fall through");
+        return false;
+    }
+    */
+
     SideBarRow getRow(string sessionUUID) {
         SideBarRow[] rows = gx.gtk.util.getChildren!SideBarRow(lbSessions, false);
         foreach(row; rows) {
@@ -151,6 +192,7 @@ public:
         lbSessions.getStyleContext().addClass("header");
         lbSessions.getStyleContext().addClass("terminix-session-sidebar");
         lbSessions.addOnRowActivated(&onRowActivated);
+        //lbSessions.addOnKeynavFailed(&onKeyNavFailed);
 
         ScrolledWindow sw = new ScrolledWindow(lbSessions);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
