@@ -297,7 +297,7 @@ private:
     long bellStart = 0;
     bool deferShowBell;
     Timeout timer;
-    
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -768,13 +768,26 @@ private:
             trace("\tterminalInitialized " ~ to!string(terminalInitialized));
             trace("\ttestVTEConfig " ~ to!string(terminix.testVTEConfig()));
             */
+
+            // This emits the CTE configuration warning based on whether the currentLocalDirectory is being set.
+            // However this is actually a bit tricky because the currentLocalDirectory only gets set on the first prompt
+            // so there are a lot of cases where you don't want to show it.
+            //
+            // First if overrideCommand is set don't show the warning since no shell is running
+            // Also check that the terminal has been initialized
+            // Finally check that the VTE cursor position is greater then 0,0, this is a fix for #425. Not sure why
+            // but passing command paremeters causes contentschanged signal to fire twice even though there is no change in content.
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && overrideCommand.length == 0) {
-                trace("Warning VTE Configuration");
-                terminix.warnVTEConfigIssue();
+                long cursorCol, cursorRow;
+                vte.getCursorPosition(cursorCol, cursorRow);
+                //trace(format("\trow=%d, column=%d",cursorRow,cursorCol));
+                if (cursorRow > 0 || cursorCol >0) {
+                    trace("Warning VTE Configuration");
+                    terminix.warnVTEConfigIssue();
+                }
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
-            
         });
 
         /*
