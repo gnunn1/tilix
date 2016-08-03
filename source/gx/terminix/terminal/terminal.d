@@ -1559,10 +1559,13 @@ private:
                     trace("Bool CaseInsensitive invalid string, ignoring");
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
-                int id = vte.matchAddGregex(compileRegex(regex), cast(GRegexMatchFlags) 0);
-                regexTag[id] = regex;
-                vte.matchSetCursorType(id, CursorType.HAND2);
-                trace(format("Added regex: %s with tag %d",value[0], id));
+                GRegex compiledRegex = compileRegex(regex);
+                if (compiledRegex !is null) {
+                    int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
+                    regexTag[id] = regex;
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                    trace(format("Added regex: %s with tag %d",value[0], id));
+                }
             }
         }
     }
@@ -2621,6 +2624,7 @@ immutable TerminalRegex[] URL_REGEX_PATTERNS = [
 immutable GRegex[URL_REGEX_PATTERNS.length] compiledRegex;
 
 GRegex compileRegex(TerminalRegex regex) {
+    if (regex.pattern.length == 0) return null;
     GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
     if (checkVTEVersionNumber(0, 44)) {
         flags = flags | GRegexCompileFlags.MULTILINE;

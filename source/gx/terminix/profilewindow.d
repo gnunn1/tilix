@@ -1113,7 +1113,9 @@ public:
     string[] getLinks() {
         string[] results;
         foreach (TreeIter iter; TreeIterRange(ls)) {
-            results ~= escapeCSV(ls.getValueString(iter, COLUMN_REGEX)) ~ ',' ~ 
+            string regex = ls.getValueString(iter, COLUMN_REGEX);
+            if (regex.length == 0) continue;
+            results ~= escapeCSV(regex) ~ ',' ~ 
                        escapeCSV(ls.getValueString(iter, COLUMN_CMD)) ~ ',' ~
                        to!string(ls.getValue(iter, COLUMN_CASE).getBoolean());
         }
