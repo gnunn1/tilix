@@ -42,7 +42,7 @@ Terminix requires the following libraries to be installed in order to run:
  
 ### Localization
 
-Terminix is localized using Weblate, please visit the Weblate hosted [Terminix translations site](https://hosted.weblate.org/projects/terminix/translations) in order to assist with translations, pease do not submit direct pull requests to this repository for translations.
+Terminix is localized using Weblate, please visit the Weblate hosted [Terminix translations site](https://hosted.weblate.org/projects/terminix/translations) in order to assist with translations, please do not submit direct pull requests to this repository for translations.
 
 ### Themes
 
