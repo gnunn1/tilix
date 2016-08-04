@@ -560,6 +560,11 @@
       <summary>A list of custom links that can be clicked on in the terminal</summary>
       <description>A list of custom links, each link consists of a regex and optional launcher encoded according to CSV rules.</description>
     </key>
+    <key name="triggers" type="as">
+      <default>[]</default>
+      <summary>A list of definitions that trigger actions based on content matches</summary>
+      <description>A list of trigger definitions with each definition consisting of a regex, action to trigger and parameter.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->
