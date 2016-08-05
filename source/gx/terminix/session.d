@@ -387,7 +387,7 @@ private:
      * it would be nice to eliminate this. 
      */
     void addNewTerminal(Terminal terminal, Orientation orientation) {
-        trace("Splitting Terminal");
+        trace("Splitting Terminal " ~ to!string(terminal.terminalID));
         Terminal newTerminal = createTerminal(terminal.defaultProfileUUID);
         trace("Inserting terminal");
         insertTerminal(terminal, newTerminal, orientation, 2);

@@ -268,7 +268,7 @@ private:
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
 
-    GlobalTerminalState gst = new GlobalTerminalState();
+    GlobalTerminalState gst;
 
     SimpleActionGroup sagTerminalActions;
 
@@ -2078,6 +2078,7 @@ public:
      */
     this(string profileUUID) {
         super();
+        gst = new GlobalTerminalState();        
         addOnDestroy(delegate(Widget) { 
             trace("Terminal destroy"); 
             stopProcess();
