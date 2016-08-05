@@ -795,7 +795,7 @@ private:
          * Do not uncomment for now.
          */
         static if (USE_EXPERIMENTAL_TRIGGER) {
-            vte.addOnTextInserted(&onVTECheckTriggers);
+            vte.addOnTextInserted(&onVTECheckTriggers, GConnectFlags.AFTER);
         }
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
@@ -1050,6 +1050,9 @@ private:
             // Regex to extract user from command prompt, i.e. [gnunn@gnunn-macbook ~]$
             // Create regex to support multiline mode
             auto userReg = regex(r"^\[(?P<user>.*)@(?P<host>[-a-zA-Z0-9]*)","m");
+            //big.txt
+            auto testReg = regex(r"importation","m");
+            //auto testReg = regex(r"gtk","im");
             long lastRow = -1;
 
             void onVTECheckTriggers(VTE) {
@@ -1069,7 +1072,13 @@ private:
                             host = matches.captures["host"];
                         }
                         trace("Found user: " ~ user); 
-                        trace("Found host: " ~ host); 
+                        trace("Found host: " ~ host);
+                    }
+                    matches = matchAll(text, testReg);
+                    if (matches) {
+                        foreach (m; matches) {
+                            trace("**** Match found");
+                        }
                     }
                     lastRow = cursorRow;
                 }
