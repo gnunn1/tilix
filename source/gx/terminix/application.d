@@ -216,8 +216,11 @@ private:
 
     void onCreateNewSession() {
         AppWindow appWindow = cast(AppWindow) getActiveWindow();
-        if (appWindow !is null)
+        if (appWindow !is null) {
             appWindow.createSession();
+        } else {
+            onCreateNewWindow();
+        }
     }
 
     void onCreateNewWindow() {
