@@ -17,8 +17,10 @@ import std.datetime;
 import std.experimental.logger;
 import std.format;
 import std.process;
+import std.regex;
 import std.stdio;
 import std.string;
+import std.traits;
 import std.typecons;
 import std.uuid;
 
@@ -245,6 +247,23 @@ private:
     Spinner spBell;
     Image imgReadOnly;
 
+    SimpleActionGroup sagTerminalActions;
+
+    SimpleAction saProfileSelect;
+    GMenu profileMenu;
+
+    SimpleAction saEncodingSelect;
+    GMenu encodingMenu;
+
+    SimpleAction saCopy;
+    SimpleAction saPaste;
+    Popover pmContext;
+
+    GSettings gsProfile;
+    GSettings gsShortcuts;
+    GSettings gsDesktop;
+    GSettings gsSettings;
+
     //The UUID of the profile which is currently active
     string _activeProfileUUID;
     // The UUID of the default profile, this will always be null unless 
@@ -269,22 +288,10 @@ private:
     bool unsafePasteIgnored;
 
     GlobalTerminalState gst;
-
-    SimpleActionGroup sagTerminalActions;
-
-    SimpleAction saProfileSelect;
-    GMenu profileMenu;
-
-    SimpleAction saEncodingSelect;
-    GMenu encodingMenu;
-
-    SimpleAction saCopy;
-    SimpleAction saPaste;
-    Popover pmContext;
-    GSettings gsProfile;
-    GSettings gsShortcuts;
-    GSettings gsDesktop;
-    GSettings gsSettings;
+        
+    // List of triggers to test for 
+    TerminalTrigger[] triggers;
+    long triggerLastRowChecked = -1;
 
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
@@ -791,12 +798,10 @@ private:
         });
 
         /*
-         * Some test code to possibly implement iterm2 style triggers down the road.
-         * Do not uncomment for now.
+         * Monitor changes in the VTE to test for triggers
          */
-        static if (USE_EXPERIMENTAL_TRIGGER) {
-            vte.addOnTextInserted(&onVTECheckTriggers, GConnectFlags.AFTER);
-        }
+        vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
+
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
         }, GConnectFlags.AFTER);
@@ -930,7 +935,7 @@ private:
      * Check automatic profile switch and make switch if necessary
      */
     void checkAutomaticProfileSwitch() {
-        string UUID = prfMgr.findProfileForHostnameAndDir(gst.currentHostname, gst.currentDirectory);
+        string UUID = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (UUID.length > 0) {
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
@@ -1042,47 +1047,64 @@ private:
         }
     }
 
+    /**
+     * This method responds to VTE content changes and checks if a trigger has been activated.
+     * At the moment, there is still a number of issues to work out, the biggest one being
+     * that it needs to track both column and row changes and process accordingly. column
+     * changes are a bit trickier since this represents user edits which can go forward and
+     * backward.
+     */
+    void onVTECheckTriggers(VTE) {
+        //Only process if we have triggers to match
+        if (triggers.length ==0) return;
 
-    static if (USE_EXPERIMENTAL_TRIGGER) {
-
-            import std.regex : regex, matchAll;
-
-            // Regex to extract user from command prompt, i.e. [gnunn@gnunn-macbook ~]$
-            // Create regex to support multiline mode
-            auto userReg = regex(r"^\[(?P<user>.*)@(?P<host>[-a-zA-Z0-9]*)","m");
-            //big.txt
-            auto testReg = regex(r"importation","m");
-            //auto testReg = regex(r"gtk","im");
-            long lastRow = -1;
-
-            void onVTECheckTriggers(VTE) {
-                ArrayG attr = new ArrayG(false, false, 16);
-                long cursorRow;
-                long cursorCol;
-                vte.getCursorPosition(cursorCol, cursorRow);
-                if (cursorRow != lastRow) {
-                    trace(format("Testing trigger for lines %d->%d", lastRow, cursorRow));
-                    string text = vte.getTextRange(max(0, lastRow), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
-                    auto matches = matchAll(text, userReg);
-                    if (matches) {
-                        string user;
-                        string host;
-                        foreach (m; matches) {
-                            user = matches.captures["user"];
-                            host = matches.captures["host"];
+        long cursorRow;
+        long cursorCol;
+        vte.getCursorPosition(cursorCol, cursorRow);
+        trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
+        if (cursorRow != triggerLastRowChecked) {
+            size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
+            trace(format("Testing trigger for lines %d->%d", triggerLastRowChecked, cursorRow));
+            ArrayG attr = new ArrayG(false, false, 16);
+            string text = vte.getTextRange(max(0, cursorRow - maxLines, triggerLastRowChecked), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
+            foreach(line; split(text)) {
+                foreach(trigger; triggers) {
+                    auto matches = matchAll(text, trigger.compiledRegex);
+                    foreach (m; matches) {
+                        final switch (trigger.action) {
+                            case TriggerAction.UPDATE_STATE:
+                                string[] groups = [m.hit];
+                                foreach (group; m.captures) {
+                                    groups ~= group;
+                                }
+                                string[string] parameters;
+                                foreach (parameter; split(replaceMatchTokens(trigger.parameters, groups), ";")) {
+                                    string[] pair = split(parameter, "=");
+                                    if (pair.length == 2) {
+                                        parameters[pair[0]] = pair[1];
+                                    }
+                                }
+                                bool update = false;
+                                foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
+                                    if (variable in parameters) {
+                                        gst.updateState(variable, parameters[variable]);
+                                        trace(format("Updating state %s=%s", variable, parameters[variable]));
+                                        update = true;
+                                    }                                    
+                                }
+                                if (update) {
+                                    updateTitle();
+                                    checkAutomaticProfileSwitch();
+                                }
+                                break;
+                            case TriggerAction.EXECUTE_COMMAND:
+                                break;
                         }
-                        trace("Found user: " ~ user); 
-                        trace("Found host: " ~ host);
                     }
-                    matches = matchAll(text, testReg);
-                    if (matches) {
-                        foreach (m; matches) {
-                            trace("**** Match found");
-                        }
-                    }
-                    lastRow = cursorRow;
                 }
             }
+            triggerLastRowChecked = cursorRow;
+        }
     }
 
     /**
@@ -1233,10 +1255,10 @@ private:
         return false;
     }
 
-    void openURI(TerminalURLMatch match) {
+    void openURI(TerminalURLMatch urlMatch) {
         trace("Match clicked");
-        string uri = match.match;
-        switch (match.flavor) {
+        string uri = urlMatch.match;
+        switch (urlMatch.flavor) {
         case TerminalURLFlavor.DEFAULT_TO_HTTP:
             uri = "http://" ~ uri;
             break;
@@ -1251,19 +1273,15 @@ private:
             // with D's regex library to parse out groups, might cause some
             // incompatibilities but we'll see
 
-            if (match.tag in regexTag) {
-                import std.regex : regex, matchAll;
-                import std.process : spawnShell;
-
-                TerminalRegex tr = regexTag[match.tag];
-                string command = tr.command.replace("$0", match.match); 
-                
-                auto matches = matchAll(match.match, regex(tr.pattern, tr.caseless?"i":""));
-                int i = 0;
-                foreach(group; matches.captures) {
-                    command = command.replace("$" ~ to!string(i), group);
-                    i++;
+            if (urlMatch.tag in regexTag) {
+                TerminalRegex tr = regexTag[urlMatch.tag];
+                auto regexMatch = matchAll(urlMatch.match, regex(tr.pattern, tr.caseless?"i":""));
+                string[] groups = [urlMatch.match];
+                foreach(group; regexMatch.captures) {
+                    groups ~= group;
                 }
+                trace("Command: " ~ tr.command);
+                string command = replaceMatchTokens(tr.command, groups);
                 trace("Command: " ~ command);
                 spawnShell(command);
             }
@@ -1384,7 +1402,7 @@ private:
             vte.setColors(vteFG, vteBG, vtePalette);
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
-            // terminix resources
+            // terminix resources            
             if (sbProvider !is null) {
                 sb.getStyleContext().removeProvider(sbProvider);
                 sbProvider = null;
@@ -1505,6 +1523,9 @@ private:
         case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
             break;
+        case SETTINGS_PROFILE_TRIGGERS_KEY:
+            loadTriggers();
+            break;
         default:
             break;
         }
@@ -1529,7 +1550,8 @@ private:
             SETTINGS_PROFILE_USE_DIM_COLOR_KEY,
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
-            SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY            
+            SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
+            SETTINGS_PROFILE_TRIGGERS_KEY            
         ];
 
         foreach (key; keys) {
@@ -1556,6 +1578,18 @@ private:
         case SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE:
             return VteCursorShape.UNDERLINE;
         }
+    }
+
+    void loadTriggers() {
+        TerminalTrigger[] tmpTriggers;
+        string[] trgDefs = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
+        foreach (trgDef; trgDefs) {
+            foreach(value; csvReader!(Tuple!(string, string, string))(trgDef)) {
+                TerminalTrigger trigger = new TerminalTrigger(value[0], value[1], value[2]);
+                tmpTriggers ~= trigger;
+            }
+        }
+        triggers = tmpTriggers;
     }
 
     /**
@@ -2421,7 +2455,7 @@ public:
 
 /**
  * This feature has been copied from Pantheon Terminal and
- * translated from Vala to D. Thanks to Pantheon for this.
+ * translated from Vala to D. Thanks to Pantheon and Ikey Doherty for this.
  *
  * http://bazaar.launchpad.net/~elementary-apps/pantheon-terminal/trunk/view/head:/src/UnsafePasteDialog.vala
  */
@@ -2447,7 +2481,41 @@ public:
     }
 }
 
-//Block for defining various DND structs and constants
+
+/************************************************************************
+ * Block for supporting triggers
+ ***********************************************************************/
+private:
+
+enum TriggerAction {
+    UPDATE_STATE,
+    EXECUTE_COMMAND
+}
+
+/**
+ * Class that holds definition of trigger including compiled regex
+ */
+class TerminalTrigger {
+
+public:
+
+    string pattern;
+    TriggerAction action;
+    string parameters;
+    Regex!char compiledRegex;
+
+    this(string pattern, string action, string parameters) {
+        this.pattern = pattern;
+        //this.action = action;
+        this.parameters = parameters;
+        //Triggers always use multi-line mode since we are getting a buffer from VTE
+        compiledRegex = regex(pattern, "m");
+    }
+}
+
+/************************************************************************
+ * Block for defining various DND structs and constants
+ ***********************************************************************/
 private:
 /**
  * Constant used to identify terminal drag and drop
@@ -2473,7 +2541,9 @@ struct DragInfo {
     DragQuadrant dq;
 }
 
-//Block for managing terminal state
+/************************************************************************
+ * Block for managing terminal state
+ ***********************************************************************/
 private:
 
 /**
@@ -2483,14 +2553,16 @@ private:
 struct TerminalState {
     string hostname;
     string directory;
+    string username;
 
     void clear() {
         hostname.length = 0;
         directory.length = 0;
+        username.length = 0;
     }
 
     bool hasState() {
-        return (hostname.length > 0 || directory.length > 0);
+        return (hostname.length > 0 || directory.length > 0 || username.length > 0);
     }
 }
 
@@ -2504,7 +2576,54 @@ private:
     string _initialCWD;
     bool _initialized = false;
 
+    void updateHostname(string hostname) {
+        if (hostname.length > 0 && hostname != localHostname) {
+            if (remote.hostname != hostname) {
+                remote.hostname = hostname;
+                remote.username.length = 0;
+                remote.directory.length = 0;
+            }
+        } else {
+            local.hostname = hostname;
+            remote.clear();
+        }
+        if (!_initialized) updateState();
+    }
+
+    void updateDirectory(string directory) {
+        if (remote.hasState()) {
+            remote.directory = directory;
+        } else {
+            local.directory = directory;
+        }
+        if (directory.length > 0 && !_initialized) updateState();
+    }
+
+    void updateUsername(string username) {
+        if (remote.hasState()) {
+            remote.username = username;
+        } else {
+            local.username = username;
+        }
+        if (username.length > 0 && !_initialized) updateState();
+    }
+
 public:
+
+    enum StateVariable {
+        HOSTNAME = "hostname",
+        USERNAME = "username",
+        DIRECTORY = "directory"
+    }
+
+    this() {
+        //Get local hostname to detect difference between remote and local
+        char[1024] systemHostname;
+        if (gethostname(cast(char*)&systemHostname, 1024) == 0) {
+            localHostname = to!string(cast(char*)&systemHostname);
+            trace("Local Hostname: " ~ localHostname);
+        }
+    }
 
     void clear() {
         local.clear();
@@ -2532,14 +2651,21 @@ public:
         } 
     }
 
-    void updateState(string hostname, string directory) {
-        if (localHostname.length == 0) {
-            char[1024] systemHostname;
-            if (gethostname(cast(char*)&systemHostname, 1024) == 0) {
-                localHostname = to!string(cast(char*)&systemHostname);
-                trace("Local Hostname: " ~ localHostname);
-            }
+    void updateState(StateVariable variable, string value) {
+        final switch (variable) {
+            case StateVariable.HOSTNAME:
+                updateHostname(value);
+                break;
+            case StateVariable.USERNAME:
+                updateUsername(value);
+                break;
+            case StateVariable.DIRECTORY:
+                updateDirectory(value);
+                break;
         }
+    }
+
+    void updateState(string hostname, string directory) {
         //Is this a remote host?
         if (hostname.length > 0 && hostname != localHostname) {
             remote.hostname = hostname;
@@ -2571,6 +2697,11 @@ public:
         return local.directory;
     }
 
+    @property string currentUsername() {
+        if (remote.hasState()) return remote.username;
+        return local.username;
+    }
+
     @property string currentLocalDirectory() {
         return local.directory;
     }
@@ -2588,9 +2719,26 @@ public:
     }
 }
 
-//Block for handling default regex in vte
+/************************************************************************
+ * Block for handling default regex in vte
+ ***********************************************************************/
 private:
 
+import std.regex.internal.thompson: ThompsonMatcher;
+
+/**
+ * This replaces all instances of $x tokens with values
+ * from Regex match. The token $0 matches the whole match
+ * whereas $1..$x are replaced with appropriate group match
+ */
+ string replaceMatchTokens(string tokenizedText, string[] matches) {
+     string result = tokenizedText;
+     foreach(i, match; matches) {
+        result = result.replace("$" ~ to!string(i - 1), match); 
+     }
+     return result;
+ }
+ 
 /**
  * Struct used to track matches in terminal for cases like context menu
  * where we need to preserve state between finding match and performing action
@@ -2665,7 +2813,9 @@ static this() {
     compiledRegex = assumeUnique(tempRegex);
 }
 
-//Block for determining Shell
+/************************************************************************
+ * Block for determining Shell
+ ***********************************************************************/
 private:
 
 //Cribbed from Gnome Terminal

@@ -26,6 +26,7 @@ import gtk.Application;
 import gtk.ApplicationWindow;
 import gtk.Box;
 import gtk.Button;
+import gtk.CellRendererCombo;
 import gtk.CellRendererText;
 import gtk.CellRendererToggle;
 import gtk.CheckButton;
@@ -59,6 +60,8 @@ import gx.gtk.util;
 import gx.gtk.vte;
 
 import gx.i18n.l10n;
+
+import gx.util.string;
 
 import gx.terminix.application;
 import gx.terminix.colorschemes;
@@ -850,6 +853,7 @@ private:
         setMarginTop(18);
         setMarginBottom(18);
 
+        // Custom Links Section
         Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
         lblCustomLinks.setUseMarkup(true);
         lblCustomLinks.setHalign(Align.START);
@@ -873,13 +877,38 @@ private:
             }
         });
         add(btnEditLink);
+
+        // Triggers Section
+        Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
+        lblTriggers.setUseMarkup(true);
+        lblTriggers.setHalign(Align.START);
+        add(lblTriggers);
+
+        string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
+        packStart(createDescriptionLabel(triggersDescription), false, false, 0);
         
+        Button btnEditTriggers = new Button(_("Edit"));
+        btnEditTriggers.setHexpand(false);
+        btnEditTriggers.setHalign(Align.START);
+        btnEditTriggers.addOnClicked(delegate(Button) {
+            EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) getToplevel(), gsProfile);
+            scope (exit) {
+                dlg.destroy();
+            }
+            dlg.showAll();
+            if (dlg.run() != ResponseType.CANCEL) {
+                gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
+            }
+        });
+        add(btnEditTriggers);
+
+        //Profile Switching        
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
         
         lsValues = new ListStore([GType.STRING]);
@@ -908,7 +937,7 @@ private:
         btnAdd = new Button(_("Add"));
         btnAdd.addOnClicked(delegate(Button) {
             string value;
-            if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), _("Enter hostname:directory to match"), &validateInput)) {
+            if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), _("Enter username@hostname:directory to match"), &validateInput)) {
                 TreeIter iter = lsValues.createIter();
                 lsValues.setValue(iter, 0, value);
                 storeValues();                
@@ -953,10 +982,10 @@ private:
         btnEdit.setSensitive(selected !is null);
     }
     
-    // Validate whether the input conforms to hostname:directory
-    // where either hostname or directory can be empty but not both
+    // Validate input, just checks something was entered at this point
+    // and least one delimiter, either @ or :
     bool validateInput(string match) {
-        return (match.length > 1 && match.indexOf(':') >= 0);
+        return (match.length > 1 && (match.indexOf('@') >= 0 || match.indexOf(':') >= 0));
     }
     
     // Store the values in the ListStore into settings
@@ -977,7 +1006,9 @@ public:
     }    
 }
 
-
+/**
+ * Dialog for editing custom hyperlinks
+ */
 class EditCustomLinksDialog: Dialog {
 
 private:
@@ -1026,12 +1057,13 @@ private:
         crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
-            GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
-            if (check !is null) {
-                ls.setValue(iter, COLUMN_REGEX, newText);
-            } else {
-                showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+            if (newText.length != 0) {
+                GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+                if (check is null) {
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));    
+                }                
             }
+            ls.setValue(iter, COLUMN_REGEX, newText);
         });
         TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
         column.setMinWidth(200);
@@ -1095,14 +1127,6 @@ private:
         btnDelete.setSensitive(tv.getSelectedIter() !is null);
     }
 
-    string escapeCSV(string value) {
-        value = value.replace("\"\"", "\"\"\"\"");
-        if (value.indexOf('\n') >= 0 || value.indexOf(',')  >= 0 || value.indexOf("\"\"") >= 0) {
-            value = "\"\"" ~ value ~ "\"\"";
-        }
-        return value;
-    }
-
 public:
     this(Window parent, string[] links) {
         super(_("Edit Custom Links"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Apply"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
@@ -1118,6 +1142,172 @@ public:
             results ~= escapeCSV(regex) ~ ',' ~ 
                        escapeCSV(ls.getValueString(iter, COLUMN_CMD)) ~ ',' ~
                        to!string(ls.getValue(iter, COLUMN_CASE).getBoolean());
+        }
+        return results;        
+    }
+}
+
+/**
+ * Dialog for editing custom hyperlinks
+ */
+class EditTriggersDialog: Dialog {
+
+private:
+    enum COLUMN_REGEX = 0;
+    enum COLUMN_ACTION = 1;
+    enum COLUMN_PARAMETERS = 2;
+
+    TreeView tv;
+    ListStore ls;
+    ListStore lsActions;
+    Button btnDelete;
+
+    string[string] localizedActions;
+
+    void createUI(GSettings gsProfile) {
+        
+        string[] triggers = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
+
+        Box box = new Box(Orientation.HORIZONTAL, 6);
+        with (getContentArea()) {
+            setMarginLeft(18);
+            setMarginRight(18);
+            setMarginTop(18);
+            setMarginBottom(18);
+        }
+
+        ls = new ListStore([GType.STRING, GType.STRING, GType.STRING]);
+        foreach(trigger; triggers) {
+            foreach(value; csvReader!(Tuple!(string, string, string))(trigger)) {
+                TreeIter iter = ls.createIter();
+                ls.setValue(iter, COLUMN_REGEX, value[0]);
+                ls.setValue(iter, COLUMN_ACTION, value[1]);
+                ls.setValue(iter, COLUMN_PARAMETERS, value[2]);
+            }
+        }
+
+        tv = new TreeView(ls);
+        tv.setActivateOnSingleClick(false);
+        tv.addOnCursorChanged(delegate(TreeView) { 
+            updateUI(); 
+        });
+        tv.setHeadersVisible(true);
+
+        //Regex column
+        CellRendererText crtRegex = new CellRendererText();
+        crtRegex.setProperty("editable", 1);
+        crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            if (newText.length != 0) {
+                GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+                if (check is null) {
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));    
+                }                
+            }
+            ls.setValue(iter, COLUMN_REGEX, newText);
+        });
+        TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
+        column.setMinWidth(200);
+        tv.appendColumn(column);
+
+        //Action Column
+        CellRendererCombo crtAction = new CellRendererCombo();
+        ListStore lsActions = new ListStore([GType.STRING]);
+        foreach(value; [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE]) {
+            TreeIter iter = lsActions.createIter();
+            lsActions.setValue(iter, 0, _(value));
+            localizedActions[_(value)] = value;
+        }
+        import gtkc.gobject: g_object_set;
+        import glib.Str: Str;
+        g_object_set(crtAction.getCellRendererComboStruct, Str.toStringz("model"), lsActions.getListStoreStruct(), null);
+        crtAction.setProperty("editable", 1);
+        crtAction.setProperty("text-column", 0);
+        crtAction.addOnChanged(delegate(string path, TreeIter actionIter, CellRendererCombo) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            string action = lsActions.getValueString(actionIter, 0);
+            if (iter !is null) {
+                ls.setValue(iter, COLUMN_ACTION, action);
+            }
+        });
+        column = new TreeViewColumn(_("Action"), crtAction, "text", COLUMN_ACTION);
+        column.setMinWidth(150);
+        tv.appendColumn(column);
+
+        //Parameter column 
+        CellRendererText crtParameter = new CellRendererText();
+        crtParameter.setProperty("editable", 1);
+        crtParameter.addOnEdited(delegate(string path, string newText, CellRendererText) {
+            TreeIter iter = new TreeIter();
+            ls.getIter(iter, new TreePath(path));
+            ls.setValue(iter, COLUMN_PARAMETERS, newText);
+        });
+        column = new TreeViewColumn(_("Parameter"), crtParameter, "text", COLUMN_PARAMETERS);
+        column.setMinWidth(200);
+        tv.appendColumn(column);
+
+        ScrolledWindow sc = new ScrolledWindow(tv);
+        sc.setShadowType(ShadowType.ETCHED_IN);
+        sc.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sc.setHexpand(true);
+        sc.setVexpand(true);
+        sc.setSizeRequest(-1, 250);
+
+        box.add(sc);
+
+        Box buttons = new Box(Orientation.VERTICAL, 6);
+        Button btnAdd = new Button(_("Add"));
+        btnAdd.addOnClicked(delegate(Button) {
+            ls.createIter();
+            selectRow(tv, ls.iterNChildren(null) - 1, null);
+        });
+        buttons.add(btnAdd);
+        btnDelete = new Button(_("Delete"));
+        btnDelete.addOnClicked(delegate(Button) {
+            TreeIter selected = tv.getSelectedIter();
+            if (selected) {
+                ls.remove(selected);
+            }
+        });
+        buttons.add(btnDelete);
+        
+        box.add(buttons);
+
+        // Maximum number of lines to check for triggers when content change is
+        // received from VTE with a block of text
+        Box bLines = new Box(Orientation.HORIZONTAL, 6);
+        bLines.setMarginTop(6);
+        bLines.add(new Label("Maximum number of lines to check for triggers"));
+        SpinButton sbLines = new SpinButton(256, long.max, 256);
+        gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_LINES_KEY, sbLines, "value", GSettingsBindFlags.DEFAULT);
+        bLines.add(sbLines);
+
+        getContentArea().add(box);
+        getContentArea().add(bLines);
+        updateUI();
+    }
+
+    void updateUI() {
+        btnDelete.setSensitive(tv.getSelectedIter() !is null);
+    }
+
+public:
+    this(Window parent, GSettings gsProfile) {
+        super(_("Edit Triggers"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Apply"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
+        setDefaultResponse(GtkResponseType.APPLY);
+        createUI(gsProfile);
+    }
+
+    string[] getTriggers() {
+        string[] results;
+        foreach (TreeIter iter; TreeIterRange(ls)) {
+            string regex = ls.getValueString(iter, COLUMN_REGEX);
+            if (regex.length == 0) continue;
+            results ~= escapeCSV(regex) ~ ',' ~ 
+                       escapeCSV(localizedActions[ls.getValueString(iter, COLUMN_ACTION)]) ~ ',' ~
+                       escapeCSV(ls.getValueString(iter, COLUMN_PARAMETERS));
         }
         return results;        
     }

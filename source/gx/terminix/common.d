@@ -4,7 +4,85 @@
  */
 module gx.terminix.common;
 
+import std.algorithm;
+import std.experimental.logger;
+import std.string;
+
 import gx.util.array;
+
+/***********************************************************
+ * Function for parsing out the username, hostname and 
+ * directory from a string in the format 
+ * 'user@hostname:directory' where the various parts are 
+ * optional but the delimiters are not
+ ***********************************************************/
+
+void parsePromptParts(string prompt, out string username, out string hostname, out string directory) {
+    if (prompt.length == 0) return;
+    ptrdiff_t userStarts = prompt.indexOf('@');
+    ptrdiff_t dirStarts = prompt.indexOf(':');
+
+    if (userStarts > 0) {
+        username = prompt[0..userStarts];
+    }
+    if (dirStarts >= 0) {
+        hostname = prompt[max(0, userStarts + 1)..dirStarts];
+    } else {
+        hostname = prompt[max(0, userStarts + 1)..prompt.length];
+    }
+    if (dirStarts >=0 ) {
+        directory = prompt[max(0, dirStarts + 1)..prompt.length];
+    }
+}
+
+unittest {
+    string username, hostname, directory;
+    // Test full prompt
+    parsePromptParts("gnunn@macbook:/home/gnunn", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username == "gnunn");
+    assert(hostname == "macbook");
+    assert(directory == "/home/gnunn");
+    // Test username missing
+    parsePromptParts("macbook:/home/gnunn", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username.length == 0);
+    assert(hostname == "macbook");
+    assert(directory == "/home/gnunn");
+    // Test username missing, but user delimiter present
+    parsePromptParts("@macbook:/home/gnunn", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username.length == 0);
+    assert(hostname == "macbook");
+    assert(directory == "/home/gnunn");
+    // Test directory only
+    parsePromptParts(":/home/gnunn", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username.length == 0);
+    assert(hostname.length == 0);
+    assert(directory == "/home/gnunn");
+    // Test username only
+    parsePromptParts("gnunn@", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username == "gnunn");
+    assert(hostname.length == 0);
+    assert(directory.length == 0);
+    // Test host only
+    parsePromptParts("@macbook", username, hostname, directory);
+    trace(format("user=%s, host=%s, dir=%s", username, hostname, directory));
+    assert(username.length == 0);
+    assert(hostname == "macbook");
+    assert(directory.length == 0);
+}
+
+/***********************************************************
+ * Block handles common code for allowing actions to be
+ * passed up the widget heirarchy to determine if the action
+ * is allowed.
+ * Right now the only action supported is detaching a terminal
+ * from the session into a new window.
+ ***********************************************************/
+public:
 
 enum ActionType {
     DETACH

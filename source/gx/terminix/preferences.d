@@ -17,6 +17,9 @@ import gio.Settings : GSettings = Settings;
 import gx.i18n.l10n;
 import gx.util.array;
 
+import gx.terminix.common;
+import gx.terminix.constants;
+
 //Gnome Desktop Settings
 enum SETTINGS_DESKTOP_ID = "org.gnome.desktop.interface";
 enum SETTINGS_MONOSPACE_FONT_KEY = "monospace-font-name";
@@ -143,6 +146,9 @@ enum SETTINGS_PROFILE_TITLE_KEY = "terminal-title";
 enum SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY = "automatic-switch";
 enum SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY = "custom-hyperlinks";
 
+enum SETTINGS_PROFILE_TRIGGERS_KEY = "triggers";
+enum SETTINGS_PROFILE_TRIGGERS_LINES_KEY = "triggers-lines";
+
 //Shortcuts
 enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Terminix.Keybindings";
 
@@ -155,6 +161,9 @@ enum SETTINGS_PROFILE_DEFAULT_NAME_VALUE = "Default";
  * The value to use for the name of a new profile
  */
 enum SETTINGS_PROFILE_NEW_NAME_VALUE = "Unnamed";
+
+immutable string SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE = N_("UpdateState");
+immutable string SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE = N_("ExecuteCommand");
 
 /**
  * Structure that represents a Profile in GSettings
@@ -309,12 +318,7 @@ public:
     /**
      * Finds the profile that matches the current hostname and directory
      */
-    string findProfileForHostnameAndDir(string hostname, string directory) {
-        string[] tests;
-        tests ~= (hostname ~ ":" ~ directory);
-        tests ~= (":" ~ directory);
-        tests ~= (hostname ~ ":");
-        
+    string findProfileForState(string username, string hostname, string directory) {
         string[] uuids = getProfileUUIDs();
         foreach (uuid; uuids) {
             GSettings settings = getProfileSettings(uuid);
@@ -328,8 +332,16 @@ public:
                     match = match[0 .. isTilde] ~ ":" ~ path; 
                 }
                 trace("Testing match " ~ match);
-                foreach(test; tests) {
-                    if (test.startsWith(match)) return uuid;
+
+                string matchHostname, matchUsername, matchDirectory;
+                parsePromptParts(match, matchUsername, matchHostname, matchDirectory);
+                if (matchDirectory.startsWith("~")) {
+                    matchDirectory = expandTilde(matchDirectory);
+                }
+                if ((matchUsername.length == 0 || matchUsername == username) &&
+                   (matchHostname.length == 0 || matchHostname == hostname) &&
+                   (matchDirectory.length == 0 || matchDirectory == directory)) {
+                    return uuid;
                 }
             } 
         }

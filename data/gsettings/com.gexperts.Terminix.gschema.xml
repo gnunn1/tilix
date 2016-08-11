@@ -565,6 +565,11 @@
       <summary>A list of definitions that trigger actions based on content matches</summary>
       <description>A list of trigger definitions with each definition consisting of a regex, action to trigger and parameter.</description>
     </key>
+    <key name="triggers-lines" type="i">
+      <default>256</default>
+      <summary>The maximum number of lines to check for trigger matches</summary>
+      <description>When the terminal reports a block of text, this setting determines how many lines are checked for trigger matches starting with the last line.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->
