@@ -148,6 +148,7 @@ enum SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY = "custom-hyperlinks";
 
 enum SETTINGS_PROFILE_TRIGGERS_KEY = "triggers";
 enum SETTINGS_PROFILE_TRIGGERS_LINES_KEY = "triggers-lines";
+enum SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY = "trigger-unlimit-lines";
 
 //Shortcuts
 enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Terminix.Keybindings";
@@ -164,6 +165,10 @@ enum SETTINGS_PROFILE_NEW_NAME_VALUE = "Unnamed";
 
 immutable string SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE = N_("UpdateState");
 immutable string SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE = N_("ExecuteCommand");
+immutable string SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE = N_("SendNotification");
+immutable string SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE = N_("UpdateTitle");
+
+immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE, SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE, SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE];
 
 /**
  * Structure that represents a Profile in GSettings
@@ -331,7 +336,7 @@ public:
                     path = expandTilde(path);
                     match = match[0 .. isTilde] ~ ":" ~ path; 
                 }
-                trace("Testing match " ~ match);
+                //trace("Testing match " ~ match);
 
                 string matchHostname, matchUsername, matchDirectory;
                 parsePromptParts(match, matchUsername, matchHostname, matchDirectory);

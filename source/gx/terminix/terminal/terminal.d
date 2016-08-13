@@ -39,6 +39,7 @@ import gio.File : GFile = File;
 import gio.FileIF : GFileIF = FileIF;
 import gio.Menu : GMenu = Menu;
 import gio.MenuItem : GMenuItem = MenuItem;
+import gio.Notification : GNotification = Notification;
 import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 import gio.SimpleActionGroup;
@@ -292,6 +293,7 @@ private:
     // List of triggers to test for 
     TerminalTrigger[] triggers;
     long triggerLastRowChecked = -1;
+    long triggerLastColChecked = -1;
 
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
@@ -1049,61 +1051,102 @@ private:
 
     /**
      * This method responds to VTE content changes and checks if a trigger has been activated.
-     * At the moment, there is still a number of issues to work out, the biggest one being
-     * that it needs to track both column and row changes and process accordingly. column
-     * changes are a bit trickier since this represents user edits which can go forward and
-     * backward.
+     * It would be nice to detect user typing and not run triggers when text changed but
+     * not sure if an ideal way to accomplish that without being leading to false detections.
      */
     void onVTECheckTriggers(VTE) {
+        trace("Check triggers");
         //Only process if we have triggers to match
-        if (triggers.length ==0) return;
+        if (triggers.length == 0) return;
 
         long cursorRow;
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
-        trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
-        if (cursorRow != triggerLastRowChecked) {
+        //trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
+        //Check that cursor 
+        if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
             size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
-            trace(format("Testing trigger for lines %d->%d", triggerLastRowChecked, cursorRow));
+            long startRow = triggerLastRowChecked;
+            long startCol = triggerLastColChecked;
+            // Enforce maximum lines to check
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && cursorRow - maxLines > startRow) {
+                startRow = cursorRow - maxLines;
+                // If we clip lines set column to 0
+                startCol = 0;
+            }
+            //trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
             ArrayG attr = new ArrayG(false, false, 16);
-            string text = vte.getTextRange(max(0, cursorRow - maxLines, triggerLastRowChecked), 0L, cursorRow + 1, vte.getColumnCount(), null, null, attr);
-            foreach(line; split(text)) {
+            string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
+            //foreach(line; split(text, "\n")) {
+                //trace("Test trigger line: " ~ line);
                 foreach(trigger; triggers) {
                     auto matches = matchAll(text, trigger.compiledRegex);
                     foreach (m; matches) {
-                        final switch (trigger.action) {
-                            case TriggerAction.UPDATE_STATE:
-                                string[] groups = [m.hit];
-                                foreach (group; m.captures) {
-                                    groups ~= group;
-                                }
-                                string[string] parameters;
-                                foreach (parameter; split(replaceMatchTokens(trigger.parameters, groups), ";")) {
-                                    string[] pair = split(parameter, "=");
-                                    if (pair.length == 2) {
-                                        parameters[pair[0]] = pair[1];
-                                    }
-                                }
-                                bool update = false;
-                                foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
-                                    if (variable in parameters) {
-                                        gst.updateState(variable, parameters[variable]);
-                                        trace(format("Updating state %s=%s", variable, parameters[variable]));
-                                        update = true;
-                                    }                                    
-                                }
-                                if (update) {
-                                    updateTitle();
-                                    checkAutomaticProfileSwitch();
-                                }
-                                break;
-                            case TriggerAction.EXECUTE_COMMAND:
-                                break;
+                        string[] groups = [m.hit];
+                        foreach (group; m.captures) {
+                            groups ~= group;
                         }
+                        processTrigger(trigger, groups);
                     }
                 }
-            }
+            //}
             triggerLastRowChecked = cursorRow;
+            triggerLastColChecked = cursorCol;
+        }
+    }
+
+    /**
+     * Based on the action processes the appropriate trigger. Groups
+     * contains a list of regex macthing groups with the first one
+     * being the complete match, similar idea to args in command line
+     */
+    void processTrigger(TerminalTrigger trigger, string[] groups) {
+
+        string[string] getParameters(string triggerParameters) {
+            string[string] result;
+            foreach (parameter; split(replaceMatchTokens(triggerParameters, groups), ";")) {
+                string[] pair = split(parameter, "=");
+                if (pair.length == 2) {
+                    result[pair[0]] = pair[1];
+                }
+            }
+            return result;
+        }
+
+        final switch (trigger.action) {
+            case TriggerAction.UPDATE_STATE:
+                string[string] parameters = getParameters(trigger.parameters);
+                bool update = false;
+                foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
+                    if (variable in parameters) {
+                        gst.updateState(variable, parameters[variable]);
+                        //trace(format("Updating state %s=%s", variable, parameters[variable]));
+                        update = true;
+                    }                                    
+                }
+                if (update) {
+                    updateTitle();
+                    checkAutomaticProfileSwitch();
+                }
+                break;
+            case TriggerAction.EXECUTE_COMMAND:
+                spawnShell(replaceMatchTokens(trigger.parameters, groups));
+                break;
+            case TriggerAction.SEND_NOTIFICATION:
+                string[string] parameters = getParameters(trigger.parameters);
+                string title = "Terminix Custom Notification";
+                string summary;
+                if ("title" in parameters) title = parameters["title"];
+                if ("body" in parameters) summary = parameters["body"];
+                else summary = replaceMatchTokens(trigger.parameters, groups);
+                GNotification n = new GNotification(title);
+                n.setBody(summary);
+                terminix.sendNotification(null, n);
+                break;
+            case TriggerAction.UPDATE_TITLE:
+                _overrideTitle = replaceMatchTokens(trigger.parameters, groups);
+                updateTitle();
+                break;
         }
     }
 
@@ -2489,7 +2532,9 @@ private:
 
 enum TriggerAction {
     UPDATE_STATE,
-    EXECUTE_COMMAND
+    EXECUTE_COMMAND,
+    SEND_NOTIFICATION,
+    UPDATE_TITLE
 }
 
 /**
@@ -2504,10 +2549,27 @@ public:
     string parameters;
     Regex!char compiledRegex;
 
-    this(string pattern, string action, string parameters) {
+    this(string pattern, string actionName, string parameters) {
         this.pattern = pattern;
         //this.action = action;
         this.parameters = parameters;
+        switch (actionName) {
+            case SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE:
+                action = TriggerAction.UPDATE_STATE;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE:
+                action = TriggerAction.EXECUTE_COMMAND;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE:
+                action = TriggerAction.SEND_NOTIFICATION;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE:
+                action = TriggerAction.UPDATE_TITLE;
+                break;
+            default:
+                break;    
+        }
+        
         //Triggers always use multi-line mode since we are getting a buffer from VTE
         compiledRegex = regex(pattern, "m");
     }

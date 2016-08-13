@@ -1148,7 +1148,7 @@ public:
 }
 
 /**
- * Dialog for editing custom hyperlinks
+ * Dialog for editing triggers
  */
 class EditTriggersDialog: Dialog {
 
@@ -1214,7 +1214,7 @@ private:
         //Action Column
         CellRendererCombo crtAction = new CellRendererCombo();
         ListStore lsActions = new ListStore([GType.STRING]);
-        foreach(value; [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE]) {
+        foreach(value; SETTINGS_PROFILE_TRIGGER_ACTION_VALUES) {
             TreeIter iter = lsActions.createIter();
             lsActions.setValue(iter, 0, _(value));
             localizedActions[_(value)] = value;
@@ -1223,6 +1223,7 @@ private:
         import glib.Str: Str;
         g_object_set(crtAction.getCellRendererComboStruct, Str.toStringz("model"), lsActions.getListStoreStruct(), null);
         crtAction.setProperty("editable", 1);
+        crtAction.setProperty("has-entry", 0);
         crtAction.setProperty("text-column", 0);
         crtAction.addOnChanged(delegate(string path, TreeIter actionIter, CellRendererCombo) {
             TreeIter iter = new TreeIter();
@@ -1279,9 +1280,16 @@ private:
         // received from VTE with a block of text
         Box bLines = new Box(Orientation.HORIZONTAL, 6);
         bLines.setMarginTop(6);
-        bLines.add(new Label("Maximum number of lines to check for triggers"));
+
+        CheckButton cbTriggerLimit = new CheckButton("Limit number of lines for trigger processing to:");
+        gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY, cbTriggerLimit, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
+
         SpinButton sbLines = new SpinButton(256, long.max, 256);
         gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_LINES_KEY, sbLines, "value", GSettingsBindFlags.DEFAULT);
+        gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY, sbLines, "sensitive",
+                GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
+        
+        bLines.add(cbTriggerLimit);
         bLines.add(sbLines);
 
         getContentArea().add(box);

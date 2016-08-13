@@ -570,6 +570,11 @@
       <summary>The maximum number of lines to check for trigger matches</summary>
       <description>When the terminal reports a block of text, this setting determines how many lines are checked for trigger matches starting with the last line.</description>
     </key>
+    <key name="trigger-unlimit-lines" type="b">
+      <default>false</default>
+      <summary>Whether an unlimited number of lines should be processed for triggers</summary>
+      <description>If true, all available lines will be processed for triggers. When outputing large amounts of text to the terminal this may impact performance.</description>
+    </key>
   </schema>
   
   <!-- Keybinding settings -->
