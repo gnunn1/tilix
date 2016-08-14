@@ -66,6 +66,7 @@ Note there is also experimental support for autotools, please see the wiki page 
 
 Terminix depends on the following libraries as defined in dub.json:
 * [gtkd](http://gtkd.org/) >= 3.3.0
+* gdk-pixbuf-pixdata (Used when building resource file)
 
 ### Install Terminix
 
