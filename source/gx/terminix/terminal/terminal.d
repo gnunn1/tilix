@@ -1073,10 +1073,10 @@ private:
                 // If we clip lines set column to 0
                 startCol = 0;
             }
-            trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
+            //trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
             ArrayG attr = new ArrayG(false, false, 16);
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
-            trace("Testing triggers against\n" ~ text ~ "\n");
+            //trace("Testing triggers against\n" ~ text ~ "\n");
             TerminalTriggerMatch[] triggerMatches;
             foreach(trigger; triggers) {
                 auto matches = matchAll(text, trigger.compiledRegex);
@@ -1088,7 +1088,7 @@ private:
                     triggerMatches ~= TerminalTriggerMatch(trigger, groups, m.pre.length);
                 }
             }
-            trace(format("Found %d trigger matches", triggerMatches.length));
+            //trace(format("Found %d trigger matches", triggerMatches.length));
             bool myComp(TerminalTriggerMatch a, TerminalTriggerMatch b) { return a.index < b.index; }
             foreach(triggerMatch; triggerMatches.sort!(myComp)) {
                 processTrigger(triggerMatch.trigger, triggerMatch.groups);
@@ -1110,7 +1110,7 @@ private:
             foreach (parameter; split(replaceMatchTokens(triggerParameters, groups), ";")) {
                 string[] pair = split(parameter, "=");
                 if (pair.length == 2) {
-                    result[pair[0]] = pair[1];
+                    result[pair[0].strip()] = pair[1].strip();
                 }
             }
             return result;
@@ -1123,7 +1123,7 @@ private:
                 foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
                     if (variable in parameters) {
                         gst.updateState(variable, parameters[variable]);
-                        trace(format("Updating state %s=%s", variable, parameters[variable]));
+                        //trace(format("Updating state %s=%s", variable, parameters[variable]));
                         update = true;
                     }                                    
                 }
@@ -1137,6 +1137,7 @@ private:
                 break;
             case TriggerAction.SEND_NOTIFICATION:
                 string[string] parameters = getParameters(trigger.parameters);
+                trace(format("Parameters count: %d", parameters.length));
                 string title = "Terminix Custom Notification";
                 string summary;
                 if ("title" in parameters) title = parameters["title"];
