@@ -1005,10 +1005,10 @@ private:
                 scope (exit) {
                     dialog.destroy();
                 }
-                if (dialog.run() == 1)
-                    return;
-                else
+                if (dialog.run() == 0)
                     unsafePasteIgnored = true;
+                else
+                    return;                    
             }
         }
         scope (exit) {
@@ -2525,6 +2525,7 @@ public:
         addActionWidget(btnCancel, 1);
         addActionWidget(btnIgnore, 0);
         showAll();
+        btnIgnore.grabFocus();
     }
 }
 
