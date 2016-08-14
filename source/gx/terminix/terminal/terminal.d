@@ -1156,6 +1156,10 @@ private:
                     vte.getWindow().beep();
                 }
                 break;
+            case TriggerAction.SEND_TEXT:
+                string value = replaceMatchTokens(trigger.parameters, groups);
+                vte.feedChild(value, value.length);
+                break;
         }
     }
 
@@ -2545,7 +2549,8 @@ enum TriggerAction {
     EXECUTE_COMMAND,
     SEND_NOTIFICATION,
     UPDATE_TITLE,
-    PLAY_BELL
+    PLAY_BELL,
+    SEND_TEXT
 }
 
 /**
@@ -2579,6 +2584,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE:
                 action = TriggerAction.PLAY_BELL;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE:
+                action = TriggerAction.SEND_TEXT;
                 break;
             default:
                 break;    

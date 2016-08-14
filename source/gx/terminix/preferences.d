@@ -168,8 +168,14 @@ immutable string SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE = N_("ExecuteCom
 immutable string SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE = N_("SendNotification");
 immutable string SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE = N_("UpdateTitle");
 immutable string SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE = N_("PlayBell");
+immutable string SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE = N_("SendText");
 
-immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE, SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE, SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE, SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE];
+immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, 
+                                                             SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE, 
+                                                             SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE, 
+                                                             SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE, 
+                                                             SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE,
+                                                             SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE];
 
 /**
  * Structure that represents a Profile in GSettings
