@@ -1055,7 +1055,6 @@ private:
      * not sure if an ideal way to accomplish that without being leading to false detections.
      */
     void onVTECheckTriggers(VTE) {
-        trace("Check triggers");
         //Only process if we have triggers to match
         if (triggers.length == 0) return;
 
@@ -1069,27 +1068,31 @@ private:
             long startRow = triggerLastRowChecked;
             long startCol = triggerLastColChecked;
             // Enforce maximum lines to check
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && cursorRow - maxLines > startRow) {
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && (cursorRow - startRow) > maxLines) {
                 startRow = cursorRow - maxLines;
                 // If we clip lines set column to 0
                 startCol = 0;
             }
-            //trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
+            trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
             ArrayG attr = new ArrayG(false, false, 16);
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
-            //foreach(line; split(text, "\n")) {
-                //trace("Test trigger line: " ~ line);
-                foreach(trigger; triggers) {
-                    auto matches = matchAll(text, trigger.compiledRegex);
-                    foreach (m; matches) {
-                        string[] groups = [m.hit];
-                        foreach (group; m.captures) {
-                            groups ~= group;
-                        }
-                        processTrigger(trigger, groups);
+            trace("Testing triggers against\n" ~ text ~ "\n");
+            TerminalTriggerMatch[] triggerMatches;
+            foreach(trigger; triggers) {
+                auto matches = matchAll(text, trigger.compiledRegex);
+                foreach (m; matches) {
+                    string[] groups = [m.hit];
+                    foreach (group; m.captures) {
+                        groups ~= group;
                     }
+                    triggerMatches ~= TerminalTriggerMatch(trigger, groups, m.pre.length);
                 }
-            //}
+            }
+            trace(format("Found %d trigger matches", triggerMatches.length));
+            bool myComp(TerminalTriggerMatch a, TerminalTriggerMatch b) { return a.index < b.index; }
+            foreach(triggerMatch; triggerMatches.sort!(myComp)) {
+                processTrigger(triggerMatch.trigger, triggerMatch.groups);
+            }
             triggerLastRowChecked = cursorRow;
             triggerLastColChecked = cursorCol;
         }
@@ -1120,7 +1123,7 @@ private:
                 foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
                     if (variable in parameters) {
                         gst.updateState(variable, parameters[variable]);
-                        //trace(format("Updating state %s=%s", variable, parameters[variable]));
+                        trace(format("Updating state %s=%s", variable, parameters[variable]));
                         update = true;
                     }                                    
                 }
@@ -2573,6 +2576,12 @@ public:
         //Triggers always use multi-line mode since we are getting a buffer from VTE
         compiledRegex = regex(pattern, "m");
     }
+}
+
+struct TerminalTriggerMatch {
+    TerminalTrigger trigger;
+    string[] groups;
+    size_t index;
 }
 
 /************************************************************************
