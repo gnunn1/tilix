@@ -974,6 +974,7 @@ public:
             _filename = filename;
         }
         catch (Exception e) {
+            error("Session could not be created due to error", e);
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
     }

@@ -1713,10 +1713,10 @@ private:
             error(format("Working Directory=%s", workingDir));
             error("Arguments used to execute process:");
             foreach (i, arg; args)
-                error(format("\targ %i=%s", i, args[i]));
+                error(format("\targ %d=%s", i, arg));
             error("Environment used to execute process:");
-            foreach (i, arg; args)
-                error(format("\tenv %i=%s", i, envv[i]));
+            foreach (i, env; envv)
+                error(format("\tenv %d=%s", i, env));
         }
         
         trace("workingDir parameter=" ~ workingDir);
