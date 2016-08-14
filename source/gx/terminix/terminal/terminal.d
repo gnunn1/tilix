@@ -1151,6 +1151,11 @@ private:
                 _overrideTitle = replaceMatchTokens(trigger.parameters, groups);
                 updateTitle();
                 break;
+            case TriggerAction.PLAY_BELL:
+                if (vte.getWindow() !is null) {
+                    vte.getWindow().beep();
+                }
+                break;
         }
     }
 
@@ -2539,7 +2544,8 @@ enum TriggerAction {
     UPDATE_STATE,
     EXECUTE_COMMAND,
     SEND_NOTIFICATION,
-    UPDATE_TITLE
+    UPDATE_TITLE,
+    PLAY_BELL
 }
 
 /**
@@ -2570,6 +2576,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE:
                 action = TriggerAction.UPDATE_TITLE;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE:
+                action = TriggerAction.PLAY_BELL;
                 break;
             default:
                 break;    
