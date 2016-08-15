@@ -1062,6 +1062,12 @@ private:
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
         //trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
+        // Hack fix case when user runs something like nano and row count goes up 
+        // and then resets back when user terminates
+        if (cursorRow < triggerLastRowChecked) {
+            triggerLastRowChecked = cursorRow;
+            triggerLastColChecked = 0;
+        }
         //Check that cursor 
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
             size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
