@@ -878,37 +878,43 @@ private:
         });
         add(btnEditLink);
 
-        // Triggers Section
-        Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
-        lblTriggers.setUseMarkup(true);
-        lblTriggers.setHalign(Align.START);
-        add(lblTriggers);
+        static if (ENABLE_TRIGGERS) {
+            // Triggers Section
+            Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
+            lblTriggers.setUseMarkup(true);
+            lblTriggers.setHalign(Align.START);
+            add(lblTriggers);
 
-        string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
-        packStart(createDescriptionLabel(triggersDescription), false, false, 0);
+            string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
+            packStart(createDescriptionLabel(triggersDescription), false, false, 0);
+            
+            Button btnEditTriggers = new Button(_("Edit"));
+            btnEditTriggers.setHexpand(false);
+            btnEditTriggers.setHalign(Align.START);
+            btnEditTriggers.addOnClicked(delegate(Button) {
+                EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) getToplevel(), gsProfile);
+                scope (exit) {
+                    dlg.destroy();
+                }
+                dlg.showAll();
+                if (dlg.run() != ResponseType.CANCEL) {
+                    gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
+                }
+            });
+            add(btnEditTriggers);
+        }
         
-        Button btnEditTriggers = new Button(_("Edit"));
-        btnEditTriggers.setHexpand(false);
-        btnEditTriggers.setHalign(Align.START);
-        btnEditTriggers.addOnClicked(delegate(Button) {
-            EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) getToplevel(), gsProfile);
-            scope (exit) {
-                dlg.destroy();
-            }
-            dlg.showAll();
-            if (dlg.run() != ResponseType.CANCEL) {
-                gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
-            }
-        });
-        add(btnEditTriggers);
-
         //Profile Switching        
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        static if (ENABLE_TRIGGERS) {
+            string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        } else {
+            string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        }
         packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
         
         lsValues = new ListStore([GType.STRING]);
@@ -937,7 +943,12 @@ private:
         btnAdd = new Button(_("Add"));
         btnAdd.addOnClicked(delegate(Button) {
             string value;
-            if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), _("Enter username@hostname:directory to match"), &validateInput)) {
+            static if (ENABLE_TRIGGERS) {
+                string label = _("Enter username@hostname:directory to match");
+            } else {
+                string label = _("Enter hostname:directory to match");
+            }
+            if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), label, &validateInput)) {
                 TreeIter iter = lsValues.createIter();
                 lsValues.setValue(iter, 0, value);
                 storeValues();                
@@ -952,7 +963,12 @@ private:
             TreeIter iter = tvValues.getSelectedIter();
             if (iter !is null) {
                 string value = lsValues.getValueString(iter, 0);
-                if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), _("Edit hostname:directory to match"), &validateInput)) {
+                static if (ENABLE_TRIGGERS) {
+                    string label = _("Edit username@hostname:directory to match");
+                } else {
+                    string label = _("Edit hostname:directory to match");
+                }
+                if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), label, &validateInput)) {
                     lsValues.setValue(iter, 0, value);
                     storeValues();
                 } 

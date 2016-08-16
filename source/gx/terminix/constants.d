@@ -23,6 +23,10 @@ immutable bool USE_PIXBUF_DND = false;
 immutable bool SHOW_DEBUG_OPTIONS = false;
 // Renders clipboard options as buttons in context menu
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = false;
+//When true, trigger support is enabled however note
+//there are problems with it when alternate screen
+//apps like nano and vi are used
+immutable bool ENABLE_TRIGGERS = false;
 // All logs go to the file /tmp/terminix.log, useful
 // when debugging launchers or other spots where
 // stdout isn't easily viewed

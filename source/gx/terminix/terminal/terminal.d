@@ -14,6 +14,7 @@ import std.conv;
 import std.concurrency;
 import std.csv;
 import std.datetime;
+import std.exception;
 import std.experimental.logger;
 import std.format;
 import std.process;
@@ -290,11 +291,6 @@ private:
 
     GlobalTerminalState gst;
         
-    // List of triggers to test for 
-    TerminalTrigger[] triggers;
-    long triggerLastRowChecked = -1;
-    long triggerLastColChecked = -1;
-
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
     TerminalRegex[int] regexTag;
@@ -802,7 +798,9 @@ private:
         /*
          * Monitor changes in the VTE to test for triggers
          */
-        vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
+        static if (ENABLE_TRIGGERS) {
+            vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
+        }
 
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateTitle();
@@ -1049,6 +1047,17 @@ private:
         }
     }
 
+// Block for processing triggers
+private:
+
+    // List of triggers to test for 
+    TerminalTrigger[] triggers;
+    long triggerLastRowChecked = -1;
+    long triggerLastColChecked = -1;
+
+    //string[] triggerIgnore = ["nano","top","vi","emacs","mc"];
+    //pid_t childPidIgnoreTriggers = -1;
+
     /**
      * This method responds to VTE content changes and checks if a trigger has been activated.
      * It would be nice to detect user typing and not run triggers when text changed but
@@ -1058,16 +1067,46 @@ private:
         //Only process if we have triggers to match
         if (triggers.length == 0) return;
 
+        /*
+        pid_t childPid = getChildPid();
+        //If we already determined to ignore this pid don't bother
+        //wasting time determining the process name
+        if (childPid == childPidIgnoreTriggers) return;
+        else childPidIgnoreTriggers = -1;
+
+        if (childPid != -1 && childPid != gpid) {
+            try {
+                auto f = File("/proc/" ~ to!string(childPid) ~ "/status","r");
+                scope(exit) {f.close();}
+                string name = f.readln();
+                auto index = name.indexOf(':');
+                if (index >= 0) {
+                    name = strip(name[index + 1..$]);
+                    foreach(process; triggerIgnore) {
+                        if (name == process) {
+                            childPidIgnoreTriggers = childPid;
+                            trace("Ignoring Process name " ~ name);
+                            return;
+                        }
+                    }
+                }
+            } catch (ErrnoException e) {
+                trace("Could not open pid status file");
+            }
+        }
+        */
         long cursorRow;
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
-        //trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
+        trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
         // Hack fix case when user runs something like nano and row count goes up 
         // and then resets back when user terminates
+        /*
         if (cursorRow < triggerLastRowChecked) {
             triggerLastRowChecked = cursorRow;
             triggerLastColChecked = 0;
         }
+        */
         //Check that cursor 
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
             size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
@@ -1800,6 +1839,18 @@ private:
         vte.grabFocus();
     }
 
+    /**
+     * Returns the child pid running in the terminal or -1 
+     * if no child pid is running. May also return the VTE gpid
+     * as well which also indicates no child process.
+     */
+    pid_t getChildPid() {
+        if (vte.getPty() is null)
+            return false;
+        return tcgetpgrp(vte.getPty().getFd());
+    }  
+
+
     // Code to move terminals through Drag And Drop (DND) is in this private block
     // Keep all DND code here and do not intermix with other blocks
     //
@@ -2301,9 +2352,9 @@ public:
         if (vte.getPty() is null)
             return false;
         int fd = vte.getPty().getFd();
-        pid_t fg = tcgetpgrp(fd);
-        trace(format("fg=%d gpid=%d", fg, gpid));
-        return (fg != -1 && fg != gpid);
+        pid_t childPid = getChildPid();
+        trace(format("childPid=%d gpid=%d", childPid, gpid));
+        return (childPid != -1 && childPid != gpid);
     }
 
     /**
