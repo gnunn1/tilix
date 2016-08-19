@@ -1,0 +1,9 @@
+/* GTK 3.20 */
+scrollbar { 
+    background-color: alpha($TERMINAL_BG, $TERMINAL_OPACITY); 
+}
+/* GTK 3.18 */
+.scrollbar:not(.slider) { 
+    background-color: alpha($TERMINAL_BG, $TERMINAL_OPACITY); 
+    border-left: 0px; 
+}
