@@ -695,11 +695,10 @@ private:
     enum NODE_CHILD2 = "child2";
     enum NODE_DIRECTORY = "directory";
     enum NODE_PROFILE = "profile";
+    enum NODE_MAXIMIZED = "maximized";
     enum NODE_WIDTH = "width";
     enum NODE_HEIGHT = "height";
-    enum NODE_MAXIMIZED = "maximized";
-    enum NODE_OVERRIDE_CMD = "overrideCommand";
-    enum NODE_TITLE = "title";
+    enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
 
     /** 
      * Widget Types which are serialized
@@ -783,16 +782,10 @@ private:
         value[NODE_DIRECTORY] = terminal.currentLocalDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
-        if (terminal.overrideTitle.length > 0) {
-            value[NODE_TITLE] = JSONValue(terminal.overrideTitle);
-        }
-        if (terminal.overrideCommand.length > 0) {
-            value[NODE_OVERRIDE_CMD] = JSONValue(terminal.overrideCommand);
-        }
         if (maximizedInfo.isMaximized && equal(terminal, maximizedInfo.terminal)) {
             value[NODE_MAXIMIZED] = JSONValue(true);
         }
-        return value;
+        return terminal.serialize(value);
     }
 
     /**
@@ -814,12 +807,7 @@ private:
         //TODO Check that the profile exists and use default if it doesn't
         string profileUUID = value[NODE_PROFILE].str();
         Terminal terminal = createTerminal(profileUUID);
-        if (NODE_TITLE in value) {
-            terminal.overrideTitle = value[NODE_TITLE].str();
-        }
-        if (NODE_OVERRIDE_CMD in value) {
-            terminal.overrideCommand = value[NODE_OVERRIDE_CMD].str();
-        }
+        terminal.deserialize(value);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
             maximizedUUID = terminal.uuid;
@@ -860,6 +848,9 @@ private:
     void parseSession(JSONValue value, SessionSizeInfo sizeInfo) {
         maximizedUUID.length = 0;
         _name = value[NODE_NAME].str();
+        if (NODE_SYNCHRONIZED_INPUT in value) {
+            _synchronizeInput = value[NODE_SYNCHRONIZED_INPUT].type == JSON_TYPE.TRUE;
+        }        
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
         groupChild.add(parseNode(child, sizeInfo));
@@ -1017,6 +1008,7 @@ public:
     JSONValue serialize() {
         JSONValue root = ["version" : "1.0"];
         root.object[NODE_NAME] = _name;
+        root.object[NODE_SYNCHRONIZED_INPUT] = _synchronizeInput;
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());

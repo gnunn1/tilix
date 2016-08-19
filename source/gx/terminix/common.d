@@ -202,11 +202,6 @@ interface IIdentifiable {
 interface ITerminal : IIdentifiable {
 
     /**
-     * Overrides the current title of the terminal
-     */
-    @property void overrideTitle(string value);
-
-    /**
      * Toggles the terminal find
      */
     void toggleFind();
