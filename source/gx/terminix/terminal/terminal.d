@@ -17,6 +17,7 @@ import std.datetime;
 import std.exception;
 import std.experimental.logger;
 import std.format;
+import std.json;
 import std.process;
 import std.regex;
 import std.stdio;
@@ -782,7 +783,7 @@ private:
             // Also check that the terminal has been initialized
             // Finally check that the VTE cursor position is greater then 0,0, this is a fix for #425. Not sure why
             // but passing command paremeters causes contentschanged signal to fire twice even though there is no change in content.
-            if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && overrideCommand.length == 0) {
+            if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && _overrideCommand.length == 0) {
                 long cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
                 //trace(format("\trow=%d, column=%d",cursorRow,cursorCol));
@@ -1802,7 +1803,7 @@ private:
         }
         if (command.length > 0) {
             //keep copy of command around
-            overrideCommand = command;
+            _overrideCommand = command;
             trace("Overriding the command from command prompt: " ~ overrides.execute);
             ShellUtils.shellParseArgv(command, args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
@@ -2245,7 +2246,7 @@ public:
         }
         //Check if title is overridden globally
         if (terminix.getGlobalOverrides().title.length > 0) {
-            overrideTitle = terminix.getGlobalOverrides().title;
+            _overrideTitle = terminix.getGlobalOverrides().title;
         }
 
         gsSettings = new GSettings(SETTINGS_ID);
@@ -2278,7 +2279,7 @@ public:
     void initTerminal(string initialPath, bool firstRun) {
         trace("Initializing Terminal with directory " ~ initialPath);
         gst.initialCWD = initialPath;
-        spawnTerminalProcess(initialPath, overrideCommand);
+        spawnTerminalProcess(initialPath, _overrideCommand);
         if (firstRun) {
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
             int height = gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY);
@@ -2399,6 +2400,37 @@ public:
             focusTerminal();
         }
     }
+
+    JSONValue serialize(JSONValue value) {
+        if (_overrideTitle.length > 0) {
+            value[NODE_TITLE] = JSONValue(_overrideTitle);
+        }
+        if (_overrideCommand.length > 0) {
+            value[NODE_OVERRIDE_CMD] = JSONValue(_overrideCommand);
+        }
+        value[NODE_READONLY] = JSONValue(!vte.getInputEnabled());
+        value[NODE_SYNCHRONIZED_INPUT] = JSONValue(_synchronizeInputOverride);
+        return value;
+    }
+
+    void deserialize(JSONValue value) {
+        if (NODE_TITLE in value) {
+            _overrideTitle = value[NODE_TITLE].str();
+        }
+        if (NODE_OVERRIDE_CMD in value) {
+            _overrideCommand = value[NODE_OVERRIDE_CMD].str();
+        }
+        if (NODE_READONLY in value) {
+            vte.setInputEnabled(value[NODE_READONLY].type == JSON_TYPE.FALSE);
+            SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_READ_ONLY);
+            action.setState(new GVariant(!vte.getInputEnabled()));
+        }
+        if (NODE_SYNCHRONIZED_INPUT in value) {
+            _synchronizeInputOverride = (value[NODE_SYNCHRONIZED_INPUT].type == JSON_TYPE.TRUE);
+            SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SYNC_INPUT_OVERRIDE);
+            action.setState(new GVariant(_synchronizeInputOverride));
+        }
+    }
     
     @property string currentLocalDirectory() {
         return gst.getState(TerminalStateType.LOCAL).directory;
@@ -2451,22 +2483,6 @@ public:
 
     @property bool terminalInitialized() {
         return gst.initialized;
-    }
-
-    @property string overrideCommand() {
-        return _overrideCommand;
-    }
-
-    @property void overrideCommand(string value) {
-        _overrideCommand = value;
-    }
-
-    @property string overrideTitle() {
-        return _overrideTitle;
-    }
-
-    @property void overrideTitle(string value) {
-        _overrideTitle = value;
     }
 
     /**
@@ -3009,3 +3025,13 @@ string getUserShell(string shell) {
     error("No shell found, defaulting to /bin/sh");
     return "/bin/sh";
 }
+
+/*
+ * Terminal serialization constants
+ */ 
+private:
+    enum NODE_OVERRIDE_CMD = "overrideCommand";
+    enum NODE_TITLE = "title";
+    enum NODE_READONLY = "readOnly";
+    enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
+
