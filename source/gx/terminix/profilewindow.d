@@ -878,7 +878,7 @@ private:
         });
         add(btnEditLink);
 
-        static if (ENABLE_TRIGGERS) {
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
             // Triggers Section
             Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
             lblTriggers.setUseMarkup(true);
@@ -910,10 +910,11 @@ private:
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
         
-        static if (ENABLE_TRIGGERS) {
-            string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+        string profileSwitchingDescription;
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+            profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         } else {
-            string profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
+            profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         }
         packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
         
@@ -942,11 +943,11 @@ private:
 
         btnAdd = new Button(_("Add"));
         btnAdd.addOnClicked(delegate(Button) {
-            string value;
-            static if (ENABLE_TRIGGERS) {
-                string label = _("Enter username@hostname:directory to match");
+            string label, value;
+            if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+                label = _("Enter username@hostname:directory to match");
             } else {
-                string label = _("Enter hostname:directory to match");
+                label = _("Enter hostname:directory to match");
             }
             if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), label, &validateInput)) {
                 TreeIter iter = lsValues.createIter();
@@ -963,10 +964,11 @@ private:
             TreeIter iter = tvValues.getSelectedIter();
             if (iter !is null) {
                 string value = lsValues.getValueString(iter, 0);
-                static if (ENABLE_TRIGGERS) {
-                    string label = _("Edit username@hostname:directory to match");
+                string label;
+                if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+                    label = _("Edit username@hostname:directory to match");
                 } else {
-                    string label = _("Edit hostname:directory to match");
+                    label = _("Edit hostname:directory to match");
                 }
                 if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), label, &validateInput)) {
                     lsValues.setValue(iter, 0, value);

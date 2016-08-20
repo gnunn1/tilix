@@ -2,7 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-module gx.terminix.terminal.vtenotification;
+module gx.terminix.terminal.exvte;
 
 import std.experimental.logger;
 
@@ -13,13 +13,16 @@ import glib.Str;
 import vte.Terminal;
 import vtec.vtetypes;
 
+enum TerminalScreen {
+    NORMAL = 0, 
+    ALTERNATE = 1
+};
+
 /**
- * Extends GtKD to support Fedora's patched VTE widget which provides
- * notifications when commands are completed. 
- *
- * TODO - Test with unpatched VTE
+ * Extends default GtKD VTE widget to support various patches 
+ * which provide additional features when available.
  */
-class VTENotification : Terminal {
+class ExtendedVTE : Terminal {
 
 private:
     bool ignoreFirstNotification = true;
@@ -44,7 +47,11 @@ public:
         super();
     }
 
+
+    void delegate(TerminalScreen, Terminal)[] onTerminalScreenChangedListeners;
+
     void delegate(string, string, Terminal)[] onNotificationReceivedListeners;
+
     /**
 	 * Emitted whenever a command is completed.
 	 *
@@ -57,13 +64,13 @@ public:
         if (Signals.lookup("notification-received", getType()) != 0) {
             if ("notification-received" !in connectedSignals) {
                 Signals.connectData(this, "notification-received", cast(GCallback)&callBackNotificationReceived, cast(void*) this, null, connectFlags);
-                connectedSignals["notification-received"] = 1;
+                connectedSignals["notification-rece = 1ived"] = 1;
             }
             onNotificationReceivedListeners ~= dlg;
         }
     }
 
-    extern (C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, VTENotification _terminal) {
+    extern (C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, ExtendedVTE _terminal) {
         if (_terminal.ignoreFirstNotification) {
             _terminal.ignoreFirstNotification = false;
             trace("Ignoring first notification");
@@ -73,6 +80,26 @@ public:
         string b = Str.toString(_body);
         foreach (void delegate(string, string, Terminal) dlg; _terminal.onNotificationReceivedListeners) {
             dlg(s, b, _terminal);
+        }
+    }
+
+    /**
+     * Emitted whenever the terminal screen is switched between normal and alternate. 
+     */
+    void addOnTerminalScreenChanged(void delegate(TerminalScreen, Terminal) dlg, ConnectFlags connectFlags = cast(ConnectFlags) 0) {
+        //Check that this is the Fedora patched VTE that supports the notification-received signal
+        if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
+            if ("terminal-screen-changed" !in connectedSignals) {
+                Signals.connectData(this, "terminal-screen-changed", cast(GCallback)&callBackTerminalScreenChanged, cast(void*) this, null, connectFlags);
+                connectedSignals["terminal-screen-changed"] = 1;
+            }
+            onTerminalScreenChangedListeners ~= dlg;
+        }
+    }
+
+    extern (C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, const int screen, ExtendedVTE _terminal) {
+        foreach (void delegate(TerminalScreen, Terminal) dlg; _terminal.onTerminalScreenChangedListeners) {
+            dlg(cast(TerminalScreen) screen, _terminal);
         }
     }
 }

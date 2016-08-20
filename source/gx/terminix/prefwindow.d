@@ -53,6 +53,7 @@ import vte.Terminal;
 import gx.gtk.actions;
 import gx.gtk.resource;
 import gx.gtk.util;
+import gx.gtk.vte;
 
 import gx.i18n.l10n;
 import gx.util.array;
@@ -699,7 +700,7 @@ private:
         add(cbAutoHideMouse);
 
         //Show Notifications, only show option if notifications are supported
-        if (Signals.lookup("notification-received", Terminal.getType()) != 0) {
+        if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
             gsSettings.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
             add(cbNotify);

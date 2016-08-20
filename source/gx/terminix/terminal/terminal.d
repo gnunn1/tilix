@@ -120,7 +120,7 @@ import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.layout;
 import gx.terminix.terminal.search;
-import gx.terminix.terminal.vtenotification;
+import gx.terminix.terminal.exvte;
 
 /**
 * When dragging over VTE, specifies which quandrant new terminal
@@ -235,7 +235,7 @@ private:
 
     SearchRevealer rFind;
 
-    VTENotification vte;
+    ExtendedVTE vte;
     Overlay terminalOverlay;
     static if (!USE_SCROLLED_WINDOW) {
         Scrollbar sb;
@@ -713,7 +713,7 @@ private:
      * widgets such as the Find revealer.
      */
     Widget createVTE() {
-        vte = new VTENotification();
+        vte = new ExtendedVTE();
         // Basic widget properties
         vte.setHexpand(true);
         vte.setVexpand(true);
@@ -799,8 +799,9 @@ private:
         /*
          * Monitor changes in the VTE to test for triggers
          */
-        static if (ENABLE_TRIGGERS) {
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
             vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
+            vte.addOnTerminalScreenChanged(&onVTEScreenChanged);
         }
 
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
@@ -1056,8 +1057,11 @@ private:
     long triggerLastRowChecked = -1;
     long triggerLastColChecked = -1;
 
-    //string[] triggerIgnore = ["nano","top","vi","emacs","mc"];
-    //pid_t childPidIgnoreTriggers = -1;
+    TerminalScreen currentScreen = TerminalScreen.NORMAL;
+
+    void onVTEScreenChanged(TerminalScreen screen, VTE) {
+        currentScreen = screen;
+    }
 
     /**
      * This method responds to VTE content changes and checks if a trigger has been activated.
@@ -1065,37 +1069,12 @@ private:
      * not sure if an ideal way to accomplish that without being leading to false detections.
      */
     void onVTECheckTriggers(VTE) {
+        //Only process triggers for normal screen
+        if (currentScreen != TerminalScreen.NORMAL) return;
+
         //Only process if we have triggers to match
         if (triggers.length == 0) return;
 
-        /*
-        pid_t childPid = getChildPid();
-        //If we already determined to ignore this pid don't bother
-        //wasting time determining the process name
-        if (childPid == childPidIgnoreTriggers) return;
-        else childPidIgnoreTriggers = -1;
-
-        if (childPid != -1 && childPid != gpid) {
-            try {
-                auto f = File("/proc/" ~ to!string(childPid) ~ "/status","r");
-                scope(exit) {f.close();}
-                string name = f.readln();
-                auto index = name.indexOf(':');
-                if (index >= 0) {
-                    name = strip(name[index + 1..$]);
-                    foreach(process; triggerIgnore) {
-                        if (name == process) {
-                            childPidIgnoreTriggers = childPid;
-                            trace("Ignoring Process name " ~ name);
-                            return;
-                        }
-                    }
-                }
-            } catch (ErrnoException e) {
-                trace("Could not open pid status file");
-            }
-        }
-        */
         long cursorRow;
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
