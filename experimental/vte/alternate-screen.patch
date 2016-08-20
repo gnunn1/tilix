@@ -1,0 +1,128 @@
+From eee603b537de69b778095059c78de771f16f49af Mon Sep 17 00:00:00 2001
+From: gnunn1 <gerald.b.nunn@gmail.com>
+Date: Sat, 20 Aug 2016 14:25:54 -0400
+Subject: [PATCH] Add terminal-screen-changed signal
+
+---
+ src/vte/vteterminal.h |  2 ++
+ src/vtegtk.cc         | 19 +++++++++++++++++++
+ src/vtegtk.hh         |  1 +
+ src/vteinternal.hh    |  2 ++
+ src/vteseq.cc         | 12 ++++++++++++
+ 5 files changed, 36 insertions(+)
+
+diff --git a/src/vte/vteterminal.h b/src/vte/vteterminal.h
+index 7836271..5741f47 100644
+--- a/src/vte/vteterminal.h
++++ b/src/vte/vteterminal.h
+@@ -104,6 +104,8 @@ struct _VteTerminalClass {
+ 
+ 	void (*bell)(VteTerminal* terminal);
+ 
++        void (*terminal_screen_changed)(VteTerminal* terminal);
++
+         /* Padding for future expansion. */
+         gpointer padding[16];
+ 
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index c9dbddc..cacf6e5 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -687,6 +687,8 @@ vte_terminal_class_init(VteTerminalClass *klass)
+ 
+         klass->bell = NULL;
+ 
++        klass->terminal_screen_changed = NULL;
++
+         /* GtkScrollable interface properties */
+         g_object_class_override_property (gobject_class, PROP_HADJUSTMENT, "hadjustment");
+         g_object_class_override_property (gobject_class, PROP_VADJUSTMENT, "vadjustment");
+@@ -1206,6 +1208,23 @@ vte_terminal_class_init(VteTerminalClass *klass)
+                              G_TYPE_NONE, 0);
+ 
+         /**
++         * VteTerminal::screen-changed:
++         * @vteterminal: the object which received the signal
++         *
++         * This signal is emitted when the terminal screen changes between
++         * normal and alternate screen.
++         */
++        signals[SIGNAL_TERMINAL_SCREEN_CHANGED] =
++                g_signal_new(I_("terminal-screen-changed"),
++                             G_OBJECT_CLASS_TYPE(klass),
++                             G_SIGNAL_RUN_LAST,
++                             G_STRUCT_OFFSET(VteTerminalClass, bell),
++                             NULL,
++                             NULL,
++                             g_cclosure_marshal_VOID__VOID,
++                             G_TYPE_NONE, 1, G_TYPE_INT);
++
++        /**
+          * VteTerminal:allow-bold:
+          *
+          * Controls whether or not the terminal will attempt to draw bold text.
+diff --git a/src/vtegtk.hh b/src/vtegtk.hh
+index 5340725..118f38c 100644
+--- a/src/vtegtk.hh
++++ b/src/vtegtk.hh
+@@ -51,6 +51,7 @@ enum {
+         SIGNAL_RESIZE_WINDOW,
+         SIGNAL_RESTORE_WINDOW,
+         SIGNAL_SELECTION_CHANGED,
++        SIGNAL_TERMINAL_SCREEN_CHANGED,
+         SIGNAL_TEXT_DELETED,
+         SIGNAL_TEXT_INSERTED,
+         SIGNAL_TEXT_MODIFIED,
+diff --git a/src/vteinternal.hh b/src/vteinternal.hh
+index cff2157..8b6e7cc 100644
+--- a/src/vteinternal.hh
++++ b/src/vteinternal.hh
+@@ -1181,6 +1181,8 @@ public:
+                          vte::grid::row_t end_row);
+         void select_empty(vte::grid::column_t col,
+                           vte::grid::row_t row);
++
++        void emit_terminal_screen_changed(int screen);
+ };
+ 
+ extern GTimer *process_timer;
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 2330939..09eb648 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -202,6 +202,12 @@ VteTerminalPrivate::emit_resize_window(guint columns,
+         g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
+ }
+ 
++void
++VteTerminalPrivate::emit_terminal_screen_changed(int screen)
++{
++        _vte_debug_print(VTE_DEBUG_SIGNALS, "Emitting `terminal_screen_changed'.\n");
++        g_signal_emit(m_terminal, signals[SIGNAL_TERMINAL_SCREEN_CHANGED], 0, screen);
++}
+ 
+ /* Some common functions */
+ 
+@@ -380,6 +386,9 @@ void
+ VteTerminalPrivate::seq_normal_screen()
+ {
+         seq_switch_screen(&m_normal_screen);
++
++        /* Emit signal */
++        emit_terminal_screen_changed(0);
+ }
+ 
+ void
+@@ -407,6 +416,9 @@ void
+ VteTerminalPrivate::seq_alternate_screen()
+ {
+         seq_switch_screen(&m_alternate_screen);
++
++        /* Emit signal */
++        emit_terminal_screen_changed(1);
+ }
+ 
+ /* Switch to normal screen and restore cursor (in this order). */
+-- 
+2.9.3
+
