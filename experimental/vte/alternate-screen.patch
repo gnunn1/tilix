@@ -1,7 +1,7 @@
 From eee603b537de69b778095059c78de771f16f49af Mon Sep 17 00:00:00 2001
 From: gnunn1 <gerald.b.nunn@gmail.com>
 Date: Sat, 20 Aug 2016 14:25:54 -0400
-Subject: [PATCH] Add terminal-screen-changed signal
+Subject: [PATCH 1/2] Add terminal-screen-changed signal
 
 ---
  src/vte/vteterminal.h |  2 ++
@@ -123,6 +123,45 @@ index 2330939..09eb648 100644
  }
  
  /* Switch to normal screen and restore cursor (in this order). */
+-- 
+2.9.3
+
+
+From 17864fdc08cde1b767f5af78386d1566ab33e515 Mon Sep 17 00:00:00 2001
+From: gnunn1 <gerald.b.nunn@gmail.com>
+Date: Sat, 20 Aug 2016 19:12:13 -0400
+Subject: [PATCH 2/2] Fix padding
+
+---
+ src/vte/vteterminal.h | 2 +-
+ src/vteseq.cc         | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/vte/vteterminal.h b/src/vte/vteterminal.h
+index 5741f47..7f93e85 100644
+--- a/src/vte/vteterminal.h
++++ b/src/vte/vteterminal.h
+@@ -107,7 +107,7 @@ struct _VteTerminalClass {
+         void (*terminal_screen_changed)(VteTerminal* terminal);
+ 
+         /* Padding for future expansion. */
+-        gpointer padding[16];
++        gpointer padding[15];
+ 
+         VteTerminalClassPrivate *priv;
+ };
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 09eb648..eb741e1 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -202,6 +202,7 @@ VteTerminalPrivate::emit_resize_window(guint columns,
+         g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
+ }
+ 
++/* Emit a "terminal-screen-changed" signal */
+ void
+ VteTerminalPrivate::emit_terminal_screen_changed(int screen)
+ {
 -- 
 2.9.3
 
