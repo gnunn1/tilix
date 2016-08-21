@@ -201,6 +201,8 @@ enum TERMINAL_ID = "${id}";
 enum TERMINAL_DIR = "${directory}";
 enum TERMINAL_COLUMNS = "${columns}";
 enum TERMINAL_ROWS = "${rows}";
+enum TERMINAL_HOSTNAME = "${hostname}";
+enum TERMINAL_USERNAME = "${username}";
 
 /**
  * This class is a composite widget that consists of the VTE Terminal
@@ -966,6 +968,8 @@ private:
         title = title.replace(TERMINAL_ID, to!string(terminalID));
         title = title.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
         title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
+        title = title.replace(TERMINAL_HOSTNAME, gst.currentHostname);
+        title = title.replace(TERMINAL_USERNAME, gst.currentUsername);
         string path;
         if (terminalInitialized) {
             path = gst.currentDirectory;
