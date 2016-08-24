@@ -49,6 +49,7 @@ import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
 import gtk.Frame;
+import gtk.Grid;
 import gtk.HeaderBar;
 import gtk.Image;
 import gtk.Label;
@@ -188,20 +189,24 @@ private:
         overlay.addOverlay(sb);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
-        Widget toolbar = createHeaderBar();
+        hb = createHeaderBar();
 
         if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            Box b = new Box(Orientation.VERTICAL, 0);
-            b.add(toolbar);
-            b.add(overlay);
-            add(b);
+            hb.getStyleContext().addClass("terminix-embedded-headerbar");
+            Grid grid = new Grid();
+            grid.setOrientation(Orientation.VERTICAL);
+            grid.add(hb);
+            grid.add(overlay);
+            add(grid);
         } else {
-            this.setTitlebar(toolbar);
+            this.setTitlebar(hb);
+            hb.setShowCloseButton(true);
+            hb.setTitle(_(APPLICATION_NAME));
             add(overlay);
         }
     }
 
-    Widget createHeaderBar() {
+    HeaderBar createHeaderBar() {
         //View sessions button
         tbSideBar = new ToggleButton();
         Box b = new Box(Orientation.HORIZONTAL, 6);
@@ -257,32 +262,14 @@ private:
             }
         });
 
-        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            Box tb = new Box(Orientation.HORIZONTAL, 0);
-            tb.packStart(bSessionButtons, false, false, 4);
-            tb.packStart(btnAddHorizontal, false, false, 4);
-            tb.packStart(btnAddVertical, false, false, 4);
-            tb.packEnd(mbSessionActions, false, false, 4);
-            tb.packEnd(btnFind, false, false, 4);
-            tb.setMarginBottom(4);
-
-            Box spacer = new Box(Orientation.VERTICAL, 0);
-            spacer.getStyleContext().addClass("terminix-toolbar");
-            spacer.packStart(tb, true, true, 0);
-
-            return spacer;
-        } else {
-            //Header Bar
-            hb = new HeaderBar();
-            hb.setShowCloseButton(true);
-            hb.setTitle(_(APPLICATION_NAME));
-            hb.packStart(bSessionButtons);
-            hb.packStart(btnAddHorizontal);
-            hb.packStart(btnAddVertical);
-            hb.packEnd(mbSessionActions);
-            hb.packEnd(btnFind);
-            return hb;
-        }
+        //Header Bar
+        HeaderBar header = new HeaderBar();
+        header.packStart(bSessionButtons);
+        header.packStart(btnAddHorizontal);
+        header.packStart(btnAddVertical);
+        header.packEnd(mbSessionActions);
+        header.packEnd(btnFind);
+        return header;
     }
 
     /**
@@ -648,10 +635,10 @@ private:
         } else {
             title = _(APPLICATION_NAME);
         }
-        if (hb !is null)
-            hb.setTitle(title);
-        else
+        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY))
             setTitle(title);
+        else
+            hb.setTitle(title);
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
