@@ -82,6 +82,7 @@ import gx.terminix.constants;
 import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
+import gx.terminix.sessionswitcher;
 import gx.terminix.sidebar;
 
 /**
@@ -114,6 +115,7 @@ private:
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
+    enum ACTION_WIN_SESSIONSWITCHER = "view-sessionswitcher";
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
@@ -121,6 +123,7 @@ private:
     Notebook nb;
     HeaderBar hb;
     SideBar sb;
+    SessionSwitcher ss;
     ToggleButton tbSideBar;
 
     SimpleActionGroup sessionActions;
@@ -128,6 +131,7 @@ private:
     SimpleAction saSyncInput;
     SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
+    SimpleAction saViewSessionSwitcher;
     SimpleAction saSessionAddRight;
     SimpleAction saSessionAddDown;
 
@@ -188,9 +192,36 @@ private:
         });
         sb.addOnSessionClose(&onUserSessionClose);
 
+        ss = new SessionSwitcher();
+        ss.addOnSessionFileSelected(delegate(string file) {
+            saViewSessionSwitcher.activate(null);
+            if (file) {
+                try {
+                    loadSession(file);
+                }
+                catch (SessionCreationException e) {
+                    removeRecentSessionFile(file);
+
+                    showErrorDialog(this, e.msg);
+                }
+            }
+        });
+        ss.addOnSessionFileRemoved(delegate(string file) {
+            removeRecentSessionFile(file);
+            ss.populate(getSessions(), recentSessionFiles);
+        });
+        ss.addOnOpenSessionSelected(delegate(string uuid) {
+            saViewSessionSwitcher.activate(null);
+            if (uuid) {
+                activateSession(uuid);
+            }
+        });
+        ss.addOnOpenSessionRemoved(&onUserSessionClose);
+
         Overlay overlay = new Overlay();
         overlay.add(nb);
         overlay.addOverlay(sb);
+        overlay.addOverlay(ss);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
         hb = createHeaderBar();
@@ -356,6 +387,21 @@ private:
             tbSideBar.setActive(newState);
             if (!newState) {
                 //Hiding session, restore focus
+                getCurrentSession().focusRestore();
+            }
+        }, null, new GVariant(false));
+
+        saViewSessionSwitcher = registerActionWithSettings(this, "win", ACTION_WIN_SESSIONSWITCHER, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            bool newState = !sa.getState().getBoolean();
+            trace("Session switcher action activated " ~ to!string(newState));
+            if (newState) {
+                ss.populate(getSessions(), recentSessionFiles);
+                ss.showAll();
+            }
+            ss.setRevealChild(newState);
+            sa.setState(new GVariant(newState));
+            ss.focusSearchEntry();
+            if (!newState) {
                 getCurrentSession().focusRestore();
             }
         }, null, new GVariant(false));
@@ -604,6 +650,7 @@ private:
                     if (!showCanClosePrompt) return false;
                 }
                 closeSession(session);
+                ss.populate(getSessions(), recentSessionFiles);
                 return true;
             }
         }
