@@ -144,6 +144,8 @@ private:
 
     // True if window is in quake mode
     bool _quake;
+    
+    string[] recentSessionFiles;
 
     /**
      * Create the user interface
@@ -917,6 +919,7 @@ private:
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
             }
         }
+		addRecentSessionFile(filename);
         tracef("Session dimensions: w=%d, h=%d", width, height);
         Session session = new Session(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
@@ -939,9 +942,11 @@ private:
         if (fcd.run() == ResponseType.OK) {
             try {
                 loadSession(fcd.getFilename());
+                addRecentSessionFile(fcd.getFilename());
             }
             catch (Exception e) {
                 fcd.hide();
+                removeRecentSessionFile(fcd.getFilename());
                 error(e);
                 showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
             }
@@ -978,6 +983,7 @@ private:
                 return;
             }
         }
+        addRecentSessionFile(filename);
         string json = session.serialize().toPrettyString();
         write(filename, json);
         session.filename = filename;
@@ -991,6 +997,47 @@ private:
         createNewSession(name, profileUUID, workingDir);
     }
 
+    void loadRecentSessionFileList() {
+        recentSessionFiles = gsSettings.getStrv(SETTINGS_RECENT_SESSION_FILES_KEY);
+    }
+
+    void saveRecentSessionFileList() {
+        gsSettings.setStrv(SETTINGS_RECENT_SESSION_FILES_KEY, recentSessionFiles);
+    }
+
+    /**
+     * Prepends a file path to the recent session files list
+     */
+    void addRecentSessionFile(string path, bool save = true) {
+        // Don't save after removing as the list will be saved later
+        removeRecentSessionFile(path, false);
+
+        recentSessionFiles = path ~ recentSessionFiles;
+
+        if (save) {
+            saveRecentSessionFileList();
+        }
+    }
+
+    /**
+     * Removes a file path from from the recent session files list
+     */
+    void removeRecentSessionFile(string path, bool save = true) {
+        string[] temp;
+
+        foreach (int i, string aPath; recentSessionFiles) {
+            if (aPath != path) {
+                temp ~= aPath;
+            }
+        }
+
+        recentSessionFiles = temp;
+
+        if (save) {
+            saveRecentSessionFileList();
+        }
+    }
+
 public:
 
     this(Application application) {
@@ -1002,6 +1049,13 @@ public:
         });
         setTitle(_("Terminix"));
         setIconName("com.gexperts.Terminix");
+
+        loadRecentSessionFileList();
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_RECENT_SESSION_FILES_KEY) {
+                loadRecentSessionFileList();
+            }
+        });
 
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
