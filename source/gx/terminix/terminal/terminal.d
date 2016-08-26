@@ -2246,7 +2246,9 @@ public:
         trace("Apply preferences");
         applyPreferences();
         trace("Profile Event Handler");
-        gsProfile.addOnChanged(delegate(string key, Settings) { applyPreference(key); });
+        gsProfile.addOnChanged(delegate(string key, Settings) {
+            applyPreference(key); 
+        });
         //Get when theme changed
         terminix.addOnThemeChanged(&onThemeChanged);
         trace("Finished creation");
@@ -2431,7 +2433,13 @@ public:
     @property void activeProfileUUID(string uuid) {
         if (_activeProfileUUID != uuid) {
             _activeProfileUUID = uuid;
+            // Explicitly destroy previous settings so we don't get change events from it
+            gsProfile.destroy();
             gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
+            // Hook up change event
+            gsProfile.addOnChanged(delegate(string key, Settings) {
+                applyPreference(key); 
+            });
             applyPreferences();
         }
     }
