@@ -166,6 +166,12 @@
       <summary>Whether the standard GTK shortcut for menubar access is enabled</summary>
       <description>Normally you can access the menubar with F10. This can also be customized via gtkrc (gtk-menu-bar-accel = "whatever"). This option allows the standard menubar accelerator to be disabled.</description>
     </key>
+    <!-- Middle-Click Close -->
+    <key name="middle-click-close" type="b">
+      <default>false</default>
+      <summary>Whether clicking the middle mouse button closes the terminal</summary>
+      <description>When true, clicking the middle mouse button on the terminal title bar will close it.</description>
+    </key>
     <!-- Accelerators Enabled-->
     <key name="accelerators-enabled" type="b">
       <default>true</default>

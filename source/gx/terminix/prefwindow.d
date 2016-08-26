@@ -699,6 +699,11 @@ private:
         gsSettings.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbAutoHideMouse);
 
+        //middle click closes the terminal
+        CheckButton cbMiddleClickClose = new CheckButton(_("Close terminal by clicking middle mouse button on title"));
+        gsSettings.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
+        add(cbMiddleClickClose);
+
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));

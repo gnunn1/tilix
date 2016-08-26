@@ -58,6 +58,7 @@ enum SETTINGS_COPY_ON_SELECT_KEY = "copy-on-select";
 enum SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY = "warn-vte-config-issue";
 enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY = "focus-follow-mouse";
 enum SETTINGS_ENCODINGS_KEY = "encodings";
+enum SETTINGS_MIDDLE_CLICK_CLOSE_KEY = "middle-click-close";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
 enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-word";

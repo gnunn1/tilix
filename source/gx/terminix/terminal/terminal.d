@@ -428,7 +428,12 @@ private:
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
                 maximize();
             } else if (event.getEventType() == EventType.BUTTON_PRESS) {
-                vte.grabFocus();
+                if (event.button.button == MouseButton.MIDDLE && gsSettings.getBoolean(SETTINGS_MIDDLE_CLICK_CLOSE_KEY)) {
+                    SimpleAction close = cast(SimpleAction) sagTerminalActions.lookupAction(ACTION_CLOSE);
+                    close.activate(null);
+                } else {
+                    vte.grabFocus();
+                }
             }
             return false;
         });
