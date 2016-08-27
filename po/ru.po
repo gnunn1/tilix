@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 14:11-0400\n"
-"PO-Revision-Date: 2016-08-11 10:01+0000\n"
-"Last-Translator: Grigorii Horos <horosgrisa@gmail.com>\n"
+"PO-Revision-Date: 2016-08-27 10:01+0000\n"
+"Last-Translator: Igor Dyatlov <dyatlov.igor@gmail.com>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/terminix/translations/ru/>\n"
 "Language: ru\n"
@@ -934,7 +934,7 @@ msgstr "Отправить действие в текущий экземпляр
 #: source/gx/terminix/application.d:469 source/gx/terminix/application.d:482
 #: source/gx/terminix/application.d:545 source/gx/terminix/application.d:556
 msgid "ACTION_NAME"
-msgstr ""
+msgstr "ИМЯ-ДЕЙСТВИЯ"
 
 #: source/gx/terminix/application.d:470 source/gx/terminix/application.d:483
 #: source/gx/terminix/application.d:546 source/gx/terminix/application.d:557
@@ -1316,6 +1316,8 @@ msgid ""
 "Active options are always in effect and apply immediately.\n"
 "Session Load options only apply when loading a session file."
 msgstr ""
+"Активные вариантами всегда являются действующими и вступают в силу немедленно.\n"
+"Параметры загрузки сеансов применяются только при загрузке файла сеанса."
 
 #: source/gx/terminix/terminal/search.d:120
 #: source/gx/terminix/terminal/search.d:121
@@ -1669,7 +1671,7 @@ msgstr "Все файлы"
 #: source/gx/terminix/terminal/terminal.d:2362
 #, c-format
 msgid "The child process exited normally with status %d"
-msgstr ""
+msgstr "Дочерний процесс завершился нормально со статусом %d"
 
 #: source/gx/terminix/terminal/terminal.d:2056
 #: source/gx/terminix/terminal/terminal.d:2079
@@ -1681,7 +1683,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:2363
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr ""
+msgstr "Дочерний процесс был прерван сигналом %d."
 
 #: source/gx/terminix/terminal/terminal.d:2057
 #: source/gx/terminix/terminal/terminal.d:2080
@@ -1764,13 +1766,13 @@ msgstr "Все равно вставить"
 #: source/gx/terminix/cmdparams.d:85 source/gx/terminix/cmdparams.d:87
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
-msgstr ""
+msgstr "Игнорирование, так как '%s' не является каталогом"
 
 #: source/gx/terminix/cmdparams.d:102 source/gx/terminix/cmdparams.d:131
 #: source/gx/terminix/cmdparams.d:133 source/gx/terminix/cmdparams.d:135
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
-msgstr ""
+msgstr "Игнорирование параметров сессии, так как '%s' не существует"
 
 #: source/gx/terminix/cmdparams.d:111 source/gx/terminix/cmdparams.d:140
 #: source/gx/terminix/cmdparams.d:142 source/gx/terminix/cmdparams.d:145
@@ -1778,6 +1780,8 @@ msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
+"Вы не можете загрузить сессию и установить profile/working directory/execute "
+"параметр команды, пожалуйста, выберите один или другой"
 
 #: source/gx/terminix/appwindow.d:185 source/gx/terminix/appwindow.d:212
 #: source/gx/terminix/appwindow.d:213
@@ -1889,7 +1893,7 @@ msgstr "Ваша версия GTK устарела, вам нужно устан
 #: source/app.d:66 source/app.d:92 source/app.d:96 source/app.d:93
 #: source/app.d:99
 msgid "Unexpected exception occurred"
-msgstr ""
+msgstr "Произошло неожиданное исключение"
 
 #: source/app.d:67 source/app.d:93 source/app.d:97 source/app.d:94
 #: source/app.d:100
@@ -1933,10 +1937,9 @@ msgid "Open a new session"
 msgstr "Открыть новый сеанс"
 
 #: data/resources/ui/shortcuts.ui:31
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open preferences"
-msgstr "параметры"
+msgstr "Открыть параметры"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
@@ -1944,16 +1947,14 @@ msgid "View configured shortcuts"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:45
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Window"
-msgstr "Новое окно"
+msgstr "Окно"
 
 #: data/resources/ui/shortcuts.ui:49
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Toggle fullscreen mode"
-msgstr "весь экран"
+msgstr "Переключить полноэкранный режим"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
@@ -2262,7 +2263,6 @@ msgstr "Уменьшить масштаб"
 
 #: data/resources/ui/shortcuts.ui:395 data/resources/ui/shortcuts.ui:413
 #: data/resources/ui/shortcuts.ui:419
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "Исходный размер"
@@ -2294,7 +2294,6 @@ msgstr "Развернуть на полный экран"
 
 #: data/resources/ui/shortcuts.ui:425 data/resources/ui/shortcuts.ui:443
 #: data/resources/ui/shortcuts.ui:449
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "Текущие настройки профиля"
@@ -2462,12 +2461,10 @@ msgid "Open"
 msgstr "Открыть"
 
 #: source/gx/terminix/terminal/search.d:134
-#, fuzzy
 msgid "Find next"
 msgstr "Найти следующее"
 
 #: source/gx/terminix/terminal/search.d:140
-#, fuzzy
 msgid "Find previous"
 msgstr "Найти предыдущее"
 
@@ -2476,31 +2473,28 @@ msgid "Start additional instance as new process (Not Recommended)"
 msgstr ""
 
 #: source/gx/terminix/appwindow.d:242 source/gx/terminix/appwindow.d:243
-#, fuzzy
 msgid "Add terminal right"
-msgstr "на-терминал-направо"
+msgstr "Добавить терминал направо"
 
 #: source/gx/terminix/appwindow.d:246 source/gx/terminix/appwindow.d:247
-#, fuzzy
 msgid "Add terminal down"
-msgstr "Держать терминал открытым"
+msgstr "Добавить терминал вниз"
 
 #: source/gx/terminix/appwindow.d:251 source/gx/terminix/appwindow.d:252
-#, fuzzy
 msgid "Find text in terminal"
-msgstr "Выйти из терминала"
+msgstr "Найти текст в терминале"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
 #: source/gx/terminix/profilewindow.d:219
 msgid "Sound"
-msgstr ""
+msgstr "Звук"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
 #: source/gx/terminix/profilewindow.d:219
 msgid "Icon"
-msgstr ""
+msgstr "Иконка"
 
 #: source/gx/terminix/profilewindow.d:210
 #: source/gx/terminix/profilewindow.d:211
@@ -2526,7 +2520,7 @@ msgstr "Учитывать регистр"
 #: source/gx/terminix/profilewindow.d:908
 #: source/gx/terminix/profilewindow.d:1073
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: source/gx/terminix/profilewindow.d:874
 #: source/gx/terminix/profilewindow.d:873
@@ -2561,14 +2555,12 @@ msgid "Select Image"
 msgstr "Выбор изображения"
 
 #: source/gx/terminix/prefwindow.d:597 source/gx/terminix/prefwindow.d:604
-#, fuzzy
 msgid "All Image Files"
-msgstr "Все текстовые файлы"
+msgstr "Все файлы изображений"
 
 #: source/gx/terminix/prefwindow.d:618 source/gx/terminix/prefwindow.d:625
-#, fuzzy
 msgid "Reset background image"
-msgstr "Прозрачность"
+msgstr "Сброс фонового изображения"
 
 #: source/gx/terminix/prefwindow.d:624 source/gx/terminix/prefwindow.d:631
 msgid "Scale"
@@ -2589,7 +2581,7 @@ msgstr "Растянуть"
 #: data/resources/ui/shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: data/resources/ui/shortcuts.ui:177
 #, fuzzy
@@ -2605,7 +2597,7 @@ msgstr "Держать терминал открытым"
 
 #: source/gx/terminix/prefwindow.d:729 source/gx/terminix/prefwindow.d:736
 msgid "Automatically copy text to clipboard when selecting"
-msgstr ""
+msgstr "Автоматически копировать текст в буфер обмена при выделение"
 
 #: source/gx/terminix/terminal/terminal.d:671
 #: source/gx/terminix/terminal/terminal.d:688
