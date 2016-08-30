@@ -587,8 +587,12 @@ private:
     }    
 
     void closeSession(Session session) {
+        bool isCurrentSession = (session == getCurrentSession());
         removeSession(session);
         session.destroy();
+        if (!isCurrentSession) {
+            updateTitle();
+        }
         trace("Session closed");
     }
 
