@@ -169,7 +169,6 @@ private:
             if (sb.getChildRevealed()) {
                 sb.selectSession(getCurrentSession().uuid);
             }
-            lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
@@ -592,6 +591,7 @@ private:
         session.destroy();
         if (!isCurrentSession) {
             updateTitle();
+            updateUIState();
         }
         trace("Session closed");
     }
@@ -627,6 +627,7 @@ private:
             saSessionAddRight.setEnabled(!session.maximized);
             saSessionAddDown.setEnabled(!session.maximized);
         }
+        lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
     }
 
     void updateTitle() {
