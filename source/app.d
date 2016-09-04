@@ -4,6 +4,7 @@
  */
 import std.stdio;
 
+import std.array;
 import std.experimental.logger;
 import std.file;
 import std.format;
@@ -44,6 +45,21 @@ int main(string[] args) {
     string uhd = Util.getHomeDir();
     trace("UHD = " ~ uhd);
     
+    // Look for execute command and convert it into a normal -e
+    // We do this because this switch means take everything after
+    // the switch as a command which GApplication options cannot handle
+    // without a callback which D doesn't expose at this time.
+    foreach(i, arg; args) {
+        if (arg == "-x" || arg == "--execute") {
+            string executeCommand = join(args[i+1 .. $], " ");
+            trace("Execute Command: " ~ executeCommand);
+            args = args[0..i];
+            args ~= "-e";
+            args ~= executeCommand; 
+            break;
+        }
+    }
+
     trace(format("Starting terminix with %d arguments...", args.length));
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));

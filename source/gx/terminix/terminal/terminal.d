@@ -1786,13 +1786,13 @@ private:
         string shell = getUserShell(vte.getUserShell());
         string[] args;
         // Passed command takes precedence over global override which comes from -x flag
-        if (command.length == 0 && overrides.execute.length > 0) {
-            command = overrides.execute;
+        if (command.length == 0 && overrides.command.length > 0) {
+            command = overrides.command;
         }
         if (command.length > 0) {
             //keep copy of command around
             _overrideCommand = command;
-            trace("Overriding the command from command prompt: " ~ overrides.execute);
+            trace("Overriding the command from command prompt: " ~ overrides.command);
             ShellUtils.shellParseArgv(command, args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
         } else if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {

@@ -21,6 +21,9 @@ import gx.i18n.l10n;
 enum CMD_WORKING_DIRECTORY = "working-directory";
 enum CMD_SESSION = "session";
 enum CMD_PROFILE = "profile";
+enum CMD_COMMAND = "command";
+// Not that execute is a special command and not handled by GApplication options.
+// See app.d for more info.
 enum CMD_EXECUTE = "execute";
 enum CMD_ACTION = "action";
 enum CMD_TERMINAL_UUID = "terminalUUID";
@@ -41,7 +44,7 @@ private:
     string _profileName;
     string[] _session;
     string _action;
-    string _execute;
+    string _command;
     string _cmdLine;
     string _terminalUUID;
     string _cwd;
@@ -139,9 +142,9 @@ public:
         }
         _profileName = getValue(vd, CMD_PROFILE, vts);
         _title = getValue(vd, CMD_TITLE, vts);
-        _execute = getValue(vd, CMD_EXECUTE, vts);
+        _command = getValue(vd, CMD_COMMAND, vts);
         _action = getValue(vd, CMD_ACTION, vts);
-        if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _execute.length > 0)) {
+        if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _command.length > 0)) {
             writeln(_("You cannot load a session and set a profile/working directory/execute command option, please choose one or the other"));
             _exitCode = 1;
             _exit = true;
@@ -171,7 +174,7 @@ public:
         trace("\tprofile=" ~ _profileName);
         trace("\ttitle=" ~ _title);
         trace("\taction=" ~ _action);
-        trace("\texecute=" ~ _execute);
+        trace("\tcommand=" ~ _command);
         trace("\tcwd=" ~ _cwd);
         trace("\tpwd=" ~ _pwd);
         trace(format("\tgeometry=%dx%d %d,%d", _width, _height, _x, _y));
@@ -182,7 +185,7 @@ public:
         _profileName.length = 0;
         _session.length = 0;
         _action.length = 0;
-        _execute.length = 0;
+        _command.length = 0;
         _exitCode = 0;
         _cmdLine.length = 0;
         _terminalUUID.length = 0;
@@ -229,8 +232,8 @@ public:
         return _action;
     }
 
-    @property string execute() {
-        return _execute;
+    @property string command() {
+        return _command;
     }
 
     @property string cmdLine() {

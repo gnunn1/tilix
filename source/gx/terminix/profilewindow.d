@@ -1210,7 +1210,6 @@ private:
             updateUI(); 
         });
         tv.setHeadersVisible(true);
-
         //Regex column
         CellRendererText crtRegex = new CellRendererText();
         crtRegex.setProperty("editable", 1);
