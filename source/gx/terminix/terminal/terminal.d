@@ -623,12 +623,12 @@ private:
 
         //Insert Password
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_PASSWORD, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
-            PasswordDialog pd = new PasswordDialog(cast(Window)this.getToplevel());
+            PasswordManagerDialog pd = new PasswordManagerDialog(cast(Window)this.getToplevel());
             scope(exit) {pd.destroy();}
 
             pd.showAll();
             if (pd.run() == ResponseType.APPLY) {
-                vte.feedChild(pd.password, pd.password.length);
+                pd.insertPassword(vte);
             }
         }, null, null);
         
