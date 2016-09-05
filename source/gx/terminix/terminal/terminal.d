@@ -119,6 +119,7 @@ import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.layout;
+import gx.terminix.terminal.password;
 import gx.terminix.terminal.search;
 import gx.terminix.terminal.exvte;
 
@@ -619,6 +620,18 @@ private:
                     dlg(this, se);
             }
         }, null, null);
+
+        //Insert Password
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_PASSWORD, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+            PasswordDialog pd = new PasswordDialog(cast(Window)this.getToplevel());
+            scope(exit) {pd.destroy();}
+
+            pd.showAll();
+            if (pd.run() == ResponseType.APPLY) {
+                vte.feedChild(pd.password, pd.password.length);
+            }
+        }, null, null);
+        
 
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
