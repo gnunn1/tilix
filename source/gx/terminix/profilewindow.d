@@ -872,7 +872,7 @@ private:
                 dlg.destroy();
             }
             dlg.showAll();
-            if (dlg.run() != ResponseType.CANCEL) {
+            if (dlg.run() == ResponseType.APPLY) {
                 gsProfile.setStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
             }
         });
@@ -897,7 +897,7 @@ private:
                     dlg.destroy();
                 }
                 dlg.showAll();
-                if (dlg.run() != ResponseType.CANCEL) {
+                if (dlg.run() == ResponseType.APPLY) {
                     gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
                 }
             });

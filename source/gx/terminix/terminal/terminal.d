@@ -105,6 +105,7 @@ import vtec.vtetypes;
 import gx.gtk.actions;
 import gx.gtk.cairo;
 import gx.gtk.clipboard;
+import gx.gtk.dialog;
 import gx.gtk.resource;
 import gx.gtk.util;
 import gx.gtk.vte;
@@ -623,12 +624,17 @@ private:
 
         //Insert Password
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_PASSWORD, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
-            PasswordManagerDialog pd = new PasswordManagerDialog(cast(Window)this.getToplevel());
-            scope(exit) {pd.destroy();}
-
-            pd.showAll();
-            if (pd.run() == ResponseType.APPLY) {
-                pd.insertPassword(vte);
+            import gtkc.Loader: Linker;
+            import secretc.secret: LIBRARY_SECRET;
+            if (Linker.isLoaded(LIBRARY_SECRET)) {
+                PasswordManagerDialog pdm = new PasswordManagerDialog(cast(Window)this.getToplevel());
+                scope(exit) {pdm.destroy();}
+                pdm.showAll();
+                if (pdm.run() == ResponseType.APPLY) {
+                    pdm.insertPassword(vte);
+                }
+            } else {
+                showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET, _("Library Not Loaded")));
             }
         }, null, null);
         
@@ -1206,6 +1212,12 @@ private:
             case TriggerAction.SEND_TEXT:
                 string value = replaceMatchTokens(trigger.parameters, groups);
                 vte.feedChild(value, value.length);
+                break;
+            case TriggerAction.INSERT_PASSWORD:
+                SimpleAction sa = cast(SimpleAction)sagTerminalActions.lookupAction(ACTION_INSERT_PASSWORD);
+                if (sa !is null) {
+                    sa.activate(null);
+                }
                 break;
         }
     }
@@ -2632,7 +2644,8 @@ enum TriggerAction {
     SEND_NOTIFICATION,
     UPDATE_TITLE,
     PLAY_BELL,
-    SEND_TEXT
+    SEND_TEXT,
+    INSERT_PASSWORD
 }
 
 /**
@@ -2669,6 +2682,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE:
                 action = TriggerAction.SEND_TEXT;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE:
+                action = TriggerAction.INSERT_PASSWORD;
                 break;
             default:
                 break;    

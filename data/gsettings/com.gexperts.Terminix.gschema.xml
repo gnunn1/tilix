@@ -257,6 +257,11 @@
       <summary>The algorithm to use when scaling the background image</summary>
       <description>The cairo filter algorithm used to scale the background image, performance will deteroriate with higher quality.</description>
     </key>   
+    <key name="password-include-return" type="b">
+      <default>true</default>
+      <summary>Whether to include return character with password</summary>
+      <description>If true, when selecting a password to submit to the terminal a return character will automatically be added.</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->

@@ -13,9 +13,13 @@ import std.process;
 import std.string;
 import std.uuid;
 
+import gdk.Event;
+import gdk.Keysyms;
+
 import gobject.ObjectG;
 
 import gio.Cancellable;
+import gio.Settings: GSettings=Settings;
 import gio.SimpleAsyncResult;
 
 import glib.GException;
@@ -25,7 +29,9 @@ import glib.ListG;
 import gtk.Box;
 import gtk.Button;
 import gtk.CellRendererText;
+import gtk.CheckButton;
 import gtk.Dialog;
+import gtk.EditableIF;
 import gtk.Entry;
 import gtk.Grid;
 import gtk.Label;
@@ -36,6 +42,7 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.ScrolledWindow;
 import gtk.SearchEntry;
+import gtk.Widget;
 import gtk.Window;
 
 import vte.Terminal: VTE=Terminal;
@@ -45,8 +52,12 @@ import secret.Item;
 import secret.Schema;
 import secret.Secret;
 import secret.Service;
+import secret.Value;
 
+import gx.gtk.util;
 import gx.i18n.l10n;
+
+import gx.terminix.preferences;
 
 class PasswordManagerDialog: Dialog {
 
@@ -62,7 +73,6 @@ private:
 
     enum PENDING_COLLECTION = "collection";
     enum PENDING_SERVICE = "service";
-    enum PENDING_SEARCH = "search";
 
     enum DEFAULT_COLLECTION = "default";
 
@@ -71,6 +81,8 @@ private:
     SearchEntry se;
     TreeView tv;
     ListStore ls;
+
+    GSettings gsSettings;
 
     Schema schema;
     // These are populated asynchronously
@@ -103,15 +115,26 @@ private:
         se.addOnSearchChanged(delegate(SearchEntry) {
             filterEntries();
         });
+        se.addOnKeyPress(delegate(Event event, Widget w) {
+            uint keyval;
+            if (event.getKeyval(keyval)) {
+                if (keyval == GdkKeysyms.GDK_Escape) {
+                    response = ResponseType.CANCEL;
+                    return true;
+                }
+            }
+            return false;
+        });
         b.add(se);
 
         Box bList = new Box(Orientation.HORIZONTAL, 6);
 
         ls = new ListStore([GType.STRING, GType.STRING]);
+
         tv = new TreeView(ls);
         tv.setHeadersVisible(false);
         TreeViewColumn column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", COLUMN_NAME);
-        column.setMinWidth(200);
+        column.setMinWidth(300);
         tv.appendColumn(column);
         column = new TreeViewColumn(_("ID"), new CellRendererText(), "text", COLUMN_NAME);
         column.setVisible(false);
@@ -129,7 +152,7 @@ private:
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setHexpand(true);
         sw.setVexpand(true);
-        sw.setSizeRequest(-1, 250);
+        sw.setSizeRequest(-1, 200);
         
         bList.add(sw);
 
@@ -157,21 +180,61 @@ private:
         });
         bButtons.add(btnNew);
 
-        /*
+        Button btnEdit = new Button(_("Edit"));
+        btnEdit.addOnClicked(delegate(Button) {
+            TreeIter selected = tv.getSelectedIter();
+            if (selected) {
+                string id = ls.getValueString(selected, COLUMN_ID);
+                PasswordDialog pd = new PasswordDialog(this, ls.getValueString(selected, COLUMN_NAME), "");
+                scope(exit) {pd.destroy();}
+                pd.showAll();
+                if (pd.run() == ResponseType.OK) {
+                    ListG list = collection.getItems();
+                    Item[] items = list.toArray!Item;
+                    foreach (item; items) {
+                        if (item.getSchemaName() == SCHEMA_NAME) {
+                            string itemID = to!string(cast(char*)item.getAttributes().lookup(cast(void*)attrID));
+                            trace("ItemID " ~ itemID);
+                            if (id == itemID) {
+                                trace("Modifying item...");
+                                item.setLabelSync(pd.label, null);
+                                item.setSecretSync(new Value(pd.password, pd.password.length, "text/plain"), null);
+                                reload();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        bButtons.add(btnEdit);
+
         Button btnDelete = new Button(_("Delete"));
         btnDelete.addOnClicked(delegate(Button) {
             TreeIter selected = tv.getSelectedIter();
             if (selected) {
+                string id = ls.getValueString(selected, COLUMN_ID);
+                HashTable ht = createHashTable();
+                immutable(char*) idz = toStringz(id); 
+                ht.insert(cast(void*)attrID, cast(void*)idz);
+                Secret.passwordClearvSync(schema, ht, null);
+                foreach(index, row; rows) {
+                    if (row[1] == id) {
+                        std.algorithm.remove(rows, index);
+                    }
+                }
                 ls.remove(selected);
-
             }
         });
         bButtons.add(btnDelete);
-        */
 
         bList.add(bButtons);
 
         b.add(bList);
+        CheckButton cbIncludeEnter = new CheckButton(_("Include return character with password"));
+        gsSettings.bind(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", GSettingsBindFlags.DEFAULT);
+
+        b.add(cbIncludeEnter);
         getContentArea().add(b);
     }
 
@@ -189,7 +252,8 @@ private:
                 if (row[1] == selectedID) selected = iter;
             }
         }
-        if (selected !is null) tv.getSelection().selectIter(selected);    
+        if (selected !is null) tv.getSelection().selectIter(selected);
+        else selectRow(tv, 0);
     }
 
     void loadEntries() {
@@ -202,23 +266,19 @@ private:
                 rows ~= [item.getLabel(), id];
             }
         }
+        rows.sort();
+
         filterEntries();
-        /* Code to sort items, not working
-        bool itemComp(Item a, Item b) { return a.getLabel() > b.getLabel(); }
-        items = sort!(itemComp)(items);
-        */
-        /*
-        ls.clear();
-        foreach(item; items) {
-            if (item.getSchemaName() == SCHEMA_NAME) {
-                TreeIter iter = ls.createIter();
-                ls.setValue(iter, COLUMN_NAME, item.getLabel());
-                string id = to!string(cast(char*)item.getAttributes().lookup(cast(void*)attrID));
-                ls.setValue(iter, COLUMN_ID, id);
-            }
-        }
-        */
         updateUI();
+    }
+
+    // Reload entries from collections
+    void reload() {
+        // Have to disconnect otherwise you just get back cached entries
+        service.disconnect();
+        service = null;
+        collection = null;
+        createService();
     }
 
     HashTable createHashTable() {
@@ -256,10 +316,7 @@ private:
             PasswordManagerDialog pd = cast(PasswordManagerDialog) ObjectG.getDObject!(Dialog)(cast(GtkDialog*) userData, false);
             if (pd !is null) {
                 trace("Re-loading entries");
-                pd.service.disconnect();
-                pd.service = null;
-                pd.collection = null;
-                pd.createService();
+                pd.reload();
             }
         } catch (GException ge) {
             trace("Error occurred: " ~ ge.msg);
@@ -310,6 +367,7 @@ public:
 
     this(Window parent) {
         super(_("Insert Password"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Apply"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
+        gsSettings = new GSettings(SETTINGS_ID);
         setDefaultResponse(GtkResponseType.APPLY);
         addOnDestroy(delegate(Widget) {
             foreach(c; pending) {
@@ -336,6 +394,9 @@ public:
             immutable(char*) idz = toStringz(id); 
             ht.insert(cast(void*)attrID, cast(void*)idz);
             string password = Secret.passwordLookupvSync(schema, ht, null);
+            if (gsSettings.getBoolean(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY)) {
+                password ~= '\n';
+            }
             vte.feedChild(password, password.length);
         }
     }
@@ -346,6 +407,8 @@ private:
 class PasswordDialog: Dialog {
 
 private:
+
+    Label lblMatch;
 
     Entry eLabel;
     Entry ePassword;
@@ -362,9 +425,6 @@ private:
         grid.attach(new Label(_("Name")), 0, row, 1, 1);
         eLabel = new Entry();
         eLabel.setWidthChars(40);
-        eLabel.addOnChanged(delegate(Entry) {
-            updateUI();
-        });
         eLabel.setText(_label);
         grid.attach(eLabel, 1, row, 1, 1);
         row++;
@@ -372,9 +432,6 @@ private:
         //Password
         grid.attach(new Label(_("Password")), 0, row, 1, 1);
         ePassword = new Entry();
-        ePassword.addOnChanged(delegate(Entry) {
-            updateUI();
-        });
         ePassword.setVisibility(false);
         ePassword.setText(_password);
         grid.attach(ePassword, 1, row, 1, 1);
@@ -383,13 +440,16 @@ private:
         //Confirm Password
         grid.attach(new Label(_("Confirm Password")), 0, row, 1, 1);
         eConfirmPassword = new Entry();
-        eConfirmPassword.addOnChanged(delegate(Entry) {
-            updateUI();
-        });
         eConfirmPassword.setVisibility(false);
         eConfirmPassword.setText(_password);
         grid.attach(eConfirmPassword, 1, row, 1, 1);
-        row++;        
+        row++;
+
+        lblMatch = new Label("Password does not match confirmation");
+        lblMatch.setSensitive(false);
+        lblMatch.setNoShowAll(true);
+        lblMatch.setHalign(Align.CENTER);
+        grid.attach(lblMatch, 1, row, 1, 1);        
 
         with (getContentArea()) {
             setMarginLeft(18);
@@ -399,10 +459,22 @@ private:
             add(grid);
         }
         updateUI();
+        eLabel.addOnChanged(&entryChanged);
+        ePassword.addOnChanged(&entryChanged);
+        eConfirmPassword.addOnChanged(&entryChanged);
+    }
+
+    void entryChanged(EditableIF) {
+        updateUI();
     }
 
     void updateUI() {
         setResponseSensitive(GtkResponseType.OK, eLabel.getText().length > 0 && ePassword.getText().length > 0 && ePassword.getText() == eConfirmPassword.getText());
+        if (ePassword.getText() != eConfirmPassword.getText()) {
+            lblMatch.show();
+        } else {
+            lblMatch.hide();
+        }
     }
 
     this(Window parent, string title) {

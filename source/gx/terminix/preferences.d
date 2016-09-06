@@ -59,6 +59,7 @@ enum SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY = "warn-vte-config-issue";
 enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY = "focus-follow-mouse";
 enum SETTINGS_ENCODINGS_KEY = "encodings";
 enum SETTINGS_MIDDLE_CLICK_CLOSE_KEY = "middle-click-close";
+enum SETTINGS_PASSWORD_INCLUDE_RETURN_KEY = "password-include-return";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
 enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-word";
@@ -170,13 +171,15 @@ immutable string SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE = N_("SendNoti
 immutable string SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE = N_("UpdateTitle");
 immutable string SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE = N_("PlayBell");
 immutable string SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE = N_("SendText");
+immutable string SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE = N_("InsertPassword");
 
 immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, 
                                                              SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE, 
                                                              SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE, 
                                                              SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE, 
                                                              SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE,
-                                                             SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE];
+                                                             SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE,
+                                                             SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE];
 
 /**
  * Structure that represents a Profile in GSettings
