@@ -1107,15 +1107,8 @@ private:
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
         trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
-        // Hack fix case when user runs something like nano and row count goes up 
-        // and then resets back when user terminates
-        /*
-        if (cursorRow < triggerLastRowChecked) {
-            triggerLastRowChecked = cursorRow;
-            triggerLastColChecked = 0;
-        }
-        */
-        //Check that cursor 
+
+        //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
             size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
             long startRow = triggerLastRowChecked;
@@ -1128,8 +1121,12 @@ private:
             }
             //trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
             ArrayG attr = new ArrayG(false, false, 16);
+            trace(format("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol));
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
-            //trace("Testing triggers against\n" ~ text ~ "\n");
+            // Update position early in case we get re-entrant event
+            triggerLastRowChecked = cursorRow;
+            triggerLastColChecked = cursorCol;
+            // Store matches so we can sort them by position in process in order of appearance
             TerminalTriggerMatch[] triggerMatches;
             foreach(trigger; triggers) {
                 auto matches = matchAll(text, trigger.compiledRegex);
@@ -1146,8 +1143,6 @@ private:
             foreach(triggerMatch; triggerMatches.sort!(myComp)) {
                 processTrigger(triggerMatch.trigger, triggerMatch.groups);
             }
-            triggerLastRowChecked = cursorRow;
-            triggerLastColChecked = cursorCol;
         }
     }
 
@@ -1214,10 +1209,11 @@ private:
                 vte.feedChild(value, value.length);
                 break;
             case TriggerAction.INSERT_PASSWORD:
+                trace("Processing insert password trigger");
                 SimpleAction sa = cast(SimpleAction)sagTerminalActions.lookupAction(ACTION_INSERT_PASSWORD);
                 if (sa !is null) {
                     sa.activate(null);
-                }
+                }                
                 break;
         }
     }
