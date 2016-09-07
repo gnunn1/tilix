@@ -550,8 +550,12 @@ private:
         updateUIState();
         //Close Window if there are no pages
         if (nb.getNPages() == 0) {
-            trace("No more sessions, closing AppWindow");
-            this.close();
+            if (gsSettings.getBoolean(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY)) {
+                trace("No more sessions, closing AppWindow");
+                this.close();
+            } else {
+                createSession();
+            }
         }
     }
 
