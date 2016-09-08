@@ -144,6 +144,11 @@
       <summary>Whether splitters use a narrow (default) or wide handle</summary>
       <description>If true, splitters between terminals use a wide handle. Only supported in GTK 2.16 and later.</description>
     </key>
+    <key name="close-with-last-session" type="b">
+      <default>true</default>
+      <summary>Whether the window should close when the last session is closed</summary>
+      <description>If false, when the last session is closed, a new session is opened.</description>
+    </key>
     <!-- Dark Theme -->
     <key name="theme-variant" enum="com.gexperts.Terminix.ThemeVariant">
       <default>'system'</default>

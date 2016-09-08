@@ -704,6 +704,11 @@ private:
         gsSettings.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
         add(cbMiddleClickClose);
 
+        //Closing of last session closes window
+        CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
+        gsSettings.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
+        add(cbCloseWithLastSession);
+
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
