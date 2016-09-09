@@ -218,6 +218,19 @@ private:
         tbSideBar.setFocusOnClick(false);
         tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
         tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
+        tbSideBar.addOnScroll(delegate(Event event, Widget w) {
+            ScrollDirection direction;
+            event.getScrollDirection(direction);
+
+            if (direction == ScrollDirection.UP) {
+                focusPreviousSession();
+            } else if (direction == ScrollDirection.DOWN) {
+                focusNextSession();
+            }
+
+            return false;
+        });
+        tbSideBar.addEvents(EventType.SCROLL);
 
         //New tab button
         Button btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
@@ -295,18 +308,10 @@ private:
         }
 
         registerActionWithSettings(this, "win", ACTION_WIN_NEXT_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (nb.getCurrentPage() < nb.getNPages() - 1) {
-                nb.nextPage();
-            } else {
-                nb.setCurrentPage(0);
-            }
+            focusNextSession();
         });
         registerActionWithSettings(this, "win", ACTION_WIN_PREVIOUS_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (nb.getCurrentPage() > 0) {
-                nb.prevPage();
-            } else {
-                nb.setCurrentPage(nb.getNPages() - 1);
-            }
+            focusPreviousSession();
         });
 
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
@@ -972,6 +977,28 @@ public:
             }
         }
         return false;
+    }
+
+    /**
+     * Focus the previous session
+     */
+    void focusPreviousSession() {
+        if (nb.getCurrentPage() > 0) {
+            nb.prevPage();
+        } else {
+            nb.setCurrentPage(nb.getNPages() - 1);
+        }
+    }
+
+    /**
+     * Focus the next session
+     */
+    void focusNextSession() {
+        if (nb.getCurrentPage() < nb.getNPages() - 1) {
+            nb.nextPage();
+        } else {
+            nb.setCurrentPage(0);
+        }
     }
 
     /**
