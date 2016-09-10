@@ -38,6 +38,7 @@ import gtk.ListStore;
 import gtk.MessageDialog;
 import gtk.Notebook;
 import gtk.ScrolledWindow;
+import gtk.SpinButton;
 import gtk.Switch;
 import gtk.TreeIter;
 import gtk.TreePath;
@@ -87,6 +88,9 @@ private:
         
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
         nb.appendPage(ap, _("Appearance"));
+
+        QuakePreferences qp = new QuakePreferences(gsSettings);
+        nb.appendPage(qp, _("Quake"));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         nb.appendPage(sp, _("Shortcuts"));
@@ -655,8 +659,6 @@ class AppearancePreferences: Box {
                 gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
                 add(cbWideHandle);
             }
-            
-            
         }
         
     public:
@@ -664,6 +666,68 @@ class AppearancePreferences: Box {
             super(Orientation.VERTICAL, 6);
             createUI(gsSettings);
         }
+}
+
+class QuakePreferences : Box {
+
+private:
+    void createUI(Settings gsSettings) {
+        setMarginTop(18);
+        setMarginBottom(18);
+        setMarginLeft(18);
+        setMarginRight(18);
+
+        Box bContent = new Box(Orientation.VERTICAL, 6);
+
+        //Show on all workspaces
+        CheckButton cbAllWorkspaces = new CheckButton(_("Show terminal on all workspaces"));
+        gsSettings.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
+        bContent.add(cbAllWorkspaces);
+
+        // Wayland doesn't let you put a window on a specific monitor so don't show this
+        if (!isWayland()) {
+            //Primary Monitor
+            CheckButton cbPrimaryMonitor = new CheckButton(_("Display terminal on primary monitor"));
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, cbPrimaryMonitor, "active", GSettingsBindFlags.DEFAULT);
+            bContent.add(cbPrimaryMonitor);
+
+            //Specific Monitor
+            Box bSpecific = new Box(Orientation.HORIZONTAL, 6);
+            bSpecific.setMarginLeft(36);
+            Label lblSpecific = new Label(_("Display on specific monitor"));
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bSpecific.add(lblSpecific);
+            SpinButton sbScreen = new SpinButton(0, getScreen().getNMonitors() - 1, 1);
+            gsSettings.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR, sbScreen, "value", GSettingsBindFlags.DEFAULT);
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bSpecific.add(sbScreen);
+
+            bContent.add(bSpecific);
+        }     
+
+        add(bContent);
+
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+        int row = 0;
+
+        // Terminal Height
+        grid.attach(createLabel(_("Terminal height")), 0, row, 1, 1);
+        SpinButton sbHeight = new SpinButton(10, 100, 5);
+        gsSettings.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sbHeight, "value", GSettingsBindFlags.DEFAULT);
+        grid.attach(sbHeight, 1, row, 1, 1);
+        row++;
+
+        add(grid);
+    }
+
+public:
+
+    this(Settings gsSettings) {
+        super(Orientation.VERTICAL, 6);
+        createUI(gsSettings);
+    }
 }
 
 /**

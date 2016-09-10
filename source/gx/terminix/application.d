@@ -343,54 +343,66 @@ private:
         trace("Activating app");
         
         if (acl.getIsRemote()) {
-            AppWindow aw = getActiveAppWindow();
-            if (aw !is null) {
-                /*
-                if (cp.terminalUUID.length > 0 && cp.title.length > 0) {
-                    aw.getActiveTerminal().overrideTitle = cp.title;
-                    //No further processing, setting title ignores everything else
-                    return cp.exitCode;
+            // Check if quake mode was passed and we have quake window already then
+            // just toggle visibility or create quake window. If there isn't a quake window
+            // fall through and let activate create one
+            if (cp.quake) {
+                AppWindow qw = getQuakeWindow();
+                if (qw !is null) {
+                    if (qw.getVisible) qw.hide();
+                    else qw.present();
+                    return 0;
                 }
-                */
-                string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
-                //If focus-window command line parameter was passed, override setting
-                if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
-                switch (instanceAction) {
-                    //New Session
-                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
-                        aw.present();
-                        if (cp.session.length > 0) {
-                            // This will use global override and load sessions
-                            aw.initialize();
-                        } else {
-                            aw.createSession();
-                        }
+            } else {
+                AppWindow aw = getActiveAppWindow();
+                if (aw !is null) {
+                    string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
+                    //If focus-window command line parameter was passed, override setting
+                    if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
+                    switch (instanceAction) {
+                        //New Session
+                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
+                            aw.present();
+                            if (cp.session.length > 0) {
+                                // This will use global override and load sessions
+                                aw.initialize();
+                            } else {
+                                aw.createSession();
+                            }
+                            return cp.exitCode;
+                        //Split Right, Split Down
+                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[2], SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
+                            if (cp.session.length > 0) break;
+                            aw.present();
+                            //If workingDir is not set, override it with cwd so that it takes priority for
+                            //executing actions below
+                            if (cp.workingDir.length == 0) {
+                                cp.workingDir = cp.cwd;
+                            }
+                            if (instanceAction == SETTINGS_NEW_INSTANCE_MODE_VALUES[2])
+                                executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
+                            else
+                                executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
+                            return cp.exitCode;
+                        //Focus Window
+                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
+                            if (cp.session.length > 0) {
+                                // This will use global override and load sessions
+                                aw.initialize();
+                            }
+                            aw.present();
+                            return cp.exitCode;
+                        default:
+                            //Fall through to activate
+                    }
+                }                    /*
+                    if (cp.terminalUUID.length > 0 && cp.title.length > 0) {
+                        aw.getActiveTerminal().overrideTitle = cp.title;
+                        //No further processing, setting title ignores everything else
                         return cp.exitCode;
-                    //Split Right, Split Down
-                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[2], SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
-                        if (cp.session.length > 0) break;
-                        aw.present();
-                        //If workingDir is not set, override it with cwd so that it takes priority for
-                        //executing actions below
-                        if (cp.workingDir.length == 0) {
-                            cp.workingDir = cp.cwd;
-                        }
-                        if (instanceAction == SETTINGS_NEW_INSTANCE_MODE_VALUES[2])
-                            executeAction(aw.getActiveTerminalUUID, "terminal-split-right");
-                        else
-                            executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
-                        return cp.exitCode;
-                    //Focus Window
-                    case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
-                        if (cp.session.length > 0) {
-                            // This will use global override and load sessions
-                            aw.initialize();
-                        }
-                        aw.present();
-                        return cp.exitCode;
-                    default:
-                        //Fall through to activate
-                }
+                    }
+                    */
+
             }        
         }
         activate();
@@ -529,7 +541,7 @@ private:
         }
         trace(format("Could not find action for prefix=%s and action=%s", prefix, actionName));
     }
-    
+
     /**
      * Returns the most active AppWindow, ignores preference
      * an profile windows
@@ -544,6 +556,17 @@ private:
         foreach(window; windows) {
             appWindow = cast(AppWindow) window;
             if (appWindow !is null) return appWindow;
+        }
+        return null;
+    }
+
+    AppWindow getQuakeWindow() {
+        ListG list = getWindows();
+        if (list is null) return null;
+        Window[] windows = list.toArray!(Window)();
+        foreach(window; windows) {
+            AppWindow appWindow = cast(AppWindow) window;
+            if (appWindow !is null && appWindow.isQuake()) return appWindow;
         }
         return null;
     }
@@ -563,7 +586,8 @@ private:
         addMainOption(CMD_FOCUS_WINDOW, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Focus the existing window"), null);
         addMainOption(CMD_NEW_PROCESS, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Start additional instance as new process (Not Recommended)"), null);
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
-
+        addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), _("QUAKE"));
+        
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
     }

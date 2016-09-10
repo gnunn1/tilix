@@ -7,6 +7,7 @@ module gx.gtk.util;
 import std.conv;
 import std.experimental.logger;
 import std.format;
+import std.process;
 
 import gdk.Atom;
 import gdk.RGBA;
@@ -37,6 +38,16 @@ import gtk.TreeView;
 import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
+
+
+bool isWayland() {
+    try {
+        environment["WAYLAND_DISPLAY"];
+        return true;        
+    } catch (Exception e) {
+        return false;
+    }
+}
 
 /**
  * Return the name of the GTK Theme
@@ -257,6 +268,32 @@ ComboBox createNameValueCombo(const string[] names, const string[] values) {
 
     for (int i = 0; i < names.length; i++) {
         appendValues(ls, [names[i], values[i]]);
+    }
+
+    ComboBox cb = new ComboBox(ls, false);
+    cb.setFocusOnClick(false);
+    cb.setIdColumn(1);
+    CellRendererText cell = new CellRendererText();
+    cell.setAlignment(0, 0);
+    cb.packStart(cell, false);
+    cb.addAttribute(cell, "text", 0);
+
+    return cb;
+}
+
+/**
+ * Creates a combobox that holds a set of name/value pairs
+ * where the name is displayed.
+ */
+ComboBox createNameValueCombo(const string[] names, const int[] values) {
+    assert(names.length == values.length);
+
+    ListStore ls = new ListStore([GType.STRING, GType.INT]);
+
+    for (int i = 0; i < names.length; i++) {
+        TreeIter iter = ls.createIter();
+        ls.setValue(iter, 0, names[i]);
+        ls.setValue(iter, 1, values[i]);
     }
 
     ComboBox cb = new ComboBox(ls, false);
