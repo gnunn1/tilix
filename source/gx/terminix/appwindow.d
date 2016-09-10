@@ -1046,6 +1046,11 @@ public:
      * Creates a new session and prompts the user for session properties
      */
     void createSession() {
+        // Hide the sidebar if it is open
+        if (sb.getRevealChild()) {
+            saViewSideBar.activate(null);
+        }
+
         string workingDir;
         // Inherit current session directory unless overrides exist, fix #343
         if (terminix.getGlobalOverrides().cwd.length ==0 && terminix.getGlobalOverrides().workingDir.length == 0) {
