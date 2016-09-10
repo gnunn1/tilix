@@ -33,6 +33,7 @@ enum CMD_FOCUS_WINDOW = "focus-window";
 enum CMD_GEOMETRY = "geometry";
 enum CMD_NEW_PROCESS = "new-process";
 enum CMD_TITLE = "title";
+enum CMD_QUAKE = "quake";
 
 /**
  * Manages the terminix command line options
@@ -57,6 +58,7 @@ private:
     bool _fullscreen;
     bool _focusWindow;
     bool _newProcess;
+    bool _quake;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -82,7 +84,7 @@ private:
             return value.getString(l);
         }
     }
-    
+
     string validatePath(string path) {
         if (path.length > 0) {
             path = expandTilde(path);
@@ -152,7 +154,7 @@ public:
         _terminalUUID = getValue(vd, CMD_TERMINAL_UUID, vts);
         if (_action.length > 0) {
             if (!acl.getIsRemote()) {
-                writeln("You can only use the the action parameter within Terminix");
+                writeln(_("You can only use the the action parameter within Terminix"));
                 _exitCode = 2;
                 _exit = true;
                 _action.length = 0;
@@ -163,11 +165,18 @@ public:
         _fullscreen = vd.contains(CMD_FULL_SCREEN);
         _focusWindow = vd.contains(CMD_FOCUS_WINDOW);
         _newProcess = vd.contains(CMD_NEW_PROCESS);
-        
+        _quake = vd.contains(CMD_QUAKE);
+
         _geometry = getValue(vd, CMD_GEOMETRY, vts);
-        if (_geometry.length>0)
+        if (_geometry.length > 0)
             parseGeometry();
-        
+
+        if (_quake && (_maximize || _fullscreen || _geometry.length > 0)) {
+                writeln(_("You cannot use the quake mode with maximize, fullscreen or geometry parameters"));
+                _exitCode = 3;
+                _exit = true;
+        }
+
         trace("Command line parameters:");
         trace("\tworking-directory=" ~ _workingDir);
         trace("\tsession=" ~ _session);
@@ -196,6 +205,7 @@ public:
         _fullscreen = false;
         _focusWindow = false;
         _newProcess = false;
+        _quake = false;
         _width = 0;
         _height = 0;
         _x = 0;
@@ -286,5 +296,9 @@ public:
 
     @property string title() {
         return _title;
+    }
+
+    @property bool quake() {
+        return _quake;
     }
 }

@@ -267,6 +267,28 @@
       <summary>Whether to include return character with password</summary>
       <description>If true, when selecting a password to submit to the terminal a return character will automatically be added.</description>
     </key>
+    <!-- Quake Options -->
+    <key name="quake-height-percent" type="i">
+      <range min="10" max="100" />
+      <default>40</default>
+      <summary>The height of the terminal as a percent of the screen height</summary>
+      <description>When in quake mode, the height of the terminal as a percentage of the screen height.</description>
+    </key>
+    <key name="quake-primary-monitor" type="b">
+      <default>true</default>
+      <summary>Display the terminal on the primary monitor</summary>
+      <description>When in quake mode, always display the terminal on the primary monitor.</description>
+    </key>
+    <key name="quake-specific-monitor" type="i">
+      <default>0</default>
+      <summary>Display the terminal on a specific monitor if available</summary>
+      <description>When in quake mode, display the terminal on the specified monitor.</description>
+    </key>
+    <key name="quake-show-on-all-workspaces" type="b">
+      <default>true</default>
+      <summary>Display the terminal on all workspaces</summary>
+      <description>When in quake mode, display the terminal on all workspaces.</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->

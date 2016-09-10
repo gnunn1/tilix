@@ -142,6 +142,9 @@ private:
     // Track size changes, only invalidate if size really changed
     int lastWidth, lastHeight;
 
+    // True if window is in quake mode
+    bool _quake;
+
     /**
      * Create the user interface
      */
@@ -190,7 +193,7 @@ private:
         //Could be a Box or a Headerbar depending on value of disable_csd
         hb = createHeaderBar();
 
-        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+        if (isQuake() || gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             hb.getStyleContext().addClass("terminix-embedded-headerbar");
             Grid grid = new Grid();
             grid.setOrientation(Orientation.VERTICAL);
@@ -789,6 +792,48 @@ private:
         updateVisual();
     }
 
+    void applyPreference(string key) {
+        switch(key) {
+            case SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR, SETTINGS_QUAKE_SPECIFIC_MONITOR:
+                if (isQuake) {
+                    GdkRectangle rect;
+                    getQuakePosition(rect);
+                    setDefaultSize(rect.width, rect.height);
+                    move(rect.x, rect.y);
+                }
+                break;
+            case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES:
+                if (isQuake) {
+                    if (gsSettings.getBoolean(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES)) stick();
+                    else unstick();
+                }
+                break;        
+            default:
+                break;
+        }
+    }
+
+    void getQuakePosition(out GdkRectangle rect) {
+        Screen screen = getScreen();
+        int monitor = screen.getPrimaryMonitor();
+        
+        if (!isWayland() && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR))) {
+            int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR);
+            if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
+                monitor = altMonitor;
+            }
+        }
+        getScreen().getMonitorGeometry(monitor, rect);
+
+        //Scale width and height if necessary
+        int scale = screen.getMonitorScaleFactor(monitor);
+        rect.width = rect.width / scale;
+        rect.height = rect.height / scale;
+        double percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
+        rect.height = to!int(rect.height * percent);
+        trace(format("Quake window: monitor=%d, scale=%d, x=%d, y=%d, width=%d, height=%d", monitor, scale, rect.x, rect.y, rect.width, rect.height));
+    }
+
     Session getCurrentSession() {
         if (nb.getCurrentPage < 0)
             return null;
@@ -920,12 +965,28 @@ public:
         super(application);
         terminix.addAppWindow(this);
         gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            applyPreference(key);
+        });
         setTitle(_("Terminix"));
         setIconName("com.gexperts.Terminix");
 
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
         }
+        if (terminix.getGlobalOverrides().quake) {
+            _quake = true;
+            setDecorated(false);
+            setResizable(false);
+            setDeletable(false);
+            setKeepAbove(true);
+            //setSkipTaskbarHint(true);
+            //setSkipPagerHint(true);
+            setTypeHint(GdkWindowTypeHint.UTILITY);
+            applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
+            applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES);
+        }
+
         createUI();
 
         addOnDelete(&onWindowClosed);
@@ -934,7 +995,13 @@ public:
             if (terminix.getGlobalOverrides().x > 0) {
                 move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
             }
+            if (isQuake()) {
+                GdkRectangle rect;
+                getQuakePosition(rect);
+                move(rect.x, rect.y);
+            }
         });
+
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
             if (lastWidth != rect.width || lastHeight != rect.height) {
@@ -965,6 +1032,13 @@ public:
         addSession(session);
     }
     
+    /**
+     * Returns true if this window is in quake mode.
+     */
+    bool isQuake() {
+        return _quake;
+    }
+
     /**
      * Activates the specified sessionUUID
      */
@@ -1089,7 +1163,7 @@ public:
      * Returns an image surface that contains the rendered background
      * image. This returns null if no background image has been set.
      *
-     * The image surface is cached between invocations to improve drawBadge
+     * The image surface is cached between invocations to improve draw
      * performance as per #340.
      */
     ImageSurface getBackgroundImage(Widget widget) {
