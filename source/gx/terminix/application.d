@@ -350,7 +350,10 @@ private:
                 AppWindow qw = getQuakeWindow();
                 if (qw !is null) {
                     if (qw.getVisible) qw.hide();
-                    else qw.present();
+                    else {
+                        qw.present();
+                        qw.getActiveTerminal().focusTerminal();
+                    }
                     return 0;
                 }
             } else {

@@ -207,6 +207,11 @@ interface ITerminal : IIdentifiable {
     void toggleFind();
 
     /**
+     * Focuses the terminal
+     */
+    void focusTerminal();
+
+    /**
      * Returns the current directory of the terminal, may be
      * null if information is not available due to VTE
      * configuration issue
