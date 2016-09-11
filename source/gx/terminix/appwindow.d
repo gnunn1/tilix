@@ -788,6 +788,10 @@ private:
         } else if (terminix.getGlobalOverrides().fullscreen) {
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
+        } else if (isQuake()) {
+            trace("Activate focus");
+            activateFocus();
+            getActiveTerminal().focusTerminal();
         }
     }
     
@@ -803,8 +807,8 @@ private:
                     GdkRectangle rect;
                     getQuakePosition(rect);
                     setDefaultSize(rect.width, rect.height);
-                    //GdkGeometry geometry = GdkGeometry(-1, -1, -1, -1, rect.height, rect.width, -1, rect.height, rect.width, -1, GdkGravity.NORTH);
-                    //setGeometryHints(null, &geometry, GdkWindowHints.MAX_SIZE);
+                    GdkGeometry geometry = GdkGeometry(rect.width, rect.height, rect.width, rect.height, -1, -1, 1, 1, -1, -1, GdkGravity.NORTH);
+                    setGeometryHints(null, &geometry, GdkWindowHints.MAX_SIZE);
                     move(rect.x, rect.y);
                 }
                 break;
@@ -988,7 +992,7 @@ public:
             setKeepAbove(true);
             //setSkipTaskbarHint(true);
             //setSkipPagerHint(true);
-            //setTypeHint(GdkWindowTypeHint.NORMAL);
+            setTypeHint(GdkWindowTypeHint.NORMAL);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES);
         }
