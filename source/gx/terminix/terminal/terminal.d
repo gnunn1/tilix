@@ -2341,6 +2341,7 @@ public:
      * Requests the terminal be focused
      */
     void focusTerminal() {
+        trace("Terminal grabbing focus");
         vte.grabFocus();
     }
     

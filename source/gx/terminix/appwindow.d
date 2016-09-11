@@ -803,6 +803,8 @@ private:
                     GdkRectangle rect;
                     getQuakePosition(rect);
                     setDefaultSize(rect.width, rect.height);
+                    //GdkGeometry geometry = GdkGeometry(-1, -1, -1, -1, rect.height, rect.width, -1, rect.height, rect.width, -1, GdkGravity.NORTH);
+                    //setGeometryHints(null, &geometry, GdkWindowHints.MAX_SIZE);
                     move(rect.x, rect.y);
                 }
                 break;
@@ -981,12 +983,12 @@ public:
         if (terminix.getGlobalOverrides().quake) {
             _quake = true;
             setDecorated(false);
-            setResizable(false);
-            setDeletable(false);
+            //setResizable(false);
+            //setDeletable(false);
             setKeepAbove(true);
             //setSkipTaskbarHint(true);
             //setSkipPagerHint(true);
-            setTypeHint(GdkWindowTypeHint.UTILITY);
+            //setTypeHint(GdkWindowTypeHint.NORMAL);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES);
         }
