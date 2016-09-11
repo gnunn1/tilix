@@ -789,11 +789,30 @@ private:
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
         } else if (isQuake()) {
-            trace("Activate focus");
+            trace("Focus terminal");
+            activate();
             activateFocus();
             getActiveTerminal().focusTerminal();
+            /*
+            event = new Event(GdkEventType.FOCUS_CHANGE);
+            event.focus.window = getWindow().getWindowStruct();
+            event.focus.inn = 1;
+            event.focus.type = GdkEventType.FOCUS_CHANGE;
+            this.event(event);
+            */
         }
     }
+
+    void onWindowRealized(Widget) {
+        if (terminix.getGlobalOverrides().x > 0) {
+            move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
+        }
+        if (isQuake()) {
+            GdkRectangle rect;
+            getQuakePosition(rect);
+            move(rect.x, rect.y);
+        }
+    }    
     
     void onCompositedChanged(Widget) {
         trace("Composite changed");
@@ -987,12 +1006,11 @@ public:
         if (terminix.getGlobalOverrides().quake) {
             _quake = true;
             setDecorated(false);
-            //setResizable(false);
-            //setDeletable(false);
+            setGravity(GdkGravity.STATIC);
             setKeepAbove(true);
-            //setSkipTaskbarHint(true);
-            //setSkipPagerHint(true);
             setTypeHint(GdkWindowTypeHint.NORMAL);
+            setSkipTaskbarHint(true);
+            setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES);
         }
@@ -1001,16 +1019,7 @@ public:
 
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
-        addOnRealize(delegate (Widget) {
-            if (terminix.getGlobalOverrides().x > 0) {
-                move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
-            }
-            if (isQuake()) {
-                GdkRectangle rect;
-                getQuakePosition(rect);
-                move(rect.x, rect.y);
-            }
-        });
+        addOnRealize(&onWindowRealized);
 
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
