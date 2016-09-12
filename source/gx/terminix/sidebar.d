@@ -11,6 +11,8 @@ import std.experimental.logger;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.Settings : GSettings = Settings;
+
 import gtk.AspectFrame;
 import gtk.Box;
 import gtk.Button;
@@ -35,6 +37,7 @@ import gx.i18n.l10n;
 static import gx.util.array;
 
 import gx.terminix.common;
+import gx.terminix.preferences;
 import gx.terminix.session;
 
 /**
@@ -54,6 +57,8 @@ alias OnSBSessionClose = bool delegate(string sessionUUID);
  */
 class SideBar : Revealer {
 private:
+    GSettings gsSettings;
+
     ListBox lbSessions;
 
     OnSBSessionSelected[] sessionSelectedDelegates;
@@ -173,17 +178,34 @@ private:
         return null;
     }
 
+    void setSidebarPosition() {
+        if (gsSettings.getBoolean(SETTINGS_SIDEBAR_RIGHT)) {
+            setTransitionType(RevealerTransitionType.SLIDE_LEFT);
+            setHalign(Align.END);
+        } else {
+            setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
+            setHalign(Align.START);
+        }
+    }
+
 public:
     this() {
         super();
+
+        gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_SIDEBAR_RIGHT) {
+                setSidebarPosition();
+            }
+        });
+
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
         
-        setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
         setHexpand(false);
         setVexpand(true);
-        setHalign(Align.START);
         setValign(Align.FILL);
+        setSidebarPosition();
 
         lbSessions = new ListBox();
         lbSessions.setCanFocus(true);

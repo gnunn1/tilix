@@ -659,6 +659,10 @@ class AppearancePreferences: Box {
                 gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
                 add(cbWideHandle);
             }
+
+            CheckButton cbRightSidebar = new CheckButton(_("Place the sidebar on the right"));
+            gsSettings.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
+            add(cbRightSidebar);
         }
         
     public:
