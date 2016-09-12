@@ -45,9 +45,9 @@ import gtk.Window;
 /*
 import x11.X: ClientMessage, StructureNotifyMask, XWindow=Window;
 import x11.Xlib;
-*/
 
 import gx.gtk.x11;
+*/
 
 bool isWayland(Window window) {
     try {
