@@ -685,7 +685,7 @@ private:
         bContent.add(cbAllWorkspaces);
 
         // Wayland doesn't let you put a window on a specific monitor so don't show this
-        if (!isWayland()) {
+        if (!isWayland(cast(Window) this.getToplevel())) {
             //Primary Monitor
             CheckButton cbPrimaryMonitor = new CheckButton(_("Display terminal on primary monitor"));
             gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, cbPrimaryMonitor, "active", GSettingsBindFlags.DEFAULT);

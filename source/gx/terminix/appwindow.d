@@ -793,13 +793,6 @@ private:
             activate();
             activateFocus();
             getActiveTerminal().focusTerminal();
-            /*
-            event = new Event(GdkEventType.FOCUS_CHANGE);
-            event.focus.window = getWindow().getWindowStruct();
-            event.focus.inn = 1;
-            event.focus.type = GdkEventType.FOCUS_CHANGE;
-            this.event(event);
-            */
         }
     }
 
@@ -845,8 +838,7 @@ private:
     void getQuakePosition(out GdkRectangle rect) {
         Screen screen = getScreen();
         int monitor = screen.getPrimaryMonitor();
-        
-        if (!isWayland() && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR))) {
+        if (!isWayland(this) && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR))) {
             int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR);
             if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
                 monitor = altMonitor;
