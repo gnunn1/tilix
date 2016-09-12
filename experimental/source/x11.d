@@ -26,3 +26,35 @@ __gshared extern(C)
     Display* function() gdk_x11_get_default_xdisplay;
     XWindow   function() gdk_x11_get_default_root_xwindow;
 }
+
+/*
+void activateWindow(Window window) {
+    if (window.isActive()) return;
+
+    if (isWayland(window)) {
+        window.present();
+    } else {
+        XClientMessageEvent event;
+        event.type = ClientMessage;
+        event.window = getXid(window.getWindow());
+        const(char*) name = toStringz("_NET_ACTIVE_WINDOW");
+        event.message_type = gdk_x11_get_xatom_by_name(name);
+        event.format = 32;
+        event.data.l[0] = 0;
+        tracef("Event: window: %d; Message type %d", event.window, event.message_type);
+
+        trace("Get display");
+        Display* display = gdk_x11_get_default_xdisplay();
+        trace("Get root window");
+        XWindow root = gdk_x11_get_default_root_xwindow();    
+
+        Gdk.errorTrapPush();
+        trace("Send Event");
+        XSendEvent(display, root, false, StructureNotifyMask, cast(XEvent*) &event); 
+        Gdk.flush;
+        if (Gdk.errorTrapPop() != 0) {
+            error("Failed to focus window");
+        }
+    }
+}
+*/
