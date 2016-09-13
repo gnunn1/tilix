@@ -43,8 +43,8 @@ ShortcutsWindow getShortcutWindow() {
             ss.setProperty("accelerator", accelName);
         } else {
             trace("Could not find shortcut for " ~ key);
-        }             
-    }    
+        }
+    }
 
     return cast(ShortcutsWindow) builder.getObject("shortcuts-terminix");
 }

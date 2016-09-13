@@ -104,19 +104,19 @@ public class Collection : DBusProxy
 	public this(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_new_for_dbus_path_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new_for_dbus_path_finish");
 		}
-		
+
 		this(cast(SecretCollection*) p, true);
 	}
 
@@ -144,19 +144,19 @@ public class Collection : DBusProxy
 	public this(Service service, string collectionPath, SecretCollectionFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_new_for_dbus_path_sync((service is null) ? null : service.getServiceStruct(), Str.toStringz(collectionPath), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new_for_dbus_path_sync");
 		}
-		
+
 		this(cast(SecretCollection*) p, true);
 	}
 
@@ -204,19 +204,19 @@ public class Collection : DBusProxy
 	public static Collection createFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_create_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Collection)(cast(SecretCollection*) p, true);
 	}
 
@@ -251,19 +251,19 @@ public class Collection : DBusProxy
 	public static Collection createSync(Service service, string label, string alias_, SecretCollectionCreateFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_create_sync((service is null) ? null : service.getServiceStruct(), Str.toStringz(label), Str.toStringz(alias_), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Collection)(cast(SecretCollection*) p, true);
 	}
 
@@ -303,19 +303,19 @@ public class Collection : DBusProxy
 	public static Collection forAliasFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_for_alias_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Collection)(cast(SecretCollection*) p, true);
 	}
 
@@ -341,19 +341,19 @@ public class Collection : DBusProxy
 	public static Collection forAliasSync(Service service, string alias_, SecretCollectionFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_for_alias_sync((service is null) ? null : service.getServiceStruct(), Str.toStringz(alias_), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Collection)(cast(SecretCollection*) p, true);
 	}
 
@@ -408,14 +408,14 @@ public class Collection : DBusProxy
 	public bool deleteFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_delete_finish(secretCollection, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -436,14 +436,14 @@ public class Collection : DBusProxy
 	public bool deleteSync(Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_delete_sync(secretCollection, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -468,12 +468,12 @@ public class Collection : DBusProxy
 	public ListG getItems()
 	{
 		auto p = secret_collection_get_items(secretCollection);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new ListG(cast(GList*) p, true);
 	}
 
@@ -485,7 +485,7 @@ public class Collection : DBusProxy
 	public string getLabel()
 	{
 		auto retStr = secret_collection_get_label(secretCollection);
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -522,12 +522,12 @@ public class Collection : DBusProxy
 	public Service getService()
 	{
 		auto p = secret_collection_get_service(secretCollection);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Service)(cast(SecretService*) p);
 	}
 
@@ -565,14 +565,14 @@ public class Collection : DBusProxy
 	public bool loadItemsFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_load_items_finish(secretCollection, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -597,14 +597,14 @@ public class Collection : DBusProxy
 	public bool loadItemsSync(Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_load_items_sync(secretCollection, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -663,19 +663,19 @@ public class Collection : DBusProxy
 	public ListG searchFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_search_finish(secretCollection, (result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new ListG(cast(GList*) p, true);
 	}
 
@@ -721,14 +721,14 @@ public class Collection : DBusProxy
 	public string[] searchForDbusPathsFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_collection_search_for_dbus_paths_finish(secretCollection, (result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeStringArray(retStr);
 		return Str.toStringArray(retStr);
 	}
@@ -758,14 +758,14 @@ public class Collection : DBusProxy
 	public string[] searchForDbusPathsSync(Schema schema, HashTable attributes, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_collection_search_for_dbus_paths_sync(secretCollection, (schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeStringArray(retStr);
 		return Str.toStringArray(retStr);
 	}
@@ -801,19 +801,19 @@ public class Collection : DBusProxy
 	public ListG searchSync(Schema schema, HashTable attributes, SecretSearchFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_search_sync(secretCollection, (schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new ListG(cast(GList*) p, true);
 	}
 
@@ -846,14 +846,14 @@ public class Collection : DBusProxy
 	public bool setLabelFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_set_label_finish(secretCollection, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -874,14 +874,14 @@ public class Collection : DBusProxy
 	public bool setLabelSync(string label, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_collection_set_label_sync(secretCollection, Str.toStringz(label), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 }

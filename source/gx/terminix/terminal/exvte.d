@@ -14,12 +14,12 @@ import vte.Terminal;
 import vtec.vtetypes;
 
 enum TerminalScreen {
-    NORMAL = 0, 
+    NORMAL = 0,
     ALTERNATE = 1
 };
 
 /**
- * Extends default GtKD VTE widget to support various patches 
+ * Extends default GtKD VTE widget to support various patches
  * which provide additional features when available.
  */
 class ExtendedVTE : Terminal {
@@ -56,8 +56,8 @@ public:
 	 * Emitted whenever a command is completed.
 	 *
 	 * Params:
-	 *     summary = 
-	 *     body = 
+	 *     summary =
+	 *     body =
 	 */
     void addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags = cast(ConnectFlags) 0) {
         //Check that this is the Fedora patched VTE that supports the notification-received signal
@@ -84,7 +84,7 @@ public:
     }
 
     /**
-     * Emitted whenever the terminal screen is switched between normal and alternate. 
+     * Emitted whenever the terminal screen is switched between normal and alternate.
      */
     void addOnTerminalScreenChanged(void delegate(TerminalScreen, Terminal) dlg, ConnectFlags connectFlags = cast(ConnectFlags) 0) {
         //Check that this is the Fedora patched VTE that supports the notification-received signal

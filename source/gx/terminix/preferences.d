@@ -181,10 +181,10 @@ immutable string SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE = N_("PlayBell");
 immutable string SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE = N_("SendText");
 immutable string SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE = N_("InsertPassword");
 
-immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE, 
-                                                             SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE, 
-                                                             SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE, 
-                                                             SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE, 
+immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TRIGGER_UPDATE_STATE_VALUE,
+                                                             SETTINGS_PROFILE_TRIGGER_EXECUTE_COMMAND_VALUE,
+                                                             SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE,
+                                                             SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE,
                                                              SETTINGS_PROFILE_TRIGGER_PLAY_BELL_VALUE,
                                                              SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE,
                                                              SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE];
@@ -332,7 +332,7 @@ public:
         }
         return null;
     }
-    
+
     /**
      * Finds the profile that matches the current hostname and directory
      */
@@ -347,7 +347,7 @@ public:
                 if (isTilde >= 0) {
                     string path = match[(isTilde + 1) .. $];
                     path = expandTilde(path);
-                    match = match[0 .. isTilde] ~ ":" ~ path; 
+                    match = match[0 .. isTilde] ~ ":" ~ path;
                 }
                 //trace("Testing match " ~ match);
 
@@ -361,7 +361,7 @@ public:
                    (matchDirectory.length == 0 || matchDirectory == directory)) {
                     return uuid;
                 }
-            } 
+            }
         }
         return null;
     }

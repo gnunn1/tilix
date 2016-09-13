@@ -51,7 +51,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
         Container parent = cast(Container) widget.getParent();
         if (parent is null) {
             error("Parent is not a Container, cannot draw offscreen image");
-            return null;        
+            return null;
         }
         parent.remove(widget);
         window.add(widget);
@@ -60,9 +60,9 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             /*
             Need to process events here until Window is drawn
             Not overly pleased with this solution, use timer
-            as a guard to make sure we don't get caught up 
+            as a guard to make sure we don't get caught up
             in an infinite loop
-            
+
             Considered using an idle handler here but because the
             widget needs to stay parented to the OffscreenWindow that
             gives me even more shudders then the less then optimal
@@ -71,13 +71,13 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
                 Main.iterationDo(false);
             }
-            // While we could call getPixBuf() on Offscreen Window, drawing 
+            // While we could call getPixBuf() on Offscreen Window, drawing
             // it ourselves gives better results when dealing with transparency
             Pixbuf pb = getDrawableWidgetImage(widget, factor, width, height);
             if (pb is null) {
                 error("Pixbuf from renderwindow is null");
                 return pb;
-            } 
+            }
             return pb;
         } finally {
             window.remove(widget);
@@ -98,12 +98,12 @@ ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
     }
     setSourcePixbuf(cr, pb, 0, 0);
     cr.paint();
-    return surface;    
+    return surface;
 }
 
 /**
  * Renders an image onto an ImageSurface using different modes
- */ 
+ */
 ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
     ImageSurface surface = renderImage(pbSource);
     scope(exit) {
@@ -141,7 +141,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             cr.setSourceSurface(isSource, 0, 0);
             cr.getSource().setFilter(scaleMode);
             cr.paint();
-            break;            
+            break;
         case ImageLayoutMode.TILE:
             cr.setSourceSurface(isSource, 0, 0);
             cr.getSource().setExtend(cairo_extend_t.REPEAT);
@@ -173,7 +173,7 @@ Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int heigh
     int pw = to!int(w * factor);
     int ph = to!int(h * factor);
     tracef("Factor: %f, New: %d, %d", factor, pw, ph);
-   
+
     Window window = widget.getWindow();
     Surface surface = window.createSimilarSurface(cairo_content_t.COLOR, pw, ph);
     Context cr = Context.create(surface);
@@ -184,7 +184,7 @@ Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int heigh
 
 class RenderWindow: OffscreenWindow {
     bool _canDraw = false;
-    
+
     bool onDamage(gdk.Event.Event, Widget) {
         trace("Damage event received");
         _canDraw = true;
@@ -197,7 +197,7 @@ public:
         addOnDamage(&onDamage);
         show();
     }
-    
+
     @property bool canDraw() {
         return _canDraw;
     }

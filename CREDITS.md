@@ -2,7 +2,7 @@ Credits
 =======
 
 I would like to thank the following people and organizations without
-whom this project would not be where it is today. If I am missing anyone, 
+whom this project would not be where it is today. If I am missing anyone,
 please feel free to let me know or update this file via a pull request.
 
 * Gerald Nunn
@@ -17,7 +17,7 @@ please feel free to let me know or update this file via a pull request.
 * Christian Herget
 * Allan Day
 
-While not directly contributing to Terminix, I would also like to thank the following 
+While not directly contributing to Terminix, I would also like to thank the following
 people and organizations for their contributions to projects without whose existence
 Terminix would not exist.
 

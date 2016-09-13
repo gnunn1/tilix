@@ -28,7 +28,7 @@ enum SHORTCUT_DISABLED = N_("disabled");
  * Convert an accelerator name to a label
  */
 string acceleratorNameToLabel(string acceleratorName) {
-    uint acceleratorKey; 
+    uint acceleratorKey;
     GdkModifierType acceleratorMods;
     AccelGroup.acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
     string label = AccelGroup.acceleratorGetLabel(acceleratorKey, acceleratorMods);
@@ -74,7 +74,7 @@ string keyToDetailedActionName(string key) {
 /**
     * Adds a new action to the specified menu. An action is automatically added to the application that invokes the
     * specified callback when the actual menu item is activated.
-    * 
+    *
     * This code from grestful (https://github.com/Gert-dev/grestful)
     *
     * Params:
@@ -110,13 +110,13 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
 /**
     * Adds a new action to the specified menu. An action is automatically added to the application that invokes the
     * specified callback when the actual menu item is activated.
-    * 
+    *
     * This code from grestful (https://github.com/Gert-dev/grestful)
     *
     * Params:
     * actionMap =            The map that is holding the action
     * prefix =               The prefix part of the action name that comes before the ".", i.e. "app" for GtkApplication, etc
-    * id =                   The ID to give to the action. This can be used in other places to refer to the action 
+    * id =                   The ID to give to the action. This can be used in other places to refer to the action
     *                             by a string. Must always start with "app.".
     * accelerator =          The (application wide) keyboard accelerator to activate the action.
     * callback =             The callback to invoke when the action is invoked.
@@ -145,7 +145,7 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
 
     if (accelerators.length > 0) {
         if (app is null) {
-            app = cast(Application) Application.getDefault();            
+            app = cast(Application) Application.getDefault();
         }
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);

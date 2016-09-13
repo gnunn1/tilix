@@ -21,7 +21,7 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         gfile = Gio.File.new_for_uri(file.get_uri())
         filename = gfile.get_path();
         terminal = "terminix"
-        
+
         #print "Opening file:", filename
         os.system('%s -w "%s" &' % (terminal, filename))
 

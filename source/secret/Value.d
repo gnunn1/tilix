@@ -87,12 +87,12 @@ public class Value
 	public this(string secret, ptrdiff_t length, string contentType)
 	{
 		auto p = secret_value_new(Str.toStringz(secret), length, Str.toStringz(contentType));
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new");
 		}
-		
+
 		this(cast(SecretValue*) p);
 	}
 
@@ -116,12 +116,12 @@ public class Value
 	public this(string secret, ptrdiff_t length, string contentType, GDestroyNotify destroy)
 	{
 		auto p = secret_value_new_full(Str.toStringz(secret), length, Str.toStringz(contentType), destroy);
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new_full");
 		}
-		
+
 		this(cast(SecretValue*) p);
 	}
 
@@ -135,7 +135,7 @@ public class Value
 	public string get()
 	{
 		size_t length;
-		
+
 		return Str.toString(secret_value_get(secretValue, &length));
 	}
 
@@ -170,12 +170,12 @@ public class Value
 	public Value doref()
 	{
 		auto p = secret_value_ref(secretValue);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Value)(cast(SecretValue*) p, true);
 	}
 

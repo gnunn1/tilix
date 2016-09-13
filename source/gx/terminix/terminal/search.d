@@ -93,7 +93,7 @@ private:
             seSearch.getStyleContext().addClass("terminix-search-entry");
         }
         seSearch.addOnSearchChanged(delegate(SearchEntry) {
-            setTerminalSearchCriteria(); 
+            setTerminalSearchCriteria();
         });
         seSearch.addOnKeyRelease(delegate(Event event, Widget) {
             uint keyval;
@@ -105,13 +105,13 @@ private:
                         break;
                     case GdkKeysyms.GDK_Return:
                         if (event.key.state & GdkModifierType.SHIFT_MASK) {
-                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);   
+                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);
                         } else {
                             terminalActions.activateAction(ACTION_FIND_NEXT, null);
                         }
                         break;
                     default:
-                }  
+                }
             }
             return false;
         });
@@ -229,7 +229,7 @@ public:
     bool hasSearchEntryFocus() {
         return seSearch.hasFocus();
     }
-    
+
     bool isSearchEntryFocus() {
         return seSearch.isFocus();
     }

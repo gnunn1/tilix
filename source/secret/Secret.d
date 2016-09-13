@@ -53,14 +53,14 @@ public struct Secret
 	public static bool passwordClearFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_password_clear_finish((result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -107,14 +107,14 @@ public struct Secret
 	public static bool passwordClearvSync(Schema schema, HashTable attributes, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_password_clearv_sync((schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -148,14 +148,14 @@ public struct Secret
 	public static string passwordLookupFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_password_lookup_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -174,14 +174,14 @@ public struct Secret
 	public static string passwordLookupNonpageableFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_password_lookup_nonpageable_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -230,14 +230,14 @@ public struct Secret
 	public static string passwordLookupvNonpageableSync(Schema schema, HashTable attributes, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_password_lookupv_nonpageable_sync((schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -265,14 +265,14 @@ public struct Secret
 	public static string passwordLookupvSync(Schema schema, HashTable attributes, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto retStr = secret_password_lookupv_sync((schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -290,14 +290,14 @@ public struct Secret
 	public static bool passwordStoreFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_password_store_finish((result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -360,14 +360,14 @@ public struct Secret
 	public static bool passwordStorevSync(Schema schema, HashTable attributes, string collection, string label, string password, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_password_storev_sync((schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), Str.toStringz(collection), Str.toStringz(label), Str.toStringz(password), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 

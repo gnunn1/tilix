@@ -28,7 +28,7 @@ int main(string[] args) {
     static if (USE_FILE_LOGGING) {
         sharedLog = new FileLogger("/tmp/terminix.log");
     }
-    
+
     bool newProcess = false;
     string cwd = Util.getCurrentDir();
     string pwd;
@@ -41,10 +41,10 @@ int main(string[] args) {
     } catch (Exception e) {
         trace("No PWD environment variable found");
     }
-    
+
     string uhd = Util.getHomeDir();
     trace("UHD = " ~ uhd);
-    
+
     // Look for execute command and convert it into a normal -e
     // We do this because this switch means take everything after
     // the switch as a command which GApplication options cannot handle
@@ -55,7 +55,7 @@ int main(string[] args) {
             trace("Execute Command: " ~ executeCommand);
             args = args[0..i];
             args ~= "-e";
-            args ~= executeCommand; 
+            args ~= executeCommand;
             break;
         }
     }
@@ -66,8 +66,8 @@ int main(string[] args) {
         // Workaround issue with Unity and older Gnome Shell when DBusActivatable sometimes CWD is set to /, see #285
         if (arg == "--gapplication-service" && pwd == uhd && cwd == "/") {
             info("Detecting DBusActivatable with improper directory, correcting by setting CWD to PWD");
-            infof("CWD = %s", cwd);                
-            infof("PWD = %s", pwd);                
+            infof("CWD = %s", cwd);
+            infof("PWD = %s", pwd);
             cwd = pwd;
             FileUtils.chdir(cwd);
         } else if (arg == "--new-process") {
@@ -100,7 +100,7 @@ int main(string[] args) {
         dialog.run();
         return 1;
     }
-    
+
     trace("Creating app");
     auto terminixApp = new Terminix(newProcess);
     int result;

@@ -36,10 +36,10 @@ public  import secretc.secrettypes;
  * Represents a set of attributes that are stored with an item. These schemas
  * are used for interoperability between various services storing the same types
  * of items.
- * 
+ *
  * Each schema has a name like "org.gnome.keyring.NetworkPassword", and defines
  * a set of attributes, and types (string, integer, boolean) for those attributes.
- * 
+ *
  * Attributes are stored as strings in the Secret Service, and the attribute
  * types simply define standard ways to store integer and boolean values as strings.
  * Attributes are represented in libsecret via a #GHashTable with string keys and
@@ -47,10 +47,10 @@ public  import secretc.secrettypes;
  * the attribute values in the #GHashTable are strings. Boolean values are stored
  * as the strings 'true' and 'false'. Integer values are stored in decimal, with
  * a preceding negative sign for negative integers.
- * 
+ *
  * Schemas are handled entirely on the client side by this library. The name of the
  * schema is automatically stored as an attribute on the item.
- * 
+ *
  * Normally when looking up passwords only those with matching schema names are
  * returned. If the schema @flags contain the %SECRET_SCHEMA_DONT_MATCH_NAME flag,
  * then lookups will not check that the schema name matches that on the item, only
@@ -128,12 +128,12 @@ public class Schema
 	public this(string name, SecretSchemaFlags flags, HashTable attributeNamesAndTypes)
 	{
 		auto p = secret_schema_newv(Str.toStringz(name), flags, (attributeNamesAndTypes is null) ? null : attributeNamesAndTypes.getHashTableStruct());
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by newv");
 		}
-		
+
 		this(cast(SecretSchema*) p);
 	}
 
@@ -150,12 +150,12 @@ public class Schema
 	public Schema doref()
 	{
 		auto p = secret_schema_ref(secretSchema);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Schema)(cast(SecretSchema*) p, true);
 	}
 

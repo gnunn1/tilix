@@ -136,7 +136,7 @@ private:
     SessionNotification[string] sessionNotifications;
 
     GSettings gsSettings;
-    
+
     // Cached rendered background image
     ImageSurface isBGImage;
     // Track size changes, only invalidate if size really changed
@@ -240,7 +240,7 @@ private:
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
         btnNew.addOnClicked(delegate(Button) {
-            createSession(); 
+            createSession();
         });
         btnNew.setTooltipText(_("Create a new session"));
 
@@ -296,7 +296,7 @@ private:
         }
 
         //Create Switch to Session (0..9) actions
-        //Can't use :: action targets for this since action name needs to be preferences 
+        //Can't use :: action targets for this since action name needs to be preferences
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(this, "win", ACTION_WIN_SESSION_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 int index = to!int(sa.getName()[$ - 1 .. $]);
@@ -341,7 +341,7 @@ private:
             if (newState) {
                 sb.populateSessions(getSessions(), getCurrentSession().uuid, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
                 sb.showAll();
-            } 
+            }
             sb.setRevealChild(newState);
             sa.setState(new GVariant(newState));
             tbSideBar.setActive(newState);
@@ -359,7 +359,7 @@ private:
         sessionActions = new SimpleActionGroup();
 
         //Create Switch to Terminal (0..9) actions
-        //Can't use :: action targets for this since action name needs to be preferences 
+        //Can't use :: action targets for this since action name needs to be preferences
         for (int i = 0; i <= 9; i++) {
             registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_TERMINAL_X ~ to!string(i), gsShortcuts, delegate(GVariant, SimpleAction sa) {
                 Session session = getCurrentSession();
@@ -424,7 +424,7 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                onUserSessionClose(getCurrentSession().uuid);                
+                onUserSessionClose(getCurrentSession().uuid);
             }
         });
 
@@ -459,7 +459,7 @@ private:
 
         insertActionGroup(ACTION_PREFIX, sessionActions);
     }
-    
+
     /**
      * Create actions that will be delegated to the active terminal.
      * This is required due to a bug in GTK+ < 3.5.15.
@@ -487,8 +487,8 @@ private:
 
             insertActionGroup("terminal", terminalActions);
         }
-    }    
-    
+    }
+
     /**
      * Creates the session action popover
      */
@@ -582,7 +582,7 @@ private:
     Session getSession(int i) {
         return cast(Session) nb.getNthPage(i);
     }
-    
+
     /**
      * Used to handle cases where the user requests a session be closed
      */
@@ -599,7 +599,7 @@ private:
             }
         }
         return false;
-    }    
+    }
 
     void closeSession(Session session) {
         bool isCurrentSession = (session == getCurrentSession());
@@ -651,7 +651,7 @@ private:
         Session session = getCurrentSession();
         if (session && nb.getNPages() == 1) {
             title = _(APPLICATION_NAME) ~ ": " ~ session.name;
-        } else if (session) { 
+        } else if (session) {
             title = _(APPLICATION_NAME) ~ " " ~ to!string(nb.getCurrentPage()+1) ~ ": " ~ session.name;
         } else {
             title = _(APPLICATION_NAME);
@@ -663,7 +663,7 @@ private:
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
-        
+
         // pw, ph, ps = percent width, height, size
         void drawBadge(double pw, double ph, double ps, RGBA fg, RGBA bg, int value) {
             int w = widget.getAllocatedWidth();
@@ -672,7 +672,7 @@ private:
             double x = w * pw;
             double y = h * ph;
             double radius = min(w,h) * ps;
-            
+
             cr.save();
             cr.setSourceRgba(bg.red, bg.green, bg.blue, bg.alpha);
             cr.arc(x, y, radius, 0.0, 2.0 * PI);
@@ -689,7 +689,7 @@ private:
             cr.restore();
             cr.newPath();
         }
-        
+
         RGBA fg;
         RGBA bg;
         //Draw number of notifications on button
@@ -745,7 +745,7 @@ private:
             updateUIState();
         }
     }
-    
+
     /**
      * Prompts the user if we can close. This is used both when closing a single
      * session and when closing the application window
@@ -781,7 +781,7 @@ private:
     void onWindowDestroyed(Widget) {
         terminix.removeAppWindow(this);
     }
-    
+
     void onWindowShow(Widget) {
         if (terminix.getGlobalOverrides().maximize) {
             maximize();
@@ -805,8 +805,8 @@ private:
             getQuakePosition(rect);
             move(rect.x, rect.y);
         }
-    }    
-    
+    }
+
     void onCompositedChanged(Widget) {
         trace("Composite changed");
         updateVisual();
@@ -829,7 +829,7 @@ private:
                     if (gsSettings.getBoolean(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES)) stick();
                     else unstick();
                 }
-                break;        
+                break;
             default:
                 break;
         }
@@ -1042,7 +1042,7 @@ public:
     void initialize(Session session) {
         addSession(session);
     }
-    
+
     /**
      * Returns true if this window is in quake mode.
      */
@@ -1095,7 +1095,7 @@ public:
         }
         return false;
     }
-    
+
     ITerminal getActiveTerminal() {
         Session session = getCurrentSession();
         if (session !is null) {
@@ -1157,7 +1157,7 @@ public:
             createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile(), workingDir);
         }
     }
-    
+
     /**
      * Invaidates background image cache and redraws
      */
@@ -1169,7 +1169,7 @@ public:
         isBGImage = null;
         queueDraw();
     }
-    
+
     /**
      * Returns an image surface that contains the rendered background
      * image. This returns null if no background image has been set.
@@ -1180,14 +1180,14 @@ public:
     ImageSurface getBackgroundImage(Widget widget) {
         if (isBGImage !is null) {
             return isBGImage;
-        } 
+        }
 
         ImageSurface surface = terminix.getBackgroundImage();
         if (surface is null) {
             isBGImage = null;
             return isBGImage;
         }
-        
+
         ImageLayoutMode mode;
         string bgMode = gsSettings.getString(SETTINGS_BACKGROUND_IMAGE_MODE_KEY);
         final switch (bgMode) {

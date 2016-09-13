@@ -85,7 +85,7 @@ private:
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
         nb.appendPage(gp, _("Global"));
-        
+
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
         nb.appendPage(ap, _("Appearance"));
 
@@ -158,7 +158,7 @@ private:
             string encoding = ls.getValue(iter, COLUMN_ENCODING).getString();
             bool enabled = ls.getValue(iter, COLUMN_IS_ENABLED).getBoolean();
             trace("Menu encoding clicked for " ~ encoding);
-            //Check for the reverse of what toggle is set for since 
+            //Check for the reverse of what toggle is set for since
             //model is not updated until after settings updated
             if (enabled) {
                 trace("Encoding is checked, removing");
@@ -262,7 +262,7 @@ private:
         scShortcuts.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         scShortcuts.setHexpand(true);
         scShortcuts.setVexpand(true);
-        
+
         add(scShortcuts);
 
         CheckButton cbAccelerators = new CheckButton(_("Enable shortcuts"));
@@ -271,7 +271,7 @@ private:
 
         tvShortcuts.expandAll();
     }
-    
+
     /**
      * Check if shortcut is already assigned and if so disable it
      */
@@ -304,18 +304,18 @@ private:
                         if (dlg.run() != ResponseType.CANCEL) {
                             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
                             gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
-                            return true;                        
+                            return true;
                         } else {
                             return false;
                         }
-                    } 
+                    }
                 }
-            }    
+            }
         }
-     
+
         return true;
     }
-    
+
     /**
      * Parses the shortcuts.ui XML to extract the localized text, weight
      * parse instead of loading it in Builder to maintain compatibility with
@@ -331,9 +331,9 @@ private:
             errorf("Could not load '%s' resource",SHORTCUT_UI_RESOURCE);
             return;
         }
-        
+
         import std.xml: DocumentParser, ElementParser, Element, XMLException;
-        
+
         try {
             DocumentParser parser = new DocumentParser(ui);
             parser.onStartTag["object"] = (ElementParser xml) {
@@ -342,10 +342,10 @@ private:
                     xml.onEndTag["property"] = (in Element e) {
                         if (e.tag.attr["name"] == "title") {
                             labels[id] = C_(SHORTCUT_LOCALIZATION_CONTEXT, e.text);
-                        } 
+                        }
                     };
                     xml.parse();
-                } 
+                }
             };
             parser.parse();
             // While you could use sections to get prefixes, not all sections are there
@@ -357,12 +357,12 @@ private:
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
-    }    
+    }
 
     void loadShortcuts(TreeStore ts) {
-        
+
         loadLocalizedShortcutLabels();
-        
+
         string[] keys = gsShortcuts.listKeys();
         sort(keys);
 
@@ -381,7 +381,7 @@ private:
             if (key in labels) {
                 label = labels[key];
             }
-            
+
             appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
         }
     }
@@ -481,7 +481,7 @@ private:
         btnDelete.addOnClicked(delegate(Button) {
             ProfileInfo profile = getSelectedProfile();
             if (profile.uuid !is null) {
-                //If profile window for this profile is open, close it first 
+                //If profile window for this profile is open, close it first
                 terminix.closeProfilePreferences(profile);
                 lsProfiles.remove(tvProfiles.getSelectedIter());
                 profiles.remove(profile.uuid);
@@ -593,7 +593,7 @@ class AppearancePreferences: Box {
             gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
             grid.attach(cbTitleStyle, 1, row, 1, 1);
             row++;
-            
+
             //Dark Theme
             grid.attach(createLabel(_("Theme variant")), 0, row, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
@@ -603,7 +603,7 @@ class AppearancePreferences: Box {
 
             //Background Image
             grid.attach(createLabel(_("Background image")), 0, row, 1, 1);
-            
+
             FileChooserButton fcbImage = new FileChooserButton(_("Select Image"), FileChooserAction.OPEN);
             FileFilter ff = new FileFilter();
             ff.setName(_("All Image Files"));
@@ -623,19 +623,19 @@ class AppearancePreferences: Box {
                string selectedFilename = fcb.getFilename();
                if (exists(selectedFilename)) {
                    gsSettings.setString(SETTINGS_BACKGROUND_IMAGE_KEY, selectedFilename);
-               } 
+               }
             });
-            
+
             Button btnReset = new Button("edit-delete-symbolic", IconSize.BUTTON);
             btnReset.setTooltipText(_("Reset background image"));
             btnReset.addOnClicked(delegate(Button) {
                 fcbImage.unselectAll();
-                gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);        
+                gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);
             });
-            
+
             ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
             gsSettings.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
-            
+
             // Background image settings only enabled if transparency is enabled
             gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", GSettingsBindFlags.DEFAULT);
             gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", GSettingsBindFlags.DEFAULT);
@@ -644,16 +644,16 @@ class AppearancePreferences: Box {
             Box bChooser = new Box(Orientation.HORIZONTAL, 2);
             bChooser.add(fcbImage);
             bChooser.add(btnReset);
-            
+
             Box bImage = new Box(Orientation.HORIZONTAL, 6);
             bImage.add(bChooser);
             bImage.add(cbImageMode);
-            
+
             grid.attach(bImage, 1, row, 1, 1);
             row++;
 
             add(grid);
-            
+
             if (Version.checkVersion(3, 16, 0).length == 0) {
                 CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
                 gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
@@ -664,7 +664,7 @@ class AppearancePreferences: Box {
             gsSettings.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
             add(cbRightSidebar);
         }
-        
+
     public:
         this(Settings gsSettings) {
             super(Orientation.VERTICAL, 6);
@@ -707,7 +707,7 @@ private:
             bSpecific.add(sbScreen);
 
             bContent.add(bSpecific);
-        }     
+        }
 
         add(bContent);
 
@@ -756,7 +756,7 @@ private:
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
         gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         add(cbPrompt);
-        
+
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
         gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
@@ -786,7 +786,7 @@ private:
 
         //New Instance Options
         Box bNewInstance = new Box(Orientation.HORIZONTAL, 6);
-        
+
         Label lblNewInstance = new Label(_("On new instance"));
         lblNewInstance.setHalign(Align.END);
         bNewInstance.add(lblNewInstance);

@@ -46,11 +46,11 @@ void activateWindow(Window window) {
         trace("Get display");
         Display* display = gdk_x11_get_default_xdisplay();
         trace("Get root window");
-        XWindow root = gdk_x11_get_default_root_xwindow();    
+        XWindow root = gdk_x11_get_default_root_xwindow();
 
         Gdk.errorTrapPush();
         trace("Send Event");
-        XSendEvent(display, root, false, StructureNotifyMask, cast(XEvent*) &event); 
+        XSendEvent(display, root, false, StructureNotifyMask, cast(XEvent*) &event);
         Gdk.flush;
         if (Gdk.errorTrapPop() != 0) {
             error("Failed to focus window");

@@ -36,7 +36,7 @@ bool checkVTEFeature(TerminalFeature feature) {
             bool supported = (Signals.lookup(event, Terminal.getType()) != 0);
             terminalFeatures[cast(TerminalFeature) i] = supported;
         }
-        featuresInitialized = true;        
+        featuresInitialized = true;
     }
     if (feature in terminalFeatures) {
         return terminalFeatures[feature];
