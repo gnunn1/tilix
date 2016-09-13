@@ -717,7 +717,7 @@ private:
     }
 
     void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {
-        trace(format("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body));
+        tracef("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body);
         // If window not active, send notification to shell
         if (!isActive() && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY)) {
             Notification n = new Notification(_(summary));
@@ -728,7 +728,7 @@ private:
         }
         // If session not active, keep copy locally
         if (sessionUUID != getCurrentSession().uuid) {
-            trace(format("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().uuid));
+            tracef("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().uuid);
             //handle session level notifications here
             ProcessNotificationMessage msg = ProcessNotificationMessage(terminalUUID, summary, _body);
             if (sessionUUID in sessionNotifications) {
@@ -852,7 +852,7 @@ private:
         rect.height = rect.height / scale;
         double percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
         rect.height = to!int(rect.height * percent);
-        trace(format("Quake window: monitor=%d, scale=%d, x=%d, y=%d, width=%d, height=%d", monitor, scale, rect.x, rect.y, rect.width, rect.height));
+        tracef("Quake window: monitor=%d, scale=%d, x=%d, y=%d, width=%d, height=%d", monitor, scale, rect.x, rect.y, rect.width, rect.height);
     }
 
     Session getCurrentSession() {
@@ -906,7 +906,7 @@ private:
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
             }
         }
-        trace(format("Session dimensions: w=%d, h=%d", width, height));
+        tracef("Session dimensions: w=%d, h=%d", width, height);
         Session session = new Session(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
     }

@@ -8,7 +8,6 @@ import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.file;
-import std.format;
 import std.json;
 import std.path;
 import std.uuid;
@@ -164,7 +163,7 @@ ColorScheme[] loadColorSchemes() {
                         schemes ~= loadScheme(name);
                     }
                     catch (Exception e) {
-                        error(format(_("File %s is not a color scheme compliant JSON file"), name));
+                        errorf(_("File %s is not a color scheme compliant JSON file"), name);
                         error(e.msg);
                         error(e.info.toString());
                     }

@@ -5,7 +5,6 @@
 module gx.gtk.vte;
 
 import std.experimental.logger;
-import std.format;
 
 import gobject.Signals: Signals;
 

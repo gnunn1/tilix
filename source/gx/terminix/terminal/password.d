@@ -8,7 +8,6 @@
 import std.algorithm;
 import std.conv;
 import std.experimental.logger;
-import std.format;
 import std.process;
 import std.string;
 import std.uuid;
@@ -165,7 +164,7 @@ private:
             if (pd.run() == ResponseType.OK) {
                 SecretSchema* ss = schema.getSchemaStruct();
                 trace("Schema name is " ~ to!string(ss.name));
-                trace(format("Storing password, label=%s",pd.label));
+                tracef("Storing password, label=%s",pd.label);
                 Cancellable c = new Cancellable();
                 //We could potentially have many password operations on the go, use random key
                 string uuid = randomUUID().toString(); 

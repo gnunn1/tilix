@@ -100,7 +100,7 @@ private:
             lbSessions.remove(row);
             reindexSessions();
         } else {
-            trace(format("Row for sessionUUID %s not found", sessionUUID));
+            tracef("Row for sessionUUID %s not found", sessionUUID);
         }
     }
     

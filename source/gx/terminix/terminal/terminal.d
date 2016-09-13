@@ -812,7 +812,7 @@ private:
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && _overrideCommand.length == 0) {
                 long cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
-                //trace(format("\trow=%d, column=%d",cursorRow,cursorCol));
+                //tracef("\trow=%d, column=%d",cursorRow,cursorCol);
                 if (cursorRow > 0 || cursorCol >0) {
                     trace("Warning VTE Configuration");
                     terminix.warnVTEConfigIssue();
@@ -945,7 +945,7 @@ private:
                     timer.stop();
                 }
                 timer = new Timeout(5000, delegate() {
-                    trace(format("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000)));
+                    tracef("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000));
                     if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
                         trace("Timer expired, hiding Bell");
                         spBell.stop();
@@ -1106,7 +1106,7 @@ private:
         long cursorRow;
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
-        trace(format("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow));
+        tracef("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow);
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
@@ -1119,9 +1119,9 @@ private:
                 // If we clip lines set column to 0
                 startCol = 0;
             }
-            //trace(format("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol));
+            //tracef("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol);
             ArrayG attr = new ArrayG(false, false, 16);
-            trace(format("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol));
+            tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
             // Update position early in case we get re-entrant event
             triggerLastRowChecked = cursorRow;
@@ -1138,7 +1138,7 @@ private:
                     triggerMatches ~= TerminalTriggerMatch(trigger, groups, m.pre.length);
                 }
             }
-            //trace(format("Found %d trigger matches", triggerMatches.length));
+            //tracef("Found %d trigger matches", triggerMatches.length);
             bool myComp(TerminalTriggerMatch a, TerminalTriggerMatch b) { return a.index < b.index; }
             foreach(triggerMatch; triggerMatches.sort!(myComp)) {
                 processTrigger(triggerMatch.trigger, triggerMatch.groups);
@@ -1171,7 +1171,7 @@ private:
                 foreach (variable; EnumMembers!(GlobalTerminalState.StateVariable)) {
                     if (variable in parameters) {
                         gst.updateState(variable, parameters[variable]);
-                        //trace(format("Updating state %s=%s", variable, parameters[variable]));
+                        //tracef("Updating state %s=%s", variable, parameters[variable]);
                         update = true;
                     }                                    
                 }
@@ -1185,7 +1185,7 @@ private:
                 break;
             case TriggerAction.SEND_NOTIFICATION:
                 string[string] parameters = getParameters(trigger.parameters);
-                trace(format("Parameters count: %d", parameters.length));
+                tracef("Parameters count: %d", parameters.length);
                 string title = "Terminix Custom Notification";
                 string summary;
                 if ("title" in parameters) title = parameters["title"];
@@ -1321,7 +1321,7 @@ private:
             int tag;
             match.match = vte.matchCheckEvent(event, tag);
             if (match.match) {
-                trace(format("Match checked: %s for tag %d", match.match, tag));
+                tracef("Match checked: %s for tag %d", match.match, tag);
                 if (tag in regexTag) {
                     TerminalRegex regex = regexTag[tag];
                     match.flavor = regex.flavor;
@@ -1731,7 +1731,7 @@ private:
                     int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
                     regexTag[id] = regex;
                     vte.matchSetCursorType(id, CursorType.HAND2);
-                    trace(format("Added regex: %s with tag %d",value[0], id));
+                    tracef("Added regex: %s with tag %d",value[0], id);
                 }
             }
         }
@@ -1774,13 +1774,13 @@ private:
 
         void outputError(string msg, string workingDir, string[] args, string[] envv) {
             error(msg);
-            error(format("Working Directory=%s", workingDir));
+            errorf("Working Directory=%s", workingDir);
             error("Arguments used to execute process:");
             foreach (i, arg; args)
-                error(format("\targ %d=%s", i, arg));
+                errorf("\targ %d=%s", i, arg);
             error("Environment used to execute process:");
             foreach (i, env; envv)
-                error(format("\tenv %d=%s", i, env));
+                errorf("\tenv %d=%s", i, env);
         }
         
         trace("workingDir parameter=" ~ workingDir);
@@ -2008,7 +2008,7 @@ private:
         dragInfo = DragInfo(true, dq);
         vte.queueDraw();
         //Uncomment this if debugging motion otherwise generates annoying amount of trace noise
-        //trace(format("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq));
+        //tracef("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq);
 
         return true;
     }
@@ -2105,7 +2105,7 @@ private:
             char[] colors = data.getDataWithLength();
             string hexColor = format("#%02X%02X%02X", colors[0], colors[1], colors[2]);
             trace("Hex Color " ~ hexColor);
-            trace(format("Red=%d,Green=%d,Blue=%d,Alpha=%d", colors[0], colors[1], colors[2], colors[3]));
+            tracef("Red=%d,Green=%d,Blue=%d,Alpha=%d", colors[0], colors[1], colors[2], colors[3]);
             gsProfile.setString(SETTINGS_PROFILE_BG_COLOR_KEY, hexColor);
             applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
             break;
@@ -2115,7 +2115,7 @@ private:
                 return;
             string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
             DragQuadrant dq = getDragQuadrant(x, y, vte);
-            trace(format("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq));
+            tracef("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq);
             notifyTerminalRequestMove(uuid, this, dq);
             dragInfo = DragInfo(false, dq);
             break;
@@ -2366,7 +2366,7 @@ public:
             return false;
         int fd = vte.getPty().getFd();
         pid_t childPid = getChildPid();
-        trace(format("childPid=%d gpid=%d", childPid, gpid));
+        tracef("childPid=%d gpid=%d", childPid, gpid);
         return (childPid != -1 && childPid != gpid);
     }
 
@@ -2863,7 +2863,7 @@ public:
         if (directory.length > 0) {
             updateState();
         }
-        trace(format("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory));
+        tracef("Current directory changed, hostname '%s', directory '%s'", currentHostname, currentDirectory);
     }
 
     /**
@@ -3019,7 +3019,7 @@ string getUserShell(string shell) {
     try {
         shell = environment["SHELL"];
         if (shell.length > 0) {
-            trace(format("Using shell %s from SHELL environment variable", shell));
+            tracef("Using shell %s from SHELL environment variable", shell);
             return shell;
         }
     }
@@ -3032,7 +3032,7 @@ string getUserShell(string shell) {
     if (pw && pw.pw_shell) {
         string pw_shell = to!string(pw.pw_shell);
         if (exists(pw_shell)) {
-            trace(format("Using shell %s from getpwuid",pw_shell));
+            tracef("Using shell %s from getpwuid",pw_shell);
             return pw_shell;
         }
     }
@@ -3040,7 +3040,7 @@ string getUserShell(string shell) {
     //Try known shells
     foreach (s; shells) {
         if (exists(s)) {
-            trace(format("Found shell %s, using that", s));
+            tracef("Found shell %s, using that", s);
             return s;
         }
     }

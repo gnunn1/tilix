@@ -5,7 +5,6 @@
 module gx.terminix.shortcuts;
 
 import std.algorithm;
-import std.format;
 import std.experimental.logger;
 import std.path;
 

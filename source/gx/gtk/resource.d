@@ -8,7 +8,6 @@ import std.array;
 import std.conv;
 import std.experimental.logger;
 import std.file;
-import std.format;
 import std.path;
 
 import gdk.Screen;
@@ -51,7 +50,7 @@ Resource findResource(string resourcePath, bool register = true) {
             return resource;
         }
     }
-    error(format("Resource %s could not be found", resourcePath));
+    errorf("Resource %s could not be found", resourcePath);
     return null;
 }
 

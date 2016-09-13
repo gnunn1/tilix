@@ -248,7 +248,7 @@ private:
             string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
             if (checkAndPromptChangeShortcut(action, name, label)) {
                 tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
-                trace(format("Setting action %s to shortcut %s", action, label));
+                tracef("Setting action %s to shortcut %s", action, label);
                 //Note accelerator changed by app which is monitoring gsetting changes
                 gsShortcuts.setString(action, name);
             }
@@ -328,7 +328,7 @@ private:
 
         string ui = getResource(SHORTCUT_UI_RESOURCE);
         if (ui.length == 0) {
-            error(format("Could not load '%s' resource",SHORTCUT_UI_RESOURCE));
+            errorf("Could not load '%s' resource",SHORTCUT_UI_RESOURCE);
             return;
         }
         

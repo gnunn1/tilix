@@ -256,16 +256,16 @@ private:
         PanedModel model = new PanedModel(root);
         // Model count should never be 0 since root is not null but just in case...
         if (model.count == 0) {
-            trace(format("Only %d pane, not redistributing", model.count));
+            tracef("Only %d pane, not redistributing", model.count);
             return;
         }
         Value handleSize = new Value(0);
         root.styleGetProperty("handle-size", handleSize);
-        trace(format("Handle size is %d", handleSize.getInt()));
+        tracef("Handle size is %d", handleSize.getInt());
         
         int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
         int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
-        trace(format("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size));
+        tracef("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size);
 
         model.calculateSize(baseSize);
         model.resize();
@@ -337,7 +337,7 @@ private:
         gx.util.array.remove(terminals, terminal);
         gx.util.array.remove(mruTerminals, terminal);
         //Only one terminal open, close session
-        trace(format("There are %d terminals left", terminals.length));
+        tracef("There are %d terminals left", terminals.length);
         if (terminals.length == 0) {
             trace("No more terminals, requesting session be closed");
             notifySessionClose();
@@ -524,7 +524,7 @@ private:
             return null;
         }
 
-        trace(format("Moving terminal %d to quadrant %d", dest.terminalID, dq));
+        tracef("Moving terminal %d to quadrant %d", dest.terminalID, dq);
         Terminal src = findTerminal(srcUUID);
         // If terminal is not null, its from this session. If it
         // is null then dropped from a different session, maybe different window
@@ -837,7 +837,7 @@ private:
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
         }
         int pos = sizeInfo.getPosition(percent, orientation);
-        trace(format("Paned position %f percent or %d px", percent, pos));
+        tracef("Paned position %f percent or %d px", percent, pos);
         paned.setPosition(pos);
         return paned;
     }
@@ -918,7 +918,7 @@ private:
 
     void updateWideHandle(bool value) {
         Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
-        trace(format("Updating wide handle for %d paned", all.length));
+        tracef("Updating wide handle for %d paned", all.length);
         foreach (paned; all) {
             paned.setWideHandle(value);
         }
@@ -960,7 +960,7 @@ public:
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         try {
-            trace(format("Parsing session %s with dimensions %d,%d", filename, width, height));
+            tracef("Parsing session %s with dimensions %d,%d", filename, width, height);
             parseSession(value, SessionSizeInfo(width, height));
             _filename = filename;
         }
@@ -1496,14 +1496,14 @@ private:
         trace("Resizing");
         for (int i = 0; i < height; i++) {
             PanedNode[] nodes = getBranch(root, i);
-            trace(format("Branch %d has %d nodes", i, nodes.length));
+            tracef("Branch %d has %d nodes", i, nodes.length);
             foreach (n; nodes) {
-                trace(format("    1st pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                tracef("    1st pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition());
                 n.paned.setPosition(n.pos);
                 // Add idle handler to reset child properties and take one more stab at setting position. GTKPaned
                 // is annoying about doing things behind your back
                 threadsAddIdleDelegate(delegate() {
-                    trace(format("    2nd pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition()));
+                    tracef("    2nd pass, Node set to pos %d from pos %d", n.pos, n.paned.getPosition());
                     n.paned.setPosition(n.pos);
                     n.paned.childSetProperty(n.paned.getChild1(), "resize", new Value(PANED_RESIZE_MODE));
                     n.paned.childSetProperty(n.paned.getChild2(), "resize", new Value(PANED_RESIZE_MODE));

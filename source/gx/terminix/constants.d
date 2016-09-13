@@ -4,7 +4,6 @@
  */
 module gx.terminix.constants;
 
-import std.format;
 import std.path;
 
 import gx.i18n.l10n;

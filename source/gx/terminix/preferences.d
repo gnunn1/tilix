@@ -6,7 +6,6 @@ module gx.terminix.preferences;
 
 import std.algorithm;
 import std.experimental.logger;
-import std.format;
 import std.path;
 import std.range;
 import std.string;
@@ -244,12 +243,6 @@ public:
 	 */
     ProfileInfo createProfile(string profileName, bool isDefault = false) {
         string uuid = randomUUID().toString();
-        /*
-		scope(failure) {
-			error(format("Failed to create profile %s", uuid));
-			return ProfileInfo(false, null, null);
-		}
-		*/
         //Create Profile
         GSettings gsProfile = getProfileSettings(uuid);
         trace("Got profile settings for " ~ uuid);

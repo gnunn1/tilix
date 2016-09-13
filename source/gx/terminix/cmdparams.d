@@ -112,7 +112,7 @@ private:
                 _width = to!int(m["width"]);
                 _height = to!int(m["height"]);
             } else {
-                error(format("Geometry string '%s' is invalid and could not be parsed", _geometry));
+                errorf("Geometry string '%s' is invalid and could not be parsed", _geometry);
             }
         }            
     }
@@ -186,7 +186,7 @@ public:
         trace("\tcommand=" ~ _command);
         trace("\tcwd=" ~ _cwd);
         trace("\tpwd=" ~ _pwd);
-        trace(format("\tgeometry=%dx%d %d,%d", _width, _height, _x, _y));
+        tracef("\tgeometry=%dx%d %d,%d", _width, _height, _x, _y);
     }
 
     void clear() {

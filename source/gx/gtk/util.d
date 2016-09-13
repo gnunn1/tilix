@@ -323,7 +323,7 @@ void selectRow(TreeView tv, int row, TreeViewColumn column = null) {
     if (iter !is null) {
         tv.setCursor(model.getPath(iter), column, false);
     } else {
-        trace(format("No TreeIter found for row %d", row));
+        tracef("No TreeIter found for row %d", row);
     }
 }
 

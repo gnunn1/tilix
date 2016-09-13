@@ -8,7 +8,6 @@ import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.file;
-import std.format;
 import std.path;
 import std.process;
 import std.variant;
@@ -138,7 +137,7 @@ private:
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
                 string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
-                    error(format("Could not load CSS %s", cssURI));
+                    errorf("Could not load CSS %s", cssURI);
                 }
             }
         }
@@ -147,7 +146,7 @@ private:
         string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
         themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
         if (!themeCssProvider) {
-            trace(format("No specific CSS found %s", cssURI));
+            tracef("No specific CSS found %s", cssURI);
         }
     }
 
@@ -313,7 +312,7 @@ private:
                 }
             } 
         } catch (GException ge) {
-            error(format("Could not load image '%s'", filename));
+            errorf("Could not load image '%s'", filename);
         }
     }
 
@@ -349,12 +348,13 @@ private:
             if (cp.quake) {
                 AppWindow qw = getQuakeWindow();
                 if (qw !is null) {
-                    if (qw.getVisible) qw.hide();
+                    if (qw.getVisible) {
+                        qw.hide();
+                    } 
                     else {
                         qw.show();
                         qw.present();
                         qw.getActiveTerminal().focusTerminal();
-                        //activateWindow(qw);
                     }
                     return 0;
                 }
@@ -432,7 +432,7 @@ private:
         string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
         themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
         if (!themeCssProvider) {
-            trace(format("No specific CSS found %s", cssURI));
+            tracef("No specific CSS found %s", cssURI);
         }
         foreach(dlg; themeChangedDelegates) {
             dlg(theme);
@@ -533,7 +533,7 @@ private:
         while (widget !is null) {
             ActionGroupIF group = widget.getActionGroup(prefix);
             if (group !is null && group.hasAction(actionName)) {
-                trace(format("Activating action for prefix=%s and action=%s", prefix, actionName));
+                tracef("Activating action for prefix=%s and action=%s", prefix, actionName);
                 group.activateAction(actionName, null);
                 return;
             }
@@ -544,7 +544,7 @@ private:
             activateAction(actionName, null);
             return;
         }
-        trace(format("Could not find action for prefix=%s and action=%s", prefix, actionName));
+        tracef("Could not find action for prefix=%s and action=%s", prefix, actionName);
     }
 
     /**

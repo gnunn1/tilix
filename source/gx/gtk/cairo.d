@@ -8,7 +8,6 @@ import std.algorithm;
 import std.conv;
 import std.datetime;
 import std.experimental.logger;
-import std.format;
 
 import cairo.Context;
 import cairo.ImageSurface;
@@ -42,7 +41,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
-        trace(format("Total time getting thumbnail: %d msecs", sw.peek().msecs));
+        tracef("Total time getting thumbnail: %d msecs", sw.peek().msecs);
     }
     if (widget.isDrawable()) {
         return getDrawableWidgetImage(widget, factor, width, height);
@@ -128,7 +127,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
-        trace(format("Total time getting image: %d msecs", sw.peek().msecs));
+        tracef("Total time getting image: %d msecs", sw.peek().msecs);
     }
     final switch (mode) {
         case ImageLayoutMode.SCALE:
@@ -170,10 +169,10 @@ private:
 Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int height) {
     int w = width;
     int h = height;
-    trace(format("Original: %d, %d", w, h));
+    tracef("Original: %d, %d", w, h);
     int pw = to!int(w * factor);
     int ph = to!int(h * factor);
-    trace(format("Factor: %f, New: %d, %d", factor, pw, ph));
+    tracef("Factor: %f, New: %d, %d", factor, pw, ph);
    
     Window window = widget.getWindow();
     Surface surface = window.createSimilarSurface(cairo_content_t.COLOR, pw, ph);

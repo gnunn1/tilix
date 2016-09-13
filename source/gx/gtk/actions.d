@@ -5,7 +5,6 @@
 module gx.gtk.actions;
 
 import std.experimental.logger;
-import std.format;
 import std.string;
 
 import gio.ActionMapIF;
@@ -102,7 +101,7 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
     }
     catch (Exception e) {
         //TODO - This does not work, figure out to catch GLib-GIO-ERROR
-        trace(format("No shortcut for action %s.%s", prefix, id));
+        tracef("No shortcut for action %s.%s", prefix, id);
     }
 
     return registerAction(actionMap, prefix, id, shortcuts, cbActivate, type, state, cbStateChange);
@@ -151,7 +150,7 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);
         } else {
-            error(format("Accelerator for action %s could not be registered", id));
+            errorf("Accelerator for action %s could not be registered", id);
         }
     }
     return action;
