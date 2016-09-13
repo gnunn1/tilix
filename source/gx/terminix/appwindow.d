@@ -848,8 +848,8 @@ private:
 
         //Scale width and height if necessary
         int scale = screen.getMonitorScaleFactor(monitor);
-        rect.width = rect.width / scale;
-        rect.height = rect.height / scale;
+        //rect.width = rect.width / scale;
+        //rect.height = rect.height / scale;
         double percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
         rect.height = to!int(rect.height * percent);
         tracef("Quake window: monitor=%d, scale=%d, x=%d, y=%d, width=%d, height=%d", monitor, scale, rect.x, rect.y, rect.width, rect.height);
