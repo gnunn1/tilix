@@ -102,7 +102,7 @@ private:
         nb.appendPage(new ScrollPage(profile, gsProfile), _("Scrolling"));
         nb.appendPage(new CompatibilityPage(profile, gsProfile), _("Compatibility"));
         nb.appendPage(new AdvancedPage(profile, gsProfile), _("Advanced"));
-        
+
         add(nb);
     }
 
@@ -190,7 +190,7 @@ private:
         btnReset.addOnClicked(delegate(Button) {
            gsProfile.reset(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
            gsProfile.reset(SETTINGS_PROFILE_SIZE_ROWS_KEY);
-            
+
         });
         box.add(btnReset);
         grid.attach(box, 1, row, 1, 1);
@@ -360,26 +360,26 @@ private:
 
         add(grid);
     }
-    
+
     Widget createOptions() {
         Box box = new Box(Orientation.VERTICAL, 6);
-        
+
         cbUseThemeColors = new CheckButton(_("Use theme colors for foreground/background"));
         cbUseThemeColors.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbUseThemeColors, "active", GSettingsBindFlags.DEFAULT);
-        
+
         MenuButton mbAdvanced = new MenuButton();
         mbAdvanced.add(createBox(Orientation.HORIZONTAL, 6, [new Label(_("Advanced")), new Image("pan-down-symbolic", IconSize.MENU)]));
         mbAdvanced.setPopover(createPopover(mbAdvanced));
         gsProfile.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, mbAdvanced, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
                 .INVERT_BOOLEAN);
         box.add(createBox(Orientation.HORIZONTAL, 6, [cbUseThemeColors, mbAdvanced]));
-        
+
         Grid gSliders = new Grid();
         gSliders.setColumnSpacing(6);
         gSliders.setRowSpacing(6);
         int row = 0;
-        
+
         GSettings gsSettings = new GSettings(SETTINGS_ID);
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             Label lblTransparent = new Label(_("Transparency"));
@@ -395,12 +395,12 @@ private:
             gSliders.attach(sTransparent, 1, row, 1, 1);
             row++;
         }
-        
+
         Label lblDim = new Label(_("Unfocused dim"));
         lblDim.setHalign(Align.END);
         lblDim.setHexpand(false);
         gSliders.attach(lblDim, 0, row, 1, 1);
-        
+
         Scale sDim = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
         sDim.setDrawValue(false);
         sDim.setHexpand(true);
@@ -409,11 +409,11 @@ private:
         gSliders.attach(sDim, 1, row, 1, 1);
 
         box.add(gSliders);
-        return box;        
+        return box;
     }
-    
+
     Popover createPopover(Widget widget) {
-        
+
         ColorButton createColorButton(string settingKey, string title, string sensitiveKey) {
             ColorButton result = new ColorButton(parseColor(gsProfile.getString(settingKey)));
             if (sensitiveKey.length > 0) {
@@ -429,9 +429,9 @@ private:
             });
             return result;
         }
-        
+
         Popover popAdvanced = new Popover(widget);
-        
+
         Grid gColors = new Grid();
         gColors.setColumnSpacing(6);
         gColors.setRowSpacing(6);
@@ -441,7 +441,7 @@ private:
         gColors.attach(new Label(_("Text")), 1, row, 1, 1);
         gColors.attach(new Label(_("Background")), 2, row, 1, 1);
         row++;
-        
+
         //Cursor
         cbUseCursorColor = new CheckButton(_("Cursor"));
         cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
@@ -449,7 +449,7 @@ private:
         if (checkVTEVersionNumber(0, 44)) {
             gColors.attach(cbUseCursorColor, 0, row, 1, 1);
         }
-        
+
         cbCursorFG = createColorButton(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, _("Select Cursor Foreground Color"), SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY);
         gColors.attach(cbCursorFG, 1, row, 1, 1);
         cbCursorBG = createColorButton(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY, _("Select Cursor Background Color"), SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY);
@@ -461,19 +461,19 @@ private:
         cbUseHighlightColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         gsProfile.bind(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, cbUseHighlightColor, "active", GSettingsBindFlags.DEFAULT);
         gColors.attach(cbUseHighlightColor, 0, row, 1, 1);
-        
+
         cbHighlightFG = createColorButton(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, _("Select Highlight Foreground Color"), SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY);
         gColors.attach(cbHighlightFG, 1, row, 1, 1);
         cbHighlightBG = createColorButton(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY, _("Select Highlight Background Color"), SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY);
         gColors.attach(cbHighlightBG, 2, row, 1, 1);
         row++;
-        
+
         //Dim
         cbUseDimColor = new CheckButton(_("Dim"));
         cbUseDimColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         gsProfile.bind(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, cbUseDimColor, "active", GSettingsBindFlags.DEFAULT);
         gColors.attach(cbUseDimColor, 0, row, 1, 1);
-        
+
         cbDimBG = createColorButton(SETTINGS_PROFILE_DIM_COLOR_KEY, _("Select Dim Color"), SETTINGS_PROFILE_USE_DIM_COLOR_KEY);
         gColors.attach(cbDimBG, 2, row, 1, 1);
         gColors.showAll();
@@ -568,7 +568,7 @@ private:
      * to that scheme. This provides the user some feedback that
      * they have selected a matching color scheme.
      *
-     * Since we don't store the scheme in GSettings this is 
+     * Since we don't store the scheme in GSettings this is
      * really useful when re-loading the app to show the same
      * scheme they selected previously instead of custom
      */
@@ -588,15 +588,15 @@ private:
         cbCursorFG.getRgba(scheme.cursorFG);
         cbCursorBG.getRgba(scheme.cursorBG);
         scheme.useDimColor = cbUseDimColor.getActive();
-        cbDimBG.getRgba(scheme.dimColor);         
-        
+        cbDimBG.getRgba(scheme.dimColor);
+
         int index = findSchemeByColors(schemes, scheme);
         if (index < 0)
             cbScheme.setActive(to!int(schemes.length));
         else
             cbScheme.setActive(index);
     }
-    
+
     /**
      * Sets a color scheme and updates profile and controls
      */
@@ -623,7 +623,7 @@ private:
                 cbHighlightFG.setRgba(scheme.highlightFG);
                 cbHighlightBG.setRgba(scheme.highlightBG);
             }
-            //Cursor Colors          
+            //Cursor Colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, scheme.useCursorColor);
             if (scheme.useCursorColor) {
                 cbCursorFG.setRgba(scheme.cursorFG);
@@ -833,7 +833,7 @@ private:
     GSettings gsProfile;
     TreeView tvValues;
     ListStore lsValues;
-    
+
     Button btnAdd;
     Button btnEdit;
     Button btnDelete;
@@ -846,7 +846,7 @@ private:
         lblDescription.setLineWrap(true);
         return lblDescription;
     }
-    
+
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -861,7 +861,7 @@ private:
 
         string customLinksDescription = _("A list of user defined links that can be clicked on in the terminal based on regular expression definitions.");
         packStart(createDescriptionLabel(customLinksDescription), false, false, 0);
-        
+
         Button btnEditLink = new Button(_("Edit"));
         btnEditLink.setHexpand(false);
         btnEditLink.setHalign(Align.START);
@@ -887,7 +887,7 @@ private:
 
             string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
             packStart(createDescriptionLabel(triggersDescription), false, false, 0);
-            
+
             Button btnEditTriggers = new Button(_("Edit"));
             btnEditTriggers.setHexpand(false);
             btnEditTriggers.setHalign(Align.START);
@@ -903,13 +903,13 @@ private:
             });
             add(btnEditTriggers);
         }
-        
-        //Profile Switching        
+
+        //Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         add(lblProfileSwitching);
-        
+
         string profileSwitchingDescription;
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
             profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>username@hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
@@ -917,7 +917,7 @@ private:
             profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         }
         packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
-        
+
         lsValues = new ListStore([GType.STRING]);
         string[] values = gsProfile.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
         foreach(value; values) {
@@ -927,12 +927,12 @@ private:
         tvValues = new TreeView(lsValues);
         tvValues.setActivateOnSingleClick(true);
         tvValues.addOnCursorChanged(delegate(TreeView) {
-            updateUI(); 
+            updateUI();
         });
-        
+
         TreeViewColumn column = new TreeViewColumn(_("Match"), new CellRendererText(), "text", 0);
         tvValues.appendColumn(column);
-        
+
         ScrolledWindow scValues = new ScrolledWindow(tvValues);
         scValues.setShadowType(ShadowType.ETCHED_IN);
         scValues.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
@@ -952,11 +952,11 @@ private:
             if (showInputDialog(cast(ProfileWindow)getToplevel(), value, "", _("Add New Match"), label, &validateInput)) {
                 TreeIter iter = lsValues.createIter();
                 lsValues.setValue(iter, 0, value);
-                storeValues();                
+                storeValues();
                 selectRow(tvValues, lsValues.iterNChildren(null) - 1, null);
             }
         });
-        
+
         bButtons.add(btnAdd);
 
         btnEdit = new Button(_("Edit"));
@@ -973,39 +973,39 @@ private:
                 if (showInputDialog(cast(ProfileWindow)getToplevel(), value, value, _("Edit Match"), label, &validateInput)) {
                     lsValues.setValue(iter, 0, value);
                     storeValues();
-                } 
+                }
             }
         });
         bButtons.add(btnEdit);
-        
+
         btnDelete = new Button(_("Delete"));
         btnDelete.addOnClicked(delegate(Button) {
             TreeIter iter = tvValues.getSelectedIter();
             if (iter !is null) {
                 lsValues.remove(iter);
-                storeValues();                
+                storeValues();
             }
         });
         bButtons.add(btnDelete);
-        
+
         Box box = new Box(Orientation.HORIZONTAL, 6);
         box.add(scValues);
         box.add(bButtons);
         add(box);
     }
-    
+
     void updateUI() {
         TreeIter selected = tvValues.getSelectedIter();
         btnDelete.setSensitive(selected !is null);
         btnEdit.setSensitive(selected !is null);
     }
-    
+
     // Validate input, just checks something was entered at this point
     // and least one delimiter, either @ or :
     bool validateInput(string match) {
         return (match.length > 1 && (match.indexOf('@') >= 0 || match.indexOf(':') >= 0));
     }
-    
+
     // Store the values in the ListStore into settings
     void storeValues() {
         string[] values;
@@ -1021,7 +1021,7 @@ public:
         this.gsProfile = gsProfile;
         createUI();
         updateUI();
-    }    
+    }
 }
 
 /**
@@ -1039,7 +1039,7 @@ private:
     Button btnDelete;
 
     void createUI(string[] links) {
-        
+
         Box box = new Box(Orientation.HORIZONTAL, 6);
         with (box) {
             setMarginLeft(18);
@@ -1064,8 +1064,8 @@ private:
 
         tv = new TreeView(ls);
         tv.setActivateOnSingleClick(false);
-        tv.addOnCursorChanged(delegate(TreeView) { 
-            updateUI(); 
+        tv.addOnCursorChanged(delegate(TreeView) {
+            updateUI();
         });
         tv.setHeadersVisible(true);
 
@@ -1078,8 +1078,8 @@ private:
             if (newText.length != 0) {
                 GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
                 if (check is null) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));    
-                }                
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                }
             }
             ls.setValue(iter, COLUMN_REGEX, newText);
         });
@@ -1087,7 +1087,7 @@ private:
         column.setMinWidth(200);
         tv.appendColumn(column);
 
-        //Command column 
+        //Command column
         CellRendererText crtCommand = new CellRendererText();
         crtCommand.setProperty("editable", 1);
         crtCommand.addOnEdited(delegate(string path, string newText, CellRendererText) {
@@ -1134,7 +1134,7 @@ private:
             }
         });
         buttons.add(btnDelete);
-        
+
         box.add(buttons);
 
         getContentArea().add(box);
@@ -1157,11 +1157,11 @@ public:
         foreach (TreeIter iter; TreeIterRange(ls)) {
             string regex = ls.getValueString(iter, COLUMN_REGEX);
             if (regex.length == 0) continue;
-            results ~= escapeCSV(regex) ~ ',' ~ 
+            results ~= escapeCSV(regex) ~ ',' ~
                        escapeCSV(ls.getValueString(iter, COLUMN_CMD)) ~ ',' ~
                        to!string(ls.getValue(iter, COLUMN_CASE).getBoolean());
         }
-        return results;        
+        return results;
     }
 }
 
@@ -1183,7 +1183,7 @@ private:
     string[string] localizedActions;
 
     void createUI(GSettings gsProfile) {
-        
+
         string[] triggers = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
 
         Box box = new Box(Orientation.HORIZONTAL, 6);
@@ -1206,8 +1206,8 @@ private:
 
         tv = new TreeView(ls);
         tv.setActivateOnSingleClick(false);
-        tv.addOnCursorChanged(delegate(TreeView) { 
-            updateUI(); 
+        tv.addOnCursorChanged(delegate(TreeView) {
+            updateUI();
         });
         tv.setHeadersVisible(true);
         //Regex column
@@ -1219,8 +1219,8 @@ private:
             if (newText.length != 0) {
                 GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
                 if (check is null) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));    
-                }                
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                }
             }
             ls.setValue(iter, COLUMN_REGEX, newText);
         });
@@ -1254,7 +1254,7 @@ private:
         column.setMinWidth(150);
         tv.appendColumn(column);
 
-        //Parameter column 
+        //Parameter column
         CellRendererText crtParameter = new CellRendererText();
         crtParameter.setProperty("editable", 1);
         crtParameter.addOnEdited(delegate(string path, string newText, CellRendererText) {
@@ -1290,7 +1290,7 @@ private:
             }
         });
         buttons.add(btnDelete);
-        
+
         box.add(buttons);
 
         // Maximum number of lines to check for triggers when content change is
@@ -1305,7 +1305,7 @@ private:
         gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_LINES_KEY, sbLines, "value", GSettingsBindFlags.DEFAULT);
         gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY, sbLines, "sensitive",
                 GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
-        
+
         bLines.add(cbTriggerLimit);
         bLines.add(sbLines);
 
@@ -1330,10 +1330,10 @@ public:
         foreach (TreeIter iter; TreeIterRange(ls)) {
             string regex = ls.getValueString(iter, COLUMN_REGEX);
             if (regex.length == 0) continue;
-            results ~= escapeCSV(regex) ~ ',' ~ 
+            results ~= escapeCSV(regex) ~ ',' ~
                        escapeCSV(localizedActions[ls.getValueString(iter, COLUMN_ACTION)]) ~ ',' ~
                        escapeCSV(ls.getValueString(iter, COLUMN_PARAMETERS));
         }
-        return results;        
+        return results;
     }
 }

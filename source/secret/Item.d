@@ -106,19 +106,19 @@ public class Item : DBusProxy
 	public this(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_new_for_dbus_path_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new_for_dbus_path_finish");
 		}
-		
+
 		this(cast(SecretItem*) p, true);
 	}
 
@@ -146,19 +146,19 @@ public class Item : DBusProxy
 	public this(Service service, string itemPath, SecretItemFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_new_for_dbus_path_sync((service is null) ? null : service.getServiceStruct(), Str.toStringz(itemPath), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			throw new ConstructionException("null returned by new_for_dbus_path_sync");
 		}
-		
+
 		this(cast(SecretItem*) p, true);
 	}
 
@@ -203,19 +203,19 @@ public class Item : DBusProxy
 	public static Item createFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_create_finish((result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Item)(cast(SecretItem*) p, true);
 	}
 
@@ -247,19 +247,19 @@ public class Item : DBusProxy
 	public static Item createSync(Collection collection, Schema schema, HashTable attributes, string label, Value value, SecretItemCreateFlags flags, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_create_sync((collection is null) ? null : collection.getCollectionStruct(), (schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), Str.toStringz(label), (value is null) ? null : value.getValueStruct(), flags, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Item)(cast(SecretItem*) p, true);
 	}
 
@@ -297,14 +297,14 @@ public class Item : DBusProxy
 	public static bool loadSecretsFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_load_secrets_finish((result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -329,14 +329,14 @@ public class Item : DBusProxy
 	public static bool loadSecretsSync(ListG items, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_load_secrets_sync((items is null) ? null : items.getListGStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -391,14 +391,14 @@ public class Item : DBusProxy
 	public bool deleteFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_delete_finish(secretItem, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -419,14 +419,14 @@ public class Item : DBusProxy
 	public bool deleteSync(Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_delete_sync(secretItem, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -447,12 +447,12 @@ public class Item : DBusProxy
 	public HashTable getAttributes()
 	{
 		auto p = secret_item_get_attributes(secretItem);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new HashTable(cast(GHashTable*) p, true);
 	}
 
@@ -475,7 +475,7 @@ public class Item : DBusProxy
 	public string getLabel()
 	{
 		auto retStr = secret_item_get_label(secretItem);
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -513,7 +513,7 @@ public class Item : DBusProxy
 	public string getSchemaName()
 	{
 		auto retStr = secret_item_get_schema_name(secretItem);
-		
+
 		scope(exit) Str.freeString(retStr);
 		return Str.toString(retStr);
 	}
@@ -530,12 +530,12 @@ public class Item : DBusProxy
 	public Value getSecret()
 	{
 		auto p = secret_item_get_secret(secretItem);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Value)(cast(SecretValue*) p, true);
 	}
 
@@ -547,12 +547,12 @@ public class Item : DBusProxy
 	public Service getService()
 	{
 		auto p = secret_item_get_service(secretItem);
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return ObjectG.getDObject!(Service)(cast(SecretService*) p);
 	}
 
@@ -592,14 +592,14 @@ public class Item : DBusProxy
 	public bool loadSecretFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_load_secret_finish(secretItem, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -622,14 +622,14 @@ public class Item : DBusProxy
 	public bool loadSecretSync(Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_load_secret_sync(secretItem, (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -679,14 +679,14 @@ public class Item : DBusProxy
 	public bool setAttributesFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_attributes_finish(secretItem, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -712,14 +712,14 @@ public class Item : DBusProxy
 	public bool setAttributesSync(Schema schema, HashTable attributes, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_attributes_sync(secretItem, (schema is null) ? null : schema.getSchemaStruct(), (attributes is null) ? null : attributes.getHashTableStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -752,14 +752,14 @@ public class Item : DBusProxy
 	public bool setLabelFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_label_finish(secretItem, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -780,14 +780,14 @@ public class Item : DBusProxy
 	public bool setLabelSync(string label, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_label_sync(secretItem, Str.toStringz(label), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -823,14 +823,14 @@ public class Item : DBusProxy
 	public bool setSecretFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_secret_finish(secretItem, (result is null) ? null : result.getAsyncResultStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 
@@ -854,14 +854,14 @@ public class Item : DBusProxy
 	public bool setSecretSync(Value value, Cancellable cancellable)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_item_set_secret_sync(secretItem, (value is null) ? null : value.getValueStruct(), (cancellable is null) ? null : cancellable.getCancellableStruct(), &err) != 0;
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		return p;
 	}
 }

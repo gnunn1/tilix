@@ -140,7 +140,7 @@ private:
         tv.appendColumn(column);
 
         tv.addOnCursorChanged(delegate(TreeView) {
-            updateUI();   
+            updateUI();
         });
         tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
             response(ResponseType.APPLY);
@@ -152,7 +152,7 @@ private:
         sw.setHexpand(true);
         sw.setVexpand(true);
         sw.setSizeRequest(-1, 200);
-        
+
         bList.add(sw);
 
         Box bButtons = new Box(Orientation.VERTICAL, 6);
@@ -167,7 +167,7 @@ private:
                 tracef("Storing password, label=%s",pd.label);
                 Cancellable c = new Cancellable();
                 //We could potentially have many password operations on the go, use random key
-                string uuid = randomUUID().toString(); 
+                string uuid = randomUUID().toString();
                 pending[uuid] = c;
                 import gtkc.glib;
                 HashTable attributes = new HashTable(g_str_hash, g_str_equal);
@@ -214,7 +214,7 @@ private:
             if (selected) {
                 string id = ls.getValueString(selected, COLUMN_ID);
                 HashTable ht = createHashTable();
-                immutable(char*) idz = toStringz(id); 
+                immutable(char*) idz = toStringz(id);
                 ht.insert(cast(void*)attrID, cast(void*)idz);
                 Secret.passwordClearvSync(schema, ht, null);
                 foreach(index, row; rows) {
@@ -289,7 +289,7 @@ private:
         HashTable ht = createHashTable();
         ht.insert(cast(void*)attrID, cast(void*)0);
         ht.insert(cast(void*)attrDescription, cast(void*)0);
-        schema = new Schema(SCHEMA_NAME, SecretSchemaFlags.NONE, ht); 
+        schema = new Schema(SCHEMA_NAME, SecretSchemaFlags.NONE, ht);
     }
 
     void createService() {
@@ -359,7 +359,7 @@ private:
         } catch (GException ge) {
             trace("Error occurred: " ~ ge.msg);
             return;
-        }        
+        }
     }
 
 public:
@@ -381,7 +381,7 @@ public:
         createSchema();
         createUI();
         createService();
-        trace("Main Thread ID " ~ to!string(thisThreadID));       
+        trace("Main Thread ID " ~ to!string(thisThreadID));
     }
 
     void insertPassword(VTE vte) {
@@ -390,7 +390,7 @@ public:
             string id = ls.getValueString(selected, COLUMN_ID);
             trace("Getting password for " ~ id);
             HashTable ht = createHashTable();
-            immutable(char*) idz = toStringz(id); 
+            immutable(char*) idz = toStringz(id);
             ht.insert(cast(void*)attrID, cast(void*)idz);
             string password = Secret.passwordLookupvSync(schema, ht, null);
             if (gsSettings.getBoolean(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY)) {
@@ -418,7 +418,7 @@ private:
         Grid grid = new Grid();
         grid.setColumnSpacing(12);
         grid.setRowSpacing(6);
-        
+
         int row = 0;
         // Name (i.e. Label in libsecret parlance)
         grid.attach(new Label(_("Name")), 0, row, 1, 1);
@@ -448,7 +448,7 @@ private:
         lblMatch.setSensitive(false);
         lblMatch.setNoShowAll(true);
         lblMatch.setHalign(Align.CENTER);
-        grid.attach(lblMatch, 1, row, 1, 1);        
+        grid.attach(lblMatch, 1, row, 1, 1);
 
         with (getContentArea()) {
             setMarginLeft(18);
@@ -494,8 +494,8 @@ public:
 
     @property string label() {
         return eLabel.getText();
-    } 
-    
+    }
+
     @property string password() {
         return ePassword.getText();
     }

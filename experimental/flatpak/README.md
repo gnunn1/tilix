@@ -1,6 +1,6 @@
 ### Building Terminix XDG-APP Bundle
 
-This folder contains the scripts required to build Terminix as an XDG-APP bundle. XDG-APP allows desktop applications to be distributed independently of traditional Linux package managers, applications distributed in this way run in a sandboxed environment. Additional information on XDG-APP can be found [here](https://wiki.gnome.org/Projects/SandboxedApps). 
+This folder contains the scripts required to build Terminix as an XDG-APP bundle. XDG-APP allows desktop applications to be distributed independently of traditional Linux package managers, applications distributed in this way run in a sandboxed environment. Additional information on XDG-APP can be found [here](https://wiki.gnome.org/Projects/SandboxedApps).
 
 The first step to building the Terminix XDG-APP Bundle is to install the xdg-app framework. This will vary by distribution, on Arch it is easily installed using the [xdg-app](https://aur.archlinux.org/packages/xdg-app) package from AUR as follows:
 

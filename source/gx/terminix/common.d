@@ -11,9 +11,9 @@ import std.string;
 import gx.util.array;
 
 /***********************************************************
- * Function for parsing out the username, hostname and 
- * directory from a string in the format 
- * 'user@hostname:directory' where the various parts are 
+ * Function for parsing out the username, hostname and
+ * directory from a string in the format
+ * 'user@hostname:directory' where the various parts are
  * optional but the delimiters are not
  ***********************************************************/
 
@@ -90,13 +90,13 @@ enum ActionType {
 
 /**
  * Certain actions to be percolated up the widget heirarchy with
- * every level having to sign off on the action before it can be 
+ * every level having to sign off on the action before it can be
  * performed. This delegate is for that purpose.
  */
 alias OnIsActionAllowed = bool delegate(ActionType actionType);
 
 /**
- * Mixin to handle the boiler plate of IsActionAllowed event 
+ * Mixin to handle the boiler plate of IsActionAllowed event
  * handlers
  */
 mixin template IsActionAllowedHandler() {
@@ -125,7 +125,7 @@ public:
 
 /**
  * Triggered when the terminal receives a notification that a command is completed. The terminal
- * will not send the notifications if it has focus. 
+ * will not send the notifications if it has focus.
  *
  * Note that this functionality depends on having the Fedora patched VTE installed rather
  * then the default VTE.
@@ -137,7 +137,7 @@ public:
 alias OnProcessNotification = void delegate(string summary, string _body, string terminalUUID, string sessionUUID = null);
 
 /**
- * Mixin to handle the boiler plate of OnProcessNotification event 
+ * Mixin to handle the boiler plate of OnProcessNotification event
  * handlers
  */
 mixin template ProcessNotificationHandler() {

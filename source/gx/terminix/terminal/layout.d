@@ -18,7 +18,7 @@ import gx.i18n.l10n;
  * Dialog that enables the user to set the layout options for a terminal
  */
 class LayoutDialog: Dialog {
-    
+
 private:
     Entry eTitle;
     Entry eCommand;
@@ -29,7 +29,7 @@ public:
         setDefaultResponse(ResponseType.OK);
         setTransientFor(window);
         setDefaultSize(400, -1);
-        
+
         Grid grid = new Grid();
         grid.setMarginTop(18);
         grid.setMarginBottom(18);
@@ -45,7 +45,7 @@ public:
         lblActive.setHalign(Align.START);
         grid.attach(lblActive, 0, row, 2, 1);
         row++;
-        
+
         Label lblTitle = new Label(_("Title"));
         lblTitle.setHalign(Align.END);
         grid.attach(lblTitle, 0, row, 1, 1);
@@ -53,7 +53,7 @@ public:
         eTitle.setWidthChars(20);
         grid.attach(eTitle, 1, row, 1, 1);
         row++;
-        
+
         Label lblLoad = new Label(format("<b>%s</b>", _("Session Load")));
         lblLoad.setUseMarkup(true);
         lblLoad.setHalign(Align.START);
@@ -69,29 +69,29 @@ public:
         eCommand.setWidthChars(20);
         grid.attach(eCommand, 1, row, 1, 1);
         row++;
-        
+
         Label lblInfo = new Label(_("Active options are always in effect and apply immediately.\nSession Load options only apply when loading a session file."));
         lblInfo.setSensitive(false);
         lblInfo.setMarginTop(6);
         lblInfo.setLineWrap(true);
         grid.attach(lblInfo, 0, row, 2, 1);
         row++;
-                        
+
         getContentArea().add(grid);
     }
-    
+
     @property string title() {
         return eTitle.getText();
     }
-    
+
     @property void title(string value) {
         eTitle.setText(value);
     }
-    
+
     @property string command() {
         return eCommand.getText();
     }
-    
+
     @property void command(string value) {
         eCommand.setText(value);
     }

@@ -43,13 +43,13 @@ import gtk.Widget;
 import gtk.Window;
 
 /**
- * Returns true if running under Wayland, right now 
+ * Returns true if running under Wayland, right now
  * it just uses a simple environment variable check to detect it.
  */
 bool isWayland(Window window) {
     try {
         environment["WAYLAND_DISPLAY"];
-        return true;        
+        return true;
     } catch (Exception e) {
         return false;
     }
@@ -91,7 +91,7 @@ T[] getChildren(T) (Widget widget, bool recursive) {
         if (list !is null)
             children = list.toArray!(Widget)();
     }
-    
+
     foreach(child; children) {
         T match = cast(T) child;
         if (match !is null) result ~= match;
@@ -99,7 +99,7 @@ T[] getChildren(T) (Widget widget, bool recursive) {
             result ~= getChildren!(T)(child, recursive);
         }
     }
-    return result;    
+    return result;
 }
 
 /**
@@ -179,9 +179,9 @@ bool equal(Widget w1, Widget w2) {
  * Converts an RGBA structure to a 8 bit HEX string, i.e #2E3436
  *
  * Params:
- * RGBA	 = The color to convert 
+ * RGBA	 = The color to convert
  * includeAlpha = Whether to include the alpha channel
- * includeHash = Whether to preface the color string with a # 
+ * includeHash = Whether to preface the color string with a #
  */
 string rgbaTo8bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
     string prepend = includeHash ? "#" : "";
@@ -201,9 +201,9 @@ string rgbaTo8bitHex(RGBA color, bool includeAlpha = false, bool includeHash = f
  * Right now this just takes an 8 bit string and repeats each channel
  *
  * Params:
- * RGBA	 = The color to convert 
+ * RGBA	 = The color to convert
  * includeAlpha = Whether to include the alpha channel
- * includeHash = Whether to preface the color string with a # 
+ * includeHash = Whether to preface the color string with a #
  */
 string rgbaTo16bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
     string prepend = includeHash ? "#" : "";
@@ -342,7 +342,7 @@ public:
         this.model = model;
         _empty = !model.getIterFirst(iter);
     }
-    
+
     this(TreeModelIF model, TreeIter parent) {
         this.model = model;
         _empty = !model.iterChildren(iter, parent);

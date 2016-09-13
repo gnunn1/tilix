@@ -47,5 +47,5 @@ if [[ $PROMPT_COMMAND != *"__vte_prompt_command"* ]]
 then
     echo "Adding terminix osc7"
     [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__terminix_osc7"
-    [ -n "$ZSH_VERSION"  ] && precmd_functions+=(__terminix_osc7)    
+    [ -n "$ZSH_VERSION"  ] && precmd_functions+=(__terminix_osc7)
 fi

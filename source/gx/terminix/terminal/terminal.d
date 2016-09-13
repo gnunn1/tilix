@@ -224,7 +224,7 @@ private:
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
-    // mixin for managing process notification event delegates     
+    // mixin for managing process notification event delegates
     mixin ProcessNotificationHandler;
 
     OnTerminalInFocus[] terminalInFocusDelegates;
@@ -273,7 +273,7 @@ private:
 
     //The UUID of the profile which is currently active
     string _activeProfileUUID;
-    // The UUID of the default profile, this will always be null unless 
+    // The UUID of the default profile, this will always be null unless
     // automatic profile switching has occurred then the UUID of the
     // default profile will be stored here.
     string _defaultProfileUUID;
@@ -290,19 +290,19 @@ private:
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
 
-    //Whether to ignore unsafe paste, basically when 
+    //Whether to ignore unsafe paste, basically when
     //option is turned on but user opts to ignore it for this terminal
     bool unsafePasteIgnored;
 
     GlobalTerminalState gst;
-        
+
     // Track Regex Tag we get back from VTE in order
     // to track which regex generated the match
     TerminalRegex[int] regexTag;
 
     //Track match detection
     TerminalURLMatch match;
-    
+
     //Track last time bell was shown
     long bellStart = 0;
     bool deferShowBell;
@@ -361,10 +361,10 @@ private:
         mbTitle.setRelief(ReliefStyle.NONE);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) { 
-            buildProfileMenu(); 
+        mbTitle.addOnButtonPress(delegate(Event e, Widget w) {
+            buildProfileMenu();
             buildEncodingMenu();
-            return false; 
+            return false;
         });
 
         mbTitle.add(bTitleLabel);
@@ -407,7 +407,7 @@ private:
         imgReadOnly.setTooltipText(_("Read-Only"));
         setVerticalMargins(imgReadOnly);
         bTitle.packEnd(imgReadOnly, false, false, 0);
-        
+
         //Terminal Bell Spinner
         spBell = new Spinner();
         spBell.setNoShowAll(true);
@@ -588,7 +588,7 @@ private:
             if (newState) imgReadOnly.show();
             else imgReadOnly.hide();
         }, null, new GVariant(false));
-        
+
 
         //Clear Terminal && Reset and Clear Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -613,7 +613,7 @@ private:
 
         //Insert Terminal Number
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_NUMBER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
-            string text = to!string(terminalID); 
+            string text = to!string(terminalID);
             vte.feedChild(text, text.length);
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(SyncInputEventType.INSERT_TERMINAL_NUMBER, null);
@@ -637,7 +637,7 @@ private:
                 showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET, _("Library Not Loaded")));
             }
         }, null, null);
-        
+
 
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
@@ -657,7 +657,7 @@ private:
         }, pu.getType(), pu);
 
         // Select Encoding
-        // 
+        //
         GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
         saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
             size_t l;
@@ -680,10 +680,10 @@ private:
         Popover pm = new Popover(parent);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pm.addOnMap(delegate(Widget) {
-           if (dimPercent > 0) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw();
         });
         pm.addOnUnmap(delegate(Widget) {
-           if (dimPercent > 0) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw();
         });
         pm.bindModel(model, null);
         return pm;
@@ -732,7 +732,7 @@ private:
         add.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
 
         return add;
-    }    
+    }
 
     /**
      * Creates the actual VTE terminal inside an Overlay along with some support
@@ -763,16 +763,16 @@ private:
                 showBell();
             } else {
                 deferShowBell = true;
-            }                
+            }
         });
-        
+
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
             trace("Window title changed");
             gst.updateState();
             updateTitle();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
-            updateTitle(); 
+            updateTitle();
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             string hostname, directory;
@@ -781,7 +781,7 @@ private:
                 gst.updateState(hostname, directory);
                 updateTitle();
                 checkAutomaticProfileSwitch();
-            } 
+            }
         });
         vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
         vte.addOnFocusIn(&onTerminalWidgetFocusIn);
@@ -861,10 +861,10 @@ private:
         pmContext.setPosition(PositionType.BOTTOM);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
         pmContext.addOnMap(delegate(Widget) {
-           if (dimPercent > 0) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw();
         });
         pmContext.addOnUnmap(delegate(Widget) {
-           if (dimPercent > 0) vte.queueDraw(); 
+           if (dimPercent > 0) vte.queueDraw();
         });
         pmContext.addOnClosed(delegate(Popover) {
             // See #305 for more info on why this is here
@@ -935,7 +935,7 @@ private:
         return _synchronizeInput && _synchronizeInputOverride;
     }
 
-    void showBell() {    
+    void showBell() {
         string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
         if (value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_VALUE || value == SETTINGS_PROFILE_TERMINAL_BELL_ICON_SOUND_VALUE) {
             if (!spBell.getVisible()) {
@@ -958,7 +958,7 @@ private:
             bellStart = Clock.currStdTime();
         }
     }
-    
+
     /**
      * Check automatic profile switch and make switch if necessary
      */
@@ -977,7 +977,7 @@ private:
                 _defaultProfileUUID.length = 0;
             }
         }
-    }   
+    }
 
     /**
      * Updates the terminal title in response to UI changes
@@ -1036,7 +1036,7 @@ private:
                 if (dialog.run() == 0)
                     unsafePasteIgnored = true;
                 else
-                    return;                    
+                    return;
             }
         }
         scope (exit) {
@@ -1056,7 +1056,7 @@ private:
             }
         }
         if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
-        else vte.pastePrimary(); 
+        else vte.pastePrimary();
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -1080,7 +1080,7 @@ private:
 // Block for processing triggers
 private:
 
-    // List of triggers to test for 
+    // List of triggers to test for
     TerminalTrigger[] triggers;
     long triggerLastRowChecked = -1;
     long triggerLastColChecked = -1;
@@ -1173,7 +1173,7 @@ private:
                         gst.updateState(variable, parameters[variable]);
                         //tracef("Updating state %s=%s", variable, parameters[variable]);
                         update = true;
-                    }                                    
+                    }
                 }
                 if (update) {
                     updateTitle();
@@ -1213,7 +1213,7 @@ private:
                 SimpleAction sa = cast(SimpleAction)sagTerminalActions.lookupAction(ACTION_INSERT_PASSWORD);
                 if (sa !is null) {
                     sa.activate(null);
-                }                
+                }
                 break;
         }
     }
@@ -1412,7 +1412,7 @@ private:
     bool isTerminalWidgetFocused() {
         return vte.hasFocus || rFind.hasSearchEntryFocus();
     }
-    
+
     /**
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
@@ -1452,7 +1452,7 @@ private:
     RGBA vteDimBG;
     RGBA[16] vtePalette;
     double dimPercent;
-    
+
     /**
      * CSSProvider to enhance terminal scrollbar
      */
@@ -1513,7 +1513,7 @@ private:
             vte.setColors(vteFG, vteBG, vtePalette);
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
-            // terminix resources            
+            // terminix resources
             if (sbProvider !is null) {
                 sb.getStyleContext().removeProvider(sbProvider);
                 sbProvider = null;
@@ -1526,11 +1526,11 @@ private:
             if (sbProvider !is null) {
                 sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
             } else {
-                // If theme specific css not found, load a base one that sets background to theme so scrollbar isn't rendered transparent 
+                // If theme specific css not found, load a base one that sets background to theme so scrollbar isn't rendered transparent
                 //sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix.base.scrollbar.css", variables);
                 //trace("Scrollbar CSS Provider not found, base used instead");
             }
-            
+
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
@@ -1542,7 +1542,7 @@ private:
                 vte.setColorHighlightForeground(null);
                 vte.setColorHighlight(null);
             }
-            break; 
+            break;
         case SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
@@ -1557,7 +1557,7 @@ private:
                 }
                 vte.setColorCursor(null);
             }
-            break; 
+            break;
         case SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
                 vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
@@ -1662,7 +1662,7 @@ private:
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
             SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
-            SETTINGS_PROFILE_TRIGGERS_KEY            
+            SETTINGS_PROFILE_TRIGGERS_KEY
         ];
 
         foreach (key; keys) {
@@ -1751,12 +1751,12 @@ private:
         terminalOverlay.addOverlay(ibRelaunch);
         ibRelaunch.showAll();
     }
-    
+
     void getHostnameAndDirectory(out string hostname, out string directory) {
         if (gpid == 0)
             return;
         string cwd = vte.getCurrentDirectoryUri();
-        if (cwd.length == 0) {      
+        if (cwd.length == 0) {
             return;
         }
         trace("Current directory: " ~ cwd);
@@ -1782,7 +1782,7 @@ private:
             foreach (i, env; envv)
                 errorf("\tenv %d=%s", i, env);
         }
-        
+
         trace("workingDir parameter=" ~ workingDir);
 
         CommandParameters overrides = terminix.getGlobalOverrides();
@@ -1800,7 +1800,7 @@ private:
             trace("No working directory set, using cwd");
             workingDir = cwd;
         }
-        
+
         trace("Spawn setting workingDir to " ~ workingDir);
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
@@ -1850,7 +1850,7 @@ private:
     }
 
     /**
-     * Returns the child pid running in the terminal or -1 
+     * Returns the child pid running in the terminal or -1
      * if no child pid is running. May also return the VTE gpid
      * as well which also indicates no child process.
      */
@@ -1858,14 +1858,14 @@ private:
         if (vte.getPty() is null)
             return false;
         return tcgetpgrp(vte.getPty().getFd());
-    }  
+    }
 
 
     // Code to move terminals through Drag And Drop (DND) is in this private block
     // Keep all DND code here and do not intermix with other blocks
     //
     // This code also handles other DND for text, URI, etc in VTE but the vast bulk deals
-    // with terminal DND   
+    // with terminal DND
 private:
 
     DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
@@ -1919,7 +1919,7 @@ private:
     }
 
     /**
-     * Begin the drag operation from the use dragging the title bar, renders the 
+     * Begin the drag operation from the use dragging the title bar, renders the
      * terminal image into a scaled Pixbuf to use as the drag icon.
      *
      * Cribbed idea from Terminator, my original implementation worked
@@ -2123,7 +2123,7 @@ private:
     }
 
     enum STROKE_WIDTH = 4;
-    
+
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
 
@@ -2141,7 +2141,7 @@ private:
             return false;
 
         RGBA color;
-        
+
         if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", color)) {
             getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, color);
         }
@@ -2221,8 +2221,8 @@ private:
         vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
     }
 
-// Theme changed    
-private:    
+// Theme changed
+private:
     void onThemeChanged(string theme) {
         //Get CSS Provider updated via preference
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
@@ -2235,12 +2235,12 @@ public:
      */
     this(string profileUUID) {
         super();
-        gst = new GlobalTerminalState();        
-        addOnDestroy(delegate(Widget) { 
-            trace("Terminal destroy"); 
+        gst = new GlobalTerminalState();
+        addOnDestroy(delegate(Widget) {
+            trace("Terminal destroy");
             stopProcess();
             terminix.removeOnThemeChanged(&onThemeChanged);
-            if (timer !is null) timer.stop(); 
+            if (timer !is null) timer.stop();
         });
         initColors();
         _terminalUUID = randomUUID().toString();
@@ -2273,7 +2273,7 @@ public:
         applyPreferences();
         trace("Profile Event Handler");
         gsProfile.addOnChanged(delegate(string key, Settings) {
-            applyPreference(key); 
+            applyPreference(key);
         });
         //Get when theme changed
         terminix.addOnThemeChanged(&onThemeChanged);
@@ -2344,7 +2344,7 @@ public:
         trace("Terminal grabbing focus");
         vte.grabFocus();
     }
-    
+
     /**
      * Called when the session the terminal is associated with
      * becomes active, i.e. is visible to the user
@@ -2355,7 +2355,7 @@ public:
     void notifySessionActive() {
         if (deferShowBell) {
             showBell();
-        }    
+        }
     }
 
     /**
@@ -2391,11 +2391,11 @@ public:
             paste(GDK_SELECTION_PRIMARY, true);
             break;
         case SyncInputEventType.INSERT_TERMINAL_NUMBER:
-            string text = to!string(terminalID); 
+            string text = to!string(terminalID);
             vte.feedChild(text, text.length);
         }
     }
-    
+
     void triggerAction(string name, GVariant value) {
         SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(name);
         if (action !is null && action.getEnabled()) {
@@ -2443,7 +2443,7 @@ public:
             action.setState(new GVariant(_synchronizeInputOverride));
         }
     }
-    
+
     @property string currentLocalDirectory() {
         return gst.getState(TerminalStateType.LOCAL).directory;
     }
@@ -2465,7 +2465,7 @@ public:
             gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
             // Hook up change event
             gsProfile.addOnChanged(delegate(string key, Settings) {
-                applyPreference(key); 
+                applyPreference(key);
             });
             applyPreferences();
         }
@@ -2684,9 +2684,9 @@ public:
                 action = TriggerAction.INSERT_PASSWORD;
                 break;
             default:
-                break;    
+                break;
         }
-        
+
         //Triggers always use multi-line mode since we are getting a buffer from VTE
         compiledRegex = regex(pattern, "m");
     }
@@ -2833,7 +2833,7 @@ public:
         if (!_initialized) {
             _initialized = true;
             trace("Terminal in initialized state");
-        } 
+        }
     }
 
     void updateState(StateVariable variable, string value) {
@@ -2919,11 +2919,11 @@ import std.regex.internal.thompson: ThompsonMatcher;
  string replaceMatchTokens(string tokenizedText, string[] matches) {
      string result = tokenizedText;
      foreach(i, match; matches) {
-        result = result.replace("$" ~ to!string(i - 1), match); 
+        result = result.replace("$" ~ to!string(i - 1), match);
      }
      return result;
  }
- 
+
 /**
  * Struct used to track matches in terminal for cases like context menu
  * where we need to preserve state between finding match and performing action
@@ -2971,9 +2971,9 @@ struct TerminalRegex {
 
 immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.AS_IS, true),
-    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.DEFAULT_TO_HTTP, true), 
-    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST, TerminalURLFlavor.VOIP_CALL, true), 
-    TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST, TerminalURLFlavor.EMAIL, true), 
+    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.DEFAULT_TO_HTTP, true),
+    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST, TerminalURLFlavor.VOIP_CALL, true),
+    TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST, TerminalURLFlavor.EMAIL, true),
     TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
 ];
 
@@ -3011,10 +3011,10 @@ immutable string[] shells = [/* Note that on some systems shells can also
 string getUserShell(string shell) {
     import std.file : exists;
     import core.sys.posix.pwd : getpwuid, passwd;
-    
+
     if (shell.length > 0 && exists(shell))
         return shell;
-    
+
     // Try environment variable next
     try {
         shell = environment["SHELL"];
@@ -3026,7 +3026,7 @@ string getUserShell(string shell) {
     catch (Exception e) {
         trace("No SHELL environment variable found");
     }
-    
+
     //Try to get shell from getpwuid
     passwd* pw = getpwuid(getuid());
     if (pw && pw.pw_shell) {
@@ -3050,7 +3050,7 @@ string getUserShell(string shell) {
 
 /*
  * Terminal serialization constants
- */ 
+ */
 private:
     enum NODE_OVERRIDE_CMD = "overrideCommand";
     enum NODE_TITLE = "title";

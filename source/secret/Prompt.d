@@ -127,19 +127,19 @@ public class Prompt : DBusProxy
 	public Variant performFinish(AsyncResultIF result)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_prompt_perform_finish(secretPrompt, (result is null) ? null : result.getAsyncResultStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new Variant(cast(GVariant*) p, true);
 	}
 
@@ -170,19 +170,19 @@ public class Prompt : DBusProxy
 	public Variant performSync(string windowId, Cancellable cancellable, VariantType returnType)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_prompt_perform_sync(secretPrompt, Str.toStringz(windowId), (cancellable is null) ? null : cancellable.getCancellableStruct(), (returnType is null) ? null : returnType.getVariantTypeStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new Variant(cast(GVariant*) p, true);
 	}
 
@@ -215,19 +215,19 @@ public class Prompt : DBusProxy
 	public Variant run(string windowId, Cancellable cancellable, VariantType returnType)
 	{
 		GError* err = null;
-		
+
 		auto p = secret_prompt_run(secretPrompt, Str.toStringz(windowId), (cancellable is null) ? null : cancellable.getCancellableStruct(), (returnType is null) ? null : returnType.getVariantTypeStruct(), &err);
-		
+
 		if (err !is null)
 		{
 			throw new GException( new ErrorG(err) );
 		}
-		
+
 		if(p is null)
 		{
 			return null;
 		}
-		
+
 		return new Variant(cast(GVariant*) p, true);
 	}
 }

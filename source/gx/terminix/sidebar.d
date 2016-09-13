@@ -82,14 +82,14 @@ private:
     bool onButtonPress(Event event, Widget w) {
         trace("** Sidebar button press");
         //If button press happened outside of sidebar close it
-        if (event.getWindow() !is null && lbSessions.getWindow() !is null) { 
+        if (event.getWindow() !is null && lbSessions.getWindow() !is null) {
             if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
                 notifySessionSelected(null);
             }
         }
         return false;
     }
-    
+
     void removeSession(string sessionUUID) {
         trace("Removing session " ~ sessionUUID);
         SideBarRow row = getRow(sessionUUID);
@@ -103,7 +103,7 @@ private:
             tracef("Row for sessionUUID %s not found", sessionUUID);
         }
     }
-    
+
     //Re-number the indexes, used after a delete
     void reindexSessions() {
         SideBarRow[] rows = gx.gtk.util.getChildren!SideBarRow(lbSessions, false);
@@ -135,7 +135,7 @@ private:
                 }
                 break;
             default:
-                //Ignore other keys    
+                //Ignore other keys
             }
         }
         return false;
@@ -147,7 +147,7 @@ private:
     /*
     bool onKeyNavFailed(GtkDirectionType direction, Widget) {
         trace("OnKeyNavFailed called");
-        SideBarRow[] rows = gx.gtk.util.getChildren!(SideBarRow)(lbSessions, false);        
+        SideBarRow[] rows = gx.gtk.util.getChildren!(SideBarRow)(lbSessions, false);
         switch (direction) {
             case GtkDirectionType.DOWN:
                 if (lbSessions.getSelectedRow() == rows[rows.length - 1]) {
@@ -201,7 +201,7 @@ public:
 
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
-        
+
         setHexpand(false);
         setVexpand(true);
         setValign(Align.FILL);
@@ -225,7 +225,7 @@ public:
                 grabRemove();
                 trace("** Unmapped, Removing Sidebar Grab");
            }
-            hide();            
+            hide();
         });
 
         add(sw);
@@ -266,7 +266,7 @@ public:
             }
         }
     }
-    
+
     void selectSession(string sessionUUID) {
         SideBarRow row = getRow(sessionUUID);
         if (row !is null) {
@@ -298,7 +298,7 @@ private:
     string _sessionUUID;
     Label lblIndex;
     SideBar sidebar;
-    
+
     AspectFrame wrapWidget(Widget widget, string cssClass) {
         AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
         af.setShadowType(ShadowType.NONE);
@@ -308,7 +308,7 @@ private:
         af.add(widget);
         return af;
     }
-    
+
     void createUI(Session session, SessionNotification[string] notifications, int width, int height) {
         Overlay overlay = new Overlay();
         setAllMargins(overlay, 2);
@@ -338,16 +338,16 @@ private:
             ev.setTooltipText(tooltip);
             grid.attach(af, 0, 2, 1, 1);
         }
-        
+
         Label leftSpacer = new Label("");
         leftSpacer.setWidthChars(2);
         grid.attach(wrapWidget(leftSpacer, null), 0, 1, 1, 1);
-        
+
         Label midSpacer = new Label("");
         midSpacer.setHexpand(true);
         midSpacer.setVexpand(true);
         grid.attach(midSpacer, 1, 1, 1, 1);
-        
+
         Label lblName = new Label(session.name);
         lblName.setEllipsize(PangoEllipsizeMode.END);
         lblName.setHalign(Align.CENTER);
@@ -365,7 +365,7 @@ private:
         setAllMargins(lblIndex, 4);
         lblIndex.setWidthChars(2);
         grid.attach(wrapWidget(lblIndex, "terminix-session-index"), 2, 2, 1, 1);
-        
+
         //Add Close Button
         Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
         btnClose.getStyleContext().addClass("terminix-sidebar-close-button");
@@ -373,7 +373,7 @@ private:
         btnClose.setRelief(ReliefStyle.NONE);
         btnClose.setFocusOnClick(false);
         grid.attach(btnClose, 2, 0, 1, 1);
-        
+
         overlay.addOverlay(grid);
         add(overlay);
 
@@ -393,7 +393,7 @@ public:
     @property string sessionUUID() {
         return _sessionUUID;
     }
-    
+
     @property void sessionIndex(ulong value) {
         lblIndex.setText(to!string(value));
     }

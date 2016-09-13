@@ -69,7 +69,7 @@ alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewS
 
 enum SessionStateChange {
     TERMINAL_MAXIMIZED,
-    TERMINAL_RESTORED, 
+    TERMINAL_RESTORED,
     TERMINAL_FOCUSED
 };
 
@@ -114,7 +114,7 @@ private:
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
-    // mixin for managing process notification event delegates     
+    // mixin for managing process notification event delegates
     mixin ProcessNotificationHandler;
 
     OnSessionDetach[] sessionDetachDelegates;
@@ -130,7 +130,7 @@ private:
     enum STACK_GROUP_NAME = "group";
     enum STACK_MAX_NAME = "maximized";
 
-    //A box in the stack used as the page where terminals reside 
+    //A box in the stack used as the page where terminals reside
     Box stackGroup;
     //A box in the stack used to hold a maximized terminal
     Box stackMaximized;
@@ -262,7 +262,7 @@ private:
         Value handleSize = new Value(0);
         root.styleGetProperty("handle-size", handleSize);
         tracef("Handle size is %d", handleSize.getInt());
-        
+
         int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
         int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
         tracef("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size);
@@ -352,7 +352,7 @@ private:
                 id = to!int(terminals.length);
             if (id > 0 && id <= terminals.length) {
                 focusTerminal(id);
-            }        
+            }
         }
 
         if (maximizedTerminal !is null) {
@@ -374,7 +374,7 @@ private:
 
     /**
      * Adds a new terminal into an existing terminal, by adding
-     * a Paned (i.e. Splitter) and then placing the original terminal and a 
+     * a Paned (i.e. Splitter) and then placing the original terminal and a
      * new terminal in the new Paned.
      *
      * Note that we do not insert the Terminal widget directly into a Paned,
@@ -384,7 +384,7 @@ private:
      * spot. Without this shim the layout becomes screwed up.
      *
      * If there is some magic way in GTK to do this without the extra Box shim
-     * it would be nice to eliminate this. 
+     * it would be nice to eliminate this.
      */
     void addNewTerminal(Terminal terminal, Orientation orientation) {
         trace("Splitting Terminal " ~ to!string(terminal.terminalID));
@@ -400,7 +400,7 @@ private:
      * Note that this does not unset event handlers or do any other cleanup as
      * this method is used both when moving and closing terminals.
      *
-     * This is a bit convoluted since we are using Box as a shim to 
+     * This is a bit convoluted since we are using Box as a shim to
      * preserve spacing. Every child widget is embeded in a Box which
      * is then embeded in a Paned. So an example heirarchy qouls be as follows:
      *
@@ -412,7 +412,7 @@ private:
 
         /**
         * Given a terminal, find the other child in the splitter.
-        * Note the other child could be either a terminal or 
+        * Note the other child could be either a terminal or
         * another splitter. In either case a Box will be the immediate
         * child hence we return that since this function is called
         * in preparation to remove the other child and replace the
@@ -458,7 +458,7 @@ private:
         //Need to add the widget in the box not the box itself since the Paned we removed is already in a Box
         //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
         //to Paned to fail
-        //Get child widget, could be Terminal or Paned       
+        //Get child widget, could be Terminal or Paned
         Widget widget = gx.gtk.util.getChildren!(Widget)(otherBox, false)[0];
         //Remove widget from original Box parent
         otherBox.remove(widget);
@@ -575,7 +575,7 @@ private:
         case ActionType.DETACH:
             //Ok this is a bit weird but we only only a terminal to be detached
             //if a session has more then one terminal in it OR the application
-            //has multiple sessions. 
+            //has multiple sessions.
             return terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH);
         default:
             return false;
@@ -700,7 +700,7 @@ private:
     enum NODE_HEIGHT = "height";
     enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
 
-    /** 
+    /**
      * Widget Types which are serialized
      */
     enum WidgetType : string {
@@ -850,7 +850,7 @@ private:
         _name = value[NODE_NAME].str();
         if (NODE_SYNCHRONIZED_INPUT in value) {
             _synchronizeInput = value[NODE_SYNCHRONIZED_INPUT].type == JSON_TYPE.TRUE;
-        }        
+        }
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
         groupChild.add(parseNode(child, sizeInfo));
@@ -876,7 +876,7 @@ private:
         addTerminal(terminal);
         createUI(terminal);
     }
-    
+
     void initSession() {
 
         gsSettings = new GSettings(SETTINGS_ID);
@@ -890,13 +890,13 @@ private:
 
         addOnDraw(&onDraw);
     }
-    
+
     bool onDraw(Scoped!Context cr, Widget w) {
         AppWindow window = cast(AppWindow)getToplevel();
         if (window is null) return false;
         Container child = cast(Container) getVisibleChild();
         if (child is null) return false;
-        
+
         //Cached render
         ImageSurface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
@@ -914,7 +914,7 @@ private:
         cr.setSourceSurface(isChildSurface, 0, 0);
         cr.paint();
         return true;
-    }    
+    }
 
     void updateWideHandle(bool value) {
         Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
@@ -928,7 +928,7 @@ public:
 
     /**
      * Creates a new session
-     * 
+     *
      * Params:
      *  name        = The name of the session
      *  profileUUID = The profile to use when creating the initial terminal for the session
@@ -947,7 +947,7 @@ public:
      * Creates a new session by de-serializing a session from JSON
      *
      * TODO Determine whether we need to support concept of firstRun for loading session
-     * 
+     *
      * Params:
      *  value       = The root session node of the JSON block used to for deserialization
      *  filename    = The filename corresponding to the JSON block
@@ -983,11 +983,11 @@ public:
         if (currentTerminal !is null)
             return currentTerminal;
         else
-            return null;        
+            return null;
     }
 
     /**
-     * Called when the session becomes active, 
+     * Called when the session becomes active,
      * i.e. is visible to the user
      *
      * Can't rely on events like map or realized because
@@ -996,7 +996,7 @@ public:
     void notifyActive() {
         foreach (terminal; terminals) {
             terminal.notifySessionActive();
-        }        
+        }
     }
 
     /**
@@ -1279,7 +1279,7 @@ public:
 
     @property bool maximized() {
         return maximizedInfo.isMaximized;
-    } 
+    }
 
     void addOnSessionStateChange(OnSessionStateChange dlg) {
         sessionStateChangeDelegates ~= dlg;
@@ -1410,7 +1410,7 @@ struct MaximizedInfo {
  *
  * In the model if a child is a terminal it is simply represented as a null. Once we have the model,
  * we can simply walk recursively to calculate the size of each pane and the position of the splitter. The first
- * step is calculate the base size, this is simply the available space divided by the number of panes. 
+ * step is calculate the base size, this is simply the available space divided by the number of panes.
  * The position of each pane is calculated by looking at the size of the children.
  */
 class PanedModel {
@@ -1489,7 +1489,7 @@ private:
     /**
      * Perform the resize by iterating over the tree from the highest branch (0) to
      * the lowest (X). This follows the pattern of the outermost pane to the innermost which
-     * you have to do since inner panes may not have space for their size allocation until 
+     * you have to do since inner panes may not have space for their size allocation until
      * outer ones are re-sized first.
      */
     void resize(PanedNode node) {
@@ -1507,12 +1507,12 @@ private:
                     n.paned.setPosition(n.pos);
                     n.paned.childSetProperty(n.paned.getChild1(), "resize", new Value(PANED_RESIZE_MODE));
                     n.paned.childSetProperty(n.paned.getChild2(), "resize", new Value(PANED_RESIZE_MODE));
-                    return false;                    
+                    return false;
                 });
             }
         }
     }
-    
+
     void updateResizeProperty(PanedNode node) {
         trace("Updating resize property");
         //Thanks to tip from egmontkob, see issue https://github.com/gnunn1/terminix/issues/161

@@ -39,7 +39,7 @@ Terminix requires the following libraries to be installed in order to run:
 * Dconf
 * GSettings
 * [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required For Nautilus integration)
- 
+
 ### Localization
 
 Terminix is localized using Weblate, please visit the Weblate hosted [Terminix translations site](https://hosted.weblate.org/projects/terminix/translations) in order to assist with translations, please do not submit direct pull requests to this repository for translations.

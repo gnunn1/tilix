@@ -15,15 +15,15 @@ import gdk.Threads;
 /**
   * Simple structure that contains a pointer to a delegate. This is necessary because delegates are not directly
   * convertable to a simple pointer (which is needed to pass as data to a C callback).
-  * 
+  *
   * This code from grestful (https://github.com/Gert-dev/grestful)
   */
 struct DelegatePointer(S, U...)
 {
 	S delegateInstance;
-	
+
 	U parameters;
-	
+
 	/**
       * Constructor.
       *
@@ -55,13 +55,13 @@ struct DelegatePointer(S, U...)
   * @param data The data that is passed to the method.
   *
   * @return Whether or not the method should continue executing.
-  * 
+  *
   * This code from grestful (https://github.com/Gert-dev/grestful)
   */
 extern(C) nothrow static ReturnType invokeDelegatePointerFunc(S, ReturnType, bool doRemoveRoot = false)(void* data)
 {
 	auto callbackPointer = cast(S*) data;
-	
+
 	try
 	{
 		static if (__traits(compiles, ReturnType.init))
@@ -69,20 +69,20 @@ extern(C) nothrow static ReturnType invokeDelegatePointerFunc(S, ReturnType, boo
 			auto returnValue = callbackPointer.delegateInstance(callbackPointer.parameters);
 			return returnValue;
 		}
-		
+
 		else
 		{
 			callbackPointer.delegateInstance(callbackPointer.parameters);
 		}
 	}
-	
+
 	catch (Exception e)
 	{
 		// Just catch it, can't throw D exceptions accross C boundaries.
 		static if (__traits(compiles, ReturnType.init))
 			return ReturnType.init;
 	}
-	
+
 	// Should only end up here for types that don't have an initial value (such as void).
 }
 
@@ -96,42 +96,42 @@ extern(C) nothrow static ReturnType invokeDelegatePointerFunc(S, ReturnType, boo
  * @example
  *     auto myMethod = delegate(string name, string value) { do_something_with_name_and_value(); }
  *     threadsAddIdleDelegate(myMethod, "thisIsAName", "thisIsAValue");
- * 
+ *
  * This code from grestful (https://github.com/Gert-dev/grestful)
  */
 void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple parameters)
 {
 	void* delegatePointer = null;
-	
+
 	auto wrapperDelegate = (parameterTuple parameters) {
 		bool callAgainNextIdleCycle = false;
-		
+
 		try
 		{
 			callAgainNextIdleCycle = theDelegate(parameters);
 			if (callAgainNextIdleCycle) trace("Callback again is true");
 			else trace("Callback again is false");
 		}
-		
+
 		catch (Exception e)
 		{
 			trace("Unexpected exception occurred in wrapper");
 			// Catch exceptions here as otherwise, memory may never be freed below.
 		}
-		
+
 		if (!callAgainNextIdleCycle) {
 			trace("Removing delegate pointer");
 			GC.removeRoot(delegatePointer);
 			return false;
 		} else return true;
 	};
-	
+
 	delegatePointer = cast(void*) new DelegatePointer!(T, parameterTuple)(wrapperDelegate, parameters);
-	
+
 	// We're going into a separate thread and exiting here, make sure the garbage collector doesn't think the memory
 	// isn't used anymore and collects it.
 	GC.addRoot(delegatePointer);
-	
+
 	gdk.Threads.threadsAddIdle(
 		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), bool),
 		delegatePointer

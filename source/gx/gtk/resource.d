@@ -62,7 +62,7 @@ CssProvider createCssProvider(string filename, string[string] variables = null) 
             if (provider.loadFromData(css)) {
                 return provider;
             }
-        } 
+        }
     } catch (GException ge) {
         trace("Unexpected error loading css provider " ~ filename);
         trace("Error: " ~ ge.msg);

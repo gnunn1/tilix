@@ -13,7 +13,7 @@ import std.array;
  * Params:
  *  array   = The array to remove the item from.
  *  element = The item to look for and remove.
- * 
+ *
  * Adapted from grestful, modified to explicitly check index
  */
 void remove(T)(ref T[] array, T element) {

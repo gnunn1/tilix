@@ -70,12 +70,12 @@ class ColorScheme {
         cursorFG = new RGBA();
         cursorBG = new RGBA();
         dimColor = new RGBA();
-        
+
         for (int i = 0; i < 16; i++) {
             palette[i] = new RGBA();
         }
     }
-    
+
     bool equalColor(ColorScheme scheme) {
         if (useThemeColors != scheme.useThemeColors) {
             return false;
@@ -105,11 +105,11 @@ class ColorScheme {
         }
         return match;
     }
-    
+
     override bool opEquals(Object o) {
-        
+
         import gx.gtk.util: equal;
-        
+
         if (auto scheme = cast(ColorScheme) o)
             return scheme.id == id &&
                    scheme.name == name &&

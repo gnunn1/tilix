@@ -105,7 +105,7 @@ private:
     enum ACTION_SHORTCUTS = "shortcuts";
 
     enum THEME_AMBIANCE = "Ambiance";
-    
+
     enum MAX_BG_WIDTH = 3840;
     enum MAX_BG_HEIGHT = 2160;
 
@@ -118,14 +118,14 @@ private:
     AppWindow[] appWindows;
     ProfileWindow[] profileWindows;
     PreferenceWindow preferenceWindow;
-    
+
     //Background Image for terminals, store it here as singleton instance
     ImageSurface isFullBGImage;
 
     bool warnedVTEConfigIssue = false;
-    
+
     CssProvider themeCssProvider;
-    
+
     OnThemeChanged[] themeChangedDelegates;
 
     /**
@@ -144,7 +144,7 @@ private:
         //Check if terminix has a theme specific CSS file to load
         string theme = getGtkTheme();
         string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
-        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION);
         if (!themeCssProvider) {
             tracef("No specific CSS found %s", cssURI);
         }
@@ -153,7 +153,7 @@ private:
     /**
      * Installs the application menu. This is the menu that drops down in gnome-shell when you click the application
      * name next to Activities.
-     * 
+     *
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
     void installAppMenu() {
@@ -178,17 +178,17 @@ private:
         registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
         if (Version.checkVersion(3, 19, 0).length == 0) {
-            registerActionWithSettings(this, ACTION_PREFIX, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) { 
+            registerActionWithSettings(this, ACTION_PREFIX, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) {
                 import gtk.ShortcutsWindow: ShortcutsWindow;
-                
+
                 ShortcutsWindow window = getShortcutWindow();
                 if (window is null) return;
                 window.setDestroyWithParent(true);
                 window.setModal(true);
-                window.showAll();                     
+                window.showAll();
             });
         }
-        
+
         registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTerminix(); });
@@ -202,7 +202,7 @@ private:
         prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX, ACTION_PREFERENCES));
         if (Version.checkVersion(3, 19, 0).length == 0) {
             prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX, ACTION_SHORTCUTS));
-        }        
+        }
         appMenu.appendSection(null, prefSection);
 
         Menu otherSection = new Menu();
@@ -232,7 +232,7 @@ private:
 
     /**
      * Shows the about dialog.
-     * 
+     *
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
     void onShowAboutDialog() {
@@ -288,7 +288,7 @@ private:
         if (preferenceWindow !is null)
             preferenceWindow.close();
     }
-    
+
     void loadBackgroundImage() {
         string filename = gsGeneral.getString(SETTINGS_BACKGROUND_IMAGE_KEY);
         if (isFullBGImage !is null) {
@@ -306,11 +306,11 @@ private:
                     double ratio = min(xScale, yScale);
                     double width = image.getWidth() * ratio;
                     double height = image.getHeight() * ratio;
-                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH);   
+                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH);
                 } else {
                     isFullBGImage = renderImage(image);
                 }
-            } 
+            }
         } catch (GException ge) {
             errorf("Could not load image '%s'", filename);
         }
@@ -329,7 +329,7 @@ private:
             string terminalUUID = cp.terminalUUID;
             if (terminalUUID.length == 0) {
                 AppWindow window = getActiveAppWindow();
-                if (window !is null) terminalUUID = window.getActiveTerminalUUID();   
+                if (window !is null) terminalUUID = window.getActiveTerminalUUID();
             }
             //If workingDir is not set, override it with cwd so that it takes priority for
             //executing actions below
@@ -340,7 +340,7 @@ private:
             return cp.exitCode;
         }
         trace("Activating app");
-        
+
         if (acl.getIsRemote()) {
             // Check if quake mode was passed and we have quake window already then
             // just toggle visibility or create quake window. If there isn't a quake window
@@ -350,7 +350,7 @@ private:
                 if (qw !is null) {
                     if (qw.getVisible) {
                         qw.hide();
-                    } 
+                    }
                     else {
                         qw.show();
                         qw.present();
@@ -408,7 +408,7 @@ private:
                     }
                     */
 
-            }        
+            }
         }
         activate();
         return cp.exitCode;
@@ -420,7 +420,7 @@ private:
             createAppWindow();
         cp.clear();
     }
-    
+
     void onThemeChange(ParamSpec, ObjectG) {
         string theme = getGtkTheme();
         trace("Theme changed to " ~ theme);
@@ -430,7 +430,7 @@ private:
         }
         //Check if terminix has a theme specific CSS file to load
         string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".css";
-        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION); 
+        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION);
         if (!themeCssProvider) {
             tracef("No specific CSS found %s", cssURI);
         }
@@ -448,10 +448,10 @@ private:
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
             string actionName = keyToDetailedActionName(key);
             trace("Updating shortcut '" ~ actionName ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
-            string shortcut = gsShortcuts.getString(key); 
+            string shortcut = gsShortcuts.getString(key);
             if (shortcut == SHORTCUT_DISABLED) {
                 char** tmp = (new char*[1]).ptr;
-                tmp[0] = cast(char*) '\0';                
+                tmp[0] = cast(char*) '\0';
                 gtk_application_set_accels_for_action(gtkApplication, Str.toStringz(actionName), tmp);
                 trace("Removing accelerator");
             } else {
@@ -459,20 +459,20 @@ private:
             }
         });
         gsGeneral = new GSettings(SETTINGS_ID);
-        gsGeneral.addOnChanged(delegate(string key, Settings) { 
-            applyPreference(key); 
+        gsGeneral.addOnChanged(delegate(string key, Settings) {
+            applyPreference(key);
         });
 
         initProfileManager();
         applyPreferences();
         installAppMenu();
     }
-    
+
     void onAppShutdown(GApplication) {
         trace("Quit App Signal");
         terminix = null;
     }
-    
+
     void applyPreferences() {
         foreach(key; [SETTINGS_THEME_VARIANT_KEY,SETTINGS_MENU_ACCELERATOR_KEY,SETTINGS_ACCELERATORS_ENABLED,SETTINGS_BACKGROUND_IMAGE_KEY]) {
             applyPreference(key);
@@ -487,10 +487,10 @@ private:
                     Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
                 } else {
                     /*
-                    * Resetting the theme variant to "Default" depends on new 
+                    * Resetting the theme variant to "Default" depends on new
                     * gtk_settings_reset_property API in Gnome 3.20. Once
                     * GtkD is updated to include this it will be added here.
-                    */ 
+                    */
                     if (Version.checkVersion(3, 19, 0).length == 0) {
                         Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
                     }
@@ -521,7 +521,7 @@ private:
                 break;
             default:
                 break;
-        }        
+        }
     }
 
     void executeAction(string terminalUUID, string action) {
@@ -554,7 +554,7 @@ private:
     AppWindow getActiveAppWindow() {
         AppWindow appWindow = cast(AppWindow)getActiveWindow();
         if (appWindow !is null) return appWindow;
-        
+
         ListG list = getWindows();
         if (list is null) return null;
         Window[] windows = list.toArray!(Window)();
@@ -575,7 +575,7 @@ private:
         }
         return null;
     }
-    
+
     /**
      * Add main options supported by application
      */
@@ -592,7 +592,7 @@ private:
         addMainOption(CMD_NEW_PROCESS, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Start additional instance as new process (Not Recommended)"), null);
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
         addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), _("QUAKE"));
-        
+
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
     }
@@ -604,7 +604,7 @@ public:
         if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
         super(APPLICATION_ID, flags);
         addOptions();
-        
+
         this.addOnActivate(&onAppActivate);
         this.addOnStartup(&onAppStartup);
         this.addOnShutdown(&onAppShutdown);
@@ -653,7 +653,7 @@ public:
     * a widget that matches the UUID specified. At the
     * moment this would be a session or a terminal.
     *
-    * This is used for any operations that span windows, at 
+    * This is used for any operations that span windows, at
     * the moment there is just one, dragging a terminal from
     * one Window to the next.
     *
@@ -683,9 +683,9 @@ public:
         preferenceWindow = new PreferenceWindow(this);
         addWindow(preferenceWindow);
         preferenceWindow.addOnDelete(delegate(Event, Widget) {
-            preferenceWindow = null; 
-            removeWindow(preferenceWindow); 
-            return false; 
+            preferenceWindow = null;
+            removeWindow(preferenceWindow);
+            return false;
         });
         preferenceWindow.showAll();
     }
@@ -734,7 +734,7 @@ public:
     CommandParameters getGlobalOverrides() {
         return cp;
     }
-    
+
     ImageSurface getBackgroundImage() {
         return isFullBGImage;
     }
@@ -771,11 +771,11 @@ public:
             }
         }
     }
-    
+
     void addOnThemeChanged(OnThemeChanged dlg) {
         themeChangedDelegates ~= dlg;
     }
-    
+
     void removeOnThemeChanged(OnThemeChanged dlg) {
         gx.util.array.remove(themeChangedDelegates, dlg);
     }

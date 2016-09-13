@@ -33,7 +33,7 @@
     <value nick='light'  value='1'/>
     <value nick='dark'   value='2'/>
   </enum>
-  
+
   <!-- Background Image Options -->
   <enum id='com.gexperts.Terminix.Background.Image.Mode'>
     <value nick='scale' value='0'/>
@@ -41,12 +41,12 @@
     <value nick='center' value='2'/>
     <value nick='stretch' value='3'/>
   </enum>
-  
+
   <!-- Background Image Scaling Options, note these
        options mirror the cairo_filter_t options covered
        in the documentation at the link below. Also note that
        selecting higher quality algorithms will produce better
-       results but at the expense of performance, particularly 
+       results but at the expense of performance, particularly
        when re-sizing windows.
    -->
   <enum id='com.gexperts.Terminix.Background.Image.Scale'>
@@ -56,14 +56,14 @@
     <value nick='nearest' value='3'/>
     <value nick='bilinear' value='4'/>
   </enum>
-  
+
   <enum id='com.gexperts.Terminix.Bell.Mode'>
     <value nick='none' value='0'/>
     <value nick='sound' value='1'/>
     <value nick='icon' value='2'/>
     <value nick='icon-sound' value='3'/>
   </enum>
-  
+
   <!-- Second Instance Options -->
   <enum id='com.gexperts.Terminix.NewInstance.Mode'>
     <value nick='new-window' value ='0'/>
@@ -72,7 +72,7 @@
     <value nick='split-down' value ='3'/>
     <value nick='focus-window' value='4'/>
   </enum>
-  
+
   <!-- Terminal Title Options -->
   <enum id='com.gexperts.Terminix.Terminal.Title'>
     <value nick='normal' value ='0'/>
@@ -91,12 +91,12 @@
     <value nick='ibeam' value='1'/>
     <value nick='underline' value='2'/>
   </enum>
-  
+
    <enum id='com.gexperts.Terminix.CJKWidth'>
     <value nick='narrow' value='1'/>
     <value nick='wide'   value='2'/>
   </enum>
-  
+
   <enum id='com.gexperts.Terminix.EraseBinding'>
     <value nick='auto' value='0'/>
     <value nick='ascii-backspace' value='1'/>
@@ -235,7 +235,7 @@
         the Encoding submenu. This is a list of encodings
         to appear there.
       </description>
-    </key>    
+    </key>
     <key name="warn-vte-config-issue" type="b">
       <default>true</default>
       <summary>Whether to warn if the VTE configuration issue is detected</summary>
@@ -261,7 +261,7 @@
       <default>'bilinear'</default>
       <summary>The algorithm to use when scaling the background image</summary>
       <description>The cairo filter algorithm used to scale the background image, performance will deteroriate with higher quality.</description>
-    </key>   
+    </key>
     <key name="password-include-return" type="b">
       <default>true</default>
       <summary>Whether to include return character with password</summary>
@@ -309,7 +309,7 @@
 
   <!-- Profiles list schema -->
 
-  <schema id="com.gexperts.Terminix.ProfilesList" 
+  <schema id="com.gexperts.Terminix.ProfilesList"
           extends="com.gexperts.Terminix.SettingsList"
           path="/com/gexperts/Terminix/profiles/">
     <override name="list">['2b7c4080-0ddd-46c5-8f23-563fd3ba789d']</override>
@@ -619,18 +619,18 @@
       <description>If true, all available lines will be processed for triggers. When outputing large amounts of text to the terminal this may impact performance.</description>
     </key>
   </schema>
-  
+
   <!-- Keybinding settings -->
-  <!-- 
+  <!--
     Note that key names match to action names used by Terminix. Since
     GSettings doesn't allow the '.' in key names, the action name is divided
     between the prefix and id using the hyphen. The first hyphen is treated as
     the separator, subsequent hyphens are treated as part of the action id.
-    
+
     The intent is to use localization on the prefix and id to show more
     friendly descriptors to users in the GUI that allows modifying these names.
   -->
-  
+
   <schema id="com.gexperts.Terminix.Keybindings" path="/com/gexperts/Terminix/keybindings/">
     <key name="app-new-window" type="s">
       <default>'&lt;Shift&gt;&lt;Ctrl&gt;N'</default>
@@ -755,7 +755,7 @@
     <key name="win-view-sidebar" type="s">
       <default>'F12'</default>
       <summary>Keyboard shortcut to view session sidebar</summary>
-    </key>  
+    </key>
     <key name="win-switch-to-session-0" type="s">
       <default>'&lt;Ctrl&gt;&lt;Alt&gt;0'</default>
       <summary>Keyboard shortcut to switch to session 10</summary>
@@ -803,7 +803,7 @@
     <key name="win-switch-to-previous-session" type="s">
       <default>'&lt;Ctrl&gt;Page_Up'</default>
       <summary>Keyboard shortcut to switch to the previous session</summary>
-    </key>    
+    </key>
     <key name="win-fullscreen" type="s">
       <default>'F11'</default>
       <summary>Keyboard shortcut to toggle fullscreen</summary>

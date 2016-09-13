@@ -40,8 +40,8 @@ bool showInputDialog(Window parent, out string value, string initialValue = "", 
     } else {
         entry = new Entry();
     }
-    entry.addOnActivate(delegate(Entry) { 
-        dialog.response(ResponseType.OK); 
+    entry.addOnActivate(delegate(Entry) {
+        dialog.response(ResponseType.OK);
     });
     if (validate !is null) {
         entry.addOnChanged(delegate(EditableIF) {

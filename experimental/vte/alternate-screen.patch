@@ -16,22 +16,22 @@ index 7836271..5741f47 100644
 --- a/src/vte/vteterminal.h
 +++ b/src/vte/vteterminal.h
 @@ -104,6 +104,8 @@ struct _VteTerminalClass {
- 
+
  	void (*bell)(VteTerminal* terminal);
- 
+
 +        void (*terminal_screen_changed)(VteTerminal* terminal);
 +
          /* Padding for future expansion. */
          gpointer padding[16];
- 
+
 diff --git a/src/vtegtk.cc b/src/vtegtk.cc
 index c9dbddc..cacf6e5 100644
 --- a/src/vtegtk.cc
 +++ b/src/vtegtk.cc
 @@ -687,6 +687,8 @@ vte_terminal_class_init(VteTerminalClass *klass)
- 
+
          klass->bell = NULL;
- 
+
 +        klass->terminal_screen_changed = NULL;
 +
          /* GtkScrollable interface properties */
@@ -39,7 +39,7 @@ index c9dbddc..cacf6e5 100644
          g_object_class_override_property (gobject_class, PROP_VADJUSTMENT, "vadjustment");
 @@ -1206,6 +1208,23 @@ vte_terminal_class_init(VteTerminalClass *klass)
                               G_TYPE_NONE, 0);
- 
+
          /**
 +         * VteTerminal::screen-changed:
 +         * @vteterminal: the object which received the signal
@@ -84,7 +84,7 @@ index cff2157..8b6e7cc 100644
 +
 +        void emit_terminal_screen_changed(int screen);
  };
- 
+
  extern GTimer *process_timer;
 diff --git a/src/vteseq.cc b/src/vteseq.cc
 index 2330939..09eb648 100644
@@ -93,16 +93,16 @@ index 2330939..09eb648 100644
 @@ -202,6 +202,12 @@ VteTerminalPrivate::emit_resize_window(guint columns,
          g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
  }
- 
+
 +void
 +VteTerminalPrivate::emit_terminal_screen_changed(int screen)
 +{
 +        _vte_debug_print(VTE_DEBUG_SIGNALS, "Emitting `terminal_screen_changed'.\n");
 +        g_signal_emit(m_terminal, signals[SIGNAL_TERMINAL_SCREEN_CHANGED], 0, screen);
 +}
- 
+
  /* Some common functions */
- 
+
 @@ -380,6 +386,9 @@ void
  VteTerminalPrivate::seq_normal_screen()
  {
@@ -111,7 +111,7 @@ index 2330939..09eb648 100644
 +        /* Emit signal */
 +        emit_terminal_screen_changed(0);
  }
- 
+
  void
 @@ -407,6 +416,9 @@ void
  VteTerminalPrivate::seq_alternate_screen()
@@ -121,9 +121,9 @@ index 2330939..09eb648 100644
 +        /* Emit signal */
 +        emit_terminal_screen_changed(1);
  }
- 
+
  /* Switch to normal screen and restore cursor (in this order). */
--- 
+--
 2.9.3
 
 
@@ -143,11 +143,11 @@ index 5741f47..7f93e85 100644
 +++ b/src/vte/vteterminal.h
 @@ -107,7 +107,7 @@ struct _VteTerminalClass {
          void (*terminal_screen_changed)(VteTerminal* terminal);
- 
+
          /* Padding for future expansion. */
 -        gpointer padding[16];
 +        gpointer padding[15];
- 
+
          VteTerminalClassPrivate *priv;
  };
 diff --git a/src/vteseq.cc b/src/vteseq.cc
@@ -157,11 +157,11 @@ index 09eb648..eb741e1 100644
 @@ -202,6 +202,7 @@ VteTerminalPrivate::emit_resize_window(guint columns,
          g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
  }
- 
+
 +/* Emit a "terminal-screen-changed" signal */
  void
  VteTerminalPrivate::emit_terminal_screen_changed(int screen)
  {
--- 
+--
 2.9.3
 

@@ -53,7 +53,7 @@ private:
     string _geometry;
     string _title;
     int _width, _height, _x, _y;
-        
+
     bool _maximize;
     bool _fullscreen;
     bool _focusWindow;
@@ -62,7 +62,7 @@ private:
 
     bool _exit = false;
     int _exitCode = 0;
-    
+
     enum GEOMETRY_PATTERN_FULL = "(?P<width>\\d+)x(?P<height>\\d+)(?P<x>[-+]\\d+)(?P<y>[-+]\\d+)";
     enum GEOMETRY_PATTERN_DIMENSIONS = "(?P<width>\\d+)x(?P<height>\\d+)";
 
@@ -93,9 +93,9 @@ private:
                 path.length = 0;
             }
         }
-        return path;        
+        return path;
     }
-    
+
     void parseGeometry() {
         trace("Parsing geometry string " ~ _geometry);
         auto r = regex(GEOMETRY_PATTERN_FULL);
@@ -114,7 +114,7 @@ private:
             } else {
                 errorf("Geometry string '%s' is invalid and could not be parsed", _geometry);
             }
-        }            
+        }
     }
 
 public:
@@ -217,15 +217,15 @@ public:
     @property string workingDir() {
         return _workingDir;
     }
-    
+
     @property void workingDir(string value) {
         _workingDir = value;
     }
-    
+
     @property string cwd() {
         return _cwd;
     }
-    
+
     @property string pwd() {
         return _pwd;
     }
@@ -253,7 +253,7 @@ public:
     @property string terminalUUID() {
         return _terminalUUID;
     }
-    
+
     @property bool maximize() {
         return _maximize;
     }
@@ -261,7 +261,7 @@ public:
     @property bool fullscreen() {
         return _fullscreen;
     }
-    
+
     @property bool focusWindow() {
         return _focusWindow;
     }
@@ -273,23 +273,23 @@ public:
     @property int exitCode() {
         return _exitCode;
     }
-    
+
     @property int width() {
         return _width;
     }
-    
+
     @property int height() {
         return _height;
     }
-    
+
     @property int x() {
         return _x;
     }
-    
+
     @property int y() {
         return _y;
     }
-    
+
     @property bool newProcess() {
         return _newProcess;
     }
