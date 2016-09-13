@@ -66,8 +66,8 @@ int main(string[] args) {
         // Workaround issue with Unity and older Gnome Shell when DBusActivatable sometimes CWD is set to /, see #285
         if (arg == "--gapplication-service" && pwd == uhd && cwd == "/") {
             info("Detecting DBusActivatable with improper directory, correcting by setting CWD to PWD");
-            info(format("CWD = %s", cwd));                
-            info(format("PWD = %s", pwd));                
+            infof("CWD = %s", cwd);                
+            infof("PWD = %s", pwd);                
             cwd = pwd;
             FileUtils.chdir(cwd);
         } else if (arg == "--new-process") {
