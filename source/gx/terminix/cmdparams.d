@@ -28,6 +28,7 @@ enum CMD_EXECUTE = "execute";
 enum CMD_ACTION = "action";
 enum CMD_TERMINAL_UUID = "terminalUUID";
 enum CMD_MAXIMIZE = "maximize";
+enum CMD_MINIMIZE = "minimize";
 enum CMD_FULL_SCREEN = "full-screen";
 enum CMD_FOCUS_WINDOW = "focus-window";
 enum CMD_GEOMETRY = "geometry";
@@ -55,6 +56,7 @@ private:
     int _width, _height, _x, _y;
 
     bool _maximize;
+    bool _minimize;
     bool _fullscreen;
     bool _focusWindow;
     bool _newProcess;
@@ -162,6 +164,7 @@ public:
         }
 
         _maximize = vd.contains(CMD_MAXIMIZE);
+        _minimize = vd.contains(CMD_MINIMIZE);
         _fullscreen = vd.contains(CMD_FULL_SCREEN);
         _focusWindow = vd.contains(CMD_FOCUS_WINDOW);
         _newProcess = vd.contains(CMD_NEW_PROCESS);
@@ -171,8 +174,8 @@ public:
         if (_geometry.length > 0)
             parseGeometry();
 
-        if (_quake && (_maximize || _fullscreen || _geometry.length > 0)) {
-                writeln(_("You cannot use the quake mode with maximize, fullscreen or geometry parameters"));
+        if (_quake && (_maximize || _minimize || _fullscreen || _geometry.length > 0)) {
+                writeln(_("You cannot use the quake mode with maximize, minimize, fullscreen or geometry parameters"));
                 _exitCode = 3;
                 _exit = true;
         }
@@ -202,6 +205,7 @@ public:
         _pwd.length = 0;
         _geometry.length = 0;
         _maximize = false;
+        _minimize = false;
         _fullscreen = false;
         _focusWindow = false;
         _newProcess = false;
@@ -256,6 +260,10 @@ public:
 
     @property bool maximize() {
         return _maximize;
+    }
+
+    @property bool minimize() {
+        return _minimize;
     }
 
     @property bool fullscreen() {
