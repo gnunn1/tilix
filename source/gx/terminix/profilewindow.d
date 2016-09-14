@@ -841,9 +841,9 @@ private:
     Label createDescriptionLabel(string desc) {
         Label lblDescription = new Label(desc);
         lblDescription.setUseMarkup(true);
-        lblDescription.setLineWrap(true);
         lblDescription.setSensitive(false);
         lblDescription.setLineWrap(true);
+        lblDescription.setHalign(Align.START);
         return lblDescription;
     }
 
@@ -876,14 +876,15 @@ private:
                 gsProfile.setStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
             }
         });
-        add(btnEditLink);
+        packStart(btnEditLink, false, false, 0);
 
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
             // Triggers Section
             Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
             lblTriggers.setUseMarkup(true);
             lblTriggers.setHalign(Align.START);
-            add(lblTriggers);
+            lblTriggers.setMarginTop(12);
+            packStart(lblTriggers, false, false, 0);
 
             string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
             packStart(createDescriptionLabel(triggersDescription), false, false, 0);
@@ -901,14 +902,15 @@ private:
                     gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
                 }
             });
-            add(btnEditTriggers);
+            packStart(btnEditTriggers, false, false, 0);
         }
 
         //Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
-        add(lblProfileSwitching);
+        lblProfileSwitching.setMarginTop(12);
+        packStart(lblProfileSwitching, false, false, 0);
 
         string profileSwitchingDescription;
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
@@ -991,7 +993,7 @@ private:
         Box box = new Box(Orientation.HORIZONTAL, 6);
         box.add(scValues);
         box.add(bButtons);
-        add(box);
+        packStart(box, false, false, 0);
     }
 
     void updateUI() {
