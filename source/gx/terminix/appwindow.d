@@ -785,6 +785,8 @@ private:
     void onWindowShow(Widget) {
         if (terminix.getGlobalOverrides().maximize) {
             maximize();
+        } else if (terminix.getGlobalOverrides().minimize) {
+            iconify();
         } else if (terminix.getGlobalOverrides().fullscreen) {
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
