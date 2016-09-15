@@ -199,7 +199,14 @@ private:
             grid.setOrientation(Orientation.VERTICAL);
             grid.add(hb);
             grid.add(overlay);
-            add(grid);
+            if (isQuake()) {
+                Frame f = new Frame(grid, null);
+                f.setShadowType(ShadowType.NONE);
+                f.getStyleContext().addClass("terminix-quake-frame");
+                add(f);
+            } else {
+                add(grid);
+            }
         } else {
             this.setTitlebar(hb);
             hb.setShowCloseButton(true);
