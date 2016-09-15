@@ -78,6 +78,7 @@ immutable string[] SETTINGS_BACKGROUND_IMAGE_MODE_VALUES = [SETTINGS_BACKGROUND_
 enum SETTINGS_SIDEBAR_RIGHT = "sidebar-on-right";
 
 //Quake Settings
+enum SETTINGS_QUAKE_WIDTH_PERCENT_KEY = "quake-width-percent";
 enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
 enum SETTINGS_QUAKE_PRIMARY_MONITOR = "quake-primary-monitor";
 enum SETTINGS_QUAKE_SPECIFIC_MONITOR = "quake-specific-monitor";

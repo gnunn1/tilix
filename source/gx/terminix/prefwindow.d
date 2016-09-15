@@ -37,6 +37,7 @@ import gtk.Label;
 import gtk.ListStore;
 import gtk.MessageDialog;
 import gtk.Notebook;
+import gtk.Scale;
 import gtk.ScrolledWindow;
 import gtk.SpinButton;
 import gtk.Switch;
@@ -681,6 +682,43 @@ private:
         setMarginLeft(18);
         setMarginRight(18);
 
+        Label lblSize = new Label(format("<b>%s</b>", _("Size")));
+        lblSize.setUseMarkup(true);
+        lblSize.setHalign(Align.START);
+        add(lblSize);
+
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+        int row = 0;
+
+        // Terminal Height
+        grid.attach(createLabel(_("Height percent")), 0, row, 1, 1);
+        Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
+        sHeight.setDrawValue(false);
+        sHeight.setHexpand(true);
+        sHeight.setHalign(Align.FILL);
+        gsSettings.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        grid.attach(sHeight, 1, row, 1, 1);
+        row++;
+
+        // Terminal Width
+        grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
+        Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
+        sWidth.setDrawValue(false);
+        sWidth.setHexpand(true);
+        sWidth.setHalign(Align.FILL);
+        gsSettings.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        grid.attach(sWidth, 1, row, 1, 1);
+        row++;
+
+        add(grid);
+
+        Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
+        lblOptions.setUseMarkup(true);
+        lblOptions.setHalign(Align.START);
+        add(lblOptions);
+
         Box bContent = new Box(Orientation.VERTICAL, 6);
 
         //Show on all workspaces
@@ -710,20 +748,6 @@ private:
         }
 
         add(bContent);
-
-        Grid grid = new Grid();
-        grid.setColumnSpacing(12);
-        grid.setRowSpacing(6);
-        int row = 0;
-
-        // Terminal Height
-        grid.attach(createLabel(_("Terminal height")), 0, row, 1, 1);
-        SpinButton sbHeight = new SpinButton(10, 100, 5);
-        gsSettings.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sbHeight, "value", GSettingsBindFlags.DEFAULT);
-        grid.attach(sbHeight, 1, row, 1, 1);
-        row++;
-
-        add(grid);
     }
 
 public:
