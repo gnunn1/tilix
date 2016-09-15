@@ -33,12 +33,12 @@
 
 .terminix-notification-count {
     background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_bg_color), to(transparent)), -gtk-gradient(radial, center center, 0, center center, 0.5, to(rgba(255, 255, 255, 0.76923)), to(transparent));
-    color: @theme_selec1ted_fg_color;
+    color: @theme_selected_fg_color;
     font-size: smaller;
 }
 
 .terminix-notification-count > label {
-    color: @theme_selec1ted_fg_color;
+    color: @theme_selected_fg_color;
 }
 
 .terminix-session-index {
@@ -117,4 +117,9 @@
 /* Remove rounded corners when disable-csd set to true */
 .terminix-embedded-headerbar {
     border-radius: 0;
+}
+
+/* Quake window border */ 
+.terminix-quake-frame {
+    border: 1px solid @wm_border;
 }
