@@ -823,14 +823,12 @@ private:
 
     void applyPreference(string key) {
         switch(key) {
-            case SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR, SETTINGS_QUAKE_SPECIFIC_MONITOR:
+            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR, SETTINGS_QUAKE_SPECIFIC_MONITOR:
                 if (isQuake) {
                     GdkRectangle rect;
                     getQuakePosition(rect);
-                    setDefaultSize(rect.width, rect.height);
-                    GdkGeometry geometry = GdkGeometry(rect.width, rect.height, rect.width, rect.height, -1, -1, 1, 1, -1, -1, GdkGravity.NORTH);
-                    setGeometryHints(null, &geometry, GdkWindowHints.MAX_SIZE);
                     move(rect.x, rect.y);
+                    resize(rect.width, rect.height);
                 }
                 break;
             case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES:
