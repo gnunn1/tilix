@@ -33,7 +33,6 @@ string[3] getUnsafePasteMessage() {
     return result;
 }
 
-const string CONTROL_CODES = [0:8,11,14:32];
 /**
  * A dialog that is shown to support advance paste. It allows the user
  * to review and edit the content as well as performing various transformations
@@ -46,8 +45,10 @@ private:
     GSettings gsSettings;
 
     TextBuffer buffer;
+    CheckButton cbTabsToSpaces;
+    SpinButton sbTabWidth;
 
-    CheckButton cbRemoveCC;
+    CheckButton cbConvertCRLF;
 
     void createUI(string text, bool unsafe) {
         with (getContentArea()) {
@@ -69,9 +70,6 @@ private:
 
         buffer = new TextBuffer(new TextTagTable());
         buffer.setText(text);
-        buffer.addOnChanged(delegate(TextBuffer) {
-            updateUI();
-        });
         TextView view = new TextView(buffer);
         ScrolledWindow sw = new ScrolledWindow(view);
         sw.setShadowType(ShadowType.ETCHED_IN);
@@ -90,38 +88,22 @@ private:
 
         //Tabs to Spaces
         Box bTabs = new Box(Orientation.HORIZONTAL, 6);
-        CheckButton cbTabsToSpaces = new CheckButton(_("Convert spaces to tabs"));
+        cbTabsToSpaces = new CheckButton("Convert spaces to tabs");
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, cbTabsToSpaces, "active", GSettingsBindFlags.DEFAULT);
         bTabs.add(cbTabsToSpaces);
 
-        SpinButton sbTabWidth = new SpinButton(0, 32, 1);
+        sbTabWidth = new SpinButton(0, 32, 1);
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY, sbTabWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, sbTabWidth, "sensitive", GSettingsBindFlags.DEFAULT);
         bTabs.add(sbTabWidth);
 
         b.add(bTabs);
 
-        CheckButton cbConvertCRLF = new CheckButton(_("Convert CRLF and CR to LF"));
+        cbConvertCRLF = new CheckButton("Convert CRLF and CR to LF");
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY, cbConvertCRLF, "active", GSettingsBindFlags.DEFAULT);
         b.add(cbConvertCRLF);
 
-        cbRemoveCC = new CheckButton(_("Remove unsafe control codes"));
-        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REMOVE_CONTROL_CODES_KEY, cbRemoveCC, "active", GSettingsBindFlags.DEFAULT);
-        b.add(cbRemoveCC);
-
-        getContentArea().add(b);
-        updateUI();
-    }
-
-    void updateUI() {
-        cbRemoveCC.setSensitive(hasControlCodes(buffer.getText()));
-    }
-
-    bool hasControlCodes(string text) {
-        foreach(code; CONTROL_CODES) {
-            if (text.indexOf(code) >= 0) return true;
-        }
-        return false;
+        getContentArea().add(b);        
     }
 
     string transform() {
@@ -133,9 +115,6 @@ private:
             text = text.replace("/r/n", "/n");
             text = text.replace("/r", "/n");    
 
-        }
-        if (hasControlCodes(text) && gsSettings.getBoolean(SETTINGS_ADVANCED_PASTE_REMOVE_CONTROL_CODES_KEY)) {
-            text = text.removechars(CONTROL_CODES);
         }
         return text;
     }
