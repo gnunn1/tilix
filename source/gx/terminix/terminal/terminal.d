@@ -122,6 +122,7 @@ import gx.terminix.terminal.actions;
 import gx.terminix.terminal.layout;
 import gx.terminix.terminal.password;
 import gx.terminix.terminal.search;
+import gx.terminix.terminal.advpaste;
 import gx.terminix.terminal.exvte;
 
 /**
@@ -173,12 +174,15 @@ enum SyncInputEventType {
     KEY_PRESS,
     PASTE_CLIPBOARD,
     PASTE_PRIMARY,
-    INSERT_TERMINAL_NUMBER
+    INSERT_TERMINAL_NUMBER,
+    INSERT_TEXT
 };
 
 struct SyncInputEvent {
+    string senderUUID;
     SyncInputEventType eventType;
     Event event;
+    string text;
 }
 
 /**
@@ -264,6 +268,7 @@ private:
 
     SimpleAction saCopy;
     SimpleAction saPaste;
+    SimpleAction saAdvancedPaste;
     Popover pmContext;
 
     GSettings gsProfile;
@@ -511,6 +516,12 @@ private:
                 paste(GDK_SELECTION_CLIPBOARD);
             }
         });
+        saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (Clipboard.get(null).waitIsTextAvailable()) {
+                advancedPaste(GDK_SELECTION_CLIPBOARD);
+            }
+        }); 
+
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
 
         //Link Actions, no shortcuts, context menu only
@@ -616,7 +627,7 @@ private:
             string text = to!string(terminalID);
             vte.feedChild(text, text.length);
             if (isSynchronizedInput()) {
-                SyncInputEvent se = SyncInputEvent(SyncInputEventType.INSERT_TERMINAL_NUMBER, null);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TERMINAL_NUMBER, null, null);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
             }
@@ -843,7 +854,7 @@ private:
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (isSynchronizedInput() && event.key.sendEvent == 0) {
-                SyncInputEvent se = SyncInputEvent(SyncInputEventType.KEY_PRESS, event);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
             }
@@ -1021,13 +1032,38 @@ private:
         btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
     }
 
+    /**
+     * Tests if the paste is unsafe, currently just looks for sudo
+     */
+    bool isPasteUnsafe(string text) {
+        return (text.indexOf("sudo") > -1) && (text.indexOf("\n") != 0);
+    }
+
+    void advancedPaste(GdkAtom source) {
+        string pasteText = Clipboard.get(source).waitForText();
+        if (pasteText.length == 0) return;
+
+        AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText);
+        scope(exit) {dialog.destroy();}
+        dialog.showAll();
+        if (dialog.run() == ResponseType.APPLY) {
+            pasteText = dialog.text;
+            vte.feedChild(pasteText[0 .. $], pasteText.length - 1);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
+                foreach (dlg; terminalSyncInputDelegates)
+                    dlg(this, se);
+            }
+        }
+    }
+
     void paste(GdkAtom source, bool inputSync = false) {
 
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
 
         // Don't check for unsafe paste if doing sync input, original paste checked it
-        if (!inputSync && (pasteText.indexOf("sudo") > -1) && (pasteText.indexOf("\n") != 0)) {
+        if (!inputSync && isPasteUnsafe(pasteText)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
                 UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window) getToplevel(), chomp(pasteText));
                 scope (exit) {
@@ -1044,7 +1080,7 @@ private:
             // not doing this paste as a result of a synchronized input
             if (!inputSync && isSynchronizedInput()) {
                 SyncInputEventType pasteType = (source==GDK_SELECTION_CLIPBOARD?SyncInputEventType.PASTE_CLIPBOARD:SyncInputEventType.PASTE_PRIMARY);
-                SyncInputEvent se = SyncInputEvent(pasteType, null);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, pasteType, null);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
             }
@@ -2393,6 +2429,10 @@ public:
         case SyncInputEventType.INSERT_TERMINAL_NUMBER:
             string text = to!string(terminalID);
             vte.feedChild(text, text.length);
+            break;
+        case SyncInputEventType.INSERT_TEXT:
+            vte.feedChild(sie.text, sie.text.length);
+            break;
         }
     }
 
