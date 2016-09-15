@@ -1043,7 +1043,7 @@ private:
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
 
-        AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText);
+        AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
         scope(exit) {dialog.destroy();}
         dialog.showAll();
         if (dialog.run() == ResponseType.APPLY) {
@@ -2640,6 +2640,8 @@ public:
     }
 }
 
+
+
 /**
  * This feature has been copied from Pantheon Terminal and
  * translated from Vala to D. Thanks to Pantheon and Ikey Doherty for this.
@@ -2655,9 +2657,8 @@ public:
         setTransientFor(parent);
         getMessageArea().setMarginLeft(0);
         getMessageArea().setMarginRight(0);
-        setMarkup("<span weight='bold' size='larger'>" ~ _("This command is asking for Administrative access to your computer") ~ "</span>\n\n" ~ _(
-                "Copying commands from the internet can be dangerous. ") ~ "\n" ~ _(
-                "Be sure you understand what each part of this command does.") ~ "\n\n" ~ "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
+        string[3] msg = getUnsafePasteMessage();
+        setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n\n" ~ "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
         setImage(new Image("dialog-warning", IconSize.DIALOG));
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));

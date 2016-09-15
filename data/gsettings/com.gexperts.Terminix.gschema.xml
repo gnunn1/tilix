@@ -267,6 +267,11 @@
       <summary>Whether to include return character with password</summary>
       <description>If true, when selecting a password to submit to the terminal a return character will automatically be added.</description>
     </key>
+    <key name="sidebar-on-right" type="b">
+      <default>false</default>
+      <summary>Whether the sidebar should be on the right</summary>
+      <description>If true, the sidebar will be attached to the right side of the window rather than the left.</description>
+    </key>
     <!-- Quake Options -->
     <key name="quake-height-percent" type="i">
       <range min="10" max="100" />
@@ -295,10 +300,21 @@
       <summary>Display the terminal on all workspaces</summary>
       <description>When in quake mode, display the terminal on all workspaces.</description>
     </key>
-    <key name="sidebar-on-right" type="b">
+    <!-- Advanced Paste Options -->
+    <key name="advanced-paste-replace-tabs" type="b">
       <default>false</default>
-      <summary>Whether the sidebar should be on the right</summary>
-      <description>If true, the sidebar will be attached to the right side of the window rather than the left.</description>
+      <summary>Replace tabs with spaces</summary>
+      <description>If true, replaces tabs with spaces in advanced paste.</description>
+    </key>
+    <key name="advanced-paste-space-count" type="i">
+      <default>4</default>
+      <summary>The number of spaces to use when replacing tabs</summary>
+      <description>When using advanced paste, the number of spaces to use when replacing tabs.</description>
+    </key>
+    <key name="advanced-paste-replace-crlf" type="b">
+      <default>false</default>
+      <summary>Replace CRLF with LF</summary>
+      <description>If true, replaces CRLF sequences with LF in advanced paste.</description>
     </key>
   </schema>
 

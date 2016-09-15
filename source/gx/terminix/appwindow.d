@@ -823,7 +823,7 @@ private:
 
     void applyPreference(string key) {
         switch(key) {
-            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR, SETTINGS_QUAKE_SPECIFIC_MONITOR:
+            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY:
                 if (isQuake) {
                     GdkRectangle rect;
                     getQuakePosition(rect);
@@ -831,9 +831,9 @@ private:
                     resize(rect.width, rect.height);
                 }
                 break;
-            case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES:
+            case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY:
                 if (isQuake) {
-                    if (gsSettings.getBoolean(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES)) stick();
+                    if (gsSettings.getBoolean(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY)) stick();
                     else unstick();
                 }
                 break;
@@ -845,8 +845,8 @@ private:
     void getQuakePosition(out GdkRectangle rect) {
         Screen screen = getScreen();
         int monitor = screen.getPrimaryMonitor();
-        if (!isWayland(this) && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR))) {
-            int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR);
+        if (!isWayland(this) && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR_KEY))) {
+            int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY);
             if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
                 monitor = altMonitor;
             }
@@ -1015,7 +1015,7 @@ public:
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
-            applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES);
+            applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
         }
 
         createUI();

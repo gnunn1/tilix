@@ -723,25 +723,25 @@ private:
 
         //Show on all workspaces
         CheckButton cbAllWorkspaces = new CheckButton(_("Show terminal on all workspaces"));
-        gsSettings.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
+        gsSettings.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbAllWorkspaces);
 
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!isWayland(cast(Window) this.getToplevel())) {
             //Primary Monitor
             CheckButton cbPrimaryMonitor = new CheckButton(_("Display terminal on primary monitor"));
-            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, cbPrimaryMonitor, "active", GSettingsBindFlags.DEFAULT);
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR_KEY, cbPrimaryMonitor, "active", GSettingsBindFlags.DEFAULT);
             bContent.add(cbPrimaryMonitor);
 
             //Specific Monitor
             Box bSpecific = new Box(Orientation.HORIZONTAL, 6);
             bSpecific.setMarginLeft(36);
             Label lblSpecific = new Label(_("Display on specific monitor"));
-            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR_KEY, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
             bSpecific.add(lblSpecific);
             SpinButton sbScreen = new SpinButton(0, getScreen().getNMonitors() - 1, 1);
-            gsSettings.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR, sbScreen, "value", GSettingsBindFlags.DEFAULT);
-            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            gsSettings.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, sbScreen, "value", GSettingsBindFlags.DEFAULT);
+            gsSettings.bind(SETTINGS_QUAKE_PRIMARY_MONITOR_KEY, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
             bSpecific.add(sbScreen);
 
             bContent.add(bSpecific);

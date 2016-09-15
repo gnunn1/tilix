@@ -80,9 +80,14 @@ enum SETTINGS_SIDEBAR_RIGHT = "sidebar-on-right";
 //Quake Settings
 enum SETTINGS_QUAKE_WIDTH_PERCENT_KEY = "quake-width-percent";
 enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
-enum SETTINGS_QUAKE_PRIMARY_MONITOR = "quake-primary-monitor";
-enum SETTINGS_QUAKE_SPECIFIC_MONITOR = "quake-specific-monitor";
-enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES = "quake-show-on-all-workspaces";
+enum SETTINGS_QUAKE_PRIMARY_MONITOR_KEY = "quake-primary-monitor";
+enum SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY = "quake-specific-monitor";
+enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
+
+//Advanced Paste Settings
+enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
+enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY="advanced-paste-space-count";
+enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY="advanced-paste-replace-crlf";
 
 //Profile Preference Constants
 enum SETTINGS_PROFILE_LIST_ID = "com.gexperts.Terminix.ProfilesList";
