@@ -88,6 +88,7 @@ enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
 enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY="advanced-paste-space-count";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY="advanced-paste-replace-crlf";
+enum SETTINGS_ADVANCED_PASTE_REMOVE_CONTROL_CODES_KEY="advanced-paste-remove-control-codes";
 
 //Profile Preference Constants
 enum SETTINGS_PROFILE_LIST_ID = "com.gexperts.Terminix.ProfilesList";
