@@ -326,6 +326,11 @@
       <summary>Replace CRLF with LF</summary>
       <description>If true, replaces CRLF sequences with LF in advanced paste.</description>
     </key>
+    <key name="recent-session-files" type="as">
+      <default>[]</default>
+      <summary>List of recent session files used</summary>
+      <description>A list of recently used session files, used for quick loading.</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->
@@ -787,6 +792,10 @@
     <key name="win-view-sidebar" type="s">
       <default>'F12'</default>
       <summary>Keyboard shortcut to view session sidebar</summary>
+    </key>  
+    <key name="win-view-sessionswitcher" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;p'</default>
+      <summary>Keyboard shortcut to view the quick session switcher</summary>
     </key>
     <key name="win-switch-to-session-0" type="s">
       <default>'&lt;Ctrl&gt;&lt;Alt&gt;0'</default>

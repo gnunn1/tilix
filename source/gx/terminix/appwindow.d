@@ -82,6 +82,7 @@ import gx.terminix.constants;
 import gx.terminix.cmdparams;
 import gx.terminix.preferences;
 import gx.terminix.session;
+import gx.terminix.sessionswitcher;
 import gx.terminix.sidebar;
 
 /**
@@ -114,6 +115,7 @@ private:
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
+    enum ACTION_WIN_SESSIONSWITCHER = "view-sessionswitcher";
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
@@ -121,6 +123,7 @@ private:
     Notebook nb;
     HeaderBar hb;
     SideBar sb;
+    SessionSwitcher ss;
     ToggleButton tbSideBar;
 
     SimpleActionGroup sessionActions;
@@ -128,6 +131,7 @@ private:
     SimpleAction saSyncInput;
     SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
+    SimpleAction saViewSessionSwitcher;
     SimpleAction saSessionAddRight;
     SimpleAction saSessionAddDown;
 
@@ -144,6 +148,8 @@ private:
 
     // True if window is in quake mode
     bool _quake;
+    
+    string[] recentSessionFiles;
 
     /**
      * Create the user interface
@@ -186,9 +192,36 @@ private:
         });
         sb.addOnSessionClose(&onUserSessionClose);
 
+        ss = new SessionSwitcher();
+        ss.addOnSessionFileSelected(delegate(string file) {
+            saViewSessionSwitcher.activate(null);
+            if (file) {
+                try {
+                    loadSession(file);
+                }
+                catch (SessionCreationException e) {
+                    removeRecentSessionFile(file);
+
+                    showErrorDialog(this, e.msg);
+                }
+            }
+        });
+        ss.addOnSessionFileRemoved(delegate(string file) {
+            removeRecentSessionFile(file);
+            ss.populate(getSessions(), recentSessionFiles);
+        });
+        ss.addOnOpenSessionSelected(delegate(string uuid) {
+            saViewSessionSwitcher.activate(null);
+            if (uuid) {
+                activateSession(uuid);
+            }
+        });
+        ss.addOnOpenSessionRemoved(&onUserSessionClose);
+
         Overlay overlay = new Overlay();
         overlay.add(nb);
         overlay.addOverlay(sb);
+        overlay.addOverlay(ss);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
         hb = createHeaderBar();
@@ -354,6 +387,21 @@ private:
             tbSideBar.setActive(newState);
             if (!newState) {
                 //Hiding session, restore focus
+                getCurrentSession().focusRestore();
+            }
+        }, null, new GVariant(false));
+
+        saViewSessionSwitcher = registerActionWithSettings(this, "win", ACTION_WIN_SESSIONSWITCHER, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            bool newState = !sa.getState().getBoolean();
+            trace("Session switcher action activated " ~ to!string(newState));
+            if (newState) {
+                ss.populate(getSessions(), recentSessionFiles);
+                ss.showAll();
+            }
+            ss.setRevealChild(newState);
+            sa.setState(new GVariant(newState));
+            ss.focusSearchEntry();
+            if (!newState) {
                 getCurrentSession().focusRestore();
             }
         }, null, new GVariant(false));
@@ -602,6 +650,7 @@ private:
                     if (!showCanClosePrompt) return false;
                 }
                 closeSession(session);
+                ss.populate(getSessions(), recentSessionFiles);
                 return true;
             }
         }
@@ -918,6 +967,7 @@ private:
                 throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
             }
         }
+		addRecentSessionFile(filename);
         tracef("Session dimensions: w=%d, h=%d", width, height);
         Session session = new Session(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
@@ -940,9 +990,11 @@ private:
         if (fcd.run() == ResponseType.OK) {
             try {
                 loadSession(fcd.getFilename());
+                addRecentSessionFile(fcd.getFilename());
             }
             catch (Exception e) {
                 fcd.hide();
+                removeRecentSessionFile(fcd.getFilename());
                 error(e);
                 showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
             }
@@ -979,6 +1031,7 @@ private:
                 return;
             }
         }
+        addRecentSessionFile(filename);
         string json = session.serialize().toPrettyString();
         write(filename, json);
         session.filename = filename;
@@ -992,6 +1045,47 @@ private:
         createNewSession(name, profileUUID, workingDir);
     }
 
+    void loadRecentSessionFileList() {
+        recentSessionFiles = gsSettings.getStrv(SETTINGS_RECENT_SESSION_FILES_KEY);
+    }
+
+    void saveRecentSessionFileList() {
+        gsSettings.setStrv(SETTINGS_RECENT_SESSION_FILES_KEY, recentSessionFiles);
+    }
+
+    /**
+     * Prepends a file path to the recent session files list
+     */
+    void addRecentSessionFile(string path, bool save = true) {
+        // Don't save after removing as the list will be saved later
+        removeRecentSessionFile(path, false);
+
+        recentSessionFiles = path ~ recentSessionFiles;
+
+        if (save) {
+            saveRecentSessionFileList();
+        }
+    }
+
+    /**
+     * Removes a file path from from the recent session files list
+     */
+    void removeRecentSessionFile(string path, bool save = true) {
+        string[] temp;
+
+        foreach (int i, string aPath; recentSessionFiles) {
+            if (aPath != path) {
+                temp ~= aPath;
+            }
+        }
+
+        recentSessionFiles = temp;
+
+        if (save) {
+            saveRecentSessionFileList();
+        }
+    }
+
 public:
 
     this(Application application) {
@@ -1003,6 +1097,13 @@ public:
         });
         setTitle(_("Terminix"));
         setIconName("com.gexperts.Terminix");
+
+        loadRecentSessionFileList();
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_RECENT_SESSION_FILES_KEY) {
+                loadRecentSessionFileList();
+            }
+        });
 
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
