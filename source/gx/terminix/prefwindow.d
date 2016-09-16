@@ -825,6 +825,11 @@ private:
         lblClipboard.setHalign(Align.START);
         add(lblClipboard);
 
+        //Advacned paste is default
+        CheckButton cbAdvDefault = new CheckButton(_("Always use advanced paste dialog"));
+        gsSettings.bind(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY, cbAdvDefault, "active", GSettingsBindFlags.DEFAULT);
+        add(cbAdvDefault);
+
         //Unsafe Paste Warning
         CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
         gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);

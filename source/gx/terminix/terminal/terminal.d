@@ -513,7 +513,11 @@ private:
         });
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
-                paste(GDK_SELECTION_CLIPBOARD);
+                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                    advancedPaste(GDK_SELECTION_CLIPBOARD);
+                } else {
+                    paste(GDK_SELECTION_CLIPBOARD);
+                }
             }
         });
         saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -1044,17 +1048,21 @@ private:
         if (pasteText.length == 0) return;
 
         AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
-        scope(exit) {dialog.destroy();}
+        scope(exit) {
+            dialog.hide();
+            dialog.destroy();
+        }
         dialog.showAll();
         if (dialog.run() == ResponseType.APPLY) {
             pasteText = dialog.text;
-            vte.feedChild(pasteText[0 .. $], pasteText.length - 1);
+            vte.feedChild(pasteText[0 .. $], pasteText.length);
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
             }
         }
+        focusTerminal();
     }
 
     void paste(GdkAtom source, bool inputSync = false) {
@@ -1142,7 +1150,7 @@ private:
         long cursorRow;
         long cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
-        tracef("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow);
+        //tracef("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow);
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
