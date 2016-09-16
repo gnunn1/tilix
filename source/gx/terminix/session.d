@@ -70,7 +70,8 @@ alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewS
 enum SessionStateChange {
     TERMINAL_MAXIMIZED,
     TERMINAL_RESTORED,
-    TERMINAL_FOCUSED
+    TERMINAL_FOCUSED,
+    TERMINAL_TITLE
 };
 
 alias OnSessionStateChange = void delegate(Session session, SessionStateChange stateChange);
@@ -298,6 +299,7 @@ private:
         terminal.addOnProcessNotification(&onTerminalProcessNotification);
         terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.addOnTerminalRequestStateChange(&onTerminalRequestStateChange);
+        terminal.addOnTerminalTitleChange(&onTerminalTitleChange);
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
@@ -322,6 +324,7 @@ private:
         terminal.removeOnProcessNotification(&onTerminalProcessNotification);
         terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
         terminal.removeOnTerminalRequestStateChange(&onTerminalRequestStateChange);
+        terminal.removeOnTerminalTitleChange(&onTerminalTitleChange);
         //If a terminal is maximized restore it before removing
         // so all the parenting can be detected
         Terminal maximizedTerminal;
@@ -616,6 +619,18 @@ private:
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
                 trace("sending sync event");
                 terminal.handleSyncInput(event);
+            }
+        }
+    }
+
+    /**
+     * Catch terminal title change events to propagate up to to application so
+     * it can set it's title.
+     */
+    void onTerminalTitleChange(Terminal terminal) {
+        if (terminal == currentTerminal) {
+            foreach(dlg; sessionStateChangeDelegates) {
+                dlg(this, SessionStateChange.TERMINAL_TITLE);
             }
         }
     }
@@ -1025,6 +1040,15 @@ public:
         catch (Exception e) {
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
+    }
+
+    @property string displayName() {
+        string result;
+        if (currentTerminal is null) result = name;
+        else result = currentTerminal.getDisplayTitle(name);
+        // If it is using Default from preferences localize it
+        if (result == "Default") return _("Default");
+        else return result;
     }
 
     /**

@@ -348,7 +348,9 @@ private:
         midSpacer.setVexpand(true);
         grid.attach(midSpacer, 1, 1, 1, 1);
 
-        Label lblName = new Label(session.name);
+        Label lblName = new Label(session.displayName);
+        lblName.setMarginLeft(2);
+        lblName.setMarginRight(2);
         lblName.setEllipsize(PangoEllipsizeMode.END);
         lblName.setHalign(Align.CENTER);
         lblName.setHexpand(true);

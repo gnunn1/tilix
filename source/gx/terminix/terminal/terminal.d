@@ -170,6 +170,8 @@ alias OnTerminalRequestMove = void delegate(string srcUUID, Terminal dest, DragQ
  */
 alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 
+alias OnTerminalTitleChange = void delegate(Terminal terminal);
+
 enum SyncInputEventType {
     KEY_PRESS,
     PASTE_CLIPBOARD,
@@ -237,6 +239,7 @@ private:
     OnTerminalRequestDetach[] terminalRequestDetachDelegates;
     OnTerminalSyncInput[] terminalSyncInputDelegates;
     OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
+    OnTerminalTitleChange[] terminalTitleChangeDelegates;
 
     TerminalWindowState terminalWindowState = TerminalWindowState.NORMAL;
     Button btnMaximize;
@@ -294,6 +297,9 @@ private:
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
+
+    // Keep track of previous title to avoid triggering too many TerminalTitleChange events
+    string lastTitle;
 
     //Whether to ignore unsafe paste, basically when
     //option is turned on but user opts to ignore it for this terminal
@@ -999,25 +1005,14 @@ private:
      */
     void updateTitle() {
         string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
-        string windowTitle = vte.getWindowTitle();
-        if (windowTitle.length == 0)
-            windowTitle = _("Terminal");
-        title = title.replace(TERMINAL_TITLE, windowTitle);
-        title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
-        title = title.replace(TERMINAL_ID, to!string(terminalID));
-        title = title.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
-        title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
-        title = title.replace(TERMINAL_HOSTNAME, gst.currentHostname);
-        title = title.replace(TERMINAL_USERNAME, gst.currentUsername);
-        string path;
-        if (terminalInitialized) {
-            path = gst.currentDirectory;
-        } else {
-            trace("Terminal not initialized yet or VTE not configured, no path available");
-            path = "";
+        title = getDisplayTitle(title);
+        if (title != lastTitle) {
+            lblTitle.setMarkup(title);
+            lastTitle = title;
+            foreach (dlg; terminalTitleChangeDelegates) {
+                dlg(this);
+            }
         }
-        title = title.replace(TERMINAL_DIR, path);
-        lblTitle.setMarkup(title);
     }
 
     /**
@@ -2492,6 +2487,35 @@ public:
         }
     }
 
+    /**
+     * Takes a terminal title string with tokens/vairables like ${title} and
+     * performs the substitution to get the displayed title.
+     *
+     * This is public because the session can use it to resolve these variables
+     * for the active terminal for it's own name shown in the sidebar.
+     */
+    string getDisplayTitle(string title) {
+        string windowTitle = vte.getWindowTitle();
+        if (windowTitle.length == 0)
+            windowTitle = _("Terminal");
+        title = title.replace(TERMINAL_TITLE, windowTitle);
+        title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
+        title = title.replace(TERMINAL_ID, to!string(terminalID));
+        title = title.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
+        title = title.replace(TERMINAL_HOSTNAME, gst.currentHostname);
+        title = title.replace(TERMINAL_USERNAME, gst.currentUsername);
+        string path;
+        if (terminalInitialized) {
+            path = gst.currentDirectory;
+        } else {
+            trace("Terminal not initialized yet or VTE not configured, no path available");
+            path = "";
+        }
+        title = title.replace(TERMINAL_DIR, path);
+        return title;
+    }
+
     @property string currentLocalDirectory() {
         return gst.getState(TerminalStateType.LOCAL).directory;
     }
@@ -2607,6 +2631,13 @@ public:
         gx.util.array.remove(terminalRequestStateChangeDelegates, dlg);
     }
 
+    void addOnTerminalTitleChange(OnTerminalTitleChange dlg) {
+        terminalTitleChangeDelegates ~= dlg;
+    }
+
+    void removeOnTerminalTitleChange(OnTerminalTitleChange dlg) {
+        gx.util.array.remove(terminalTitleChangeDelegates, dlg);
+    }
 }
 
 /**

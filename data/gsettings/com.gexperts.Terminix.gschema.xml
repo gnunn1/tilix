@@ -129,6 +129,11 @@
       <summary>Whether to prompt for session settings or use defaults</summary>
       <description>If true, when creating a new session a prompt will appear to pick the session name and profile used.</description>
     </key>
+    <key name="session-name" type="s">
+      <default>'Default'</default>
+      <summary>The default name to use for a session</summary>
+      <description>The default name of the session, terminal variables can be used in which case the active terminal resolves the variables.</description>
+    </key>
     <key name="enable-transparency" type="b">
       <default>true</default>
       <summary>Whether transparency is enabled</summary>

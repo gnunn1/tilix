@@ -28,6 +28,7 @@ import gtk.CellRendererText;
 import gtk.CellRendererToggle;
 import gtk.CheckButton;
 import gtk.ComboBox;
+import gtk.Entry;
 import gtk.FileChooserButton;
 import gtk.FileFilter;
 import gtk.Grid;
@@ -606,6 +607,7 @@ class AppearancePreferences: Box {
             grid.attach(createLabel(_("Background image")), 0, row, 1, 1);
 
             FileChooserButton fcbImage = new FileChooserButton(_("Select Image"), FileChooserAction.OPEN);
+            fcbImage.setHexpand(true);
             FileFilter ff = new FileFilter();
             ff.setName(_("All Image Files"));
             ff.addMimeType("image/jpeg");
@@ -649,8 +651,18 @@ class AppearancePreferences: Box {
             Box bImage = new Box(Orientation.HORIZONTAL, 6);
             bImage.add(bChooser);
             bImage.add(cbImageMode);
-
             grid.attach(bImage, 1, row, 1, 1);
+            row++;
+
+            //Session Name
+            Label lblSessionName = new Label(_("Default session name"));
+            lblSessionName.setHalign(Align.END);
+            grid.attach(lblSessionName, 0, row, 1, 1);
+
+            Entry eSessionName = new Entry();
+            eSessionName.setHexpand(true);
+            gsSettings.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", GSettingsBindFlags.DEFAULT);
+            grid.attach(eSessionName, 1, row, 1, 1);
             row++;
 
             add(grid);

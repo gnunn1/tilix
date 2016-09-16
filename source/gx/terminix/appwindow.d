@@ -541,7 +541,7 @@ private:
 
     void createNewSession(string name, string profileUUID, string workingDir) {
         //Set firstRun based on whether any sessions currently exist, i.e. no pages in NoteBook
-        Session session = new Session(name, profileUUID, workingDir, nb.getNPages() == 0);
+        Session session = new Session(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), profileUUID, workingDir, nb.getNPages() == 0);
         addSession(session);
     }
 
@@ -637,8 +637,9 @@ private:
     }
 
     void onSessionStateChange(Session session, SessionStateChange stateChange) {
-        if (getCurrentSession() ==  session) {
+        if (getCurrentSession() == session) {
             updateUIState();
+            updateTitle();
         }
     }
 
@@ -657,9 +658,9 @@ private:
         string title;
         Session session = getCurrentSession();
         if (session && nb.getNPages() == 1) {
-            title = _(APPLICATION_NAME) ~ ": " ~ session.name;
+            title = _(APPLICATION_NAME) ~ ": " ~ session.displayName;
         } else if (session) {
-            title = _(APPLICATION_NAME) ~ " " ~ to!string(nb.getCurrentPage()+1) ~ ": " ~ session.name;
+            title = _(APPLICATION_NAME) ~ " " ~ to!string(nb.getCurrentPage()+1) ~ ": " ~ session.displayName;
         } else {
             title = _(APPLICATION_NAME);
         }

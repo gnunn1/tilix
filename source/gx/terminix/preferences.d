@@ -50,6 +50,8 @@ enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_SMALL = "small";
 enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE = "none";
 immutable string[] SETTINGS_TERMINAL_TITLE_STYLE_VALUES = [SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NORMAL, SETTINGS_TERMINAL_TITLE_STYLE_VALUE_SMALL, SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE];
 
+enum SETTINGS_SESSION_NAME_KEY = "session-name";
+
 enum SETTINGS_ENABLE_WIDE_HANDLE_KEY = "enable-wide-handle";
 enum SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY = "notify-on-process-complete";
 enum SETTINGS_UNSAFE_PASTE_ALERT_KEY = "unsafe-paste-alert";
@@ -87,8 +89,8 @@ enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
-enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY="advanced-paste-space-count";
-enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY="advanced-paste-replace-crlf";
+enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY = "advanced-paste-space-count";
+enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
 
 //Profile Preference Constants
 enum SETTINGS_PROFILE_LIST_ID = "com.gexperts.Terminix.ProfilesList";
