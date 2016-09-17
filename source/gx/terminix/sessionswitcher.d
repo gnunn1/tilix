@@ -18,6 +18,7 @@ import gdk.Keysyms;
 import gobject.ObjectG;
 
 import gtk.Box;
+import gtk.Frame;
 import gtk.Image;
 import gtk.Label;
 import gtk.ListBox;
@@ -82,20 +83,19 @@ private:
 
     void createUI() {
         addOnButtonPress(&onButtonPress);
-        setTransitionType(RevealerTransitionType.NONE);
-        setHexpand(true);
+        setTransitionType(RevealerTransitionType.SLIDE_DOWN);
+        setHexpand(false);
         setVexpand(false);
-        setHalign(Align.FILL);
+        setHalign(Align.CENTER);
         setValign(Align.START);
 
         bSearch = new Box(Orientation.VERTICAL, 6);
         bSearch.setHalign(Align.CENTER);
-        bSearch.setMarginLeft(4);
-        bSearch.setMarginRight(4);
-        bSearch.setMarginTop(4);
-        bSearch.setMarginBottom(4);
+        bSearch.setMarginLeft(6);
+        bSearch.setMarginRight(6);
+        bSearch.setMarginTop(6);
+        bSearch.setMarginBottom(6);
         bSearch.setHexpand(true);
-        bSearch.getStyleContext().addClass("terminix-session-switcher");
         bSearch.addOnKeyRelease(&onSearchBoxKeyRelease);
 
         seSearch = new SearchEntry();
@@ -136,14 +136,16 @@ private:
         lbSessions.setFilterFunc(filter, cast(void*)seSearch.getSearchEntryStruct(), dn);
 
         sw = new ScrolledWindow(lbSessions);
-        sw.setShadowType(ShadowType.NONE);
+        sw.setShadowType(ShadowType.ETCHED_IN);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setHexpand(true);
         sw.setVexpand(true);
-        sw.setSizeRequest(-1, 200);
-
         bSearch.add(sw);
-        add(bSearch);
+
+        Frame frame = new Frame(bSearch, null);
+        frame.setShadowType(ShadowType.IN);
+        frame.getStyleContext().addClass("terminix-session-switcher");
+        add(frame);
     }
 
     bool onButtonPress(Event event, Widget w) {
@@ -272,6 +274,9 @@ public:
     this() {
         super();
         createUI();
+        addOnRealize(delegate(Widget) {
+            sw.setSizeRequest(-1, 200);
+        });
     }
 
     void focusSearchEntry() {

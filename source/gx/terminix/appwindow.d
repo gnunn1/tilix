@@ -115,7 +115,7 @@ private:
     enum ACTION_SESSION_SYNC_INPUT = "synchronize-input";
     enum ACTION_WIN_SESSION_X = "switch-to-session-";
     enum ACTION_WIN_SIDEBAR = "view-sidebar";
-    enum ACTION_WIN_SESSIONSWITCHER = "view-sessionswitcher";
+    enum ACTION_WIN_SESSIONSWITCHER = "view-session-switcher";
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
