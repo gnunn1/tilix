@@ -738,6 +738,11 @@ private:
         gsSettings.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbAllWorkspaces);
 
+        //Disable animations
+        CheckButton cbDisableAnimations = new CheckButton(_("Set hint for window manager to disable animation"));
+        gsSettings.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
+        bContent.add(cbDisableAnimations);
+
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!isWayland(cast(Window) this.getToplevel())) {
             //Primary Monitor

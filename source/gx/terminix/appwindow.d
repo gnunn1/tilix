@@ -887,6 +887,13 @@ private:
                     else unstick();
                 }
                 break;
+            case SETTINGS_QUAKE_DISABLE_ANIMATION_KEY:
+                if (gsSettings.getBoolean(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY)) {
+                    setTypeHint(GdkWindowTypeHint.UTILITY);
+                } else {
+                    setTypeHint(GdkWindowTypeHint.NORMAL);
+                }
+                break;
             default:
                 break;
         }
@@ -1113,7 +1120,7 @@ public:
             setDecorated(false);
             setGravity(GdkGravity.STATIC);
             setKeepAbove(true);
-            setTypeHint(GdkWindowTypeHint.NORMAL);
+            applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);            
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);

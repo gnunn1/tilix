@@ -87,6 +87,7 @@ enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
 enum SETTINGS_QUAKE_PRIMARY_MONITOR_KEY = "quake-primary-monitor";
 enum SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY = "quake-specific-monitor";
 enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
+enum SETTINGS_QUAKE_DISABLE_ANIMATION_KEY = "quake-disable-animation";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
