@@ -91,10 +91,10 @@ private:
 
         bSearch = new Box(Orientation.VERTICAL, 6);
         bSearch.setHalign(Align.CENTER);
-        bSearch.setMarginLeft(6);
-        bSearch.setMarginRight(6);
-        bSearch.setMarginTop(6);
-        bSearch.setMarginBottom(6);
+        bSearch.setMarginLeft(12);
+        bSearch.setMarginRight(12);
+        bSearch.setMarginTop(12);
+        bSearch.setMarginBottom(12);
         bSearch.setHexpand(true);
         bSearch.addOnKeyRelease(&onSearchBoxKeyRelease);
 
@@ -367,10 +367,10 @@ private:
         Box hBox = new Box(Orientation.HORIZONTAL, 6);
 
         Image image = new Image(_icon, IconSize.LARGE_TOOLBAR);
-        image.setMarginLeft(4);
-        image.setMarginRight(4);
-        image.setMarginTop(4);
-        image.setMarginBottom(4);
+        image.setMarginLeft(6);
+        image.setMarginRight(6);
+        image.setMarginTop(6);
+        image.setMarginBottom(6);
         hBox.add(image);
 
         label = new Label("");
@@ -419,8 +419,8 @@ class OpenSessionListBoxRow : SessionListBoxRow {
 public:
     this(Session session) {
         _identifier = session.uuid;
-        _filterable = session.name;
-        _labelText = session.name;
+        _filterable = session.displayName;
+        _labelText = session.displayName;
         _icon = "document-open-symbolic";
         super();
     }
