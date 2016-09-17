@@ -39,6 +39,10 @@ Terminix requires the following libraries to be installed in order to run:
 * Dconf
 * GSettings
 * [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required For Nautilus integration)
+ 
+### Support
+
+If you are having issues with Terminix, feel free to open issues here in github as necessary. Developers and users can  also be found on IRC on the [freenode](https://freenode.net) network in the #terminix room.
 
 ### Localization
 
