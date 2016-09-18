@@ -98,8 +98,6 @@ private:
 
     enum CSS_CLASS_NEEDS_ATTENTION = "needs-attention";
 
-    enum DEFAULT_SESSION_NAME = N_("Default");
-
     enum ACTION_PREFIX = "session";
     enum ACTION_SESSION_CLOSE = "close";
     enum ACTION_SESSION_NAME = "name";
@@ -589,7 +587,7 @@ private:
 
     void createNewSession(string name, string profileUUID, string workingDir) {
         //Set firstRun based on whether any sessions currently exist, i.e. no pages in NoteBook
-        Session session = new Session(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), profileUUID, workingDir, nb.getNPages() == 0);
+        Session session = new Session(name, profileUUID, workingDir, nb.getNPages() == 0);
         addSession(session);
     }
 
@@ -1048,7 +1046,6 @@ private:
      * Creates a new session based on parameters, user is not prompted
      */
     void createSession(string name, string profileUUID, string workingDir = null) {
-        //createNewSession(name, profileUUID, Util.getHomeDir());
         createNewSession(name, profileUUID, workingDir);
     }
 
@@ -1156,7 +1153,7 @@ public:
             return;
         }
         //Create an initial session using default session name and profile
-        createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+        createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
     }
 
     void initialize(Session session) {
@@ -1265,7 +1262,7 @@ public:
             }
         }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
-            SessionProperties sp = new SessionProperties(this, _(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile());
+            SessionProperties sp = new SessionProperties(this, gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
             scope (exit) {
                 sp.destroy();
             }
@@ -1274,7 +1271,7 @@ public:
                 createSession(sp.name, sp.profileUUID, workingDir);
             }
         } else {
-            createSession(_(DEFAULT_SESSION_NAME), prfMgr.getDefaultProfile(), workingDir);
+            createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile(), workingDir);
         }
     }
 

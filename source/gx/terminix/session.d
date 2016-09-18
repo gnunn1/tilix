@@ -693,7 +693,17 @@ private:
         return result;
     }
 
-    /************************************************
+    void applyPreference(string key) {
+        switch (key) {
+            case SETTINGS_ENABLE_WIDE_HANDLE_KEY:
+                updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
+                break;
+            default:
+                break;
+        }
+    }
+
+/************************************************
  * De/Serialization code in this private block
  ************************************************/
 private:
@@ -896,10 +906,7 @@ private:
 
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
-            if (key == SETTINGS_ENABLE_WIDE_HANDLE_KEY) {
-                trace("Wide handle setting changed");
-                updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
-            }
+            applyPreference(key);
         });
         getStyleContext.addClass("terminix-background");
 
