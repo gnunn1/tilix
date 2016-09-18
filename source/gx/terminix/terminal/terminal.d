@@ -648,6 +648,7 @@ private:
             import gtkc.Loader: Linker;
             import secretc.secret: LIBRARY_SECRET;
             if (Linker.isLoaded(LIBRARY_SECRET)) {
+                tracef("Library %s was loaded", LIBRARY_SECRET);
                 PasswordManagerDialog pdm = new PasswordManagerDialog(cast(Window)this.getToplevel());
                 scope(exit) {pdm.destroy();}
                 pdm.showAll();
@@ -655,7 +656,7 @@ private:
                     pdm.insertPassword(vte);
                 }
             } else {
-                showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET, _("Library Not Loaded")));
+                showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET), _("Library Not Loaded"));
             }
         }, null, null);
 

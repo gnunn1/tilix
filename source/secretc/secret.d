@@ -25,14 +25,23 @@
 module secretc.secret;
 
 import std.stdio;
+
 import secretc.secrettypes;
 import gtkc.Loader;
 import gtkc.paths;
 
-enum LIBRARY_SECRET = "libsecret-1.so";
+enum LIBRARY_SECRET = "libsecret-1.so.0";
 
 shared static this()
 {
+
+	try {
+		Linker.loadLibrary(LIBRARY_SECRET);
+	} catch (Exception e) {
+		stderr.writeln("Library " ~ LIBRARY_SECRET ~ " cannot be loaded, related functionality will not be available");
+		return;
+	}
+
 	// secret.Collection
 
 	Linker.link(secret_collection_get_type, "secret_collection_get_type", LIBRARY_SECRET);
