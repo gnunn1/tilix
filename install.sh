@@ -30,13 +30,13 @@ export TERMINIX_SHARE=${PREFIX}/share/terminix
 install -d ${TERMINIX_SHARE}/resources ${TERMINIX_SHARE}/schemes ${TERMINIX_SHARE}/scripts
 
 # Copy and compile icons
-pushd data/resources
+cd data/resources
 
 echo "Building and copy resources..."
 glib-compile-resources terminix.gresource.xml
 install -m 644 terminix.gresource ${TERMINIX_SHARE}/resources/
 
-popd
+cd ../..
 
 # Copy shell integration script
 echo "Copying scripts..."
@@ -57,6 +57,7 @@ for f in po/*.po; do
     msgfmt $f -o "${LOCALE}.mo"
     install -d ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
     install -m 644 "${LOCALE}.mo" ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
+    rm -f "${LOCALE}.mo"
 done
 
 # Generate desktop file
@@ -65,6 +66,8 @@ if [ $? -ne 0 ]; then
     echo "Note that localizating appdata requires a newer version of xgettext, copying instead"
     cp data/pkg/desktop/com.gexperts.Terminix.desktop.in data/pkg/desktop/com.gexperts.Terminix.desktop
 fi
+
+desktop-file-validate data/pkg/desktop/com.gexperts.Terminix.desktop
 
 # Generate appdata file, requires xgettext 0.19.7
 msgfmt --xml --template=data/appdata/com.gexperts.Terminix.appdata.xml.in -d po -o data/appdata/com.gexperts.Terminix.appdata.xml
@@ -83,14 +86,14 @@ install -d ${PREFIX}/share/dbus-1/services
 install -m 644 data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services/
 
 # Copy Icons
-pushd data/icons/hicolor
+cd data/icons/hicolor
 
 find -type f | while read f; do
     install -d "${PREFIX}/share/icons/hicolor/$(dirname "$f")"
     install -m 644 "$f" "${PREFIX}/share/icons/hicolor/${f}"
 done
 
-popd
+cd ../../..
 
 # Copy executable, desktop and appdata file
 install -d ${PREFIX}/bin
@@ -99,8 +102,6 @@ install -m 755 terminix ${PREFIX}/bin/
 install -d ${PREFIX}/share/applications ${PREFIX}/share/metainfo/
 install -m 644 data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications/
 install -m 644 data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/metainfo/
-
-desktop-file-validate ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
 
 # Update icon cache if Prefix is /usr
 if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
