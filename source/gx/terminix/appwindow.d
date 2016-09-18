@@ -847,11 +847,6 @@ private:
         } else if (terminix.getGlobalOverrides().fullscreen) {
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
-        } else if (isQuake()) {
-            trace("Focus terminal");
-            activate();
-            activateFocus();
-            getActiveTerminal().focusTerminal();
         }
     }
 
