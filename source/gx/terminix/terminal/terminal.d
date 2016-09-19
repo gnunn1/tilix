@@ -297,6 +297,8 @@ private:
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
+    //Determines if this terminal is the only terminal in the session
+    bool _isLoneTerminal = true;
 
     // Keep track of previous title to avoid triggering too many TerminalTitleChange events
     string lastTitle;
@@ -1016,6 +1018,22 @@ private:
         }
     }
 
+    void updateTitlePane() {
+        bool show = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) != SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE;
+        if (_isLoneTerminal && !gsSettings.getBoolean(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY)) {
+            show = false;
+        }
+        if (show) {
+            trace("Showing titlebar");
+            bTitle.setNoShowAll(false);
+            bTitle.showAll();
+        } else {
+            trace("Hiding titlebar");
+            bTitle.setNoShowAll(true);
+            bTitle.hide();
+        }
+    }
+
     /**
      * Enables/Disables actions depending on UI state
      */
@@ -1662,14 +1680,10 @@ private:
             } else {
                 bTitle.getStyleContext().removeClass("compact");
             }
-            if (value == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
-                bTitle.setNoShowAll(true);
-                bTitle.hide();
-            } else {
-                trace("Showing titlebar");
-                bTitle.setNoShowAll(false);
-                bTitle.showAll();
-            }
+            updateTitlePane();
+            break;
+        case SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY:
+            updateTitlePane();
             break;
         case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
@@ -2342,6 +2356,7 @@ public:
         }
         trace("Terminal initialized");
         updateTitle();
+        updateTitlePane();
     }
 
     /**
@@ -2555,6 +2570,17 @@ public:
                 tbSyncInput.show();
             else
                 tbSyncInput.hide();
+        }
+    }
+
+    @property bool isLoneTerminal() {
+        return _isLoneTerminal;
+    }
+
+    @property void isLoneTerminal(bool value) {
+        if (_isLoneTerminal != value) {
+            _isLoneTerminal = value;
+            updateTitlePane();
         }
     }
 
