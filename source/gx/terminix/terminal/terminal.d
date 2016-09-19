@@ -298,7 +298,7 @@ private:
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
     //Determines if this terminal is the only terminal in the session
-    bool _isLoneTerminal = true;
+    bool _isSingleTerminal = true;
 
     // Keep track of previous title to avoid triggering too many TerminalTitleChange events
     string lastTitle;
@@ -1018,9 +1018,9 @@ private:
         }
     }
 
-    void updateTitlePane() {
+    void updateTitleBar() {
         bool show = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) != SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE;
-        if (_isLoneTerminal && !gsSettings.getBoolean(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY)) {
+        if (_isSingleTerminal && !gsSettings.getBoolean(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY)) {
             show = false;
         }
         if (show) {
@@ -1680,10 +1680,10 @@ private:
             } else {
                 bTitle.getStyleContext().removeClass("compact");
             }
-            updateTitlePane();
+            updateTitleBar();
             break;
         case SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY:
-            updateTitlePane();
+            updateTitleBar();
             break;
         case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
@@ -2356,7 +2356,7 @@ public:
         }
         trace("Terminal initialized");
         updateTitle();
-        updateTitlePane();
+        updateTitleBar();
     }
 
     /**
@@ -2573,14 +2573,14 @@ public:
         }
     }
 
-    @property bool isLoneTerminal() {
-        return _isLoneTerminal;
+    @property bool isSingleTerminal() {
+        return _isSingleTerminal;
     }
 
-    @property void isLoneTerminal(bool value) {
-        if (_isLoneTerminal != value) {
-            _isLoneTerminal = value;
-            updateTitlePane();
+    @property void isSingleTerminal(bool value) {
+        if (_isSingleTerminal != value) {
+            _isSingleTerminal = value;
+            updateTitleBar();
         }
     }
 

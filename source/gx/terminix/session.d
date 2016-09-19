@@ -305,7 +305,7 @@ private:
         terminal.synchronizeInput = synchronizeInput;
 
         foreach (t; terminals) {
-            t.isLoneTerminal = (terminals.length == 1);
+            t.isSingleTerminal = (terminals.length == 1);
         }
     }
 
@@ -352,7 +352,7 @@ private:
         }
 
         foreach (t; terminals) {
-            t.isLoneTerminal = (terminals.length == 1);
+            t.isSingleTerminal = (terminals.length == 1);
         }
 
         //Update terminal IDs to fill in hole
