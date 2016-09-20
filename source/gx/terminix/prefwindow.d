@@ -714,15 +714,17 @@ private:
         grid.attach(sHeight, 1, row, 1, 1);
         row++;
 
-        // Terminal Width
-        grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
-        Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
-        sWidth.setDrawValue(false);
-        sWidth.setHexpand(true);
-        sWidth.setHalign(Align.FILL);
-        gsSettings.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
-        grid.attach(sWidth, 1, row, 1, 1);
-        row++;
+        if (!isWayland(cast(Window) this.getToplevel())) {
+            // Terminal Width
+            grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
+            Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
+            sWidth.setDrawValue(false);
+            sWidth.setHexpand(true);
+            sWidth.setHalign(Align.FILL);
+            gsSettings.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+            grid.attach(sWidth, 1, row, 1, 1);
+            row++;
+        }
 
         add(grid);
 
