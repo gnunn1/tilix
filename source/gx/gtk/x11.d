@@ -27,7 +27,8 @@ import x11.Xlib;
  * event for X11. Works around some edge cases with respect to
  * window focus.
  *
- * Code was translated from a C version in xfce4_terminal.
+ * Code was translated from a C version in xfce4_terminal, see original here:
+ * http://bazaar.launchpad.net/~vcs-imports/xfce4-terminal/trunk/view/head:/terminal/terminal-util.c
  */
 void activateX11Window(Window window) {
     XClientMessageEvent event;
