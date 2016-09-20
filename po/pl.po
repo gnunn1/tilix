@@ -3,10 +3,10 @@
 # Piotr Sokół <psokol.l10n@gmail.com>, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1.1\n"
+"Project-Id-Version: 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-12 21:34-0400\n"
-"PO-Revision-Date: 2016-07-19 18:00+0200\n"
+"PO-Revision-Date: 2016-09-20 17:16+0200\n"
 "Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -1472,7 +1472,7 @@ msgstr ""
 #: source/gx/terminix/terminal/search.d:120
 #: source/gx/terminix/terminal/search.d:121
 msgid "Search Options"
-msgstr "Opcje wyszukiwania"
+msgstr "Wyświetla opcje wyszukiwania"
 
 #: source/gx/terminix/terminal/search.d:186
 #: source/gx/terminix/terminal/search.d:185
@@ -1933,8 +1933,7 @@ msgstr ""
 #: source/gx/terminix/terminal/terminal.d:2412
 #: source/gx/terminix/terminal/terminal.d:2620
 msgid "Be sure you understand what each part of this command does."
-msgstr ""
-"Proszę upewnić się, że zrozumiany jest każdy element składni polecenia."
+msgstr "Proszę upewnić się, że zrozumiany jest każdy element składni polecenia."
 
 #: source/gx/terminix/terminal/terminal.d:2107
 #: source/gx/terminix/terminal/terminal.d:2130
@@ -2625,15 +2624,14 @@ msgstr ""
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:29
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:31
 msgid "Terminix has been tested with GNOME and with Unity."
-msgstr ""
+msgstr "Terminix został przetestowany z GNOME i Unity."
 
 #: source/gx/terminix/application.d:474 source/gx/terminix/application.d:487
 #: source/gx/terminix/application.d:551 source/gx/terminix/application.d:562
 #: source/gx/terminix/application.d:593
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Ustala rozmiar okna; np.: 80x24 lub 80x24+200+200 (KOLUMNYxWIERSZE+X+Y)"
+msgstr "Ustala rozmiar okna; np.: 80x24 lub 80x24+200+200 (KOLUMNYxWIERSZE+X+Y)"
 
 #: source/gx/terminix/application.d:474 source/gx/terminix/application.d:487
 #: source/gx/terminix/application.d:551 source/gx/terminix/application.d:562
@@ -2734,9 +2732,8 @@ msgstr "Automatyczne przełączanie profilów"
 #: source/gx/terminix/profilewindow.d:859
 #: source/gx/terminix/profilewindow.d:897
 #: source/gx/terminix/profilewindow.d:933
-#, fuzzy
 msgid "Match"
-msgstr "Uwzględnianie wielkości liter"
+msgstr "Dopasowanie"
 
 #: source/gx/terminix/profilewindow.d:871
 #: source/gx/terminix/profilewindow.d:870
@@ -2760,21 +2757,21 @@ msgstr "Dodawanie dopasowania"
 #: source/gx/terminix/profilewindow.d:911
 #: source/gx/terminix/profilewindow.d:950
 msgid "Enter hostname:directory to match"
-msgstr ""
+msgstr "Proszę wprowadzić wzór nazwa_komputera:katalog do dopasowania:"
 
 #: source/gx/terminix/profilewindow.d:889
 #: source/gx/terminix/profilewindow.d:888
 #: source/gx/terminix/profilewindow.d:926
 #: source/gx/terminix/profilewindow.d:973
 msgid "Edit Match"
-msgstr ""
+msgstr "Modyfikowanie dopasowania"
 
 #: source/gx/terminix/profilewindow.d:889
 #: source/gx/terminix/profilewindow.d:888
 #: source/gx/terminix/profilewindow.d:926
 #: source/gx/terminix/profilewindow.d:971
 msgid "Edit hostname:directory to match"
-msgstr ""
+msgstr "Proszę wprowadzić wzór nazwa_komputera:katalog do dopasowania:"
 
 #: source/gx/terminix/prefwindow.d:593 source/gx/terminix/prefwindow.d:600
 #: source/gx/terminix/prefwindow.d:605
@@ -2864,16 +2861,21 @@ msgid ""
 "hostname or directory can be omitted but the colon must be present. Entries "
 "with neither hostname or directory are not permitted"
 msgstr ""
+"Profile są automatycznie wybierane na podstawie wprowadzonych poniżej "
+"wartości.\n"
+"Wartości te należy wprowadzać w formacie <i>nazwa_komputera:katalog</i>. "
+"Można pominąć nazwę komputera lub ścieżkę katalogu ale należy zachować znak "
+"dwukropka. Niedozwolone są dopasowania pomijające nazwę komputera wraz ze "
+"ścieżką katalogu."
 
 #: source/gx/terminix/prefwindow.d:263 source/gx/terminix/prefwindow.d:268
 msgid "Enable shortcuts"
-msgstr "Skróty klawiszowe"
+msgstr "Włączenie skrótów klawiszowych"
 
 #: source/gx/terminix/profilewindow.d:853
 #: source/gx/terminix/profilewindow.d:857
-#, fuzzy
 msgid "Custom Links"
-msgstr "Własna czcionka"
+msgstr "Własne odnośniki"
 
 #: source/gx/terminix/profilewindow.d:858
 #: source/gx/terminix/profilewindow.d:862
@@ -2881,6 +2883,8 @@ msgid ""
 "A list of user defined links that can be clicked on in the terminal based on "
 "regular expression definitions."
 msgstr ""
+"Poniższa lista zawiera odnośniki zdefiniowane przez użytkownika na podstawie "
+"wyrażeń regularnych, które można kliknąć w terminalu."
 
 #: source/gx/terminix/profilewindow.d:882
 #: source/gx/terminix/profilewindow.d:917
@@ -2890,36 +2894,42 @@ msgid ""
 "hostname or directory can be omitted but the colon must be present. Entries "
 "with neither hostname or directory are not permitted."
 msgstr ""
+"Profile są automatycznie wybierane na podstawie wprowadzonych poniżej "
+"wartości.\n"
+"Wartości te należy wprowadzać w formacie <i>nazwa_komputera:katalog</i>. "
+"Można pominąć nazwę komputera lub ścieżkę katalogu ale należy zachować znak "
+"dwukropka. Niedozwolone są dopasowania pomijające nazwę komputera wraz ze "
+"ścieżką katalogu."
 
 #: source/gx/terminix/profilewindow.d:1033
 #: source/gx/terminix/profilewindow.d:1081
 #: source/gx/terminix/profilewindow.d:1222
 #, c-format
 msgid "The expression %s is not a valid regex"
-msgstr ""
+msgstr "Wyrażenie %s nie jest prawidłowym wyrażeniem regularnym"
 
 #: source/gx/terminix/profilewindow.d:1036
 #: source/gx/terminix/profilewindow.d:1086
 #: source/gx/terminix/profilewindow.d:1227
 msgid "Regex"
-msgstr ""
+msgstr "Wyrażenie regularne"
 
 #: source/gx/terminix/profilewindow.d:1060
 #: source/gx/terminix/profilewindow.d:1110
 msgid "Case Insensitive"
-msgstr ""
+msgstr "Nieważna wielkość liter"
 
 #: source/gx/terminix/profilewindow.d:1108
 #: source/gx/terminix/profilewindow.d:1150
 msgid "Edit Custom Links"
-msgstr ""
+msgstr "Modyfikowanie własnych odnośników"
 
 #: source/gx/terminix/profilewindow.d:1108
 #: source/gx/terminix/terminal/password.d:368
 #: source/gx/terminix/profilewindow.d:1150
 #: source/gx/terminix/profilewindow.d:1323
 msgid "Apply"
-msgstr ""
+msgstr "Zastosuj"
 
 #: data/resources/ui/shortcuts.ui:479
 #, fuzzy
@@ -2931,11 +2941,11 @@ msgstr "Zmienienie rozmiaru terminala w górę"
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
+msgstr "Nie można wczytać biblioteki %s. Przechowywanie haseł jest niedostępne."
 
 #: source/gx/terminix/terminal/terminal.d:637
 msgid "Library Not Loaded"
-msgstr ""
+msgstr "Nie wczytano biblioteki"
 
 #: source/gx/terminix/terminal/password.d:138
 msgid "ID"
@@ -2947,23 +2957,23 @@ msgstr ""
 
 #: source/gx/terminix/terminal/password.d:368
 msgid "Insert Password"
-msgstr ""
+msgstr "Wprowadzanie hasła"
 
 #: source/gx/terminix/terminal/password.d:432
 msgid "Password"
-msgstr ""
+msgstr "Hasło"
 
 #: source/gx/terminix/terminal/password.d:440
 msgid "Confirm Password"
-msgstr ""
+msgstr "Potwierdzenie hasła"
 
 #: source/gx/terminix/terminal/password.d:486
 msgid "Add Password"
-msgstr ""
+msgstr "Dodawanie hasła"
 
 #: source/gx/terminix/terminal/password.d:491
 msgid "Edit Password"
-msgstr ""
+msgstr "Modyfikowanie hasła"
 
 #: source/gx/terminix/application.d:588
 #, fuzzy
@@ -2981,7 +2991,7 @@ msgstr ""
 
 #: source/gx/terminix/application.d:594
 msgid "QUAKE"
-msgstr ""
+msgstr "Tryb QUAKE"
 
 #: source/gx/terminix/cmdparams.d:157
 msgid "You can only use the the action parameter within Terminix"
@@ -3065,32 +3075,32 @@ msgstr ""
 
 #: source/gx/terminix/prefwindow.d:663
 msgid "Place the sidebar on the right"
-msgstr ""
+msgstr "Pasek boczny po prawej stronie"
 
 #: source/gx/terminix/prefwindow.d:687
 msgid "Show terminal on all workspaces"
-msgstr ""
+msgstr "Terminal widoczny na wszystkich obszarach roboczych"
 
 #: source/gx/terminix/prefwindow.d:694
 msgid "Display terminal on primary monitor"
-msgstr ""
+msgstr "Terminal widoczny na podstawowym ekranie"
 
 #: source/gx/terminix/prefwindow.d:701
 msgid "Display on specific monitor"
-msgstr ""
+msgstr "Widoczny na określonym ekranie"
 
 #: source/gx/terminix/prefwindow.d:720
-#, fuzzy
 msgid "Terminal height"
-msgstr "Tytuł terminala"
+msgstr "Wysokość terminala"
 
 #: source/gx/terminix/prefwindow.d:771
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
+"Zamykanie terminala kliknięciem środkowego przycisku myszy na pasku nagłówka"
 
 #: source/gx/terminix/prefwindow.d:776
 msgid "Close window when last session is closed"
-msgstr ""
+msgstr "Zamknięcie okna po zakończeniu ostatniej sesji"
 
 #: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
