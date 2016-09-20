@@ -42,6 +42,21 @@ import gtk.TreeViewColumn;
 import gtk.Widget;
 import gtk.Window;
 
+import gx.gtk.x11;
+
+/**
+ * Activates a window using the X11 APIs when available
+ */
+void activateWindow(Window window) {
+    if (window.isActive()) return;
+
+    if (isWayland(window)) {
+        window.present();
+    } else {
+        activateX11Window(window);
+    }
+}
+
 /**
  * Returns true if running under Wayland, right now
  * it just uses a simple environment variable check to detect it.
