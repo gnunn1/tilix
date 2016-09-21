@@ -32,7 +32,7 @@ import gdk.X11;
 import gtk.Window;
 
 import x11.X: Atom, ClientMessage, StructureNotifyMask, XWindow=Window;
-import x11.Xlib;
+import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
 
 /**
  * This function activates an X11 using the _NET_ACTIVE_WINDOW
