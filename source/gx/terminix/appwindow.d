@@ -1293,8 +1293,8 @@ public:
         if (isBGImage !is null) {
             trace("Destroying cached background image");
             isBGImage.destroy();
+            isBGImage = null;
         }
-        isBGImage = null;
         queueDraw();
     }
 
@@ -1312,7 +1312,10 @@ public:
 
         ImageSurface surface = terminix.getBackgroundImage();
         if (surface is null) {
-            isBGImage = null;
+            if (isBGImage !is null) {
+                isBGImage.destroy();
+                isBGImage = null;
+            }
             return isBGImage;
         }
 
