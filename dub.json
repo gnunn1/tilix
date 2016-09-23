@@ -6,8 +6,7 @@
     "mainSourceFile": "source/app.d",
 
     "dependencies": {
-        "gtk-d": "~>3.3.0",
-        "x11": "~>1.0.15"
+        "gtk-d": "~>3.3.0"
     },
 
     "buildTypes": {
@@ -23,12 +22,14 @@
     "configurations": [
         {
             "name": "default",
-            "targetType": "executable"
+            "targetType": "executable",
+            "libs-linux": ["X11"]
         },
         {
             "name": "dynamic",
             "targetType": "executable",
             "libs": ["gtkd-3"],
+            "libs-linux": ["X11"],            
             "lflags": ["-defaultlib=gtkd-3.so"]
         }
     ]
