@@ -2356,7 +2356,6 @@ public:
         }
         trace("Terminal initialized");
         updateTitle();
-        updateTitleBar();
     }
 
     /**
