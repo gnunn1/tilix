@@ -150,8 +150,10 @@ private:
 
     bool onButtonPress(Event event, Widget w) {
         //If button press happened outside of the switcher close it
-        if (event.getWindow() !is null && bSearch.getWindow() !is null) {
-            if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != bSearch.getWindow().getWindowStruct()) {
+        if (event.getWindow() !is null && bSearch.getWindow() !is null && lbSessions.getWindow() !is null) {
+            if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct()
+                && event.getWindow().getWindowStruct() != bSearch.getWindow().getWindowStruct()
+                && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
                 notifyOpenSessionSelected(null);
             }
         }

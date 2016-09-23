@@ -350,11 +350,11 @@ private:
                 if (qw !is null) {
                     if (qw.getVisible) {
                         qw.hide();
-                    }
-                    else {
+                    } else {
                         qw.show();
                         qw.present();
                         qw.getActiveTerminal().focusTerminal();
+                        activateWindow(qw);
                     }
                     return 0;
                 }

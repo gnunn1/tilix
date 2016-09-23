@@ -854,13 +854,10 @@ private:
     }
 
     void onWindowRealized(Widget) {
-        if (terminix.getGlobalOverrides().x > 0) {
-            move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
-        }
         if (isQuake()) {
-            GdkRectangle rect;
-            getQuakePosition(rect);
-            move(rect.x, rect.y);
+            applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
+        } else if (terminix.getGlobalOverrides().x > 0) {
+            move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
         }
     }
 
@@ -875,8 +872,14 @@ private:
                 if (isQuake) {
                     GdkRectangle rect;
                     getQuakePosition(rect);
-                    move(rect.x, rect.y);
-                    resize(rect.width, rect.height);
+                    if (getWindow() !is null) {
+                        getWindow().moveResize(rect.x, rect.y, rect.width, rect.height);
+                        trace("moveResize for quake mode");
+                    } else {
+                        move(rect.x, rect.y);
+                        resize(rect.width, rect.height);
+                    }
+
                 }
                 break;
             case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY:
@@ -911,8 +914,16 @@ private:
         //Height
         double percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
         rect.height = to!int(rect.height * percent);
+        
         //Width
-        percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
+
+        // Window only gets positioned properly in Wayland when width is 100%, 
+        // not sure if this kludge is really a good idea and will work consistently. 
+        if (isWayland(this)) {
+            percent = 1;
+        } else {
+            percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
+        }
         if (percent < 1) {
             int width = to!int(rect.width * percent);
             rect.x = (rect.width - width)/2;
@@ -1282,8 +1293,8 @@ public:
         if (isBGImage !is null) {
             trace("Destroying cached background image");
             isBGImage.destroy();
+            isBGImage = null;
         }
-        isBGImage = null;
         queueDraw();
     }
 
@@ -1301,7 +1312,10 @@ public:
 
         ImageSurface surface = terminix.getBackgroundImage();
         if (surface is null) {
-            isBGImage = null;
+            if (isBGImage !is null) {
+                isBGImage.destroy();
+                isBGImage = null;
+            }
             return isBGImage;
         }
 
