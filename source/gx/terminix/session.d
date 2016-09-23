@@ -303,6 +303,10 @@ private:
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
+
+        foreach (t; terminals) {
+            t.isSingleTerminal = (terminals.length == 1);
+        }
     }
 
     /**
@@ -346,6 +350,11 @@ private:
             notifySessionClose();
             return;
         }
+
+        foreach (t; terminals) {
+            t.isSingleTerminal = (terminals.length == 1);
+        }
+
         //Update terminal IDs to fill in hole
         sequenceTerminalID();
         if (mruTerminals.length > 0) {

@@ -297,6 +297,8 @@ private:
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
+    //Determines if this terminal is the only terminal in the session
+    bool _isSingleTerminal = true;
 
     // Keep track of previous title to avoid triggering too many TerminalTitleChange events
     string lastTitle;
@@ -1016,6 +1018,22 @@ private:
         }
     }
 
+    void updateTitleBar() {
+        bool show = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) != SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE;
+        if (_isSingleTerminal && !gsSettings.getBoolean(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY)) {
+            show = false;
+        }
+        if (show) {
+            trace("Showing titlebar");
+            bTitle.setNoShowAll(false);
+            bTitle.showAll();
+        } else {
+            trace("Hiding titlebar");
+            bTitle.setNoShowAll(true);
+            bTitle.hide();
+        }
+    }
+
     /**
      * Enables/Disables actions depending on UI state
      */
@@ -1330,8 +1348,8 @@ private:
 
             mmContext.appendItem(clipItem);
         }
-        //Check if titlebar is turned off and add extra items
-        if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
+        //Check if titlebar is hidden and add extra items
+        if (!bTitle.isVisible()) {
             GMenu windowSection = new GMenu();
             windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
             windowSection.append(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
@@ -1662,14 +1680,10 @@ private:
             } else {
                 bTitle.getStyleContext().removeClass("compact");
             }
-            if (value == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
-                bTitle.setNoShowAll(true);
-                bTitle.hide();
-            } else {
-                trace("Showing titlebar");
-                bTitle.setNoShowAll(false);
-                bTitle.showAll();
-            }
+            updateTitleBar();
+            break;
+        case SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY:
+            updateTitleBar();
             break;
         case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
@@ -2555,6 +2569,17 @@ public:
                 tbSyncInput.show();
             else
                 tbSyncInput.hide();
+        }
+    }
+
+    @property bool isSingleTerminal() {
+        return _isSingleTerminal;
+    }
+
+    @property void isSingleTerminal(bool value) {
+        if (_isSingleTerminal != value) {
+            _isSingleTerminal = value;
+            updateTitleBar();
         }
     }
 

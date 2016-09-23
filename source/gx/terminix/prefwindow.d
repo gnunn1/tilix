@@ -584,6 +584,10 @@ class AppearancePreferences: Box {
                 add(cbTransparent);
             }
 
+            CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if its the only terminal"));
+            gsSettings.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
+            add(cbTitleShowWhenSingle);
+
             Grid grid = new Grid();
             grid.setColumnSpacing(12);
             grid.setRowSpacing(6);
