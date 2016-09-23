@@ -173,7 +173,7 @@ private:
             session.notifyActive();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
-            if (sb.getChildRevealed()) {
+            if (sb.getChildRevealed() && getCurrentSession() !is null) {
                 sb.selectSession(getCurrentSession().uuid);
             }
         }, ConnectFlags.AFTER);
@@ -185,7 +185,10 @@ private:
             if (sessionUUID.length > 0) {
                 activateSession(sessionUUID);
             } else {
-                getCurrentSession().focusRestore();
+                Session session = getCurrentSession();
+                if (session !is null) {
+                    getCurrentSession().focusRestore();
+                }
             }
         });
         sb.addOnSessionClose(&onUserSessionClose);
@@ -385,7 +388,10 @@ private:
             tbSideBar.setActive(newState);
             if (!newState) {
                 //Hiding session, restore focus
-                getCurrentSession().focusRestore();
+                Session session = getCurrentSession(); 
+                if (session !is null) {
+                    session.focusRestore();
+                }
             }
         }, null, new GVariant(false));
 
