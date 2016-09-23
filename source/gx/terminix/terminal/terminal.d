@@ -1348,8 +1348,8 @@ private:
 
             mmContext.appendItem(clipItem);
         }
-        //Check if titlebar is turned off and add extra items
-        if (gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY) == SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NONE) {
+        //Check if titlebar is hidden and add extra items
+        if (!bTitle.isVisible()) {
             GMenu windowSection = new GMenu();
             windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
             windowSection.append(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
