@@ -584,10 +584,6 @@ class AppearancePreferences: Box {
                 add(cbTransparent);
             }
 
-            CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if its the only terminal"));
-            gsSettings.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
-            add(cbTitleShowWhenSingle);
-
             Grid grid = new Grid();
             grid.setColumnSpacing(12);
             grid.setRowSpacing(6);
@@ -680,6 +676,10 @@ class AppearancePreferences: Box {
             CheckButton cbRightSidebar = new CheckButton(_("Place the sidebar on the right"));
             gsSettings.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
             add(cbRightSidebar);
+
+            CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if its the only terminal"));
+            gsSettings.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
+            add(cbTitleShowWhenSingle);
         }
 
     public:

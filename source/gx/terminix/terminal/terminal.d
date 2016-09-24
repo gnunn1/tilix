@@ -274,6 +274,8 @@ private:
     SimpleAction saAdvancedPaste;
     Popover pmContext;
 
+    SimpleAction saMaximize;
+
     GSettings gsProfile;
     GSettings gsShortcuts;
     GSettings gsDesktop;
@@ -584,7 +586,7 @@ private:
         });
 
         //Maximize Terminal
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { maximize(); });
+        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { maximize(); });
 
         //Close Terminal Action
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -1032,6 +1034,7 @@ private:
             bTitle.setNoShowAll(true);
             bTitle.hide();
         }
+        saMaximize.setEnabled(!_isSingleTerminal);
     }
 
     /**
