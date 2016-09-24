@@ -156,7 +156,7 @@ public:
         _terminalUUID = getValue(vd, CMD_TERMINAL_UUID, vts);
         if (_action.length > 0) {
             if (!acl.getIsRemote()) {
-                writeln(_("You can only use the the action parameter within Terminix"));
+                writeln(_("You can only use the action parameter within Terminix"));
                 _exitCode = 2;
                 _exit = true;
                 _action.length = 0;
