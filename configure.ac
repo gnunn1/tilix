@@ -26,19 +26,22 @@ PKG_PROG_PKG_CONFIG
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.7])
 
-GTKD_SUFFIX=
+DC_SUFFIX=
 case $(basename $DC) in
-	dmd) GTKD_SUFFIX=-dmd ;;
-	ldmd) GTKD_SUFFIX=-ldc ;;
-	gdmd) GTKD_SUFFIX=-gdc ;;
+	dmd) DC_SUFFIX=-dmd ;;
+	ldmd) DC_SUFFIX=-ldc ;;
+	gdmd) DC_SUFFIX=-gdc ;;
 esac
 
 # Checks for libraries.
 
 # Use pkg-config to look for gtkd. Tries to find a compiler specific suffix, then falls back to suffix-less
-PKG_CHECK_MODULES([DEPS], [gtkd-3$GTKD_SUFFIX >= 3.3.0 vted-3$GTKD_SUFFIX >= 3.3.0],,
-				  [PKG_CHECK_MODULES([DEPS], [gtkd-3 >= 3.3.0 vted-3 >= 3.3.0])])
+PKG_CHECK_MODULES([GTKD], [gtkd-3$DC_SUFFIX >= 3.3.0 vted-3$DC_SUFFIX >= 3.3.0],,
+				  [PKG_CHECK_MODULES([GTKD], [gtkd-3 >= 3.3.0 vted-3 >= 3.3.0])])
 # TODO: test if library was compiled with @DC@?
+
+# libx11 is a C library, so no need of suffix
+PKG_CHECK_MODULES([X11], [x11])
 
 AM_INIT_AUTOMAKE([1.15 foreign])
 AC_CONFIG_FILES([Makefile data/appdata/Makefile data/icons/Makefile data/pkg/desktop/Makefile data/resources/Makefile po/Makefile.in])

@@ -1,9 +1,10 @@
 bin_PROGRAMS = terminix
 terminix_SOURCES = $(shell find $(srcdir)/source -name '*\.d')
 terminix.o: $(terminix_SOURCES)
-	$(DC) $(DCFLAGS) $(DEPS_CFLAGS) $(DEPS_LIBS) -c $^ -of$@
+	$(DC) $(DCFLAGS) $(GTKD_CFLAGS) $(GTKD_LIBS) -c $^ -of$@
+# libx11 is a C library, so we need to precede with -L
 terminix$(EXEEXT): terminix.o
-	$(DC) $(DEPS_LIBS) $^ -of$@
+	$(DC) $(GTKD_LIBS) -L$(X11_LIBS) $^ -of$@
 
 gschemasdir = $(datadir)/glib-2.0/schemas/
 dist_gschemas_DATA = $(srcdir)/data/gsettings/com.gexperts.Terminix.gschema.xml
