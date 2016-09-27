@@ -1,3 +1,20 @@
+/* GTK 3.18 */
 .scrollbar:not(.slider) {
     background-color: alpha($TERMINAL_BG, $TERMINAL_OPACITY);
+}
+
+/* GTK 3.20 */
+
+scrollbar:not(slider) {
+   background-color: alpha($TERMINAL_BG, $TERMINAL_OPACITY);
+}
+
+scrollbar.vertical:active:dir(ltr) {
+    margin-left: 0px;
+    padding-left: 2px;
+}
+
+scrollbar.vertical:dir(ltr):not(:hover):not(.dragging) {
+    margin-left: 0px;
+    padding-left: 7px;
 }

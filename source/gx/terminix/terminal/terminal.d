@@ -916,6 +916,35 @@ private:
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("terminix-terminal-scrollbar");
             terminalBox.add(sb);
+
+            //Draw a transparent background to override Window draw
+            //to support transparent terminal scrollbars without
+            //impacting other chrome. If no scrollbar CSSProvider is loaded
+            //then this drawing does not happen
+            terminalBox.addOnDraw(delegate(Scoped!Context cr, Widget w) {
+                if (sbProvider !is null) {
+                    cr.save();
+                    // Paint Transparent
+                    cr.setSourceRgba(0, 0, 0, 0);
+                    cr.setOperator(cairo_operator_t.SOURCE);
+
+                    // Switched to just painting the scrollbar area, that 1 pixel clip that was required was giving
+                    // me the twitches
+                    int x, y;
+                    sb.translateCoordinates(w, 0, 0, x, y);
+                    cr.rectangle(to!double(x), to!double(y), to!double(x + sb.getAllocatedWidth()), to!double(y + sb.getAllocatedHeight()));
+
+                    // Original implementation that painted whole box transparent
+                    // Fix problem with VTE not painting top line by clipping one pixel lower
+                    // otherwise you get a one pixel transparent line :(
+                    //cr.rectangle(0.0, 1.0, to!double(w.getAllocatedWidth()), to!double(w.getAllocatedHeight()));
+
+                    cr.clip();
+                    cr.paint();
+                    cr.restore();
+                }
+                return false;
+            });
         }
 
         Box box = new Box(Orientation.VERTICAL, 0);
@@ -925,35 +954,6 @@ private:
 
         box.add(rFind);
         box.add(terminalBox);
-
-        //Draw a transparent background to override Window draw
-        //to support transparent terminal scrollbars without
-        //impacting other chrome. If no scrollbar CSSProvider is loaded
-        //then this drawing does not happen
-        terminalBox.addOnDraw(delegate(Scoped!Context cr, Widget w) {
-            if (sbProvider !is null) {
-                cr.save();
-                // Paint Transparent
-                cr.setSourceRgba(0, 0, 0, 0);
-                cr.setOperator(cairo_operator_t.SOURCE);
-
-                // Switched to just painting the scrollbar area, that 1 pixel clip that was required was giving
-                // me the twitches
-                int x, y;
-                sb.translateCoordinates(w, 0, 0, x, y);
-                cr.rectangle(to!double(x), to!double(y), to!double(x + sb.getAllocatedWidth()), to!double(y + sb.getAllocatedHeight()));
-
-                // Original implementation that painted whole box transparent
-                // Fix problem with VTE not painting top line by clipping one pixel lower
-                // otherwise you get a one pixel transparent line :(
-                //cr.rectangle(0.0, 1.0, to!double(w.getAllocatedWidth()), to!double(w.getAllocatedHeight()));
-
-                cr.clip();
-                cr.paint();
-                cr.restore();
-            }
-            return false;
-        });
         return box;
     }
 
@@ -1586,12 +1586,7 @@ private:
             sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".scrollbar.css", variables);
             if (sbProvider !is null) {
                 sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
-            } else {
-                // If theme specific css not found, load a base one that sets background to theme so scrollbar isn't rendered transparent
-                //sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix.base.scrollbar.css", variables);
-                //trace("Scrollbar CSS Provider not found, base used instead");
             }
-
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
