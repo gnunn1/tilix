@@ -18,7 +18,7 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 * Color schemes are stored in files and custom color schemes can be created by simply creating a new file
 * Transparent background
 * Background images
-* Quake mode support (i.e. drop-down terminal)
+* [Quake mode](https://github.com/gnunn1/terminix/wiki/Quake-Mode) support (i.e. drop-down terminal)
 * Custom hyperlinks
 * Automatic (triggered) profile switches based on hostname and directory
 * Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
