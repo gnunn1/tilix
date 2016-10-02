@@ -83,6 +83,8 @@ immutable string[] SETTINGS_BACKGROUND_IMAGE_MODE_VALUES = [SETTINGS_BACKGROUND_
 enum SETTINGS_SIDEBAR_RIGHT = "sidebar-on-right";
 enum SETTINGS_RECENT_SESSION_FILES_KEY = "recent-session-files";
 
+enum SETTINGS_PROMPT_ON_CLOSE_KEY = "prompt-on-close";
+
 //Quake Settings
 enum SETTINGS_QUAKE_WIDTH_PERCENT_KEY = "quake-width-percent";
 enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
