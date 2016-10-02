@@ -39,6 +39,8 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             value = 'ssh -t %s' % (result.hostname)
         if result.port:
             value = value + " -p " + result.port
+        if file.is_directory():
+            value = value + " cd \"%s\" ; $SHELL" % (result.path)
 
         os.system('%s -e "%s" &' % (self.terminal, value))
 
@@ -50,17 +52,18 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             return
         items = []
         file = files[0]
-        print "Handling file: ", file.get_uri()
-        print "file scheme: ", file.get_uri_scheme()
-
-        if file.get_uri_scheme() in ['ftp','sftp']:
-            item = Nautilus.MenuItem(name='NautilusPython::openterminal_remote_item',
-                                    label=_(u'Open Remote Terminix…'),
-                                    tip=_(u'Open Remote Terminix In %s') % file.get_uri())
-            item.connect('activate', self.menu_activate_cb_remote, file)
-            items.append(item)
+        #print "Handling file: ", file.get_uri()
+        #print "file scheme: ", file.get_uri_scheme()
 
         if file.is_directory(): #and file.get_uri_scheme() == 'file':
+
+            if file.get_uri_scheme() in ['ftp','sftp']:
+                item = Nautilus.MenuItem(name='NautilusPython::openterminal_remote_item',
+                                        label=_(u'Open Remote Terminix…'),
+                                        tip=_(u'Open Remote Terminix In %s') % file.get_uri())
+                item.connect('activate', self.menu_activate_cb_remote, file)
+                items.append(item)
+
             gfile = Gio.File.new_for_uri(file.get_uri())
             info = gfile.query_info("standard::*", Gio.FileQueryInfoFlags.NONE, None)
             # Get UTF-8 version of basename
