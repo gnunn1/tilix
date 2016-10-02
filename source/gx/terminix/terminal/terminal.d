@@ -568,6 +568,17 @@ private:
             vte.setFontScale(1.0);
         });
 
+        //Cycle terminal style
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE_STYLE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            string style = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY);
+            long index = SETTINGS_TERMINAL_TITLE_STYLE_VALUES.countUntil(style);
+            index++;
+            if (index > SETTINGS_TERMINAL_TITLE_STYLE_VALUES.length - 1) {
+                index = 0;
+            }
+            gsSettings.setString(SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_TERMINAL_TITLE_STYLE_VALUES[index]);
+        });
+
         //Override terminal title
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_LAYOUT, gsShortcuts, delegate(GVariant, SimpleAction) {
             string terminalTitle = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
@@ -623,7 +634,7 @@ private:
             vte.reset(true, true);
         });
 
-        //Sync Inout Override
+        //Sync Input Override
         registerAction(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, null, delegate(GVariant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
