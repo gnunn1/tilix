@@ -111,6 +111,8 @@ private:
 
     GSettings gsShortcuts;
     GSettings gsGeneral;
+    GSettings gsProxy;
+
     Value defaultMenuAccel;
 
     CommandParameters cp;
@@ -739,6 +741,17 @@ public:
     ImageSurface getBackgroundImage() {
         return isFullBGImage;
     }
+
+    /**
+     * Return the GSettings object for the proxy. Used so terminals
+     * don't need to constantly re-create this on their own.
+     */
+    GSettings getProxySettings() {
+        if (gsProxy is null) {
+            gsProxy = new GSettings(SETTINGS_PROXY_ID); 
+        }
+        return gsProxy;
+    }  
 
     /**
      * Shows a dialog when a VTE configuration issue is detected.

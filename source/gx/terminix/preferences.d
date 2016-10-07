@@ -23,6 +23,9 @@ import gx.terminix.constants;
 enum SETTINGS_DESKTOP_ID = "org.gnome.desktop.interface";
 enum SETTINGS_MONOSPACE_FONT_KEY = "monospace-font-name";
 
+//Gnome Proxy Settings
+enum SETTINGS_PROXY_ID = "org.gnome.system.proxy";
+
 //Preference Constants
 enum SETTINGS_ID = "com.gexperts.Terminix.Settings";
 enum SETTINGS_BASE_PATH = "/com/gexperts/Terminix";
@@ -97,6 +100,9 @@ enum SETTINGS_QUAKE_DISABLE_ANIMATION_KEY = "quake-disable-animation";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
 enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY = "advanced-paste-space-count";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
+
+//Proxy Environment Variables
+enum SETTINGS_SET_PROXY_ENV_KEY = "set-proxy-env";
 
 //Profile Preference Constants
 enum SETTINGS_PROFILE_LIST_ID = "com.gexperts.Terminix.ProfilesList";

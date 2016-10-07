@@ -1897,6 +1897,7 @@ private:
             if (workingDir.length > 0) {
                 envv ~= ["PWD=" ~ workingDir];
             }
+            setProxyEnv(envv);
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
@@ -1923,6 +1924,55 @@ private:
         return tcgetpgrp(vte.getPty().getFd());
     }
 
+
+    /**
+     * Sets the proxy environment variables in the shell if available in gnome-terminal.
+     * Note this only works with manual proxy settings.
+     */
+    void setProxyEnv(ref string[] envv) {
+        
+        void addProxy(GSettings gsProxy, string scheme, string urlScheme, string varName) {
+            GSettings gsProxyScheme = gsProxy.getChild(scheme);
+
+            string host = gsProxyScheme.getString("host");
+            int port = gsProxyScheme.getInt("port");
+            if (host.length == 0 || port == 0) return;
+            
+            string value = urlScheme ~ "://";
+            if (scheme == "http") {
+                if (gsProxyScheme.getBoolean("use-authentication")) {
+                    string user = gsProxyScheme.getString("authentication-user");
+                    string pw = gsProxyScheme.getString("authentication-password");
+                    if (user.length > 0) {
+                        value = value ~ "@" ~ user;
+                        if (pw.length > 0) {
+                            value = value ~ ":" ~ pw;
+                        }
+                        value = value ~ "@";
+                    }
+                }
+            }
+
+            value = value ~ format("%s:%d/", host, port);
+            envv ~= format("%s=%s",varName,value);
+        }
+
+        
+        if (!gsSettings.getBoolean(SETTINGS_SET_PROXY_ENV_KEY)) return;
+
+        GSettings gsProxy = terminix.getProxySettings();
+        if (gsProxy is null) return;
+        if (gsProxy.getString("mode") != "manual") return;
+        addProxy(gsProxy, "http", "http", "http_proxy");
+        addProxy(gsProxy, "https", "http", "https_proxy");
+        addProxy(gsProxy, "ftp", "http", "ftp_proxy");
+        addProxy(gsProxy, "socks", "socks", "all_proxy");
+
+        string[] ignore = gsProxy.getStrv("ignore-hosts");
+        if (ignore.length > 0) {
+            envv ~= "no_proxy=" ~ join(ignore, ",");
+        }
+    }
 
     // Code to move terminals through Drag And Drop (DND) is in this private block
     // Keep all DND code here and do not intermix with other blocks
