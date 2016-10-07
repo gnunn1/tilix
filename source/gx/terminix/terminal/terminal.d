@@ -668,7 +668,8 @@ private:
                 scope(exit) {pdm.destroy();}
                 pdm.showAll();
                 if (pdm.run() == ResponseType.APPLY) {
-                    pdm.insertPassword(vte);
+                    string password = pdm.password;
+                    vte.feedChild(password, password.length);
                 }
             } else {
                 showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET), _("Library Not Loaded"));

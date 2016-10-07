@@ -44,8 +44,6 @@ import gtk.SearchEntry;
 import gtk.Widget;
 import gtk.Window;
 
-import vte.Terminal: VTE=Terminal;
-
 import secret.Collection;
 import secret.Item;
 import secret.Schema;
@@ -384,7 +382,7 @@ public:
         trace("Main Thread ID " ~ to!string(thisThreadID));
     }
 
-    void insertPassword(VTE vte) {
+    @property string password() {
         TreeIter selected = tv.getSelectedIter();
         if (selected) {
             string id = ls.getValueString(selected, COLUMN_ID);
@@ -396,7 +394,9 @@ public:
             if (gsSettings.getBoolean(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY)) {
                 password ~= '\n';
             }
-            vte.feedChild(password, password.length);
+            return password;
+        } else {
+            return null;
         }
     }
 
