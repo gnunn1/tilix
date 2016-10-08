@@ -35,6 +35,7 @@ enum CMD_GEOMETRY = "geometry";
 enum CMD_NEW_PROCESS = "new-process";
 enum CMD_TITLE = "title";
 enum CMD_QUAKE = "quake";
+enum CMD_VERSION = "version";
 
 /**
  * Manages the terminix command line options
@@ -61,6 +62,7 @@ private:
     bool _focusWindow;
     bool _newProcess;
     bool _quake;
+    bool _version;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -169,6 +171,8 @@ public:
         _focusWindow = vd.contains(CMD_FOCUS_WINDOW);
         _newProcess = vd.contains(CMD_NEW_PROCESS);
         _quake = vd.contains(CMD_QUAKE);
+        _version = vd.contains(CMD_VERSION);
+        _exit = _version;
 
         _geometry = getValue(vd, CMD_GEOMETRY, vts);
         if (_geometry.length > 0)
@@ -216,6 +220,7 @@ public:
         _y = 0;
         _exit = false;
         _title.length = 0;
+        _version = false;
     }
 
     @property string workingDir() {
@@ -308,5 +313,9 @@ public:
 
     @property bool quake() {
         return _quake;
+    }
+
+    @property bool outputVersion() {
+        return _version;
     }
 }

@@ -8,8 +8,10 @@ import std.algorithm;
 import std.conv;
 import std.experimental.logger;
 import std.file;
+import std.format;
 import std.path;
 import std.process;
+import std.stdio;
 import std.variant;
 
 import cairo.ImageSurface;
@@ -326,6 +328,15 @@ private:
             acl.destroy();
         }
         cp = CommandParameters(acl);
+        if (cp.outputVersion) {
+            import gx.gtk.vte: getVTEVersion;
+            import gtk.Version: Version;
+
+            writeln(format("Terminix version: %s", APPLICATION_VERSION));
+            writeln(format("VTE version: %s", getVTEVersion()));
+            writeln(format("GTK Version: %d.%d.%d", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+            return cp.exitCode;
+        }
         if (cp.exitCode == 0 && cp.action.length > 0) {
             trace("Executing action  " ~ cp.action);
             string terminalUUID = cp.terminalUUID;
@@ -594,7 +605,8 @@ private:
         addMainOption(CMD_FOCUS_WINDOW, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Focus the existing window"), null);
         addMainOption(CMD_NEW_PROCESS, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Start additional instance as new process (Not Recommended)"), null);
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
-        addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), _("QUAKE"));
+        addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), null);
+        addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Terminix and dependant component versions"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));

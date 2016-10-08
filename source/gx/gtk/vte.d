@@ -5,6 +5,7 @@
 module gx.gtk.vte;
 
 import std.experimental.logger;
+import std.format;
 
 import gobject.Signals: Signals;
 
@@ -16,6 +17,10 @@ import vte.Version;
  */
 bool checkVTEVersionNumber(uint major, uint minor) {
     return (major > vteMajorVersion || (major == vteMajorVersion && minor <= vteMinorVersion));
+}
+
+string getVTEVersion() {
+    return format("%d:%d", vteMajorVersion, vteMinorVersion);
 }
 
 enum TerminalFeature {
