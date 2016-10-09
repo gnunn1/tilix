@@ -26,7 +26,7 @@ string getVTEVersion() {
 enum TerminalFeature {
     EVENT_NOTIFICATION,
     EVENT_SCREEN_CHANGED,
-    EVENT_BACKGROUND_DRAW
+    DISABLE_BACKGROUND_DRAW
 }
 
 /**
@@ -36,10 +36,22 @@ bool checkVTEFeature(TerminalFeature feature) {
     // Initialized features if not done yet, can't do it statically
     // due to need for GTK to load first
     if (!featuresInitialized) {
-        string[] events = ["notification-received", "terminal-screen-changed", "background-draw"];
+        string[] events = ["notification-received", "terminal-screen-changed"];
         foreach(i, event; events) {
             bool supported = (Signals.lookup(event, Terminal.getType()) != 0);
             terminalFeatures[cast(TerminalFeature) i] = supported;
+        }
+        terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = true;
+
+        import gtkc.Loader: Linker;
+        import gtkc.paths: LIBRARY;
+        string[] failures = Linker.getLoadFailures(LIBRARY.VTE);
+
+        foreach(failure; failures) {
+            if (failure == "vte_terminal_get_disable_bg_draw") {
+                trace("Background draw disabled");
+                terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = false;
+            }
         }
         featuresInitialized = true;
     }

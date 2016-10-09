@@ -678,6 +678,22 @@
       <summary>Whether an unlimited number of lines should be processed for triggers</summary>
       <description>If true, all available lines will be processed for triggers. When outputing large amounts of text to the terminal this may impact performance.</description>
     </key>
+    <!-- Badges -->
+    <key name="badge-text" type="s">
+      <default>''</default>
+      <summary>Whether to display a background badge</summary>
+      <description>When set, a badge will be rendered in the background of the terminal</description>
+    </key>
+    <key name="badge-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Badge colour</summary>
+      <description>Custom color for the badge, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+    </key>
+    <key name="badge-color-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom badge color</summary>
+      <description>If true, use the badge color from the profile.</description>
+    </key>
   </schema>
 
   <!-- Keybinding settings -->

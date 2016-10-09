@@ -1,0 +1,1719 @@
+From 8ebb4837baacc994831d637fdc8cb6fab20422b9 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sat, 13 Feb 2016 20:00:15 +0100
+Subject: [PATCH 01/33] build: Don't export internal API
+
+---
+ src/vte/vteregex.h | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/src/vte/vteregex.h b/src/vte/vteregex.h
+index 7169668..e77c759 100644
+--- a/src/vte/vteregex.h
++++ b/src/vte/vteregex.h
+@@ -33,30 +33,24 @@ typedef struct _VteRegex VteRegex;
+ 
+ #define VTE_TYPE_REGEX (vte_regex_get_type())
+ 
+-_VTE_PUBLIC
+ GType vte_regex_get_type (void);
+ 
+ #define VTE_REGEX_ERROR (vte_regex_error_quark())
+ 
+-_VTE_PUBLIC
+ GQuark vte_regex_error_quark (void);
+ 
+ /* This is PCRE2_NO_UTF_CHECK | PCRE2_UTF | PCRE2_NEVER_BACKSLASH_C */
+ #define VTE_REGEX_FLAGS_DEFAULT (0x00080000u | 0x40000000u | 0x00100000u)
+ 
+-_VTE_PUBLIC
+ VteRegex *vte_regex_ref      (VteRegex *regex) _VTE_GNUC_NONNULL(1);
+ 
+-_VTE_PUBLIC
+ VteRegex *vte_regex_unref    (VteRegex *regex) _VTE_GNUC_NONNULL(1);
+ 
+-_VTE_PUBLIC
+ VteRegex *vte_regex_new      (const char *pattern,
+                               gssize      pattern_length,
+                               guint32     flags,
+                               GError    **error) _VTE_GNUC_NONNULL(1);
+ 
+-_VTE_PUBLIC
+ gboolean  vte_regex_jit     (VteRegex *regex,
+                              guint32   flags,
+                              GError  **error) _VTE_GNUC_NONNULL(1);
+-- 
+2.10.0
+
+
+From d65d10809b7813a779b83be9c8cc63f6f48f39d3 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sun, 14 Feb 2016 21:19:02 +0100
+Subject: [PATCH 02/33] docs: Remove leftovers
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762043
+(cherry picked from commit d0a2e72476ca052a7623ea4ef65794ab19b5215c)
+---
+ doc/Makefile.am  |  1 -
+ doc/utmpwtmp.txt | 31 -------------------------------
+ 2 files changed, 32 deletions(-)
+ delete mode 100644 doc/utmpwtmp.txt
+
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index 7b367df..fdeb394 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -7,7 +7,6 @@ EXTRA_DIST = \
+         boxes.txt \
+ 	readme.txt \
+         rewrap.txt \
+-	utmpwtmp.txt \
+ 	$(NULL)
+ 
+ -include $(top_srcdir)/git.mk
+diff --git a/doc/utmpwtmp.txt b/doc/utmpwtmp.txt
+deleted file mode 100644
+index aa513ee..0000000
+--- a/doc/utmpwtmp.txt
++++ /dev/null
+@@ -1,31 +0,0 @@
+-The utmp, wtmp, and lastlog files are used to track which users are logged in,
+-but in slightly different ways.
+-
+-Summary:
+-
+-The utmp file contains at most one entry per terminal.
+-The wtmp file has the same format as the utmp file, but has no limit on the
+-number of entries it contains.
+-The lastlog file contains at most one entry per UID.
+-
+-When a user logs in, the entry for the terminal is set in utmp.
+-When a user logs in, an entry is appended to wtmp.
+-When a user logs in, the entry for the user's UID is set in lastlog.
+-
+-When a user logs out, the entry for the terminal is cleared from utmp.
+-This prevents the utmp file from growing beyond a fixed size.
+-
+-When a user logs out, an entry is appended to wtmp.  This provides a
+-complete history of who logged in and out and when.
+-
+-When a user logs out, nothing happens to the lastlog.
+-
+-Conclusions:
+-A terminal should always log to utmp, because it keeps track of who's using
+-a given terminal device.
+-A terminal should probably log to wtmp, because it correlates with utmp.
+-A terminal should not log to lastlog, but a display manager should.
+-
+-References:
+-http://netbsd.gw.com/cgi-bin/man-cgi?utmp++NetBSD-current
+-http://www.netsys.com/sunmgr/1997-12/msg00155.html
+-- 
+2.10.0
+
+
+From a143cedadb1f934c547868afc654b34465ab3315 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sat, 20 Feb 2016 12:17:28 +0100
+Subject: [PATCH 03/33] lib: Neuter _VTE_GNUC_NONNULL when compiling libvte
+
+(cherry picked from commit b2ee030f02b49ce44a3999d58d1bd3d486a38bd1)
+---
+ src/vte/vtemacros.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/vte/vtemacros.h b/src/vte/vtemacros.h
+index bed104d..3f8acf5 100644
+--- a/src/vte/vtemacros.h
++++ b/src/vte/vtemacros.h
+@@ -29,11 +29,15 @@
+ #define _VTE_GNUC_PACKED
+ #endif  /* !__GNUC__ */
+ 
++#ifdef VTE_COMPILATION
++#define _VTE_GNUC_NONNULL(position)
++#else
+ #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 2)
+ #define _VTE_GNUC_NONNULL(position) __attribute__((__nonnull__(position)))
+ #else
+ #define _VTE_GNUC_NONNULL(position)
+ #endif
++#endif
+ 
+ #define _VTE_PUBLIC __attribute__((__visibility__("default"))) extern
+ 
+-- 
+2.10.0
+
+
+From 288068ee0ee9202f696d120e75340fa12774a26e Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Thu, 25 Feb 2016 18:42:00 +0100
+Subject: [PATCH 04/33] widget: Don't deselect when updating the clipboard
+
+gtk_clipboard_set_with_data() differs from gtk_clipboard_set_with_owner()
+in that the old clear callback is *always* invoked instead of only
+when the owner (user_data) is different from the last owner (user_data).
+I think this is a gtk+ bug, but that code has been that way since 2000,
+so who knows why it does it this way.
+
+Adapt to this by guarding the clear callback to gtk_clipboard_set_with_owner()
+with a bool that is set/unset around the call and makes the callback
+bail out early if we're updating the clipboard from within vte.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762446
+(cherry picked from commit cf72edc15a73cdaa21a459fa2b5e8f470334e3ea)
+---
+ src/vte.cc         | 9 ++++++++-
+ src/vteinternal.hh | 1 +
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 97e8782..6f2f99d 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -5874,8 +5874,12 @@ clipboard_clear_cb(GtkClipboard *clipboard,
+ void
+ VteTerminalPrivate::widget_clipboard_cleared(GtkClipboard *clipboard_)
+ {
++        if (m_changing_selection)
++                return;
++
+ 	if (clipboard_ == m_clipboard[VTE_SELECTION_PRIMARY]) {
+-		if (m_has_selection) {
++		if (m_selection_owned[VTE_SELECTION_PRIMARY] &&
++                    m_has_selection) {
+ 			_vte_debug_print(VTE_DEBUG_SELECTION, "Lost selection.\n");
+ 			deselect_all();
+ 		}
+@@ -6386,12 +6390,15 @@ VteTerminalPrivate::widget_copy(VteSelection sel)
+ 			gtk_target_list_unref (list);
+ 		}
+ 
++                m_changing_selection = true;
+ 		gtk_clipboard_set_with_data(m_clipboard[sel],
+                                             targets,
+                                             n_targets,
+                                             clipboard_copy_cb,
+                                             clipboard_clear_cb,
+                                             this);
++                m_changing_selection = false;
++
+ 		gtk_clipboard_set_can_store(m_clipboard[sel], NULL, 0);
+                 m_selection_owned[sel] = true;
+ 	}
+diff --git a/src/vteinternal.hh b/src/vteinternal.hh
+index 04edeeb..696750b 100644
+--- a/src/vteinternal.hh
++++ b/src/vteinternal.hh
+@@ -375,6 +375,7 @@ public:
+ 	/* Clipboard data information. */
+         // FIXMEchpe check if this can make m_has_selection obsolete!
+         bool m_selection_owned[LAST_VTE_SELECTION];
++        bool m_changing_selection;
+         char *m_selection_text[LAST_VTE_SELECTION];
+ #ifdef HTML_SELECTION
+         char *m_selection_html[LAST_VTE_SELECTION];
+-- 
+2.10.0
+
+
+From a768840384d570bfded988384bdf8e50516a7995 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 29 Feb 2016 18:20:27 +0100
+Subject: [PATCH 05/33] build: Add -Wstrict-null-sentinel to CXXFLAGS
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762863
+(cherry picked from commit 5351f75712fa62dc0016d0cece4b212b5dd43ece)
+---
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configure.ac b/configure.ac
+index 5fd3e83..c6c47df 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -153,6 +153,7 @@ m4_define([compiler_flags_only_c],[ dnl
+ ])
+ 
+ m4_define([compiler_flags_only_cxx],[ dnl
++  -Wstrict-null-sentinel dnl
+   -fno-rtti dnl
+   -fno-exceptions dnl
+   -fvisibility=hidden dnl
+-- 
+2.10.0
+
+
+From a17b9e3a968e72e327db25e4d64c109cf560fb5e Mon Sep 17 00:00:00 2001
+From: "Anthony G. Basile" <blueness@gentoo.org>
+Date: Mon, 29 Feb 2016 18:20:27 +0100
+Subject: [PATCH 06/33] lib: Use nullptr as sentinel instead of NULL
+
+On some non-GCC/GLIBC systems, NULL may not be a suitable 0 pointer constant.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762863
+(cherry picked from commit a9fa01991ab7fb068af6d2a81691f32b44b91a9c)
+---
+ src/pty.cc     | 2 +-
+ src/vte.cc     | 6 +++---
+ src/vtedraw.cc | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/pty.cc b/src/pty.cc
+index 44d28a3..ea88c77 100644
+--- a/src/pty.cc
++++ b/src/pty.cc
+@@ -300,7 +300,7 @@ __vte_pty_merge_environ (char **envp,
+ 	array = g_ptr_array_sized_new (g_hash_table_size (table) + 1);
+         g_hash_table_iter_init(&iter, table);
+         while (g_hash_table_iter_next(&iter, (void**) &name, (void**) &value)) {
+-                g_ptr_array_add (array, g_strconcat (name, "=", value, NULL));
++                g_ptr_array_add (array, g_strconcat (name, "=", value, nullptr));
+         }
+         g_assert(g_hash_table_size(table) == array->len);
+ 	g_hash_table_destroy (table);
+diff --git a/src/vte.cc b/src/vte.cc
+index 6f2f99d..b1e4ba1 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -7234,7 +7234,7 @@ VteTerminalPrivate::widget_button_press(GdkEventButton *event)
+ 
+                                 g_object_get (gtk_widget_get_settings(m_widget),
+                                               "gtk-enable-primary-paste",
+-                                              &do_paste, NULL);
++                                              &do_paste, nullptr);
+                                 if (do_paste)
+                                         vte_terminal_paste_primary(m_terminal);
+ 				handled = do_paste;
+@@ -8337,7 +8337,7 @@ VteTerminalPrivate::widget_settings_notify()
+                      "gtk-cursor-blink", &blink,
+                      "gtk-cursor-blink-time", &blink_time,
+                      "gtk-cursor-blink-timeout", &blink_timeout,
+-                     NULL);
++                     (void *)NULL);
+ 
+         _vte_debug_print(VTE_DEBUG_MISC,
+                          "Cursor blinking settings: blink=%d time=%d timeout=%d\n",
+@@ -9985,7 +9985,7 @@ VteTerminalPrivate::update_cursor_blinks()
+                 gboolean v;
+                 g_object_get(gtk_widget_get_settings(m_widget),
+                                                      "gtk-cursor-blink",
+-                                                     &v, NULL);
++                                                     &v, nullptr);
+                 blink = v != FALSE;
+                 break;
+         case VTE_CURSOR_BLINK_ON:
+diff --git a/src/vtedraw.cc b/src/vtedraw.cc
+index ba2755e..a47efae 100644
+--- a/src/vtedraw.cc
++++ b/src/vtedraw.cc
+@@ -651,7 +651,7 @@ font_info_create_for_screen (GdkScreen                  *screen,
+ {
+ 	GtkSettings *settings = gtk_settings_get_for_screen (screen);
+ 	int fontconfig_timestamp;
+-	g_object_get (settings, "gtk-fontconfig-timestamp", &fontconfig_timestamp, NULL);
++	g_object_get (settings, "gtk-fontconfig-timestamp", &fontconfig_timestamp, nullptr);
+ 	return font_info_create_for_context (gdk_pango_context_get_for_screen (screen),
+ 					     desc, language, fontconfig_timestamp);
+ }
+-- 
+2.10.0
+
+
+From e3d9eef71fe29f658d1376a215b02cfddc7a68bc Mon Sep 17 00:00:00 2001
+From: "Anthony G. Basile" <blueness@gentoo.org>
+Date: Mon, 29 Feb 2016 18:28:22 +0100
+Subject: [PATCH 07/33] lib: Use nullptr as sentinel instead of NULL
+
+On some non-GCC/GLIBC systems, NULL may not be a suitable 0 pointer constant.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762863
+---
+ src/vte.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index b1e4ba1..0b44c9a 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -8337,7 +8337,7 @@ VteTerminalPrivate::widget_settings_notify()
+                      "gtk-cursor-blink", &blink,
+                      "gtk-cursor-blink-time", &blink_time,
+                      "gtk-cursor-blink-timeout", &blink_timeout,
+-                     (void *)NULL);
++                     nullptr);
+ 
+         _vte_debug_print(VTE_DEBUG_MISC,
+                          "Cursor blinking settings: blink=%d time=%d timeout=%d\n",
+-- 
+2.10.0
+
+
+From 1ac999c8790c871be8214c9a9e83d0f74a4e4a37 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 29 Feb 2016 18:28:22 +0100
+Subject: [PATCH 08/33] Version 0.43.91
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index c6c47df..c037ebd 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+ m4_define([version_minor],43)
+-m4_define([version_micro],90)
++m4_define([version_micro],91)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From 1452aad1e2ed21bcee2a97b8fa21702e3e367b07 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 29 Feb 2016 18:29:45 +0100
+Subject: [PATCH 09/33] Post release version bump
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index c037ebd..729eddd 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+ m4_define([version_minor],43)
+-m4_define([version_micro],91)
++m4_define([version_micro],92)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From ca5d9e6a905241dd6667fc3df4057ca1c6d8899f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A9dric=20Valmary?= <cvalmary@yahoo.fr>
+Date: Mon, 29 Feb 2016 18:57:47 +0000
+Subject: [PATCH 10/33] Updated Occitan translation
+
+---
+ po/oc.po | 92 ++++++++++++++++++++++++++++------------------------------------
+ 1 file changed, 40 insertions(+), 52 deletions(-)
+
+diff --git a/po/oc.po b/po/oc.po
+index 74fc392..5d3de56 100644
+--- a/po/oc.po
++++ b/po/oc.po
+@@ -6,9 +6,9 @@
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: vte 0.14.1\n"
+-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=vte&key"
+-"words=I18N+L10N&component=general\n"
+-"POT-Creation-Date: 2015-09-21 14:54+0000\n"
++"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
++"product=vte&keywords=I18N+L10N&component=general\n"
++"POT-Creation-Date: 2016-02-13 20:36+0000\n"
+ "PO-Revision-Date: 2015-10-31 07:13+0200\n"
+ "Last-Translator: Cédric Valmary (Tot en òc) <cvalmary@yahoo.fr>\n"
+ "Language-Team: Tot en òc (totenoc.eu)\n"
+@@ -20,69 +20,57 @@ msgstr ""
+ "X-Generator: Virtaal 0.7.1\n"
+ "X-Project-Style: gnome\n"
+ 
+-#: ../src/app.ui.h:1
+-msgid "Copy"
+-msgstr "Copiar"
+-
+-#: ../src/app.ui.h:2
+-msgid "Paste"
+-msgstr "Pegar"
+-
+-#: ../src/app.ui.h:3
+-msgid "Reset (use Ctrl to reset and clear)"
+-msgstr "Reïnicializar (quichar Ctrl per reïnicializar e escafar)"
+-
+-#: ../src/app.ui.h:4
+-msgid "Reset"
+-msgstr "Reïnicializar"
+-
+-#: ../src/app.ui.h:5
+-msgid "Toggle input enabled setting"
+-msgstr "Activa/desactiva la foncion de picada"
+-
+-#: ../src/app.ui.h:6
+-msgid "Input"
+-msgstr "Entrada"
+-
+ #: ../src/iso2022.cc:73 ../src/iso2022.cc:81 ../src/iso2022.cc:111
+-#: ../src/vte.cc:2011
++#: ../src/vtegtk.cc:3066
+ #, c-format
+ msgid "Unable to convert characters from %s to %s."
+ msgstr "Impossible de convertir los caractèrs %s en %s."
+ 
+-#. Bail back to normal mode.
+-#: ../src/vteapp.c:1027
+-msgid "Could not open console.\n"
+-msgstr "Impossible de dobrir la consòla.\n"
+-
+-#: ../src/vteapp.c:1137
+-msgid "Could not parse the geometry spec passed to --geometry"
+-msgstr ""
+-"Impossible d'analisar los arguments de geometria indicats per --geometry"
+-
+ #. Translators: %s is replaced with error message returned by strerror().
+-#: ../src/vte.cc:4264
++#: ../src/vte.cc:4233
+ #, c-format
+ msgid "Error reading from child: %s."
+ msgstr "Error al moment de la lectura del filh : « %s »."
+ 
+-#: ../src/vte.cc:4400
+-msgid "Unable to send data to child, invalid charset convertor"
+-msgstr ""
+-"Impossible de mandar las donadas al filh, convertidor de jòcs de caractèrs "
+-"incorrècte"
+-
+-#: ../src/vte.cc:4411 ../src/vte.cc:5473
++#: ../src/vte.cc:4372
+ #, c-format
+ msgid "Error (%s) converting data for child, dropping."
+ msgstr "Error (%s) al moment de la conversion de donadas pel filh, abandon."
+ 
+-#: ../src/vte.cc:8035
+-#, c-format
+-msgid "Error reading PTY size, using defaults: %s\n"
+-msgstr ""
+-"Error al moment de la lectura de la talha PTY, utilizacion de la valor per "
+-"defaut : %s\n"
++#~ msgid "Copy"
++#~ msgstr "Copiar"
++
++#~ msgid "Paste"
++#~ msgstr "Pegar"
++
++#~ msgid "Reset (use Ctrl to reset and clear)"
++#~ msgstr "Reïnicializar (quichar Ctrl per reïnicializar e escafar)"
++
++#~ msgid "Reset"
++#~ msgstr "Reïnicializar"
++
++#~ msgid "Toggle input enabled setting"
++#~ msgstr "Activa/desactiva la foncion de picada"
++
++#~ msgid "Input"
++#~ msgstr "Entrada"
++
++#~ msgid "Could not open console.\n"
++#~ msgstr "Impossible de dobrir la consòla.\n"
++
++#~ msgid "Could not parse the geometry spec passed to --geometry"
++#~ msgstr ""
++#~ "Impossible d'analisar los arguments de geometria indicats per --geometry"
++
++#~ msgid "Unable to send data to child, invalid charset convertor"
++#~ msgstr ""
++#~ "Impossible de mandar las donadas al filh, convertidor de jòcs de "
++#~ "caractèrs incorrècte"
++
++#~ msgid "Error reading PTY size, using defaults: %s\n"
++#~ msgstr ""
++#~ "Error al moment de la lectura de la talha PTY, utilizacion de la valor "
++#~ "per defaut : %s\n"
+ 
+ #~ msgid "Attempt to set invalid NRC map '%c'."
+ #~ msgstr "Temptativa de definir una mapa NRC « %c » invalida."
+-- 
+2.10.0
+
+
+From d950c5df7e2905b5897cc30160e20cf605af1d6a Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Wed, 2 Mar 2016 12:42:08 +0100
+Subject: [PATCH 11/33] widget: Invalidate cursor on style change
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762963
+(cherry picked from commit a633f57e05dc30f444c5407ecb30b1bd67754ff4)
+---
+ src/vte.cc | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 0b44c9a..4c62dbf 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -3672,6 +3672,7 @@ VteTerminalPrivate::process_incoming()
+ {
+ 	VteVisualPosition saved_cursor;
+ 	gboolean saved_cursor_visible;
++        VteCursorStyle saved_cursor_style;
+ 	GdkPoint bbox_topleft, bbox_bottomright;
+ 	gunichar *wbuf, c;
+ 	long wcount, start;
+@@ -3698,6 +3699,7 @@ VteTerminalPrivate::process_incoming()
+ 	/* Save the current cursor position. */
+         saved_cursor = m_screen->cursor;
+ 	saved_cursor_visible = m_cursor_visible;
++        saved_cursor_style = m_cursor_style;
+ 
+         in_scroll_region = m_scrolling_restricted
+             && (m_screen->cursor.row >= (m_screen->insert_delta + m_scrolling_region.start))
+@@ -4060,7 +4062,8 @@ next_match:
+ 		check_cursor_blink();
+ 		/* Signal that the cursor moved. */
+ 		queue_cursor_moved();
+-	} else if (saved_cursor_visible != m_cursor_visible) {
++        } else if ((saved_cursor_visible != m_cursor_visible) ||
++                   (saved_cursor_style != m_cursor_style)) {
+                 // FIXMEchpe need to invalidate like invalidate_cursor_once() just for the saved_cursor coords!
+ 		invalidate_cell(saved_cursor.col, saved_cursor.row);
+ 		check_cursor_blink();
+-- 
+2.10.0
+
+
+From f376a757c52ee989ee8993c67f3730ffb62f2db5 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Fri, 4 Mar 2016 17:59:32 +0100
+Subject: [PATCH 12/33] build: Don't define GDK_MULTIHEAD_SAFE
+
+(cherry picked from commit 659d64b76f89790eb4453effb9c31d66b4a119be)
+---
+ configure.ac | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 729eddd..47751c5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -251,8 +251,6 @@ AM_CONDITIONAL([WITH_PCRE2],[test "$with_pcre2" = "yes"])
+ 
+ # GLIB tools
+ 
+-AC_DEFINE(GDK_MULTIHEAD_SAFE,1,[Force use of GDK multihead-safe APIs.])
+-
+ AC_PATH_PROG([GLIB_GENMARSHAL],[glib-genmarshal])
+ AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
+ 
+-- 
+2.10.0
+
+
+From 6d91ca041d9a49d8c06d17e11785f5052817eea1 Mon Sep 17 00:00:00 2001
+From: Takao Fujiwara <tfujiwar@redhat.com>
+Date: Mon, 14 Mar 2016 18:10:09 +0100
+Subject: [PATCH 13/33] widget: Move IM cursor to the right position in
+ im_update_cursor()
+
+IM cursor is moved with pre-edit text.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=756141
+(cherry picked from commit 656530adcba25745e250de6d73ce40310c1c4d4c)
+---
+ src/vte.cc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 4c62dbf..cf052be 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -4666,7 +4666,8 @@ VteTerminalPrivate::im_update_cursor()
+                 return;
+ 
+         cairo_rectangle_int_t rect;
+-        rect.x = m_screen->cursor.col * m_char_width + m_padding.left;
++        rect.x = m_screen->cursor.col * m_char_width + m_padding.left +
++                 get_preedit_width(false) * m_char_width;
+         rect.width = m_char_width; // FIXMEchpe: if columns > 1 ?
+         rect.y = row_to_pixel(m_screen->cursor.row) + m_padding.top;
+         rect.height = m_char_height;
+-- 
+2.10.0
+
+
+From 61657b7f9d9476ca92823c95b2a258a211715589 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 14 Mar 2016 18:10:09 +0100
+Subject: [PATCH 14/33] widget: Warn about CSS problem with upgrade to gtk 3.19
+
+https://bugzilla.gnome.org/show_bug.cgi?id=763538
+(cherry picked from commit fa008f96d9484204db73d2b500f22f47c247905e)
+---
+ src/vtegtk.cc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index 566c74d..a2591b4 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -655,6 +655,10 @@ vte_terminal_class_init(VteTerminalClass *klass)
+ 
+ #if GTK_CHECK_VERSION(3, 19, 5)
+         gtk_widget_class_set_css_name(widget_class, VTE_TERMINAL_CSS_NAME);
++#else
++        /* Bug #763538 */
++        if (gtk_check_version(3, 19, 5) == nullptr)
++                g_printerr("VTE needs to be recompiled against a newer gtk+ version.\n");
+ #endif
+ 
+ 	/* Initialize default handlers. */
+-- 
+2.10.0
+
+
+From 87af7767c189015c85ad1c7ce55f00010acc1cd5 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 14 Mar 2016 18:11:54 +0100
+Subject: [PATCH 15/33] Post release version bump
+
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 47751c5..4d1fa26 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+-m4_define([version_minor],43)
+-m4_define([version_micro],92)
++m4_define([version_minor],44)
++m4_define([version_micro],0)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From 0af901285835b330348a576e71e3a320405f4be1 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sat, 19 Mar 2016 13:03:15 +0100
+Subject: [PATCH 16/33] Post release version bump
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 4d1fa26..068d072 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+ m4_define([version_minor],44)
+-m4_define([version_micro],0)
++m4_define([version_micro],1)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From 66a4c95a414c38a010c30fc25c3534516c058055 Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Wed, 30 Mar 2016 10:46:53 +0200
+Subject: [PATCH 17/33] widget: Properly remove the cursor from its old
+ position
+
+https://bugzilla.gnome.org/show_bug.cgi?id=764299
+(cherry picked from commit e5a00b5b71194be9f2881dee67d82c308406dea7)
+---
+ src/vte.cc | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index cf052be..5ba70d3 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -4055,8 +4055,7 @@ next_match:
+         if ((saved_cursor.col != m_screen->cursor.col) ||
+             (saved_cursor.row != m_screen->cursor.row)) {
+ 		/* invalidate the old and new cursor positions */
+-                // FIXMEchpe shouldn't this be old_cursor_visible with an 'auto old_cursor_visible = ...'above?
+-		if (m_cursor_visible)
++		if (saved_cursor_visible)
+ 			invalidate_cell(saved_cursor.col, saved_cursor.row);
+ 		invalidate_cursor_once();
+ 		check_cursor_blink();
+@@ -4064,7 +4063,6 @@ next_match:
+ 		queue_cursor_moved();
+         } else if ((saved_cursor_visible != m_cursor_visible) ||
+                    (saved_cursor_style != m_cursor_style)) {
+-                // FIXMEchpe need to invalidate like invalidate_cursor_once() just for the saved_cursor coords!
+ 		invalidate_cell(saved_cursor.col, saved_cursor.row);
+ 		check_cursor_blink();
+ 	}
+-- 
+2.10.0
+
+
+From 7fa0c02dbae2b6d749e6867533794933eb0ffb10 Mon Sep 17 00:00:00 2001
+From: Fabio Tomat <f.t.public@gmail.com>
+Date: Thu, 7 Apr 2016 22:59:21 +0000
+Subject: [PATCH 18/33] Updated Friulian translation
+
+---
+ po/fur.po | 75 ++++++++++++++++++++++-----------------------------------------
+ 1 file changed, 26 insertions(+), 49 deletions(-)
+
+diff --git a/po/fur.po b/po/fur.po
+index fd54d22..4fe5187 100644
+--- a/po/fur.po
++++ b/po/fur.po
+@@ -8,74 +8,51 @@ msgstr ""
+ "Project-Id-Version: vte vte-0-34\n"
+ "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+ "product=vte&keywords=I18N+L10N&component=general\n"
+-"POT-Creation-Date: 2015-01-20 15:50+0000\n"
+-"PO-Revision-Date: 2015-01-20 16:54+0100\n"
++"POT-Creation-Date: 2016-04-07 14:48+0000\n"
++"PO-Revision-Date: 2016-04-08 00:58+0200\n"
+ "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
+ "Language-Team: Friulian <fur@li.org>\n"
+ "Language: fur\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"X-Generator: Poedit 1.5.4\n"
++"X-Generator: Poedit 1.8.5\n"
+ 
+-#: ../src/app.ui.h:1
+-msgid "Copy"
+-msgstr "Copie"
+-
+-#: ../src/app.ui.h:2
+-msgid "Paste"
+-msgstr "Incole"
+-
+-#: ../src/app.ui.h:3
+-msgid "Reset (use Ctrl to reset and clear)"
+-msgstr ""
+-
+-#: ../src/app.ui.h:4
+-msgid "Reset"
+-msgstr ""
+-
+-#: ../src/app.ui.h:5
+-msgid "Toggle input enabled setting"
+-msgstr ""
+-
+-#: ../src/app.ui.h:6
+-msgid "Input"
+-msgstr ""
+-
+-#: ../src/iso2022.c:73 ../src/iso2022.c:81 ../src/iso2022.c:111
+-#: ../src/vte.c:2001
++#: ../src/iso2022.cc:73 ../src/iso2022.cc:81 ../src/iso2022.cc:111
++#: ../src/vtegtk.cc:3070
+ #, c-format
+ msgid "Unable to convert characters from %s to %s."
+-msgstr "Impussibil convertî i caratars da %s a %s."
+-
+-#. Bail back to normal mode.
+-#: ../src/vteapp.c:1027
+-msgid "Could not open console.\n"
+-msgstr "No puès vierzi la console.\n"
+-
+-#: ../src/vteapp.c:1137
+-msgid "Could not parse the geometry spec passed to --geometry"
+-msgstr "No puès analizâ le specifiche di geometrie pasade a --geometry"
++msgstr "Impussibil convertî i caratars di %s a %s."
+ 
+ #. Translators: %s is replaced with error message returned by strerror().
+-#: ../src/vte.c:4231
++#: ../src/vte.cc:4234
+ #, c-format
+ msgid "Error reading from child: %s."
+ msgstr "Erôr leint dal procès fî: %s."
+ 
+-#: ../src/vte.c:4367
+-msgid "Unable to send data to child, invalid charset convertor"
+-msgstr "Impussibil inviâ dâts al procès fî, convertidôr di caratars no valit"
+-
+-#: ../src/vte.c:4378 ../src/vte.c:5380
++#: ../src/vte.cc:4373
+ #, c-format
+ msgid "Error (%s) converting data for child, dropping."
+ msgstr "Erôr (%s) convertint i dâts par il proces fî, a restaran come prime."
+ 
+-#: ../src/vte.c:7689
+-#, c-format
+-msgid "Error reading PTY size, using defaults: %s\n"
+-msgstr "Erôr leint la dimension PTY, doprarai i valôrs di default: %s\n"
++#~ msgid "Copy"
++#~ msgstr "Copie"
++
++#~ msgid "Paste"
++#~ msgstr "Incole"
++
++#~ msgid "Could not open console.\n"
++#~ msgstr "No puès vierzi la console.\n"
++
++#~ msgid "Could not parse the geometry spec passed to --geometry"
++#~ msgstr "No puès analizâ le specifiche di geometrie pasade a --geometry"
++
++#~ msgid "Unable to send data to child, invalid charset convertor"
++#~ msgstr ""
++#~ "Impussibil inviâ dâts al procès fî, convertidôr di caratars no valit"
++
++#~ msgid "Error reading PTY size, using defaults: %s\n"
++#~ msgstr "Erôr leint la dimension PTY, doprarai i valôrs di default: %s\n"
+ 
+ #~ msgid "Attempt to set invalid NRC map '%c'."
+ #~ msgstr "Tentatîf di impuestâ une mape NRC '%c' no valide."
+-- 
+2.10.0
+
+
+From c5c129a65bcd749452f3e34152894d1490aea27d Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Mon, 11 Apr 2016 10:11:33 +0200
+Subject: [PATCH 19/33] Post release version bump
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 068d072..a65c0ba 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+ m4_define([version_minor],44)
+-m4_define([version_micro],1)
++m4_define([version_micro],2)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From 17e0a69e54cbbd547128a3c6d0f5bd5b99ee2ce8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Alberts=20Muktup=C4=81vels?= <alberts.muktupavels@gmail.com>
+Date: Fri, 15 Apr 2016 18:09:41 +0200
+Subject: [PATCH 20/33] build: Fix the build when an older vte VAPI is present
+ on the system
+
+Pass --disable-since-check to valac on vala >= 0.31.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=762780
+---
+ configure.ac    | 3 +++
+ src/Makefile.am | 4 ++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index a65c0ba..9af02a2 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -364,12 +364,15 @@ AM_PROG_VALAC([0.18.0],[],[
+ 
+ if test "$enable_test_application" = "yes"; then
+   PKG_CHECK_MODULES([GTK_3_16],[gtk+-3.0 >= 3.16],[have_gtk_3_16=yes],[have_gtk_3_16=no])
++  AM_PROG_VALAC([0.31.1],[have_vala_0_31=yes],[have_vala_0_31=no])
+ else
+   have_gtk_3_16=no
++  have_vala_0_31=no
+ fi
+ 
+ AM_CONDITIONAL([ENABLE_TEST_APPLICATION],[test "$enable_test_application" = "yes"])
+ AM_CONDITIONAL([HAVE_GTK_3_16],[test "$have_gtk_3_16" = "yes"])
++AM_CONDITIONAL([HAVE_VALA_0_31],[test "$have_vala_0_31" = "yes"])
+ 
+ # ***************
+ # Auxiliary tools
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 0b8b66a..5d3d155 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -299,6 +299,10 @@ vte_@VTE_API_MAJOR_VERSION@_@VTE_API_MINOR_VERSION@_LDADD = \
+ 	$(VTE_LIBS) \
+ 	$(NULL)
+ 
++if HAVE_VALA_0_31
++vte_@VTE_API_MAJOR_VERSION@_@VTE_API_MINOR_VERSION@_VALAFLAGS += --disable-since-check
++endif
++
+ if HAVE_GTK_3_16
+ vte_@VTE_API_MAJOR_VERSION@_@VTE_API_MINOR_VERSION@_VALAFLAGS += -D GTK_3_16
+ endif
+-- 
+2.10.0
+
+
+From 928f2284b25e5ac3bd2a79b83d788a7dbbb358ec Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sun, 8 May 2016 08:59:09 +0200
+Subject: [PATCH 21/33] test: Typo fix
+
+(cherry picked from commit 5b7ff132b16f9da882a2b359e68c40903a57b166)
+---
+ src/vteapp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vteapp.c b/src/vteapp.c
+index e82079e..6e094e7 100644
+--- a/src/vteapp.c
++++ b/src/vteapp.c
+@@ -800,7 +800,7 @@ main(int argc, char **argv)
+ 		{
+ 			"scrollbar-policy", 'P', 0,
+ 			G_OPTION_ARG_STRING, &scrollbar_policy_string,
+-			"Set the policy for the vertical scroolbar in the scrolled window (always|auto|never; default:always)",
++			"Set the policy for the vertical scrollbar in the scrolled window (always|auto|never; default:always)",
+ 			NULL
+ 		},
+ 		{
+-- 
+2.10.0
+
+
+From 6f2304c4355521b5d1729d880adba33ad80b92f7 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sun, 8 May 2016 08:59:09 +0200
+Subject: [PATCH 22/33] terminal: Fix ::get_text start column not to be
+ negative
+
+When the selection starts at the beginning of the line but
+having been done by starting on the preceding line after the
+end of text, the start column is -1, which would cause
+::get_text() to lose the first line of the selected text.
+Regression from commit 3696348c0b9c7d60caf7302411ec4c0298f56e57.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=765276
+(cherry picked from commit d005d622f458f259919b35e448a985e2aabc7ecd)
+---
+ src/vte.cc | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 5ba70d3..d8f27cc 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -6020,6 +6020,9 @@ VteTerminalPrivate::get_text(vte::grid::row_t start_row,
+ 	string = g_string_new(NULL);
+ 	memset(&attr, 0, sizeof(attr));
+ 
++        if (start_col < 0)
++                start_col = 0;
++
+         vte::grid::column_t next_first_column = block ? start_col : 0;
+         vte::grid::column_t col = start_col;
+         vte::grid::row_t row;
+-- 
+2.10.0
+
+
+From c9fc1f16d4acd721b6b0754dd75067893541898b Mon Sep 17 00:00:00 2001
+From: Alexander Maznev <alexander.maznev@gmail.com>
+Date: Sun, 8 May 2016 10:22:07 +0200
+Subject: [PATCH 23/33] terminal: Fix search return value
+
+vte_terminal_search_find was always returning FALSE.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=765328
+(cherry picked from commit 2b05a52f318f3f9b10ef3784a18e69ba4f04d79e)
+---
+ src/vte.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index d8f27cc..8f7a18b 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -11209,7 +11209,7 @@ VteTerminalPrivate::search_find (bool backward)
+ {
+         vte::grid::row_t buffer_start_row, buffer_end_row;
+         vte::grid::row_t last_start_row, last_end_row;
+-        bool match_found = false;
++        bool match_found = true;
+ #ifdef WITH_PCRE2
+         pcre2_match_context_8 *match_context = nullptr;
+         pcre2_match_data_8 *match_data = nullptr;
+-- 
+2.10.0
+
+
+From 6dcccaa2a944bbafad18047c50a178e6fadf5024 Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Wed, 6 Apr 2016 10:54:02 +0200
+Subject: [PATCH 24/33] emulation: Fix Tab not to alter the background color
+
+https://bugzilla.gnome.org/show_bug.cgi?id=764330
+(cherry picked from commit f5452acf78a105466157a540beadd5dd2ced9efc)
+---
+ src/vteseq.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 1a64602..5c22b29 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -1925,7 +1925,7 @@ VteTerminalPrivate::seq_tab()
+ 		 */
+ 
+ 		old_len = _vte_row_data_length (rowdata);
+-                _vte_row_data_fill (rowdata, &m_fill_defaults, newcol);
++                _vte_row_data_fill (rowdata, &basic_cell.cell, newcol);
+ 
+ 		/* Insert smart tab if there's nothing in the line after
+ 		 * us.  Though, there may be empty cells (with non-default
+-- 
+2.10.0
+
+
+From 090c0b50abea895a2ff0b1b1d32b26177fcf4859 Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Wed, 6 Apr 2016 10:55:57 +0200
+Subject: [PATCH 25/33] emulation: Don't use smart tabs if the cells are
+ already in use
+
+https://bugzilla.gnome.org/show_bug.cgi?id=764330#c3
+(cherry picked from commit 30a7c0b7f75fc72703e700838db1d831e90430c4)
+---
+ src/vteseq.cc | 44 ++++++++++++++++----------------------------
+ 1 file changed, 16 insertions(+), 28 deletions(-)
+
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 5c22b29..6223ddc 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -1928,36 +1928,24 @@ VteTerminalPrivate::seq_tab()
+                 _vte_row_data_fill (rowdata, &basic_cell.cell, newcol);
+ 
+ 		/* Insert smart tab if there's nothing in the line after
+-		 * us.  Though, there may be empty cells (with non-default
+-		 * background color for example.
++		 * us, not even empty cells (with non-default background
++		 * color for example).
+ 		 *
+-		 * Notable bugs here: 545924 and 597242 */
+-		{
++		 * Notable bugs here: 545924, 597242, 764330 */
++		if (col >= old_len && newcol - col <= VTE_TAB_WIDTH_MAX) {
+ 			glong i;
+-			gboolean found = FALSE;
+-			for (i = old_len; i > col; i--) {
+-				const VteCell *cell = _vte_row_data_get (rowdata, i - 1);
+-				if (cell->attr.fragment || cell->c != 0) {
+-					found = TRUE;
+-					break;
+-				}
+-			}
+-			/* Nothing found on the line after us, turn this into
+-			 * a smart tab */
+-			if (!found && newcol - col <= VTE_TAB_WIDTH_MAX) {
+-				VteCell *cell = _vte_row_data_get_writable (rowdata, col);
+-				VteCell tab = *cell;
+-				tab.attr.columns = newcol - col;
+-				tab.c = '\t';
+-				/* Save tab char */
+-				*cell = tab;
+-				/* And adjust the fragments */
+-				for (i = col + 1; i < newcol; i++) {
+-					cell = _vte_row_data_get_writable (rowdata, i);
+-					cell->c = '\t';
+-					cell->attr.columns = 1;
+-					cell->attr.fragment = 1;
+-				}
++			VteCell *cell = _vte_row_data_get_writable (rowdata, col);
++			VteCell tab = *cell;
++			tab.attr.columns = newcol - col;
++			tab.c = '\t';
++			/* Save tab char */
++			*cell = tab;
++			/* And adjust the fragments */
++			for (i = col + 1; i < newcol; i++) {
++				cell = _vte_row_data_get_writable (rowdata, i);
++				cell->c = '\t';
++				cell->attr.columns = 1;
++				cell->attr.fragment = 1;
+ 			}
+ 		}
+ 
+-- 
+2.10.0
+
+
+From 8dbe242198fb3a4ce453866cfb4aa9dae9c3b9c4 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Sun, 8 May 2016 12:55:32 +0200
+Subject: [PATCH 26/33] emulation: Swallow urxvt OSC 777
+
+Accept OSC 777 but make it a no-op.
+
+Some distros patch their vte downstream with the rejected patch from
+bug 711059, which leads to problems with these escape sequences being
+shown on the terminal when using an unpatched upstream build of vte
+but the system-installed patched vte.sh script, due to vte not
+ignoring unknown escape sequences (bug 403130).
+
+https://bugzilla.gnome.org/show_bug.cgi?id=403130
+https://bugzilla.gnome.org/show_bug.cgi?id=711059
+(cherry picked from commit 47879674b97aa610174ce79e427a181ca23aad8d)
+---
+ src/caps.cc        | 2 ++
+ src/vteseq-n.gperf | 1 +
+ src/vteseq.cc      | 7 +++++++
+ 3 files changed, 10 insertions(+)
+
+diff --git a/src/caps.cc b/src/caps.cc
+index d4ac3d8..f5ad64a 100644
+--- a/src/caps.cc
++++ b/src/caps.cc
+@@ -254,6 +254,7 @@ const char _vte_xterm_capability_strings[] =
+         ENTRY(OSC "117" BEL, "reset-highlight-background-color")
+         ENTRY(OSC "118" BEL, "reset-tek-cursor-color")
+         ENTRY(OSC "119" BEL, "reset-highlight-foreground-color")
++        ENTRY(OSC "777;%s" BEL, "urxvt-777")
+ 
+         COMMENT(/* Set text parameters, ST-terminated versions. */)
+         ENTRY(OSC ";%s" ST, "set-icon-and-window-title") COMMENT(/* undocumented default */)
+@@ -289,6 +290,7 @@ const char _vte_xterm_capability_strings[] =
+         ENTRY(OSC "117" ST, "reset-highlight-background-color")
+         ENTRY(OSC "118" ST, "reset-tek-cursor-color")
+         ENTRY(OSC "119" ST, "reset-highlight-foreground-color")
++        ENTRY(OSC "777;%s" ST, "urxvt-777")
+ 
+         COMMENT(/* These may be bogus, I can't find docs for them anywhere (#104154). */)
+         ENTRY(OSC "21;%s" BEL, "set-text-property-21")
+diff --git a/src/vteseq-n.gperf b/src/vteseq-n.gperf
+index 4e2f337..e58dd94 100644
+--- a/src/vteseq-n.gperf
++++ b/src/vteseq-n.gperf
+@@ -168,3 +168,4 @@ struct vteseq_n_struct {
+ #"reset-mouse-cursor-foreground-color", VTE_SEQUENCE_HANDLER_NULL
+ "set-current-directory-uri", VTE_SEQUENCE_HANDLER(vte_sequence_handler_set_current_directory_uri)
+ "set-current-file-uri", VTE_SEQUENCE_HANDLER(vte_sequence_handler_set_current_file_uri)
++"urxvt-777", VTE_SEQUENCE_HANDLER(vte_sequence_handler_urxvt_777)
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 6223ddc..c83391c 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -3384,6 +3384,13 @@ vte_sequence_handler_reset_highlight_foreground_color (VteTerminalPrivate *that,
+ 	that->reset_color(VTE_HIGHLIGHT_FG, VTE_COLOR_SOURCE_ESCAPE);
+ }
+ 
++/* URXVT generic OSC 777 */
++
++static void
++vte_sequence_handler_urxvt_777(VteTerminalPrivate *that, GValueArray *params)
++{
++        /* Accept but ignore this for compatibility with downstream-patched vte (bug #711059)*/
++}
+ 
+ /* Lookup tables */
+ 
+-- 
+2.10.0
+
+
+From 1720b1a2092ca41b82203bf51996e3413e8fb0f4 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 9 May 2016 21:55:40 +0200
+Subject: [PATCH 27/33] build: Post release version bump
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 9af02a2..26e146f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,6 @@
+ m4_define([version_major],0)
+ m4_define([version_minor],44)
+-m4_define([version_micro],2)
++m4_define([version_micro],3)
+ m4_define([version_triplet],version_major.version_minor.version_micro)
+ 
+ AC_PREREQ([2.63])
+-- 
+2.10.0
+
+
+From 086c907335186167a13f65252c5e3282bdfe713b Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 16 May 2016 09:33:18 +0200
+Subject: [PATCH 28/33] test: Don't use IMMEDIATE resize mode for the window
+
+This makes testvte segfault on startup due to an infinite recursion
+below gtk_window_size_allocate().
+
+(cherry picked from commit 3da10648004c2d201d5bbea1d773c183984a6e39)
+---
+ src/vteapp.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/vteapp.c b/src/vteapp.c
+index 6e094e7..78f3e03 100644
+--- a/src/vteapp.c
++++ b/src/vteapp.c
+@@ -892,8 +892,6 @@ main(int argc, char **argv)
+ 	/* Create a window to hold the scrolling shell, and hook its
+ 	 * delete event to the quit function.. */
+ 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+-	gtk_container_set_resize_mode(GTK_CONTAINER(window),
+-				      GTK_RESIZE_IMMEDIATE);
+         if (border_width_string) {
+                 guint w;
+ 
+-- 
+2.10.0
+
+
+From c1cef4190a70b01b251e08139c8028f0371111c2 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 16 May 2016 10:26:16 +0200
+Subject: [PATCH 29/33] api: Validate colour values
+
+Don't allow in a GdkRGBA whose components exceed the allowed range of 0..1.
+
+(cherry picked from commit cb7589ea01526ec696daae60c5ff8a96d00a73e4)
+---
+ src/vtegtk.cc | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index a2591b4..98ff6e0 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -107,6 +107,15 @@ guint signals[LAST_SIGNAL];
+ GParamSpec *pspecs[LAST_PROP];
+ GTimer *process_timer;
+ 
++static bool
++valid_color(GdkRGBA const* color)
++{
++        return color->red >= 0. && color->red <= 1. &&
++               color->green >= 0. && color->green <= 1. &&
++               color->blue >= 0. && color->blue <= 1. &&
++               color->alpha >= 0. && color->alpha <= 1.;
++}
++
+ VteTerminalPrivate *_vte_terminal_get_impl(VteTerminal *terminal)
+ {
+         return IMPL(terminal);
+@@ -2691,6 +2700,7 @@ vte_terminal_set_color_background(VteTerminal *terminal,
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
+         g_return_if_fail(background != NULL);
++        g_return_if_fail(valid_color(background));
+ 
+         auto impl = IMPL(terminal);
+         impl->set_color_background(vte::color::rgb(background));
+@@ -2710,6 +2720,7 @@ vte_terminal_set_color_bold(VteTerminal *terminal,
+                             const GdkRGBA *bold)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
++        g_return_if_fail(bold == nullptr || valid_color(bold));
+ 
+         auto impl = IMPL(terminal);
+         if (bold)
+@@ -2732,6 +2743,7 @@ vte_terminal_set_color_cursor(VteTerminal *terminal,
+                               const GdkRGBA *cursor_background)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
++        g_return_if_fail(cursor_background == nullptr || valid_color(cursor_background));
+ 
+         auto impl = IMPL(terminal);
+         if (cursor_background)
+@@ -2756,6 +2768,7 @@ vte_terminal_set_color_cursor_foreground(VteTerminal *terminal,
+                                          const GdkRGBA *cursor_foreground)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
++        g_return_if_fail(cursor_foreground == nullptr || valid_color(cursor_foreground));
+ 
+         auto impl = IMPL(terminal);
+         if (cursor_foreground)
+@@ -2776,7 +2789,9 @@ vte_terminal_set_color_foreground(VteTerminal *terminal,
+                                   const GdkRGBA *foreground)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
+-        g_return_if_fail(foreground != NULL);
++        g_return_if_fail(foreground != nullptr);
++        g_return_if_fail(valid_color(foreground));
++
+         IMPL(terminal)->set_color_foreground(vte::color::rgb(foreground));
+ }
+ 
+@@ -2795,6 +2810,7 @@ vte_terminal_set_color_highlight(VteTerminal *terminal,
+                                  const GdkRGBA *highlight_background)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
++        g_return_if_fail(highlight_background == nullptr || valid_color(highlight_background));
+ 
+         auto impl = IMPL(terminal);
+         if (highlight_background)
+@@ -2818,6 +2834,7 @@ vte_terminal_set_color_highlight_foreground(VteTerminal *terminal,
+                                             const GdkRGBA *highlight_foreground)
+ {
+         g_return_if_fail(VTE_IS_TERMINAL(terminal));
++        g_return_if_fail(highlight_foreground == nullptr || valid_color(highlight_foreground));
+ 
+         auto impl = IMPL(terminal);
+         if (highlight_foreground)
+@@ -2857,6 +2874,10 @@ vte_terminal_set_colors(VteTerminal *terminal,
+ 			 (palette_size == 16) ||
+ 			 (palette_size == 232) ||
+ 			 (palette_size == 256));
++        g_return_if_fail(foreground == nullptr || valid_color(foreground));
++        g_return_if_fail(background == nullptr || valid_color(background));
++        for (gsize i = 0; i < palette_size; ++i)
++                g_return_if_fail(valid_color(&palette[i]));
+ 
+         vte::color::rgb fg;
+         if (foreground)
+-- 
+2.10.0
+
+
+From 0ecd99d2cc7848343bd51316e6f6289274a9a8cb Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 16 May 2016 10:26:16 +0200
+Subject: [PATCH 30/33] terminal: Warn on terminal if compiled without GNUTLS
+
+(cherry picked from commit a81a797b0cc75b1801fcda11f5d844962d4a0f6c)
+---
+ src/vte.cc | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 8f7a18b..316ab13 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -8138,6 +8138,16 @@ VteTerminalPrivate::VteTerminalPrivate(VteTerminal *t) :
+ 
+         m_padding = default_padding;
+         update_view_extents();
++
++#ifndef WITH_GNUTLS
++{
++        char buf[1024];
++        auto len = g_snprintf(buf, sizeof(buf), "\e[1m\e[31m%s:\e[39m %s\e[0m\n",
++                              "WARNING",
++                              "GNUTLS not enabled; data will be written to disk unencrypted!");
++        feed(buf, len);
++ }
++#endif
+ }
+ 
+ void
+-- 
+2.10.0
+
+
+From 2057abd188b57b988ab6165058b77b46e3e4af84 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Mon, 16 May 2016 10:25:29 +0200
+Subject: [PATCH 31/33] api: Don't process a reset when input is disabled
+
+With input disabled, only allow a reset when it comes from
+the terminal, not via the API.
+
+(cherry picked from commit 8c70f85361ddc54a61086929210add51dfc44da7)
+---
+ src/vte.cc         | 6 +++++-
+ src/vtegtk.cc      | 2 +-
+ src/vteinternal.hh | 3 ++-
+ 3 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 316ab13..efad1f7 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -10213,8 +10213,12 @@ VteTerminalPrivate::set_mouse_autohide(bool autohide)
+  */
+ void
+ VteTerminalPrivate::reset(bool clear_tabstops,
+-                          bool clear_history)
++                          bool clear_history,
++                          bool from_api)
+ {
++        if (from_api && !m_input_enabled)
++                return;
++
+         GObject *object = G_OBJECT(m_terminal);
+         g_object_freeze_notify(object);
+ 
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index 98ff6e0..6ea47f9 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -2511,7 +2511,7 @@ vte_terminal_reset(VteTerminal *terminal,
+                    gboolean clear_history)
+ {
+ 	g_return_if_fail(VTE_IS_TERMINAL(terminal));
+-        IMPL(terminal)->reset(clear_tabstops, clear_history);
++        IMPL(terminal)->reset(clear_tabstops, clear_history, true);
+ }
+ 
+ /**
+diff --git a/src/vteinternal.hh b/src/vteinternal.hh
+index 696750b..1ef0cea 100644
+--- a/src/vteinternal.hh
++++ b/src/vteinternal.hh
+@@ -795,7 +795,8 @@ public:
+                         GError **error);
+ 
+         void reset(bool clear_tabstops,
+-                   bool clear_history);
++                   bool clear_history,
++                   bool from_api = false);
+ 
+         void feed(char const* data,
+                   gssize length);
+-- 
+2.10.0
+
+
+From f08229fd4a3c200ef2be2f30e66b57199a170626 Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 23 May 2016 10:42:41 +0100
+Subject: [PATCH 32/33] widget: Fix get_preferred_height to use the correct
+ padding
+
+The implementation of GtkWidgetClass:get_preferred_height by
+mistake used the horizontal padding instead of the vertical padding.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=760944
+(cherry picked from commit 5bc6b3f8d8e733c02bebb9da8090429fef2b2688)
+---
+ src/vte.cc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index efad1f7..02bea92 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -8189,10 +8189,10 @@ VteTerminalPrivate::widget_get_preferred_height(int *minimum_height,
+ 	*minimum_height = m_char_height * 1;
+         *natural_height = m_char_height * m_row_count;
+ 
+-	*minimum_height += m_padding.left +
+-			   m_padding.right;
+-	*natural_height += m_padding.left +
+-			   m_padding.right;
++	*minimum_height += m_padding.top +
++			   m_padding.bottom;
++	*natural_height += m_padding.top +
++			   m_padding.bottom;
+ 
+ 	_vte_debug_print(VTE_DEBUG_WIDGET_SIZE,
+ 			"[Terminal %p] minimum_height=%d, natural_height=%d for %ldx%ld cells.\n",
+-- 
+2.10.0
+
+
+From 71dd12d1769059f05f5244b61c595f47b086589d Mon Sep 17 00:00:00 2001
+From: gnunn1 <gerald.b.nunn@gmail.com>
+Date: Sat, 8 Oct 2016 20:24:43 -0400
+Subject: [PATCH 33/33] add DisableBGDraw property
+
+---
+ src/vte.cc            | 20 ++++++++++++++++---
+ src/vte/vteterminal.h |  7 +++++++
+ src/vtegtk.cc         | 53 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/vtegtk.hh         |  1 +
+ src/vteinternal.hh    |  2 ++
+ 5 files changed, 80 insertions(+), 3 deletions(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index 02bea92..8db45af 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -8079,6 +8079,7 @@ VteTerminalPrivate::VteTerminalPrivate(VteTerminal *t) :
+ 	vte_terminal_set_delete_binding(m_terminal, VTE_ERASE_AUTO);
+ 	m_meta_sends_escape = TRUE;
+ 	m_audible_bell = TRUE;
++	m_disable_bg_draw = FALSE;
+ 	m_bell_margin = 10;
+ 	m_allow_bold = TRUE;
+         m_deccolm_mode = FALSE;
+@@ -9723,9 +9724,11 @@ VteTerminalPrivate::widget_draw(cairo_t *cr)
+ 	/* Designate the start of the drawing operation and clear the area. */
+ 	_vte_draw_set_cairo(m_draw, cr);
+ 
+-	_vte_draw_clear (m_draw, 0, 0,
+-			 allocated_width, allocated_height,
+-                         get_color(VTE_DEFAULT_BG), m_background_alpha);
++	if (!m_disable_bg_draw) {
++		_vte_draw_clear (m_draw, 0, 0,
++				 allocated_width, allocated_height,
++		                 get_color(VTE_DEFAULT_BG), m_background_alpha);
++	}
+ 
+         /* Clip vertically, for the sake of smooth scrolling. We want the top and bottom paddings to be unused.
+          * Don't clip horizontally so that antialiasing can legally overflow to the right padding. */
+@@ -9949,6 +9952,17 @@ VteTerminalPrivate::set_audible_bell(bool setting)
+ }
+ 
+ bool
++VteTerminalPrivate::set_disable_bg_draw(bool setting)
++{
++        if (setting == m_disable_bg_draw)
++                return false;
++
++	m_disable_bg_draw = setting;
++	invalidate_all();
++        return true;
++}
++
++bool
+ VteTerminalPrivate::set_allow_bold(bool setting)
+ {
+         if (setting == m_allow_bold)
+diff --git a/src/vte/vteterminal.h b/src/vte/vteterminal.h
+index 38ea8c3..668cf9c 100644
+--- a/src/vte/vteterminal.h
++++ b/src/vte/vteterminal.h
+@@ -452,6 +452,13 @@ gboolean vte_terminal_write_contents_sync (VteTerminal *terminal,
+                                            GCancellable *cancellable,
+                                            GError **error) _VTE_GNUC_NONNULL(1) _VTE_GNUC_NONNULL(2);
+ 
++/* Set disable background draw. */
++_VTE_PUBLIC
++void vte_terminal_set_disable_bg_draw(VteTerminal *terminal,
++                                   gboolean is_disabled) _VTE_GNUC_NONNULL(1);
++_VTE_PUBLIC
++gboolean vte_terminal_get_disable_bg_draw(VteTerminal *terminal);
++
+ G_END_DECLS
+ 
+ #endif /* __VTE_VTE_TERMINAL_H__ */
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index 6ea47f9..dcd1e2d 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -458,6 +458,9 @@ vte_terminal_get_property (GObject *object,
+                 case PROP_DELETE_BINDING:
+                         g_value_set_enum (value, impl->m_delete_binding);
+                         break;
++                case PROP_DISABLE_BG_DRAW:
++                        g_value_set_boolean (value, vte_terminal_get_disable_bg_draw (terminal));
++                        break;
+                 case PROP_ENCODING:
+                         g_value_set_string (value, vte_terminal_get_encoding (terminal));
+                         break;
+@@ -547,6 +550,9 @@ vte_terminal_set_property (GObject *object,
+                 case PROP_DELETE_BINDING:
+                         vte_terminal_set_delete_binding (terminal, (VteEraseBinding)g_value_get_enum (value));
+                         break;
++                case PROP_DISABLE_BG_DRAW:
++                        vte_terminal_set_disable_bg_draw (terminal, g_value_get_boolean (value));
++                        break;
+                 case PROP_ENCODING:
+                         vte_terminal_set_encoding (terminal, g_value_get_string (value), NULL);
+                         break;
+@@ -1309,6 +1315,18 @@ vte_terminal_class_init(VteTerminalClass *klass)
+                                    (GParamFlags) (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY));
+ 
+         /**
++         * VteTerminal:disable_bg_draw:
++         *
++         * Controls whether or not the terminal will draw the background,
++         * if disabled the responsibility is deferred to the application via
++         * the draw signal
++         */
++        pspecs[PROP_DISABLE_BG_DRAW] =
++                g_param_spec_boolean ("disable-bg-draw", NULL, NULL,
++                                      TRUE,
++                                      (GParamFlags) (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY));
++
++        /**
+          * VteTerminal:font-scale:
+          *
+          * The terminal's font scale.
+@@ -3044,6 +3062,41 @@ vte_terminal_set_delete_binding(VteTerminal *terminal,
+ }
+ 
+ /**
++ * vte_terminal_get_disable_bg_draw:
++ * @terminal: a #VteTerminal
++ *
++ * Determines whether the terminal will render the background or
++ * defer it to the application via the draw signal.
++ *
++ * Returns: %TRUE if background draw is disabled, %FALSE if not
++ */
++gboolean
++vte_terminal_get_disable_bg_draw(VteTerminal *terminal)
++{
++	g_return_val_if_fail(VTE_IS_TERMINAL(terminal), FALSE);
++	return IMPL(terminal)->m_disable_bg_draw;
++}
++
++/**
++ * vte_terminal_set_disable_bg_draw:
++ * @terminal: a #VteTerminal
++ * @is_disabled: %TRUE if the terminal should not draw the background
++ *
++ * Controls whether or not the terminal will beep when the child outputs the
++ * "bl" sequence.
++ */
++void
++vte_terminal_set_disable_bg_draw(VteTerminal *terminal,
++                              gboolean is_disabled)
++{
++        g_return_if_fail(VTE_IS_TERMINAL(terminal));
++
++        if (IMPL(terminal)->set_disable_bg_draw(is_disabled != FALSE))
++                g_object_notify_by_pspec(G_OBJECT(terminal), pspecs[PROP_DISABLE_BG_DRAW]);
++}
++
++
++/**
+  * vte_terminal_get_encoding:
+  * @terminal: a #VteTerminal
+  *
+diff --git a/src/vtegtk.hh b/src/vtegtk.hh
+index 5fd8c11..fcc69e7 100644
+--- a/src/vtegtk.hh
++++ b/src/vtegtk.hh
+@@ -71,6 +71,7 @@ enum {
+         PROP_CURRENT_DIRECTORY_URI,
+         PROP_CURRENT_FILE_URI,
+         PROP_DELETE_BINDING,
++        PROP_DISABLE_BG_DRAW,
+         PROP_ENCODING,
+         PROP_FONT_DESC,
+         PROP_FONT_SCALE,
+diff --git a/src/vteinternal.hh b/src/vteinternal.hh
+index 1ef0cea..5384607 100644
+--- a/src/vteinternal.hh
++++ b/src/vteinternal.hh
+@@ -389,6 +389,7 @@ public:
+         VteEraseBinding m_delete_binding;
+         gboolean m_meta_sends_escape;
+         gboolean m_audible_bell;
++        gboolean m_disable_bg_draw;
+         gboolean m_margin_bell;
+         guint m_bell_margin;
+         gboolean m_allow_bold;
+@@ -1130,6 +1131,7 @@ public:
+         bool set_cursor_shape(VteCursorShape shape);
+         bool set_cursor_style(VteCursorStyle style);
+         bool set_delete_binding(VteEraseBinding binding);
++        bool set_disable_bg_draw(bool setting);
+         bool set_encoding(char const* codeset);
+         bool set_font_desc(PangoFontDescription const* desc);
+         bool set_font_scale(double scale);
+-- 
+2.10.0
+

@@ -97,7 +97,10 @@ import gtk.ToggleButton;
 import gtk.Widget;
 import gtk.Window;
 
+import pango.PgCairo;
+import pango.PgContext;
 import pango.PgFontDescription;
+import pango.PgLayout;
 
 import vte.Terminal : VTE = Terminal;
 import vtec.vtetypes;
@@ -959,6 +962,54 @@ private:
             });
         }
 
+        //Test Badges
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            vte.setDisableBGDraw(true);
+            vte.addOnDraw(delegate(Scoped!Context cr, Widget w) {
+                ExtendedVTE v = cast(ExtendedVTE) w;
+                // Only draw background and badge if vte background draw is disabled
+                if (v.getDisableBGDraw()) {
+                    double width = to!double(w.getAllocatedWidth());
+                    double height = to!double(w.getAllocatedHeight());
+
+                    cr.save();
+                    // Paint Background
+                    cr.setSourceRgba(vteBG.red, vteBG.blue, vteBG.green, vteBG.alpha);
+                    cr.setOperator(cairo_operator_t.SOURCE);
+                    cr.rectangle(0.0, 0.0, width, height);
+                    cr.clip();
+                    cr.paint();
+
+                    //Paint badge
+                    // Use same alpha as background color to match transparency slider
+                    cr.rectangle(width/2, 0.0, width/2, height/2);
+                    cr.clip();
+                    cr.moveTo(width/2, 100.0);
+                    cr.setSourceRgba(vteBadge.red, vteBadge.blue, vteBadge.green, vteBG.alpha);
+                    string badge = gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY);
+                    cr.resetClip();
+                                        
+                    cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
+                    cr.setFontSize(50);
+                    //cairo_text_extents_t extents;
+                    //cr.textExtents(text, &extents);
+                    cr.showText(badge);
+                    
+                    /*
+                    PgContext pgc = new PgContext();
+                    PgFontDescription font = vte.getFont();
+                    if (font !is null) { 
+                        pgc.loadFont(font);
+                        PgLayout pgl = new PgLayout(pgc);
+                        PgCairo.showLayout(cr, pgl);
+                    }
+                    */
+                    cr.restore();
+                }
+                return false;
+            });
+        }
+
         Box box = new Box(Orientation.VERTICAL, 0);
         rFind = new SearchRevealer(vte, sagTerminalActions);
         rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
@@ -1524,6 +1575,7 @@ private:
     RGBA vteCursorBG;
     RGBA vteDimBG;
     RGBA[16] vtePalette;
+    RGBA vteBadge;
     double dimPercent;
 
     /**
@@ -1539,6 +1591,7 @@ private:
         vteCursorFG = new RGBA();
         vteCursorBG = new RGBA();
         vteDimBG = new RGBA();
+        vteBadge = new RGBA();
 
         vtePalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
@@ -1701,6 +1754,20 @@ private:
         case SETTINGS_PROFILE_TRIGGERS_KEY:
             loadTriggers();
             break;
+        case SETTINGS_PROFILE_BADGE_TEXT_KEY:
+            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+                vte.setDisableBGDraw(gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY).length > 0);
+                vte.queueDraw();
+            }
+            break;
+        case SETTINGS_PROFILE_BADGE_COLOR_KEY:
+            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+                vteBadge.parse(gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY));
+                if (vte.getDisableBGDraw()) {
+                    queueDraw();
+                }
+            }
+            break;
         default:
             break;
         }
@@ -1726,7 +1793,8 @@ private:
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
             SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
-            SETTINGS_PROFILE_TRIGGERS_KEY
+            SETTINGS_PROFILE_TRIGGERS_KEY,
+            SETTINGS_PROFILE_BADGE_TEXT_KEY
         ];
 
         foreach (key; keys) {

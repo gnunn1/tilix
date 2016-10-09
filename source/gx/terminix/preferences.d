@@ -210,6 +210,11 @@ immutable string[] SETTINGS_PROFILE_TRIGGER_ACTION_VALUES = [SETTINGS_PROFILE_TR
                                                              SETTINGS_PROFILE_TRIGGER_SEND_TEXT_VALUE,
                                                              SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE];
 
+//Badges
+enum SETTINGS_PROFILE_BADGE_TEXT_KEY = "badge-text";
+enum SETTINGS_PROFILE_BADGE_COLOR_KEY = "badge-color";
+enum SETTINGS_PROFILE_USE_BADGE_COLOR_KEY = "badge-color-set";
+
 /**
  * Structure that represents a Profile in GSettings
  */

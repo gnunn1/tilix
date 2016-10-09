@@ -27,6 +27,12 @@ class ExtendedVTE : Terminal {
 private:
     bool ignoreFirstNotification = true;
 
+    extern (C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, const int screen, ExtendedVTE _terminal) {
+        foreach (void delegate(TerminalScreen, Terminal) dlg; _terminal.onTerminalScreenChangedListeners) {
+            dlg(cast(TerminalScreen) screen, _terminal);
+        }
+    }
+
 public:
 
     /**
@@ -97,9 +103,29 @@ public:
         }
     }
 
-    extern (C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, const int screen, ExtendedVTE _terminal) {
-        foreach (void delegate(TerminalScreen, Terminal) dlg; _terminal.onTerminalScreenChangedListeners) {
-            dlg(cast(TerminalScreen) screen, _terminal);
-        }
+    public bool getDisableBGDraw() {
+		return vte_terminal_get_disable_bg_draw(vteTerminal) != 0;
     }
+
+    public void setDisableBGDraw(bool isDisabled) {
+		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
+    }
+}
+
+private:
+
+import gtkc.Loader;
+import gtkc.paths;
+
+__gshared extern(C) {
+	int function(VteTerminal* terminal) c_vte_terminal_get_disable_bg_draw;
+	void function(VteTerminal* terminal, int isAudible) c_vte_terminal_set_disable_bg_draw;
+}
+
+alias c_vte_terminal_get_disable_bg_draw vte_terminal_get_disable_bg_draw;
+alias c_vte_terminal_set_disable_bg_draw vte_terminal_set_disable_bg_draw;
+
+shared static this() {
+	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY.VTE);
+	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY.VTE);
 }

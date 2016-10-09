@@ -233,6 +233,17 @@ private:
         grid.attach(eTerminalTitle, 1, row, 1, 1);
         row++;
 
+        //Badge
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            Label lblBadge = new Label(_("Badge"));
+            lblBadge.setHalign(Align.END);
+            grid.attach(lblBadge, 0, row, 1, 1);
+            Entry eBadge = new Entry();
+            gsProfile.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
+            grid.attach(eBadge, 1, row, 1, 1);
+            row++;
+        }
+
         add(grid);
 
         //Text Appearance
@@ -308,6 +319,8 @@ private:
     ColorButton cbCursorBG;
     CheckButton cbUseDimColor;
     ColorButton cbDimBG;
+    CheckButton cbUseBadgeColor;
+    ColorButton cbBadgeFG;
     ColorButton[16] cbPalette;
 
     void createUI() {
@@ -476,6 +489,19 @@ private:
 
         cbDimBG = createColorButton(SETTINGS_PROFILE_DIM_COLOR_KEY, _("Select Dim Color"), SETTINGS_PROFILE_USE_DIM_COLOR_KEY);
         gColors.attach(cbDimBG, 2, row, 1, 1);
+        row++;
+
+        //Badge
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            cbUseBadgeColor = new CheckButton(_("Badge"));
+            cbUseBadgeColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+            gsProfile.bind(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, cbUseBadgeColor, "active", GSettingsBindFlags.DEFAULT);
+            gColors.attach(cbUseBadgeColor, 0, row, 1, 1);
+
+            cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
+            gColors.attach(cbBadgeFG, 1, row, 1, 1);
+        }        
+
         gColors.showAll();
         popAdvanced.add(gColors);
         return popAdvanced;

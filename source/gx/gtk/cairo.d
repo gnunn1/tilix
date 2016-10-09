@@ -29,7 +29,6 @@ import gtk.Main;
 import gtk.OffscreenWindow;
 import gtk.Widget;
 
-
 Pixbuf getWidgetImage(Widget widget, double factor) {
     return getWidgetImage(widget, factor, widget.getAllocatedWidth(), widget.getAllocatedHeight());
 }
