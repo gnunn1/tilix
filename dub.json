@@ -11,19 +11,24 @@
 
     "buildTypes": {
         "release": {
-            "versions": ["StdLoggerDisableTrace"]
         },
         "localize": {
             "versions": ["Localize"]
         },
-	"i686": {
-	   "dflags": ["-m32"]
-	}
+        "i686": {
+            "dflags": ["-m32"]
+        }
     },
 
     "configurations": [
         {
             "name": "default",
+            "targetType": "executable",
+            "libs-linux": ["X11"],
+            "versions": ["StdLoggerDisableTrace"]
+        },
+        {
+            "name": "trace",
             "targetType": "executable",
             "libs-linux": ["X11"]
         },
@@ -32,7 +37,8 @@
             "targetType": "executable",
             "libs": ["gtkd-3"],
             "libs-linux": ["X11"],            
-            "lflags": ["-defaultlib=gtkd-3.so"]
+            "lflags": ["-defaultlib=gtkd-3.so"],
+            "versions": ["StdLoggerDisableTrace"]
         }
     ]
 }
