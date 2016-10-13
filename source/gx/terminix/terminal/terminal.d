@@ -574,7 +574,7 @@ private:
         //Cycle terminal style
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE_STYLE, gsShortcuts, delegate(GVariant, SimpleAction) {
             string style = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY);
-            long index = SETTINGS_TERMINAL_TITLE_STYLE_VALUES.countUntil(style);
+            size_t index = SETTINGS_TERMINAL_TITLE_STYLE_VALUES.countUntil(style);
             index++;
             if (index > SETTINGS_TERMINAL_TITLE_STYLE_VALUES.length - 1) {
                 index = 0;
@@ -851,7 +851,7 @@ private:
             // Finally check that the VTE cursor position is greater then 0,0, this is a fix for #425. Not sure why
             // but passing command paremeters causes contentschanged signal to fire twice even though there is no change in content.
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && _overrideCommand.length == 0) {
-                long cursorCol, cursorRow;
+                ptrdiff_t cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
                 //tracef("\trow=%d, column=%d",cursorRow,cursorCol);
                 if (cursorRow > 0 || cursorCol >0) {
@@ -1206,8 +1206,8 @@ private:
 
     // List of triggers to test for
     TerminalTrigger[] triggers;
-    long triggerLastRowChecked = -1;
-    long triggerLastColChecked = -1;
+    ptrdiff_t triggerLastRowChecked = -1;
+    ptrdiff_t triggerLastColChecked = -1;
 
     TerminalScreen currentScreen = TerminalScreen.NORMAL;
 
@@ -1227,16 +1227,15 @@ private:
         //Only process if we have triggers to match
         if (triggers.length == 0) return;
 
-        long cursorRow;
-        long cursorCol;
+        ptrdiff_t cursorRow, cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
         //tracef("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow);
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
             size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
-            long startRow = triggerLastRowChecked;
-            long startCol = triggerLastColChecked;
+            ptrdiff_t startRow = triggerLastRowChecked;
+            ptrdiff_t startCol = triggerLastColChecked;
             // Enforce maximum lines to check
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && (cursorRow - startRow) > maxLines) {
                 startRow = cursorRow - maxLines;
