@@ -65,6 +65,7 @@ import gtk.Clipboard;
 import gtk.CssProvider;
 import gtk.Dialog;
 import gtk.DragAndDrop;
+import gtk.Entry;
 import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
@@ -525,6 +526,15 @@ private:
             }
         });
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            // Check to see if something other then terminal has focus
+            Window window = cast(Window) getToplevel();
+            if (window !is null) {
+                Entry entry = cast(Entry) window.getFocus();
+                if (entry !is null) {
+                    entry.pasteClipboard();
+                    return;
+                }
+            }
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
                     advancedPaste(GDK_SELECTION_CLIPBOARD);
