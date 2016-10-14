@@ -1065,7 +1065,7 @@ public:
     @property string displayName() {
         string result;
         if (currentTerminal is null) result = name;
-        else result = currentTerminal.getDisplayTitle(name);
+        else result = currentTerminal.getDisplayText(name);
         // If it is using Default from preferences localize it
         if (result == "Default") return _("Default");
         else return result;
