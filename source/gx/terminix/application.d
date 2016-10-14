@@ -413,14 +413,7 @@ private:
                         default:
                             //Fall through to activate
                     }
-                }                    /*
-                    if (cp.terminalUUID.length > 0 && cp.title.length > 0) {
-                        aw.getActiveTerminal().overrideTitle = cp.title;
-                        //No further processing, setting title ignores everything else
-                        return cp.exitCode;
-                    }
-                    */
-
+                } 
             }
         }
         activate();
