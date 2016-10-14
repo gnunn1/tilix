@@ -306,6 +306,9 @@ private:
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
 
+    //Cached badged so it is not calculated on each draw
+    string _cachedBadge;
+
     // Keep track of previous title to avoid triggering too many TerminalTitleChange events
     string lastTitle;
 
@@ -605,7 +608,7 @@ private:
             if (dialog.run() == ResponseType.OK) {
                 _overrideTitle = dialog.title;
                 _overrideCommand = dialog.command;
-                updateTitle();
+                updateDisplayText();
             }
         });
 
@@ -820,17 +823,17 @@ private:
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
             trace("Window title changed");
             gst.updateState();
-            updateTitle();
+            updateDisplayText();
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
-            updateTitle();
+            updateDisplayText();
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
                 gst.updateState(hostname, directory);
-                updateTitle();
+                updateDisplayText();
                 checkAutomaticProfileSwitch();
             }
         });
@@ -882,7 +885,7 @@ private:
         }
 
         vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
-            updateTitle();
+            updateDisplayText();
         }, GConnectFlags.AFTER);
         vte.addOnEnterNotify(delegate(Event event, Widget) {
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
@@ -975,49 +978,6 @@ private:
         //Test Badges
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
             vte.setDisableBGDraw(true);
-            vte.addOnDraw(delegate(Scoped!Context cr, Widget w) {
-                ExtendedVTE v = cast(ExtendedVTE) w;
-                // Only draw background and badge if vte background draw is disabled
-                if (v.getDisableBGDraw()) {
-                    double width = to!double(w.getAllocatedWidth());
-                    double height = to!double(w.getAllocatedHeight());
-
-                    cr.save();
-                    // Paint Background
-                    cr.setSourceRgba(vteBG.red, vteBG.blue, vteBG.green, vteBG.alpha);
-                    cr.setOperator(cairo_operator_t.SOURCE);
-                    cr.rectangle(0.0, 0.0, width, height);
-                    cr.clip();
-                    cr.paint();
-
-                    //Paint badge
-                    // Use same alpha as background color to match transparency slider
-                    cr.rectangle(width/2, 0.0, width/2, height/2);
-                    cr.clip();
-                    cr.moveTo(width/2, 100.0);
-                    cr.setSourceRgba(vteBadge.red, vteBadge.blue, vteBadge.green, vteBG.alpha);
-                    string badge = gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY);
-                    cr.resetClip();
-                                        
-                    cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
-                    cr.setFontSize(50);
-                    //cairo_text_extents_t extents;
-                    //cr.textExtents(text, &extents);
-                    cr.showText(badge);
-                    
-                    /*
-                    PgContext pgc = new PgContext();
-                    PgFontDescription font = vte.getFont();
-                    if (font !is null) { 
-                        pgc.loadFont(font);
-                        PgLayout pgl = new PgLayout(pgc);
-                        PgCairo.showLayout(cr, pgl);
-                    }
-                    */
-                    cr.restore();
-                }
-                return false;
-            });
         }
 
         Box box = new Box(Orientation.VERTICAL, 0);
@@ -1079,11 +1039,30 @@ private:
     }
 
     /**
+     * Updates things that depend on the calculated text
+     */
+    void updateDisplayText() {
+        updateTitle();
+        updateBadge();
+    }
+
+    /**
+     * Updates the cached badge text
+     */
+    void updateBadge() {
+        string badge = getDisplayText(gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY));
+        if (badge != _cachedBadge) {
+            _cachedBadge = badge;
+            vte.queueDraw();
+        } 
+    }
+
+    /**
      * Updates the terminal title in response to UI changes
      */
     void updateTitle() {
         string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
-        title = getDisplayTitle(title);
+        title = getDisplayText(title);
         if (title != lastTitle) {
             lblTitle.setMarkup(title);
             lastTitle = title;
@@ -1309,7 +1288,7 @@ private:
                     }
                 }
                 if (update) {
-                    updateTitle();
+                    updateDisplayText();
                     checkAutomaticProfileSwitch();
                 }
                 break;
@@ -1729,7 +1708,7 @@ private:
             vte.setCursorBlinkMode(getBlinkMode(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY)));
             break;
         case SETTINGS_PROFILE_TITLE_KEY:
-            updateTitle();
+            updateDisplayText();
             break;
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
             PgFontDescription desc;
@@ -1803,7 +1782,8 @@ private:
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
             SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
             SETTINGS_PROFILE_TRIGGERS_KEY,
-            SETTINGS_PROFILE_BADGE_TEXT_KEY
+            SETTINGS_PROFILE_BADGE_TEXT_KEY,
+            SETTINGS_PROFILE_BADGE_COLOR_KEY
         ];
 
         foreach (key; keys) {
@@ -2096,6 +2076,7 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
+        vte.addOnDraw(&onVTEDrawBadge);
 
         trace("Drag and drop completed");
     }
@@ -2313,6 +2294,49 @@ private:
         }
     }
 
+    bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
+        // Only draw background and badge if vte background draw is disabled
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && vte.getDisableBGDraw()) {
+            double width = to!double(w.getAllocatedWidth());
+            double height = to!double(w.getAllocatedHeight());
+
+            cr.save();
+            // Paint Background
+            cr.setSourceRgba(vteBG.red, vteBG.blue, vteBG.green, vteBG.alpha);
+            cr.setOperator(cairo_operator_t.SOURCE);
+            cr.rectangle(0.0, 0.0, width, height);
+            cr.clip();
+            cr.paint();
+            cr.resetClip();
+
+            //Paint badge
+            // Use same alpha as background color to match transparency slider
+            cr.rectangle(width/2, 0.0, width/2, height/2);
+            cr.clip();
+            cr.moveTo(width/2, 100.0);
+            cr.setSourceRgba(vteBadge.red, vteBadge.blue, vteBadge.green, vteBG.alpha);
+                                
+            cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
+            cr.setFontSize(50);
+            //cairo_text_extents_t extents;
+            //cr.textExtents(text, &extents);
+            cr.showText(_cachedBadge);
+            
+            /*
+            PgContext pgc = new PgContext();
+            PgFontDescription font = vte.getFont();
+            if (font !is null) { 
+                pgc.loadFont(font);
+                PgLayout pgl = new PgLayout(pgc);
+                PgCairo.showLayout(cr, pgl);
+            }
+            */
+            cr.restore();
+        }
+        return false;
+    }
+
+
     enum STROKE_WIDTH = 4;
 
     //Draw the drag hint if dragging is occurring
@@ -2492,7 +2516,7 @@ public:
             vte.setSize(width, height);
         }
         trace("Terminal initialized");
-        updateTitle();
+        updateDisplayText();
     }
 
     /**
@@ -2640,23 +2664,23 @@ public:
     }
 
     /**
-     * Takes a terminal title string with tokens/vairables like ${title} and
+     * Takes a terminal title string with tokens/variables like ${title} and
      * performs the substitution to get the displayed title.
      *
      * This is public because the session can use it to resolve these variables
      * for the active terminal for it's own name shown in the sidebar.
      */
-    string getDisplayTitle(string title) {
+    string getDisplayText(string text) {
         string windowTitle = vte.getWindowTitle();
         if (windowTitle.length == 0)
             windowTitle = _("Terminal");
-        title = title.replace(TERMINAL_TITLE, windowTitle);
-        title = title.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
-        title = title.replace(TERMINAL_ID, to!string(terminalID));
-        title = title.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
-        title = title.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
-        title = title.replace(TERMINAL_HOSTNAME, gst.currentHostname);
-        title = title.replace(TERMINAL_USERNAME, gst.currentUsername);
+        text = text.replace(TERMINAL_TITLE, windowTitle);
+        text = text.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
+        text = text.replace(TERMINAL_ID, to!string(terminalID));
+        text = text.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        text = text.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
+        text = text.replace(TERMINAL_HOSTNAME, gst.currentHostname);
+        text = text.replace(TERMINAL_USERNAME, gst.currentUsername);
         string path;
         if (terminalInitialized) {
             path = gst.currentDirectory;
@@ -2664,8 +2688,8 @@ public:
             trace("Terminal not initialized yet or VTE not configured, no path available");
             path = "";
         }
-        title = title.replace(TERMINAL_DIR, path);
-        return title;
+        text = text.replace(TERMINAL_DIR, path);
+        return text;
     }
 
     @property string currentLocalDirectory() {
@@ -2730,7 +2754,7 @@ public:
     @property void terminalID(size_t ID) {
         if (this._terminalID != ID) {
             this._terminalID = ID;
-            updateTitle();
+            updateDisplayText();
         }
     }
 
