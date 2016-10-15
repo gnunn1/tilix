@@ -255,6 +255,7 @@ private:
 
     void loadEntries() {
         ListG list = collection.getItems();
+        if (list is null) return;
         Item[] items = list.toArray!Item;
         rows.length = 0;
         foreach (item; items) {
