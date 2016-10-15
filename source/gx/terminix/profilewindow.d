@@ -154,6 +154,7 @@ private:
         lblName.setHalign(Align.END);
         grid.attach(lblName, 0, row, 1, 1);
         Entry eName = new Entry();
+        eName.setHexpand(true);
         gsProfile.bind(SETTINGS_PROFILE_VISIBLE_NAME_KEY, eName, "text", GSettingsBindFlags.DEFAULT);
         grid.attach(eName, 1, row, 1, 1);
         row++;
