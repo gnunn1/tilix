@@ -235,12 +235,23 @@ private:
 
         //Badge
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            //Badge text
             Label lblBadge = new Label(_("Badge"));
             lblBadge.setHalign(Align.END);
             grid.attach(lblBadge, 0, row, 1, 1);
             Entry eBadge = new Entry();
             gsProfile.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
             grid.attach(eBadge, 1, row, 1, 1);
+            row++;
+
+            //Badge Position
+            Label lblBadgePosition = new Label(_("Badge position"));
+            lblBadgePosition.setHalign(Align.END);
+            grid.attach(lblBadgePosition, 0, row, 1, 1);
+
+            ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
+            gsProfile.bind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbBadgePosition, 1, row, 1, 1);
             row++;
         }
 
@@ -500,7 +511,7 @@ private:
 
             cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
             gColors.attach(cbBadgeFG, 1, row, 1, 1);
-        }        
+        }
 
         gColors.showAll();
         popAdvanced.add(gColors);

@@ -111,6 +111,14 @@
     <value nick='hold' value='2'/>
   </enum>
 
+  <!-- Quadrant enum, used for badge position -->
+  <enum id='com.gexperts.Terminix.Quadrant'>
+    <value nick='northwest' value = '0'/>
+    <value nick='northeast' value = '1'/>
+    <value nick='southwest' value = '2'/>
+    <value nick='southeast' value = '3'/>
+  </enum>
+
   <!-- Global settings -->
   <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
 
@@ -693,6 +701,11 @@
       <default>false</default>
       <summary>Whether to use custom badge color</summary>
       <description>If true, use the badge color from the profile.</description>
+    </key>
+    <key name="badge-position" enum="com.gexperts.Terminix.Quadrant">
+      <default>'northeast'</default>
+      <summary>The position where the badge is displayed</summary>
+      <description>Determines the position based on quadrants whre the badge is rendered in the terminal.</description>
     </key>
   </schema>
 

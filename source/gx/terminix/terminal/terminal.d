@@ -18,6 +18,7 @@ import std.exception;
 import std.experimental.logger;
 import std.format;
 import std.json;
+import std.math;
 import std.process;
 import std.regex;
 import std.stdio;
@@ -1756,6 +1757,9 @@ private:
                 }
             }
             break;
+        case SETTINGS_PROFILE_BADGE_POSITION_KEY:
+            queueDraw();
+            break;
         default:
             break;
         }
@@ -1783,7 +1787,8 @@ private:
             SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
             SETTINGS_PROFILE_TRIGGERS_KEY,
             SETTINGS_PROFILE_BADGE_TEXT_KEY,
-            SETTINGS_PROFILE_BADGE_COLOR_KEY
+            SETTINGS_PROFILE_BADGE_COLOR_KEY,
+            SETTINGS_PROFILE_BADGE_POSITION_KEY
         ];
 
         foreach (key; keys) {
@@ -2075,8 +2080,8 @@ private:
         vte.addOnDragDataReceived(&onVTEDragDataReceived);
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
-        vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
         vte.addOnDraw(&onVTEDrawBadge);
+        vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
 
         trace("Drag and drop completed");
     }
@@ -2294,9 +2299,11 @@ private:
         }
     }
 
+    const uint BADGE_MARGIN = 10;
+
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         // Only draw background and badge if vte background draw is disabled
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && vte.getDisableBGDraw()) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && vte.getDisableBGDraw() && _cachedBadge.length > 0) {
             double width = to!double(w.getAllocatedWidth());
             double height = to!double(w.getAllocatedHeight());
 
@@ -2309,28 +2316,72 @@ private:
             cr.paint();
             cr.resetClip();
 
-            //Paint badge
+            // Paint badge
             // Use same alpha as background color to match transparency slider
-            cr.rectangle(width/2, 0.0, width/2, height/2);
-            cr.clip();
-            cr.moveTo(width/2, 100.0);
             cr.setSourceRgba(vteBadge.red, vteBadge.blue, vteBadge.green, vteBG.alpha);
-                                
-            cr.selectFontFace("monospace", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
-            cr.setFontSize(50);
-            //cairo_text_extents_t extents;
-            //cr.textExtents(text, &extents);
-            cr.showText(_cachedBadge);
-            
-            /*
-            PgContext pgc = new PgContext();
-            PgFontDescription font = vte.getFont();
-            if (font !is null) { 
-                pgc.loadFont(font);
-                PgLayout pgl = new PgLayout(pgc);
-                PgCairo.showLayout(cr, pgl);
+
+            // Create rect for default NW position
+            GdkRectangle rect = GdkRectangle(BADGE_MARGIN, BADGE_MARGIN, to!int(width/2) - BADGE_MARGIN, to!int(height/2) - BADGE_MARGIN);
+            string position = gsProfile.getString(SETTINGS_PROFILE_BADGE_POSITION_KEY);
+            //Adjust coords of rect for other positions
+            switch (position) {
+                case SETTINGS_QUADRANT_NE_VALUE:
+                    rect.x = to!int(width/2) + BADGE_MARGIN;
+                    break;
+                case SETTINGS_QUADRANT_SW_VALUE:
+                    rect.y = to!int(height/2) + BADGE_MARGIN;
+                    break;
+                case SETTINGS_QUADRANT_SE_VALUE:
+                    rect.x = to!int(width/2) + BADGE_MARGIN;
+                    rect.y = to!int(height/2) + BADGE_MARGIN;
+                    break;
+                default:
             }
-            */
+
+            PgFontDescription font = vte.getFont().copy();
+            font.setSize(font.getSize() * 2);
+
+            PgLayout pgl = PgCairo.createLayout(cr);
+            pgl.setFontDescription(font);
+            pgl.setText(_cachedBadge);
+            pgl.setWidth(rect.width * PANGO_SCALE);
+            pgl.setHeight(rect.height * PANGO_SCALE);
+            int pw, ph;
+            pgl.getPixelSize(pw, ph);
+            //Hack, deduct 0.2 from ratio to make sure text will fit when painted
+            double fontRatio = to!double(rect.width)/to!double(pw) - 0.2;
+            // If a bigger font fits, then increase it
+            if (fontRatio > 1) {
+                int fontSize = to!int(floor(fontRatio * font.getSize()));
+                font.setSize(fontSize);
+                pgl.setFontDescription(font);
+                //tracef("Width %d, Pixel Width %d, Pixel Height %d, Original Font ratio %f, Font size %d", rect.width, pw, ph, fontRatio, fontSize);
+                pgl.getPixelSize(pw, ph);
+            } else {
+                pgl.setWrap(PangoWrapMode.WORD_CHAR);
+            }
+
+            switch (position) {
+                case SETTINGS_QUADRANT_NE_VALUE:
+                    pgl.setAlignment(PangoAlignment.RIGHT);
+                    break;
+                case SETTINGS_QUADRANT_SW_VALUE:
+                    rect.y = rect.y + rect.height - ph; 
+                    break;
+                case SETTINGS_QUADRANT_SE_VALUE:
+                    rect.y = rect.y + rect.height - ph; 
+                    pgl.setAlignment(PangoAlignment.RIGHT);
+                    break;
+                default:
+            }
+
+            cr.rectangle(rect.x, rect.y, rect.width, rect.height);
+            cr.clip();
+            cr.moveTo(rect.x, rect.y);
+
+            PgCairo.showLayout(cr, pgl);
+
+            cr.resetClip();
             cr.restore();
         }
         return false;
