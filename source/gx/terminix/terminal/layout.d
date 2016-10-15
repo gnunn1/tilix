@@ -85,7 +85,9 @@ public:
     }
 
     @property void title(string value) {
-        eTitle.setText(value);
+        if (value.length > 0) {
+            eTitle.setText(value);
+        }
     }
 
     @property string command() {
@@ -93,6 +95,8 @@ public:
     }
 
     @property void command(string value) {
-        eCommand.setText(value);
+        if (value.length > 0) {
+            eCommand.setText(value);
+        }
     }
 }
