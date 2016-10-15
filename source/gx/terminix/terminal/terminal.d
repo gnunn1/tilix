@@ -1746,7 +1746,7 @@ private:
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
                 vte.setDisableBGDraw(gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY).length > 0);
-                vte.queueDraw();
+                updateBadge();
             }
             break;
         case SETTINGS_PROFILE_BADGE_COLOR_KEY:
