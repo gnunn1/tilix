@@ -2349,7 +2349,7 @@ private:
             int pw, ph;
             pgl.getPixelSize(pw, ph);
             //Hack, deduct 0.2 from ratio to make sure text will fit when painted
-            double fontRatio = to!double(rect.width)/to!double(pw) - 0.2;
+            double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph)); 
             // If a bigger font fits, then increase it
             if (fontRatio > 1) {
                 int fontSize = to!int(floor(fontRatio * font.getSize()));
