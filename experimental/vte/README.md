@@ -18,3 +18,38 @@ The following patches are available:
 |---|---|---|
 | alternate-screen.patch| Yes | This patch adds a new event to the VTE that signals when the terminal switches between normal and alternate screens. This patch is required to support triggers which are deactivated in Terminix unless this new event is detected as being available. Note that if this patch is applied with the fedora-notifications patch, the padding field in /src/vte/vteterminal.h must be decremented from 15 to 14 since that patch also adds a new event. Failure to do so will break gnome-terminal.
 |disable-bg-draw.patch| Yes| This patch adds a new property to the VTE that disables the background draw and allows the application to assume responsibility for it. In Terminix this is used to support badges, however if it gets accepted by upstream some of the other features like background image will leverage it in teh future. |
+
+## Testing Patches
+
+To test these patches, you will need to manually compile the vte widget. To do so, first clone the VTE git respository:
+
+```
+git clone https://github.com/GNOME/vte
+```
+
+Next you will need to select either the 0.44 or 0.46 branches, these patches should work with either:
+
+```
+cd vte
+git checkout vte-0-46
+```
+
+At this point we can apply the patches. Copy the patches into the vte directory and then run the following:
+
+```
+patch -p1 -i alternate-screen.patch
+patch -p1 -i disable-bg-draw.patch
+```
+
+Finally build vte as normal:
+
+```
+./autogen.sh
+make
+```
+
+And finally to run terminix with the patched VTE:
+
+```
+LD_PRELOAD=src/.libs/libvte-2.91.so terminix
+```
