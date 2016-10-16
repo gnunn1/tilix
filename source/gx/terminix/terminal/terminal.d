@@ -2309,7 +2309,7 @@ private:
 
             cr.save();
             // Paint Background
-            cr.setSourceRgba(vteBG.red, vteBG.blue, vteBG.green, vteBG.alpha);
+            cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
             cr.clip();
@@ -2318,7 +2318,7 @@ private:
 
             // Paint badge
             // Use same alpha as background color to match transparency slider
-            cr.setSourceRgba(vteBadge.red, vteBadge.blue, vteBadge.green, vteBG.alpha);
+            cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
 
             // Create rect for default NW position
             GdkRectangle rect = GdkRectangle(BADGE_MARGIN, BADGE_MARGIN, to!int(width/2) - BADGE_MARGIN, to!int(height/2) - BADGE_MARGIN);
