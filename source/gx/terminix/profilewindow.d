@@ -504,13 +504,15 @@ private:
         row++;
 
         //Badge
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
-            cbUseBadgeColor = new CheckButton(_("Badge"));
-            cbUseBadgeColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-            gsProfile.bind(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, cbUseBadgeColor, "active", GSettingsBindFlags.DEFAULT);
-            gColors.attach(cbUseBadgeColor, 0, row, 1, 1);
+        cbUseBadgeColor = new CheckButton(_("Badge"));
+        cbUseBadgeColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+        gsProfile.bind(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, cbUseBadgeColor, "active", GSettingsBindFlags.DEFAULT);
 
-            cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
+        cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
+        // Only attach badge components if badge feature is available
+        // Need to still create them to support color scheme matching
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            gColors.attach(cbUseBadgeColor, 0, row, 1, 1);
             gColors.attach(cbBadgeFG, 1, row, 1, 1);
         }
 
@@ -627,6 +629,8 @@ private:
         cbCursorBG.getRgba(scheme.cursorBG);
         scheme.useDimColor = cbUseDimColor.getActive();
         cbDimBG.getRgba(scheme.dimColor);
+        scheme.useBadgeColor = cbUseBadgeColor.getActive();
+        cbBadgeFG.getRgba(scheme.badgeColor);
 
         int index = findSchemeByColors(schemes, scheme);
         if (index < 0)
@@ -654,6 +658,11 @@ private:
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, scheme.useDimColor);
             if (scheme.useDimColor) {
                 cbDimBG.setRgba(scheme.dimColor);
+            }
+            //Badge colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, scheme.useBadgeColor);
+            if (scheme.useBadgeColor) {
+                cbBadgeFG.setRgba(scheme.badgeColor);
             }
             //Highlight colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, scheme.useHighlightColor);

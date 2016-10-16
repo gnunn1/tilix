@@ -36,6 +36,8 @@ enum SCHEME_KEY_HIGHLIGHT_FG = "highlight-foreground-color";
 enum SCHEME_KEY_HIGHLIGHT_BG = "highlight-background-color";
 enum SCHEME_KEY_CURSOR_FG = "cursor-foreground-color";
 enum SCHEME_KEY_CURSOR_BG = "cursor-background-color";
+enum SCHEME_KEY_BADGE_FG = "badge-color";
+enum SCHEME_KEY_USE_BADGE_COLOR = "use-badge-color";
 
 /**
   * A Terminix color scheme.
@@ -52,6 +54,7 @@ class ColorScheme {
     bool useHighlightColor;
     bool useCursorColor;
     bool useDimColor;
+    bool useBadgeColor;
     RGBA foreground;
     RGBA background;
     RGBA highlightFG;
@@ -59,6 +62,7 @@ class ColorScheme {
     RGBA cursorFG;
     RGBA cursorBG;
     RGBA dimColor;
+    RGBA badgeColor;
     RGBA[16] palette;
 
     this() {
@@ -70,6 +74,7 @@ class ColorScheme {
         cursorFG = new RGBA();
         cursorBG = new RGBA();
         dimColor = new RGBA();
+        badgeColor = new RGBA();
 
         for (int i = 0; i < 16; i++) {
             palette[i] = new RGBA();
@@ -93,6 +98,10 @@ class ColorScheme {
             }
             if (useDimColor) {
                 if (!(equal(dimColor, scheme.dimColor)))
+                    return false;
+            }
+            if (useBadgeColor) {
+                if (!(equal(badgeColor, scheme.badgeColor)))
                     return false;
             }
         }
@@ -123,7 +132,8 @@ class ColorScheme {
                    equal(scheme.highlightBG, this.highlightBG) &&
                    equal(scheme.cursorFG, this.cursorFG) &&
                    equal(scheme.cursorBG, this.cursorBG) &&
-                   equal(scheme.dimColor, this.dimColor);
+                   equal(scheme.dimColor, this.dimColor) &&
+                   equal(scheme.badgeColor, this.badgeColor);
         else
             return false;
    }
@@ -203,6 +213,9 @@ private ColorScheme loadScheme(string fileName) {
     if (SCHEME_KEY_USE_CURSOR_COLOR in root) {
         cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == JSON_TYPE.TRUE ? true : false;
     }
+    if (SCHEME_KEY_USE_BADGE_COLOR in root) {
+        cs.useBadgeColor = root[SCHEME_KEY_USE_BADGE_COLOR].type == JSON_TYPE.TRUE ? true : false;
+    }
     if (SCHEME_KEY_HIGHLIGHT_FG in root) {
         parseColor(cs.highlightFG, root[SCHEME_KEY_HIGHLIGHT_FG].str());
     }
@@ -217,6 +230,9 @@ private ColorScheme loadScheme(string fileName) {
     }
     if (SCHEME_KEY_DIM_COLOR in root) {
         parseColor(cs.dimColor, root[SCHEME_KEY_DIM_COLOR].str());
+    }
+    if (SCHEME_KEY_BADGE_FG in root) {
+        parseColor(cs.badgeColor, root[SCHEME_KEY_BADGE_FG].str());
     }
     JSONValue[] rawPalette = root[SCHEME_KEY_PALETTE].array();
     if (rawPalette.length != 16) {
