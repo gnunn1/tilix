@@ -62,7 +62,9 @@ import gx.gtk.actions;
 import gx.gtk.cairo;
 import gx.gtk.resource;
 import gx.gtk.util;
+import gx.gtk.vte;
 import gx.i18n.l10n;
+
 import gx.terminix.appwindow;
 import gx.terminix.cmdparams;
 import gx.terminix.common;
@@ -320,6 +322,20 @@ private:
         }
     }
 
+    void outputVersions() {
+            import gx.gtk.vte: getVTEVersion;
+            import gtk.Version: Version;
+
+            writeln("Versions");
+            writeln(format("\tTerminix version: %s", APPLICATION_VERSION));
+            writeln(format("\tVTE version: %s", getVTEVersion()));
+            writeln(format("\tGTK Version: %d.%d.%d\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+            writeln("Terminix Special Features");
+            writeln(format("\tNotifications enabled=%b", checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
+            writeln(format("\tTriggers enabled=%b", checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
+            writeln(format("\tBadges enabled=%b", checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
+    }
+
     int onCommandLine(ApplicationCommandLine acl, GApplication) {
         trace("App processing command line");
         scope (exit) {
@@ -329,12 +345,7 @@ private:
         }
         cp = CommandParameters(acl);
         if (cp.outputVersion) {
-            import gx.gtk.vte: getVTEVersion;
-            import gtk.Version: Version;
-
-            writeln(format("Terminix version: %s", APPLICATION_VERSION));
-            writeln(format("VTE version: %s", getVTEVersion()));
-            writeln(format("GTK Version: %d.%d.%d", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+            outputVersions();
             return cp.exitCode;
         }
         if (cp.exitCode == 0 && cp.action.length > 0) {

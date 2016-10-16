@@ -36,11 +36,18 @@ bool checkVTEFeature(TerminalFeature feature) {
     // Initialized features if not done yet, can't do it statically
     // due to need for GTK to load first
     if (!featuresInitialized) {
+        // Force terminal to be loaded if not done already
+        Terminal terminal = new Terminal();
+        scope(exit) {terminal.destroy();}
+
+        // Check if patched events are available
         string[] events = ["notification-received", "terminal-screen-changed"];
         foreach(i, event; events) {
             bool supported = (Signals.lookup(event, Terminal.getType()) != 0);
             terminalFeatures[cast(TerminalFeature) i] = supported;
         }
+
+        // Check if disable background draw is available
         terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = true;
 
         import gtkc.Loader: Linker;
