@@ -36,8 +36,11 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             os.system('%s -e "%s" &' % (self.terminal, value))
         else:            
             gfile = Gio.File.new_for_uri(file.get_uri())
-            filename = gfile.get_path();
-            os.system('%s -w "%s" &' % (self.terminal, filename))
+            filename = gfile.get_path()
+            if filename is None:
+                os.system('%s &' % (self.terminal))
+            else:
+                os.system('%s -w "%s" &' % (self.terminal, filename))
     
     def menu_activate_cb(self, menu, file):
         self._open_terminal(file)
