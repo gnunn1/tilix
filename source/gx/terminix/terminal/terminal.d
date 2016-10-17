@@ -178,7 +178,6 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 alias OnTerminalTitleChange = void delegate(Terminal terminal);
 
 enum SyncInputEventType {
-    KEY_PRESS,
     PASTE_CLIPBOARD,
     PASTE_PRIMARY,
     INSERT_TERMINAL_NUMBER,
@@ -304,6 +303,8 @@ private:
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
+    //When synchronizing ignore the commit event to prevent recursion
+    bool _ignoreCommit = false;
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
 
@@ -896,18 +897,18 @@ private:
         }, GConnectFlags.AFTER);
 
         vte.addOnButtonPress(&onTerminalButtonPress);
-        vte.addOnKeyPress(delegate(Event event, Widget widget) {
-            if (isSynchronizedInput() && event.key.sendEvent == 0) {
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
-                foreach (dlg; terminalSyncInputDelegates)
-                    dlg(this, se);
-            }
-            return false;
-        });
 
         vte.addOnSelectionChanged(delegate(VTE) {
             if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
                 vte.copyClipboard();
+            }
+        });
+
+        vte.addOnCommit(delegate(string text, uint length, VTE) {
+            if (!_ignoreCommit) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
+                foreach (dlg; terminalSyncInputDelegates)
+                    dlg(this, se);
             }
         });
 
@@ -2644,25 +2645,23 @@ public:
             return;
 
         final switch (sie.eventType) {
-        case SyncInputEventType.KEY_PRESS:
-            Event newEvent = sie.event.copy();
-            newEvent.key.sendEvent = 1;
-            newEvent.key.window = vte.getWindow().getWindowStruct();
-            vte.event(newEvent);
-            break;
-        case SyncInputEventType.PASTE_CLIPBOARD:
-            paste(GDK_SELECTION_CLIPBOARD, true);
-            break;
-        case SyncInputEventType.PASTE_PRIMARY:
-            paste(GDK_SELECTION_PRIMARY, true);
-            break;
-        case SyncInputEventType.INSERT_TERMINAL_NUMBER:
-            string text = to!string(terminalID);
-            vte.feedChild(text, text.length);
-            break;
-        case SyncInputEventType.INSERT_TEXT:
-            vte.feedChild(sie.text, sie.text.length);
-            break;
+            case SyncInputEventType.PASTE_CLIPBOARD:
+                paste(GDK_SELECTION_CLIPBOARD, true);
+                break;
+            case SyncInputEventType.PASTE_PRIMARY:
+                paste(GDK_SELECTION_PRIMARY, true);
+                break;
+            case SyncInputEventType.INSERT_TERMINAL_NUMBER:
+                string text = to!string(terminalID);
+                vte.feedChild(text, text.length);
+                break;
+            case SyncInputEventType.INSERT_TEXT:
+                if (sie.senderUUID != _terminalUUID) {
+                    _ignoreCommit = true;
+                    vte.feedChild(sie.text, sie.text.length);
+                    _ignoreCommit = false;
+                }
+                break;
         }
     }
 

@@ -623,10 +623,10 @@ private:
     }
 
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
-        trace("Got sync input event");
+        //trace("Got sync input event");
         foreach (terminal; terminals) {
             if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
-                trace("sending sync event");
+                //trace("sending sync event");
                 terminal.handleSyncInput(event);
             }
         }
