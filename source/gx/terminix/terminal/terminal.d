@@ -178,8 +178,6 @@ alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
 alias OnTerminalTitleChange = void delegate(Terminal terminal);
 
 enum SyncInputEventType {
-    PASTE_CLIPBOARD,
-    PASTE_PRIMARY,
     INSERT_TERMINAL_NUMBER,
     INSERT_TEXT
 };
@@ -1128,22 +1126,17 @@ private:
         if (dialog.run() == ResponseType.APPLY) {
             pasteText = dialog.text;
             vte.feedChild(pasteText[0 .. $], pasteText.length);
-            if (isSynchronizedInput()) {
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
-                foreach (dlg; terminalSyncInputDelegates)
-                    dlg(this, se);
-            }
         }
         focusTerminal();
     }
 
-    void paste(GdkAtom source, bool inputSync = false) {
+    void paste(GdkAtom source) {
 
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
 
         // Don't check for unsafe paste if doing sync input, original paste checked it
-        if (!inputSync && isPasteUnsafe(pasteText)) {
+        if (isPasteUnsafe(pasteText)) {
             if (!unsafePasteIgnored && gsSettings.getBoolean(SETTINGS_UNSAFE_PASTE_ALERT_KEY)) {
                 UnsafePasteDialog dialog = new UnsafePasteDialog(cast(Window) getToplevel(), chomp(pasteText));
                 scope (exit) {
@@ -1155,28 +1148,15 @@ private:
                     return;
             }
         }
-        scope (exit) {
-            // Only call handler if synchronized input is active and we are
-            // not doing this paste as a result of a synchronized input
-            if (!inputSync && isSynchronizedInput()) {
-                SyncInputEventType pasteType = (source==GDK_SELECTION_CLIPBOARD?SyncInputEventType.PASTE_CLIPBOARD:SyncInputEventType.PASTE_PRIMARY);
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, pasteType, null);
-                foreach (dlg; terminalSyncInputDelegates)
-                    dlg(this, se);
-            }
-        }
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
             if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
                 vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
                 return;
             }
         }
-        /*
+        
         if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
-        */
-        // Use this to work around commit signal being async for paste
-        feedChild(pasteText, true);
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -2656,12 +2636,6 @@ public:
             return;
 
         final switch (sie.eventType) {
-            case SyncInputEventType.PASTE_CLIPBOARD:
-                paste(GDK_SELECTION_CLIPBOARD, true);
-                break;
-            case SyncInputEventType.PASTE_PRIMARY:
-                paste(GDK_SELECTION_PRIMARY, true);
-                break;
             case SyncInputEventType.INSERT_TERMINAL_NUMBER:
                 string text = to!string(terminalID);
                 feedChild(text, true);
