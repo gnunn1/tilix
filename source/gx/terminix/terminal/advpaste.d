@@ -8,6 +8,9 @@ import std.experimental.logger;
 import std.format;
 import std.string;
 
+import gdk.Event;
+import gdk.Keysyms;
+
 import gio.Settings: GSettings = Settings;
 
 import gtk.Box;
@@ -19,6 +22,7 @@ import gtk.TextBuffer;
 import gtk.TextTagTable;
 import gtk.TextView;
 import gtk.ScrolledWindow;
+import gtk.Widget;
 import gtk.Window;
 
 import gx.i18n.l10n;
@@ -71,6 +75,15 @@ private:
         buffer = new TextBuffer(new TextTagTable());
         buffer.setText(text);
         TextView view = new TextView(buffer);
+        view.addOnKeyPress(delegate(Event event, Widget w) {
+            uint keyval;
+            event.getKeyval(keyval);
+            if (keyval == GdkKeysyms.GDK_Return && (event.key.state & GdkModifierType.CONTROL_MASK)) {
+                response(GtkResponseType.APPLY);
+                return true;
+            }
+            return false;
+        });
         ScrolledWindow sw = new ScrolledWindow(view);
         sw.setShadowType(ShadowType.ETCHED_IN);
         sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
