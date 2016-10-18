@@ -668,7 +668,7 @@ private:
         //Insert Terminal Number
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_NUMBER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
             string text = to!string(terminalID);
-            vte.feedChild(text, text.length);
+            feedChild(text, true);
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TERMINAL_NUMBER, null, null);
                 foreach (dlg; terminalSyncInputDelegates)
@@ -906,6 +906,7 @@ private:
 
         vte.addOnCommit(delegate(string text, uint length, VTE) {
             if (!_ignoreCommit) {
+                tracef("Sync commit: %s", text);
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
@@ -1170,8 +1171,12 @@ private:
                 return;
             }
         }
+        /*
         if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
+        */
+        // Use this to work around commit signal being async for paste
+        feedChild(pasteText, true);
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -1865,6 +1870,12 @@ private:
     }
 
 private:
+
+    void feedChild(string text, bool ignoreCommit) {
+        _ignoreCommit = ignoreCommit;
+        vte.feedChild(text, text.length);
+        _ignoreCommit = false;
+    }
 
     void showInfoBarMessage(string message) {
         TerminalInfoBar ibRelaunch = new TerminalInfoBar();
@@ -2653,13 +2664,11 @@ public:
                 break;
             case SyncInputEventType.INSERT_TERMINAL_NUMBER:
                 string text = to!string(terminalID);
-                vte.feedChild(text, text.length);
+                feedChild(text, true);
                 break;
             case SyncInputEventType.INSERT_TEXT:
                 if (sie.senderUUID != _terminalUUID) {
-                    _ignoreCommit = true;
-                    vte.feedChild(sie.text, sie.text.length);
-                    _ignoreCommit = false;
+                    feedChild(sie.text, true);
                 }
                 break;
         }
