@@ -39,6 +39,7 @@ import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 import gio.SimpleActionGroup;
 
+import glib.ListG;
 import glib.Util;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
@@ -46,6 +47,7 @@ import glib.VariantType : GVariantType = VariantType;
 import gtk.Box;
 import gtk.Button;
 import gtk.CheckButton;
+import gtk.Dialog;
 import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
@@ -67,6 +69,7 @@ import gtk.StyleContext;
 import gtk.ToggleButton;
 import gtk.Version;
 import gtk.Widget;
+import gtk.Window;
 
 import vte.Pty;
 import vte.Terminal;
@@ -1184,6 +1187,24 @@ public:
             }
         }, ConnectFlags.AFTER);
         addOnCompositedChanged(&onCompositedChanged);
+        addOnFocusOut(delegate(Event e, Widget widget) {
+            if (isQuake && gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY)) {
+                Window window = terminix.getActiveWindow();
+                if (window !is null) {
+                    if (window.getWindowStruct() == this.getWindowStruct()) {
+                        ListG list = window.listToplevels();
+                        Window[] windows = list.toArray!(Window)();
+                        tracef("Top level windows = %d", windows.length);
+                        foreach(Window child; windows) {
+                            Dialog dialog = cast(Dialog)child;
+                            if (dialog !is null && dialog.getTransientFor() !is null && dialog.getTransientFor().getWindowStruct() == this.getWindowStruct()) return false;
+                        }    
+                    }
+                }
+                hide();
+            }
+            return false;
+        }, ConnectFlags.AFTER);
     }
 
     void initialize() {

@@ -749,6 +749,11 @@ private:
         gsSettings.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbDisableAnimations);
 
+        //Hide window on lose focus
+        CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
+        gsSettings.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
+        bContent.add(cbHideOnLoseFocus);
+
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!isWayland(cast(Window) this.getToplevel())) {
             //Primary Monitor
