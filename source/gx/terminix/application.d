@@ -702,8 +702,8 @@ public:
         preferenceWindow = new PreferenceWindow(this);
         addWindow(preferenceWindow);
         preferenceWindow.addOnDelete(delegate(Event, Widget) {
-            preferenceWindow = null;
             removeWindow(preferenceWindow);
+            preferenceWindow = null;
             return false;
         });
         preferenceWindow.showAll();
