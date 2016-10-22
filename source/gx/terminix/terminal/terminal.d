@@ -474,7 +474,7 @@ private:
         saProfileSelect.setState(new GVariant(activeProfileUUID));
         ProfileInfo[] profiles = prfMgr.getProfiles();
         foreach (profile; profiles) {
-            GMenuItem menuItem = new GMenuItem(profile.name, getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
+            GMenuItem menuItem = new GMenuItem(replace(profile.name, "_", "__"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
             menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
             profileMenu.appendItem(menuItem);
         }
