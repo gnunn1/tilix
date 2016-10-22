@@ -922,12 +922,24 @@ private:
                 }
                 break;
             case SETTINGS_QUAKE_DISABLE_ANIMATION_KEY:
-                if (gsSettings.getBoolean(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY)) {
-                    setTypeHint(GdkWindowTypeHint.UTILITY);
-                } else {
-                    setTypeHint(GdkWindowTypeHint.NORMAL);
+                if (isQuake) {
+                    if (gsSettings.getBoolean(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY)) {
+                        setTypeHint(GdkWindowTypeHint.UTILITY);
+                    } else {
+                        setTypeHint(GdkWindowTypeHint.NORMAL);
+                    }
                 }
                 break;
+            /*
+            case SETTINGS_QUAKE_KEEP_ON_TOP_KEY:
+                if (isQuake) {
+                    bool keepOnTop = gsSettings.getBoolean(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
+                    setKeepAbove(keepOnTop);
+                    //setSkipTaskbarHint(keepOnTop);
+                    //setSkipPagerHint(keepOnTop);
+                }
+                break;
+            */
             default:
                 break;
         }
@@ -1160,8 +1172,8 @@ public:
             _quake = true;
             setDecorated(false);
             setGravity(GdkGravity.STATIC);
-            setKeepAbove(true);
-            applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);            
+            //applyPreference(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
+            applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
@@ -1198,7 +1210,7 @@ public:
                         foreach(Window child; windows) {
                             Dialog dialog = cast(Dialog)child;
                             if (dialog !is null && dialog.getTransientFor() !is null && dialog.getTransientFor().getWindowStruct() == this.getWindowStruct()) return false;
-                        }    
+                        } 
                     }
                 }
                 hide();

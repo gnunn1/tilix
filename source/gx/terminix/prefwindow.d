@@ -754,6 +754,13 @@ private:
         gsSettings.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideOnLoseFocus);
 
+        /*
+        //Keep window on top
+        CheckButton cbKeepOnTop = new CheckButton(_("Always keep window on top"));
+        gsSettings.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+        bContent.add(cbKeepOnTop);
+        */
+
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!isWayland(cast(Window) this.getToplevel())) {
             //Primary Monitor

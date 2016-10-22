@@ -96,6 +96,7 @@ enum SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY = "quake-specific-monitor";
 enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
 enum SETTINGS_QUAKE_DISABLE_ANIMATION_KEY = "quake-disable-animation";
 enum SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY = "quake-hide-lose-focus";
+//enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
