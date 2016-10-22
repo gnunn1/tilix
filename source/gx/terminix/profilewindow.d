@@ -9,7 +9,9 @@ import std.array;
 import std.conv;
 import std.csv;
 import std.experimental.logger;
+import std.file;
 import std.format;
+import std.path;
 import std.string;
 import std.typecons;
 
@@ -35,6 +37,8 @@ import gtk.ComboBox;
 import gtk.ComboBoxText;
 import gtk.Dialog;
 import gtk.Entry;
+import gtk.FileChooserDialog;
+import gtk.FileFilter;
 import gtk.FontButton;
 import gtk.Grid;
 import gtk.HeaderBar;
@@ -335,6 +339,8 @@ private:
     ColorButton cbBadgeFG;
     ColorButton[16] cbPalette;
 
+    Button btnExport;
+
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -358,13 +364,27 @@ private:
         }
         cbScheme.append("custom", _("Custom"));
         cbScheme.setHalign(Align.FILL);
+        cbScheme.setHexpand(true);
         cbScheme.addOnChanged(delegate(ComboBoxText cb) {
-            if (cb.getActive() < schemes.length) {
-                ColorScheme scheme = schemes[cb.getActive];
-                setColorScheme(scheme);
+            if (cb.getActive >= 0) {
+                if (cb.getActive() < schemes.length) {
+                    ColorScheme scheme = schemes[cb.getActive];
+                    setColorScheme(scheme);
+                }
             }
+            btnExport.setSensitive(cb.getActive() == schemes.length);
         });
-        grid.attach(cbScheme, 1, row, 1, 1);
+
+        btnExport = new Button(_("Export"));
+        btnExport.addOnClicked(&exportColorScheme);
+        
+        Box bScheme = new Box(Orientation.HORIZONTAL, 6);
+        bScheme.setHalign(Align.FILL);
+        bScheme.setHexpand(true);
+        bScheme.add(cbScheme);
+        bScheme.add(btnExport);
+
+        grid.attach(bScheme, 1, row, 1, 1);
         row++;
 
         Label lblPalette = new Label(format("<b>%s</b>", _("Color palette")));
@@ -603,17 +623,9 @@ private:
     }
 
     /**
-     * This method checks to see if a color scheme matches
-     * the current color settings and then set the scheme combobox
-     * to that scheme. This provides the user some feedback that
-     * they have selected a matching color scheme.
-     *
-     * Since we don't store the scheme in GSettings this is
-     * really useful when re-loading the app to show the same
-     * scheme they selected previously instead of custom
+     * Creates a color scheme from the UI
      */
-    void initColorSchemeCombo() {
-        //Initialize ColorScheme combobox
+    ColorScheme getColorSchemeFromUI() {
         ColorScheme scheme = new ColorScheme();
         scheme.useThemeColors = cbUseThemeColors.getActive();
         foreach (i, cb; cbPalette) {
@@ -631,6 +643,23 @@ private:
         cbDimBG.getRgba(scheme.dimColor);
         scheme.useBadgeColor = cbUseBadgeColor.getActive();
         cbBadgeFG.getRgba(scheme.badgeColor);
+
+        return scheme;
+    }
+
+    /**
+     * This method checks to see if a color scheme matches
+     * the current color settings and then set the scheme combobox
+     * to that scheme. This provides the user some feedback that
+     * they have selected a matching color scheme.
+     *
+     * Since we don't store the scheme in GSettings this is
+     * really useful when re-loading the app to show the same
+     * scheme they selected previously instead of custom
+     */
+    void initColorSchemeCombo() {
+        //Initialize ColorScheme
+        ColorScheme scheme = getColorSchemeFromUI();
 
         int index = findSchemeByColors(schemes, scheme);
         if (index < 0)
@@ -692,6 +721,55 @@ private:
         if (!schemeChangingLock) {
             cbScheme.setActive(to!int(schemes.length));
         }
+    }
+
+    void exportColorScheme(Button button) {
+        FileChooserDialog fcd = new FileChooserDialog(
+            _("Export Color Scheme"),
+            cast(Window)this.getToplevel(),
+            FileChooserAction.SAVE,
+            [_("Save"), _("Cancel")]);
+        scope (exit)
+            fcd.destroy();
+
+        string path = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, SCHEMES_FOLDER);
+        if (!exists(path)) {
+            mkdirRecurse(path);
+        }
+        
+        fcd.setCurrentFolder(path);
+
+        FileFilter ff = new FileFilter();
+        ff.addPattern("*.json");
+        ff.setName(_("All JSON Files"));
+        fcd.addFilter(ff);
+        ff = new FileFilter();
+        ff.addPattern("*");
+        ff.setName(_("All Files"));
+        fcd.addFilter(ff);
+
+        fcd.setDoOverwriteConfirmation(true);
+        fcd.setDefaultResponse(ResponseType.OK);
+        fcd.setCurrentName("Custom.json");
+
+        if (fcd.run() == ResponseType.OK) {
+            string filename = fcd.getFilename();
+            ColorScheme scheme = getColorSchemeFromUI();
+            scheme.save(filename);
+            reload();
+        } else {
+            return;
+        }
+    }
+
+    void reload() {
+        schemes = loadColorSchemes();
+        cbScheme.removeAll();
+        foreach (scheme; schemes) {
+            cbScheme.append(scheme.id, scheme.name);
+        }
+        cbScheme.append("custom", _("Custom"));
+        initColorSchemeCombo();
     }
 
 public:

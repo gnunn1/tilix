@@ -137,7 +137,13 @@ class ColorScheme {
         else
             return false;
    }
+
+   void save(string filename) {
+       saveScheme(this, filename);
+   }
 }
+
+
 
 /**
  * Finds a matching color scheme based on colors. This is used
@@ -242,6 +248,35 @@ private ColorScheme loadScheme(string fileName) {
         parseColor(cs.palette[i], value.str());
     }
     return cs;
+}
+
+private void saveScheme(ColorScheme scheme, string filename) {
+
+    JSONValue root = [SCHEME_KEY_NAME : stripExtension(baseName(filename)),
+                      SCHEME_KEY_COMMENT: scheme.comment,
+                      SCHEME_KEY_FOREGROUND: rgbaTo8bitHex(scheme.foreground, false, true),
+                      SCHEME_KEY_BACKGROUND: rgbaTo8bitHex(scheme.background, false, true),
+                      SCHEME_KEY_HIGHLIGHT_FG: rgbaTo8bitHex(scheme.highlightFG, false, true),
+                      SCHEME_KEY_HIGHLIGHT_BG: rgbaTo8bitHex(scheme.highlightBG, false, true),
+                      SCHEME_KEY_CURSOR_FG: rgbaTo8bitHex(scheme.cursorFG, false, true),
+                      SCHEME_KEY_CURSOR_BG: rgbaTo8bitHex(scheme.cursorBG, false, true),
+                      SCHEME_KEY_BADGE_FG: rgbaTo8bitHex(scheme.badgeColor, false, true),
+                      SCHEME_KEY_DIM_COLOR: rgbaTo8bitHex(scheme.dimColor, false, true)
+                      ];
+    root[SCHEME_KEY_USE_THEME_COLORS] = JSONValue(scheme.useThemeColors); 
+    root[SCHEME_KEY_USE_HIGHLIGHT_COLOR] = JSONValue(scheme.useHighlightColor);
+    root[SCHEME_KEY_USE_CURSOR_COLOR] = JSONValue(scheme.useCursorColor);
+    root[SCHEME_KEY_USE_BADGE_COLOR] = JSONValue(scheme.useBadgeColor);
+    root[SCHEME_KEY_USE_DIM_COLOR] = JSONValue(scheme.useDimColor);
+
+    string[] palette;
+    foreach(color; scheme.palette) {
+        palette ~= rgbaTo8bitHex(color, false, true);
+    }
+    root.object["palette"] = palette;
+
+    string json = root.toPrettyString();
+    write(filename, json);
 }
 
 private void parseColor(RGBA rgba, string value) {
