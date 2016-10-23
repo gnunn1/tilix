@@ -67,6 +67,8 @@ immutable string APPLICATION_TRANSLATORS = "MetotoSakamoto, frnogueira, dsboger,
 enum GTK_APP_PREFER_DARK_THEME = "gtk-application-prefer-dark-theme";
 enum GTK_MENU_BAR_ACCEL = "gtk-menu-bar-accel";
 enum GTK_ENABLE_ACCELS = "gtk-enable-accels";
+enum GTK_DECORATION_LAYOUT = "gtk_decoration_layout";
+enum GTK_SHELL_SHOWS_APP_MENU = "gtk-shell-shows-app-menu";
 
 //Config Folder
 enum APPLICATION_CONFIG_FOLDER = "terminix";
