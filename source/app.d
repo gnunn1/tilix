@@ -41,6 +41,11 @@ int main(string[] args) {
     } catch (Exception e) {
         trace("No PWD environment variable found");
     }
+    try {
+        environment.remove("WINDOWID");
+    } catch (Exception e) {
+        error("Unexpected error occurred", e);
+    }
 
     string uhd = Util.getHomeDir();
     trace("UHD = " ~ uhd);
