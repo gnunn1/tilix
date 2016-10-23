@@ -13,6 +13,7 @@ import std.file;
 import std.math;
 import std.format;
 import std.json;
+import std.process;
 import std.string;
 
 import cairo.Context;
@@ -39,10 +40,13 @@ import gio.Settings : GSettings = Settings;
 import gio.SimpleAction;
 import gio.SimpleActionGroup;
 
+import glib.GException;
 import glib.ListG;
 import glib.Util;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
+
+import gobject.Value;
 
 import gtk.Box;
 import gtk.Button;
@@ -65,6 +69,7 @@ import gtk.Overlay;
 import gtk.Popover;
 import gtk.Revealer;
 import gtk.ScrolledWindow;
+import gtk.Settings;
 import gtk.StyleContext;
 import gtk.ToggleButton;
 import gtk.Version;
@@ -152,6 +157,52 @@ private:
     bool _quake;
     
     string[] recentSessionFiles;
+
+
+    /**
+     * Forces the app menu in the decoration layouts so in environments without an app-menu
+     * it will be rendered by GTK as part of the window.
+     */
+    void forceAppMenu() {
+        Settings settings = Settings.getDefault();
+        if (settings !is null) {
+            Value value = new Value("");
+            settings.getProperty(GTK_DECORATION_LAYOUT, value);
+            string layout = value.getString();
+            if (layout.indexOf("menu") < 0) {
+                size_t index = layout.indexOf(":"); 
+                if (index > 0) {
+                    layout = "menu," ~ layout;
+                } else if (index == 0) {
+                    layout = "menu" ~ layout;
+                } else {
+                    layout = "menu:" ~ layout;
+                }
+            }
+            tracef("Updating layout to %s", layout);
+            value.setString(layout);
+            settings.setProperty(GTK_DECORATION_LAYOUT, value);
+
+            string desktop;
+            try {
+                desktop = environment["XDG_CURRENT_DESKTOP"];
+            } catch (Exception e) {
+                //Just ignore it
+            }
+
+            // Unity specific workaround, force app window when using Headerbar and setting to display menus in titlebar in Unity is active
+            if (desktop.indexOf("Unity") >= 0 && !gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+                try {
+                    GSettings unity = new GSettings("com.canonical.Unity");
+                    if (unity !is null && unity.getBoolean("integrated-menus")) {
+                        settings.setProperty(GTK_SHELL_SHOWS_APP_MENU, new Value(false));
+                    }
+                } catch (GException e) {
+                    //Ignore
+                }
+            }
+        }
+    }
 
     /**
      * Create the user interface
@@ -1178,8 +1229,9 @@ public:
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
-        }
+        } 
 
+        forceAppMenu();
         createUI();
 
         addOnDelete(&onWindowClosed);
