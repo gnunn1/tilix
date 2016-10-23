@@ -904,7 +904,7 @@ private:
 
         vte.addOnCommit(delegate(string text, uint length, VTE) {
             if (!_ignoreCommit) {
-                tracef("Sync commit: %s", text);
+                //tracef("Sync commit: %s", text);
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                 foreach (dlg; terminalSyncInputDelegates)
                     dlg(this, se);
@@ -1953,6 +1953,21 @@ private:
                 envv ~= ["PWD=" ~ workingDir];
             }
             setProxyEnv(envv);
+
+            /*
+            // Add WINDOWID, doesn't work for first terminal created since
+            // Window hasn't been realized yet. Not willing to re-arrange code
+            // for this at this point. If someone has a simple solution to make this work
+            // let me know.
+            Widget widget = getToplevel();
+            if (widget !is null && widget.getWindow() !is null) {
+                import gdk.X11: getXid;
+                uint xid = getXid(widget.getWindow());
+                tracef("WINDOWID=%d",xid);
+                envv ~= ["WINDOWID=" ~ to!string(xid)];
+            }
+            */
+
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
