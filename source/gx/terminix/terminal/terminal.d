@@ -2308,7 +2308,7 @@ private:
 
     const uint BADGE_MARGIN = 10;
 
-    bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
+    bool onVTEDrawBadge(Context cr, Widget w) {
         // Only draw background and badge if vte background draw is disabled
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && vte.getDisableBGDraw() && _cachedBadge.length > 0) {
             double width = to!double(w.getAllocatedWidth());
@@ -2404,6 +2404,7 @@ private:
             Window window = cast(Window) getToplevel();
             bool windowActive = (window is null)?false:window.isActive();
             if (!windowActive || (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible())) {
+                trace("Paint dim");
                 cr.setSourceRgba(vteDimBG.red, vteDimBG.green, vteDimBG.blue, dimPercent);
                 cr.setOperator(cairo_operator_t.ATOP);
                 cr.paint();
