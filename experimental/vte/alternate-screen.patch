@@ -54,7 +54,7 @@ index c9dbddc..cacf6e5 100644
 +                             G_STRUCT_OFFSET(VteTerminalClass, bell),
 +                             NULL,
 +                             NULL,
-+                             g_cclosure_marshal_VOID__VOID,
++                             g_cclosure_marshal_VOID__INT,
 +                             G_TYPE_NONE, 1, G_TYPE_INT);
 +
 +        /**
