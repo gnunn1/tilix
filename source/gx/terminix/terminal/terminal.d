@@ -2404,7 +2404,6 @@ private:
             Window window = cast(Window) getToplevel();
             bool windowActive = (window is null)?false:window.isActive();
             if (!windowActive || (!vte.isFocus() && !rFind.isSearchEntryFocus() && !pmContext.isVisible() && !mbTitle.getPopover().isVisible())) {
-                trace("Paint dim");
                 cr.setSourceRgba(vteDimBG.red, vteDimBG.green, vteDimBG.blue, dimPercent);
                 cr.setOperator(cairo_operator_t.ATOP);
                 cr.paint();
