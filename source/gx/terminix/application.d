@@ -280,6 +280,7 @@ private:
 
     void createAppWindow() {
         AppWindow window = new AppWindow(this);
+        window.realize();
         window.initialize();
         window.showAll();
     }

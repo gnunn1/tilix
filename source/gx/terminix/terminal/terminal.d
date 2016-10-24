@@ -1954,19 +1954,14 @@ private:
             }
             setProxyEnv(envv);
 
-            /*
-            // Add WINDOWID, doesn't work for first terminal created since
-            // Window hasn't been realized yet. Not willing to re-arrange code
-            // for this at this point. If someone has a simple solution to make this work
-            // let me know.
-            Widget widget = getToplevel();
-            if (widget !is null && widget.getWindow() !is null) {
+            // Add WINDOWID
+            Window window = cast(Window)getToplevel();
+            if (window !is null && window.getWindow() !is null && !isWayland(window)) {
                 import gdk.X11: getXid;
-                uint xid = getXid(widget.getWindow());
+                uint xid = getXid(window.getWindow());
                 tracef("WINDOWID=%d",xid);
                 envv ~= ["WINDOWID=" ~ to!string(xid)];
             }
-            */
 
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {

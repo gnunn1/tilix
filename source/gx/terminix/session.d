@@ -154,7 +154,6 @@ private:
     }
 
     void createUI(Terminal terminal) {
-        createBaseUI();
         groupChild.add(terminal);
         currentTerminal = terminal;
     }
@@ -907,6 +906,7 @@ private:
     this(string sessionName, Terminal terminal) {
         super();
         initSession();
+        createBaseUI();
         _sessionUUID = randomUUID().toString();
         _name = sessionName;
         addTerminal(terminal);
@@ -966,20 +966,30 @@ public:
      *
      * Params:
      *  name        = The name of the session
+     */
+    this(string name) {
+        super();
+        initSession();
+        createBaseUI();
+        _sessionUUID = randomUUID().toString();
+        _name = name;
+    }
+
+    /**
+     * Initializes a new session
+     *
+     * Params:
+     *  name        = The name of the session
      *  profileUUID = The profile to use when creating the initial terminal for the session
      *  workingDir  = The working directory to use in the initial terminal
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
-    this(string name, string profileUUID, string workingDir, bool firstRun) {
-        super();
-        initSession();
-        _sessionUUID = randomUUID().toString();
-        _name = name;
+    void initSession(string profileUUID, string workingDir, bool firstRun) {
         createUI(profileUUID, workingDir, firstRun);
     }
 
     /**
-     * Creates a new session by de-serializing a session from JSON
+     * Initializes a new session by de-serializing a session from JSON
      *
      * TODO Determine whether we need to support concept of firstRun for loading session
      *
@@ -989,11 +999,7 @@ public:
      *  width       = The expected width and height of the session, used to scale Paned positions
      *  firstRun    = A flag to indicate this is the first session for the app, used to determine if geometry is set based on profile
      */
-    this(JSONValue value, string filename, int width, int height, bool firstRun) {
-        super();
-        initSession();
-        createBaseUI();
-        _sessionUUID = randomUUID().toString();
+    void initSession(JSONValue value, string filename, int width, int height, bool firstRun) {
         try {
             tracef("Parsing session %s with dimensions %d,%d", filename, width, height);
             parseSession(value, SessionSizeInfo(width, height));
