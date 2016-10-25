@@ -34,6 +34,7 @@ import gdk.DragContext;
 import gdk.Event;
 import gdk.RGBA;
 import gdk.Screen;
+import gdk.Window: GdkWindow = Window;
 
 import gdkpixbuf.Pixbuf;
 
@@ -1220,7 +1221,7 @@ private:
             }
             //tracef("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol);
             ArrayG attr = new ArrayG(false, false, 16);
-            tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
+            //tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
             // Update position early in case we get re-entrant event
             triggerLastRowChecked = cursorRow;
@@ -1955,12 +1956,14 @@ private:
             setProxyEnv(envv);
 
             // Add WINDOWID
-            Window window = cast(Window)getToplevel();
-            if (window !is null && window.getWindow() !is null && !isWayland(window)) {
-                import gdk.X11: getXid;
-                uint xid = getXid(window.getWindow());
-                tracef("WINDOWID=%d",xid);
-                envv ~= ["WINDOWID=" ~ to!string(xid)];
+            if (!isWayland(cast(Window)getToplevel())) {
+                GdkWindow window = (cast(Window)vte.getToplevel()).getWindow();
+                if (window !is null) {
+                    import gdk.X11: getXid;
+                    uint xid = getXid(window);
+                    tracef("WINDOWID=%d",xid);
+                    envv ~= ["WINDOWID=" ~ to!string(xid)];
+                }
             }
 
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
