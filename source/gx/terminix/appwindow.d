@@ -651,6 +651,7 @@ private:
         Session session = new Session(name);
         addSession(session);
         session.initSession(profileUUID, workingDir, nb.getNPages() == 1);
+        session.showAll();
     }
 
     void addSession(Session session) {
