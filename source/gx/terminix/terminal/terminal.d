@@ -2085,7 +2085,11 @@ private:
         vte.addOnDragDataReceived(&onVTEDragDataReceived);
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
-        vte.addOnDraw(&onVTEDrawBadge);
+        
+        //TODO - Figure out why this is causing issues, see #545
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            vte.addOnDraw(&onVTEDrawBadge);
+        }
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
 
         trace("Drag and drop completed");
@@ -2308,7 +2312,7 @@ private:
 
     bool onVTEDrawBadge(Context cr, Widget w) {
         // Only draw background and badge if vte background draw is disabled
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && vte.getDisableBGDraw() && _cachedBadge.length > 0) {
+        if (vte.getDisableBGDraw() && _cachedBadge.length > 0) {
             double width = to!double(w.getAllocatedWidth());
             double height = to!double(w.getAllocatedHeight());
 
