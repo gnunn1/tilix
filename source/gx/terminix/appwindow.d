@@ -13,6 +13,7 @@ import std.file;
 import std.math;
 import std.format;
 import std.json;
+import std.path;
 import std.process;
 import std.string;
 
@@ -651,7 +652,6 @@ private:
         Session session = new Session(name);
         addSession(session);
         session.initSession(profileUUID, workingDir, nb.getNPages() == 1);
-        session.showAll();
     }
 
     void addSession(Session session) {
@@ -1277,7 +1277,17 @@ public:
     void initialize() {
         if (terminix.getGlobalOverrides().session.length > 0) {
             foreach (sessionFilename; terminix.getGlobalOverrides().session) {
-                loadSession(sessionFilename);
+                try {
+                    if (!exists(sessionFilename)) {
+                        string filename = buildPath(terminix.getGlobalOverrides().cwd, sessionFilename);
+                        tracef("Trying filename %s", filename);
+                        if (exists(filename)) sessionFilename = filename;
+                    }
+                    loadSession(sessionFilename);
+                } catch (SessionCreationException e) {
+                    errorf("Could not load session from file '%s', error occurred", sessionFilename);
+                    error(e.msg);
+                }
             }
             return;
         }

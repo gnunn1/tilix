@@ -986,6 +986,7 @@ public:
      */
     void initSession(string profileUUID, string workingDir, bool firstRun) {
         createUI(profileUUID, workingDir, firstRun);
+        showAll();
     }
 
     /**
@@ -1009,6 +1010,7 @@ public:
             error("Session could not be created due to error", e);
             throw new SessionCreationException("Session could not be created due to error: " ~ e.msg, e);
         }
+        showAll();
     }
 
     /**
