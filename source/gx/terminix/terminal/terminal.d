@@ -1956,8 +1956,9 @@ private:
             setProxyEnv(envv);
 
             // Add WINDOWID
-            if (!isWayland(cast(Window)getToplevel())) {
-                GdkWindow window = (cast(Window)vte.getToplevel()).getWindow();
+            Window tw = cast(Window)getToplevel();
+            if (tw !is null && !isWayland(tw)) {
+                GdkWindow window = tw.getWindow();
                 if (window !is null) {
                     import gdk.X11: getXid;
                     uint xid = getXid(window);
