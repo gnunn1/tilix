@@ -43,6 +43,10 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
         tracef("Total time getting thumbnail: %d msecs", sw.peek().msecs);
     }
     if (widget.isDrawable()) {
+        widget.queueDraw();
+        while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
+            Main.iterationDo(false);
+        }
         return getDrawableWidgetImage(widget, factor, width, height);
     } else {
         trace("Widget is not drawable, using OffscreenWindow for thumbnail");
