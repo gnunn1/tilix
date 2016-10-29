@@ -1,0 +1,17 @@
+[Application]
+name=com.gexperts.Terminix
+runtime=org.gnome.Platform/x86_64/3.22
+sdk=org.gnome.Sdk/x86_64/3.22
+command=terminix
+
+[Context]
+shared=ipc;network;
+sockets=x11;wayland;pulseaudio;
+devices=dri;
+filesystems=host;~/.config/dconf:ro;xdg-run/dconf;
+talk-name=ca.desrt.dconf
+
+[Environment]
+DCONF_USER_CONFIG_DIR=.config/dconf
+
+[Session Bus Policy]
