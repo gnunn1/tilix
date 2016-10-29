@@ -865,7 +865,7 @@ private:
             // Finally check that the VTE cursor position is greater then 0,0, this is a fix for #425. Not sure why
             // but passing command paremeters causes contentschanged signal to fire twice even though there is no change in content.
             if (terminalInitialized && terminix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && _overrideCommand.length == 0) {
-                ptrdiff_t cursorCol, cursorRow;
+                glong cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
                 //tracef("\trow=%d, column=%d",cursorRow,cursorCol);
                 if (cursorRow > 0 || cursorCol >0) {
@@ -1183,8 +1183,8 @@ private:
 
     // List of triggers to test for
     TerminalTrigger[] triggers;
-    ptrdiff_t triggerLastRowChecked = -1;
-    ptrdiff_t triggerLastColChecked = -1;
+    glong triggerLastRowChecked = -1;
+    glong triggerLastColChecked = -1;
 
     TerminalScreen currentScreen = TerminalScreen.NORMAL;
 
@@ -1204,18 +1204,18 @@ private:
         //Only process if we have triggers to match
         if (triggers.length == 0) return;
 
-        ptrdiff_t cursorRow, cursorCol;
+        glong cursorRow, cursorCol;
         vte.getCursorPosition(cursorCol, cursorRow);
         //tracef("triggerLastRowChecked=%d, cursorRow=%d", triggerLastRowChecked, cursorRow);
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
-            size_t maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
-            ptrdiff_t startRow = triggerLastRowChecked;
-            ptrdiff_t startCol = triggerLastColChecked;
+            auto maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
+            auto startRow = triggerLastRowChecked;
+            auto startCol = triggerLastColChecked;
             // Enforce maximum lines to check
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && (cursorRow - startRow) > maxLines) {
-                startRow = cursorRow - maxLines;
+                startRow = cast(glong) cursorRow - maxLines;
                 // If we clip lines set column to 0
                 startCol = 0;
             }
