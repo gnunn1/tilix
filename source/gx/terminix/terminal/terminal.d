@@ -977,7 +977,7 @@ private:
             });
         }
 
-        //Test Badges
+        //Disable background draw if available
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
             vte.setDisableBGDraw(true);
         }
@@ -1732,16 +1732,13 @@ private:
             break;
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
-                vte.setDisableBGDraw(gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY).length > 0);
                 updateBadge();
             }
             break;
         case SETTINGS_PROFILE_BADGE_COLOR_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
                 vteBadge.parse(gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY));
-                if (vte.getDisableBGDraw()) {
-                    queueDraw();
-                }
+                queueDraw();
             }
             break;
         case SETTINGS_PROFILE_BADGE_POSITION_KEY:
@@ -2311,21 +2308,22 @@ private:
 
     const uint BADGE_MARGIN = 10;
 
-    bool onVTEDrawBadge(Context cr, Widget w) {
-        // Only draw background and badge if vte background draw is disabled
-        if (vte.getDisableBGDraw() && _cachedBadge.length > 0) {
-            double width = to!double(w.getAllocatedWidth());
-            double height = to!double(w.getAllocatedHeight());
+    bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
+        cr.save();
+        double width = to!double(w.getAllocatedWidth());
+        double height = to!double(w.getAllocatedHeight());
 
-            cr.save();
-            // Paint Background
+        // Only draw background if vte background draw is disabled
+        if (vte.getDisableBGDraw()) {
             cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
             cr.clip();
             cr.paint();
             cr.resetClip();
-
+        }
+        //Draw badge if badge text is available
+        if (_cachedBadge.length > 0) {
             // Paint badge
             // Use same alpha as background color to match transparency slider
             cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
@@ -2392,8 +2390,8 @@ private:
             PgCairo.showLayout(cr, pgl);
 
             cr.resetClip();
-            cr.restore();
         }
+        cr.restore();
         return false;
     }
 
