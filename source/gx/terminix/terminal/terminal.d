@@ -1637,7 +1637,7 @@ private:
                 vte.setColorHighlight(vteHighlightBG);
             } else {
                 vte.setColorHighlightForeground(null);
-                vte.setColorHighlight(null);
+                vte.setColorHighlight(null);applyPreference(SETTINGS_PROFILE_CURSOR_SHAPE_KEY);
             }
             break;
         case SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY:
@@ -1952,7 +1952,18 @@ private:
             }
             setProxyEnv(envv);
 
-            // Add WINDOWID
+            /*
+            // To make this work the terminal has to be added to the widget
+            // heirarchy in order to get the XID first. This was done by breaking
+            // the session into create and init methods that the application window
+            // could call independently. However this also ended up causing issues
+            // with the VTE cursor not showing as focused.
+            //
+            // Frankly I'm not a big fan of this WINDOWID environment variable since
+            // it doesn't work in Wayland and it's not worth the grief it is causing.
+            // See Issues #540 and #525
+            
+            // Add Window ID
             Window tw = cast(Window)getToplevel();
             if (tw !is null && !isWayland(tw)) {
                 GdkWindow window = tw.getWindow();
@@ -1963,6 +1974,7 @@ private:
                     envv ~= ["WINDOWID=" ~ to!string(xid)];
                 }
             }
+            */
 
             bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
             if (!result) {

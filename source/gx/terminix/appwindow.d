@@ -650,8 +650,8 @@ private:
     void createNewSession(string name, string profileUUID, string workingDir) {
         //Set firstRun based on whether any sessions currently exist, i.e. no pages in NoteBook
         Session session = new Session(name);
+        session.initSession(profileUUID, workingDir, nb.getNPages() == 0);
         addSession(session);
-        session.initSession(profileUUID, workingDir, nb.getNPages() == 1);
     }
 
     void addSession(Session session) {
@@ -1084,8 +1084,8 @@ private:
 		addRecentSessionFile(filename);
         tracef("Session dimensions: w=%d, h=%d", width, height);
         Session session = new Session("");
+        session.initSession(value, filename, width, height, nb.getNPages() == 0);
         addSession(session);
-        session.initSession(value, filename, width, height, nb.getNPages() == 1);
     }
 
     /**
