@@ -13,7 +13,7 @@ dub build --build=release
 
 cd ${CURRENT_DIR}
 
-flatpak build-finish --socket=x11 --socket=wayland --socket=pulseaudio --device=dri --filesystem=host --filesystem=home --filesystem=~/.config/dconf:ro --filesystem=xdg-run/dconf --talk-name=ca.desrt.dconf --env=DCONF_USER_CONFIG_DIR=.config/dconf terminix
+flatpak build-finish --socket=x11 --socket=wayland --socket=pulseaudio --device=dri --filesystem=host --filesystem=home --filesystem=~/.config/dconf:ro --filesystem=xdg-run/dconf --talk-name=org.freedesktop.Flatpak --talk-name=ca.desrt.dconf --env=DCONF_USER_CONFIG_DIR=.config/dconf --allow=devel terminix
 
 flatpak build-export repo terminix
 
