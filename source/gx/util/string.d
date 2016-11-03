@@ -12,9 +12,15 @@ import std.string;
  * by std.csv.
  */
 string escapeCSV(string value) {
-    value = value.replace("\"\"", "\"\"\"\"");
+    value = value.replace("\"", "\"\"");
     if (value.indexOf('\n') >= 0 || value.indexOf(',')  >= 0 || value.indexOf("\"\"") >= 0) {
-        value = "\"\"" ~ value ~ "\"\"";
+        value = "\"" ~ value ~ "\"";
     }
     return value;
+}
+
+unittest {
+    assert(escapeCSV("test") == "test");
+    assert(escapeCSV("gedit \"test\"") == "\"gedit \"\"test\"\"\"");
+    assert(escapeCSV("test,this is") == "\"test,this is\"");
 }
