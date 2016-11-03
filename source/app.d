@@ -65,6 +65,13 @@ int main(string[] args) {
         }
     }
 
+    //textdomain
+    textdomain(TERMINIX_DOMAIN);
+    // Init GTK early so localization is available, pass empty
+    // args so GTK doesn't attempt to interpret them
+    string[] tempargs;
+    Main.init(tempargs);
+
     trace(format("Starting terminix with %d arguments...", args.length));
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));
@@ -77,6 +84,9 @@ int main(string[] args) {
             FileUtils.chdir(cwd);
         } else if (arg == "--new-process") {
             newProcess = true;
+        } else if (arg == "-v" || arg == "--version") {
+            outputVersions();
+            return 0;
         }
     }
     //append TERMINIX_ID to args if present
@@ -88,12 +98,7 @@ int main(string[] args) {
     catch (Exception e) {
         trace("No terminix UUID found");
     }
-    //textdomain
-    textdomain(TERMINIX_DOMAIN);
-    // Init GTK early so localization is available, pass empty
-    // args so GTK doesn't attempt to interpret them
-    string[] tempargs;
-    Main.init(tempargs);
+
     //Version checking cribbed from grestful, thanks!
     string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
     if (gtkError !is null) {
@@ -120,3 +125,18 @@ int main(string[] args) {
     }
     return result;
 }
+
+private:
+    void outputVersions() {
+        import gx.gtk.vte: getVTEVersion, checkVTEFeature, TerminalFeature;
+        import gtk.Version: Version;
+
+        writeln("Versions");
+        writeln(format("\tTerminix version: %s", APPLICATION_VERSION));
+        writeln(format("\tVTE version: %s", getVTEVersion()));
+        writeln(format("\tGTK Version: %d.%d.%d\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+        writeln("Terminix Special Features");
+        writeln(format("\tNotifications enabled=%b", checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
+        writeln(format("\tTriggers enabled=%b", checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
+        writeln(format("\tBadges enabled=%b", checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
+    }

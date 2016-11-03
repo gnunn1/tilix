@@ -323,20 +323,6 @@ private:
         }
     }
 
-    void outputVersions() {
-            import gx.gtk.vte: getVTEVersion;
-            import gtk.Version: Version;
-
-            writeln("Versions");
-            writeln(format("\tTerminix version: %s", APPLICATION_VERSION));
-            writeln(format("\tVTE version: %s", getVTEVersion()));
-            writeln(format("\tGTK Version: %d.%d.%d\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
-            writeln("Terminix Special Features");
-            writeln(format("\tNotifications enabled=%b", checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
-            writeln(format("\tTriggers enabled=%b", checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
-            writeln(format("\tBadges enabled=%b", checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
-    }
-
     int onCommandLine(ApplicationCommandLine acl, GApplication) {
         trace("App processing command line");
         scope (exit) {
@@ -345,10 +331,6 @@ private:
             acl.destroy();
         }
         cp = CommandParameters(acl);
-        if (cp.outputVersion) {
-            outputVersions();
-            return cp.exitCode;
-        }
         if (cp.exitCode == 0 && cp.action.length > 0) {
             trace("Executing action  " ~ cp.action);
             string terminalUUID = cp.terminalUUID;
