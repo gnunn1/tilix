@@ -1616,17 +1616,19 @@ private:
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // terminix resources
-            if (sbProvider !is null) {
-                sb.getStyleContext().removeProvider(sbProvider);
-                sbProvider = null;
-            }
-            string theme = getGtkTheme();
-            string[string] variables;
-            variables["$TERMINAL_BG"] = rgbaTo8bitHex(vteBG,false,true);
-            variables["$TERMINAL_OPACITY"] = to!string(vteBG.alpha);
-            sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".scrollbar.css", variables);
-            if (sbProvider !is null) {
-                sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
+            static if (!USE_SCROLLED_WINDOW) {
+                if (sbProvider !is null) {
+                    sb.getStyleContext().removeProvider(sbProvider);
+                    sbProvider = null;
+                }
+                string theme = getGtkTheme();
+                string[string] variables;
+                variables["$TERMINAL_BG"] = rgbaTo8bitHex(vteBG,false,true);
+                variables["$TERMINAL_OPACITY"] = to!string(vteBG.alpha);
+                sbProvider = createCssProvider(APPLICATION_RESOURCE_ROOT ~ "/css/terminix." ~ theme ~ ".scrollbar.css", variables);
+                if (sbProvider !is null) {
+                    sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
+                }
             }
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
