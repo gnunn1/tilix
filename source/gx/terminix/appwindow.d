@@ -932,6 +932,9 @@ private:
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
         } else if (isQuake()) {
+            if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
+                moveAndSizeQuake();
+            }
             trace("Focus terminal");
             activate();
             activateFocus();
@@ -954,18 +957,9 @@ private:
 
     void applyPreference(string key) {
         switch(key) {
-            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_PRIMARY_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY:
+            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY:
                 if (isQuake) {
-                    GdkRectangle rect;
-                    getQuakePosition(rect);
-                    if (getWindow() !is null) {
-                        getWindow().moveResize(rect.x, rect.y, rect.width, rect.height);
-                        trace("moveResize for quake mode");
-                    } else {
-                        move(rect.x, rect.y);
-                        resize(rect.width, rect.height);
-                    }
-
+                    moveAndSizeQuake();
                 }
                 break;
             case SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY:
@@ -998,13 +992,32 @@ private:
         }
     }
 
+    void moveAndSizeQuake() {
+        GdkRectangle rect;
+        getQuakePosition(rect);
+        if (getWindow() !is null) {
+            getWindow().moveResize(rect.x, rect.y, rect.width, rect.height);
+            trace("moveResize for quake mode");
+        } else {
+            move(rect.x, rect.y);
+            resize(rect.width, rect.height);
+        }
+    }
+
     void getQuakePosition(out GdkRectangle rect) {
         Screen screen = getScreen();
+
         int monitor = screen.getPrimaryMonitor();
-        if (!isWayland(this) && (!gsSettings.getBoolean(SETTINGS_QUAKE_PRIMARY_MONITOR_KEY))) {
-            int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY);
-            if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
-                monitor = altMonitor;
+        if (!isWayland(this)) {
+            if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
+                if (screen.getActiveWindow() !is null) {
+                    monitor = screen.getMonitorAtWindow(screen.getActiveWindow());
+                }
+            } else {
+                int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY);
+                if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
+                    monitor = altMonitor;
+                }
             }
         }
         getScreen().getMonitorGeometry(monitor, rect);

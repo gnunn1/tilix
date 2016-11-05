@@ -91,7 +91,7 @@ enum SETTINGS_PROMPT_ON_CLOSE_KEY = "prompt-on-close";
 //Quake Settings
 enum SETTINGS_QUAKE_WIDTH_PERCENT_KEY = "quake-width-percent";
 enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
-enum SETTINGS_QUAKE_PRIMARY_MONITOR_KEY = "quake-primary-monitor";
+enum SETTINGS_QUAKE_ACTIVE_MONITOR_KEY = "quake-active-monitor";
 enum SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY = "quake-specific-monitor";
 enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
 enum SETTINGS_QUAKE_DISABLE_ANIMATION_KEY = "quake-disable-animation";
