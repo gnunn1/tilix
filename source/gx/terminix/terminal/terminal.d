@@ -1494,7 +1494,8 @@ private:
                 trace("Command: " ~ tr.command);
                 string command = replaceMatchTokens(tr.command, groups);
                 trace("Command: " ~ command);
-                spawnShell(command);
+                string[string] env;
+                spawnShell(command, env, Config.none, currentLocalDirectory);
             }
             return;
         default:
