@@ -20,7 +20,7 @@ bool checkVTEVersionNumber(uint major, uint minor) {
 }
 
 string getVTEVersion() {
-    return format("%d:%d", vteMajorVersion, vteMinorVersion);
+    return format("%d.%d", vteMajorVersion, vteMinorVersion);
 }
 
 enum TerminalFeature {
