@@ -1239,6 +1239,7 @@ public:
             _quake = true;
             setDecorated(false);
             setGravity(GdkGravity.STATIC);
+            setKeepAbove(true);
             //applyPreference(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
             applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);
             setSkipTaskbarHint(true);
