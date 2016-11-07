@@ -1741,7 +1741,7 @@ private:
         case SETTINGS_PROFILE_BADGE_COLOR_KEY, SETTINGS_PROFILE_USE_BADGE_COLOR_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
                 string badgeColor;
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
+                if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY);
                 } else {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY);
