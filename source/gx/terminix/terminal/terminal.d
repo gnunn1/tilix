@@ -1738,9 +1738,15 @@ private:
                 updateBadge();
             }
             break;
-        case SETTINGS_PROFILE_BADGE_COLOR_KEY:
+        case SETTINGS_PROFILE_BADGE_COLOR_KEY, SETTINGS_PROFILE_USE_BADGE_COLOR_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
-                vteBadge.parse(gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY));
+                string badgeColor;
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
+                    badgeColor = gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY);
+                } else {
+                    badgeColor = gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY);
+                }
+                if (!vteBadge.parse(badgeColor)) tracef("Failed to parse badge color %s", badgeColor);
                 queueDraw();
             }
             break;
