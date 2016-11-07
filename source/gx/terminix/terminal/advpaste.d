@@ -101,7 +101,7 @@ private:
 
         //Tabs to Spaces
         Box bTabs = new Box(Orientation.HORIZONTAL, 6);
-        cbTabsToSpaces = new CheckButton("Convert spaces to tabs");
+        cbTabsToSpaces = new CheckButton(_("Convert spaces to tabs"));
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, cbTabsToSpaces, "active", GSettingsBindFlags.DEFAULT);
         bTabs.add(cbTabsToSpaces);
 
@@ -112,7 +112,7 @@ private:
 
         b.add(bTabs);
 
-        cbConvertCRLF = new CheckButton("Convert CRLF and CR to LF");
+        cbConvertCRLF = new CheckButton(_("Convert CRLF and CR to LF"));
         gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY, cbConvertCRLF, "active", GSettingsBindFlags.DEFAULT);
         b.add(cbConvertCRLF);
 

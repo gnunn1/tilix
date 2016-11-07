@@ -1425,7 +1425,7 @@ private:
         Box bLines = new Box(Orientation.HORIZONTAL, 6);
         bLines.setMarginTop(6);
 
-        CheckButton cbTriggerLimit = new CheckButton("Limit number of lines for trigger processing to:");
+        CheckButton cbTriggerLimit = new CheckButton(_("Limit number of lines for trigger processing to:"));
         gsProfile.bind(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY, cbTriggerLimit, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
 
         SpinButton sbLines = new SpinButton(256, long.max, 256);
