@@ -102,6 +102,7 @@ private:
     enum ACTION_NEW_WINDOW = "new-window";
     enum ACTION_NEW_SESSION = "new-session";
     enum ACTION_ACTIVATE_SESSION = "activate-session";
+    enum ACTION_ACTIVATE_TERMINAL = "activate-terminal";
     enum ACTION_PREFERENCES = "preferences";
     enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
@@ -165,12 +166,32 @@ private:
     void installAppMenu() {
         Menu appMenu = new Menu();
 
+        /**
+         * Action used to support notifications, when a notification it has this action associated with it
+         * along with the sessionUUID
+         */
         registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction) {
             size_t l;
             string sessionUUID = value.getString(l);
-            trace("activate-session triggered for session " ~ sessionUUID);
+            tracef("activate-session triggered for session %s", sessionUUID);
             foreach (window; appWindows) {
                 if (window.activateSession(sessionUUID)) {
+                    window.present();
+                    break;
+                }
+            }
+        }, new GVariantType("s"));
+
+        /**
+         * Action used to support notifications, when a notification it has this action associated with it
+         * along with the terminalUUID
+         */
+        registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_TERMINAL, null, delegate(GVariant value, SimpleAction) {
+            size_t l;
+            string terminalUUID = value.getString(l);
+            tracef("activate-terminal triggered for terminal %s", terminalUUID);
+            foreach (window; appWindows) {
+                if (window.activateTerminal(terminalUUID)) {
                     window.present();
                     break;
                 }

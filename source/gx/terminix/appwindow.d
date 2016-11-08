@@ -1366,6 +1366,18 @@ public:
         return false;
     }
 
+    bool activateTerminal(string terminalUUID) {
+        for (int i = 0; i < nb.getNPages(); i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            Widget result = session.findWidgetForUUID(terminalUUID);
+            if (result !is null) {
+                activateTerminal(session.uuid, terminalUUID);
+                return true;
+            }
+        }
+        return false;
+    }
+
     ITerminal getActiveTerminal() {
         Session session = getCurrentSession();
         if (session !is null) {

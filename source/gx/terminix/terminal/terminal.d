@@ -1293,6 +1293,7 @@ private:
                 else summary = replaceMatchTokens(trigger.parameters, groups);
                 GNotification n = new GNotification(title);
                 n.setBody(summary);
+                n.setDefaultAction("app.activate-terminal::" ~ _terminalUUID);
                 terminix.sendNotification(null, n);
                 break;
             case TriggerAction.UPDATE_TITLE:
