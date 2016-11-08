@@ -16,6 +16,7 @@ import gdk.RGBA;
 import gdk.X11;
 
 import gio.ListModelIF;
+import gio.Settings: GSettings = Settings;
 
 import glib.GException;
 import glib.ListG;
@@ -278,6 +279,16 @@ ComboBox createNameValueCombo(const string[string] keyValues) {
     return cb;
 }
 
+/**
+ * Creates a combobox that holds a set of name/value pairs
+ * where the name is displayed. Additionally the combobox is
+ * bound to a GSettings.
+ */
+ComboBox createNameValueCombo(const string[] names, const string[] values, GSettings settings, string key) {
+    ComboBox cb = createNameValueCombo(names, values);
+    settings.bind(key, cb, "active-id", GSettingsBindFlags.DEFAULT);
+    return cb;    
+}
 /**
  * Creates a combobox that holds a set of name/value pairs
  * where the name is displayed.

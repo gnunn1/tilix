@@ -214,8 +214,11 @@ private:
         lblCursorShape.setHalign(Align.END);
         grid.attach(lblCursorShape, 0, row, 1, 1);
         ComboBox cbCursorShape = createNameValueCombo([_("Block"), _("IBeam"), _("Underline")], [SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE,
-                SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
-        gsProfile.bind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
+                SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE], gsProfile, SETTINGS_PROFILE_CURSOR_SHAPE_KEY);
+        cbCursorShape.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbCursorShape, "active-id");
+        });
+                
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
 
@@ -223,8 +226,10 @@ private:
         Label lblBlinkMode = new Label(_("Blink mode"));
         lblBlinkMode.setHalign(Align.END);
         grid.attach(lblBlinkMode, 0, row, 1, 1);
-        ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
-        gsProfile.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES, gsProfile, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY);
+        cbBlinkMode.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbBlinkMode, "active-id");
+        });
         grid.attach(cbBlinkMode, 1, row, 1, 1);
         row++;
 
@@ -232,8 +237,11 @@ private:
         Label lblBell = new Label(_("Terminal bell"));
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
-        ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and Sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
-        gsProfile.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and Sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES, gsProfile, SETTINGS_PROFILE_TERMINAL_BELL_KEY);
+        cbBell.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbBell, "active-id");
+        });
+
         grid.attach(cbBell, 1, row, 1, 1);
         row++;
 
@@ -262,8 +270,11 @@ private:
             lblBadgePosition.setHalign(Align.END);
             grid.attach(lblBadgePosition, 0, row, 1, 1);
 
-            ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
-            gsProfile.bind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
+            ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES, gsProfile, SETTINGS_PROFILE_BADGE_POSITION_KEY);
+            cbBadgePosition.addOnDestroy(delegate(Widget) {
+                gsProfile.unbind(cbBadgePosition, "active-id");
+            });
+            
             grid.attach(cbBadgePosition, 1, row, 1, 1);
             row++;
         }
@@ -863,16 +874,21 @@ private:
         Label lblBackspace = new Label(_("Backspace key generates"));
         lblBackspace.setHalign(Align.END);
         attach(lblBackspace, 0, row, 1, 1);
-        ComboBox cbBackspace = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
-        gsProfile.bind(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, cbBackspace, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbBackspace = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES, gsProfile, SETTINGS_PROFILE_BACKSPACE_BINDING_KEY);
+        cbBackspace.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbBackspace, "active-id");
+        });
+        
         attach(cbBackspace, 1, row, 1, 1);
         row++;
 
         Label lblDelete = new Label(_("Delete key generates"));
         lblDelete.setHalign(Align.END);
         attach(lblDelete, 0, row, 1, 1);
-        ComboBox cbDelete = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
-        gsProfile.bind(SETTINGS_PROFILE_DELETE_BINDING_KEY, cbDelete, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbDelete = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES, gsProfile, SETTINGS_PROFILE_DELETE_BINDING_KEY);
+        cbDelete.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbDelete, "active-id");
+        });
         attach(cbDelete, 1, row, 1, 1);
         row++;
 
@@ -886,16 +902,22 @@ private:
             key[i] = encoding[0];
             value[i] = encoding[0] ~ " " ~ _(encoding[1]);
         }
-        ComboBox cbEncoding = createNameValueCombo(value, key);
-        gsProfile.bind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbEncoding = createNameValueCombo(value, key, gsProfile, SETTINGS_PROFILE_ENCODING_KEY);
+        cbEncoding.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbEncoding, "active-id");
+        });
+        
         attach(cbEncoding, 1, row, 1, 1);
         row++;
 
         Label lblCJK = new Label(_("Ambiguous-width characters"));
         lblCJK.setHalign(Align.END);
         attach(lblCJK, 0, row, 1, 1);
-        ComboBox cbCJK = createNameValueCombo([_("Narrow"), _("Wide")], SETTINGS_PROFILE_CJK_WIDTH_VALUES);
-        gsProfile.bind(SETTINGS_PROFILE_CJK_WIDTH_KEY, cbCJK, "active-id", GSettingsBindFlags.DEFAULT);
+        ComboBox cbCJK = createNameValueCombo([_("Narrow"), _("Wide")], SETTINGS_PROFILE_CJK_WIDTH_VALUES, gsProfile, SETTINGS_PROFILE_CJK_WIDTH_KEY);
+        cbCJK.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbCJK, "active-id");
+        });
+        
         attach(cbCJK, 1, row, 1, 1);
         row++;
     }
@@ -944,6 +966,9 @@ private:
         bWhenExits.add(lblWhenExists);
         ComboBox cbWhenExists = createNameValueCombo([_("Exit the terminal"), _("Restart the command"), _("Hold the terminal open")], SETTINGS_PROFILE_EXIT_ACTION_VALUES);
         gsProfile.bind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);
+        cbWhenExists.addOnDestroy(delegate(Widget) {
+            gsProfile.unbind(cbWhenExists, "active-id");
+        });
         bWhenExits.add(cbWhenExists);
 
         add(bWhenExits);
