@@ -15,6 +15,7 @@ import std.path;
 import std.string;
 import std.typecons;
 
+import gdk.Event;
 import gdk.RGBA;
 
 import gio.Settings : GSettings = Settings;
@@ -115,6 +116,12 @@ private:
         terminix.removeProfileWindow(this);
     }
 
+    bool onWindowDelete(Event e, Widget w) {
+        trace("Window deleted");
+        destroy();
+        return false;
+    }
+
 public:
 
     this(Terminix app, ProfileInfo profile) {
@@ -124,6 +131,7 @@ public:
         createUI();
         app.addProfileWindow(this);
         addOnDestroy(&onWindowDestroyed);
+        addOnDelete(&onWindowDelete, ConnectFlags.AFTER);
     }
 
     @property string uuid() {
