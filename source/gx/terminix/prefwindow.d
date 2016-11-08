@@ -414,7 +414,7 @@ private:
     Button btnNew;
     Button btnDelete;
     Button btnEdit;
-    //Button btnClone;
+    Button btnClone;
     TreeView tvProfiles;
     ListStore lsProfiles;
 
@@ -466,16 +466,16 @@ private:
         btnNew = new Button(_("New"));
         btnNew.addOnClicked(delegate(Button) {
             ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
-            //profiles ~= profile;
             addProfile(profile);
             selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
             editProfile();
         });
         bButtons.add(btnNew);
-        /*
+        
 		btnClone = new Button(_("Clone"));
+        btnClone.addOnClicked(delegate(Button) { cloneProfile();});
 		bButtons.add(btnClone);
-		*/
+
         btnEdit = new Button(_("Edit"));
         btnEdit.addOnClicked(delegate(Button) { editProfile(); });
         bButtons.add(btnEdit);
@@ -505,6 +505,16 @@ private:
         }
     }
 
+    void cloneProfile() {
+        ProfileInfo sourceProfile = getSelectedProfile();
+        if (sourceProfile.uuid !is null) {
+            ProfileInfo targetProfile = prfMgr.cloneProfile(sourceProfile);
+            addProfile(targetProfile);
+            selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
+            editProfile();
+        }
+    }
+
     ProfileInfo getSelectedProfile() {
         TreeIter selected = tvProfiles.getSelectedIter();
         if (selected) {
@@ -519,6 +529,7 @@ private:
         TreeIter selected = tvProfiles.getSelectedIter();
         btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 1);
         btnEdit.setSensitive(selected !is null);
+        btnClone.setSensitive(selected !is null);
     }
 
     void addProfile(ProfileInfo profile) {

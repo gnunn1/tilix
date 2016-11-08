@@ -13,6 +13,8 @@ import std.uuid;
 
 import gio.Settings : GSettings = Settings;
 
+import glib.Variant : GVariant = Variant;
+
 import gx.i18n.l10n;
 import gx.util.array;
 
@@ -262,6 +264,25 @@ private:
         return SETTINGS_PROFILE_PATH ~ uuid ~ "/";
     }
 
+    GSettings createProfile(string uuid, string profileName, bool isDefault) {
+        //Create Profile
+        GSettings gsProfile = getProfileSettings(uuid);
+        trace("Got profile settings for " ~ uuid);
+        gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
+        trace("Set profile name " ~ profileName);
+
+        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        trace("Get list of profiles");
+
+        ps ~= uuid;
+        gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
+        trace("Update list to include new profile");
+        if (isDefault) {
+            gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
+        }
+        return gsProfile;
+    } 
+
 package:
     /**
 	 * Creates and initializes the ProfileManager. If no default
@@ -279,22 +300,26 @@ public:
 	 */
     ProfileInfo createProfile(string profileName, bool isDefault = false) {
         string uuid = randomUUID().toString();
-        //Create Profile
-        GSettings gsProfile = getProfileSettings(uuid);
-        trace("Got profile settings for " ~ uuid);
-        gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
-        trace("Set profile name " ~ profileName);
-
-        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
-        trace("Get list of profiles");
-
-        ps ~= uuid;
-        gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
-        trace("Update list to include new profile");
-        if (isDefault) {
-            gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
-        }
+        createProfile(uuid, profileName, isDefault); 
         return ProfileInfo(isDefault, uuid, profileName);
+    }
+
+    /**
+     * Clones an existing profile
+     */
+    ProfileInfo cloneProfile(ProfileInfo sourceInfo) {
+        GSettings sourceProfile = getProfileSettings(sourceInfo.uuid);
+        string uuid = randomUUID().toString();
+        string profileName = sourceProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+        GSettings targetProfile = createProfile(uuid, profileName, false); 
+
+        string[] keys = sourceProfile.listKeys();
+        //Update each key in turn
+        foreach(key; keys) {
+            GVariant value = sourceProfile.getValue(key);
+            targetProfile.setValue(key, value);
+        }
+        return ProfileInfo(false, uuid, profileName);
     }
 
     /**
