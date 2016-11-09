@@ -8,7 +8,6 @@ echo "Extracting translatable strings... "
 # Extract the strings from D source code. Since xgettext does not support D
 # as a language we use Vala, which works reasonable well.
 find ${BASEDIR}/source -name '*.d' | xgettext \
-  --join-existing \
   --output $OUTPUT_FILE \
   --files-from=- \
   --directory=$BASEDIR \
