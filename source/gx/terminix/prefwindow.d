@@ -739,6 +739,15 @@ private:
             gsSettings.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
             grid.attach(sWidth, 1, row, 1, 1);
             row++;
+
+            //Alignment
+            grid.attach(createLabel(_("Alignment")), 0, row, 1, 1);
+            ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE], gsSettings, SETTINGS_QUAKE_ALIGNMENT_KEY);
+            cbAlignment.addOnDestroy(delegate(Widget) {
+                gsSettings.unbind(cbAlignment, "active-id");
+            });
+            grid.attach(cbAlignment, 1, row, 1, 1);
+            row++;
         }
 
         add(grid);
@@ -774,6 +783,7 @@ private:
 
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!isWayland(cast(Window) this.getToplevel())) {
+
             //Active Monitor
             CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));
             gsSettings.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", GSettingsBindFlags.DEFAULT);

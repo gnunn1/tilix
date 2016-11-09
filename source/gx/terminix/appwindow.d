@@ -957,7 +957,7 @@ private:
 
     void applyPreference(string key) {
         switch(key) {
-            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY:
+            case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, SETTINGS_QUAKE_ALIGNMENT_KEY:
                 if (isQuake) {
                     moveAndSizeQuake();
                 }
@@ -1037,7 +1037,19 @@ private:
         }
         if (percent < 1) {
             int width = to!int(rect.width * percent);
-            rect.x = (rect.width - width)/2;
+            tracef("Calculated width %d", width);
+            switch (gsSettings.getString(SETTINGS_QUAKE_ALIGNMENT_KEY)) {
+                case SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE:
+                    break;
+                case SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE:
+                    rect.x = rect.x + (rect.width - width)/2;
+                    break;
+                case SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE:
+                    rect.x = rect.x + rect.width - width;
+                    break;
+                default:
+                    break;
+            }
             rect.width = width;
         }
         tracef("Quake window: monitor=%d, x=%d, y=%d, width=%d, height=%d", monitor, rect.x, rect.y, rect.width, rect.height);

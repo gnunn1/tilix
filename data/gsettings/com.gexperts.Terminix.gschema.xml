@@ -119,6 +119,13 @@
     <value nick='southeast' value = '3'/>
   </enum>
 
+  <!-- Alignment enum -->
+  <enum id='com.gexperts.Terminix.Alignment'>
+    <value nick='left' value = '0'/>
+    <value nick='center' value = '1'/>
+    <value nick='right' value = '2'/>
+  </enum>
+
   <!-- Global settings -->
   <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
 
@@ -338,6 +345,12 @@
       <summary>Hide the quake window when focus is lost</summary>
       <description>When true, the quake window will be hidden automatically when focus is lost.</description>
     </key>
+    <key name="quake-alignment" enum="com.gexperts.Terminix.Alignment">
+      <default>'center'</default>
+      <summary>The alignment of the quake window</summary>
+      <description>The alignment of the quake window when the width is less then 100%.</description>
+    </key>
+
     <!--
     <key name="quake-keep-on-top" type="b">
       <default>true</default>
