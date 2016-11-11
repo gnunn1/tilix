@@ -7,10 +7,32 @@ module gx.gtk.vte;
 import std.experimental.logger;
 import std.format;
 
+import gdk.Keysyms;
+
 import gobject.Signals: Signals;
 
 import vte.Terminal;
 import vte.Version;
+
+/**
+ * Determines if the key value and modifier represent a hard coded key sequence
+ * that VTE handles internally.
+ */
+bool isVTEHandledKeystroke(uint keyval, GdkModifierType modifier) {
+    if ((keyval == GdkKeysyms.GDK_Page_Up || 
+        keyval == GdkKeysyms.GDK_Page_Down ||
+        keyval == GdkKeysyms.GDK_Home ||
+        keyval == GdkKeysyms.GDK_End) && (GdkModifierType.SHIFT_MASK & modifier)) {
+            return true;
+        }
+    if ((keyval == GdkKeysyms.GDK_Up || 
+        keyval == GdkKeysyms.GDK_Down) && 
+        (GdkModifierType.SHIFT_MASK & modifier) && 
+        (GdkModifierType.CONTROL_MASK & modifier)) {
+            return true;
+        }
+    return false;
+}
 
 /**
  * Check if the VTE version is the same or higher then requested

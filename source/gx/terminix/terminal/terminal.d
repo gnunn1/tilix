@@ -180,7 +180,8 @@ alias OnTerminalTitleChange = void delegate(Terminal terminal);
 
 enum SyncInputEventType {
     INSERT_TERMINAL_NUMBER,
-    INSERT_TEXT
+    INSERT_TEXT,
+    KEY_PRESS
 };
 
 struct SyncInputEvent {
@@ -896,6 +897,17 @@ private:
         }, GConnectFlags.AFTER);
 
         vte.addOnButtonPress(&onTerminalButtonPress);
+        vte.addOnKeyPress(delegate(Event event, Widget widget) {
+            if (isSynchronizedInput() && event.key.sendEvent == 0) {
+                // Only synchronize hard code VTE keys otherwise let commit event take care of it
+                if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
+                    foreach (dlg; terminalSyncInputDelegates)
+                        dlg(this, se);
+                }
+            }
+            return false;
+        });        
 
         vte.addOnSelectionChanged(delegate(VTE) {
             if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
@@ -2683,6 +2695,12 @@ public:
                     feedChild(sie.text, true);
                 }
                 break;
+            case SyncInputEventType.KEY_PRESS:
+                Event newEvent = sie.event.copy();
+                newEvent.key.sendEvent = 1;
+                newEvent.key.window = vte.getWindow().getWindowStruct();
+                vte.event(newEvent);
+                break;                
         }
     }
 
