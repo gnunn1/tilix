@@ -137,3 +137,57 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 		delegatePointer
 		);
 }
+
+/**
+ * Convenience method that allows scheduling a delegate to be executed with gdk.Threads.threadsAddTimeout instead of a
+ * traditional callback with C linkage.
+ *
+ * @param interval The interval to call the delegate in ms
+ * @param theDelegate The delegate to schedule.
+ * @param parameters  A tuple of parameters to pass to the delegate when it is invoked.
+ *
+ * @example
+ *     auto myMethod = delegate(string name, string value) { do_something_with_name_and_value(); }
+ *     threadsAddIdleDelegate(myMethod, "thisIsAName", "thisIsAValue");
+ *
+ * This code from grestful (https://github.com/Gert-dev/grestful)
+ */
+void threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegate, parameterTuple parameters)
+{
+	void* delegatePointer = null;
+
+	auto wrapperDelegate = (parameterTuple parameters) {
+		bool callAgainNextIdleCycle = false;
+
+		try
+		{
+			callAgainNextIdleCycle = theDelegate(parameters);
+			if (callAgainNextIdleCycle) trace("Callback again is true");
+			else trace("Callback again is false");
+		}
+
+		catch (Exception e)
+		{
+			trace("Unexpected exception occurred in wrapper");
+			// Catch exceptions here as otherwise, memory may never be freed below.
+		}
+
+		if (!callAgainNextIdleCycle) {
+			trace("Removing delegate pointer");
+			GC.removeRoot(delegatePointer);
+			return false;
+		} else return true;
+	};
+
+	delegatePointer = cast(void*) new DelegatePointer!(T, parameterTuple)(wrapperDelegate, parameters);
+
+	// We're going into a separate thread and exiting here, make sure the garbage collector doesn't think the memory
+	// isn't used anymore and collects it.
+	GC.addRoot(delegatePointer);
+
+	gdk.Threads.threadsAddTimeout(
+		interval,
+		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), bool),
+		delegatePointer
+		);
+}
