@@ -83,6 +83,7 @@ import vte.Terminal;
 import gx.gtk.actions;
 import gx.gtk.cairo;
 import gx.gtk.dialog;
+import gx.gtk.threads;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -1294,7 +1295,11 @@ public:
                         } 
                     }
                 }
-                hide();
+                trace("Focus lost, hiding quake window");
+                threadsAddTimeoutDelegate(100, delegate() {
+                    this.hide();
+                    return false;
+                });
             }
             return false;
         }, ConnectFlags.AFTER);
