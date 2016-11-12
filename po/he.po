@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-09 08:12+0100\n"
+"POT-Creation-Date: 2016-11-12 12:36-0500\n"
 "PO-Revision-Date: 2016-10-21 14:33+0000\n"
 "Last-Translator: Niv Baehr <bloop93@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/terminix/"
@@ -18,36 +18,493 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.9-dev\n"
 
-#: source/gx/terminix/preferences.d:201
-msgid "UpdateState"
-msgstr ""
+#: source/app.d:106
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "גרסת GTK ישנה מדי, נדרש GTK  %d.%d.%d לפחות!"
 
-#: source/gx/terminix/preferences.d:202
+#: source/app.d:123
 #, fuzzy
-msgid "ExecuteCommand"
-msgstr "פקודה"
+msgid "Unexpected exception occurred"
+msgstr "אירעה חריגה לא צפויה"
 
-#: source/gx/terminix/preferences.d:203
-msgid "SendNotification"
+#: source/app.d:124
+msgid "Error: "
+msgstr "שגיאה: "
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "מושבת"
+
+#: source/gx/terminix/constants.d:52
+msgid "A VTE based terminal emulator for Linux"
+msgstr "אמולטור מסוף מבוסס VTE עבור לינוקס"
+
+#: source/gx/terminix/constants.d:53
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
+"תבנית קוד המקור כפופה לתנאי הרישיון הציבורי של מוזילה (MPL), גרסה 2.0. אם לא "
+"הופץ עותק של MPL יחד עם קובץ זה, ניתן להשיג כזה בכתובת http://mozilla.org/"
+"MPL/2.0/."
 
-#: source/gx/terminix/preferences.d:204
+#: source/gx/terminix/constants.d:58
+msgid "GTK VTE widget team, Terminix would not be possible without their work"
+msgstr "צוות היישומון GTK VTE, שלולא עבודתם Terminix לא היה מתאפשר"
+
+#: source/gx/terminix/constants.d:59
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD שסיפק עוטף Gtk נהדר"
+
+#: source/gx/terminix/constants.d:60
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org עבור השפה הנהדרת D"
+
+#: source/gx/terminix/session.d:548
+msgid "Could not locate dropped terminal"
+msgstr "לא ניתן לאתר את המסוף שנשמט"
+
+#: source/gx/terminix/session.d:553
+msgid "Could not locate session for dropped terminal"
+msgstr "לא ניתן לאתר הפעלה עבור המסוף שנשמט"
+
+#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
+#: source/gx/terminix/prefwindow.d:612
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: source/gx/terminix/session.d:1363 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425
+msgid "Name"
+msgstr "שם"
+
+#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
+msgid "Profile"
+msgstr "פרופיל"
+
+#: source/gx/terminix/session.d:1397 source/gx/terminix/application.d:224
+#: source/gx/terminix/prefwindow.d:873
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
+msgid "New Session"
+msgstr "הפעלה חדשה"
+
+#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
+#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
+#: source/gx/terminix/encoding.d:78
+msgid "Western"
+msgstr "מערבי"
+
+#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
+#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
+msgid "Central European"
+msgstr "מרכז אירופאי"
+
+#: source/gx/terminix/encoding.d:20
+msgid "South European"
+msgstr "דרום אירופאי"
+
+#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
+#: source/gx/terminix/encoding.d:83
+msgid "Baltic"
+msgstr "בלטית"
+
+#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
+#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
+#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
+msgid "Cyrillic"
+msgstr "קירילית"
+
+#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
+#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
+msgid "Arabic"
+msgstr "ערבית"
+
+#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
+#: source/gx/terminix/encoding.d:79
+msgid "Greek"
+msgstr "יוונית"
+
+#: source/gx/terminix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "עברית ויזואלית"
+
+#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
+#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
+msgid "Hebrew"
+msgstr "עברית"
+
+#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
+#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
+msgid "Turkish"
+msgstr "טורקית"
+
+#: source/gx/terminix/encoding.d:28
+msgid "Nordic"
+msgstr "נורדית"
+
+#: source/gx/terminix/encoding.d:30
+msgid "Celtic"
+msgstr "קלטית"
+
+#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
+msgid "Romanian"
+msgstr "רומנית"
+
+#: source/gx/terminix/encoding.d:33
+msgid "Unicode"
+msgstr "יוניקוד"
+
+#: source/gx/terminix/encoding.d:34
+msgid "Armenian"
+msgstr "ארמנית"
+
+#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
+#: source/gx/terminix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "סינית מסורתית"
+
+#: source/gx/terminix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "קירילית/רוסית"
+
+#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
+#: source/gx/terminix/encoding.d:71
+msgid "Japanese"
+msgstr "יפנית"
+
+#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
+#: source/gx/terminix/encoding.d:74
+msgid "Korean"
+msgstr "קוריאנית"
+
+#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
+#: source/gx/terminix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "סינית פשוטה"
+
+#: source/gx/terminix/encoding.d:44
+msgid "Georgian"
+msgstr "גרוזינית"
+
+#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "קירילית/אוקראינית"
+
+#: source/gx/terminix/encoding.d:58
+msgid "Croatian"
+msgstr "קרואטית"
+
+#: source/gx/terminix/encoding.d:60
+msgid "Hindi"
+msgstr "הינדי"
+
+#: source/gx/terminix/encoding.d:61
+msgid "Persian"
+msgstr "פרסית"
+
+#: source/gx/terminix/encoding.d:63
+msgid "Gujarati"
+msgstr "גוג'רטית"
+
+#: source/gx/terminix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "גורמוקי"
+
+#: source/gx/terminix/encoding.d:66
+msgid "Icelandic"
+msgstr "איסלנדית"
+
+#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
+#: source/gx/terminix/encoding.d:84
+msgid "Vietnamese"
+msgstr "וויאטנמית"
+
+#: source/gx/terminix/encoding.d:73
+msgid "Thai"
+msgstr "תאי"
+
+#: source/gx/terminix/terminal/layout.d:30
 #, fuzzy
-msgid "UpdateTitle"
+msgid "Layout Options"
+msgstr "אפשרויות פריסה"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/password.d:481
+msgid "OK"
+msgstr "אישור"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/appwindow.d:1125 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+#: source/gx/terminix/profilewindow.d:1310
+#: source/gx/terminix/profilewindow.d:1483
+msgid "Cancel"
+msgstr "ביטול"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "פעיל"
+
+#: source/gx/terminix/terminal/layout.d:51
+msgid "Title"
 msgstr "כותרת"
 
-#: source/gx/terminix/preferences.d:205
-msgid "PlayBell"
+#: source/gx/terminix/terminal/layout.d:60
+#: source/gx/terminix/profilewindow.d:260
+#: source/gx/terminix/profilewindow.d:546
+msgid "Badge"
 msgstr ""
 
-#: source/gx/terminix/preferences.d:206
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "טעינת הפעלה"
+
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/profilewindow.d:105
+#: source/gx/terminix/profilewindow.d:955
+#: source/gx/terminix/profilewindow.d:1258
+msgid "Command"
+msgstr "פקודה"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"אפשרויות פעילות תמיד פעילות ומיושמות מיד.\n"
+"אפשרויות טעינת הפעלה מיושמות רק בעת טעינת קובץ הפעלה."
+
+#: source/gx/terminix/terminal/terminal.d:372
+#: source/gx/terminix/terminal/terminal.d:2781
+#: data/resources/ui/shortcuts.ui:356
+msgid "Terminal"
+msgstr "מסוף"
+
+#: source/gx/terminix/terminal/terminal.d:403
+#: source/gx/terminix/terminal/terminal.d:1420
+#: source/gx/terminix/appwindow.d:618 source/gx/terminix/sidebar.d:374
+msgid "Close"
+msgstr "סגירה"
+
+#: source/gx/terminix/terminal/terminal.d:412
+#: source/gx/terminix/terminal/terminal.d:1122
+#: source/gx/terminix/terminal/terminal.d:1419
 #, fuzzy
-msgid "SendText"
-msgstr "טקסט"
+msgid "Maximize"
+msgstr "הגדלה"
 
-#: source/gx/terminix/preferences.d:207
-msgid "InsertPassword"
+#: source/gx/terminix/terminal/terminal.d:423
+#: source/gx/terminix/terminal/terminal.d:664
+msgid "Disable input synchronization for this terminal"
+msgstr "השבתת סנכרון קלט עבור מסוף זה"
+
+#: source/gx/terminix/terminal/terminal.d:433
+#: source/gx/terminix/terminal/terminal.d:769
+msgid "Read-Only"
+msgstr "קריאה בלבד"
+
+#: source/gx/terminix/terminal/terminal.d:440
+#: source/gx/terminix/profilewindow.d:237
+msgid "Terminal bell"
+msgstr "פעמון מסוף"
+
+#: source/gx/terminix/terminal/terminal.d:486
+msgid "Edit Profile"
+msgstr "עריכת פרופיל"
+
+#: source/gx/terminix/terminal/terminal.d:628
+#: source/gx/terminix/appwindow.d:895
+msgid "There are processes that are still running, close anyway?"
+msgstr "ישנם תהליכים שעדיין רצים, האם לסגור בכל זאת?"
+
+#: source/gx/terminix/terminal/terminal.d:666
+msgid "Enable input synchronization for this terminal"
+msgstr "הפעלת סנכרון קלט עבור מסוף זה"
+
+#: source/gx/terminix/terminal/terminal.d:696
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:696
+msgid "Library Not Loaded"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:756
+msgid "Save Output…"
+msgstr "שמירת הפלט…"
+
+#: source/gx/terminix/terminal/terminal.d:757
+#: source/gx/terminix/profilewindow.d:202
+msgid "Reset"
+msgstr "איפוס"
+
+#: source/gx/terminix/terminal/terminal.d:758
+msgid "Reset and Clear"
+msgstr "איפוס וניקוי"
+
+#: source/gx/terminix/terminal/terminal.d:762
+#: source/gx/terminix/prefwindow.d:101
+msgid "Profiles"
+msgstr "פרופילים"
+
+#: source/gx/terminix/terminal/terminal.d:763
+#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
+#: source/gx/terminix/prefwindow.d:177
+msgid "Encoding"
+msgstr "קידוד"
+
+#: source/gx/terminix/terminal/terminal.d:767
+msgid "Find…"
+msgstr "חיפוש…"
+
+#: source/gx/terminix/terminal/terminal.d:768
+msgid "Layout Options…"
+msgstr "אפשרויות פריסה…"
+
+#: source/gx/terminix/terminal/terminal.d:779
+msgid "Add Right"
+msgstr "הוספה ימינה"
+
+#: source/gx/terminix/terminal/terminal.d:783
+msgid "Add Down"
+msgstr "הוספה למטה"
+
+#: source/gx/terminix/terminal/terminal.d:1119
+#: source/gx/terminix/terminal/terminal.d:1419
+msgid "Restore"
+msgstr "שחזור"
+
+#: source/gx/terminix/terminal/terminal.d:1379
+#, fuzzy
+msgid "Open Link"
+msgstr "פתיחת קישור"
+
+#: source/gx/terminix/terminal/terminal.d:1380
+#, fuzzy
+msgid "Copy Link Address"
+msgstr "העתקת כתובת קישור"
+
+#: source/gx/terminix/terminal/terminal.d:1390
+#: source/gx/terminix/terminal/terminal.d:1397
+msgid "Copy"
+msgstr "העתקה"
+
+#: source/gx/terminix/terminal/terminal.d:1391
+#: source/gx/terminix/terminal/terminal.d:1402
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "הדבקה"
+
+#: source/gx/terminix/terminal/terminal.d:1392
+#: source/gx/terminix/terminal/terminal.d:1407
+msgid "Select All"
+msgstr "בחירת הכל"
+
+#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/prefwindow.d:879
+msgid "Clipboard"
+msgstr "לוח גזירים"
+
+#: source/gx/terminix/terminal/terminal.d:1424
+msgid "Synchronize input"
+msgstr "סנכרון הקלט"
+
+#: source/gx/terminix/terminal/terminal.d:2013
+msgid "Unexpected error occurred, no additional information available"
+msgstr "התרחשה שגיאה בלתי צפויה, אין מידע נוסף זמין"
+
+#: source/gx/terminix/terminal/terminal.d:2019
+#, fuzzy, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "התרחשה שגיאה בלתי צפויה: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2504
+msgid "Save Terminal Output"
+msgstr "שמירת פלט מסוף"
+
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/appwindow.d:616 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+msgid "Save"
+msgstr "שמירה"
+
+#: source/gx/terminix/terminal/terminal.d:2513
+msgid "All Text Files"
+msgstr "כל קובצי הטקסט"
+
+#: source/gx/terminix/terminal/terminal.d:2517
+#: source/gx/terminix/appwindow.d:1083 source/gx/terminix/profilewindow.d:767
+#: source/gx/terminix/prefwindow.d:630
+msgid "All Files"
+msgstr "כל הקבצים"
+
+#: source/gx/terminix/terminal/terminal.d:2941
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "תהליך הבן יצא כרגיל במצב %d"
+
+#: source/gx/terminix/terminal/terminal.d:2942
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "תהליך הבן נפל עם האות %d."
+
+#: source/gx/terminix/terminal/terminal.d:2943
+msgid "The child process was aborted."
+msgstr "תהליך הבן נפל."
+
+#: source/gx/terminix/terminal/terminal.d:2949
+msgid "Relaunch"
+msgstr "הפעלה מחדש"
+
+#: source/gx/terminix/terminal/terminal.d:2994
+#, fuzzy
+msgid "Don't Paste"
+msgstr "לא להדביק"
+
+#: source/gx/terminix/terminal/terminal.d:2995
+#, fuzzy
+msgid "Paste Anyway"
+msgstr "להדביק בכל זאת"
+
+#: source/gx/terminix/terminal/search.d:121
+msgid "Search Options"
+msgstr "אפשרויות חיפוש"
+
+#: source/gx/terminix/terminal/search.d:134
+#, fuzzy
+msgid "Find next"
+msgstr "חיפוש הבא"
+
+#: source/gx/terminix/terminal/search.d:140
+#, fuzzy
+msgid "Find previous"
+msgstr "חיפוש הקודם"
+
+#: source/gx/terminix/terminal/search.d:187
+#, fuzzy
+msgid "Match case"
+msgstr "התאמת רישיות"
+
+#: source/gx/terminix/terminal/search.d:188
+#, fuzzy
+msgid "Match entire word only"
+msgstr "התאמה למילה שלמה בלבד"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match as regular expression"
+msgstr "התאמה כביטוי רגולרי"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Wrap around"
+msgstr "גלישת שורות"
 
 #: source/gx/terminix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
@@ -76,28 +533,6 @@ msgstr ""
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Advanced Paste"
 msgstr "הדבקה מתקדמת"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/terminal.d:1369
-#: source/gx/terminix/terminal/terminal.d:1380
-msgid "Paste"
-msgstr "הדבקה"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/terminal/layout.d:28 source/gx/terminix/appwindow.d:1112
-#: source/gx/terminix/appwindow.d:1146 source/gx/terminix/profilewindow.d:750
-#: source/gx/terminix/profilewindow.d:1310
-#: source/gx/terminix/profilewindow.d:1483
-msgid "Cancel"
-msgstr "ביטול"
-
-#: source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1363
-msgid "Name"
-msgstr "שם"
 
 #: source/gx/terminix/terminal/password.d:136
 msgid "ID"
@@ -144,11 +579,6 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr "אישור"
-
 #: source/gx/terminix/terminal/password.d:487
 msgid "Add Password"
 msgstr ""
@@ -157,358 +587,7 @@ msgstr ""
 msgid "Edit Password"
 msgstr ""
 
-#: source/gx/terminix/terminal/search.d:121
-msgid "Search Options"
-msgstr "אפשרויות חיפוש"
-
-#: source/gx/terminix/terminal/search.d:134
-#, fuzzy
-msgid "Find next"
-msgstr "חיפוש הבא"
-
-#: source/gx/terminix/terminal/search.d:140
-#, fuzzy
-msgid "Find previous"
-msgstr "חיפוש הקודם"
-
-#: source/gx/terminix/terminal/search.d:187
-#, fuzzy
-msgid "Match case"
-msgstr "התאמת רישיות"
-
-#: source/gx/terminix/terminal/search.d:188
-#, fuzzy
-msgid "Match entire word only"
-msgstr "התאמה למילה שלמה בלבד"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match as regular expression"
-msgstr "התאמה כביטוי רגולרי"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Wrap around"
-msgstr "גלישת שורות"
-
-#: source/gx/terminix/terminal/terminal.d:369
-#: source/gx/terminix/terminal/terminal.d:2747
-#: data/resources/ui/shortcuts.ui:356
-msgid "Terminal"
-msgstr "מסוף"
-
-#: source/gx/terminix/terminal/terminal.d:400
-#: source/gx/terminix/terminal/terminal.d:1398 source/gx/terminix/sidebar.d:374
-#: source/gx/terminix/appwindow.d:617
-msgid "Close"
-msgstr "סגירה"
-
-#: source/gx/terminix/terminal/terminal.d:409
-#: source/gx/terminix/terminal/terminal.d:1105
-#: source/gx/terminix/terminal/terminal.d:1397
-#, fuzzy
-msgid "Maximize"
-msgstr "הגדלה"
-
-#: source/gx/terminix/terminal/terminal.d:420
-#: source/gx/terminix/terminal/terminal.d:660
-msgid "Disable input synchronization for this terminal"
-msgstr "השבתת סנכרון קלט עבור מסוף זה"
-
-#: source/gx/terminix/terminal/terminal.d:430
-#: source/gx/terminix/terminal/terminal.d:765
-msgid "Read-Only"
-msgstr "קריאה בלבד"
-
-#: source/gx/terminix/terminal/terminal.d:437
-#: source/gx/terminix/profilewindow.d:237
-msgid "Terminal bell"
-msgstr "פעמון מסוף"
-
-#: source/gx/terminix/terminal/terminal.d:483
-msgid "Edit Profile"
-msgstr "עריכת פרופיל"
-
-#: source/gx/terminix/terminal/terminal.d:624
-#: source/gx/terminix/appwindow.d:894
-msgid "There are processes that are still running, close anyway?"
-msgstr "ישנם תהליכים שעדיין רצים, האם לסגור בכל זאת?"
-
-#: source/gx/terminix/terminal/terminal.d:662
-msgid "Enable input synchronization for this terminal"
-msgstr "הפעלת סנכרון קלט עבור מסוף זה"
-
-#: source/gx/terminix/terminal/terminal.d:692
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:692
-msgid "Library Not Loaded"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:752
-msgid "Save Output…"
-msgstr "שמירת הפלט…"
-
-#: source/gx/terminix/terminal/terminal.d:753
-#: source/gx/terminix/profilewindow.d:202
-msgid "Reset"
-msgstr "איפוס"
-
-#: source/gx/terminix/terminal/terminal.d:754
-msgid "Reset and Clear"
-msgstr "איפוס וניקוי"
-
-#: source/gx/terminix/terminal/terminal.d:758
-#: source/gx/terminix/prefwindow.d:101
-msgid "Profiles"
-msgstr "פרופילים"
-
-#: source/gx/terminix/terminal/terminal.d:759
-#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
-#: source/gx/terminix/prefwindow.d:177
-msgid "Encoding"
-msgstr "קידוד"
-
-#: source/gx/terminix/terminal/terminal.d:763
-msgid "Find…"
-msgstr "חיפוש…"
-
-#: source/gx/terminix/terminal/terminal.d:764
-msgid "Layout Options…"
-msgstr "אפשרויות פריסה…"
-
-#: source/gx/terminix/terminal/terminal.d:775
-msgid "Add Right"
-msgstr "הוספה ימינה"
-
-#: source/gx/terminix/terminal/terminal.d:779
-msgid "Add Down"
-msgstr "הוספה למטה"
-
-#: source/gx/terminix/terminal/terminal.d:1102
-#: source/gx/terminix/terminal/terminal.d:1397
-msgid "Restore"
-msgstr "שחזור"
-
-#: source/gx/terminix/terminal/terminal.d:1357
-#, fuzzy
-msgid "Open Link"
-msgstr "פתיחת קישור"
-
-#: source/gx/terminix/terminal/terminal.d:1358
-#, fuzzy
-msgid "Copy Link Address"
-msgstr "העתקת כתובת קישור"
-
-#: source/gx/terminix/terminal/terminal.d:1368
-#: source/gx/terminix/terminal/terminal.d:1375
-msgid "Copy"
-msgstr "העתקה"
-
-#: source/gx/terminix/terminal/terminal.d:1370
-#: source/gx/terminix/terminal/terminal.d:1385
-msgid "Select All"
-msgstr "בחירת הכל"
-
-#: source/gx/terminix/terminal/terminal.d:1388
-#: source/gx/terminix/prefwindow.d:869
-msgid "Clipboard"
-msgstr "לוח גזירים"
-
-#: source/gx/terminix/terminal/terminal.d:1402
-msgid "Synchronize input"
-msgstr "סנכרון הקלט"
-
-#: source/gx/terminix/terminal/terminal.d:1991
-msgid "Unexpected error occurred, no additional information available"
-msgstr "התרחשה שגיאה בלתי צפויה, אין מידע נוסף זמין"
-
-#: source/gx/terminix/terminal/terminal.d:1997
-#, fuzzy, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "התרחשה שגיאה בלתי צפויה: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2482
-msgid "Save Terminal Output"
-msgstr "שמירת פלט מסוף"
-
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/appwindow.d:615 source/gx/terminix/appwindow.d:1146
-#: source/gx/terminix/profilewindow.d:750
-msgid "Save"
-msgstr "שמירה"
-
-#: source/gx/terminix/terminal/terminal.d:2491
-msgid "All Text Files"
-msgstr "כל קובצי הטקסט"
-
-#: source/gx/terminix/terminal/terminal.d:2495
-#: source/gx/terminix/appwindow.d:1070 source/gx/terminix/profilewindow.d:767
-#: source/gx/terminix/prefwindow.d:630
-msgid "All Files"
-msgstr "כל הקבצים"
-
-#: source/gx/terminix/terminal/terminal.d:2907
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "תהליך הבן יצא כרגיל במצב %d"
-
-#: source/gx/terminix/terminal/terminal.d:2908
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "תהליך הבן נפל עם האות %d."
-
-#: source/gx/terminix/terminal/terminal.d:2909
-msgid "The child process was aborted."
-msgstr "תהליך הבן נפל."
-
-#: source/gx/terminix/terminal/terminal.d:2915
-msgid "Relaunch"
-msgstr "הפעלה מחדש"
-
-#: source/gx/terminix/terminal/terminal.d:2960
-#, fuzzy
-msgid "Don't Paste"
-msgstr "לא להדביק"
-
-#: source/gx/terminix/terminal/terminal.d:2961
-#, fuzzy
-msgid "Paste Anyway"
-msgstr "להדביק בכל זאת"
-
-#: source/gx/terminix/terminal/layout.d:28
-#, fuzzy
-msgid "Layout Options"
-msgstr "אפשרויות פריסה"
-
-#: source/gx/terminix/terminal/layout.d:43
-msgid "Active"
-msgstr "פעיל"
-
-#: source/gx/terminix/terminal/layout.d:49
-msgid "Title"
-msgstr "כותרת"
-
-#: source/gx/terminix/terminal/layout.d:57
-msgid "Session Load"
-msgstr "טעינת הפעלה"
-
-#: source/gx/terminix/terminal/layout.d:64
-#: source/gx/terminix/profilewindow.d:105
-#: source/gx/terminix/profilewindow.d:955
-#: source/gx/terminix/profilewindow.d:1258
-msgid "Command"
-msgstr "פקודה"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"אפשרויות פעילות תמיד פעילות ומיושמות מיד.\n"
-"אפשרויות טעינת הפעלה מיושמות רק בעת טעינת קובץ הפעלה."
-
-#: source/gx/terminix/appwindow.d:317
-msgid "View session sidebar"
-msgstr "הצגת חלונית הצד להפעלה"
-
-#: source/gx/terminix/appwindow.d:342
-msgid "Create a new session"
-msgstr "יצירת הפעלה חדשה"
-
-#: source/gx/terminix/appwindow.d:360
-msgid "Add terminal right"
-msgstr "הוספת מסוף מימין"
-
-#: source/gx/terminix/appwindow.d:364
-msgid "Add terminal down"
-msgstr "הוספת מסוף למטה"
-
-#: source/gx/terminix/appwindow.d:369
-msgid "Find text in terminal"
-msgstr "מציאת טקסט במסוף"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Change Session Name"
-msgstr "שינוי שם ההפעלה"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Enter a new name for the session"
-msgstr "הזנת שם עבור ההפעלה"
-
-#: source/gx/terminix/appwindow.d:614
-msgid "Open…"
-msgstr "פתיחה…"
-
-#: source/gx/terminix/appwindow.d:616
-msgid "Save As…"
-msgstr "שמירה בשם…"
-
-#: source/gx/terminix/appwindow.d:621
-msgid "Name…"
-msgstr "שם…"
-
-#: source/gx/terminix/appwindow.d:622
-msgid "Synchronize Input"
-msgstr "סנכרון קלט"
-
-#: source/gx/terminix/appwindow.d:627
-msgid "GC"
-msgstr ""
-
-#: source/gx/terminix/appwindow.d:871
-#, fuzzy
-msgid "There are multiple sessions open, close anyway?"
-msgstr "ישנם תהליכים שעדיין רצים, האם לסגור בכל זאת?"
-
-#: source/gx/terminix/appwindow.d:872
-#, fuzzy
-msgid "Do not show this again"
-msgstr "לא להציג הודעה זו שוב"
-
-#: source/gx/terminix/appwindow.d:1066 source/gx/terminix/profilewindow.d:763
-msgid "All JSON Files"
-msgstr "כל קובצי ה־JSON"
-
-#: source/gx/terminix/appwindow.d:1079
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "הקובץ „%s” אינו קיים"
-
-#: source/gx/terminix/appwindow.d:1109
-msgid "Load Session"
-msgstr "טעינת הפעלה"
-
-#: source/gx/terminix/appwindow.d:1112
-msgid "Open"
-msgstr "פתיחה"
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Could not load session due to unexpected error."
-msgstr "לא ניתן לטעון הפעלה עקב שגיאה בלתי צפויה."
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Error Loading Session"
-msgstr "שגיאה בטעינת הפעלה"
-
-#: source/gx/terminix/appwindow.d:1143
-msgid "Save Session"
-msgstr "שמירת הפעלה"
-
-#: source/gx/terminix/appwindow.d:1225
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:224 source/gx/terminix/session.d:1397
-#: source/gx/terminix/prefwindow.d:863
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "הפעלה חדשה"
-
-#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:873
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
 msgid "New Window"
 msgstr "חלון חדש"
@@ -651,6 +730,136 @@ msgstr "זוהתה בעיית תצורה"
 msgid "Do not show this message again"
 msgstr "לא להציג הודעה זו שוב"
 
+#: source/gx/terminix/appwindow.d:318
+msgid "View session sidebar"
+msgstr "הצגת חלונית הצד להפעלה"
+
+#: source/gx/terminix/appwindow.d:343
+msgid "Create a new session"
+msgstr "יצירת הפעלה חדשה"
+
+#: source/gx/terminix/appwindow.d:361
+msgid "Add terminal right"
+msgstr "הוספת מסוף מימין"
+
+#: source/gx/terminix/appwindow.d:365
+msgid "Add terminal down"
+msgstr "הוספת מסוף למטה"
+
+#: source/gx/terminix/appwindow.d:370
+msgid "Find text in terminal"
+msgstr "מציאת טקסט במסוף"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Change Session Name"
+msgstr "שינוי שם ההפעלה"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Enter a new name for the session"
+msgstr "הזנת שם עבור ההפעלה"
+
+#: source/gx/terminix/appwindow.d:615
+msgid "Open…"
+msgstr "פתיחה…"
+
+#: source/gx/terminix/appwindow.d:617
+msgid "Save As…"
+msgstr "שמירה בשם…"
+
+#: source/gx/terminix/appwindow.d:622
+msgid "Name…"
+msgstr "שם…"
+
+#: source/gx/terminix/appwindow.d:623
+msgid "Synchronize Input"
+msgstr "סנכרון קלט"
+
+#: source/gx/terminix/appwindow.d:628
+msgid "GC"
+msgstr ""
+
+#: source/gx/terminix/appwindow.d:872
+#, fuzzy
+msgid "There are multiple sessions open, close anyway?"
+msgstr "ישנם תהליכים שעדיין רצים, האם לסגור בכל זאת?"
+
+#: source/gx/terminix/appwindow.d:873
+#, fuzzy
+msgid "Do not show this again"
+msgstr "לא להציג הודעה זו שוב"
+
+#: source/gx/terminix/appwindow.d:1079 source/gx/terminix/profilewindow.d:763
+msgid "All JSON Files"
+msgstr "כל קובצי ה־JSON"
+
+#: source/gx/terminix/appwindow.d:1092
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "הקובץ „%s” אינו קיים"
+
+#: source/gx/terminix/appwindow.d:1122
+msgid "Load Session"
+msgstr "טעינת הפעלה"
+
+#: source/gx/terminix/appwindow.d:1125
+msgid "Open"
+msgstr "פתיחה"
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Could not load session due to unexpected error."
+msgstr "לא ניתן לטעון הפעלה עקב שגיאה בלתי צפויה."
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Error Loading Session"
+msgstr "שגיאה בטעינת הפעלה"
+
+#: source/gx/terminix/appwindow.d:1156
+msgid "Save Session"
+msgstr "שמירת הפעלה"
+
+#: source/gx/terminix/appwindow.d:1238
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "הקובץ %s אינו קובץ JSON תואם תכנית צבעים"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "תכנית לוח הצבעים דורשת 16 צבעים"
+
+#: source/gx/terminix/cmdparams.d:96
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "מתעלם כי „%s” אינה תיקייה"
+
+#: source/gx/terminix/cmdparams.d:144
+#, c-format
+msgid "Ignoring parameter session as '%s' does not exist"
+msgstr "מתעלם מפרמטר הפעלה כי „%s” אינו קיים"
+
+#: source/gx/terminix/cmdparams.d:154
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"לא ניתן לטעון הפעלה וגם לקבוע אפשרות עבור פרופיל/תיקיית עבודה/פקודה לביצוע, "
+"נא לבחור האחד או האחר"
+
+#: source/gx/terminix/cmdparams.d:161
+msgid "You can only use the action parameter within Terminix"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:182
+msgid ""
+"You cannot use the quake mode with maximize, minimize, fullscreen or "
+"geometry parameters"
+msgstr ""
+
 #: source/gx/terminix/profilewindow.d:93
 #, c-format
 msgid "Editing Profile: %s"
@@ -755,11 +964,6 @@ msgstr "סמל וצליל"
 msgid "Terminal title"
 msgstr "כותרת מסוף"
 
-#: source/gx/terminix/profilewindow.d:260
-#: source/gx/terminix/profilewindow.d:546
-msgid "Badge"
-msgstr ""
-
 #: source/gx/terminix/profilewindow.d:269
 msgid "Badge position"
 msgstr ""
@@ -818,7 +1022,7 @@ msgstr ""
 msgid "Color palette"
 msgstr "לוח צבעים"
 
-#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:746
+#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:755
 msgid "Options"
 msgstr "אפשרויות"
 
@@ -1139,192 +1343,41 @@ msgstr ""
 msgid "Edit Triggers"
 msgstr "עריכת פרופיל"
 
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "הקובץ %s אינו קובץ JSON תואם תכנית צבעים"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "תכנית לוח הצבעים דורשת 16 צבעים"
-
-#: source/gx/terminix/session.d:548
-msgid "Could not locate dropped terminal"
-msgstr "לא ניתן לאתר את המסוף שנשמט"
-
-#: source/gx/terminix/session.d:553
-msgid "Could not locate session for dropped terminal"
-msgstr "לא ניתן לאתר הפעלה עבור המסוף שנשמט"
-
-#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
-#: source/gx/terminix/prefwindow.d:612
-msgid "Default"
-msgstr "ברירת מחדל"
-
-#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
-msgid "Profile"
-msgstr "פרופיל"
-
-#: source/gx/terminix/constants.d:52
-msgid "A VTE based terminal emulator for Linux"
-msgstr "אמולטור מסוף מבוסס VTE עבור לינוקס"
-
-#: source/gx/terminix/constants.d:53
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
+#: source/gx/terminix/preferences.d:205
+msgid "UpdateState"
 msgstr ""
-"תבנית קוד המקור כפופה לתנאי הרישיון הציבורי של מוזילה (MPL), גרסה 2.0. אם לא "
-"הופץ עותק של MPL יחד עם קובץ זה, ניתן להשיג כזה בכתובת http://mozilla.org/"
-"MPL/2.0/."
 
-#: source/gx/terminix/constants.d:58
-msgid "GTK VTE widget team, Terminix would not be possible without their work"
-msgstr "צוות היישומון GTK VTE, שלולא עבודתם Terminix לא היה מתאפשר"
+#: source/gx/terminix/preferences.d:206
+#, fuzzy
+msgid "ExecuteCommand"
+msgstr "פקודה"
 
-#: source/gx/terminix/constants.d:59
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD שסיפק עוטף Gtk נהדר"
+#: source/gx/terminix/preferences.d:207
+msgid "SendNotification"
+msgstr ""
 
-#: source/gx/terminix/constants.d:60
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org עבור השפה הנהדרת D"
+#: source/gx/terminix/preferences.d:208
+#, fuzzy
+msgid "UpdateTitle"
+msgstr "כותרת"
 
-#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
-#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
-#: source/gx/terminix/encoding.d:78
-msgid "Western"
-msgstr "מערבי"
+#: source/gx/terminix/preferences.d:209
+msgid "PlayBell"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
-#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
-msgid "Central European"
-msgstr "מרכז אירופאי"
+#: source/gx/terminix/preferences.d:210
+#, fuzzy
+msgid "SendText"
+msgstr "טקסט"
 
-#: source/gx/terminix/encoding.d:20
-msgid "South European"
-msgstr "דרום אירופאי"
+#: source/gx/terminix/preferences.d:211
+msgid "InsertPassword"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
-#: source/gx/terminix/encoding.d:83
-msgid "Baltic"
-msgstr "בלטית"
-
-#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
-#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
-#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
-msgid "Cyrillic"
-msgstr "קירילית"
-
-#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
-#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
-msgid "Arabic"
-msgstr "ערבית"
-
-#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
-#: source/gx/terminix/encoding.d:79
-msgid "Greek"
-msgstr "יוונית"
-
-#: source/gx/terminix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "עברית ויזואלית"
-
-#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
-#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
-msgid "Hebrew"
-msgstr "עברית"
-
-#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
-#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
-msgid "Turkish"
-msgstr "טורקית"
-
-#: source/gx/terminix/encoding.d:28
-msgid "Nordic"
-msgstr "נורדית"
-
-#: source/gx/terminix/encoding.d:30
-msgid "Celtic"
-msgstr "קלטית"
-
-#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
-msgid "Romanian"
-msgstr "רומנית"
-
-#: source/gx/terminix/encoding.d:33
-msgid "Unicode"
-msgstr "יוניקוד"
-
-#: source/gx/terminix/encoding.d:34
-msgid "Armenian"
-msgstr "ארמנית"
-
-#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
-#: source/gx/terminix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "סינית מסורתית"
-
-#: source/gx/terminix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "קירילית/רוסית"
-
-#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
-#: source/gx/terminix/encoding.d:71
-msgid "Japanese"
-msgstr "יפנית"
-
-#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
-#: source/gx/terminix/encoding.d:74
-msgid "Korean"
-msgstr "קוריאנית"
-
-#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
-#: source/gx/terminix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "סינית פשוטה"
-
-#: source/gx/terminix/encoding.d:44
-msgid "Georgian"
-msgstr "גרוזינית"
-
-#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "קירילית/אוקראינית"
-
-#: source/gx/terminix/encoding.d:58
-msgid "Croatian"
-msgstr "קרואטית"
-
-#: source/gx/terminix/encoding.d:60
-msgid "Hindi"
-msgstr "הינדי"
-
-#: source/gx/terminix/encoding.d:61
-msgid "Persian"
-msgstr "פרסית"
-
-#: source/gx/terminix/encoding.d:63
-msgid "Gujarati"
-msgstr "גוג'רטית"
-
-#: source/gx/terminix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "גורמוקי"
-
-#: source/gx/terminix/encoding.d:66
-msgid "Icelandic"
-msgstr "איסלנדית"
-
-#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
-#: source/gx/terminix/encoding.d:84
-msgid "Vietnamese"
-msgstr "וויאטנמית"
-
-#: source/gx/terminix/encoding.d:73
-msgid "Thai"
-msgstr "תאי"
+#: source/gx/terminix/preferences.d:212
+#, fuzzy
+msgid "UpdateBadge"
+msgstr "כותרת"
 
 #: source/gx/terminix/prefwindow.d:89
 msgid "Global"
@@ -1425,7 +1478,7 @@ msgstr ""
 msgid "Tile"
 msgstr "אריח"
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:745
 msgid "Center"
 msgstr "מרכז"
 
@@ -1463,132 +1516,99 @@ msgstr "אחוז גובה"
 msgid "Width percent"
 msgstr "אחוז רוחב"
 
-#: source/gx/terminix/prefwindow.d:754
+#: source/gx/terminix/prefwindow.d:744
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+#, fuzzy
+msgid "Right"
+msgstr "בהיר"
+
+#: source/gx/terminix/prefwindow.d:763
 msgid "Show terminal on all workspaces"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:759
+#: source/gx/terminix/prefwindow.d:768
 msgid "Set hint for window manager to disable animation"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:764
+#: source/gx/terminix/prefwindow.d:773
 msgid "Hide window when focus is lost"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:778
+#: source/gx/terminix/prefwindow.d:788
 #, fuzzy
 msgid "Display terminal on active monitor"
 msgstr "שמירת תכני מסוף"
 
-#: source/gx/terminix/prefwindow.d:785
+#: source/gx/terminix/prefwindow.d:795
 msgid "Display on specific monitor"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:820
+#: source/gx/terminix/prefwindow.d:830
 msgid "Behavior"
 msgstr "התנהגות"
 
-#: source/gx/terminix/prefwindow.d:826
+#: source/gx/terminix/prefwindow.d:836
 msgid "Prompt when creating a new session"
 msgstr "בקשה בעת יצירת הפעלה חדשה"
 
-#: source/gx/terminix/prefwindow.d:831
+#: source/gx/terminix/prefwindow.d:841
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "מיקוד מסוף בעת מעבר העכבר מעליו"
 
-#: source/gx/terminix/prefwindow.d:836
+#: source/gx/terminix/prefwindow.d:846
 msgid "Autohide the mouse pointer when typing"
 msgstr "הסתרה אוטומטית של מצביע העכבר בעת הקלדה"
 
-#: source/gx/terminix/prefwindow.d:841
+#: source/gx/terminix/prefwindow.d:851
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:846
+#: source/gx/terminix/prefwindow.d:856
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:852
+#: source/gx/terminix/prefwindow.d:862
 msgid "Send desktop notification on process complete"
 msgstr "שליחת התראה לשולחן העבודה בסיום תהליך"
 
-#: source/gx/terminix/prefwindow.d:860
+#: source/gx/terminix/prefwindow.d:870
 msgid "On new instance"
 msgstr "במופע חדש"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Right"
 msgstr "פיצול ימינה"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Down"
 msgstr "פיצול למטה"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Focus Window"
 msgstr "מיקוד חלון"
 
-#: source/gx/terminix/prefwindow.d:875
+#: source/gx/terminix/prefwindow.d:885
 msgid "Always use advanced paste dialog"
 msgstr "תמיד להשתמש בתיבת דו־השיח של הדבקה מתקדמת"
 
-#: source/gx/terminix/prefwindow.d:880
+#: source/gx/terminix/prefwindow.d:890
 msgid "Warn when attempting unsafe paste"
 msgstr "אזהרה בעת ניסיון להדבקה לא בטוחה"
 
-#: source/gx/terminix/prefwindow.d:885
+#: source/gx/terminix/prefwindow.d:895
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "הסרת התו הראשון בהדבקה במקרה של הערה או הצהרת משתנים"
 
-#: source/gx/terminix/prefwindow.d:890
+#: source/gx/terminix/prefwindow.d:900
 msgid "Automatically copy text to clipboard when selecting"
 msgstr ""
-
-#: source/gx/terminix/cmdparams.d:96
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "מתעלם כי „%s” אינה תיקייה"
-
-#: source/gx/terminix/cmdparams.d:144
-#, c-format
-msgid "Ignoring parameter session as '%s' does not exist"
-msgstr "מתעלם מפרמטר הפעלה כי „%s” אינו קיים"
-
-#: source/gx/terminix/cmdparams.d:154
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"לא ניתן לטעון הפעלה וגם לקבוע אפשרות עבור פרופיל/תיקיית עבודה/פקודה לביצוע, "
-"נא לבחור האחד או האחר"
-
-#: source/gx/terminix/cmdparams.d:161
-msgid "You can only use the action parameter within Terminix"
-msgstr ""
-
-#: source/gx/terminix/cmdparams.d:182
-msgid ""
-"You cannot use the quake mode with maximize, minimize, fullscreen or "
-"geometry parameters"
-msgstr ""
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "מושבת"
-
-#: source/app.d:106
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "גרסת GTK ישנה מדי, נדרש GTK  %d.%d.%d לפחות!"
-
-#: source/app.d:123
-#, fuzzy
-msgid "Unexpected exception occurred"
-msgstr "אירעה חריגה לא צפויה"
-
-#: source/app.d:124
-msgid "Error: "
-msgstr "שגיאה: "
 
 #: data/nautilus/open-terminix.py:65
 #, fuzzy

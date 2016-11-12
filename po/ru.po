@@ -8,47 +8,495 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-09 08:12+0100\n"
+"POT-Creation-Date: 2016-11-12 12:36-0500\n"
 "PO-Revision-Date: 2016-11-11 12:30+0000\n"
 "Last-Translator: Ivan Ivanov <garuwex@gmail.com>\n"
-"Language-Team: Russian "
-"<https://hosted.weblate.org/projects/terminix/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/terminix/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.9\n"
 
-#: source/gx/terminix/preferences.d:201
-msgid "UpdateState"
-msgstr ""
+#: source/app.d:106
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Ваша версия GTK устарела, вам нужно установите последнию GTK %d.%d.%d!"
 
-#: source/gx/terminix/preferences.d:202
-#, fuzzy
-msgid "ExecuteCommand"
+#: source/app.d:123
+msgid "Unexpected exception occurred"
+msgstr "Произошло неожиданное исключение"
+
+#: source/app.d:124
+msgid "Error: "
+msgstr "Ошибка: "
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "выключен"
+
+#: source/gx/terminix/constants.d:52
+msgid "A VTE based terminal emulator for Linux"
+msgstr "Эмулятор терминала для Linux основанный на VTE"
+
+#: source/gx/terminix/constants.d:53
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+"Эта форма исходного кода принадлежит условиям Mozilla Public License, v. "
+"2.0. Если копия MPL не была распределена с этим файлом, Вы можете получить "
+"ее по этому адресу http://mozilla.org/MPL/2.0/."
+
+#: source/gx/terminix/constants.d:58
+msgid "GTK VTE widget team, Terminix would not be possible without their work"
+msgstr "Terminix не был бы возможен без работы виджетов команды GTK VTE"
+
+#: source/gx/terminix/constants.d:59
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD для обеспечения такой превосходной GTK оболочки"
+
+#: source/gx/terminix/constants.d:60
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org для такого превосходного языка как - D"
+
+#: source/gx/terminix/session.d:548
+msgid "Could not locate dropped terminal"
+msgstr "Не удалось обнаружить потерянный терминал"
+
+#: source/gx/terminix/session.d:553
+msgid "Could not locate session for dropped terminal"
+msgstr "Не удалось найти потерянный сеанс для терминала"
+
+#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
+#: source/gx/terminix/prefwindow.d:612
+msgid "Default"
+msgstr "По умолчанию"
+
+#: source/gx/terminix/session.d:1363 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425
+msgid "Name"
+msgstr "Имя"
+
+#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
+msgid "Profile"
+msgstr "Профиль"
+
+#: source/gx/terminix/session.d:1397 source/gx/terminix/application.d:224
+#: source/gx/terminix/prefwindow.d:873
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
+msgid "New Session"
+msgstr "Новый сеанс"
+
+#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
+#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
+#: source/gx/terminix/encoding.d:78
+msgid "Western"
+msgstr "Западная"
+
+#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
+#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
+msgid "Central European"
+msgstr "Центральноевропейская"
+
+#: source/gx/terminix/encoding.d:20
+msgid "South European"
+msgstr "Южноевропейская"
+
+#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
+#: source/gx/terminix/encoding.d:83
+msgid "Baltic"
+msgstr "Балтийская"
+
+#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
+#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
+#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
+msgid "Cyrillic"
+msgstr "Кириллица"
+
+#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
+#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
+msgid "Arabic"
+msgstr "Арабская"
+
+#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
+#: source/gx/terminix/encoding.d:79
+msgid "Greek"
+msgstr "Греческая"
+
+#: source/gx/terminix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "Еврейская отображаемая"
+
+#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
+#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
+msgid "Hebrew"
+msgstr "Еврейская"
+
+#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
+#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
+msgid "Turkish"
+msgstr "Турецкая"
+
+#: source/gx/terminix/encoding.d:28
+msgid "Nordic"
+msgstr "Северная"
+
+#: source/gx/terminix/encoding.d:30
+msgid "Celtic"
+msgstr "Кельтская"
+
+#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
+msgid "Romanian"
+msgstr "Румынская"
+
+#: source/gx/terminix/encoding.d:33
+msgid "Unicode"
+msgstr "Юникод"
+
+#: source/gx/terminix/encoding.d:34
+msgid "Armenian"
+msgstr "Армянская"
+
+#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
+#: source/gx/terminix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "Китайская традиционная"
+
+#: source/gx/terminix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "Кириллица/Русская"
+
+#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
+#: source/gx/terminix/encoding.d:71
+msgid "Japanese"
+msgstr "Японская"
+
+#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
+#: source/gx/terminix/encoding.d:74
+msgid "Korean"
+msgstr "Корейская"
+
+#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
+#: source/gx/terminix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "Китайская упрощённая"
+
+#: source/gx/terminix/encoding.d:44
+msgid "Georgian"
+msgstr "Грузинская"
+
+#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "Кириллица/Украинская"
+
+#: source/gx/terminix/encoding.d:58
+msgid "Croatian"
+msgstr "Хорватская"
+
+#: source/gx/terminix/encoding.d:60
+msgid "Hindi"
+msgstr "Хинди"
+
+#: source/gx/terminix/encoding.d:61
+msgid "Persian"
+msgstr "Персидская"
+
+#: source/gx/terminix/encoding.d:63
+msgid "Gujarati"
+msgstr "Гуджарати"
+
+#: source/gx/terminix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "Гурмухи"
+
+#: source/gx/terminix/encoding.d:66
+msgid "Icelandic"
+msgstr "Исландская"
+
+#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
+#: source/gx/terminix/encoding.d:84
+msgid "Vietnamese"
+msgstr "Вьетнамская"
+
+#: source/gx/terminix/encoding.d:73
+msgid "Thai"
+msgstr "Тайская"
+
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "Параметры оформления"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/password.d:481
+msgid "OK"
+msgstr "Хорошо"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/appwindow.d:1125 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+#: source/gx/terminix/profilewindow.d:1310
+#: source/gx/terminix/profilewindow.d:1483
+msgid "Cancel"
+msgstr "Отменить"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "Активный"
+
+#: source/gx/terminix/terminal/layout.d:51
+msgid "Title"
+msgstr "Заголовок"
+
+#: source/gx/terminix/terminal/layout.d:60
+#: source/gx/terminix/profilewindow.d:260
+#: source/gx/terminix/profilewindow.d:546
+msgid "Badge"
+msgstr "Знак"
+
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "Загрузка сеанса"
+
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/profilewindow.d:105
+#: source/gx/terminix/profilewindow.d:955
+#: source/gx/terminix/profilewindow.d:1258
+msgid "Command"
 msgstr "Команда"
 
-#: source/gx/terminix/preferences.d:203
-msgid "SendNotification"
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Активные вариантами всегда являются действующими и вступают в силу "
+"немедленно."
+
+#: source/gx/terminix/terminal/terminal.d:372
+#: source/gx/terminix/terminal/terminal.d:2781
+#: data/resources/ui/shortcuts.ui:356
+msgid "Terminal"
+msgstr "Терминал"
+
+#: source/gx/terminix/terminal/terminal.d:403
+#: source/gx/terminix/terminal/terminal.d:1420
+#: source/gx/terminix/appwindow.d:618 source/gx/terminix/sidebar.d:374
+msgid "Close"
+msgstr "Закрыть"
+
+#: source/gx/terminix/terminal/terminal.d:412
+#: source/gx/terminix/terminal/terminal.d:1122
+#: source/gx/terminix/terminal/terminal.d:1419
+msgid "Maximize"
+msgstr "Развернуть"
+
+#: source/gx/terminix/terminal/terminal.d:423
+#: source/gx/terminix/terminal/terminal.d:664
+msgid "Disable input synchronization for this terminal"
+msgstr "Выключить синхронизацию ввода для этого терминала"
+
+#: source/gx/terminix/terminal/terminal.d:433
+#: source/gx/terminix/terminal/terminal.d:769
+msgid "Read-Only"
+msgstr "Только чтение"
+
+#: source/gx/terminix/terminal/terminal.d:440
+#: source/gx/terminix/profilewindow.d:237
+msgid "Terminal bell"
+msgstr "Подавать гудок"
+
+#: source/gx/terminix/terminal/terminal.d:486
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: source/gx/terminix/terminal/terminal.d:628
+#: source/gx/terminix/appwindow.d:895
+msgid "There are processes that are still running, close anyway?"
+msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
+
+#: source/gx/terminix/terminal/terminal.d:666
+msgid "Enable input synchronization for this terminal"
+msgstr "Выключить синхронизацию ввода для этого терминала"
+
+#: source/gx/terminix/terminal/terminal.d:696
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/terminix/preferences.d:204
-msgid "UpdateTitle"
-msgstr "Обновить заголовок"
+#: source/gx/terminix/terminal/terminal.d:696
+msgid "Library Not Loaded"
+msgstr "Библиотека не загружается"
 
-#: source/gx/terminix/preferences.d:205
-msgid "PlayBell"
-msgstr ""
+#: source/gx/terminix/terminal/terminal.d:756
+msgid "Save Output…"
+msgstr "Сохранить содержимое…"
 
-#: source/gx/terminix/preferences.d:206
-msgid "SendText"
-msgstr "Отправить текст"
+#: source/gx/terminix/terminal/terminal.d:757
+#: source/gx/terminix/profilewindow.d:202
+msgid "Reset"
+msgstr "Сброс"
 
-#: source/gx/terminix/preferences.d:207
-msgid "InsertPassword"
-msgstr ""
+#: source/gx/terminix/terminal/terminal.d:758
+msgid "Reset and Clear"
+msgstr "Сброс и очистка"
+
+#: source/gx/terminix/terminal/terminal.d:762
+#: source/gx/terminix/prefwindow.d:101
+msgid "Profiles"
+msgstr "Профили"
+
+#: source/gx/terminix/terminal/terminal.d:763
+#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
+#: source/gx/terminix/prefwindow.d:177
+msgid "Encoding"
+msgstr "Кодировка"
+
+#: source/gx/terminix/terminal/terminal.d:767
+msgid "Find…"
+msgstr "Найти…"
+
+#: source/gx/terminix/terminal/terminal.d:768
+msgid "Layout Options…"
+msgstr "Параметры оформления…"
+
+#: source/gx/terminix/terminal/terminal.d:779
+msgid "Add Right"
+msgstr "Добавить справа"
+
+#: source/gx/terminix/terminal/terminal.d:783
+msgid "Add Down"
+msgstr "Добавить снизу"
+
+#: source/gx/terminix/terminal/terminal.d:1119
+#: source/gx/terminix/terminal/terminal.d:1419
+msgid "Restore"
+msgstr "Восстановить"
+
+#: source/gx/terminix/terminal/terminal.d:1379
+msgid "Open Link"
+msgstr "Открыть ссылку"
+
+#: source/gx/terminix/terminal/terminal.d:1380
+msgid "Copy Link Address"
+msgstr "Копировать адрес ссылки"
+
+#: source/gx/terminix/terminal/terminal.d:1390
+#: source/gx/terminix/terminal/terminal.d:1397
+msgid "Copy"
+msgstr "Скопировать"
+
+#: source/gx/terminix/terminal/terminal.d:1391
+#: source/gx/terminix/terminal/terminal.d:1402
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "Вставить"
+
+#: source/gx/terminix/terminal/terminal.d:1392
+#: source/gx/terminix/terminal/terminal.d:1407
+msgid "Select All"
+msgstr "Выбрать всё"
+
+#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/prefwindow.d:879
+msgid "Clipboard"
+msgstr "Буфер обмена"
+
+#: source/gx/terminix/terminal/terminal.d:1424
+msgid "Synchronize input"
+msgstr "Синхронизировать ввод"
+
+#: source/gx/terminix/terminal/terminal.d:2013
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Произошла неожиданная ошибка, дополнительная информация отсутствует"
+
+#: source/gx/terminix/terminal/terminal.d:2019
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Произошла неожиданная ошибка: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2504
+msgid "Save Terminal Output"
+msgstr "Сохранить вывод терминала"
+
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/appwindow.d:616 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+msgid "Save"
+msgstr "Сохранить"
+
+#: source/gx/terminix/terminal/terminal.d:2513
+msgid "All Text Files"
+msgstr "Все текстовые файлы"
+
+#: source/gx/terminix/terminal/terminal.d:2517
+#: source/gx/terminix/appwindow.d:1083 source/gx/terminix/profilewindow.d:767
+#: source/gx/terminix/prefwindow.d:630
+msgid "All Files"
+msgstr "Все файлы"
+
+#: source/gx/terminix/terminal/terminal.d:2941
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Дочерний процесс завершился нормально со статусом %d"
+
+#: source/gx/terminix/terminal/terminal.d:2942
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Дочерний процесс был прерван сигналом %d."
+
+#: source/gx/terminix/terminal/terminal.d:2943
+msgid "The child process was aborted."
+msgstr "Дочерний процесс был прерван."
+
+#: source/gx/terminix/terminal/terminal.d:2949
+msgid "Relaunch"
+msgstr "Перезапустить"
+
+#: source/gx/terminix/terminal/terminal.d:2994
+msgid "Don't Paste"
+msgstr "Не вставлять"
+
+#: source/gx/terminix/terminal/terminal.d:2995
+msgid "Paste Anyway"
+msgstr "Все равно вставить"
+
+#: source/gx/terminix/terminal/search.d:121
+msgid "Search Options"
+msgstr "Параметры поиска"
+
+#: source/gx/terminix/terminal/search.d:134
+msgid "Find next"
+msgstr "Найти следующее"
+
+#: source/gx/terminix/terminal/search.d:140
+msgid "Find previous"
+msgstr "Найти предыдущее"
+
+#: source/gx/terminix/terminal/search.d:187
+msgid "Match case"
+msgstr "Учитывать регистр"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match entire word only"
+msgstr "Только полные слова"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match as regular expression"
+msgstr "По регулярному выражению"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Wrap around"
+msgstr "Автоматически переходить к началу"
 
 #: source/gx/terminix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
@@ -77,28 +525,6 @@ msgstr "Преобразование CRLF в CR и LF"
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Advanced Paste"
 msgstr "Расширенная вставка"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/terminal.d:1369
-#: source/gx/terminix/terminal/terminal.d:1380
-msgid "Paste"
-msgstr "Вставить"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/terminal/layout.d:28 source/gx/terminix/appwindow.d:1112
-#: source/gx/terminix/appwindow.d:1146 source/gx/terminix/profilewindow.d:750
-#: source/gx/terminix/profilewindow.d:1310
-#: source/gx/terminix/profilewindow.d:1483
-msgid "Cancel"
-msgstr "Отменить"
-
-#: source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1363
-msgid "Name"
-msgstr "Имя"
 
 #: source/gx/terminix/terminal/password.d:136
 msgid "ID"
@@ -145,11 +571,6 @@ msgstr "Пароль"
 msgid "Confirm Password"
 msgstr "Подтверждение пароля"
 
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr "Хорошо"
-
 #: source/gx/terminix/terminal/password.d:487
 msgid "Add Password"
 msgstr "Добавить пароль"
@@ -158,348 +579,7 @@ msgstr "Добавить пароль"
 msgid "Edit Password"
 msgstr "Изменить пароль"
 
-#: source/gx/terminix/terminal/search.d:121
-msgid "Search Options"
-msgstr "Параметры поиска"
-
-#: source/gx/terminix/terminal/search.d:134
-msgid "Find next"
-msgstr "Найти следующее"
-
-#: source/gx/terminix/terminal/search.d:140
-msgid "Find previous"
-msgstr "Найти предыдущее"
-
-#: source/gx/terminix/terminal/search.d:187
-msgid "Match case"
-msgstr "Учитывать регистр"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match entire word only"
-msgstr "Только полные слова"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match as regular expression"
-msgstr "По регулярному выражению"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Wrap around"
-msgstr "Автоматически переходить к началу"
-
-#: source/gx/terminix/terminal/terminal.d:369
-#: source/gx/terminix/terminal/terminal.d:2747
-#: data/resources/ui/shortcuts.ui:356
-msgid "Terminal"
-msgstr "Терминал"
-
-#: source/gx/terminix/terminal/terminal.d:400
-#: source/gx/terminix/terminal/terminal.d:1398 source/gx/terminix/sidebar.d:374
-#: source/gx/terminix/appwindow.d:617
-msgid "Close"
-msgstr "Закрыть"
-
-#: source/gx/terminix/terminal/terminal.d:409
-#: source/gx/terminix/terminal/terminal.d:1105
-#: source/gx/terminix/terminal/terminal.d:1397
-msgid "Maximize"
-msgstr "Развернуть"
-
-#: source/gx/terminix/terminal/terminal.d:420
-#: source/gx/terminix/terminal/terminal.d:660
-msgid "Disable input synchronization for this terminal"
-msgstr "Выключить синхронизацию ввода для этого терминала"
-
-#: source/gx/terminix/terminal/terminal.d:430
-#: source/gx/terminix/terminal/terminal.d:765
-msgid "Read-Only"
-msgstr "Только чтение"
-
-#: source/gx/terminix/terminal/terminal.d:437
-#: source/gx/terminix/profilewindow.d:237
-msgid "Terminal bell"
-msgstr "Подавать гудок"
-
-#: source/gx/terminix/terminal/terminal.d:483
-msgid "Edit Profile"
-msgstr "Редактировать профиль"
-
-#: source/gx/terminix/terminal/terminal.d:624
-#: source/gx/terminix/appwindow.d:894
-msgid "There are processes that are still running, close anyway?"
-msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
-
-#: source/gx/terminix/terminal/terminal.d:662
-msgid "Enable input synchronization for this terminal"
-msgstr "Выключить синхронизацию ввода для этого терминала"
-
-#: source/gx/terminix/terminal/terminal.d:692
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:692
-msgid "Library Not Loaded"
-msgstr "Библиотека не загружается"
-
-#: source/gx/terminix/terminal/terminal.d:752
-msgid "Save Output…"
-msgstr "Сохранить содержимое…"
-
-#: source/gx/terminix/terminal/terminal.d:753
-#: source/gx/terminix/profilewindow.d:202
-msgid "Reset"
-msgstr "Сброс"
-
-#: source/gx/terminix/terminal/terminal.d:754
-msgid "Reset and Clear"
-msgstr "Сброс и очистка"
-
-#: source/gx/terminix/terminal/terminal.d:758
-#: source/gx/terminix/prefwindow.d:101
-msgid "Profiles"
-msgstr "Профили"
-
-#: source/gx/terminix/terminal/terminal.d:759
-#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
-#: source/gx/terminix/prefwindow.d:177
-msgid "Encoding"
-msgstr "Кодировка"
-
-#: source/gx/terminix/terminal/terminal.d:763
-msgid "Find…"
-msgstr "Найти…"
-
-#: source/gx/terminix/terminal/terminal.d:764
-msgid "Layout Options…"
-msgstr "Параметры оформления…"
-
-#: source/gx/terminix/terminal/terminal.d:775
-msgid "Add Right"
-msgstr "Добавить справа"
-
-#: source/gx/terminix/terminal/terminal.d:779
-msgid "Add Down"
-msgstr "Добавить снизу"
-
-#: source/gx/terminix/terminal/terminal.d:1102
-#: source/gx/terminix/terminal/terminal.d:1397
-msgid "Restore"
-msgstr "Восстановить"
-
-#: source/gx/terminix/terminal/terminal.d:1357
-msgid "Open Link"
-msgstr "Открыть ссылку"
-
-#: source/gx/terminix/terminal/terminal.d:1358
-msgid "Copy Link Address"
-msgstr "Копировать адрес ссылки"
-
-#: source/gx/terminix/terminal/terminal.d:1368
-#: source/gx/terminix/terminal/terminal.d:1375
-msgid "Copy"
-msgstr "Скопировать"
-
-#: source/gx/terminix/terminal/terminal.d:1370
-#: source/gx/terminix/terminal/terminal.d:1385
-msgid "Select All"
-msgstr "Выбрать всё"
-
-#: source/gx/terminix/terminal/terminal.d:1388
-#: source/gx/terminix/prefwindow.d:869
-msgid "Clipboard"
-msgstr "Буфер обмена"
-
-#: source/gx/terminix/terminal/terminal.d:1402
-msgid "Synchronize input"
-msgstr "Синхронизировать ввод"
-
-#: source/gx/terminix/terminal/terminal.d:1991
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Произошла неожиданная ошибка, дополнительная информация отсутствует"
-
-#: source/gx/terminix/terminal/terminal.d:1997
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Произошла неожиданная ошибка: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2482
-msgid "Save Terminal Output"
-msgstr "Сохранить вывод терминала"
-
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/appwindow.d:615 source/gx/terminix/appwindow.d:1146
-#: source/gx/terminix/profilewindow.d:750
-msgid "Save"
-msgstr "Сохранить"
-
-#: source/gx/terminix/terminal/terminal.d:2491
-msgid "All Text Files"
-msgstr "Все текстовые файлы"
-
-#: source/gx/terminix/terminal/terminal.d:2495
-#: source/gx/terminix/appwindow.d:1070 source/gx/terminix/profilewindow.d:767
-#: source/gx/terminix/prefwindow.d:630
-msgid "All Files"
-msgstr "Все файлы"
-
-#: source/gx/terminix/terminal/terminal.d:2907
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Дочерний процесс завершился нормально со статусом %d"
-
-#: source/gx/terminix/terminal/terminal.d:2908
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Дочерний процесс был прерван сигналом %d."
-
-#: source/gx/terminix/terminal/terminal.d:2909
-msgid "The child process was aborted."
-msgstr "Дочерний процесс был прерван."
-
-#: source/gx/terminix/terminal/terminal.d:2915
-msgid "Relaunch"
-msgstr "Перезапустить"
-
-#: source/gx/terminix/terminal/terminal.d:2960
-msgid "Don't Paste"
-msgstr "Не вставлять"
-
-#: source/gx/terminix/terminal/terminal.d:2961
-msgid "Paste Anyway"
-msgstr "Все равно вставить"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Layout Options"
-msgstr "Параметры оформления"
-
-#: source/gx/terminix/terminal/layout.d:43
-msgid "Active"
-msgstr "Активный"
-
-#: source/gx/terminix/terminal/layout.d:49
-msgid "Title"
-msgstr "Заголовок"
-
-#: source/gx/terminix/terminal/layout.d:57
-msgid "Session Load"
-msgstr "Загрузка сеанса"
-
-#: source/gx/terminix/terminal/layout.d:64
-#: source/gx/terminix/profilewindow.d:105
-#: source/gx/terminix/profilewindow.d:955
-#: source/gx/terminix/profilewindow.d:1258
-msgid "Command"
-msgstr "Команда"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Активные вариантами всегда являются действующими и вступают в силу "
-"немедленно."
-
-#: source/gx/terminix/appwindow.d:317
-msgid "View session sidebar"
-msgstr "Показать сеанс в боковой панели"
-
-#: source/gx/terminix/appwindow.d:342
-msgid "Create a new session"
-msgstr "Создать новый сеанс"
-
-#: source/gx/terminix/appwindow.d:360
-msgid "Add terminal right"
-msgstr "Добавить терминал направо"
-
-#: source/gx/terminix/appwindow.d:364
-msgid "Add terminal down"
-msgstr "Добавить терминал вниз"
-
-#: source/gx/terminix/appwindow.d:369
-msgid "Find text in terminal"
-msgstr "Найти текст в терминале"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Change Session Name"
-msgstr "Смена названия сеанса"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Enter a new name for the session"
-msgstr "Введите имя сеанса"
-
-#: source/gx/terminix/appwindow.d:614
-msgid "Open…"
-msgstr "Открыть…"
-
-#: source/gx/terminix/appwindow.d:616
-msgid "Save As…"
-msgstr "Сохранить как…"
-
-#: source/gx/terminix/appwindow.d:621
-msgid "Name…"
-msgstr "Имя…"
-
-#: source/gx/terminix/appwindow.d:622
-msgid "Synchronize Input"
-msgstr "Синхронизировать ввод"
-
-#: source/gx/terminix/appwindow.d:627
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:871
-#, fuzzy
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
-
-#: source/gx/terminix/appwindow.d:872
-#, fuzzy
-msgid "Do not show this again"
-msgstr "Больше не показывать это сообщение"
-
-#: source/gx/terminix/appwindow.d:1066 source/gx/terminix/profilewindow.d:763
-msgid "All JSON Files"
-msgstr "Все JSON файлы"
-
-#: source/gx/terminix/appwindow.d:1079
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Имя файла '%s' не существует"
-
-#: source/gx/terminix/appwindow.d:1109
-msgid "Load Session"
-msgstr "Загрузить сеанс"
-
-#: source/gx/terminix/appwindow.d:1112
-msgid "Open"
-msgstr "Открыть"
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Could not load session due to unexpected error."
-msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Error Loading Session"
-msgstr "Ошибка загрузки сеанса"
-
-#: source/gx/terminix/appwindow.d:1143
-msgid "Save Session"
-msgstr "Сохранить сеанс"
-
-#: source/gx/terminix/appwindow.d:1225
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:224 source/gx/terminix/session.d:1397
-#: source/gx/terminix/prefwindow.d:863
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "Новый сеанс"
-
-#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:873
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
 msgid "New Window"
 msgstr "Новое окно"
@@ -642,6 +722,136 @@ msgstr "Найдена ошибка конфигурации"
 msgid "Do not show this message again"
 msgstr "Больше не показывать это сообщение"
 
+#: source/gx/terminix/appwindow.d:318
+msgid "View session sidebar"
+msgstr "Показать сеанс в боковой панели"
+
+#: source/gx/terminix/appwindow.d:343
+msgid "Create a new session"
+msgstr "Создать новый сеанс"
+
+#: source/gx/terminix/appwindow.d:361
+msgid "Add terminal right"
+msgstr "Добавить терминал направо"
+
+#: source/gx/terminix/appwindow.d:365
+msgid "Add terminal down"
+msgstr "Добавить терминал вниз"
+
+#: source/gx/terminix/appwindow.d:370
+msgid "Find text in terminal"
+msgstr "Найти текст в терминале"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Change Session Name"
+msgstr "Смена названия сеанса"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Enter a new name for the session"
+msgstr "Введите имя сеанса"
+
+#: source/gx/terminix/appwindow.d:615
+msgid "Open…"
+msgstr "Открыть…"
+
+#: source/gx/terminix/appwindow.d:617
+msgid "Save As…"
+msgstr "Сохранить как…"
+
+#: source/gx/terminix/appwindow.d:622
+msgid "Name…"
+msgstr "Имя…"
+
+#: source/gx/terminix/appwindow.d:623
+msgid "Synchronize Input"
+msgstr "Синхронизировать ввод"
+
+#: source/gx/terminix/appwindow.d:628
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:872
+#, fuzzy
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
+
+#: source/gx/terminix/appwindow.d:873
+#, fuzzy
+msgid "Do not show this again"
+msgstr "Больше не показывать это сообщение"
+
+#: source/gx/terminix/appwindow.d:1079 source/gx/terminix/profilewindow.d:763
+msgid "All JSON Files"
+msgstr "Все JSON файлы"
+
+#: source/gx/terminix/appwindow.d:1092
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Имя файла '%s' не существует"
+
+#: source/gx/terminix/appwindow.d:1122
+msgid "Load Session"
+msgstr "Загрузить сеанс"
+
+#: source/gx/terminix/appwindow.d:1125
+msgid "Open"
+msgstr "Открыть"
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Could not load session due to unexpected error."
+msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Error Loading Session"
+msgstr "Ошибка загрузки сеанса"
+
+#: source/gx/terminix/appwindow.d:1156
+msgid "Save Session"
+msgstr "Сохранить сеанс"
+
+#: source/gx/terminix/appwindow.d:1238
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Файл %s не является цветовой схемой совместимой с файлом формата JSON"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "Цветовая схема палитры требует 16 цветов"
+
+#: source/gx/terminix/cmdparams.d:96
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "Игнорирование, так как '%s' не является каталогом"
+
+#: source/gx/terminix/cmdparams.d:144
+#, c-format
+msgid "Ignoring parameter session as '%s' does not exist"
+msgstr "Игнорирование параметров сессии, так как '%s' не существует"
+
+#: source/gx/terminix/cmdparams.d:154
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"Вы не можете загрузить сессию и установить profile/working directory/execute "
+"параметр команды, пожалуйста, выберите один или другой"
+
+#: source/gx/terminix/cmdparams.d:161
+msgid "You can only use the action parameter within Terminix"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:182
+msgid ""
+"You cannot use the quake mode with maximize, minimize, fullscreen or "
+"geometry parameters"
+msgstr ""
+
 #: source/gx/terminix/profilewindow.d:93
 #, c-format
 msgid "Editing Profile: %s"
@@ -746,11 +956,6 @@ msgstr "Значок и звук"
 msgid "Terminal title"
 msgstr "Заголовок терминала"
 
-#: source/gx/terminix/profilewindow.d:260
-#: source/gx/terminix/profilewindow.d:546
-msgid "Badge"
-msgstr "Знак"
-
 #: source/gx/terminix/profilewindow.d:269
 msgid "Badge position"
 msgstr "Позиция знака"
@@ -809,7 +1014,7 @@ msgstr ""
 msgid "Color palette"
 msgstr "Палитра"
 
-#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:746
+#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:755
 msgid "Options"
 msgstr "Настройки"
 
@@ -1133,192 +1338,39 @@ msgstr ""
 msgid "Edit Triggers"
 msgstr "Редактировать триггеры"
 
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Файл %s не является цветовой схемой совместимой с файлом формата JSON"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "Цветовая схема палитры требует 16 цветов"
-
-#: source/gx/terminix/session.d:548
-msgid "Could not locate dropped terminal"
-msgstr "Не удалось обнаружить потерянный терминал"
-
-#: source/gx/terminix/session.d:553
-msgid "Could not locate session for dropped terminal"
-msgstr "Не удалось найти потерянный сеанс для терминала"
-
-#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
-#: source/gx/terminix/prefwindow.d:612
-msgid "Default"
-msgstr "По умолчанию"
-
-#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
-msgid "Profile"
-msgstr "Профиль"
-
-#: source/gx/terminix/constants.d:52
-msgid "A VTE based terminal emulator for Linux"
-msgstr "Эмулятор терминала для Linux основанный на VTE"
-
-#: source/gx/terminix/constants.d:53
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
+#: source/gx/terminix/preferences.d:205
+msgid "UpdateState"
 msgstr ""
-"Эта форма исходного кода принадлежит условиям Mozilla Public License, v. "
-"2.0. Если копия MPL не была распределена с этим файлом, Вы можете получить "
-"ее по этому адресу http://mozilla.org/MPL/2.0/."
 
-#: source/gx/terminix/constants.d:58
-msgid "GTK VTE widget team, Terminix would not be possible without their work"
-msgstr "Terminix не был бы возможен без работы виджетов команды GTK VTE"
+#: source/gx/terminix/preferences.d:206
+#, fuzzy
+msgid "ExecuteCommand"
+msgstr "Команда"
 
-#: source/gx/terminix/constants.d:59
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD для обеспечения такой превосходной GTK оболочки"
+#: source/gx/terminix/preferences.d:207
+msgid "SendNotification"
+msgstr ""
 
-#: source/gx/terminix/constants.d:60
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org для такого превосходного языка как - D"
+#: source/gx/terminix/preferences.d:208
+msgid "UpdateTitle"
+msgstr "Обновить заголовок"
 
-#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
-#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
-#: source/gx/terminix/encoding.d:78
-msgid "Western"
-msgstr "Западная"
+#: source/gx/terminix/preferences.d:209
+msgid "PlayBell"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
-#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
-msgid "Central European"
-msgstr "Центральноевропейская"
+#: source/gx/terminix/preferences.d:210
+msgid "SendText"
+msgstr "Отправить текст"
 
-#: source/gx/terminix/encoding.d:20
-msgid "South European"
-msgstr "Южноевропейская"
+#: source/gx/terminix/preferences.d:211
+msgid "InsertPassword"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
-#: source/gx/terminix/encoding.d:83
-msgid "Baltic"
-msgstr "Балтийская"
-
-#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
-#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
-#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
-msgid "Cyrillic"
-msgstr "Кириллица"
-
-#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
-#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
-msgid "Arabic"
-msgstr "Арабская"
-
-#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
-#: source/gx/terminix/encoding.d:79
-msgid "Greek"
-msgstr "Греческая"
-
-#: source/gx/terminix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "Еврейская отображаемая"
-
-#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
-#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
-msgid "Hebrew"
-msgstr "Еврейская"
-
-#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
-#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
-msgid "Turkish"
-msgstr "Турецкая"
-
-#: source/gx/terminix/encoding.d:28
-msgid "Nordic"
-msgstr "Северная"
-
-#: source/gx/terminix/encoding.d:30
-msgid "Celtic"
-msgstr "Кельтская"
-
-#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
-msgid "Romanian"
-msgstr "Румынская"
-
-#: source/gx/terminix/encoding.d:33
-msgid "Unicode"
-msgstr "Юникод"
-
-#: source/gx/terminix/encoding.d:34
-msgid "Armenian"
-msgstr "Армянская"
-
-#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
-#: source/gx/terminix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "Китайская традиционная"
-
-#: source/gx/terminix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "Кириллица/Русская"
-
-#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
-#: source/gx/terminix/encoding.d:71
-msgid "Japanese"
-msgstr "Японская"
-
-#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
-#: source/gx/terminix/encoding.d:74
-msgid "Korean"
-msgstr "Корейская"
-
-#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
-#: source/gx/terminix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "Китайская упрощённая"
-
-#: source/gx/terminix/encoding.d:44
-msgid "Georgian"
-msgstr "Грузинская"
-
-#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "Кириллица/Украинская"
-
-#: source/gx/terminix/encoding.d:58
-msgid "Croatian"
-msgstr "Хорватская"
-
-#: source/gx/terminix/encoding.d:60
-msgid "Hindi"
-msgstr "Хинди"
-
-#: source/gx/terminix/encoding.d:61
-msgid "Persian"
-msgstr "Персидская"
-
-#: source/gx/terminix/encoding.d:63
-msgid "Gujarati"
-msgstr "Гуджарати"
-
-#: source/gx/terminix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "Гурмухи"
-
-#: source/gx/terminix/encoding.d:66
-msgid "Icelandic"
-msgstr "Исландская"
-
-#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
-#: source/gx/terminix/encoding.d:84
-msgid "Vietnamese"
-msgstr "Вьетнамская"
-
-#: source/gx/terminix/encoding.d:73
-msgid "Thai"
-msgstr "Тайская"
+#: source/gx/terminix/preferences.d:212
+#, fuzzy
+msgid "UpdateBadge"
+msgstr "Обновить заголовок"
 
 #: source/gx/terminix/prefwindow.d:89
 msgid "Global"
@@ -1418,7 +1470,7 @@ msgstr "Маштабировать"
 msgid "Tile"
 msgstr "Повторять"
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:745
 msgid "Center"
 msgstr "По центру"
 
@@ -1455,131 +1507,99 @@ msgstr ""
 msgid "Width percent"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:754
+#: source/gx/terminix/prefwindow.d:744
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+#, fuzzy
+msgid "Right"
+msgstr "Светлый"
+
+#: source/gx/terminix/prefwindow.d:763
 msgid "Show terminal on all workspaces"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:759
+#: source/gx/terminix/prefwindow.d:768
 msgid "Set hint for window manager to disable animation"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:764
+#: source/gx/terminix/prefwindow.d:773
 msgid "Hide window when focus is lost"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:778
+#: source/gx/terminix/prefwindow.d:788
 #, fuzzy
 msgid "Display terminal on active monitor"
 msgstr "Сохранить содержимое терминала"
 
-#: source/gx/terminix/prefwindow.d:785
+#: source/gx/terminix/prefwindow.d:795
 msgid "Display on specific monitor"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:820
+#: source/gx/terminix/prefwindow.d:830
 msgid "Behavior"
 msgstr "Поведение"
 
-#: source/gx/terminix/prefwindow.d:826
+#: source/gx/terminix/prefwindow.d:836
 msgid "Prompt when creating a new session"
 msgstr "Подсказка при создании нового сеанса"
 
-#: source/gx/terminix/prefwindow.d:831
+#: source/gx/terminix/prefwindow.d:841
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Фокусировать терминал когда мышь над ним"
 
-#: source/gx/terminix/prefwindow.d:836
+#: source/gx/terminix/prefwindow.d:846
 msgid "Autohide the mouse pointer when typing"
 msgstr "Скрывать указатель мыши при наборе"
 
-#: source/gx/terminix/prefwindow.d:841
+#: source/gx/terminix/prefwindow.d:851
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:846
+#: source/gx/terminix/prefwindow.d:856
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:852
+#: source/gx/terminix/prefwindow.d:862
 msgid "Send desktop notification on process complete"
 msgstr "Посылать извещение при окончании процесса"
 
-#: source/gx/terminix/prefwindow.d:860
+#: source/gx/terminix/prefwindow.d:870
 msgid "On new instance"
 msgstr "Открывать новые терминалы"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Right"
 msgstr "Разделить справа"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Down"
 msgstr "Разделить снизу"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Focus Window"
 msgstr "Показать текущее окно"
 
-#: source/gx/terminix/prefwindow.d:875
+#: source/gx/terminix/prefwindow.d:885
 msgid "Always use advanced paste dialog"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:880
+#: source/gx/terminix/prefwindow.d:890
 msgid "Warn when attempting unsafe paste"
 msgstr "Предупреждать при попытке небезопасной вставки"
 
-#: source/gx/terminix/prefwindow.d:885
+#: source/gx/terminix/prefwindow.d:895
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "Обрезать первый символ вставки если это комментарий или переменная"
 
-#: source/gx/terminix/prefwindow.d:890
+#: source/gx/terminix/prefwindow.d:900
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Автоматически копировать текст в буфер обмена при выделение"
-
-#: source/gx/terminix/cmdparams.d:96
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "Игнорирование, так как '%s' не является каталогом"
-
-#: source/gx/terminix/cmdparams.d:144
-#, c-format
-msgid "Ignoring parameter session as '%s' does not exist"
-msgstr "Игнорирование параметров сессии, так как '%s' не существует"
-
-#: source/gx/terminix/cmdparams.d:154
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"Вы не можете загрузить сессию и установить profile/working directory/execute "
-"параметр команды, пожалуйста, выберите один или другой"
-
-#: source/gx/terminix/cmdparams.d:161
-msgid "You can only use the action parameter within Terminix"
-msgstr ""
-
-#: source/gx/terminix/cmdparams.d:182
-msgid ""
-"You cannot use the quake mode with maximize, minimize, fullscreen or "
-"geometry parameters"
-msgstr ""
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "выключен"
-
-#: source/app.d:106
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Ваша версия GTK устарела, вам нужно установите последнию GTK %d.%d.%d!"
-
-#: source/app.d:123
-msgid "Unexpected exception occurred"
-msgstr "Произошло неожиданное исключение"
-
-#: source/app.d:124
-msgid "Error: "
-msgstr "Ошибка: "
 
 #: data/nautilus/open-terminix.py:65
 #, fuzzy

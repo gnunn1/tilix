@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-09 08:12+0100\n"
+"POT-Creation-Date: 2016-11-12 12:36-0500\n"
 "PO-Revision-Date: 2016-08-22 06:24+0000\n"
 "Last-Translator: Youngbin Han <sukso96100@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/terminix/"
@@ -15,36 +15,492 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.8-dev\n"
 
-#: source/gx/terminix/preferences.d:201
-msgid "UpdateState"
+#: source/app.d:106
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
+"GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
 
-#: source/gx/terminix/preferences.d:202
-#, fuzzy
-msgid "ExecuteCommand"
-msgstr "명령어"
+#: source/app.d:123
+msgid "Unexpected exception occurred"
+msgstr "예상하지 못한 예외 발생"
 
-#: source/gx/terminix/preferences.d:203
-msgid "SendNotification"
+#: source/app.d:124
+msgid "Error: "
+msgstr "오류: "
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "비활성화됨"
+
+#: source/gx/terminix/constants.d:52
+msgid "A VTE based terminal emulator for Linux"
+msgstr "리눅스용 VTE 기반 터미널 에뮬레이터"
+
+#: source/gx/terminix/constants.d:53
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
+"이 소스 코드 서식은 모질라 공중 허가서, v. 2.0 의 약관에 따릅니다. MPL 이 이 "
+"파일과 함께 배포되지 않은 경우, http://mozilla.org/MPL/2.0/ 에서 얻으실 수 있"
+"습니다."
 
-#: source/gx/terminix/preferences.d:204
-#, fuzzy
-msgid "UpdateTitle"
+#: source/gx/terminix/constants.d:58
+msgid "GTK VTE widget team, Terminix would not be possible without their work"
+msgstr "GTK VTE 위젯 팀, 그들의 노력 없이 Terminix 는 불가능 했을 것입니다"
+
+#: source/gx/terminix/constants.d:59
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD - 훌룡한 GTK 래퍼 제공"
+
+#: source/gx/terminix/constants.d:60
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org - 훌룡한 언어, D 제공"
+
+#: source/gx/terminix/session.d:548
+msgid "Could not locate dropped terminal"
+msgstr "중단된 터미널을 위치시킬 수 없습니다"
+
+#: source/gx/terminix/session.d:553
+msgid "Could not locate session for dropped terminal"
+msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
+
+#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
+#: source/gx/terminix/prefwindow.d:612
+msgid "Default"
+msgstr "기본값"
+
+#: source/gx/terminix/session.d:1363 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425
+msgid "Name"
+msgstr "이름"
+
+#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
+msgid "Profile"
+msgstr "프로파일"
+
+#: source/gx/terminix/session.d:1397 source/gx/terminix/application.d:224
+#: source/gx/terminix/prefwindow.d:873
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
+msgid "New Session"
+msgstr "새 세션"
+
+#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
+#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
+#: source/gx/terminix/encoding.d:78
+msgid "Western"
+msgstr "서유럽어"
+
+#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
+#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
+msgid "Central European"
+msgstr "중앙 유럽어"
+
+#: source/gx/terminix/encoding.d:20
+msgid "South European"
+msgstr "남유럽어"
+
+#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
+#: source/gx/terminix/encoding.d:83
+msgid "Baltic"
+msgstr "발트어"
+
+#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
+#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
+#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
+msgid "Cyrillic"
+msgstr "키릴어"
+
+# ************************************************
+# Encodings
+# ************************************************
+#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
+#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
+msgid "Arabic"
+msgstr "아랍어"
+
+#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
+#: source/gx/terminix/encoding.d:79
+msgid "Greek"
+msgstr "그리스어"
+
+#: source/gx/terminix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "시각 히브리어"
+
+#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
+#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
+msgid "Hebrew"
+msgstr "히브리어"
+
+#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
+#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
+msgid "Turkish"
+msgstr "터키어"
+
+#: source/gx/terminix/encoding.d:28
+msgid "Nordic"
+msgstr "북유럽어"
+
+#: source/gx/terminix/encoding.d:30
+msgid "Celtic"
+msgstr "켈트어"
+
+#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
+msgid "Romanian"
+msgstr "루마니아어"
+
+#: source/gx/terminix/encoding.d:33
+msgid "Unicode"
+msgstr "유니코드"
+
+#: source/gx/terminix/encoding.d:34
+msgid "Armenian"
+msgstr "미국어"
+
+#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
+#: source/gx/terminix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "중국어 정체"
+
+#: source/gx/terminix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "키릴/러시아어"
+
+#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
+#: source/gx/terminix/encoding.d:71
+msgid "Japanese"
+msgstr "일본어"
+
+#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
+#: source/gx/terminix/encoding.d:74
+msgid "Korean"
+msgstr "한국어"
+
+#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
+#: source/gx/terminix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "중국어 간체"
+
+#: source/gx/terminix/encoding.d:44
+msgid "Georgian"
+msgstr "조지아어"
+
+#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "키릴/우크라이나어"
+
+#: source/gx/terminix/encoding.d:58
+msgid "Croatian"
+msgstr "크로아티아어"
+
+#: source/gx/terminix/encoding.d:60
+msgid "Hindi"
+msgstr "힌디어"
+
+#: source/gx/terminix/encoding.d:61
+msgid "Persian"
+msgstr "페르시아어"
+
+#: source/gx/terminix/encoding.d:63
+msgid "Gujarati"
+msgstr "구즈라트어"
+
+#: source/gx/terminix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "구르무키어"
+
+#: source/gx/terminix/encoding.d:66
+msgid "Icelandic"
+msgstr "아이슬란드어"
+
+#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
+#: source/gx/terminix/encoding.d:84
+msgid "Vietnamese"
+msgstr "베트남어"
+
+#: source/gx/terminix/encoding.d:73
+msgid "Thai"
+msgstr "태국어"
+
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "레이아웃 옵션"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/password.d:481
+msgid "OK"
+msgstr "확인"
+
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/appwindow.d:1125 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+#: source/gx/terminix/profilewindow.d:1310
+#: source/gx/terminix/profilewindow.d:1483
+msgid "Cancel"
+msgstr "취소"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "동작"
+
+#: source/gx/terminix/terminal/layout.d:51
+msgid "Title"
 msgstr "제목"
 
-#: source/gx/terminix/preferences.d:205
-msgid "PlayBell"
+#: source/gx/terminix/terminal/layout.d:60
+#: source/gx/terminix/profilewindow.d:260
+#: source/gx/terminix/profilewindow.d:546
+msgid "Badge"
 msgstr ""
 
-#: source/gx/terminix/preferences.d:206
-#, fuzzy
-msgid "SendText"
-msgstr "텍스트"
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "세션"
 
-#: source/gx/terminix/preferences.d:207
-msgid "InsertPassword"
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/profilewindow.d:105
+#: source/gx/terminix/profilewindow.d:955
+#: source/gx/terminix/profilewindow.d:1258
+msgid "Command"
+msgstr "명령어"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
 msgstr ""
+"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
+"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
+
+#: source/gx/terminix/terminal/terminal.d:372
+#: source/gx/terminix/terminal/terminal.d:2781
+#: data/resources/ui/shortcuts.ui:356
+msgid "Terminal"
+msgstr "터미널"
+
+#: source/gx/terminix/terminal/terminal.d:403
+#: source/gx/terminix/terminal/terminal.d:1420
+#: source/gx/terminix/appwindow.d:618 source/gx/terminix/sidebar.d:374
+msgid "Close"
+msgstr "닫기"
+
+#: source/gx/terminix/terminal/terminal.d:412
+#: source/gx/terminix/terminal/terminal.d:1122
+#: source/gx/terminix/terminal/terminal.d:1419
+msgid "Maximize"
+msgstr "최대화"
+
+#: source/gx/terminix/terminal/terminal.d:423
+#: source/gx/terminix/terminal/terminal.d:664
+msgid "Disable input synchronization for this terminal"
+msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
+
+#: source/gx/terminix/terminal/terminal.d:433
+#: source/gx/terminix/terminal/terminal.d:769
+msgid "Read-Only"
+msgstr "읽기전용"
+
+#: source/gx/terminix/terminal/terminal.d:440
+#: source/gx/terminix/profilewindow.d:237
+msgid "Terminal bell"
+msgstr "터미널 벨"
+
+#: source/gx/terminix/terminal/terminal.d:486
+msgid "Edit Profile"
+msgstr "프로파일 편집"
+
+#: source/gx/terminix/terminal/terminal.d:628
+#: source/gx/terminix/appwindow.d:895
+msgid "There are processes that are still running, close anyway?"
+msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
+
+#: source/gx/terminix/terminal/terminal.d:666
+msgid "Enable input synchronization for this terminal"
+msgstr "이 터미널에 대해 입력 동기화 활성화 하기"
+
+#: source/gx/terminix/terminal/terminal.d:696
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:696
+msgid "Library Not Loaded"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:756
+msgid "Save Output…"
+msgstr "출력 저장…"
+
+#: source/gx/terminix/terminal/terminal.d:757
+#: source/gx/terminix/profilewindow.d:202
+msgid "Reset"
+msgstr "초기화"
+
+#: source/gx/terminix/terminal/terminal.d:758
+msgid "Reset and Clear"
+msgstr "초기화 하고 지우기"
+
+#: source/gx/terminix/terminal/terminal.d:762
+#: source/gx/terminix/prefwindow.d:101
+msgid "Profiles"
+msgstr "프로파일"
+
+#: source/gx/terminix/terminal/terminal.d:763
+#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
+#: source/gx/terminix/prefwindow.d:177
+msgid "Encoding"
+msgstr "인코딩"
+
+#: source/gx/terminix/terminal/terminal.d:767
+msgid "Find…"
+msgstr "찾기…"
+
+#: source/gx/terminix/terminal/terminal.d:768
+msgid "Layout Options…"
+msgstr "레이아웃 옵션…"
+
+#: source/gx/terminix/terminal/terminal.d:779
+msgid "Add Right"
+msgstr "오른쪽에 추가"
+
+#: source/gx/terminix/terminal/terminal.d:783
+msgid "Add Down"
+msgstr "아래에 추가"
+
+#: source/gx/terminix/terminal/terminal.d:1119
+#: source/gx/terminix/terminal/terminal.d:1419
+msgid "Restore"
+msgstr "복원"
+
+#: source/gx/terminix/terminal/terminal.d:1379
+msgid "Open Link"
+msgstr "링크 열기"
+
+#: source/gx/terminix/terminal/terminal.d:1380
+msgid "Copy Link Address"
+msgstr "링크 주소 복사"
+
+#: source/gx/terminix/terminal/terminal.d:1390
+#: source/gx/terminix/terminal/terminal.d:1397
+msgid "Copy"
+msgstr "복사"
+
+#: source/gx/terminix/terminal/terminal.d:1391
+#: source/gx/terminix/terminal/terminal.d:1402
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: source/gx/terminix/terminal/terminal.d:1392
+#: source/gx/terminix/terminal/terminal.d:1407
+msgid "Select All"
+msgstr "모두 선택"
+
+#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/prefwindow.d:879
+msgid "Clipboard"
+msgstr "클립보드"
+
+#: source/gx/terminix/terminal/terminal.d:1424
+msgid "Synchronize input"
+msgstr "입력 동기화"
+
+#: source/gx/terminix/terminal/terminal.d:2013
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다"
+
+#: source/gx/terminix/terminal/terminal.d:2019
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "예상하지 못한 오류가 발생했습니다. %s"
+
+#: source/gx/terminix/terminal/terminal.d:2504
+msgid "Save Terminal Output"
+msgstr "터미널 출력 저장"
+
+#: source/gx/terminix/terminal/terminal.d:2507
+#: source/gx/terminix/appwindow.d:616 source/gx/terminix/appwindow.d:1159
+#: source/gx/terminix/profilewindow.d:750
+msgid "Save"
+msgstr "저장"
+
+#: source/gx/terminix/terminal/terminal.d:2513
+msgid "All Text Files"
+msgstr "모든 텍스트 파일"
+
+#: source/gx/terminix/terminal/terminal.d:2517
+#: source/gx/terminix/appwindow.d:1083 source/gx/terminix/profilewindow.d:767
+#: source/gx/terminix/prefwindow.d:630
+msgid "All Files"
+msgstr "모든 파일"
+
+#: source/gx/terminix/terminal/terminal.d:2941
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
+
+#: source/gx/terminix/terminal/terminal.d:2942
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다 %d"
+
+#: source/gx/terminix/terminal/terminal.d:2943
+msgid "The child process was aborted."
+msgstr "자식 프로세스가 중지되었습니다."
+
+#: source/gx/terminix/terminal/terminal.d:2949
+msgid "Relaunch"
+msgstr "다시 시작"
+
+#: source/gx/terminix/terminal/terminal.d:2994
+msgid "Don't Paste"
+msgstr "붙여넣지 마세요"
+
+#: source/gx/terminix/terminal/terminal.d:2995
+msgid "Paste Anyway"
+msgstr "어떻게든 붙여넣기"
+
+#: source/gx/terminix/terminal/search.d:121
+msgid "Search Options"
+msgstr "검색 옵션"
+
+#: source/gx/terminix/terminal/search.d:134
+msgid "Find next"
+msgstr "다음 찾기"
+
+# ***********************************************
+# Keyboard shortcuts to the end, these are shown
+# in the Shortcut preferences and in the future
+# the shortcut overview if available in Gnome 3.20
+# ***********************************************
+#: source/gx/terminix/terminal/search.d:140
+msgid "Find previous"
+msgstr "이전 찾기"
+
+#: source/gx/terminix/terminal/search.d:187
+msgid "Match case"
+msgstr "일치 경우"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match entire word only"
+msgstr "전체 단어 일치만"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match as regular expression"
+msgstr "정규 표현식으로 일치"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Wrap around"
+msgstr "주변 감싸기"
 
 #: source/gx/terminix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
@@ -74,28 +530,6 @@ msgstr ""
 #, fuzzy
 msgid "Advanced Paste"
 msgstr "고급"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/terminal.d:1369
-#: source/gx/terminix/terminal/terminal.d:1380
-msgid "Paste"
-msgstr "붙여넣기"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/terminal/layout.d:28 source/gx/terminix/appwindow.d:1112
-#: source/gx/terminix/appwindow.d:1146 source/gx/terminix/profilewindow.d:750
-#: source/gx/terminix/profilewindow.d:1310
-#: source/gx/terminix/profilewindow.d:1483
-msgid "Cancel"
-msgstr "취소"
-
-#: source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1363
-msgid "Name"
-msgstr "이름"
 
 #: source/gx/terminix/terminal/password.d:136
 msgid "ID"
@@ -142,11 +576,6 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/layout.d:28
-msgid "OK"
-msgstr "확인"
-
 #: source/gx/terminix/terminal/password.d:487
 msgid "Add Password"
 msgstr ""
@@ -155,354 +584,7 @@ msgstr ""
 msgid "Edit Password"
 msgstr ""
 
-#: source/gx/terminix/terminal/search.d:121
-msgid "Search Options"
-msgstr "검색 옵션"
-
-#: source/gx/terminix/terminal/search.d:134
-msgid "Find next"
-msgstr "다음 찾기"
-
-# ***********************************************
-# Keyboard shortcuts to the end, these are shown
-# in the Shortcut preferences and in the future
-# the shortcut overview if available in Gnome 3.20
-# ***********************************************
-#: source/gx/terminix/terminal/search.d:140
-msgid "Find previous"
-msgstr "이전 찾기"
-
-#: source/gx/terminix/terminal/search.d:187
-msgid "Match case"
-msgstr "일치 경우"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match entire word only"
-msgstr "전체 단어 일치만"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match as regular expression"
-msgstr "정규 표현식으로 일치"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Wrap around"
-msgstr "주변 감싸기"
-
-#: source/gx/terminix/terminal/terminal.d:369
-#: source/gx/terminix/terminal/terminal.d:2747
-#: data/resources/ui/shortcuts.ui:356
-msgid "Terminal"
-msgstr "터미널"
-
-#: source/gx/terminix/terminal/terminal.d:400
-#: source/gx/terminix/terminal/terminal.d:1398 source/gx/terminix/sidebar.d:374
-#: source/gx/terminix/appwindow.d:617
-msgid "Close"
-msgstr "닫기"
-
-#: source/gx/terminix/terminal/terminal.d:409
-#: source/gx/terminix/terminal/terminal.d:1105
-#: source/gx/terminix/terminal/terminal.d:1397
-msgid "Maximize"
-msgstr "최대화"
-
-#: source/gx/terminix/terminal/terminal.d:420
-#: source/gx/terminix/terminal/terminal.d:660
-msgid "Disable input synchronization for this terminal"
-msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
-
-#: source/gx/terminix/terminal/terminal.d:430
-#: source/gx/terminix/terminal/terminal.d:765
-msgid "Read-Only"
-msgstr "읽기전용"
-
-#: source/gx/terminix/terminal/terminal.d:437
-#: source/gx/terminix/profilewindow.d:237
-msgid "Terminal bell"
-msgstr "터미널 벨"
-
-#: source/gx/terminix/terminal/terminal.d:483
-msgid "Edit Profile"
-msgstr "프로파일 편집"
-
-#: source/gx/terminix/terminal/terminal.d:624
-#: source/gx/terminix/appwindow.d:894
-msgid "There are processes that are still running, close anyway?"
-msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
-
-#: source/gx/terminix/terminal/terminal.d:662
-msgid "Enable input synchronization for this terminal"
-msgstr "이 터미널에 대해 입력 동기화 활성화 하기"
-
-#: source/gx/terminix/terminal/terminal.d:692
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:692
-msgid "Library Not Loaded"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:752
-msgid "Save Output…"
-msgstr "출력 저장…"
-
-#: source/gx/terminix/terminal/terminal.d:753
-#: source/gx/terminix/profilewindow.d:202
-msgid "Reset"
-msgstr "초기화"
-
-#: source/gx/terminix/terminal/terminal.d:754
-msgid "Reset and Clear"
-msgstr "초기화 하고 지우기"
-
-#: source/gx/terminix/terminal/terminal.d:758
-#: source/gx/terminix/prefwindow.d:101
-msgid "Profiles"
-msgstr "프로파일"
-
-#: source/gx/terminix/terminal/terminal.d:759
-#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
-#: source/gx/terminix/prefwindow.d:177
-msgid "Encoding"
-msgstr "인코딩"
-
-#: source/gx/terminix/terminal/terminal.d:763
-msgid "Find…"
-msgstr "찾기…"
-
-#: source/gx/terminix/terminal/terminal.d:764
-msgid "Layout Options…"
-msgstr "레이아웃 옵션…"
-
-#: source/gx/terminix/terminal/terminal.d:775
-msgid "Add Right"
-msgstr "오른쪽에 추가"
-
-#: source/gx/terminix/terminal/terminal.d:779
-msgid "Add Down"
-msgstr "아래에 추가"
-
-#: source/gx/terminix/terminal/terminal.d:1102
-#: source/gx/terminix/terminal/terminal.d:1397
-msgid "Restore"
-msgstr "복원"
-
-#: source/gx/terminix/terminal/terminal.d:1357
-msgid "Open Link"
-msgstr "링크 열기"
-
-#: source/gx/terminix/terminal/terminal.d:1358
-msgid "Copy Link Address"
-msgstr "링크 주소 복사"
-
-#: source/gx/terminix/terminal/terminal.d:1368
-#: source/gx/terminix/terminal/terminal.d:1375
-msgid "Copy"
-msgstr "복사"
-
-#: source/gx/terminix/terminal/terminal.d:1370
-#: source/gx/terminix/terminal/terminal.d:1385
-msgid "Select All"
-msgstr "모두 선택"
-
-#: source/gx/terminix/terminal/terminal.d:1388
-#: source/gx/terminix/prefwindow.d:869
-msgid "Clipboard"
-msgstr "클립보드"
-
-#: source/gx/terminix/terminal/terminal.d:1402
-msgid "Synchronize input"
-msgstr "입력 동기화"
-
-#: source/gx/terminix/terminal/terminal.d:1991
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다"
-
-#: source/gx/terminix/terminal/terminal.d:1997
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "예상하지 못한 오류가 발생했습니다. %s"
-
-#: source/gx/terminix/terminal/terminal.d:2482
-msgid "Save Terminal Output"
-msgstr "터미널 출력 저장"
-
-#: source/gx/terminix/terminal/terminal.d:2485
-#: source/gx/terminix/appwindow.d:615 source/gx/terminix/appwindow.d:1146
-#: source/gx/terminix/profilewindow.d:750
-msgid "Save"
-msgstr "저장"
-
-#: source/gx/terminix/terminal/terminal.d:2491
-msgid "All Text Files"
-msgstr "모든 텍스트 파일"
-
-#: source/gx/terminix/terminal/terminal.d:2495
-#: source/gx/terminix/appwindow.d:1070 source/gx/terminix/profilewindow.d:767
-#: source/gx/terminix/prefwindow.d:630
-msgid "All Files"
-msgstr "모든 파일"
-
-#: source/gx/terminix/terminal/terminal.d:2907
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
-
-#: source/gx/terminix/terminal/terminal.d:2908
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다 %d"
-
-#: source/gx/terminix/terminal/terminal.d:2909
-msgid "The child process was aborted."
-msgstr "자식 프로세스가 중지되었습니다."
-
-#: source/gx/terminix/terminal/terminal.d:2915
-msgid "Relaunch"
-msgstr "다시 시작"
-
-#: source/gx/terminix/terminal/terminal.d:2960
-msgid "Don't Paste"
-msgstr "붙여넣지 마세요"
-
-#: source/gx/terminix/terminal/terminal.d:2961
-msgid "Paste Anyway"
-msgstr "어떻게든 붙여넣기"
-
-#: source/gx/terminix/terminal/layout.d:28
-msgid "Layout Options"
-msgstr "레이아웃 옵션"
-
-#: source/gx/terminix/terminal/layout.d:43
-msgid "Active"
-msgstr "동작"
-
-#: source/gx/terminix/terminal/layout.d:49
-msgid "Title"
-msgstr "제목"
-
-#: source/gx/terminix/terminal/layout.d:57
-msgid "Session Load"
-msgstr "세션"
-
-#: source/gx/terminix/terminal/layout.d:64
-#: source/gx/terminix/profilewindow.d:105
-#: source/gx/terminix/profilewindow.d:955
-#: source/gx/terminix/profilewindow.d:1258
-msgid "Command"
-msgstr "명령어"
-
-#: source/gx/terminix/terminal/layout.d:73
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
-"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
-
-#: source/gx/terminix/appwindow.d:317
-msgid "View session sidebar"
-msgstr "세션 사이드바 보기"
-
-#: source/gx/terminix/appwindow.d:342
-msgid "Create a new session"
-msgstr "새 세션 만들기"
-
-#: source/gx/terminix/appwindow.d:360
-msgid "Add terminal right"
-msgstr "오른쪽에 터미널 추가"
-
-#: source/gx/terminix/appwindow.d:364
-msgid "Add terminal down"
-msgstr "아래에 터미널 추가"
-
-#: source/gx/terminix/appwindow.d:369
-msgid "Find text in terminal"
-msgstr "터미널에서 텍스트 찾기"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Change Session Name"
-msgstr "세션 이름 바꾸기"
-
-#: source/gx/terminix/appwindow.d:559
-msgid "Enter a new name for the session"
-msgstr "새 세션 이름 입력"
-
-#: source/gx/terminix/appwindow.d:614
-msgid "Open…"
-msgstr "열기…"
-
-#: source/gx/terminix/appwindow.d:616
-msgid "Save As…"
-msgstr "다른 이름으로 저장…"
-
-#: source/gx/terminix/appwindow.d:621
-msgid "Name…"
-msgstr "이름…"
-
-#: source/gx/terminix/appwindow.d:622
-msgid "Synchronize Input"
-msgstr "입력 동기화"
-
-#: source/gx/terminix/appwindow.d:627
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:871
-#, fuzzy
-msgid "There are multiple sessions open, close anyway?"
-msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
-
-#: source/gx/terminix/appwindow.d:872
-#, fuzzy
-msgid "Do not show this again"
-msgstr "이 메시지 다시 보지 않기"
-
-#: source/gx/terminix/appwindow.d:1066 source/gx/terminix/profilewindow.d:763
-msgid "All JSON Files"
-msgstr "모든 JSON 파일"
-
-#: source/gx/terminix/appwindow.d:1079
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "파일 이름 '%s'이(가) 없습니다"
-
-#: source/gx/terminix/appwindow.d:1109
-msgid "Load Session"
-msgstr "세션 불러오기"
-
-#: source/gx/terminix/appwindow.d:1112
-msgid "Open"
-msgstr "열기"
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Could not load session due to unexpected error."
-msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
-
-#: source/gx/terminix/appwindow.d:1127
-msgid "Error Loading Session"
-msgstr "세션 불러오기 오류"
-
-#: source/gx/terminix/appwindow.d:1143
-msgid "Save Session"
-msgstr "세션 저장"
-
-#: source/gx/terminix/appwindow.d:1225
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:224 source/gx/terminix/session.d:1397
-#: source/gx/terminix/prefwindow.d:863
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "새 세션"
-
-#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:873
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
 msgid "New Window"
 msgstr "새 창"
@@ -641,6 +723,136 @@ msgstr "설정 이슈 감지됨"
 msgid "Do not show this message again"
 msgstr "이 메시지 다시 보지 않기"
 
+#: source/gx/terminix/appwindow.d:318
+msgid "View session sidebar"
+msgstr "세션 사이드바 보기"
+
+#: source/gx/terminix/appwindow.d:343
+msgid "Create a new session"
+msgstr "새 세션 만들기"
+
+#: source/gx/terminix/appwindow.d:361
+msgid "Add terminal right"
+msgstr "오른쪽에 터미널 추가"
+
+#: source/gx/terminix/appwindow.d:365
+msgid "Add terminal down"
+msgstr "아래에 터미널 추가"
+
+#: source/gx/terminix/appwindow.d:370
+msgid "Find text in terminal"
+msgstr "터미널에서 텍스트 찾기"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Change Session Name"
+msgstr "세션 이름 바꾸기"
+
+#: source/gx/terminix/appwindow.d:560
+msgid "Enter a new name for the session"
+msgstr "새 세션 이름 입력"
+
+#: source/gx/terminix/appwindow.d:615
+msgid "Open…"
+msgstr "열기…"
+
+#: source/gx/terminix/appwindow.d:617
+msgid "Save As…"
+msgstr "다른 이름으로 저장…"
+
+#: source/gx/terminix/appwindow.d:622
+msgid "Name…"
+msgstr "이름…"
+
+#: source/gx/terminix/appwindow.d:623
+msgid "Synchronize Input"
+msgstr "입력 동기화"
+
+#: source/gx/terminix/appwindow.d:628
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:872
+#, fuzzy
+msgid "There are multiple sessions open, close anyway?"
+msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
+
+#: source/gx/terminix/appwindow.d:873
+#, fuzzy
+msgid "Do not show this again"
+msgstr "이 메시지 다시 보지 않기"
+
+#: source/gx/terminix/appwindow.d:1079 source/gx/terminix/profilewindow.d:763
+msgid "All JSON Files"
+msgstr "모든 JSON 파일"
+
+#: source/gx/terminix/appwindow.d:1092
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "파일 이름 '%s'이(가) 없습니다"
+
+#: source/gx/terminix/appwindow.d:1122
+msgid "Load Session"
+msgstr "세션 불러오기"
+
+#: source/gx/terminix/appwindow.d:1125
+msgid "Open"
+msgstr "열기"
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Could not load session due to unexpected error."
+msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
+
+#: source/gx/terminix/appwindow.d:1140
+msgid "Error Loading Session"
+msgstr "세션 불러오기 오류"
+
+#: source/gx/terminix/appwindow.d:1156
+msgid "Save Session"
+msgstr "세션 저장"
+
+#: source/gx/terminix/appwindow.d:1238
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "색상표에 16 가지 색상이 필요합니다"
+
+#: source/gx/terminix/cmdparams.d:96
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "'%s'은(는) 디렉터리가 아니므로, 무시합니다"
+
+#: source/gx/terminix/cmdparams.d:144
+#, c-format
+msgid "Ignoring parameter session as '%s' does not exist"
+msgstr "'%s'이(가) 없으므로 파라미터 세션을 무시합니다"
+
+#: source/gx/terminix/cmdparams.d:154
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"세션 불러오기와 프로파일/작업 디렉터리/실행 명령어 설정을 하실 수 없습니다. "
+"하나 또는 다른것을 선택하세요"
+
+#: source/gx/terminix/cmdparams.d:161
+msgid "You can only use the action parameter within Terminix"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:182
+msgid ""
+"You cannot use the quake mode with maximize, minimize, fullscreen or "
+"geometry parameters"
+msgstr ""
+
 #: source/gx/terminix/profilewindow.d:93
 #, c-format
 msgid "Editing Profile: %s"
@@ -745,11 +957,6 @@ msgstr "아이콘 및 소리"
 msgid "Terminal title"
 msgstr "터미널 제목"
 
-#: source/gx/terminix/profilewindow.d:260
-#: source/gx/terminix/profilewindow.d:546
-msgid "Badge"
-msgstr ""
-
 #: source/gx/terminix/profilewindow.d:269
 msgid "Badge position"
 msgstr ""
@@ -808,7 +1015,7 @@ msgstr ""
 msgid "Color palette"
 msgstr "색상 팔레트"
 
-#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:746
+#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:755
 msgid "Options"
 msgstr "옵션"
 
@@ -1134,195 +1341,41 @@ msgstr ""
 msgid "Edit Triggers"
 msgstr "프로파일 편집"
 
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "색상표에 16 가지 색상이 필요합니다"
-
-#: source/gx/terminix/session.d:548
-msgid "Could not locate dropped terminal"
-msgstr "중단된 터미널을 위치시킬 수 없습니다"
-
-#: source/gx/terminix/session.d:553
-msgid "Could not locate session for dropped terminal"
-msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
-
-#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
-#: source/gx/terminix/prefwindow.d:612
-msgid "Default"
-msgstr "기본값"
-
-#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
-msgid "Profile"
-msgstr "프로파일"
-
-#: source/gx/terminix/constants.d:52
-msgid "A VTE based terminal emulator for Linux"
-msgstr "리눅스용 VTE 기반 터미널 에뮬레이터"
-
-#: source/gx/terminix/constants.d:53
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
+#: source/gx/terminix/preferences.d:205
+msgid "UpdateState"
 msgstr ""
-"이 소스 코드 서식은 모질라 공중 허가서, v. 2.0 의 약관에 따릅니다. MPL 이 이 "
-"파일과 함께 배포되지 않은 경우, http://mozilla.org/MPL/2.0/ 에서 얻으실 수 있"
-"습니다."
 
-#: source/gx/terminix/constants.d:58
-msgid "GTK VTE widget team, Terminix would not be possible without their work"
-msgstr "GTK VTE 위젯 팀, 그들의 노력 없이 Terminix 는 불가능 했을 것입니다"
+#: source/gx/terminix/preferences.d:206
+#, fuzzy
+msgid "ExecuteCommand"
+msgstr "명령어"
 
-#: source/gx/terminix/constants.d:59
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD - 훌룡한 GTK 래퍼 제공"
+#: source/gx/terminix/preferences.d:207
+msgid "SendNotification"
+msgstr ""
 
-#: source/gx/terminix/constants.d:60
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org - 훌룡한 언어, D 제공"
+#: source/gx/terminix/preferences.d:208
+#, fuzzy
+msgid "UpdateTitle"
+msgstr "제목"
 
-#: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
-#: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
-#: source/gx/terminix/encoding.d:78
-msgid "Western"
-msgstr "서유럽어"
+#: source/gx/terminix/preferences.d:209
+msgid "PlayBell"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:19 source/gx/terminix/encoding.d:46
-#: source/gx/terminix/encoding.d:57 source/gx/terminix/encoding.d:76
-msgid "Central European"
-msgstr "중앙 유럽어"
+#: source/gx/terminix/preferences.d:210
+#, fuzzy
+msgid "SendText"
+msgstr "텍스트"
 
-#: source/gx/terminix/encoding.d:20
-msgid "South European"
-msgstr "남유럽어"
+#: source/gx/terminix/preferences.d:211
+msgid "InsertPassword"
+msgstr ""
 
-#: source/gx/terminix/encoding.d:21 source/gx/terminix/encoding.d:29
-#: source/gx/terminix/encoding.d:83
-msgid "Baltic"
-msgstr "발트어"
-
-#: source/gx/terminix/encoding.d:22 source/gx/terminix/encoding.d:47
-#: source/gx/terminix/encoding.d:53 source/gx/terminix/encoding.d:54
-#: source/gx/terminix/encoding.d:59 source/gx/terminix/encoding.d:77
-msgid "Cyrillic"
-msgstr "키릴어"
-
-# ************************************************
-# Encodings
-# ************************************************
-#: source/gx/terminix/encoding.d:23 source/gx/terminix/encoding.d:50
-#: source/gx/terminix/encoding.d:56 source/gx/terminix/encoding.d:82
-msgid "Arabic"
-msgstr "아랍어"
-
-#: source/gx/terminix/encoding.d:24 source/gx/terminix/encoding.d:62
-#: source/gx/terminix/encoding.d:79
-msgid "Greek"
-msgstr "그리스어"
-
-#: source/gx/terminix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "시각 히브리어"
-
-#: source/gx/terminix/encoding.d:26 source/gx/terminix/encoding.d:49
-#: source/gx/terminix/encoding.d:65 source/gx/terminix/encoding.d:81
-msgid "Hebrew"
-msgstr "히브리어"
-
-#: source/gx/terminix/encoding.d:27 source/gx/terminix/encoding.d:48
-#: source/gx/terminix/encoding.d:69 source/gx/terminix/encoding.d:80
-msgid "Turkish"
-msgstr "터키어"
-
-#: source/gx/terminix/encoding.d:28
-msgid "Nordic"
-msgstr "북유럽어"
-
-#: source/gx/terminix/encoding.d:30
-msgid "Celtic"
-msgstr "켈트어"
-
-#: source/gx/terminix/encoding.d:32 source/gx/terminix/encoding.d:68
-msgid "Romanian"
-msgstr "루마니아어"
-
-#: source/gx/terminix/encoding.d:33
-msgid "Unicode"
-msgstr "유니코드"
-
-#: source/gx/terminix/encoding.d:34
-msgid "Armenian"
-msgstr "미국어"
-
-#: source/gx/terminix/encoding.d:35 source/gx/terminix/encoding.d:36
-#: source/gx/terminix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "중국어 정체"
-
-#: source/gx/terminix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "키릴/러시아어"
-
-#: source/gx/terminix/encoding.d:38 source/gx/terminix/encoding.d:51
-#: source/gx/terminix/encoding.d:71
-msgid "Japanese"
-msgstr "일본어"
-
-#: source/gx/terminix/encoding.d:39 source/gx/terminix/encoding.d:52
-#: source/gx/terminix/encoding.d:74
-msgid "Korean"
-msgstr "한국어"
-
-#: source/gx/terminix/encoding.d:41 source/gx/terminix/encoding.d:42
-#: source/gx/terminix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "중국어 간체"
-
-#: source/gx/terminix/encoding.d:44
-msgid "Georgian"
-msgstr "조지아어"
-
-#: source/gx/terminix/encoding.d:55 source/gx/terminix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "키릴/우크라이나어"
-
-#: source/gx/terminix/encoding.d:58
-msgid "Croatian"
-msgstr "크로아티아어"
-
-#: source/gx/terminix/encoding.d:60
-msgid "Hindi"
-msgstr "힌디어"
-
-#: source/gx/terminix/encoding.d:61
-msgid "Persian"
-msgstr "페르시아어"
-
-#: source/gx/terminix/encoding.d:63
-msgid "Gujarati"
-msgstr "구즈라트어"
-
-#: source/gx/terminix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "구르무키어"
-
-#: source/gx/terminix/encoding.d:66
-msgid "Icelandic"
-msgstr "아이슬란드어"
-
-#: source/gx/terminix/encoding.d:72 source/gx/terminix/encoding.d:75
-#: source/gx/terminix/encoding.d:84
-msgid "Vietnamese"
-msgstr "베트남어"
-
-#: source/gx/terminix/encoding.d:73
-msgid "Thai"
-msgstr "태국어"
+#: source/gx/terminix/preferences.d:212
+#, fuzzy
+msgid "UpdateBadge"
+msgstr "제목"
 
 #: source/gx/terminix/prefwindow.d:89
 msgid "Global"
@@ -1421,7 +1474,7 @@ msgstr "크기"
 msgid "Tile"
 msgstr "타일"
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:745
 msgid "Center"
 msgstr "가운데"
 
@@ -1459,132 +1512,99 @@ msgstr ""
 msgid "Width percent"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:754
+#: source/gx/terminix/prefwindow.d:744
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:745
+#, fuzzy
+msgid "Right"
+msgstr "밝음"
+
+#: source/gx/terminix/prefwindow.d:763
 msgid "Show terminal on all workspaces"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:759
+#: source/gx/terminix/prefwindow.d:768
 msgid "Set hint for window manager to disable animation"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:764
+#: source/gx/terminix/prefwindow.d:773
 msgid "Hide window when focus is lost"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:778
+#: source/gx/terminix/prefwindow.d:788
 #, fuzzy
 msgid "Display terminal on active monitor"
 msgstr "터미널 내용 저장"
 
-#: source/gx/terminix/prefwindow.d:785
+#: source/gx/terminix/prefwindow.d:795
 msgid "Display on specific monitor"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:820
+#: source/gx/terminix/prefwindow.d:830
 msgid "Behavior"
 msgstr "행동"
 
-#: source/gx/terminix/prefwindow.d:826
+#: source/gx/terminix/prefwindow.d:836
 msgid "Prompt when creating a new session"
 msgstr "새 세션을 만들 때 세션 설정 입력받기"
 
-#: source/gx/terminix/prefwindow.d:831
+#: source/gx/terminix/prefwindow.d:841
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "마우스가 위에서 움직일 때 터미널에 포커스 하기"
 
-#: source/gx/terminix/prefwindow.d:836
+#: source/gx/terminix/prefwindow.d:846
 msgid "Autohide the mouse pointer when typing"
 msgstr "타이핑 할 때 마우스 포인터 자동으로 숨기기"
 
-#: source/gx/terminix/prefwindow.d:841
+#: source/gx/terminix/prefwindow.d:851
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:846
+#: source/gx/terminix/prefwindow.d:856
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:852
+#: source/gx/terminix/prefwindow.d:862
 msgid "Send desktop notification on process complete"
 msgstr "프로세스가 완료될때 데스크톱 알림 보내기"
 
-#: source/gx/terminix/prefwindow.d:860
+#: source/gx/terminix/prefwindow.d:870
 msgid "On new instance"
 msgstr "새 인스턴스 생성시"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Right"
 msgstr "오른쪽으로 분할"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Split Down"
 msgstr "아래로 분할"
 
-#: source/gx/terminix/prefwindow.d:863
+#: source/gx/terminix/prefwindow.d:873
 msgid "Focus Window"
 msgstr "창에 포커스"
 
-#: source/gx/terminix/prefwindow.d:875
+#: source/gx/terminix/prefwindow.d:885
 msgid "Always use advanced paste dialog"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:880
+#: source/gx/terminix/prefwindow.d:890
 msgid "Warn when attempting unsafe paste"
 msgstr "위험한 붙여넣기를 할 때 경고하기"
 
-#: source/gx/terminix/prefwindow.d:885
+#: source/gx/terminix/prefwindow.d:895
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "붙여넣기 한 것이 주석 또는 변수 선언문일 경우 첫 문자 삭제하기"
 
-#: source/gx/terminix/prefwindow.d:890
+#: source/gx/terminix/prefwindow.d:900
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "선택할 때 텍스트를 자동으로 클립보드로 복사하기"
-
-#: source/gx/terminix/cmdparams.d:96
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "'%s'은(는) 디렉터리가 아니므로, 무시합니다"
-
-#: source/gx/terminix/cmdparams.d:144
-#, c-format
-msgid "Ignoring parameter session as '%s' does not exist"
-msgstr "'%s'이(가) 없으므로 파라미터 세션을 무시합니다"
-
-#: source/gx/terminix/cmdparams.d:154
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"세션 불러오기와 프로파일/작업 디렉터리/실행 명령어 설정을 하실 수 없습니다. "
-"하나 또는 다른것을 선택하세요"
-
-#: source/gx/terminix/cmdparams.d:161
-msgid "You can only use the action parameter within Terminix"
-msgstr ""
-
-#: source/gx/terminix/cmdparams.d:182
-msgid ""
-"You cannot use the quake mode with maximize, minimize, fullscreen or "
-"geometry parameters"
-msgstr ""
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "비활성화됨"
-
-#: source/app.d:106
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
-
-#: source/app.d:123
-msgid "Unexpected exception occurred"
-msgstr "예상하지 못한 예외 발생"
-
-#: source/app.d:124
-msgid "Error: "
-msgstr "오류: "
 
 #: data/nautilus/open-terminix.py:65
 #, fuzzy
