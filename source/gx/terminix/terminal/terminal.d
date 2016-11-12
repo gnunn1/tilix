@@ -901,6 +901,7 @@ private:
             if (isSynchronizedInput() && event.key.sendEvent == 0) {
                 // Only synchronize hard code VTE keys otherwise let commit event take care of it
                 if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
+                    tracef("Synchronizing key %d", event.key.keyval);
                     SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
                     foreach (dlg; terminalSyncInputDelegates)
                         dlg(this, se);
