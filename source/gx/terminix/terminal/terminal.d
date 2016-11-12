@@ -299,6 +299,8 @@ private:
     string _overrideTitle;
     //overrides command when load from session JSON
     string _overrideCommand;
+    //overrides badge
+    string _overrideBadge;
     //Whether synchronized input is turned on in the session
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
@@ -599,16 +601,17 @@ private:
 
         //Override terminal title
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_LAYOUT, gsShortcuts, delegate(GVariant, SimpleAction) {
-            string terminalTitle = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
             LayoutDialog dialog = new LayoutDialog(cast(Window) getToplevel());
             scope (exit) {
                 dialog.destroy();
             }
-            dialog.title = terminalTitle;
+            dialog.badge = _overrideBadge.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY) : _overrideBadge;
+            dialog.title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
             dialog.command = _overrideCommand;
             dialog.showAll();
             if (dialog.run() == ResponseType.OK) {
                 _overrideTitle = dialog.title;
+                _overrideBadge = dialog.badge;
                 _overrideCommand = dialog.command;
                 updateDisplayText();
             }
@@ -1065,7 +1068,8 @@ private:
      * Updates the cached badge text
      */
     void updateBadge() {
-        string badge = getDisplayText(gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY));
+        string badge = _overrideBadge.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY) : _overrideBadge;
+        badge = getDisplayText(badge);
         if (badge != _cachedBadge) {
             _cachedBadge = badge;
             vte.queueDraw();
@@ -1243,6 +1247,7 @@ private:
             TerminalTriggerMatch[] triggerMatches;
             foreach(trigger; triggers) {
                 auto matches = matchAll(text, trigger.compiledRegex);
+                //tracef("Matching trigger '%s' against text '%s'", trigger.pattern, text);play
                 foreach (m; matches) {
                     string[] groups = [m.hit];
                     foreach (group; m.captures) {
@@ -1308,6 +1313,10 @@ private:
                 n.setBody(summary);
                 n.setDefaultAction("app.activate-terminal::" ~ _terminalUUID);
                 terminix.sendNotification(null, n);
+                break;
+            case TriggerAction.UPDATE_BADGE:
+                _overrideBadge = replaceMatchTokens(trigger.parameters, groups);
+                updateBadge();
                 break;
             case TriggerAction.UPDATE_TITLE:
                 _overrideTitle = replaceMatchTokens(trigger.parameters, groups);
@@ -2726,6 +2735,9 @@ public:
         if (_overrideTitle.length > 0) {
             value[NODE_TITLE] = JSONValue(_overrideTitle);
         }
+        if (_overrideBadge.length > 0) {
+            value[NODE_BADGE] = JSONValue(_overrideBadge);
+        }
         if (_overrideCommand.length > 0) {
             value[NODE_OVERRIDE_CMD] = JSONValue(_overrideCommand);
         }
@@ -2737,6 +2749,9 @@ public:
     void deserialize(JSONValue value) {
         if (NODE_TITLE in value) {
             _overrideTitle = value[NODE_TITLE].str();
+        }
+        if (NODE_BADGE in value) {
+            _overrideBadge = value[NODE_BADGE].str();
         }
         if (NODE_OVERRIDE_CMD in value) {
             _overrideCommand = value[NODE_OVERRIDE_CMD].str();
@@ -2999,7 +3014,8 @@ enum TriggerAction {
     UPDATE_TITLE,
     PLAY_BELL,
     SEND_TEXT,
-    INSERT_PASSWORD
+    INSERT_PASSWORD,
+    UPDATE_BADGE
 }
 
 /**
@@ -3027,6 +3043,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_SEND_NOTIFICATION_VALUE:
                 action = TriggerAction.SEND_NOTIFICATION;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_UPDATE_BADGE_VALUE:
+                action = TriggerAction.UPDATE_BADGE;
                 break;
             case SETTINGS_PROFILE_TRIGGER_UPDATE_TITLE_VALUE:
                 action = TriggerAction.UPDATE_TITLE;
@@ -3410,6 +3429,7 @@ string getUserShell(string shell) {
  */
 private:
     enum NODE_OVERRIDE_CMD = "overrideCommand";
+    enum NODE_BADGE = "badge";
     enum NODE_TITLE = "title";
     enum NODE_READONLY = "readOnly";
     enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";

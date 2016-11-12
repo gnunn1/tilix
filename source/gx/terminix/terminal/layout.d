@@ -13,6 +13,7 @@ import gtk.Label;
 import gtk.Window;
 
 import gx.i18n.l10n;
+import gx.gtk.vte;
 
 /**
  * Dialog that enables the user to set the layout options for a terminal
@@ -20,6 +21,7 @@ import gx.i18n.l10n;
 class LayoutDialog: Dialog {
 
 private:
+    Entry eBadge;
     Entry eTitle;
     Entry eCommand;
 
@@ -54,6 +56,16 @@ public:
         grid.attach(eTitle, 1, row, 1, 1);
         row++;
 
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            Label lblBadge = new Label(_("Badge"));
+            lblBadge.setHalign(Align.END);
+            grid.attach(lblBadge, 0, row, 1, 1);
+            eBadge = new Entry();
+            eBadge.setWidthChars(20);
+            grid.attach(eBadge, 1, row, 1, 1);
+            row++;
+        }
+
         Label lblLoad = new Label(format("<b>%s</b>", _("Session Load")));
         lblLoad.setUseMarkup(true);
         lblLoad.setHalign(Align.START);
@@ -87,6 +99,17 @@ public:
     @property void title(string value) {
         if (value.length > 0) {
             eTitle.setText(value);
+        }
+    }
+
+    @property string badge() {
+        if (!checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) return "";
+        return eBadge.getText();
+    }
+
+    @property void badge(string value) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && value.length > 0) {
+            eBadge.setText(value);
         }
     }
 
