@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-12 12:36-0500\n"
-"PO-Revision-Date: 2016-11-05 14:13+0000\n"
+"PO-Revision-Date: 2016-11-13 14:06+0000\n"
 "Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/terminix/"
-"translations/cs/>\n"
+"Language-Team: Czech "
+"<https://hosted.weblate.org/projects/terminix/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -260,8 +260,9 @@ msgstr "Titulek"
 #: source/gx/terminix/terminal/layout.d:60
 #: source/gx/terminix/profilewindow.d:260
 #: source/gx/terminix/profilewindow.d:546
+#, fuzzy
 msgid "Badge"
-msgstr ""
+msgstr "Odznak"
 
 #: source/gx/terminix/terminal/layout.d:69
 msgid "Session Load"
@@ -517,16 +518,17 @@ msgid "Be sure you understand what each part of this command does."
 msgstr "Ujistěte se, že rozumíte, co která část příkazu znamená."
 
 #: source/gx/terminix/terminal/advpaste.d:96
+#, fuzzy
 msgid "Transform"
-msgstr ""
+msgstr "Transformace"
 
 #: source/gx/terminix/terminal/advpaste.d:104
 msgid "Convert spaces to tabs"
-msgstr ""
+msgstr "Převést mezery na tabulátory"
 
 #: source/gx/terminix/terminal/advpaste.d:115
 msgid "Convert CRLF and CR to LF"
-msgstr ""
+msgstr "Převést CRLF a CR na LF"
 
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Advanced Paste"
@@ -697,8 +699,9 @@ msgstr ""
 "Otevře okno v módu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
 
 #: source/gx/terminix/application.d:617
+#, fuzzy
 msgid "Show the Terminix and dependant component versions"
-msgstr ""
+msgstr "Ukázat verze Terminixu a závislých komponentů"
 
 #: source/gx/terminix/application.d:620
 #, fuzzy
@@ -848,8 +851,9 @@ msgstr ""
 "prováděný příkaz. Vyberte prosím první či druhé"
 
 #: source/gx/terminix/cmdparams.d:161
+#, fuzzy
 msgid "You can only use the action parameter within Terminix"
-msgstr ""
+msgstr "Parametr akce můžete používat jen uvnitř Terminixu"
 
 #: source/gx/terminix/cmdparams.d:182
 msgid ""
@@ -967,7 +971,7 @@ msgstr "Titulek terminálu"
 
 #: source/gx/terminix/profilewindow.d:269
 msgid "Badge position"
-msgstr ""
+msgstr "Umístění odznaku"
 
 #: source/gx/terminix/profilewindow.d:273
 msgid "Northwest"
@@ -1016,7 +1020,7 @@ msgstr "Vlastní"
 
 #: source/gx/terminix/profilewindow.d:397
 msgid "Export"
-msgstr ""
+msgstr "Exportovat"
 
 #: source/gx/terminix/profilewindow.d:409
 msgid "Color palette"
@@ -1241,14 +1245,18 @@ msgstr ""
 "zakládající se na regulérních výrazech."
 
 #: source/gx/terminix/profilewindow.d:1041
+#, fuzzy
 msgid "Triggers"
-msgstr ""
+msgstr "Spouštěče"
 
 #: source/gx/terminix/profilewindow.d:1047
+#, fuzzy
 msgid ""
 "Triggers are regular expressions that are used to check against output text "
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
+"Spouštěče jsou regulérní výrazy, které slouží k vyhledávání textu ve výstupu "
+"terminálu. Když je nalezena shoda, provede se nastavená činnost."
 
 #: source/gx/terminix/profilewindow.d:1067
 msgid "Automatic Profile Switching"
@@ -1280,7 +1288,7 @@ msgstr ""
 
 #: source/gx/terminix/profilewindow.d:1093
 msgid "Match"
-msgstr ""
+msgstr "Shoda"
 
 #: source/gx/terminix/profilewindow.d:1104
 #: source/gx/terminix/profilewindow.d:1283
@@ -1290,27 +1298,27 @@ msgstr "Přidat"
 
 #: source/gx/terminix/profilewindow.d:1108
 msgid "Enter username@hostname:directory to match"
-msgstr ""
+msgstr "Zadejte shodu pro uživatel@hostitel:adresář"
 
 #: source/gx/terminix/profilewindow.d:1110
 msgid "Enter hostname:directory to match"
-msgstr ""
+msgstr "Zadejte shodu pro hostitel:adresář"
 
 #: source/gx/terminix/profilewindow.d:1112
 msgid "Add New Match"
-msgstr ""
+msgstr "Přidat novou shodu"
 
 #: source/gx/terminix/profilewindow.d:1129
 msgid "Edit username@hostname:directory to match"
-msgstr ""
+msgstr "Upravit shodu pro uživatel@hostitel:adresář"
 
 #: source/gx/terminix/profilewindow.d:1131
 msgid "Edit hostname:directory to match"
-msgstr ""
+msgstr "Upravit shodu pro hostitel:adresář"
 
 #: source/gx/terminix/profilewindow.d:1133
 msgid "Edit Match"
-msgstr ""
+msgstr "Upravit shodu"
 
 #: source/gx/terminix/profilewindow.d:1241
 #: source/gx/terminix/profilewindow.d:1382
@@ -1340,44 +1348,54 @@ msgid "Parameter"
 msgstr "Parametr"
 
 #: source/gx/terminix/profilewindow.d:1461
+#, fuzzy
 msgid "Limit number of lines for trigger processing to:"
-msgstr ""
+msgstr "Omezit počet řádků, v nichž hledat spouštěče, na:"
 
 #: source/gx/terminix/profilewindow.d:1483
+#, fuzzy
 msgid "Edit Triggers"
-msgstr ""
+msgstr "Upravit spouštěče"
 
 #: source/gx/terminix/preferences.d:205
+#, fuzzy
 msgid "UpdateState"
-msgstr ""
+msgstr "AktualizovatStav"
 
 #: source/gx/terminix/preferences.d:206
+#, fuzzy
 msgid "ExecuteCommand"
-msgstr ""
+msgstr "ProvéstPříkaz"
 
 #: source/gx/terminix/preferences.d:207
+#, fuzzy
 msgid "SendNotification"
-msgstr ""
+msgstr "PoslatOznámení"
 
 #: source/gx/terminix/preferences.d:208
+#, fuzzy
 msgid "UpdateTitle"
-msgstr ""
+msgstr "AktualizovatTitulek"
 
 #: source/gx/terminix/preferences.d:209
+#, fuzzy
 msgid "PlayBell"
-msgstr ""
+msgstr "Zazvonit"
 
 #: source/gx/terminix/preferences.d:210
+#, fuzzy
 msgid "SendText"
-msgstr ""
+msgstr "PoslatText"
 
 #: source/gx/terminix/preferences.d:211
+#, fuzzy
 msgid "InsertPassword"
-msgstr ""
+msgstr "VložitHeslo"
 
 #: source/gx/terminix/preferences.d:212
+#, fuzzy
 msgid "UpdateBadge"
-msgstr ""
+msgstr "AktualizovatOdznak"
 
 #: source/gx/terminix/prefwindow.d:89
 #, fuzzy
@@ -1389,8 +1407,9 @@ msgid "Appearance"
 msgstr "Vzhled"
 
 #: source/gx/terminix/prefwindow.d:95
+#, fuzzy
 msgid "Quake"
-msgstr ""
+msgstr "Quake"
 
 #: source/gx/terminix/prefwindow.d:139
 msgid "Encodings showing in menu:"
@@ -1423,8 +1442,9 @@ msgstr ""
 "Odejmout zkratku od stávající akce a přiřadit ji místo toho sem?"
 
 #: source/gx/terminix/prefwindow.d:475
+#, fuzzy
 msgid "Clone"
-msgstr ""
+msgstr "Klonovat"
 
 #: source/gx/terminix/prefwindow.d:593
 msgid "Enable transparency, requires re-start"
@@ -1513,19 +1533,20 @@ msgstr "Velikost"
 
 #: source/gx/terminix/prefwindow.d:723
 msgid "Height percent"
-msgstr ""
+msgstr "Procenta výšky"
 
 #: source/gx/terminix/prefwindow.d:734
 msgid "Width percent"
-msgstr ""
+msgstr "Procenta šířky"
 
 #: source/gx/terminix/prefwindow.d:744
+#, fuzzy
 msgid "Alignment"
-msgstr ""
+msgstr "Poloha"
 
 #: source/gx/terminix/prefwindow.d:745
 msgid "Left"
-msgstr ""
+msgstr "Vlevo"
 
 #: source/gx/terminix/prefwindow.d:745
 #, fuzzy
