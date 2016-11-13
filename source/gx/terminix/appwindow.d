@@ -1259,9 +1259,10 @@ public:
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
-        } 
+        } else {
+            forceAppMenu();
+        }  
 
-        forceAppMenu();
         createUI();
 
         addOnDelete(&onWindowClosed);
