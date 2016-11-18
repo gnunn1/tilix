@@ -100,6 +100,7 @@ ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
         cr.destroy();
     }
     setSourcePixbuf(cr, pb, 0, 0);
+    cr.setOperator(cairo_operator_t.SOURCE);
     cr.paint();
     return surface;
 }
@@ -121,6 +122,9 @@ ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeigh
     Context cr = Context.create(surface);
     scope(exit) {
         cr.destroy();
+    }
+    if (alpha) {
+        cr.setOperator(cairo_operator_t.SOURCE);
     }
     renderImage(cr, isSource, outputWidth, outputHeight, mode, scaleMode);
     return surface;

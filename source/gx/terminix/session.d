@@ -934,6 +934,7 @@ private:
         ImageSurface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
         cr.setSourceSurface(isBGImage, 0, 0);
+        cr.setOperator(cairo_operator_t.SOURCE);        
         cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
@@ -945,6 +946,7 @@ private:
         }
         propagateDraw(child, crChild);
         cr.setSourceSurface(isChildSurface, 0, 0);
+        cr.setOperator(cairo_operator_t.OVER);
         cr.paint();
         return true;
     }
