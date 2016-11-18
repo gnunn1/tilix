@@ -334,9 +334,9 @@ private:
                     double ratio = min(xScale, yScale);
                     double width = image.getWidth() * ratio;
                     double height = image.getHeight() * ratio;
-                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH);
+                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH, true);
                 } else {
-                    isFullBGImage = renderImage(image);
+                    isFullBGImage = renderImage(image, true);
                 }
             }
         } catch (GException ge) {
