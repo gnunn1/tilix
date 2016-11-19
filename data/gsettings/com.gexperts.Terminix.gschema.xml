@@ -134,6 +134,11 @@
       <summary>Whether to disable the client-side-decorations</summary>
       <description>If true, the default titlebar will be used as created by the WM rather than the CSD.</description>
     </key>
+    <key name="app-title" type="s">
+      <default>'${appName}: ${sessionName}'</default>
+      <summary>The application title that is used</summary>
+      <description>The title to use for the application, can be composed of literal strings and supported tokens.</description>
+    </key>
     <key name="auto-hide-mouse" type="b">
       <default>false</default>
       <summary>Whether to automatically hide the mouse pointer when typing</summary>

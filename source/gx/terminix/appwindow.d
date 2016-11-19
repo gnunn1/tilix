@@ -28,6 +28,7 @@ import gtkc.giotypes : GApplicationFlags;
 import gdkpixbuf.Pixbuf;
 
 import gdk.Event;
+import gdk.Keysyms;
 import gdk.RGBA;
 import gdk.Screen;
 import gdk.Visual;
@@ -53,6 +54,7 @@ import gtk.Box;
 import gtk.Button;
 import gtk.CheckButton;
 import gtk.Dialog;
+import gtk.Entry;
 import gtk.EventBox;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
@@ -71,6 +73,7 @@ import gtk.Popover;
 import gtk.Revealer;
 import gtk.ScrolledWindow;
 import gtk.Settings;
+import gtk.Stack;
 import gtk.StyleContext;
 import gtk.ToggleButton;
 import gtk.Version;
@@ -107,8 +110,10 @@ class AppWindow : ApplicationWindow {
 
 private:
 
+    // GTK CSS Style to flag attention
     enum CSS_CLASS_NEEDS_ATTENTION = "needs-attention";
 
+    // Actions
     enum ACTION_PREFIX = "session";
     enum ACTION_SESSION_CLOSE = "close";
     enum ACTION_SESSION_NAME = "name";
@@ -129,11 +134,21 @@ private:
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
 
+    // Title tokens
+    enum TITLE_APP_NAME = "${appName}";
+    enum TITLE_SESSION_NAME = "${sessionName}";
+    enum TITLE_SESSION_NUMBER = "${sessionNumber}";
+
     Notebook nb;
     HeaderBar hb;
     SideBar sb;
     SessionSwitcher ss;
     ToggleButton tbSideBar;
+
+    // Widgets for custom titlebar
+    Label lblTitle;
+    Entry eTitle;
+    Stack sTitle;
 
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
@@ -160,6 +175,8 @@ private:
     
     string[] recentSessionFiles;
 
+    // The user overridden application title, specific to the window only
+    string _overrideTitle;
 
     /**
      * Forces the app menu in the decoration layouts so in environments without an app-menu
@@ -377,12 +394,62 @@ private:
 
         //Header Bar
         HeaderBar header = new HeaderBar();
+        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            header.setCustomTitle(createCustomTitle());
+        }
         header.packStart(bSessionButtons);
         header.packStart(btnAddHorizontal);
         header.packStart(btnAddVertical);
         header.packEnd(mbSessionActions);
         header.packEnd(btnFind);
         return header;
+    }
+
+    Widget createCustomTitle() {
+        enum PAGE_LABEL = "label";
+        enum PAGE_EDIT = "edit";
+
+        sTitle = new Stack();
+
+        lblTitle = new Label(_(APPLICATION_NAME));
+        lblTitle.getStyleContext().addClass("title");
+        EventBox eb = new EventBox();
+        eb.add(lblTitle); 
+        eb.addOnButtonRelease(delegate(Event event, Widget widget) {
+            sTitle.setVisibleChildName(PAGE_EDIT);
+            eTitle.grabFocus();
+            return false;
+        });     
+        sTitle.addNamed(eb, PAGE_LABEL);
+
+        eTitle = new Entry();
+        eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
+            uint keyval;
+            if (event.getKeyval(keyval)) {
+                switch (keyval) {
+                    case GdkKeysyms.GDK_Escape:
+                        sTitle.setVisibleChildName(PAGE_LABEL);
+                        return true;
+                    case GdkKeysyms.GDK_Return:
+                        _overrideTitle = eTitle.getText();
+                        updateTitle();
+                        sTitle.setVisibleChildName(PAGE_LABEL);
+                        return true;
+                    default:
+                }
+            }
+            return false;
+        });
+        eTitle.addOnFocusOut(delegate(Event event, Widget widget) {
+            sTitle.setVisibleChildName(PAGE_LABEL);
+            if (getCurrentSession() !is null) {
+                getCurrentSession().focusRestore();
+            }
+            return false;
+        });
+
+        sTitle.addNamed(eTitle, PAGE_EDIT);
+        return sTitle;        
     }
 
     /**
@@ -766,19 +833,23 @@ private:
     }
 
     void updateTitle() {
-        string title;
+        string title = _overrideTitle.length == 0?gsSettings.getString(SETTINGS_APP_TITLE_KEY):_overrideTitle;
+        title = title.replace(TITLE_APP_NAME, _(APPLICATION_NAME));
         Session session = getCurrentSession();
-        if (session && nb.getNPages() == 1) {
-            title = _(APPLICATION_NAME) ~ ": " ~ session.displayName;
-        } else if (session) {
-            title = _(APPLICATION_NAME) ~ " " ~ to!string(nb.getCurrentPage()+1) ~ ": " ~ session.displayName;
+        if (session) {
+            title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(TITLE_SESSION_NAME, session.displayName);
         } else {
-            title = _(APPLICATION_NAME);
+            title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(TITLE_SESSION_NAME, _("Default"));
         }
-        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY))
+        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
             setTitle(title);
-        else
+        } else if (hb.getCustomTitle() !is null) {
+            lblTitle.setText(title);
+        } else {
             hb.setTitle(title);
+        }
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
