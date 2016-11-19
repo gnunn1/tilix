@@ -676,6 +676,17 @@ class AppearancePreferences: Box {
             grid.attach(eSessionName, 1, row, 1, 1);
             row++;
 
+            //Application Title
+            Label lblAppTitle = new Label(_("Application title"));
+            lblAppTitle.setHalign(Align.END);
+            grid.attach(lblAppTitle, 0, row, 1, 1);
+
+            Entry eAppTitle = new Entry();
+            eAppTitle.setHexpand(true);
+            gsSettings.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", GSettingsBindFlags.DEFAULT);
+            grid.attach(eAppTitle, 1, row, 1, 1);
+            row++;
+
             add(grid);
 
             if (Version.checkVersion(3, 16, 0).length == 0) {
