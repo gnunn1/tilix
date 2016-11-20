@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-12 12:36-0500\n"
-"PO-Revision-Date: 2016-11-17 10:07+0000\n"
+"PO-Revision-Date: 2016-11-19 12:13+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/terminix/translations/ru/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: source/app.d:106
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Ваша версия GTK устарела, вам нужно установите последнию GTK %d.%d.%d!"
+msgstr "Ваша версия GTK устарела, вам нужна как минимум GTK %d.%d.%d!"
 
 #: source/app.d:123
 msgid "Unexpected exception occurred"
@@ -839,17 +839,19 @@ msgid ""
 "command option, please choose one or the other"
 msgstr ""
 "Вы не можете загрузить сессию и установить profile/working directory/execute "
-"параметр команды, пожалуйста, выберите один или другой"
+"command параметры, пожалуйста, выберите что-то одно"
 
 #: source/gx/terminix/cmdparams.d:161
 msgid "You can only use the action parameter within Terminix"
-msgstr ""
+msgstr "Вы можете использовать параметр action только внутри Terminix"
 
 #: source/gx/terminix/cmdparams.d:182
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"
 msgstr ""
+"Вы не можете использовать выпадающий режим с параметрами развернуть, "
+"свернуть, полный экран или геометрия"
 
 #: source/gx/terminix/profilewindow.d:93
 #, c-format
@@ -900,7 +902,7 @@ msgstr "столбцов"
 
 #: source/gx/terminix/profilewindow.d:197
 msgid "rows"
-msgstr "рядов"
+msgstr "строк"
 
 #: source/gx/terminix/profilewindow.d:213
 #: source/gx/terminix/profilewindow.d:510
@@ -1234,6 +1236,9 @@ msgid ""
 "Triggers are regular expressions that are used to check against output text "
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
+"Триггеры - это регулярные выражения, с которыми сравнивается текст в "
+"терминале. Как только найдётся совпадение, будет выполнено настроенное "
+"действие."
 
 #: source/gx/terminix/profilewindow.d:1067
 msgid "Automatic Profile Switching"
@@ -1349,8 +1354,9 @@ msgid "UpdateTitle"
 msgstr "Обновить заголовок"
 
 #: source/gx/terminix/preferences.d:209
+#, fuzzy
 msgid "PlayBell"
-msgstr ""
+msgstr "PlayBell"
 
 #: source/gx/terminix/preferences.d:210
 msgid "SendText"
@@ -1492,15 +1498,15 @@ msgstr "Размер"
 
 #: source/gx/terminix/prefwindow.d:723
 msgid "Height percent"
-msgstr ""
+msgstr "Высота в процентах"
 
 #: source/gx/terminix/prefwindow.d:734
 msgid "Width percent"
-msgstr ""
+msgstr "Ширина в процентах"
 
 #: source/gx/terminix/prefwindow.d:744
 msgid "Alignment"
-msgstr ""
+msgstr "Выравнивание"
 
 #: source/gx/terminix/prefwindow.d:745
 msgid "Left"
@@ -1516,11 +1522,11 @@ msgstr "Показать терминал на всех рабочих прос�
 
 #: source/gx/terminix/prefwindow.d:768
 msgid "Set hint for window manager to disable animation"
-msgstr ""
+msgstr "Установить свойство менеджера окон для отключения анимации"
 
 #: source/gx/terminix/prefwindow.d:773
 msgid "Hide window when focus is lost"
-msgstr ""
+msgstr "Прятать окно при потере фокуса"
 
 #: source/gx/terminix/prefwindow.d:788
 msgid "Display terminal on active monitor"
@@ -1528,7 +1534,7 @@ msgstr "Отображать терминал на активном монито
 
 #: source/gx/terminix/prefwindow.d:795
 msgid "Display on specific monitor"
-msgstr ""
+msgstr "Отображать на указанном мониторе"
 
 #: source/gx/terminix/prefwindow.d:830
 msgid "Behavior"
@@ -2007,7 +2013,7 @@ msgstr "Вставьте номер терминала"
 #: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Insert password"
-msgstr ""
+msgstr "Вставить пароль"
 
 #: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"
