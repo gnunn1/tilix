@@ -843,13 +843,14 @@ private:
             title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
             title = title.replace(TITLE_SESSION_NAME, _("Default"));
         }
-        if (gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            setTitle(title);
-        } else if (hb.getCustomTitle() !is null) {
-            lblTitle.setText(title);
-        } else {
-            hb.setTitle(title);
+        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            if (hb.getCustomTitle() !is null) {
+                lblTitle.setText(title);
+            } else {
+                hb.setTitle(title);
+            }
         }
+        setTitle(title);        
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
