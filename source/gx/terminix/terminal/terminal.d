@@ -105,6 +105,7 @@ import pango.PgContext;
 import pango.PgFontDescription;
 import pango.PgLayout;
 
+import vte.Pty;
 import vte.Terminal : VTE = Terminal;
 import vtec.vtetypes;
 
@@ -2008,7 +2009,7 @@ private:
             }
             */
 
-            bool result = vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
+            bool result = spawnSync(workingDir, args, envv, flags, gpid);
             if (!result) {
                 string msg = _("Unexpected error occurred, no additional information available");
                 outputError(msg, workingDir, args, envv);
@@ -2024,6 +2025,49 @@ private:
     }
 
     /**
+     * Needed spawnSync function to handle flatpak where we need to generate out VtePty in order
+     * for it to work at the system level outside of flatpak.
+     *
+     * Christian Herget of Builder fame pointed me to the spots where he needed to do
+     * create the VtePty plus send a DBus message to flatpak to get this work.
+     *
+     * VtePty: https://git.gnome.org/browse/gnome-builder/tree/plugins/terminal/gb-terminal-view.c#n238
+     * HostCommand(): https://git.gnome.org/browse/gnome-builder/tree/libide/subprocess/ide-breakout-subprocess.c#n1448 
+     */
+    bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
+        static if (FLATPAK) {
+            Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
+
+            import glib.Spawn: Spawn;
+            import vtec.vte: vte_pty_child_setup;
+            import gtkc.Loader: Linker;
+            import gtkc.paths: LIBRARY;
+
+            flags |= GSpawnFlags.DO_NOT_REAP_CHILD;
+
+            envv ~= ["TERM=" ~"xterm-256color"];
+            string[string] envParent = environment.toAA();
+            foreach(key; envParent.byKey()) {
+                envv ~= [key ~ "=" ~ envParent[key]];
+            }
+
+            // TODO
+            // This is a bit hacky in order to cast from 'void function(VtePty* pty)' to 'void function(void* pty)' required by Spawn.async 
+            if (c_vte_pty_child_setup_void is null) {
+                Linker.link(c_vte_pty_child_setup_void, "vte_pty_child_setup", LIBRARY.VTE);
+            }
+            bool result = Spawn.async(workingDir, args, envv, flags, c_vte_pty_child_setup_void, pty.getPtyStruct(), gpid);
+            // TODO - Need to retry if it fails due to permissions on workingDir, see vte code
+            // https://github.com/GNOME/vte/blob/bcc7bdbed0e2897b67333685cdf8771d832e01d1/src/pty.cc#L397
+
+            vte.setPty(pty);
+            return result;
+        } else {
+            return vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
+        }
+    }
+
+    /**
      * Returns the child pid running in the terminal or -1
      * if no child pid is running. May also return the VTE gpid
      * as well which also indicates no child process.
@@ -2033,7 +2077,6 @@ private:
             return false;
         return tcgetpgrp(vte.getPty().getFd());
     }
-
 
     /**
      * Sets the proxy environment variables in the shell if available in gnome-terminal.
@@ -3434,3 +3477,13 @@ private:
     enum NODE_READONLY = "readOnly";
     enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
 
+/**
+ * Part of a workaround for passing function pointer to Spawn.async.
+ * See spawnSync in class Terminal for more info.
+ */
+private:
+
+__gshared extern(C)
+{
+	void function(void* pty) c_vte_pty_child_setup_void;
+}
