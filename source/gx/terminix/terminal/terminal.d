@@ -4,7 +4,9 @@
  */
 module gx.terminix.terminal.terminal;
 
+import core.sys.posix.fcntl;
 import core.sys.posix.stdio;
+import core.sys.posix.stdlib;
 import core.sys.posix.sys.wait;
 import core.sys.posix.unistd;
 
@@ -59,6 +61,7 @@ import glib.Str;
 import glib.Util;
 import glib.URI;
 import glib.Variant : GVariant = Variant;
+import glib.VariantBuilder : GVariantBuilder = VariantBuilder;
 import glib.VariantType : GVariantType = VariantType;
 
 import gtk.Box;
@@ -2037,6 +2040,7 @@ private:
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
+            sendHostCommand(pty, workingDir, args, envv);
 
             import glib.Spawn: Spawn;
             import vtec.vte: vte_pty_child_setup;
@@ -2067,6 +2071,75 @@ private:
         }
     }
 
+    GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
+        if (workingDir.length == 0) workingDir = Util.getHomeDir();
+        string arg = join(args, " ");
+        GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
+        foreach(fd; fdlist) {
+            fdBuilder.addValue(new GVariant(fd));
+        }
+        GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
+        foreach(env; envv) {
+            string[] envPair = env.split("=");
+            if (envPair.length ==2) {
+                envBuilder.addValue(new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1])));
+            }
+        }
+        
+        tracef("Working dir=%s, args=%s", workingDir, arg);
+
+        import gtkc.glib: g_variant_new;
+
+        gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
+                          toStringz(workingDir),
+                          toStringz(arg),
+                          fdBuilder.end().getVariantStruct(),
+                          envBuilder.end().getVariantStruct(),
+                          0);
+        return new GVariant(vs, true);
+    }
+
+    enum O_CLOEXEC = 0x80000;
+
+    void sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
+        import gio.DBusConnection;
+        import gio.UnixFDList;
+
+        int[] fdList;
+
+        char* name = ptsname(pty.getFd());
+        int ttyFd = open(name, O_RDWR | O_CLOEXEC);
+        if (ttyFd >= 0) {
+            fdList ~= ttyFd;
+        }
+
+        UnixFDList outFdList = new UnixFDList();
+        UnixFDList inFdList = new UnixFDList();
+        foreach(fd; fdList) {        
+            inFdList.append(fd);
+        }
+
+        DBusConnection connection = terminix.getDbusConnection();
+        GVariant reply = connection.callWithUnixFdListSync(
+            "org.freedesktop.Flatpak",
+            "/org/freedesktop/Flatpak/Development",
+            "org.freedesktop.Flatpak.Development",
+            "HostCommand",
+            buildHostCommandVariant(workingDir, args, envv, fdList),
+            new GVariantType("(u)"),
+            GDBusCallFlags.NONE,
+            -1,
+            inFdList,
+            outFdList,
+            null
+        );
+
+        if (reply is null) {
+            warning("No reply from flatpak dbus service");
+        }
+    }
+    
+    
     /**
      * Returns the child pid running in the terminal or -1
      * if no child pid is running. May also return the VTE gpid
