@@ -2071,6 +2071,7 @@ private:
         }
     }
 
+    /*
     GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
         string arg = join(args, " ");
@@ -2138,7 +2139,7 @@ private:
             warning("No reply from flatpak dbus service");
         }
     }
-    
+    */
     
     /**
      * Returns the child pid running in the terminal or -1
