@@ -9,11 +9,12 @@ import std.conv;
 import std.experimental.logger;
 import std.file;
 import std.format;
+import std.string;
 import std.variant;
 
 import gdk.Event;
 
-import gio.Settings;
+import gio.Settings: GSettings = Settings;
 
 import gobject.Signals;
 import gobject.Value;
@@ -35,12 +36,17 @@ import gtk.Grid;
 import gtk.HeaderBar;
 import gtk.Image;
 import gtk.Label;
+import gtk.ListBox;
+import gtk.ListBoxRow;
 import gtk.ListStore;
 import gtk.MessageDialog;
-import gtk.Notebook;
 import gtk.Scale;
 import gtk.ScrolledWindow;
+import gtk.Separator;
+import gtk.Settings;
+import gtk.SizeGroup;
 import gtk.SpinButton;
+import gtk.Stack;
 import gtk.Switch;
 import gtk.TreeIter;
 import gtk.TreePath;
@@ -73,46 +79,143 @@ import gx.terminix.profilewindow;
 class PreferenceWindow : ApplicationWindow {
 
 private:
-    Notebook nb;
-    Settings gsSettings;
+    Stack pages;
+    GSettings gsSettings;
+    HeaderBar hbMain;
+    HeaderBar hbSide;
 
     void createUI(Application app) {
-        HeaderBar hb = new HeaderBar();
-        hb.setShowCloseButton(true);
-        hb.setTitle(_("Preferences"));
-        this.setTitlebar(hb);
-        nb = new Notebook();
-        nb.setHexpand(true);
-        nb.setVexpand(true);
+
+        createSplitHeaders();
+
+        //Create Listbox
+        ListBox lb = new ListBox();
+        lb.setCanFocus(true);
+        lb.setSelectionMode(SelectionMode.BROWSE);
+        lb.setVexpand(true);
+        lb.addOnRowActivated(&onRowActivated);
+
+        //Create Stack and boxes
+        pages = new Stack();
+        pages.setHexpand(true);
+        pages.setVexpand(true);
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
-        nb.appendPage(gp, _("Global"));
+        pages.addTitled(gp, N_("Global"), _("Global"));
+        lb.add(new GenericPreferenceRow(N_("Global"), _("Global")));
 
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
-        nb.appendPage(ap, _("Appearance"));
+        pages.addTitled(ap, N_("Appearance"), _("Appearance"));
+        lb.add(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
 
         QuakePreferences qp = new QuakePreferences(gsSettings);
-        nb.appendPage(qp, _("Quake"));
+        pages.addTitled(qp, N_("Quake"), _("Quake"));
+        lb.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
-        nb.appendPage(sp, _("Shortcuts"));
+        pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
+        lb.add(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
 
         ProfilePreferences pp = new ProfilePreferences(app);
-        nb.appendPage(pp, _("Profiles"));
+        pages.addTitled(pp, N_("Profiles"), _("Profiles"));
+        lb.add(new GenericPreferenceRow(N_("Profiles"), _("Profiles")));
 
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
-        nb.appendPage(ep, _("Encoding"));
+        pages.addTitled(ep, N_("Encoding"), _("Encoding"));
+        lb.add(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
 
-        add(nb);
+        ScrolledWindow sw = new ScrolledWindow(lb);
+        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sw.setShadowType(ShadowType.NONE);
+
+        Box box = new Box(Orientation.HORIZONTAL, 0);
+        box.add(sw);
+        box.add(new Separator(Orientation.VERTICAL));
+        box.add(pages);
+
+        add(box);
+
+        SizeGroup sg = new SizeGroup(SizeGroupMode.HORIZONTAL);
+        sg.addWidget(hbSide);
+        sg.addWidget(sw);
+
+        //Set initial title
+        hbMain.setTitle(_("Global"));
+    }
+
+    void createSplitHeaders() {
+        hbMain = new HeaderBar();
+        hbMain.setHexpand(true);
+        hbMain.setTitle("");
+        hbMain.setShowCloseButton(true);
+
+        hbSide = new HeaderBar();
+        hbSide.setTitle(_("Preferences"));
+
+        Value layout = new Value("");
+        Settings.getDefault().getProperty(GTK_DECORATION_LAYOUT, layout);
+
+        string[] parts = split(layout.getString(), ":");
+        string part1 = parts[0] ~ ":";
+        string part2;
+
+        if (parts.length >= 2)
+            part2 = ":" ~ parts[1];
+
+        hbSide.setDecorationLayout(part1);
+        hbMain.setDecorationLayout(part2);
+
+        Box bTitle = new Box(Orientation.HORIZONTAL, 0);
+        bTitle.add(hbSide);
+        bTitle.add(new Separator(Orientation.VERTICAL));
+        bTitle.add(hbMain); 
+
+        this.setTitlebar(bTitle);
+    }
+
+
+    void onRowActivated(ListBoxRow row, ListBox) {
+        GenericPreferenceRow gr = cast(GenericPreferenceRow) row;
+        if (gr !is null) {
+            pages.setVisibleChildName(gr.name);
+            hbMain.setTitle(gr.title);
+        }
     }
 
 public:
 
     this(Application app) {
         super(app);
-        gsSettings = new Settings(SETTINGS_ID);
+        gsSettings = new GSettings(SETTINGS_ID);
         app.addWindow(this);
         createUI(app);
+    }
+}
+
+class GenericPreferenceRow: ListBoxRow {
+
+private:
+    string _name;
+    string _title;
+
+public:
+    this(string name, string title) {
+        super();
+        _name = name;
+        _title = title;
+
+        Label label = new Label(_(name));
+        label.setHalign(Align.START);
+        setAllMargins(label, 6);
+        add(label);
+    }
+
+    @property string name() {
+        return _name;
+    }
+
+    @property string title() {
+        return _title;
     }
 }
 
@@ -126,7 +229,7 @@ private:
     enum COLUMN_NAME = 1;
     enum COLUMN_ENCODING = 2;
 
-    Settings gsSettings;
+    GSettings gsSettings;
 
     ListStore ls;
 
@@ -189,7 +292,7 @@ private:
 
 public:
 
-    this(Settings gsSettings) {
+    this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
         this.gsSettings = gsSettings;
         createUI();
@@ -202,8 +305,8 @@ public:
 class ShortcutPreferences : Box {
 
 private:
-    Settings gsShortcuts;
-    Settings gsSettings;
+    GSettings gsShortcuts;
+    GSettings gsSettings;
 
     TreeStore tsShortcuts;
     string[string] labels;
@@ -390,10 +493,10 @@ private:
 
 public:
 
-    this(Settings gsSettings) {
+    this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
         this.gsSettings = gsSettings;
-        gsShortcuts = new Settings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         createUI();
     }
 
@@ -418,7 +521,7 @@ private:
     TreeView tvProfiles;
     ListStore lsProfiles;
 
-    Settings[string] profiles;
+    GSettings[string] profiles;
 
     void createUI() {
         setMarginLeft(18);
@@ -537,8 +640,8 @@ private:
         lsProfiles.setValue(iter, 0, profile.isDefault);
         lsProfiles.setValue(iter, 1, profile.name);
         lsProfiles.setValue(iter, 2, profile.uuid);
-        Settings ps = prfMgr.getProfileSettings(profile.uuid);
-        ps.addOnChanged(delegate(string key, Settings settings) {
+        GSettings ps = prfMgr.getProfileSettings(profile.uuid);
+        ps.addOnChanged(delegate(string key, GSettings settings) {
             if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) {
                 foreach (uuid, ps; profiles) {
                     if (ps == settings) {
@@ -582,7 +685,7 @@ public:
  */
 class AppearancePreferences: Box {
     private:
-        void createUI(Settings gsSettings) {
+        void createUI(GSettings gsSettings) {
             setMarginTop(18);
             setMarginBottom(18);
             setMarginLeft(18);
@@ -705,7 +808,7 @@ class AppearancePreferences: Box {
         }
 
     public:
-        this(Settings gsSettings) {
+        this(GSettings gsSettings) {
             super(Orientation.VERTICAL, 6);
             createUI(gsSettings);
         }
@@ -714,7 +817,7 @@ class AppearancePreferences: Box {
 class QuakePreferences : Box {
 
 private:
-    void createUI(Settings gsSettings) {
+    void createUI(GSettings gsSettings) {
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -819,7 +922,7 @@ private:
 
 public:
 
-    this(Settings gsSettings) {
+    this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
         createUI(gsSettings);
     }
@@ -832,7 +935,7 @@ class GlobalPreferences : Box {
 
 private:
 
-    void createUI(Settings gsSettings) {
+    void createUI(GSettings gsSettings) {
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -915,7 +1018,7 @@ private:
 
 public:
 
-    this(Settings gsSettings) {
+    this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
         createUI(gsSettings);
     }
