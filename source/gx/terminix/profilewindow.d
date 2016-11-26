@@ -37,6 +37,7 @@ import gtk.ColorButton;
 import gtk.ComboBox;
 import gtk.ComboBoxText;
 import gtk.Dialog;
+import gtk.EditableIF;
 import gtk.Entry;
 import gtk.FileChooserDialog;
 import gtk.FileFilter;
@@ -67,14 +68,19 @@ import gx.gtk.vte;
 
 import gx.i18n.l10n;
 
+import gx.util.array;
 import gx.util.string;
-
 
 import gx.terminix.application;
 import gx.terminix.colorschemes;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
+
+/**
+ * Event triggered when profile name changes
+ */
+alias OnProfileNameChanged = void delegate(string newName);
 
 /**
  * UI used for managing preferences for a specific profile
@@ -87,12 +93,14 @@ private:
     ProfileInfo profile;
     Notebook nb;
 
+    OnProfileNameChanged[] profileNameChangedDelegates;
+
     void createUI() {
         nb = new Notebook();
         nb.setHexpand(true);
         nb.setVexpand(true);
         
-        nb.appendPage(new GeneralPage(), _("General"));
+        nb.appendPage(new GeneralPage(this), _("General"));
         nb.appendPage(new CommandPage(), _("Command"));
         nb.appendPage(new ColorPage(), _("Color"));
         nb.appendPage(new ScrollPage(), _("Scrolling"));
@@ -103,6 +111,13 @@ private:
 
     ProfilePage getPage(int index) {
         return cast(ProfilePage) nb.getNthPage(index);
+    }
+
+package:
+    void triggerNameChanged(string newName) {
+        foreach(dlg; profileNameChangedDelegates) {
+            dlg(newName);
+        }
     }
 
 public:
@@ -133,6 +148,14 @@ public:
 
     @property string uuid() {
         return profile.uuid;
+    }
+
+    public void addOnProfileNameChanged(OnProfileNameChanged dlg) {
+        profileNameChangedDelegates ~= dlg;    
+    }
+
+    public void removeOnProfileNameChanged(OnProfileNameChanged dlg) {
+        gx.util.array.remove(profileNameChangedDelegates, dlg);
     }
 }
 
@@ -177,6 +200,7 @@ class GeneralPage : ProfilePage {
 private:
 
     Label lblId;
+    ProfileEditor pe;
     
 protected:
     void createUI() {
@@ -190,6 +214,14 @@ protected:
         lblName.setHalign(Align.END);
         grid.attach(lblName, 0, row, 1, 1);
         Entry eName = new Entry();
+        // Catch and pass name changes up to preferences dialog
+        // Generally it would be better to simply use the Settings onChanged
+        // trigger however these are being used transiently here and since GtkDialogFlags
+        // doesn't provide a way to remove event handlers we will do it this instead.
+        eName.addOnChanged(delegate(EditableIF editable) {
+            Entry entry = cast(Entry)editable;
+            pe.triggerNameChanged(entry.getText());
+        }, ConnectFlags.AFTER);
         eName.setHexpand(true);
         bh.addBind(SETTINGS_PROFILE_VISIBLE_NAME_KEY, eName, "text", GSettingsBindFlags.DEFAULT);
         grid.attach(eName, 1, row, 1, 1);
@@ -333,8 +365,9 @@ protected:
 
 public:
 
-    this() {
+    this(ProfileEditor pe) {
         super();
+        this.pe = pe;
         createUI();
     }
 

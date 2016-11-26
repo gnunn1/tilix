@@ -135,6 +135,7 @@ private:
 
         // Profile Editor - Re-used for all profiles
         pe = new ProfileEditor();
+        pe.addOnProfileNameChanged(&profileNameChanged);
         pages.addTitled(pe, N_("Profile"), _("Profile"));
         lbSide.add(createProfileTitleRow());
         loadProfiles();
@@ -226,6 +227,14 @@ private:
             pe.bind(pr.getProfile());
             pages.setVisibleChildName("Profile");
             hbMain.setTitle(format("Profile: %s", pr.getProfile().name));
+        }
+    }
+
+    void profileNameChanged(string newName) {
+        ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
+        if (row !is null) {
+            row.updateName(newName);
+            hbMain.setTitle(format("Profile: %s", newName));
         }
     }
 
@@ -326,6 +335,8 @@ private:
     ProfileInfo profile;
     PreferenceWindow window;
 
+    Label lblName;
+
     immutable ACTION_PROFILE_PREFIX = "profile";
     immutable ACTION_PROFILE_DELETE = "delete";
     immutable ACTION_PROFILE_CLONE = "clone";
@@ -335,9 +346,9 @@ private:
         Box box = new Box(Orientation.HORIZONTAL, 6);
         setAllMargins(box, 6);
 
-        Label label = new Label(profile.name);
-        label.setHalign(Align.START);
-        box.packStart(label, true, true, 6);
+        lblName = new Label(profile.name);
+        lblName.setHalign(Align.START);
+        box.packStart(lblName, true, true, 6);
 
         MenuButton btnMenu = new MenuButton();
         btnMenu.setRelief(ReliefStyle.NONE);
@@ -389,6 +400,11 @@ public:
 
     ProfileInfo getProfile() {
         return profile;
+    }
+
+    void updateName(string newName) {
+        profile.name = newName;
+        lblName.setText(newName);
     }
 
     @property string uuid() {
