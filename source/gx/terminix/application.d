@@ -71,7 +71,6 @@ import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.prefwindow;
-import gx.terminix.profilewindow;
 import gx.terminix.shortcuts;
 
 static import gx.util.array;
@@ -123,7 +122,6 @@ private:
     CommandParameters cp;
 
     AppWindow[] appWindows;
-    ProfileWindow[] profileWindows;
     PreferenceWindow preferenceWindow;
 
     //Background Image for terminals, store it here as singleton instance
@@ -308,9 +306,6 @@ private:
 
     void quitTerminix() {
         foreach (window; appWindows) {
-            window.close();
-        }
-        foreach (window; profileWindows) {
             window.close();
         }
         if (preferenceWindow !is null)
@@ -570,7 +565,7 @@ private:
 
     /**
      * Returns the most active AppWindow, ignores preference
-     * an profile windows
+     * windows
      */
     AppWindow getActiveAppWindow() {
         AppWindow appWindow = cast(AppWindow)getActiveWindow();
@@ -659,18 +654,6 @@ public:
         removeWindow(window);
     }
 
-    void addProfileWindow(ProfileWindow window) {
-        profileWindows ~= window;
-        //GTK add window
-        addWindow(window);
-    }
-
-    void removeProfileWindow(ProfileWindow window) {
-        gx.util.array.remove(profileWindows, window);
-        //GTK remove window
-        removeWindow(window);
-    }
-
     /**
     * This searches across all Windows to find
     * a widget that matches the UUID specified. At the
@@ -713,24 +696,9 @@ public:
         preferenceWindow.showAll();
     }
 
-    void closeProfilePreferences(ProfileInfo profile) {
-        foreach (window; profileWindows) {
-            if (window.uuid == profile.uuid) {
-                window.destroy();
-                return;
-            }
-        }
-    }
-
     void presentProfilePreferences(ProfileInfo profile) {
-        foreach (window; profileWindows) {
-            if (window.uuid == profile.uuid) {
-                window.present();
-                return;
-            }
-        }
-        ProfileWindow window = new ProfileWindow(this, profile);
-        window.showAll();
+        presentPreferences();
+        preferenceWindow.focusProfile(profile.uuid);
     }
 
     bool testVTEConfig() {

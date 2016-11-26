@@ -92,6 +92,17 @@ Box createBox(Orientation orientation, int spacing,  Widget[] children) {
 }
 
 /**
+ * Finds the index position of a child in a container.
+ */
+int getChildIndex(Container container, Widget child) {
+    Widget[] children = container.getChildren().toArray!Widget();
+    foreach(int i, c; children) {
+        if (c.getWidgetStruct() == child.getWidgetStruct()) return i;
+    }
+    return -1;
+}
+
+/**
  * Template for finding all children of a specific type
  */
 T[] getChildren(T) (Widget widget, bool recursive) {

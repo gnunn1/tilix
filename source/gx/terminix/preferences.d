@@ -317,12 +317,15 @@ public:
     ProfileInfo cloneProfile(ProfileInfo sourceInfo) {
         GSettings sourceProfile = getProfileSettings(sourceInfo.uuid);
         string uuid = randomUUID().toString();
-        string profileName = sourceProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+        string profileName = format(_("%s (Copy)"), sourceProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
         GSettings targetProfile = createProfile(uuid, profileName, false); 
+        targetProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
 
         string[] keys = sourceProfile.listKeys();
         //Update each key in turn
         foreach(key; keys) {
+            // Do not copy profile name
+            if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) continue;
             GVariant value = sourceProfile.getValue(key);
             targetProfile.setValue(key, value);
         }

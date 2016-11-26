@@ -14,7 +14,12 @@ import std.variant;
 
 import gdk.Event;
 
+import gio.Menu: GMenu = Menu;
 import gio.Settings: GSettings = Settings;
+import gio.SimpleAction;
+import gio.SimpleActionGroup;
+
+import glib.Variant: GVariant = Variant;
 
 import gobject.Signals;
 import gobject.Value;
@@ -39,7 +44,9 @@ import gtk.Label;
 import gtk.ListBox;
 import gtk.ListBoxRow;
 import gtk.ListStore;
+import gtk.MenuButton;
 import gtk.MessageDialog;
+import gtk.Popover;
 import gtk.Scale;
 import gtk.ScrolledWindow;
 import gtk.Separator;
@@ -83,17 +90,23 @@ private:
     GSettings gsSettings;
     HeaderBar hbMain;
     HeaderBar hbSide;
+    ListBox lbSide;
+
+    ProfileEditor pe;
+
+    // Track how many non-profile rows there are to prevent the last profile from being deleted
+    immutable int NON_PROFILE_ROW_COUNT = 6;    
 
     void createUI(Application app) {
 
         createSplitHeaders();
 
         //Create Listbox
-        ListBox lb = new ListBox();
-        lb.setCanFocus(true);
-        lb.setSelectionMode(SelectionMode.BROWSE);
-        lb.setVexpand(true);
-        lb.addOnRowActivated(&onRowActivated);
+        lbSide = new ListBox();
+        lbSide.setCanFocus(true);
+        lbSide.setSelectionMode(SelectionMode.BROWSE);
+        lbSide.setVexpand(true);
+        lbSide.addOnRowSelected(&onRowSelected);
 
         //Create Stack and boxes
         pages = new Stack();
@@ -102,34 +115,45 @@ private:
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
         pages.addTitled(gp, N_("Global"), _("Global"));
-        lb.add(new GenericPreferenceRow(N_("Global"), _("Global")));
+        lbSide.add(new GenericPreferenceRow(N_("Global"), _("Global")));
 
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
         pages.addTitled(ap, N_("Appearance"), _("Appearance"));
-        lb.add(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
+        lbSide.add(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
 
         QuakePreferences qp = new QuakePreferences(gsSettings);
         pages.addTitled(qp, N_("Quake"), _("Quake"));
-        lb.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
+        lbSide.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
-        lb.add(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
-
-        ProfilePreferences pp = new ProfilePreferences(app);
-        pages.addTitled(pp, N_("Profiles"), _("Profiles"));
-        lb.add(new GenericPreferenceRow(N_("Profiles"), _("Profiles")));
+        lbSide.add(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
 
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
         pages.addTitled(ep, N_("Encoding"), _("Encoding"));
-        lb.add(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
+        lbSide.add(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
 
-        ScrolledWindow sw = new ScrolledWindow(lb);
+        // Profile Editor - Re-used for all profiles
+        pe = new ProfileEditor();
+        pages.addTitled(pe, N_("Profile"), _("Profile"));
+        lbSide.add(createProfileTitleRow());
+        loadProfiles();
+
+        ScrolledWindow sw = new ScrolledWindow(lbSide);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setShadowType(ShadowType.NONE);
+        sw.setSizeRequest(180, -1);
+
+        Box bSide = new Box(Orientation.VERTICAL,0); 
+        bSide.add(sw);
+
+        Button btnAddProfile = new Button(_("Add Profile"));
+        btnAddProfile.addOnClicked(&onAddProfile);
+        setAllMargins(btnAddProfile, 6);
+        bSide.add(btnAddProfile);
 
         Box box = new Box(Orientation.HORIZONTAL, 0);
-        box.add(sw);
+        box.add(bSide);
         box.add(new Separator(Orientation.VERTICAL));
         box.add(pages);
 
@@ -137,7 +161,7 @@ private:
 
         SizeGroup sg = new SizeGroup(SizeGroupMode.HORIZONTAL);
         sg.addWidget(hbSide);
-        sg.addWidget(sw);
+        sg.addWidget(bSide);
 
         //Set initial title
         hbMain.setTitle(_("Global"));
@@ -173,13 +197,82 @@ private:
         this.setTitlebar(bTitle);
     }
 
+    ListBoxRow createProfileTitleRow() {
+        ListBoxRow row = new ListBoxRow();
+        Box bProfileTitle = new Box(Orientation.VERTICAL, 2);
+        bProfileTitle.add(new Separator(Orientation.HORIZONTAL));
+        Label lblProfileTitle = new Label("<b>Profiles</b>");
+        lblProfileTitle.setUseMarkup(true);
+        lblProfileTitle.setHalign(Align.START);
+        lblProfileTitle.setSensitive(false);
+        setAllMargins(row, 6);
+        bProfileTitle.add(lblProfileTitle);
+        row.add(bProfileTitle);
+        row.setSelectable(false);
+        row.setActivatable(false);     
+        return row;        
+    }
 
-    void onRowActivated(ListBoxRow row, ListBox) {
+    void onRowSelected(ListBoxRow row, ListBox) {
         GenericPreferenceRow gr = cast(GenericPreferenceRow) row;
         if (gr !is null) {
             pages.setVisibleChildName(gr.name);
             hbMain.setTitle(gr.title);
+            return;
         }
+        ProfilePreferenceRow pr = cast(ProfilePreferenceRow) row;
+        if (pr !is null) {
+            trace(pr.getProfile().uuid);
+            pe.bind(pr.getProfile());
+            pages.setVisibleChildName("Profile");
+            hbMain.setTitle(format("Profile: %s", pr.getProfile().name));
+        }
+    }
+
+// Stuff that deals with profiles
+private:
+
+    void loadProfiles() {
+        ProfileInfo[] infos = prfMgr.getProfiles();
+        foreach (ProfileInfo info; infos) {
+            ProfilePreferenceRow row = new ProfilePreferenceRow(this, info);
+            lbSide.add(row); 
+        }
+    }
+
+    void onAddProfile(Button button) {
+        ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
+        ProfilePreferenceRow row = new ProfilePreferenceRow(this, profile);
+        row.showAll();
+        lbSide.add(row);
+        lbSide.selectRow(row);
+    }
+
+    void deleteProfile(ProfilePreferenceRow row) {
+        if (lbSide.getChildren().length  <= NON_PROFILE_ROW_COUNT + 1) return;
+        string uuid = row.uuid;
+        int index = getChildIndex(lbSide, row) - 1;
+        lbSide.remove(row);
+        prfMgr.deleteProfile(uuid);
+        if (index < 0) index = 0; 
+        lbSide.selectRow(lbSide.getRowAtIndex(index));
+    }
+
+    void cloneProfile(ProfilePreferenceRow sourceRow) {
+        ProfileInfo target = prfMgr.cloneProfile(sourceRow.getProfile());
+        ProfilePreferenceRow row = new ProfilePreferenceRow(this, target);
+        row.showAll();
+        lbSide.add(row);
+        lbSide.selectRow(row);
+    }
+
+    void setDefaultProfile(ProfilePreferenceRow row) {
+        prfMgr.setDefaultProfile(row.getProfile().uuid);
+        ProfilePreferenceRow[] rows = gx.gtk.util.getChildren!ProfilePreferenceRow(lbSide, false);
+        foreach(r; rows) {
+            r.getProfile().isDefault = false;
+        }
+        row.getProfile.isDefault = true;
     }
 
 public:
@@ -190,10 +283,19 @@ public:
         app.addWindow(this);
         createUI(app);
     }
+
+    void focusProfile(string uuid) {
+        ProfilePreferenceRow[] rows = gx.gtk.util.getChildren!ProfilePreferenceRow(lbSide, false);
+        foreach(row; rows) {
+            if (row.getProfile().uuid == uuid) {
+                lbSide.selectRow(row);
+                return;
+            }
+        }
+    }
 }
 
 class GenericPreferenceRow: ListBoxRow {
-
 private:
     string _name;
     string _title;
@@ -216,6 +318,81 @@ public:
 
     @property string title() {
         return _title;
+    }
+}
+
+class ProfilePreferenceRow: ListBoxRow {
+private:
+    ProfileInfo profile;
+    PreferenceWindow window;
+
+    immutable ACTION_PROFILE_PREFIX = "profile";
+    immutable ACTION_PROFILE_DELETE = "delete";
+    immutable ACTION_PROFILE_CLONE = "clone";
+    immutable ACTION_PROFILE_DEFAULT = "default";
+
+    void createUI() {
+        Box box = new Box(Orientation.HORIZONTAL, 6);
+        setAllMargins(box, 6);
+
+        Label label = new Label(profile.name);
+        label.setHalign(Align.START);
+        box.packStart(label, true, true, 6);
+
+        MenuButton btnMenu = new MenuButton();
+        btnMenu.setRelief(ReliefStyle.NONE);
+        btnMenu.setFocusOnClick(false);
+        btnMenu.setPopover(createPopover(btnMenu));
+        
+        box.packEnd(btnMenu, false, false, 0);
+
+        add(box);
+    }
+
+    void createActions() {
+        SimpleActionGroup sag = new SimpleActionGroup();
+        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE, null, delegate(GVariant, SimpleAction) {
+            window.deleteProfile(this);
+        });
+        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE, null, delegate(GVariant, SimpleAction) {
+            window.cloneProfile(this);
+        });
+        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(GVariant, SimpleAction) {
+            window.setDefaultProfile(this);
+        });
+        insertActionGroup(ACTION_PROFILE_PREFIX, sag);
+    }
+
+    Popover createPopover(Widget parent) {
+        GMenu model = new GMenu();
+        GMenu section = new GMenu();
+        section.append(_("Delete"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE));
+        section.append(_("Clone"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE));
+        model.appendSection(null, section);
+
+        section = new GMenu();
+        section.append(_("Use for new terminals"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT));
+        model.appendSection(null, section);
+
+        Popover popover = new Popover(parent);
+        popover.bindModel(model, null);
+        return popover;
+    }
+
+public:
+    this(PreferenceWindow window, ProfileInfo profile) {
+        this.profile = profile;
+        this.window = window;
+        createActions();
+        createUI();
+    }
+
+    ProfileInfo getProfile() {
+        return profile;
+    }
+
+    @property string uuid() {
+        return profile.uuid;
     }
 }
 
@@ -500,184 +677,6 @@ public:
         createUI();
     }
 
-}
-
-/**
- * Profile preferences page
- */
-class ProfilePreferences : Box {
-
-private:
-
-    enum COLUMN_IS_DEFAULT = 0;
-    enum COLUMN_NAME = 1;
-    enum COLUMN_UUID = 2;
-
-    Application app;
-    Button btnNew;
-    Button btnDelete;
-    Button btnEdit;
-    Button btnClone;
-    TreeView tvProfiles;
-    ListStore lsProfiles;
-
-    GSettings[string] profiles;
-
-    void createUI() {
-        setMarginLeft(18);
-        setMarginRight(18);
-        setMarginTop(18);
-        setMarginBottom(18);
-
-        //Profiles TreeView, note while UUID is in the model it's not actually displayed
-        lsProfiles = new ListStore([GType.BOOLEAN, GType.STRING, GType.STRING]);
-        loadProfiles();
-
-        tvProfiles = new TreeView(lsProfiles);
-        tvProfiles.setActivateOnSingleClick(false);
-        tvProfiles.addOnCursorChanged(delegate(TreeView) { updateUI(); });
-
-        CellRendererToggle toggle = new CellRendererToggle();
-        toggle.setRadio(true);
-        toggle.setActivatable(true);
-        toggle.addOnToggled(delegate(string treePath, CellRendererToggle) {
-            //Update UI and set Default profile
-            foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
-                TreePath path = lsProfiles.getPath(iter);
-                bool isDefault = (path.toString() == treePath);
-                if (isDefault)
-                    prfMgr.setDefaultProfile(lsProfiles.getValue(iter, COLUMN_UUID).getString());
-                lsProfiles.setValue(iter, 0, isDefault);
-            }
-        });
-        TreeViewColumn column = new TreeViewColumn(_("Default"), toggle, "active", COLUMN_IS_DEFAULT);
-        tvProfiles.appendColumn(column);
-        column = new TreeViewColumn(_("Profile"), new CellRendererText(), "text", COLUMN_NAME);
-        column.setExpand(true);
-        tvProfiles.appendColumn(column);
-
-        ScrolledWindow scProfiles = new ScrolledWindow(tvProfiles);
-        scProfiles.setShadowType(ShadowType.ETCHED_IN);
-        scProfiles.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-        scProfiles.setHexpand(true);
-        add(scProfiles);
-
-        //Row of buttons on right
-        Box bButtons = new Box(Orientation.VERTICAL, 4);
-        bButtons.setVexpand(true);
-
-        btnNew = new Button(_("New"));
-        btnNew.addOnClicked(delegate(Button) {
-            ProfileInfo profile = prfMgr.createProfile(SETTINGS_PROFILE_NEW_NAME_VALUE);
-            addProfile(profile);
-            selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
-            editProfile();
-        });
-        bButtons.add(btnNew);
-        
-		btnClone = new Button(_("Clone"));
-        btnClone.addOnClicked(delegate(Button) { cloneProfile();});
-		bButtons.add(btnClone);
-
-        btnEdit = new Button(_("Edit"));
-        btnEdit.addOnClicked(delegate(Button) { editProfile(); });
-        bButtons.add(btnEdit);
-        btnDelete = new Button(_("Delete"));
-        btnDelete.addOnClicked(delegate(Button) {
-            ProfileInfo profile = getSelectedProfile();
-            if (profile.uuid !is null) {
-                //If profile window for this profile is open, close it first
-                terminix.closeProfilePreferences(profile);
-                lsProfiles.remove(tvProfiles.getSelectedIter());
-                profiles.remove(profile.uuid);
-                prfMgr.deleteProfile(profile.uuid);
-            }
-        });
-        bButtons.add(btnDelete);
-
-        add(bButtons);
-
-        selectRow(tvProfiles, 0);
-        updateUI();
-    }
-
-    void editProfile() {
-        ProfileInfo profile = getSelectedProfile();
-        if (profile.uuid !is null) {
-            terminix.presentProfilePreferences(profile);
-        }
-    }
-
-    void cloneProfile() {
-        ProfileInfo sourceProfile = getSelectedProfile();
-        if (sourceProfile.uuid !is null) {
-            ProfileInfo targetProfile = prfMgr.cloneProfile(sourceProfile);
-            addProfile(targetProfile);
-            selectRow(tvProfiles, lsProfiles.iterNChildren(null) - 1, null);
-            editProfile();
-        }
-    }
-
-    ProfileInfo getSelectedProfile() {
-        TreeIter selected = tvProfiles.getSelectedIter();
-        if (selected) {
-            return ProfileInfo(lsProfiles.getValue(selected, COLUMN_IS_DEFAULT).getBoolean(), lsProfiles.getValue(selected, COLUMN_UUID).getString(),
-                    lsProfiles.getValue(selected, COLUMN_NAME).getString());
-        } else {
-            return ProfileInfo(false, null, null);
-        }
-    }
-
-    void updateUI() {
-        TreeIter selected = tvProfiles.getSelectedIter();
-        btnDelete.setSensitive(selected !is null && lsProfiles.iterNChildren(null) > 1);
-        btnEdit.setSensitive(selected !is null);
-        btnClone.setSensitive(selected !is null);
-    }
-
-    void addProfile(ProfileInfo profile) {
-        TreeIter iter = lsProfiles.createIter();
-        lsProfiles.setValue(iter, 0, profile.isDefault);
-        lsProfiles.setValue(iter, 1, profile.name);
-        lsProfiles.setValue(iter, 2, profile.uuid);
-        GSettings ps = prfMgr.getProfileSettings(profile.uuid);
-        ps.addOnChanged(delegate(string key, GSettings settings) {
-            if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) {
-                foreach (uuid, ps; profiles) {
-                    if (ps == settings) {
-                        updateProfileName(uuid, ps.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
-                        break;
-                    }
-                }
-            }
-        });
-        profiles[profile.uuid] = ps;
-    }
-
-    //Update Profile Name here in case it changed
-    void updateProfileName(string uuid, string name) {
-        foreach (TreeIter iter; TreeIterRange(lsProfiles)) {
-            if (lsProfiles.getValue(iter, COLUMN_UUID).getString() == uuid) {
-                lsProfiles.setValue(iter, COLUMN_NAME, name);
-            }
-        }
-    }
-
-    void loadProfiles() {
-        ProfileInfo[] infos = prfMgr.getProfiles();
-        lsProfiles.clear();
-        foreach (ProfileInfo info; infos) {
-            addProfile(info);
-        }
-    }
-
-public:
-
-    this(Application app) {
-        super(Orientation.HORIZONTAL, 12);
-        this.app = app;
-        createUI();
-    }
 }
 
 /**
