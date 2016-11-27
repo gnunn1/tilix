@@ -100,6 +100,8 @@ private:
 
     void createUI(Application app) {
 
+        setTitle(_("Terminix Preferences"));
+
         createSplitHeaders();
 
         //Create Listbox
