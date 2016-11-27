@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-12 12:36-0500\n"
+"POT-Creation-Date: 2016-11-27 09:38-0500\n"
 "PO-Revision-Date: 2016-06-06 14:04+0000\n"
 "Last-Translator: Giray Devlet <giray.devlet@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/terminix/"
@@ -35,11 +35,11 @@ msgstr "Hata: "
 msgid "disabled"
 msgstr "etkisiz"
 
-#: source/gx/terminix/constants.d:52
+#: source/gx/terminix/constants.d:54
 msgid "A VTE based terminal emulator for Linux"
 msgstr "Linux için VTE tabanlı terminal emülatörü"
 
-#: source/gx/terminix/constants.d:53
+#: source/gx/terminix/constants.d:55
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
@@ -49,17 +49,17 @@ msgstr ""
 "MPL'in bir kopyası bu dosya ekte olmadığı takdirde http://mozilla.org/"
 "MPL/2.0/ adresinden bir tane edinebilirsiniz."
 
-#: source/gx/terminix/constants.d:58
+#: source/gx/terminix/constants.d:60
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 "GTK VTE widget takımı, Terminix onların çalışmları olmaksızın mümkün "
 "olmayacaktı"
 
-#: source/gx/terminix/constants.d:59
+#: source/gx/terminix/constants.d:61
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr "GtkD'e böyle mükemmel bir GTK sarıcı sağladıkları için"
 
-#: source/gx/terminix/constants.d:60
+#: source/gx/terminix/constants.d:62
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org'a böyle harika bir dil için"
 
@@ -71,22 +71,22 @@ msgstr "Bırakılan terminalin konumu tespi edilemedi"
 msgid "Could not locate session for dropped terminal"
 msgstr "Bırakılan terminal için oturum bulunamadı"
 
-#: source/gx/terminix/session.d:1076 source/gx/terminix/prefwindow.d:450
-#: source/gx/terminix/prefwindow.d:612
+#: source/gx/terminix/session.d:1078 source/gx/terminix/appwindow.d:845
+#: source/gx/terminix/prefwindow.d:787
 msgid "Default"
 msgstr "Varsayılan"
 
-#: source/gx/terminix/session.d:1363 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/session.d:1365 source/gx/terminix/terminal/password.d:133
 #: source/gx/terminix/terminal/password.d:425
 msgid "Name"
 msgstr "İsim"
 
-#: source/gx/terminix/session.d:1374 source/gx/terminix/prefwindow.d:452
+#: source/gx/terminix/session.d:1376 source/gx/terminix/prefwindow.d:142
 msgid "Profile"
 msgstr "Profil"
 
-#: source/gx/terminix/session.d:1397 source/gx/terminix/application.d:224
-#: source/gx/terminix/prefwindow.d:873
+#: source/gx/terminix/session.d:1399 source/gx/terminix/application.d:222
+#: source/gx/terminix/prefwindow.d:1064
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
 msgid "New Session"
 msgstr "Yeni Oturum"
@@ -226,6 +226,553 @@ msgstr "Vietnamca"
 msgid "Thai"
 msgstr "Thaica"
 
+#: source/gx/terminix/profileeditor.d:103
+msgid "General"
+msgstr "Genel"
+
+#: source/gx/terminix/profileeditor.d:104
+#: source/gx/terminix/profileeditor.d:1025
+#: source/gx/terminix/profileeditor.d:1331
+#: source/gx/terminix/terminal/layout.d:76
+msgid "Command"
+msgstr "Komut"
+
+#: source/gx/terminix/profileeditor.d:105
+msgid "Color"
+msgstr "Renk"
+
+#: source/gx/terminix/profileeditor.d:106
+msgid "Scrolling"
+msgstr "Akma"
+
+#: source/gx/terminix/profileeditor.d:107
+msgid "Compatibility"
+msgstr "Uyumluluk"
+
+#: source/gx/terminix/profileeditor.d:108
+#: source/gx/terminix/profileeditor.d:484
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: source/gx/terminix/profileeditor.d:213
+msgid "Profile name"
+msgstr "Profil ismi"
+
+#: source/gx/terminix/profileeditor.d:237
+msgid "Terminal size"
+msgstr "Terminal boyutu"
+
+#: source/gx/terminix/profileeditor.d:247
+msgid "columns"
+msgstr "sütunl"
+
+#: source/gx/terminix/profileeditor.d:253
+msgid "rows"
+msgstr "satır"
+
+#: source/gx/terminix/profileeditor.d:258
+#: source/gx/terminix/terminal/terminal.d:754
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: source/gx/terminix/profileeditor.d:269
+#: source/gx/terminix/profileeditor.d:564
+msgid "Cursor"
+msgstr "İmleç"
+
+#: source/gx/terminix/profileeditor.d:272
+msgid "Block"
+msgstr "Blok"
+
+#: source/gx/terminix/profileeditor.d:272
+msgid "IBeam"
+msgstr "I-şekli"
+
+#: source/gx/terminix/profileeditor.d:272
+msgid "Underline"
+msgstr "Alt-çizgi"
+
+#: source/gx/terminix/profileeditor.d:280
+msgid "Blink mode"
+msgstr "Yanar söner kipi"
+
+#: source/gx/terminix/profileeditor.d:283
+msgid "System"
+msgstr "Sistem"
+
+#: source/gx/terminix/profileeditor.d:283
+msgid "On"
+msgstr "Açık"
+
+#: source/gx/terminix/profileeditor.d:283
+msgid "Off"
+msgstr "Kapalı"
+
+#: source/gx/terminix/profileeditor.d:289
+#: source/gx/terminix/terminal/terminal.d:444
+msgid "Terminal bell"
+msgstr "Terminal çanı"
+
+#: source/gx/terminix/profileeditor.d:292 source/gx/terminix/prefwindow.d:780
+msgid "None"
+msgstr "Hiçbiri"
+
+#: source/gx/terminix/profileeditor.d:292
+msgid "Sound"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:292
+msgid "Icon"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:292
+msgid "Icon and Sound"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:298
+msgid "Terminal title"
+msgstr "Terminal başlığı"
+
+#: source/gx/terminix/profileeditor.d:309
+#: source/gx/terminix/profileeditor.d:600
+#: source/gx/terminix/terminal/layout.d:60
+msgid "Badge"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:318
+msgid "Badge position"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:322
+msgid "Northwest"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:322
+msgid "Northeast"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:322
+msgid "Southwest"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:322
+#, fuzzy
+msgid "Southeast"
+msgstr "Güney Avrupa"
+
+#: source/gx/terminix/profileeditor.d:333
+msgid "Text Appearance"
+msgstr "Metin görünümü"
+
+#: source/gx/terminix/profileeditor.d:339
+msgid "Allow bold text"
+msgstr "Kalın metine izin ver"
+
+#: source/gx/terminix/profileeditor.d:344
+msgid "Rewrap on resize"
+msgstr "Boyutlandırmada metni sar"
+
+#: source/gx/terminix/profileeditor.d:350
+msgid "Custom font"
+msgstr "Özel font"
+
+#: source/gx/terminix/profileeditor.d:356
+msgid "Choose A Terminal Font"
+msgstr "Terminal fontu seç"
+
+#: source/gx/terminix/profileeditor.d:376
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: source/gx/terminix/profileeditor.d:422
+msgid "Color scheme"
+msgstr "Renk düzeni"
+
+#: source/gx/terminix/profileeditor.d:432
+#: source/gx/terminix/profileeditor.d:879
+msgid "Custom"
+msgstr "Özel"
+
+#: source/gx/terminix/profileeditor.d:445
+msgid "Export"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:457
+msgid "Color palette"
+msgstr "Renk paleti"
+
+#: source/gx/terminix/profileeditor.d:465 source/gx/terminix/prefwindow.d:941
+msgid "Options"
+msgstr "Seçenekler"
+
+#: source/gx/terminix/profileeditor.d:479
+msgid "Use theme colors for foreground/background"
+msgstr "Ön/Arka plan için temanın renklerini kullan"
+
+#: source/gx/terminix/profileeditor.d:497
+msgid "Transparency"
+msgstr "Saydamlık"
+
+#: source/gx/terminix/profileeditor.d:511
+msgid "Unfocused dim"
+msgstr "Odaklanmadığında karart"
+
+#: source/gx/terminix/profileeditor.d:559
+msgid "Text"
+msgstr "Metin"
+
+#: source/gx/terminix/profileeditor.d:560
+#: source/gx/terminix/profileeditor.d:664
+msgid "Background"
+msgstr "Arkaplan"
+
+#: source/gx/terminix/profileeditor.d:571
+msgid "Select Cursor Foreground Color"
+msgstr "İmleç önplan rengini seç"
+
+#: source/gx/terminix/profileeditor.d:573
+msgid "Select Cursor Background Color"
+msgstr "İmleç arkaplan rengini seç"
+
+#: source/gx/terminix/profileeditor.d:578
+msgid "Highlight"
+msgstr "Vurgulama"
+
+#: source/gx/terminix/profileeditor.d:583
+msgid "Select Highlight Foreground Color"
+msgstr "Önplan vurgulama rengini seç"
+
+#: source/gx/terminix/profileeditor.d:585
+msgid "Select Highlight Background Color"
+msgstr "Arkaplan vurgulama rengini seç"
+
+#: source/gx/terminix/profileeditor.d:590
+msgid "Dim"
+msgstr "Karartma"
+
+#: source/gx/terminix/profileeditor.d:595
+msgid "Select Dim Color"
+msgstr "Karartma rengini seç"
+
+#: source/gx/terminix/profileeditor.d:604
+#, fuzzy
+msgid "Select Badge Color"
+msgstr "%s rengi seç"
+
+#: source/gx/terminix/profileeditor.d:653
+msgid "Select Background Color"
+msgstr "Arkaplan rengini seç"
+
+#: source/gx/terminix/profileeditor.d:669
+#: source/gx/terminix/profileeditor.d:685
+msgid "Select Foreground Color"
+msgstr "Önplan rengini seç"
+
+#: source/gx/terminix/profileeditor.d:684
+msgid "Foreground"
+msgstr "Önplan"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Black"
+msgstr "Siyah"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Red"
+msgstr "Kırmızı"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Green"
+msgstr "Yeşil"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Orange"
+msgstr "Turuncu"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Blue"
+msgstr "Mavi"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Purple"
+msgstr "Mor"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Turquoise"
+msgstr "Turkuaz"
+
+#: source/gx/terminix/profileeditor.d:688
+msgid "Grey"
+msgstr "Gri"
+
+#: source/gx/terminix/profileeditor.d:694
+#, c-format
+msgid "Select %s Color"
+msgstr "%s rengi seç"
+
+#: source/gx/terminix/profileeditor.d:701
+#, c-format
+msgid "Select %s Light Color"
+msgstr "%s açık rengi seç"
+
+#: source/gx/terminix/profileeditor.d:836
+#, fuzzy
+msgid "Export Color Scheme"
+msgstr "Renk düzeni"
+
+#: source/gx/terminix/profileeditor.d:839
+#: source/gx/terminix/terminal/terminal.d:2636
+#: source/gx/terminix/appwindow.d:684 source/gx/terminix/appwindow.d:1232
+msgid "Save"
+msgstr "Kaydet"
+
+#: source/gx/terminix/profileeditor.d:839
+#: source/gx/terminix/profileeditor.d:1383
+#: source/gx/terminix/profileeditor.d:1556
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2636
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/appwindow.d:1198 source/gx/terminix/appwindow.d:1232
+msgid "Cancel"
+msgstr "İptal"
+
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1152
+msgid "All JSON Files"
+msgstr "Bütün JSON Dosyaları"
+
+#: source/gx/terminix/profileeditor.d:856
+#: source/gx/terminix/terminal/terminal.d:2646
+#: source/gx/terminix/appwindow.d:1156 source/gx/terminix/prefwindow.d:805
+msgid "All Files"
+msgstr "Bütün Dosyalar"
+
+#: source/gx/terminix/profileeditor.d:911
+msgid "Show scrollbar"
+msgstr "Kaydırma çubuğunu göster"
+
+#: source/gx/terminix/profileeditor.d:915
+msgid "Scroll on output"
+msgstr "Çıktı esnasında kaydır"
+
+#: source/gx/terminix/profileeditor.d:919
+msgid "Scroll on keystroke"
+msgstr "Tuş basımında kaydır"
+
+#: source/gx/terminix/profileeditor.d:923
+msgid "Limit scrollback to:"
+msgstr "Kaydırmayı kısıtla:"
+
+#: source/gx/terminix/profileeditor.d:958
+msgid "Backspace key generates"
+msgstr "Backspace tuşu üretir"
+
+#: source/gx/terminix/profileeditor.d:961
+#: source/gx/terminix/profileeditor.d:970
+msgid "Automatic"
+msgstr "Otomatik"
+
+#: source/gx/terminix/profileeditor.d:961
+#: source/gx/terminix/profileeditor.d:970
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/profileeditor.d:961
+#: source/gx/terminix/profileeditor.d:970
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/profileeditor.d:961
+#: source/gx/terminix/profileeditor.d:970
+msgid "Escape sequence"
+msgstr "Escape sekansı"
+
+#: source/gx/terminix/profileeditor.d:961
+#: source/gx/terminix/profileeditor.d:970
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/profileeditor.d:967
+msgid "Delete key generates"
+msgstr "Delete tuşu üretir"
+
+#: source/gx/terminix/profileeditor.d:976
+#: source/gx/terminix/terminal/terminal.d:760
+#: source/gx/terminix/prefwindow.d:136 source/gx/terminix/prefwindow.d:137
+#: source/gx/terminix/prefwindow.d:530
+msgid "Encoding"
+msgstr "Kodlama"
+
+#: source/gx/terminix/profileeditor.d:991
+msgid "Ambiguous-width characters"
+msgstr "Belirsiz-genişlikteki hafler"
+
+#: source/gx/terminix/profileeditor.d:994
+msgid "Narrow"
+msgstr "Dar"
+
+#: source/gx/terminix/profileeditor.d:994
+msgid "Wide"
+msgstr "Geniş"
+
+#: source/gx/terminix/profileeditor.d:1015
+msgid "Run command as a login shell"
+msgstr "Komutu oturum açılış kabuğu olarak çalıştır"
+
+#: source/gx/terminix/profileeditor.d:1019
+msgid "Run a custom command instead of my shell"
+msgstr "Kabuk yerine özel komut çalıştır"
+
+#: source/gx/terminix/profileeditor.d:1035
+msgid "When command exits"
+msgstr "Komut sonlanınca"
+
+#: source/gx/terminix/profileeditor.d:1037
+msgid "Exit the terminal"
+msgstr "Terminalden çık"
+
+#: source/gx/terminix/profileeditor.d:1037
+msgid "Restart the command"
+msgstr "Komutu yeniden çalıştır"
+
+#: source/gx/terminix/profileeditor.d:1037
+msgid "Hold the terminal open"
+msgstr "Terminali açık tut"
+
+#: source/gx/terminix/profileeditor.d:1076
+#, fuzzy
+msgid "Custom Links"
+msgstr "Özel font"
+
+#: source/gx/terminix/profileeditor.d:1081
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1084
+#: source/gx/terminix/profileeditor.d:1111
+#: source/gx/terminix/profileeditor.d:1178
+#: source/gx/terminix/terminal/password.d:180
+msgid "Edit"
+msgstr "Düzenle"
+
+#: source/gx/terminix/profileeditor.d:1102
+msgid "Triggers"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1108
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1128
+msgid "Automatic Profile Switching"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1136
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1138
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1149
+#, fuzzy
+msgid "Match"
+msgstr "Büyük - Küçük Harf Duyarlı"
+
+#: source/gx/terminix/profileeditor.d:1160
+#: source/gx/terminix/profileeditor.d:1356
+#: source/gx/terminix/profileeditor.d:1512
+msgid "Add"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1164
+msgid "Enter username@hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1166
+msgid "Enter hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1168
+msgid "Add New Match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1185
+msgid "Edit username@hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1187
+msgid "Edit hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1189
+msgid "Edit Match"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1197
+#: source/gx/terminix/profileeditor.d:1362
+#: source/gx/terminix/profileeditor.d:1518
+#: source/gx/terminix/terminal/password.d:209
+#: source/gx/terminix/prefwindow.d:416
+msgid "Delete"
+msgstr "Sil"
+
+#: source/gx/terminix/profileeditor.d:1314
+#: source/gx/terminix/profileeditor.d:1455
+#, c-format
+msgid "The expression %s is not a valid regex"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1319
+#: source/gx/terminix/profileeditor.d:1460
+msgid "Regex"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1343
+msgid "Case Insensitive"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1383
+msgid "Edit Custom Links"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1383
+#: source/gx/terminix/profileeditor.d:1556
+#: source/gx/terminix/terminal/password.d:367
+msgid "Apply"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1486 source/gx/terminix/prefwindow.d:582
+msgid "Action"
+msgstr "Eylem"
+
+#: source/gx/terminix/profileeditor.d:1498
+msgid "Parameter"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1534
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/terminix/profileeditor.d:1556
+#, fuzzy
+msgid "Edit Triggers"
+msgstr "Profil Düzenle"
+
 #: source/gx/terminix/terminal/layout.d:30
 msgid "Layout Options"
 msgstr "Düzenleme Ayaları"
@@ -235,18 +782,6 @@ msgstr "Düzenleme Ayaları"
 msgid "OK"
 msgstr "Tamam"
 
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2507
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/appwindow.d:1125 source/gx/terminix/appwindow.d:1159
-#: source/gx/terminix/profilewindow.d:750
-#: source/gx/terminix/profilewindow.d:1310
-#: source/gx/terminix/profilewindow.d:1483
-msgid "Cancel"
-msgstr "İptal"
-
 #: source/gx/terminix/terminal/layout.d:45
 msgid "Active"
 msgstr "Etkin"
@@ -255,22 +790,9 @@ msgstr "Etkin"
 msgid "Title"
 msgstr "Başlık"
 
-#: source/gx/terminix/terminal/layout.d:60
-#: source/gx/terminix/profilewindow.d:260
-#: source/gx/terminix/profilewindow.d:546
-msgid "Badge"
-msgstr ""
-
 #: source/gx/terminix/terminal/layout.d:69
 msgid "Session Load"
 msgstr "Oturum Yükle"
-
-#: source/gx/terminix/terminal/layout.d:76
-#: source/gx/terminix/profilewindow.d:105
-#: source/gx/terminix/profilewindow.d:955
-#: source/gx/terminix/profilewindow.d:1258
-msgid "Command"
-msgstr "Komut"
 
 #: source/gx/terminix/terminal/layout.d:85
 msgid ""
@@ -280,193 +802,164 @@ msgstr ""
 "Etkin ayalar her zaman etkin olup hemen gerçerli kılınır.\n"
 "Oturum Yükleme ayaları sadece oturum dosyası yüklenince etkin olur."
 
-#: source/gx/terminix/terminal/terminal.d:372
-#: source/gx/terminix/terminal/terminal.d:2781
+#: source/gx/terminix/terminal/terminal.d:376
+#: source/gx/terminix/terminal/terminal.d:2928
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "Terminal"
 
-#: source/gx/terminix/terminal/terminal.d:403
-#: source/gx/terminix/terminal/terminal.d:1420
-#: source/gx/terminix/appwindow.d:618 source/gx/terminix/sidebar.d:374
+#: source/gx/terminix/terminal/terminal.d:407
+#: source/gx/terminix/terminal/terminal.d:1436
+#: source/gx/terminix/appwindow.d:686 source/gx/terminix/sidebar.d:374
 msgid "Close"
 msgstr "Kapa"
 
-#: source/gx/terminix/terminal/terminal.d:412
-#: source/gx/terminix/terminal/terminal.d:1122
-#: source/gx/terminix/terminal/terminal.d:1419
+#: source/gx/terminix/terminal/terminal.d:416
+#: source/gx/terminix/terminal/terminal.d:1120
+#: source/gx/terminix/terminal/terminal.d:1435
 msgid "Maximize"
 msgstr "Enbüyüt"
 
-#: source/gx/terminix/terminal/terminal.d:423
-#: source/gx/terminix/terminal/terminal.d:664
+#: source/gx/terminix/terminal/terminal.d:427
+#: source/gx/terminix/terminal/terminal.d:661
 msgid "Disable input synchronization for this terminal"
 msgstr "Girdi senkronizasyonunu bu terminal için kapa"
 
-#: source/gx/terminix/terminal/terminal.d:433
-#: source/gx/terminix/terminal/terminal.d:769
+#: source/gx/terminix/terminal/terminal.d:437
+#: source/gx/terminix/terminal/terminal.d:766
 msgid "Read-Only"
 msgstr "Salt-Okunur"
 
-#: source/gx/terminix/terminal/terminal.d:440
-#: source/gx/terminix/profilewindow.d:237
-msgid "Terminal bell"
-msgstr "Terminal çanı"
-
-#: source/gx/terminix/terminal/terminal.d:486
+#: source/gx/terminix/terminal/terminal.d:490
 msgid "Edit Profile"
 msgstr "Profil Düzenle"
 
-#: source/gx/terminix/terminal/terminal.d:628
-#: source/gx/terminix/appwindow.d:895
+#: source/gx/terminix/terminal/terminal.d:625
+#: source/gx/terminix/appwindow.d:968
 msgid "There are processes that are still running, close anyway?"
 msgstr "Çalışan işlemler mevcut, yinede kapatalım mı?"
 
-#: source/gx/terminix/terminal/terminal.d:666
+#: source/gx/terminix/terminal/terminal.d:663
 msgid "Enable input synchronization for this terminal"
 msgstr "Girdi senkronizasyonunu bu terminal için aç"
 
-#: source/gx/terminix/terminal/terminal.d:696
+#: source/gx/terminix/terminal/terminal.d:693
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:696
+#: source/gx/terminix/terminal/terminal.d:693
 msgid "Library Not Loaded"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:756
+#: source/gx/terminix/terminal/terminal.d:753
 msgid "Save Output…"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:757
-#: source/gx/terminix/profilewindow.d:202
-msgid "Reset"
-msgstr "Sıfırla"
-
-#: source/gx/terminix/terminal/terminal.d:758
+#: source/gx/terminix/terminal/terminal.d:755
 msgid "Reset and Clear"
 msgstr "Sıfırla ve Temizle"
 
-#: source/gx/terminix/terminal/terminal.d:762
-#: source/gx/terminix/prefwindow.d:101
+#: source/gx/terminix/terminal/terminal.d:759
 msgid "Profiles"
 msgstr "Profiller"
 
-#: source/gx/terminix/terminal/terminal.d:763
-#: source/gx/terminix/profilewindow.d:895 source/gx/terminix/prefwindow.d:104
-#: source/gx/terminix/prefwindow.d:177
-msgid "Encoding"
-msgstr "Kodlama"
-
-#: source/gx/terminix/terminal/terminal.d:767
+#: source/gx/terminix/terminal/terminal.d:764
 msgid "Find…"
 msgstr "Bul…"
 
-#: source/gx/terminix/terminal/terminal.d:768
+#: source/gx/terminix/terminal/terminal.d:765
 msgid "Layout Options…"
 msgstr "Yerleşim Seçenekleri…"
 
-#: source/gx/terminix/terminal/terminal.d:779
+#: source/gx/terminix/terminal/terminal.d:776
 #, fuzzy
 msgid "Add Right"
 msgstr "Sağa doğru böl"
 
-#: source/gx/terminix/terminal/terminal.d:783
+#: source/gx/terminix/terminal/terminal.d:780
 msgid "Add Down"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1119
-#: source/gx/terminix/terminal/terminal.d:1419
+#: source/gx/terminix/terminal/terminal.d:1117
+#: source/gx/terminix/terminal/terminal.d:1435
 msgid "Restore"
 msgstr "Geri al"
 
-#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/terminal/terminal.d:1395
 msgid "Open Link"
 msgstr "Link'i Aç"
 
-#: source/gx/terminix/terminal/terminal.d:1380
+#: source/gx/terminix/terminal/terminal.d:1396
 msgid "Copy Link Address"
 msgstr "Link Adresini Kopyala"
 
-#: source/gx/terminix/terminal/terminal.d:1390
-#: source/gx/terminix/terminal/terminal.d:1397
+#: source/gx/terminix/terminal/terminal.d:1406
+#: source/gx/terminix/terminal/terminal.d:1413
 msgid "Copy"
 msgstr "Kopyala"
 
-#: source/gx/terminix/terminal/terminal.d:1391
-#: source/gx/terminix/terminal/terminal.d:1402
+#: source/gx/terminix/terminal/terminal.d:1407
+#: source/gx/terminix/terminal/terminal.d:1418
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: source/gx/terminix/terminal/terminal.d:1392
-#: source/gx/terminix/terminal/terminal.d:1407
+#: source/gx/terminix/terminal/terminal.d:1408
+#: source/gx/terminix/terminal/terminal.d:1423
 msgid "Select All"
 msgstr "Hepsini Seç"
 
-#: source/gx/terminix/terminal/terminal.d:1410
-#: source/gx/terminix/prefwindow.d:879
+#: source/gx/terminix/terminal/terminal.d:1426
+#: source/gx/terminix/prefwindow.d:1070
 msgid "Clipboard"
 msgstr "Pano"
 
-#: source/gx/terminix/terminal/terminal.d:1424
+#: source/gx/terminix/terminal/terminal.d:1440
 msgid "Synchronize input"
 msgstr "Grirdiyi Senkronize et"
 
-#: source/gx/terminix/terminal/terminal.d:2013
+#: source/gx/terminix/terminal/terminal.d:2029
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Beklenmeyen bir hata oluştu, daha fazla bilgi mevcut değil"
 
-#: source/gx/terminix/terminal/terminal.d:2019
+#: source/gx/terminix/terminal/terminal.d:2035
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Beklenmeyen hata oluştu: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2504
+#: source/gx/terminix/terminal/terminal.d:2633
 msgid "Save Terminal Output"
 msgstr "Terminal Çıktısını Kaydet"
 
-#: source/gx/terminix/terminal/terminal.d:2507
-#: source/gx/terminix/appwindow.d:616 source/gx/terminix/appwindow.d:1159
-#: source/gx/terminix/profilewindow.d:750
-msgid "Save"
-msgstr "Kaydet"
-
-#: source/gx/terminix/terminal/terminal.d:2513
+#: source/gx/terminix/terminal/terminal.d:2642
 msgid "All Text Files"
 msgstr "Bütün Metin Dosyaları"
 
-#: source/gx/terminix/terminal/terminal.d:2517
-#: source/gx/terminix/appwindow.d:1083 source/gx/terminix/profilewindow.d:767
-#: source/gx/terminix/prefwindow.d:630
-msgid "All Files"
-msgstr "Bütün Dosyalar"
-
-#: source/gx/terminix/terminal/terminal.d:2941
+#: source/gx/terminix/terminal/terminal.d:3088
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Alt işlem beklenmedik bir şekilde kapandı: %d"
 
-#: source/gx/terminix/terminal/terminal.d:2942
+#: source/gx/terminix/terminal/terminal.d:3089
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Alt işlem sinyal %d ile durduruldu."
 
-#: source/gx/terminix/terminal/terminal.d:2943
+#: source/gx/terminix/terminal/terminal.d:3090
 msgid "The child process was aborted."
 msgstr "Alt işlem durduruldu."
 
-#: source/gx/terminix/terminal/terminal.d:2949
+#: source/gx/terminix/terminal/terminal.d:3096
 msgid "Relaunch"
 msgstr "Tekrar başlat"
 
-#: source/gx/terminix/terminal/terminal.d:2994
+#: source/gx/terminix/terminal/terminal.d:3141
 msgid "Don't Paste"
 msgstr "Yapıştırma"
 
-#: source/gx/terminix/terminal/terminal.d:2995
+#: source/gx/terminix/terminal/terminal.d:3142
 msgid "Paste Anyway"
 msgstr "Yinede Yapıştır"
 
@@ -532,23 +1025,8 @@ msgid "ID"
 msgstr ""
 
 #: source/gx/terminix/terminal/password.d:157
-#: source/gx/terminix/prefwindow.d:466
 msgid "New"
 msgstr "Yeni"
-
-#: source/gx/terminix/terminal/password.d:180
-#: source/gx/terminix/profilewindow.d:1023
-#: source/gx/terminix/profilewindow.d:1050
-#: source/gx/terminix/profilewindow.d:1122 source/gx/terminix/prefwindow.d:479
-msgid "Edit"
-msgstr "Düzenle"
-
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/profilewindow.d:1141
-#: source/gx/terminix/profilewindow.d:1289
-#: source/gx/terminix/profilewindow.d:1445 source/gx/terminix/prefwindow.d:482
-msgid "Delete"
-msgstr "Sil"
 
 #: source/gx/terminix/terminal/password.d:231
 msgid "Include return character with password"
@@ -556,12 +1034,6 @@ msgstr ""
 
 #: source/gx/terminix/terminal/password.d:367
 msgid "Insert Password"
-msgstr ""
-
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/profilewindow.d:1310
-#: source/gx/terminix/profilewindow.d:1483
-msgid "Apply"
 msgstr ""
 
 #: source/gx/terminix/terminal/password.d:433
@@ -580,129 +1052,130 @@ msgstr ""
 msgid "Edit Password"
 msgstr ""
 
-#: source/gx/terminix/application.d:225 source/gx/terminix/prefwindow.d:873
+#: source/gx/terminix/application.d:223 source/gx/terminix/prefwindow.d:1064
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
 msgid "New Window"
 msgstr "Yeni Pencere"
 
-#: source/gx/terminix/application.d:229 source/gx/terminix/prefwindow.d:82
+#: source/gx/terminix/application.d:227 source/gx/terminix/prefwindow.d:191
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: source/gx/terminix/application.d:231 source/gx/terminix/prefwindow.d:98
+#: source/gx/terminix/application.d:229 source/gx/terminix/prefwindow.d:132
+#: source/gx/terminix/prefwindow.d:133
 msgid "Shortcuts"
 msgstr "Kısa yollar"
 
-#: source/gx/terminix/application.d:236
+#: source/gx/terminix/application.d:234
 msgid "About"
 msgstr "Hakkında"
 
-#: source/gx/terminix/application.d:237
+#: source/gx/terminix/application.d:235
 msgid "Quit"
 msgstr "Çıkış"
 
-#: source/gx/terminix/application.d:291
+#: source/gx/terminix/application.d:289
 msgid "Credits"
 msgstr "Teşekkürler"
 
-#: source/gx/terminix/application.d:604
+#: source/gx/terminix/application.d:599
 msgid "Set the working directory of the terminal"
 msgstr "Terminalin çalışma dizinini ayarla"
 
-#: source/gx/terminix/application.d:604
+#: source/gx/terminix/application.d:599
 msgid "DIRECTORY"
 msgstr "DIZIN"
 
-#: source/gx/terminix/application.d:605
+#: source/gx/terminix/application.d:600
 msgid "Set the starting profile"
 msgstr "Başlangıç profilini seç"
 
-#: source/gx/terminix/application.d:605
+#: source/gx/terminix/application.d:600
 msgid "PROFILE_NAME"
 msgstr "PROFILE_NAME"
 
-#: source/gx/terminix/application.d:606
+#: source/gx/terminix/application.d:601
 #, fuzzy
 msgid "Set the title of the new terminal"
 msgstr "Terminalin çalışma dizinini ayarla"
 
-#: source/gx/terminix/application.d:606
+#: source/gx/terminix/application.d:601
 msgid "TITLE"
 msgstr ""
 
-#: source/gx/terminix/application.d:607
+#: source/gx/terminix/application.d:602
 msgid "Open the specified session"
 msgstr "Belirtilmiş oturumu seç"
 
-#: source/gx/terminix/application.d:607
+#: source/gx/terminix/application.d:602
 msgid "SESSION_NAME"
 msgstr "SESSION_NAME"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:603
 msgid "Send an action to current Terminix instance"
 msgstr "Geçerli Terminix'e eylem yolla"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:603
 msgid "ACTION_NAME"
 msgstr "ACTION_NAME"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:604
 #, fuzzy
 msgid "Execute the parameter as a command"
 msgstr "Yollanan komutu çalıştır"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:604
 msgid "COMMAND"
 msgstr ""
 
-#: source/gx/terminix/application.d:610
+#: source/gx/terminix/application.d:605
 msgid "Maximize the terminal window"
 msgstr "Terminal penceresini enbüyüt"
 
-#: source/gx/terminix/application.d:611
+#: source/gx/terminix/application.d:606
 #, fuzzy
 msgid "Minimize the terminal window"
 msgstr "Terminal penceresini enbüyüt"
 
-#: source/gx/terminix/application.d:612
+#: source/gx/terminix/application.d:607
 msgid "Full-screen the terminal window"
 msgstr "Terminal pençeresini tam ekran yap"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:608
 msgid "Focus the existing window"
 msgstr "Var olan pencereye odakla"
 
-#: source/gx/terminix/application.d:614
+#: source/gx/terminix/application.d:609
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr ""
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:610
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:610
 msgid "GEOMETRY"
 msgstr ""
 
-#: source/gx/terminix/application.d:616
+#: source/gx/terminix/application.d:611
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 
-#: source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:612
 msgid "Show the Terminix and dependant component versions"
 msgstr ""
 
-#: source/gx/terminix/application.d:620
+#: source/gx/terminix/application.d:615
 msgid "Hidden argument to pass terminal UUID"
 msgstr "Terminal UUIDsine yollanacak gizli değişken"
 
-#: source/gx/terminix/application.d:620
+#: source/gx/terminix/application.d:615
 msgid "TERMINAL_UUID"
 msgstr "TERMINAL_UUID"
 
-#: source/gx/terminix/application.d:784
+#: source/gx/terminix/application.d:752
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -713,105 +1186,101 @@ msgstr ""
 "iyileştirecektir.\n"
 "Daha fazla bilgi için aşağıdaki bilgiye klikleyin:"
 
-#: source/gx/terminix/application.d:785
+#: source/gx/terminix/application.d:753
 msgid "Configuration Issue Detected"
 msgstr "Ayar sorunu tespit edildi"
 
-#: source/gx/terminix/application.d:797
+#: source/gx/terminix/application.d:765
 msgid "Do not show this message again"
 msgstr "Bu mesjaı tekrar gösterme"
 
-#: source/gx/terminix/appwindow.d:318
+#: source/gx/terminix/appwindow.d:335
 msgid "View session sidebar"
 msgstr "Oturum kenar çubuğunü göster"
 
-#: source/gx/terminix/appwindow.d:343
+#: source/gx/terminix/appwindow.d:360
 msgid "Create a new session"
 msgstr "Yeni oturum aç"
 
-#: source/gx/terminix/appwindow.d:361
+#: source/gx/terminix/appwindow.d:378
 #, fuzzy
 msgid "Add terminal right"
 msgstr "Terminal başlığı"
 
-#: source/gx/terminix/appwindow.d:365
+#: source/gx/terminix/appwindow.d:382
 #, fuzzy
 msgid "Add terminal down"
 msgstr "Terminali açık tut"
 
-#: source/gx/terminix/appwindow.d:370
+#: source/gx/terminix/appwindow.d:387
 #, fuzzy
 msgid "Find text in terminal"
 msgstr "Terminalden çık"
 
-#: source/gx/terminix/appwindow.d:560
+#: source/gx/terminix/appwindow.d:628
 msgid "Change Session Name"
 msgstr "Oturum ismini değiştir"
 
-#: source/gx/terminix/appwindow.d:560
+#: source/gx/terminix/appwindow.d:628
 msgid "Enter a new name for the session"
 msgstr "Oturum için yeni isim gir"
 
-#: source/gx/terminix/appwindow.d:615
+#: source/gx/terminix/appwindow.d:683
 msgid "Open…"
 msgstr "Aç…"
 
-#: source/gx/terminix/appwindow.d:617
+#: source/gx/terminix/appwindow.d:685
 msgid "Save As…"
 msgstr "Yeni Adla Kaydet…"
 
-#: source/gx/terminix/appwindow.d:622
+#: source/gx/terminix/appwindow.d:690
 msgid "Name…"
 msgstr "İsim…"
 
-#: source/gx/terminix/appwindow.d:623
+#: source/gx/terminix/appwindow.d:691
 msgid "Synchronize Input"
 msgstr "Girdiyi Senkronize et"
 
-#: source/gx/terminix/appwindow.d:628
+#: source/gx/terminix/appwindow.d:696
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:872
+#: source/gx/terminix/appwindow.d:945
 #, fuzzy
 msgid "There are multiple sessions open, close anyway?"
 msgstr "Çalışan işlemler mevcut, yinede kapatalım mı?"
 
-#: source/gx/terminix/appwindow.d:873
+#: source/gx/terminix/appwindow.d:946
 #, fuzzy
 msgid "Do not show this again"
 msgstr "Bu mesjaı tekrar gösterme"
 
-#: source/gx/terminix/appwindow.d:1079 source/gx/terminix/profilewindow.d:763
-msgid "All JSON Files"
-msgstr "Bütün JSON Dosyaları"
-
-#: source/gx/terminix/appwindow.d:1092
+#: source/gx/terminix/appwindow.d:1165
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "'%s' dosyası bulunamadı"
 
-#: source/gx/terminix/appwindow.d:1122
+#: source/gx/terminix/appwindow.d:1195
 msgid "Load Session"
 msgstr "Oturum Yükle"
 
-#: source/gx/terminix/appwindow.d:1125
+#: source/gx/terminix/appwindow.d:1198
 msgid "Open"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:1140
+#: source/gx/terminix/appwindow.d:1213
 msgid "Could not load session due to unexpected error."
 msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
 
-#: source/gx/terminix/appwindow.d:1140
+#: source/gx/terminix/appwindow.d:1213
 msgid "Error Loading Session"
 msgstr "Oturum Yükeleme Hatası"
 
-#: source/gx/terminix/appwindow.d:1156
+#: source/gx/terminix/appwindow.d:1229
 msgid "Save Session"
 msgstr "Oturumu Kaydet"
 
-#: source/gx/terminix/appwindow.d:1238
+#: source/gx/terminix/appwindow.d:1311
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -854,553 +1323,105 @@ msgid ""
 "geometry parameters"
 msgstr ""
 
-#: source/gx/terminix/profilewindow.d:93
-#, c-format
-msgid "Editing Profile: %s"
-msgstr "Düzenlenecek Profil: %s"
-
-#: source/gx/terminix/profilewindow.d:95
-msgid "New Profile"
-msgstr "Yeni Profil"
-
-#: source/gx/terminix/profilewindow.d:104
-msgid "General"
-msgstr "Genel"
-
-#: source/gx/terminix/profilewindow.d:106
-msgid "Color"
-msgstr "Renk"
-
-#: source/gx/terminix/profilewindow.d:107
-msgid "Scrolling"
-msgstr "Akma"
-
-#: source/gx/terminix/profilewindow.d:108
-msgid "Compatibility"
-msgstr "Uyumluluk"
-
-#: source/gx/terminix/profilewindow.d:109
-#: source/gx/terminix/profilewindow.d:436
-msgid "Advanced"
-msgstr "Gelişmiş"
-
-#: source/gx/terminix/profilewindow.d:165
-msgid "Profile name"
-msgstr "Profil ismi"
-
-#: source/gx/terminix/profilewindow.d:174
-#, c-format
-msgid "ID: %s"
-msgstr "ID: %s"
-
-#: source/gx/terminix/profilewindow.d:181
-msgid "Terminal size"
-msgstr "Terminal boyutu"
-
-#: source/gx/terminix/profilewindow.d:191
-msgid "columns"
-msgstr "sütunl"
-
-#: source/gx/terminix/profilewindow.d:197
-msgid "rows"
-msgstr "satır"
-
-#: source/gx/terminix/profilewindow.d:213
-#: source/gx/terminix/profilewindow.d:510
-msgid "Cursor"
-msgstr "İmleç"
-
-#: source/gx/terminix/profilewindow.d:216
-msgid "Block"
-msgstr "Blok"
-
-#: source/gx/terminix/profilewindow.d:216
-msgid "IBeam"
-msgstr "I-şekli"
-
-#: source/gx/terminix/profilewindow.d:216
-msgid "Underline"
-msgstr "Alt-çizgi"
-
-#: source/gx/terminix/profilewindow.d:226
-msgid "Blink mode"
-msgstr "Yanar söner kipi"
-
-#: source/gx/terminix/profilewindow.d:229
-msgid "System"
-msgstr "Sistem"
-
-#: source/gx/terminix/profilewindow.d:229
-msgid "On"
-msgstr "Açık"
-
-#: source/gx/terminix/profilewindow.d:229
-msgid "Off"
-msgstr "Kapalı"
-
-#: source/gx/terminix/profilewindow.d:240 source/gx/terminix/prefwindow.d:605
-msgid "None"
-msgstr "Hiçbiri"
-
-#: source/gx/terminix/profilewindow.d:240
-msgid "Sound"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:240
-msgid "Icon"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:240
-msgid "Icon and Sound"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:249
-msgid "Terminal title"
-msgstr "Terminal başlığı"
-
-#: source/gx/terminix/profilewindow.d:269
-msgid "Badge position"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:273
-msgid "Northwest"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:273
-msgid "Northeast"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:273
-msgid "Southwest"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:273
-#, fuzzy
-msgid "Southeast"
-msgstr "Güney Avrupa"
-
-#: source/gx/terminix/profilewindow.d:287
-msgid "Text Appearance"
-msgstr "Metin görünümü"
-
-#: source/gx/terminix/profilewindow.d:293
-msgid "Allow bold text"
-msgstr "Kalın metine izin ver"
-
-#: source/gx/terminix/profilewindow.d:298
-msgid "Rewrap on resize"
-msgstr "Boyutlandırmada metni sar"
-
-#: source/gx/terminix/profilewindow.d:304
-msgid "Custom font"
-msgstr "Özel font"
-
-#: source/gx/terminix/profilewindow.d:310
-msgid "Choose A Terminal Font"
-msgstr "Terminal fontu seç"
-
-#: source/gx/terminix/profilewindow.d:374
-msgid "Color scheme"
-msgstr "Renk düzeni"
-
-#: source/gx/terminix/profilewindow.d:384
-#: source/gx/terminix/profilewindow.d:790
-msgid "Custom"
-msgstr "Özel"
-
-#: source/gx/terminix/profilewindow.d:397
-msgid "Export"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:409
-msgid "Color palette"
-msgstr "Renk paleti"
-
-#: source/gx/terminix/profilewindow.d:417 source/gx/terminix/prefwindow.d:755
-msgid "Options"
-msgstr "Seçenekler"
-
-#: source/gx/terminix/profilewindow.d:431
-msgid "Use theme colors for foreground/background"
-msgstr "Ön/Arka plan için temanın renklerini kullan"
-
-#: source/gx/terminix/profilewindow.d:449
-msgid "Transparency"
-msgstr "Saydamlık"
-
-#: source/gx/terminix/profilewindow.d:463
-msgid "Unfocused dim"
-msgstr "Odaklanmadığında karart"
-
-#: source/gx/terminix/profilewindow.d:505
-msgid "Text"
-msgstr "Metin"
-
-#: source/gx/terminix/profilewindow.d:506
-#: source/gx/terminix/profilewindow.d:578
-msgid "Background"
-msgstr "Arkaplan"
-
-#: source/gx/terminix/profilewindow.d:517
-msgid "Select Cursor Foreground Color"
-msgstr "İmleç önplan rengini seç"
-
-#: source/gx/terminix/profilewindow.d:519
-msgid "Select Cursor Background Color"
-msgstr "İmleç arkaplan rengini seç"
-
-#: source/gx/terminix/profilewindow.d:524
-msgid "Highlight"
-msgstr "Vurgulama"
-
-#: source/gx/terminix/profilewindow.d:529
-msgid "Select Highlight Foreground Color"
-msgstr "Önplan vurgulama rengini seç"
-
-#: source/gx/terminix/profilewindow.d:531
-msgid "Select Highlight Background Color"
-msgstr "Arkaplan vurgulama rengini seç"
-
-#: source/gx/terminix/profilewindow.d:536
-msgid "Dim"
-msgstr "Karartma"
-
-#: source/gx/terminix/profilewindow.d:541
-msgid "Select Dim Color"
-msgstr "Karartma rengini seç"
-
-#: source/gx/terminix/profilewindow.d:550
-#, fuzzy
-msgid "Select Badge Color"
-msgstr "%s rengi seç"
-
-#: source/gx/terminix/profilewindow.d:570
-msgid "Select Background Color"
-msgstr "Arkaplan rengini seç"
-
-#: source/gx/terminix/profilewindow.d:583
-#: source/gx/terminix/profilewindow.d:597
-msgid "Select Foreground Color"
-msgstr "Önplan rengini seç"
-
-#: source/gx/terminix/profilewindow.d:596
-msgid "Foreground"
-msgstr "Önplan"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Black"
-msgstr "Siyah"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Red"
-msgstr "Kırmızı"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Green"
-msgstr "Yeşil"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Orange"
-msgstr "Turuncu"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Blue"
-msgstr "Mavi"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Purple"
-msgstr "Mor"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Turquoise"
-msgstr "Turkuaz"
-
-#: source/gx/terminix/profilewindow.d:601
-msgid "Grey"
-msgstr "Gri"
-
-#: source/gx/terminix/profilewindow.d:607
-#, c-format
-msgid "Select %s Color"
-msgstr "%s rengi seç"
-
-#: source/gx/terminix/profilewindow.d:614
-#, c-format
-msgid "Select %s Light Color"
-msgstr "%s açık rengi seç"
-
-#: source/gx/terminix/profilewindow.d:747
-#, fuzzy
-msgid "Export Color Scheme"
-msgstr "Renk düzeni"
-
-#: source/gx/terminix/profilewindow.d:821
-msgid "Show scrollbar"
-msgstr "Kaydırma çubuğunu göster"
-
-#: source/gx/terminix/profilewindow.d:825
-msgid "Scroll on output"
-msgstr "Çıktı esnasında kaydır"
-
-#: source/gx/terminix/profilewindow.d:829
-msgid "Scroll on keystroke"
-msgstr "Tuş basımında kaydır"
-
-#: source/gx/terminix/profilewindow.d:833
-msgid "Limit scrollback to:"
-msgstr "Kaydırmayı kısıtla:"
-
-#: source/gx/terminix/profilewindow.d:874
-msgid "Backspace key generates"
-msgstr "Backspace tuşu üretir"
-
-#: source/gx/terminix/profilewindow.d:877
-#: source/gx/terminix/profilewindow.d:888
-msgid "Automatic"
-msgstr "Otomatik"
-
-#: source/gx/terminix/profilewindow.d:877
-#: source/gx/terminix/profilewindow.d:888
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/profilewindow.d:877
-#: source/gx/terminix/profilewindow.d:888
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/profilewindow.d:877
-#: source/gx/terminix/profilewindow.d:888
-msgid "Escape sequence"
-msgstr "Escape sekansı"
-
-#: source/gx/terminix/profilewindow.d:877
-#: source/gx/terminix/profilewindow.d:888
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/profilewindow.d:885
-msgid "Delete key generates"
-msgstr "Delete tuşu üretir"
-
-#: source/gx/terminix/profilewindow.d:913
-msgid "Ambiguous-width characters"
-msgstr "Belirsiz-genişlikteki hafler"
-
-#: source/gx/terminix/profilewindow.d:916
-msgid "Narrow"
-msgstr "Dar"
-
-#: source/gx/terminix/profilewindow.d:916
-msgid "Wide"
-msgstr "Geniş"
-
-#: source/gx/terminix/profilewindow.d:945
-msgid "Run command as a login shell"
-msgstr "Komutu oturum açılış kabuğu olarak çalıştır"
-
-#: source/gx/terminix/profilewindow.d:949
-msgid "Run a custom command instead of my shell"
-msgstr "Kabuk yerine özel komut çalıştır"
-
-#: source/gx/terminix/profilewindow.d:965
-msgid "When command exits"
-msgstr "Komut sonlanınca"
-
-#: source/gx/terminix/profilewindow.d:967
-msgid "Exit the terminal"
-msgstr "Terminalden çık"
-
-#: source/gx/terminix/profilewindow.d:967
-msgid "Restart the command"
-msgstr "Komutu yeniden çalıştır"
-
-#: source/gx/terminix/profilewindow.d:967
-msgid "Hold the terminal open"
-msgstr "Terminali açık tut"
-
-#: source/gx/terminix/profilewindow.d:1015
-#, fuzzy
-msgid "Custom Links"
-msgstr "Özel font"
-
-#: source/gx/terminix/profilewindow.d:1020
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1041
-msgid "Triggers"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1047
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1067
-msgid "Automatic Profile Switching"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1075
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1077
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1093
-#, fuzzy
-msgid "Match"
-msgstr "Büyük - Küçük Harf Duyarlı"
-
-#: source/gx/terminix/profilewindow.d:1104
-#: source/gx/terminix/profilewindow.d:1283
-#: source/gx/terminix/profilewindow.d:1439
-msgid "Add"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1108
-msgid "Enter username@hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1110
-msgid "Enter hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1112
-msgid "Add New Match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1129
-msgid "Edit username@hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1131
-msgid "Edit hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1133
-msgid "Edit Match"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1241
-#: source/gx/terminix/profilewindow.d:1382
-#, c-format
-msgid "The expression %s is not a valid regex"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1246
-#: source/gx/terminix/profilewindow.d:1387
-msgid "Regex"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1270
-msgid "Case Insensitive"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1310
-msgid "Edit Custom Links"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1413 source/gx/terminix/prefwindow.d:229
-msgid "Action"
-msgstr "Eylem"
-
-#: source/gx/terminix/profilewindow.d:1425
-msgid "Parameter"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1461
-msgid "Limit number of lines for trigger processing to:"
-msgstr ""
-
-#: source/gx/terminix/profilewindow.d:1483
-#, fuzzy
-msgid "Edit Triggers"
-msgstr "Profil Düzenle"
-
-#: source/gx/terminix/preferences.d:205
-msgid "UpdateState"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:206
-#, fuzzy
-msgid "ExecuteCommand"
-msgstr "Komut"
-
 #: source/gx/terminix/preferences.d:207
-msgid "SendNotification"
+msgid "UpdateState"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:208
 #, fuzzy
-msgid "UpdateTitle"
-msgstr "Başlık"
+msgid "ExecuteCommand"
+msgstr "Komut"
 
 #: source/gx/terminix/preferences.d:209
-msgid "PlayBell"
+msgid "SendNotification"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:210
 #, fuzzy
-msgid "SendText"
-msgstr "Metin"
+msgid "UpdateTitle"
+msgstr "Başlık"
 
 #: source/gx/terminix/preferences.d:211
-msgid "InsertPassword"
+msgid "PlayBell"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:212
 #, fuzzy
+msgid "SendText"
+msgstr "Metin"
+
+#: source/gx/terminix/preferences.d:213
+msgid "InsertPassword"
+msgstr ""
+
+#: source/gx/terminix/preferences.d:214
+#, fuzzy
 msgid "UpdateBadge"
 msgstr "Başlık"
 
-#: source/gx/terminix/prefwindow.d:89
+#: source/gx/terminix/preferences.d:321
+#, fuzzy, c-format
+msgid "%s (Copy)"
+msgstr "Kopyala"
+
+#: source/gx/terminix/prefwindow.d:103
+#, fuzzy
+msgid "Terminix Preferences"
+msgstr "Tercihleri aç"
+
+#: source/gx/terminix/prefwindow.d:120 source/gx/terminix/prefwindow.d:121
+#: source/gx/terminix/prefwindow.d:181
 msgid "Global"
 msgstr "Global"
 
-#: source/gx/terminix/prefwindow.d:92
+#: source/gx/terminix/prefwindow.d:124 source/gx/terminix/prefwindow.d:125
 msgid "Appearance"
 msgstr "Görünüm"
 
-#: source/gx/terminix/prefwindow.d:95
+#: source/gx/terminix/prefwindow.d:128 source/gx/terminix/prefwindow.d:129
 msgid "Quake"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:139
+#: source/gx/terminix/prefwindow.d:155
+#, fuzzy
+msgid "Add profile"
+msgstr "Profil Düzenle"
+
+#: source/gx/terminix/prefwindow.d:160
+#, fuzzy
+msgid "Delete profile"
+msgstr "Yeni Profil"
+
+#: source/gx/terminix/prefwindow.d:417
+msgid "Clone"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:421
+msgid "Use for new terminals"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:492
 msgid "Encodings showing in menu:"
 msgstr "Menü de gösterilen Kodlamalar:"
 
-#: source/gx/terminix/prefwindow.d:175
+#: source/gx/terminix/prefwindow.d:528
 msgid "Enabled"
 msgstr "Etkin"
 
-#: source/gx/terminix/prefwindow.d:258
+#: source/gx/terminix/prefwindow.d:611
 msgid "Shortcut Key"
 msgstr "Kısayol Tuşu"
 
-#: source/gx/terminix/prefwindow.d:270
+#: source/gx/terminix/prefwindow.d:623
 #, fuzzy
 msgid "Enable shortcuts"
 msgstr "Kısa yollar"
 
-#: source/gx/terminix/prefwindow.d:294
+#: source/gx/terminix/prefwindow.d:647
 msgid "Overwrite Existing Shortcut"
 msgstr "Varolan Kısayolun Üzerine Yaz"
 
-#: source/gx/terminix/prefwindow.d:295
+#: source/gx/terminix/prefwindow.d:648
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
@@ -1409,194 +1430,199 @@ msgstr ""
 "%s kısayolu %s'e tayin edilmiş.\n"
 "Önceki kısayolu iptal edip buraya tayin et?"
 
-#: source/gx/terminix/prefwindow.d:475
-msgid "Clone"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:593
+#: source/gx/terminix/prefwindow.d:768
 msgid "Enable transparency, requires re-start"
 msgstr "Şefaflık etkinleştir, yeniden başlatma gerektirir"
 
-#: source/gx/terminix/prefwindow.d:604
+#: source/gx/terminix/prefwindow.d:779
 msgid "Terminal title style"
 msgstr "Terminal başlık tarzı"
 
-#: source/gx/terminix/prefwindow.d:605
+#: source/gx/terminix/prefwindow.d:780
 msgid "Normal"
 msgstr "Normal"
 
-#: source/gx/terminix/prefwindow.d:605
+#: source/gx/terminix/prefwindow.d:780
 msgid "Small"
 msgstr "Küçük"
 
-#: source/gx/terminix/prefwindow.d:611
+#: source/gx/terminix/prefwindow.d:786
 msgid "Theme variant"
 msgstr "Tema variyasyonu"
 
-#: source/gx/terminix/prefwindow.d:612
+#: source/gx/terminix/prefwindow.d:787
 msgid "Light"
 msgstr "Açık"
 
-#: source/gx/terminix/prefwindow.d:612
+#: source/gx/terminix/prefwindow.d:787
 msgid "Dark"
 msgstr "Koyu"
 
-#: source/gx/terminix/prefwindow.d:618
+#: source/gx/terminix/prefwindow.d:793
 #, fuzzy
 msgid "Background image"
 msgstr "Arkaplan"
 
-#: source/gx/terminix/prefwindow.d:620
+#: source/gx/terminix/prefwindow.d:795
 #, fuzzy
 msgid "Select Image"
 msgstr "Hepsini Seç"
 
-#: source/gx/terminix/prefwindow.d:623
+#: source/gx/terminix/prefwindow.d:798
 #, fuzzy
 msgid "All Image Files"
 msgstr "Bütün Metin Dosyaları"
 
-#: source/gx/terminix/prefwindow.d:644
+#: source/gx/terminix/prefwindow.d:819
 #, fuzzy
 msgid "Reset background image"
 msgstr "Arkaplan rengini seç"
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:825
 msgid "Scale"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:825
 msgid "Tile"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:650 source/gx/terminix/prefwindow.d:745
+#: source/gx/terminix/prefwindow.d:825 source/gx/terminix/prefwindow.d:931
 msgid "Center"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:650
+#: source/gx/terminix/prefwindow.d:825
 msgid "Stretch"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:669
+#: source/gx/terminix/prefwindow.d:844
 #, fuzzy
 msgid "Default session name"
 msgstr "Oturum ismini değiştir"
 
-#: source/gx/terminix/prefwindow.d:682
+#: source/gx/terminix/prefwindow.d:855
+#, fuzzy
+msgid "Application title"
+msgstr "Uygulama"
+
+#: source/gx/terminix/prefwindow.d:868
 msgid "Use a wide handle for splitters"
 msgstr "Ayraçlar için geniş kulp kullan"
 
-#: source/gx/terminix/prefwindow.d:687
+#: source/gx/terminix/prefwindow.d:873
 msgid "Place the sidebar on the right"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:691
+#: source/gx/terminix/prefwindow.d:877
 #, fuzzy
 msgid "Show the terminal title even if its the only terminal"
 msgstr "Terminalin çalışma dizinini ayarla"
 
-#: source/gx/terminix/prefwindow.d:712
+#: source/gx/terminix/prefwindow.d:898
 msgid "Size"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:723
+#: source/gx/terminix/prefwindow.d:909
 msgid "Height percent"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:734
+#: source/gx/terminix/prefwindow.d:920
 msgid "Width percent"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:744
+#: source/gx/terminix/prefwindow.d:930
 msgid "Alignment"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:745
+#: source/gx/terminix/prefwindow.d:931
 msgid "Left"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:745
+#: source/gx/terminix/prefwindow.d:931
 #, fuzzy
 msgid "Right"
 msgstr "Açık"
 
-#: source/gx/terminix/prefwindow.d:763
+#: source/gx/terminix/prefwindow.d:949
 msgid "Show terminal on all workspaces"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:768
+#: source/gx/terminix/prefwindow.d:954
 msgid "Set hint for window manager to disable animation"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:773
+#: source/gx/terminix/prefwindow.d:959
 msgid "Hide window when focus is lost"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:788
+#: source/gx/terminix/prefwindow.d:974
 msgid "Display terminal on active monitor"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:795
+#: source/gx/terminix/prefwindow.d:981
 msgid "Display on specific monitor"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:830
+#: source/gx/terminix/prefwindow.d:1016
 msgid "Behavior"
 msgstr "Davranış"
 
-#: source/gx/terminix/prefwindow.d:836
+#: source/gx/terminix/prefwindow.d:1022
 msgid "Prompt when creating a new session"
 msgstr "Yeni oturum açarken sorgula"
 
-#: source/gx/terminix/prefwindow.d:841
+#: source/gx/terminix/prefwindow.d:1027
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Fare üstündeyken terminale odakla"
 
-#: source/gx/terminix/prefwindow.d:846
+#: source/gx/terminix/prefwindow.d:1032
 msgid "Autohide the mouse pointer when typing"
 msgstr "Fare imlecini yazareken gizle"
 
-#: source/gx/terminix/prefwindow.d:851
+#: source/gx/terminix/prefwindow.d:1037
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:856
+#: source/gx/terminix/prefwindow.d:1042
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr ""
+
+#: source/gx/terminix/prefwindow.d:1047
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:862
+#: source/gx/terminix/prefwindow.d:1053
 msgid "Send desktop notification on process complete"
 msgstr "Masaüstüne işlem bitince haber ver"
 
-#: source/gx/terminix/prefwindow.d:870
+#: source/gx/terminix/prefwindow.d:1061
 msgid "On new instance"
 msgstr "Yeni Örnekte"
 
-#: source/gx/terminix/prefwindow.d:873
+#: source/gx/terminix/prefwindow.d:1064
 msgid "Split Right"
 msgstr "Sağa doğru böl"
 
-#: source/gx/terminix/prefwindow.d:873
+#: source/gx/terminix/prefwindow.d:1064
 msgid "Split Down"
 msgstr "Aşağı doğru böl"
 
-#: source/gx/terminix/prefwindow.d:873
+#: source/gx/terminix/prefwindow.d:1064
 msgid "Focus Window"
 msgstr "Pencereye odaklan"
 
-#: source/gx/terminix/prefwindow.d:885
+#: source/gx/terminix/prefwindow.d:1076
 msgid "Always use advanced paste dialog"
 msgstr ""
 
-#: source/gx/terminix/prefwindow.d:890
+#: source/gx/terminix/prefwindow.d:1081
 msgid "Warn when attempting unsafe paste"
 msgstr "Emminyetsiz yapıştırmada beni uyar"
 
-#: source/gx/terminix/prefwindow.d:895
+#: source/gx/terminix/prefwindow.d:1086
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "Açıklama (comment) veya değişken yapıştırken ilk harfi a"
 
-#: source/gx/terminix/prefwindow.d:900
+#: source/gx/terminix/prefwindow.d:1091
 msgid "Automatically copy text to clipboard when selecting"
 msgstr ""
 
@@ -2106,3 +2132,6 @@ msgstr ""
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:31
 msgid "Terminix has been tested with GNOME and with Unity."
 msgstr ""
+
+#~ msgid "Editing Profile: %s"
+#~ msgstr "Düzenlenecek Profil: %s"
