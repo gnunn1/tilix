@@ -91,6 +91,7 @@ private:
     HeaderBar hbMain;
     HeaderBar hbSide;
     ListBox lbSide;
+    Button btnDeleteProfile;
 
     ProfileEditor pe;
 
@@ -145,13 +146,23 @@ private:
         sw.setShadowType(ShadowType.NONE);
         sw.setSizeRequest(180, -1);
 
-        Box bSide = new Box(Orientation.VERTICAL,0); 
-        bSide.add(sw);
-
-        Button btnAddProfile = new Button(_("Add Profile"));
+        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        bButtons.getStyleContext().addClass("linked");
+        setAllMargins(bButtons, 6);
+        Button btnAddProfile = new Button("list-add-symbolic", IconSize.BUTTON);
+        btnAddProfile.setTooltipText(_("Add profile"));
         btnAddProfile.addOnClicked(&onAddProfile);
-        setAllMargins(btnAddProfile, 6);
-        bSide.add(btnAddProfile);
+        bButtons.packStart(btnAddProfile, false, false, 0);
+
+        btnDeleteProfile = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDeleteProfile.setTooltipText(_("Delete profile"));
+        btnDeleteProfile.addOnClicked(&onDeleteProfile);
+        bButtons.packStart(btnDeleteProfile, false, false, 0);
+
+        Box bSide = new Box(Orientation.VERTICAL, 0); 
+        bSide.add(sw);
+        bSide.add(new Separator(Orientation.HORIZONTAL));
+        bSide.add(bButtons);
 
         Box box = new Box(Orientation.HORIZONTAL, 0);
         box.add(bSide);
@@ -215,6 +226,7 @@ private:
     }
 
     void onRowSelected(ListBoxRow row, ListBox) {
+        scope(exit) {updateUI();}
         GenericPreferenceRow gr = cast(GenericPreferenceRow) row;
         if (gr !is null) {
             pages.setVisibleChildName(gr.name);
@@ -223,7 +235,6 @@ private:
         }
         ProfilePreferenceRow pr = cast(ProfilePreferenceRow) row;
         if (pr !is null) {
-            trace(pr.getProfile().uuid);
             pe.bind(pr.getProfile());
             pages.setVisibleChildName("Profile");
             hbMain.setTitle(format("Profile: %s", pr.getProfile().name));
@@ -236,6 +247,11 @@ private:
             row.updateName(newName);
             hbMain.setTitle(format("Profile: %s", newName));
         }
+    }
+
+    void updateUI() {
+        ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
+        btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null)); 
     }
 
 // Stuff that deals with profiles
@@ -255,6 +271,12 @@ private:
         row.showAll();
         lbSide.add(row);
         lbSide.selectRow(row);
+        updateUI();
+    }
+
+    void onDeleteProfile(Button button) {
+        ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
+        if (row !is null) deleteProfile(row);
     }
 
     void deleteProfile(ProfilePreferenceRow row) {
@@ -265,6 +287,7 @@ private:
         prfMgr.deleteProfile(uuid);
         if (index < 0) index = 0; 
         lbSide.selectRow(lbSide.getRowAtIndex(index));
+        updateUI();
     }
 
     void cloneProfile(ProfilePreferenceRow sourceRow) {
@@ -273,6 +296,7 @@ private:
         row.showAll();
         lbSide.add(row);
         lbSide.selectRow(row);
+        updateUI();
     }
 
     void setDefaultProfile(ProfilePreferenceRow row) {
@@ -291,6 +315,7 @@ public:
         gsSettings = new GSettings(SETTINGS_ID);
         app.addWindow(this);
         createUI(app);
+        updateUI();
     }
 
     void focusProfile(string uuid) {
