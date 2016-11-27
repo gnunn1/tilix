@@ -1006,6 +1006,11 @@ private:
         gsSettings.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
         add(cbMiddleClickClose);
 
+        //zoom in/out terminal with scroll wheel
+        CheckButton cbControlScrollZoom = new CheckButton(_("Zoom the terminal using <Control> and scroll wheel"));
+        gsSettings.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", GSettingsBindFlags.DEFAULT);
+        add(cbControlScrollZoom);
+
         //Closing of last session closes window
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
         gsSettings.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);

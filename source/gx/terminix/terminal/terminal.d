@@ -576,20 +576,13 @@ private:
 
         //Zoom actions
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (vte.getFontScale() < 5) {
-                trace("Zoom In");
-                vte.setFontScale(vte.getFontScale() + 0.1);
-            }
+            zoomIn();
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (vte.getFontScale() > 0.1) {
-                trace("Zoom Out");
-                vte.setFontScale(vte.getFontScale() - 0.1);
-            }
+            zoomOut();
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(GVariant, SimpleAction) {
-            trace("Zoom Normal");
-            vte.setFontScale(1.0);
+            zoomNormal();
         });
 
         //Cycle terminal style
@@ -881,6 +874,7 @@ private:
                     terminix.warnVTEConfigIssue();
                 }
             }
+            vte.addOnScroll(&onTerminalScroll);
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
         });
@@ -1343,6 +1337,24 @@ private:
                 }
                 break;
         }
+    }
+
+private:    
+
+    bool onTerminalScroll(Event event, Widget widget) {
+        if (gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY) && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
+            ScrollDirection zoomDirection = event.scroll.direction;
+            if (zoomDirection == ScrollDirection.SMOOTH) {
+                zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
+            } 
+            if (zoomDirection == ScrollDirection.UP) {
+                zoomIn();    
+            } else if (zoomDirection == ScrollDirection.DOWN) {
+                zoomOut();
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -2661,6 +2673,24 @@ private:
     void onThemeChanged(string theme) {
         //Get CSS Provider updated via preference
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
+    }
+
+//Zoom
+private:
+    void zoomIn() {
+        if (vte.getFontScale() < 5) {
+            vte.setFontScale(vte.getFontScale() + 0.1);
+        }
+    }
+
+    void zoomOut() {
+        if (vte.getFontScale() > 0.1) {
+            vte.setFontScale(vte.getFontScale() - 0.1);
+        }
+    }
+
+    void zoomNormal() {
+        vte.setFontScale(1.0);
     }
 
 public:

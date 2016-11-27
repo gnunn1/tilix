@@ -70,6 +70,7 @@ enum SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY = "warn-vte-config-issue";
 enum SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY = "focus-follow-mouse";
 enum SETTINGS_ENCODINGS_KEY = "encodings";
 enum SETTINGS_MIDDLE_CLICK_CLOSE_KEY = "middle-click-close";
+enum SETTINGS_CONTROL_SCROLL_ZOOM_KEY = "control-scroll-zoom";
 enum SETTINGS_PASSWORD_INCLUDE_RETURN_KEY = "password-include-return";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
