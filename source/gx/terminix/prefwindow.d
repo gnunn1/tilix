@@ -303,9 +303,11 @@ private:
         prfMgr.setDefaultProfile(row.getProfile().uuid);
         ProfilePreferenceRow[] rows = gx.gtk.util.getChildren!ProfilePreferenceRow(lbSide, false);
         foreach(r; rows) {
-            r.getProfile().isDefault = false;
+            if (r.uuid != row.uuid) {
+                r.updateDefault(false);
+            }
         }
-        row.getProfile.isDefault = true;
+        row.updateDefault(true);
     }
 
 public:
@@ -361,6 +363,9 @@ private:
     PreferenceWindow window;
 
     Label lblName;
+    Image imgDefault;
+
+    SimpleAction saDefault;
 
     immutable ACTION_PROFILE_PREFIX = "profile";
     immutable ACTION_PROFILE_DELETE = "delete";
@@ -368,19 +373,23 @@ private:
     immutable ACTION_PROFILE_DEFAULT = "default";
 
     void createUI() {
-        Box box = new Box(Orientation.HORIZONTAL, 6);
+        Box box = new Box(Orientation.HORIZONTAL, 0);
         setAllMargins(box, 6);
 
         lblName = new Label(profile.name);
         lblName.setHalign(Align.START);
-        box.packStart(lblName, true, true, 6);
+        box.packStart(lblName, true, true, 2);
 
         MenuButton btnMenu = new MenuButton();
         btnMenu.setRelief(ReliefStyle.NONE);
         btnMenu.setFocusOnClick(false);
         btnMenu.setPopover(createPopover(btnMenu));
-        
         box.packEnd(btnMenu, false, false, 0);
+
+        imgDefault = new Image("object-select-symbolic", IconSize.BUTTON);
+        imgDefault.setNoShowAll(true);
+        box.packEnd(imgDefault, false, false, 0);
+        if (isDefault) imgDefault.show();
 
         add(box);
     }
@@ -393,7 +402,7 @@ private:
         registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE, null, delegate(GVariant, SimpleAction) {
             window.cloneProfile(this);
         });
-        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(GVariant, SimpleAction) {
+        saDefault = registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(GVariant, SimpleAction) {
             window.setDefaultProfile(this);
         });
         insertActionGroup(ACTION_PROFILE_PREFIX, sag);
@@ -423,14 +432,35 @@ public:
         createUI();
     }
 
-    ProfileInfo getProfile() {
-        return profile;
-    }
-
     void updateName(string newName) {
         profile.name = newName;
         lblName.setText(newName);
     }
+
+    void updateDefault(bool value) {
+        if (profile.isDefault != value) {
+            profile.isDefault = value;
+            if (value) {
+                imgDefault.show();
+                saDefault.setEnabled(false);
+            } else {
+                imgDefault.hide();
+                saDefault.setEnabled(true);
+            }
+        }
+    }
+
+    ProfileInfo getProfile() {
+        return profile;
+    }
+
+    @property string name() {
+        return profile.name;
+    }
+
+    @property bool isDefault() {
+        return profile.isDefault;
+    } 
 
     @property string uuid() {
         return profile.uuid;
