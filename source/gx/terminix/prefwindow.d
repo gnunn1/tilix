@@ -78,7 +78,7 @@ import gx.terminix.application;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
-import gx.terminix.profilewindow;
+import gx.terminix.profileeditor;
 
 /**
  * UI for managing Terminix preferences
