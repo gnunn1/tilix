@@ -146,7 +146,7 @@ private:
         ScrolledWindow sw = new ScrolledWindow(lbSide);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setShadowType(ShadowType.NONE);
-        sw.setSizeRequest(180, -1);
+        sw.setSizeRequest(220, -1);
 
         Box bButtons = new Box(Orientation.HORIZONTAL, 0);
         bButtons.getStyleContext().addClass("linked");
@@ -173,27 +173,26 @@ private:
 
         add(box);
 
-        SizeGroup sg = new SizeGroup(SizeGroupMode.HORIZONTAL);
-        sg.addWidget(hbSide);
-        sg.addWidget(bSide);
+        SizeGroup sgSide = new SizeGroup(SizeGroupMode.HORIZONTAL);
+        sgSide.addWidget(hbSide);
+        sgSide.addWidget(bSide);
+
+        SizeGroup sgMain = new SizeGroup(SizeGroupMode.HORIZONTAL);
+        sgMain.addWidget(hbMain);
+        sgMain.addWidget(pages);
 
         //Set initial title
         hbMain.setTitle(_("Global"));
     }
 
-    void createSplitHeaders() {
-        hbMain = new HeaderBar();
-        hbMain.setHexpand(true);
-        hbMain.setTitle("");
-        hbMain.setShowCloseButton(true);
+    void onDecorationLayout() {
+        Value layoutValue = new Value("");
+        Settings settings = this.getSettings();
+        settings.getProperty(GTK_DECORATION_LAYOUT, layoutValue);
 
-        hbSide = new HeaderBar();
-        hbSide.setTitle(_("Preferences"));
+        string layout = layoutValue.getString();
 
-        Value layout = new Value("");
-        Settings.getDefault().getProperty(GTK_DECORATION_LAYOUT, layout);
-
-        string[] parts = split(layout.getString(), ":");
+        string[] parts = split(layout, ":");
         string part1 = parts[0] ~ ":";
         string part2;
 
@@ -203,12 +202,34 @@ private:
         hbSide.setDecorationLayout(part1);
         hbMain.setDecorationLayout(part2);
 
+        tracef("Decoration layout original: '%s', side: '%s', main: '%s'", layout, part1, part2);
+
+        Value decorationSet = new Value(false);
+        hbMain.getProperty("decoration-layout-set", decorationSet);
+        if (decorationSet.getBoolean) trace("Decoration is set");
+    }
+
+    void createSplitHeaders() {
+        hbMain = new HeaderBar();
+        hbMain.setHexpand(true);
+        hbMain.setTitle("");
+        hbMain.setShowCloseButton(true);
+
+        hbSide = new HeaderBar();
+        hbSide.setHexpand(true);
+        hbSide.setShowCloseButton(true);
+        hbSide.setTitle(_("Preferences"));
+
         Box bTitle = new Box(Orientation.HORIZONTAL, 0);
         bTitle.add(hbSide);
         bTitle.add(new Separator(Orientation.VERTICAL));
         bTitle.add(hbMain); 
 
         this.setTitlebar(bTitle);
+        this.addOnNotify(delegate(ParamSpec, ObjectG) {
+            onDecorationLayout();
+        }, "gtk-decoration-layout");
+        onDecorationLayout();
     }
 
     ListBoxRow createProfileTitleRow() {
