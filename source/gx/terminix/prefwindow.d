@@ -203,10 +203,6 @@ private:
         hbMain.setDecorationLayout(part2);
 
         tracef("Decoration layout original: '%s', side: '%s', main: '%s'", layout, part1, part2);
-
-        Value decorationSet = new Value(false);
-        hbMain.getProperty("decoration-layout-set", decorationSet);
-        if (decorationSet.getBoolean) trace("Decoration is set");
     }
 
     void createSplitHeaders() {
@@ -222,7 +218,9 @@ private:
 
         Box bTitle = new Box(Orientation.HORIZONTAL, 0);
         bTitle.add(hbSide);
-        bTitle.add(new Separator(Orientation.VERTICAL));
+        Separator sTitle = new Separator(Orientation.VERTICAL);
+        sTitle.getStyleContext().addClass("terminix-title-separator"); 
+        bTitle.add(sTitle);
         bTitle.add(hbMain); 
 
         this.setTitlebar(bTitle);
