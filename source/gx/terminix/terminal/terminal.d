@@ -2765,7 +2765,7 @@ public:
     }
 
     ~this() {
-        writeln("***** Terminal destructor is called");
+        //writeln("***** Terminal destructor is called");
     }
 
     /**
