@@ -2719,10 +2719,12 @@ public:
             */
             
             //Workaround for #589
+            /*
             import gtk.Container;
             Container container = cast(Container)vte.getParent();
             container.remove(vte);
             vte = null;
+            */
         }, ConnectFlags.AFTER);
         initColors();
         _terminalUUID = randomUUID().toString();
