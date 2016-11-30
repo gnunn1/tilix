@@ -220,6 +220,10 @@ public:
         this.vte = vte;
         this.terminalActions = terminalActions;
         createUI();
+        this.addOnDestroy(delegate(Widget) {
+            this.vte = null;
+            this.terminalActions = null;
+        });
     }
 
     void focusSearchEntry() {

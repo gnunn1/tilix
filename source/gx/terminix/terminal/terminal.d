@@ -2052,7 +2052,7 @@ private:
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
-            sendHostCommand(pty, workingDir, args, envv);
+            //sendHostCommand(pty, workingDir, args, envv);
 
             import glib.Spawn: Spawn;
             import vtec.vte: vte_pty_child_setup;
@@ -2706,7 +2706,24 @@ public:
             stopProcess();
             terminix.removeOnThemeChanged(&onThemeChanged);
             if (timer !is null) timer.stop();
-        });
+
+            /*
+            gsSettings.destroy();
+            gsSettings = null;
+            gsProfile.destroy();
+            gsProfile = null;
+            gsDesktop.destroy();
+            gsDesktop = null;
+            gsShortcuts.destroy();
+            gsShortcuts = null;
+            */
+            
+            //Workaround for #589
+            import gtk.Container;
+            Container container = cast(Container)vte.getParent();
+            container.remove(vte);
+            vte = null;
+        }, ConnectFlags.AFTER);
         initColors();
         _terminalUUID = randomUUID().toString();
         _activeProfileUUID = profileUUID;
@@ -2743,6 +2760,10 @@ public:
         //Get when theme changed
         terminix.addOnThemeChanged(&onThemeChanged);
         trace("Finished creation");
+    }
+
+    ~this() {
+        writeln("***** Terminal destructor is called");
     }
 
     /**
