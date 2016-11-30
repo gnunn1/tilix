@@ -18,8 +18,10 @@ import std.array;
  */
 void remove(T)(ref T[] array, T element) {
     auto index = array.countUntil(element);
-    if (index >= 0)
+    while (index >= 0) {
         array = std.algorithm.remove(array, index);
+        index = array.countUntil(element);
+    }
 }
 
 unittest {
