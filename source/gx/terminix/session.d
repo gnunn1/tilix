@@ -568,6 +568,10 @@ private:
     void closeTerminal(Terminal terminal) {
         removeTerminal(terminal);
         terminal.destroy();
+
+        // Force GC to clean up VTE temporary FD faster
+        import core.memory;
+        GC.collect();
     }
 
     /**
