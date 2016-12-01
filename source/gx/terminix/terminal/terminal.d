@@ -875,6 +875,16 @@ private:
                 }
             }
             vte.addOnScroll(&onTerminalScroll);
+            //Workaround for #589
+            vte.addOnDestroy(delegate(Widget w) {
+                import gtk.Bin;
+                Bin bin = cast(Bin)w.getParent();
+                if (bin !is null) {
+                    bin.remove(w);
+                }
+                vte = null;
+            }, ConnectFlags.AFTER);
+
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
         });
@@ -1363,6 +1373,8 @@ private:
     void onTerminalChildExited(int status, VTE terminal) {
         gpid = -1;
         trace("Exit code received is " ~ to!string(status));
+        if (vte is null) return;
+
         switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
         case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE:
             spawnTerminalProcess(gst.initialCWD);
@@ -2716,14 +2728,6 @@ public:
             gsDesktop = null;
             gsShortcuts.destroy();
             gsShortcuts = null;
-            */
-            
-            //Workaround for #589
-            /*
-            import gtk.Container;
-            Container container = cast(Container)vte.getParent();
-            container.remove(vte);
-            vte = null;
             */
         }, ConnectFlags.AFTER);
         initColors();
