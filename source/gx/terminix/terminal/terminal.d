@@ -877,6 +877,7 @@ private:
             vte.addOnScroll(&onTerminalScroll);
             //Workaround for #589
             vte.addOnDestroy(delegate(Widget w) {
+                stopProcess();
                 import gtk.Bin;
                 Bin bin = cast(Bin)w.getParent();
                 if (bin !is null) {
@@ -2715,20 +2716,8 @@ public:
         gst = new GlobalTerminalState();
         addOnDestroy(delegate(Widget) {
             trace("Terminal destroy");
-            stopProcess();
             terminix.removeOnThemeChanged(&onThemeChanged);
             if (timer !is null) timer.stop();
-
-            /*
-            gsSettings.destroy();
-            gsSettings = null;
-            gsProfile.destroy();
-            gsProfile = null;
-            gsDesktop.destroy();
-            gsDesktop = null;
-            gsShortcuts.destroy();
-            gsShortcuts = null;
-            */
         }, ConnectFlags.AFTER);
         initColors();
         _terminalUUID = randomUUID().toString();
