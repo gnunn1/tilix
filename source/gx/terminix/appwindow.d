@@ -253,45 +253,14 @@ private:
         }, ConnectFlags.AFTER);
 
         sb = new SideBar();
-        sb.addOnSessionSelected(delegate(string sessionUUID) {
-            trace("Session selected " ~ sessionUUID);
-            saViewSideBar.activate(null);
-            if (sessionUUID.length > 0) {
-                activateSession(sessionUUID);
-            } else {
-                Session session = getCurrentSession();
-                if (session !is null) {
-                    getCurrentSession().focusRestore();
-                }
-            }
-        });
-        sb.addOnSessionClose(&onUserSessionClose);
+        sb.onSelected.connect(&onSessionSelected);
+        sb.onClose.connect(&onUserSessionClose);
 
         ss = new SessionSwitcher();
-        ss.addOnSessionFileSelected(delegate(string file) {
-            saViewSessionSwitcher.activate(null);
-            if (file) {
-                try {
-                    loadSession(file);
-                }
-                catch (SessionCreationException e) {
-                    removeRecentSessionFile(file);
-
-                    showErrorDialog(this, e.msg);
-                }
-            }
-        });
-        ss.addOnSessionFileRemoved(delegate(string file) {
-            removeRecentSessionFile(file);
-            ss.populate(getSessions(), recentSessionFiles);
-        });
-        ss.addOnOpenSessionSelected(delegate(string uuid) {
-            saViewSessionSwitcher.activate(null);
-            if (uuid) {
-                activateSession(uuid);
-            }
-        });
-        ss.addOnOpenSessionRemoved(&onUserSessionClose);
+        ss.onFileSelected.connect(&onFileSelected);
+        ss.onFileRemoved.connect(&onFileRemoved);
+        ss.onOpenSelected.connect(&onOpenSelected);
+        ss.onOpenRemoved.connect(&onUserSessionClose);
 
         Overlay overlay = new Overlay();
         overlay.add(nb);
@@ -457,7 +426,7 @@ private:
      * Create Window actions
      */
     void createWindowActions(GSettings gsShortcuts) {
-        static if (SHOW_DEBUG_OPTIONS) {
+        debug {
             registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) { trace("Performing collection"); core.memory.GC.collect(); });
         }
 
@@ -608,7 +577,8 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                onUserSessionClose(getCurrentSession().uuid);
+                CumulativeResult!bool results = new CumulativeResult!bool(); 
+                onUserSessionClose(getCurrentSession().uuid, results);
             }
         });
 
@@ -691,7 +661,7 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
-        static if (SHOW_DEBUG_OPTIONS) {
+        debug {
             GMenu mDebugSection = new GMenu();
             mDebugSection.appendItem(new GMenuItem(_("GC"), getActionDetailedName("win", "gc")));
             model.appendSection(null, mDebugSection);
@@ -724,11 +694,13 @@ private:
     }
 
     void addSession(Session session) {
-        session.addOnSessionClose(&onSessionClose);
-        session.addOnIsActionAllowed(&onSessionIsActionAllowed);
-        session.addOnSessionDetach(&onSessionDetach);
-        session.addOnProcessNotification(&onSessionProcessNotification);
-        session.addOnSessionStateChange(&onSessionStateChange);
+        session.onClose.connect(&onSessionClose);
+        session.onDetach.connect(&onSessionDetach);
+        session.onStateChange.connect(&onSessionStateChange);
+
+        session.onIsActionAllowed.connect(&onSessionIsActionAllowed);
+        session.onProcessNotification.connect(&onSessionProcessNotification);
+
         int index = nb.appendPage(session, session.name);
         nb.showAll();
         nb.setCurrentPage(index);
@@ -737,11 +709,12 @@ private:
 
     void removeSession(Session session) {
         //remove event handlers
-        session.removeOnSessionClose(&onSessionClose);
-        session.removeOnIsActionAllowed(&onSessionIsActionAllowed);
-        session.removeOnSessionDetach(&onSessionDetach);
-        session.removeOnProcessNotification(&onSessionProcessNotification);
-        session.removeOnSessionStateChange(&onSessionStateChange);
+        session.onClose.disconnect(&onSessionClose);
+        session.onDetach.disconnect(&onSessionDetach);
+        session.onStateChange.disconnect(&onSessionStateChange);
+
+        session.onIsActionAllowed.disconnect(&onSessionIsActionAllowed);
+        session.onProcessNotification.disconnect(&onSessionProcessNotification);
         //remove session from Notebook
         nb.remove(session);
         updateUIState();
@@ -771,20 +744,25 @@ private:
     /**
      * Used to handle cases where the user requests a session be closed
      */
-    bool onUserSessionClose(string sessionUUID) {
+    void onUserSessionClose(string sessionUUID, CumulativeResult!bool result) {
         trace("Sidebar requested to close session " ~ sessionUUID);
         if (sessionUUID.length > 0) {
             Session session = getSession(sessionUUID);
             if (session !is null) {
                 if (session.isProcessRunning()) {
-                    if (!showCanClosePrompt) return false;
+                    if (!showCanClosePrompt) {
+                        result.addResult(false);
+                        return;
+                    }
                 }
                 closeSession(session);
                 ss.populate(getSessions(), recentSessionFiles);
-                return true;
+                result.addResult(true);
+                return;
             }
         }
-        return false;
+        result.addResult(false);
+        return;
     }
 
     void closeSession(Session session) {
@@ -801,6 +779,45 @@ private:
     void onSessionClose(Session session) {
         closeSession(session);
     }
+
+    void onFileSelected(string file) {
+        saViewSessionSwitcher.activate(null);
+        if (file) {
+            try {
+                loadSession(file);
+            }
+            catch (SessionCreationException e) {
+                removeRecentSessionFile(file);
+
+                showErrorDialog(this, e.msg);
+            }
+        }
+    }
+
+    void onFileRemoved(string file) {
+        removeRecentSessionFile(file);
+        ss.populate(getSessions(), recentSessionFiles);
+    }
+
+    void onOpenSelected(string uuid) {
+        saViewSessionSwitcher.activate(null);
+        if (uuid) {
+            activateSession(uuid);
+        }
+    }        
+
+    void onSessionSelected(string sessionUUID) {
+        trace("Session selected " ~ sessionUUID);
+        saViewSideBar.activate(null);
+        if (sessionUUID.length > 0) {
+            activateSession(sessionUUID);
+        } else {
+            Session session = getCurrentSession();
+            if (session !is null) {
+                getCurrentSession().focusRestore();
+            }
+        }
+    }    
 
     void onSessionDetach(Session session, int x, int y, bool isNewSession) {
         trace("Detaching session");
@@ -898,14 +915,17 @@ private:
         return false;
     }
 
-    bool onSessionIsActionAllowed(ActionType actionType) {
+    void onSessionIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
         switch (actionType) {
         case ActionType.DETACH:
             //Only allow if there is more then one session
-            return nb.getNPages() > 1;
+            result.addResult( nb.getNPages() > 1);
+            break;
         default:
-            return false;
+            result.addResult(false);
+            break;
         }
+        return;
     }
 
     void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {

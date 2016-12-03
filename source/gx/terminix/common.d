@@ -6,9 +6,57 @@ module gx.terminix.common;
 
 import std.algorithm;
 import std.experimental.logger;
+import std.signals;
 import std.string;
 
 import gx.util.array;
+
+/**************************************************************
+ * This block defines some generic signal handling based on D's
+ * std.Signals package. All of the internal D's signals use this
+ * as a way to communicate with each other. This is new since
+ * version 1.40. The old way of using delegates had a memory leak
+ * issue associated with it, not sure if it's a D bug or something
+ * in the code. However was wanting to switch to this for awhile so
+ * made sense to change anyway.
+ **************************************************************/
+public:
+
+/**
+ * Generic signal struct
+ */
+struct GenericEvent(TArgs...) {
+  mixin Signal!TArgs;
+}
+
+/**
+ * D's signals and slots do not allow you to return a value. Toggles
+ * workaround it, this template can be passed as a parameter to
+ * the signal and then thevarious listeners can add their results to
+ * it.
+ */
+class CumulativeResult(T) {
+private:
+    T[] results;
+
+public:
+
+    T[] getResults() {
+        return results;
+    }
+
+    void addResult(T value) {
+        results ~= value;
+    }
+
+    bool isAnyResult(T value) {
+        foreach(result; results) {
+            if (result == value) return true;
+        }
+        return false;
+    }
+}
+
 
 /***********************************************************
  * Function for parsing out the username, hostname and
@@ -88,12 +136,7 @@ enum ActionType {
     DETACH
 }
 
-/**
- * Certain actions to be percolated up the widget heirarchy with
- * every level having to sign off on the action before it can be
- * performed. This delegate is for that purpose.
- */
-alias OnIsActionAllowed = bool delegate(ActionType actionType);
+//alias OnIsActionAllowed = bool delegate(ActionType actionType);
 
 /**
  * Mixin to handle the boiler plate of IsActionAllowed event
@@ -102,39 +145,23 @@ alias OnIsActionAllowed = bool delegate(ActionType actionType);
 mixin template IsActionAllowedHandler() {
 
 private:
-    OnIsActionAllowed[] isActionAllowedDelegates;
 
     bool notifyIsActionAllowed(ActionType actionType) {
-        foreach (dlg; isActionAllowedDelegates) {
-            if (!dlg(actionType))
-                return false;
-        }
-        return true;
+        CumulativeResult!bool result = new CumulativeResult!bool();
+        onIsActionAllowed.emit(actionType, result);
+        // If anything returned false, return false
+        return !result.isAnyResult(false);
     }
 
 public:
 
-    void addOnIsActionAllowed(OnIsActionAllowed dlg) {
-        isActionAllowedDelegates ~= dlg;
-    }
-
-    void removeOnIsActionAllowed(OnIsActionAllowed dlg) {
-        gx.util.array.remove(isActionAllowedDelegates, dlg);
-    }
+    /**
+    * Certain actions to be percolated up the widget heirarchy with
+    * every level having to sign off on the action before it can be
+    * performed. This delegate is for that purpose.
+    */
+    GenericEvent!(ActionType, CumulativeResult!bool) onIsActionAllowed;
 }
-
-/**
- * Triggered when the terminal receives a notification that a command is completed. The terminal
- * will not send the notifications if it has focus.
- *
- * Note that this functionality depends on having the Fedora patched VTE installed rather
- * then the default VTE.
- *
- * See:
- * http://pkgs.fedoraproject.org/cgit/vte291.git/tree/vte291-command-notify.patch
- * http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/gnome-terminal-command-notify.patch
- */
-alias OnProcessNotification = void delegate(string summary, string _body, string terminalUUID, string sessionUUID = null);
 
 /**
  * Mixin to handle the boiler plate of OnProcessNotification event
@@ -143,23 +170,24 @@ alias OnProcessNotification = void delegate(string summary, string _body, string
 mixin template ProcessNotificationHandler() {
 
 private:
-    OnProcessNotification[] processNotificationDelegates;
-
     void notifyProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID = null) {
-        foreach (dlg; processNotificationDelegates) {
-            dlg(summary, _body, terminalUUID, sessionUUID);
-        }
+        onProcessNotification.emit(summary, _body, terminalUUID, sessionUUID);
     }
 
 public:
 
-    void addOnProcessNotification(OnProcessNotification dlg) {
-        processNotificationDelegates ~= dlg;
-    }
-
-    void removeOnProcessNotification(OnProcessNotification dlg) {
-        gx.util.array.remove(processNotificationDelegates, dlg);
-    }
+    /**
+    * Triggered when the terminal receives a notification that a command is completed. The terminal
+    * will not send the notifications if it has focus.
+    *
+    * Note that this functionality depends on having the Fedora patched VTE installed rather
+    * then the default VTE.
+    *
+    * See:
+    * http://pkgs.fedoraproject.org/cgit/vte291.git/tree/vte291-command-notify.patch
+    * http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/gnome-terminal-command-notify.patch
+    */
+    GenericEvent!(string, string, string, string) onProcessNotification;
 }
 
 // ***************************************************************************
@@ -188,17 +216,30 @@ class SessionNotification {
     }
 }
 
+/**************************************************************************
+ * Defines interfaces that terminix uses to reference objects without creating
+ * too much coupling. Session and Terminal objects implement the identifiable
+ * interface so they can be found based on a string uuid wuthout higher level
+ * modules having to refer to these directly.
+ */ 
+public:
+
+/**
+ * Interface that represents an object instance that can be uniquely identified
+ */ 
 interface IIdentifiable {
 
     /**
      * The immutable unique identifier for a terminal
      */
-    //string getUUID();
-
     @property string uuid();
 
 }
 
+/**
+ * Interface that represents a terminal, used to expose
+ * the bare minimum functionality required by the appwindow.
+ */
 interface ITerminal : IIdentifiable {
 
     /**

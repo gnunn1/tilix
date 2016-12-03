@@ -38,7 +38,7 @@ public:
     /**
 	 * Sets our main struct and passes it to the parent class.
 	 */
-    public this(VteTerminal* vteTerminal, bool ownedRef = false) {
+    this(VteTerminal* vteTerminal, bool ownedRef = false) {
         super(vteTerminal, ownedRef);
     }
 
@@ -49,10 +49,16 @@ public:
 	 *
 	 * Throws: ConstructionException GTK+ fails to create the object.
 	 */
-    public this() {
+    this() {
         super();
     }
 
+    debug(Destructors) {
+        ~this() {
+            import std.stdio: writeln;
+            writeln("******** VTE Destructor");
+        }
+    }
 
     void delegate(TerminalScreen, Terminal)[] onTerminalScreenChangedListeners;
 

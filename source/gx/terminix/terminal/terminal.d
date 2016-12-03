@@ -154,34 +154,6 @@ enum TerminalWindowState {
     MAXIMIZED
 }
 
-/**
- * An event that is fired whenever the terminal gets focused. Used by
- * the Session to track focus.
- */
-alias OnTerminalInFocus = void delegate(Terminal terminal);
-
-/**
- * An event that is fired when the terminal has been requested to close,
- * either explicitly by the user clicking the close button or the terminal
- * process exiting/aborting.
- */
-alias OnTerminalClose = void delegate(Terminal terminal);
-
-/**
- * An event that is triggered when a terminal requests to moved from it's
- * original location (src) and moved into another terminal (dest).
- *
- * This typically happens after a drag and drop of a terminal
- */
-alias OnTerminalRequestMove = void delegate(string srcUUID, Terminal dest, DragQuadrant dq);
-
-/**
- * Invoked when a terminal requests that it be detached into it's own window
- */
-alias OnTerminalRequestDetach = void delegate(Terminal terminal, int x, int y);
-
-alias OnTerminalTitleChange = void delegate(Terminal terminal);
-
 enum SyncInputEventType {
     INSERT_TERMINAL_NUMBER,
     INSERT_TEXT,
@@ -194,18 +166,6 @@ struct SyncInputEvent {
     Event event;
     string text;
 }
-
-/**
- * Triggered on a terminal key press, used by the session to synchronize input
- * when this option is selected.
- */
-alias OnTerminalSyncInput = void delegate(Terminal terminal, SyncInputEvent event);
-
-/**
- * Triggered when the terminal needs to change state. Delegate returns whether
- * state change was successful.
- */
-alias OnTerminalRequestStateChange = bool delegate(Terminal terminal, TerminalWindowState state);
 
 /**
  * Constants used for the various variables permitted when defining
@@ -240,14 +200,6 @@ private:
 
     // mixin for managing process notification event delegates
     mixin ProcessNotificationHandler;
-
-    OnTerminalInFocus[] terminalInFocusDelegates;
-    OnTerminalClose[] terminalCloseDelegates;
-    OnTerminalRequestMove[] terminalRequestMoveDelegates;
-    OnTerminalRequestDetach[] terminalRequestDetachDelegates;
-    OnTerminalSyncInput[] terminalSyncInputDelegates;
-    OnTerminalRequestStateChange[] terminalRequestStateChangeDelegates;
-    OnTerminalTitleChange[] terminalTitleChangeDelegates;
 
     TerminalWindowState terminalWindowState = TerminalWindowState.NORMAL;
     Button btnMaximize;
@@ -671,8 +623,7 @@ private:
             feedChild(text, true);
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TERMINAL_NUMBER, null, null);
-                foreach (dlg; terminalSyncInputDelegates)
-                    dlg(this, se);
+                onSyncInput.emit(this, se);
             }
         }, null, null);
 
@@ -915,8 +866,7 @@ private:
                 if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
                     tracef("Synchronizing key %d", event.key.keyval);
                     SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
-                    foreach (dlg; terminalSyncInputDelegates)
-                        dlg(this, se);
+                    onSyncInput.emit(this, se);
                 }
             }
             return false;
@@ -929,11 +879,10 @@ private:
         });
 
         vte.addOnCommit(delegate(string text, uint length, VTE) {
-            if (!_ignoreCommit) {
+            if (!_ignoreCommit && isSynchronizedInput()) {
                 //tracef("Sync commit: %s", text);
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
-                foreach (dlg; terminalSyncInputDelegates)
-                    dlg(this, se);
+                onSyncInput.emit(this, se);
             }
         });
 
@@ -1094,9 +1043,7 @@ private:
         if (title != lastTitle) {
             lblTitle.setMarkup(title);
             lastTitle = title;
-            foreach (dlg; terminalTitleChangeDelegates) {
-                dlg(this);
-            }
+            onTitleChange.emit(this);
         }
     }
 
@@ -1187,21 +1134,15 @@ private:
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
-        foreach (OnTerminalRequestMove dlg; terminalRequestMoveDelegates) {
-            dlg(srcUUID, dest, dq);
-        }
+        onRequestMove.emit(srcUUID, dest, dq);
     }
 
     void notifyTerminalRequestDetach(Terminal terminal, int x, int y) {
-        foreach (OnTerminalRequestDetach dlg; terminalRequestDetachDelegates) {
-            dlg(terminal, x, y);
-        }
+        onRequestDetach.emit(terminal, x, y);
     }
 
     void notifyTerminalClose() {
-        foreach (OnTerminalClose dlg; terminalCloseDelegates) {
-            dlg(this);
-        }
+        onClose.emit(this);
     }
 
 // Block for processing triggers
@@ -1573,9 +1514,7 @@ private:
         trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
         //Fire focus events so session can track which terminal last had focus
-        foreach (dlg; terminalInFocusDelegates) {
-            dlg(this);
-        }
+        onFocusIn.emit(this);
         if (dimPercent > 0) {
             vte.queueDraw();
         }
@@ -2716,7 +2655,7 @@ public:
         gst = new GlobalTerminalState();
         addOnDestroy(delegate(Widget) {
             trace("Terminal destroy");
-            terminix.removeOnThemeChanged(&onThemeChanged);
+            terminix.onThemeChange.disconnect(&onThemeChanged);
             if (timer !is null) timer.stop();
         }, ConnectFlags.AFTER);
         initColors();
@@ -2753,14 +2692,16 @@ public:
             applyPreference(key);
         });
         //Get when theme changed
-        terminix.addOnThemeChanged(&onThemeChanged);
+        terminix.onThemeChange.connect(&onThemeChanged);
         trace("Finished creation");
     }
 
-    ~this() {
-        //writeln("***** Terminal destructor is called");
+    debug(Destructors) {
+        ~this() {
+            writeln("***** Terminal destructor is called");
+        }
     }
-
+    
     /**
      * initializes the terminal, i.e spawns the child process.
      *
@@ -2791,13 +2732,9 @@ public:
      */
     void maximize() {
         TerminalWindowState newState = (terminalWindowState == TerminalWindowState.NORMAL) ? TerminalWindowState.MAXIMIZED : TerminalWindowState.NORMAL;
-        bool result = true;
-        foreach (dlg; terminalRequestStateChangeDelegates) {
-            if (!dlg(this, newState)) {
-                result = false;
-            }
-        }
-        if (result) {
+        CumulativeResult!bool result = new CumulativeResult!bool();
+        onRequestStateChange.emit(this, newState, result);
+        if (!result.isAnyResult(false)) {
             terminalWindowState = newState;
             updateActions();
         }
@@ -3038,61 +2975,51 @@ public:
         return _terminalUUID;
     }
 
-    void addOnTerminalRequestMove(OnTerminalRequestMove dlg) {
-        terminalRequestMoveDelegates ~= dlg;
-    }
+// Events
+public:
+    /**
+    * An event that is fired when the terminal has been requested to close,
+    * either explicitly by the user clicking the close button or the terminal
+    * process exiting/aborting.
+    */
+    GenericEvent!(Terminal) onClose;
 
-    void removeOnTerminalRequestMove(OnTerminalRequestMove dlg) {
-        gx.util.array.remove(terminalRequestMoveDelegates, dlg);
-    }
+    /**
+    * An event that is fired whenever the terminal gets focused. Used by
+    * the Session to track focus.
+    */
+    GenericEvent!(Terminal) onFocusIn;
 
-    void addOnTerminalRequestDetach(OnTerminalRequestDetach dlg) {
-        terminalRequestDetachDelegates ~= dlg;
-    }
+    /**
+    * An event that is triggered when a terminal requests to moved from it's
+    * original location (src) and moved into another terminal (dest).
+    *
+    * This typically happens after a drag and drop of a terminal
+    */
+    GenericEvent!(string, Terminal, DragQuadrant) onRequestMove;
 
-    void removeOnTerminalRequestDetach(OnTerminalRequestDetach dlg) {
-        gx.util.array.remove(terminalRequestDetachDelegates, dlg);
-    }
+    /**
+    * Invoked when a terminal requests that it be detached into it's own window
+    */
+    GenericEvent!(Terminal, int, int) onRequestDetach;
 
-    void addOnTerminalClose(OnTerminalClose dlg) {
-        terminalCloseDelegates ~= dlg;
-    }
+    /**
+     * Triggered when the terminal title changes.
+     */
+    GenericEvent!(Terminal) onTitleChange;
 
-    void removeOnTerminalClose(OnTerminalClose dlg) {
-        gx.util.array.remove(terminalCloseDelegates, dlg);
-    }
+    /**
+    * Triggered on a terminal key press, used by the session to synchronize input
+    * when this option is selected.
+    */
+    GenericEvent!(Terminal, SyncInputEvent) onSyncInput;
 
-    void addOnTerminalInFocus(OnTerminalInFocus dlg) {
-        terminalInFocusDelegates ~= dlg;
-    }
+    /**
+    * Triggered when the terminal needs to change state. Delegate returns whether
+    * state change was successful.
 
-    void removeOnTerminalInFocus(OnTerminalInFocus dlg) {
-        gx.util.array.remove(terminalInFocusDelegates, dlg);
-    }
-
-    void addOnTerminalSyncInput(OnTerminalSyncInput dlg) {
-        terminalSyncInputDelegates ~= dlg;
-    }
-
-    void removeOnTerminalSyncInput(OnTerminalSyncInput dlg) {
-        gx.util.array.remove(terminalSyncInputDelegates, dlg);
-    }
-
-    void addOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
-        terminalRequestStateChangeDelegates ~= dlg;
-    }
-
-    void removeOnTerminalRequestStateChange(OnTerminalRequestStateChange dlg) {
-        gx.util.array.remove(terminalRequestStateChangeDelegates, dlg);
-    }
-
-    void addOnTerminalTitleChange(OnTerminalTitleChange dlg) {
-        terminalTitleChangeDelegates ~= dlg;
-    }
-
-    void removeOnTerminalTitleChange(OnTerminalTitleChange dlg) {
-        gx.util.array.remove(terminalTitleChangeDelegates, dlg);
-    }
+    */
+    GenericEvent!(Terminal, TerminalWindowState, CumulativeResult!bool) onRequestStateChange;
 }
 
 /**

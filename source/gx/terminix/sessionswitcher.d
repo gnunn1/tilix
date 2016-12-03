@@ -30,31 +30,10 @@ import gtk.Version;
 import gtk.Widget;
 
 import gx.i18n.l10n;
-
 static import gx.util.array;
 
 import gx.terminix.common;
 import gx.terminix.session;
-
-/**
- * Event used when a session file is selected.
- */
-alias OnSSSessionFileSelected = void delegate(string file);
-
-/**
- * Event used when a session file is removed.
- */
-alias OnSSSessionFileRemoved = void delegate(string file);
-
-/**
- * Event used when an open session is selected.
- */
-alias OnSSOpenSessionSelected = void delegate(string uuid);
-
-/**
- * Event used when an open session is removed.
- */
-alias OnSSOpenSessionRemoved = bool delegate(string uuid);
 
 extern (C) alias FilterCallback = static int function(gtkc.gtktypes.GtkListBoxRow*, void*);
 extern (C) alias DestroyNotify = static void function(void*);
@@ -72,14 +51,6 @@ private:
     ScrolledWindow sw;
 
     SearchEntry seSearch;
-
-    OnSSSessionFileSelected[] sessionFileSelectedDelegates;
-
-    OnSSSessionFileRemoved[] sessionFileRemovedDelegates;
-
-    OnSSOpenSessionSelected[] openSessionSelectedDelegates;
-
-    OnSSOpenSessionRemoved[] openSessionRemovedDelegates;
 
     void createUI() {
         addOnButtonPress(&onButtonPress);
@@ -235,27 +206,20 @@ private:
     }
 
     void notifySessionFileSelected(string file = null) {
-        foreach (sessionFileSelected; sessionFileSelectedDelegates) {
-            sessionFileSelected(file);
-        }
+        onFileSelected.emit(file);
     }
 
     void notifySessionFileRemoved(string file = null) {
-        foreach (sessionFileRemoved; sessionFileRemovedDelegates) {
-            sessionFileRemoved(file);
-        }
+        onFileRemoved.emit(file);
     }
 
     void notifyOpenSessionSelected(string uuid = null) {
-        foreach (openSessionSelected; openSessionSelectedDelegates) {
-            openSessionSelected(uuid);
-        }
+        onOpenSelected.emit(uuid);
     }
 
     void notifyOpenSessionRemoved(string uuid = null) {
-        foreach (openSessionRemoved; openSessionRemovedDelegates) {
-            openSessionRemoved(uuid);
-        }
+        CumulativeResult!bool results = new CumulativeResult!bool();
+        onOpenRemoved.emit(uuid, results);
     }
 
     void populateOpenSessions(Session[] sessions) {
@@ -293,38 +257,6 @@ public:
         lbSessions.showAll();
     }
 
-    void addOnSessionFileSelected(OnSSSessionFileSelected dlg) {
-        sessionFileSelectedDelegates ~= dlg;
-    }
-
-    void removeOnSessionFileSelected(OnSSSessionFileSelected dlg) {
-        gx.util.array.remove(sessionFileSelectedDelegates, dlg);
-    }
-
-    void addOnSessionFileRemoved(OnSSSessionFileRemoved dlg) {
-        sessionFileRemovedDelegates ~= dlg;
-    }
-
-    void removeOnSessionFileRemoved(OnSSSessionFileRemoved dlg) {
-        gx.util.array.remove(sessionFileRemovedDelegates, dlg);
-    }
-
-    void addOnOpenSessionSelected(OnSSOpenSessionSelected dlg) {
-        openSessionSelectedDelegates ~= dlg;
-    }
-
-    void removeOnOpenSessionSelected(OnSSOpenSessionSelected dlg) {
-        gx.util.array.remove(openSessionSelectedDelegates, dlg);
-    }
-
-    void addOnOpenSessionRemoved(OnSSOpenSessionRemoved dlg) {
-        openSessionRemovedDelegates ~= dlg;
-    }
-
-    void removeOnOpenSessionRemoved(OnSSOpenSessionRemoved dlg) {
-        gx.util.array.remove(openSessionRemovedDelegates, dlg);
-    }
-
     override void setRevealChild(bool revealChild) {
         super.setRevealChild(revealChild);
         if (revealChild) {
@@ -338,6 +270,29 @@ public:
             }
         }
     }
+
+public:
+
+    /**
+    * Event used when a session file is selected.
+    */
+    GenericEvent!(string) onFileSelected;
+
+    /**
+    * Event used when a session file is removed.
+    */
+    GenericEvent!(string) onFileRemoved;
+
+    /**
+    * Event used when an open session is selected.
+    */
+    GenericEvent!(string) onOpenSelected;
+
+    /**
+    * Event used when an open session is removed.
+    */
+    GenericEvent!(string, CumulativeResult!bool) onOpenRemoved;
+
 }
 
 private:

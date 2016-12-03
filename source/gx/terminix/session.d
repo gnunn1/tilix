@@ -59,13 +59,6 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.terminal.terminal;
 
-/**
- * An event that occurs when the session closes, the application window
- * listens to this event and removes the session when received.
- */
-alias OnSessionClose = void delegate(Session session);
-
-alias OnSessionDetach = void delegate(Session session, int x, int y, bool isNewSession);
 
 enum SessionStateChange {
     TERMINAL_MAXIMIZED,
@@ -73,8 +66,6 @@ enum SessionStateChange {
     TERMINAL_FOCUSED,
     TERMINAL_TITLE
 };
-
-alias OnSessionStateChange = void delegate(Session session, SessionStateChange stateChange);
 
 /**
  * An exception that is thrown when a session cannot be created, typically
@@ -117,10 +108,6 @@ private:
 
     // mixin for managing process notification event delegates
     mixin ProcessNotificationHandler;
-
-    OnSessionDetach[] sessionDetachDelegates;
-    OnSessionClose[] sessionCloseDelegates;
-    OnSessionStateChange[] sessionStateChangeDelegates;
 
     Terminal[] terminals;
     string _name;
@@ -177,21 +164,15 @@ private:
     }
 
     void notifySessionClose() {
-        foreach (dlg; sessionCloseDelegates) {
-            dlg(this);
-        }
+        onClose.emit(this);
     }
 
     void notifySessionDetach(Session session, int x, int y, bool isNewSession) {
-        foreach (dlg; sessionDetachDelegates) {
-            dlg(session, x, y, isNewSession);
-        }
+        onDetach.emit(session, x, y, isNewSession);
     }
 
     void notifySessionStateChange(SessionStateChange stateChange) {
-        foreach (dlg; sessionStateChangeDelegates) {
-            dlg(this, stateChange);
-        }
+        onStateChange.emit(this, stateChange);
     }
 
     void sequenceTerminalID() {
@@ -290,15 +271,15 @@ private:
      * from another session via DND
      */
     void addTerminal(Terminal terminal) {
-        terminal.addOnTerminalClose(&onTerminalClose);
-        terminal.addOnTerminalRequestDetach(&onTerminalRequestDetach);
-        terminal.addOnTerminalRequestMove(&onTerminalRequestMove);
-        terminal.addOnTerminalInFocus(&onTerminalInFocus);
-        terminal.addOnTerminalSyncInput(&onTerminalSyncInput);
-        terminal.addOnProcessNotification(&onTerminalProcessNotification);
-        terminal.addOnIsActionAllowed(&onTerminalIsActionAllowed);
-        terminal.addOnTerminalRequestStateChange(&onTerminalRequestStateChange);
-        terminal.addOnTerminalTitleChange(&onTerminalTitleChange);
+        terminal.onClose.connect(&onTerminalClose);
+        terminal.onFocusIn.connect(&onTerminalFocusIn);
+        terminal.onRequestDetach.connect(&onTerminalRequestDetach);
+        terminal.onRequestMove.connect(&onTerminalRequestMove);
+        terminal.onSyncInput.connect(&onTerminalSyncInput);
+        terminal.onRequestStateChange.connect(&onTerminalRequestStateChange);
+        terminal.onTitleChange.connect(&onTerminalTitleChange);
+        terminal.onProcessNotification.connect(&onTerminalProcessNotification);
+        terminal.onIsActionAllowed.connect(&onTerminalIsActionAllowed);
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
@@ -316,18 +297,7 @@ private:
     void removeTerminal(Terminal terminal) {
         int id = to!int(terminal.terminalID);
         trace("Removing terminal " ~ terminal.uuid);
-        if (currentTerminal == terminal)
-            currentTerminal = null;
-        //Remove delegates
-        terminal.removeOnTerminalClose(&onTerminalClose);
-        terminal.removeOnTerminalRequestDetach(&onTerminalRequestDetach);
-        terminal.removeOnTerminalRequestMove(&onTerminalRequestMove);
-        terminal.removeOnTerminalInFocus(&onTerminalInFocus);
-        terminal.removeOnTerminalSyncInput(&onTerminalSyncInput);
-        terminal.removeOnProcessNotification(&onTerminalProcessNotification);
-        terminal.removeOnIsActionAllowed(&onTerminalIsActionAllowed);
-        terminal.removeOnTerminalRequestStateChange(&onTerminalRequestStateChange);
-        terminal.removeOnTerminalTitleChange(&onTerminalTitleChange);
+        removeTerminalReferences(terminal);
         //If a terminal is maximized restore it before removing
         // so all the parenting can be detected
         Terminal maximizedTerminal;
@@ -339,9 +309,6 @@ private:
         }
         //unparent the terminal
         unparentTerminal(terminal);
-        //Remove terminal
-        gx.util.array.remove(terminals, terminal);
-        gx.util.array.remove(mruTerminals, terminal);
         //Only one terminal open, close session
         tracef("There are %d terminals left", terminals.length);
         if (terminals.length == 0) {
@@ -370,6 +337,28 @@ private:
             maximizeTerminal(terminal);
         }
         showAll();
+    }
+
+    /**
+     * Removes all references to the terminal from the session
+     */
+    void removeTerminalReferences(Terminal terminal) {
+        if (currentTerminal == terminal)
+            currentTerminal = null;
+        //Remove terminal
+        gx.util.array.remove(terminals, terminal);
+        gx.util.array.remove(mruTerminals, terminal);
+
+        //Remove delegates
+        terminal.onClose.disconnect(&onTerminalClose);
+        terminal.onFocusIn.disconnect(&onTerminalFocusIn);
+        terminal.onRequestDetach.disconnect(&onTerminalRequestDetach);
+        terminal.onRequestMove.disconnect(&onTerminalRequestMove);
+        terminal.onSyncInput.disconnect(&onTerminalSyncInput);
+        terminal.onRequestStateChange.disconnect(&onTerminalRequestStateChange);
+        terminal.onTitleChange.disconnect(&onTerminalTitleChange);
+        terminal.onProcessNotification.disconnect(&onTerminalProcessNotification);
+        terminal.onIsActionAllowed.disconnect(&onTerminalIsActionAllowed);
     }
 
     /**
@@ -413,7 +402,7 @@ private:
      *
      * This is a bit convoluted since we are using Box as a shim to
      * preserve spacing. Every child widget is embeded in a Box which
-     * is then embeded in a Paned. So an example heirarchy qouls be as follows:
+     * is then embeded in a Paned. So an example heirarchy would be as follows:
      *
      * Session (Box) -> Paned -> Box -> Terminal
      *                        -> Box -> Paned -> Box -> Terminal
@@ -515,6 +504,7 @@ private:
         case Orientation.VERTICAL:
             paned.setPosition(height / 2);
             break;
+
         }
         parent.add(paned);
         parent.showAll();
@@ -525,6 +515,7 @@ private:
     void onTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
 
         Session getSession(Terminal terminal) {
+
             Widget widget = terminal.getParent();
             while (widget !is null) {
                 Session result = cast(Session) widget;
@@ -570,7 +561,7 @@ private:
         terminal.destroy();
 
         // Force GC to clean up VTE temporary FD faster
-        import core.memory;
+        import core.memory: GC;
         GC.collect();
     }
 
@@ -585,15 +576,17 @@ private:
         notifyProcessNotification(summary, _body, uuid, _sessionUUID);
     }
 
-    bool onTerminalIsActionAllowed(ActionType actionType) {
+    void onTerminalIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
         switch (actionType) {
         case ActionType.DETACH:
             //Ok this is a bit weird but we only only a terminal to be detached
             //if a session has more then one terminal in it OR the application
             //has multiple sessions.
-            return terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH);
+            result.addResult(terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH));
+            break;
         default:
-            return false;
+            result.addResult(false);
+            break;
         }
     }
 
@@ -617,7 +610,7 @@ private:
         }
     }
 
-    void onTerminalInFocus(Terminal terminal) {
+    void onTerminalFocusIn(Terminal terminal) {
         //trace("Focus noted");
         currentTerminal = terminal;
         gx.util.array.remove(mruTerminals, terminal);
@@ -641,9 +634,7 @@ private:
      */
     void onTerminalTitleChange(Terminal terminal) {
         if (terminal == currentTerminal) {
-            foreach(dlg; sessionStateChangeDelegates) {
-                dlg(this, SessionStateChange.TERMINAL_TITLE);
-            }
+            onStateChange.emit(this, SessionStateChange.TERMINAL_TITLE);
         }
     }
 
@@ -693,7 +684,7 @@ private:
     /**
      * Manages changing a terminal from maximized to normal
      */
-    bool onTerminalRequestStateChange(Terminal terminal, TerminalWindowState state) {
+    void onTerminalRequestStateChange(Terminal terminal, TerminalWindowState state, CumulativeResult!bool results) {
         trace("Changing window state");
         bool result;
         if (state == TerminalWindowState.MAXIMIZED) {
@@ -702,7 +693,7 @@ private:
             result = restoreTerminal(terminal);
         }
         terminal.focusTerminal();
-        return result;
+        results.addResult(result);
     }
 
     void applyPreference(string key) {
@@ -979,6 +970,28 @@ public:
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         _name = name;
+
+        this.addOnDestroy(delegate(Widget) {
+            trace("Session onDestroy");
+            //Clean up terminal references
+            foreach(terminal; terminals) {
+                trace("Removing terminal reference");
+                removeTerminalReferences(terminal);
+            }            
+
+            terminals.length = 0;
+            mruTerminals.length = 0;
+
+            gsSettings.destroy();
+            gsSettings = null;
+        });
+    }
+
+    debug(Destructors) {
+        ~this() {
+            import std.stdio: writeln;
+            writeln("********** Session destructor");
+        }
     }
 
     /**
@@ -1317,33 +1330,35 @@ public:
         }
     }
 
-    void addOnSessionClose(OnSessionClose dlg) {
-        sessionCloseDelegates ~= dlg;
-    }
-
-    void removeOnSessionClose(OnSessionClose dlg) {
-        gx.util.array.remove(sessionCloseDelegates, dlg);
-    }
-
-    void addOnSessionDetach(OnSessionDetach dlg) {
-        sessionDetachDelegates ~= dlg;
-    }
-
-    void removeOnSessionDetach(OnSessionDetach dlg) {
-        gx.util.array.remove(sessionDetachDelegates, dlg);
-    }
-
     @property bool maximized() {
         return maximizedInfo.isMaximized;
     }
 
-    void addOnSessionStateChange(OnSessionStateChange dlg) {
-        sessionStateChangeDelegates ~= dlg;
-    }
+//Events
+public:
 
-    void removeOnSessionStateChange(OnSessionStateChange dlg) {
-        gx.util.array.remove(sessionStateChangeDelegates, dlg);
-    }
+    /**
+    * An event that occurs when the session closes, the application window
+    * listens to this event and removes the session when received.
+    */
+    GenericEvent!(Session) onClose;
+
+    /**
+     * Occurs when a terminal is detached.
+     *
+     * Params:
+     *  Session = The session that is being detached
+     *  x = x position where to detach
+     *  y = y position where to detach
+     *  isNewSession = Whether this is a new session
+     */
+    GenericEvent!(Session, int, int, bool) onDetach;
+
+    /**
+     * Triggered when state changes, such as title, occur
+     */
+    GenericEvent!(Session, SessionStateChange) onStateChange;
+
 }
 
 /**

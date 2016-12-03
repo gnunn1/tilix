@@ -82,14 +82,6 @@ static import gx.util.array;
 Terminix terminix;
 
 /**
- * Invoked when the GTK theme has changed. While things could
- * listen to gtk.Settings.addOnNotify directly, because this is a
- * long lived object and GtkD doesn't provide a way to remove
- * listeners it will lead to memory leaks so we use this instead
- */
-alias OnThemeChanged = void delegate(string theme);
-
-/**
  * The GTK Application used by Terminix.
  */
 class Terminix : Application {
@@ -130,8 +122,6 @@ private:
     bool warnedVTEConfigIssue = false;
 
     CssProvider themeCssProvider;
-
-    OnThemeChanged[] themeChangedDelegates;
 
     /**
      * Load and register binary resource file and add css files as providers
@@ -437,7 +427,7 @@ private:
         cp.clear();
     }
 
-    void onThemeChange(ParamSpec, ObjectG) {
+    void handleThemeChange(ParamSpec, ObjectG) {
         string theme = getGtkTheme();
         trace("Theme changed to " ~ theme);
         if (themeCssProvider !is null) {
@@ -450,14 +440,12 @@ private:
         if (!themeCssProvider) {
             tracef("No specific CSS found %s", cssURI);
         }
-        foreach(dlg; themeChangedDelegates) {
-            dlg(theme);
-        }
+        onThemeChange.emit(theme);
     }
 
     void onAppStartup(GApplication) {
         trace("Startup App Signal");
-        Settings.getDefault.addOnNotify(&onThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
+        Settings.getDefault.addOnNotify(&handleThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         trace("Monitoring shortcuts");
@@ -774,11 +762,16 @@ public:
         }
     }
 
-    void addOnThemeChanged(OnThemeChanged dlg) {
-        themeChangedDelegates ~= dlg;
-    }
-
-    void removeOnThemeChanged(OnThemeChanged dlg) {
-        gx.util.array.remove(themeChangedDelegates, dlg);
-    }
+// Events
+public:
+    /**
+    * Invoked when the GTK theme has changed. While things could
+    * listen to gtk.Settings.addOnNotify directly, because this is a
+    * long lived object and GtkD doesn't provide a way to remove
+    * listeners it will lead to memory leaks so we use this instead
+    *
+    * Params:
+    *   name = the name of the theme
+    */
+    GenericEvent!(string) onThemeChange;
 }

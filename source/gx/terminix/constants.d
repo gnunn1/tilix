@@ -18,8 +18,6 @@ import gx.i18n.l10n;
 immutable bool USE_SCROLLED_WINDOW = false;
 // Whether to use a pixbuf for drag and Drop image
 immutable bool USE_PIXBUF_DND = false;
-//Add debug options to session menu
-immutable bool SHOW_DEBUG_OPTIONS = false;
 // Renders clipboard options as buttons in context menu
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = false;
 // All logs go to the file /tmp/terminix.log, useful

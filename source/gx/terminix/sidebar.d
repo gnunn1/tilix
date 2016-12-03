@@ -41,18 +41,6 @@ import gx.terminix.preferences;
 import gx.terminix.session;
 
 /**
- * Event used when a session is selected, if no session is selected
- * null is returned indicating the sidebar should be closed.
- */
-alias OnSBSessionSelected = void delegate(string sessionUUID);
-
-/**
- * Event to request that the specified session be closed, returns
- * true if it was closed, false if not
- */
-alias OnSBSessionClose = bool delegate(string sessionUUID);
-
-/**
  * Provides the session selecting sidebar
  */
 class SideBar : Revealer {
@@ -60,9 +48,6 @@ private:
     GSettings gsSettings;
 
     ListBox lbSessions;
-
-    OnSBSessionSelected[] sessionSelectedDelegates;
-    OnSBSessionClose[] sessionCloseDelegates;
 
     bool blockSelectedHandler;
 
@@ -74,9 +59,7 @@ private:
     }
 
     void notifySessionSelected(string sessionUUID) {
-        foreach (sessionSelected; sessionSelectedDelegates) {
-            sessionSelected(sessionUUID);
-        }
+        onSelected.emit(sessionUUID);
     }
 
     bool onButtonPress(Event event, Widget w) {
@@ -94,9 +77,10 @@ private:
         trace("Removing session " ~ sessionUUID);
         SideBarRow row = getRow(sessionUUID);
         if (row !is null) {
-            foreach(dlg; sessionCloseDelegates) {
-                if (!dlg(sessionUUID)) return;
-            }
+            CumulativeResult!bool result = new CumulativeResult!bool();
+            onClose.emit(sessionUUID, result);
+            // Don't close if listener indicates it didn't close the session 
+            if (result.isAnyResult(false)) return;
             lbSessions.remove(row);
             reindexSessions();
         } else {
@@ -274,21 +258,27 @@ public:
         }
     }
 
-    void addOnSessionSelected(OnSBSessionSelected dlg) {
-        sessionSelectedDelegates ~= dlg;
-    }
+//Events
+public:
 
-    void removeOnSessionSelected(OnSBSessionSelected dlg) {
-        gx.util.array.remove(sessionSelectedDelegates, dlg);
-    }
+    /**
+    * Event used when a session is selected, if no session is selected
+    * null is returned indicating the sidebar should be closed.
+    *
+    * Params
+    *   sessionUUID = The session identifier
+    */
+    GenericEvent!(string) onSelected;
 
-    void addOnSessionClose(OnSBSessionClose dlg) {
-        sessionCloseDelegates ~= dlg;
-    }
-
-    void removeOnSessionClose(OnSBSessionClose dlg) {
-        gx.util.array.remove(sessionCloseDelegates, dlg);
-    }
+    /**
+    * Event to request that the specified session be closed, returns
+    * true if it was closed, false if not.
+    *
+    * Params:
+    *   sessionUUID = The session identifier
+    *   result = Whether the session was closed or not
+    */
+    GenericEvent!(string, CumulativeResult!bool) onClose;
 }
 
 private:
