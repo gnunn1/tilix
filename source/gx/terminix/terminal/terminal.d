@@ -939,8 +939,8 @@ private:
 
         Box box = new Box(Orientation.VERTICAL, 0);
         rFind = new SearchRevealer(vte, sagTerminalActions);
-        rFind.addOnSearchEntryFocusIn(&onTerminalWidgetFocusIn);
-        rFind.addOnSearchEntryFocusOut(&onTerminalWidgetFocusOut);
+        rFind.onSearchEntryFocusIn.connect(&terminalWidgetFocusIn);
+        rFind.onSearchEntryFocusOut.connect(&terminalWidgetFocusOut);
 
         box.add(rFind);
         box.add(terminalBox);
@@ -1492,6 +1492,11 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusIn(Event event, Widget widget) {
+        terminalWidgetFocusIn(widget);
+        return false;
+    }
+
+    void terminalWidgetFocusIn(Widget widget) {
         trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
         //Fire focus events so session can track which terminal last had focus
@@ -1499,19 +1504,22 @@ private:
         if (dimPercent > 0) {
             vte.queueDraw();
         }
-        return false;
     }
 
     /**
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
+        terminalWidgetFocusOut(widget);        
+        return false;
+    }
+
+    void terminalWidgetFocusOut(Widget widget) {
         trace("Terminal lost focus" ~ uuid);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         if (dimPercent > 0) {
             vte.queueDraw();
         }
-        return false;
     }
 
     // Preferences go here
@@ -2719,6 +2727,8 @@ public:
         }
 
         if (rFind !is null) {
+            rFind.onSearchEntryFocusIn.disconnect(&terminalWidgetFocusIn);
+            rFind.onSearchEntryFocusOut.disconnect(&terminalWidgetFocusOut);
             rFind.destroy();
             rFind = null;
         }

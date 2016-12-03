@@ -37,6 +37,7 @@ import vte.Terminal : VTE = Terminal;
 import gx.gtk.actions;
 import gx.i18n.l10n;
 
+import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
@@ -224,6 +225,14 @@ public:
             this.vte = null;
             this.terminalActions = null;
         });
+        seSearch.addOnFocusIn(delegate(Event event, Widget widget) {
+            onSearchEntryFocusIn.emit(widget);
+            return false;
+        });
+        seSearch.addOnFocusIn(delegate(Event event, Widget widget) {
+            onSearchEntryFocusOut.emit(widget);
+            return false;
+        });
     }
 
     void focusSearchEntry() {
@@ -238,11 +247,7 @@ public:
         return seSearch.isFocus();
     }
 
-    void addOnSearchEntryFocusIn(bool delegate(Event, Widget) dlg) {
-        seSearch.addOnFocusIn(dlg);
-    }
+    GenericEvent!(Widget) onSearchEntryFocusIn;
 
-    void addOnSearchEntryFocusOut(bool delegate(Event, Widget) dlg) {
-        seSearch.addOnFocusOut(dlg);
-    }
+    GenericEvent!(Widget) onSearchEntryFocusOut;    
 }
