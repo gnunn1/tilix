@@ -558,11 +558,13 @@ private:
 
     void closeTerminal(Terminal terminal) {
         removeTerminal(terminal);
-        terminal.destroy();
+        terminal.finalizeTerminal();
+        //Try to avoid destroying things explicitly due to GtkD issue
+        //terminal.destroy();
 
         // Force GC to clean up VTE temporary FD faster
-        import core.memory: GC;
-        GC.collect();
+        //import core.memory: GC;
+        //GC.collect();
     }
 
     /**

@@ -800,14 +800,6 @@ private:
         });
         vte.addOnContentsChanged(delegate(VTE) {
             // VTE configuration problem, Issue #34
-            /*
-            trace("Contents changed:");
-            trace("\tdirectory.length=" ~ to!string(gst.currentLocalDirectory.length));
-            trace("\toverrideCommand.length=" ~ to!string(overrideCommand.length));
-            trace("\tterminalInitialized " ~ to!string(terminalInitialized));
-            trace("\ttestVTEConfig " ~ to!string(terminix.testVTEConfig()));
-            */
-
             // This emits the CTE configuration warning based on whether the currentLocalDirectory is being set.
             // However this is actually a bit tricky because the currentLocalDirectory only gets set on the first prompt
             // so there are a lot of cases where you don't want to show it.
@@ -826,17 +818,6 @@ private:
                 }
             }
             vte.addOnScroll(&onTerminalScroll);
-            //Workaround for #589
-            vte.addOnDestroy(delegate(Widget w) {
-                stopProcess();
-                import gtk.Bin;
-                Bin bin = cast(Bin)w.getParent();
-                if (bin !is null) {
-                    bin.remove(w);
-                }
-                vte = null;
-            }, ConnectFlags.AFTER);
-
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
         });
@@ -2652,15 +2633,10 @@ public:
      */
     this(string profileUUID) {
         super();
-        gst = new GlobalTerminalState();
         addOnDestroy(delegate(Widget) {
-            // Never use experimental logging in destructors, causes 
-            // memory exceptions on GC for some reason
-
-            //trace("Terminal destroy");
-            terminix.onThemeChange.disconnect(&onThemeChanged);
-            if (timer !is null) timer.stop();
-        }, ConnectFlags.AFTER);
+            finalizeTerminal();
+        });
+        gst = new GlobalTerminalState();
         initColors();
         _terminalUUID = randomUUID().toString();
         _activeProfileUUID = profileUUID;
@@ -2727,6 +2703,35 @@ public:
         }
         trace("Terminal initialized");
         updateDisplayText();
+    }
+
+    /**
+     * Finalize the terminal and cleanup any references, this can be
+     * called multiple times with no ill effect.
+     */
+    void finalizeTerminal() {
+        stopProcess();
+        terminix.onThemeChange.disconnect(&onThemeChanged);
+        if (timer !is null) timer.stop();
+        if (sagTerminalActions !is null) {
+            sagTerminalActions.destroy();
+            sagTerminalActions = null;
+        }
+
+        if (rFind !is null) {
+            rFind.destroy();
+            rFind = null;
+        }
+
+        if (vte !is null && !inDestruction()) {
+            //Workaround for #589
+            import gtk.Bin;
+            Bin bin = cast(Bin)vte.getParent();
+            if (bin !is null) {
+                bin.remove(vte);
+            }
+        }
+        vte = null;
     }
 
     /**
