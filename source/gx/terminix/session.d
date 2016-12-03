@@ -972,10 +972,12 @@ public:
         _name = name;
 
         this.addOnDestroy(delegate(Widget) {
-            trace("Session onDestroy");
+            // Never use experimental logging in destructors, causes 
+            // memory exceptions on GC for some reason
+
             //Clean up terminal references
             foreach(terminal; terminals) {
-                trace("Removing terminal reference");
+                //trace("Removing terminal reference");
                 removeTerminalReferences(terminal);
             }            
 

@@ -2654,7 +2654,10 @@ public:
         super();
         gst = new GlobalTerminalState();
         addOnDestroy(delegate(Widget) {
-            trace("Terminal destroy");
+            // Never use experimental logging in destructors, causes 
+            // memory exceptions on GC for some reason
+
+            //trace("Terminal destroy");
             terminix.onThemeChange.disconnect(&onThemeChanged);
             if (timer !is null) timer.stop();
         }, ConnectFlags.AFTER);

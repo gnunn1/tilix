@@ -768,7 +768,8 @@ private:
     void closeSession(Session session) {
         bool isCurrentSession = (session == getCurrentSession());
         removeSession(session);
-        session.destroy();
+        // Don't destroy session artificially due to GtkD issues
+        //session.destroy();
         if (!isCurrentSession) {
             updateTitle();
             updateUIState();
