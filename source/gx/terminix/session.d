@@ -468,7 +468,8 @@ private:
         //terminal can be parented to either Box or Stack which both
         //descend from Container
         Container container = cast(Container) terminal.getParent();
-        container.remove(terminal);
+        //container.remove(terminal);
+        container.destroy();
     }
 
     /**
