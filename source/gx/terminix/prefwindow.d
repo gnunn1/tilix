@@ -337,6 +337,7 @@ public:
         super(app);
         gsSettings = new GSettings(SETTINGS_ID);
         app.addWindow(this);
+        setShowMenubar(false);
         createUI(app);
         updateUI();
     }

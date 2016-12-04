@@ -183,7 +183,7 @@ private:
      * it will be rendered by GTK as part of the window.
      */
     void forceAppMenu() {
-        Settings settings = Settings.getDefault();
+        Settings settings = getSettings();
         if (settings !is null) {
             Value value = new Value("");
             settings.getProperty(GTK_DECORATION_LAYOUT, value);
@@ -426,7 +426,7 @@ private:
      * Create Window actions
      */
     void createWindowActions(GSettings gsShortcuts) {
-        debug {
+        debug(GC) {
             registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) { trace("Performing collection"); core.memory.GC.collect(); });
         }
 
@@ -661,7 +661,7 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
-        debug {
+        debug(GC) {
             GMenu mDebugSection = new GMenu();
             mDebugSection.appendItem(new GMenuItem(_("GC"), getActionDetailedName("win", "gc")));
             model.appendSection(null, mDebugSection);
@@ -1353,6 +1353,7 @@ public:
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
+            setShowMenubar(false);            
         } else {
             forceAppMenu();
         }  
