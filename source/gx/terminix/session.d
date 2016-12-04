@@ -468,7 +468,7 @@ private:
         //terminal can be parented to either Box or Stack which both
         //descend from Container
         Container container = cast(Container) terminal.getParent();
-        //container.remove(terminal);
+        container.remove(terminal);
         container.destroy();
     }
 
@@ -561,11 +561,7 @@ private:
         removeTerminal(terminal);
         terminal.finalizeTerminal();
         //Try to avoid destroying things explicitly due to GtkD issue
-        //terminal.destroy();
-
-        // Force GC to clean up VTE temporary FD faster
-        //import core.memory: GC;
-        //GC.collect();
+        terminal.destroy();
     }
 
     /**
