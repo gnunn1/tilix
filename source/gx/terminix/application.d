@@ -66,6 +66,7 @@ import gx.gtk.vte;
 import gx.i18n.l10n;
 
 import gx.terminix.appwindow;
+import gx.terminix.closedialog;
 import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
@@ -295,11 +296,28 @@ private:
     }
 
     void quitTerminix() {
+        ProcessInformation pi = getProcessesInformation();
+        if (pi.children.length > 0) {
+            if (!promptCanCloseProcesses(getActiveWindow(), pi)) return;
+        }
+
         foreach (window; appWindows) {
-            window.close();
+            window.closeNoPrompt();
         }
         if (preferenceWindow !is null)
             preferenceWindow.close();
+
+    }
+
+    ProcessInformation getProcessesInformation() {
+        ProcessInformation result = ProcessInformation(ProcessInfoSource.APPLICATION, _("Terminix"), "", []);
+        foreach(window; appWindows) {
+            ProcessInformation winInfo = window.getProcessInformation();
+            if (winInfo.children.length > 0) {
+                result.children ~= winInfo;
+            }
+        }
+        return result;
     }
 
     void loadBackgroundImage() {

@@ -190,6 +190,22 @@ public:
     GenericEvent!(string, string, string, string) onProcessNotification;
 }
 
+/**
+ * The source of the process information
+ */
+enum ProcessInfoSource {APPLICATION, WINDOW, SESSION, TERMINAL}
+
+/**
+ * Returns information about the running processes. The description
+ * will typically be the same as the source title.
+ */
+struct ProcessInformation {
+    ProcessInfoSource source;
+    string description;
+    string uuid;
+    ProcessInformation[] children;
+}
+
 // ***************************************************************************
 // This block deals with session notification messages. These are messages
 // that are raised after a process is completed.
