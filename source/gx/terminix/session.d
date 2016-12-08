@@ -1166,6 +1166,23 @@ public:
     }
 
     /**
+     * Returns information about any running processes in the terminal.
+     */
+    ProcessInformation getProcessInformation() {
+        ProcessInformation result = ProcessInformation(ProcessInfoSource.SESSION, displayName, uuid, []);
+        foreach (terminal; terminals) {
+            string name;
+            if (terminal.isProcessRunning(name)) {
+                result.children ~= ProcessInformation(ProcessInfoSource.TERMINAL, 
+                                                      (name.length > 0? name:terminal.getDisplayText(name)), 
+                                                      terminal.uuid, 
+                                                      []);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Resize terminal based on direction
      */
     void resizeTerminal(string direction) {

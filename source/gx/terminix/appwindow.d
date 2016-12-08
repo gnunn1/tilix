@@ -16,6 +16,7 @@ import std.json;
 import std.path;
 import std.process;
 import std.string;
+import std.uuid;
 
 import cairo.Context;
 import cairo.ImageSurface;
@@ -91,6 +92,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 
 import gx.terminix.application;
+import gx.terminix.closedialog;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.cmdparams;
@@ -106,7 +108,7 @@ import gx.terminix.sidebar;
  * prefix rather then the win prefix which is typically used for
  * a AplicationWindow.
  */
-class AppWindow : ApplicationWindow {
+class AppWindow : ApplicationWindow, IIdentifiable {
 
 private:
 
@@ -138,6 +140,8 @@ private:
     enum TITLE_APP_NAME = "${appName}";
     enum TITLE_SESSION_NAME = "${sessionName}";
     enum TITLE_SESSION_NUMBER = "${sessionNumber}";
+
+    string _windowUUID;
 
     Notebook nb;
     HeaderBar hb;
@@ -177,6 +181,9 @@ private:
 
     // The user overridden application title, specific to the window only
     string _overrideTitle;
+
+    // Tells the window when closing not to prompt the user, just close
+    bool _noPrompt = false;
 
     /**
      * Forces the app menu in the decoration layouts so in environments without an app-menu
@@ -745,12 +752,18 @@ private:
      * Used to handle cases where the user requests a session be closed
      */
     void onUserSessionClose(string sessionUUID, CumulativeResult!bool result) {
+        if (_noPrompt) {
+            result.addResult(false);
+            return;
+        }
         trace("Sidebar requested to close session " ~ sessionUUID);
         if (sessionUUID.length > 0) {
             Session session = getSession(sessionUUID);
             if (session !is null) {
-                if (session.isProcessRunning()) {
-                    if (!showCanClosePrompt) {
+                ProcessInformation pi = session.getProcessInformation();
+                if (pi.children.length > 0) {
+                    bool canClose = promptCanCloseProcesses(this, pi);
+                    if (!canClose) {
                         result.addResult(false);
                         return;
                     }
@@ -941,7 +954,7 @@ private:
         }
         // If session not active, keep copy locally
         if (sessionUUID != getCurrentSession().uuid) {
-            tracef("SessionUUID: %s versus Notification UUID: %s", sessionUUID, getCurrentSession().uuid);
+            tracef("SessionUUID: %s versusterminal. Notification UUID: %s", sessionUUID, getCurrentSession().uuid);
             //handle session level notifications here
             ProcessNotificationMessage msg = ProcessNotificationMessage(terminalUUID, summary, _body);
             if (sessionUUID in sessionNotifications) {
@@ -980,34 +993,11 @@ private:
         return result;
     }
 
-    /**
-     * Prompts the user if we can close. This is used both when closing a single
-     * session and when closing the application window
-     */
-    bool showCanClosePrompt() {
-        MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                _("There are processes that are still running, close anyway?"), null);
-
-        dialog.setDefaultResponse(ResponseType.CANCEL);
-        scope (exit) {
-            dialog.destroy();
-        }
-        if (dialog.run() != ResponseType.OK) {
-            return false;
-        }
-        return true;
-    }
-
     bool onWindowClosed(Event event, Widget widget) {
-        bool promptForClose = false;
-        for (int i = 0; i < nb.getNPages(); i++) {
-            if (getSession(i).isProcessRunning()) {
-                promptForClose = true;
-                break;
-            }
-        }
-        if (promptForClose) {
-            return !showCanClosePrompt();
+        if (_noPrompt) return false;
+        ProcessInformation pi = getProcessInformation();
+        if (pi.children.length > 0) {
+            return !promptCanCloseProcesses(this, pi);
         } else if (nb.getNPages() > 1) {
             return !showCanCloseMultipleSessions();
         }
@@ -1324,6 +1314,7 @@ public:
 
     this(Application application) {
         super(application);
+        _windowUUID = randomUUID().toString();
         terminix.addAppWindow(this);
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
@@ -1424,6 +1415,11 @@ public:
 
     void initialize(Session session) {
         addSession(session);
+    }
+
+    void closeNoPrompt() {
+        _noPrompt = true;
+        close();
     }
 
     /**
@@ -1551,6 +1547,30 @@ public:
         } else {
             createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile(), workingDir);
         }
+    }
+
+    /**
+     * Information about any running processes in the window.
+     */ 
+    ProcessInformation getProcessInformation() {
+        ProcessInformation result = ProcessInformation(ProcessInfoSource.WINDOW, getTitle(), "", []);
+        for(int i=0; i<nb.getNPages; i++) {
+            Session session = cast(Session) nb.getNthPage(i);
+            if (session !is null) {
+                ProcessInformation sessionInfo = session.getProcessInformation();
+                if (sessionInfo.children.length > 0) { 
+                    result.children ~= sessionInfo;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Unique and immutable session ID
+     */
+    @property string uuid() {
+        return _windowUUID;
     }
 
     /**

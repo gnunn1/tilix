@@ -123,6 +123,7 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.closedialog;
 import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
@@ -571,19 +572,12 @@ private:
 
         //Close Terminal Action
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            bool closeTerminal = true;
-            if (isProcessRunning()) {
-                MessageDialog dialog = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                    _("There are processes that are still running, close anyway?"), null);
-                scope (exit) {
-                    dialog.destroy();
-                }
-                dialog.setDefaultResponse(ResponseType.CANCEL);
-                if (dialog.run() == ResponseType.CANCEL)
-                    closeTerminal = false;
+            string name;
+            if (isProcessRunning(name)) {
+                ProcessInformation pi = ProcessInformation(ProcessInfoSource.TERMINAL, (name.length > 0? name: getDisplayText("")), uuid, []);
+                if (!promptCanCloseProcesses(cast(Window)getToplevel(), pi)) return;
             }
-            if (closeTerminal)
-                notifyTerminalClose();
+            notifyTerminalClose();
         });
 
         //Read Only
@@ -2794,16 +2788,39 @@ public:
         }
     }
 
-    /**
-     * Determines if a child process is running in the terminal
-     */
     bool isProcessRunning() {
+        pid_t childPid = getChildPid();
+        return isProcessRunning(childPid);
+    }
+
+    /**
+     * Determines if a child process is running in the terminal,
+     * and returns the pid
+     */
+    bool isProcessRunning(out pid_t childPid) {
         if (vte.getPty() is null)
             return false;
         int fd = vte.getPty().getFd();
-        pid_t childPid = getChildPid();
+        childPid = getChildPid();
         tracef("childPid=%d gpid=%d", childPid, gpid);
         return (childPid != -1 && childPid != gpid);
+    }
+
+    /**
+     * Determines if a child process is running in the terminal,
+     * returns the name
+     */
+    bool isProcessRunning(out string name) {
+        if (vte.getPty() is null)
+            return false;
+        pid_t childPid;
+        bool result = isProcessRunning(childPid);
+
+        import std.file: read;
+        name = to!string(cast(char[])read(format("/proc/%d/cmdline", childPid)));
+        name = replace(name, "\0", " ");
+
+        return result;
     }
 
     /**
