@@ -5,6 +5,7 @@
 module gx.terminix.closedialog;
 
 import std.experimental.logger;
+import std.format;
 
 import gdkpixbuf.Pixbuf;
 
@@ -118,7 +119,17 @@ private:
         if (pi.source == ProcessInfoSource.TERMINAL) {
             ts.setValue(current, COLUMNS.ICON, pbTerminal);
         }
-        ts.setValue(current, COLUMNS.NAME, pi.description);
+        switch (pi.source) {
+            case ProcessInfoSource.WINDOW:
+                ts.setValue(current, COLUMNS.NAME, format(_("Window (%s)"), pi.description));
+                break;
+            case ProcessInfoSource.SESSION:
+                ts.setValue(current, COLUMNS.NAME, format(_("Session (%s)"), pi.description));
+                break;
+            default:
+                ts.setValue(current, COLUMNS.NAME, pi.description);
+                break;
+        }
         ts.setValue(current, COLUMNS.UUID, pi.uuid);
         
         foreach(child; pi.children) {
