@@ -2021,7 +2021,7 @@ private:
     /*
     GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
-        string arg = join(args, " ");
+
         GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
         foreach(fd; fdlist) {
             fdBuilder.addValue(new GVariant(fd));
@@ -2029,24 +2029,31 @@ private:
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {
             string[] envPair = env.split("=");
+            tracef("Adding env var %s=%s", envPair[0], envPair[1]);
             if (envPair.length ==2) {
-                envBuilder.addValue(new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1])));
+                GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
+                envBuilder.addValue(pair);
             }
         }
         
-        tracef("Working dir=%s, args=%s", workingDir, arg);
-
         import gtkc.glib: g_variant_new;
+        
+        immutable(char)* wd = toStringz(workingDir);
+        immutable(char)** ad[10];
+        foreach(i, arg; args) {
+            ad[i] = toStringz(arg);
+        }
 
         gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
-                          toStringz(workingDir),
-                          toStringz(arg),
+                          wd,
+                          ad,
                           fdBuilder.end().getVariantStruct(),
                           envBuilder.end().getVariantStruct(),
                           0);
+
         return new GVariant(vs, true);
     }
-
+    
     enum O_CLOEXEC = 0x80000;
 
     void sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
