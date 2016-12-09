@@ -1080,9 +1080,9 @@ private:
     void moveAndSizeQuake() {
         GdkRectangle rect;
         getQuakePosition(rect);
+        trace("Actually move/resize quake window");
         if (getWindow() !is null) {
             getWindow().moveResize(rect.x, rect.y, rect.width, rect.height);
-            trace("moveResize for quake mode");
         } else {
             move(rect.x, rect.y);
             resize(rect.width, rect.height);
@@ -1339,7 +1339,6 @@ public:
             setGravity(GdkGravity.STATIC);
             setKeepAbove(true);
             //applyPreference(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
-            applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
@@ -1354,6 +1353,11 @@ public:
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
         addOnRealize(&onWindowRealized);
+        addOnMap(delegate(Widget) {
+            if (isQuake()) {
+                applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);
+            }
+        }, ConnectFlags.AFTER);
 
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {

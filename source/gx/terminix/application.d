@@ -290,7 +290,10 @@ private:
 
     void createAppWindow() {
         AppWindow window = new AppWindow(this);
-        window.realize();
+        // Window was being realized here to support inserting Window ID
+        // into terminal but had lot's of other issues with it so commented
+        // it out.
+        //window.realize();
         window.initialize();
         window.showAll();
     }
