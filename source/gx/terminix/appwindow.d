@@ -291,6 +291,7 @@ private:
             } else {
                 add(grid);
             }
+            hb.setNoShowAll(gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY));
         } else {
             this.setTitlebar(hb);
             hb.setShowCloseButton(true);
@@ -1020,6 +1021,7 @@ private:
             if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
                 moveAndSizeQuake();
             }
+            setKeepAbove(true);
             trace("Focus terminal");
             activate();
             activateFocus();
@@ -1060,6 +1062,14 @@ private:
                     } else {
                         setTypeHint(GdkWindowTypeHint.NORMAL);
                     }
+                }
+                break;
+            case SETTINGS_QUAKE_HIDE_HEADERBAR_KEY:
+                if (isQuake) {
+                    bool hide = gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY);
+                    hb.setNoShowAll(hide);
+                    if (hide) hb.hide();
+                    else hb.show();
                 }
                 break;
             /*
@@ -1338,7 +1348,6 @@ public:
             setDecorated(false);
             setGravity(GdkGravity.STATIC);
             setKeepAbove(true);
-            //applyPreference(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);

@@ -980,6 +980,11 @@ private:
         gsSettings.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideOnLoseFocus);
 
+        //Hide headerbar
+        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the titlebar of the window"));
+        gsSettings.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
+        bContent.add(cbHideHeaderbar);
+
         /*
         //Keep window on top
         CheckButton cbKeepOnTop = new CheckButton(_("Always keep window on top"));
