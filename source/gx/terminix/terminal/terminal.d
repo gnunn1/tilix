@@ -2018,13 +2018,13 @@ private:
         }
     }
 
-    /*
+/*
     GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
 
         GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
-        foreach(fd; fdlist) {
-            fdBuilder.addValue(new GVariant(fd));
+        foreach(i, fd; fdlist) {
+            fdBuilder.addValue(new GVariant(new GVariant(i), new GVariant(fd)));
         }
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {
@@ -2039,14 +2039,14 @@ private:
         import gtkc.glib: g_variant_new;
         
         immutable(char)* wd = toStringz(workingDir);
-        immutable(char)** ad[10];
+        immutable(char)*[] argsv;
         foreach(i, arg; args) {
-            ad[i] = toStringz(arg);
+            argsv ~= toStringz(arg);
         }
 
         gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
                           wd,
-                          ad,
+                          argsv.ptr,
                           fdBuilder.end().getVariantStruct(),
                           envBuilder.end().getVariantStruct(),
                           0);
@@ -2062,11 +2062,10 @@ private:
 
         int[] fdList;
 
-        char* name = ptsname(pty.getFd());
-        int ttyFd = open(name, O_RDWR | O_CLOEXEC);
-        if (ttyFd >= 0) {
-            fdList ~= ttyFd;
-        }
+        fdList ~= std.stdio.stdin.fileno;
+        fdList ~= std.stdio.stdout.fileno;
+        fdList ~= std.stdio.stderr.fileno;
+        
 
         UnixFDList outFdList = new UnixFDList();
         UnixFDList inFdList = new UnixFDList();
@@ -2093,7 +2092,7 @@ private:
             warning("No reply from flatpak dbus service");
         }
     }
-    */
+*/
     
     /**
      * Returns the child pid running in the terminal or -1
