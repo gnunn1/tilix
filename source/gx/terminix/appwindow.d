@@ -461,10 +461,6 @@ private:
         });
 
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
-            if (isQuake()) {
-                warning("Fullscreen is not supported in quake mode");
-                return;
-            }
             trace("Setting fullscreen");
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
