@@ -946,7 +946,7 @@ private:
             Notification n = new Notification(_(summary));
             n.setBody(_body);
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
-            getApplication().sendNotification("command-completed", n);
+            getApplication().sendNotification(uuid, n);
             //if session not visible send to local handler
         }
         // If session not active, keep copy locally
@@ -1002,6 +1002,7 @@ private:
     }
 
     void onWindowDestroyed(Widget) {
+        terminix.withdrawNotification(uuid);
         terminix.removeAppWindow(this);
     }
 
@@ -1399,6 +1400,10 @@ public:
             }
             return false;
         }, ConnectFlags.AFTER);
+        addOnFocusIn(delegate(Event e, Widget widget) {
+            terminix.withdrawNotification(uuid);
+            return false;
+        });
     }
 
     void initialize() {
