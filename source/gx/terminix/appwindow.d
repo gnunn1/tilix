@@ -393,7 +393,9 @@ private:
         EventBox eb = new EventBox();
         eb.add(lblTitle); 
         eb.addOnButtonRelease(delegate(Event event, Widget widget) {
-            eTitle.setText(_overrideTitle);
+            if (_overrideTitle.length > 0) {
+                eTitle.setText(_overrideTitle);
+            }
             sTitle.setVisibleChildName(PAGE_EDIT);
             eTitle.grabFocus();
             return false;
