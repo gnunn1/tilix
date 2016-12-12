@@ -2,7 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-module gx.terminix.prefwindow;
+module gx.terminix.prefdialog;
 
 import std.algorithm;
 import std.conv;
@@ -34,6 +34,7 @@ import gtk.CellRendererText;
 import gtk.CellRendererToggle;
 import gtk.CheckButton;
 import gtk.ComboBox;
+import gtk.Dialog;
 import gtk.Entry;
 import gtk.FileChooserButton;
 import gtk.FileFilter;
@@ -83,7 +84,7 @@ import gx.terminix.profileeditor;
 /**
  * UI for managing Terminix preferences
  */
-class PreferenceWindow : ApplicationWindow {
+class PreferenceDialog : Window {
 
 private:
     Stack pages;
@@ -98,7 +99,7 @@ private:
     // Track how many non-profile rows there are to prevent the last profile from being deleted
     immutable int NON_PROFILE_ROW_COUNT = 6;    
 
-    void createUI(Application app) {
+    void createUI() {
 
         setTitle(_("Terminix Preferences"));
 
@@ -212,7 +213,7 @@ private:
         hbMain.setShowCloseButton(true);
 
         hbSide = new HeaderBar();
-        hbSide.setHexpand(true);
+        hbSide.setHexpand(false);
         hbSide.setShowCloseButton(true);
         hbSide.setTitle(_("Preferences"));
 
@@ -234,7 +235,7 @@ private:
         ListBoxRow row = new ListBoxRow();
         Box bProfileTitle = new Box(Orientation.VERTICAL, 2);
         bProfileTitle.add(new Separator(Orientation.HORIZONTAL));
-        Label lblProfileTitle = new Label("<b>Profiles</b>");
+        Label lblProfileTitle = new Label(format("<b>%s</b>",_("Profiles")));
         lblProfileTitle.setUseMarkup(true);
         lblProfileTitle.setHalign(Align.START);
         lblProfileTitle.setSensitive(false);
@@ -258,7 +259,7 @@ private:
         if (pr !is null) {
             pe.bind(pr.getProfile());
             pages.setVisibleChildName("Profile");
-            hbMain.setTitle(format("Profile: %s", pr.getProfile().name));
+            hbMain.setTitle(format(_("Profile: %s"), pr.getProfile().name));
         }
     }
 
@@ -266,7 +267,7 @@ private:
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
         if (row !is null) {
             row.updateName(newName);
-            hbMain.setTitle(format("Profile: %s", newName));
+            hbMain.setTitle(format(_("Profile: %s"), newName));
         }
     }
 
@@ -333,12 +334,13 @@ private:
 
 public:
 
-    this(Application app) {
-        super(app);
+    this(ApplicationWindow window) {
+        super(_("Preferences"));
+        setTypeHint(WindowTypeHint.DIALOG);
+        setTransientFor(window);
+        setDestroyWithParent(true);
         gsSettings = new GSettings(SETTINGS_ID);
-        app.addWindow(this);
-        setShowMenubar(false);
-        createUI(app);
+        createUI();
         updateUI();
     }
 
@@ -382,7 +384,7 @@ public:
 class ProfilePreferenceRow: ListBoxRow {
 private:
     ProfileInfo profile;
-    PreferenceWindow window;
+    PreferenceDialog dialog;
 
     Label lblName;
     Image imgDefault;
@@ -419,13 +421,13 @@ private:
     void createActions() {
         SimpleActionGroup sag = new SimpleActionGroup();
         registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE, null, delegate(GVariant, SimpleAction) {
-            window.deleteProfile(this);
+            dialog.deleteProfile(this);
         });
         registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE, null, delegate(GVariant, SimpleAction) {
-            window.cloneProfile(this);
+            dialog.cloneProfile(this);
         });
         saDefault = registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(GVariant, SimpleAction) {
-            window.setDefaultProfile(this);
+            dialog.setDefaultProfile(this);
         });
         insertActionGroup(ACTION_PROFILE_PREFIX, sag);
     }
@@ -447,9 +449,9 @@ private:
     }
 
 public:
-    this(PreferenceWindow window, ProfileInfo profile) {
+    this(PreferenceDialog dialog, ProfileInfo profile) {
         this.profile = profile;
-        this.window = window;
+        this.dialog = dialog;
         createActions();
         createUI();
     }

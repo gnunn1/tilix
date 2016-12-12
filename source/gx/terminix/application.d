@@ -71,7 +71,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
-import gx.terminix.prefwindow;
+import gx.terminix.prefdialog;
 import gx.terminix.shortcuts;
 
 static import gx.util.array;
@@ -115,7 +115,7 @@ private:
     CommandParameters cp;
 
     AppWindow[] appWindows;
-    PreferenceWindow preferenceWindow;
+    PreferenceDialog preferenceDialog;
 
     //Background Image for terminals, store it here as singleton instance
     ImageSurface isFullBGImage;
@@ -304,12 +304,13 @@ private:
             if (!promptCanCloseProcesses(getActiveWindow(), pi)) return;
         }
 
+        if (preferenceDialog !is null) {
+            preferenceDialog.close();
+        }
+
         foreach (window; appWindows) {
             window.closeNoPrompt();
         }
-        if (preferenceWindow !is null)
-            preferenceWindow.close();
-
     }
 
     ProcessInformation getProcessesInformation() {
@@ -690,24 +691,27 @@ public:
 
     void presentPreferences() {
         //Check if preference window already exists
-        if (preferenceWindow !is null) {
-            preferenceWindow.present();
+        if (preferenceDialog !is null) {
+            AppWindow window = getActiveAppWindow();
+            if (window != preferenceDialog.getParent()) {
+                preferenceDialog.setTransientFor(window);
+            }
+            preferenceDialog.present();
             return;
         }
         //Otherwise create it and save the ID
-        preferenceWindow = new PreferenceWindow(this);
-        addWindow(preferenceWindow);
-        preferenceWindow.addOnDelete(delegate(Event, Widget) {
-            removeWindow(preferenceWindow);
-            preferenceWindow = null;
+        preferenceDialog = new PreferenceDialog(getActiveAppWindow());
+        preferenceDialog.addOnDelete(delegate(Event, Widget) {
+            preferenceDialog = null;
             return false;
         });
-        preferenceWindow.showAll();
+        preferenceDialog.showAll();
+        preferenceDialog.present;
     }
 
     void presentProfilePreferences(ProfileInfo profile) {
         presentPreferences();
-        preferenceWindow.focusProfile(profile.uuid);
+        preferenceDialog.focusProfile(profile.uuid);
     }
 
     bool testVTEConfig() {
