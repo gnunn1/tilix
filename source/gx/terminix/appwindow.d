@@ -1349,7 +1349,8 @@ public:
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
-            setResizable(false);
+            // On Ubuntu this causes terminal to use default size, see #602
+            //setResizable(false);
             setShowMenubar(false);            
         } else {
             forceAppMenu();
