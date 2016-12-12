@@ -768,14 +768,20 @@ private:
         });
 
         vte.addOnWindowTitleChanged(delegate(VTE terminal) {
-            trace("Window title changed");
-            gst.updateState();
-            updateDisplayText();
+            if (vte !is null) {
+                trace("Window title changed");
+                gst.updateState();
+                updateDisplayText();
+            }
         });
         vte.addOnIconTitleChanged(delegate(VTE terminal) {
-            updateDisplayText();
+            if (vte !is null) {
+                updateDisplayText();
+            }
         });
         vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
+            if (vte is null) return;
+
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
@@ -793,6 +799,8 @@ private:
             }
         });
         vte.addOnContentsChanged(delegate(VTE) {
+            if (vte is null) return;
+
             // VTE configuration problem, Issue #34
             // This emits the CTE configuration warning based on whether the currentLocalDirectory is being set.
             // However this is actually a bit tricky because the currentLocalDirectory only gets set on the first prompt
@@ -828,6 +836,8 @@ private:
             updateDisplayText();
         }, GConnectFlags.AFTER);
         vte.addOnEnterNotify(delegate(Event event, Widget) {
+            if (vte !is null) return false;
+
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
                 vte.grabFocus();
             }
@@ -836,6 +846,8 @@ private:
 
         vte.addOnButtonPress(&onTerminalButtonPress);
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
+            if (vte is null) return false;
+
             if (isSynchronizedInput() && event.key.sendEvent == 0) {
                 // Only synchronize hard code VTE keys otherwise let commit event take care of it
                 if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
@@ -848,13 +860,15 @@ private:
         });        
 
         vte.addOnSelectionChanged(delegate(VTE) {
+            if (vte is null) return;
+
             if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
                 vte.copyClipboard();
             }
         });
 
         vte.addOnCommit(delegate(string text, uint length, VTE) {
-            if (!_ignoreCommit && isSynchronizedInput()) {
+            if (vte !is null && !_ignoreCommit && isSynchronizedInput()) {
                 //tracef("Sync commit: %s", text);
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                 onSyncInput.emit(this, se);
@@ -1269,7 +1283,7 @@ private:
 private:    
 
     bool onTerminalScroll(Event event, Widget widget) {
-        if (gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY) && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
+        if (vte !is null && gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY) && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
             ScrollDirection zoomDirection = event.scroll.direction;
             if (zoomDirection == ScrollDirection.SMOOTH) {
                 zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
@@ -1398,6 +1412,8 @@ private:
                 }
             }
         }
+
+        if (vte is null) return false;
 
         if (event.type == EventType.BUTTON_PRESS) {
             updateMatch(event);
