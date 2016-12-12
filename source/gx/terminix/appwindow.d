@@ -667,6 +667,12 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
+        if (isQuake()) {
+            GMenu mPrefSection = new GMenu();
+            mPrefSection.appendItem(new GMenuItem(_("Preferences"), getActionDetailedName("app", "preferences")));
+            model.appendSection(null, mPrefSection);
+        }
+
         debug(GC) {
             GMenu mDebugSection = new GMenu();
             mDebugSection.appendItem(new GMenuItem(_("GC"), getActionDetailedName("win", "gc")));
@@ -1353,7 +1359,7 @@ public:
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
             // On Ubuntu this causes terminal to use default size, see #602
             //setResizable(false);
-            setShowMenubar(false);            
+            setShowMenubar(false);
         } else {
             forceAppMenu();
         }  
