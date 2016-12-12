@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-09 12:52-0500\n"
+"POT-Creation-Date: 2016-12-12 16:57-0500\n"
 "PO-Revision-Date: 2016-11-13 04:55+0000\n"
 "Last-Translator: fu-sen <balloonakafusen@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/terminix/"
@@ -64,6 +64,345 @@ msgstr "GtkD は優れた GTK ラッパーを提供します"
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org による優れた言語、D"
 
+#: source/gx/terminix/prefdialog.d:104
+#, fuzzy
+msgid "Terminix Preferences"
+msgstr "設定を開く"
+
+#: source/gx/terminix/prefdialog.d:121 source/gx/terminix/prefdialog.d:122
+#: source/gx/terminix/prefdialog.d:186
+msgid "Global"
+msgstr "グローバル"
+
+#: source/gx/terminix/prefdialog.d:125 source/gx/terminix/prefdialog.d:126
+msgid "Appearance"
+msgstr "外観"
+
+#: source/gx/terminix/prefdialog.d:129 source/gx/terminix/prefdialog.d:130
+msgid "Quake"
+msgstr "振動"
+
+#: source/gx/terminix/prefdialog.d:133 source/gx/terminix/prefdialog.d:134
+#: source/gx/terminix/application.d:220
+msgid "Shortcuts"
+msgstr "ショートカット"
+
+#: source/gx/terminix/prefdialog.d:137 source/gx/terminix/prefdialog.d:138
+#: source/gx/terminix/prefdialog.d:552 source/gx/terminix/profileeditor.d:976
+#: source/gx/terminix/terminal/terminal.d:705
+msgid "Encoding"
+msgstr "エンコード"
+
+#: source/gx/terminix/prefdialog.d:143 source/gx/terminix/session.d:1413
+msgid "Profile"
+msgstr "プロファイル"
+
+#: source/gx/terminix/prefdialog.d:156
+#, fuzzy
+msgid "Add profile"
+msgstr "プロファイルの編集"
+
+#: source/gx/terminix/prefdialog.d:161
+#, fuzzy
+msgid "Delete profile"
+msgstr "新しいプロファイル"
+
+#: source/gx/terminix/prefdialog.d:218 source/gx/terminix/prefdialog.d:338
+#: source/gx/terminix/application.d:218
+msgid "Preferences"
+msgstr "設定"
+
+#: source/gx/terminix/prefdialog.d:238
+#: source/gx/terminix/terminal/terminal.d:704
+msgid "Profiles"
+msgstr "プロファイル"
+
+#: source/gx/terminix/prefdialog.d:262 source/gx/terminix/prefdialog.d:270
+#, fuzzy, c-format
+msgid "Profile: %s"
+msgstr "プロファイル"
+
+#: source/gx/terminix/prefdialog.d:438 source/gx/terminix/profileeditor.d:1197
+#: source/gx/terminix/profileeditor.d:1362
+#: source/gx/terminix/profileeditor.d:1518
+#: source/gx/terminix/terminal/password.d:209
+msgid "Delete"
+msgstr "削除"
+
+#: source/gx/terminix/prefdialog.d:439
+msgid "Clone"
+msgstr "複製"
+
+#: source/gx/terminix/prefdialog.d:443
+#, fuzzy
+msgid "Use for new terminals"
+msgstr "ターミナルをリセット"
+
+#: source/gx/terminix/prefdialog.d:514
+msgid "Encodings showing in menu:"
+msgstr "メニュー表示のエンコード:"
+
+#: source/gx/terminix/prefdialog.d:550
+msgid "Enabled"
+msgstr "有効"
+
+#: source/gx/terminix/prefdialog.d:604 source/gx/terminix/profileeditor.d:1486
+msgid "Action"
+msgstr "アクション"
+
+#: source/gx/terminix/prefdialog.d:633
+msgid "Shortcut Key"
+msgstr "ショートカットキー"
+
+#: source/gx/terminix/prefdialog.d:645
+msgid "Enable shortcuts"
+msgstr "ショートカットを有効にする"
+
+#: source/gx/terminix/prefdialog.d:669
+msgid "Overwrite Existing Shortcut"
+msgstr "既存のショートカットを上書きする"
+
+#: source/gx/terminix/prefdialog.d:670
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"ショートカット %s はすでに %s で割り当てられています。\n"
+"他アクションのショートカットを無効にして、代わりにこれを割り当てますか？"
+
+#: source/gx/terminix/prefdialog.d:790
+msgid "Enable transparency, requires re-start"
+msgstr "透明度を有効にする 再起動が必要"
+
+#: source/gx/terminix/prefdialog.d:801
+msgid "Terminal title style"
+msgstr "ターミナルタイトルの形式"
+
+#: source/gx/terminix/prefdialog.d:802
+msgid "Normal"
+msgstr "通常"
+
+#: source/gx/terminix/prefdialog.d:802
+msgid "Small"
+msgstr "小さい"
+
+#: source/gx/terminix/prefdialog.d:802 source/gx/terminix/profileeditor.d:292
+msgid "None"
+msgstr "なし"
+
+#: source/gx/terminix/prefdialog.d:808
+msgid "Theme variant"
+msgstr "テーマの状態"
+
+#: source/gx/terminix/prefdialog.d:809 source/gx/terminix/session.d:1096
+#: source/gx/terminix/appwindow.d:875
+msgid "Default"
+msgstr "デフォルト"
+
+#: source/gx/terminix/prefdialog.d:809
+msgid "Light"
+msgstr "明るい"
+
+#: source/gx/terminix/prefdialog.d:809
+msgid "Dark"
+msgstr "暗い"
+
+#: source/gx/terminix/prefdialog.d:815
+msgid "Background image"
+msgstr "背景画像"
+
+#: source/gx/terminix/prefdialog.d:817
+msgid "Select Image"
+msgstr "画像を選択"
+
+#: source/gx/terminix/prefdialog.d:820
+msgid "All Image Files"
+msgstr "すべての画像ファイル"
+
+#: source/gx/terminix/prefdialog.d:827 source/gx/terminix/profileeditor.d:856
+#: source/gx/terminix/terminal/terminal.d:2603
+#: source/gx/terminix/appwindow.d:1176
+msgid "All Files"
+msgstr "すべてのファイル"
+
+#: source/gx/terminix/prefdialog.d:841
+msgid "Reset background image"
+msgstr "背景画像をリセット"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Scale"
+msgstr "スケール"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Tile"
+msgstr "タイル"
+
+#: source/gx/terminix/prefdialog.d:847 source/gx/terminix/prefdialog.d:953
+msgid "Center"
+msgstr "中央"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Stretch"
+msgstr "ストレッジ"
+
+#: source/gx/terminix/prefdialog.d:866
+msgid "Default session name"
+msgstr "デフォルトセッションの名称"
+
+#: source/gx/terminix/prefdialog.d:877
+#, fuzzy
+msgid "Application title"
+msgstr "アプリケーション"
+
+#: source/gx/terminix/prefdialog.d:890
+msgid "Use a wide handle for splitters"
+msgstr "分割に広いハンドルを使用する"
+
+#: source/gx/terminix/prefdialog.d:895
+msgid "Place the sidebar on the right"
+msgstr "サイドバーを右へ置く"
+
+#: source/gx/terminix/prefdialog.d:899
+#, fuzzy
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "唯一のターミナルであってもターミナルのタイトルを表示する"
+
+#: source/gx/terminix/prefdialog.d:920
+msgid "Size"
+msgstr "サイズ"
+
+#: source/gx/terminix/prefdialog.d:931
+msgid "Height percent"
+msgstr "縦のパーセント"
+
+#: source/gx/terminix/prefdialog.d:942
+msgid "Width percent"
+msgstr "横のパーセント"
+
+#: source/gx/terminix/prefdialog.d:952
+msgid "Alignment"
+msgstr "配置"
+
+#: source/gx/terminix/prefdialog.d:953
+msgid "Left"
+msgstr "左"
+
+#: source/gx/terminix/prefdialog.d:953
+msgid "Right"
+msgstr "右"
+
+#: source/gx/terminix/prefdialog.d:963 source/gx/terminix/profileeditor.d:465
+msgid "Options"
+msgstr "オプション"
+
+#: source/gx/terminix/prefdialog.d:971
+msgid "Show terminal on all workspaces"
+msgstr "すべてのワークスペースにターミナルを表示する"
+
+#: source/gx/terminix/prefdialog.d:976
+#, fuzzy
+msgid "Set hint for window manager to disable animation"
+msgstr "アニメーションを無効にするウィンドウマネージャのヒントを設定する"
+
+#: source/gx/terminix/prefdialog.d:981
+msgid "Hide window when focus is lost"
+msgstr "フォーカスが失われた時にウィンドウを非表示にする"
+
+#: source/gx/terminix/prefdialog.d:986
+#, fuzzy
+msgid "Hide the titlebar of the window"
+msgstr "新しいターミナルのタイトルを設定"
+
+#: source/gx/terminix/prefdialog.d:1001
+msgid "Display terminal on active monitor"
+msgstr "有効なモニタにターミナルを表示する"
+
+#: source/gx/terminix/prefdialog.d:1008
+msgid "Display on specific monitor"
+msgstr "特定のモニタに表示する"
+
+#: source/gx/terminix/prefdialog.d:1043
+msgid "Behavior"
+msgstr "動作"
+
+#: source/gx/terminix/prefdialog.d:1049
+msgid "Prompt when creating a new session"
+msgstr "新しいセッションを作成した時のプロンプト"
+
+#: source/gx/terminix/prefdialog.d:1054
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "マウスが上を移動するときにターミナルへフォーカスする"
+
+#: source/gx/terminix/prefdialog.d:1059
+msgid "Autohide the mouse pointer when typing"
+msgstr "入力時にマウスポインタを自動的に隠す"
+
+#: source/gx/terminix/prefdialog.d:1064
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "タイトルで中マウスボタンをクリックして端末を閉じる"
+
+#: source/gx/terminix/prefdialog.d:1069
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1074
+msgid "Close window when last session is closed"
+msgstr "最後のセッションが閉じられた時にウィンドウを閉じる"
+
+#: source/gx/terminix/prefdialog.d:1080
+msgid "Send desktop notification on process complete"
+msgstr "プロセス完了時にデスクトップ通知を送信する"
+
+#: source/gx/terminix/prefdialog.d:1088
+#, fuzzy
+msgid "On new instance"
+msgstr "新しいインスタンスについて"
+
+#: source/gx/terminix/prefdialog.d:1091 source/gx/terminix/application.d:214
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
+msgid "New Window"
+msgstr "新しいウインドウ"
+
+#: source/gx/terminix/prefdialog.d:1091 source/gx/terminix/session.d:1436
+#: source/gx/terminix/application.d:213
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
+msgid "New Session"
+msgstr "新しいセッション"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Split Right"
+msgstr "右に分割"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Split Down"
+msgstr "下に分割"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Focus Window"
+msgstr "ウインドウのフォーカス"
+
+#: source/gx/terminix/prefdialog.d:1097
+#: source/gx/terminix/terminal/terminal.d:1369
+msgid "Clipboard"
+msgstr "クリップボード"
+
+#: source/gx/terminix/prefdialog.d:1103
+msgid "Always use advanced paste dialog"
+msgstr "常に高度な貼り付けダイアログを使用する"
+
+#: source/gx/terminix/prefdialog.d:1108
+msgid "Warn when attempting unsafe paste"
+msgstr "安全でない貼り付けを試みるときに警告する"
+
+#: source/gx/terminix/prefdialog.d:1113
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "コメントまたは変数宣言の場合、貼り付けの頭文字を削除する"
+
+#: source/gx/terminix/prefdialog.d:1118
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "選択時にテキストをクリップボードへ自動的にコピーする"
+
 #: source/gx/terminix/session.d:540
 msgid "Could not locate dropped terminal"
 msgstr "ドロップされたターミナルを見つけることができませんでした"
@@ -72,25 +411,10 @@ msgstr "ドロップされたターミナルを見つけることができませ
 msgid "Could not locate session for dropped terminal"
 msgstr "ドロップされたターミネルのセッションを見つけることができませんでした"
 
-#: source/gx/terminix/session.d:1096 source/gx/terminix/appwindow.d:877
-#: source/gx/terminix/prefwindow.d:807
-msgid "Default"
-msgstr "デフォルト"
-
 #: source/gx/terminix/session.d:1402 source/gx/terminix/terminal/password.d:133
 #: source/gx/terminix/terminal/password.d:425
 msgid "Name"
 msgstr "名前"
-
-#: source/gx/terminix/session.d:1413 source/gx/terminix/prefwindow.d:142
-msgid "Profile"
-msgstr "プロファイル"
-
-#: source/gx/terminix/session.d:1436 source/gx/terminix/application.d:213
-#: source/gx/terminix/prefwindow.d:1089
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "新しいセッション"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -318,10 +642,6 @@ msgstr "オフ"
 msgid "Terminal bell"
 msgstr "ターミナルベル"
 
-#: source/gx/terminix/profileeditor.d:292 source/gx/terminix/prefwindow.d:800
-msgid "None"
-msgstr "なし"
-
 #: source/gx/terminix/profileeditor.d:292
 msgid "Sound"
 msgstr "音"
@@ -410,10 +730,6 @@ msgstr "エクスポート"
 #: source/gx/terminix/profileeditor.d:457
 msgid "Color palette"
 msgstr "配色パレット"
-
-#: source/gx/terminix/profileeditor.d:465 source/gx/terminix/prefwindow.d:961
-msgid "Options"
-msgstr "オプション"
 
 #: source/gx/terminix/profileeditor.d:479
 msgid "Use theme colors for foreground/background"
@@ -529,8 +845,8 @@ msgid "Export Color Scheme"
 msgstr "カラースキームをエクスポート"
 
 #: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2578
-#: source/gx/terminix/appwindow.d:662 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/terminal/terminal.d:2593
+#: source/gx/terminix/appwindow.d:660 source/gx/terminix/appwindow.d:1252
 msgid "Save"
 msgstr "保存"
 
@@ -538,24 +854,18 @@ msgstr "保存"
 #: source/gx/terminix/profileeditor.d:1383
 #: source/gx/terminix/profileeditor.d:1556
 #: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2578
+#: source/gx/terminix/terminal/terminal.d:2593
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1218
+#: source/gx/terminix/appwindow.d:1252
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1172
 msgid "All JSON Files"
 msgstr "すべての JSON ファイル"
-
-#: source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2588
-#: source/gx/terminix/appwindow.d:1177 source/gx/terminix/prefwindow.d:825
-msgid "All Files"
-msgstr "すべてのファイル"
 
 #: source/gx/terminix/profileeditor.d:911
 msgid "Show scrollbar"
@@ -609,13 +919,6 @@ msgstr "TTY"
 #, fuzzy
 msgid "Delete key generates"
 msgstr "Delete キーの動作"
-
-#: source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:705
-#: source/gx/terminix/prefwindow.d:136 source/gx/terminix/prefwindow.d:137
-#: source/gx/terminix/prefwindow.d:550
-msgid "Encoding"
-msgstr "エンコード"
 
 #: source/gx/terminix/profileeditor.d:991
 #, fuzzy
@@ -749,14 +1052,6 @@ msgstr "一致させる ホスト名:ディレクトリ の編集"
 msgid "Edit Match"
 msgstr "一致条件の編集"
 
-#: source/gx/terminix/profileeditor.d:1197
-#: source/gx/terminix/profileeditor.d:1362
-#: source/gx/terminix/profileeditor.d:1518
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/prefwindow.d:436
-msgid "Delete"
-msgstr "削除"
-
 #: source/gx/terminix/profileeditor.d:1314
 #: source/gx/terminix/profileeditor.d:1455
 #, c-format
@@ -781,10 +1076,6 @@ msgstr "カスタムリンクの編集"
 #: source/gx/terminix/terminal/password.d:367
 msgid "Apply"
 msgstr "適用"
-
-#: source/gx/terminix/profileeditor.d:1486 source/gx/terminix/prefwindow.d:602
-msgid "Action"
-msgstr "アクション"
 
 #: source/gx/terminix/profileeditor.d:1498
 msgid "Parameter"
@@ -834,20 +1125,20 @@ msgstr ""
 "ます。"
 
 #: source/gx/terminix/terminal/terminal.d:329
-#: source/gx/terminix/terminal/terminal.d:2923
+#: source/gx/terminix/terminal/terminal.d:2938
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "ターミナル"
 
 #: source/gx/terminix/terminal/terminal.d:360
-#: source/gx/terminix/terminal/terminal.d:1365
-#: source/gx/terminix/appwindow.d:664 source/gx/terminix/sidebar.d:364
+#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/appwindow.d:662 source/gx/terminix/sidebar.d:364
 msgid "Close"
 msgstr "閉じる"
 
 #: source/gx/terminix/terminal/terminal.d:369
-#: source/gx/terminix/terminal/terminal.d:1053
-#: source/gx/terminix/terminal/terminal.d:1364
+#: source/gx/terminix/terminal/terminal.d:1067
+#: source/gx/terminix/terminal/terminal.d:1378
 msgid "Maximize"
 msgstr "最大化"
 
@@ -889,10 +1180,6 @@ msgstr "出力の保存…"
 msgid "Reset and Clear"
 msgstr "リセット・クリアー"
 
-#: source/gx/terminix/terminal/terminal.d:704
-msgid "Profiles"
-msgstr "プロファイル"
-
 #: source/gx/terminix/terminal/terminal.d:709
 msgid "Find…"
 msgstr "検索…"
@@ -909,85 +1196,80 @@ msgstr "右に追加"
 msgid "Add Down"
 msgstr "下に追加"
 
-#: source/gx/terminix/terminal/terminal.d:1050
-#: source/gx/terminix/terminal/terminal.d:1364
+#: source/gx/terminix/terminal/terminal.d:1064
+#: source/gx/terminix/terminal/terminal.d:1378
 #, fuzzy
 msgid "Restore"
 msgstr "復元"
 
-#: source/gx/terminix/terminal/terminal.d:1324
+#: source/gx/terminix/terminal/terminal.d:1338
 msgid "Open Link"
 msgstr "リンクを開く"
 
-#: source/gx/terminix/terminal/terminal.d:1325
+#: source/gx/terminix/terminal/terminal.d:1339
 msgid "Copy Link Address"
 msgstr "リンクアドレスをコピー"
 
-#: source/gx/terminix/terminal/terminal.d:1335
-#: source/gx/terminix/terminal/terminal.d:1342
+#: source/gx/terminix/terminal/terminal.d:1349
+#: source/gx/terminix/terminal/terminal.d:1356
 msgid "Copy"
 msgstr "コピー"
 
-#: source/gx/terminix/terminal/terminal.d:1336
-#: source/gx/terminix/terminal/terminal.d:1347
+#: source/gx/terminix/terminal/terminal.d:1350
+#: source/gx/terminix/terminal/terminal.d:1361
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "貼り付け"
 
-#: source/gx/terminix/terminal/terminal.d:1337
-#: source/gx/terminix/terminal/terminal.d:1352
+#: source/gx/terminix/terminal/terminal.d:1351
+#: source/gx/terminix/terminal/terminal.d:1366
 msgid "Select All"
 msgstr "すべて選択"
 
-#: source/gx/terminix/terminal/terminal.d:1355
-#: source/gx/terminix/prefwindow.d:1095
-msgid "Clipboard"
-msgstr "クリップボード"
-
-#: source/gx/terminix/terminal/terminal.d:1369
+#: source/gx/terminix/terminal/terminal.d:1383
 msgid "Synchronize input"
 msgstr "同期入力"
 
-#: source/gx/terminix/terminal/terminal.d:1964
+#: source/gx/terminix/terminal/terminal.d:1980
 msgid "Unexpected error occurred, no additional information available"
 msgstr "予期しないエラーが発生しました。追加情報はありません"
 
-#: source/gx/terminix/terminal/terminal.d:1970
+#: source/gx/terminix/terminal/terminal.d:1986
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "予期しないエラーが発生しました: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2575
+#: source/gx/terminix/terminal/terminal.d:2590
 msgid "Save Terminal Output"
 msgstr "ターミナル出力の保存"
 
-#: source/gx/terminix/terminal/terminal.d:2584
+#: source/gx/terminix/terminal/terminal.d:2599
 msgid "All Text Files"
 msgstr "すべてのテキストファイル"
 
-#: source/gx/terminix/terminal/terminal.d:3073
+#: source/gx/terminix/terminal/terminal.d:3088
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "子プロセス %d は正常の状態で終了しました"
 
-#: source/gx/terminix/terminal/terminal.d:3074
+#: source/gx/terminix/terminal/terminal.d:3089
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "子プロセス %d はシグナルによって中止されました。"
 
-#: source/gx/terminix/terminal/terminal.d:3075
+#: source/gx/terminix/terminal/terminal.d:3090
 msgid "The child process was aborted."
 msgstr "子プロセスは中止しました。"
 
-#: source/gx/terminix/terminal/terminal.d:3081
+#: source/gx/terminix/terminal/terminal.d:3096
 msgid "Relaunch"
 msgstr "再起動"
 
-#: source/gx/terminix/terminal/terminal.d:3126
+#: source/gx/terminix/terminal/terminal.d:3141
 msgid "Don't Paste"
 msgstr "貼り付けない"
 
-#: source/gx/terminix/terminal/terminal.d:3127
+#: source/gx/terminix/terminal/terminal.d:3142
 msgid "Paste Anyway"
 msgstr "常に貼り付け"
 
@@ -1107,20 +1389,6 @@ msgstr "ウインドウのフォーカス"
 msgid "Close Session"
 msgstr "新しいセッション"
 
-#: source/gx/terminix/application.d:214 source/gx/terminix/prefwindow.d:1089
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
-msgid "New Window"
-msgstr "新しいウインドウ"
-
-#: source/gx/terminix/application.d:218 source/gx/terminix/prefwindow.d:217
-msgid "Preferences"
-msgstr "設定"
-
-#: source/gx/terminix/application.d:220 source/gx/terminix/prefwindow.d:132
-#: source/gx/terminix/prefwindow.d:133
-msgid "Shortcuts"
-msgstr "ショートカット"
-
 #: source/gx/terminix/application.d:225
 #, fuzzy
 msgid "About"
@@ -1134,108 +1402,108 @@ msgstr "終了"
 msgid "Credits"
 msgstr "開発者"
 
-#: source/gx/terminix/application.d:316 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1332
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
 msgstr "Terminix"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:609
 msgid "Set the working directory of the terminal"
 msgstr "ターミナルの作業ディレクトリを設定"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:609
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:610
 msgid "Set the starting profile"
 msgstr "開始時のプロファイルを設定"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:610
 msgid "PROFILE_NAME"
 msgstr "PROFILE_NAME"
 
-#: source/gx/terminix/application.d:610
+#: source/gx/terminix/application.d:611
 msgid "Set the title of the new terminal"
 msgstr "新しいターミナルのタイトルを設定"
 
-#: source/gx/terminix/application.d:610
+#: source/gx/terminix/application.d:611
 msgid "TITLE"
 msgstr "TITLE"
 
-#: source/gx/terminix/application.d:611
+#: source/gx/terminix/application.d:612
 msgid "Open the specified session"
 msgstr "指定したセッションを開く"
 
-#: source/gx/terminix/application.d:611
+#: source/gx/terminix/application.d:612
 msgid "SESSION_NAME"
 msgstr "SESSION_NAME"
 
-#: source/gx/terminix/application.d:612
+#: source/gx/terminix/application.d:613
 msgid "Send an action to current Terminix instance"
 msgstr "現在の Terminix インスタンスにアクションを送信"
 
-#: source/gx/terminix/application.d:612
+#: source/gx/terminix/application.d:613
 msgid "ACTION_NAME"
 msgstr "ACTION_NAME"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:614
 msgid "Execute the parameter as a command"
 msgstr "パラメータをコマンドとして実行"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:614
 msgid "COMMAND"
 msgstr "COMMAND"
 
-#: source/gx/terminix/application.d:614
+#: source/gx/terminix/application.d:615
 msgid "Maximize the terminal window"
 msgstr "ターミナルウインドウを最大化"
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:616
 msgid "Minimize the terminal window"
 msgstr "ターミナルウインドウを最小化"
 
-#: source/gx/terminix/application.d:616
+#: source/gx/terminix/application.d:617
 msgid "Full-screen the terminal window"
 msgstr "ターミナルウインドウを全画面表示にする"
 
-#: source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:618
 msgid "Focus the existing window"
 msgstr "既存のウィンドウにフォーカスする"
 
-#: source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:619
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr "追加インスタンスを新しいプロセスとして開始する (非推奨)"
 
-#: source/gx/terminix/application.d:619
+#: source/gx/terminix/application.d:620
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr "ウインドウサイズの設定; 例:  80x24 または 80x24+200+200 (横x縦+X+Y)"
 
-#: source/gx/terminix/application.d:619
+#: source/gx/terminix/application.d:620
 msgid "GEOMETRY"
 msgstr "GEOMETRY"
 
-#: source/gx/terminix/application.d:620
+#: source/gx/terminix/application.d:621
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 "震動モードでウィンドウを開くまたは既存ウインドウを震動モードへ切り替える"
 
-#: source/gx/terminix/application.d:621
+#: source/gx/terminix/application.d:622
 msgid "Show the Terminix and dependant component versions"
 msgstr "Terminix および依存コンポーネントのバージョンを表示"
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:625
 msgid "Hidden argument to pass terminal UUID"
 msgstr "端末 UUID を渡すための隠し引数"
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:625
 msgid "TERMINAL_UUID"
 msgstr "TERMINAL_UUID"
 
-#: source/gx/terminix/application.d:761
+#: source/gx/terminix/application.d:765
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -1245,11 +1513,11 @@ msgstr ""
 "この問題は深刻ではありませんが、修正すると動作が向上します。\n"
 "詳細は次のリンクをクリックしてください:"
 
-#: source/gx/terminix/application.d:762
+#: source/gx/terminix/application.d:766
 msgid "Configuration Issue Detected"
 msgstr "構成の問題が検出されました"
 
-#: source/gx/terminix/application.d:774
+#: source/gx/terminix/application.d:778
 msgid "Do not show this message again"
 msgstr "このメッセージを再度表示しない"
 
@@ -1273,65 +1541,65 @@ msgstr "下にターミナルを追加"
 msgid "Find text in terminal"
 msgstr "ターミナルのテキストを検索"
 
-#: source/gx/terminix/appwindow.d:606
+#: source/gx/terminix/appwindow.d:604
 msgid "Change Session Name"
 msgstr "セッション名を変更"
 
-#: source/gx/terminix/appwindow.d:606
+#: source/gx/terminix/appwindow.d:604
 msgid "Enter a new name for the session"
 msgstr "セッションの新しい名称を入力して下さい"
 
-#: source/gx/terminix/appwindow.d:661
+#: source/gx/terminix/appwindow.d:659
 msgid "Open…"
 msgstr "開く…"
 
-#: source/gx/terminix/appwindow.d:663
+#: source/gx/terminix/appwindow.d:661
 msgid "Save As…"
 msgstr "名前をつけて保存…"
 
-#: source/gx/terminix/appwindow.d:668
+#: source/gx/terminix/appwindow.d:666
 #, fuzzy
 msgid "Name…"
 msgstr "名前…"
 
-#: source/gx/terminix/appwindow.d:669
+#: source/gx/terminix/appwindow.d:667
 msgid "Synchronize Input"
 msgstr "同期入力"
 
-#: source/gx/terminix/appwindow.d:674
+#: source/gx/terminix/appwindow.d:672
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:980
+#: source/gx/terminix/appwindow.d:978
 msgid "There are multiple sessions open, close anyway?"
 msgstr "複数のセッションが開いています。閉じてよろしいですか？"
 
-#: source/gx/terminix/appwindow.d:981
+#: source/gx/terminix/appwindow.d:979
 msgid "Do not show this again"
 msgstr "再度表示しない"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1185
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "ファイル名 '%s' が見つかりません"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1215
 msgid "Load Session"
 msgstr "セッションの読み込み"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1218
 msgid "Open"
 msgstr "開く"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1233
 msgid "Could not load session due to unexpected error."
 msgstr "予期しないエラーのためセッションを読み込めませんでした。"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1233
 msgid "Error Loading Session"
 msgstr "セッション読み込みエラー"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1249
 msgid "Save Session"
 msgstr "セッションを保存"
 
@@ -1411,268 +1679,6 @@ msgstr "UpdateBadge"
 #, fuzzy, c-format
 msgid "%s (Copy)"
 msgstr "コピー"
-
-#: source/gx/terminix/prefwindow.d:103
-#, fuzzy
-msgid "Terminix Preferences"
-msgstr "設定を開く"
-
-#: source/gx/terminix/prefwindow.d:120 source/gx/terminix/prefwindow.d:121
-#: source/gx/terminix/prefwindow.d:185
-msgid "Global"
-msgstr "グローバル"
-
-#: source/gx/terminix/prefwindow.d:124 source/gx/terminix/prefwindow.d:125
-msgid "Appearance"
-msgstr "外観"
-
-#: source/gx/terminix/prefwindow.d:128 source/gx/terminix/prefwindow.d:129
-msgid "Quake"
-msgstr "振動"
-
-#: source/gx/terminix/prefwindow.d:155
-#, fuzzy
-msgid "Add profile"
-msgstr "プロファイルの編集"
-
-#: source/gx/terminix/prefwindow.d:160
-#, fuzzy
-msgid "Delete profile"
-msgstr "新しいプロファイル"
-
-#: source/gx/terminix/prefwindow.d:437
-msgid "Clone"
-msgstr "複製"
-
-#: source/gx/terminix/prefwindow.d:441
-#, fuzzy
-msgid "Use for new terminals"
-msgstr "ターミナルをリセット"
-
-#: source/gx/terminix/prefwindow.d:512
-msgid "Encodings showing in menu:"
-msgstr "メニュー表示のエンコード:"
-
-#: source/gx/terminix/prefwindow.d:548
-msgid "Enabled"
-msgstr "有効"
-
-#: source/gx/terminix/prefwindow.d:631
-msgid "Shortcut Key"
-msgstr "ショートカットキー"
-
-#: source/gx/terminix/prefwindow.d:643
-msgid "Enable shortcuts"
-msgstr "ショートカットを有効にする"
-
-#: source/gx/terminix/prefwindow.d:667
-msgid "Overwrite Existing Shortcut"
-msgstr "既存のショートカットを上書きする"
-
-#: source/gx/terminix/prefwindow.d:668
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"ショートカット %s はすでに %s で割り当てられています。\n"
-"他アクションのショートカットを無効にして、代わりにこれを割り当てますか？"
-
-#: source/gx/terminix/prefwindow.d:788
-msgid "Enable transparency, requires re-start"
-msgstr "透明度を有効にする 再起動が必要"
-
-#: source/gx/terminix/prefwindow.d:799
-msgid "Terminal title style"
-msgstr "ターミナルタイトルの形式"
-
-#: source/gx/terminix/prefwindow.d:800
-msgid "Normal"
-msgstr "通常"
-
-#: source/gx/terminix/prefwindow.d:800
-msgid "Small"
-msgstr "小さい"
-
-#: source/gx/terminix/prefwindow.d:806
-msgid "Theme variant"
-msgstr "テーマの状態"
-
-#: source/gx/terminix/prefwindow.d:807
-msgid "Light"
-msgstr "明るい"
-
-#: source/gx/terminix/prefwindow.d:807
-msgid "Dark"
-msgstr "暗い"
-
-#: source/gx/terminix/prefwindow.d:813
-msgid "Background image"
-msgstr "背景画像"
-
-#: source/gx/terminix/prefwindow.d:815
-msgid "Select Image"
-msgstr "画像を選択"
-
-#: source/gx/terminix/prefwindow.d:818
-msgid "All Image Files"
-msgstr "すべての画像ファイル"
-
-#: source/gx/terminix/prefwindow.d:839
-msgid "Reset background image"
-msgstr "背景画像をリセット"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Scale"
-msgstr "スケール"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Tile"
-msgstr "タイル"
-
-#: source/gx/terminix/prefwindow.d:845 source/gx/terminix/prefwindow.d:951
-msgid "Center"
-msgstr "中央"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Stretch"
-msgstr "ストレッジ"
-
-#: source/gx/terminix/prefwindow.d:864
-msgid "Default session name"
-msgstr "デフォルトセッションの名称"
-
-#: source/gx/terminix/prefwindow.d:875
-#, fuzzy
-msgid "Application title"
-msgstr "アプリケーション"
-
-#: source/gx/terminix/prefwindow.d:888
-msgid "Use a wide handle for splitters"
-msgstr "分割に広いハンドルを使用する"
-
-#: source/gx/terminix/prefwindow.d:893
-msgid "Place the sidebar on the right"
-msgstr "サイドバーを右へ置く"
-
-#: source/gx/terminix/prefwindow.d:897
-msgid "Show the terminal title even if its the only terminal"
-msgstr "唯一のターミナルであってもターミナルのタイトルを表示する"
-
-#: source/gx/terminix/prefwindow.d:918
-msgid "Size"
-msgstr "サイズ"
-
-#: source/gx/terminix/prefwindow.d:929
-msgid "Height percent"
-msgstr "縦のパーセント"
-
-#: source/gx/terminix/prefwindow.d:940
-msgid "Width percent"
-msgstr "横のパーセント"
-
-#: source/gx/terminix/prefwindow.d:950
-msgid "Alignment"
-msgstr "配置"
-
-#: source/gx/terminix/prefwindow.d:951
-msgid "Left"
-msgstr "左"
-
-#: source/gx/terminix/prefwindow.d:951
-msgid "Right"
-msgstr "右"
-
-#: source/gx/terminix/prefwindow.d:969
-msgid "Show terminal on all workspaces"
-msgstr "すべてのワークスペースにターミナルを表示する"
-
-#: source/gx/terminix/prefwindow.d:974
-#, fuzzy
-msgid "Set hint for window manager to disable animation"
-msgstr "アニメーションを無効にするウィンドウマネージャのヒントを設定する"
-
-#: source/gx/terminix/prefwindow.d:979
-msgid "Hide window when focus is lost"
-msgstr "フォーカスが失われた時にウィンドウを非表示にする"
-
-#: source/gx/terminix/prefwindow.d:984
-#, fuzzy
-msgid "Hide the titlebar of the window"
-msgstr "新しいターミナルのタイトルを設定"
-
-#: source/gx/terminix/prefwindow.d:999
-msgid "Display terminal on active monitor"
-msgstr "有効なモニタにターミナルを表示する"
-
-#: source/gx/terminix/prefwindow.d:1006
-msgid "Display on specific monitor"
-msgstr "特定のモニタに表示する"
-
-#: source/gx/terminix/prefwindow.d:1041
-msgid "Behavior"
-msgstr "動作"
-
-#: source/gx/terminix/prefwindow.d:1047
-msgid "Prompt when creating a new session"
-msgstr "新しいセッションを作成した時のプロンプト"
-
-#: source/gx/terminix/prefwindow.d:1052
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "マウスが上を移動するときにターミナルへフォーカスする"
-
-#: source/gx/terminix/prefwindow.d:1057
-msgid "Autohide the mouse pointer when typing"
-msgstr "入力時にマウスポインタを自動的に隠す"
-
-#: source/gx/terminix/prefwindow.d:1062
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "タイトルで中マウスボタンをクリックして端末を閉じる"
-
-#: source/gx/terminix/prefwindow.d:1067
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1072
-msgid "Close window when last session is closed"
-msgstr "最後のセッションが閉じられた時にウィンドウを閉じる"
-
-#: source/gx/terminix/prefwindow.d:1078
-msgid "Send desktop notification on process complete"
-msgstr "プロセス完了時にデスクトップ通知を送信する"
-
-#: source/gx/terminix/prefwindow.d:1086
-#, fuzzy
-msgid "On new instance"
-msgstr "新しいインスタンスについて"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Split Right"
-msgstr "右に分割"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Split Down"
-msgstr "下に分割"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Focus Window"
-msgstr "ウインドウのフォーカス"
-
-#: source/gx/terminix/prefwindow.d:1101
-msgid "Always use advanced paste dialog"
-msgstr "常に高度な貼り付けダイアログを使用する"
-
-#: source/gx/terminix/prefwindow.d:1106
-msgid "Warn when attempting unsafe paste"
-msgstr "安全でない貼り付けを試みるときに警告する"
-
-#: source/gx/terminix/prefwindow.d:1111
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "コメントまたは変数宣言の場合、貼り付けの頭文字を削除する"
-
-#: source/gx/terminix/prefwindow.d:1116
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "選択時にテキストをクリップボードへ自動的にコピーする"
 
 #: data/nautilus/open-terminix.py:65
 msgid "Open Remote Terminix…"

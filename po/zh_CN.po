@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-09 12:52-0500\n"
+"POT-Creation-Date: 2016-12-12 16:57-0500\n"
 "PO-Revision-Date: 2016-08-09 00:53+0000\n"
 "Last-Translator: Mingcong Bai <jeffbai@aosc.xyz>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/terminix/"
@@ -58,6 +58,346 @@ msgstr "GtkD 提供了优秀的 GTK 封装"
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org 提供了优秀的编程语言，D 语言"
 
+#: source/gx/terminix/prefdialog.d:104
+#, fuzzy
+msgid "Terminix Preferences"
+msgstr "打开首选项"
+
+#: source/gx/terminix/prefdialog.d:121 source/gx/terminix/prefdialog.d:122
+#: source/gx/terminix/prefdialog.d:186
+msgid "Global"
+msgstr "全局"
+
+#: source/gx/terminix/prefdialog.d:125 source/gx/terminix/prefdialog.d:126
+msgid "Appearance"
+msgstr "外观"
+
+#: source/gx/terminix/prefdialog.d:129 source/gx/terminix/prefdialog.d:130
+msgid "Quake"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:133 source/gx/terminix/prefdialog.d:134
+#: source/gx/terminix/application.d:220
+msgid "Shortcuts"
+msgstr "快捷键"
+
+#: source/gx/terminix/prefdialog.d:137 source/gx/terminix/prefdialog.d:138
+#: source/gx/terminix/prefdialog.d:552 source/gx/terminix/profileeditor.d:976
+#: source/gx/terminix/terminal/terminal.d:705
+msgid "Encoding"
+msgstr "编码"
+
+#: source/gx/terminix/prefdialog.d:143 source/gx/terminix/session.d:1413
+msgid "Profile"
+msgstr "配置方案"
+
+#: source/gx/terminix/prefdialog.d:156
+#, fuzzy
+msgid "Add profile"
+msgstr "编辑配置方案"
+
+#: source/gx/terminix/prefdialog.d:161
+#, fuzzy
+msgid "Delete profile"
+msgstr "新建配置方案"
+
+#: source/gx/terminix/prefdialog.d:218 source/gx/terminix/prefdialog.d:338
+#: source/gx/terminix/application.d:218
+msgid "Preferences"
+msgstr "首选项"
+
+#: source/gx/terminix/prefdialog.d:238
+#: source/gx/terminix/terminal/terminal.d:704
+msgid "Profiles"
+msgstr "配置方案"
+
+#: source/gx/terminix/prefdialog.d:262 source/gx/terminix/prefdialog.d:270
+#, fuzzy, c-format
+msgid "Profile: %s"
+msgstr "配置方案"
+
+#: source/gx/terminix/prefdialog.d:438 source/gx/terminix/profileeditor.d:1197
+#: source/gx/terminix/profileeditor.d:1362
+#: source/gx/terminix/profileeditor.d:1518
+#: source/gx/terminix/terminal/password.d:209
+msgid "Delete"
+msgstr "删除"
+
+#: source/gx/terminix/prefdialog.d:439
+msgid "Clone"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:443
+#, fuzzy
+msgid "Use for new terminals"
+msgstr "重置终端"
+
+#: source/gx/terminix/prefdialog.d:514
+msgid "Encodings showing in menu:"
+msgstr "菜单中显示的编码："
+
+#: source/gx/terminix/prefdialog.d:550
+msgid "Enabled"
+msgstr "已启用"
+
+#: source/gx/terminix/prefdialog.d:604 source/gx/terminix/profileeditor.d:1486
+msgid "Action"
+msgstr "动作"
+
+#: source/gx/terminix/prefdialog.d:633
+msgid "Shortcut Key"
+msgstr "快捷键"
+
+#: source/gx/terminix/prefdialog.d:645
+msgid "Enable shortcuts"
+msgstr "启用快捷键"
+
+#: source/gx/terminix/prefdialog.d:669
+msgid "Overwrite Existing Shortcut"
+msgstr "覆盖已有快捷键"
+
+#: source/gx/terminix/prefdialog.d:670
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"快捷键 %s 已指派为 %s。\n"
+"禁用另一动作的快捷键并在此指派？"
+
+#: source/gx/terminix/prefdialog.d:790
+msgid "Enable transparency, requires re-start"
+msgstr "开启透明终端，需要重启终端"
+
+#: source/gx/terminix/prefdialog.d:801
+msgid "Terminal title style"
+msgstr "终端标题样式"
+
+#: source/gx/terminix/prefdialog.d:802
+msgid "Normal"
+msgstr "一般"
+
+#: source/gx/terminix/prefdialog.d:802
+msgid "Small"
+msgstr "较小"
+
+#: source/gx/terminix/prefdialog.d:802 source/gx/terminix/profileeditor.d:292
+msgid "None"
+msgstr "无"
+
+#: source/gx/terminix/prefdialog.d:808
+msgid "Theme variant"
+msgstr "主题变种"
+
+#: source/gx/terminix/prefdialog.d:809 source/gx/terminix/session.d:1096
+#: source/gx/terminix/appwindow.d:875
+msgid "Default"
+msgstr "默认"
+
+#: source/gx/terminix/prefdialog.d:809
+msgid "Light"
+msgstr "淡色"
+
+#: source/gx/terminix/prefdialog.d:809
+msgid "Dark"
+msgstr "深色"
+
+#: source/gx/terminix/prefdialog.d:815
+msgid "Background image"
+msgstr "背景图像"
+
+#: source/gx/terminix/prefdialog.d:817
+msgid "Select Image"
+msgstr "选择图像"
+
+#: source/gx/terminix/prefdialog.d:820
+msgid "All Image Files"
+msgstr "所有图像文件"
+
+#: source/gx/terminix/prefdialog.d:827 source/gx/terminix/profileeditor.d:856
+#: source/gx/terminix/terminal/terminal.d:2603
+#: source/gx/terminix/appwindow.d:1176
+msgid "All Files"
+msgstr "所有文件"
+
+#: source/gx/terminix/prefdialog.d:841
+msgid "Reset background image"
+msgstr "重置背景图像"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Scale"
+msgstr "缩放"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Tile"
+msgstr "平铺"
+
+#: source/gx/terminix/prefdialog.d:847 source/gx/terminix/prefdialog.d:953
+msgid "Center"
+msgstr "居中"
+
+#: source/gx/terminix/prefdialog.d:847
+msgid "Stretch"
+msgstr "拉伸"
+
+#: source/gx/terminix/prefdialog.d:866
+#, fuzzy
+msgid "Default session name"
+msgstr "编辑会话名称"
+
+#: source/gx/terminix/prefdialog.d:877
+#, fuzzy
+msgid "Application title"
+msgstr "应用程序"
+
+#: source/gx/terminix/prefdialog.d:890
+msgid "Use a wide handle for splitters"
+msgstr "使用较宽的分割手柄"
+
+#: source/gx/terminix/prefdialog.d:895
+msgid "Place the sidebar on the right"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:899
+#, fuzzy
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "设置新终端的标题"
+
+#: source/gx/terminix/prefdialog.d:920
+msgid "Size"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:931
+msgid "Height percent"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:942
+msgid "Width percent"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:952
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:953
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:953
+#, fuzzy
+msgid "Right"
+msgstr "淡色"
+
+#: source/gx/terminix/prefdialog.d:963 source/gx/terminix/profileeditor.d:465
+msgid "Options"
+msgstr "选项"
+
+#: source/gx/terminix/prefdialog.d:971
+msgid "Show terminal on all workspaces"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:976
+msgid "Set hint for window manager to disable animation"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:981
+msgid "Hide window when focus is lost"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:986
+#, fuzzy
+msgid "Hide the titlebar of the window"
+msgstr "设置新终端的标题"
+
+#: source/gx/terminix/prefdialog.d:1001
+#, fuzzy
+msgid "Display terminal on active monitor"
+msgstr "保存终端内容"
+
+#: source/gx/terminix/prefdialog.d:1008
+msgid "Display on specific monitor"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1043
+msgid "Behavior"
+msgstr "行为"
+
+#: source/gx/terminix/prefdialog.d:1049
+msgid "Prompt when creating a new session"
+msgstr "创建新会话时提示"
+
+#: source/gx/terminix/prefdialog.d:1054
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "在鼠标移入时激活终端"
+
+#: source/gx/terminix/prefdialog.d:1059
+msgid "Autohide the mouse pointer when typing"
+msgstr "打字时自动隐藏鼠标指针"
+
+#: source/gx/terminix/prefdialog.d:1064
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1069
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1074
+msgid "Close window when last session is closed"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1080
+msgid "Send desktop notification on process complete"
+msgstr "进程完成时发送桌面通知"
+
+#: source/gx/terminix/prefdialog.d:1088
+msgid "On new instance"
+msgstr "创建新实例时"
+
+#: source/gx/terminix/prefdialog.d:1091 source/gx/terminix/application.d:214
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
+msgid "New Window"
+msgstr "新建窗口"
+
+#: source/gx/terminix/prefdialog.d:1091 source/gx/terminix/session.d:1436
+#: source/gx/terminix/application.d:213
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
+msgid "New Session"
+msgstr "新建会话"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Split Right"
+msgstr "向右分割"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Split Down"
+msgstr "向下分割"
+
+#: source/gx/terminix/prefdialog.d:1091
+msgid "Focus Window"
+msgstr "聚焦窗口"
+
+#: source/gx/terminix/prefdialog.d:1097
+#: source/gx/terminix/terminal/terminal.d:1369
+msgid "Clipboard"
+msgstr "剪贴板"
+
+#: source/gx/terminix/prefdialog.d:1103
+msgid "Always use advanced paste dialog"
+msgstr ""
+
+#: source/gx/terminix/prefdialog.d:1108
+msgid "Warn when attempting unsafe paste"
+msgstr "进行不安全复制时警告"
+
+#: source/gx/terminix/prefdialog.d:1113
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "如果粘贴内容为注释或变量声明则切除第一个字符"
+
+#: source/gx/terminix/prefdialog.d:1118
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "选择时自动将文本复制到剪贴板"
+
 #: source/gx/terminix/session.d:540
 msgid "Could not locate dropped terminal"
 msgstr "无法定位放置的终端"
@@ -66,25 +406,10 @@ msgstr "无法定位放置的终端"
 msgid "Could not locate session for dropped terminal"
 msgstr "无法定位放置的终端的会话"
 
-#: source/gx/terminix/session.d:1096 source/gx/terminix/appwindow.d:877
-#: source/gx/terminix/prefwindow.d:807
-msgid "Default"
-msgstr "默认"
-
 #: source/gx/terminix/session.d:1402 source/gx/terminix/terminal/password.d:133
 #: source/gx/terminix/terminal/password.d:425
 msgid "Name"
 msgstr "名称"
-
-#: source/gx/terminix/session.d:1413 source/gx/terminix/prefwindow.d:142
-msgid "Profile"
-msgstr "配置方案"
-
-#: source/gx/terminix/session.d:1436 source/gx/terminix/application.d:213
-#: source/gx/terminix/prefwindow.d:1089
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "新建会话"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -311,10 +636,6 @@ msgstr "关闭"
 msgid "Terminal bell"
 msgstr "终端响铃"
 
-#: source/gx/terminix/profileeditor.d:292 source/gx/terminix/prefwindow.d:800
-msgid "None"
-msgstr "无"
-
 #: source/gx/terminix/profileeditor.d:292
 msgid "Sound"
 msgstr "声音"
@@ -399,10 +720,6 @@ msgstr ""
 #: source/gx/terminix/profileeditor.d:457
 msgid "Color palette"
 msgstr "调色板"
-
-#: source/gx/terminix/profileeditor.d:465 source/gx/terminix/prefwindow.d:961
-msgid "Options"
-msgstr "选项"
 
 #: source/gx/terminix/profileeditor.d:479
 msgid "Use theme colors for foreground/background"
@@ -519,8 +836,8 @@ msgid "Export Color Scheme"
 msgstr "配色方案"
 
 #: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2578
-#: source/gx/terminix/appwindow.d:662 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/terminal/terminal.d:2593
+#: source/gx/terminix/appwindow.d:660 source/gx/terminix/appwindow.d:1252
 msgid "Save"
 msgstr "保存"
 
@@ -528,24 +845,18 @@ msgstr "保存"
 #: source/gx/terminix/profileeditor.d:1383
 #: source/gx/terminix/profileeditor.d:1556
 #: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2578
+#: source/gx/terminix/terminal/terminal.d:2593
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1218
+#: source/gx/terminix/appwindow.d:1252
 msgid "Cancel"
 msgstr "取消"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1172
 msgid "All JSON Files"
 msgstr "所有 JSON 文件"
-
-#: source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2588
-#: source/gx/terminix/appwindow.d:1177 source/gx/terminix/prefwindow.d:825
-msgid "All Files"
-msgstr "所有文件"
 
 #: source/gx/terminix/profileeditor.d:911
 msgid "Show scrollbar"
@@ -595,13 +906,6 @@ msgstr "TTY"
 #: source/gx/terminix/profileeditor.d:967
 msgid "Delete key generates"
 msgstr "按 Delete 键产生"
-
-#: source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:705
-#: source/gx/terminix/prefwindow.d:136 source/gx/terminix/prefwindow.d:137
-#: source/gx/terminix/prefwindow.d:550
-msgid "Encoding"
-msgstr "编码"
 
 #: source/gx/terminix/profileeditor.d:991
 msgid "Ambiguous-width characters"
@@ -729,14 +1033,6 @@ msgstr "编辑主机名:目录以匹配"
 msgid "Edit Match"
 msgstr "编辑匹配"
 
-#: source/gx/terminix/profileeditor.d:1197
-#: source/gx/terminix/profileeditor.d:1362
-#: source/gx/terminix/profileeditor.d:1518
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/prefwindow.d:436
-msgid "Delete"
-msgstr "删除"
-
 #: source/gx/terminix/profileeditor.d:1314
 #: source/gx/terminix/profileeditor.d:1455
 #, c-format
@@ -761,10 +1057,6 @@ msgstr "编辑自定义链接"
 #: source/gx/terminix/terminal/password.d:367
 msgid "Apply"
 msgstr "应用"
-
-#: source/gx/terminix/profileeditor.d:1486 source/gx/terminix/prefwindow.d:602
-msgid "Action"
-msgstr "动作"
 
 #: source/gx/terminix/profileeditor.d:1498
 msgid "Parameter"
@@ -810,20 +1102,20 @@ msgstr ""
 "会话载入选项仅在载入会话文件时生效。"
 
 #: source/gx/terminix/terminal/terminal.d:329
-#: source/gx/terminix/terminal/terminal.d:2923
+#: source/gx/terminix/terminal/terminal.d:2938
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "终端"
 
 #: source/gx/terminix/terminal/terminal.d:360
-#: source/gx/terminix/terminal/terminal.d:1365
-#: source/gx/terminix/appwindow.d:664 source/gx/terminix/sidebar.d:364
+#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/appwindow.d:662 source/gx/terminix/sidebar.d:364
 msgid "Close"
 msgstr "关闭"
 
 #: source/gx/terminix/terminal/terminal.d:369
-#: source/gx/terminix/terminal/terminal.d:1053
-#: source/gx/terminix/terminal/terminal.d:1364
+#: source/gx/terminix/terminal/terminal.d:1067
+#: source/gx/terminix/terminal/terminal.d:1378
 msgid "Maximize"
 msgstr "最大化"
 
@@ -863,10 +1155,6 @@ msgstr "保存输出…"
 msgid "Reset and Clear"
 msgstr "重置并清空"
 
-#: source/gx/terminix/terminal/terminal.d:704
-msgid "Profiles"
-msgstr "配置方案"
-
 #: source/gx/terminix/terminal/terminal.d:709
 msgid "Find…"
 msgstr "查找…"
@@ -883,84 +1171,79 @@ msgstr "向右分割"
 msgid "Add Down"
 msgstr "向下分割"
 
-#: source/gx/terminix/terminal/terminal.d:1050
-#: source/gx/terminix/terminal/terminal.d:1364
+#: source/gx/terminix/terminal/terminal.d:1064
+#: source/gx/terminix/terminal/terminal.d:1378
 msgid "Restore"
 msgstr "恢复"
 
-#: source/gx/terminix/terminal/terminal.d:1324
+#: source/gx/terminix/terminal/terminal.d:1338
 msgid "Open Link"
 msgstr "打开链接"
 
-#: source/gx/terminix/terminal/terminal.d:1325
+#: source/gx/terminix/terminal/terminal.d:1339
 msgid "Copy Link Address"
 msgstr "复制链接地址"
 
-#: source/gx/terminix/terminal/terminal.d:1335
-#: source/gx/terminix/terminal/terminal.d:1342
+#: source/gx/terminix/terminal/terminal.d:1349
+#: source/gx/terminix/terminal/terminal.d:1356
 msgid "Copy"
 msgstr "复制"
 
-#: source/gx/terminix/terminal/terminal.d:1336
-#: source/gx/terminix/terminal/terminal.d:1347
+#: source/gx/terminix/terminal/terminal.d:1350
+#: source/gx/terminix/terminal/terminal.d:1361
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "粘贴"
 
-#: source/gx/terminix/terminal/terminal.d:1337
-#: source/gx/terminix/terminal/terminal.d:1352
+#: source/gx/terminix/terminal/terminal.d:1351
+#: source/gx/terminix/terminal/terminal.d:1366
 msgid "Select All"
 msgstr "全选"
 
-#: source/gx/terminix/terminal/terminal.d:1355
-#: source/gx/terminix/prefwindow.d:1095
-msgid "Clipboard"
-msgstr "剪贴板"
-
-#: source/gx/terminix/terminal/terminal.d:1369
+#: source/gx/terminix/terminal/terminal.d:1383
 msgid "Synchronize input"
 msgstr "同步输入"
 
-#: source/gx/terminix/terminal/terminal.d:1964
+#: source/gx/terminix/terminal/terminal.d:1980
 msgid "Unexpected error occurred, no additional information available"
 msgstr "发生未知错误，无其他可用信息"
 
-#: source/gx/terminix/terminal/terminal.d:1970
+#: source/gx/terminix/terminal/terminal.d:1986
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "发生未知错误：%s"
 
-#: source/gx/terminix/terminal/terminal.d:2575
+#: source/gx/terminix/terminal/terminal.d:2590
 msgid "Save Terminal Output"
 msgstr "保存终端输出"
 
-#: source/gx/terminix/terminal/terminal.d:2584
+#: source/gx/terminix/terminal/terminal.d:2599
 msgid "All Text Files"
 msgstr "所有文本文件"
 
-#: source/gx/terminix/terminal/terminal.d:3073
+#: source/gx/terminix/terminal/terminal.d:3088
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "子进程以 %d 状态正常退出"
 
-#: source/gx/terminix/terminal/terminal.d:3074
+#: source/gx/terminix/terminal/terminal.d:3089
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "子进程被 %d 信号中止。"
 
-#: source/gx/terminix/terminal/terminal.d:3075
+#: source/gx/terminix/terminal/terminal.d:3090
 msgid "The child process was aborted."
 msgstr "子进程已被中止。"
 
-#: source/gx/terminix/terminal/terminal.d:3081
+#: source/gx/terminix/terminal/terminal.d:3096
 msgid "Relaunch"
 msgstr "重新启动"
 
-#: source/gx/terminix/terminal/terminal.d:3126
+#: source/gx/terminix/terminal/terminal.d:3141
 msgid "Don't Paste"
 msgstr "不要粘贴"
 
-#: source/gx/terminix/terminal/terminal.d:3127
+#: source/gx/terminix/terminal/terminal.d:3142
 msgid "Paste Anyway"
 msgstr "依然粘贴"
 
@@ -1083,20 +1366,6 @@ msgstr "聚焦窗口"
 msgid "Close Session"
 msgstr "新建会话"
 
-#: source/gx/terminix/application.d:214 source/gx/terminix/prefwindow.d:1089
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
-msgid "New Window"
-msgstr "新建窗口"
-
-#: source/gx/terminix/application.d:218 source/gx/terminix/prefwindow.d:217
-msgid "Preferences"
-msgstr "首选项"
-
-#: source/gx/terminix/application.d:220 source/gx/terminix/prefwindow.d:132
-#: source/gx/terminix/prefwindow.d:133
-msgid "Shortcuts"
-msgstr "快捷键"
-
 #: source/gx/terminix/application.d:225
 msgid "About"
 msgstr "关于"
@@ -1109,109 +1378,109 @@ msgstr "退出"
 msgid "Credits"
 msgstr "感谢名单"
 
-#: source/gx/terminix/application.d:316 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1332
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
 msgstr "Terminix"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:609
 msgid "Set the working directory of the terminal"
 msgstr "设置终端的工作目录"
 
-#: source/gx/terminix/application.d:608
+#: source/gx/terminix/application.d:609
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:610
 msgid "Set the starting profile"
 msgstr "设置启动配置文件"
 
-#: source/gx/terminix/application.d:609
+#: source/gx/terminix/application.d:610
 msgid "PROFILE_NAME"
 msgstr "PROFILE_NAME"
 
-#: source/gx/terminix/application.d:610
+#: source/gx/terminix/application.d:611
 msgid "Set the title of the new terminal"
 msgstr "设置新终端的标题"
 
-#: source/gx/terminix/application.d:610
+#: source/gx/terminix/application.d:611
 msgid "TITLE"
 msgstr "标题"
 
-#: source/gx/terminix/application.d:611
+#: source/gx/terminix/application.d:612
 msgid "Open the specified session"
 msgstr "打开指定会话"
 
-#: source/gx/terminix/application.d:611
+#: source/gx/terminix/application.d:612
 msgid "SESSION_NAME"
 msgstr "SESSION_NAME"
 
-#: source/gx/terminix/application.d:612
+#: source/gx/terminix/application.d:613
 msgid "Send an action to current Terminix instance"
 msgstr "向当前 Terminix 实例发送动作"
 
-#: source/gx/terminix/application.d:612
+#: source/gx/terminix/application.d:613
 msgid "ACTION_NAME"
 msgstr "ACTION_NAME"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:614
 #, fuzzy
 msgid "Execute the parameter as a command"
 msgstr "执行传入的命令"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:614
 msgid "COMMAND"
 msgstr ""
 
-#: source/gx/terminix/application.d:614
+#: source/gx/terminix/application.d:615
 msgid "Maximize the terminal window"
 msgstr "最大化终端窗口"
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:616
 #, fuzzy
 msgid "Minimize the terminal window"
 msgstr "最大化终端窗口"
 
-#: source/gx/terminix/application.d:616
+#: source/gx/terminix/application.d:617
 msgid "Full-screen the terminal window"
 msgstr "全屏终端窗口"
 
-#: source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:618
 msgid "Focus the existing window"
 msgstr "焦点集中到已有窗口"
 
-#: source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:619
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr "将附加实例作为新进程启动（不推荐）"
 
-#: source/gx/terminix/application.d:619
+#: source/gx/terminix/application.d:620
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr "设置窗口大小；例如：80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 
-#: source/gx/terminix/application.d:619
+#: source/gx/terminix/application.d:620
 msgid "GEOMETRY"
 msgstr "尺寸"
 
-#: source/gx/terminix/application.d:620
+#: source/gx/terminix/application.d:621
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 
-#: source/gx/terminix/application.d:621
+#: source/gx/terminix/application.d:622
 msgid "Show the Terminix and dependant component versions"
 msgstr ""
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:625
 msgid "Hidden argument to pass terminal UUID"
 msgstr "传入终端 UUID 的隐藏参数"
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:625
 msgid "TERMINAL_UUID"
 msgstr "TERMINAL_UUID"
 
-#: source/gx/terminix/application.d:761
+#: source/gx/terminix/application.d:765
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -1220,11 +1489,11 @@ msgstr ""
 "终端配置似乎存在问题。这并不是严重问题，但是更正这些问题将改善你的使用体验。"
 "点击如下链接以获取更多信息："
 
-#: source/gx/terminix/application.d:762
+#: source/gx/terminix/application.d:766
 msgid "Configuration Issue Detected"
 msgstr "检测到配置问题"
 
-#: source/gx/terminix/application.d:774
+#: source/gx/terminix/application.d:778
 msgid "Do not show this message again"
 msgstr "不再显示该信息"
 
@@ -1248,66 +1517,66 @@ msgstr "下侧新建终端"
 msgid "Find text in terminal"
 msgstr "在终端查找文本"
 
-#: source/gx/terminix/appwindow.d:606
+#: source/gx/terminix/appwindow.d:604
 msgid "Change Session Name"
 msgstr "更改会话名称"
 
-#: source/gx/terminix/appwindow.d:606
+#: source/gx/terminix/appwindow.d:604
 msgid "Enter a new name for the session"
 msgstr "为会话新建名称"
 
-#: source/gx/terminix/appwindow.d:661
+#: source/gx/terminix/appwindow.d:659
 msgid "Open…"
 msgstr "打开…"
 
-#: source/gx/terminix/appwindow.d:663
+#: source/gx/terminix/appwindow.d:661
 msgid "Save As…"
 msgstr "另存为…"
 
-#: source/gx/terminix/appwindow.d:668
+#: source/gx/terminix/appwindow.d:666
 msgid "Name…"
 msgstr "名称…"
 
-#: source/gx/terminix/appwindow.d:669
+#: source/gx/terminix/appwindow.d:667
 msgid "Synchronize Input"
 msgstr "同步输入"
 
-#: source/gx/terminix/appwindow.d:674
+#: source/gx/terminix/appwindow.d:672
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:980
+#: source/gx/terminix/appwindow.d:978
 #, fuzzy
 msgid "There are multiple sessions open, close anyway?"
 msgstr "仍有正在运行的进程，依然要关闭吗？"
 
-#: source/gx/terminix/appwindow.d:981
+#: source/gx/terminix/appwindow.d:979
 #, fuzzy
 msgid "Do not show this again"
 msgstr "不再显示该信息"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1185
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "文件名“%s”不存在"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1215
 msgid "Load Session"
 msgstr "载入会话"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1218
 msgid "Open"
 msgstr "打开"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1233
 msgid "Could not load session due to unexpected error."
 msgstr "发生未知错误，无法载入会话。"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1233
 msgid "Error Loading Session"
 msgstr "载入会话出错"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1249
 msgid "Save Session"
 msgstr "保存会话"
 
@@ -1388,270 +1657,6 @@ msgstr "标题"
 #, fuzzy, c-format
 msgid "%s (Copy)"
 msgstr "复制"
-
-#: source/gx/terminix/prefwindow.d:103
-#, fuzzy
-msgid "Terminix Preferences"
-msgstr "打开首选项"
-
-#: source/gx/terminix/prefwindow.d:120 source/gx/terminix/prefwindow.d:121
-#: source/gx/terminix/prefwindow.d:185
-msgid "Global"
-msgstr "全局"
-
-#: source/gx/terminix/prefwindow.d:124 source/gx/terminix/prefwindow.d:125
-msgid "Appearance"
-msgstr "外观"
-
-#: source/gx/terminix/prefwindow.d:128 source/gx/terminix/prefwindow.d:129
-msgid "Quake"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:155
-#, fuzzy
-msgid "Add profile"
-msgstr "编辑配置方案"
-
-#: source/gx/terminix/prefwindow.d:160
-#, fuzzy
-msgid "Delete profile"
-msgstr "新建配置方案"
-
-#: source/gx/terminix/prefwindow.d:437
-msgid "Clone"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:441
-#, fuzzy
-msgid "Use for new terminals"
-msgstr "重置终端"
-
-#: source/gx/terminix/prefwindow.d:512
-msgid "Encodings showing in menu:"
-msgstr "菜单中显示的编码："
-
-#: source/gx/terminix/prefwindow.d:548
-msgid "Enabled"
-msgstr "已启用"
-
-#: source/gx/terminix/prefwindow.d:631
-msgid "Shortcut Key"
-msgstr "快捷键"
-
-#: source/gx/terminix/prefwindow.d:643
-msgid "Enable shortcuts"
-msgstr "启用快捷键"
-
-#: source/gx/terminix/prefwindow.d:667
-msgid "Overwrite Existing Shortcut"
-msgstr "覆盖已有快捷键"
-
-#: source/gx/terminix/prefwindow.d:668
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"快捷键 %s 已指派为 %s。\n"
-"禁用另一动作的快捷键并在此指派？"
-
-#: source/gx/terminix/prefwindow.d:788
-msgid "Enable transparency, requires re-start"
-msgstr "开启透明终端，需要重启终端"
-
-#: source/gx/terminix/prefwindow.d:799
-msgid "Terminal title style"
-msgstr "终端标题样式"
-
-#: source/gx/terminix/prefwindow.d:800
-msgid "Normal"
-msgstr "一般"
-
-#: source/gx/terminix/prefwindow.d:800
-msgid "Small"
-msgstr "较小"
-
-#: source/gx/terminix/prefwindow.d:806
-msgid "Theme variant"
-msgstr "主题变种"
-
-#: source/gx/terminix/prefwindow.d:807
-msgid "Light"
-msgstr "淡色"
-
-#: source/gx/terminix/prefwindow.d:807
-msgid "Dark"
-msgstr "深色"
-
-#: source/gx/terminix/prefwindow.d:813
-msgid "Background image"
-msgstr "背景图像"
-
-#: source/gx/terminix/prefwindow.d:815
-msgid "Select Image"
-msgstr "选择图像"
-
-#: source/gx/terminix/prefwindow.d:818
-msgid "All Image Files"
-msgstr "所有图像文件"
-
-#: source/gx/terminix/prefwindow.d:839
-msgid "Reset background image"
-msgstr "重置背景图像"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Scale"
-msgstr "缩放"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Tile"
-msgstr "平铺"
-
-#: source/gx/terminix/prefwindow.d:845 source/gx/terminix/prefwindow.d:951
-msgid "Center"
-msgstr "居中"
-
-#: source/gx/terminix/prefwindow.d:845
-msgid "Stretch"
-msgstr "拉伸"
-
-#: source/gx/terminix/prefwindow.d:864
-#, fuzzy
-msgid "Default session name"
-msgstr "编辑会话名称"
-
-#: source/gx/terminix/prefwindow.d:875
-#, fuzzy
-msgid "Application title"
-msgstr "应用程序"
-
-#: source/gx/terminix/prefwindow.d:888
-msgid "Use a wide handle for splitters"
-msgstr "使用较宽的分割手柄"
-
-#: source/gx/terminix/prefwindow.d:893
-msgid "Place the sidebar on the right"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:897
-#, fuzzy
-msgid "Show the terminal title even if its the only terminal"
-msgstr "设置新终端的标题"
-
-#: source/gx/terminix/prefwindow.d:918
-msgid "Size"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:929
-msgid "Height percent"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:940
-msgid "Width percent"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:950
-msgid "Alignment"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:951
-msgid "Left"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:951
-#, fuzzy
-msgid "Right"
-msgstr "淡色"
-
-#: source/gx/terminix/prefwindow.d:969
-msgid "Show terminal on all workspaces"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:974
-msgid "Set hint for window manager to disable animation"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:979
-msgid "Hide window when focus is lost"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:984
-#, fuzzy
-msgid "Hide the titlebar of the window"
-msgstr "设置新终端的标题"
-
-#: source/gx/terminix/prefwindow.d:999
-#, fuzzy
-msgid "Display terminal on active monitor"
-msgstr "保存终端内容"
-
-#: source/gx/terminix/prefwindow.d:1006
-msgid "Display on specific monitor"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1041
-msgid "Behavior"
-msgstr "行为"
-
-#: source/gx/terminix/prefwindow.d:1047
-msgid "Prompt when creating a new session"
-msgstr "创建新会话时提示"
-
-#: source/gx/terminix/prefwindow.d:1052
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "在鼠标移入时激活终端"
-
-#: source/gx/terminix/prefwindow.d:1057
-msgid "Autohide the mouse pointer when typing"
-msgstr "打字时自动隐藏鼠标指针"
-
-#: source/gx/terminix/prefwindow.d:1062
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1067
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1072
-msgid "Close window when last session is closed"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1078
-msgid "Send desktop notification on process complete"
-msgstr "进程完成时发送桌面通知"
-
-#: source/gx/terminix/prefwindow.d:1086
-msgid "On new instance"
-msgstr "创建新实例时"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Split Right"
-msgstr "向右分割"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Split Down"
-msgstr "向下分割"
-
-#: source/gx/terminix/prefwindow.d:1089
-msgid "Focus Window"
-msgstr "聚焦窗口"
-
-#: source/gx/terminix/prefwindow.d:1101
-msgid "Always use advanced paste dialog"
-msgstr ""
-
-#: source/gx/terminix/prefwindow.d:1106
-msgid "Warn when attempting unsafe paste"
-msgstr "进行不安全复制时警告"
-
-#: source/gx/terminix/prefwindow.d:1111
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "如果粘贴内容为注释或变量声明则切除第一个字符"
-
-#: source/gx/terminix/prefwindow.d:1116
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "选择时自动将文本复制到剪贴板"
 
 # ******************
 # Nautilus extension
