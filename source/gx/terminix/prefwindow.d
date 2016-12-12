@@ -234,7 +234,7 @@ private:
         ListBoxRow row = new ListBoxRow();
         Box bProfileTitle = new Box(Orientation.VERTICAL, 2);
         bProfileTitle.add(new Separator(Orientation.HORIZONTAL));
-        Label lblProfileTitle = new Label("<b>Profiles</b>");
+        Label lblProfileTitle = new Label(format("<b>%s</b>", _("Profiles")));
         lblProfileTitle.setUseMarkup(true);
         lblProfileTitle.setHalign(Align.START);
         lblProfileTitle.setSensitive(false);
@@ -258,7 +258,7 @@ private:
         if (pr !is null) {
             pe.bind(pr.getProfile());
             pages.setVisibleChildName("Profile");
-            hbMain.setTitle(format("Profile: %s", pr.getProfile().name));
+            hbMain.setTitle(format(_("Profile: %s"), pr.getProfile().name));
         }
     }
 
@@ -266,7 +266,7 @@ private:
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
         if (row !is null) {
             row.updateName(newName);
-            hbMain.setTitle(format("Profile: %s", newName));
+            hbMain.setTitle(format(_("Profile: %s"), newName));
         }
     }
 
