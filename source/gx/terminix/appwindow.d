@@ -870,6 +870,18 @@ private:
     }
 
     void updateTitle() {
+        string title = getDisplayTitle();
+        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            if (hb.getCustomTitle() !is null) {
+                lblTitle.setText(title);
+            } else {
+                hb.setTitle(title);
+            }
+        }
+        setTitle(title);        
+    }
+
+    string getDisplayTitle() {
         string title = _overrideTitle.length == 0?gsSettings.getString(SETTINGS_APP_TITLE_KEY):_overrideTitle;
         title = title.replace(TITLE_APP_NAME, _(APPLICATION_NAME));
         Session session = getCurrentSession();
@@ -880,14 +892,7 @@ private:
             title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
             title = title.replace(TITLE_SESSION_NAME, _("Default"));
         }
-        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            if (hb.getCustomTitle() !is null) {
-                lblTitle.setText(title);
-            } else {
-                hb.setTitle(title);
-            }
-        }
-        setTitle(title);        
+        return title;
     }
 
     bool drawSideBarBadge(Scoped!Context cr, Widget widget) {
@@ -1263,7 +1268,7 @@ private:
 
             fcd.setDoOverwriteConfirmation(true);
             fcd.setDefaultResponse(ResponseType.OK);
-            fcd.setCurrentName(session.name ~ ".json");
+            fcd.setCurrentName(session.displayName ~ ".json");
 
             if (fcd.run() == ResponseType.OK) {
                 filename = fcd.getFilename();
