@@ -24,6 +24,8 @@ import gio.Settings : GSettings = Settings;
 
 import glib.Util;
 
+import gobject.ObjectG;
+import gobject.ParamSpec;
 import gobject.Value;
 
 import gtk.Application;
@@ -186,7 +188,7 @@ private:
      * make it look somewhat attractive on Ubuntu and non Adwaita themes.
      */
     Paned createPaned(Orientation orientation) {
-        Paned result = new Paned(orientation);
+        Paned result = new TerminalPaned(orientation);
         if (Version.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
@@ -1193,16 +1195,18 @@ public:
             if (direction == "up" || direction == "left")
                 increment = -increment;
             while (parent !is null) {
-                Paned paned = cast(Paned) parent;
+                TerminalPaned paned = cast(TerminalPaned) parent;
                 trace("Testing Paned");
                 if (paned !is null) {
                     if ((direction == "up" || direction == "down") && paned.getOrientation() == Orientation.VERTICAL) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
+                        paned.updateRatio();
                         return;
                     } else if ((direction == "left" || direction == "right") && paned.getOrientation() == Orientation.HORIZONTAL) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
+                        paned.updateRatio();
                         return;
                     }
                 }
@@ -1451,6 +1455,67 @@ private:
 
 immutable bool PANED_RESIZE_MODE = false;
 immutable bool PANED_SHRINK_MODE = false;
+
+/**
+ * Subclass of Paned that maintains a precise ratio split between
+ * children as the Paned is re-size (i.e. resizing the window the Paned is 
+ * a part of. GTK seems to grow one side versus the other for a slight amount
+ * without this compensation in place.
+ */
+class TerminalPaned : Paned {
+
+private:
+    double ratio = 0.5;
+    int lastWidth, lastHeight;
+
+    void updatePosition(GdkRectangle* rect, Widget) {
+        //tracef("TerminalPaned Size allocated, ratio %f", ratio);
+        if (getOrientation() == Orientation.HORIZONTAL) {
+            if (lastWidth != getAllocatedWidth()) {
+                int position = to!int(to!double(getAllocatedWidth()) * ratio);
+                setPosition(position);
+                //tracef("Position=%d, lastWidth=%d, AllocatedWidth=%d, rect.width=%d", position, lastWidth, getAllocatedWidth(), rect.width);
+                lastWidth = getAllocatedWidth();
+
+            }
+        } else {
+            if (lastHeight != getAllocatedHeight()) {
+                setPosition(to!int(getAllocatedHeight() * ratio));
+                lastHeight = getAllocatedHeight();
+            }
+        }
+    }
+
+public:
+    this(Orientation orientation) {
+        super(orientation);
+        addOnSizeAllocate(&updatePosition);
+        addOnButtonRelease(delegate(Event event, Widget w) {
+            updateRatio();
+            return false;
+        });
+        addOnAcceptPosition(delegate(Paned) {
+            updateRatio();
+            return false;
+        });
+    }
+
+    void updateRatio() {
+        //trace("Updating ratio");
+        double newRatio = ratio;
+        if (getOrientation() == Orientation.HORIZONTAL) {
+            newRatio = to!double(getChild1().getAllocatedWidth()) / to!double(getAllocatedWidth());
+            //tracef("Child1 Width=%d, Paned Width=%d",getChild1().getAllocatedWidth(),getAllocatedWidth()); 
+        } else {
+            newRatio = to!double(getChild1().getAllocatedHeight()) / to!double(getHeight());
+            //tracef("Child1 Height=%d, Paned Height=%d",getChild1().getAllocatedHeight(),getAllocatedHeight()); 
+        }
+        if (newRatio > 0.0 && newRatio < 1.0) {
+            ratio = newRatio;
+            //tracef("New TerminalPaned ratio %f", ratio);
+        }
+    }
+}
 
 /**
  * used during session serialization to store any width/height/position elements
