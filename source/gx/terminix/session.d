@@ -187,8 +187,8 @@ private:
      * Create a Paned widget and modify some properties to
      * make it look somewhat attractive on Ubuntu and non Adwaita themes.
      */
-    Paned createPaned(Orientation orientation) {
-        Paned result = new TerminalPaned(orientation);
+    TerminalPaned createPaned(Orientation orientation) {
+        TerminalPaned result = new TerminalPaned(orientation);
         if (Version.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
@@ -730,6 +730,7 @@ private:
     enum NODE_WIDTH = "width";
     enum NODE_HEIGHT = "height";
     enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
+    enum NODE_RATIO = "ratio";
 
     /**
      * Widget Types which are serialized
@@ -751,7 +752,7 @@ private:
             return WidgetType.SESSION;
         else if (cast(Terminal) widget !is null)
             return WidgetType.TERMINAL;
-        else if (cast(Paned) widget !is null)
+        else if (cast(TerminalPaned) widget !is null)
             return WidgetType.PANED;
         else
             return WidgetType.OTHER;
@@ -765,7 +766,7 @@ private:
         WidgetType wt = getSerializedType(widget);
         switch (wt) {
         case WidgetType.PANED:
-            serializePaned(value, cast(Paned) widget, sizeInfo);
+            serializePaned(value, cast(TerminalPaned) widget, sizeInfo);
             break;
         case WidgetType.TERMINAL:
             serializeTerminal(value, cast(Terminal) widget);
@@ -779,7 +780,7 @@ private:
     /**
      * Serialize the Paned widget
      */
-    JSONValue serializePaned(JSONValue value, Paned paned, SessionSizeInfo sizeInfo) {
+    JSONValue serializePaned(JSONValue value, TerminalPaned paned, SessionSizeInfo sizeInfo) {
 
         /**
          * Added to check for maximized state and grab right terminal
@@ -798,6 +799,7 @@ private:
         int positionPercent = to!int(sizeInfo.scalePosition(paned.getPosition, paned.getOrientation()) * 100);
         value[NODE_SCALED_POSITION] = JSONValue(positionPercent);
         value[NODE_TYPE] = WidgetType.PANED;
+        value[NODE_RATIO] = JSONValue(paned.ratio);
         Box box1 = cast(Box) paned.getChild1();
         serializeBox(NODE_CHILD1, box1);
         Box box2 = cast(Box) paned.getChild2();
@@ -852,7 +854,7 @@ private:
     Paned parsePaned(JSONValue value, SessionSizeInfo sizeInfo) {
         trace("Loading paned");
         Orientation orientation = cast(Orientation) value[NODE_ORIENTATION].integer();
-        Paned paned = createPaned(orientation);
+        TerminalPaned paned = createPaned(orientation);
         Box b1 = new Box(Orientation.VERTICAL, 0);
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
         Box b2 = new Box(Orientation.VERTICAL, 0);
@@ -868,7 +870,13 @@ private:
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
         }
         int pos = sizeInfo.getPosition(percent, orientation);
-        tracef("Paned position %f percent or %d px", percent, pos);
+        if (NODE_RATIO in value) {
+            double ratio = value[NODE_RATIO].floating;
+            paned.ratio = ratio;
+        } else {
+            paned.ignoreRatio = true;
+        }
+        tracef("Paned position %f percent, %d px, %f ratio", percent, pos, paned.ratio);
         paned.setPosition(pos);
         return paned;
     }
@@ -885,6 +893,7 @@ private:
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
         groupChild.add(parseNode(child, sizeInfo));
+
         if (maximizedUUID.length > 0) {
             Terminal terminal = findTerminal(maximizedUUID);
             if (terminal !is null) {
@@ -1069,6 +1078,14 @@ public:
      *  The JSON representation of the session
      */
     JSONValue serialize() {
+
+        // Force all Paned to update their ratios, needed when upgrading from pre-ratio files
+        TerminalPaned[] panes = gx.gtk.util.getChildren!TerminalPaned(stackGroup, true);
+        foreach(paned; panes) {
+            trace("Updating paned position after session load");
+            paned.updateRatio();
+        }
+
         JSONValue root = ["version" : "1.0"];
         root.object[NODE_NAME] = _name;
         root.object[NODE_SYNCHRONIZED_INPUT] = _synchronizeInput;
@@ -1465,35 +1482,22 @@ immutable bool PANED_SHRINK_MODE = false;
 class TerminalPaned : Paned {
 
 private:
-    double ratio = 0.5;
+    double _ratio = 0.5;
     int lastWidth, lastHeight;
-
-    void updatePosition(GdkRectangle* rect, Widget) {
-        //tracef("TerminalPaned Size allocated, ratio %f", ratio);
-        if (getOrientation() == Orientation.HORIZONTAL) {
-            if (lastWidth != getAllocatedWidth()) {
-                int position = to!int(to!double(getAllocatedWidth()) * ratio);
-                setPosition(position);
-                //tracef("Position=%d, lastWidth=%d, AllocatedWidth=%d, rect.width=%d", position, lastWidth, getAllocatedWidth(), rect.width);
-                lastWidth = getAllocatedWidth();
-
-            }
-        } else {
-            if (lastHeight != getAllocatedHeight()) {
-                setPosition(to!int(getAllocatedHeight() * ratio));
-                lastHeight = getAllocatedHeight();
-            }
-        }
-    }
+    bool _ignoreRatio;
 
 public:
     this(Orientation orientation) {
         super(orientation);
-        addOnSizeAllocate(&updatePosition);
+        addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
+            updatePosition();
+        });
+
         addOnButtonRelease(delegate(Event event, Widget w) {
             updateRatio();
             return false;
         });
+
         addOnAcceptPosition(delegate(Paned) {
             updateRatio();
             return false;
@@ -1514,6 +1518,50 @@ public:
             ratio = newRatio;
             //tracef("New TerminalPaned ratio %f", ratio);
         }
+    }
+
+    void updatePosition(bool force = false) {
+        if (ignoreRatio) return;
+        //tracef("TerminalPaned Size allocated, ratio %f", ratio);
+        if (getOrientation() == Orientation.HORIZONTAL) {
+            if (force || lastWidth != getAllocatedWidth()) {
+                int position = to!int(to!double(getAllocatedWidth()) * ratio);
+                setPosition(position);
+                //tracef("Ratio=%f, Position=%d, lastWidth=%d, AllocatedWidth=%d", ratio, position, lastWidth, getAllocatedWidth());
+                lastWidth = getAllocatedWidth();
+
+            }
+        } else {
+            if (force || lastHeight != getAllocatedHeight()) {
+                setPosition(to!int(getAllocatedHeight() * ratio));
+                lastHeight = getAllocatedHeight();
+            }
+        }
+    }
+
+    @property double ratio() {
+        return _ratio;
+    }
+
+    @property void ratio(double value) {
+        _ratio = value;
+    }
+
+    /**
+     * This gets set when an older serialized session file
+     * is loaded without the ratio property in the JSON.
+     * If the user saves it again it gets upgraded to includes
+     * the ratio automatically.
+     *
+     * When set the paned position is not updated based on the 
+     * ratio, so pre-terminix 1.4.0 behavior. See issue #613
+     */
+    @property bool ignoreRatio() {
+        return _ignoreRatio;
+    }
+
+    @property ignoreRatio(bool value) {
+        _ignoreRatio = value;
     }
 }
 
