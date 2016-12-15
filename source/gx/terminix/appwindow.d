@@ -1131,23 +1131,28 @@ private:
                 }
             }
         }
-        getScreen().getMonitorGeometry(monitor, rect);
+        //getScreen().getMonitorGeometry(monitor, rect);
+        getScreen().getMonitorWorkarea(monitor, rect);
+
+        double widthPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
+        double heightPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
+        if (isWayland(this)) {
+            widthPercent = 1;
+        }
+
+        if (widthPercent == 1 && heightPercent == 1) {
+            maximize();
+            return;
+        }
 
         //Height
-        double percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
-        rect.height = to!int(rect.height * percent);
+        rect.height = to!int(rect.height * heightPercent);
         
         //Width
-
         // Window only gets positioned properly in Wayland when width is 100%, 
         // not sure if this kludge is really a good idea and will work consistently. 
-        if (isWayland(this)) {
-            percent = 1;
-        } else {
-            percent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
-        }
-        if (percent < 1) {
-            int width = to!int(rect.width * percent);
+        if (widthPercent < 1) {
+            int width = to!int(rect.width * widthPercent);
             tracef("Calculated width %d", width);
             switch (gsSettings.getString(SETTINGS_QUAKE_ALIGNMENT_KEY)) {
                 case SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE:
@@ -1425,6 +1430,17 @@ public:
             terminix.withdrawNotification(uuid);
             return false;
         });
+        /*
+        addOnWindowState(delegate(Event event, Widget) {
+            if (isQuake) {
+                if (event.windowState.newWindowState & WindowState.FULLSCREEN) {
+                    trace("Fullscreen is disabled in quake mode");
+                    return true;
+                }
+            }
+            return false;
+        });
+        */
     }
 
     void initialize() {

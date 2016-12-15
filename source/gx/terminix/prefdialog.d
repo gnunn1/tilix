@@ -929,7 +929,7 @@ private:
 
         // Terminal Height
         grid.attach(createLabel(_("Height percent")), 0, row, 1, 1);
-        Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
+        Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 90, 10);
         sHeight.setDrawValue(false);
         sHeight.setHexpand(true);
         sHeight.setHalign(Align.FILL);
