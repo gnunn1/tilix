@@ -1268,7 +1268,7 @@ private:
 
             fcd.setDoOverwriteConfirmation(true);
             fcd.setDefaultResponse(ResponseType.OK);
-            fcd.setCurrentName(session.displayName ~ ".json");
+            fcd.setCurrentName(filename.length > 0 ? filename : session.displayName ~ ".json");
 
             if (fcd.run() == ResponseType.OK) {
                 filename = fcd.getFilename();
