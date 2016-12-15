@@ -1115,7 +1115,13 @@ private:
         int monitor = screen.getPrimaryMonitor();
         if (!isWayland(this)) {
             if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
-                if (screen.getActiveWindow() !is null) {
+                int x, y = 0;
+                GdkModifierType mask;
+                Screen tempScreen;
+                screen.getDisplay().getPointer(tempScreen, x, y, mask);
+                if (tempScreen !is null) {
+                    monitor = tempScreen.getMonitorAtPoint(x, y);
+                } else if (screen.getActiveWindow() !is null) {
                     monitor = screen.getMonitorAtWindow(screen.getActiveWindow());
                 }
             } else {
