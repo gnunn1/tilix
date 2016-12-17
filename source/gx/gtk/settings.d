@@ -13,7 +13,10 @@ import gio.Settings: GSettings = Settings;
 
 /**
  * Bookkeeping class that keps track of objects which are
- * binded to a GSettings object so they can be unbinded later.
+ * binded to a GSettings object so they can be unbinded later. it
+ * also supports the concept of deferred bindings where a binding
+ * can be added but is not actually attached to a Settings object
+ * until one is set.
  */
 class BindingHelper {
 
@@ -29,6 +32,13 @@ private:
         }
     }
 
+    /**
+     * Adds a binding to the list
+     */
+    void addBind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+        bindings ~= Binding(key, object, property, flags);
+    }
+
 public:
 
     this() {
@@ -39,6 +49,9 @@ public:
         _settings = settings;
     }
 
+    /**
+     * The current Settings object being used.
+     */
     @property GSettings settings() {
         return _settings;
     }
@@ -55,16 +68,28 @@ public:
         }
     }
 
-    void addBind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
-        bindings ~= Binding(key, object, property, flags);
+    /**
+     * Add a binding to list and binds to Settings if it is set.
+     */
+    void bind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+        addBind(key, object, property, flags);
+        if (settings !is null) {
+            _settings.bind(key, object, property, flags);
+        }
     }
 
+    /**
+     * Unbinds all added binds from settings object
+     */
     void unbind() {
         foreach(binding; bindings) {
             _settings.unbind(binding.object, binding.property);
         }
     }
 
+    /**
+     * Unbinds all bindings and clears list of bindings.
+     */
     void clear() {
         unbind();
         bindings.length = 0;
@@ -72,6 +97,7 @@ public:
 }
 
 private:
+
 struct Binding {
     string key;
     ObjectG object;

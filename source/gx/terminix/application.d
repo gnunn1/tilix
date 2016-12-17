@@ -700,10 +700,11 @@ public:
             return;
         }
         //Otherwise create it and save the ID
+        trace("Creating preference window");
         preferenceDialog = new PreferenceDialog(getActiveAppWindow());
-        preferenceDialog.addOnDelete(delegate(Event, Widget) {
+        preferenceDialog.addOnDestroy(delegate(Widget) {
+            trace("Remove preference window reference");
             preferenceDialog = null;
-            return false;
         });
         preferenceDialog.showAll();
         preferenceDialog.present;

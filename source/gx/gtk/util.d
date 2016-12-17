@@ -292,16 +292,6 @@ ComboBox createNameValueCombo(const string[string] keyValues) {
 
 /**
  * Creates a combobox that holds a set of name/value pairs
- * where the name is displayed. Additionally the combobox is
- * bound to a GSettings.
- */
-ComboBox createNameValueCombo(const string[] names, const string[] values, GSettings settings, string key) {
-    ComboBox cb = createNameValueCombo(names, values);
-    settings.bind(key, cb, "active-id", GSettingsBindFlags.DEFAULT);
-    return cb;    
-}
-/**
- * Creates a combobox that holds a set of name/value pairs
  * where the name is displayed.
  */
 ComboBox createNameValueCombo(const string[] names, const string[] values) {
@@ -311,32 +301,6 @@ ComboBox createNameValueCombo(const string[] names, const string[] values) {
 
     for (int i = 0; i < names.length; i++) {
         appendValues(ls, [names[i], values[i]]);
-    }
-
-    ComboBox cb = new ComboBox(ls, false);
-    cb.setFocusOnClick(false);
-    cb.setIdColumn(1);
-    CellRendererText cell = new CellRendererText();
-    cell.setAlignment(0, 0);
-    cb.packStart(cell, false);
-    cb.addAttribute(cell, "text", 0);
-
-    return cb;
-}
-
-/**
- * Creates a combobox that holds a set of name/value pairs
- * where the name is displayed.
- */
-ComboBox createNameValueCombo(const string[] names, const int[] values) {
-    assert(names.length == values.length);
-
-    ListStore ls = new ListStore([GType.STRING, GType.INT]);
-
-    for (int i = 0; i < names.length; i++) {
-        TreeIter iter = ls.createIter();
-        ls.setValue(iter, 0, names[i]);
-        ls.setValue(iter, 1, values[i]);
     }
 
     ComboBox cb = new ComboBox(ls, false);

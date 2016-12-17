@@ -69,6 +69,7 @@ import vte.Terminal;
 
 import gx.gtk.actions;
 import gx.gtk.resource;
+import gx.gtk.settings;
 import gx.gtk.util;
 import gx.gtk.vte;
 
@@ -139,7 +140,7 @@ private:
 
         // Profile Editor - Re-used for all profiles
         pe = new ProfileEditor();
-        pe.addOnProfileNameChanged(&profileNameChanged);
+        pe.onProfileNameChanged.connect(&profileNameChanged);
         pages.addTitled(pe, N_("Profile"), _("Profile"));
         lbSide.add(createProfileTitleRow());
         loadProfiles();
@@ -273,7 +274,9 @@ private:
 
     void updateUI() {
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
-        btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null)); 
+        if (row !is null) {
+            btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null)); 
+        }
     }
 
 // Stuff that deals with profiles
@@ -342,6 +345,31 @@ public:
         gsSettings = new GSettings(SETTINGS_ID);
         createUI();
         updateUI();
+        this.addOnDestroy(delegate(Widget) {
+            trace("Preference window is destroyed");
+            pe.onProfileNameChanged.disconnect(&profileNameChanged);
+            gsSettings.destroy();
+            gsSettings = null;
+        });
+        // For some reason GTK doesn't propagate the destroy
+        // signal to the ListBoxRow, have to explicitly remove
+        // and destroy it.
+        this.addOnDelete(delegate(Event e, Widget) {
+            trace("Deleting list box rows");
+            ListBoxRow[] rows = gx.gtk.util.getChildren!ListBoxRow(lbSide, false);
+            foreach(row; rows) {
+                lbSide.remove(row);
+                row.destroy();
+            }
+            return false;
+        });
+    }
+
+    debug(Destructors) {
+        ~this() {
+            import std.stdio: writeln;
+            writeln("********** PreferenceDialog destructor");
+        }
     }
 
     void focusProfile(string uuid) {
@@ -389,6 +417,7 @@ private:
     Label lblName;
     Image imgDefault;
 
+    SimpleActionGroup sag;
     SimpleAction saDefault;
 
     immutable ACTION_PROFILE_PREFIX = "profile";
@@ -419,7 +448,7 @@ private:
     }
 
     void createActions() {
-        SimpleActionGroup sag = new SimpleActionGroup();
+        sag = new SimpleActionGroup();
         registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE, null, delegate(GVariant, SimpleAction) {
             dialog.deleteProfile(this);
         });
@@ -454,6 +483,11 @@ public:
         this.dialog = dialog;
         createActions();
         createUI();
+        addOnDestroy(delegate(Widget) {
+            trace("ProfileRow destroyed");
+            dialog = null;
+            sag.destroy();
+        });
     }
 
     void updateName(string newName) {
@@ -568,6 +602,9 @@ public:
         super(Orientation.VERTICAL, 6);
         this.gsSettings = gsSettings;
         createUI();
+        this.addOnDestroy(delegate(Widget) {
+            gsSettings = null;
+        });
     }
 }
 
@@ -579,6 +616,8 @@ class ShortcutPreferences : Box {
 private:
     GSettings gsShortcuts;
     GSettings gsSettings;
+
+    BindingHelper bh;
 
     TreeStore tsShortcuts;
     string[string] labels;
@@ -643,7 +682,7 @@ private:
         add(scShortcuts);
 
         CheckButton cbAccelerators = new CheckButton(_("Enable shortcuts"));
-        gsSettings.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
         add(cbAccelerators);
 
         tvShortcuts.expandAll();
@@ -768,8 +807,16 @@ public:
     this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
         this.gsSettings = gsSettings;
+        bh = new BindingHelper(gsSettings);
         gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
         createUI();
+        this.addOnDestroy(delegate(Widget) {
+            bh.unbind();
+            bh = null;
+            gsSettings = null;
+            gsShortcuts.destroy();
+            gsShortcuts = null;
+        });
     }
 
 }
@@ -779,7 +826,10 @@ public:
  */
 class AppearancePreferences: Box {
     private:
-        void createUI(GSettings gsSettings) {
+        BindingHelper bh;
+        GSettings gsSettings;
+
+        void createUI() {
             setMarginTop(18);
             setMarginBottom(18);
             setMarginLeft(18);
@@ -788,7 +838,7 @@ class AppearancePreferences: Box {
             //Enable Transparency, only enabled if less then 3.18
             if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
                 CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
-                gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+                bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
                 add(cbTransparent);
             }
 
@@ -800,14 +850,14 @@ class AppearancePreferences: Box {
             //Render terminal titlebars smaller then default
             grid.attach(createLabel(_("Terminal title style")), 0, row, 1, 1);
             ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
-            gsSettings.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
             grid.attach(cbTitleStyle, 1, row, 1, 1);
             row++;
 
             //Dark Theme
             grid.attach(createLabel(_("Theme variant")), 0, row, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
-            gsSettings.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
             grid.attach(cbThemeVariant, 1, row, 1, 1);
             row++;
 
@@ -845,12 +895,12 @@ class AppearancePreferences: Box {
             });
 
             ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
-            gsSettings.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
 
             // Background image settings only enabled if transparency is enabled
-            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", GSettingsBindFlags.DEFAULT);
-            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", GSettingsBindFlags.DEFAULT);
-            gsSettings.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbImageMode, "sensitive", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbImageMode, "sensitive", GSettingsBindFlags.DEFAULT);
 
             Box bChooser = new Box(Orientation.HORIZONTAL, 2);
             bChooser.add(fcbImage);
@@ -869,7 +919,7 @@ class AppearancePreferences: Box {
 
             Entry eSessionName = new Entry();
             eSessionName.setHexpand(true);
-            gsSettings.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", GSettingsBindFlags.DEFAULT);
             grid.attach(eSessionName, 1, row, 1, 1);
             row++;
 
@@ -880,7 +930,7 @@ class AppearancePreferences: Box {
 
             Entry eAppTitle = new Entry();
             eAppTitle.setHexpand(true);
-            gsSettings.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", GSettingsBindFlags.DEFAULT);
             grid.attach(eAppTitle, 1, row, 1, 1);
             row++;
 
@@ -888,30 +938,41 @@ class AppearancePreferences: Box {
 
             if (Version.checkVersion(3, 16, 0).length == 0) {
                 CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
-                gsSettings.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
+                bh.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
                 add(cbWideHandle);
             }
 
             CheckButton cbRightSidebar = new CheckButton(_("Place the sidebar on the right"));
-            gsSettings.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
             add(cbRightSidebar);
 
             CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if it's the only terminal"));
-            gsSettings.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
             add(cbTitleShowWhenSingle);
         }
 
     public:
         this(GSettings gsSettings) {
             super(Orientation.VERTICAL, 6);
-            createUI(gsSettings);
+            this.gsSettings = gsSettings;
+            bh = new BindingHelper(gsSettings);
+            createUI();
+
+            addOnDestroy(delegate(Widget) {
+                bh.unbind();
+                bh = null;
+
+                gsSettings = null;
+            });
         }
 }
 
 class QuakePreferences : Box {
 
 private:
-    void createUI(GSettings gsSettings) {
+    BindingHelper bh;
+
+    void createUI() {
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -933,7 +994,7 @@ private:
         sHeight.setDrawValue(false);
         sHeight.setHexpand(true);
         sHeight.setHalign(Align.FILL);
-        gsSettings.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
         grid.attach(sHeight, 1, row, 1, 1);
         row++;
 
@@ -944,16 +1005,15 @@ private:
             sWidth.setDrawValue(false);
             sWidth.setHexpand(true);
             sWidth.setHalign(Align.FILL);
-            gsSettings.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
             grid.attach(sWidth, 1, row, 1, 1);
             row++;
 
             //Alignment
             grid.attach(createLabel(_("Alignment")), 0, row, 1, 1);
-            ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE], gsSettings, SETTINGS_QUAKE_ALIGNMENT_KEY);
-            cbAlignment.addOnDestroy(delegate(Widget) {
-                gsSettings.unbind(cbAlignment, "active-id");
-            });
+            ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE]);
+            bh.bind(SETTINGS_QUAKE_ALIGNMENT_KEY, cbAlignment, "active-id", GSettingsBindFlags.DEFAULT);
+            
             grid.attach(cbAlignment, 1, row, 1, 1);
             row++;
         }
@@ -969,28 +1029,28 @@ private:
 
         //Show on all workspaces
         CheckButton cbAllWorkspaces = new CheckButton(_("Show terminal on all workspaces"));
-        gsSettings.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbAllWorkspaces);
 
         //Disable animations
         CheckButton cbDisableAnimations = new CheckButton(_("Set hint for window manager to disable animation"));
-        gsSettings.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbDisableAnimations);
 
         //Hide window on lose focus
         CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
-        gsSettings.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideOnLoseFocus);
 
         //Hide headerbar
         CheckButton cbHideHeaderbar = new CheckButton(_("Hide the titlebar of the window"));
-        gsSettings.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideHeaderbar);
 
         /*
         //Keep window on top
         CheckButton cbKeepOnTop = new CheckButton(_("Always keep window on top"));
-        gsSettings.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbKeepOnTop);
         */
 
@@ -999,18 +1059,18 @@ private:
 
             //Active Monitor
             CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));
-            gsSettings.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", GSettingsBindFlags.DEFAULT);
             bContent.add(cbActiveMonitor);
 
             //Specific Monitor
             Box bSpecific = new Box(Orientation.HORIZONTAL, 6);
             bSpecific.setMarginLeft(36);
             Label lblSpecific = new Label(_("Display on specific monitor"));
-            gsSettings.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
             bSpecific.add(lblSpecific);
             SpinButton sbScreen = new SpinButton(0, getScreen().getNMonitors() - 1, 1);
-            gsSettings.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, sbScreen, "value", GSettingsBindFlags.DEFAULT);
-            gsSettings.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bh.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, sbScreen, "value", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
             bSpecific.add(sbScreen);
 
             bContent.add(bSpecific);
@@ -1023,7 +1083,12 @@ public:
 
     this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
-        createUI(gsSettings);
+        bh = new BindingHelper(gsSettings);
+        createUI();
+        addOnDestroy(delegate(Widget) {
+            bh.unbind();
+            bh = null;
+        });
     }
 }
 
@@ -1034,7 +1099,9 @@ class GlobalPreferences : Box {
 
 private:
 
-    void createUI(GSettings gsSettings) {
+    BindingHelper bh;
+
+    void createUI() {
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -1047,38 +1114,38 @@ private:
 
         //Prompt on new session
         CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
-        gsSettings.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
         add(cbPrompt);
 
         //Focus follows the mouse
         CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
-        gsSettings.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbFocusMouse);
 
         //Auto hide the mouse
         CheckButton cbAutoHideMouse = new CheckButton(_("Autohide the mouse pointer when typing"));
-        gsSettings.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", GSettingsBindFlags.DEFAULT);
         add(cbAutoHideMouse);
 
         //middle click closes the terminal
         CheckButton cbMiddleClickClose = new CheckButton(_("Close terminal by clicking middle mouse button on title"));
-        gsSettings.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
         add(cbMiddleClickClose);
 
         //zoom in/out terminal with scroll wheel
         CheckButton cbControlScrollZoom = new CheckButton(_("Zoom the terminal using <Control> and scroll wheel"));
-        gsSettings.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", GSettingsBindFlags.DEFAULT);
         add(cbControlScrollZoom);
 
         //Closing of last session closes window
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
-        gsSettings.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
         add(cbCloseWithLastSession);
 
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
-            gsSettings.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
             add(cbNotify);
         }
 
@@ -1089,7 +1156,7 @@ private:
         lblNewInstance.setHalign(Align.END);
         bNewInstance.add(lblNewInstance);
         ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down"), _("Focus Window")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
-        gsSettings.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
         bNewInstance.add(cbNewInstance);
         add(bNewInstance);
 
@@ -1101,22 +1168,22 @@ private:
 
         //Advacned paste is default
         CheckButton cbAdvDefault = new CheckButton(_("Always use advanced paste dialog"));
-        gsSettings.bind(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY, cbAdvDefault, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY, cbAdvDefault, "active", GSettingsBindFlags.DEFAULT);
         add(cbAdvDefault);
 
         //Unsafe Paste Warning
         CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
-        gsSettings.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
         add(cbUnsafe);
 
         //Strip Paste
         CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
-        gsSettings.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
         add(cbStrip);
 
         //Copy on Select
         CheckButton cbCopyOnSelect = new CheckButton(_("Automatically copy text to clipboard when selecting"));
-        gsSettings.bind(SETTINGS_COPY_ON_SELECT_KEY, cbCopyOnSelect, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_COPY_ON_SELECT_KEY, cbCopyOnSelect, "active", GSettingsBindFlags.DEFAULT);
         add(cbCopyOnSelect);
     }
 
@@ -1124,7 +1191,12 @@ public:
 
     this(GSettings gsSettings) {
         super(Orientation.VERTICAL, 6);
-        createUI(gsSettings);
+        bh = new BindingHelper(gsSettings);
+        createUI();
+        addOnDestroy(delegate(Widget) {
+            bh.unbind();
+            bh = null;
+        });
     }
 }
 

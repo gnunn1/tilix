@@ -73,14 +73,10 @@ import gx.util.string;
 
 import gx.terminix.application;
 import gx.terminix.colorschemes;
+import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
-
-/**
- * Event triggered when profile name changes
- */
-alias OnProfileNameChanged = void delegate(string newName);
 
 /**
  * UI used for managing preferences for a specific profile
@@ -93,13 +89,10 @@ private:
     ProfileInfo profile;
     Notebook nb;
 
-    OnProfileNameChanged[] profileNameChangedDelegates;
-
     void createUI() {
         nb = new Notebook();
         nb.setHexpand(true);
         nb.setVexpand(true);
-        
         nb.appendPage(new GeneralPage(this), _("General"));
         nb.appendPage(new CommandPage(), _("Command"));
         nb.appendPage(new ColorPage(), _("Color"));
@@ -115,9 +108,7 @@ private:
 
 package:
     void triggerNameChanged(string newName) {
-        foreach(dlg; profileNameChangedDelegates) {
-            dlg(newName);
-        }
+        onProfileNameChanged.emit(newName);
     }
 
 public:
@@ -125,6 +116,17 @@ public:
     this() {
         super(Orientation.VERTICAL, 0);
         createUI();
+        addOnDestroy(delegate(Widget) {
+            //trace("ProfileEditor destroyed");
+            unbind();
+        });
+    }
+
+    debug(Destructors) {
+        ~this() {
+            import std.stdio: writeln;
+            writeln("********** ProfileEditor destructor");
+        }
     }
 
     void bind(ProfileInfo profile) {
@@ -142,6 +144,7 @@ public:
         for(int i=0; i<nb.getNPages(); i++) {
             getPage(i).unbind();
         }
+        gsProfile.destroy();
         gsProfile = null;
         profile = ProfileInfo(false, null, null);
     }
@@ -150,13 +153,10 @@ public:
         return profile.uuid;
     }
 
-    public void addOnProfileNameChanged(OnProfileNameChanged dlg) {
-        profileNameChangedDelegates ~= dlg;    
-    }
-
-    public void removeOnProfileNameChanged(OnProfileNameChanged dlg) {
-        gx.util.array.remove(profileNameChangedDelegates, dlg);
-    }
+    /**
+    * Event triggered when profile name changes
+    */
+    GenericEvent!(string) onProfileNameChanged;
 }
 
 /**
@@ -223,7 +223,7 @@ protected:
             pe.triggerNameChanged(entry.getText());
         }, ConnectFlags.AFTER);
         eName.setHexpand(true);
-        bh.addBind(SETTINGS_PROFILE_VISIBLE_NAME_KEY, eName, "text", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_VISIBLE_NAME_KEY, eName, "text", GSettingsBindFlags.DEFAULT);
         grid.attach(eName, 1, row, 1, 1);
         row++;
         //Profile ID
@@ -238,9 +238,9 @@ protected:
         lblSize.setHalign(Align.END);
         grid.attach(lblSize, 0, row, 1, 1);
         SpinButton sbColumn = new SpinButton(16, 511, 1);
-        bh.addBind(SETTINGS_PROFILE_SIZE_COLUMNS_KEY, sbColumn, "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_SIZE_COLUMNS_KEY, sbColumn, "value", GSettingsBindFlags.DEFAULT);
         SpinButton sbRow = new SpinButton(4, 511, 1);
-        bh.addBind(SETTINGS_PROFILE_SIZE_ROWS_KEY, sbRow, "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_SIZE_ROWS_KEY, sbRow, "value", GSettingsBindFlags.DEFAULT);
 
         Box box = new Box(Orientation.HORIZONTAL, 5);
         box.add(sbColumn);
@@ -271,7 +271,7 @@ protected:
         grid.attach(lblCursorShape, 0, row, 1, 1);
         ComboBox cbCursorShape = createNameValueCombo([_("Block"), _("IBeam"), _("Underline")], [SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE,
                 SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
-        bh.addBind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
                 
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
@@ -281,7 +281,7 @@ protected:
         lblBlinkMode.setHalign(Align.END);
         grid.attach(lblBlinkMode, 0, row, 1, 1);
         ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
-        bh.addBind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbBlinkMode, 1, row, 1, 1);
         row++;
 
@@ -290,7 +290,7 @@ protected:
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
         ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and Sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
-        bh.addBind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbBell, 1, row, 1, 1);
         row++;
 
@@ -299,7 +299,7 @@ protected:
         lblTerminalTitle.setHalign(Align.END);
         grid.attach(lblTerminalTitle, 0, row, 1, 1);
         Entry eTerminalTitle = new Entry();
-        bh.addBind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
         grid.attach(eTerminalTitle, 1, row, 1, 1);
         row++;
 
@@ -310,7 +310,7 @@ protected:
             lblBadge.setHalign(Align.END);
             grid.attach(lblBadge, 0, row, 1, 1);
             Entry eBadge = new Entry();
-            bh.addBind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
             grid.attach(eBadge, 1, row, 1, 1);
             row++;
 
@@ -320,7 +320,7 @@ protected:
             grid.attach(lblBadgePosition, 0, row, 1, 1);
 
             ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
-            bh.addBind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
             grid.attach(cbBadgePosition, 1, row, 1, 1);
             row++;
         }
@@ -337,25 +337,25 @@ protected:
 
         //Allow Bold
         CheckButton cbBold = new CheckButton(_("Allow bold text"));
-        bh.addBind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
         b.add(cbBold);
 
         //Rewrap on resize
         CheckButton cbRewrap = new CheckButton(_("Rewrap on resize"));
-        bh.addBind(SETTINGS_PROFILE_REWRAP_KEY, cbRewrap, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_REWRAP_KEY, cbRewrap, "active", GSettingsBindFlags.DEFAULT);
         b.add(cbRewrap);
 
         //Custom Font
         Box bFont = new Box(Orientation.HORIZONTAL, 12);
         CheckButton cbCustomFont = new CheckButton(_("Custom font"));
-        bh.addBind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
+        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
         bFont.add(cbCustomFont);
 
         //Font Selector
         FontButton fbFont = new FontButton();
         fbFont.setTitle(_("Choose A Terminal Font"));
-        bh.addBind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
-        bh.addBind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+        bh.bind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
                 .INVERT_BOOLEAN);
         bFont.add(fbFont);
         b.add(bFont);
@@ -478,12 +478,12 @@ private:
 
         cbUseThemeColors = new CheckButton(_("Use theme colors for foreground/background"));
         cbUseThemeColors.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-        bh.addBind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbUseThemeColors, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbUseThemeColors, "active", GSettingsBindFlags.DEFAULT);
 
         MenuButton mbAdvanced = new MenuButton();
         mbAdvanced.add(createBox(Orientation.HORIZONTAL, 6, [new Label(_("Advanced")), new Image("pan-down-symbolic", IconSize.MENU)]));
         mbAdvanced.setPopover(createPopover(mbAdvanced));
-        bh.addBind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, mbAdvanced, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+        bh.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, mbAdvanced, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
                 .INVERT_BOOLEAN);
         box.add(createBox(Orientation.HORIZONTAL, 6, [cbUseThemeColors, mbAdvanced]));
 
@@ -503,7 +503,7 @@ private:
             sTransparent.setDrawValue(false);
             sTransparent.setHexpand(true);
             sTransparent.setHalign(Align.FILL);
-            bh.addBind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
             gSliders.attach(sTransparent, 1, row, 1, 1);
             row++;
         }
@@ -517,7 +517,7 @@ private:
         sDim.setDrawValue(false);
         sDim.setHexpand(true);
         sDim.setHalign(Align.FILL);
-        bh.addBind(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY, sDim.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY, sDim.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
         gSliders.attach(sDim, 1, row, 1, 1);
 
         box.add(gSliders);
@@ -533,7 +533,7 @@ private:
         ColorButton createColorButton(string settingKey, string title, string sensitiveKey) {
             ColorButton result = new ColorButton();
             if (sensitiveKey.length > 0) {
-                bh.addBind(sensitiveKey, result, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+                bh.bind(sensitiveKey, result, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
             }
             result.setTitle(title);
             result.setHalign(Align.START);
@@ -563,7 +563,7 @@ private:
         //Cursor
         cbUseCursorColor = new CheckButton(_("Cursor"));
         cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-        bh.addBind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
         if (checkVTEVersionNumber(0, 44)) {
             gColors.attach(cbUseCursorColor, 0, row, 1, 1);
         }
@@ -577,7 +577,7 @@ private:
         //Highlight
         cbUseHighlightColor = new CheckButton(_("Highlight"));
         cbUseHighlightColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-        bh.addBind(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, cbUseHighlightColor, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, cbUseHighlightColor, "active", GSettingsBindFlags.DEFAULT);
         gColors.attach(cbUseHighlightColor, 0, row, 1, 1);
 
         cbHighlightFG = createColorButton(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, _("Select Highlight Foreground Color"), SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY);
@@ -589,7 +589,7 @@ private:
         //Dim
         cbUseDimColor = new CheckButton(_("Dim"));
         cbUseDimColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-        bh.addBind(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, cbUseDimColor, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, cbUseDimColor, "active", GSettingsBindFlags.DEFAULT);
         gColors.attach(cbUseDimColor, 0, row, 1, 1);
 
         cbDimBG = createColorButton(SETTINGS_PROFILE_DIM_COLOR_KEY, _("Select Dim Color"), SETTINGS_PROFILE_USE_DIM_COLOR_KEY);
@@ -599,7 +599,7 @@ private:
         //Badge
         cbUseBadgeColor = new CheckButton(_("Badge"));
         cbUseBadgeColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
-        bh.addBind(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, cbUseBadgeColor, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, cbUseBadgeColor, "active", GSettingsBindFlags.DEFAULT);
 
         cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
         // Only attach badge components if badge feature is available
@@ -648,7 +648,7 @@ private:
         gColors.setRowSpacing(6);
         cbBG = new ColorButton();
 
-        bh.addBind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbBG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+        bh.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbBG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
                 .INVERT_BOOLEAN);
         cbBG.setTitle(_("Select Background Color"));
         cbBG.addOnColorSet(delegate(ColorButton cb) {
@@ -664,7 +664,7 @@ private:
         gColors.attach(new Label(_("Background")), 1, row, 2, 1);
 
         cbFG = new ColorButton();
-        bh.addBind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbFG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+        bh.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, cbFG, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
                 .INVERT_BOOLEAN);
         cbFG.setTitle(_("Select Foreground Color"));
         cbFG.addOnColorSet(delegate(ColorButton cb) {
@@ -909,22 +909,22 @@ private:
 
     void createUI() {
         CheckButton cbShowScrollbar = new CheckButton(_("Show scrollbar"));
-        bh.addBind(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, cbShowScrollbar, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY, cbShowScrollbar, "active", GSettingsBindFlags.DEFAULT);
         add(cbShowScrollbar);
 
         CheckButton cbScrollOnOutput = new CheckButton(_("Scroll on output"));
-        bh.addBind(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY, cbScrollOnOutput, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY, cbScrollOnOutput, "active", GSettingsBindFlags.DEFAULT);
         add(cbScrollOnOutput);
 
         CheckButton cbScrollOnKeystroke = new CheckButton(_("Scroll on keystroke"));
-        bh.addBind(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY, cbScrollOnKeystroke, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY, cbScrollOnKeystroke, "active", GSettingsBindFlags.DEFAULT);
         add(cbScrollOnKeystroke);
 
         CheckButton cbLimitScroll = new CheckButton(_("Limit scrollback to:"));
-        bh.addBind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, cbLimitScroll, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
+        bh.bind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, cbLimitScroll, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
         SpinButton sbScrollbackSize = new SpinButton(256, long.max, 256);
-        bh.addBind(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY, sbScrollbackSize, "value", GSettingsBindFlags.DEFAULT);
-        bh.addBind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, sbScrollbackSize, "sensitive",
+        bh.bind(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY, sbScrollbackSize, "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, sbScrollbackSize, "sensitive",
                 GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
 
         Box b = new Box(Orientation.HORIZONTAL, 12);
@@ -959,7 +959,7 @@ private:
         lblBackspace.setHalign(Align.END);
         grid.attach(lblBackspace, 0, row, 1, 1);
         ComboBox cbBackspace = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
-        bh.addBind(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, cbBackspace, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, cbBackspace, "active-id", GSettingsBindFlags.DEFAULT);
         
         grid.attach(cbBackspace, 1, row, 1, 1);
         row++;
@@ -968,7 +968,7 @@ private:
         lblDelete.setHalign(Align.END);
         grid.attach(lblDelete, 0, row, 1, 1);
         ComboBox cbDelete = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
-        bh.addBind(SETTINGS_PROFILE_DELETE_BINDING_KEY, cbDelete, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_DELETE_BINDING_KEY, cbDelete, "active-id", GSettingsBindFlags.DEFAULT);
 
         grid.attach(cbDelete, 1, row, 1, 1);
         row++;
@@ -984,7 +984,7 @@ private:
             value[i] = encoding[0] ~ " " ~ _(encoding[1]);
         }
         ComboBox cbEncoding = createNameValueCombo(value, key);
-        bh.addBind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_ENCODING_KEY, cbEncoding, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbEncoding, 1, row, 1, 1);
         row++;
 
@@ -992,7 +992,7 @@ private:
         lblCJK.setHalign(Align.END);
         grid.attach(lblCJK, 0, row, 1, 1);
         ComboBox cbCJK = createNameValueCombo([_("Narrow"), _("Wide")], SETTINGS_PROFILE_CJK_WIDTH_VALUES);
-        bh.addBind(SETTINGS_PROFILE_CJK_WIDTH_KEY, cbCJK, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_CJK_WIDTH_KEY, cbCJK, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbCJK, 1, row, 1, 1);
         row++;
 
@@ -1013,21 +1013,21 @@ private:
 
     void createUI() {
         CheckButton cbLoginShell = new CheckButton(_("Run command as a login shell"));
-        bh.addBind(SETTINGS_PROFILE_LOGIN_SHELL_KEY, cbLoginShell, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_LOGIN_SHELL_KEY, cbLoginShell, "active", GSettingsBindFlags.DEFAULT);
         add(cbLoginShell);
 
         CheckButton cbCustomCommand = new CheckButton(_("Run a custom command instead of my shell"));
-        bh.addBind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, cbCustomCommand, "active", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, cbCustomCommand, "active", GSettingsBindFlags.DEFAULT);
         add(cbCustomCommand);
 
         Box bCommand = new Box(Orientation.HORIZONTAL, 12);
         bCommand.setMarginLeft(12);
         Label lblCommand = new Label(_("Command"));
-        bh.addBind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, lblCommand, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+        bh.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, lblCommand, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
         bCommand.add(lblCommand);
         Entry eCommand = new Entry();
-        bh.addBind(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY, eCommand, "text", GSettingsBindFlags.DEFAULT);
-        bh.addBind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, eCommand, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
+        bh.bind(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY, eCommand, "text", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY, eCommand, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
         bCommand.add(eCommand);
         add(bCommand);
 
@@ -1035,7 +1035,7 @@ private:
         Label lblWhenExists = new Label(_("When command exits"));
         bWhenExits.add(lblWhenExists);
         ComboBox cbWhenExists = createNameValueCombo([_("Exit the terminal"), _("Restart the command"), _("Hold the terminal open")], SETTINGS_PROFILE_EXIT_ACTION_VALUES);
-        bh.addBind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_EXIT_ACTION_KEY, cbWhenExists, "active-id", GSettingsBindFlags.DEFAULT);
         bWhenExits.add(cbWhenExists);
 
         add(bWhenExits);
