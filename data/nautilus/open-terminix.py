@@ -62,7 +62,7 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
 
             if file.get_uri_scheme() in ['ftp','sftp']:
                 item = Nautilus.MenuItem(name='NautilusPython::openterminal_remote_item',
-                                        label=_(u'Open Remote Terminix…'),
+                                        label=_(u'Open Remote Terminix'),
                                         tip=_(u'Open Remote Terminix In %s') % file.get_uri())
                 item.connect('activate', self.menu_activate_cb, file)
                 items.append(item)
@@ -73,7 +73,7 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             filename = info.get_attribute_as_string("standard::name")
 
             item = Nautilus.MenuItem(name='NautilusPython::openterminal_file_item',
-                                    label=_(u'Open In Terminix…'),
+                                    label=_(u'Open In Terminix'),
                                     tip=_(u'Open Terminix In %s') % filename)
             item.connect('activate', self.menu_activate_cb, file)
             items.append(item)
@@ -84,13 +84,13 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
         items = []
         if file.get_uri_scheme() in ['ftp','sftp']:
             item = Nautilus.MenuItem(name='NautilusPython::openterminal_bg_remote_item',
-                                    label=_(u'Open Remote Terminix Here…'),
+                                    label=_(u'Open Remote Terminix Here'),
                                     tip=_(u'Open Remote Terminix In This Directory'))
             item.connect('activate', self.menu_activate_cb, file)
             items.append(item)
 
         item = Nautilus.MenuItem(name='NautilusPython::openterminal_bg_file_item',
-                                 label=_(u'Open Terminix Here…'),
+                                 label=_(u'Open Terminix Here'),
                                  tip=_(u'Open Terminix In This Directory'))
         item.connect('activate', self.menu_background_activate_cb, file)
         items.append(item)
