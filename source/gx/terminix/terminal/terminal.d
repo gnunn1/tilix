@@ -1572,6 +1572,8 @@ private:
      * has so few binable properties it's just easier to handle everything consistently.
      */
     void applyPreference(string key) {
+        if (vte is null) return;
+        
         switch (key) {
         case SETTINGS_PROFILE_TERMINAL_BELL_KEY:
             string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
