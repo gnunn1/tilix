@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/gnunn1/terminix.svg?branch=master)](https://travis-ci.org/gnunn1/terminix)
 # Terminix
-A tiling terminal emulator for Linux using GTK+ 3.
+A tiling terminal emulator for Linux using GTK+ 3. The Terminix web site for users is available at [https://gnunn1.github.io/terminix-web](https://gnunn1.github.io/terminix-web).
 
 ###### Screenshot
 ![Screenshot](http://www.gexperts.com/img/terminix/terminix11.png)
@@ -27,14 +27,6 @@ Terminix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the
 
 The application was written using GTK 3 and an effort was made to conform to GNOME Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than GNOME, only Unity has been tested officially though users have had success with other desktop environments.
 
-At this point in time the application has been tested to varying degrees with the following distros:
-
-* Arch Linux (primary test platform, works)
-* Ubuntu 16.04 (secondary, works)
-* Fedora 23 (primary, works)
-* RHEL 7.2 (primary, works)
-* Fedora Rawhide (Supported with GNOME 3.20, works)
-
 ### Dependencies
 
 Terminix requires the following libraries to be installed in order to run:
@@ -51,10 +43,6 @@ If you are having issues with Terminix, feel free to open issues here in github 
 ### Localization
 
 Terminix is localized using Weblate, please visit the Weblate hosted [Terminix translations site](https://hosted.weblate.org/projects/terminix/translations) in order to assist with translations, please do not submit direct pull requests to this repository for translations.
-
-### Themes
-
-While Terminix only includes a small number of themes, additional themes can be easily downloaded and installed. The GitHub repository [Terminix-Themes](https://github.com/storm119/Terminix-Themes) has a wide variety of pre-built themes to choose from.
 
 ### Building
 
@@ -78,31 +66,7 @@ Terminix depends on the following libraries as defined in dub.json:
 
 ### Install Terminix
 
-Terminix is available for the following distributions as a 64-bit application:
-
-| Distribution | Package
-|---|---|
-|Arch|[AUR Terminix Package](https://aur.archlinux.org/packages/terminix)|
-|Fedora|[COPR Repository](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
-|Cent OS 7.2|[EPEL Package via COPR](https://copr.fedorainfracloud.org/coprs/heikoada/terminix)|
-|Debian|[Package, 32bit version available](https://packages.debian.org/sid/terminix)|
-|Ubuntu PPA|[WebUpd8](https://launchpad.net/~webupd8team/+archive/ubuntu/terminix)
-|Ubuntu Offical|[Waiting on LDC](https://launchpad.net/ubuntu/+source/terminix)|
-|Tanglu|[Part of Tanglu 4](http://packages.tanglu.org/dasyatis/terminix)|
-|OpenSUSE|[Package Search](https://software.opensuse.org/package/terminix)|
-|AOSC OS|[ABBS Manifest](https://github.com/AOSC-Dev/aosc-os-abbs/tree/staging/extra-utils/terminix)|
-
-For 64-bit distros where a package is not available, Terminix can be installed manually from the releases section by downloading terminix.zip and following these instructions:
-
-```
-sudo unzip terminix.zip -d /
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
-```
-
-Note the project is actively looking for package maintainers, if you are interested in assuming this role for one or more distributions please see [Issue #25](https://github.com/gnunn1/terminix/issues/25).
-
-At this time no 32-bit version of Terminix is available and there are no plans to create a 32-bit version at this time. While in theory it would be possible to compile a 32-bit version from source code, no testing of this has been done.
-
+Terminix is available as [packages](https://gnunn1.github.io/terminix-web/#packages) for a variety of distributions.
 
 #### Uninstall Terminix
 
