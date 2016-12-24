@@ -93,9 +93,10 @@ import gx.i18n.l10n;
 
 import gx.terminix.application;
 import gx.terminix.closedialog;
+import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
-import gx.terminix.cmdparams;
+import gx.terminix.customtitle;
 import gx.terminix.preferences;
 import gx.terminix.session;
 import gx.terminix.sessionswitcher;
@@ -148,11 +149,7 @@ private:
     SideBar sb;
     SessionSwitcher ss;
     ToggleButton tbSideBar;
-
-    // Widgets for custom titlebar
-    Label lblTitle;
-    Entry eTitle;
-    Stack sTitle;
+    CustomTitle cTitle;
 
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
@@ -382,54 +379,27 @@ private:
         return header;
     }
 
+    void onCustomTitleChange(string title) {
+            _overrideTitle = title;
+            updateTitle;
+    }
+
+    void onCustomTitleCancelEdit() {
+        if (getCurrentSession() !is null) {
+            getCurrentSession().focusRestore();
+        }
+    }
+
+    void onCustomTitleEdit(CumulativeResult!string result) {
+        result.addResult(_overrideTitle);
+    }
+
     Widget createCustomTitle() {
-        enum PAGE_LABEL = "label";
-        enum PAGE_EDIT = "edit";
-
-        sTitle = new Stack();
-
-        lblTitle = new Label(_(APPLICATION_NAME));
-        lblTitle.getStyleContext().addClass("title");
-        EventBox eb = new EventBox();
-        eb.add(lblTitle); 
-        eb.addOnButtonRelease(delegate(Event event, Widget widget) {
-            if (_overrideTitle.length > 0) {
-                eTitle.setText(_overrideTitle);
-            }
-            sTitle.setVisibleChildName(PAGE_EDIT);
-            eTitle.grabFocus();
-            return false;
-        });     
-        sTitle.addNamed(eb, PAGE_LABEL);
-
-        eTitle = new Entry();
-        eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
-            uint keyval;
-            if (event.getKeyval(keyval)) {
-                switch (keyval) {
-                    case GdkKeysyms.GDK_Escape:
-                        sTitle.setVisibleChildName(PAGE_LABEL);
-                        return true;
-                    case GdkKeysyms.GDK_Return:
-                        _overrideTitle = eTitle.getText();
-                        updateTitle();
-                        sTitle.setVisibleChildName(PAGE_LABEL);
-                        return true;
-                    default:
-                }
-            }
-            return false;
-        });
-        eTitle.addOnFocusOut(delegate(Event event, Widget widget) {
-            sTitle.setVisibleChildName(PAGE_LABEL);
-            if (getCurrentSession() !is null) {
-                getCurrentSession().focusRestore();
-            }
-            return false;
-        });
-
-        sTitle.addNamed(eTitle, PAGE_EDIT);
-        return sTitle;        
+        cTitle = new CustomTitle();
+        cTitle.onTitleChange.connect(&onCustomTitleChange);
+        cTitle.onCancelEdit.connect(&onCustomTitleCancelEdit);
+        cTitle.onEdit.connect(&onCustomTitleEdit);
+        return cTitle;
     }
 
     /**
@@ -872,8 +842,8 @@ private:
     void updateTitle() {
         string title = getDisplayTitle();
         if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
-            if (hb.getCustomTitle() !is null) {
-                lblTitle.setText(title);
+            if (cTitle !is null) {
+                cTitle.title = title;
             } else {
                 hb.setTitle(title);
             }
@@ -1015,8 +985,17 @@ private:
     }
 
     void onWindowDestroyed(Widget) {
+        trace("AppWindow destroyed");
         terminix.withdrawNotification(uuid);
         terminix.removeAppWindow(this);
+        sessionActions.destroy();
+        sessionActions = null;
+        saSyncInput  = null;
+        saCloseSession = null;
+        saViewSideBar = null;
+        saViewSessionSwitcher = null;
+        saSessionAddRight = null;
+        saSessionAddDown = null;
     }
 
     void onWindowShow(Widget) {
@@ -1430,17 +1409,13 @@ public:
             terminix.withdrawNotification(uuid);
             return false;
         });
-        /*
-        addOnWindowState(delegate(Event event, Widget) {
-            if (isQuake) {
-                if (event.windowState.newWindowState & WindowState.FULLSCREEN) {
-                    trace("Fullscreen is disabled in quake mode");
-                    return true;
-                }
-            }
-            return false;
-        });
-        */
+    }
+
+    debug(Destructors) {
+        ~this() {
+            import std.stdio;
+            writeln("***** AppWindow destructor is called");
+        }
     }
 
     void initialize() {

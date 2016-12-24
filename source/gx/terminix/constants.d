@@ -69,6 +69,7 @@ enum GTK_MENU_BAR_ACCEL = "gtk-menu-bar-accel";
 enum GTK_ENABLE_ACCELS = "gtk-enable-accels";
 enum GTK_DECORATION_LAYOUT = "gtk_decoration_layout";
 enum GTK_SHELL_SHOWS_APP_MENU = "gtk-shell-shows-app-menu";
+enum GTK_DOUBLE_CLICK_TIME = "gtk-double-click-time";
 
 //Config Folder
 enum APPLICATION_CONFIG_FOLDER = "terminix";
