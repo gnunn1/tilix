@@ -173,7 +173,7 @@ private:
 
     // True if window is in quake mode
     bool _quake;
-    
+
     string[] recentSessionFiles;
 
     // The user overridden application title, specific to the window only
@@ -193,7 +193,7 @@ private:
             settings.getProperty(GTK_DECORATION_LAYOUT, value);
             string layout = value.getString();
             if (layout.indexOf("menu") < 0) {
-                size_t index = layout.indexOf(":"); 
+                size_t index = layout.indexOf(":");
                 if (index > 0) {
                     layout = "menu," ~ layout;
                 } else if (index == 0) {
@@ -458,7 +458,7 @@ private:
             tbSideBar.setActive(newState);
             if (!newState) {
                 //Hiding session, restore focus
-                Session session = getCurrentSession(); 
+                Session session = getCurrentSession();
                 if (session !is null) {
                     session.focusRestore();
                 }
@@ -553,7 +553,7 @@ private:
         //Close Session
         saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (nb.getNPages > 1) {
-                CumulativeResult!bool results = new CumulativeResult!bool(); 
+                CumulativeResult!bool results = new CumulativeResult!bool();
                 onUserSessionClose(getCurrentSession().uuid, results);
             }
         });
@@ -793,7 +793,7 @@ private:
         if (uuid) {
             activateSession(uuid);
         }
-    }        
+    }
 
     void onSessionSelected(string sessionUUID) {
         trace("Session selected " ~ sessionUUID);
@@ -806,7 +806,7 @@ private:
                 getCurrentSession().focusRestore();
             }
         }
-    }    
+    }
 
     void onSessionDetach(Session session, int x, int y, bool isNewSession) {
         trace("Detaching session");
@@ -848,7 +848,7 @@ private:
                 hb.setTitle(title);
             }
         }
-        setTitle(title);        
+        setTitle(title);
     }
 
     string getDisplayTitle() {
@@ -1126,10 +1126,10 @@ private:
 
         //Height
         rect.height = to!int(rect.height * heightPercent);
-        
+
         //Width
-        // Window only gets positioned properly in Wayland when width is 100%, 
-        // not sure if this kludge is really a good idea and will work consistently. 
+        // Window only gets positioned properly in Wayland when width is 100%,
+        // not sure if this kludge is really a good idea and will work consistently.
         if (widthPercent < 1) {
             int width = to!int(rect.width * widthPercent);
             tracef("Calculated width %d", width);
@@ -1355,9 +1355,10 @@ public:
             // On Ubuntu this causes terminal to use default size, see #602
             //setResizable(false);
             setShowMenubar(false);
+            setRole("quake");
         } else {
             forceAppMenu();
-        }  
+        }
 
         createUI();
 
@@ -1394,7 +1395,7 @@ public:
                         foreach(Window child; windows) {
                             Dialog dialog = cast(Dialog)child;
                             if (dialog !is null && dialog.getTransientFor() !is null && dialog.getTransientFor().getWindowStruct() == this.getWindowStruct()) return false;
-                        } 
+                        }
                     }
                 }
                 trace("Focus lost, hiding quake window");
@@ -1577,14 +1578,14 @@ public:
 
     /**
      * Information about any running processes in the window.
-     */ 
+     */
     ProcessInformation getProcessInformation() {
         ProcessInformation result = ProcessInformation(ProcessInfoSource.WINDOW, getTitle(), "", []);
         for(int i=0; i<nb.getNPages; i++) {
             Session session = cast(Session) nb.getNthPage(i);
             if (session !is null) {
                 ProcessInformation sessionInfo = session.getProcessInformation();
-                if (sessionInfo.children.length > 0) { 
+                if (sessionInfo.children.length > 0) {
                     result.children ~= sessionInfo;
                 }
             }
