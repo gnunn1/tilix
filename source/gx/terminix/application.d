@@ -393,6 +393,8 @@ private:
                     }
                     return 0;
                 }
+            } if (cp.preferences) {
+                presentPreferences();
             } else {
                 AppWindow aw = getActiveAppWindow();
                 if (aw !is null) {
@@ -435,7 +437,7 @@ private:
                         default:
                             //Fall through to activate
                     }
-                } 
+                }
             }
         }
         activate();
@@ -444,8 +446,10 @@ private:
 
     void onAppActivate(GApplication app) {
         trace("Activate App Signal");
-        if (!app.getIsRemote())
-            createAppWindow();
+        if (!app.getIsRemote()) {
+            if (cp.preferences) presentPreferences();
+            else createAppWindow();
+        }
         cp.clear();
     }
 
@@ -620,6 +624,7 @@ private:
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
         addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), null);
         addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Terminix and dependant component versions"), null);
+        addMainOption(CMD_PREFERENCES, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Terminix preferences dialog directly"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
@@ -750,10 +755,10 @@ public:
      */
     GSettings getProxySettings() {
         if (gsProxy is null) {
-            gsProxy = new GSettings(SETTINGS_PROXY_ID); 
+            gsProxy = new GSettings(SETTINGS_PROXY_ID);
         }
         return gsProxy;
-    }  
+    }
 
     /**
      * Shows a dialog when a VTE configuration issue is detected.

@@ -85,7 +85,7 @@ import gx.terminix.profileeditor;
 /**
  * UI for managing Terminix preferences
  */
-class PreferenceDialog : Window {
+class PreferenceDialog : ApplicationWindow {
 
 private:
     Stack pages;
@@ -98,7 +98,7 @@ private:
     ProfileEditor pe;
 
     // Track how many non-profile rows there are to prevent the last profile from being deleted
-    immutable int NON_PROFILE_ROW_COUNT = 6;    
+    immutable int NON_PROFILE_ROW_COUNT = 6;
 
     void createUI() {
 
@@ -163,7 +163,7 @@ private:
         btnDeleteProfile.addOnClicked(&onDeleteProfile);
         bButtons.packStart(btnDeleteProfile, false, false, 0);
 
-        Box bSide = new Box(Orientation.VERTICAL, 0); 
+        Box bSide = new Box(Orientation.VERTICAL, 0);
         bSide.add(sw);
         bSide.add(new Separator(Orientation.HORIZONTAL));
         bSide.add(bButtons);
@@ -221,9 +221,9 @@ private:
         Box bTitle = new Box(Orientation.HORIZONTAL, 0);
         bTitle.add(hbSide);
         Separator sTitle = new Separator(Orientation.VERTICAL);
-        sTitle.getStyleContext().addClass("terminix-title-separator"); 
+        sTitle.getStyleContext().addClass("terminix-title-separator");
         bTitle.add(sTitle);
-        bTitle.add(hbMain); 
+        bTitle.add(hbMain);
 
         this.setTitlebar(bTitle);
         this.addOnNotify(delegate(ParamSpec, ObjectG) {
@@ -244,8 +244,8 @@ private:
         bProfileTitle.add(lblProfileTitle);
         row.add(bProfileTitle);
         row.setSelectable(false);
-        row.setActivatable(false);     
-        return row;        
+        row.setActivatable(false);
+        return row;
     }
 
     void onRowSelected(ListBoxRow row, ListBox) {
@@ -275,7 +275,7 @@ private:
     void updateUI() {
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
         if (row !is null) {
-            btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null)); 
+            btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null));
         }
     }
 
@@ -286,7 +286,7 @@ private:
         ProfileInfo[] infos = prfMgr.getProfiles();
         foreach (ProfileInfo info; infos) {
             ProfilePreferenceRow row = new ProfilePreferenceRow(this, info);
-            lbSide.add(row); 
+            lbSide.add(row);
         }
     }
 
@@ -310,7 +310,7 @@ private:
         int index = getChildIndex(lbSide, row) - 1;
         lbSide.remove(row);
         prfMgr.deleteProfile(uuid);
-        if (index < 0) index = 0; 
+        if (index < 0) index = 0;
         lbSide.selectRow(lbSide.getRowAtIndex(index));
         updateUI();
     }
@@ -338,7 +338,8 @@ private:
 public:
 
     this(ApplicationWindow window) {
-        super(_("Preferences"));
+        super(terminix);
+        setTitle(_("Preferences"));
         setTypeHint(WindowTypeHint.DIALOG);
         setTransientFor(window);
         setDestroyWithParent(true);
@@ -518,7 +519,7 @@ public:
 
     @property bool isDefault() {
         return profile.isDefault;
-    } 
+    }
 
     @property string uuid() {
         return profile.uuid;
@@ -1013,7 +1014,7 @@ private:
             grid.attach(createLabel(_("Alignment")), 0, row, 1, 1);
             ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE]);
             bh.bind(SETTINGS_QUAKE_ALIGNMENT_KEY, cbAlignment, "active-id", GSettingsBindFlags.DEFAULT);
-            
+
             grid.attach(cbAlignment, 1, row, 1, 1);
             row++;
         }

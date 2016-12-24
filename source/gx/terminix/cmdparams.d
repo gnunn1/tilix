@@ -36,6 +36,7 @@ enum CMD_NEW_PROCESS = "new-process";
 enum CMD_TITLE = "title";
 enum CMD_QUAKE = "quake";
 enum CMD_VERSION = "version";
+enum CMD_PREFERENCES = "preferences";
 
 /**
  * Manages the terminix command line options
@@ -63,6 +64,7 @@ private:
     bool _newProcess;
     bool _quake;
     bool _version;
+    bool _preferences;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -172,6 +174,7 @@ public:
         _newProcess = vd.contains(CMD_NEW_PROCESS);
         _quake = vd.contains(CMD_QUAKE);
         _version = vd.contains(CMD_VERSION);
+        _preferences = vd.contains(CMD_PREFERENCES);
         _exit = _version;
 
         _geometry = getValue(vd, CMD_GEOMETRY, vts);
@@ -221,6 +224,7 @@ public:
         _exit = false;
         _title.length = 0;
         _version = false;
+        _preferences = false;
     }
 
     @property string workingDir() {
@@ -317,5 +321,9 @@ public:
 
     @property bool outputVersion() {
         return _version;
+    }
+
+    @property bool preferences() {
+        return _preferences;
     }
 }
