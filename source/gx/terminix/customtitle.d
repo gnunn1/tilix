@@ -98,6 +98,8 @@ private:
     }
 
     bool onButtonPress(Event event, Widget widget) {
+        if (event.button.button != MouseButton.PRIMARY) return false;
+
         if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
             trace("Double click press");
             buttonDown = false;
