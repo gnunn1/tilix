@@ -64,6 +64,7 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantBuilder : GVariantBuilder = VariantBuilder;
 import glib.VariantType : GVariantType = VariantType;
 
+import gtk.Adjustment;
 import gtk.Box;
 import gtk.Button;
 import gtk.Clipboard;
@@ -209,7 +210,9 @@ private:
 
     ExtendedVTE vte;
     Overlay terminalOverlay;
-    static if (!USE_SCROLLED_WINDOW) {
+    static if (USE_SCROLLED_WINDOW) {
+        ScrolledWindow sw;
+    } else {
         Scrollbar sb;
     }
 
@@ -893,7 +896,7 @@ private:
 
         terminalOverlay = new Overlay();
         static if (USE_SCROLLED_WINDOW) {
-            ScrolledWindow sw = new ScrolledWindow(vte);
+            sw = new ScrolledWindow(vte);
             terminalOverlay.add(sw);
         } else {
             terminalOverlay.add(vte);
@@ -1070,6 +1073,21 @@ private:
     }
 
     /**
+     * Scroll the window to the bottom
+     */
+    void scrollToBottom() {
+        if (vte is null) return;
+
+        Adjustment adjustment;
+        static if (USE_SCROLLED_WINDOW) {
+            adjustment = sw.getVAdjustment();
+        } else {
+            adjustment = sb.getAdjustment();
+        }
+        adjustment.setValue(adjustment.getUpper());
+    }
+
+    /**
      * Tests if the paste is unsafe, currently just looks for sudo
      */
     bool isPasteUnsafe(string text) {
@@ -1089,6 +1107,9 @@ private:
         if (dialog.run() == ResponseType.APPLY) {
             pasteText = dialog.text;
             vte.feedChild(pasteText[0 .. $], pasteText.length);
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                scrollToBottom();
+            } 
         }
         focusTerminal();
     }
@@ -1114,12 +1135,18 @@ private:
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
             if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
                 vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                    scrollToBottom();
+                } 
                 return;
             }
         }
         
         if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
+        if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+            scrollToBottom();
+        } 
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -2857,10 +2884,18 @@ public:
         final switch (sie.eventType) {
             case SyncInputEventType.INSERT_TERMINAL_NUMBER:
                 string text = to!string(terminalID);
+                // Fix #628
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                    scrollToBottom();
+                } 
                 feedChild(text, true);
                 break;
             case SyncInputEventType.INSERT_TEXT:
                 if (sie.senderUUID != _terminalUUID) {
+                    // Fix #628
+                    if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                        scrollToBottom();
+                    } 
                     feedChild(sie.text, true);
                 }
                 break;
