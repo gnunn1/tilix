@@ -836,7 +836,7 @@ private:
             updateDisplayText();
         }, GConnectFlags.AFTER);
         vte.addOnEnterNotify(delegate(Event event, Widget) {
-            if (vte !is null) return false;
+            if (vte is null) return false;
 
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
                 vte.grabFocus();
