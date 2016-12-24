@@ -780,7 +780,7 @@ public:
                 getMessageArea().setMarginLeft(0);
                 getMessageArea().setMarginRight(0);
                 getMessageArea().add(new Label(msg));
-                getMessageArea().add(new LinkButton("https://github.com/gnunn1/terminix/wiki/VTE-Configuration-Issue"));
+                getMessageArea().add(new LinkButton("https://gnunn1.github.io/terminix-web/manual/vteconfig/"));
                 CheckButton cb = new CheckButton(_("Do not show this message again"));
                 getMessageArea().add(cb);
                 setImage(new Image("dialog-warning", IconSize.DIALOG));
