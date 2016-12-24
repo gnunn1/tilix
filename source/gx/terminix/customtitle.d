@@ -4,6 +4,8 @@
  */
 module gx.terminix.customtitle;
 
+import std.experimental.logger;
+
 import gdk.Event;
 import gdk.Keysyms;
 
@@ -18,11 +20,18 @@ import gtk.Settings;
 import gtk.Stack;
 import gtk.Widget;
 
+import gx.gtk.util;
 import gx.i18n.l10n;
 
 import gx.terminix.common;
 import gx.terminix.constants;
 
+/**
+ * Custom title for AppWindow that allows the user
+ * to click on the label in the headerbar and edit
+ * the application title directly. Note this feature
+ * is not available when CSD is disabled.
+ */
 public class CustomTitle: Stack {
 
 private:
@@ -34,12 +43,15 @@ private:
 
     Timeout timeout;
 
+    bool buttonDown;
+
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
         lblTitle.getStyleContext().addClass("title");
         EventBox eb = new EventBox();
-        eb.add(lblTitle); 
-        eb.addOnButtonPress(&onButtonPress);     
+        eb.add(lblTitle);
+        eb.addOnButtonPress(&onButtonPress);
+        eb.addOnButtonRelease(&onButtonRelease);
         addNamed(eb, PAGE_LABEL);
 
         eTitle = new Entry();
@@ -68,18 +80,32 @@ private:
         addNamed(eTitle, PAGE_EDIT);
     }
 
-    bool onButtonPress(Event event, Widget widget) {
-        if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
-            removeTimeout();
+    bool onButtonRelease(Event event, Widget widget) {
+        trace("Button release");
+        if (event.button.button != MouseButton.PRIMARY || !buttonDown) {
+            tracef("Ignoring release %b", buttonDown);
             return false;
         }
-        Value value = new Value(500);
         if (timeout !is null) {
             removeTimeout();
         }
+        Value value = new Value(500);
         getSettings().getProperty(GTK_DOUBLE_CLICK_TIME, value);
         uint doubleClickTime = value.getInt();
         timeout = new Timeout(doubleClickTime,&onSingleClickTimer);
+        buttonDown = false;
+        return false;
+    }
+
+    bool onButtonPress(Event event, Widget widget) {
+        if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
+            trace("Double click press");
+            buttonDown = false;
+            removeTimeout();
+        } else {
+            trace("Single click press");
+            buttonDown = true;
+        }
         return false;
     }
 
@@ -90,13 +116,14 @@ private:
     }
 
     void doEdit() {
-        string value;
+        buttonDown = false;
 
+        string value;
         CumulativeResult!string result = new CumulativeResult!string();
         onEdit.emit(result);
         if (result.getResults().length == 0) return;
         else value = result.getResults()[0];
-        
+
         if (value.length > 0) {
             eTitle.setText(value);
         }
