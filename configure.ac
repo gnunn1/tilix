@@ -13,7 +13,7 @@ AC_ARG_VAR([DCFLAGS], [flags for dmd compiler])
 
 # Full optimization flags
 #DCFLAGS='-O -inline -release -version=StdLoggerDisableTrace'
-DCFLAGS='-O'
+DCFLAGS?='-O'
 AC_SUBST([DCFLAGS])
 
 # Checks for programs.
