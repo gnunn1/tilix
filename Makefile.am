@@ -1,5 +1,5 @@
 bin_PROGRAMS = terminix
-terminix_SOURCES = $(shell find $(srcdir)/source -name '*\.d')
+terminix_SOURCES = $(shell find $(srcdir)/source -name '*\.d' | LC_ALL=C sort)
 terminix.o: $(terminix_SOURCES)
 	$(DC) $(DCFLAGS) $(GTKD_CFLAGS) $(GTKD_LIBS) -c $^ -of$@
 # libx11 is a C library, so we need to precede with -L
