@@ -85,6 +85,11 @@ install -m 644 data/nautilus/open-terminix.py ${PREFIX}/share/nautilus-python/ex
 install -d ${PREFIX}/share/dbus-1/services
 install -m 644 data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services/
 
+# Copy man page
+install -d ${PREFIX}/share/man/man1
+install -m 644 data/man/terminix ${PREFIX}/share/man/man1/terminix.1
+gzip /usr/share/man/man1/terminix.1
+
 # Copy Icons
 cd data/icons/hicolor
 
