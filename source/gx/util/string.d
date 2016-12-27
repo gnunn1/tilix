@@ -12,6 +12,7 @@ import std.string;
  * by std.csv.
  */
 string escapeCSV(string value) {
+    if (value.length == 0) return value;
     value = value.replace("\"", "\"\"");
     if (value.indexOf('\n') >= 0 || value.indexOf(',')  >= 0 || value.indexOf("\"\"") >= 0) {
         value = "\"" ~ value ~ "\"";

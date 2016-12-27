@@ -201,7 +201,7 @@ private:
 
     Label lblId;
     ProfileEditor pe;
-    
+
 protected:
     void createUI() {
         int row = 0;
@@ -272,7 +272,7 @@ protected:
         ComboBox cbCursorShape = createNameValueCombo([_("Block"), _("IBeam"), _("Underline")], [SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE,
                 SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
         bh.bind(SETTINGS_PROFILE_CURSOR_SHAPE_KEY, cbCursorShape, "active-id", GSettingsBindFlags.DEFAULT);
-                
+
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
 
@@ -444,7 +444,7 @@ private:
 
         btnExport = new Button(_("Export"));
         btnExport.addOnClicked(&exportColorScheme);
-        
+
         Box bScheme = new Box(Orientation.HORIZONTAL, 6);
         bScheme.setHalign(Align.FILL);
         bScheme.setHexpand(true);
@@ -633,7 +633,7 @@ private:
         //Highlight Colors
         cbHighlightFG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY)));
         cbHighlightBG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY)));
-                
+
         cbDimBG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY)));
 
         cbBadgeFG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY)));
@@ -844,7 +844,7 @@ private:
         if (!exists(path)) {
             mkdirRecurse(path);
         }
-        
+
         fcd.setCurrentFolder(path);
 
         FileFilter ff = new FileFilter();
@@ -885,18 +885,18 @@ public:
     this() {
         super();
         createUI();
-        reload();        
+        reload();
     }
 
     override void bind(ProfileInfo profile, GSettings gsProfile) {
         blockColorUpdates = true;
         scope(exit) {blockColorUpdates = false;}
-        
+
         super.bind(profile, gsProfile);
         if (gsProfile !is null) {
             bindColorButtons();
-            initColorSchemeCombo();            
-        }        
+            initColorSchemeCombo();
+        }
     }
 }
 
@@ -960,7 +960,7 @@ private:
         grid.attach(lblBackspace, 0, row, 1, 1);
         ComboBox cbBackspace = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
         bh.bind(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, cbBackspace, "active-id", GSettingsBindFlags.DEFAULT);
-        
+
         grid.attach(cbBackspace, 1, row, 1, 1);
         row++;
 
@@ -1224,7 +1224,7 @@ private:
             TreeIter iter = lsValues.createIter();
             lsValues.setValue(iter, 0, value);
         }
-        
+
     }
 
     // Validate input, just checks something was entered at this point
@@ -1251,7 +1251,7 @@ public:
     override void bind(ProfileInfo profile, GSettings gsProfile) {
         super.bind(profile, gsProfile);
         if (gsProfile !is null) {
-            updateBindValues();        
+            updateBindValues();
             updateUI();
         }
     }
@@ -1432,7 +1432,7 @@ private:
             foreach(value; csvReader!(Tuple!(string, string, string))(trigger)) {
                 TreeIter iter = ls.createIter();
                 ls.setValue(iter, COLUMN_REGEX, value[0]);
-                ls.setValue(iter, COLUMN_ACTION, value[1]);
+                ls.setValue(iter, COLUMN_ACTION, _(value[1]));
                 ls.setValue(iter, COLUMN_PARAMETERS, value[2]);
             }
         }
