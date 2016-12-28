@@ -1337,6 +1337,8 @@ public:
         gsSettings.addOnChanged(delegate(string key, GSettings) {
             if (key == SETTINGS_RECENT_SESSION_FILES_KEY) {
                 loadRecentSessionFileList();
+            } else if (key == SETTINGS_APP_TITLE_KEY) {
+                updateTitle();
             }
         });
 

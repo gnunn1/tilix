@@ -580,7 +580,7 @@ private:
     void onTerminalIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
         switch (actionType) {
         case ActionType.DETACH:
-            //Ok this is a bit weird but we only only a terminal to be detached
+            //Ok this is a bit weird but we only allow a terminal to be detached
             //if a session has more then one terminal in it OR the application
             //has multiple sessions.
             result.addResult(terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH));
@@ -939,7 +939,7 @@ private:
         ImageSurface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
         cr.setSourceSurface(isBGImage, 0, 0);
-        cr.setOperator(cairo_operator_t.SOURCE);        
+        cr.setOperator(cairo_operator_t.SOURCE);
         cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
@@ -982,14 +982,14 @@ public:
         _name = name;
 
         this.addOnDestroy(delegate(Widget) {
-            // Never use experimental logging in destructors, causes 
+            // Never use experimental logging in destructors, causes
             // memory exceptions on GC for some reason
 
             //Clean up terminal references
             foreach(terminal; terminals) {
                 //trace("Removing terminal reference");
                 removeTerminalReferences(terminal);
-            }            
+            }
 
             terminals.length = 0;
             mruTerminals.length = 0;
@@ -1192,9 +1192,9 @@ public:
         foreach (terminal; terminals) {
             string name;
             if (terminal.isProcessRunning(name)) {
-                result.children ~= ProcessInformation(ProcessInfoSource.TERMINAL, 
-                                                      (name.length > 0? name:terminal.getDisplayText(name)), 
-                                                      terminal.uuid, 
+                result.children ~= ProcessInformation(ProcessInfoSource.TERMINAL,
+                                                      (name.length > 0? name:terminal.getDisplayText(name)),
+                                                      terminal.uuid,
                                                       []);
             }
         }
@@ -1475,7 +1475,7 @@ immutable bool PANED_SHRINK_MODE = false;
 
 /**
  * Subclass of Paned that maintains a precise ratio split between
- * children as the Paned is re-size (i.e. resizing the window the Paned is 
+ * children as the Paned is re-size (i.e. resizing the window the Paned is
  * a part of. GTK seems to grow one side versus the other for a slight amount
  * without this compensation in place.
  */
@@ -1509,10 +1509,10 @@ public:
         double newRatio = ratio;
         if (getOrientation() == Orientation.HORIZONTAL) {
             newRatio = to!double(getChild1().getAllocatedWidth()) / to!double(getAllocatedWidth());
-            //tracef("Child1 Width=%d, Paned Width=%d",getChild1().getAllocatedWidth(),getAllocatedWidth()); 
+            //tracef("Child1 Width=%d, Paned Width=%d",getChild1().getAllocatedWidth(),getAllocatedWidth());
         } else {
             newRatio = to!double(getChild1().getAllocatedHeight()) / to!double(getHeight());
-            //tracef("Child1 Height=%d, Paned Height=%d",getChild1().getAllocatedHeight(),getAllocatedHeight()); 
+            //tracef("Child1 Height=%d, Paned Height=%d",getChild1().getAllocatedHeight(),getAllocatedHeight());
         }
         if (newRatio > 0.0 && newRatio < 1.0) {
             ratio = newRatio;
@@ -1553,7 +1553,7 @@ public:
      * If the user saves it again it gets upgraded to includes
      * the ratio automatically.
      *
-     * When set the paned position is not updated based on the 
+     * When set the paned position is not updated based on the
      * ratio, so pre-terminix 1.4.0 behavior. See issue #613
      */
     @property bool ignoreRatio() {

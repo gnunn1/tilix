@@ -48,6 +48,7 @@ private:
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
         lblTitle.getStyleContext().addClass("title");
+        lblTitle.setEllipsize(PangoEllipsizeMode.START);
         EventBox eb = new EventBox();
         eb.add(lblTitle);
         eb.addOnButtonPress(&onButtonPress);
