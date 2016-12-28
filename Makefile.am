@@ -21,6 +21,8 @@ dist_nautilusext_DATA = $(srcdir)/data/nautilus/open-terminix.py
 scriptsdir = $(datadir)/terminix/scripts/
 dist_scripts_DATA = $(srcdir)/data/scripts/terminix_int.sh
 
+man1_MANS = $(srcdir)/data/man/terminix
+
 EXTRA_DIST = LICENSE README.md
 CLEANFILES = terminix.o
 
