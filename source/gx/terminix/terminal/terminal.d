@@ -514,7 +514,7 @@ private:
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 advancedPaste(GDK_SELECTION_CLIPBOARD);
             }
-        }); 
+        });
 
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
 
@@ -860,7 +860,7 @@ private:
                 }
             }
             return false;
-        });        
+        });
 
         vte.addOnSelectionChanged(delegate(VTE) {
             if (vte is null) return;
@@ -1023,7 +1023,7 @@ private:
         if (badge != _cachedBadge) {
             _cachedBadge = badge;
             vte.queueDraw();
-        } 
+        }
     }
 
     /**
@@ -1109,7 +1109,7 @@ private:
             vte.feedChild(pasteText[0 .. $], pasteText.length);
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                 scrollToBottom();
-            } 
+            }
         }
         focusTerminal();
     }
@@ -1137,16 +1137,16 @@ private:
                 vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                     scrollToBottom();
-                } 
+                }
                 return;
             }
         }
-        
+
         if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
-        } 
+        }
     }
 
     void notifyTerminalRequestMove(string srcUUID, Terminal dest, DragQuadrant dq) {
@@ -1307,16 +1307,16 @@ private:
         }
     }
 
-private:    
+private:
 
     bool onTerminalScroll(Event event, Widget widget) {
         if (vte !is null && gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY) && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
             ScrollDirection zoomDirection = event.scroll.direction;
             if (zoomDirection == ScrollDirection.SMOOTH) {
                 zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
-            } 
+            }
             if (zoomDirection == ScrollDirection.UP) {
-                zoomIn();    
+                zoomIn();
             } else if (zoomDirection == ScrollDirection.DOWN) {
                 zoomOut();
             }
@@ -1547,7 +1547,7 @@ private:
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
     bool onTerminalWidgetFocusOut(Event event, Widget widget) {
-        terminalWidgetFocusOut(widget);        
+        terminalWidgetFocusOut(widget);
         return false;
     }
 
@@ -1600,7 +1600,7 @@ private:
      */
     void applyPreference(string key) {
         if (vte is null) return;
-        
+
         switch (key) {
         case SETTINGS_PROFILE_TERMINAL_BELL_KEY:
             string value = gsProfile.getString(SETTINGS_PROFILE_TERMINAL_BELL_KEY);
@@ -1990,7 +1990,7 @@ private:
             // Frankly I'm not a big fan of this WINDOWID environment variable since
             // it doesn't work in Wayland and it's not worth the grief it is causing.
             // See Issues #540 and #525
-            
+
             // Add Window ID
             Window tw = cast(Window)getToplevel();
             if (tw !is null && !isWayland(tw)) {
@@ -2027,7 +2027,7 @@ private:
      * create the VtePty plus send a DBus message to flatpak to get this work.
      *
      * VtePty: https://git.gnome.org/browse/gnome-builder/tree/plugins/terminal/gb-terminal-view.c#n238
-     * HostCommand(): https://git.gnome.org/browse/gnome-builder/tree/libide/subprocess/ide-breakout-subprocess.c#n1448 
+     * HostCommand(): https://git.gnome.org/browse/gnome-builder/tree/libide/subprocess/ide-breakout-subprocess.c#n1448
      */
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
         static if (FLATPAK) {
@@ -2048,7 +2048,7 @@ private:
             }
 
             // TODO
-            // This is a bit hacky in order to cast from 'void function(VtePty* pty)' to 'void function(void* pty)' required by Spawn.async 
+            // This is a bit hacky in order to cast from 'void function(VtePty* pty)' to 'void function(void* pty)' required by Spawn.async
             if (c_vte_pty_child_setup_void is null) {
                 Linker.link(c_vte_pty_child_setup_void, "vte_pty_child_setup", LIBRARY.VTE);
             }
@@ -2080,9 +2080,9 @@ private:
                 envBuilder.addValue(pair);
             }
         }
-        
+
         import gtkc.glib: g_variant_new;
-        
+
         immutable(char)* wd = toStringz(workingDir);
         immutable(char)*[] argsv;
         foreach(i, arg; args) {
@@ -2098,7 +2098,7 @@ private:
 
         return new GVariant(vs, true);
     }
-    
+
     enum O_CLOEXEC = 0x80000;
 
     void sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
@@ -2110,11 +2110,11 @@ private:
         fdList ~= std.stdio.stdin.fileno;
         fdList ~= std.stdio.stdout.fileno;
         fdList ~= std.stdio.stderr.fileno;
-        
+
 
         UnixFDList outFdList = new UnixFDList();
         UnixFDList inFdList = new UnixFDList();
-        foreach(fd; fdList) {        
+        foreach(fd; fdList) {
             inFdList.append(fd);
         }
 
@@ -2138,7 +2138,7 @@ private:
         }
     }
 */
-    
+
     /**
      * Returns the child pid running in the terminal or -1
      * if no child pid is running. May also return the VTE gpid
@@ -2155,14 +2155,14 @@ private:
      * Note this only works with manual proxy settings.
      */
     void setProxyEnv(ref string[] envv) {
-        
+
         void addProxy(GSettings gsProxy, string scheme, string urlScheme, string varName) {
             GSettings gsProxyScheme = gsProxy.getChild(scheme);
 
             string host = gsProxyScheme.getString("host");
             int port = gsProxyScheme.getInt("port");
             if (host.length == 0 || port == 0) return;
-            
+
             string value = urlScheme ~ "://";
             if (scheme == "http") {
                 if (gsProxyScheme.getBoolean("use-authentication")) {
@@ -2182,7 +2182,7 @@ private:
             envv ~= format("%s=%s",varName,value);
         }
 
-        
+
         if (!gsSettings.getBoolean(SETTINGS_SET_PROXY_ENV_KEY)) return;
 
         GSettings gsProxy = terminix.getProxySettings();
@@ -2242,7 +2242,7 @@ private:
         vte.addOnDragDataReceived(&onVTEDragDataReceived);
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
-        
+
         //TODO - Figure out why this is causing issues, see #545
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
             vte.addOnDraw(&onVTEDrawBadge);
@@ -2408,7 +2408,7 @@ private:
         if (pointInTriangle(cursor, bottomLeft, bottomRight, center))
             return DragQuadrant.BOTTOM;
 
-        error("Error with drag quandrant calculation, no quandrant calculated");
+        trace("Error with drag quandrant calculation, no quandrant calculated");
         return DragQuadrant.LEFT;
     }
 
@@ -2516,7 +2516,7 @@ private:
             int pw, ph;
             pgl.getPixelSize(pw, ph);
             //Hack, deduct 0.2 from ratio to make sure text will fit when painted
-            double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph)); 
+            double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph));
             // If a bigger font fits, then increase it
             if (fontRatio > 1) {
                 int fontSize = to!int(floor(fontRatio * font.getSize()));
@@ -2533,10 +2533,10 @@ private:
                     pgl.setAlignment(PangoAlignment.RIGHT);
                     break;
                 case SETTINGS_QUADRANT_SW_VALUE:
-                    rect.y = rect.y + rect.height - ph; 
+                    rect.y = rect.y + rect.height - ph;
                     break;
                 case SETTINGS_QUADRANT_SE_VALUE:
-                    rect.y = rect.y + rect.height - ph; 
+                    rect.y = rect.y + rect.height - ph;
                     pgl.setAlignment(PangoAlignment.RIGHT);
                     break;
                 default:
@@ -2733,7 +2733,7 @@ public:
             writeln("***** Terminal destructor is called");
         }
     }
-    
+
     /**
      * initializes the terminal, i.e spawns the child process.
      *
@@ -2887,7 +2887,7 @@ public:
                 // Fix #628
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                     scrollToBottom();
-                } 
+                }
                 feedChild(text, true);
                 break;
             case SyncInputEventType.INSERT_TEXT:
@@ -2895,7 +2895,7 @@ public:
                     // Fix #628
                     if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                         scrollToBottom();
-                    } 
+                    }
                     feedChild(sie.text, true);
                 }
                 break;
@@ -2904,7 +2904,7 @@ public:
                 newEvent.key.sendEvent = 1;
                 newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
-                break;                
+                break;
         }
     }
 
