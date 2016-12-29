@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 19:43-0500\n"
+"POT-Creation-Date: 2016-12-29 09:36-0500\n"
 "PO-Revision-Date: 2016-10-21 14:33+0000\n"
 "Last-Translator: Niv Baehr <bloop93@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/terminix/"
@@ -18,49 +18,54 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.9-dev\n"
 
-#: source/app.d:106
+#: source/app.d:105
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "גרסת GTK ישנה מדי, נדרש GTK  %d.%d.%d לפחות!"
 
-#: source/app.d:123
+#: source/app.d:122
 #, fuzzy
 msgid "Unexpected exception occurred"
 msgstr "אירעה חריגה לא צפויה"
 
-#: source/app.d:124
+#: source/app.d:123
 msgid "Error: "
 msgstr "שגיאה: "
 
-#: source/app.d:135
+#: source/app.d:133
+#, fuzzy
+msgid "Versions"
+msgstr "פרסית"
+
+#: source/app.d:134
 #, fuzzy, c-format
 msgid "\tTerminix version: %s"
 msgstr "פתיחת Terminix ב־%s"
 
-#: source/app.d:136
+#: source/app.d:135
 #, c-format
 msgid "\tVTE version: %s"
 msgstr ""
 
-#: source/app.d:137
+#: source/app.d:136
 #, c-format
 msgid "\tGTK Version: %d.%d.%d\n"
 msgstr ""
 
-#: source/app.d:138
+#: source/app.d:137
 #, fuzzy
 msgid "Terminix Special Features"
 msgstr "פתיחת העדפות"
 
-#: source/app.d:139
+#: source/app.d:138
 msgid "\tNotifications enabled=%b"
 msgstr ""
 
-#: source/app.d:140
+#: source/app.d:139
 msgid "\tTriggers enabled=%b"
 msgstr ""
 
-#: source/app.d:141
+#: source/app.d:140
 msgid "\tBadges enabled=%b"
 msgstr ""
 
@@ -254,7 +259,7 @@ msgstr "כל קובצי התמונה"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
 #: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1177
+#: source/gx/terminix/appwindow.d:1178
 msgid "All Files"
 msgstr "כל הקבצים"
 
@@ -872,7 +877,7 @@ msgstr "תכנית צבעים"
 
 #: source/gx/terminix/profileeditor.d:839
 #: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
 msgid "Save"
 msgstr "שמירה"
 
@@ -884,12 +889,12 @@ msgstr "שמירה"
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1254
 msgid "Cancel"
 msgstr "ביטול"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
 msgid "All JSON Files"
 msgstr "כל קובצי ה־JSON"
 
@@ -1417,7 +1422,7 @@ msgstr "יציאה"
 msgid "Credits"
 msgstr "תודות"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1602,28 +1607,28 @@ msgstr "ישנם תהליכים שעדיין רצים, האם לסגור בכל 
 msgid "Do not show this again"
 msgstr "לא להציג הודעה זו שוב"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1187
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "הקובץ „%s” אינו קיים"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1217
 msgid "Load Session"
 msgstr "טעינת הפעלה"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1220
 msgid "Open"
 msgstr "פתיחה"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Could not load session due to unexpected error."
 msgstr "לא ניתן לטעון הפעלה עקב שגיאה בלתי צפויה."
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Error Loading Session"
 msgstr "שגיאה בטעינת הפעלה"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1251
 msgid "Save Session"
 msgstr "שמירת הפעלה"
 
@@ -1636,17 +1641,17 @@ msgstr "הקובץ %s אינו קובץ JSON תואם תכנית צבעים"
 msgid "Color scheme palette requires 16 colors"
 msgstr "תכנית לוח הצבעים דורשת 16 צבעים"
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:109
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "מתעלם כי „%s” אינה תיקייה"
 
-#: source/gx/terminix/cmdparams.d:146
+#: source/gx/terminix/cmdparams.d:159
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "מתעלם מפרמטר הפעלה כי „%s” אינו קיים"
 
-#: source/gx/terminix/cmdparams.d:156
+#: source/gx/terminix/cmdparams.d:169
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1654,11 +1659,11 @@ msgstr ""
 "לא ניתן לטעון הפעלה וגם לקבוע אפשרות עבור פרופיל/תיקיית עבודה/פקודה לביצוע, "
 "נא לבחור האחד או האחר"
 
-#: source/gx/terminix/cmdparams.d:163
+#: source/gx/terminix/cmdparams.d:176
 msgid "You can only use the action parameter within Terminix"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:185
+#: source/gx/terminix/cmdparams.d:198
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

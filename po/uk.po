@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 19:43-0500\n"
+"POT-Creation-Date: 2016-12-29 09:36-0500\n"
 "PO-Revision-Date: 2016-12-14 19:18+0000\n"
 "Last-Translator: Мирослав Білоус <murukmaniak@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/terminix/"
@@ -18,48 +18,53 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.10-dev\n"
 
-#: source/app.d:106
+#: source/app.d:105
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "Версія GTK — застара, потрібно щонайменше GTK %d.%d.%d!"
 
-#: source/app.d:123
+#: source/app.d:122
 msgid "Unexpected exception occurred"
 msgstr "Трапився неочікувана виняток"
 
-#: source/app.d:124
+#: source/app.d:123
 msgid "Error: "
 msgstr "Помилка: "
 
-#: source/app.d:135
+#: source/app.d:133
+#, fuzzy
+msgid "Versions"
+msgstr "Перське"
+
+#: source/app.d:134
 #, fuzzy, c-format
 msgid "\tTerminix version: %s"
 msgstr "Відкрити Terminix в %s"
 
-#: source/app.d:136
+#: source/app.d:135
 #, c-format
 msgid "\tVTE version: %s"
 msgstr ""
 
-#: source/app.d:137
+#: source/app.d:136
 #, c-format
 msgid "\tGTK Version: %d.%d.%d\n"
 msgstr ""
 
-#: source/app.d:138
+#: source/app.d:137
 #, fuzzy
 msgid "Terminix Special Features"
 msgstr "Параметри Terminix"
 
-#: source/app.d:139
+#: source/app.d:138
 msgid "\tNotifications enabled=%b"
 msgstr ""
 
-#: source/app.d:140
+#: source/app.d:139
 msgid "\tTriggers enabled=%b"
 msgstr ""
 
-#: source/app.d:141
+#: source/app.d:140
 msgid "\tBadges enabled=%b"
 msgstr ""
 
@@ -247,7 +252,7 @@ msgstr "Усі файли зображення"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
 #: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1177
+#: source/gx/terminix/appwindow.d:1178
 msgid "All Files"
 msgstr "Всі файли"
 
@@ -857,7 +862,7 @@ msgstr "Експорт кольорової схеми"
 
 #: source/gx/terminix/profileeditor.d:839
 #: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
 msgid "Save"
 msgstr "Зберегти"
 
@@ -869,12 +874,12 @@ msgstr "Зберегти"
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1254
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
 msgid "All JSON Files"
 msgstr "Усі файли JSON"
 
@@ -1393,7 +1398,7 @@ msgstr "Вийти"
 msgid "Credits"
 msgstr "Подяки"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1574,28 +1579,28 @@ msgstr "Відкрито декілька сесій. Все одно закри
 msgid "Do not show this again"
 msgstr "Більше не показувати це повідомлення"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1187
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Файл з назвою «%s» не існує"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1217
 msgid "Load Session"
 msgstr "Завантажити сеанс"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1220
 msgid "Open"
 msgstr "Відкрити"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Could not load session due to unexpected error."
 msgstr "Неможливо завантажити сеанс через неочікувану помилку."
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Error Loading Session"
 msgstr "Помилка завантаження сеансу"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1251
 msgid "Save Session"
 msgstr "Зберегти сеанс"
 
@@ -1608,17 +1613,17 @@ msgstr "Файл %s — не схема кольорів, яка сумісна 
 msgid "Color scheme palette requires 16 colors"
 msgstr "Палітра схеми кольорів потребує 16 кольорів"
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:109
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "Нехтування, бо %s» — не каталог"
 
-#: source/gx/terminix/cmdparams.d:146
+#: source/gx/terminix/cmdparams.d:159
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "Нехтування параметра сеансу, бо «%s» не існує"
 
-#: source/gx/terminix/cmdparams.d:156
+#: source/gx/terminix/cmdparams.d:169
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1626,11 +1631,11 @@ msgstr ""
 "Неможливо завантажувати сеанс і вказувати параметри команд профілю/каталогу/"
 "виконання, виберіть щось одне"
 
-#: source/gx/terminix/cmdparams.d:163
+#: source/gx/terminix/cmdparams.d:176
 msgid "You can only use the action parameter within Terminix"
 msgstr "Можете використовувати цей параметр дії тільки у Terminix"
 
-#: source/gx/terminix/cmdparams.d:185
+#: source/gx/terminix/cmdparams.d:198
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

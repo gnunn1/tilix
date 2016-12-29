@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 19:43-0500\n"
+"POT-Creation-Date: 2016-12-29 09:36-0500\n"
 "PO-Revision-Date: 2016-08-09 00:53+0000\n"
 "Last-Translator: Mingcong Bai <jeffbai@aosc.xyz>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/terminix/"
@@ -16,48 +16,53 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.8-dev\n"
 
-#: source/app.d:106
+#: source/app.d:105
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "你的 GTK 版本太老，需要至少 GTK %d.%d.%d！"
 
-#: source/app.d:123
+#: source/app.d:122
 msgid "Unexpected exception occurred"
 msgstr "发生未预期错误"
 
-#: source/app.d:124
+#: source/app.d:123
 msgid "Error: "
 msgstr "错误： "
 
-#: source/app.d:135
+#: source/app.d:133
+#, fuzzy
+msgid "Versions"
+msgstr "波斯"
+
+#: source/app.d:134
 #, fuzzy, c-format
 msgid "\tTerminix version: %s"
 msgstr "在 %s 打开 Terminix"
 
-#: source/app.d:136
+#: source/app.d:135
 #, c-format
 msgid "\tVTE version: %s"
 msgstr ""
 
-#: source/app.d:137
+#: source/app.d:136
 #, c-format
 msgid "\tGTK Version: %d.%d.%d\n"
 msgstr ""
 
-#: source/app.d:138
+#: source/app.d:137
 #, fuzzy
 msgid "Terminix Special Features"
 msgstr "打开首选项"
 
-#: source/app.d:139
+#: source/app.d:138
 msgid "\tNotifications enabled=%b"
 msgstr ""
 
-#: source/app.d:140
+#: source/app.d:139
 msgid "\tTriggers enabled=%b"
 msgstr ""
 
-#: source/app.d:141
+#: source/app.d:140
 msgid "\tBadges enabled=%b"
 msgstr ""
 
@@ -248,7 +253,7 @@ msgstr "所有图像文件"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
 #: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1177
+#: source/gx/terminix/appwindow.d:1178
 msgid "All Files"
 msgstr "所有文件"
 
@@ -869,7 +874,7 @@ msgstr "配色方案"
 
 #: source/gx/terminix/profileeditor.d:839
 #: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
 msgid "Save"
 msgstr "保存"
 
@@ -881,12 +886,12 @@ msgstr "保存"
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1254
 msgid "Cancel"
 msgstr "取消"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
 msgid "All JSON Files"
 msgstr "所有 JSON 文件"
 
@@ -1410,7 +1415,7 @@ msgstr "退出"
 msgid "Credits"
 msgstr "感谢名单"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1591,28 +1596,28 @@ msgstr "仍有正在运行的进程，依然要关闭吗？"
 msgid "Do not show this again"
 msgstr "不再显示该信息"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1187
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "文件名“%s”不存在"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1217
 msgid "Load Session"
 msgstr "载入会话"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1220
 msgid "Open"
 msgstr "打开"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Could not load session due to unexpected error."
 msgstr "发生未知错误，无法载入会话。"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Error Loading Session"
 msgstr "载入会话出错"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1251
 msgid "Save Session"
 msgstr "保存会话"
 
@@ -1625,17 +1630,17 @@ msgstr "文件 %s 不是兼容的 JSON 颜色主题文件"
 msgid "Color scheme palette requires 16 colors"
 msgstr "颜色主题色板需要 16 个颜色"
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:109
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "因为“%s”不是目录，因而忽略此项"
 
-#: source/gx/terminix/cmdparams.d:146
+#: source/gx/terminix/cmdparams.d:159
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "忽略 session 参数，因为“%s”不存在"
 
-#: source/gx/terminix/cmdparams.d:156
+#: source/gx/terminix/cmdparams.d:169
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1643,11 +1648,11 @@ msgstr ""
 "你不能在载入会话时同时设置配置档案、工作目录及执行的命令行选项，请选择其中一"
 "个操作"
 
-#: source/gx/terminix/cmdparams.d:163
+#: source/gx/terminix/cmdparams.d:176
 msgid "You can only use the action parameter within Terminix"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:185
+#: source/gx/terminix/cmdparams.d:198
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

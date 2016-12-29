@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 19:43-0500\n"
+"POT-Creation-Date: 2016-12-29 09:36-0500\n"
 "PO-Revision-Date: 2016-12-29 01:33+0000\n"
 "Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
-"Language-Team: Czech "
-"<https://hosted.weblate.org/projects/terminix/translations/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/terminix/"
+"translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,47 +18,52 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
-#: source/app.d:106
+#: source/app.d:105
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "Máte příliš starou verzi GTK, potřebujete nejméně GTK %d.%d.%d!"
 
-#: source/app.d:123
+#: source/app.d:122
 msgid "Unexpected exception occurred"
 msgstr "Nastala neočekávaná výjimka"
 
-#: source/app.d:124
+#: source/app.d:123
 msgid "Error: "
 msgstr "Chyba: "
 
-#: source/app.d:135
+#: source/app.d:133
+#, fuzzy
+msgid "Versions"
+msgstr "\tVerze VTE: %s"
+
+#: source/app.d:134
 #, c-format
 msgid "\tTerminix version: %s"
 msgstr "\tVerze Terminixu: %s"
 
-#: source/app.d:136
+#: source/app.d:135
 #, c-format
 msgid "\tVTE version: %s"
 msgstr "\tVerze VTE: %s"
 
-#: source/app.d:137
+#: source/app.d:136
 #, c-format
 msgid "\tGTK Version: %d.%d.%d\n"
 msgstr "\tVerze GTK: %d.%d.%d\n"
 
-#: source/app.d:138
+#: source/app.d:137
 msgid "Terminix Special Features"
 msgstr "Speciální vlastnosti Terminixu"
 
-#: source/app.d:139
+#: source/app.d:138
 msgid "\tNotifications enabled=%b"
 msgstr "\tOznámení povolena=%b"
 
-#: source/app.d:140
+#: source/app.d:139
 msgid "\tTriggers enabled=%b"
 msgstr "\tSpouštěče povoleny=%b"
 
-#: source/app.d:141
+#: source/app.d:140
 msgid "\tBadges enabled=%b"
 msgstr "\tOdznaky povoleny=%b"
 
@@ -246,7 +251,7 @@ msgstr "Všechny obrázky"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
 #: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1177
+#: source/gx/terminix/appwindow.d:1178
 msgid "All Files"
 msgstr "Všechny soubory"
 
@@ -856,7 +861,7 @@ msgstr "Exportovat barevné schéma"
 
 #: source/gx/terminix/profileeditor.d:839
 #: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
 msgid "Save"
 msgstr "Uložit"
 
@@ -868,12 +873,12 @@ msgstr "Uložit"
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1254
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
 msgid "All JSON Files"
 msgstr "Všechny soubory JSON"
 
@@ -1392,7 +1397,7 @@ msgstr "Ukončit"
 msgid "Credits"
 msgstr "Zásluhy"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1573,28 +1578,28 @@ msgstr "Je otevřeno více sezení; přesto zavřít?"
 msgid "Do not show this again"
 msgstr "Příště už neukazovat"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1187
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Soubor „%s“ neexistuje"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1217
 msgid "Load Session"
 msgstr "Načíst sezení"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1220
 msgid "Open"
 msgstr "Otevřít"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Could not load session due to unexpected error."
 msgstr "Načítání sezení selhalo kvůli neočekávané chybě."
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Error Loading Session"
 msgstr "Chyba při načítání sezení"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1251
 msgid "Save Session"
 msgstr "Uložit sezení"
 
@@ -1607,17 +1612,17 @@ msgstr "Soubor %s není JSON obsahující platné barevné schéma"
 msgid "Color scheme palette requires 16 colors"
 msgstr "Paleta barevného schématu vyžaduje 16 barev"
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:109
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "Přeskočeno, jelikož „%s“ není adresář"
 
-#: source/gx/terminix/cmdparams.d:146
+#: source/gx/terminix/cmdparams.d:159
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "Přeskočen parametr sezení, jelikož „%s“ neexistuje"
 
-#: source/gx/terminix/cmdparams.d:156
+#: source/gx/terminix/cmdparams.d:169
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1625,11 +1630,11 @@ msgstr ""
 "Nemůžete zároveň načíst sezení a nastavit profil / pracovní adresář / "
 "prováděný příkaz. Vyberte prosím první či druhé"
 
-#: source/gx/terminix/cmdparams.d:163
+#: source/gx/terminix/cmdparams.d:176
 msgid "You can only use the action parameter within Terminix"
 msgstr "Parametr akce můžete použít jen uvnitř Terminixu"
 
-#: source/gx/terminix/cmdparams.d:185
+#: source/gx/terminix/cmdparams.d:198
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

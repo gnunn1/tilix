@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 19:43-0500\n"
+"POT-Creation-Date: 2016-12-29 09:36-0500\n"
 "PO-Revision-Date: 2016-12-19 21:13+0000\n"
 "Last-Translator: Boiethios <fdaudre-@student.42.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/terminix/"
@@ -14,50 +14,55 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.10\n"
 
-#: source/app.d:106
+#: source/app.d:105
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 "Votre version de GTK est trop vieille, vous avez besoin au moins de GTK %d."
 "%d.%d !"
 
-#: source/app.d:123
+#: source/app.d:122
 msgid "Unexpected exception occurred"
 msgstr "Une exception inattendue est survenue"
 
-#: source/app.d:124
+#: source/app.d:123
 msgid "Error: "
 msgstr "Erreur : "
 
-#: source/app.d:135
+#: source/app.d:133
+#, fuzzy
+msgid "Versions"
+msgstr "Perse"
+
+#: source/app.d:134
 #, fuzzy, c-format
 msgid "\tTerminix version: %s"
 msgstr "Ouvrir Terminix dans %s"
 
-#: source/app.d:136
+#: source/app.d:135
 #, c-format
 msgid "\tVTE version: %s"
 msgstr ""
 
-#: source/app.d:137
+#: source/app.d:136
 #, c-format
 msgid "\tGTK Version: %d.%d.%d\n"
 msgstr ""
 
-#: source/app.d:138
+#: source/app.d:137
 #, fuzzy
 msgid "Terminix Special Features"
 msgstr "Préférences"
 
-#: source/app.d:139
+#: source/app.d:138
 msgid "\tNotifications enabled=%b"
 msgstr ""
 
-#: source/app.d:140
+#: source/app.d:139
 msgid "\tTriggers enabled=%b"
 msgstr ""
 
-#: source/app.d:141
+#: source/app.d:140
 msgid "\tBadges enabled=%b"
 msgstr ""
 
@@ -248,7 +253,7 @@ msgstr "Tous les fichiers image"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
 #: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1177
+#: source/gx/terminix/appwindow.d:1178
 msgid "All Files"
 msgstr "Tous les fichiers"
 
@@ -863,7 +868,7 @@ msgstr "Exporter la palette de couleurs"
 
 #: source/gx/terminix/profileeditor.d:839
 #: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -875,12 +880,12 @@ msgstr "Enregistrer"
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1219
-#: source/gx/terminix/appwindow.d:1253
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1254
 msgid "Cancel"
 msgstr "Annuler"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1173
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
 msgid "All JSON Files"
 msgstr "Tous les fichiers JSON"
 
@@ -1416,7 +1421,7 @@ msgstr "Quitter"
 msgid "Credits"
 msgstr "Crédits"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1333
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1601,28 +1606,28 @@ msgstr "Plusieurs sessions sont ouvertes, fermer quand-même ?"
 msgid "Do not show this again"
 msgstr "Ne plus afficher ce message"
 
-#: source/gx/terminix/appwindow.d:1186
+#: source/gx/terminix/appwindow.d:1187
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Le nom de fichier « %s » n'existe pas"
 
-#: source/gx/terminix/appwindow.d:1216
+#: source/gx/terminix/appwindow.d:1217
 msgid "Load Session"
 msgstr "Charger la session"
 
-#: source/gx/terminix/appwindow.d:1219
+#: source/gx/terminix/appwindow.d:1220
 msgid "Open"
 msgstr "Ouvrir"
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Could not load session due to unexpected error."
 msgstr "Impossible de charger la session en raison d'une erreur inattendue."
 
-#: source/gx/terminix/appwindow.d:1234
+#: source/gx/terminix/appwindow.d:1235
 msgid "Error Loading Session"
 msgstr "Erreur lors du chargement de la session"
 
-#: source/gx/terminix/appwindow.d:1250
+#: source/gx/terminix/appwindow.d:1251
 msgid "Save Session"
 msgstr "Sauvegarder la session"
 
@@ -1635,17 +1640,17 @@ msgstr "Le fichier %s n'est pas un fichier JSON de palette de couleurs"
 msgid "Color scheme palette requires 16 colors"
 msgstr "Une palette de couleurs requiert 16 couleurs"
 
-#: source/gx/terminix/cmdparams.d:98
+#: source/gx/terminix/cmdparams.d:109
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "Ignorer que « %s » n'est pas un dossier"
 
-#: source/gx/terminix/cmdparams.d:146
+#: source/gx/terminix/cmdparams.d:159
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "Ignorer le paramètre de session car « %s » n'existe pas"
 
-#: source/gx/terminix/cmdparams.d:156
+#: source/gx/terminix/cmdparams.d:169
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1654,11 +1659,11 @@ msgstr ""
 "dossier de travail / exécuter une commande : choisissez l'un ou l'autre s'il "
 "vous plaît"
 
-#: source/gx/terminix/cmdparams.d:163
+#: source/gx/terminix/cmdparams.d:176
 msgid "You can only use the action parameter within Terminix"
 msgstr "Vous pouvez utiliser le paramètre d'action seulement dans Terminix"
 
-#: source/gx/terminix/cmdparams.d:185
+#: source/gx/terminix/cmdparams.d:198
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"
