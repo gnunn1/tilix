@@ -38,6 +38,14 @@ enum CMD_QUAKE = "quake";
 enum CMD_VERSION = "version";
 enum CMD_PREFERENCES = "preferences";
 
+
+/**
+ * Indicates how much of geometry was passed
+ *  PARTIAL - Width and Height only
+ *  FULL - Width, Height, x and y
+ */
+enum GeometryFlag {NONE, PARTIAL, FULL}
+
 /**
  * Manages the terminix command line options
  */
@@ -66,11 +74,14 @@ private:
     bool _version;
     bool _preferences;
 
+
     bool _exit = false;
     int _exitCode = 0;
 
     enum GEOMETRY_PATTERN_FULL = "(?P<width>\\d+)x(?P<height>\\d+)(?P<x>[-+]\\d+)(?P<y>[-+]\\d+)";
     enum GEOMETRY_PATTERN_DIMENSIONS = "(?P<width>\\d+)x(?P<height>\\d+)";
+
+    GeometryFlag _geoFlag = GeometryFlag.NONE;
 
     string[] getValues(VariantDict vd, string key) {
         GVariant value = vd.lookupValue(key, new GVariantType("as"));
@@ -111,12 +122,14 @@ private:
             _height = to!int(m["height"]);
             _x = to!int(m["x"]);
             _y = to!int(m["y"]);
+            _geoFlag = GeometryFlag.FULL;
         } else {
             r = regex(GEOMETRY_PATTERN_DIMENSIONS);
             m = matchFirst(_geometry, r);
             if (m) {
                 _width = to!int(m["width"]);
                 _height = to!int(m["height"]);
+                _geoFlag = GeometryFlag.PARTIAL;
             } else {
                 errorf("Geometry string '%s' is invalid and could not be parsed", _geometry);
             }
@@ -225,6 +238,7 @@ public:
         _title.length = 0;
         _version = false;
         _preferences = false;
+        _geoFlag = GeometryFlag.NONE;
     }
 
     @property string workingDir() {
@@ -325,5 +339,9 @@ public:
 
     @property bool preferences() {
         return _preferences;
+    }
+
+    @property GeometryFlag geoFlag() {
+        return _geoFlag;
     }
 }

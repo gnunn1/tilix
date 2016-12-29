@@ -1021,7 +1021,8 @@ private:
     void onWindowRealized(Widget) {
         if (isQuake()) {
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
-        } else if (terminix.getGlobalOverrides().x > 0) {
+        } else if (terminix.getGlobalOverrides().geoFlag == GeometryFlag.FULL) {
+            tracef("Moving window to x=%d,y=%d", terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
             move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
         }
     }
