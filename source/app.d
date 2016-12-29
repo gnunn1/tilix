@@ -67,10 +67,9 @@ int main(string[] args) {
 
     //textdomain
     textdomain(TERMINIX_DOMAIN);
-    // Init GTK early so localization is available, pass empty
-    // args so GTK doesn't attempt to interpret them
-    string[] tempargs;
-    Main.init(tempargs);
+    // Init GTK early so localization is available
+    // Note used to pass empty args but was interfering with GTK default args
+    Main.init(args);
 
     trace(format("Starting terminix with %d arguments...", args.length));
     foreach(i, arg; args) {
