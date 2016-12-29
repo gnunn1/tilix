@@ -6,7 +6,7 @@
     "mainSourceFile": "source/app.d",
 
     "dependencies": {
-        "gtk-d": "~>3.3.0"
+        "gtk-d": "~>3.4.0"
     },
 
     "buildTypes": {
@@ -37,7 +37,7 @@
             "name": "dynamic",
             "targetType": "executable",
             "libs": ["gtkd-3"],
-            "libs-linux": ["X11"],            
+            "libs-linux": ["X11"],
             "lflags": ["-defaultlib=gtkd-3.so"],
             "versions": ["StdLoggerDisableTrace"]
         }
