@@ -130,7 +130,7 @@ private:
         import gx.gtk.vte: getVTEVersion, checkVTEFeature, TerminalFeature;
         import gtk.Version: Version;
 
-        writeln("Versions");
+        writeln(_("Versions"));
         writeln(format(_("\tTerminix version: %s"), APPLICATION_VERSION));
         writeln(format(_("\tVTE version: %s"), getVTEVersion()));
         writeln(format(_("\tGTK Version: %d.%d.%d\n"), Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
