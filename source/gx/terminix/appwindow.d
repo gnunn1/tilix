@@ -1436,7 +1436,7 @@ public:
                     error(e.msg);
                 }
             }
-            return;
+            if (nb.getNPages() > 0) return;
         }
         //Create an initial session using default session name and profile
         createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
