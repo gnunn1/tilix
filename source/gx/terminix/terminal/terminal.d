@@ -2696,6 +2696,7 @@ public:
     this(string profileUUID) {
         super();
         addOnDestroy(delegate(Widget) {
+            trace("Terminal destroyed");
             finalizeTerminal();
         });
         gst = new GlobalTerminalState();
@@ -2757,8 +2758,10 @@ public:
         if (firstRun) {
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
             int height = gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY);
-            if (terminix.getGlobalOverrides().width > 0) width = terminix.getGlobalOverrides().width;
-            if (terminix.getGlobalOverrides().height > 0) height = terminix.getGlobalOverrides().height;
+            if (terminix.getGlobalOverrides.geometry.flag != GeometryFlag.NONE) {
+                width = terminix.getGlobalOverrides().geometry.width;
+                height = terminix.getGlobalOverrides().geometry.height;
+            }
             trace("Set VTE Size for rows " ~ to!string(width));
             trace("Set VTE Size for columns " ~ to!string(height));
             vte.setSize(width, height);
