@@ -1031,22 +1031,21 @@ private:
             int x, y;
             Geometry geometry = terminix.getGlobalOverrides().geometry;
             Gravity gravity = Gravity.NORTH_WEST;
+            int width = nb.getAllocatedWidth();
+            int height = nb.getAllocatedHeight();
             if (!geometry.xNegative)
                 x = geometry.x;
             else {
-                x = getScreen().getWidth() - getAllocatedWidth() + geometry.x;
+                x = getScreen().getWidth() - width + geometry.x;
                 gravity = Gravity.NORTH_EAST;
             }
 
             if (!geometry.yNegative)
                 y = geometry.y;
             else {
-                y = getScreen().getHeight() - getAllocatedHeight() + geometry.y;
+                y = getScreen().getHeight() - height + geometry.y;
                 gravity = (geometry.xNegative) ? Gravity.SOUTH_EAST : Gravity.SOUTH_WEST;
             }
-
-            tracef("Screen width=%d,Allocated Width=%d", getScreen.getWidth(), getAllocatedWidth());
-            tracef("Moving window to x=%d,y=%d", x, y);
             setGravity(gravity);
             move(x, y);
         }
