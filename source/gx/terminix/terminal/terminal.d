@@ -1174,8 +1174,8 @@ private:
 
     TerminalScreen currentScreen = TerminalScreen.NORMAL;
 
-    void onVTEScreenChanged(TerminalScreen screen, VTE) {
-        currentScreen = screen;
+    void onVTEScreenChanged(int screen, VTE) {
+        currentScreen = cast(TerminalScreen)screen;
     }
 
     /**

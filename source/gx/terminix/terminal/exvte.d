@@ -4,6 +4,7 @@
  */
 module gx.terminix.terminal.exvte;
 
+import std.algorithm;
 import std.experimental.logger;
 
 import gobject.Signals;
@@ -26,12 +27,6 @@ class ExtendedVTE : Terminal {
 
 private:
     bool ignoreFirstNotification = true;
-
-    extern (C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, const int screen, ExtendedVTE _terminal) {
-        foreach (void delegate(TerminalScreen, Terminal) dlg; _terminal.onTerminalScreenChangedListeners) {
-            dlg(cast(TerminalScreen) screen, _terminal);
-        }
-    }
 
 public:
 
@@ -60,54 +55,114 @@ public:
         }
     }
 
-    void delegate(TerminalScreen, Terminal)[] onTerminalScreenChangedListeners;
+	protected class OnNotificationReceivedDelegateWrapper
+	{
+		void delegate(string, string, Terminal) dlg;
+		ulong handlerId;
+		ConnectFlags flags;
+		this(void delegate(string, string, Terminal) dlg, ulong handlerId, ConnectFlags flags)
+		{
+			this.dlg = dlg;
+			this.handlerId = handlerId;
+			this.flags = flags;
+		}
+	}
+	protected OnNotificationReceivedDelegateWrapper[] onNotificationReceivedListeners;
 
-    void delegate(string, string, Terminal)[] onNotificationReceivedListeners;
-
-    /**
-	 * Emitted whenever a command is completed.
+	/**
+	 * Emitted when a process running in the terminal wants to
+	 * send a notification to the desktop environment.
 	 *
 	 * Params:
-	 *     summary =
-	 *     body =
+	 *     summary = The summary
+	 *     bod = Extra optional text
 	 */
-    void addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags = cast(ConnectFlags) 0) {
-        //Check that this is the Fedora patched VTE that supports the notification-received signal
-        if (Signals.lookup("notification-received", getType()) != 0) {
-            if ("notification-received" !in connectedSignals) {
-                Signals.connectData(this, "notification-received", cast(GCallback)&callBackNotificationReceived, cast(void*) this, null, connectFlags);
-                connectedSignals["notification-rece = 1ived"] = 1;
-            }
-            onNotificationReceivedListeners ~= dlg;
-        }
-    }
+	gulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	{
+		onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
+		onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = Signals.connectData(
+			this,
+			"notification-received",
+			cast(GCallback)&callBackNotificationReceived,
+			cast(void*)onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1],
+			cast(GClosureNotify)&callBackNotificationReceivedDestroy,
+			connectFlags);
+		return onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId;
+	}
 
-    extern (C) static void callBackNotificationReceived(VteTerminal* terminalStruct, const char* _summary, const char* _body, ExtendedVTE _terminal) {
-        if (_terminal.ignoreFirstNotification) {
-            _terminal.ignoreFirstNotification = false;
-            trace("Ignoring first notification");
-            return;
-        }
-        string s = Str.toString(_summary);
-        string b = Str.toString(_body);
-        foreach (void delegate(string, string, Terminal) dlg; _terminal.onNotificationReceivedListeners) {
-            dlg(s, b, _terminal);
-        }
-    }
+	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, char* summary, char* bod,OnNotificationReceivedDelegateWrapper wrapper)
+	{
+		wrapper.dlg(Str.toString(summary), Str.toString(bod), wrapper.outer);
+	}
 
-    /**
-     * Emitted whenever the terminal screen is switched between normal and alternate.
-     */
-    void addOnTerminalScreenChanged(void delegate(TerminalScreen, Terminal) dlg, ConnectFlags connectFlags = cast(ConnectFlags) 0) {
-        //Check that this is the Fedora patched VTE that supports the notification-received signal
-        if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
-            if ("terminal-screen-changed" !in connectedSignals) {
-                Signals.connectData(this, "terminal-screen-changed", cast(GCallback)&callBackTerminalScreenChanged, cast(void*) this, null, connectFlags);
-                connectedSignals["terminal-screen-changed"] = 1;
-            }
-            onTerminalScreenChangedListeners ~= dlg;
-        }
-    }
+	extern(C) static void callBackNotificationReceivedDestroy(OnNotificationReceivedDelegateWrapper wrapper, GClosure* closure)
+	{
+		wrapper.outer.internalRemoveOnNotificationReceived(wrapper);
+	}
+
+	protected void internalRemoveOnNotificationReceived(OnNotificationReceivedDelegateWrapper source)
+	{
+		foreach(index, wrapper; onNotificationReceivedListeners)
+		{
+			if (wrapper.dlg == source.dlg && wrapper.flags == source.flags && wrapper.handlerId == source.handlerId)
+			{
+				onNotificationReceivedListeners[index] = null;
+				onNotificationReceivedListeners = std.algorithm.remove(onNotificationReceivedListeners, index);
+				break;
+			}
+		}
+	}
+
+	protected class OnTerminalScreenChangedDelegateWrapper
+	{
+		void delegate(int, Terminal) dlg;
+		ulong handlerId;
+		ConnectFlags flags;
+		this(void delegate(int, Terminal) dlg, ulong handlerId, ConnectFlags flags)
+		{
+			this.dlg = dlg;
+			this.handlerId = handlerId;
+			this.flags = flags;
+		}
+	}
+	protected OnTerminalScreenChangedDelegateWrapper[] onTerminalScreenChangedListeners;
+
+	/** */
+	gulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	{
+		onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
+		onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = Signals.connectData(
+			this,
+			"terminal-screen-changed",
+			cast(GCallback)&callBackTerminalScreenChanged,
+			cast(void*)onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1],
+			cast(GClosureNotify)&callBackTerminalScreenChangedDestroy,
+			connectFlags);
+		return onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId;
+	}
+
+	extern(C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, int object,OnTerminalScreenChangedDelegateWrapper wrapper)
+	{
+		wrapper.dlg(object, wrapper.outer);
+	}
+
+	extern(C) static void callBackTerminalScreenChangedDestroy(OnTerminalScreenChangedDelegateWrapper wrapper, GClosure* closure)
+	{
+		wrapper.outer.internalRemoveOnTerminalScreenChanged(wrapper);
+	}
+
+	protected void internalRemoveOnTerminalScreenChanged(OnTerminalScreenChangedDelegateWrapper source)
+	{
+		foreach(index, wrapper; onTerminalScreenChangedListeners)
+		{
+			if (wrapper.dlg == source.dlg && wrapper.flags == source.flags && wrapper.handlerId == source.handlerId)
+			{
+				onTerminalScreenChangedListeners[index] = null;
+				onTerminalScreenChangedListeners = std.algorithm.remove(onTerminalScreenChangedListeners, index);
+				break;
+			}
+		}
+	}
 
     public bool getDisableBGDraw() {
 		return vte_terminal_get_disable_bg_draw(vteTerminal) != 0;
