@@ -1021,9 +1021,34 @@ private:
     void onWindowRealized(Widget) {
         if (isQuake()) {
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);
-        } else if (terminix.getGlobalOverrides().geoFlag == GeometryFlag.FULL) {
-            tracef("Moving window to x=%d,y=%d", terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
-            move(terminix.getGlobalOverrides().x, terminix.getGlobalOverrides().y);
+        } else {
+            handleGeometry();
+        }
+    }
+
+    void handleGeometry() {
+        if (!isQuake() && terminix.getGlobalOverrides().geometry.flag == GeometryFlag.FULL && !isWayland(this)) {
+            int x, y;
+            Geometry geometry = terminix.getGlobalOverrides().geometry;
+            Gravity gravity = Gravity.NORTH_WEST;
+            if (!geometry.xNegative)
+                x = geometry.x;
+            else {
+                x = getScreen().getWidth() - getAllocatedWidth() + geometry.x;
+                gravity = Gravity.NORTH_EAST;
+            }
+
+            if (!geometry.yNegative)
+                y = geometry.y;
+            else {
+                y = getScreen().getHeight() - getAllocatedHeight() + geometry.y;
+                gravity = (geometry.xNegative) ? Gravity.SOUTH_EAST : Gravity.SOUTH_WEST;
+            }
+
+            tracef("Screen width=%d,Allocated Width=%d", getScreen.getWidth(), getAllocatedWidth());
+            tracef("Moving window to x=%d,y=%d", x, y);
+            setGravity(gravity);
+            move(x, y);
         }
     }
 
@@ -1413,6 +1438,7 @@ public:
             terminix.withdrawNotification(uuid);
             return false;
         });
+        handleGeometry();
     }
 
     debug(Destructors) {

@@ -46,6 +46,14 @@ enum CMD_PREFERENCES = "preferences";
  */
 enum GeometryFlag {NONE, PARTIAL, FULL}
 
+struct Geometry {
+    int x, y;
+    uint width, height;
+    bool xNegative;
+    bool yNegative;
+    GeometryFlag flag;
+}
+
 /**
  * Manages the terminix command line options
  */
@@ -61,9 +69,8 @@ private:
     string _terminalUUID;
     string _cwd;
     string _pwd;
-    string _geometry;
     string _title;
-    int _width, _height, _x, _y;
+    Geometry _geometry;
 
     bool _maximize;
     bool _minimize;
@@ -74,14 +81,11 @@ private:
     bool _version;
     bool _preferences;
 
-
     bool _exit = false;
     int _exitCode = 0;
 
     enum GEOMETRY_PATTERN_FULL = "(?P<width>\\d+)x(?P<height>\\d+)(?P<x>[-+]\\d+)(?P<y>[-+]\\d+)";
     enum GEOMETRY_PATTERN_DIMENSIONS = "(?P<width>\\d+)x(?P<height>\\d+)";
-
-    GeometryFlag _geoFlag = GeometryFlag.NONE;
 
     string[] getValues(VariantDict vd, string key) {
         GVariant value = vd.lookupValue(key, new GVariantType("as"));
@@ -113,27 +117,32 @@ private:
         return path;
     }
 
-    void parseGeometry() {
-        trace("Parsing geometry string " ~ _geometry);
+    void parseGeometry(string value) {
+        trace("Parsing geometry string " ~ value);
         auto r = regex(GEOMETRY_PATTERN_FULL);
-        auto m = matchFirst(_geometry, r);
+        auto m = matchFirst(value, r);
         if (m) {
-            _width = to!int(m["width"]);
-            _height = to!int(m["height"]);
-            _x = to!int(m["x"]);
-            _y = to!int(m["y"]);
-            _geoFlag = GeometryFlag.FULL;
+            _geometry.width = to!uint(m["width"]);
+            _geometry.height = to!uint(m["height"]);
+            _geometry.x = to!int(m["x"]);
+            _geometry.xNegative = m["x"].startsWith("-");
+            _geometry.y = to!int(m["y"]);
+            _geometry.yNegative = m["y"].startsWith("-");
+            _geometry.flag = GeometryFlag.FULL;
+            return;
         } else {
             r = regex(GEOMETRY_PATTERN_DIMENSIONS);
-            m = matchFirst(_geometry, r);
+            m = matchFirst(value, r);
             if (m) {
-                _width = to!int(m["width"]);
-                _height = to!int(m["height"]);
-                _geoFlag = GeometryFlag.PARTIAL;
+                _geometry.width = to!int(m["width"]);
+                _geometry.height = to!int(m["height"]);
+                _geometry.flag = GeometryFlag.PARTIAL;
+                return;
             } else {
-                errorf("Geometry string '%s' is invalid and could not be parsed", _geometry);
+                errorf(_("Geometry string '%s' is invalid and could not be parsed"), value);
             }
         }
+        _geometry.flag = GeometryFlag.NONE;
     }
 
 public:
@@ -190,11 +199,11 @@ public:
         _preferences = vd.contains(CMD_PREFERENCES);
         _exit = _version;
 
-        _geometry = getValue(vd, CMD_GEOMETRY, vts);
-        if (_geometry.length > 0)
-            parseGeometry();
+        string geometryParam = getValue(vd, CMD_GEOMETRY, vts);
+        if (geometryParam.length > 0)
+            parseGeometry(geometryParam);
 
-        if (_quake && (_maximize || _minimize || _fullscreen || _geometry.length > 0)) {
+        if (_quake && (_maximize || _minimize || _fullscreen || _geometry.flag != GeometryFlag.NONE)) {
                 writeln(_("You cannot use the quake mode with maximize, minimize, fullscreen or geometry parameters"));
                 _exitCode = 3;
                 _exit = true;
@@ -209,7 +218,6 @@ public:
         trace("\tcommand=" ~ _command);
         trace("\tcwd=" ~ _cwd);
         trace("\tpwd=" ~ _pwd);
-        tracef("\tgeometry=%dx%d %d,%d", _width, _height, _x, _y);
     }
 
     void clear() {
@@ -223,22 +231,17 @@ public:
         _terminalUUID.length = 0;
         _cwd.length = 0;
         _pwd.length = 0;
-        _geometry.length = 0;
         _maximize = false;
         _minimize = false;
         _fullscreen = false;
         _focusWindow = false;
         _newProcess = false;
         _quake = false;
-        _width = 0;
-        _height = 0;
-        _x = 0;
-        _y = 0;
+        _geometry = Geometry(0, 0, 0, 0, false, false, GeometryFlag.NONE);
         _exit = false;
         _title.length = 0;
         _version = false;
         _preferences = false;
-        _geoFlag = GeometryFlag.NONE;
     }
 
     @property string workingDir() {
@@ -305,20 +308,8 @@ public:
         return _exitCode;
     }
 
-    @property int width() {
-        return _width;
-    }
-
-    @property int height() {
-        return _height;
-    }
-
-    @property int x() {
-        return _x;
-    }
-
-    @property int y() {
-        return _y;
+    @property Geometry geometry() {
+        return _geometry;
     }
 
     @property bool newProcess() {
@@ -339,9 +330,5 @@ public:
 
     @property bool preferences() {
         return _preferences;
-    }
-
-    @property GeometryFlag geoFlag() {
-        return _geoFlag;
     }
 }

@@ -13,9 +13,6 @@ import gx.i18n.l10n;
  * to turn off work that is in process
  ****************************************************************/
 
-// If true, a scrolled window with overlay scrollbar is used instead of
-// a scrollbar. Looks better but has issues and unsupported by upstream VTE.
-immutable bool USE_SCROLLED_WINDOW = false;
 // Whether to use a pixbuf for drag and Drop image
 immutable bool USE_PIXBUF_DND = false;
 // Renders clipboard options as buttons in context menu
@@ -46,7 +43,7 @@ enum APPLICATION_ID = "com.gexperts.Terminix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Terminix";
-enum APPLICATION_VERSION = "1.4.2";
+enum APPLICATION_VERSION = "1.4.3-0.0.1";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2016 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");

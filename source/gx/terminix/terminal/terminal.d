@@ -88,12 +88,8 @@ import gtk.MountOperation;
 import gtk.Overlay;
 import gtk.Popover;
 import gtk.Revealer;
-
-static if (USE_SCROLLED_WINDOW) {
-    import gtk.ScrolledWindow;
-} else {
-    import gtk.Scrollbar;
-}
+import gtk.ScrolledWindow;
+import gtk.Scrollbar;
 import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
@@ -101,6 +97,7 @@ import gtk.Spinner;
 import gtk.StyleContext;
 import gtk.TargetEntry;
 import gtk.ToggleButton;
+import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
@@ -210,11 +207,8 @@ private:
 
     ExtendedVTE vte;
     Overlay terminalOverlay;
-    static if (USE_SCROLLED_WINDOW) {
-        ScrolledWindow sw;
-    } else {
-        Scrollbar sb;
-    }
+    ScrolledWindow sw;
+    Scrollbar sb;
 
     GPid gpid = 0;
 
@@ -895,8 +889,10 @@ private:
         });
 
         terminalOverlay = new Overlay();
-        static if (USE_SCROLLED_WINDOW) {
+        if (Version.checkVersion(3, 22, 0).length == 0) {
             sw = new ScrolledWindow(vte);
+            sw.setPropagateNaturalHeight(true);
+            sw.setPropagateNaturalWidth(true);
             terminalOverlay.add(sw);
         } else {
             terminalOverlay.add(vte);
@@ -908,7 +904,7 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        static if (!USE_SCROLLED_WINDOW) {
+        if (Version.checkVersion(3, 22, 0).length != 0) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("terminix-terminal-scrollbar");
             terminalBox.add(sb);
@@ -1079,8 +1075,8 @@ private:
         if (vte is null) return;
 
         Adjustment adjustment;
-        static if (USE_SCROLLED_WINDOW) {
-            adjustment = sw.getVAdjustment();
+        if (Version.checkVersion(3, 22, 0).length == 0) {
+            adjustment = sw.getVadjustment();
         } else {
             adjustment = sb.getAdjustment();
         }
@@ -1099,17 +1095,24 @@ private:
         if (pasteText.length == 0) return;
 
         AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
-        scope(exit) {
+        try {
+            /*
+            scope(exit) {
+                dialog.hide();
+                dialog.destroy();
+            }
+            */
+            dialog.showAll();
+            if (dialog.run() == ResponseType.APPLY) {
+                pasteText = dialog.text;
+                vte.feedChild(pasteText[0 .. $], pasteText.length);
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                    scrollToBottom();
+                }
+            }
+        } finally {
             dialog.hide();
             dialog.destroy();
-        }
-        dialog.showAll();
-        if (dialog.run() == ResponseType.APPLY) {
-            pasteText = dialog.text;
-            vte.feedChild(pasteText[0 .. $], pasteText.length);
-            if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
-                scrollToBottom();
-            }
         }
         focusTerminal();
     }
@@ -1636,7 +1639,7 @@ private:
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // terminix resources
-            static if (!USE_SCROLLED_WINDOW) {
+            if (!Version.checkVersion(3, 22, 0).length == 0) {
                 if (sbProvider !is null) {
                     sb.getStyleContext().removeProvider(sbProvider);
                     sbProvider = null;
@@ -1687,7 +1690,13 @@ private:
             vte.queueDraw();
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
-            static if (!USE_SCROLLED_WINDOW) {
+            if (Version.checkVersion(3, 22, 0).length == 0) {
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY)) {
+                    sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+                } else {
+                    sw.setPolicy(PolicyType.NEVER, PolicyType.NEVER);
+                }
+            } else {
                 sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
                 sb.setVisible(gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
             }
@@ -2687,6 +2696,7 @@ public:
     this(string profileUUID) {
         super();
         addOnDestroy(delegate(Widget) {
+            trace("Terminal destroyed");
             finalizeTerminal();
         });
         gst = new GlobalTerminalState();
@@ -2748,8 +2758,10 @@ public:
         if (firstRun) {
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
             int height = gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY);
-            if (terminix.getGlobalOverrides().width > 0) width = terminix.getGlobalOverrides().width;
-            if (terminix.getGlobalOverrides().height > 0) height = terminix.getGlobalOverrides().height;
+            if (terminix.getGlobalOverrides.geometry.flag != GeometryFlag.NONE) {
+                width = terminix.getGlobalOverrides().geometry.width;
+                height = terminix.getGlobalOverrides().geometry.height;
+            }
             trace("Set VTE Size for rows " ~ to!string(width));
             trace("Set VTE Size for columns " ~ to!string(height));
             vte.setSize(width, height);
