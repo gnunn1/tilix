@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-29 09:36-0500\n"
+"POT-Creation-Date: 2016-12-30 12:41-0500\n"
 "PO-Revision-Date: 2016-10-30 04:29+0000\n"
 "Last-Translator: Arrizal Amin <arrizalamin@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/terminix/"
@@ -38,17 +38,17 @@ msgstr "Sesi"
 
 #: source/app.d:134
 #, fuzzy, c-format
-msgid "\tTerminix version: %s"
+msgid "Terminix version: %s"
 msgstr "Preferensi"
 
 #: source/app.d:135
-#, c-format
-msgid "\tVTE version: %s"
-msgstr ""
+#, fuzzy, c-format
+msgid "VTE version: %s"
+msgstr "Preferensi"
 
 #: source/app.d:136
 #, c-format
-msgid "\tGTK Version: %d.%d.%d\n"
+msgid "GTK Version: %d.%d.%d"
 msgstr ""
 
 #: source/app.d:137
@@ -57,41 +57,41 @@ msgid "Terminix Special Features"
 msgstr "Preferensi"
 
 #: source/app.d:138
-msgid "\tNotifications enabled=%b"
+msgid "Notifications enabled=%b"
 msgstr ""
 
 #: source/app.d:139
-msgid "\tTriggers enabled=%b"
+msgid "Triggers enabled=%b"
 msgstr ""
 
 #: source/app.d:140
-msgid "\tBadges enabled=%b"
+msgid "Badges enabled=%b"
 msgstr ""
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
 msgstr ""
 
-#: source/gx/terminix/constants.d:52
+#: source/gx/terminix/constants.d:49
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:53
+#: source/gx/terminix/constants.d:50
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:58
+#: source/gx/terminix/constants.d:55
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:59
+#: source/gx/terminix/constants.d:56
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:60
+#: source/gx/terminix/constants.d:57
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr "Pintasan"
 
 #: source/gx/terminix/prefdialog.d:138 source/gx/terminix/prefdialog.d:139
 #: source/gx/terminix/prefdialog.d:587 source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:708
+#: source/gx/terminix/terminal/terminal.d:702
 msgid "Encoding"
 msgstr "Enkoding"
 
@@ -145,7 +145,7 @@ msgid "Preferences"
 msgstr "Preferensi"
 
 #: source/gx/terminix/prefdialog.d:239
-#: source/gx/terminix/terminal/terminal.d:707
+#: source/gx/terminix/terminal/terminal.d:701
 msgid "Profiles"
 msgstr "Profil"
 
@@ -254,8 +254,8 @@ msgid "All Image Files"
 msgstr "Semua Berkas Teks"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1178
+#: source/gx/terminix/terminal/terminal.d:2641
+#: source/gx/terminix/appwindow.d:1203
 msgid "All Files"
 msgstr "Semua Berkas"
 
@@ -415,7 +415,7 @@ msgid "Focus Window"
 msgstr "Jendela Baru"
 
 #: source/gx/terminix/prefdialog.d:1165
-#: source/gx/terminix/terminal/terminal.d:1396
+#: source/gx/terminix/terminal/terminal.d:1399
 msgid "Clipboard"
 msgstr "Papan Klip"
 
@@ -629,7 +629,7 @@ msgid "rows"
 msgstr ""
 
 #: source/gx/terminix/profileeditor.d:258
-#: source/gx/terminix/terminal/terminal.d:702
+#: source/gx/terminix/terminal/terminal.d:696
 msgid "Reset"
 msgstr ""
 
@@ -667,7 +667,7 @@ msgid "Off"
 msgstr ""
 
 #: source/gx/terminix/profileeditor.d:289
-#: source/gx/terminix/terminal/terminal.d:400
+#: source/gx/terminix/terminal/terminal.d:394
 #, fuzzy
 msgid "Terminal bell"
 msgstr "Terminal"
@@ -871,8 +871,8 @@ msgid "Export Color Scheme"
 msgstr ""
 
 #: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/terminal/terminal.d:2631
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1279
 msgid "Save"
 msgstr "Simpan"
 
@@ -880,16 +880,16 @@ msgstr "Simpan"
 #: source/gx/terminix/profileeditor.d:1383
 #: source/gx/terminix/profileeditor.d:1556
 #: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2622
+#: source/gx/terminix/terminal/terminal.d:2631
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
-#: source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1245
+#: source/gx/terminix/appwindow.d:1279
 msgid "Cancel"
 msgstr "Batal"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1199
 msgid "All JSON Files"
 msgstr "Berkas Semua JSON"
 
@@ -1127,151 +1127,151 @@ msgstr ""
 "Opsi aktif selalu berefek dan diaktifkan langsung.\n"
 "Opsi Muatan Sesi hanya diaktifkan ketika memuat berkas sesi."
 
-#: source/gx/terminix/terminal/terminal.d:332
-#: source/gx/terminix/terminal/terminal.d:2975
+#: source/gx/terminix/terminal/terminal.d:326
+#: source/gx/terminix/terminal/terminal.d:2987
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "Terminal"
 
-#: source/gx/terminix/terminal/terminal.d:363
-#: source/gx/terminix/terminal/terminal.d:1406
+#: source/gx/terminix/terminal/terminal.d:357
+#: source/gx/terminix/terminal/terminal.d:1409
 #: source/gx/terminix/appwindow.d:632 source/gx/terminix/sidebar.d:364
 msgid "Close"
 msgstr "Tutup"
 
-#: source/gx/terminix/terminal/terminal.d:372
-#: source/gx/terminix/terminal/terminal.d:1070
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:366
+#: source/gx/terminix/terminal/terminal.d:1066
+#: source/gx/terminix/terminal/terminal.d:1408
 msgid "Maximize"
 msgstr "Maksimalkan"
 
-#: source/gx/terminix/terminal/terminal.d:383
-#: source/gx/terminix/terminal/terminal.d:610
+#: source/gx/terminix/terminal/terminal.d:377
+#: source/gx/terminix/terminal/terminal.d:604
 msgid "Disable input synchronization for this terminal"
 msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
 
-#: source/gx/terminix/terminal/terminal.d:393
-#: source/gx/terminix/terminal/terminal.d:714
+#: source/gx/terminix/terminal/terminal.d:387
+#: source/gx/terminix/terminal/terminal.d:708
 msgid "Read-Only"
 msgstr "Hanya-Baca"
 
-#: source/gx/terminix/terminal/terminal.d:446
+#: source/gx/terminix/terminal/terminal.d:440
 msgid "Edit Profile"
 msgstr "Sunting Profil"
 
-#: source/gx/terminix/terminal/terminal.d:612
+#: source/gx/terminix/terminal/terminal.d:606
 msgid "Enable input synchronization for this terminal"
 msgstr "Fungsikan sinkronisasi masukan untuk terminal ini"
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Library Not Loaded"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:701
+#: source/gx/terminix/terminal/terminal.d:695
 #, fuzzy
 msgid "Save Output…"
 msgstr "Simpan Sebagai…"
 
-#: source/gx/terminix/terminal/terminal.d:703
+#: source/gx/terminix/terminal/terminal.d:697
 msgid "Reset and Clear"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:712
+#: source/gx/terminix/terminal/terminal.d:706
 msgid "Find…"
 msgstr "Cari…"
 
-#: source/gx/terminix/terminal/terminal.d:713
+#: source/gx/terminix/terminal/terminal.d:707
 msgid "Layout Options…"
 msgstr "Opsi Tata Letak…"
 
-#: source/gx/terminix/terminal/terminal.d:724
+#: source/gx/terminix/terminal/terminal.d:718
 #, fuzzy
 msgid "Add Right"
 msgstr "Pisah Kanan"
 
-#: source/gx/terminix/terminal/terminal.d:728
+#: source/gx/terminix/terminal/terminal.d:722
 msgid "Add Down"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:1067
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:1063
+#: source/gx/terminix/terminal/terminal.d:1408
 msgid "Restore"
 msgstr "Pulihkan"
 
-#: source/gx/terminix/terminal/terminal.d:1365
+#: source/gx/terminix/terminal/terminal.d:1368
 msgid "Open Link"
 msgstr "Buka Tautan"
 
-#: source/gx/terminix/terminal/terminal.d:1366
+#: source/gx/terminix/terminal/terminal.d:1369
 msgid "Copy Link Address"
 msgstr "Salin Alamat Tautan"
 
-#: source/gx/terminix/terminal/terminal.d:1376
-#: source/gx/terminix/terminal/terminal.d:1383
+#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/terminal/terminal.d:1386
 msgid "Copy"
 msgstr "Salin"
 
-#: source/gx/terminix/terminal/terminal.d:1377
-#: source/gx/terminix/terminal/terminal.d:1388
+#: source/gx/terminix/terminal/terminal.d:1380
+#: source/gx/terminix/terminal/terminal.d:1391
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Tempel"
 
-#: source/gx/terminix/terminal/terminal.d:1378
-#: source/gx/terminix/terminal/terminal.d:1393
+#: source/gx/terminix/terminal/terminal.d:1381
+#: source/gx/terminix/terminal/terminal.d:1396
 msgid "Select All"
 msgstr "Pilih Semua"
 
-#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/terminal/terminal.d:1413
 msgid "Synchronize input"
 msgstr "Sinkronisasi masukan"
 
-#: source/gx/terminix/terminal/terminal.d:2009
+#: source/gx/terminix/terminal/terminal.d:2018
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
 
-#: source/gx/terminix/terminal/terminal.d:2015
+#: source/gx/terminix/terminal/terminal.d:2024
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Terjadi galat tak terduga: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2619
+#: source/gx/terminix/terminal/terminal.d:2628
 msgid "Save Terminal Output"
 msgstr "Simpan Keluaran Terminal"
 
-#: source/gx/terminix/terminal/terminal.d:2628
+#: source/gx/terminix/terminal/terminal.d:2637
 msgid "All Text Files"
 msgstr "Semua Berkas Teks"
 
-#: source/gx/terminix/terminal/terminal.d:3125
+#: source/gx/terminix/terminal/terminal.d:3137
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Proses anak keluar secara normal dengan status %d"
 
-#: source/gx/terminix/terminal/terminal.d:3126
+#: source/gx/terminix/terminal/terminal.d:3138
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Proses anak dibatalkan dengan sinyal %d."
 
-#: source/gx/terminix/terminal/terminal.d:3127
+#: source/gx/terminix/terminal/terminal.d:3139
 msgid "The child process was aborted."
 msgstr "Proses anak telah dibatalkan."
 
-#: source/gx/terminix/terminal/terminal.d:3133
+#: source/gx/terminix/terminal/terminal.d:3145
 msgid "Relaunch"
 msgstr "Jalankan ulang"
 
-#: source/gx/terminix/terminal/terminal.d:3178
+#: source/gx/terminix/terminal/terminal.d:3190
 msgid "Don't Paste"
 msgstr "Jangan Tempel"
 
-#: source/gx/terminix/terminal/terminal.d:3179
+#: source/gx/terminix/terminal/terminal.d:3191
 msgid "Paste Anyway"
 msgstr "Tempel Saja"
 
@@ -1399,7 +1399,7 @@ msgstr "Keluar"
 msgid "Credits"
 msgstr "Kredit"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1359
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1585,28 +1585,28 @@ msgstr "Terdapat proses yang masih berjalan, tetap tutup?"
 msgid "Do not show this again"
 msgstr "Jangan tampilkan pesan ini lagi"
 
-#: source/gx/terminix/appwindow.d:1187
+#: source/gx/terminix/appwindow.d:1212
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Nama Berkas '%s' tidak ada"
 
-#: source/gx/terminix/appwindow.d:1217
+#: source/gx/terminix/appwindow.d:1242
 msgid "Load Session"
 msgstr "Muat Sesi"
 
-#: source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1245
 msgid "Open"
 msgstr "Buka"
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Could not load session due to unexpected error."
 msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Error Loading Session"
 msgstr "Galat Memuat Sesi"
 
-#: source/gx/terminix/appwindow.d:1251
+#: source/gx/terminix/appwindow.d:1276
 msgid "Save Session"
 msgstr "Simpan Sesi"
 
@@ -1619,27 +1619,32 @@ msgstr ""
 msgid "Color scheme palette requires 16 colors"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:109
+#: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:159
+#: source/gx/terminix/cmdparams.d:142
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:168
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:169
+#: source/gx/terminix/cmdparams.d:178
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:176
+#: source/gx/terminix/cmdparams.d:185
 msgid "You can only use the action parameter within Terminix"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:198
+#: source/gx/terminix/cmdparams.d:207
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

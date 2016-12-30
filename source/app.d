@@ -131,11 +131,11 @@ private:
         import gtk.Version: Version;
 
         writeln(_("Versions"));
-        writeln(format(_("\tTerminix version: %s"), APPLICATION_VERSION));
-        writeln(format(_("\tVTE version: %s"), getVTEVersion()));
-        writeln(format(_("\tGTK Version: %d.%d.%d\n"), Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+        writeln("\t" ~ format(_("Terminix version: %s"), APPLICATION_VERSION));
+        writeln("\t" ~ format(_("VTE version: %s"), getVTEVersion()));
+        writeln("\t" ~ format(_("GTK Version: %d.%d.%d") ~ "\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
         writeln(_("Terminix Special Features"));
-        writeln(format(_("\tNotifications enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
-        writeln(format(_("\tTriggers enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
-        writeln(format(_("\tBadges enabled=%b"), checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
+        writeln("\t" ~ format(_("Notifications enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
+        writeln("\t" ~ format(_("Triggers enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
+        writeln("\t" ~ format(_("Badges enabled=%b"), checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
     }

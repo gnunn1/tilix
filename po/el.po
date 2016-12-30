@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-29 09:36-0500\n"
+"POT-Creation-Date: 2016-12-30 12:41-0500\n"
 "PO-Revision-Date: 2016-11-09 23:12+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/terminix/"
@@ -37,17 +37,17 @@ msgstr "Συνεδρία"
 
 #: source/app.d:134
 #, c-format
-msgid "\tTerminix version: %s"
+msgid "Terminix version: %s"
 msgstr ""
 
 #: source/app.d:135
-#, c-format
-msgid "\tVTE version: %s"
-msgstr ""
+#, fuzzy, c-format
+msgid "VTE version: %s"
+msgstr "Συνεδρία"
 
 #: source/app.d:136
 #, c-format
-msgid "\tGTK Version: %d.%d.%d\n"
+msgid "GTK Version: %d.%d.%d"
 msgstr ""
 
 #: source/app.d:137
@@ -55,41 +55,41 @@ msgid "Terminix Special Features"
 msgstr ""
 
 #: source/app.d:138
-msgid "\tNotifications enabled=%b"
+msgid "Notifications enabled=%b"
 msgstr ""
 
 #: source/app.d:139
-msgid "\tTriggers enabled=%b"
+msgid "Triggers enabled=%b"
 msgstr ""
 
 #: source/app.d:140
-msgid "\tBadges enabled=%b"
+msgid "Badges enabled=%b"
 msgstr ""
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
 msgstr ""
 
-#: source/gx/terminix/constants.d:52
+#: source/gx/terminix/constants.d:49
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:53
+#: source/gx/terminix/constants.d:50
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:58
+#: source/gx/terminix/constants.d:55
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:59
+#: source/gx/terminix/constants.d:56
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:60
+#: source/gx/terminix/constants.d:57
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr "Συντομεύσεις"
 
 #: source/gx/terminix/prefdialog.d:138 source/gx/terminix/prefdialog.d:139
 #: source/gx/terminix/prefdialog.d:587 source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:708
+#: source/gx/terminix/terminal/terminal.d:702
 msgid "Encoding"
 msgstr "Κωδικοποίηση"
 
@@ -141,7 +141,7 @@ msgid "Preferences"
 msgstr ""
 
 #: source/gx/terminix/prefdialog.d:239
-#: source/gx/terminix/terminal/terminal.d:707
+#: source/gx/terminix/terminal/terminal.d:701
 msgid "Profiles"
 msgstr "Προφίλ"
 
@@ -247,8 +247,8 @@ msgid "All Image Files"
 msgstr "Όλα τα αρχεία εικόνων"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1178
+#: source/gx/terminix/terminal/terminal.d:2641
+#: source/gx/terminix/appwindow.d:1203
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
@@ -408,7 +408,7 @@ msgid "Focus Window"
 msgstr "Εστίαση παραθύρου"
 
 #: source/gx/terminix/prefdialog.d:1165
-#: source/gx/terminix/terminal/terminal.d:1396
+#: source/gx/terminix/terminal/terminal.d:1399
 msgid "Clipboard"
 msgstr "Πρόχειρο"
 
@@ -621,7 +621,7 @@ msgid "rows"
 msgstr "σειρές"
 
 #: source/gx/terminix/profileeditor.d:258
-#: source/gx/terminix/terminal/terminal.d:702
+#: source/gx/terminix/terminal/terminal.d:696
 msgid "Reset"
 msgstr "Επαναφορά"
 
@@ -659,7 +659,7 @@ msgid "Off"
 msgstr "Off"
 
 #: source/gx/terminix/profileeditor.d:289
-#: source/gx/terminix/terminal/terminal.d:400
+#: source/gx/terminix/terminal/terminal.d:394
 msgid "Terminal bell"
 msgstr "Κουδούνι  τερματικού"
 
@@ -860,8 +860,8 @@ msgid "Export Color Scheme"
 msgstr "Εξαγωγή χρωματικού συνδυασμού"
 
 #: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/terminal/terminal.d:2631
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1279
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -869,16 +869,16 @@ msgstr "Αποθήκευση"
 #: source/gx/terminix/profileeditor.d:1383
 #: source/gx/terminix/profileeditor.d:1556
 #: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2622
+#: source/gx/terminix/terminal/terminal.d:2631
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
-#: source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1245
+#: source/gx/terminix/appwindow.d:1279
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1199
 msgid "All JSON Files"
 msgstr "Όλα τα αρχεία JSON"
 
@@ -1113,149 +1113,149 @@ msgid ""
 "Session Load options only apply when loading a session file."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:332
-#: source/gx/terminix/terminal/terminal.d:2975
+#: source/gx/terminix/terminal/terminal.d:326
+#: source/gx/terminix/terminal/terminal.d:2987
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "Τερματικό"
 
-#: source/gx/terminix/terminal/terminal.d:363
-#: source/gx/terminix/terminal/terminal.d:1406
+#: source/gx/terminix/terminal/terminal.d:357
+#: source/gx/terminix/terminal/terminal.d:1409
 #: source/gx/terminix/appwindow.d:632 source/gx/terminix/sidebar.d:364
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: source/gx/terminix/terminal/terminal.d:372
-#: source/gx/terminix/terminal/terminal.d:1070
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:366
+#: source/gx/terminix/terminal/terminal.d:1066
+#: source/gx/terminix/terminal/terminal.d:1408
 msgid "Maximize"
 msgstr "Μεγιστοποίηση"
 
-#: source/gx/terminix/terminal/terminal.d:383
-#: source/gx/terminix/terminal/terminal.d:610
+#: source/gx/terminix/terminal/terminal.d:377
+#: source/gx/terminix/terminal/terminal.d:604
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:393
-#: source/gx/terminix/terminal/terminal.d:714
+#: source/gx/terminix/terminal/terminal.d:387
+#: source/gx/terminix/terminal/terminal.d:708
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
-#: source/gx/terminix/terminal/terminal.d:446
+#: source/gx/terminix/terminal/terminal.d:440
 msgid "Edit Profile"
 msgstr "Επεξεργασία προφίλ"
 
-#: source/gx/terminix/terminal/terminal.d:612
+#: source/gx/terminix/terminal/terminal.d:606
 msgid "Enable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Library Not Loaded"
 msgstr "Δεν φορτώθηκε η βιβλιοθήκη"
 
-#: source/gx/terminix/terminal/terminal.d:701
+#: source/gx/terminix/terminal/terminal.d:695
 msgid "Save Output…"
 msgstr "Αποθήκευση εξόδου κονσόλας…"
 
-#: source/gx/terminix/terminal/terminal.d:703
+#: source/gx/terminix/terminal/terminal.d:697
 msgid "Reset and Clear"
 msgstr "Επαναφορά και καθαρισμός"
 
-#: source/gx/terminix/terminal/terminal.d:712
+#: source/gx/terminix/terminal/terminal.d:706
 msgid "Find…"
 msgstr "Εύρεση…"
 
-#: source/gx/terminix/terminal/terminal.d:713
+#: source/gx/terminix/terminal/terminal.d:707
 msgid "Layout Options…"
 msgstr "Επιλογές διάταξης…"
 
-#: source/gx/terminix/terminal/terminal.d:724
+#: source/gx/terminix/terminal/terminal.d:718
 msgid "Add Right"
 msgstr "Προσθήκη δεξιά"
 
-#: source/gx/terminix/terminal/terminal.d:728
+#: source/gx/terminix/terminal/terminal.d:722
 msgid "Add Down"
 msgstr "Προσθήκη κάτω"
 
-#: source/gx/terminix/terminal/terminal.d:1067
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:1063
+#: source/gx/terminix/terminal/terminal.d:1408
 msgid "Restore"
 msgstr "Επαναφορά"
 
-#: source/gx/terminix/terminal/terminal.d:1365
+#: source/gx/terminix/terminal/terminal.d:1368
 msgid "Open Link"
 msgstr "Άνοιγμα συνδέσμου"
 
-#: source/gx/terminix/terminal/terminal.d:1366
+#: source/gx/terminix/terminal/terminal.d:1369
 msgid "Copy Link Address"
 msgstr "Αντιγραφή διεύθυνσης συνδέσμου"
 
-#: source/gx/terminix/terminal/terminal.d:1376
-#: source/gx/terminix/terminal/terminal.d:1383
+#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/terminal/terminal.d:1386
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: source/gx/terminix/terminal/terminal.d:1377
-#: source/gx/terminix/terminal/terminal.d:1388
+#: source/gx/terminix/terminal/terminal.d:1380
+#: source/gx/terminix/terminal/terminal.d:1391
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: source/gx/terminix/terminal/terminal.d:1378
-#: source/gx/terminix/terminal/terminal.d:1393
+#: source/gx/terminix/terminal/terminal.d:1381
+#: source/gx/terminix/terminal/terminal.d:1396
 msgid "Select All"
 msgstr "Επιλογή όλων"
 
-#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/terminal/terminal.d:1413
 msgid "Synchronize input"
 msgstr "Συγχρονισμός εξόδου"
 
-#: source/gx/terminix/terminal/terminal.d:2009
+#: source/gx/terminix/terminal/terminal.d:2018
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:2015
+#: source/gx/terminix/terminal/terminal.d:2024
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Συνέβη ένα απρόσμενο σφάλμα: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2619
+#: source/gx/terminix/terminal/terminal.d:2628
 msgid "Save Terminal Output"
 msgstr "Αποθήκευση εξόδου κονσόλας"
 
-#: source/gx/terminix/terminal/terminal.d:2628
+#: source/gx/terminix/terminal/terminal.d:2637
 msgid "All Text Files"
 msgstr "Όλα τα αρχεία κειμένου"
 
-#: source/gx/terminix/terminal/terminal.d:3125
+#: source/gx/terminix/terminal/terminal.d:3137
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Η θυγατρική διεργασία τερματίσθηκε κανονικά με κατάσταση %d"
 
-#: source/gx/terminix/terminal/terminal.d:3126
+#: source/gx/terminix/terminal/terminal.d:3138
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:3127
+#: source/gx/terminix/terminal/terminal.d:3139
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:3133
+#: source/gx/terminix/terminal/terminal.d:3145
 msgid "Relaunch"
 msgstr "Επανεκκίνηση"
 
-#: source/gx/terminix/terminal/terminal.d:3178
+#: source/gx/terminix/terminal/terminal.d:3190
 msgid "Don't Paste"
 msgstr "Να μη γίνει επικόλληση"
 
-#: source/gx/terminix/terminal/terminal.d:3179
+#: source/gx/terminix/terminal/terminal.d:3191
 msgid "Paste Anyway"
 msgstr "Επικόλληση ούτως ή άλλως"
 
@@ -1384,7 +1384,7 @@ msgstr "Έξοδος"
 msgid "Credits"
 msgstr "Μνεία"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1359
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1561,28 +1561,28 @@ msgstr ""
 msgid "Do not show this again"
 msgstr "Να μην εμφανιστεί αυτό ξανά"
 
-#: source/gx/terminix/appwindow.d:1187
+#: source/gx/terminix/appwindow.d:1212
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Δεν υπάρχει το όνομα αρχείου '%s'"
 
-#: source/gx/terminix/appwindow.d:1217
+#: source/gx/terminix/appwindow.d:1242
 msgid "Load Session"
 msgstr "Φόρτωση συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1245
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Could not load session due to unexpected error."
 msgstr "Αδυναμία φόρτωσης της συνεδρίας λόγω ενός απρόσμενου σφάλματος."
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Error Loading Session"
 msgstr "Σφάλμα κατά την φόρτωση της συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:1251
+#: source/gx/terminix/appwindow.d:1276
 msgid "Save Session"
 msgstr "Αποθήκευση συνεδρίας"
 
@@ -1595,27 +1595,32 @@ msgstr "Το αρχείο %s δεν είναι συμβατό θέμα χρωμ�
 msgid "Color scheme palette requires 16 colors"
 msgstr "Η χρωματική παλέτα απαιτεί 16 χρώματα"
 
-#: source/gx/terminix/cmdparams.d:109
+#: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:159
+#: source/gx/terminix/cmdparams.d:142
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:168
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:169
+#: source/gx/terminix/cmdparams.d:178
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:176
+#: source/gx/terminix/cmdparams.d:185
 msgid "You can only use the action parameter within Terminix"
 msgstr ""
 
-#: source/gx/terminix/cmdparams.d:198
+#: source/gx/terminix/cmdparams.d:207
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"

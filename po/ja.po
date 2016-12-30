@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-29 09:36-0500\n"
+"POT-Creation-Date: 2016-12-30 12:41-0500\n"
 "PO-Revision-Date: 2016-11-13 04:55+0000\n"
 "Last-Translator: fu-sen <balloonakafusen@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/terminix/"
@@ -38,17 +38,17 @@ msgstr "ペルシア語"
 
 #: source/app.d:134
 #, fuzzy, c-format
-msgid "\tTerminix version: %s"
+msgid "Terminix version: %s"
 msgstr "%s を Terminix で開く"
 
 #: source/app.d:135
-#, c-format
-msgid "\tVTE version: %s"
-msgstr ""
+#, fuzzy, c-format
+msgid "VTE version: %s"
+msgstr "%s を Terminix で開く"
 
 #: source/app.d:136
 #, c-format
-msgid "\tGTK Version: %d.%d.%d\n"
+msgid "GTK Version: %d.%d.%d"
 msgstr ""
 
 #: source/app.d:137
@@ -57,26 +57,27 @@ msgid "Terminix Special Features"
 msgstr "設定を開く"
 
 #: source/app.d:138
-msgid "\tNotifications enabled=%b"
-msgstr ""
+#, fuzzy
+msgid "Notifications enabled=%b"
+msgstr "SendNotification"
 
 #: source/app.d:139
-msgid "\tTriggers enabled=%b"
+msgid "Triggers enabled=%b"
 msgstr ""
 
 #: source/app.d:140
-msgid "\tBadges enabled=%b"
+msgid "Badges enabled=%b"
 msgstr ""
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
 msgstr "無効"
 
-#: source/gx/terminix/constants.d:52
+#: source/gx/terminix/constants.d:49
 msgid "A VTE based terminal emulator for Linux"
 msgstr "Linux の VTE ベースターミナルエミュレータ"
 
-#: source/gx/terminix/constants.d:53
+#: source/gx/terminix/constants.d:50
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
@@ -86,17 +87,17 @@ msgstr ""
 "のコピーがこのファイルと共に配布されていない場合、 http://mozilla.org/"
 "MPL/2.0/ で入手できます。"
 
-#: source/gx/terminix/constants.d:58
+#: source/gx/terminix/constants.d:55
 #, fuzzy
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr "GTK VTE ウィジェットチーム、Terminix は仕事がなければ不可能だろう"
 
-#: source/gx/terminix/constants.d:59
+#: source/gx/terminix/constants.d:56
 #, fuzzy
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr "GtkD は優れた GTK ラッパーを提供します"
 
-#: source/gx/terminix/constants.d:60
+#: source/gx/terminix/constants.d:57
 #, fuzzy
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org による優れた言語、D"
@@ -126,7 +127,7 @@ msgstr "ショートカット"
 
 #: source/gx/terminix/prefdialog.d:138 source/gx/terminix/prefdialog.d:139
 #: source/gx/terminix/prefdialog.d:587 source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:708
+#: source/gx/terminix/terminal/terminal.d:702
 msgid "Encoding"
 msgstr "エンコード"
 
@@ -150,7 +151,7 @@ msgid "Preferences"
 msgstr "設定"
 
 #: source/gx/terminix/prefdialog.d:239
-#: source/gx/terminix/terminal/terminal.d:707
+#: source/gx/terminix/terminal/terminal.d:701
 msgid "Profiles"
 msgstr "プロファイル"
 
@@ -258,8 +259,8 @@ msgid "All Image Files"
 msgstr "すべての画像ファイル"
 
 #: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2632
-#: source/gx/terminix/appwindow.d:1178
+#: source/gx/terminix/terminal/terminal.d:2641
+#: source/gx/terminix/appwindow.d:1203
 msgid "All Files"
 msgstr "すべてのファイル"
 
@@ -420,7 +421,7 @@ msgid "Focus Window"
 msgstr "ウインドウのフォーカス"
 
 #: source/gx/terminix/prefdialog.d:1165
-#: source/gx/terminix/terminal/terminal.d:1396
+#: source/gx/terminix/terminal/terminal.d:1399
 msgid "Clipboard"
 msgstr "クリップボード"
 
@@ -636,7 +637,7 @@ msgid "rows"
 msgstr "縦の文字数"
 
 #: source/gx/terminix/profileeditor.d:258
-#: source/gx/terminix/terminal/terminal.d:702
+#: source/gx/terminix/terminal/terminal.d:696
 msgid "Reset"
 msgstr "リセット"
 
@@ -675,7 +676,7 @@ msgid "Off"
 msgstr "オフ"
 
 #: source/gx/terminix/profileeditor.d:289
-#: source/gx/terminix/terminal/terminal.d:400
+#: source/gx/terminix/terminal/terminal.d:394
 msgid "Terminal bell"
 msgstr "ターミナルベル"
 
@@ -882,8 +883,8 @@ msgid "Export Color Scheme"
 msgstr "カラースキームをエクスポート"
 
 #: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2622
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/terminal/terminal.d:2631
+#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1279
 msgid "Save"
 msgstr "保存"
 
@@ -891,16 +892,16 @@ msgstr "保存"
 #: source/gx/terminix/profileeditor.d:1383
 #: source/gx/terminix/profileeditor.d:1556
 #: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2622
+#: source/gx/terminix/terminal/terminal.d:2631
 #: source/gx/terminix/terminal/advpaste.d:137
 #: source/gx/terminix/terminal/password.d:367
 #: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1220
-#: source/gx/terminix/appwindow.d:1254
+#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1245
+#: source/gx/terminix/appwindow.d:1279
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1174
+#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1199
 msgid "All JSON Files"
 msgstr "すべての JSON ファイル"
 
@@ -1161,152 +1162,152 @@ msgstr ""
 "セッションロードオプションはセッションファイルをロードするときにのみ適用され"
 "ます。"
 
-#: source/gx/terminix/terminal/terminal.d:332
-#: source/gx/terminix/terminal/terminal.d:2975
+#: source/gx/terminix/terminal/terminal.d:326
+#: source/gx/terminix/terminal/terminal.d:2987
 #: data/resources/ui/shortcuts.ui:356
 msgid "Terminal"
 msgstr "ターミナル"
 
-#: source/gx/terminix/terminal/terminal.d:363
-#: source/gx/terminix/terminal/terminal.d:1406
+#: source/gx/terminix/terminal/terminal.d:357
+#: source/gx/terminix/terminal/terminal.d:1409
 #: source/gx/terminix/appwindow.d:632 source/gx/terminix/sidebar.d:364
 msgid "Close"
 msgstr "閉じる"
 
-#: source/gx/terminix/terminal/terminal.d:372
-#: source/gx/terminix/terminal/terminal.d:1070
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:366
+#: source/gx/terminix/terminal/terminal.d:1066
+#: source/gx/terminix/terminal/terminal.d:1408
 msgid "Maximize"
 msgstr "最大化"
 
-#: source/gx/terminix/terminal/terminal.d:383
-#: source/gx/terminix/terminal/terminal.d:610
+#: source/gx/terminix/terminal/terminal.d:377
+#: source/gx/terminix/terminal/terminal.d:604
 #, fuzzy
 msgid "Disable input synchronization for this terminal"
 msgstr "このターミナルの入力同期を無効にする"
 
-#: source/gx/terminix/terminal/terminal.d:393
-#: source/gx/terminix/terminal/terminal.d:714
+#: source/gx/terminix/terminal/terminal.d:387
+#: source/gx/terminix/terminal/terminal.d:708
 msgid "Read-Only"
 msgstr "読み込みのみ"
 
-#: source/gx/terminix/terminal/terminal.d:446
+#: source/gx/terminix/terminal/terminal.d:440
 msgid "Edit Profile"
 msgstr "プロファイルの編集"
 
-#: source/gx/terminix/terminal/terminal.d:612
+#: source/gx/terminix/terminal/terminal.d:606
 msgid "Enable input synchronization for this terminal"
 msgstr "このターミナルの入力同期を有効にする"
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 "ライブラリー %s をロードできませんでした。パスワード機能は使用できません。"
 
-#: source/gx/terminix/terminal/terminal.d:641
+#: source/gx/terminix/terminal/terminal.d:635
 msgid "Library Not Loaded"
 msgstr "ライブラリーを読み込めません"
 
-#: source/gx/terminix/terminal/terminal.d:701
+#: source/gx/terminix/terminal/terminal.d:695
 msgid "Save Output…"
 msgstr "出力の保存…"
 
-#: source/gx/terminix/terminal/terminal.d:703
+#: source/gx/terminix/terminal/terminal.d:697
 msgid "Reset and Clear"
 msgstr "リセット・クリアー"
 
-#: source/gx/terminix/terminal/terminal.d:712
+#: source/gx/terminix/terminal/terminal.d:706
 msgid "Find…"
 msgstr "検索…"
 
-#: source/gx/terminix/terminal/terminal.d:713
+#: source/gx/terminix/terminal/terminal.d:707
 msgid "Layout Options…"
 msgstr "レイアウトオプション…"
 
-#: source/gx/terminix/terminal/terminal.d:724
+#: source/gx/terminix/terminal/terminal.d:718
 msgid "Add Right"
 msgstr "右に追加"
 
-#: source/gx/terminix/terminal/terminal.d:728
+#: source/gx/terminix/terminal/terminal.d:722
 msgid "Add Down"
 msgstr "下に追加"
 
-#: source/gx/terminix/terminal/terminal.d:1067
-#: source/gx/terminix/terminal/terminal.d:1405
+#: source/gx/terminix/terminal/terminal.d:1063
+#: source/gx/terminix/terminal/terminal.d:1408
 #, fuzzy
 msgid "Restore"
 msgstr "復元"
 
-#: source/gx/terminix/terminal/terminal.d:1365
+#: source/gx/terminix/terminal/terminal.d:1368
 msgid "Open Link"
 msgstr "リンクを開く"
 
-#: source/gx/terminix/terminal/terminal.d:1366
+#: source/gx/terminix/terminal/terminal.d:1369
 msgid "Copy Link Address"
 msgstr "リンクアドレスをコピー"
 
-#: source/gx/terminix/terminal/terminal.d:1376
-#: source/gx/terminix/terminal/terminal.d:1383
+#: source/gx/terminix/terminal/terminal.d:1379
+#: source/gx/terminix/terminal/terminal.d:1386
 msgid "Copy"
 msgstr "コピー"
 
-#: source/gx/terminix/terminal/terminal.d:1377
-#: source/gx/terminix/terminal/terminal.d:1388
+#: source/gx/terminix/terminal/terminal.d:1380
+#: source/gx/terminix/terminal/terminal.d:1391
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "貼り付け"
 
-#: source/gx/terminix/terminal/terminal.d:1378
-#: source/gx/terminix/terminal/terminal.d:1393
+#: source/gx/terminix/terminal/terminal.d:1381
+#: source/gx/terminix/terminal/terminal.d:1396
 msgid "Select All"
 msgstr "すべて選択"
 
-#: source/gx/terminix/terminal/terminal.d:1410
+#: source/gx/terminix/terminal/terminal.d:1413
 msgid "Synchronize input"
 msgstr "同期入力"
 
-#: source/gx/terminix/terminal/terminal.d:2009
+#: source/gx/terminix/terminal/terminal.d:2018
 msgid "Unexpected error occurred, no additional information available"
 msgstr "予期しないエラーが発生しました。追加情報はありません"
 
-#: source/gx/terminix/terminal/terminal.d:2015
+#: source/gx/terminix/terminal/terminal.d:2024
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "予期しないエラーが発生しました: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2619
+#: source/gx/terminix/terminal/terminal.d:2628
 msgid "Save Terminal Output"
 msgstr "ターミナル出力の保存"
 
-#: source/gx/terminix/terminal/terminal.d:2628
+#: source/gx/terminix/terminal/terminal.d:2637
 msgid "All Text Files"
 msgstr "すべてのテキストファイル"
 
-#: source/gx/terminix/terminal/terminal.d:3125
+#: source/gx/terminix/terminal/terminal.d:3137
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "子プロセス %d は正常の状態で終了しました"
 
-#: source/gx/terminix/terminal/terminal.d:3126
+#: source/gx/terminix/terminal/terminal.d:3138
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "子プロセス %d はシグナルによって中止されました。"
 
-#: source/gx/terminix/terminal/terminal.d:3127
+#: source/gx/terminix/terminal/terminal.d:3139
 msgid "The child process was aborted."
 msgstr "子プロセスは中止しました。"
 
-#: source/gx/terminix/terminal/terminal.d:3133
+#: source/gx/terminix/terminal/terminal.d:3145
 msgid "Relaunch"
 msgstr "再起動"
 
-#: source/gx/terminix/terminal/terminal.d:3178
+#: source/gx/terminix/terminal/terminal.d:3190
 msgid "Don't Paste"
 msgstr "貼り付けない"
 
-#: source/gx/terminix/terminal/terminal.d:3179
+#: source/gx/terminix/terminal/terminal.d:3191
 msgid "Paste Anyway"
 msgstr "常に貼り付け"
 
@@ -1439,7 +1440,7 @@ msgstr "終了"
 msgid "Credits"
 msgstr "開発者"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1334
+#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1359
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
@@ -1619,28 +1620,28 @@ msgstr "複数のセッションが開いています。閉じてよろしいで
 msgid "Do not show this again"
 msgstr "再度表示しない"
 
-#: source/gx/terminix/appwindow.d:1187
+#: source/gx/terminix/appwindow.d:1212
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "ファイル名 '%s' が見つかりません"
 
-#: source/gx/terminix/appwindow.d:1217
+#: source/gx/terminix/appwindow.d:1242
 msgid "Load Session"
 msgstr "セッションの読み込み"
 
-#: source/gx/terminix/appwindow.d:1220
+#: source/gx/terminix/appwindow.d:1245
 msgid "Open"
 msgstr "開く"
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Could not load session due to unexpected error."
 msgstr "予期しないエラーのためセッションを読み込めませんでした。"
 
-#: source/gx/terminix/appwindow.d:1235
+#: source/gx/terminix/appwindow.d:1260
 msgid "Error Loading Session"
 msgstr "セッション読み込みエラー"
 
-#: source/gx/terminix/appwindow.d:1251
+#: source/gx/terminix/appwindow.d:1276
 msgid "Save Session"
 msgstr "セッションを保存"
 
@@ -1653,17 +1654,22 @@ msgstr "ファイル %s はカラースキームに準拠した JSON ファイ�
 msgid "Color scheme palette requires 16 colors"
 msgstr "配色パレットは 16 色必須です"
 
-#: source/gx/terminix/cmdparams.d:109
+#: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "ディレクトリではない '%s' は無視されます"
 
-#: source/gx/terminix/cmdparams.d:159
+#: source/gx/terminix/cmdparams.d:142
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr ""
+
+#: source/gx/terminix/cmdparams.d:168
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
 msgstr "パラメータセッション '%s' は無視されます"
 
-#: source/gx/terminix/cmdparams.d:169
+#: source/gx/terminix/cmdparams.d:178
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1672,11 +1678,11 @@ msgstr ""
 "を設定することはできません。\n"
 "どれか一つを選択してください"
 
-#: source/gx/terminix/cmdparams.d:176
+#: source/gx/terminix/cmdparams.d:185
 msgid "You can only use the action parameter within Terminix"
 msgstr "Terminix 内でのみ action パラメータを使用できます"
 
-#: source/gx/terminix/cmdparams.d:198
+#: source/gx/terminix/cmdparams.d:207
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"
