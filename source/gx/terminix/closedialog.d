@@ -9,6 +9,9 @@ import std.format;
 
 import gdkpixbuf.Pixbuf;
 
+import gdk.Event;
+import gdk.Keysyms;
+
 import gtk.Box;
 import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
@@ -41,7 +44,7 @@ bool promptCanCloseProcesses(Window window, ProcessInformation pi) {
     return !cancelClose;
 }
 
-private: 
+private:
 
 /**
  * Dialog that is used to close object when running processes are detected
@@ -65,7 +68,7 @@ private:
 
         setAllMargins(getContentArea(), 18);
         Box box = new Box(Orientation.VERTICAL, 6);
-        
+
         Label lbl = new Label("There are processes still running as shown below, close anyway?");
         lbl.setHalign(Align.START);
         lbl.setMarginBottom(6);
@@ -75,6 +78,22 @@ private:
         loadProcesses();
 
         tv = new TreeView(ts);
+        tv.addOnKeyRelease(delegate(Event event, Widget) {
+            uint keyval;
+            if (event.getKeyval(keyval)) {
+                switch (keyval) {
+                    case GdkKeysyms.GDK_Escape:
+                        response(GtkResponseType.CANCEL);
+                        break;
+                    case GdkKeysyms.GDK_Return:
+                        response(GtkResponseType.OK);
+                        break;
+                    default:
+                }
+            }
+            return false;
+
+        });
         tv.setHeadersVisible(false);
 
         TreeViewColumn column = new TreeViewColumn(_("Title"), new CellRendererText(), "text", COLUMNS.NAME);
@@ -97,7 +116,7 @@ private:
         box.add(sw);
         tv.expandAll();
 
-        getContentArea().add(box);  
+        getContentArea().add(box);
     }
 
     /**
@@ -131,7 +150,7 @@ private:
                 break;
         }
         ts.setValue(current, COLUMNS.UUID, pi.uuid);
-        
+
         foreach(child; pi.children) {
             loadProcess(current, child);
         }
