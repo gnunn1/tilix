@@ -79,15 +79,19 @@ public:
 	 */
 	ulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
 	{
-		onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
-		onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = Signals.connectData(
-			this,
-			"notification-received",
-			cast(GCallback)&callBackNotificationReceived,
-			cast(void*)onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1],
-			cast(GClosureNotify)&callBackNotificationReceivedDestroy,
-			connectFlags);
-		return onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId;
+		if (Signals.lookup("notification-received", getType()) != 0) {
+			onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
+			onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = Signals.connectData(
+				this,
+				"notification-received",
+				cast(GCallback)&callBackNotificationReceived,
+				cast(void*)onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1],
+				cast(GClosureNotify)&callBackNotificationReceivedDestroy,
+				connectFlags);
+			return onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId;
+		} else {
+			return 0;
+		}
 	}
 
 	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, char* summary, char* bod,OnNotificationReceivedDelegateWrapper wrapper)
@@ -130,15 +134,19 @@ public:
 	/** */
 	ulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
 	{
-		onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
-		onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = Signals.connectData(
-			this,
-			"terminal-screen-changed",
-			cast(GCallback)&callBackTerminalScreenChanged,
-			cast(void*)onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1],
-			cast(GClosureNotify)&callBackTerminalScreenChangedDestroy,
-			connectFlags);
-		return onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId;
+		if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
+			onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
+			onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = Signals.connectData(
+				this,
+				"terminal-screen-changed",
+				cast(GCallback)&callBackTerminalScreenChanged,
+				cast(void*)onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1],
+				cast(GClosureNotify)&callBackTerminalScreenChangedDestroy,
+				connectFlags);
+			return onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId;
+		} else {
+			return 0;
+		}
 	}
 
 	extern(C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, int object,OnTerminalScreenChangedDelegateWrapper wrapper)
