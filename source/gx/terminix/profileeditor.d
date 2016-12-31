@@ -1309,9 +1309,15 @@ private:
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
             if (newText.length != 0) {
-                GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
-                if (check is null) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                try {
+                    trace("Checking regex");
+                    GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+                    trace("Finished checking regex");
+                    if (check is null) {
+                        showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                    }
+                } catch (GException ge) {
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression '%s' is not a valid regex, error:\n%s"), newText, ge.msg));
                 }
             }
             ls.setValue(iter, COLUMN_REGEX, newText);
@@ -1450,9 +1456,13 @@ private:
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
             if (newText.length != 0) {
-                GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
-                if (check is null) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                try {
+                    GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+                    if (check is null) {
+                        showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
+                    }
+                } catch (GException ge) {
+                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression '%s' is not a valid regex, error:\n%s"), newText, ge.msg));
                 }
             }
             ls.setValue(iter, COLUMN_REGEX, newText);
