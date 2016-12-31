@@ -1271,15 +1271,12 @@ private:
     ListStore ls;
     Button btnDelete;
 
+    Label lblErrors;
+
     void createUI(string[] links) {
 
+        setAllMargins(getContentArea(), 18);
         Box box = new Box(Orientation.HORIZONTAL, 6);
-        with (box) {
-            setMarginLeft(18);
-            setMarginRight(18);
-            setMarginTop(18);
-            setMarginBottom(18);
-        }
 
         ls = new ListStore([GType.STRING, GType.STRING, GType.BOOLEAN]);
         foreach(link; links) {
@@ -1308,19 +1305,8 @@ private:
         crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
-            if (newText.length != 0) {
-                try {
-                    trace("Checking regex");
-                    GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
-                    trace("Finished checking regex");
-                    if (check is null) {
-                        showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
-                    }
-                } catch (GException ge) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression '%s' is not a valid regex, error:\n%s"), newText, ge.msg));
-                }
-            }
             ls.setValue(iter, COLUMN_REGEX, newText);
+            updateUI();
         });
         TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
         column.setMinWidth(200);
@@ -1377,11 +1363,16 @@ private:
         box.add(buttons);
 
         getContentArea().add(box);
+
+        lblErrors = createErrorLabel();
+        getContentArea().add(lblErrors);
+
         updateUI();
     }
 
     void updateUI() {
         btnDelete.setSensitive(tv.getSelectedIter() !is null);
+        setResponseSensitive(GtkResponseType.APPLY, validateRegex(ls, COLUMN_REGEX, lblErrors));
     }
 
 public:
@@ -1419,19 +1410,16 @@ private:
     ListStore lsActions;
     Button btnDelete;
 
+    Label lblErrors;
+
     string[string] localizedActions;
 
     void createUI(GSettings gsProfile) {
 
         string[] triggers = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
 
+        setAllMargins(getContentArea(), 18);
         Box box = new Box(Orientation.HORIZONTAL, 6);
-        with (getContentArea()) {
-            setMarginLeft(18);
-            setMarginRight(18);
-            setMarginTop(18);
-            setMarginBottom(18);
-        }
 
         ls = new ListStore([GType.STRING, GType.STRING, GType.STRING]);
         foreach(trigger; triggers) {
@@ -1455,17 +1443,8 @@ private:
         crtRegex.addOnEdited(delegate(string path, string newText, CellRendererText) {
             TreeIter iter = new TreeIter();
             ls.getIter(iter, new TreePath(path));
-            if (newText.length != 0) {
-                try {
-                    GRegex check = new GRegex(newText, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
-                    if (check is null) {
-                        showErrorDialog(cast(Window) getToplevel(), format(_("The expression %s is not a valid regex"), newText));
-                    }
-                } catch (GException ge) {
-                    showErrorDialog(cast(Window) getToplevel(), format(_("The expression '%s' is not a valid regex, error:\n%s"), newText, ge.msg));
-                }
-            }
             ls.setValue(iter, COLUMN_REGEX, newText);
+            updateUI();
         });
         TreeViewColumn column = new TreeViewColumn(_("Regex"), crtRegex, "text", COLUMN_REGEX);
         column.setMinWidth(200);
@@ -1554,11 +1533,15 @@ private:
 
         getContentArea().add(box);
         getContentArea().add(bLines);
+
+        lblErrors = createErrorLabel();
+        getContentArea().add(lblErrors);
         updateUI();
     }
 
     void updateUI() {
         btnDelete.setSensitive(tv.getSelectedIter() !is null);
+        setResponseSensitive(GtkResponseType.APPLY, validateRegex(ls, COLUMN_REGEX, lblErrors));
     }
 
 public:
@@ -1579,4 +1562,42 @@ public:
         }
         return results;
     }
+}
+
+private:
+
+Label createErrorLabel() {
+    Label lblErrors = new Label("");
+    lblErrors.setHalign(Align.START);
+    lblErrors.setMarginTop(12);
+    lblErrors.getStyleContext().addClass("terminix-error");
+    lblErrors.setNoShowAll(true);
+
+    return lblErrors;
+}
+
+bool validateRegex(ListStore ls, int regexColumn, Label lblErrors) {
+    bool valid = true;
+    string errors;
+    int index = 0;
+    foreach (TreeIter iter; TreeIterRange(ls)) {
+        index++;
+        try {
+            string regex = ls.getValueString(iter, regexColumn);
+            if (regex.length > 0) {
+                GRegex check = new GRegex(regex, GRegexCompileFlags.OPTIMIZE, cast(GRegexMatchFlags) 0);
+            }
+        } catch (GException ge) {
+            if (errors.length > 0) errors ~= "\n";
+            errors ~= format(_("Row %d: "), index) ~ ge.msg;
+            valid = false;
+        }
+    }
+    if (errors.length == 0) {
+        lblErrors.hide();
+    } else {
+        lblErrors.setText(errors);
+        lblErrors.show();
+    }
+    return valid;
 }

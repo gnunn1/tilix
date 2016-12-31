@@ -1873,12 +1873,17 @@ private:
                     trace("Bool CaseInsensitive invalid string, ignoring");
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
-                GRegex compiledRegex = compileRegex(regex);
-                if (compiledRegex !is null) {
-                    int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
-                    regexTag[id] = regex;
-                    vte.matchSetCursorType(id, CursorType.HAND2);
-                    tracef("Added regex: %s with tag %d",value[0], id);
+                try {
+                    GRegex compiledRegex = compileRegex(regex);
+                    if (compiledRegex !is null) {
+                        int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
+                        regexTag[id] = regex;
+                        vte.matchSetCursorType(id, CursorType.HAND2);
+                        tracef("Added regex: %s with tag %d",value[0], id);
+                    }
+                } catch (GException ge) {
+                    error(format(_("Custom link regex '%s' has an error, ignoring"), regex));
+                    error(ge.msg);
                 }
             }
         }
