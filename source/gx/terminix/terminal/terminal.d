@@ -504,6 +504,9 @@ private:
                 }
             }
         });
+        // Override Ctrl-Shift-Paste shortcut of VTE
+        registerShortcut(getActionDetailedName(ACTION_PREFIX, ACTION_PASTE), "<Shift><Ctrl>Insert");
+
         saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 advancedPaste(GDK_SELECTION_CLIPBOARD);
@@ -1471,7 +1474,11 @@ private:
                 return true;
             case MouseButton.MIDDLE:
                 widget.grabFocus();
-                paste(GDK_SELECTION_PRIMARY);
+                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                    advancedPaste(GDK_SELECTION_PRIMARY);
+                } else {
+                    paste(GDK_SELECTION_PRIMARY);
+                }
                 return true;
             default:
                 return false;

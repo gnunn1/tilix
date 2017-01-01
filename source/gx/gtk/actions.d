@@ -156,6 +156,16 @@ SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, str
     return action;
 }
 
+/**
+ * Registers a shortcut for an action, existing shortcuts will
+ * be preserved.
+ */
+void registerShortcut(string detailedName, string shortcut) {
+    string[] accels = app.getAccelsForAction(detailedName);
+    accels ~= shortcut;
+    app.setAccelsForAction(detailedName, accels);
+}
+
 unittest {
     string prefix, id;
     getActionNameFromKey("terminal-split-horizontal", prefix, id);
