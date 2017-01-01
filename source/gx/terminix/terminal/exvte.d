@@ -58,9 +58,9 @@ public:
 	protected class OnNotificationReceivedDelegateWrapper
 	{
 		void delegate(string, string, Terminal) dlg;
-		ulong handlerId;
+		gulong handlerId;
 		ConnectFlags flags;
-		this(void delegate(string, string, Terminal) dlg, ulong handlerId, ConnectFlags flags)
+		this(void delegate(string, string, Terminal) dlg, gulong handlerId, ConnectFlags flags)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
@@ -77,7 +77,7 @@ public:
 	 *     summary = The summary
 	 *     bod = Extra optional text
 	 */
-	ulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	gulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
 	{
 		if (Signals.lookup("notification-received", getType()) != 0) {
 			onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
@@ -120,9 +120,9 @@ public:
 	protected class OnTerminalScreenChangedDelegateWrapper
 	{
 		void delegate(int, Terminal) dlg;
-		ulong handlerId;
+		gulong handlerId;
 		ConnectFlags flags;
-		this(void delegate(int, Terminal) dlg, ulong handlerId, ConnectFlags flags)
+		this(void delegate(int, Terminal) dlg, gulong handlerId, ConnectFlags flags)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
@@ -132,7 +132,7 @@ public:
 	protected OnTerminalScreenChangedDelegateWrapper[] onTerminalScreenChangedListeners;
 
 	/** */
-	ulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	gulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
 	{
 		if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
 			onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
