@@ -214,7 +214,7 @@ private:
             }
 
             // Unity specific workaround, force app window when using Headerbar and setting to display menus in titlebar in Unity is active
-            if (desktop.indexOf("Unity") >= 0 && !gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+            if (desktop.indexOf("Unity") >= 0 && !isCSDDisabled()) {
                 try {
                     GSettings unity = new GSettings("com.canonical.Unity");
                     if (unity !is null && unity.getBoolean("integrated-menus")) {
@@ -225,6 +225,14 @@ private:
                 }
             }
         }
+    }
+
+    bool isCSDDisabled() {
+        return gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) > 0;
+    }
+
+    bool hideToolbar() {
+        return gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) > 1;
     }
 
     /**
@@ -274,7 +282,7 @@ private:
         //Could be a Box or a Headerbar depending on value of disable_csd
         hb = createHeaderBar();
 
-        if (isQuake() || gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+        if (isQuake() || isCSDDisabled()) {
             hb.getStyleContext().addClass("terminix-embedded-headerbar");
             Grid grid = new Grid();
             grid.setOrientation(Orientation.VERTICAL);
@@ -288,7 +296,7 @@ private:
             } else {
                 add(grid);
             }
-            hb.setNoShowAll(gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY));
+            hb.setNoShowAll(hideToolbar());
         } else {
             this.setTitlebar(hb);
             hb.setShowCloseButton(true);
@@ -368,7 +376,7 @@ private:
 
         //Header Bar
         HeaderBar header = new HeaderBar();
-        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+        if (!isCSDDisabled()) {
             header.setCustomTitle(createCustomTitle());
         }
         header.packStart(bSessionButtons);
@@ -841,7 +849,7 @@ private:
 
     void updateTitle() {
         string title = getDisplayTitle();
-        if (!gsSettings.getBoolean(SETTINGS_DISABLE_CSD_KEY)) {
+        if (!isCSDDisabled()) {
             if (cTitle !is null) {
                 cTitle.title = title;
             } else {
@@ -1384,6 +1392,9 @@ public:
             setShowMenubar(false);
             setRole("quake");
         } else {
+            if (gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) == 3) {
+                setDecorated(false);
+            }
             forceAppMenu();
         }
 

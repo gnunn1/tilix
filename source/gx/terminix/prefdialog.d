@@ -848,6 +848,21 @@ class AppearancePreferences: Box {
             grid.setRowSpacing(6);
             int row = 0;
 
+            //Window style
+            grid.attach(createLabel(_("Window style")), 0, row, 1, 1);
+            Box bWindowStyle = new Box(Orientation.HORIZONTAL, 6);
+            ComboBox cbWindowStyle = createNameValueCombo([_("Normal"), _("Disable CSD"), _("Disable CSD, hide toolbar"), _("Borderless")], SETTINGS_WINDOW_STYLE_VALUES);
+            bh.bind(SETTINGS_WINDOW_STYLE_KEY, cbWindowStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            bWindowStyle.add(cbWindowStyle);
+
+            Label lblRestart = new Label(_("Window restart required"));
+            lblRestart.setHalign(Align.START);
+            lblRestart.setSensitive(false);
+            bWindowStyle.add(lblRestart);
+
+            grid.attach(bWindowStyle, 1, row, 1, 1);
+            row++;
+
             //Render terminal titlebars smaller then default
             grid.attach(createLabel(_("Terminal title style")), 0, row, 1, 1);
             ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);

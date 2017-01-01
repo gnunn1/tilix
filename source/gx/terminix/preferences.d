@@ -43,7 +43,10 @@ immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = ["new-window", "new-sessi
 
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_ACCELERATORS_ENABLED = "accelerators-enabled";
-enum SETTINGS_DISABLE_CSD_KEY = "disable-csd";
+
+enum SETTINGS_WINDOW_STYLE_KEY = "window-style";
+immutable string[] SETTINGS_WINDOW_STYLE_VALUES = ["normal","disable-csd","disable-csd-hide-toolbar","borderless"];
+
 enum SETTINGS_AUTO_HIDE_MOUSE_KEY = "auto-hide-mouse";
 enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
@@ -290,7 +293,7 @@ private:
             gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
         }
         return gsProfile;
-    } 
+    }
 
 package:
     /**
@@ -309,7 +312,7 @@ public:
 	 */
     ProfileInfo createProfile(string profileName, bool isDefault = false) {
         string uuid = randomUUID().toString();
-        createProfile(uuid, profileName, isDefault); 
+        createProfile(uuid, profileName, isDefault);
         return ProfileInfo(isDefault, uuid, profileName);
     }
 
@@ -320,7 +323,7 @@ public:
         GSettings sourceProfile = getProfileSettings(sourceInfo.uuid);
         string uuid = randomUUID().toString();
         string profileName = format(_("%s (Copy)"), sourceProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
-        GSettings targetProfile = createProfile(uuid, profileName, false); 
+        GSettings targetProfile = createProfile(uuid, profileName, false);
         targetProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
 
         string[] keys = sourceProfile.listKeys();

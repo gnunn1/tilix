@@ -126,13 +126,20 @@
     <value nick='right' value = '2'/>
   </enum>
 
+  <enum id='com.gexperts.Window.Style'>
+    <value nick='normal' value='0'/>
+    <value nick='disable-csd' value='1'/>
+    <value nick='disable-csd-hide-toolbar' value='2'/>
+    <value nick='borderless' value='3'/>
+  </enum>
+
   <!-- Global settings -->
   <schema id="com.gexperts.Terminix.Settings" path="/com/gexperts/Terminix/">
 
-    <key name="disable-csd" type="b">
-      <default>false</default>
-      <summary>Whether to disable the client-side-decorations</summary>
-      <description>If true, the default titlebar will be used as created by the WM rather than the CSD.</description>
+    <key name="window-style" enum="com.gexperts.Window.Style">
+      <default>'normal'</default>
+      <summary>Style to use for displaying the terminix window</summary>
+      <description>The style to use for displaying the terminix window, enables disabling Client-Side_Decorations.</description>
     </key>
     <key name="app-title" type="s">
       <default>'${appName}: ${sessionName}'</default>
