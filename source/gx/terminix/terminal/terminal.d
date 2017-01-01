@@ -507,6 +507,18 @@ private:
         // Override Ctrl-Shift-Paste shortcut of VTE
         registerShortcut(getActionDetailedName(ACTION_PREFIX, ACTION_PASTE), "<Shift><Ctrl>Insert");
 
+        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (!vte.hasFocus()) return;
+
+            if (Clipboard.get(null).waitIsTextAvailable()) {
+                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                    advancedPaste(GDK_SELECTION_PRIMARY);
+                } else {
+                    paste(GDK_SELECTION_PRIMARY);
+                }
+            }
+        });
+
         saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 advancedPaste(GDK_SELECTION_CLIPBOARD);
