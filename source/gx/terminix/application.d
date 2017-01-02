@@ -724,6 +724,10 @@ public:
         return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
     }
 
+    /**
+     * Add additional accelerators to force paste actions to always gobject
+     * through Terminix, see #666 fore more information.
+     */
     override void setAccelsForAction(string detailedActionName, string[] accels) {
         import gx.terminix.terminal.actions;
 
