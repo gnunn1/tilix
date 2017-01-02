@@ -724,6 +724,17 @@ public:
         return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
     }
 
+    override void setAccelsForAction(string detailedActionName, string[] accels) {
+        import gx.terminix.terminal.actions;
+
+        if (detailedActionName == getActionDetailedName(gx.terminix.terminal.actions.ACTION_PREFIX, gx.terminix.terminal.actions.ACTION_PASTE)) {
+            accels ~= ["<Ctrl><Shift>V","<Shift><Ctrl>Insert"];
+        } else if (detailedActionName == getActionDetailedName(gx.terminix.terminal.actions.ACTION_PREFIX, gx.terminix.terminal.actions.ACTION_PASTE_PRIMARY)) {
+            accels ~= ["<Shift>Insert"];
+        }
+        super.setAccelsForAction(detailedActionName, accels);
+    }
+
     /**
      * Even though these are parameters passed on the command-line
      * they are used by the terminal when it is created as a global

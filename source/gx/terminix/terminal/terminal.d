@@ -504,8 +504,6 @@ private:
                 }
             }
         });
-        // Override Ctrl-Shift-Paste shortcut of VTE
-        registerShortcut(getActionDetailedName(ACTION_PREFIX, ACTION_PASTE), "<Shift><Ctrl>Insert");
 
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (!vte.hasFocus()) return;
