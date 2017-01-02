@@ -343,6 +343,7 @@ public:
         setTypeHint(WindowTypeHint.DIALOG);
         setTransientFor(window);
         setDestroyWithParent(true);
+        setShowMenubar(false);
         gsSettings = new GSettings(SETTINGS_ID);
         createUI();
         updateUI();

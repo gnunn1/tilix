@@ -1389,7 +1389,6 @@ public:
             applyPreference(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY);
             // On Ubuntu this causes terminal to use default size, see #602
             //setResizable(false);
-            setShowMenubar(false);
             setRole("quake");
         } else {
             if (gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) == 3) {
@@ -1397,6 +1396,7 @@ public:
             }
             forceAppMenu();
         }
+        setShowMenubar(false);
 
         createUI();
 
