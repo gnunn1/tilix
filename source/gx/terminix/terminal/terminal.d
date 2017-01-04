@@ -128,11 +128,13 @@ import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
-import gx.terminix.terminal.layout;
-import gx.terminix.terminal.password;
-import gx.terminix.terminal.search;
 import gx.terminix.terminal.advpaste;
 import gx.terminix.terminal.exvte;
+import gx.terminix.terminal.layout;
+import gx.terminix.terminal.password;
+import gx.terminix.terminal.regex;
+import gx.terminix.terminal.search;
+import gx.terminix.terminal.util;
 
 /**
 * When dragging over VTE, specifies which quandrant new terminal
@@ -3496,150 +3498,6 @@ public:
     @property bool initialized() {
         return _initialized;
     }
-}
-
-/************************************************************************
- * Block for handling default regex in vte
- ***********************************************************************/
-private:
-
-import std.regex.internal.thompson: ThompsonMatcher;
-
-/**
- * This replaces all instances of $x tokens with values
- * from Regex match. The token $0 matches the whole match
- * whereas $1..$x are replaced with appropriate group match
- */
- string replaceMatchTokens(string tokenizedText, string[] matches) {
-     string result = tokenizedText;
-     foreach(i, match; matches) {
-        result = result.replace("$" ~ to!string(i - 1), match);
-     }
-     return result;
- }
-
-/**
- * Struct used to track matches in terminal for cases like context menu
- * where we need to preserve state between finding match and performing action
- */
-struct TerminalURLMatch {
-    TerminalURLFlavor flavor;
-    string match;
-    int tag;
-
-    void clear() {
-        flavor = TerminalURLFlavor.AS_IS;
-        match.length = 0;
-    }
-}
-
-//REGEX, cribbed from Gnome Terminal
-enum USERCHARS = "-[:alnum:]";
-enum USERCHARS_CLASS = "[" ~ USERCHARS ~ "]";
-enum PASSCHARS_CLASS = "[-[:alnum:]\\Q,?;.:/!%$^*&~\"#'\\E]";
-enum HOSTCHARS_CLASS = "[-[:alnum:]]";
-enum HOST = HOSTCHARS_CLASS ~ "+(\\." ~ HOSTCHARS_CLASS ~ "+)*";
-enum PORT = "(?:\\:[[:digit:]]{1,5})?";
-enum PATHCHARS_CLASS = "[-[:alnum:]\\Q_$.+!*,:;@&=?/~#%\\E]";
-enum PATHTERM_CLASS = "[^\\Q]'.:}>) \t\r\n,\"\\E]";
-enum SCHEME = "(?:news:|telnet:|nntp:|file:\\/|https?:|ftps?:|sftp:|webcal:)";
-enum USERPASS = USERCHARS_CLASS ~ "+(?:" ~ PASSCHARS_CLASS ~ "+)?";
-enum URLPATH = "(?:(/" ~ PATHCHARS_CLASS ~ "+(?:[(]" ~ PATHCHARS_CLASS ~ "*[)])*" ~ PATHCHARS_CLASS ~ "*)*" ~ PATHTERM_CLASS ~ ")?";
-
-enum TerminalURLFlavor {
-    AS_IS,
-    DEFAULT_TO_HTTP,
-    VOIP_CALL,
-    EMAIL,
-    NUMBER,
-    CUSTOM
-};
-
-struct TerminalRegex {
-    string pattern;
-    TerminalURLFlavor flavor;
-    bool caseless;
-    // Only used for custom regex
-    string command;
-}
-
-immutable TerminalRegex[] URL_REGEX_PATTERNS = [
-    TerminalRegex(SCHEME ~ "//(?:" ~ USERPASS ~ "\\@)?" ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.AS_IS, true),
-    TerminalRegex("(?:www|ftp)" ~ HOSTCHARS_CLASS ~ "*\\." ~ HOST ~ PORT ~ URLPATH, TerminalURLFlavor.DEFAULT_TO_HTTP, true),
-    TerminalRegex("(?:callto:|h323:|sip:)" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*(?:" ~ PORT ~ "/[a-z0-9]+)?\\@" ~ HOST, TerminalURLFlavor.VOIP_CALL, true),
-    TerminalRegex("(?:mailto:)?" ~ USERCHARS_CLASS ~ "[" ~ USERCHARS ~ ".]*\\@" ~ HOSTCHARS_CLASS ~ "+\\." ~ HOST, TerminalURLFlavor.EMAIL, true),
-    TerminalRegex("(?:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", TerminalURLFlavor.AS_IS, true)
-];
-
-immutable GRegex[URL_REGEX_PATTERNS.length] compiledRegex;
-
-GRegex compileRegex(TerminalRegex regex) {
-    if (regex.pattern.length == 0) return null;
-    GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-    if (checkVTEVersionNumber(0, 44)) {
-        flags = flags | GRegexCompileFlags.MULTILINE;
-    }
-    return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
-}
-
-static this() {
-    import std.exception : assumeUnique;
-
-    GRegex[URL_REGEX_PATTERNS.length] tempRegex;
-    foreach (i, regex; URL_REGEX_PATTERNS) {
-        tempRegex[i] = compileRegex(regex);
-    }
-    compiledRegex = assumeUnique(tempRegex);
-}
-
-/************************************************************************
- * Block for determining Shell
- ***********************************************************************/
-private:
-
-//Cribbed from Gnome Terminal
-immutable string[] shells = [/* Note that on some systems shells can also
-        * be installed in /usr/bin */
-"/bin/bash", "/usr/bin/bash", "/bin/zsh", "/usr/bin/zsh", "/bin/tcsh", "/usr/bin/tcsh", "/bin/ksh", "/usr/bin/ksh", "/bin/csh", "/bin/sh"];
-
-string getUserShell(string shell) {
-    import std.file : exists;
-    import core.sys.posix.pwd : getpwuid, passwd;
-
-    if (shell.length > 0 && exists(shell))
-        return shell;
-
-    // Try environment variable next
-    try {
-        shell = environment["SHELL"];
-        if (shell.length > 0) {
-            tracef("Using shell %s from SHELL environment variable", shell);
-            return shell;
-        }
-    }
-    catch (Exception e) {
-        trace("No SHELL environment variable found");
-    }
-
-    //Try to get shell from getpwuid
-    passwd* pw = getpwuid(getuid());
-    if (pw && pw.pw_shell) {
-        string pw_shell = to!string(pw.pw_shell);
-        if (exists(pw_shell)) {
-            tracef("Using shell %s from getpwuid",pw_shell);
-            return pw_shell;
-        }
-    }
-
-    //Try known shells
-    foreach (s; shells) {
-        if (exists(s)) {
-            tracef("Found shell %s, using that", s);
-            return s;
-        }
-    }
-    error("No shell found, defaulting to /bin/sh");
-    return "/bin/sh";
 }
 
 /*
