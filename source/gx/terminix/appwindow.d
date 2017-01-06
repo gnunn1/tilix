@@ -137,11 +137,6 @@ private:
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
 
-    // Title tokens
-    enum TITLE_APP_NAME = "${appName}";
-    enum TITLE_SESSION_NAME = "${sessionName}";
-    enum TITLE_SESSION_NUMBER = "${sessionNumber}";
-
     string _windowUUID;
 
     Notebook nb;
@@ -861,14 +856,14 @@ private:
 
     string getDisplayTitle() {
         string title = _overrideTitle.length == 0?gsSettings.getString(SETTINGS_APP_TITLE_KEY):_overrideTitle;
-        title = title.replace(TITLE_APP_NAME, _(APPLICATION_NAME));
+        title = title.replace(VARIABLE_APP_NAME, _(APPLICATION_NAME));
         Session session = getCurrentSession();
         if (session) {
-            title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
-            title = title.replace(TITLE_SESSION_NAME, session.displayName);
+            title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_NAME, session.displayName);
         } else {
-            title = title.replace(TITLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
-            title = title.replace(TITLE_SESSION_NAME, _("Default"));
+            title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_NAME, _("Default"));
         }
         return title;
     }

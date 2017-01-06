@@ -78,3 +78,54 @@ immutable string[] APPLICATION_CSS_RESOURCES = ["css/terminix.base.css"];
 
 immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";
 immutable string SHORTCUT_LOCALIZATION_CONTEXT = "shortcut window";
+
+
+// Constants used for the various variables permitted when defining
+// the terminal title.
+enum VARIABLE_TERMINAL_TITLE = "${title}";
+enum VARIABLE_TERMINAL_ICON_TITLE = "${iconTitle}";
+enum VARIABLE_TERMINAL_ID = "${id}";
+enum VARIABLE_TERMINAL_DIR = "${directory}";
+enum VARIABLE_TERMINAL_COLUMNS = "${columns}";
+enum VARIABLE_TERMINAL_ROWS = "${rows}";
+enum VARIABLE_TERMINAL_HOSTNAME = "${hostname}";
+enum VARIABLE_TERMINAL_USERNAME = "${username}";
+
+immutable string[] VARIABLE_TERMINAL_VALUES = [
+    VARIABLE_TERMINAL_TITLE,
+    VARIABLE_TERMINAL_ICON_TITLE ,
+    VARIABLE_TERMINAL_ID,
+    VARIABLE_TERMINAL_DIR,
+    VARIABLE_TERMINAL_HOSTNAME,
+    VARIABLE_TERMINAL_USERNAME,
+    VARIABLE_TERMINAL_COLUMNS,
+    VARIABLE_TERMINAL_ROWS
+    ];
+
+immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
+    N_("Title"),
+    N_("Icon title"),
+    N_("ID"),
+    N_("Directory"),
+    N_("Hostname"),
+    N_("Username"),
+    N_("Columns"),
+    N_("Rows")
+    ];
+
+// Application Window Title tokens
+enum VARIABLE_APP_NAME = "${appName}";
+enum VARIABLE_SESSION_NAME = "${sessionName}";
+enum VARIABLE_SESSION_NUMBER = "${sessionNumber}";
+
+immutable string[] VARIABLE_WINDOW_VALUES = [
+    VARIABLE_APP_NAME,
+    VARIABLE_SESSION_NAME,
+    VARIABLE_SESSION_NUMBER
+];
+
+immutable string[] VARIABLE_WINDOW_LOCALIZED = [
+    N_("Application name"),
+    N_("Session name"),
+    N_("Session number")
+];

@@ -77,6 +77,7 @@ import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
+import gx.terminix.titleeditor;
 
 /**
  * UI used for managing preferences for a specific profile
@@ -299,8 +300,9 @@ protected:
         lblTerminalTitle.setHalign(Align.END);
         grid.attach(lblTerminalTitle, 0, row, 1, 1);
         Entry eTerminalTitle = new Entry();
+        eTerminalTitle.setHexpand(true);
         bh.bind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
-        grid.attach(eTerminalTitle, 1, row, 1, 1);
+        grid.attach(createTitleEditHelper(eTerminalTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
         row++;
 
         //Badge
@@ -310,8 +312,9 @@ protected:
             lblBadge.setHalign(Align.END);
             grid.attach(lblBadge, 0, row, 1, 1);
             Entry eBadge = new Entry();
+            eBadge.setHexpand(true);
             bh.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
-            grid.attach(eBadge, 1, row, 1, 1);
+            grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
             row++;
 
             //Badge Position

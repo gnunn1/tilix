@@ -169,19 +169,6 @@ struct SyncInputEvent {
 }
 
 /**
- * Constants used for the various variables permitted when defining
- * the terminal title.
- */
-enum TERMINAL_TITLE = "${title}";
-enum TERMINAL_ICON_TITLE = "${iconTitle}";
-enum TERMINAL_ID = "${id}";
-enum TERMINAL_DIR = "${directory}";
-enum TERMINAL_COLUMNS = "${columns}";
-enum TERMINAL_ROWS = "${rows}";
-enum TERMINAL_HOSTNAME = "${hostname}";
-enum TERMINAL_USERNAME = "${username}";
-
-/**
  * This class is a composite widget that consists of the VTE Terminal
  * widget and the title bar. From the perspective of a session this is
  * treated as the Terminal, the Session class has no direct access to the
@@ -3009,13 +2996,13 @@ public:
         string windowTitle = vte.getWindowTitle();
         if (windowTitle.length == 0)
             windowTitle = _("Terminal");
-        text = text.replace(TERMINAL_TITLE, windowTitle);
-        text = text.replace(TERMINAL_ICON_TITLE, vte.getIconTitle());
-        text = text.replace(TERMINAL_ID, to!string(terminalID));
-        text = text.replace(TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
-        text = text.replace(TERMINAL_ROWS, to!string(vte.getRowCount()));
-        text = text.replace(TERMINAL_HOSTNAME, gst.currentHostname);
-        text = text.replace(TERMINAL_USERNAME, gst.currentUsername);
+        text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
+        text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
+        text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
+        text = text.replace(VARIABLE_TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
+        text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
+        text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
         string path;
         if (terminalInitialized) {
             path = gst.currentDirectory;
@@ -3023,7 +3010,7 @@ public:
             trace("Terminal not initialized yet or VTE not configured, no path available");
             path = "";
         }
-        text = text.replace(TERMINAL_DIR, path);
+        text = text.replace(VARIABLE_TERMINAL_DIR, path);
         return text;
     }
 

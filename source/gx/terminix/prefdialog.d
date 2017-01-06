@@ -81,6 +81,7 @@ import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.profileeditor;
+import gx.terminix.titleeditor;
 
 /**
  * UI for managing Terminix preferences
@@ -937,7 +938,7 @@ class AppearancePreferences: Box {
             Entry eSessionName = new Entry();
             eSessionName.setHexpand(true);
             bh.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", GSettingsBindFlags.DEFAULT);
-            grid.attach(eSessionName, 1, row, 1, 1);
+            grid.attach(createTitleEditHelper(eSessionName, TitleEditScope.SESSION), 1, row, 1, 1);
             row++;
 
             //Application Title
@@ -948,7 +949,7 @@ class AppearancePreferences: Box {
             Entry eAppTitle = new Entry();
             eAppTitle.setHexpand(true);
             bh.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", GSettingsBindFlags.DEFAULT);
-            grid.attach(eAppTitle, 1, row, 1, 1);
+            grid.attach(createTitleEditHelper(eAppTitle, TitleEditScope.WINDOW), 1, row, 1, 1);
             row++;
 
             add(grid);
