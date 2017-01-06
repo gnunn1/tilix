@@ -2,7 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-module gx.terminix.prefdialog;
+module gx.terminix.prefeditor.prefdialog;
 
 import std.algorithm;
 import std.conv;
@@ -80,8 +80,9 @@ import gx.terminix.application;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
-import gx.terminix.profileeditor;
-import gx.terminix.titleeditor;
+
+import gx.terminix.prefeditor.profileeditor;
+import gx.terminix.prefeditor.titleeditor;
 
 /**
  * UI for managing Terminix preferences

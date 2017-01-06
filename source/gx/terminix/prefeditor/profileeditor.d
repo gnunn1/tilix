@@ -2,7 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-module gx.terminix.profileeditor;
+module gx.terminix.prefeditor.profileeditor;
 
 import std.algorithm;
 import std.array;
@@ -77,7 +77,8 @@ import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.encoding;
 import gx.terminix.preferences;
-import gx.terminix.titleeditor;
+
+import gx.terminix.prefeditor.titleeditor;
 
 /**
  * UI used for managing preferences for a specific profile

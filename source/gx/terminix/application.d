@@ -71,8 +71,9 @@ import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.preferences;
-import gx.terminix.prefdialog;
 import gx.terminix.shortcuts;
+
+import gx.terminix.prefeditor.prefdialog;
 
 static import gx.util.array;
 
