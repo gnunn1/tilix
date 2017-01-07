@@ -1589,15 +1589,18 @@ public:
         }
 
         string workingDir;
+        string profileUUID = prfMgr.getDefaultProfile();
+
         // Inherit current session directory unless overrides exist, fix #343
         if (terminix.getGlobalOverrides().cwd.length ==0 && terminix.getGlobalOverrides().workingDir.length == 0) {
             ITerminal terminal = getActiveTerminal();
             if (terminal !is null) {
                 workingDir = terminal.currentLocalDirectory;
+                profileUUID = terminal.activeProfileUUID;
             }
         }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {
-            SessionProperties sp = new SessionProperties(this, gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
+            SessionProperties sp = new SessionProperties(this, gsSettings.getString(SETTINGS_SESSION_NAME_KEY), profileUUID);
             scope (exit) {
                 sp.destroy();
             }
@@ -1606,7 +1609,7 @@ public:
                 createSession(sp.name, sp.profileUUID, workingDir);
             }
         } else {
-            createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile(), workingDir);
+            createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), profileUUID, workingDir);
         }
     }
 

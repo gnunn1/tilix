@@ -237,12 +237,12 @@ class SessionNotification {
  * too much coupling. Session and Terminal objects implement the identifiable
  * interface so they can be found based on a string uuid wuthout higher level
  * modules having to refer to these directly.
- */ 
+ */
 public:
 
 /**
  * Interface that represents an object instance that can be uniquely identified
- */ 
+ */
 interface IIdentifiable {
 
     /**
@@ -274,5 +274,11 @@ interface ITerminal : IIdentifiable {
      * configuration issue
      */
     @property string currentLocalDirectory();
+
+    /**
+     * Returns the UUID of the current profile being used
+     * by the terminal.
+     */
+    @property string activeProfileUUID();
 
 }
