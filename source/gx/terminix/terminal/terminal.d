@@ -1668,7 +1668,7 @@ private:
                 vte.setColorHighlight(vteHighlightBG);
             } else {
                 vte.setColorHighlightForeground(null);
-                vte.setColorHighlight(null);applyPreference(SETTINGS_PROFILE_CURSOR_SHAPE_KEY);
+                vte.setColorHighlight(null);
             }
             break;
         case SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY:
