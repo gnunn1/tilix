@@ -38,7 +38,7 @@ immutable bool FLATPAK = false;
 /*
  * Enables bookmarks
  */
- immutable bool BOOKMARKS = true;
+ immutable bool BOOKMARKS = false;
 
 /**************************************
  * Application Constants
