@@ -1,3 +1,4 @@
+#!/bin/bash
 # Adapted from vte.sh script, copyright notice from that ensues:
 
 # Copyright © 2006 Shaun McCance <shaunm@gnome.org>
