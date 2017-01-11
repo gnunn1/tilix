@@ -73,6 +73,8 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.shortcuts;
 
+import gx.terminix.bookmark.manager;
+
 import gx.terminix.prefeditor.prefdialog;
 
 static import gx.util.array;
@@ -360,6 +362,9 @@ private:
             acl.destroy();
         }
         cp = CommandParameters(acl);
+        if (cp.exit) {
+            return cp.exitCode;
+        }
         if (cp.exitCode == 0 && cp.action.length > 0) {
             string terminalUUID = cp.terminalUUID;
             if (terminalUUID.length == 0) {
@@ -495,6 +500,9 @@ private:
         });
 
         initProfileManager();
+        static if (BOOKMARKS) {
+            initBookmarkManager();
+        }
         applyPreferences();
         installAppMenu();
     }
