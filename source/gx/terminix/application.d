@@ -73,7 +73,10 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.shortcuts;
 
-import gx.terminix.bookmark.manager;
+
+static if (BOOKMARKS) {
+    import gx.terminix.bookmark.manager;
+}
 
 import gx.terminix.prefeditor.prefdialog;
 
