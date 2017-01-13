@@ -95,6 +95,7 @@ private:
         nb = new Notebook();
         nb.setHexpand(true);
         nb.setVexpand(true);
+        nb.setShowBorder(false);
         nb.appendPage(new GeneralPage(this), _("General"));
         nb.appendPage(new CommandPage(), _("Command"));
         nb.appendPage(new ColorPage(), _("Color"));
