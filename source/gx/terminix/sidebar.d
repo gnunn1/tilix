@@ -194,8 +194,6 @@ public:
         lbSessions = new ListBox();
         lbSessions.setCanFocus(true);
         lbSessions.setSelectionMode(SelectionMode.BROWSE);
-        lbSessions.getStyleContext().addClass("notebook");
-        lbSessions.getStyleContext().addClass("header");
         lbSessions.getStyleContext().addClass("terminix-session-sidebar");
         lbSessions.addOnRowActivated(&onRowActivated);
         //lbSessions.addOnKeynavFailed(&onKeyNavFailed);
