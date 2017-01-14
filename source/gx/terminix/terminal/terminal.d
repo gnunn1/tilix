@@ -308,6 +308,7 @@ private:
         bTitle.setVexpand(false);
 
         lblTitle = new Label(_("Terminal"));
+        lblTitle.getStyleContext().addClass("terminix-terminal-title");
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
         lblTitle.setUseMarkup(true);
 
