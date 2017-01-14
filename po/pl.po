@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: 1.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-30 12:41-0500\n"
-"PO-Revision-Date: 2017-01-13 19:41+0100\n"
+"PO-Revision-Date: 2017-01-14 11:37+0100\n"
 "Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -38,11 +38,13 @@ msgstr "Wersje"
 
 #: source/app.d:134
 #, c-format, c-format
+#, c-format
 msgid "Terminix version: %s"
 msgstr "Wersja Terminix: %s"
 
 #: source/app.d:135
 #, c-format, c-format
+#, c-format
 msgid "VTE version: %s"
 msgstr "Wersja: VTE: %s"
 
@@ -73,7 +75,7 @@ msgstr "wyłączone"
 
 #: source/gx/terminix/constants.d:49
 msgid "A VTE based terminal emulator for Linux"
-msgstr ""
+msgstr "Emuluje działanie terminala w oparciu o emulator VTE"
 
 #: source/gx/terminix/constants.d:50
 msgid ""
@@ -147,6 +149,7 @@ msgstr "Profile"
 
 #: source/gx/terminix/prefdialog.d:263 source/gx/terminix/prefdialog.d:271
 #, c-format, c-format
+#, c-format
 msgid "Profile: %s"
 msgstr "Profil: %s"
 
@@ -163,7 +166,7 @@ msgstr "Powiel"
 
 #: source/gx/terminix/prefdialog.d:473
 msgid "Use for new terminals"
-msgstr "Używanie dla nowych terminali"
+msgstr "Użyj dla nowych terminali"
 
 #: source/gx/terminix/prefdialog.d:549
 msgid "Encodings showing in menu:"
@@ -299,11 +302,11 @@ msgstr "Rozmiar"
 
 #: source/gx/terminix/prefdialog.d:993
 msgid "Height percent"
-msgstr ""
+msgstr "Wysokość %"
 
 #: source/gx/terminix/prefdialog.d:1004
 msgid "Width percent"
-msgstr ""
+msgstr "Szerokość %"
 
 #: source/gx/terminix/prefdialog.d:1014
 msgid "Alignment"
@@ -327,21 +330,19 @@ msgstr "Terminal widoczny na wszystkich obszarach roboczych"
 
 #: source/gx/terminix/prefdialog.d:1037
 msgid "Set hint for window manager to disable animation"
-msgstr ""
+msgstr "Wyłączenie animacji w menedżerze okien"
 
 #: source/gx/terminix/prefdialog.d:1042
 msgid "Hide window when focus is lost"
-msgstr "Zamknięcie okna po utraceniu uaktywnienia"
+msgstr "Ukrycie okna po utraceniu uaktywnienia"
 
 #: source/gx/terminix/prefdialog.d:1047
-#, fuzzy
 msgid "Hide the titlebar of the window"
-msgstr "Ustala tytuł nowego terminala"
+msgstr "Ukrycie paska tytułowego okna"
 
 #: source/gx/terminix/prefdialog.d:1062
-#, fuzzy
 msgid "Display terminal on active monitor"
-msgstr "Terminal widoczny na podstawowym ekranie"
+msgstr "Terminal widoczny na aktualnym ekranie"
 
 #: source/gx/terminix/prefdialog.d:1069
 msgid "Display on specific monitor"
@@ -370,7 +371,7 @@ msgstr ""
 
 #: source/gx/terminix/prefdialog.d:1137
 msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
+msgstr "Przybliżanie widoku za pomocą klawisza <Control> i kółka myszy"
 
 #: source/gx/terminix/prefdialog.d:1142
 msgid "Close window when last session is closed"
@@ -1295,7 +1296,7 @@ msgstr "Uwzględnianie wielkości liter"
 
 #: source/gx/terminix/terminal/search.d:189
 msgid "Match entire word only"
-msgstr "Dopasowanie całych słów"
+msgstr "Dopasowanie tylko całych słów"
 
 #: source/gx/terminix/terminal/search.d:190
 msgid "Match as regular expression"
@@ -1369,11 +1370,13 @@ msgstr "Modyfikowanie hasła"
 
 #: source/gx/terminix/closedialog.d:124
 #, c-format, c-format
+#, c-format
 msgid "Window (%s)"
 msgstr "Okno (%s)"
 
 #: source/gx/terminix/closedialog.d:127
 #, c-format, c-format
+#, c-format
 msgid "Session (%s)"
 msgstr "Sesja (%s)"
 
@@ -1689,6 +1692,7 @@ msgstr "Tytuł"
 
 #: source/gx/terminix/preferences.d:322
 #, c-format, c-format
+#, c-format
 msgid "%s (Copy)"
 msgstr "%s (kopia)"
 
@@ -1698,6 +1702,7 @@ msgstr "Otwórz zdalny Terminix"
 
 #: data/nautilus/open-terminix.py:66
 #, python-format, python-format
+#, python-format
 msgid "Open Remote Terminix In %s"
 msgstr "Otwórz zdalny Terminix w %s"
 
@@ -1767,10 +1772,9 @@ msgid "View session sidebar"
 msgstr "Wyświetlenie paska bocznego sesji"
 
 #: data/resources/ui/shortcuts.ui:61
-#, fuzzy
 msgctxt "shortcut window"
 msgid "View session switcher"
-msgstr "Wyświetla pasek boczny sesji"
+msgstr "Wyświetlenie przełącznika sesji"
 
 #: data/resources/ui/shortcuts.ui:67
 msgctxt "shortcut window"
@@ -2152,11 +2156,11 @@ msgstr ""
 msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
-msgstr ""
+msgstr "przenoszenie terminali pomiędzy oknami przeciągając je,"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:19
 msgid "Terminals can be detached into a new window via drag and drop"
-msgstr "odłączanie terminali od okien przeciągając je,"
+msgstr "odłączanie terminali do nowych okien przeciągając je,"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:20
 msgid ""
@@ -2164,7 +2168,7 @@ msgid ""
 "terminal are replicated to the others"
 msgstr ""
 "synchronizowanie wejścia pomiędzy terminalami, co umożliwia powielanie "
-"poleceń wprowadzonych w jednym terminalu do innych,"
+"poleceń wprowadzonych w jednym terminalu,"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
@@ -2179,15 +2183,16 @@ msgid ""
 "Color schemes are stored in files and custom color schemes can be created by "
 "simply creating a new file"
 msgstr ""
+"przechowywanie zestawów kolorów w plikach i tworzenie własnych zestawów "
+"kolorów,"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:24
 msgid "Transparent background"
-msgstr "Przezroczyste tło"
+msgstr "ustalenie przezroczystego tła,"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:25
-#, fuzzy
 msgid "Supports notifications when processes are completed out of view"
-msgstr "Powiadamianie o zakończonych procesach"
+msgstr "powiadamianie o zakończonych procesach, które są niewidoczne."
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:27
 msgid ""
@@ -2195,6 +2200,9 @@ msgid ""
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
+"Program opracowano używając GTK3, zachowując wytyczne GNOME Human Interface "
+"Guidelines (HIG). W wyniku tego wyświetla on obramowania po stronie klienta, "
+"choć w razie potrzeby można je wyłączyć."
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:31
 msgid "Terminix has been tested with GNOME and with Unity."
