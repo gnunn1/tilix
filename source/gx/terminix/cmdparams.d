@@ -203,8 +203,8 @@ public:
         if (geometryParam.length > 0)
             parseGeometry(geometryParam);
 
-        if (_quake && (_maximize || _minimize || _fullscreen || _geometry.flag != GeometryFlag.NONE)) {
-                writeln(_("You cannot use the quake mode with maximize, minimize, fullscreen or geometry parameters"));
+        if (_quake && (_maximize || _minimize || _geometry.flag != GeometryFlag.NONE)) {
+                writeln(_("You cannot use the quake mode with maximize, minimize or geometry parameters"));
                 _exitCode = 3;
                 _exit = true;
         }
