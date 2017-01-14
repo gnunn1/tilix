@@ -301,13 +301,8 @@ private:
      * Creates the top bar of the terminal pane
      */
     Widget createTitlePane() {
-
-        void setVerticalMargins(Widget widget) {
-            widget.setMarginTop(1);
-            widget.setMarginBottom(2);
-        }
-
         bTitle = new Box(Orientation.HORIZONTAL, 0);
+        bTitle.getStyleContext().addClass("terminal-titlebar");
         //Showing is controlled by terminal title preference
         bTitle.setNoShowAll(true);
         bTitle.setVexpand(false);
@@ -338,8 +333,7 @@ private:
 
         mbTitle.add(bTitleLabel);
 
-        bTitle.packStart(mbTitle, false, false, 4);
-        setVerticalMargins(mbTitle);
+        bTitle.packStart(mbTitle, false, false, 0);
 
         //Close Button
         Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
@@ -347,8 +341,7 @@ private:
         btnClose.setRelief(ReliefStyle.NONE);
         btnClose.setFocusOnClick(false);
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
-        setVerticalMargins(btnClose);
-        bTitle.packEnd(btnClose, false, false, 4);
+        bTitle.packEnd(btnClose, false, false, 0);
 
         //Maximize Button
         btnMaximize = new Button("window-maximize-symbolic", IconSize.MENU);
@@ -356,7 +349,6 @@ private:
         btnMaximize.setRelief(ReliefStyle.NONE);
         btnMaximize.setFocusOnClick(false);
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
-        setVerticalMargins(btnMaximize);
         bTitle.packEnd(btnMaximize, false, false, 0);
 
         //Synchronize Input Button
@@ -366,7 +358,6 @@ private:
         tbSyncInput.setTooltipText(_("Disable input synchronization for this terminal"));
         tbSyncInput.setRelief(ReliefStyle.NONE);
         tbSyncInput.setFocusOnClick(false);
-        setVerticalMargins(tbSyncInput);
         tbSyncInput.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
         bTitle.packEnd(tbSyncInput, false, false, 0);
 
@@ -374,7 +365,6 @@ private:
         imgReadOnly = new Image("changes-prevent-symbolic", IconSize.MENU);
         imgReadOnly.setNoShowAll(true);
         imgReadOnly.setTooltipText(_("Read-Only"));
-        setVerticalMargins(imgReadOnly);
         bTitle.packEnd(imgReadOnly, false, false, 0);
 
         //Terminal Bell Spinner
@@ -382,7 +372,6 @@ private:
         spBell.setNoShowAll(true);
         spBell.setTooltipText(_("Terminal bell"));
         spBell.getStyleContext().addClass("terminix-bell");
-        setVerticalMargins(spBell);
         bTitle.packEnd(spBell, false, false, 0);
 
         EventBox evtTitle = new EventBox();
