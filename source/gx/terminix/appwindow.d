@@ -169,6 +169,9 @@ private:
     // True if window is in quake mode
     bool _quake;
 
+    // True if window is being destroyed
+    bool _destroyed;
+
     string[] recentSessionFiles;
 
     // The user overridden application title, specific to the window only
@@ -928,7 +931,7 @@ private:
     void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {
         tracef("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body);
         // If window not active, send notification to shell
-        if (!isActive() && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY)) {
+        if (!isActive() && !_destroyed && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY)) {
             Notification n = new Notification(_(summary));
             n.setBody(_body);
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
@@ -989,6 +992,7 @@ private:
 
     void onWindowDestroyed(Widget) {
         trace("AppWindow destroyed");
+        _destroyed = true;
         terminix.withdrawNotification(uuid);
         terminix.removeAppWindow(this);
         sessionActions.destroy();
