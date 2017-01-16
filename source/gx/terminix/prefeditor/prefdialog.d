@@ -84,6 +84,10 @@ import gx.terminix.preferences;
 import gx.terminix.prefeditor.profileeditor;
 import gx.terminix.prefeditor.titleeditor;
 
+static if (BOOKMARKS) {
+import gx.terminix.prefeditor.bookmarkeditor;
+}
+
 /**
  * UI for managing Terminix preferences
  */
@@ -98,6 +102,9 @@ private:
     Button btnDeleteProfile;
 
     ProfileEditor pe;
+    static if (BOOKMARKS) {
+        GlobalBookmarkEditor bmEditor;
+    }
 
     // Track how many non-profile rows there are to prevent the last profile from being deleted
     immutable int NON_PROFILE_ROW_COUNT = 6;
@@ -131,6 +138,12 @@ private:
         QuakePreferences qp = new QuakePreferences(gsSettings);
         pages.addTitled(qp, N_("Quake"), _("Quake"));
         lbSide.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
+
+        static if (BOOKMARKS) {
+            bmEditor = new GlobalBookmarkEditor();
+            pages.addTitled(bmEditor, N_("Bookmarks"), _("Bookmarks"));
+            lbSide.add(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
+        }
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
