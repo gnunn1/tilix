@@ -106,7 +106,7 @@ public:
     }
 
     void remove(BaseBookmark bb) {
-        long index = list.countUntil(bb);
+        size_t index = list.countUntil(bb);
         if (index >= 0) {
             list[index] = null;
             list = std.algorithm.remove(list, index);
