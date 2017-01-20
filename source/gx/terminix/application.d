@@ -351,6 +351,7 @@ private:
                 } else {
                     isFullBGImage = renderImage(image, true);
                 }
+                image.destroy();
             }
         } catch (GException ge) {
             errorf("Could not load image '%s'", filename);
