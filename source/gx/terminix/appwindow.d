@@ -935,6 +935,7 @@ private:
             Notification n = new Notification(_(summary));
             n.setBody(_body);
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
+            tracef("Sending notification %s", uuid);
             getApplication().sendNotification(uuid, n);
             //if session not visible send to local handler
         }
@@ -991,7 +992,7 @@ private:
     }
 
     void onWindowDestroyed(Widget) {
-        trace("AppWindow destroyed");
+        tracef("AppWindow %s destroyed", uuid);
         _destroyed = true;
         terminix.withdrawNotification(uuid);
         terminix.removeAppWindow(this);
@@ -1144,6 +1145,7 @@ private:
         }
         //getScreen().getMonitorGeometry(monitor, rect);
         getScreen().getMonitorWorkarea(monitor, rect);
+        tracef("Monitor geometry: monitor=%d, x=%d, y=%d, width=%d, height=%d", monitor, rect.x, rect.y, rect.width, rect.height);
 
         double widthPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
         double heightPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
