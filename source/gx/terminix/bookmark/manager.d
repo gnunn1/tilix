@@ -5,18 +5,27 @@
 module gx.terminix.bookmark.manager;
 
 import std.algorithm;
+import std.conv;
 import std.experimental.logger;
+import std.file;
 import std.json;
+import std.path;
 import std.uuid;
 
-enum BookmarkType {
-    FOLDER = "folder",
-    PATH = "path",
-    SSH = "ssh",
-    FTP = "ftp",
-    COMMAND = "command"}
+import glib.Util;
 
-interface BaseBookmark {
+import gx.i18n.l10n;
+
+import gx.terminix.constants;
+
+enum BookmarkType {
+    FOLDER = "Folder",
+    PATH = "Path",
+    SSH = "SSH",
+    FTP = "FTP",
+    COMMAND = "Command"}
+
+interface Bookmark {
 
     JSONValue serialize();
     void deserialize(JSONValue value);
@@ -29,7 +38,7 @@ interface BaseBookmark {
     @property string uuid();
 }
 
-abstract class AbstractBookmark: BaseBookmark {
+abstract class AbstractBookmark: Bookmark {
 private:
     string _name;
     string _uuid;
@@ -76,7 +85,7 @@ private:
 
     enum NODE_LIST = "list";
 
-    BaseBookmark[] list;
+    Bookmark[] list;
 
 public:
 
@@ -92,7 +101,7 @@ public:
         return BookmarkType.FOLDER;
     }
 
-    int opApply ( int delegate ( ref BaseBookmark x ) dg ) {
+    int opApply ( int delegate ( ref Bookmark x ) dg ) {
         int result = 0;
         foreach (ref x; list) {
             result = dg(x);
@@ -101,12 +110,12 @@ public:
         return result;
     }
 
-    void add(BaseBookmark bb) {
-        list ~= bb;
+    void add(Bookmark bm) {
+        list ~= bm;
     }
 
-    void remove(BaseBookmark bb) {
-        size_t index = list.countUntil(bb);
+    void remove(Bookmark bm) {
+        size_t index = list.countUntil(bm);
         if (index >= 0) {
             list[index] = null;
             list = std.algorithm.remove(list, index);
@@ -127,9 +136,15 @@ public:
         super.deserialize(value);
         JSONValue[] jsonList = value[NODE_LIST].array();
         foreach(item; jsonList) {
-            BaseBookmark bb = bmMgr.createBookmark(item[NODE_BOOKMARK_TYPE].toString());
-            bb.deserialize(item);
-            add(bb);
+            try {
+                BookmarkType type = to!BookmarkType(item[NODE_BOOKMARK_TYPE].toString());
+                Bookmark bm = bmMgr.createBookmark(type);
+                bm.deserialize(item);
+                add(bm);
+            } catch (Exception e) {
+                error(_("Error deserializing bookmark"));
+                error(e);
+            }
         }
     }
 
@@ -179,6 +194,8 @@ public:
 
 class BookmarkManager {
 private:
+    enum BOOKMARK_FILE = "bookmarks.json";
+
     FolderBookmark _root;
 
 
@@ -187,7 +204,8 @@ public:
         _root = new FolderBookmark("root");
     }
 
-    BaseBookmark createBookmark(string type) {
+    Bookmark createBookmark(BookmarkType type) {
+        tracef("Creating bookmark %s", type);
         final switch (type) {
             case BookmarkType.FOLDER:
                 return new FolderBookmark();
@@ -201,6 +219,26 @@ public:
                 break;
         }
         return null;
+    }
+
+    void save() {
+        string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
+        string json = root.serialize().toPrettyString();
+        write(filename, json);
+    }
+
+    void load() {
+        string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
+        if (exists(filename)) {
+            try {
+                string json = readText(filename);
+                JSONValue value = parseJSON(json);
+                _root.deserialize(value);
+            } catch (Exception e) {
+                error(_("Could not load bookmarks due to unexpected error"));
+                error(e);
+            }
+        }
     }
 
     @property FolderBookmark root() {
@@ -238,10 +276,10 @@ unittest {
     pb = new PathBookmark("Development", "/home/gnunn/Development");
     root.add(pb);
 
-    string json = root.serialize().toPrettyString();
+    JSONValue json = root.serialize();
 
     import std.stdio;
-    writeln(json);
+    writeln(json.toPrettyString());
 
     FolderBookmark test = new FolderBookmark();
     test.deserialize(json);

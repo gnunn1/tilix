@@ -4,6 +4,9 @@
  */
 module gx.terminix.bookmark.bmeditor;
 
+import std.conv;
+import std.experimental.logger;
+
 import gtk.Box;
 import gtk.ComboBox;
 import gtk.Dialog;
@@ -11,6 +14,7 @@ import gtk.Entry;
 import gtk.FileChooserButton;
 import gtk.Grid;
 import gtk.Label;
+import gtk.Separator;
 import gtk.Stack;
 import gtk.Widget;
 import gtk.Window;
@@ -30,23 +34,32 @@ private:
     ComboBox cbType;
     Stack stEditors;
 
-    void createUI(BaseBookmark bm) {
+    void createUI(Bookmark bm) {
         setAllMargins(getContentArea(), 18);
         Box bContent = new Box(Orientation.VERTICAL, 6);
 
         Box bType = new Box(Orientation.HORIZONTAL, 6);
         Label lblType = new Label(_("Type"));
         lblType.setHalign(Align.END);
-        cbType = createNameValueCombo([_("Folder"), _("Type")], [BookmarkType.FOLDER, BookmarkType.PATH]);
+        cbType = createNameValueCombo([_("Folder"), _("Path")], [to!string(BookmarkType.FOLDER), to!string(BookmarkType.PATH)]);
+        cbType.setHexpand(true);
+        cbType.setHalign(Align.FILL);
 
         bType.add(lblType);
         bType.add(cbType);
 
-        bContent.add(bType);
+        Separator sLine = new Separator(Orientation.HORIZONTAL);
+        sLine.setHexpand(true);
+        sLine.setHalign(Align.FILL);
+        sLine.setMarginTop(6);
+        sLine.setMarginBottom(6);
 
-        Stack stEditors = new Stack();
+        bContent.add(bType);
+        bContent.add(sLine);
+
+        stEditors = new Stack();
         foreach(bt; [BookmarkType.FOLDER, BookmarkType.PATH]) {
-            stEditors.addNamed(getTypeEditor(bt, bm), bt);
+            stEditors.addNamed(createTypeEditor(bt, bm), to!string(bt));
         }
 
         bContent.add(stEditors);
@@ -59,28 +72,47 @@ private:
         });
         // Set active page, change handler above does this
         if (bm !is null) {
-            cbType.setActiveId(bm.type);
+            cbType.setActiveId(to!string(bm.type));
             bType.setNoShowAll(true);
         } else {
-            cbType.setActiveId(BookmarkType.FOLDER);
+            cbType.setActiveId(to!string(BookmarkType.FOLDER));
         }
         getContentArea().add(bContent);
     }
 
 public:
 
-    this(Window parent, BaseBookmark bm = null) {
+    this(Window parent, Bookmark bm = null) {
         string title = (bm is null)? _("Add Bookmark"):_("Edit Bookmark");
         super(_("Bookmark"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         setTransientFor(parent);
         setDefaultResponse(GtkResponseType.OK);
         createUI(bm);
     }
+
+    Bookmark create() {
+        if (cbType.getActive >= 0) {
+            BookmarkType type = to!BookmarkType(cbType.getActiveId());
+            Bookmark bm = bmMgr.createBookmark(type);
+            BookmarkTypeEditor editor = cast(BookmarkTypeEditor)stEditors.getVisibleChild();
+            editor.update(bm);
+            return bm;
+        } else {
+            return null;
+        }
+    }
+
+    void update(Bookmark bm) {
+        if (cbType.getActive >= 0) {
+            BookmarkTypeEditor editor = to!(BookmarkTypeEditor)(stEditors.getVisibleChild());
+            editor.update(bm);
+        }
+    }
 }
 
 private:
 
-Widget getTypeEditor(BookmarkType bt, BaseBookmark bm = null) {
+Widget createTypeEditor(BookmarkType bt, Bookmark bm = null) {
     final switch (bt) {
         case BookmarkType.FOLDER:
             return new FolderEditor(bm);
@@ -96,7 +128,7 @@ Widget getTypeEditor(BookmarkType bt, BaseBookmark bm = null) {
 }
 
 interface BookmarkTypeEditor {
-    void update(BaseBookmark bm);
+    void update(Bookmark bm);
 }
 
 class FolderEditor: Grid, BookmarkTypeEditor {
@@ -104,7 +136,7 @@ private:
     Entry eName;
 
 public:
-    this(BaseBookmark bm) {
+    this(Bookmark bm) {
         super();
         setColumnSpacing(12);
         setRowSpacing(6);
@@ -114,6 +146,7 @@ public:
         attach(lblName, 0, 0, 1, 1);
 
         eName = new Entry();
+        eName.setHexpand(true);
         attach(eName, 1, 0, 1, 1);
 
         if (bm !is null) {
@@ -121,7 +154,7 @@ public:
         }
     }
 
-    void update(BaseBookmark bm) {
+    void update(Bookmark bm) {
         bm.name = eName.getText();
     }
 }
@@ -132,7 +165,7 @@ private:
     FileChooserButton fcbPath;
 
 public:
-    this(BaseBookmark bm) {
+    this(Bookmark bm) {
         super();
         setColumnSpacing(12);
         setRowSpacing(6);
@@ -142,6 +175,7 @@ public:
         attach(lblName, 0, 0, 1, 1);
 
         eName = new Entry();
+        eName.setHexpand(true);
         attach(eName, 1, 0, 1, 1);
 
         Label lblPath = new Label(_("Path"));
@@ -149,6 +183,7 @@ public:
         attach(lblPath, 0, 1, 1, 1);
 
         fcbPath = new FileChooserButton(_("Select Path"), FileChooserAction.SELECT_FOLDER);
+        fcbPath.setHexpand(true);
         attach(fcbPath, 1, 1, 1, 1);
 
         if (bm !is null) {
@@ -160,7 +195,7 @@ public:
         }
     }
 
-    void update(BaseBookmark bm) {
+    void update(Bookmark bm) {
         bm.name = eName.getText();
     }
 }

@@ -506,6 +506,7 @@ private:
         initProfileManager();
         static if (BOOKMARKS) {
             initBookmarkManager();
+            bmMgr.load();
         }
         applyPreferences();
         installAppMenu();
@@ -513,6 +514,9 @@ private:
 
     void onAppShutdown(GApplication) {
         trace("Quit App Signal");
+        static if (BOOKMARKS) {
+            bmMgr.save();
+        }
         terminix = null;
     }
 

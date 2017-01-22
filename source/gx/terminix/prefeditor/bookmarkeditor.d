@@ -47,13 +47,11 @@ private:
         Box bButtons = new Box(Orientation.VERTICAL, 6);
 
         Button btnAdd = new Button(_("Add"));
-        btnAdd.addOnClicked(delegate(Button) {
-            addBookmark();
-        });
-
+        btnAdd.addOnClicked(&addBookmark);
         bButtons.add(btnAdd);
 
         Button btnEdit = new Button(_("Edit"));
+        btnEdit.addOnClicked(&editBookmark);
         bButtons.add(btnEdit);
 
         Button btnDelete = new Button(_("Delete"));
@@ -74,11 +72,34 @@ private:
         }
     }
 
-    void addBookmark() {
+    void addBookmark(Button button) {
+        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), null);
+        scope(exit) {
+            be.destroy();
+        }
+        be.showAll();
+        if (be.run() == ResponseType.OK) {
+            Bookmark bm = be.create();
+            TreeIter selected = tv.getSelectedIter();
+            FolderBookmark fbm = bmMgr.root();
+            if (selected !is null) {
+                FolderBookmark sfbm = cast(FolderBookmark) selected.userData();
+                if (sfbm is null && selected.getParent() !is null) {
+                    sfbm = cast(FolderBookmark) selected.getParent().userData();
+                }
+                if (sfbm !is null) {
+                    fbm = sfbm;
+                }
+            }
+            fbm.add(bm);
+        }
+    }
+
+    void editBookmark(Button button) {
         TreeIter selected = tv.getSelectedIter();
-        BaseBookmark bm = null;
+        Bookmark bm = null;
         if (selected !is null) {
-            bm = cast(BaseBookmark)selected.userData();
+            bm = cast(Bookmark)selected.userData();
         }
         BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), bm);
         scope(exit) {

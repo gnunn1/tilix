@@ -783,7 +783,7 @@ private:
         vte.addOnFocusIn(&onTerminalWidgetFocusIn);
         vte.addOnFocusOut(&onTerminalWidgetFocusOut);
         vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
-            if (terminalInitialized && !terminal.hasFocus()) {
+            if (terminalInitialized && !terminal.hasFocus() && gpid > 0) {
                 notifyProcessNotification(summary, _body, uuid);
             }
         });
@@ -1907,7 +1907,7 @@ private:
     }
 
     void getHostnameAndDirectory(out string hostname, out string directory) {
-        if (gpid == 0)
+        if (gpid <= 0)
             return;
         string cwd = vte.getCurrentDirectoryUri();
         if (cwd.length == 0) {
