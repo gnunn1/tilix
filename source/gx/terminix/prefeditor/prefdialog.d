@@ -719,6 +719,7 @@ private:
             TreeIterRange shortcutRange = TreeIterRange(tsShortcuts, categoryIter);
             foreach(TreeIter iter; shortcutRange) {
                 string currentActionName = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+                if (currentActionName.startsWith("nautilus")) continue;
                 if (currentActionName.length > 0 && currentActionName != actionName) {
                     if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT) == accelLabel) {
                         MessageDialog dlg = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
