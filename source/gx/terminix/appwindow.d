@@ -1122,10 +1122,12 @@ private:
     }
 
     void getQuakePosition(out GdkRectangle rect) {
+        bool wayland = isWayland(this);
+        trace("Wayland detected");
         Screen screen = getScreen();
 
         int monitor = screen.getPrimaryMonitor();
-        if (!isWayland(this)) {
+        if (!wayland) {
             if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
                 int x, y = 0;
                 GdkModifierType mask;
@@ -1147,9 +1149,17 @@ private:
         getScreen().getMonitorWorkarea(monitor, rect);
         tracef("Monitor geometry: monitor=%d, x=%d, y=%d, width=%d, height=%d", monitor, rect.x, rect.y, rect.width, rect.height);
 
+        // Wayland works with screen factor natively whereas X11 does not
+        int scaleFactor = screen.getMonitorScaleFactor(monitor);
+        if (wayland && scaleFactor > 1) {
+            rect.width = rect.width / scaleFactor;
+            rect.height = rect.height / scaleFactor;
+            tracef("Scaled monitor geometry: monitor=%d, scaleFactor=%d, x=%d, y=%d, width=%d, height=%d", monitor, scaleFactor, rect.x, rect.y, rect.width, rect.height);
+        }
+
         double widthPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_WIDTH_PERCENT_KEY))/100.0;
         double heightPercent = to!double(gsSettings.getInt(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY))/100.0;
-        if (isWayland(this)) {
+        if (wayland) {
             widthPercent = 1;
         }
 
