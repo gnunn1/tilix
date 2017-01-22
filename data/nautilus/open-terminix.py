@@ -30,13 +30,27 @@ def open_terminl_in_file(filename):
 
 
 class OpenTerminixShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvider):
+
     def __init__(self):
         self.accel_group = Gtk.AccelGroup()
         if IS_INSTALLED:
-            self.accel_group.connect(ord('z'), Gdk.ModifierType.CONTROL_MASK,
-                Gtk.AccelFlags.VISIBLE, self._open_terminal)
+            self.gsettings = Gio.Settings.new(
+                "com.gexperts.Terminix.Keybindings")
+            self.gsettings.connect("changed", self.bind_shortcut)
+            self._create_accel_group()
         self.window = None
         self.uri = None
+
+    def _create_accel_group(self):
+        shortcut = self.gsettings.get_string("nautilus-open")
+        key, mod = Gtk.accelerator_parse(shortcut)
+        self.accel_group.connect(
+            key, mod, Gtk.AccelFlags.VISIBLE, self._open_terminal)
+
+    def bind_shortcut(self, gsettings, key):
+        if key == "nautilus-open":
+            self.accel_group.disconnect(self._open_terminal)
+            self._create_accel_group()
 
     def _open_terminal(self, *args):
         filename = unquote(self.uri[7:])
@@ -50,13 +64,15 @@ class OpenTerminixShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvi
         self.window = window
         return None
 
+
 class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
 
     def _open_terminal(self, file):
         if file.get_uri_scheme() in ['ftp', 'sftp']:
             result = urlparse(file.get_uri())
             if result.username:
-                value = 'ssh -t {0}@{1}'.format(result.username, result.hostname)
+                value = 'ssh -t {0}@{1}'.format(result.username,
+                                                result.hostname)
             else:
                 value = 'ssh -t {0}'.format(result.hostname)
             if result.port:
