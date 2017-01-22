@@ -507,5 +507,25 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="visible">1</property>
+        <property name="section-name">nautilus</property>
+        <property name="title" translatable="yes" context="shortcut window">Nautilus</property>
+        <property name="max-height">12</property>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Open</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="nautilus-open">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Open in Terminix</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>
