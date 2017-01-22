@@ -709,6 +709,9 @@ private:
      * Check if shortcut is already assigned and if so disable it
      */
     bool checkAndPromptChangeShortcut(string actionName, string accelName, string accelLabel) {
+        // Do not check if accel is already used for nautilus shortcuts
+        if (actionName.startsWith("nautilus")) return true;
+
         //Get first level, shortcut categories (i.e. Application, Window, Session or Terminal)
         TreeIterRange categoryRange = TreeIterRange(tsShortcuts);
         foreach(TreeIter categoryIter; categoryRange) {
@@ -787,6 +790,7 @@ private:
             prefixes["app"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Application");
             prefixes["terminal"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Terminal");
             prefixes["session"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Session");
+            prefixes["nautilus"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Nautilus");
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
