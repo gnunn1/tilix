@@ -1110,6 +1110,7 @@ private:
     }
 
     void moveAndSizeQuake() {
+        if (getWindow() is null) return;
         GdkRectangle rect;
         getQuakePosition(rect);
         trace("Actually move/resize quake window");
@@ -1123,7 +1124,6 @@ private:
 
     void getQuakePosition(out GdkRectangle rect) {
         bool wayland = isWayland(this);
-        trace("Wayland detected");
         Screen screen = getScreen();
 
         int monitor = screen.getPrimaryMonitor();

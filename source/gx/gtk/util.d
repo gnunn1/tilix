@@ -22,6 +22,8 @@ import glib.GException;
 import glib.ListG;
 
 import gobject.ObjectG;
+import gobject.Type;
+import gobject.TypeInstance;
 import gobject.Value;
 
 import gtk.Bin;
@@ -63,12 +65,18 @@ void activateWindow(Window window) {
  * it just uses a simple environment variable check to detect it.
  */
 bool isWayland(Window window) {
-    try {
-        environment["WAYLAND_DISPLAY"];
-        return true;
-    } catch (Exception e) {
+    if (window.getWindow() is null) {
+        error("GDKWindow is null, could not detect Wayland");
         return false;
     }
+
+    import gtkc.gdk: gdk_x11_window_get_type;
+    import gtkc.gobject: g_type_check_instance_is_a;
+
+    GType x11Type = gdk_x11_window_get_type();
+    GTypeInstance* instance = cast(GTypeInstance*)(window.getWindow().getObjectGStruct());
+
+    return g_type_check_instance_is_a(instance, x11Type) == 0;
 }
 
 /**
