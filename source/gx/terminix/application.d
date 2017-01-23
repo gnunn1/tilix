@@ -339,18 +339,15 @@ private:
         Pixbuf image;
         try {
             if (exists(filename)) {
-                image = new Pixbuf(filename);
-                if (image.getWidth() > MAX_BG_WIDTH || image.getHeight() > MAX_BG_HEIGHT) {
+                int width, height;
+                Pixbuf.getFileInfo(filename, width, height);
+                if (width > MAX_BG_WIDTH || height > MAX_BG_HEIGHT) {
                     trace("Background image is too large, scaling");
-                    double xScale = to!double(MAX_BG_WIDTH) / to!double(image.getWidth());
-                    double yScale = to!double(MAX_BG_HEIGHT) / to!double(image.getHeight());
-                    double ratio = min(xScale, yScale);
-                    double width = image.getWidth() * ratio;
-                    double height = image.getHeight() * ratio;
-                    isFullBGImage = renderImage(image, to!int(width), to!int(height), ImageLayoutMode.STRETCH, true);
+                    image = new Pixbuf(filename, MAX_BG_WIDTH, MAX_BG_HEIGHT, true);
                 } else {
-                    isFullBGImage = renderImage(image, true);
+                    image = new Pixbuf(filename);
                 }
+                isFullBGImage = renderImage(image, true);
                 image.destroy();
             }
         } catch (GException ge) {
