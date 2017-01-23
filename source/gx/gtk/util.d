@@ -65,7 +65,7 @@ void activateWindow(Window window) {
  * it just uses a simple environment variable check to detect it.
  */
 bool isWayland(Window window) {
-    if (window.getWindow() is null) {
+    if (window is null || window.getWindow() is null) {
         error("GDKWindow is null, could not detect Wayland");
         return false;
     }

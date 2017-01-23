@@ -106,6 +106,8 @@ private:
         GlobalBookmarkEditor bmEditor;
     }
 
+    bool _wayland;
+
     // Track how many non-profile rows there are to prevent the last profile from being deleted
     immutable int NON_PROFILE_ROW_COUNT = 6;
 
@@ -135,7 +137,7 @@ private:
         pages.addTitled(ap, N_("Appearance"), _("Appearance"));
         lbSide.add(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
 
-        QuakePreferences qp = new QuakePreferences(gsSettings);
+        QuakePreferences qp = new QuakePreferences(gsSettings, _wayland);
         pages.addTitled(qp, N_("Quake"), _("Quake"));
         lbSide.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
 
@@ -360,6 +362,7 @@ public:
         setDestroyWithParent(true);
         setShowMenubar(false);
         gsSettings = new GSettings(SETTINGS_ID);
+        _wayland = isWayland(window);
         createUI();
         updateUI();
         this.addOnDestroy(delegate(Widget) {
@@ -1009,7 +1012,7 @@ class QuakePreferences : Box {
 private:
     BindingHelper bh;
 
-    void createUI() {
+    void createUI(bool wayland) {
         setMarginTop(18);
         setMarginBottom(18);
         setMarginLeft(18);
@@ -1035,7 +1038,7 @@ private:
         grid.attach(sHeight, 1, row, 1, 1);
         row++;
 
-        if (!isWayland(cast(Window) this.getToplevel())) {
+        if (!wayland) {
             // Terminal Width
             grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
             Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
@@ -1092,7 +1095,7 @@ private:
         */
 
         // Wayland doesn't let you put a window on a specific monitor so don't show this
-        if (!isWayland(cast(Window) this.getToplevel())) {
+        if (!wayland) {
 
             //Active Monitor
             CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));
@@ -1118,10 +1121,10 @@ private:
 
 public:
 
-    this(GSettings gsSettings) {
+    this(GSettings gsSettings, bool wayland) {
         super(Orientation.VERTICAL, 6);
         bh = new BindingHelper(gsSettings);
-        createUI();
+        createUI(wayland);
         addOnDestroy(delegate(Widget) {
             bh.unbind();
             bh = null;
