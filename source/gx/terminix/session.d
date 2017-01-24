@@ -4,6 +4,8 @@
  */
 module gx.terminix.session;
 
+import core.stdc.locale;
+
 import std.algorithm;
 import std.conv;
 import std.experimental.logger;
@@ -1086,6 +1088,8 @@ public:
             paned.updateRatio();
         }
 
+        // Make sure that generated JSON won't be locale-specific
+        setlocale(LC_ALL, "C");
         JSONValue root = ["version" : "1.0"];
         root.object[NODE_NAME] = _name;
         root.object[NODE_SYNCHRONIZED_INPUT] = _synchronizeInput;
@@ -1094,6 +1098,8 @@ public:
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
         root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren!(Widget)(groupChild, false)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
+        // Revert locale setting
+        setlocale(LC_ALL, null);
         return root;
     }
 
