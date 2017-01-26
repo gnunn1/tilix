@@ -363,10 +363,11 @@ private:
         btnAddVertical.setFocusOnClick(false);
 
         // Add find button
-        Button btnFind = new Button("edit-find-symbolic", IconSize.MENU);
+        ToggleButton btnFind = new ToggleButton();
+        btnFind.setImage(new Image("edit-find-symbolic", IconSize.MENU));
         btnFind.setTooltipText(_("Find text in terminal"));
         btnFind.setFocusOnClick(false);
-        btnFind.addOnClicked(delegate(Button) {
+        btnFind.addOnToggled(delegate(ToggleButton) {
             if (getCurrentSession() !is null) {
                 getCurrentSession().toggleTerminalFind();
             }
