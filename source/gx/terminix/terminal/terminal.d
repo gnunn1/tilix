@@ -2938,6 +2938,10 @@ public:
         }
     }
 
+    bool isFindToggled() {
+        return rFind.getRevealChild();
+    }
+
     JSONValue serialize(JSONValue value) {
         if (_overrideTitle.length > 0) {
             value[NODE_TITLE] = JSONValue(_overrideTitle);
