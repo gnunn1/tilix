@@ -17,6 +17,16 @@ if [ ! -f terminix ]; then
     exit 1
 fi
 
+# Check availability of required commands
+COMMANDS=("install" "glib-compile-schemas" "glib-compile-resources" "msgfmt" "desktop-file-validate" "xdg-desktop-menu" "gtk-update-icon-cache")
+PACKAGES=("coreutils" "glib2" "glib2" "gettext" "desktop-file-utils" "xdg-utils" "gtk-update-icon-cache")
+for i in `seq 0 ${#COMMANDS[*]}`; do
+    type ${COMMANDS[$i]} >/dev/null 2>&1 || {
+        echo "Your system is missing command ${COMMANDS[$i]}, please install ${PACKAGES[$i]}"
+        exit 1
+    }
+done
+
 echo "Installing to prefix ${PREFIX}"
 
 # Copy and compile schema
