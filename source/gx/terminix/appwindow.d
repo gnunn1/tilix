@@ -49,6 +49,7 @@ import glib.Util;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.Signals;
 import gobject.Value;
 
 import gtk.Box;
@@ -101,6 +102,7 @@ import gx.terminix.preferences;
 import gx.terminix.session;
 import gx.terminix.sessionswitcher;
 import gx.terminix.sidebar;
+import gx.terminix.terminal.terminal : GxTerminal = Terminal;
 
 /**
  * The GTK Application Window for Terminix. It is responsible for
@@ -144,6 +146,7 @@ private:
     SideBar sb;
     SessionSwitcher ss;
     ToggleButton tbSideBar;
+    ToggleButton tbFind;
     CustomTitle cTitle;
 
     SimpleActionGroup sessionActions;
@@ -179,6 +182,9 @@ private:
 
     // Tells the window when closing not to prompt the user, just close
     bool _noPrompt = false;
+
+    // Handler of the Find button "toggled" signal
+    gulong _tbFindToggledId;
 
     /**
      * Forces the app menu in the decoration layouts so in environments without an app-menu
@@ -363,11 +369,11 @@ private:
         btnAddVertical.setFocusOnClick(false);
 
         // Add find button
-        ToggleButton btnFind = new ToggleButton();
-        btnFind.setImage(new Image("edit-find-symbolic", IconSize.MENU));
-        btnFind.setTooltipText(_("Find text in terminal"));
-        btnFind.setFocusOnClick(false);
-        btnFind.addOnToggled(delegate(ToggleButton) {
+        tbFind = new ToggleButton();
+        tbFind.setImage(new Image("edit-find-symbolic", IconSize.MENU));
+        tbFind.setTooltipText(_("Find text in terminal"));
+        tbFind.setFocusOnClick(false);
+        _tbFindToggledId = tbFind.addOnToggled(delegate(ToggleButton) {
             if (getCurrentSession() !is null) {
                 getCurrentSession().toggleTerminalFind();
             }
@@ -382,7 +388,7 @@ private:
         header.packStart(btnAddHorizontal);
         header.packStart(btnAddVertical);
         header.packEnd(mbSessionActions);
-        header.packEnd(btnFind);
+        header.packEnd(tbFind);
         return header;
     }
 
@@ -832,6 +838,12 @@ private:
         if (getCurrentSession() == session) {
             updateUIState();
             updateTitle();
+            if (stateChange == SessionStateChange.TERMINAL_FOCUSED) {
+                Signals.handlerBlock(tbFind, _tbFindToggledId);
+                GxTerminal terminal = cast(GxTerminal)getActiveTerminal();
+                tbFind.setActive(terminal.isFindToggled());
+                Signals.handlerUnblock(tbFind, _tbFindToggledId);
+            }
         }
     }
 
