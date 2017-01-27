@@ -743,7 +743,7 @@ private:
             if (session !is null) {
                 ProcessInformation pi = session.getProcessInformation();
                 if (pi.children.length > 0) {
-                    bool canClose = promptCanCloseProcesses(this, pi);
+                    bool canClose = promptCanCloseProcesses(gsSettings, this, pi);
                     if (!canClose) {
                         result.addResult(false);
                         return;
@@ -984,7 +984,7 @@ private:
         if (_noPrompt) return false;
         ProcessInformation pi = getProcessInformation();
         if (pi.children.length > 0) {
-            return !promptCanCloseProcesses(this, pi);
+            return !promptCanCloseProcesses(gsSettings, this, pi);
         } else if (nb.getNPages() > 1) {
             return !showCanCloseMultipleSessions();
         }

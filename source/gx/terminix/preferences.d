@@ -94,6 +94,7 @@ enum SETTINGS_SIDEBAR_RIGHT = "sidebar-on-right";
 enum SETTINGS_RECENT_SESSION_FILES_KEY = "recent-session-files";
 
 enum SETTINGS_PROMPT_ON_CLOSE_KEY = "prompt-on-close";
+enum SETTINGS_PROMPT_ON_CLOSE_PROCESS_KEY = "prompt-on-close-process";
 
 //Quake Settings
 enum SETTINGS_QUAKE_WIDTH_PERCENT_KEY = "quake-width-percent";

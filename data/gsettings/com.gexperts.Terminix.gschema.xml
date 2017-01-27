@@ -158,8 +158,13 @@
     </key>
     <key name="prompt-on-close" type="b">
       <default>true</default>
-      <summary>Whether to prompt on when close when multiple sessions are active</summary>
-      <description>If true, when a prompt is shown confirming closing the window when multiple sessions are active.</description>
+      <summary>Whether to prompt on close when multiple sessions are active</summary>
+      <description>If true, a prompt is shown confirming closing the window when multiple sessions are active.</description>
+    </key>
+    <key name="prompt-on-close-process" type="b">
+      <default>true</default>
+      <summary>Whether to prompt on close when processes are still running</summary>
+      <description>If true, a prompt is shown confirming closing the window when processes are running.</description>
     </key>
     <key name="session-name" type="s">
       <default>'Default'</default>

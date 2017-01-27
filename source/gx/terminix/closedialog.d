@@ -12,9 +12,12 @@ import gdkpixbuf.Pixbuf;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.Settings: GSettings = Settings;
+
 import gtk.Box;
 import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
+import gtk.CheckButton;
 import gtk.Dialog;
 import gtk.IconInfo;
 import gtk.IconTheme;
@@ -30,17 +33,27 @@ import gx.i18n.l10n;
 import gx.gtk.util;
 
 import gx.terminix.common;
+import gx.terminix.preferences;
 
 public:
 
 /**
  * Prompts the user to confirm that processes can be closed
  */
-bool promptCanCloseProcesses(Window window, ProcessInformation pi) {
+bool promptCanCloseProcesses(GSettings gsSettings, Window window, ProcessInformation pi) {
+    if (!gsSettings.getBoolean(SETTINGS_PROMPT_ON_CLOSE_PROCESS_KEY)) return true;
+
     CloseDialog dialog = new CloseDialog(window, pi);
     scope(exit) { dialog.destroy();}
     dialog.showAll();
-    bool cancelClose = (dialog.run() != ResponseType.OK);
+    int result =  dialog.run();
+    if (result == ResponseType.OK && dialog.futureIgnore) {
+        gsSettings.setBoolean(SETTINGS_PROMPT_ON_CLOSE_PROCESS_KEY, false);
+    }
+
+    // Weird looking code, exists because of the way hotkeys get interpreted into results, it's
+    // easier to check if the result is not OK
+    bool cancelClose = (result != ResponseType.OK);
     return !cancelClose;
 }
 
@@ -56,6 +69,7 @@ private:
 
     TreeStore ts;
     TreeView tv;
+    CheckButton cbIgnore;
 
     Pixbuf pbTerminal;
 
@@ -115,6 +129,9 @@ private:
 
         box.add(sw);
         tv.expandAll();
+
+        cbIgnore = new CheckButton(_("Do not show this again"));
+        box.add(cbIgnore);
 
         getContentArea().add(box);
     }
@@ -178,6 +195,10 @@ public:
         super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         setDefaultResponse(GtkResponseType.OK);
         createUI();
+    }
+
+    @property bool futureIgnore() {
+        return cbIgnore.getActive();
     }
 
 }

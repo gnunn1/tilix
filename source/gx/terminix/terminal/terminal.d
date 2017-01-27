@@ -564,7 +564,7 @@ private:
             string name;
             if (isProcessRunning(name)) {
                 ProcessInformation pi = ProcessInformation(ProcessInfoSource.TERMINAL, (name.length > 0? name: getDisplayText("")), uuid, []);
-                if (!promptCanCloseProcesses(cast(Window)getToplevel(), pi)) return;
+                if (!promptCanCloseProcesses(gsSettings, cast(Window)getToplevel(), pi)) return;
             }
             notifyTerminalClose();
         });

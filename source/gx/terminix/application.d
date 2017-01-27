@@ -307,7 +307,7 @@ private:
     void quitTerminix() {
         ProcessInformation pi = getProcessesInformation();
         if (pi.children.length > 0) {
-            if (!promptCanCloseProcesses(getActiveWindow(), pi)) return;
+            if (!promptCanCloseProcesses(gsGeneral, getActiveWindow(), pi)) return;
         }
 
         if (preferenceDialog !is null) {

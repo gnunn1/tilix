@@ -1098,7 +1098,6 @@ public:
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
         root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren!(Widget)(groupChild, false)[0], sizeInfo);
         root[NODE_TYPE] = WidgetType.SESSION;
-        // Revert locale setting
         setlocale(LC_ALL, null);
         return root;
     }
