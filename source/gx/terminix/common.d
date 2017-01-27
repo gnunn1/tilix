@@ -264,6 +264,11 @@ interface ITerminal : IIdentifiable {
     void toggleFind();
 
     /**
+     * Whether the terminal find is toggled
+     */
+    bool isFindToggled();
+
+    /**
      * Focuses the terminal
      */
     void focusTerminal();

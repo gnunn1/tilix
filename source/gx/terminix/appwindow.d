@@ -102,7 +102,6 @@ import gx.terminix.preferences;
 import gx.terminix.session;
 import gx.terminix.sessionswitcher;
 import gx.terminix.sidebar;
-import gx.terminix.terminal.terminal : GxTerminal = Terminal;
 
 /**
  * The GTK Application Window for Terminix. It is responsible for
@@ -840,8 +839,7 @@ private:
             updateTitle();
             if (stateChange == SessionStateChange.TERMINAL_FOCUSED) {
                 Signals.handlerBlock(tbFind, _tbFindToggledId);
-                GxTerminal terminal = cast(GxTerminal)getActiveTerminal();
-                tbFind.setActive(terminal.isFindToggled());
+                tbFind.setActive(getActiveTerminal().isFindToggled());
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
             }
         }
