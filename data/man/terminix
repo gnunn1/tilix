@@ -9,7 +9,7 @@
 .SH DESCRIPTION
 \fBterminix\fP is an advanced GTK3 tiling terminal emulator designed to adhere to Gnome Human Interface Guidelines.
 .SH OPTIONS
-The \fBterminix\fP application accepts the following command parameters:
+The \fBterminix\fP application accepts the following command line parameters:
 .TP
 .B \-h \-\-help 
 Show help options.
@@ -60,7 +60,7 @@ Full-screen the terminal window.
 Focus the existing window.
 .TP
 .B \-\-new\-process
-Start an additional Terminix instance as a new process. By default and as per GTK+ 3 guidelines, Terminix maintains a single process that all windows belong too. This option forces Terminix to start as a separate process. This is not recommended and is intended for debugging purposes only, using this option will prevent different Terminix windows from communicating with each other. 
+Start an additional Terminix instance as a new process. By default and as per GTK+ 3 guidelines, Terminix maintains a single process that all windows belong to. This option forces Terminix to start as a separate process. This is not recommended and is intended for debugging purposes only, using this option will prevent different Terminix windows from communicating with each other. 
 .TP
 .B \-\-geometry=GEOMETRY
 Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y).
