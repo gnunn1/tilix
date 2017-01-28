@@ -12,18 +12,23 @@ import std.json;
 import std.path;
 import std.uuid;
 
+import gdk.Pixbuf;
+
 import glib.Util;
+
+import gtk.IconInfo;
+import gtk.IconTheme;
 
 import gx.i18n.l10n;
 
 import gx.terminix.constants;
 
 enum BookmarkType {
-    FOLDER = "Folder",
-    PATH = "Path",
-    SSH = "SSH",
-    FTP = "FTP",
-    COMMAND = "Command"}
+    FOLDER,
+    PATH,
+    SSH,
+    FTP,
+    COMMAND}
 
 interface Bookmark {
 
@@ -49,6 +54,11 @@ public:
         _uuid = randomUUID().toString();
     }
 
+    ~this() {
+        import std.stdio: writeln;
+        writeln("****** Bookmark destroyed");
+    }
+
     this(string name) {
         this();
         this._name = name;
@@ -66,13 +76,13 @@ public:
     }
 
     JSONValue serialize() {
-        JSONValue value = [NODE_BOOKMARK_TYPE : type()];
+        JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
         value[NODE_NAME] = name;
         return value;
     }
 
     void deserialize(JSONValue value) {
-        _name = value[NODE_NAME].toString();
+        _name = value[NODE_NAME].str();
     }
 }
 
@@ -86,6 +96,20 @@ private:
     enum NODE_LIST = "list";
 
     Bookmark[] list;
+
+package:
+
+    void add(Bookmark bm) {
+        list ~= bm;
+    }
+
+    void remove(Bookmark bm) {
+        size_t index = list.countUntil(bm);
+        if (index >= 0) {
+            list[index] = null;
+            list = std.algorithm.remove(list, index);
+        }
+    }
 
 public:
 
@@ -110,18 +134,6 @@ public:
         return result;
     }
 
-    void add(Bookmark bm) {
-        list ~= bm;
-    }
-
-    void remove(Bookmark bm) {
-        size_t index = list.countUntil(bm);
-        if (index >= 0) {
-            list[index] = null;
-            list = std.algorithm.remove(list, index);
-        }
-    }
-
     override JSONValue serialize() {
         JSONValue value = super.serialize();
         JSONValue[] jsonList = [];
@@ -137,10 +149,10 @@ public:
         JSONValue[] jsonList = value[NODE_LIST].array();
         foreach(item; jsonList) {
             try {
-                BookmarkType type = to!BookmarkType(item[NODE_BOOKMARK_TYPE].toString());
+                BookmarkType type = to!BookmarkType(item[NODE_BOOKMARK_TYPE].str());
                 Bookmark bm = bmMgr.createBookmark(type);
                 bm.deserialize(item);
-                add(bm);
+                bmMgr.add(this, bm);
             } catch (Exception e) {
                 error(_("Error deserializing bookmark"));
                 error(e);
@@ -187,7 +199,7 @@ public:
 
     override void deserialize(JSONValue value) {
         super.deserialize(value);
-        _path = value[NODE_PATH].toString();
+        _path = value[NODE_PATH].str();
     }
 }
 
@@ -197,7 +209,7 @@ private:
     enum BOOKMARK_FILE = "bookmarks.json";
 
     FolderBookmark _root;
-
+    Bookmark[string] bookmarks;
 
 public:
     this() {
@@ -219,6 +231,20 @@ public:
                 break;
         }
         return null;
+    }
+
+    void add(FolderBookmark fb, Bookmark bm) {
+        fb.add(bm);
+        bookmarks[bm.uuid] = bm;
+    }
+
+    void remove(FolderBookmark fb, Bookmark bm) {
+        fb.remove(bm);
+        bookmarks.remove(bm.uuid);
+    }
+
+    Bookmark get(string uuid) {
+        return bookmarks[uuid];
     }
 
     void save() {
@@ -249,6 +275,17 @@ public:
 
 void initBookmarkManager() {
     bmMgr = new BookmarkManager();
+}
+
+Pixbuf[] getBookmarkIcons() {
+    string[] names = ["folder-symbolic","folder-open-symbolic","folder-remote-symbolic", "folder-remote-symbolic", "application-x-executable-symbolic"];
+    Pixbuf[] icons;
+    IconTheme iconTheme = new IconTheme();
+    foreach(name; names) {
+        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, cast(IconLookupFlags) 0);
+        icons ~= iconInfo.loadIcon();
+    }
+    return icons;
 }
 
 /**

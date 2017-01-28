@@ -4,10 +4,18 @@
  */
 module gx.terminix.prefeditor.bookmarkeditor;
 
+import std.experimental.logger;
+
+import gdk.Pixbuf;
+
 import gtk.Box;
 import gtk.Button;
+import gtk.CellRendererPixbuf;
+import gtk.CellRendererText;
 import gtk.ScrolledWindow;
+import gtk.TreeViewColumn;
 import gtk.TreeIter;
+import gtk.TreePath;
 import gtk.TreeStore;
 import gtk.TreeView;
 import gtk.Window;
@@ -29,12 +37,27 @@ private:
     TreeView tv;
     TreeStore ts;
     ScrolledWindow sw;
+    Pixbuf[] icons;
 
     void createUI() {
-        ts = new TreeStore([GType.STRING]);
+        ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING]);
         loadBookmarks(null, bmMgr.root);
         tv = new TreeView(ts);
         tv.setActivateOnSingleClick(false);
+        tv.setHeadersVisible(false);
+
+        CellRendererPixbuf crp = new CellRendererPixbuf();
+        crp.setProperty("stock-size", 16);
+        TreeViewColumn column = new TreeViewColumn(_("Icon"), crp, "pixbuf", COLUMNS.ICON);
+        tv.appendColumn(column);
+
+        column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", COLUMNS.NAME);
+        column.setExpand(true);
+        tv.appendColumn(column);
+
+        column = new TreeViewColumn("UUID", new CellRendererText(), "text", COLUMNS.UUID);
+        column.setVisible(false);
+        tv.appendColumn(column);
 
         ScrolledWindow sw = new ScrolledWindow(tv);
         sw.setShadowType(ShadowType.ETCHED_IN);
@@ -61,10 +84,18 @@ private:
 
     }
 
+    TreeIter addBookmarktoParent(TreeIter parent, Bookmark bm) {
+        TreeIter result = ts.createIter(parent);
+        ts.setValue(result, COLUMNS.ICON, icons[cast(uint)bm.type()]);
+        ts.setValue(result, COLUMNS.NAME, bm.name);
+        ts.setValue(result, COLUMNS.UUID, bm.uuid);
+        return result;
+    }
+
     void loadBookmarks(TreeIter current, FolderBookmark parent) {
         foreach(bm; parent) {
-            TreeIter childIter = appendValues(ts, current, [bm.name]);
-            childIter.userData(cast(void*) bm);
+            tracef("Loading bookmark %s", bm.name);
+            TreeIter childIter = addBookmarktoParent(current, bm);
             FolderBookmark fm = cast(FolderBookmark)bm;
             if (fm !is null) {
                 loadBookmarks(childIter, fm);
@@ -83,15 +114,17 @@ private:
             TreeIter selected = tv.getSelectedIter();
             FolderBookmark fbm = bmMgr.root();
             if (selected !is null) {
-                FolderBookmark sfbm = cast(FolderBookmark) selected.userData();
-                if (sfbm is null && selected.getParent() !is null) {
-                    sfbm = cast(FolderBookmark) selected.getParent().userData();
-                }
+                FolderBookmark sfbm = cast(FolderBookmark) bmMgr.get(selected.getValueString(COLUMNS.UUID));
                 if (sfbm !is null) {
                     fbm = sfbm;
+                    tracef("FBM Name is %s", fbm.name);
+                } else {
+                    trace("sfbm is null");
                 }
             }
-            fbm.add(bm);
+            if (fbm is null) trace("FBM is null!");
+            bmMgr.add(fbm, bm);
+            TreeIter childIter = addBookmarktoParent(selected, bm);
         }
     }
 
@@ -99,7 +132,7 @@ private:
         TreeIter selected = tv.getSelectedIter();
         Bookmark bm = null;
         if (selected !is null) {
-            bm = cast(Bookmark)selected.userData();
+            bm = bmMgr.get(selected.getValueString(COLUMNS.UUID));
         }
         BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), bm);
         scope(exit) {
@@ -115,6 +148,14 @@ public:
     this() {
         super(Orientation.HORIZONTAL, 6);
         setAllMargins(this, 18);
+        icons = getBookmarkIcons();
         createUI();
     }
 }
+
+private:
+    enum COLUMNS : uint {
+        ICON = 0,
+        NAME = 1,
+        UUID = 2
+    }
