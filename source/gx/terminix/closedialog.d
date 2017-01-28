@@ -76,7 +76,7 @@ private:
     void createUI() {
         // Create icons
         IconTheme iconTheme = new IconTheme();
-        IconInfo iconInfo = iconTheme.lookupIcon("utilities-terminal", IconSize.BUTTON, cast(IconLookupFlags) 0);
+        IconInfo iconInfo = iconTheme.lookupIcon("utilities-terminal", 16, cast(IconLookupFlags) 0);
         pbTerminal = iconInfo.loadIcon();
         tracef("Pixbuf width,height = %d,%d", pbTerminal.getWidth(), pbTerminal.getHeight());
 
@@ -115,7 +115,7 @@ private:
         tv.appendColumn(column);
 
         CellRendererPixbuf crp = new CellRendererPixbuf();
-        crp.setProperty("stock-size", IconSize.BUTTON);
+        crp.setProperty("stock-size", 16);
         column = new TreeViewColumn(_("Icon"), crp, "pixbuf", COLUMNS.ICON);
         column.setExpand(true);
         tv.appendColumn(column);
