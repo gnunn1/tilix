@@ -123,9 +123,7 @@ BaseEditor createTypeEditor(BookmarkType bt, Bookmark bm = null) {
             return new PathEditor(bm);
         case BookmarkType.COMMAND:
             return null;
-        case BookmarkType.SSH:
-            return null;
-        case BookmarkType.FTP:
+        case BookmarkType.REMOTE:
             return null;
     }
 }

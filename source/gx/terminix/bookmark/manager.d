@@ -26,8 +26,7 @@ import gx.terminix.constants;
 enum BookmarkType {
     FOLDER,
     PATH,
-    SSH,
-    FTP,
+    REMOTE,
     COMMAND}
 
 interface Bookmark {
@@ -198,7 +197,140 @@ public:
     }
 }
 
+/**
+ * The type of protocol a remote bookmark uses
+ */
+enum ProtocolType {SSH, FTP, FTPS, SFTP, TELNET}
 
+/**
+ * represents a bookmark to a remote system
+ */
+class RemoteBookmark: AbstractBookmark {
+private:
+    ProtocolType _protocolType;
+    string _host;
+    uint _port;
+    string _user;
+    string _params;
+
+    enum NODE_HOST = "host";
+    enum NODE_PORT = "port";
+    enum NODE_USER = "user";
+    enum NODE_PARAMS = "params";
+    enum NODE_PROTOCOL_TYPE = "protocolType";
+
+public:
+
+    this() {
+        super();
+    }
+
+    @property BookmarkType type() {
+        return BookmarkType.REMOTE;
+    }
+
+    @property string host() {
+        return _host;
+    }
+
+    @property void host(string value) {
+        _host = value;
+    }
+
+    @property uint port() {
+        return _port;
+    }
+
+    @property void port(uint value) {
+        _port = value;
+    }
+
+    @property string user() {
+        return _user;
+    }
+
+    @property void user(string value) {
+        _user = value;
+    }
+
+    @property string params() {
+        return _params;
+    }
+
+    @property void params(string value) {
+        _params = value;
+    }
+
+    @property ProtocolType protocolType() {
+        return _protocolType;
+    }
+
+    @property void protocolType(ProtocolType value) {
+        _protocolType = value;
+    }
+
+    override JSONValue serialize() {
+        JSONValue value = super.serialize();
+        value[NODE_HOST] = _host;
+        value[NODE_PORT] = _port;
+        value[NODE_USER] = _user;
+        value[NODE_PARAMS] = _params;
+        value[NODE_PROTOCOL_TYPE] = to!string(protocolType);
+        return value;
+    }
+
+    override void deserialize(JSONValue value) {
+        super.deserialize(value);
+        _host = value[NODE_HOST].str;
+        _port = to!uint(value[NODE_PORT].integer);
+        _user = value[NODE_USER].str;
+        _params = value[NODE_PARAMS].str;
+        _protocolType = to!ProtocolType(value[NODE_PROTOCOL_TYPE].str);
+    }
+}
+
+/**
+ * Bookmark that represents an arbritary executable command.
+ */
+class CommandBookmark: AbstractBookmark {
+private:
+    string _command;
+
+    enum NODE_COMMAND = "command";
+
+public:
+    this() {
+        super();
+    }
+
+    @property BookmarkType type() {
+        return BookmarkType.COMMAND;
+    }
+
+    @property string command() {
+        return _command;
+    }
+
+    @property void command(string value) {
+        _command = value;
+    }
+
+    override JSONValue serialize() {
+        JSONValue value = super.serialize();
+        value[NODE_COMMAND] = _command;
+        return value;
+    }
+
+    override void deserialize(JSONValue value) {
+        super.deserialize(value);
+        _command = value[NODE_COMMAND].str;
+    }
+}
+
+/**
+ * Manages all the bookmarks for terminix, this is
+ * intended to run as a singleton.
+ */
 class BookmarkManager {
 private:
     enum BOOKMARK_FILE = "bookmarks.json";
@@ -218,14 +350,11 @@ public:
                 return new FolderBookmark();
             case BookmarkType.PATH:
                 return new PathBookmark();
-            case BookmarkType.SSH:
-                break;
-            case BookmarkType.FTP:
-                break;
+            case BookmarkType.REMOTE:
+                return new RemoteBookmark();
             case BookmarkType.COMMAND:
-                break;
+                return new CommandBookmark();
         }
-        return null;
     }
 
     void add(FolderBookmark fb, Bookmark bm) {
