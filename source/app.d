@@ -55,11 +55,16 @@ int main(string[] args) {
     // the switch as a command which GApplication options cannot handle
     // without a callback which D doesn't expose at this time.
     foreach(i, arg; args) {
-        if (arg == "-x" || arg == "--execute") {
+        if (arg == "-x" || arg == "-e") {
             string executeCommand = join(args[i+1 .. $], " ");
+            executeCommand = replace(executeCommand, "\"", "\\\"");
             trace("Execute Command: " ~ executeCommand);
             args = args[0..i];
-            args ~= "-e";
+            if (arg == "-x") {
+                args ~= "-e";
+            } else {
+                args ~= arg;
+            }
             args ~= executeCommand;
             break;
         }
