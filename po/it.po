@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-30 12:41-0500\n"
-"PO-Revision-Date: 2017-01-29 17:02+0000\n"
-"Last-Translator: Gabriele Lucci <gabrielelucci.0@gmail.com>\n"
+"PO-Revision-Date: 2017-01-29 17:49+0000\n"
+"Last-Translator: Al-Xio Luzif <pirulazio@gmail.com>\n"
 "Language-Team: Italian "
 "<https://hosted.weblate.org/projects/terminix/translations/it/>\n"
 "Language: it\n"
@@ -795,7 +795,7 @@ msgstr "Selezionare il colore di sfondo di evidenziazione"
 
 #: source/gx/terminix/profileeditor.d:590
 msgid "Dim"
-msgstr "Dim"
+msgstr "Offusca"
 
 #: source/gx/terminix/profileeditor.d:595
 msgid "Select Dim Color"
@@ -1016,7 +1016,7 @@ msgid ""
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
 "I profili sono selezionati automaticamente in base ai valori inseriti qui.\n"
-"I valori sono in formato <i>username@hostname:directory</ii>. Uno dei due "
+"I valori sono in formato <i>username@hostname:directory</i>. Uno dei due "
 "valori, hostname o directory, può essere omesso, ma i due punti devono "
 "essere sempre presenti. I valori senza hostname o directory non sono "
 "consentiti."
@@ -1466,9 +1466,8 @@ msgid "Maximize the terminal window"
 msgstr "Massimizzare la finestra del terminale"
 
 #: source/gx/terminix/application.d:620
-#, fuzzy
 msgid "Minimize the terminal window"
-msgstr "Massimizzare la finestra del terminale"
+msgstr "Minimizza la finestra del terminale"
 
 #: source/gx/terminix/application.d:621
 msgid "Full-screen the terminal window"
@@ -1480,29 +1479,33 @@ msgstr "Messa a fuoco finestra esistente"
 
 #: source/gx/terminix/application.d:623
 msgid "Start additional instance as new process (Not Recommended)"
-msgstr ""
+msgstr "Avvia un'ulteriore istanza come un nuovo processo (Non raccomandato)"
 
 #: source/gx/terminix/application.d:624
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
+"Imposta le dimensioni della finestra. Ad esempio: 80x24 o 80x24+200+200 "
+"(COLONNE+RIGHE+X+Y)"
 
 #: source/gx/terminix/application.d:624
 msgid "GEOMETRY"
-msgstr ""
+msgstr "GEOMETRIA"
 
 #: source/gx/terminix/application.d:625
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
+"Apre una finestra in modalità Quake (a scomparsa) o alterna la visibilità su "
+"una finestra già aperta in tale modalità"
 
 #: source/gx/terminix/application.d:626
 msgid "Show the Terminix and dependant component versions"
-msgstr ""
+msgstr "Mostra Terminix e le versioni dei componenti da cui dipende"
 
 #: source/gx/terminix/application.d:627
 msgid "Show the Terminix preferences dialog directly"
-msgstr ""
+msgstr "Mostra la finestra con le preferenze di Terminix"
 
 #: source/gx/terminix/application.d:630
 msgid "Hidden argument to pass terminal UUID"
@@ -1532,34 +1535,31 @@ msgstr "Non mostrare più questo messaggio"
 
 #: source/gx/terminix/appwindow.d:309
 msgid "View session sidebar"
-msgstr ""
+msgstr "Visualizza il riquadro laterale delle sessioni"
 
 #: source/gx/terminix/appwindow.d:334
 msgid "Create a new session"
-msgstr ""
+msgstr "Crea una nuova sessione"
 
 #: source/gx/terminix/appwindow.d:352
-#, fuzzy
 msgid "Add terminal right"
-msgstr "Titolo terminale"
+msgstr "Aggiungi un terminale a destra"
 
 #: source/gx/terminix/appwindow.d:356
-#, fuzzy
 msgid "Add terminal down"
-msgstr "Mantieni il terminale aperto"
+msgstr "Aggiungi un terminale in basso"
 
 #: source/gx/terminix/appwindow.d:361
-#, fuzzy
 msgid "Find text in terminal"
-msgstr "Chiude il terminale"
+msgstr "Cerca nel terminale"
 
 #: source/gx/terminix/appwindow.d:574
 msgid "Change Session Name"
-msgstr ""
+msgstr "Cambia il nome della sessione"
 
 #: source/gx/terminix/appwindow.d:574
 msgid "Enter a new name for the session"
-msgstr ""
+msgstr "Inserisci un nuovo nome per la sessione"
 
 #: source/gx/terminix/appwindow.d:629
 msgid "Open…"
@@ -1567,11 +1567,11 @@ msgstr "Apri…"
 
 #: source/gx/terminix/appwindow.d:631
 msgid "Save As…"
-msgstr ""
+msgstr "Salva come…"
 
 #: source/gx/terminix/appwindow.d:636
 msgid "Name…"
-msgstr ""
+msgstr "Nome…"
 
 #: source/gx/terminix/appwindow.d:637
 msgid "Synchronize Input"
@@ -1579,41 +1579,40 @@ msgstr "Sincronizza input"
 
 #: source/gx/terminix/appwindow.d:648
 msgid "GC"
-msgstr ""
+msgstr "GC"
 
 #: source/gx/terminix/appwindow.d:959
 msgid "There are multiple sessions open, close anyway?"
-msgstr ""
+msgstr "Ci sono multiple sessioni aperte. Le chiudo comunque?"
 
 #: source/gx/terminix/appwindow.d:960
-#, fuzzy
 msgid "Do not show this again"
 msgstr "Non mostrare più questo messaggio"
 
 #: source/gx/terminix/appwindow.d:1212
 #, c-format
 msgid "Filename '%s' does not exist"
-msgstr "Il File '%s' non esiste."
+msgstr "Il File '%s' non esiste"
 
 #: source/gx/terminix/appwindow.d:1242
 msgid "Load Session"
-msgstr ""
+msgstr "Carica la sessione"
 
 #: source/gx/terminix/appwindow.d:1245
 msgid "Open"
-msgstr ""
+msgstr "Apri"
 
 #: source/gx/terminix/appwindow.d:1260
 msgid "Could not load session due to unexpected error."
-msgstr ""
+msgstr "Impossibile caricare la sessione a causa di un errore imprevisto."
 
 #: source/gx/terminix/appwindow.d:1260
 msgid "Error Loading Session"
-msgstr ""
+msgstr "Errore nel caricamento della sessione"
 
 #: source/gx/terminix/appwindow.d:1276
 msgid "Save Session"
-msgstr ""
+msgstr "Salva la sessione"
 
 #: source/gx/terminix/colorschemes.d:182
 #, c-format
@@ -1627,42 +1626,45 @@ msgstr "La tavolozza combinazione di colori richiede 16 colori"
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
-msgstr ""
+msgstr "Ignoro '%s'. Non è una directory"
 
 #: source/gx/terminix/cmdparams.d:142
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
+msgstr "Il parametro '%s' non è un valore valido e non può essere analizzato"
 
 #: source/gx/terminix/cmdparams.d:168
 #, c-format
 msgid "Ignoring parameter session as '%s' does not exist"
-msgstr ""
+msgstr "Ignoro il parametro sessione. '%s' non esiste"
 
 #: source/gx/terminix/cmdparams.d:178
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
+"Non è possibile caricare una sessione ed impostare un profilo/una directory "
+"di lavoro/un'esecuzione di comando come opzione. Scegli uno o gli altri"
 
 #: source/gx/terminix/cmdparams.d:185
 msgid "You can only use the action parameter within Terminix"
-msgstr ""
+msgstr "È possibile usare il parametro azione solo all'interno di Terminix"
 
 #: source/gx/terminix/cmdparams.d:207
 msgid ""
 "You cannot use the quake mode with maximize, minimize, fullscreen or "
 "geometry parameters"
 msgstr ""
+"Non puoi usare la modalità Quake con le opzioni maximize, minimize, "
+"fullscreen e geometry"
 
 #: source/gx/terminix/preferences.d:208
 msgid "UpdateState"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:209
-#, fuzzy
 msgid "ExecuteCommand"
-msgstr "Comando"
+msgstr ""
 
 #: source/gx/terminix/preferences.d:210
 msgid "SendNotification"
@@ -1677,9 +1679,8 @@ msgid "PlayBell"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:213
-#, fuzzy
 msgid "SendText"
-msgstr "Testo"
+msgstr ""
 
 #: source/gx/terminix/preferences.d:214
 msgid "InsertPassword"
@@ -1692,148 +1693,146 @@ msgstr ""
 #: source/gx/terminix/preferences.d:322
 #, c-format
 msgid "%s (Copy)"
-msgstr ""
+msgstr "%s (Copia)"
 
 #: data/nautilus/open-terminix.py:65
 msgid "Open Remote Terminix"
-msgstr ""
+msgstr "Apri Terminix in remoto"
 
 #: data/nautilus/open-terminix.py:66
 #, python-format
 msgid "Open Remote Terminix In %s"
-msgstr ""
+msgstr "Apri Terminix in remoto in %s"
 
 #: data/nautilus/open-terminix.py:76
-#, fuzzy
 msgid "Open In Terminix"
-msgstr "Terminix"
+msgstr "Apri in Terminix"
 
 #: data/nautilus/open-terminix.py:77
 #, python-format
 msgid "Open Terminix In %s"
-msgstr ""
+msgstr "Apri Terminix in %s"
 
 #: data/nautilus/open-terminix.py:87
 msgid "Open Remote Terminix Here"
-msgstr ""
+msgstr "Apri Terminix in remoto qui"
 
 #: data/nautilus/open-terminix.py:88
 msgid "Open Remote Terminix In This Directory"
-msgstr ""
+msgstr "Apri Terminix in remoto in questa directory"
 
 #: data/nautilus/open-terminix.py:93
-#, fuzzy
 msgid "Open Terminix Here"
-msgstr "preferenze"
+msgstr "Apri Terminix qui"
 
 #: data/nautilus/open-terminix.py:94
 msgid "Open Terminix In This Directory"
-msgstr ""
+msgstr "Apri Terminix in questa directory"
 
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
 msgid "Application"
-msgstr ""
+msgstr "Applicazione"
 
 #: data/resources/ui/shortcuts.ui:19
 msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr ""
+msgstr "Apri una nuova finestra"
 
 #: data/resources/ui/shortcuts.ui:25
 msgctxt "shortcut window"
 msgid "Open a new session"
-msgstr ""
+msgstr "Apri una nuova sessione"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "Open preferences"
-msgstr ""
+msgstr "Apri le preferenze"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "View configured shortcuts"
-msgstr ""
+msgstr "Visualizza le scorciatoie configurate"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Window"
-msgstr ""
+msgstr "Finestra"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Toggle fullscreen mode"
-msgstr ""
+msgstr "Alterna la modalità a schermo intero"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "View session sidebar"
-msgstr ""
+msgstr "Visualizza il riquadro laterale delle sessioni"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "View session switcher"
-msgstr ""
+msgstr "Visualizza la tendina di cambio sessione"
 
 #: data/resources/ui/shortcuts.ui:67
 msgctxt "shortcut window"
 msgid "Switch to next session"
-msgstr ""
+msgstr "Passa alla sessione successiva"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Switch to previous session"
-msgstr ""
+msgstr "Passa alla sessione precedente"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Switch to session 1"
-msgstr ""
+msgstr "Passa alla sessione 1"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Switch to session 2"
-msgstr ""
+msgstr "Passa alla sessione 2"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Switch to session 3"
-msgstr ""
+msgstr "Passa alla sessione 3"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Switch to session 4"
-msgstr ""
+msgstr "Passa alla sessione 4"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Switch to session 5"
-msgstr ""
+msgstr "Passa alla sessione 5"
 
 #: data/resources/ui/shortcuts.ui:109
 msgctxt "shortcut window"
 msgid "Switch to session 6"
-msgstr ""
+msgstr "Passa alla sessione 6"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Switch to session 7"
-msgstr ""
+msgstr "Passa alla sessione 7"
 
 #: data/resources/ui/shortcuts.ui:121
 msgctxt "shortcut window"
 msgid "Switch to session 8"
-msgstr ""
+msgstr "Passa alla sessione 8"
 
 #: data/resources/ui/shortcuts.ui:127
 msgctxt "shortcut window"
 msgid "Switch to session 9"
-msgstr ""
+msgstr "Passa alla sessione 9"
 
 #: data/resources/ui/shortcuts.ui:133
 msgctxt "shortcut window"
 msgid "Switch to session 10"
-msgstr ""
+msgstr "Passa alla sessione 10"
 
 #: data/resources/ui/shortcuts.ui:144
 msgctxt "shortcut window"
@@ -1843,201 +1842,197 @@ msgstr "sessione"
 #: data/resources/ui/shortcuts.ui:149
 msgctxt "shortcut window"
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: data/resources/ui/shortcuts.ui:153
 msgctxt "shortcut window"
 msgid "Close the current session"
-msgstr ""
+msgstr "Chiudi la sessione corrente"
 
 #: data/resources/ui/shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Save the current session"
-msgstr ""
+msgstr "Salva la sessione corrente"
 
 #: data/resources/ui/shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Save the current session with new filename"
-msgstr ""
+msgstr "Salva la sessione corrente con un nuovo nome"
 
 #: data/resources/ui/shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Open a saved session"
-msgstr ""
+msgstr "Apri una sessione salvata"
 
 #: data/resources/ui/shortcuts.ui:179
 msgctxt "shortcut window"
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: data/resources/ui/shortcuts.ui:183
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Add terminal right"
-msgstr "Titolo terminale"
+msgstr "Aggiungi un terminale a destra"
 
 #: data/resources/ui/shortcuts.ui:189
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Add terminal down"
-msgstr "Mantieni il terminale aperto"
+msgstr "Aggiungi un terminale in basso"
 
 #: data/resources/ui/shortcuts.ui:197
 msgctxt "shortcut window"
 msgid "Resize"
-msgstr ""
+msgstr "Ridimensiona"
 
 #: data/resources/ui/shortcuts.ui:201
 msgctxt "shortcut window"
 msgid "Resize the terminal up"
-msgstr ""
+msgstr "Ridimensiona il terminale verso l'alto"
 
 #: data/resources/ui/shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "Resize the terminal down"
-msgstr ""
+msgstr "Ridimensiona il terminale verso il basso"
 
 #: data/resources/ui/shortcuts.ui:213
 msgctxt "shortcut window"
 msgid "Resize the terminal left"
-msgstr ""
+msgstr "Ridimensiona il terminale verso sinistra"
 
 #: data/resources/ui/shortcuts.ui:219
 msgctxt "shortcut window"
 msgid "Resize the terminal right"
-msgstr ""
+msgstr "Ridimensiona il terminale verso destra"
 
 #: data/resources/ui/shortcuts.ui:227 data/resources/ui/shortcuts.ui:439
 msgctxt "shortcut window"
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #: data/resources/ui/shortcuts.ui:231
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Edit the session name"
-msgstr "Chiude il terminale"
+msgstr "Modifica il nome della sessione"
 
 #: data/resources/ui/shortcuts.ui:237
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Synchronize the input"
-msgstr "sincronizza input"
+msgstr "Sincronizza l'input"
 
 #: data/resources/ui/shortcuts.ui:245 data/resources/ui/shortcuts.ui:287
 msgctxt "shortcut window"
 msgid "Switch"
-msgstr ""
+msgstr "Spostamento"
 
 #: data/resources/ui/shortcuts.ui:249
 msgctxt "shortcut window"
 msgid "Switch to next terminal"
-msgstr ""
+msgstr "Passa al terminale successivo"
 
 #: data/resources/ui/shortcuts.ui:255
 msgctxt "shortcut window"
 msgid "Switch to previous terminal"
-msgstr ""
+msgstr "Passa al terminale precedente"
 
 #: data/resources/ui/shortcuts.ui:261
 msgctxt "shortcut window"
 msgid "Switch to the terminal up"
-msgstr ""
+msgstr "Passa al terminale sopra"
 
 #: data/resources/ui/shortcuts.ui:267
 msgctxt "shortcut window"
 msgid "Switch to the terminal down"
-msgstr ""
+msgstr "Passa al terminale sotto"
 
 #: data/resources/ui/shortcuts.ui:273
 msgctxt "shortcut window"
 msgid "Switch to the terminal left"
-msgstr ""
+msgstr "Passa al terminale a sinistra"
 
 #: data/resources/ui/shortcuts.ui:279
 msgctxt "shortcut window"
 msgid "Switch to the terminal right"
-msgstr ""
+msgstr "Passa al terminale a destra"
 
 #: data/resources/ui/shortcuts.ui:291
 msgctxt "shortcut window"
 msgid "Switch to terminal 1"
-msgstr ""
+msgstr "Passa al terminale 1"
 
 #: data/resources/ui/shortcuts.ui:297
 msgctxt "shortcut window"
 msgid "Switch to terminal 2"
-msgstr ""
+msgstr "Passa al terminale 2"
 
 #: data/resources/ui/shortcuts.ui:303
 msgctxt "shortcut window"
 msgid "Switch to terminal 3"
-msgstr ""
+msgstr "Passa al terminale 3"
 
 #: data/resources/ui/shortcuts.ui:309
 msgctxt "shortcut window"
 msgid "Switch to terminal 4"
-msgstr ""
+msgstr "Passa al terminale 4"
 
 #: data/resources/ui/shortcuts.ui:315
 msgctxt "shortcut window"
 msgid "Switch to terminal 5"
-msgstr ""
+msgstr "Passa al terminale 5"
 
 #: data/resources/ui/shortcuts.ui:321
 msgctxt "shortcut window"
 msgid "Switch to terminal 6"
-msgstr ""
+msgstr "Passa al terminale 6"
 
 #: data/resources/ui/shortcuts.ui:327
 msgctxt "shortcut window"
 msgid "Switch to terminal 7"
-msgstr ""
+msgstr "Passa al terminale 7"
 
 #: data/resources/ui/shortcuts.ui:333
 msgctxt "shortcut window"
 msgid "Switch to terminal 8"
-msgstr ""
+msgstr "Passa al terminale 8"
 
 #: data/resources/ui/shortcuts.ui:339
 msgctxt "shortcut window"
 msgid "Switch to terminal 9"
-msgstr ""
+msgstr "Passa al terminale 9"
 
 #: data/resources/ui/shortcuts.ui:345
 msgctxt "shortcut window"
 msgid "Switch to terminal 10"
-msgstr ""
+msgstr "Passa al terminale 10"
 
 #: data/resources/ui/shortcuts.ui:361 data/resources/ui/shortcuts.ui:365
 msgctxt "shortcut window"
 msgid "Find"
-msgstr ""
+msgstr "Cerca"
 
 #: data/resources/ui/shortcuts.ui:371
 msgctxt "shortcut window"
 msgid "Find next"
-msgstr ""
+msgstr "Cerca avanti"
 
 #: data/resources/ui/shortcuts.ui:377
 msgctxt "shortcut window"
 msgid "Find previous"
-msgstr ""
+msgstr "Cerca indietro"
 
 #: data/resources/ui/shortcuts.ui:385
 msgctxt "shortcut window"
 msgid "Clipboard"
-msgstr ""
+msgstr "Appunti"
 
 #: data/resources/ui/shortcuts.ui:389
 msgctxt "shortcut window"
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 #: data/resources/ui/shortcuts.ui:395
 msgctxt "shortcut window"
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
@@ -2047,114 +2042,115 @@ msgstr "Incolla avanzato"
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Select all"
-msgstr ""
+msgstr "Seleziona tutto"
 
 #: data/resources/ui/shortcuts.ui:415
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "Ingrandimento"
 
 #: data/resources/ui/shortcuts.ui:419
 msgctxt "shortcut window"
 msgid "Zoom in"
-msgstr ""
+msgstr "Aumenta l'ingrandimento"
 
 #: data/resources/ui/shortcuts.ui:425
 msgctxt "shortcut window"
 msgid "Zoom out"
-msgstr ""
+msgstr "Riduci l'ingrandimento"
 
 #: data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
 msgid "Zoom normal size"
-msgstr ""
+msgstr "Ingrandimento normale"
 
 #: data/resources/ui/shortcuts.ui:443
 msgctxt "shortcut window"
 msgid "Save terminal contents"
-msgstr ""
+msgstr "Salva il contenuto del terminale"
 
 #: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Close terminal"
-msgstr ""
+msgstr "Chiudi il terminale"
 
 #: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Maximize terminal"
-msgstr ""
+msgstr "Massimizza il terminale"
 
 #: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Current profile preferences"
-msgstr ""
+msgstr "Preferenze del profilo corrente"
 
 #: data/resources/ui/shortcuts.ui:467
 msgctxt "shortcut window"
 msgid "Reset the terminal"
-msgstr ""
+msgstr "Azzera il terminale"
 
 #: data/resources/ui/shortcuts.ui:473
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
-msgstr ""
+msgstr "Azzera e pulisci il terminale"
 
 #: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Toggle read only"
-msgstr ""
+msgstr "Alterna sola lettura/scrittura"
 
 #: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Layout options"
-msgstr ""
+msgstr "Opzioni di disposizione"
 
 #: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Insert terminal number"
-msgstr ""
+msgstr "Inserisci numero di terminale"
 
 #: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Insert password"
-msgstr ""
+msgstr "Inserisci la password"
 
 #: data/resources/ui/shortcuts.ui:503
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Cycle title style"
-msgstr "Stile del titolo del terminale"
+msgstr "Alterna tra i vari stili del titolo"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:5
 msgid "A tiling terminal for Gnome"
-msgstr ""
+msgstr "Un terminale a riquadri per Gnome"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:11
 msgid "com.gexperts.Terminix"
-msgstr ""
+msgstr "com.gexperts.Terminix"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:9
 msgid "A tiling terminal for GNOME"
-msgstr ""
+msgstr "Un terminale a riquadri per GNOME"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:12
 msgid "Terminix is a tiling terminal emulator."
-msgstr ""
+msgstr "Terminix è un emulatore di terminale a riquadri."
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:15
 msgid "It lets you:"
-msgstr ""
+msgstr "Ti consente di:"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:17
 msgid ""
 "Layout terminals in any fashion by splitting them horizontally or vertically"
 msgstr ""
+"disporre di più terminali multipli su un'unica finestra dividendola "
+"orizzontalmente o verticalmente"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:18
 msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
-msgstr ""
+msgstr "riordinare i terminali mediante trascinamento"
 
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:19
 msgid "Terminals can be detached into a new window via drag and drop"
