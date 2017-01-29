@@ -401,6 +401,16 @@ public:
             }
         }
     }
+
+    void focusEncoding() {
+        GenericPreferenceRow[] rows = gx.gtk.util.getChildren!GenericPreferenceRow(lbSide, false);
+        foreach(row; rows) {
+            if (row.name() == N_("Encoding")) {
+                lbSide.selectRow(row);
+                return;
+            }
+        }
+    }
 }
 
 class GenericPreferenceRow: ListBoxRow {

@@ -14,6 +14,7 @@ enum ACTION_MAXIMIZE = "maximize";
 enum ACTION_PROFILE_SELECT = "profile-select";
 enum ACTION_ENCODING_SELECT = "encoding-select";
 enum ACTION_PROFILE_PREFERENCE = "profile-preference";
+enum ACTION_ENCODING_PREFERENCE = "encoding-preference";
 enum ACTION_READ_ONLY = "read-only";
 enum ACTION_RESET = "reset";
 enum ACTION_RESET_AND_CLEAR = "reset-and-clear";
