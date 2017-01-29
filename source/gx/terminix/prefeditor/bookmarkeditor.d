@@ -39,12 +39,19 @@ private:
     ScrolledWindow sw;
     Pixbuf[] icons;
 
+    Button btnEdit;
+    Button btnDelete;
+
     void createUI() {
         ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING]);
         loadBookmarks(null, bmMgr.root);
         tv = new TreeView(ts);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
+        tv.getSelection().setMode(SelectionMode.SINGLE);
+        tv.addOnCursorChanged(delegate(TreeView) {
+            updateUI();
+        });
 
         CellRendererPixbuf crp = new CellRendererPixbuf();
         crp.setProperty("stock-size", 16);
@@ -73,15 +80,22 @@ private:
         btnAdd.addOnClicked(&addBookmark);
         bButtons.add(btnAdd);
 
-        Button btnEdit = new Button(_("Edit"));
+        btnEdit = new Button(_("Edit"));
         btnEdit.addOnClicked(&editBookmark);
         bButtons.add(btnEdit);
 
-        Button btnDelete = new Button(_("Delete"));
+        btnDelete = new Button(_("Delete"));
+        btnDelete.addOnClicked(&deleteBookmark);
         bButtons.add(btnDelete);
 
         add(bButtons);
+        updateUI();
+    }
 
+    void updateUI() {
+        TreeIter selected = tv.getSelectedIter();
+        btnEdit.setSensitive(selected !is null);
+        btnDelete.setSensitive(selected !is null);
     }
 
     TreeIter addBookmarktoParent(TreeIter parent, Bookmark bm) {
@@ -130,17 +144,38 @@ private:
 
     void editBookmark(Button button) {
         TreeIter selected = tv.getSelectedIter();
-        Bookmark bm = null;
-        if (selected !is null) {
-            bm = bmMgr.get(selected.getValueString(COLUMNS.UUID));
-        }
+        if (selected is null) return;
+
+        Bookmark bm = bmMgr.get(selected.getValueString(COLUMNS.UUID));
         BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), bm);
         scope(exit) {
             be.destroy();
         }
         be.showAll();
         if (be.run() == ResponseType.OK) {
+            be.update(bm);
+            ts.setValue(selected, COLUMNS.NAME, bm.name);
+        }
+    }
 
+    void deleteBookmark(Button button) {
+        TreeIter selected = tv.getSelectedIter();
+        if (selected is null) return;
+        Bookmark bm = bmMgr.get(selected.getValueString(COLUMNS.UUID));
+        if (bm !is null) {
+            FolderBookmark fbm = null;
+            TreeIter parent = selected.getParent();
+            if (parent is null) {
+                fbm = bmMgr.root;
+            } else {
+                fbm = cast(FolderBookmark) bmMgr.get(parent.getValueString(COLUMNS.UUID));
+            }
+            if (fbm !is null) {
+                bmMgr.remove(fbm, bm);
+                ts.remove(selected);
+            } else {
+                error("Could not find folder bookmark");
+            }
         }
     }
 

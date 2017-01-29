@@ -13,9 +13,11 @@ import gtk.Dialog;
 import gtk.Entry;
 import gtk.FileChooserButton;
 import gtk.Grid;
+import gtk.HeaderBar;
 import gtk.Label;
 import gtk.Separator;
 import gtk.Stack;
+import gtk.StackSwitcher;
 import gtk.Widget;
 import gtk.Window;
 
@@ -31,52 +33,30 @@ import gx.terminix.bookmark.manager;
 class BookmarkEditor: Dialog {
 
 private:
-    ComboBox cbType;
     Stack stEditors;
+    StackSwitcher ssEditors;
 
     void createUI(Bookmark bm) {
-        setAllMargins(getContentArea(), 18);
         Box bContent = new Box(Orientation.VERTICAL, 6);
-
-        Box bType = new Box(Orientation.HORIZONTAL, 6);
-        Label lblType = new Label(_("Type"));
-        lblType.setHalign(Align.END);
-        cbType = createNameValueCombo([_("Folder"), _("Path")], [to!string(BookmarkType.FOLDER), to!string(BookmarkType.PATH)]);
-        cbType.setHexpand(true);
-        cbType.setHalign(Align.FILL);
-
-        bType.add(lblType);
-        bType.add(cbType);
-
-        Separator sLine = new Separator(Orientation.HORIZONTAL);
-        sLine.setHexpand(true);
-        sLine.setHalign(Align.FILL);
-        sLine.setMarginTop(6);
-        sLine.setMarginBottom(6);
-
-        bContent.add(bType);
-        bContent.add(sLine);
+        setAllMargins(bContent, 18);
 
         stEditors = new Stack();
-        foreach(bt; [BookmarkType.FOLDER, BookmarkType.PATH]) {
-            stEditors.addNamed(createTypeEditor(bt, bm), to!string(bt));
-        }
 
-        bContent.add(stEditors);
-
-        // Setup change handler
-        cbType.addOnChanged(delegate(ComboBox cb) {
-            if (cbType.getActive >= 0) {
-                stEditors.setVisibleChildName(cbType.getActiveId());
-            }
-        });
-        // Set active page, change handler above does this
+        // Adding a new bookmark or editing one?
         if (bm !is null) {
-            cbType.setActiveId(to!string(bm.type));
-            bType.setNoShowAll(true);
+            // Add only the editor we need to edit this one bookmark
+            stEditors.addTitled(createTypeEditor(bm.type, bm), to!string(bm.type), bmMgr.localize(bm.type));
         } else {
-            cbType.setActiveId(to!string(BookmarkType.FOLDER));
+            //Add all editors
+            foreach(bt; [BookmarkType.FOLDER, BookmarkType.PATH]) {
+                stEditors.addTitled(createTypeEditor(bt, bm), to!string(bt), bmMgr.localize(bt));
+            }
+            ssEditors = new StackSwitcher();
+            ssEditors.setMarginBottom(12);
+            ssEditors.setStack(stEditors);
+            bContent.add(ssEditors);
         }
+        bContent.add(stEditors);
         getContentArea().add(bContent);
     }
 
@@ -91,22 +71,16 @@ public:
     }
 
     Bookmark create() {
-        if (cbType.getActive >= 0) {
-            BookmarkType type = to!BookmarkType(cbType.getActiveId());
-            Bookmark bm = bmMgr.createBookmark(type);
-            BookmarkTypeEditor editor = cast(BookmarkTypeEditor)stEditors.getVisibleChild();
-            editor.update(bm);
-            return bm;
-        } else {
-            return null;
-        }
+        BookmarkType type = to!BookmarkType(stEditors.getVisibleChildName());
+        Bookmark bm = bmMgr.createBookmark(type);
+        BookmarkTypeEditor editor = cast(BookmarkTypeEditor)stEditors.getVisibleChild();
+        editor.update(bm);
+        return bm;
     }
 
     void update(Bookmark bm) {
-        if (cbType.getActive >= 0) {
-            BookmarkTypeEditor editor = to!(BookmarkTypeEditor)(stEditors.getVisibleChild());
-            editor.update(bm);
-        }
+        BookmarkTypeEditor editor = to!(BookmarkTypeEditor)(stEditors.getVisibleChild());
+        editor.update(bm);
     }
 }
 
@@ -197,6 +171,10 @@ public:
 
     void update(Bookmark bm) {
         bm.name = eName.getText();
+        PathBookmark pb = cast(PathBookmark) bm;
+        if (pb !is null) {
+            pb.path = fcbPath.getFilename();
+        }
     }
 }
 

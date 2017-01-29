@@ -54,11 +54,6 @@ public:
         _uuid = randomUUID().toString();
     }
 
-    ~this() {
-        import std.stdio: writeln;
-        writeln("****** Bookmark destroyed");
-    }
-
     this(string name) {
         this();
         this._name = name;
@@ -184,7 +179,7 @@ public:
     }
 
     @property string path() {
-        return path;
+        return _path;
     }
 
     @property void path(string path) {
@@ -241,6 +236,10 @@ public:
     void remove(FolderBookmark fb, Bookmark bm) {
         fb.remove(bm);
         bookmarks.remove(bm.uuid);
+    }
+
+    string localize(BookmarkType type) {
+        return _(localizedBookmarks[cast(uint)type]);
     }
 
     Bookmark get(string uuid) {
@@ -302,6 +301,8 @@ BookmarkManager bmMgr;
 private:
     enum NODE_NAME = "name";
     enum NODE_BOOKMARK_TYPE = "type";
+
+    string[5] localizedBookmarks = [N_("Folder"), N_("Path"), N_("SSH"), N_("FTP"), N_("Command")];
 
 unittest {
     initBookmarkManager();
