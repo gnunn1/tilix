@@ -433,6 +433,9 @@ private:
                 encodingMenu.appendItem(menuItem);
             }
         }
+        GMenu menuSection = new GMenu();
+        menuSection.append(_("Edit Encodings"), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_PREFERENCE));
+        encodingMenu.appendSection(null, menuSection);
     }
 
     /**
@@ -646,8 +649,12 @@ private:
             saProfileSelect.setState(value);
         }, pu.getType(), pu);
 
+        //Edit Encodings Preference
+        registerAction(group, ACTION_PREFIX, ACTION_ENCODING_PREFERENCE, null, delegate(GVariant, SimpleAction) {
+            terminix.presentEncodingPreferences();
+        }, null, null);
+
         // Select Encoding
-        //
         GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
         saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
             size_t l;

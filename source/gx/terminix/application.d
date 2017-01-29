@@ -734,6 +734,11 @@ public:
         preferenceDialog.focusProfile(profile.uuid);
     }
 
+    void presentEncodingPreferences() {
+        presentPreferences();
+        preferenceDialog.focusEncoding();
+    }
+
     bool testVTEConfig() {
         return !warnedVTEConfigIssue && gsGeneral.getBoolean(SETTINGS_WARN_VTE_CONFIG_ISSUE_KEY);
     }
