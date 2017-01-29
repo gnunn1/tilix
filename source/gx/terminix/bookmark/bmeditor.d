@@ -6,6 +6,12 @@ module gx.terminix.bookmark.bmeditor;
 
 import std.conv;
 import std.experimental.logger;
+import std.signals;
+
+import glib.Util;
+
+import gobject.ObjectG;
+import gobject.ParamSpec;
 
 import gtk.Box;
 import gtk.ComboBox;
@@ -25,6 +31,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 
 import gx.terminix.bookmark.manager;
+import gx.terminix.common;
 
 
 /**
@@ -41,6 +48,9 @@ private:
         setAllMargins(bContent, 18);
 
         stEditors = new Stack();
+        stEditors.addOnNotify(delegate(ParamSpec, ObjectG) {
+            updateUI();
+        },"visible-child");
 
         // Adding a new bookmark or editing one?
         if (bm !is null) {
@@ -49,7 +59,9 @@ private:
         } else {
             //Add all editors
             foreach(bt; [BookmarkType.FOLDER, BookmarkType.PATH]) {
-                stEditors.addTitled(createTypeEditor(bt, bm), to!string(bt), bmMgr.localize(bt));
+                BaseEditor be = createTypeEditor(bt, bm);
+                be.onValidChanged.connect(&validateChanged);
+                stEditors.addTitled(be, to!string(bt), bmMgr.localize(bt));
             }
             ssEditors = new StackSwitcher();
             ssEditors.setMarginBottom(12);
@@ -58,6 +70,23 @@ private:
         }
         bContent.add(stEditors);
         getContentArea().add(bContent);
+        updateUI();
+    }
+
+    BaseEditor getEditor() {
+        return cast(BaseEditor)stEditors.getVisibleChild();
+    }
+
+    void validateChanged(BaseEditor be, bool valid) {
+        if (be == getEditor()) {
+            setResponseSensitive(ResponseType.OK, valid);
+        }
+    }
+
+    void updateUI() {
+        if (getEditor() !is null) {
+            setResponseSensitive(ResponseType.OK, getEditor().validate());
+        }
     }
 
 public:
@@ -73,20 +102,20 @@ public:
     Bookmark create() {
         BookmarkType type = to!BookmarkType(stEditors.getVisibleChildName());
         Bookmark bm = bmMgr.createBookmark(type);
-        BookmarkTypeEditor editor = cast(BookmarkTypeEditor)stEditors.getVisibleChild();
+        BaseEditor editor = cast(BaseEditor)stEditors.getVisibleChild();
         editor.update(bm);
         return bm;
     }
 
     void update(Bookmark bm) {
-        BookmarkTypeEditor editor = to!(BookmarkTypeEditor)(stEditors.getVisibleChild());
+        BaseEditor editor = to!(BaseEditor)(stEditors.getVisibleChild());
         editor.update(bm);
     }
 }
 
 private:
 
-Widget createTypeEditor(BookmarkType bt, Bookmark bm = null) {
+BaseEditor createTypeEditor(BookmarkType bt, Bookmark bm = null) {
     final switch (bt) {
         case BookmarkType.FOLDER:
             return new FolderEditor(bm);
@@ -101,15 +130,15 @@ Widget createTypeEditor(BookmarkType bt, Bookmark bm = null) {
     }
 }
 
-interface BookmarkTypeEditor {
-    void update(Bookmark bm);
-}
-
-class FolderEditor: Grid, BookmarkTypeEditor {
+abstract class BaseEditor: Grid {
 private:
     Entry eName;
 
+protected:
+    int row = 0;
+
 public:
+
     this(Bookmark bm) {
         super();
         setColumnSpacing(12);
@@ -117,48 +146,68 @@ public:
 
         Label lblName = new Label(_("Name"));
         lblName.setHalign(Align.END);
-        attach(lblName, 0, 0, 1, 1);
+        attach(lblName, 0, row, 1, 1);
 
         eName = new Entry();
         eName.setHexpand(true);
-        attach(eName, 1, 0, 1, 1);
+        eName.addOnChanged(delegate(EditableIF) {
+            onValidChanged.emit(this, validate);
+        });
+        attach(eName, 1, row, 1, 1);
+        row++;
 
         if (bm !is null) {
             eName.setText(bm.name);
         }
     }
 
+    /**
+     * Update the bookmark. An editor should be able to update
+     * any bookmark type but only update the fields it understands,
+     * typically just the name.
+     */
     void update(Bookmark bm) {
         bm.name = eName.getText();
     }
+
+    /**
+     * Whether the editor is in a valid state
+     */
+    bool validate() {
+        return eName.getText().length > 0;
+    }
+
+    /**
+     * Fired when the valid state of the editor changed
+     */
+    GenericEvent!(BaseEditor, bool) onValidChanged;
+
 }
 
-class PathEditor: Grid, BookmarkTypeEditor {
+class FolderEditor: BaseEditor {
+
+    this(Bookmark bm) {
+        super(bm);
+    }
+}
+
+class PathEditor: BaseEditor {
 private:
-    Entry eName;
     FileChooserButton fcbPath;
 
 public:
     this(Bookmark bm) {
-        super();
-        setColumnSpacing(12);
-        setRowSpacing(6);
-
-        Label lblName = new Label(_("Name"));
-        lblName.setHalign(Align.END);
-        attach(lblName, 0, 0, 1, 1);
-
-        eName = new Entry();
-        eName.setHexpand(true);
-        attach(eName, 1, 0, 1, 1);
+        super(bm);
 
         Label lblPath = new Label(_("Path"));
         lblPath.setHalign(Align.END);
-        attach(lblPath, 0, 1, 1, 1);
+        attach(lblPath, 0, row, 1, 1);
 
         fcbPath = new FileChooserButton(_("Select Path"), FileChooserAction.SELECT_FOLDER);
         fcbPath.setHexpand(true);
-        attach(fcbPath, 1, 1, 1, 1);
+        fcbPath.setFilename(Util.getHomeDir());
+        attach(fcbPath, 1, row, 1, 1);
+        row++;
 
         if (bm !is null) {
             eName.setText(bm.name);
@@ -169,13 +218,15 @@ public:
         }
     }
 
-    void update(Bookmark bm) {
-        bm.name = eName.getText();
+    override void update(Bookmark bm) {
+        super.update(bm);
         PathBookmark pb = cast(PathBookmark) bm;
         if (pb !is null) {
             pb.path = fcbPath.getFilename();
         }
     }
+
+    override bool validate() {
+        return super.validate() && (fcbPath.getFilename().length > 0);
+    }
 }
-
-
