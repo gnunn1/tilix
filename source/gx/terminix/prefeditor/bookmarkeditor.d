@@ -74,21 +74,27 @@ private:
 
         add(sw);
 
-        Box bButtons = new Box(Orientation.VERTICAL, 6);
+        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        bButtons.getStyleContext().addClass("linked");
 
-        Button btnAdd = new Button(_("Add"));
+        Button btnAdd = new Button("list-add-symbolic", IconSize.BUTTON);
+        btnAdd.setTooltipText(_("Add bookmark"));
         btnAdd.addOnClicked(&addBookmark);
         bButtons.add(btnAdd);
 
-        btnEdit = new Button(_("Edit"));
+        btnEdit = new Button("input-tablet-symbolic", IconSize.BUTTON);
+        btnEdit.setTooltipText(_("Edit bookmark"));
         btnEdit.addOnClicked(&editBookmark);
         bButtons.add(btnEdit);
 
-        btnDelete = new Button(_("Delete"));
+        btnDelete = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDelete.setTooltipText(_("Delete bookmark"));
         btnDelete.addOnClicked(&deleteBookmark);
         bButtons.add(btnDelete);
 
         add(bButtons);
+
+
         updateUI();
     }
 
@@ -181,8 +187,9 @@ private:
 
 public:
     this() {
-        super(Orientation.HORIZONTAL, 6);
+        super(Orientation.VERTICAL, 6);
         setAllMargins(this, 18);
+        setMarginBottom(6);
         icons = getBookmarkIcons();
         createUI();
     }

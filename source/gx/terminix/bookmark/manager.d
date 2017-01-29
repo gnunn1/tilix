@@ -431,7 +431,7 @@ private:
     enum NODE_NAME = "name";
     enum NODE_BOOKMARK_TYPE = "type";
 
-    string[5] localizedBookmarks = [N_("Folder"), N_("Path"), N_("SSH"), N_("FTP"), N_("Command")];
+    string[5] localizedBookmarks = [N_("Folder"), N_("Path"), N_("Remote"), N_("Command")];
 
 unittest {
     initBookmarkManager();
