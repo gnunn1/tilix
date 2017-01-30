@@ -669,6 +669,8 @@ private:
 
         TreeView tvShortcuts = new TreeView(tsShortcuts);
         tvShortcuts.setActivateOnSingleClick(false);
+        bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", GSettingsBindFlags.DEFAULT);
+
 
         TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
         column.setExpand(true);
