@@ -252,6 +252,8 @@ private:
     bool _ignoreCommit = false;
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
+    //Whether or not to zoom when the scroll wheen is used with Ctrl
+    bool _controlWheelZoom = false;
 
     //Cached badged so it is not calculated on each draw
     string _cachedBadge;
@@ -1312,7 +1314,7 @@ private:
 private:
 
     bool onTerminalScroll(Event event, Widget widget) {
-        if (vte !is null && gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY) && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
+        if (vte !is null && _controlWheelZoom && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
             ScrollDirection zoomDirection = event.scroll.direction;
             if (zoomDirection == ScrollDirection.SMOOTH) {
                 zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
@@ -1784,6 +1786,9 @@ private:
         case SETTINGS_PROFILE_BADGE_POSITION_KEY:
             queueDraw();
             break;
+        case SETTINGS_CONTROL_SCROLL_ZOOM_KEY:
+            _controlWheelZoom = gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY);
+            break;
         default:
             break;
         }
@@ -1812,7 +1817,8 @@ private:
             SETTINGS_PROFILE_TRIGGERS_KEY,
             SETTINGS_PROFILE_BADGE_TEXT_KEY,
             SETTINGS_PROFILE_BADGE_COLOR_KEY,
-            SETTINGS_PROFILE_BADGE_POSITION_KEY
+            SETTINGS_PROFILE_BADGE_POSITION_KEY,
+            SETTINGS_CONTROL_SCROLL_ZOOM_KEY
         ];
 
         foreach (key; keys) {
