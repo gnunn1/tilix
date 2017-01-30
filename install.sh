@@ -18,13 +18,22 @@ if [ ! -f terminix ]; then
 fi
 
 # Check availability of required commands
-COMMANDS=("install" "glib-compile-schemas" "glib-compile-resources" "msgfmt" "desktop-file-validate" "xdg-desktop-menu" "gtk-update-icon-cache")
-PACKAGES=("coreutils" "glib2" "glib2" "gettext" "desktop-file-utils" "xdg-utils" "gtk-update-icon-cache")
-for i in `seq 0 ${#COMMANDS[*]}`; do
-    type ${COMMANDS[$i]} >/dev/null 2>&1 || {
-        echo "Your system is missing command ${COMMANDS[$i]}, please install ${PACKAGES[$i]}"
+COMMANDS="install glib-compile-schemas glib-compile-resources msgfmt desktop-file-validate xdg-desktop-menu gtk-update-icon-cache"
+PACKAGES="coreutils glib2 glib2 gettext desktop-file-utils xdg-utils gtk-update-icon-cache"
+i=0
+for COMMAND in $COMMANDS; do
+    type $COMMAND >/dev/null 2>&1 || {
+        j=0
+        for PACKAGE in $PACKAGES; do
+            if [ $i = $j ]; then
+                break
+            fi
+            j=$(( $j + 1 ))
+        done
+        echo "Your system is missing command $COMMAND, please install $PACKAGE"
         exit 1
     }
+    i=$(( $i + 1 ))
 done
 
 echo "Installing to prefix ${PREFIX}"
