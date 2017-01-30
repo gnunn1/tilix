@@ -301,6 +301,7 @@ private:
     Entry eUser;
     Entry eParams;
     ComboBox cbProtocol;
+    Entry eCommand;
 
 public:
     this(Bookmark bm) {
@@ -349,6 +350,13 @@ public:
         attach(eParams, 1, row, 1, 1);
         row++;
 
+        //Command
+        attach(createLabel(_("Command")), 0, row, 1, 1);
+        eCommand = new Entry();
+        eCommand.setHexpand(true);
+        attach(eCommand, 1, row, 1, 1);
+        row++;
+
         if (bm !is null) {
             RemoteBookmark rb = cast(RemoteBookmark) bm;
             if (rb !is null) {
@@ -357,9 +365,9 @@ public:
                 sPort.setValue(rb.port);
                 eUser.setText(rb.user);
                 eParams.setText(rb.params);
+                eCommand.setText(rb.command);
             }
         }
-
     }
 
     override void update(Bookmark bm) {
@@ -370,6 +378,7 @@ public:
             rb.port = sPort.getValueAsInt();
             rb.user = eUser.getText();
             rb.params = eParams.getText();
+            rb.command = eCommand.getText();
         }
     }
 

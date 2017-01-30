@@ -13,29 +13,29 @@ import gx.i18n.l10n;
  * to turn off work that is in process
  ****************************************************************/
 
-/*
+/**
  * Whether to use a pixbuf for drag and Drop image
  */
 immutable bool USE_PIXBUF_DND = false;
 
-/*
+/**
  * Renders clipboard options as buttons in context menu
  */
 immutable bool CLIPBOARD_BTN_IN_CONTEXT = false;
 
-/*
+/**
  * All logs go to the file /tmp/terminix.log, useful
  * when debugging launchers or other spots where
  * stdout isn't easily viewed.
  */
 immutable bool USE_FILE_LOGGING = false;
 
-/*
+/**
  * When true builds the application for flatpak
  */
 immutable bool FLATPAK = false;
 
-/*
+/**
  * Enables bookmarks
  */
  immutable bool BOOKMARKS = false;

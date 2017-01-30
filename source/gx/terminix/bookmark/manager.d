@@ -36,10 +36,23 @@ interface Bookmark {
 
     @property BookmarkType type();
 
+    /**
+     * Bookmark name
+     */
     @property string name();
+
     @property void name(string value);
 
+    /**
+     * Unique identifier for the bookmark
+     */
     @property string uuid();
+
+    /**
+     * The command to insert into the terminal
+     * for this bookmark.
+     */
+    @property string terminalCommand();
 }
 
 abstract class AbstractBookmark: Bookmark {
@@ -154,6 +167,9 @@ public:
         }
     }
 
+    @property string terminalCommand() {
+        return "";
+    }
 }
 
 class PathBookmark: AbstractBookmark {
@@ -195,12 +211,16 @@ public:
         super.deserialize(value);
         _path = value[NODE_PATH].str();
     }
+
+    @property string terminalCommand() {
+        return "cd " ~ _path;
+    }
 }
 
 /**
  * The type of protocol a remote bookmark uses
  */
-enum ProtocolType {SSH, FTP, FTPS, SFTP, TELNET}
+enum ProtocolType {SSH, TELNET, FTP, SFTP}
 
 /**
  * represents a bookmark to a remote system
@@ -212,12 +232,15 @@ private:
     uint _port;
     string _user;
     string _params;
+    string _path;
+    string _command;
 
     enum NODE_HOST = "host";
     enum NODE_PORT = "port";
     enum NODE_USER = "user";
     enum NODE_PARAMS = "params";
     enum NODE_PROTOCOL_TYPE = "protocolType";
+    enum NODE_COMMAND = "command";
 
 public:
 
@@ -269,6 +292,14 @@ public:
         _protocolType = value;
     }
 
+    @property string command() {
+        return _command;
+    }
+
+    @property void command(string value) {
+        _command = value;
+    }
+
     override JSONValue serialize() {
         JSONValue value = super.serialize();
         value[NODE_HOST] = _host;
@@ -276,6 +307,7 @@ public:
         value[NODE_USER] = _user;
         value[NODE_PARAMS] = _params;
         value[NODE_PROTOCOL_TYPE] = to!string(protocolType);
+        value[NODE_COMMAND] = _command;
         return value;
     }
 
@@ -286,6 +318,39 @@ public:
         _user = value[NODE_USER].str;
         _params = value[NODE_PARAMS].str;
         _protocolType = to!ProtocolType(value[NODE_PROTOCOL_TYPE].str);
+        _command = value[NODE_COMMAND].str;
+    }
+
+    @property string terminalCommand() {
+        string result;
+        switch(_protocolType) {
+            case ProtocolType.SSH:
+                result ~= "ssh";
+                if (params.length > 0) result ~= " " ~ params;
+                if (user.length > 0) result ~= user ~ "@";
+                result ~= host;
+                if (port > 0) result ~= " -p " ~ to!string(port);
+                if (command.length > 0) result ~= " " ~ command;
+                break;
+            case ProtocolType.TELNET:
+                result ~= "telnet";
+                if (params.length > 0) result ~= " " ~ params;
+                result ~= host;
+                if (port > 0) result ~= " " ~ to!string(port);
+                break;
+            case ProtocolType.FTP: .. case ProtocolType.SFTP:
+                result ~= "ftp";
+                if (_protocolType == ProtocolType.SFTP) {
+                    result = "s" ~ result;
+                }
+                if (params.length > 0) result ~= " " ~ params;
+                if (user.length > 0) result ~= user ~ "@";
+                result ~= host;
+                if (port > 0) result ~= " " ~ to!string(port);
+                break;
+            default:
+        }
+        return result;
     }
 }
 
@@ -325,6 +390,11 @@ public:
         super.deserialize(value);
         _command = value[NODE_COMMAND].str;
     }
+
+    @property string terminalCommand() {
+        return _command;
+    }
+
 }
 
 /**
