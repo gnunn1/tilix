@@ -57,3 +57,10 @@ do
   echo -n $file
   msgmerge --update $file $OUTPUT_FILE
 done
+
+# Update manpage translations
+if type po4a-updatepo >/dev/null 2>&1; then
+  MANDIR=${BASEDIR}/data/man
+  po4a-gettextize -f man -m ${MANDIR}/terminix -p ${MANDIR}/po/terminix.man.pot
+  po4a-updatepo -f man -m ${MANDIR}/terminix -p ${MANDIR}/po/*.man.po
+fi
