@@ -13,6 +13,9 @@
     "buildTypes": {
         "release": {
         },
+        "debug": {
+            "debugVersions": ["GC"]
+        },
         "localize": {
             "versions": ["Localize"]
         },
@@ -32,9 +35,8 @@
             "name": "trace",
             "targetType": "executable",
             "libs-linux": ["X11"],
-            "debugVersions": ["Destructors", "GC"]
+            "debugVersions": ["Destructors"]
         },
-
         {
             "name": "dynamic",
             "targetType": "executable",
