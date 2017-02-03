@@ -4,7 +4,9 @@
  */
 module gx.terminix.bookmark.bmtreeview;
 
+import std.conv;
 import std.experimental.logger;
+import std.string;
 
 import gdk.Pixbuf;
 
@@ -12,6 +14,8 @@ import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
 import gtk.TreeViewColumn;
 import gtk.TreeIter;
+import gtk.TreeModel;
+import gtk.TreeModelFilter;
 import gtk.TreeStore;
 import gtk.TreeView;
 
@@ -22,6 +26,8 @@ import gx.terminix.bookmark.manager;
 class BMTreeView: TreeView {
 private:
     TreeStore ts;
+    TreeModelFilter filter;
+    string _filterText;
     Pixbuf[] icons;
 
     enum COLUMNS : uint {
@@ -73,13 +79,28 @@ private:
         return cast(FolderBookmark) bmMgr.get(parent.getValueString(COLUMNS.UUID));
     }
 
+    static extern(C) int filterBookmark(GtkTreeModel* gtkModel, GtkTreeIter* gtkIter, void* data) {
+        BMTreeView tv = cast(BMTreeView) data;
+
+        TreeModel model = new TreeModel(gtkModel, false);
+        TreeIter iter = new TreeIter(gtkIter, false);
+
+        string name = to!string(model.getValue(iter, COLUMNS.NAME));
+        import std.string: No;
+        return (name.indexOf(tv.filterText, No.caseSensitive) >= 0);
+     }
+
 public:
     this() {
         super();
         icons = getBookmarkIcons();
         ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING]);
         loadBookmarks(null, bmMgr.root);
-        setModel(ts);
+
+        filter = new TreeModelFilter(ts, null);
+        filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
+
+        setModel(filter);
         createColumns();
     }
 
@@ -131,5 +152,16 @@ public:
         TreeIter selected = getSelectedIter();
         if (selected is null || selected.getValueString(COLUMNS.UUID) != bm.uuid) return;
         ts.setValue(selected, COLUMNS.NAME, bm.name);
+    }
+
+    @property string filterText() {
+        return _filterText;
+    }
+
+    @property void filterText(string value) {
+        if (_filterText != value) {
+            _filterText = value;
+            filter.refilter();
+        }
     }
 }
