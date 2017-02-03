@@ -325,7 +325,7 @@ public:
         string result;
         switch(_protocolType) {
             case ProtocolType.SSH:
-                result ~= "ssh";
+                result = "ssh";
                 if (params.length > 0) result ~= " " ~ params;
                 if (user.length > 0) result ~= user ~ "@";
                 result ~= host;
@@ -333,13 +333,13 @@ public:
                 if (command.length > 0) result ~= " " ~ command;
                 break;
             case ProtocolType.TELNET:
-                result ~= "telnet";
+                result = "telnet";
                 if (params.length > 0) result ~= " " ~ params;
                 result ~= host;
                 if (port > 0) result ~= " " ~ to!string(port);
                 break;
             case ProtocolType.FTP: .. case ProtocolType.SFTP:
-                result ~= "ftp";
+                result = "ftp";
                 if (_protocolType == ProtocolType.SFTP) {
                     result = "s" ~ result;
                 }

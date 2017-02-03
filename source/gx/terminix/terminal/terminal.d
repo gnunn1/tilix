@@ -121,6 +121,7 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.bookmark.manager;
 import gx.terminix.closedialog;
 import gx.terminix.cmdparams;
 import gx.terminix.common;
@@ -129,6 +130,7 @@ import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.advpaste;
+import gx.terminix.terminal.bmchooser;
 import gx.terminix.terminal.exvte;
 import gx.terminix.terminal.layout;
 import gx.terminix.terminal.password;
@@ -664,6 +666,13 @@ private:
             vte.setEncoding(value.getString(l));
         }, encoding.getType(), encoding);
 
+        static if (BOOKMARKS) {
+            // Select Bookmark
+            registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant, SimpleAction) {
+                selectBookmark();
+            }, null, null);
+        }
+
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
@@ -705,6 +714,9 @@ private:
 
         menuSection = new GMenu();
         menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        static if (BOOKMARKS) {
+            menuSection.append(_("Bookmark…"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
+        }
         menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
         menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
@@ -1082,6 +1094,20 @@ private:
             adjustment = sb.getAdjustment();
         }
         adjustment.setValue(adjustment.getUpper());
+    }
+
+    /**
+     * Select a bookmark and insert it into
+     * terminal.
+     */
+    void selectBookmark() {
+        BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel());
+        scope(exit) {bc.destroy();}
+        bc.showAll();
+        if (bc.run() == ResponseType.OK) {
+            string text = bc.bookmark.terminalCommand;
+            vte.feedChild(text, text.length);
+        }
     }
 
     /**
