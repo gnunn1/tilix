@@ -87,7 +87,7 @@ private:
 
         string name = to!string(model.getValue(iter, COLUMNS.NAME));
         //import std.string: No;
-        return (name.indexOf(tv.filterText, No.caseSensitive) >= 0);
+        return (name.indexOf(tv.filterText) >= 0);
      }
 
 public:
