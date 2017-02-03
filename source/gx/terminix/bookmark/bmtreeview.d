@@ -86,7 +86,7 @@ private:
         TreeIter iter = new TreeIter(gtkIter, false);
 
         string name = to!string(model.getValue(iter, COLUMNS.NAME));
-        import std.string: No;
+        //import std.string: No;
         return (name.indexOf(tv.filterText, No.caseSensitive) >= 0);
      }
 
