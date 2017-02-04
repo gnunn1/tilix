@@ -667,8 +667,13 @@ private:
         }, encoding.getType(), encoding);
 
         static if (BOOKMARKS) {
+            // Add Bookmark
+            registerAction(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, null, delegate(GVariant, SimpleAction) {
+                addBookmark();
+            }, null, null);
+
             // Select Bookmark
-            registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant, SimpleAction) {
+            registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant value, SimpleAction sa) {
                 selectBookmark();
             }, null, null);
         }
@@ -712,11 +717,15 @@ private:
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
         model.appendSection(null, menuSection);
 
+        static if (BOOKMARKS) {
+            menuSection = new GMenu();
+            menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
+            menuSection.append(_("Select Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
+            model.appendSubmenu(_("Bookmarks"), menuSection);
+        }
+
         menuSection = new GMenu();
         menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
-        static if (BOOKMARKS) {
-            menuSection.append(_("Bookmark…"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
-        }
         menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
         menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
@@ -1111,6 +1120,13 @@ private:
     }
 
     /**
+     * Add a bookmark based on current state.
+     */
+    void addBookmark() {
+
+    }
+
+    /**
      * Tests if the paste is unsafe, currently just looks for sudo
      */
     bool isPasteUnsafe(string text) {
@@ -1122,24 +1138,17 @@ private:
         if (pasteText.length == 0) return;
 
         AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
-        try {
-            /*
-            scope(exit) {
-                dialog.hide();
-                dialog.destroy();
-            }
-            */
-            dialog.showAll();
-            if (dialog.run() == ResponseType.APPLY) {
-                pasteText = dialog.text;
-                vte.feedChild(pasteText[0 .. $], pasteText.length);
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
-                    scrollToBottom();
-                }
-            }
-        } finally {
+        scope(exit) {
             dialog.hide();
             dialog.destroy();
+        }
+        dialog.showAll();
+        if (dialog.run() == ResponseType.APPLY) {
+            pasteText = dialog.text;
+            vte.feedChild(pasteText[0 .. $], pasteText.length);
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
+                scrollToBottom();
+            }
         }
         focusTerminal();
     }

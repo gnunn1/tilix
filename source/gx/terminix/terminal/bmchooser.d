@@ -18,14 +18,16 @@ import gx.terminix.bookmark.bmtreeview;
 import gx.terminix.bookmark.manager;
 
 /**
- * Dialog that allows the user to select a bookmark.
+ * Dialog that allows the user to select a bookmark. Not actually used
+ * at the moment as the GTK TreeModelFilter is too limited when dealing with
+ * heirarchal data.
  */
 class BookmarkChooser: Dialog {
 private:
     BMTreeView tv;
 
     void createUI() {
-        tv = new BMTreeView();
+        tv = new BMTreeView(true);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
         tv.getSelection().setMode(SelectionMode.BROWSE);
@@ -41,6 +43,9 @@ private:
         sw.setSizeRequest(-1, 200);
 
         SearchEntry se = new SearchEntry();
+        se.addOnSearchChanged(delegate(SearchEntry) {
+            tv.filterText = se.getText();
+        });
 
         Box box = new Box(Orientation.VERTICAL, 6);
         setAllMargins(box, 18);
@@ -59,6 +64,7 @@ public:
         super(_("Select Bookmark"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         setDefaultResponse(GtkResponseType.OK);
         createUI();
+        tv.expandAll();
         updateUI();
     }
 

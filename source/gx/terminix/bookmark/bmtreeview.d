@@ -10,6 +10,8 @@ import std.string;
 
 import gdk.Pixbuf;
 
+import gobject.Value;
+
 import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
 import gtk.TreeViewColumn;
@@ -33,12 +35,12 @@ private:
     enum COLUMNS : uint {
         ICON = 0,
         NAME = 1,
-        UUID = 2
+        UUID = 2,
+        FILTER = 3
     }
 
     void loadBookmarks(TreeIter current, FolderBookmark parent) {
         foreach(bm; parent) {
-            tracef("Loading bookmark %s", bm.name);
             TreeIter childIter = addBookmarktoParent(current, bm);
             FolderBookmark fm = cast(FolderBookmark)bm;
             if (fm !is null) {
@@ -52,6 +54,8 @@ private:
         ts.setValue(result, COLUMNS.ICON, icons[cast(uint)bm.type()]);
         ts.setValue(result, COLUMNS.NAME, bm.name);
         ts.setValue(result, COLUMNS.UUID, bm.uuid);
+        bool filter = filterText.length == 0 || bm.name.indexOf(filterText) >= 0;
+        ts.setValue(result, COLUMNS.FILTER,  filter);
         return result;
     }
 
@@ -68,6 +72,10 @@ private:
         column = new TreeViewColumn("UUID", new CellRendererText(), "text", COLUMNS.UUID);
         column.setVisible(false);
         appendColumn(column);
+
+        column = new TreeViewColumn("Filter", new CellRendererText(), "text", COLUMNS.FILTER);
+        column.setVisible(false);
+        appendColumn(column);
     }
 
     FolderBookmark getParentBookmark(Bookmark bm, out TreeIter parent) {
@@ -79,28 +87,57 @@ private:
         return cast(FolderBookmark) bmMgr.get(parent.getValueString(COLUMNS.UUID));
     }
 
-    static extern(C) int filterBookmark(GtkTreeModel* gtkModel, GtkTreeIter* gtkIter, void* data) {
-        BMTreeView tv = cast(BMTreeView) data;
+    void updateFilter() {
 
-        TreeModel model = new TreeModel(gtkModel, false);
-        TreeIter iter = new TreeIter(gtkIter, false);
+        void checkFilter(TreeIter iter) {
+            string name = ts.getValueString(iter, COLUMNS.NAME);
+            bool visible = filterText.length == 0 || name.indexOf(filterText) >= 0;
+            ts.setValue(iter, COLUMNS.FILTER, visible);
+            if (visible) {
+                TreeIter parent;
+                ts.iterParent(parent, iter);
+                Value value = new Value();
+                while (parent !is null) {
+                    // has parent visibility already been set?
+                    value = ts.getValue(parent, COLUMNS.FILTER, value);
+                    if (value.getBoolean()) break;
+                    ts.setValue(parent, COLUMNS.FILTER, true);
+                    if (!ts.iterParent(parent, parent)) break;
+                }
+            }
+            if (ts.iterHasChild(iter)) {
+                TreeIter child;
+                ts.iterChildren(child, iter);
+                while (child !is null) {
+                    checkFilter(child);
+                    if (!ts.iterNext(child)) break;
+                }
+            }
+        }
 
-        string name = to!string(model.getValue(iter, COLUMNS.NAME));
-        //import std.string: No;
-        return (name.indexOf(tv.filterText) >= 0);
+         TreeIter iter;
+         ts.getIterFirst(iter);
+         while (iter !is null) {
+            checkFilter(iter);
+            if (!ts.iterNext(iter)) break;
+         }
      }
 
 public:
-    this() {
+    this(bool enableFilter = false) {
         super();
         icons = getBookmarkIcons();
-        ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING]);
+        ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING, GType.BOOLEAN]);
         loadBookmarks(null, bmMgr.root);
 
-        filter = new TreeModelFilter(ts, null);
-        filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
-
-        setModel(filter);
+        if (enableFilter) {
+            filter = new TreeModelFilter(ts, null);
+            filter.setVisibleColumn(COLUMNS.FILTER);
+            //filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
+            setModel(filter);
+        } else {
+            setModel(ts);
+        }
         createColumns();
     }
 
@@ -159,9 +196,17 @@ public:
     }
 
     @property void filterText(string value) {
+        if (filter is null) {
+            error("Cannot filter treeview, filter not created");
+            return;
+        }
+
         if (_filterText != value) {
             _filterText = value;
+            updateFilter();
+            trace("Refilter");
             filter.refilter();
+            expandAll();
         }
     }
 }

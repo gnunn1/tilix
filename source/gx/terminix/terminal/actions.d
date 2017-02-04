@@ -34,3 +34,4 @@ enum ACTION_INSERT_NUMBER = "insert-number";
 enum ACTION_INSERT_PASSWORD = "insert-password";
 enum ACTION_TITLE_STYLE = "title-style";
 enum ACTION_SELECT_BOOKMARK = "select-bookmark";
+enum ACTION_ADD_BOOKMARK = "add-bookmark";
