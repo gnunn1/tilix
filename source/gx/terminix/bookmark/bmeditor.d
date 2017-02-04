@@ -16,6 +16,7 @@ import gobject.ObjectG;
 import gobject.ParamSpec;
 
 import gtk.Box;
+import gtk.Button;
 import gtk.ComboBox;
 import gtk.Dialog;
 import gtk.Entry;
@@ -33,9 +34,13 @@ import gtk.Window;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
+import gx.terminix.bookmark.bmchooser;
 import gx.terminix.bookmark.manager;
+import gx.terminix.bookmark.bmtreeview;
 import gx.terminix.common;
 
+
+enum BookmarkEditorMode {ADD, EDIT}
 
 /**
  * Dialog for adding or editing a single bookmark. This dialog
@@ -47,18 +52,46 @@ class BookmarkEditor: Dialog {
 private:
     Stack stEditors;
     StackSwitcher ssEditors;
+    BookmarkEditorMode mode;
 
-    void createUI(Bookmark bm) {
+    Entry eFolder;
+    FolderBookmark _folder;
+
+    void createUI(Bookmark bm, bool folderPicker) {
         Box bContent = new Box(Orientation.VERTICAL, 6);
         setAllMargins(bContent, 18);
+
+        if (folderPicker) {
+            Box bPicker = new Box(Orientation.HORIZONTAL, 0);
+            bPicker.getStyleContext().addClass("linked");
+            eFolder = new Entry();
+            eFolder.setPlaceholderText(_("Select Folder"));
+            eFolder.setEditable(false);
+            eFolder.setHexpand(true);
+            bPicker.add(eFolder);
+
+            Button btnFolderPicker = new Button("folder-symbolic", IconSize.BUTTON);
+            btnFolderPicker.addOnClicked(delegate(Button) {
+                BookmarkChooser bc = new BookmarkChooser(this, BMSelectionMode.FOLDER);
+                scope(exit) {bc.destroy();}
+                bc.showAll();
+                if (bc.run() == ResponseType.OK) {
+                    folder = cast(FolderBookmark) bc.bookmark;
+                }
+            });
+            bPicker.add(btnFolderPicker);
+            bContent.add(bPicker);
+        }
 
         stEditors = new Stack();
         stEditors.addOnNotify(delegate(ParamSpec, ObjectG) {
             updateUI();
-        },"visible-child");
+            BaseEditor be = cast(BaseEditor)stEditors.getVisibleChild();
+            be.focusEditor();
+        },"visible-child", ConnectFlags.AFTER);
 
         // Adding a new bookmark or editing one?
-        if (bm !is null) {
+        if (mode == BookmarkEditorMode.EDIT) {
             // Add only the editor we need to edit this one bookmark
             stEditors.addTitled(createTypeEditor(bm.type, bm), to!string(bm.type), bmMgr.localize(bm.type));
         } else {
@@ -71,6 +104,11 @@ private:
             ssEditors = new StackSwitcher();
             ssEditors.setMarginBottom(12);
             ssEditors.setStack(stEditors);
+            if (bm !is null) {
+                // Need to show here for visible name to work
+                stEditors.showAll();
+                stEditors.setVisibleChildName(to!string(bm.type));
+            }
             bContent.add(ssEditors);
         }
         bContent.add(stEditors);
@@ -96,12 +134,17 @@ private:
 
 public:
 
-    this(Window parent, Bookmark bm = null) {
-        string title = (bm is null)? _("Add Bookmark"):_("Edit Bookmark");
-        super(_("Bookmark"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
+    this(Window parent, BookmarkEditorMode mode, Bookmark bm = null, bool folderPicker = false) {
+        string title = (mode == BookmarkEditorMode.ADD)? _("Add Bookmark"):_("Edit Bookmark");
+        super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         setTransientFor(parent);
         setDefaultResponse(GtkResponseType.OK);
-        createUI(bm);
+        this.mode = mode;
+        createUI(bm, folderPicker);
+        this.addOnShow(delegate(Widget) {
+            BaseEditor be = cast(BaseEditor)stEditors.getVisibleChild();
+            be.focusEditor();
+        });
     }
 
     /**
@@ -123,6 +166,18 @@ public:
     void update(Bookmark bm) {
         BaseEditor editor = to!(BaseEditor)(stEditors.getVisibleChild());
         editor.update(bm);
+    }
+
+    @property FolderBookmark folder() {
+        if (_folder is null) return bmMgr.root;
+        else return _folder;
+    }
+
+    @property void folder(FolderBookmark fb) {
+        if (eFolder !is null) {
+            _folder = fb;
+            eFolder.setText(fb.name);
+        }
     }
 }
 
@@ -171,9 +226,13 @@ public:
         attach(eName, 1, row, 1, 1);
         row++;
 
-        if (bm !is null) {
+        if (bm !is null && bm.name.length > 0) {
             eName.setText(bm.name);
         }
+    }
+
+    void focusEditor() {
+        eName.grabFocus();
     }
 
     /**
@@ -237,7 +296,7 @@ public:
     override void update(Bookmark bm) {
         super.update(bm);
         PathBookmark pb = cast(PathBookmark) bm;
-        if (pb !is null) {
+        if (pb !is null && pb.path.length > 0) {
             pb.path = fcbPath.getFilename();
         }
     }
@@ -271,7 +330,7 @@ public:
 
         if (bm !is null) {
             CommandBookmark cb = cast(CommandBookmark) bm;
-            if (cb !is null) {
+            if (cb !is null && cb.command.length > 0) {
                 eCommand.setText(cb.command);
             }
         }
@@ -361,11 +420,19 @@ public:
             RemoteBookmark rb = cast(RemoteBookmark) bm;
             if (rb !is null) {
                 cbProtocol.setActiveId(to!string(rb.protocolType));
-                eHost.setText(rb.host);
+                if (rb.host.length > 0) {
+                    eHost.setText(rb.host);
+                }
                 sPort.setValue(rb.port);
-                eUser.setText(rb.user);
-                eParams.setText(rb.params);
-                eCommand.setText(rb.command);
+                if (rb.user.length > 0) {
+                    eUser.setText(rb.user);
+                }
+                if (rb.params.length > 0) {
+                    eParams.setText(rb.params);
+                }
+                if (rb.command.length > 0) {
+                    eCommand.setText(rb.command);
+                }
             }
         }
     }

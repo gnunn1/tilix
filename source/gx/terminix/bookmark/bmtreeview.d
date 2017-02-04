@@ -25,6 +25,20 @@ import gx.i18n.l10n;
 
 import gx.terminix.bookmark.manager;
 
+enum Columns : uint {
+    ICON = 0,
+    NAME = 1,
+    UUID = 2,
+    FILTER = 3
+}
+
+TreeStore createBMTreeModel(bool foldersOnly) {
+    Pixbuf[] icons = getBookmarkIcons();
+    TreeStore ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING, GType.BOOLEAN]);
+    loadBookmarks(ts, null, bmMgr.root, foldersOnly, icons);
+    return ts;
+}
+
 class BMTreeView: TreeView {
 private:
     TreeStore ts;
@@ -32,48 +46,21 @@ private:
     string _filterText;
     Pixbuf[] icons;
 
-    enum COLUMNS : uint {
-        ICON = 0,
-        NAME = 1,
-        UUID = 2,
-        FILTER = 3
-    }
-
-    void loadBookmarks(TreeIter current, FolderBookmark parent) {
-        foreach(bm; parent) {
-            TreeIter childIter = addBookmarktoParent(current, bm);
-            FolderBookmark fm = cast(FolderBookmark)bm;
-            if (fm !is null) {
-                loadBookmarks(childIter, fm);
-            }
-        }
-    }
-
-    TreeIter addBookmarktoParent(TreeIter parent, Bookmark bm) {
-        TreeIter result = ts.createIter(parent);
-        ts.setValue(result, COLUMNS.ICON, icons[cast(uint)bm.type()]);
-        ts.setValue(result, COLUMNS.NAME, bm.name);
-        ts.setValue(result, COLUMNS.UUID, bm.uuid);
-        bool filter = filterText.length == 0 || bm.name.indexOf(filterText) >= 0;
-        ts.setValue(result, COLUMNS.FILTER,  filter);
-        return result;
-    }
-
     void createColumns() {
         CellRendererPixbuf crp = new CellRendererPixbuf();
         crp.setProperty("stock-size", 16);
-        TreeViewColumn column = new TreeViewColumn(_("Icon"), crp, "pixbuf", COLUMNS.ICON);
+        TreeViewColumn column = new TreeViewColumn(_("Icon"), crp, "pixbuf", Columns.ICON);
         appendColumn(column);
 
-        column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", COLUMNS.NAME);
+        column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", Columns.NAME);
         column.setExpand(true);
         appendColumn(column);
 
-        column = new TreeViewColumn("UUID", new CellRendererText(), "text", COLUMNS.UUID);
+        column = new TreeViewColumn("UUID", new CellRendererText(), "text", Columns.UUID);
         column.setVisible(false);
         appendColumn(column);
 
-        column = new TreeViewColumn("Filter", new CellRendererText(), "text", COLUMNS.FILTER);
+        column = new TreeViewColumn("Filter", new CellRendererText(), "text", Columns.FILTER);
         column.setVisible(false);
         appendColumn(column);
     }
@@ -84,24 +71,24 @@ private:
         if (!ts.iterHasChild(parent)) {
             parent = parent.getParent();
         }
-        return cast(FolderBookmark) bmMgr.get(parent.getValueString(COLUMNS.UUID));
+        return cast(FolderBookmark) bmMgr.get(parent.getValueString(Columns.UUID));
     }
 
     void updateFilter() {
 
         void checkFilter(TreeIter iter) {
-            string name = ts.getValueString(iter, COLUMNS.NAME);
+            string name = ts.getValueString(iter, Columns.NAME);
             bool visible = filterText.length == 0 || name.indexOf(filterText) >= 0;
-            ts.setValue(iter, COLUMNS.FILTER, visible);
+            ts.setValue(iter, Columns.FILTER, visible);
             if (visible) {
                 TreeIter parent;
                 ts.iterParent(parent, iter);
                 Value value = new Value();
                 while (parent !is null) {
                     // has parent visibility already been set?
-                    value = ts.getValue(parent, COLUMNS.FILTER, value);
+                    value = ts.getValue(parent, Columns.FILTER, value);
                     if (value.getBoolean()) break;
-                    ts.setValue(parent, COLUMNS.FILTER, true);
+                    ts.setValue(parent, Columns.FILTER, true);
                     if (!ts.iterParent(parent, parent)) break;
                 }
             }
@@ -124,15 +111,14 @@ private:
      }
 
 public:
-    this(bool enableFilter = false) {
+    this(bool enableFilter = false, bool foldersOnly = false) {
         super();
         icons = getBookmarkIcons();
-        ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING, GType.BOOLEAN]);
-        loadBookmarks(null, bmMgr.root);
+        ts = createBMTreeModel(foldersOnly);
 
         if (enableFilter) {
             filter = new TreeModelFilter(ts, null);
-            filter.setVisibleColumn(COLUMNS.FILTER);
+            filter.setVisibleColumn(Columns.FILTER);
             //filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
             setModel(filter);
         } else {
@@ -144,7 +130,7 @@ public:
     Bookmark getSelectedBookmark() {
         TreeIter selected = getSelectedIter();
         if (selected is null) return null;
-        return bmMgr.get(selected.getValueString(COLUMNS.UUID));
+        return bmMgr.get(selected.getValueString(Columns.UUID));
     }
 
     /**
@@ -156,11 +142,10 @@ public:
         TreeIter parent;
         FolderBookmark fbm = getParentBookmark(bm, parent);
         if (fbm is null) {
-            error("Unexpected error adding bookmark, could not locate parent FolderBookmark");
-            return null;
+            fbm = bmMgr.root;
         }
         bmMgr.add(fbm, bm);
-        addBookmarktoParent(parent, bm);
+        addBookmarktoParent(ts, parent, bm, icons);
         return fbm;
     }
 
@@ -187,8 +172,8 @@ public:
      */
     void updateBookmark(Bookmark bm) {
         TreeIter selected = getSelectedIter();
-        if (selected is null || selected.getValueString(COLUMNS.UUID) != bm.uuid) return;
-        ts.setValue(selected, COLUMNS.NAME, bm.name);
+        if (selected is null || selected.getValueString(Columns.UUID) != bm.uuid) return;
+        ts.setValue(selected, Columns.NAME, bm.name);
     }
 
     @property string filterText() {
@@ -209,4 +194,28 @@ public:
             expandAll();
         }
     }
+}
+
+private:
+
+void loadBookmarks(TreeStore ts, TreeIter current, FolderBookmark parent, bool foldersOnly, Pixbuf[] icons) {
+    foreach(bm; parent) {
+        FolderBookmark fm = cast(FolderBookmark)bm;
+        if (foldersOnly && fm is null) {
+            continue;
+        }
+        TreeIter childIter = addBookmarktoParent(ts, current, bm, icons);
+        if (fm !is null) {
+            loadBookmarks(ts, childIter, fm, foldersOnly, icons);
+        }
+    }
+}
+
+TreeIter addBookmarktoParent(TreeStore ts, TreeIter parent, Bookmark bm, Pixbuf[] icons) {
+    TreeIter result = ts.createIter(parent);
+    ts.setValue(result, Columns.ICON, icons[cast(uint)bm.type()]);
+    ts.setValue(result, Columns.NAME, bm.name);
+    ts.setValue(result, Columns.UUID, bm.uuid);
+    ts.setValue(result, Columns.FILTER,  true);
+    return result;
 }

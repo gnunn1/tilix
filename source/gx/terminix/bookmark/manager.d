@@ -476,6 +476,7 @@ void initBookmarkManager() {
 }
 
 Pixbuf[] getBookmarkIcons() {
+    if (bmIcons.length > 0) return bmIcons;
     string[] names = ["folder-symbolic","folder-open-symbolic","folder-remote-symbolic", "folder-remote-symbolic", "application-x-executable-symbolic"];
     Pixbuf[] icons;
     IconTheme iconTheme = new IconTheme();
@@ -483,6 +484,7 @@ Pixbuf[] getBookmarkIcons() {
         IconInfo iconInfo = iconTheme.lookupIcon(name, 16, cast(IconLookupFlags) 0);
         icons ~= iconInfo.loadIcon();
     }
+    bmIcons = icons;
     return icons;
 }
 
@@ -502,6 +504,7 @@ private:
     enum NODE_BOOKMARK_TYPE = "type";
 
     string[5] localizedBookmarks = [N_("Folder"), N_("Path"), N_("Remote"), N_("Command")];
+    Pixbuf[] bmIcons;
 
 unittest {
     initBookmarkManager();

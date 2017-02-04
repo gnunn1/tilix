@@ -82,7 +82,7 @@ private:
     }
 
     void addBookmark(Button button) {
-        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), null);
+        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), BookmarkEditorMode.ADD, null);
         scope(exit) {
             be.destroy();
         }
@@ -96,7 +96,7 @@ private:
     void editBookmark(Button button) {
         Bookmark bm = tv.getSelectedBookmark();
         if (bm is null) return;
-        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), bm);
+        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), BookmarkEditorMode.EDIT, bm);
         scope(exit) {
             be.destroy();
         }

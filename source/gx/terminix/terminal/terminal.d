@@ -121,6 +121,8 @@ import gx.i18n.l10n;
 import gx.util.array;
 
 import gx.terminix.application;
+import gx.terminix.bookmark.bmchooser;
+import gx.terminix.bookmark.bmeditor;
 import gx.terminix.bookmark.manager;
 import gx.terminix.closedialog;
 import gx.terminix.cmdparams;
@@ -130,7 +132,6 @@ import gx.terminix.encoding;
 import gx.terminix.preferences;
 import gx.terminix.terminal.actions;
 import gx.terminix.terminal.advpaste;
-import gx.terminix.terminal.bmchooser;
 import gx.terminix.terminal.exvte;
 import gx.terminix.terminal.layout;
 import gx.terminix.terminal.password;
@@ -1110,7 +1111,7 @@ private:
      * terminal.
      */
     void selectBookmark() {
-        BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel());
+        BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel(), BMSelectionMode.LEAF);
         scope(exit) {bc.destroy();}
         bc.showAll();
         if (bc.run() == ResponseType.OK) {
@@ -1123,7 +1124,26 @@ private:
      * Add a bookmark based on current state.
      */
     void addBookmark() {
-
+        Bookmark bm;
+        if (gst.hasState(TerminalStateType.REMOTE)) {
+            RemoteBookmark rb = new RemoteBookmark();
+            rb.protocolType = ProtocolType.SSH;
+            rb.host = gst.currentHostname;
+            rb.user = gst.currentUsername;
+            bm = rb;
+        } else {
+            PathBookmark pb = new PathBookmark();
+            pb.path = gst.currentDirectory();
+            bm = pb;
+        }
+        BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), BookmarkEditorMode.ADD, bm, true);
+        scope(exit) {be.destroy();}
+        be.showAll();
+        if (be.run() == ResponseType.OK) {
+            FolderBookmark fb = be.folder;
+            bm = be.create();
+            bmMgr.add(fb, bm);
+        }
     }
 
     /**
