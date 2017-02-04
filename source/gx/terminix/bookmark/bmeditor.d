@@ -71,6 +71,7 @@ private:
             bPicker.add(eFolder);
 
             Button btnFolderPicker = new Button("folder-symbolic", IconSize.BUTTON);
+            btnFolderPicker.setTooltipText(_("Select folder"));
             btnFolderPicker.addOnClicked(delegate(Button) {
                 BookmarkChooser bc = new BookmarkChooser(this, BMSelectionMode.FOLDER);
                 scope(exit) {bc.destroy();}
@@ -80,6 +81,14 @@ private:
                 }
             });
             bPicker.add(btnFolderPicker);
+
+            Button btnClearFolder = new Button("edit-clear-symbolic", IconSize.BUTTON);
+            btnClearFolder.setTooltipText(_("Clear folder"));
+            btnClearFolder.addOnClicked(delegate(Button) {
+                _folder = null;
+                eFolder.setText("");
+            });
+            bPicker.add(btnClearFolder);
             bContent.add(bPicker);
         }
 

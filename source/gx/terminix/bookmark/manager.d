@@ -31,10 +31,19 @@ enum BookmarkType {
 
 interface Bookmark {
 
-    JSONValue serialize();
+    JSONValue serialize(FolderBookmark parent);
     void deserialize(JSONValue value);
 
     @property BookmarkType type();
+
+    /**
+     * Parent of the bookmark, will be null in case
+     * of root.
+     */
+    @property FolderBookmark parent();
+
+    @property void parent(FolderBookmark parent);
+
 
     /**
      * Bookmark name
@@ -53,6 +62,7 @@ interface Bookmark {
      * for this bookmark.
      */
     @property string terminalCommand();
+
 }
 
 abstract class AbstractBookmark: Bookmark {
@@ -60,6 +70,7 @@ private:
     string _name;
     string _uuid;
 
+    FolderBookmark _parent;
 public:
 
     this() {
@@ -69,6 +80,14 @@ public:
     this(string name) {
         this();
         this._name = name;
+    }
+
+    @property FolderBookmark parent() {
+        return _parent;
+    }
+
+    @property void parent(FolderBookmark parent) {
+        _parent = parent;
     }
 
     @property string name() {
@@ -82,9 +101,10 @@ public:
         return _uuid;
     }
 
-    JSONValue serialize() {
+    JSONValue serialize(FolderBookmark parent) {
         JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
         value[NODE_NAME] = name;
+        _parent = parent;
         return value;
     }
 
@@ -141,11 +161,11 @@ public:
         return result;
     }
 
-    override JSONValue serialize() {
-        JSONValue value = super.serialize();
+    override JSONValue serialize(FolderBookmark parent) {
+        JSONValue value = super.serialize(parent);
         JSONValue[] jsonList = [];
         foreach(item; list) {
-            jsonList ~= item.serialize();
+            jsonList ~= item.serialize(this);
         }
         value[NODE_LIST] = jsonList;
         return value;
@@ -201,8 +221,8 @@ public:
         _path = path;
     }
 
-    override JSONValue serialize() {
-        JSONValue value = super.serialize();
+    override JSONValue serialize(FolderBookmark parent) {
+        JSONValue value = super.serialize(parent);
         value[NODE_PATH] = _path;
         return value;
     }
@@ -300,8 +320,8 @@ public:
         _command = value;
     }
 
-    override JSONValue serialize() {
-        JSONValue value = super.serialize();
+    override JSONValue serialize(FolderBookmark parent) {
+        JSONValue value = super.serialize(parent);
         value[NODE_HOST] = _host;
         value[NODE_PORT] = _port;
         value[NODE_USER] = _user;
@@ -327,15 +347,15 @@ public:
             case ProtocolType.SSH:
                 result = "ssh";
                 if (params.length > 0) result ~= " " ~ params;
-                if (user.length > 0) result ~= user ~ "@";
-                result ~= host;
+                if (user.length > 0) result ~= " " ~ user ~ "@" ~ host;
+                else result ~= " " ~ host;
                 if (port > 0) result ~= " -p " ~ to!string(port);
-                if (command.length > 0) result ~= " " ~ command;
+                if (command.length > 0) result ~= " \"" ~ command ~ "\"";
                 break;
             case ProtocolType.TELNET:
                 result = "telnet";
                 if (params.length > 0) result ~= " " ~ params;
-                result ~= host;
+                result ~= " " ~ host;
                 if (port > 0) result ~= " " ~ to!string(port);
                 break;
             case ProtocolType.FTP: .. case ProtocolType.SFTP:
@@ -344,8 +364,8 @@ public:
                     result = "s" ~ result;
                 }
                 if (params.length > 0) result ~= " " ~ params;
-                if (user.length > 0) result ~= user ~ "@";
-                result ~= host;
+                if (user.length > 0) result ~= " " ~ user ~ "@" ~ host;
+                else result ~= " " ~ host;
                 if (port > 0) result ~= " " ~ to!string(port);
                 break;
             default:
@@ -380,8 +400,8 @@ public:
         _command = value;
     }
 
-    override JSONValue serialize() {
-        JSONValue value = super.serialize();
+    override JSONValue serialize(FolderBookmark parent) {
+        JSONValue value = super.serialize(parent);
         value[NODE_COMMAND] = _command;
         return value;
     }
@@ -410,7 +430,7 @@ private:
 
 public:
     this() {
-        _root = new FolderBookmark("root");
+        _root = new FolderBookmark(_("Root"));
     }
 
     Bookmark createBookmark(BookmarkType type) {
@@ -437,17 +457,26 @@ public:
         bookmarks.remove(bm.uuid);
     }
 
+    void move(FolderBookmark target, Bookmark source) {
+        source.parent.remove(source);
+        target.add(source);
+    }
+
     string localize(BookmarkType type) {
         return _(localizedBookmarks[cast(uint)type]);
     }
 
     Bookmark get(string uuid) {
-        return bookmarks[uuid];
+        if (uuid in bookmarks) {
+            return bookmarks[uuid];
+        } else {
+            return null;
+        }
     }
 
     void save() {
         string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
-        string json = root.serialize().toPrettyString();
+        string json = root.serialize(null).toPrettyString();
         write(filename, json);
     }
 

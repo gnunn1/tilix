@@ -42,6 +42,9 @@ private:
         tv.addOnCursorChanged(delegate(TreeView) {
             updateUI();
         });
+        tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
+            editBookmark(btnEdit);
+        });
 
         ScrolledWindow sw = new ScrolledWindow(tv);
         sw.setShadowType(ShadowType.ETCHED_IN);

@@ -8,6 +8,7 @@ import std.conv;
 import std.experimental.logger;
 import std.string;
 
+import gdk.DragContext;
 import gdk.Pixbuf;
 
 import gobject.Value;
@@ -17,9 +18,12 @@ import gtk.CellRendererText;
 import gtk.TreeViewColumn;
 import gtk.TreeIter;
 import gtk.TreeModel;
+import gtk.TreeModelIF;
 import gtk.TreeModelFilter;
+import gtk.TreePath;
 import gtk.TreeStore;
 import gtk.TreeView;
+import gtk.Widget;
 
 import gx.i18n.l10n;
 
@@ -46,6 +50,9 @@ private:
     string _filterText;
     Pixbuf[] icons;
 
+    bool ignoreOperationFlag = false;
+    string deletedBookmarkUUID;
+
     void createColumns() {
         CellRendererPixbuf crp = new CellRendererPixbuf();
         crp.setProperty("stock-size", 16);
@@ -68,47 +75,72 @@ private:
     FolderBookmark getParentBookmark(Bookmark bm, out TreeIter parent) {
         parent = getSelectedIter();
         if (parent is null) return null;
-        if (!ts.iterHasChild(parent)) {
-            parent = parent.getParent();
+        if (!getModel().iterHasChild(parent)) {
+            if (!getModel().iterParent(parent, parent)) {
+                parent = null;
+                return bmMgr.root;
+            }
         }
-        return cast(FolderBookmark) bmMgr.get(parent.getValueString(Columns.UUID));
+        return cast(FolderBookmark) bmMgr.get(getModel().getValueString(parent, Columns.UUID));
     }
 
     void updateFilter() {
 
         void checkFilter(TreeIter iter) {
-            string name = ts.getValueString(iter, Columns.NAME);
+            string name = getModel().getValueString(iter, Columns.NAME);
             bool visible = filterText.length == 0 || name.indexOf(filterText) >= 0;
             ts.setValue(iter, Columns.FILTER, visible);
             if (visible) {
                 TreeIter parent;
-                ts.iterParent(parent, iter);
+                getModel().iterParent(parent, iter);
                 Value value = new Value();
                 while (parent !is null) {
                     // has parent visibility already been set?
-                    value = ts.getValue(parent, Columns.FILTER, value);
+                    value = getModel().getValue(parent, Columns.FILTER, value);
                     if (value.getBoolean()) break;
                     ts.setValue(parent, Columns.FILTER, true);
-                    if (!ts.iterParent(parent, parent)) break;
+                    if (!getModel().iterParent(parent, parent)) break;
                 }
             }
-            if (ts.iterHasChild(iter)) {
+            if (getModel().iterHasChild(iter)) {
                 TreeIter child;
-                ts.iterChildren(child, iter);
+                getModel().iterChildren(child, iter);
                 while (child !is null) {
                     checkFilter(child);
-                    if (!ts.iterNext(child)) break;
+                    if (!getModel().iterNext(child)) break;
                 }
             }
         }
 
          TreeIter iter;
-         ts.getIterFirst(iter);
+         getModel().getIterFirst(iter);
          while (iter !is null) {
             checkFilter(iter);
-            if (!ts.iterNext(iter)) break;
-         }
-     }
+            if (!getModel().iterNext(iter)) break;
+        }
+    }
+
+    bool isDragAllowed(int x, int y) {
+        TreePath path;
+        TreeViewDropPosition tvdp;
+        getDestRowAtPos(x, y, path, tvdp);
+        TreeIter iter;
+        if (ts.getIter(iter, path)) {
+            string uuid = ts.getValueString(iter, Columns.UUID);
+            FolderBookmark fb = cast(FolderBookmark) bmMgr.get(uuid);
+            return (fb !is null);
+        } else {
+            return false;
+        }
+    }
+
+    bool onDragDrop(DragContext dc, int x, int y, uint time, Widget widget) {
+        return isDragAllowed(x, y);
+    }
+
+    bool onDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
+        return isDragAllowed(x, y);
+    }
 
 public:
     this(bool enableFilter = false, bool foldersOnly = false) {
@@ -130,7 +162,7 @@ public:
     Bookmark getSelectedBookmark() {
         TreeIter selected = getSelectedIter();
         if (selected is null) return null;
-        return bmMgr.get(selected.getValueString(Columns.UUID));
+        return bmMgr.get(getModel().getValueString(selected, Columns.UUID));
     }
 
     /**
@@ -145,7 +177,9 @@ public:
             fbm = bmMgr.root;
         }
         bmMgr.add(fbm, bm);
+        ignoreOperationFlag = true;
         addBookmarktoParent(ts, parent, bm, icons);
+        ignoreOperationFlag = false;
         return fbm;
     }
 
@@ -160,11 +194,12 @@ public:
         TreeIter parent;
         FolderBookmark fbm = getParentBookmark(bm, parent);
         if (fbm is null) {
-            error("Unexpected error adding bookmark, could not locate parent FolderBookmark");
-            return;
+            fbm = bmMgr.root;
         }
         bmMgr.remove(fbm, bm);
+        ignoreOperationFlag = true;
         ts.remove(selected);
+        ignoreOperationFlag = false;
     }
 
     /**
@@ -172,7 +207,7 @@ public:
      */
     void updateBookmark(Bookmark bm) {
         TreeIter selected = getSelectedIter();
-        if (selected is null || selected.getValueString(Columns.UUID) != bm.uuid) return;
+        if (selected is null || ts.getValueString(selected, Columns.UUID) != bm.uuid) return;
         ts.setValue(selected, Columns.NAME, bm.name);
     }
 
