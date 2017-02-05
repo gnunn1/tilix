@@ -73,10 +73,7 @@ import gx.terminix.constants;
 import gx.terminix.preferences;
 import gx.terminix.shortcuts;
 
-
-static if (BOOKMARKS) {
-    import gx.terminix.bookmark.manager;
-}
+import gx.terminix.bookmark.manager;
 
 import gx.terminix.prefeditor.prefdialog;
 
@@ -501,20 +498,16 @@ private:
         });
 
         initProfileManager();
-        static if (BOOKMARKS) {
-            initBookmarkManager();
-            bmMgr.load();
-        }
+        initBookmarkManager();
+        bmMgr.load();
         applyPreferences();
         installAppMenu();
     }
 
     void onAppShutdown(GApplication) {
         trace("Quit App Signal");
-        static if (BOOKMARKS) {
-            if (bmMgr.hasChanged()) {
-                bmMgr.save();
-            }
+        if (bmMgr.hasChanged()) {
+            bmMgr.save();
         }
         terminix = null;
     }

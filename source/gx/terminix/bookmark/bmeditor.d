@@ -385,6 +385,9 @@ public:
 
         cbProtocol = createNameValueCombo(protocols);
         cbProtocol.setActiveId(to!string(ProtocolType.SSH));
+        cbProtocol.addOnChanged(delegate(ComboBox) {
+            eCommand.setSensitive(cbProtocol.getActiveId() == to!string(ProtocolType.SSH));
+        });
         attach(cbProtocol, 1, row, 1, 1);
         row++;
 

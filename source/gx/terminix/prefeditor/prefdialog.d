@@ -84,9 +84,7 @@ import gx.terminix.preferences;
 import gx.terminix.prefeditor.profileeditor;
 import gx.terminix.prefeditor.titleeditor;
 
-static if (BOOKMARKS) {
 import gx.terminix.prefeditor.bookmarkeditor;
-}
 
 /**
  * UI for managing Terminix preferences
@@ -102,9 +100,7 @@ private:
     Button btnDeleteProfile;
 
     ProfileEditor pe;
-    static if (BOOKMARKS) {
-        GlobalBookmarkEditor bmEditor;
-    }
+    GlobalBookmarkEditor bmEditor;
 
     bool _wayland;
 
@@ -141,11 +137,9 @@ private:
         pages.addTitled(qp, N_("Quake"), _("Quake"));
         lbSide.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
 
-        static if (BOOKMARKS) {
-            bmEditor = new GlobalBookmarkEditor();
-            pages.addTitled(bmEditor, N_("Bookmarks"), _("Bookmarks"));
-            lbSide.add(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
-        }
+        bmEditor = new GlobalBookmarkEditor();
+        pages.addTitled(bmEditor, N_("Bookmarks"), _("Bookmarks"));
+        lbSide.add(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));

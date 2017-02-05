@@ -667,17 +667,15 @@ private:
             vte.setEncoding(value.getString(l));
         }, encoding.getType(), encoding);
 
-        static if (BOOKMARKS) {
-            // Add Bookmark
-            registerAction(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, null, delegate(GVariant, SimpleAction) {
-                addBookmark();
-            }, null, null);
+        // Add Bookmark
+        registerAction(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, null, delegate(GVariant, SimpleAction) {
+            addBookmark();
+        }, null, null);
 
-            // Select Bookmark
-            registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant value, SimpleAction sa) {
-                selectBookmark();
-            }, null, null);
-        }
+        // Select Bookmark
+        registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant value, SimpleAction sa) {
+            selectBookmark();
+        }, null, null);
 
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
@@ -718,12 +716,10 @@ private:
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
         model.appendSection(null, menuSection);
 
-        static if (BOOKMARKS) {
-            menuSection = new GMenu();
-            menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
-            menuSection.append(_("Select Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
-            model.appendSubmenu(_("Bookmarks"), menuSection);
-        }
+        menuSection = new GMenu();
+        menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
+        menuSection.append(_("Select Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
+        model.appendSubmenu(_("Bookmarks"), menuSection);
 
         menuSection = new GMenu();
         menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));

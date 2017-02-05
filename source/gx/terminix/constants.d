@@ -35,11 +35,6 @@ immutable bool USE_FILE_LOGGING = false;
  */
 immutable bool FLATPAK = false;
 
-/**
- * Enables bookmarks
- */
- immutable bool BOOKMARKS = false;
-
 /**************************************
  * Application Constants
  **************************************/

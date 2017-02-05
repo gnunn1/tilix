@@ -4,10 +4,14 @@
  */
 module gx.terminix.bookmark.bmchooser;
 
+import gdk.Event;
+import gdk.Keysyms;
+
 import gtk.Box;
 import gtk.Dialog;
 import gtk.ScrolledWindow;
 import gtk.SearchEntry;
+import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.util;
@@ -41,6 +45,7 @@ private:
         tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
             response(ResponseType.OK);
         });
+        tv.addOnKeyPress(&checkKeyPress);
 
         ScrolledWindow sw = new ScrolledWindow(tv);
         sw.setShadowType(ShadowType.ETCHED_IN);
@@ -52,7 +57,9 @@ private:
         SearchEntry se = new SearchEntry();
         se.addOnSearchChanged(delegate(SearchEntry) {
             tv.filterText = se.getText();
+            updateUI();
         });
+        se.addOnKeyPress(&checkKeyPress);
 
         Box box = new Box(Orientation.VERTICAL, 6);
         setAllMargins(box, 18);
@@ -66,15 +73,30 @@ private:
         bool enabled = bm !is null;
         switch (mode) {
             case BMSelectionMode.FOLDER:
-                enabled = enabled && cast(FolderBookmark)bm !is null;
+                enabled = enabled && (cast(FolderBookmark)bm !is null);
                 break;
             case BMSelectionMode.LEAF:
-                enabled = enabled && cast(FolderBookmark)bm is null;
+                enabled = enabled && (cast(FolderBookmark)bm is null);
                 break;
             default:
                 break;
         }
         setResponseSensitive(ResponseType.OK, enabled);
+    }
+
+    bool checkKeyPress(Event event, Widget w) {
+        uint keyval;
+        if (event.getKeyval(keyval)) {
+            if (keyval == GdkKeysyms.GDK_Escape) {
+                response = ResponseType.CANCEL;
+                return true;
+            }
+            if (keyval == GdkKeysyms.GDK_Return) {
+                response = ResponseType.OK;
+                return true;
+            }
+        }
+        return false;
     }
 
 public:

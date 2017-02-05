@@ -8,6 +8,7 @@ import std.conv;
 import std.experimental.logger;
 import std.string;
 import std.traits;
+import std.typecons : No;
 
 import gdk.Atom;
 import gdk.DragContext;
@@ -95,39 +96,72 @@ private:
         return cast(FolderBookmark) bmMgr.get(getModel().getValueString(parent, Columns.UUID));
     }
 
+    /**
+     * Updates the filter and returns the TreePath
+     * of the node that should be focused.
+     */
     void updateFilter() {
 
         void checkFilter(TreeIter iter) {
-            string name = getModel().getValueString(iter, Columns.NAME);
-            bool visible = filterText.length == 0 || name.indexOf(filterText) >= 0;
+            string name = ts.getValueString(iter, Columns.NAME);
+            bool visible = filterText.length == 0 || name.indexOf(filterText, No.caseSensitive) >= 0;
             ts.setValue(iter, Columns.FILTER, visible);
             if (visible) {
-                TreeIter parent;
-                getModel().iterParent(parent, iter);
+                TreeIter parent = iter;
                 Value value = new Value();
-                while (parent !is null) {
+                // Walk up the parent heirarchy and set it's visibility to true
+                while (ts.iterParent(parent, parent)) {
                     // has parent visibility already been set?
-                    value = getModel().getValue(parent, Columns.FILTER, value);
+                    value = ts.getValue(parent, Columns.FILTER, value);
                     if (value.getBoolean()) break;
                     ts.setValue(parent, Columns.FILTER, true);
-                    if (!getModel().iterParent(parent, parent)) break;
+                    //if (!ts.iterParent(parent, parent)) break;
                 }
             }
-            if (getModel().iterHasChild(iter)) {
+            if (ts.iterHasChild(iter)) {
                 TreeIter child;
-                getModel().iterChildren(child, iter);
+                ts.iterChildren(child, iter);
                 while (child !is null) {
                     checkFilter(child);
-                    if (!getModel().iterNext(child)) break;
+                    if (!ts.iterNext(child)) break;
                 }
             }
         }
 
          TreeIter iter;
-         getModel().getIterFirst(iter);
-         while (iter !is null) {
-            checkFilter(iter);
-            if (!getModel().iterNext(iter)) break;
+         if (ts.getIterFirst(iter)) {
+            while (iter !is null) {
+                checkFilter(iter);
+                if (!ts.iterNext(iter)) break;
+            }
+         }
+    }
+
+    void selectFirstFilteredLeaf() {
+        bool focusLeaf(TreeIter iter) {
+            string uuid = filter.getValueString(iter, Columns.UUID);
+            FolderBookmark bm = cast(FolderBookmark) bmMgr.get(uuid);
+            if (bm is null) {
+                getSelection().selectIter(iter);
+                return true;
+            }
+            if (filter.iterHasChild(iter)) {
+                TreeIter child;
+                filter.iterChildren(child, iter);
+                while (child !is null) {
+                    if (focusLeaf(child)) return true;
+                    if (!filter.iterNext(child)) break;
+                }
+            }
+            return false;
+        }
+
+        TreeIter iter;
+        if (filter.getIterFirst(iter)) {
+            while (iter !is null) {
+                if (focusLeaf(iter)) return;
+                if (!filter.iterNext(iter)) break;
+            }
         }
     }
 
@@ -317,6 +351,7 @@ public:
             trace("Refilter");
             filter.refilter();
             expandAll();
+            selectFirstFilteredLeaf();
         }
     }
 }
