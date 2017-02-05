@@ -105,9 +105,20 @@ install -d ${PREFIX}/share/dbus-1/services
 install -m 644 data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services/
 
 # Copy man page
+echo "Installing man pages"
 install -d ${PREFIX}/share/man/man1
 install -m 644 data/man/terminix ${PREFIX}/share/man/man1/terminix.1
-gzip -f /usr/share/man/man1/terminix.1
+gzip -f ${PREFIX}/share/man/man1/terminix.1
+
+if type po4a-translate >/dev/null 2>&1; then
+    for f in data/man/po/*.man.po
+    do
+        LOCALE=$(basename "$f" .man.po)
+        install -d ${PREFIX}/share/man/${LOCALE}/man1
+        po4a-translate -f man -m data/man/terminix -p data/man/po/${LOCALE}.man.po -l ${PREFIX}/share/man/${LOCALE}/man1/terminix.1
+        gzip -f ${PREFIX}/share/man/${LOCALE}/man1/terminix.1
+    done
+fi
 
 # Copy Icons
 cd data/icons/hicolor

@@ -25,3 +25,5 @@ rm ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
 rm ${PREFIX}/share/dbus-1/services/com.gexperts.Terminix.service
 rm ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
 rm ${PREFIX}/share/metainfo/com.gexperts.Terminix.appdata.xml
+rm ${PREFIX}/share/man/man1/terminix.1.gz
+rm ${PREFIX}/share/man/*/man1/terminix.1.gz
