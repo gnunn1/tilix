@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-30 12:41-0500\n"
+"POT-Creation-Date: 2017-02-05 18:40-0500\n"
 "PO-Revision-Date: 2016-11-09 23:12+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/terminix/"
@@ -17,52 +17,52 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: source/app.d:105
+#: source/app.d:110
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
 
-#: source/app.d:122
+#: source/app.d:127
 msgid "Unexpected exception occurred"
 msgstr ""
 
-#: source/app.d:123
+#: source/app.d:128
 msgid "Error: "
 msgstr "Σφάλμα:"
 
-#: source/app.d:133
+#: source/app.d:138
 #, fuzzy
 msgid "Versions"
 msgstr "Συνεδρία"
 
-#: source/app.d:134
+#: source/app.d:139
 #, c-format
 msgid "Terminix version: %s"
 msgstr ""
 
-#: source/app.d:135
+#: source/app.d:140
 #, fuzzy, c-format
 msgid "VTE version: %s"
 msgstr "Συνεδρία"
 
-#: source/app.d:136
+#: source/app.d:141
 #, c-format
 msgid "GTK Version: %d.%d.%d"
 msgstr ""
 
-#: source/app.d:137
+#: source/app.d:142
 msgid "Terminix Special Features"
 msgstr ""
 
-#: source/app.d:138
+#: source/app.d:143
 msgid "Notifications enabled=%b"
 msgstr ""
 
-#: source/app.d:139
+#: source/app.d:144
 msgid "Triggers enabled=%b"
 msgstr ""
 
-#: source/app.d:140
+#: source/app.d:145
 msgid "Badges enabled=%b"
 msgstr ""
 
@@ -70,376 +70,225 @@ msgstr ""
 msgid "disabled"
 msgstr ""
 
-#: source/gx/terminix/constants.d:49
+#: source/gx/terminix/bookmark/bmeditor.d:68
+#: source/gx/terminix/bookmark/bmchooser.d:104
+#, fuzzy
+msgid "Select Folder"
+msgstr "Επιλογή όλων"
+
+#: source/gx/terminix/bookmark/bmeditor.d:74
+#, fuzzy
+msgid "Select folder"
+msgstr "Επιλογή όλων"
+
+#: source/gx/terminix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Add Bookmark"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Edit Bookmark"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/closedialog.d:195
+msgid "OK"
+msgstr "Eντάξει"
+
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2696
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/closedialog.d:195 source/gx/terminix/appwindow.d:1274
+#: source/gx/terminix/appwindow.d:1308
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: source/gx/terminix/bookmark/bmeditor.d:228
+#: source/gx/terminix/bookmark/bmtreeview.d:74
+#: source/gx/terminix/session.d:1428 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425
+msgid "Name"
+msgstr "Όνομα"
+
+#: source/gx/terminix/bookmark/bmeditor.d:289
+#: source/gx/terminix/bookmark/manager.d:623
+msgid "Path"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:291
+#, fuzzy
+msgid "Select Path"
+msgstr "Επιλογή όλων"
+
+#: source/gx/terminix/bookmark/bmeditor.d:330
+#: source/gx/terminix/bookmark/bmeditor.d:425
+#: source/gx/terminix/bookmark/manager.d:623
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/prefeditor/profileeditor.d:100
+#: source/gx/terminix/prefeditor/profileeditor.d:1030
+#: source/gx/terminix/prefeditor/profileeditor.d:1328
+msgid "Command"
+msgstr "Εντολή"
+
+#: source/gx/terminix/bookmark/bmeditor.d:379
+msgid "Protocol"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:395
+msgid "Host"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:411
+msgid "User"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:418
+#, fuzzy
+msgid "Parameters"
+msgstr "Παράμετρος"
+
+#: source/gx/terminix/bookmark/bmchooser.d:104
+#, fuzzy
+msgid "Select Bookmark"
+msgstr "Επιλογή χρώματος ετικέτας"
+
+#: source/gx/terminix/bookmark/bmtreeview.d:71
+#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Icon"
+msgstr "Εικονίδιο"
+
+#: source/gx/terminix/bookmark/manager.d:226
+msgid "Error deserializing bookmark"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:501
+msgid "Root"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:569
+#, fuzzy
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Αδυναμία φόρτωσης της συνεδρίας λόγω ενός απρόσμενου σφάλματος."
+
+#: source/gx/terminix/bookmark/manager.d:623
+msgid "Folder"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:623
+msgid "Remote"
+msgstr ""
+
+#: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
 msgstr ""
 
-#: source/gx/terminix/constants.d:50
+#: source/gx/terminix/constants.d:61
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 
-#: source/gx/terminix/constants.d:55
+#: source/gx/terminix/constants.d:66
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
 
-#: source/gx/terminix/constants.d:56
+#: source/gx/terminix/constants.d:67
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr ""
 
-#: source/gx/terminix/constants.d:57
+#: source/gx/terminix/constants.d:68
 msgid "Dlang.org for such an excellent language, D"
 msgstr ""
 
-#: source/gx/terminix/prefdialog.d:105
-msgid "Terminix Preferences"
-msgstr ""
+#: source/gx/terminix/constants.d:117 source/gx/terminix/terminal/layout.d:51
+#: source/gx/terminix/closedialog.d:113
+msgid "Title"
+msgstr "Τίτλος"
 
-#: source/gx/terminix/prefdialog.d:122 source/gx/terminix/prefdialog.d:123
-#: source/gx/terminix/prefdialog.d:187
-msgid "Global"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:126 source/gx/terminix/prefdialog.d:127
-msgid "Appearance"
-msgstr "Εμφάνιση"
-
-#: source/gx/terminix/prefdialog.d:130 source/gx/terminix/prefdialog.d:131
-msgid "Quake"
-msgstr "Quake"
-
-#: source/gx/terminix/prefdialog.d:134 source/gx/terminix/prefdialog.d:135
-#: source/gx/terminix/application.d:220
-msgid "Shortcuts"
-msgstr "Συντομεύσεις"
-
-#: source/gx/terminix/prefdialog.d:138 source/gx/terminix/prefdialog.d:139
-#: source/gx/terminix/prefdialog.d:587 source/gx/terminix/profileeditor.d:976
-#: source/gx/terminix/terminal/terminal.d:702
-msgid "Encoding"
-msgstr "Κωδικοποίηση"
-
-#: source/gx/terminix/prefdialog.d:144 source/gx/terminix/session.d:1434
-msgid "Profile"
-msgstr "Προφίλ"
-
-#: source/gx/terminix/prefdialog.d:157
+#: source/gx/terminix/constants.d:118
 #, fuzzy
-msgid "Add profile"
-msgstr "Επεξεργασία προφίλ"
-
-#: source/gx/terminix/prefdialog.d:162
-#, fuzzy
-msgid "Delete profile"
-msgstr "Νέο προφίλ"
-
-#: source/gx/terminix/prefdialog.d:219 source/gx/terminix/prefdialog.d:342
-#: source/gx/terminix/application.d:218 source/gx/terminix/appwindow.d:642
-msgid "Preferences"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:239
-#: source/gx/terminix/terminal/terminal.d:701
-msgid "Profiles"
-msgstr "Προφίλ"
-
-#: source/gx/terminix/prefdialog.d:263 source/gx/terminix/prefdialog.d:271
-#, fuzzy, c-format
-msgid "Profile: %s"
-msgstr "Προφίλ"
-
-#: source/gx/terminix/prefdialog.d:468 source/gx/terminix/profileeditor.d:1197
-#: source/gx/terminix/profileeditor.d:1362
-#: source/gx/terminix/profileeditor.d:1518
-#: source/gx/terminix/terminal/password.d:209
-msgid "Delete"
-msgstr "Διαγραφή"
-
-#: source/gx/terminix/prefdialog.d:469
-msgid "Clone"
-msgstr "Κλωνοποίηση"
-
-#: source/gx/terminix/prefdialog.d:473
-#, fuzzy
-msgid "Use for new terminals"
-msgstr "Επαναφορά του τερματικού"
-
-#: source/gx/terminix/prefdialog.d:549
-msgid "Encodings showing in menu:"
-msgstr "Κωδικοποιήσεις που εμφανίζονται στο μενού:"
-
-#: source/gx/terminix/prefdialog.d:585
-msgid "Enabled"
-msgstr "Ενεργοποιημένα"
-
-#: source/gx/terminix/prefdialog.d:644 source/gx/terminix/profileeditor.d:1486
-msgid "Action"
-msgstr "Ενέργεια"
-
-#: source/gx/terminix/prefdialog.d:673
-msgid "Shortcut Key"
-msgstr "Πλήκτρο συντόμευσης"
-
-#: source/gx/terminix/prefdialog.d:685
-msgid "Enable shortcuts"
-msgstr "Ενεργοποίηση συντομεύσεων"
-
-#: source/gx/terminix/prefdialog.d:709
-msgid "Overwrite Existing Shortcut"
-msgstr "Αντικατάσταση της υπάρχουσας συντόμευσης"
-
-#: source/gx/terminix/prefdialog.d:710
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:841
-msgid "Enable transparency, requires re-start"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:852
-msgid "Terminal title style"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:853
-msgid "Normal"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:853
-msgid "Small"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:853 source/gx/terminix/profileeditor.d:292
-msgid "None"
-msgstr "Κανένα"
-
-#: source/gx/terminix/prefdialog.d:859
-msgid "Theme variant"
-msgstr "Παραλλαγή θέματος"
-
-#: source/gx/terminix/prefdialog.d:860 source/gx/terminix/session.d:1115
-#: source/gx/terminix/appwindow.d:863
-msgid "Default"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:860
-msgid "Light"
-msgstr "Φωτεινό"
-
-#: source/gx/terminix/prefdialog.d:860
-msgid "Dark"
-msgstr "Σκούρο"
-
-#: source/gx/terminix/prefdialog.d:866
-msgid "Background image"
-msgstr "Εικόνα παρασκηνίου"
-
-#: source/gx/terminix/prefdialog.d:868
-msgid "Select Image"
-msgstr "Επιλογή εικόνας"
-
-#: source/gx/terminix/prefdialog.d:871
-msgid "All Image Files"
-msgstr "Όλα τα αρχεία εικόνων"
-
-#: source/gx/terminix/prefdialog.d:878 source/gx/terminix/profileeditor.d:856
-#: source/gx/terminix/terminal/terminal.d:2641
-#: source/gx/terminix/appwindow.d:1203
-msgid "All Files"
-msgstr "Όλα τα αρχεία"
-
-#: source/gx/terminix/prefdialog.d:892
-msgid "Reset background image"
-msgstr "Επαναφορά εικόνας παρασκηνίου"
-
-#: source/gx/terminix/prefdialog.d:898
-msgid "Scale"
-msgstr "Κλιμάκωση"
-
-#: source/gx/terminix/prefdialog.d:898
-msgid "Tile"
-msgstr "Παράθεση"
-
-#: source/gx/terminix/prefdialog.d:898 source/gx/terminix/prefdialog.d:1015
-msgid "Center"
-msgstr "Κεντράρισμα"
-
-#: source/gx/terminix/prefdialog.d:898
-msgid "Stretch"
-msgstr "Παραμόρφωση"
-
-#: source/gx/terminix/prefdialog.d:917
-msgid "Default session name"
-msgstr "Προεπιλεγμένο όνομα συνεδρίας"
-
-#: source/gx/terminix/prefdialog.d:928
-#, fuzzy
-msgid "Application title"
+msgid "Icon title"
 msgstr "Εφαρμογή"
 
-#: source/gx/terminix/prefdialog.d:941
-msgid "Use a wide handle for splitters"
+#: source/gx/terminix/constants.d:119
+#: source/gx/terminix/terminal/password.d:136
+msgid "ID"
+msgstr "Αναγνωριστικό "
+
+#: source/gx/terminix/constants.d:120
+msgid "Directory"
 msgstr ""
 
-#: source/gx/terminix/prefdialog.d:946
-msgid "Place the sidebar on the right"
-msgstr "Τοποθέτηση της πλευρικής στήλης στα δεξιά"
+#: source/gx/terminix/constants.d:121
+msgid "Hostname"
+msgstr ""
 
-#: source/gx/terminix/prefdialog.d:950
+#: source/gx/terminix/constants.d:122
+msgid "Username"
+msgstr ""
+
+#: source/gx/terminix/constants.d:123
 #, fuzzy
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
+msgid "Columns"
+msgstr "στήλες"
 
-#: source/gx/terminix/prefdialog.d:982
-msgid "Size"
-msgstr "Μέγεθος"
-
-#: source/gx/terminix/prefdialog.d:993
-msgid "Height percent"
-msgstr "Ποσοστό ήψους"
-
-#: source/gx/terminix/prefdialog.d:1004
-msgid "Width percent"
-msgstr "Ποσοστό πλάτους"
-
-#: source/gx/terminix/prefdialog.d:1014
-msgid "Alignment"
+#: source/gx/terminix/constants.d:124
+msgid "Rows"
 msgstr ""
 
-#: source/gx/terminix/prefdialog.d:1015
-msgid "Left"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1015
+#: source/gx/terminix/constants.d:139
 #, fuzzy
-msgid "Right"
-msgstr "Φωτεινό"
+msgid "Application name"
+msgstr "Εφαρμογή"
 
-#: source/gx/terminix/prefdialog.d:1024 source/gx/terminix/profileeditor.d:465
-msgid "Options"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1032
-msgid "Show terminal on all workspaces"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1037
-msgid "Set hint for window manager to disable animation"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1042
-msgid "Hide window when focus is lost"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1047
+#: source/gx/terminix/constants.d:140
 #, fuzzy
-msgid "Hide the titlebar of the window"
-msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
+msgid "Session name"
+msgstr "Φόρτωση συνεδρίας"
 
-#: source/gx/terminix/prefdialog.d:1062
-msgid "Display terminal on active monitor"
-msgstr ""
+#: source/gx/terminix/constants.d:141
+#, fuzzy
+msgid "Session number"
+msgstr "Συνεδρία"
 
-#: source/gx/terminix/prefdialog.d:1069
-msgid "Display on specific monitor"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1111
-msgid "Behavior"
-msgstr "Συμπεριφορά"
-
-#: source/gx/terminix/prefdialog.d:1117
-msgid "Prompt when creating a new session"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1122
-msgid "Focus a terminal when the mouse moves over it"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1127
-msgid "Autohide the mouse pointer when typing"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1132
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1137
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1142
-msgid "Close window when last session is closed"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1148
-msgid "Send desktop notification on process complete"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1156
-msgid "On new instance"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1159 source/gx/terminix/application.d:214
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:16
-msgid "New Window"
-msgstr "Νέο παράθυρο"
-
-#: source/gx/terminix/prefdialog.d:1159 source/gx/terminix/session.d:1457
-#: source/gx/terminix/application.d:213
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:20
-msgid "New Session"
-msgstr "Νέα συνεδρία"
-
-#: source/gx/terminix/prefdialog.d:1159
-msgid "Split Right"
-msgstr "Διαχωρισμός στα δεξιά"
-
-#: source/gx/terminix/prefdialog.d:1159
-msgid "Split Down"
-msgstr "Διαχωρισμός κάτω"
-
-#: source/gx/terminix/prefdialog.d:1159
-msgid "Focus Window"
-msgstr "Εστίαση παραθύρου"
-
-#: source/gx/terminix/prefdialog.d:1165
-#: source/gx/terminix/terminal/terminal.d:1399
-msgid "Clipboard"
-msgstr "Πρόχειρο"
-
-#: source/gx/terminix/prefdialog.d:1171
-msgid "Always use advanced paste dialog"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1176
-msgid "Warn when attempting unsafe paste"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1181
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-
-#: source/gx/terminix/prefdialog.d:1186
-msgid "Automatically copy text to clipboard when selecting"
-msgstr ""
-
-#: source/gx/terminix/session.d:542
+#: source/gx/terminix/session.d:544
 msgid "Could not locate dropped terminal"
 msgstr ""
 
-#: source/gx/terminix/session.d:547
+#: source/gx/terminix/session.d:549
 msgid "Could not locate session for dropped terminal"
 msgstr ""
 
-#: source/gx/terminix/session.d:1423 source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425
-msgid "Name"
-msgstr "Όνομα"
+#: source/gx/terminix/session.d:1120 source/gx/terminix/appwindow.d:880
+#: source/gx/terminix/prefeditor/prefdialog.d:905
+msgid "Default"
+msgstr ""
+
+#: source/gx/terminix/session.d:1439
+#: source/gx/terminix/prefeditor/prefdialog.d:155
+msgid "Profile"
+msgstr "Προφίλ"
+
+#: source/gx/terminix/session.d:1462 source/gx/terminix/application.d:216
+#: source/gx/terminix/prefeditor/prefdialog.d:1204
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
+msgid "New Session"
+msgstr "Νέα συνεδρία"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -576,532 +425,19 @@ msgstr ""
 msgid "Thai"
 msgstr ""
 
-#: source/gx/terminix/profileeditor.d:96
-msgid "General"
-msgstr "Γενικά"
-
-#: source/gx/terminix/profileeditor.d:97
-#: source/gx/terminix/profileeditor.d:1025
-#: source/gx/terminix/profileeditor.d:1331
-#: source/gx/terminix/terminal/layout.d:76
-msgid "Command"
-msgstr "Εντολή"
-
-#: source/gx/terminix/profileeditor.d:98
-msgid "Color"
-msgstr "Χρώμα"
-
-#: source/gx/terminix/profileeditor.d:99
-msgid "Scrolling"
-msgstr "Κύλιση"
-
-#: source/gx/terminix/profileeditor.d:100
-msgid "Compatibility"
-msgstr "Συμβατότητα"
-
-#: source/gx/terminix/profileeditor.d:101
-#: source/gx/terminix/profileeditor.d:484
-msgid "Advanced"
-msgstr "Για προχωρημένους"
-
-#: source/gx/terminix/profileeditor.d:213
-msgid "Profile name"
-msgstr "'Ονομα προφίλ"
-
-#: source/gx/terminix/profileeditor.d:237
-msgid "Terminal size"
-msgstr "Μεγέθος τερματικού"
-
-#: source/gx/terminix/profileeditor.d:247
-msgid "columns"
-msgstr "στήλες"
-
-#: source/gx/terminix/profileeditor.d:253
-msgid "rows"
-msgstr "σειρές"
-
-#: source/gx/terminix/profileeditor.d:258
-#: source/gx/terminix/terminal/terminal.d:696
-msgid "Reset"
-msgstr "Επαναφορά"
-
-#: source/gx/terminix/profileeditor.d:269
-#: source/gx/terminix/profileeditor.d:564
-msgid "Cursor"
-msgstr "Κέρσορας"
-
-#: source/gx/terminix/profileeditor.d:272
-msgid "Block"
-msgstr "Τούβλο"
-
-#: source/gx/terminix/profileeditor.d:272
-msgid "IBeam"
-msgstr "Δέσμη"
-
-#: source/gx/terminix/profileeditor.d:272
-msgid "Underline"
-msgstr "Υπογραμμίση"
-
-#: source/gx/terminix/profileeditor.d:280
-msgid "Blink mode"
-msgstr "Αναβόσβημα"
-
-#: source/gx/terminix/profileeditor.d:283
-msgid "System"
-msgstr "Σύστημα"
-
-#: source/gx/terminix/profileeditor.d:283
-msgid "On"
-msgstr "On"
-
-#: source/gx/terminix/profileeditor.d:283
-msgid "Off"
-msgstr "Off"
-
-#: source/gx/terminix/profileeditor.d:289
-#: source/gx/terminix/terminal/terminal.d:394
-msgid "Terminal bell"
-msgstr "Κουδούνι  τερματικού"
-
-#: source/gx/terminix/profileeditor.d:292
-msgid "Sound"
-msgstr "Ήχος"
-
-#: source/gx/terminix/profileeditor.d:292 source/gx/terminix/closedialog.d:86
-msgid "Icon"
-msgstr "Εικονίδιο"
-
-#: source/gx/terminix/profileeditor.d:292
-msgid "Icon and Sound"
-msgstr "Εικονίδιο και ήχος"
-
-#: source/gx/terminix/profileeditor.d:298
-msgid "Terminal title"
-msgstr "Τίτλος τερματικού"
-
-#: source/gx/terminix/profileeditor.d:309
-#: source/gx/terminix/profileeditor.d:600
-#: source/gx/terminix/terminal/layout.d:60
-msgid "Badge"
-msgstr "Ετικέτα"
-
-#: source/gx/terminix/profileeditor.d:318
-msgid "Badge position"
-msgstr "Θέση ετικέτας"
-
-#: source/gx/terminix/profileeditor.d:322
-msgid "Northwest"
-msgstr "Βορειοδυτικά"
-
-#: source/gx/terminix/profileeditor.d:322
-msgid "Northeast"
-msgstr "Βορειοανατολικά"
-
-#: source/gx/terminix/profileeditor.d:322
-msgid "Southwest"
-msgstr "Νοτιοδυτικά"
-
-#: source/gx/terminix/profileeditor.d:322
-msgid "Southeast"
-msgstr "Νοτιοανατολικά"
-
-#: source/gx/terminix/profileeditor.d:333
-msgid "Text Appearance"
-msgstr "Εμφάνιση κειμένου"
-
-#: source/gx/terminix/profileeditor.d:339
-msgid "Allow bold text"
-msgstr "Να επιτραπεί έντονο κέιμενο"
-
-#: source/gx/terminix/profileeditor.d:344
-msgid "Rewrap on resize"
-msgstr "Αναδίπλωση κατά την αυξομείωση"
-
-#: source/gx/terminix/profileeditor.d:350
-msgid "Custom font"
-msgstr "Προσαρμοσμένη γραμματοσειρά"
-
-#: source/gx/terminix/profileeditor.d:356
-msgid "Choose A Terminal Font"
-msgstr "Επιλογή γραμματοσειράς τερματικού"
-
-#: source/gx/terminix/profileeditor.d:376
-#, c-format
-msgid "ID: %s"
-msgstr "Αναγνωριστικό: %s"
-
-#: source/gx/terminix/profileeditor.d:422
-msgid "Color scheme"
-msgstr "Θέμα χρώματος"
-
-#: source/gx/terminix/profileeditor.d:432
-#: source/gx/terminix/profileeditor.d:879
-msgid "Custom"
-msgstr "Προσαρμοσμένο"
-
-#: source/gx/terminix/profileeditor.d:445
-msgid "Export"
-msgstr "Εξαγωγή"
-
-#: source/gx/terminix/profileeditor.d:457
-msgid "Color palette"
-msgstr "Παλέτα χρωμάτων"
-
-#: source/gx/terminix/profileeditor.d:479
-msgid "Use theme colors for foreground/background"
-msgstr "Χρήση χρωμάτων θέματος για το προσήνιο/παρασκήνιο"
-
-#: source/gx/terminix/profileeditor.d:497
-msgid "Transparency"
-msgstr "Διαφάνεια"
-
-#: source/gx/terminix/profileeditor.d:511
-msgid "Unfocused dim"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:559
-msgid "Text"
-msgstr "Κείμενο"
-
-#: source/gx/terminix/profileeditor.d:560
-#: source/gx/terminix/profileeditor.d:664
-msgid "Background"
-msgstr "Φόντο"
-
-#: source/gx/terminix/profileeditor.d:571
-msgid "Select Cursor Foreground Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:573
-msgid "Select Cursor Background Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:578
-msgid "Highlight"
-msgstr "Επισήμανση"
-
-#: source/gx/terminix/profileeditor.d:583
-msgid "Select Highlight Foreground Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:585
-msgid "Select Highlight Background Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:590
-msgid "Dim"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:595
-msgid "Select Dim Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:604
-msgid "Select Badge Color"
-msgstr "Επιλογή χρώματος ετικέτας"
-
-#: source/gx/terminix/profileeditor.d:653
-msgid "Select Background Color"
-msgstr "Επιλογή χρώματος παρασκηνίου"
-
-#: source/gx/terminix/profileeditor.d:669
-#: source/gx/terminix/profileeditor.d:685
-msgid "Select Foreground Color"
-msgstr "Επιλογή χρώματος προσκήνιου"
-
-#: source/gx/terminix/profileeditor.d:684
-msgid "Foreground"
-msgstr "Προσκήνιο"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Black"
-msgstr "Μαύρο"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Red"
-msgstr "Κόκκινο"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Green"
-msgstr "Πράσινο"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Orange"
-msgstr "Πορτοκαλί"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Blue"
-msgstr "Μπλε"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Purple"
-msgstr "Μωβ"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Turquoise"
-msgstr "Τιρκουάζ"
-
-#: source/gx/terminix/profileeditor.d:688
-msgid "Grey"
-msgstr "Γκρίζο"
-
-#: source/gx/terminix/profileeditor.d:694
-#, c-format
-msgid "Select %s Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:701
-#, c-format
-msgid "Select %s Light Color"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:836
-msgid "Export Color Scheme"
-msgstr "Εξαγωγή χρωματικού συνδυασμού"
-
-#: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/terminal/terminal.d:2631
-#: source/gx/terminix/appwindow.d:630 source/gx/terminix/appwindow.d:1279
-msgid "Save"
-msgstr "Αποθήκευση"
-
-#: source/gx/terminix/profileeditor.d:839
-#: source/gx/terminix/profileeditor.d:1383
-#: source/gx/terminix/profileeditor.d:1556
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2631
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159 source/gx/terminix/appwindow.d:1245
-#: source/gx/terminix/appwindow.d:1279
-msgid "Cancel"
-msgstr "Ακύρωση"
-
-#: source/gx/terminix/profileeditor.d:852 source/gx/terminix/appwindow.d:1199
-msgid "All JSON Files"
-msgstr "Όλα τα αρχεία JSON"
-
-#: source/gx/terminix/profileeditor.d:911
-msgid "Show scrollbar"
-msgstr "Εμφάνιση γραμμή κύλισης"
-
-#: source/gx/terminix/profileeditor.d:915
-msgid "Scroll on output"
-msgstr "Κύλιση στην έξοδο"
-
-#: source/gx/terminix/profileeditor.d:919
-msgid "Scroll on keystroke"
-msgstr "Κύλιση στην πληκτρολόγηση"
-
-#: source/gx/terminix/profileeditor.d:923
-msgid "Limit scrollback to:"
-msgstr "Περιορισμός οπισθοκύλισης σε:"
-
-#: source/gx/terminix/profileeditor.d:958
-msgid "Backspace key generates"
-msgstr "Το πλήκτρο οπισθοδρόμησης προκαλεί"
-
-#: source/gx/terminix/profileeditor.d:961
-#: source/gx/terminix/profileeditor.d:970
-msgid "Automatic"
-msgstr "Αυτόματα"
-
-#: source/gx/terminix/profileeditor.d:961
-#: source/gx/terminix/profileeditor.d:970
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/profileeditor.d:961
-#: source/gx/terminix/profileeditor.d:970
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/profileeditor.d:961
-#: source/gx/terminix/profileeditor.d:970
-msgid "Escape sequence"
-msgstr "Ακολουθία διαφυγής"
-
-#: source/gx/terminix/profileeditor.d:961
-#: source/gx/terminix/profileeditor.d:970
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/profileeditor.d:967
-msgid "Delete key generates"
-msgstr "Το πλήκτρο διαγραφής προκαλεί"
-
-#: source/gx/terminix/profileeditor.d:991
-msgid "Ambiguous-width characters"
-msgstr "Χαρακτήρες ασαφούς πλάτους"
-
-#: source/gx/terminix/profileeditor.d:994
-msgid "Narrow"
-msgstr "Στενοί"
-
-#: source/gx/terminix/profileeditor.d:994
-msgid "Wide"
-msgstr "Πλατιοί"
-
-#: source/gx/terminix/profileeditor.d:1015
-msgid "Run command as a login shell"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1019
-msgid "Run a custom command instead of my shell"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1035
-msgid "When command exits"
-msgstr "Κατά την έξοδο της εντολής"
-
-#: source/gx/terminix/profileeditor.d:1037
-msgid "Exit the terminal"
-msgstr "Έξοδος από το τερματικό"
-
-#: source/gx/terminix/profileeditor.d:1037
-msgid "Restart the command"
-msgstr "Επανεκτέλεση της εντολής"
-
-#: source/gx/terminix/profileeditor.d:1037
-msgid "Hold the terminal open"
-msgstr "Διατήρηση του τερματικού ανοιχτό"
-
-#: source/gx/terminix/profileeditor.d:1076
-msgid "Custom Links"
-msgstr "Προσαρμοσμένοι σύνδεσμοι"
-
-#: source/gx/terminix/profileeditor.d:1081
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1084
-#: source/gx/terminix/profileeditor.d:1111
-#: source/gx/terminix/profileeditor.d:1178
-#: source/gx/terminix/terminal/password.d:180
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-#: source/gx/terminix/profileeditor.d:1102
-msgid "Triggers"
-msgstr "Εναύσματα"
-
-#: source/gx/terminix/profileeditor.d:1108
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1128
-msgid "Automatic Profile Switching"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1136
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1138
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1149
-msgid "Match"
-msgstr "Αντιστοίχιση"
-
-#: source/gx/terminix/profileeditor.d:1160
-#: source/gx/terminix/profileeditor.d:1356
-#: source/gx/terminix/profileeditor.d:1512
-msgid "Add"
-msgstr "Προσθήκη"
-
-#: source/gx/terminix/profileeditor.d:1164
-msgid "Enter username@hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1166
-msgid "Enter hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1168
-msgid "Add New Match"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1185
-msgid "Edit username@hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1187
-msgid "Edit hostname:directory to match"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1189
-msgid "Edit Match"
-msgstr "Επεξεργασία αντιστοιχίας"
-
-#: source/gx/terminix/profileeditor.d:1314
-#: source/gx/terminix/profileeditor.d:1455
-#, c-format
-msgid "The expression %s is not a valid regex"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1319
-#: source/gx/terminix/profileeditor.d:1460
-msgid "Regex"
-msgstr "Κανονική έκφραση"
-
-#: source/gx/terminix/profileeditor.d:1343
-msgid "Case Insensitive"
-msgstr "Διάκριση πεζών/κεφαλαίων"
-
-#: source/gx/terminix/profileeditor.d:1383
-msgid "Edit Custom Links"
-msgstr "Επεξεργασία προσαρμοσμένων συνδέσμων"
-
-#: source/gx/terminix/profileeditor.d:1383
-#: source/gx/terminix/profileeditor.d:1556
-#: source/gx/terminix/terminal/password.d:367
-msgid "Apply"
-msgstr "Εφαρμογή"
-
-#: source/gx/terminix/profileeditor.d:1498
-msgid "Parameter"
-msgstr "Παράμετρος"
-
-#: source/gx/terminix/profileeditor.d:1534
-msgid "Limit number of lines for trigger processing to:"
-msgstr ""
-
-#: source/gx/terminix/profileeditor.d:1556
-msgid "Edit Triggers"
-msgstr "Επεξεργασία εναυσμάτων"
-
 #: source/gx/terminix/terminal/layout.d:30
 msgid "Layout Options"
 msgstr "Επιλογές διάταξης"
-
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:159
-msgid "OK"
-msgstr "Eντάξει"
 
 #: source/gx/terminix/terminal/layout.d:45
 msgid "Active"
 msgstr "Ενεργό"
 
-#: source/gx/terminix/terminal/layout.d:51 source/gx/terminix/closedialog.d:80
-msgid "Title"
-msgstr "Τίτλος"
+#: source/gx/terminix/terminal/layout.d:60
+#: source/gx/terminix/prefeditor/profileeditor.d:313
+#: source/gx/terminix/prefeditor/profileeditor.d:605
+msgid "Badge"
+msgstr "Ετικέτα"
 
 #: source/gx/terminix/terminal/layout.d:69
 msgid "Session Load"
@@ -1113,37 +449,47 @@ msgid ""
 "Session Load options only apply when loading a session file."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:326
-#: source/gx/terminix/terminal/terminal.d:2987
-#: data/resources/ui/shortcuts.ui:356
+#: source/gx/terminix/terminal/terminal.d:315
+#: source/gx/terminix/terminal/terminal.d:3056
+#: source/gx/terminix/prefeditor/titleeditor.d:90
 msgid "Terminal"
 msgstr "Τερματικό"
 
-#: source/gx/terminix/terminal/terminal.d:357
-#: source/gx/terminix/terminal/terminal.d:1409
-#: source/gx/terminix/appwindow.d:632 source/gx/terminix/sidebar.d:364
+#: source/gx/terminix/terminal/terminal.d:346
+#: source/gx/terminix/terminal/terminal.d:1461
+#: source/gx/terminix/appwindow.d:644 source/gx/terminix/sidebar.d:362
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: source/gx/terminix/terminal/terminal.d:366
-#: source/gx/terminix/terminal/terminal.d:1066
-#: source/gx/terminix/terminal/terminal.d:1408
+#: source/gx/terminix/terminal/terminal.d:354
+#: source/gx/terminix/terminal/terminal.d:1085
+#: source/gx/terminix/terminal/terminal.d:1460
 msgid "Maximize"
 msgstr "Μεγιστοποίηση"
 
-#: source/gx/terminix/terminal/terminal.d:377
+#: source/gx/terminix/terminal/terminal.d:364
 #: source/gx/terminix/terminal/terminal.d:604
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:387
-#: source/gx/terminix/terminal/terminal.d:708
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:727
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
-#: source/gx/terminix/terminal/terminal.d:440
+#: source/gx/terminix/terminal/terminal.d:379
+#: source/gx/terminix/prefeditor/profileeditor.d:292
+msgid "Terminal bell"
+msgstr "Κουδούνι  τερματικού"
+
+#: source/gx/terminix/terminal/terminal.d:424
 msgid "Edit Profile"
 msgstr "Επεξεργασία προφίλ"
+
+#: source/gx/terminix/terminal/terminal.d:442
+#, fuzzy
+msgid "Edit Encodings"
+msgstr "Κωδικοποίηση"
 
 #: source/gx/terminix/terminal/terminal.d:606
 msgid "Enable input synchronization for this terminal"
@@ -1159,103 +505,160 @@ msgstr ""
 msgid "Library Not Loaded"
 msgstr "Δεν φορτώθηκε η βιβλιοθήκη"
 
-#: source/gx/terminix/terminal/terminal.d:695
+#: source/gx/terminix/terminal/terminal.d:709
 msgid "Save Output…"
 msgstr "Αποθήκευση εξόδου κονσόλας…"
 
-#: source/gx/terminix/terminal/terminal.d:697
+#: source/gx/terminix/terminal/terminal.d:710
+#: source/gx/terminix/prefeditor/profileeditor.d:261
+msgid "Reset"
+msgstr "Επαναφορά"
+
+#: source/gx/terminix/terminal/terminal.d:711
 msgid "Reset and Clear"
 msgstr "Επαναφορά και καθαρισμός"
 
-#: source/gx/terminix/terminal/terminal.d:706
+#: source/gx/terminix/terminal/terminal.d:715
+#: source/gx/terminix/prefeditor/prefdialog.d:250
+msgid "Profiles"
+msgstr "Προφίλ"
+
+#: source/gx/terminix/terminal/terminal.d:716
+#: source/gx/terminix/prefeditor/prefdialog.d:149
+#: source/gx/terminix/prefeditor/prefdialog.d:150
+#: source/gx/terminix/prefeditor/prefdialog.d:402
+#: source/gx/terminix/prefeditor/prefdialog.d:610
+#: source/gx/terminix/prefeditor/profileeditor.d:981
+msgid "Encoding"
+msgstr "Κωδικοποίηση"
+
+#: source/gx/terminix/terminal/terminal.d:720
+msgid "Add Bookmark..."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:721
+#, fuzzy
+msgid "Select Bookmark..."
+msgstr "Επιλογή χρώματος ετικέτας"
+
+#: source/gx/terminix/terminal/terminal.d:722
+#: source/gx/terminix/prefeditor/prefdialog.d:141
+#: source/gx/terminix/prefeditor/prefdialog.d:142
+msgid "Bookmarks"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:725
 msgid "Find…"
 msgstr "Εύρεση…"
 
-#: source/gx/terminix/terminal/terminal.d:707
+#: source/gx/terminix/terminal/terminal.d:726
 msgid "Layout Options…"
 msgstr "Επιλογές διάταξης…"
 
-#: source/gx/terminix/terminal/terminal.d:718
+#: source/gx/terminix/terminal/terminal.d:737
 msgid "Add Right"
 msgstr "Προσθήκη δεξιά"
 
-#: source/gx/terminix/terminal/terminal.d:722
+#: source/gx/terminix/terminal/terminal.d:741
 msgid "Add Down"
 msgstr "Προσθήκη κάτω"
 
-#: source/gx/terminix/terminal/terminal.d:1063
-#: source/gx/terminix/terminal/terminal.d:1408
+#: source/gx/terminix/terminal/terminal.d:1082
+#: source/gx/terminix/terminal/terminal.d:1460
 msgid "Restore"
 msgstr "Επαναφορά"
 
-#: source/gx/terminix/terminal/terminal.d:1368
+#: source/gx/terminix/terminal/terminal.d:1420
 msgid "Open Link"
 msgstr "Άνοιγμα συνδέσμου"
 
-#: source/gx/terminix/terminal/terminal.d:1369
+#: source/gx/terminix/terminal/terminal.d:1421
 msgid "Copy Link Address"
 msgstr "Αντιγραφή διεύθυνσης συνδέσμου"
 
-#: source/gx/terminix/terminal/terminal.d:1379
-#: source/gx/terminix/terminal/terminal.d:1386
+#: source/gx/terminix/terminal/terminal.d:1431
+#: source/gx/terminix/terminal/terminal.d:1438
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: source/gx/terminix/terminal/terminal.d:1380
-#: source/gx/terminix/terminal/terminal.d:1391
+#: source/gx/terminix/terminal/terminal.d:1432
+#: source/gx/terminix/terminal/terminal.d:1443
 #: source/gx/terminix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: source/gx/terminix/terminal/terminal.d:1381
-#: source/gx/terminix/terminal/terminal.d:1396
+#: source/gx/terminix/terminal/terminal.d:1433
+#: source/gx/terminix/terminal/terminal.d:1448
 msgid "Select All"
 msgstr "Επιλογή όλων"
 
-#: source/gx/terminix/terminal/terminal.d:1413
+#: source/gx/terminix/terminal/terminal.d:1451
+#: source/gx/terminix/prefeditor/prefdialog.d:1210
+msgid "Clipboard"
+msgstr "Πρόχειρο"
+
+#: source/gx/terminix/terminal/terminal.d:1465
 msgid "Synchronize input"
 msgstr "Συγχρονισμός εξόδου"
 
-#: source/gx/terminix/terminal/terminal.d:2018
+#: source/gx/terminix/terminal/terminal.d:1945
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:2083
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:2024
+#: source/gx/terminix/terminal/terminal.d:2089
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Συνέβη ένα απρόσμενο σφάλμα: %s"
 
-#: source/gx/terminix/terminal/terminal.d:2628
+#: source/gx/terminix/terminal/terminal.d:2693
 msgid "Save Terminal Output"
 msgstr "Αποθήκευση εξόδου κονσόλας"
 
-#: source/gx/terminix/terminal/terminal.d:2637
+#: source/gx/terminix/terminal/terminal.d:2696
+#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1308
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: source/gx/terminix/terminal/terminal.d:2702
 msgid "All Text Files"
 msgstr "Όλα τα αρχεία κειμένου"
 
-#: source/gx/terminix/terminal/terminal.d:3137
+#: source/gx/terminix/terminal/terminal.d:2706
+#: source/gx/terminix/appwindow.d:1232
+#: source/gx/terminix/prefeditor/prefdialog.d:923
+#: source/gx/terminix/prefeditor/profileeditor.d:861
+msgid "All Files"
+msgstr "Όλα τα αρχεία"
+
+#: source/gx/terminix/terminal/terminal.d:3206
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Η θυγατρική διεργασία τερματίσθηκε κανονικά με κατάσταση %d"
 
-#: source/gx/terminix/terminal/terminal.d:3138
+#: source/gx/terminix/terminal/terminal.d:3207
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:3139
+#: source/gx/terminix/terminal/terminal.d:3208
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:3145
+#: source/gx/terminix/terminal/terminal.d:3214
 msgid "Relaunch"
 msgstr "Επανεκκίνηση"
 
-#: source/gx/terminix/terminal/terminal.d:3190
+#: source/gx/terminix/terminal/terminal.d:3259
 msgid "Don't Paste"
 msgstr "Να μη γίνει επικόλληση"
 
-#: source/gx/terminix/terminal/terminal.d:3191
+#: source/gx/terminix/terminal/terminal.d:3260
 msgid "Paste Anyway"
 msgstr "Επικόλληση ούτως ή άλλως"
 
@@ -1315,13 +718,24 @@ msgstr ""
 msgid "Advanced Paste"
 msgstr "Προχωρημένη επικόλληση"
 
-#: source/gx/terminix/terminal/password.d:136
-msgid "ID"
-msgstr "Αναγνωριστικό "
-
 #: source/gx/terminix/terminal/password.d:157
 msgid "New"
 msgstr "Νέο"
+
+#: source/gx/terminix/terminal/password.d:180
+#: source/gx/terminix/prefeditor/profileeditor.d:1089
+#: source/gx/terminix/prefeditor/profileeditor.d:1116
+#: source/gx/terminix/prefeditor/profileeditor.d:1183
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: source/gx/terminix/terminal/password.d:209
+#: source/gx/terminix/prefeditor/prefdialog.d:491
+#: source/gx/terminix/prefeditor/profileeditor.d:1202
+#: source/gx/terminix/prefeditor/profileeditor.d:1359
+#: source/gx/terminix/prefeditor/profileeditor.d:1512
+msgid "Delete"
+msgstr "Διαγραφή"
 
 #: source/gx/terminix/terminal/password.d:231
 msgid "Include return character with password"
@@ -1330,6 +744,12 @@ msgstr ""
 #: source/gx/terminix/terminal/password.d:367
 msgid "Insert Password"
 msgstr "Εισαγωγή κωδικού πρόσβασης"
+
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Apply"
+msgstr "Εφαρμογή"
 
 #: source/gx/terminix/terminal/password.d:433
 msgid "Password"
@@ -1347,242 +767,265 @@ msgstr "Προσθήκη κωδικού πρόσβασης"
 msgid "Edit Password"
 msgstr "Επεξεργασία κωδικού πρόσβασης"
 
-#: source/gx/terminix/closedialog.d:124
+#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
+msgid "Do not show this again"
+msgstr "Να μην εμφανιστεί αυτό ξανά"
+
+#: source/gx/terminix/closedialog.d:160
 #, fuzzy, c-format
 msgid "Window (%s)"
 msgstr "Παράθυρο"
 
-#: source/gx/terminix/closedialog.d:127
+#: source/gx/terminix/closedialog.d:163
 #, fuzzy, c-format
 msgid "Session (%s)"
 msgstr "Συνεδρία"
 
-#: source/gx/terminix/closedialog.d:147
+#: source/gx/terminix/closedialog.d:183
 #, fuzzy
 msgid "Close Application"
 msgstr "Εφαρμογή"
 
-#: source/gx/terminix/closedialog.d:150
+#: source/gx/terminix/closedialog.d:186
 #, fuzzy
 msgid "Close Window"
 msgstr "Εστίαση παραθύρου"
 
-#: source/gx/terminix/closedialog.d:153 source/gx/terminix/closedialog.d:156
+#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
 #, fuzzy
 msgid "Close Session"
 msgstr "Νέα συνεδρία"
 
-#: source/gx/terminix/application.d:225
+#: source/gx/terminix/application.d:217
+#: source/gx/terminix/prefeditor/prefdialog.d:1204
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
+msgid "New Window"
+msgstr "Νέο παράθυρο"
+
+#: source/gx/terminix/application.d:221 source/gx/terminix/appwindow.d:654
+#: source/gx/terminix/prefeditor/prefdialog.d:230
+#: source/gx/terminix/prefeditor/prefdialog.d:353
+msgid "Preferences"
+msgstr ""
+
+#: source/gx/terminix/application.d:223
+#: source/gx/terminix/prefeditor/prefdialog.d:145
+#: source/gx/terminix/prefeditor/prefdialog.d:146
+msgid "Shortcuts"
+msgstr "Συντομεύσεις"
+
+#: source/gx/terminix/application.d:228
 msgid "About"
 msgstr "Περί"
 
-#: source/gx/terminix/application.d:226
+#: source/gx/terminix/application.d:229
 msgid "Quit"
 msgstr "Έξοδος"
 
-#: source/gx/terminix/application.d:280
+#: source/gx/terminix/application.d:283
 msgid "Credits"
 msgstr "Μνεία"
 
-#: source/gx/terminix/application.d:317 source/gx/terminix/appwindow.d:1359
+#: source/gx/terminix/application.d:320 source/gx/terminix/appwindow.d:1388
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
 msgid "Terminix"
 msgstr "Terminix"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:622
 msgid "Set the working directory of the terminal"
 msgstr "Ορισμός καταλόγου εργασίας του τερματικού"
 
-#: source/gx/terminix/application.d:613
+#: source/gx/terminix/application.d:622
 msgid "DIRECTORY"
 msgstr "ΚΑΤΑΛΟΓΟΣ"
 
-#: source/gx/terminix/application.d:614
+#: source/gx/terminix/application.d:623
 msgid "Set the starting profile"
 msgstr "Ορισμός του αρχικού προφίλ"
 
-#: source/gx/terminix/application.d:614
+#: source/gx/terminix/application.d:623
 msgid "PROFILE_NAME"
 msgstr "ΟΝΟΜΑ_ΠΡΟΦΙΛ"
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:624
 msgid "Set the title of the new terminal"
 msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
 
-#: source/gx/terminix/application.d:615
+#: source/gx/terminix/application.d:624
 msgid "TITLE"
 msgstr "ΤΙΤΛΟΣ"
 
-#: source/gx/terminix/application.d:616
+#: source/gx/terminix/application.d:625
 msgid "Open the specified session"
 msgstr "Άνοιγμα της καθορισμένης συνεδρίας"
 
-#: source/gx/terminix/application.d:616
+#: source/gx/terminix/application.d:625
 msgid "SESSION_NAME"
 msgstr "ΟΝΟΜΑ_ΣΥΝΕΔΡΙΑΣ"
 
-#: source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:626
 msgid "Send an action to current Terminix instance"
 msgstr ""
 
-#: source/gx/terminix/application.d:617
+#: source/gx/terminix/application.d:626
 msgid "ACTION_NAME"
 msgstr "ΟΝΟΜΑ_ΕΝΕΡΓΕΙΑΣ"
 
-#: source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:627
 msgid "Execute the parameter as a command"
 msgstr "Εκτέλεση της παραμέτρου ως εντολή"
 
-#: source/gx/terminix/application.d:618
+#: source/gx/terminix/application.d:627
 msgid "COMMAND"
 msgstr "ΕΝΤΟΛΗ"
 
-#: source/gx/terminix/application.d:619
+#: source/gx/terminix/application.d:628
 msgid "Maximize the terminal window"
 msgstr "Μεγιστοποίηση του παραθύρου τερματικού"
 
-#: source/gx/terminix/application.d:620
+#: source/gx/terminix/application.d:629
 msgid "Minimize the terminal window"
 msgstr "Ελαχιστοποίηση του παραθύρου τερματικού"
 
-#: source/gx/terminix/application.d:621
+#: source/gx/terminix/application.d:630
 msgid "Full-screen the terminal window"
 msgstr "Πλήρης οθόνη του παραθύρου τερματικού"
 
-#: source/gx/terminix/application.d:622
+#: source/gx/terminix/application.d:631
 msgid "Focus the existing window"
 msgstr "Εστίαση του τρέχοντος παραθύρου"
 
-#: source/gx/terminix/application.d:623
+#: source/gx/terminix/application.d:632
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr ""
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:633
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
 "Ορίστε το μεγέθους του παραθύρου· για παράδειγμα: 80x24, ή 80x24+200+200 "
 "(COLSxROWS+X+Y)"
 
-#: source/gx/terminix/application.d:624
+#: source/gx/terminix/application.d:633
 msgid "GEOMETRY"
 msgstr "ΓΕΩΜΕΤΡΙΑ"
 
-#: source/gx/terminix/application.d:625
+#: source/gx/terminix/application.d:634
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 
-#: source/gx/terminix/application.d:626
+#: source/gx/terminix/application.d:635
 msgid "Show the Terminix and dependant component versions"
 msgstr ""
 
-#: source/gx/terminix/application.d:627
+#: source/gx/terminix/application.d:636
 msgid "Show the Terminix preferences dialog directly"
 msgstr ""
 
-#: source/gx/terminix/application.d:630
+#: source/gx/terminix/application.d:639
 msgid "Hidden argument to pass terminal UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:630
+#: source/gx/terminix/application.d:639
 msgid "TERMINAL_UUID"
 msgstr ""
 
-#: source/gx/terminix/application.d:771
+#: source/gx/terminix/application.d:800
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
 
-#: source/gx/terminix/application.d:772
+#: source/gx/terminix/application.d:801
 msgid "Configuration Issue Detected"
 msgstr ""
 
-#: source/gx/terminix/application.d:784
+#: source/gx/terminix/application.d:813
 msgid "Do not show this message again"
 msgstr "Να μην εμφανιστεί ξανά αυτό το μήνυμα"
 
-#: source/gx/terminix/appwindow.d:309
+#: source/gx/terminix/appwindow.d:320
 msgid "View session sidebar"
 msgstr "Προβολή στήλης συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:334
+#: source/gx/terminix/appwindow.d:345
 msgid "Create a new session"
 msgstr "Δημιουργία νέας συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:352
+#: source/gx/terminix/appwindow.d:363
 msgid "Add terminal right"
 msgstr "Προσθήκη τερματικού δεξιά"
 
-#: source/gx/terminix/appwindow.d:356
+#: source/gx/terminix/appwindow.d:367
 msgid "Add terminal down"
 msgstr "Προσθήκη τερματικού κάτω"
 
-#: source/gx/terminix/appwindow.d:361
+#: source/gx/terminix/appwindow.d:373
 msgid "Find text in terminal"
 msgstr "Εύρεση κειμένου στο τερματικό"
 
-#: source/gx/terminix/appwindow.d:574
+#: source/gx/terminix/appwindow.d:586
 msgid "Change Session Name"
 msgstr "Αλλαγή ονόματος συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:574
+#: source/gx/terminix/appwindow.d:586
 msgid "Enter a new name for the session"
 msgstr "Εισάγετε ένα νέο όνομα για την συνεδρία"
 
-#: source/gx/terminix/appwindow.d:629
+#: source/gx/terminix/appwindow.d:641
 msgid "Open…"
 msgstr "Άνοιγμα…"
 
-#: source/gx/terminix/appwindow.d:631
+#: source/gx/terminix/appwindow.d:643
 msgid "Save As…"
 msgstr "Αποθήκευση ως…"
 
-#: source/gx/terminix/appwindow.d:636
+#: source/gx/terminix/appwindow.d:648
 msgid "Name…"
 msgstr "Όνομα…"
 
-#: source/gx/terminix/appwindow.d:637
+#: source/gx/terminix/appwindow.d:649
 msgid "Synchronize Input"
 msgstr "Συγχρονισμός εισόδου"
 
-#: source/gx/terminix/appwindow.d:648
+#: source/gx/terminix/appwindow.d:660
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/terminix/appwindow.d:959
+#: source/gx/terminix/appwindow.d:977
 msgid "There are multiple sessions open, close anyway?"
 msgstr ""
 
-#: source/gx/terminix/appwindow.d:960
-msgid "Do not show this again"
-msgstr "Να μην εμφανιστεί αυτό ξανά"
+#: source/gx/terminix/appwindow.d:1228
+#: source/gx/terminix/prefeditor/profileeditor.d:857
+msgid "All JSON Files"
+msgstr "Όλα τα αρχεία JSON"
 
-#: source/gx/terminix/appwindow.d:1212
+#: source/gx/terminix/appwindow.d:1241
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Δεν υπάρχει το όνομα αρχείου '%s'"
 
-#: source/gx/terminix/appwindow.d:1242
+#: source/gx/terminix/appwindow.d:1271
 msgid "Load Session"
 msgstr "Φόρτωση συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:1245
+#: source/gx/terminix/appwindow.d:1274
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: source/gx/terminix/appwindow.d:1260
+#: source/gx/terminix/appwindow.d:1289
 msgid "Could not load session due to unexpected error."
 msgstr "Αδυναμία φόρτωσης της συνεδρίας λόγω ενός απρόσμενου σφάλματος."
 
-#: source/gx/terminix/appwindow.d:1260
+#: source/gx/terminix/appwindow.d:1289
 msgid "Error Loading Session"
 msgstr "Σφάλμα κατά την φόρτωση της συνεδρίας"
 
-#: source/gx/terminix/appwindow.d:1276
+#: source/gx/terminix/appwindow.d:1305
 msgid "Save Session"
 msgstr "Αποθήκευση συνεδρίας"
 
@@ -1594,6 +1037,783 @@ msgstr "Το αρχείο %s δεν είναι συμβατό θέμα χρωμ�
 #: source/gx/terminix/colorschemes.d:245
 msgid "Color scheme palette requires 16 colors"
 msgstr "Η χρωματική παλέτα απαιτεί 16 χρώματα"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:112
+msgid "Terminix Preferences"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:129
+#: source/gx/terminix/prefeditor/prefdialog.d:130
+#: source/gx/terminix/prefeditor/prefdialog.d:198
+msgid "Global"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:133
+#: source/gx/terminix/prefeditor/prefdialog.d:134
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:137
+#: source/gx/terminix/prefeditor/prefdialog.d:138
+msgid "Quake"
+msgstr "Quake"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:168
+#, fuzzy
+msgid "Add profile"
+msgstr "Επεξεργασία προφίλ"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:173
+#, fuzzy
+msgid "Delete profile"
+msgstr "Νέο προφίλ"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:274
+#: source/gx/terminix/prefeditor/prefdialog.d:282
+#, fuzzy, c-format
+msgid "Profile: %s"
+msgstr "Προφίλ"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:492
+msgid "Clone"
+msgstr "Κλωνοποίηση"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:496
+#, fuzzy
+msgid "Use for new terminals"
+msgstr "Επαναφορά του τερματικού"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:572
+msgid "Encodings showing in menu:"
+msgstr "Κωδικοποιήσεις που εμφανίζονται στο μενού:"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:608
+msgid "Enabled"
+msgstr "Ενεργοποιημένα"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:669
+#: source/gx/terminix/prefeditor/profileeditor.d:1480
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:698
+msgid "Shortcut Key"
+msgstr "Πλήκτρο συντόμευσης"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:710
+msgid "Enable shortcuts"
+msgstr "Ενεργοποίηση συντομεύσεων"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:738
+msgid "Overwrite Existing Shortcut"
+msgstr "Αντικατάσταση της υπάρχουσας συντόμευσης"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:739
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:871
+msgid "Enable transparency, requires re-start"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:882
+#, fuzzy
+msgid "Window style"
+msgstr "Παράθυρο"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:884
+#: source/gx/terminix/prefeditor/prefdialog.d:898
+msgid "Normal"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:884
+msgid "Disable CSD"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:884
+msgid "Disable CSD, hide toolbar"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:884
+msgid "Borderless"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:888
+msgid "Window restart required"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:897
+msgid "Terminal title style"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:898
+msgid "Small"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:898
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "None"
+msgstr "Κανένα"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:904
+msgid "Theme variant"
+msgstr "Παραλλαγή θέματος"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:905
+msgid "Light"
+msgstr "Φωτεινό"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:905
+msgid "Dark"
+msgstr "Σκούρο"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:911
+msgid "Background image"
+msgstr "Εικόνα παρασκηνίου"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:913
+msgid "Select Image"
+msgstr "Επιλογή εικόνας"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:916
+msgid "All Image Files"
+msgstr "Όλα τα αρχεία εικόνων"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:937
+msgid "Reset background image"
+msgstr "Επαναφορά εικόνας παρασκηνίου"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Scale"
+msgstr "Κλιμάκωση"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Tile"
+msgstr "Παράθεση"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+#: source/gx/terminix/prefeditor/prefdialog.d:1060
+msgid "Center"
+msgstr "Κεντράρισμα"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Stretch"
+msgstr "Παραμόρφωση"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:962
+msgid "Default session name"
+msgstr "Προεπιλεγμένο όνομα συνεδρίας"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+#, fuzzy
+msgid "Application title"
+msgstr "Εφαρμογή"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:986
+msgid "Use a wide handle for splitters"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:991
+msgid "Place the sidebar on the right"
+msgstr "Τοποθέτηση της πλευρικής στήλης στα δεξιά"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:995
+#, fuzzy
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1027
+msgid "Size"
+msgstr "Μέγεθος"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1038
+msgid "Height percent"
+msgstr "Ποσοστό ήψους"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1049
+msgid "Width percent"
+msgstr "Ποσοστό πλάτους"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1059
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1060
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1060
+#, fuzzy
+msgid "Right"
+msgstr "Φωτεινό"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1069
+#: source/gx/terminix/prefeditor/profileeditor.d:470
+msgid "Options"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1077
+msgid "Show terminal on all workspaces"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1082
+msgid "Set hint for window manager to disable animation"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1087
+msgid "Hide window when focus is lost"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1092
+#, fuzzy
+msgid "Hide the titlebar of the window"
+msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1107
+msgid "Display terminal on active monitor"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1114
+msgid "Display on specific monitor"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1156
+msgid "Behavior"
+msgstr "Συμπεριφορά"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1162
+msgid "Prompt when creating a new session"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1167
+msgid "Focus a terminal when the mouse moves over it"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1172
+msgid "Autohide the mouse pointer when typing"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1177
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1182
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1187
+msgid "Close window when last session is closed"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1193
+msgid "Send desktop notification on process complete"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1201
+msgid "On new instance"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1204
+msgid "Split Right"
+msgstr "Διαχωρισμός στα δεξιά"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1204
+msgid "Split Down"
+msgstr "Διαχωρισμός κάτω"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1204
+msgid "Focus Window"
+msgstr "Εστίαση παραθύρου"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1216
+msgid "Always use advanced paste dialog"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1221
+msgid "Warn when attempting unsafe paste"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1226
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1231
+msgid "Automatically copy text to clipboard when selecting"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:99
+msgid "General"
+msgstr "Γενικά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:101
+msgid "Color"
+msgstr "Χρώμα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:102
+msgid "Scrolling"
+msgstr "Κύλιση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:103
+msgid "Compatibility"
+msgstr "Συμβατότητα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:104
+#: source/gx/terminix/prefeditor/profileeditor.d:489
+msgid "Advanced"
+msgstr "Για προχωρημένους"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:216
+msgid "Profile name"
+msgstr "'Ονομα προφίλ"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:240
+msgid "Terminal size"
+msgstr "Μεγέθος τερματικού"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:250
+msgid "columns"
+msgstr "στήλες"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:256
+msgid "rows"
+msgstr "σειρές"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:272
+#: source/gx/terminix/prefeditor/profileeditor.d:569
+msgid "Cursor"
+msgstr "Κέρσορας"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Block"
+msgstr "Τούβλο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "IBeam"
+msgstr "Δέσμη"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Underline"
+msgstr "Υπογραμμίση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:283
+msgid "Blink mode"
+msgstr "Αναβόσβημα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "System"
+msgstr "Σύστημα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "On"
+msgstr "On"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "Off"
+msgstr "Off"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Sound"
+msgstr "Ήχος"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Icon and Sound"
+msgstr "Εικονίδιο και ήχος"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:301
+msgid "Terminal title"
+msgstr "Τίτλος τερματικού"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:323
+msgid "Badge position"
+msgstr "Θέση ετικέτας"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northwest"
+msgstr "Βορειοδυτικά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northeast"
+msgstr "Βορειοανατολικά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southwest"
+msgstr "Νοτιοδυτικά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southeast"
+msgstr "Νοτιοανατολικά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:338
+msgid "Text Appearance"
+msgstr "Εμφάνιση κειμένου"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:344
+msgid "Allow bold text"
+msgstr "Να επιτραπεί έντονο κέιμενο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:349
+msgid "Rewrap on resize"
+msgstr "Αναδίπλωση κατά την αυξομείωση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:355
+msgid "Custom font"
+msgstr "Προσαρμοσμένη γραμματοσειρά"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:361
+msgid "Choose A Terminal Font"
+msgstr "Επιλογή γραμματοσειράς τερματικού"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:381
+#, c-format
+msgid "ID: %s"
+msgstr "Αναγνωριστικό: %s"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:427
+msgid "Color scheme"
+msgstr "Θέμα χρώματος"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:437
+#: source/gx/terminix/prefeditor/profileeditor.d:884
+msgid "Custom"
+msgstr "Προσαρμοσμένο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:450
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:462
+msgid "Color palette"
+msgstr "Παλέτα χρωμάτων"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:484
+msgid "Use theme colors for foreground/background"
+msgstr "Χρήση χρωμάτων θέματος για το προσήνιο/παρασκήνιο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:502
+msgid "Transparency"
+msgstr "Διαφάνεια"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:516
+msgid "Unfocused dim"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:564
+msgid "Text"
+msgstr "Κείμενο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:565
+#: source/gx/terminix/prefeditor/profileeditor.d:669
+msgid "Background"
+msgstr "Φόντο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:576
+msgid "Select Cursor Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:578
+msgid "Select Cursor Background Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:583
+msgid "Highlight"
+msgstr "Επισήμανση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:588
+msgid "Select Highlight Foreground Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:590
+msgid "Select Highlight Background Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:595
+msgid "Dim"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:600
+msgid "Select Dim Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:609
+msgid "Select Badge Color"
+msgstr "Επιλογή χρώματος ετικέτας"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:658
+msgid "Select Background Color"
+msgstr "Επιλογή χρώματος παρασκηνίου"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:674
+#: source/gx/terminix/prefeditor/profileeditor.d:690
+msgid "Select Foreground Color"
+msgstr "Επιλογή χρώματος προσκήνιου"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:689
+msgid "Foreground"
+msgstr "Προσκήνιο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Black"
+msgstr "Μαύρο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Red"
+msgstr "Κόκκινο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Green"
+msgstr "Πράσινο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Orange"
+msgstr "Πορτοκαλί"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Blue"
+msgstr "Μπλε"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Purple"
+msgstr "Μωβ"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Turquoise"
+msgstr "Τιρκουάζ"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Grey"
+msgstr "Γκρίζο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:699
+#, c-format
+msgid "Select %s Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:706
+#, c-format
+msgid "Select %s Light Color"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:841
+msgid "Export Color Scheme"
+msgstr "Εξαγωγή χρωματικού συνδυασμού"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:916
+msgid "Show scrollbar"
+msgstr "Εμφάνιση γραμμή κύλισης"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:920
+msgid "Scroll on output"
+msgstr "Κύλιση στην έξοδο"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:924
+msgid "Scroll on keystroke"
+msgstr "Κύλιση στην πληκτρολόγηση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:928
+msgid "Limit scrollback to:"
+msgstr "Περιορισμός οπισθοκύλισης σε:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:963
+msgid "Backspace key generates"
+msgstr "Το πλήκτρο οπισθοδρόμησης προκαλεί"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Automatic"
+msgstr "Αυτόματα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Escape sequence"
+msgstr "Ακολουθία διαφυγής"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:972
+msgid "Delete key generates"
+msgstr "Το πλήκτρο διαγραφής προκαλεί"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:996
+msgid "Ambiguous-width characters"
+msgstr "Χαρακτήρες ασαφούς πλάτους"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Narrow"
+msgstr "Στενοί"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Wide"
+msgstr "Πλατιοί"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1020
+msgid "Run command as a login shell"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Run a custom command instead of my shell"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1040
+msgid "When command exits"
+msgstr "Κατά την έξοδο της εντολής"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Exit the terminal"
+msgstr "Έξοδος από το τερματικό"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Restart the command"
+msgstr "Επανεκτέλεση της εντολής"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Hold the terminal open"
+msgstr "Διατήρηση του τερματικού ανοιχτό"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1081
+msgid "Custom Links"
+msgstr "Προσαρμοσμένοι σύνδεσμοι"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1086
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1107
+msgid "Triggers"
+msgstr "Εναύσματα"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1113
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1133
+msgid "Automatic Profile Switching"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1141
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1143
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1154
+msgid "Match"
+msgstr "Αντιστοίχιση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1165
+#: source/gx/terminix/prefeditor/profileeditor.d:1353
+#: source/gx/terminix/prefeditor/profileeditor.d:1506
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1169
+msgid "Enter username@hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1171
+msgid "Enter hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1173
+msgid "Add New Match"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1190
+msgid "Edit username@hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1192
+msgid "Edit hostname:directory to match"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1194
+msgid "Edit Match"
+msgstr "Επεξεργασία αντιστοιχίας"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1316
+#: source/gx/terminix/prefeditor/profileeditor.d:1454
+msgid "Regex"
+msgstr "Κανονική έκφραση"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1340
+msgid "Case Insensitive"
+msgstr "Διάκριση πεζών/κεφαλαίων"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+msgid "Edit Custom Links"
+msgstr "Επεξεργασία προσαρμοσμένων συνδέσμων"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1492
+msgid "Parameter"
+msgstr "Παράμετρος"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1528
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Edit Triggers"
+msgstr "Επεξεργασία εναυσμάτων"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1597
+#, c-format
+msgid "Row %d: "
+msgstr ""
+
+#: source/gx/terminix/prefeditor/titleeditor.d:108
+#, fuzzy
+msgid "Window"
+msgstr "Παράθυρο"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:118
+#: source/gx/terminix/prefeditor/titleeditor.d:119
+msgid "Help"
+msgstr ""
 
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
@@ -1622,85 +1842,84 @@ msgstr ""
 
 #: source/gx/terminix/cmdparams.d:207
 msgid ""
-"You cannot use the quake mode with maximize, minimize, fullscreen or "
-"geometry parameters"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:208
-msgid "UpdateState"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:209
-#, fuzzy
-msgid "ExecuteCommand"
-msgstr "Εντολή"
-
-#: source/gx/terminix/preferences.d:210
-msgid "SendNotification"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:211
-msgid "UpdateTitle"
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:212
-msgid "PlayBell"
+msgid "UpdateState"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:213
 #, fuzzy
-msgid "SendText"
-msgstr "Κείμενο"
+msgid "ExecuteCommand"
+msgstr "Εντολή"
 
 #: source/gx/terminix/preferences.d:214
-msgid "InsertPassword"
+msgid "SendNotification"
 msgstr ""
 
 #: source/gx/terminix/preferences.d:215
+msgid "UpdateTitle"
+msgstr ""
+
+#: source/gx/terminix/preferences.d:216
+msgid "PlayBell"
+msgstr ""
+
+#: source/gx/terminix/preferences.d:217
+#, fuzzy
+msgid "SendText"
+msgstr "Κείμενο"
+
+#: source/gx/terminix/preferences.d:218
+msgid "InsertPassword"
+msgstr ""
+
+#: source/gx/terminix/preferences.d:219
 #, fuzzy
 msgid "UpdateBadge"
 msgstr "Ετικέτα"
 
-#: source/gx/terminix/preferences.d:322
+#: source/gx/terminix/preferences.d:326
 #, fuzzy, c-format
 msgid "%s (Copy)"
 msgstr "Αντιγραφή"
 
-#: data/nautilus/open-terminix.py:65
+#: data/nautilus/open-terminix.py:108
 #, fuzzy
 msgid "Open Remote Terminix"
 msgstr "Άνοιγμα στο Terminix…"
 
-#: data/nautilus/open-terminix.py:66
+#: data/nautilus/open-terminix.py:109
 #, python-format
 msgid "Open Remote Terminix In %s"
 msgstr ""
 
-#: data/nautilus/open-terminix.py:76
+#: data/nautilus/open-terminix.py:120
 #, fuzzy
 msgid "Open In Terminix"
 msgstr "Άνοιγμα στο Terminix…"
 
-#: data/nautilus/open-terminix.py:77
+#: data/nautilus/open-terminix.py:121
 #, python-format
 msgid "Open Terminix In %s"
 msgstr ""
 
-#: data/nautilus/open-terminix.py:87
+#: data/nautilus/open-terminix.py:133
 #, fuzzy
 msgid "Open Remote Terminix Here"
 msgstr "Άνοιγμα στο Terminix…"
 
-#: data/nautilus/open-terminix.py:88
+#: data/nautilus/open-terminix.py:134
 msgid "Open Remote Terminix In This Directory"
 msgstr ""
 
-#: data/nautilus/open-terminix.py:93
+#: data/nautilus/open-terminix.py:139
 #, fuzzy
 msgid "Open Terminix Here"
 msgstr "Άνοιγμα στο Terminix…"
 
-#: data/nautilus/open-terminix.py:94
+#: data/nautilus/open-terminix.py:140
 msgid "Open Terminix In This Directory"
 msgstr ""
 
@@ -1979,6 +2198,12 @@ msgctxt "shortcut window"
 msgid "Switch to terminal 10"
 msgstr "Μετάβαση στο τερματικό 10"
 
+#: data/resources/ui/shortcuts.ui:356
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Terminal"
+msgstr "Τερματικό"
+
 #: data/resources/ui/shortcuts.ui:361 data/resources/ui/shortcuts.ui:365
 msgctxt "shortcut window"
 msgid "Find"
@@ -2090,15 +2315,47 @@ msgid "Insert password"
 msgstr "Εισαγωγή κωδικού πρόσβασης"
 
 #: data/resources/ui/shortcuts.ui:503
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Select bookmark"
+msgstr "Επιλογή εικόνας"
+
+#: data/resources/ui/shortcuts.ui:509
+msgctxt "shortcut window"
+msgid "Add bookmark"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
 msgid "Cycle title style"
 msgstr ""
+
+#: data/resources/ui/shortcuts.ui:526
+msgctxt "shortcut window"
+msgid "Nautilus"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:531
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open"
+msgstr "Άνοιγμα"
+
+#: data/resources/ui/shortcuts.ui:535
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open in Terminix"
+msgstr "Άνοιγμα στο Terminix…"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:5
 msgid "A tiling terminal for Gnome"
 msgstr ""
 
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:11
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:6
+msgid "shell;prompt;command;commandline;cmd;"
+msgstr ""
+
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:12
 msgid "com.gexperts.Terminix"
 msgstr "com.gexperts.Terminix"
 
