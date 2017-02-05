@@ -5,6 +5,7 @@
 module gx.terminix.bookmark.manager;
 
 import std.algorithm;
+import std.array;
 import std.conv;
 import std.experimental.logger;
 import std.file;
@@ -29,6 +30,13 @@ enum BookmarkType {
     REMOTE,
     COMMAND}
 
+class BookmarkException: Exception {
+
+    this(string message) {
+        super(message);
+    }
+}
+
 interface Bookmark {
 
     JSONValue serialize(FolderBookmark parent);
@@ -43,7 +51,6 @@ interface Bookmark {
     @property FolderBookmark parent();
 
     @property void parent(FolderBookmark parent);
-
 
     /**
      * Bookmark name
@@ -86,15 +93,22 @@ public:
         return _parent;
     }
 
-    @property void parent(FolderBookmark parent) {
-        _parent = parent;
+    @property void parent(FolderBookmark value) {
+        if (_parent != value) {
+            _parent = value;
+            bmMgr.changed;
+        }
     }
 
     @property string name() {
         return _name;
     }
+
     @property void name(string value) {
-        _name = value;
+        if (_name != value) {
+            _name = value;
+            bmMgr.changed();
+        }
     }
 
     @property string uuid() {
@@ -128,6 +142,8 @@ package:
 
     void add(Bookmark bm) {
         list ~= bm;
+        bm.parent = this;
+        bmMgr.changed();
     }
 
     void remove(Bookmark bm) {
@@ -136,6 +152,32 @@ package:
             list[index] = null;
             list = std.algorithm.remove(list, index);
         }
+        bm.parent = null;
+        bmMgr.changed();
+    }
+
+    void insertBefore(Bookmark target, Bookmark bm) {
+        ptrdiff_t index = list.countUntil(target);
+        if (index < 0) {
+            throw new BookmarkException("Target was not located in the folder");
+        }
+        list.insertInPlace(index, bm);
+        bm.parent = this;
+        bmMgr.changed();
+    }
+
+    void insertAfter(Bookmark target, Bookmark bm) {
+        ptrdiff_t index = list.countUntil(target);
+        if (index < 0) {
+            throw new BookmarkException("Target was not located in the folder");
+        }
+        if (index < list.length - 1) {
+            list.insertInPlace(index + 1, bm);
+        } else {
+            list ~= bm;
+        }
+        bm.parent = this;
+        bmMgr.changed();
     }
 
 public:
@@ -217,8 +259,11 @@ public:
         return _path;
     }
 
-    @property void path(string path) {
-        _path = path;
+    @property void path(string value) {
+        if (_path != value) {
+            _path = value;
+            bmMgr.changed();
+        }
     }
 
     override JSONValue serialize(FolderBookmark parent) {
@@ -277,7 +322,10 @@ public:
     }
 
     @property void host(string value) {
-        _host = value;
+        if (_host != value) {
+            _host = value;
+            bmMgr.changed();
+        }
     }
 
     @property uint port() {
@@ -285,7 +333,10 @@ public:
     }
 
     @property void port(uint value) {
-        _port = value;
+        if (_port != value) {
+            _port = value;
+            bmMgr.changed();
+        }
     }
 
     @property string user() {
@@ -293,7 +344,10 @@ public:
     }
 
     @property void user(string value) {
-        _user = value;
+        if (_user != value) {
+            _user = value;
+            bmMgr.changed();
+        }
     }
 
     @property string params() {
@@ -301,7 +355,10 @@ public:
     }
 
     @property void params(string value) {
-        _params = value;
+        if (_params != value) {
+            _params = value;
+            bmMgr.changed();
+        }
     }
 
     @property ProtocolType protocolType() {
@@ -309,7 +366,10 @@ public:
     }
 
     @property void protocolType(ProtocolType value) {
-        _protocolType = value;
+        if (_protocolType != value) {
+            _protocolType = value;
+            bmMgr.changed();
+        }
     }
 
     @property string command() {
@@ -317,7 +377,10 @@ public:
     }
 
     @property void command(string value) {
-        _command = value;
+        if (_command != value) {
+            _command = value;
+            bmMgr.changed();
+        }
     }
 
     override JSONValue serialize(FolderBookmark parent) {
@@ -397,7 +460,10 @@ public:
     }
 
     @property void command(string value) {
-        _command = value;
+        if (_command != value) {
+            _command = value;
+            bmMgr.changed();
+        }
     }
 
     override JSONValue serialize(FolderBookmark parent) {
@@ -428,6 +494,8 @@ private:
     FolderBookmark _root;
     Bookmark[string] bookmarks;
 
+    bool _changed = false;
+
 public:
     this() {
         _root = new FolderBookmark(_("Root"));
@@ -457,7 +525,17 @@ public:
         bookmarks.remove(bm.uuid);
     }
 
-    void move(FolderBookmark target, Bookmark source) {
+    void moveBefore(Bookmark target, Bookmark source) {
+        source.parent.remove(source);
+        target.parent.insertBefore(target, source);
+    }
+
+    void moveAfter(Bookmark target, Bookmark source) {
+        source.parent.remove(source);
+        target.parent.insertAfter(target, source);
+    }
+
+    void moveInto(FolderBookmark target, Bookmark source) {
         source.parent.remove(source);
         target.add(source);
     }
@@ -490,12 +568,22 @@ public:
             } catch (Exception e) {
                 error(_("Could not load bookmarks due to unexpected error"));
                 error(e);
+                //TODO: Copy bad file
             }
         }
+        _changed = false;
+    }
+
+    void changed() {
+        _changed = true;
     }
 
     @property FolderBookmark root() {
         return _root;
+    }
+
+    @property bool hasChanged() {
+        return _changed;
     }
 }
 

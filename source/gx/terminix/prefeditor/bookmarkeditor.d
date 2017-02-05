@@ -33,9 +33,10 @@ private:
 
     Button btnEdit;
     Button btnDelete;
+    Button btnUnselect;
 
     void createUI() {
-        tv = new BMTreeView();
+        tv = new BMTreeView(false, false, true);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
         tv.getSelection().setMode(SelectionMode.SINGLE);
@@ -72,8 +73,12 @@ private:
         btnDelete.addOnClicked(&deleteBookmark);
         bButtons.add(btnDelete);
 
-        add(bButtons);
+        btnUnselect = new Button("edit-clear-symbolic", IconSize.BUTTON);
+        btnUnselect.setTooltipText(_("Unselect bookmark"));
+        btnUnselect.addOnClicked(&unselectBookmark);
+        bButtons.add(btnUnselect);
 
+        add(bButtons);
 
         updateUI();
     }
@@ -82,6 +87,7 @@ private:
         TreeIter selected = tv.getSelectedIter();
         btnEdit.setSensitive(selected !is null);
         btnDelete.setSensitive(selected !is null);
+        btnUnselect.setSensitive(selected !is null);
     }
 
     void addBookmark(Button button) {
@@ -112,6 +118,10 @@ private:
 
     void deleteBookmark(Button button) {
         tv.removeBookmark();
+    }
+
+    void unselectBookmark(Button button) {
+        tv.getSelection().unselectIter(tv.getSelectedIter());
     }
 
 public:

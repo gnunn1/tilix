@@ -7,7 +7,9 @@ module gx.terminix.bookmark.bmtreeview;
 import std.conv;
 import std.experimental.logger;
 import std.string;
+import std.traits;
 
+import gdk.Atom;
 import gdk.DragContext;
 import gdk.Pixbuf;
 
@@ -15,6 +17,8 @@ import gobject.Value;
 
 import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
+import gtk.SelectionData;
+import gtk.TargetEntry;
 import gtk.TreeViewColumn;
 import gtk.TreeIter;
 import gtk.TreeModel;
@@ -52,6 +56,13 @@ private:
 
     bool ignoreOperationFlag = false;
     string deletedBookmarkUUID;
+
+    enum BOOKMARK_DND = "bookmark";
+
+    enum DropTargets {
+        BOOKMARK
+    };
+
 
     void createColumns() {
         CellRendererPixbuf crp = new CellRendererPixbuf();
@@ -120,30 +131,107 @@ private:
         }
     }
 
-    bool isDragAllowed(int x, int y) {
-        TreePath path;
-        TreeViewDropPosition tvdp;
-        getDestRowAtPos(x, y, path, tvdp);
-        TreeIter iter;
-        if (ts.getIter(iter, path)) {
-            string uuid = ts.getValueString(iter, Columns.UUID);
-            FolderBookmark fb = cast(FolderBookmark) bmMgr.get(uuid);
-            return (fb !is null);
-        } else {
-            return false;
+// Drag and drop functionality
+private:
+
+    void onDragDataGet(DragContext dc, SelectionData data, uint x, uint y, Widget) {
+        TreeIter iter = getSelectedIter();
+        if (iter !is null) {
+            //string uuid = ts.getValueString(iter, Columns.UUID);
+            string path = iter.getTreePath().toString();
+            char[] buffer = (path ~ '\0').dup;
+            data.set(intern(BOOKMARK_DND, false), 8, buffer);
         }
     }
 
-    bool onDragDrop(DragContext dc, int x, int y, uint time, Widget widget) {
-        return isDragAllowed(x, y);
+    void onDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
+        if (info != DropTargets.BOOKMARK) return;
+
+        TreePath pathTarget;
+        TreeViewDropPosition tvdp;
+        if (!getDestRowAtPos(x, y, pathTarget, tvdp)) return;
+        TreeIter target = new TreeIter();
+        ts.getIter(target, pathTarget);
+
+        string dataPath = to!string(data.getDataWithLength()[0 .. $ - 1]);
+        tracef("Data received %s", dataPath);
+        TreePath pathSource = new TreePath(dataPath);
+        TreeIter source = new TreeIter();
+        ts.getIter(source, pathSource);
+
+        //Move bookmark first
+        Bookmark bmTarget = bmMgr.get(ts.getValueString(target, Columns.UUID));
+        Bookmark bmSource = bmMgr.get(ts.getValueString(source, Columns.UUID));
+        try {
+            switch (tvdp) {
+                case TreeViewDropPosition.BEFORE:
+                    bmMgr.moveBefore(bmTarget, bmSource);
+                    break;
+                case TreeViewDropPosition.AFTER:
+                    bmMgr.moveAfter(bmTarget, bmSource);
+                    break;
+                case TreeViewDropPosition.INTO_OR_BEFORE:
+                ..
+                case TreeViewDropPosition.INTO_OR_AFTER:
+                    FolderBookmark fb = cast(FolderBookmark) bmTarget;
+                    if (fb is null) {
+                        error("Unexpected, not a folder bookmark, bookmark not moved");
+                        return;
+                    }
+                    bmMgr.moveInto(fb, bmSource);
+                    break;
+                default:
+                    error("Unexpected value for TreeViewDropPosition, should never get here");
+                    return;
+
+            }
+        } catch (Exception e) {
+            error("Could not perform operation, error occured");
+            error(e);
+            return;
+        }
+
+        TreeIter iter;
+        final switch (tvdp) {
+            case TreeViewDropPosition.BEFORE:
+                TreeIter iterParent;
+                if (!ts.iterParent(iterParent, target)) {
+                    iterParent = null;
+                }
+                ts.insertBefore(iter, iterParent, target);
+                break;
+            case TreeViewDropPosition.AFTER:
+                TreeIter iterParent;
+                if (!ts.iterParent(iterParent, target)) {
+                    iterParent = null;
+                }
+                ts.insertAfter(iter, iterParent, target);
+                break;
+            case TreeViewDropPosition.INTO_OR_BEFORE:
+                iter = ts.append(target);
+                break;
+            case TreeViewDropPosition.INTO_OR_AFTER:
+                iter = ts.append(target);
+                break;
+        }
+
+        foreach(column; EnumMembers!Columns) {
+            ts.setValue(iter, column, ts.getValue(source, column));
+        }
+        ts.remove(source);
     }
 
-    bool onDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
-        return isDragAllowed(x, y);
+    void setupDragAndDrop() {
+        TargetEntry bmEntry = new TargetEntry(BOOKMARK_DND, TargetFlags.SAME_WIDGET, DropTargets.BOOKMARK);
+        TargetEntry[] targets = [bmEntry];
+        enableModelDragDest(targets, DragAction.MOVE);
+        enableModelDragSource(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
+        addOnDragDataGet(&onDragDataGet);
+        addOnDragDataReceived(&onDragDataReceived);
     }
 
 public:
-    this(bool enableFilter = false, bool foldersOnly = false) {
+    this(bool enableFilter = false, bool foldersOnly = false, bool reorganizeable = false) {
         super();
         icons = getBookmarkIcons();
         ts = createBMTreeModel(foldersOnly);
@@ -151,10 +239,12 @@ public:
         if (enableFilter) {
             filter = new TreeModelFilter(ts, null);
             filter.setVisibleColumn(Columns.FILTER);
-            //filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
             setModel(filter);
         } else {
             setModel(ts);
+            if (reorganizeable) {
+                setupDragAndDrop();
+            }
         }
         createColumns();
     }

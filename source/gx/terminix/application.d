@@ -512,7 +512,9 @@ private:
     void onAppShutdown(GApplication) {
         trace("Quit App Signal");
         static if (BOOKMARKS) {
-            bmMgr.save();
+            if (bmMgr.hasChanged()) {
+                bmMgr.save();
+            }
         }
         terminix = null;
     }
