@@ -87,13 +87,12 @@ private:
             tracef("Ignoring release %b", buttonDown);
             return false;
         }
-        if (timeout !is null) {
-            removeTimeout();
-        }
+        removeTimeout();
+
         Value value = new Value(500);
         getSettings().getProperty(GTK_DOUBLE_CLICK_TIME, value);
         uint doubleClickTime = value.getInt();
-        timeout = new Timeout(doubleClickTime,&onSingleClickTimer);
+        timeout = new Timeout(doubleClickTime, &onSingleClickTimer);
         buttonDown = false;
         return false;
     }
@@ -114,7 +113,6 @@ private:
 
     bool onSingleClickTimer() {
         doEdit();
-        timeout.timeoutID = 0;
         return false;
     }
 
@@ -147,9 +145,7 @@ public:
         super();
         createUI();
         addOnDestroy(delegate(Widget) {
-            if (timeout !is null) {
-                removeTimeout();
-            }
+            removeTimeout();
         });
     }
 
