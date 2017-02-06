@@ -135,9 +135,11 @@ private:
     }
 
     void removeTimeout() {
-        if (timeout.timeoutID > 0)  timeout.stop();
-        timeout.destroy();
-        timeout = null;
+        if (timeout !is null) {
+            if (timeout.timeoutID > 0)  timeout.stop();
+            timeout.destroy();
+            timeout = null;
+        }
     }
 
 public:
