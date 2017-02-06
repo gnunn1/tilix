@@ -668,12 +668,12 @@ private:
         }, encoding.getType(), encoding);
 
         // Add Bookmark
-        registerAction(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, null, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, gsShortcuts, delegate(GVariant, SimpleAction) {
             addBookmark();
         }, null, null);
 
         // Select Bookmark
-        registerAction(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, null, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             selectBookmark();
         }, null, null);
 
