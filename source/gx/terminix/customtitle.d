@@ -20,6 +20,8 @@ import gtk.Settings;
 import gtk.Stack;
 import gtk.Widget;
 
+import gtkc.glib;
+
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -38,9 +40,12 @@ private:
     enum PAGE_LABEL = "label";
     enum PAGE_EDIT = "edit";
 
+    immutable bool CUSTOM_TIMEOUT = true;
+
     Entry eTitle;
     Label lblTitle;
 
+    uint timeoutID;
     Timeout timeout;
 
     bool buttonDown;
@@ -74,6 +79,8 @@ private:
             return false;
         });
         eTitle.addOnFocusOut(delegate(Event event, Widget widget) {
+            trace("Focus out");
+            removeTimeout();
             setVisibleChildName(PAGE_LABEL);
             onCancelEdit.emit();
             return false;
@@ -92,7 +99,15 @@ private:
         Value value = new Value(500);
         getSettings().getProperty(GTK_DOUBLE_CLICK_TIME, value);
         uint doubleClickTime = value.getInt();
-        timeout = new Timeout(doubleClickTime, &onSingleClickTimer);
+        trace("Create timeout");
+        if (CUSTOM_TIMEOUT) {
+            timeoutID = g_timeout_add(doubleClickTime, cast(GSourceFunc)&timeoutCallback, cast(void*)this);
+            tracef("**** DoubleClickTime=%d, timeoutID=%d", doubleClickTime, timeoutID);
+        } else {
+            timeout = new Timeout(doubleClickTime, &onSingleClickTimer);
+            tracef("**** DoubleClickTime=%d, timeoutID=%d", doubleClickTime, timeout.timeoutID);
+        }
+
         buttonDown = false;
         return false;
     }
@@ -133,12 +148,28 @@ private:
     }
 
     void removeTimeout() {
-        if (timeout !is null) {
-            if (timeout.timeoutID > 0)  timeout.stop();
-            timeout.destroy();
-            timeout = null;
+        if (CUSTOM_TIMEOUT) {
+            if (timeoutID > 0) {
+                g_source_remove(timeoutID);
+                timeoutID = 0;
+            }
+        } else {
+            if (timeout !is null) {
+                trace("Removing timeout");
+                //if (timeout.timeoutID > 0)
+                timeout.stop();
+                //timeout.destroy();
+                timeout = null;
+            }
         }
     }
+
+	extern(C) static bool timeoutCallback(CustomTitle ct) {
+        trace("Timeout callback received");
+        ct.doEdit();
+        ct.timeoutID = 0;
+        return false;
+	}
 
 public:
     this() {
