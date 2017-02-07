@@ -315,12 +315,7 @@ public:
         Bookmark bm = getSelectedBookmark();
         if (selected is null || bm is null) return;
 
-        TreeIter parent;
-        FolderBookmark fbm = getParentBookmark(bm, parent);
-        if (fbm is null) {
-            fbm = bmMgr.root;
-        }
-        bmMgr.remove(fbm, bm);
+        bmMgr.remove(bm);
         ignoreOperationFlag = true;
         ts.remove(selected);
         ignoreOperationFlag = false;

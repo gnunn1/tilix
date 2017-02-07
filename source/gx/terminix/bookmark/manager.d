@@ -147,11 +147,8 @@ package:
     }
 
     void remove(Bookmark bm) {
-        size_t index = list.countUntil(bm);
-        if (index >= 0) {
-            list[index] = null;
-            list = std.algorithm.remove(list, index);
-        }
+        import gx.util.array: remove;
+        list.remove(bm);
         bm.parent = null;
         bmMgr.changed();
     }
@@ -496,6 +493,20 @@ private:
 
     bool _changed = false;
 
+    /**
+     * Remove all references to folder and it's children
+     * from bookmarks associative array. Could also be used
+     * for other cleanup but not needed at this time.
+     */
+    void clear(FolderBookmark fb) {
+        if (fb is null) return;
+        foreach(bm; fb) {
+            if (bm.uuid in bookmarks) bookmarks.remove(bm.uuid);
+            FolderBookmark child = cast(FolderBookmark) bm;
+            if (child !is null) clear(child);
+        }
+    }
+
 public:
     this() {
         _root = new FolderBookmark(_("Root"));
@@ -520,9 +531,15 @@ public:
         bookmarks[bm.uuid] = bm;
     }
 
-    void remove(FolderBookmark fb, Bookmark bm) {
-        fb.remove(bm);
+    void remove(Bookmark bm) {
+        if (bm is null || bm.parent is null) {
+            error("Unexpected error, bookmark %s is nuill or bookmark has no parent", bm.name);
+            return;
+        }
+        tracef("Removing %s from folder %s", bm.name, bm.parent.name);
+        bm.parent.remove(bm);
         bookmarks.remove(bm.uuid);
+        clear(cast(FolderBookmark) bm);
     }
 
     void moveBefore(Bookmark target, Bookmark source) {
