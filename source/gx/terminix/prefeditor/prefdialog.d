@@ -1037,7 +1037,7 @@ private:
         // Terminal Height
         grid.attach(createLabel(_("Height percent")), 0, row, 1, 1);
         Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 90, 10);
-        sHeight.setDrawValue(false);
+        sHeight.setValuePos(GtkPositionType.RIGHT);
         sHeight.setHexpand(true);
         sHeight.setHalign(Align.FILL);
         bh.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
@@ -1048,7 +1048,7 @@ private:
             // Terminal Width
             grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
             Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
-            sWidth.setDrawValue(false);
+            sWidth.setValuePos(GtkPositionType.RIGHT);
             sWidth.setHexpand(true);
             sWidth.setHalign(Align.FILL);
             bh.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
