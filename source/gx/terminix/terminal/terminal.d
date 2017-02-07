@@ -706,26 +706,34 @@ private:
      */
     void createPopoverMenuItems(GMenu model) {
         GMenu menuSection = new GMenu();
-        menuSection.append(_("Save Output…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
-        menuSection.append(_("Reset"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET));
-        menuSection.append(_("Reset and Clear"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET_AND_CLEAR));
+        menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
+        menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.append(_("Password..."), getActionDetailedName(ACTION_PREFIX, ACTION_INSERT_PASSWORD));
+        menuSection.append(_("Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
+        menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
         menuSection.appendSubmenu(_("Profiles"), profileMenu);
+        model.appendSection(null, menuSection);
+
+        GMenu submenu = new GMenu();
+
+        menuSection = new GMenu();
+        menuSection.append(_("Save Output…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
+        menuSection.append(_("Reset"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET));
+        menuSection.append(_("Reset and Clear"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET_AND_CLEAR));
+        submenu.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
-        menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
-        menuSection.append(_("Select Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
-        model.appendSubmenu(_("Bookmarks"), menuSection);
-
-        menuSection = new GMenu();
-        menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
         menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
-        menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
-        model.appendSection(null, menuSection);
+        submenu.appendSection(null, menuSection);
+
+        model.appendSubmenu(_("Other"), submenu);
     }
 
     /**
