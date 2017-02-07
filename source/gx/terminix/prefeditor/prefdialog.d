@@ -10,6 +10,7 @@ import std.experimental.logger;
 import std.file;
 import std.format;
 import std.string;
+import std.typecons : No;
 import std.variant;
 
 import gdk.Event;
@@ -21,6 +22,7 @@ import gio.SimpleActionGroup;
 
 import glib.Variant: GVariant = Variant;
 
+import gobject.ObjectG;
 import gobject.Signals;
 import gobject.Value;
 
@@ -50,6 +52,7 @@ import gtk.MessageDialog;
 import gtk.Popover;
 import gtk.Scale;
 import gtk.ScrolledWindow;
+import gtk.SearchEntry;
 import gtk.Separator;
 import gtk.Settings;
 import gtk.SizeGroup;
@@ -57,6 +60,8 @@ import gtk.SpinButton;
 import gtk.Stack;
 import gtk.Switch;
 import gtk.TreeIter;
+import gtk.TreeModel;
+import gtk.TreeModelFilter;
 import gtk.TreePath;
 import gtk.TreeStore;
 import gtk.TreeView;
@@ -644,8 +649,12 @@ private:
     BindingHelper bh;
 
     TreeStore tsShortcuts;
+    TreeView tvShortcuts;
+    TreeModelFilter filter;
     string[string] labels;
     string[string] prefixes;
+
+    SearchEntry se;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -657,11 +666,21 @@ private:
         setMarginTop(18);
         setMarginBottom(18);
 
+        se = new SearchEntry();
+        se.addOnSearchChanged(delegate(SearchEntry) {
+            filter.refilter();
+            tvShortcuts.expandAll();
+        });
+        add(se);
+
         //Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
         tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING]);
         loadShortcuts(tsShortcuts);
 
-        TreeView tvShortcuts = new TreeView(tsShortcuts);
+        filter = new TreeModelFilter(tsShortcuts, null);
+        filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
+
+        tvShortcuts = new TreeView(filter);
         tvShortcuts.setActivateOnSingleClick(false);
         bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", GSettingsBindFlags.DEFAULT);
 
@@ -676,7 +695,8 @@ private:
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
-            tsShortcuts.getIter(iter, new TreePath(path));
+            filter.getIter(iter, new TreePath(path));
+            filter.convertIterToChildIter(iter, iter);
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
             //Note accelerator changed by app which is monitoring gsetting changes
             gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
@@ -686,9 +706,10 @@ private:
             string name = AccelGroup.acceleratorName(accelKey, accelMods);
             trace("Updating shortcut as " ~ label);
             TreeIter iter = new TreeIter();
-            tsShortcuts.getIter(iter, new TreePath(path));
-            string action = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+            filter.getIter(iter, new TreePath(path));
+            string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
             if (checkAndPromptChangeShortcut(action, name, label)) {
+                filter.convertIterToChildIter(iter, iter);
                 tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
                 tracef("Setting action %s to shortcut %s", action, label);
                 //Note accelerator changed by app which is monitoring gsetting changes
@@ -831,6 +852,15 @@ private:
 
             appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
         }
+    }
+
+    static extern(C) int filterBookmark(GtkTreeModel* gtkModel, GtkTreeIter* gtkIter, ShortcutPreferences page) {
+        TreeIter iter = ObjectG.getDObject!(TreeIter)(gtkIter, true);
+        string name = page.tsShortcuts.getValueString(iter, COLUMN_NAME);
+        //import std.string: No;
+        string text = page.se.getText();
+        tracef("Comparing %s against %s", name, text);
+        return (page.tsShortcuts.iterHasChild(iter) || text.length==0 || name.indexOf(text, No.caseSensitive) >= 0);
     }
 
 public:
