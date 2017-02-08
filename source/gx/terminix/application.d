@@ -381,10 +381,12 @@ private:
         trace("Activating app");
 
         if (acl.getIsRemote()) {
-            // Check if quake mode was passed and we have quake window already then
+            // Check if quake mode or preferences was passed and we have quake window already then
             // just toggle visibility or create quake window. If there isn't a quake window
             // fall through and let activate create one
-            if (cp.quake) {
+            if (cp.preferences) {
+                presentPreferences();
+            } else if (cp.quake) {
                 AppWindow qw = getQuakeWindow();
                 if (qw !is null) {
                     if (qw.getVisible) {
@@ -397,8 +399,6 @@ private:
                     }
                     return 0;
                 }
-            } if (cp.preferences) {
-                presentPreferences();
             } else {
                 AppWindow aw = getActiveAppWindow();
                 if (aw !is null) {
