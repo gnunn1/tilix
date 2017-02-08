@@ -1033,7 +1033,11 @@ private:
             trace("Focus terminal");
             activate();
             activateFocus();
-            getActiveTerminal().focusTerminal();
+            if (getActiveTerminal() !is null) {
+                getActiveTerminal().focusTerminal();
+            } else if (getCurrentSession() !is null) {
+                getCurrentSession().focusTerminal(1);
+            }
         }
     }
 
