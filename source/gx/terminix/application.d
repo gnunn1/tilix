@@ -399,7 +399,7 @@ private:
                 }
             } if (cp.preferences) {
                 presentPreferences();
-            } else {
+            } else if (!cp.quake) {
                 AppWindow aw = getActiveAppWindow();
                 if (aw !is null) {
                     string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
