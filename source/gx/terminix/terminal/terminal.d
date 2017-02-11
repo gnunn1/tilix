@@ -1372,11 +1372,11 @@ private:
 private:
 
     // Note this event is binded dynamically so no need to check control wheel preference here
-    bool onTerminalScroll(Event event, Widget widget) {
-        if (vte !is null && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
-            ScrollDirection zoomDirection = event.scroll.direction;
+    bool onTerminalScroll(GdkEventScroll* event, Widget widget) {
+        if (vte !is null && (event.state & ModifierType.CONTROL_MASK) && !(event.state & ModifierType.SHIFT_MASK) && !(event.state & ModifierType.MOD1_MASK)) {
+            ScrollDirection zoomDirection = event.direction;
             if (zoomDirection == ScrollDirection.SMOOTH) {
-                zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
+                zoomDirection = (event.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
             }
             if (zoomDirection == ScrollDirection.UP) {
                 zoomIn();
