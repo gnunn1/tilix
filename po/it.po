@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-05 18:40-0500\n"
-"PO-Revision-Date: 2017-02-02 08:19+0000\n"
-"Last-Translator: boblaspugna <boblaspugna@null.net>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/terminix/"
-"translations/it/>\n"
+"PO-Revision-Date: 2017-02-11 10:15+0000\n"
+"Last-Translator: Al-Xio Luzif <pirulazio@gmail.com>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/terminix/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11\n"
+"X-Generator: Weblate 2.12-dev\n"
 
 #: source/app.d:110
 #, c-format
@@ -45,7 +45,7 @@ msgstr "Versione di Terminix: %s"
 #: source/app.d:140
 #, c-format
 msgid "VTE version: %s"
-msgstr "Versione VTE: %s"
+msgstr "Versione della libreria VTE: %s"
 
 #: source/app.d:141
 #, c-format
@@ -74,26 +74,24 @@ msgstr "disabilitato"
 
 #: source/gx/terminix/bookmark/bmeditor.d:68
 #: source/gx/terminix/bookmark/bmchooser.d:104
-#, fuzzy
 msgid "Select Folder"
-msgstr "Seleziona il colore %s"
+msgstr "Seleziona cartella"
 
 #: source/gx/terminix/bookmark/bmeditor.d:74
-#, fuzzy
 msgid "Select folder"
-msgstr "Seleziona il colore %s"
+msgstr "Seleziona cartella"
 
 #: source/gx/terminix/bookmark/bmeditor.d:86
 msgid "Clear folder"
-msgstr ""
+msgstr "Pulisci cartella"
 
 #: source/gx/terminix/bookmark/bmeditor.d:147
 msgid "Add Bookmark"
-msgstr ""
+msgstr "Aggiungi segnalibro"
 
 #: source/gx/terminix/bookmark/bmeditor.d:147
 msgid "Edit Bookmark"
-msgstr ""
+msgstr "Modifica segnalibro"
 
 #: source/gx/terminix/bookmark/bmeditor.d:148
 #: source/gx/terminix/bookmark/bmchooser.d:105
@@ -128,12 +126,11 @@ msgstr "Nome"
 #: source/gx/terminix/bookmark/bmeditor.d:289
 #: source/gx/terminix/bookmark/manager.d:623
 msgid "Path"
-msgstr ""
+msgstr "Percorso"
 
 #: source/gx/terminix/bookmark/bmeditor.d:291
-#, fuzzy
 msgid "Select Path"
-msgstr "Seleziona tutto"
+msgstr "Seleziona percorso"
 
 #: source/gx/terminix/bookmark/bmeditor.d:330
 #: source/gx/terminix/bookmark/bmeditor.d:425
@@ -147,25 +144,23 @@ msgstr "Comando"
 
 #: source/gx/terminix/bookmark/bmeditor.d:379
 msgid "Protocol"
-msgstr ""
+msgstr "Protocollo di rete"
 
 #: source/gx/terminix/bookmark/bmeditor.d:395
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: source/gx/terminix/bookmark/bmeditor.d:411
 msgid "User"
-msgstr ""
+msgstr "Nome utente"
 
 #: source/gx/terminix/bookmark/bmeditor.d:418
-#, fuzzy
 msgid "Parameters"
-msgstr "Parametro"
+msgstr "Parametri"
 
 #: source/gx/terminix/bookmark/bmchooser.d:104
-#, fuzzy
 msgid "Select Bookmark"
-msgstr "Seleziona il colore del badge"
+msgstr "Seleziona segnalibro"
 
 #: source/gx/terminix/bookmark/bmtreeview.d:71
 #: source/gx/terminix/closedialog.d:119
@@ -175,28 +170,27 @@ msgstr "Icona"
 
 #: source/gx/terminix/bookmark/manager.d:226
 msgid "Error deserializing bookmark"
-msgstr ""
+msgstr "Errore durante la deserializzazione del segnalibro"
 
 #: source/gx/terminix/bookmark/manager.d:501
 msgid "Root"
-msgstr ""
+msgstr "Radice"
 
 #: source/gx/terminix/bookmark/manager.d:569
-#, fuzzy
 msgid "Could not load bookmarks due to unexpected error"
-msgstr "Impossibile caricare la sessione a causa di un errore imprevisto."
+msgstr "Impossibile caricare i preferiti a causa di un errore imprevisto"
 
 #: source/gx/terminix/bookmark/manager.d:623
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 #: source/gx/terminix/bookmark/manager.d:623
 msgid "Remote"
-msgstr ""
+msgstr "Connessione remota"
 
 #: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
-msgstr "Un emulatore di terminale per Linux basato su VTE"
+msgstr "Un emulatore di terminale per Linux basato sulla libreria VTE"
 
 #: source/gx/terminix/constants.d:61
 msgid ""
@@ -211,16 +205,16 @@ msgstr ""
 #: source/gx/terminix/constants.d:66
 msgid "GTK VTE widget team, Terminix would not be possible without their work"
 msgstr ""
-"Il gruppo di lavoro del widget GTK VTE. Terminix non sarebbe stato possibile "
-"senza il loro lavoro"
+"Il gruppo di sviluppo della libreria VTE. Terminix non sarebbe stato "
+"possibile senza il loro lavoro"
 
 #: source/gx/terminix/constants.d:67
 msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD per l'eccellente wrapper per le GTK"
+msgstr "GtkD per l'ottimo wrapper per le GTK"
 
 #: source/gx/terminix/constants.d:68
 msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org per l'eccellente linguaggio, D"
+msgstr "Dlang.org per un eccellente linguaggio, D"
 
 #: source/gx/terminix/constants.d:117 source/gx/terminix/terminal/layout.d:51
 #: source/gx/terminix/closedialog.d:113
@@ -228,9 +222,8 @@ msgid "Title"
 msgstr "Titolo"
 
 #: source/gx/terminix/constants.d:118
-#, fuzzy
 msgid "Icon title"
-msgstr "Titolo dell'applicazione"
+msgstr "Titolo dell'icona"
 
 #: source/gx/terminix/constants.d:119
 #: source/gx/terminix/terminal/password.d:136
@@ -239,39 +232,35 @@ msgstr "ID"
 
 #: source/gx/terminix/constants.d:120
 msgid "Directory"
-msgstr ""
+msgstr "Directory"
 
 #: source/gx/terminix/constants.d:121
 msgid "Hostname"
-msgstr ""
+msgstr "Nome dell'host"
 
 #: source/gx/terminix/constants.d:122
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: source/gx/terminix/constants.d:123
-#, fuzzy
 msgid "Columns"
-msgstr "colonne"
+msgstr "Colonne"
 
 #: source/gx/terminix/constants.d:124
 msgid "Rows"
-msgstr ""
+msgstr "Righe"
 
 #: source/gx/terminix/constants.d:139
-#, fuzzy
 msgid "Application name"
-msgstr "Applicazione"
+msgstr "Nome dell'applicazione"
 
 #: source/gx/terminix/constants.d:140
-#, fuzzy
 msgid "Session name"
-msgstr "Caricamento di sessione"
+msgstr "Nome della sessione"
 
 #: source/gx/terminix/constants.d:141
-#, fuzzy
 msgid "Session number"
-msgstr "Sessione"
+msgstr "Numero della sessione"
 
 #: source/gx/terminix/session.d:544
 msgid "Could not locate dropped terminal"
@@ -409,7 +398,7 @@ msgstr "Hindi"
 
 #: source/gx/terminix/encoding.d:61
 msgid "Persian"
-msgstr "Persiano"
+msgstr "Farsi"
 
 #: source/gx/terminix/encoding.d:63
 msgid "Gujarati"
@@ -434,7 +423,7 @@ msgstr "Tailandese"
 
 #: source/gx/terminix/terminal/layout.d:30
 msgid "Layout Options"
-msgstr "Opzioni del Layout"
+msgstr "Opzioni di disposizione"
 
 #: source/gx/terminix/terminal/layout.d:45
 msgid "Active"
@@ -497,9 +486,8 @@ msgid "Edit Profile"
 msgstr "Modifica il profilo"
 
 #: source/gx/terminix/terminal/terminal.d:442
-#, fuzzy
 msgid "Edit Encodings"
-msgstr "Codifica"
+msgstr "Cambia la codifica"
 
 #: source/gx/terminix/terminal/terminal.d:606
 msgid "Enable input synchronization for this terminal"
@@ -546,18 +534,17 @@ msgstr "Codifica"
 
 #: source/gx/terminix/terminal/terminal.d:720
 msgid "Add Bookmark..."
-msgstr ""
+msgstr "Aggiungi segnalibro..."
 
 #: source/gx/terminix/terminal/terminal.d:721
-#, fuzzy
 msgid "Select Bookmark..."
-msgstr "Seleziona il colore del badge"
+msgstr "Seleziona segnalibro..."
 
 #: source/gx/terminix/terminal/terminal.d:722
 #: source/gx/terminix/prefeditor/prefdialog.d:141
 #: source/gx/terminix/prefeditor/prefdialog.d:142
 msgid "Bookmarks"
-msgstr ""
+msgstr "Segnalibri"
 
 #: source/gx/terminix/terminal/terminal.d:725
 msgid "Find…"
@@ -582,7 +569,7 @@ msgstr "Ripristina"
 
 #: source/gx/terminix/terminal/terminal.d:1420
 msgid "Open Link"
-msgstr "Apri collegamento"
+msgstr "Apri il collegamento"
 
 #: source/gx/terminix/terminal/terminal.d:1421
 msgid "Copy Link Address"
@@ -617,6 +604,8 @@ msgstr "Sincronizza l'input"
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
+"L'espressione regolare '%s' del collegamento personalizzato presenta un "
+"errore, la ignoro"
 
 #: source/gx/terminix/terminal/terminal.d:2083
 msgid "Unexpected error occurred, no additional information available"
@@ -682,11 +671,11 @@ msgstr "Opzioni di ricerca"
 
 #: source/gx/terminix/terminal/search.d:135
 msgid "Find next"
-msgstr "Avanti"
+msgstr "Trova successivo"
 
 #: source/gx/terminix/terminal/search.d:141
 msgid "Find previous"
-msgstr "Indietro"
+msgstr "Trova precedente"
 
 #: source/gx/terminix/terminal/search.d:188
 msgid "Match case"
@@ -694,11 +683,11 @@ msgstr "Sensibile alle maiuscole e minuscole"
 
 #: source/gx/terminix/terminal/search.d:189
 msgid "Match entire word only"
-msgstr "Parola intera"
+msgstr "Solo la parola intera"
 
 #: source/gx/terminix/terminal/search.d:190
 msgid "Match as regular expression"
-msgstr "Espressione regolare"
+msgstr "Interpreta come una espressione regolare"
 
 #: source/gx/terminix/terminal/search.d:191
 msgid "Wrap around"
@@ -845,7 +834,7 @@ msgstr "Terminix"
 
 #: source/gx/terminix/application.d:622
 msgid "Set the working directory of the terminal"
-msgstr "Impostare la directory di lavoro del terminale"
+msgstr "Imposta la directory di lavoro del terminale"
 
 #: source/gx/terminix/application.d:622
 msgid "DIRECTORY"
@@ -1049,7 +1038,7 @@ msgstr "Salva la sessione"
 #: source/gx/terminix/colorschemes.d:182
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
-msgstr "File %s non è uno schema di colori JSON compatibile"
+msgstr "File %s non è uno schema di colore JSON compatibile"
 
 #: source/gx/terminix/colorschemes.d:245
 msgid "Color scheme palette requires 16 colors"
@@ -1057,19 +1046,19 @@ msgstr "La tavolozza richiede 16 colori"
 
 #: source/gx/terminix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
-msgstr ""
+msgstr "Aggiungi segnalibro"
 
 #: source/gx/terminix/prefeditor/bookmarkeditor.d:67
 msgid "Edit bookmark"
-msgstr ""
+msgstr "Modifica segnalibro"
 
 #: source/gx/terminix/prefeditor/bookmarkeditor.d:72
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Elimina segnalibro"
 
 #: source/gx/terminix/prefeditor/bookmarkeditor.d:77
 msgid "Unselect bookmark"
-msgstr ""
+msgstr "Deseleziona segnalibro"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:112
 msgid "Terminix Preferences"
@@ -1152,9 +1141,8 @@ msgid "Enable transparency, requires re-start"
 msgstr "Attiva la trasparenza. È richiesto il riavvio"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:882
-#, fuzzy
 msgid "Window style"
-msgstr "Finestra (%s)"
+msgstr "Stile della finestra"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:884
 #: source/gx/terminix/prefeditor/prefdialog.d:898
@@ -1162,21 +1150,20 @@ msgid "Normal"
 msgstr "Normale"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:884
-#, fuzzy
 msgid "Disable CSD"
-msgstr "disabilitato"
+msgstr "Disabilita CSD"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:884
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Disabilita CSD, nascondi la barra degli strumenti"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:884
 msgid "Borderless"
-msgstr ""
+msgstr "Senza bordi"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:888
 msgid "Window restart required"
-msgstr ""
+msgstr "La finestra richiede il riavvio"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:897
 msgid "Terminal title style"
@@ -1225,7 +1212,7 @@ msgstr "Scalata"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:943
 msgid "Tile"
-msgstr "Piastrellata"
+msgstr "A mosaico"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:943
 #: source/gx/terminix/prefeditor/prefdialog.d:1060
@@ -1350,7 +1337,7 @@ msgstr "A una nuova istanza"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:1204
 msgid "Split Right"
-msgstr "Dividi a Destra"
+msgstr "Dividi a destra"
 
 #: source/gx/terminix/prefeditor/prefdialog.d:1204
 msgid "Split Down"
@@ -1429,7 +1416,7 @@ msgstr "Barra verticale"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:275
 msgid "Underline"
-msgstr "Sottolineatura"
+msgstr "Trattino basso"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:283
 msgid "Blink mode"
@@ -1437,7 +1424,7 @@ msgstr "Modalità di lampeggio"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:286
 msgid "System"
-msgstr "Di sistema"
+msgstr "Impostazione di sistema"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:286
 msgid "On"
@@ -1445,7 +1432,7 @@ msgstr "Attivo"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:286
 msgid "Off"
-msgstr "Disattivato"
+msgstr "Disattivo"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:295
 msgid "Sound"
@@ -1523,7 +1510,7 @@ msgstr "Tavolozza dei colori"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:484
 msgid "Use theme colors for foreground/background"
-msgstr "Utilizza i colori del tema di sistema"
+msgstr "Utilizza i colori del tema"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:502
 msgid "Transparency"
@@ -1544,11 +1531,11 @@ msgstr "Sfondo"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:576
 msgid "Select Cursor Foreground Color"
-msgstr "Seleziona il colore di primo piano per le selezioni"
+msgstr "Seleziona il colore di primo piano del cursore"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:578
 msgid "Select Cursor Background Color"
-msgstr "Seleziona il colore di sfondo per le selezioni"
+msgstr "Seleziona il colore di sfondo del cursore"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:583
 msgid "Highlight"
@@ -1639,7 +1626,7 @@ msgstr "Mostra la barra di scorrimento"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:920
 msgid "Scroll on output"
-msgstr "Scorri con l'output"
+msgstr "Scorri in presenza di output"
 
 #: source/gx/terminix/prefeditor/profileeditor.d:924
 msgid "Scroll on keystroke"
@@ -1741,7 +1728,7 @@ msgid ""
 msgstr ""
 "I trigger sono espressioni regolari che vengono utilizzate per controllare "
 "il testo di output nel terminale. Quando viene rilevata una corrispondenza "
-"viene eseguita l'azione configurata."
+"viene eseguita un azione predefinita."
 
 #: source/gx/terminix/prefeditor/profileeditor.d:1133
 msgid "Automatic Profile Switching"
@@ -1834,17 +1821,16 @@ msgstr "Modifica i trigger"
 #: source/gx/terminix/prefeditor/profileeditor.d:1597
 #, c-format
 msgid "Row %d: "
-msgstr ""
+msgstr "Riga %d: "
 
 #: source/gx/terminix/prefeditor/titleeditor.d:108
-#, fuzzy
 msgid "Window"
 msgstr "Finestra"
 
 #: source/gx/terminix/prefeditor/titleeditor.d:118
 #: source/gx/terminix/prefeditor/titleeditor.d:119
 msgid "Help"
-msgstr ""
+msgstr "Aiuto"
 
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
@@ -1874,12 +1860,11 @@ msgid "You can only use the action parameter within Terminix"
 msgstr "È possibile usare il parametro azione solo all'interno di Terminix"
 
 #: source/gx/terminix/cmdparams.d:207
-#, fuzzy
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
-"Non puoi usare la modalità Quake con le opzioni maximize, minimize, "
-"fullscreen e geometry"
+"Non puoi usare la modalità Quake con le opzioni maximize, minimize, e "
+"geometry"
 
 #: source/gx/terminix/preferences.d:212
 msgid "UpdateState"
@@ -1899,7 +1884,7 @@ msgstr "Aggiorna Titolo"
 
 #: source/gx/terminix/preferences.d:216
 msgid "PlayBell"
-msgstr "Suona Campanello"
+msgstr "Suona Campanella"
 
 #: source/gx/terminix/preferences.d:217
 msgid "SendText"
@@ -1995,7 +1980,7 @@ msgstr "Visualizza il riquadro laterale delle sessioni"
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "View session switcher"
-msgstr "Visualizza la tendina di cambio sessione"
+msgstr "Visualizza il menù a tendina di cambio sessione"
 
 #: data/resources/ui/shortcuts.ui:67
 msgctxt "shortcut window"
@@ -2228,7 +2213,6 @@ msgid "Switch to terminal 10"
 msgstr "Passa al terminale 10"
 
 #: data/resources/ui/shortcuts.ui:356
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Terminal"
 msgstr "Terminale"
@@ -2241,12 +2225,12 @@ msgstr "Cerca"
 #: data/resources/ui/shortcuts.ui:371
 msgctxt "shortcut window"
 msgid "Find next"
-msgstr "Cerca avanti"
+msgstr "Cerca il successivo"
 
 #: data/resources/ui/shortcuts.ui:377
 msgctxt "shortcut window"
 msgid "Find previous"
-msgstr "Cerca indietro"
+msgstr "Cerca il precedente"
 
 #: data/resources/ui/shortcuts.ui:385
 msgctxt "shortcut window"
@@ -2344,15 +2328,14 @@ msgid "Insert password"
 msgstr "Inserisci la password"
 
 #: data/resources/ui/shortcuts.ui:503
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Select bookmark"
-msgstr "Seleziona un'immagine"
+msgstr "Seleziona segnalibro"
 
 #: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
 msgid "Add bookmark"
-msgstr ""
+msgstr "Aggiungi segnalibro"
 
 #: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
@@ -2362,16 +2345,14 @@ msgstr "Alterna tra i vari stili del titolo"
 #: data/resources/ui/shortcuts.ui:526
 msgctxt "shortcut window"
 msgid "Nautilus"
-msgstr ""
+msgstr "File manager"
 
 #: data/resources/ui/shortcuts.ui:531
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Apri"
 
 #: data/resources/ui/shortcuts.ui:535
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Terminix"
 msgstr "Apri in Terminix"
@@ -2382,7 +2363,7 @@ msgstr "Un terminale a riquadri per Gnome"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr ""
+msgstr "shell;prompt;comando;linea di comando;command;commandline;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Terminix.desktop.in:12
 msgid "com.gexperts.Terminix"
