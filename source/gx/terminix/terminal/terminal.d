@@ -64,6 +64,8 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantBuilder : GVariantBuilder = VariantBuilder;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.Signals;
+
 import gtk.Adjustment;
 import gtk.Box;
 import gtk.Button;
@@ -255,8 +257,6 @@ private:
     bool _ignoreCommit = false;
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
-    //Whether or not to zoom when the scroll wheen is used with Ctrl
-    bool _controlWheelZoom = false;
 
     //Cached badged so it is not calculated on each draw
     string _cachedBadge;
@@ -843,7 +843,6 @@ private:
                     terminix.warnVTEConfigIssue();
                 }
             }
-            vte.addOnScroll(&onTerminalScroll);
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
         });
@@ -1372,8 +1371,9 @@ private:
 
 private:
 
+    // Note this event is binded dynamically so no need to check control wheel preference here
     bool onTerminalScroll(Event event, Widget widget) {
-        if (vte !is null && _controlWheelZoom && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
+        if (vte !is null && (event.scroll.state & ModifierType.CONTROL_MASK) && !(event.scroll.state & ModifierType.SHIFT_MASK) && !(event.scroll.state & ModifierType.MOD1_MASK)) {
             ScrollDirection zoomDirection = event.scroll.direction;
             if (zoomDirection == ScrollDirection.SMOOTH) {
                 zoomDirection = (event.scroll.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
@@ -1644,6 +1644,11 @@ private:
      */
     CssProvider sbProvider;
 
+    /**
+     * Handler ID for scroll-event
+     */
+    ulong scrollEventHandlerId;
+
     void initColors() {
         vteFG = new RGBA();
         vteBG = new RGBA();
@@ -1846,7 +1851,16 @@ private:
             queueDraw();
             break;
         case SETTINGS_CONTROL_SCROLL_ZOOM_KEY:
-            _controlWheelZoom = gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY);
+            if (gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY)) {
+                if (vte !is null && scrollEventHandlerId == 0) {
+                    scrollEventHandlerId = vte.addOnScroll(&onTerminalScroll);
+                }
+            } else {
+                if (vte !is null && scrollEventHandlerId > 0) {
+                    Signals.handlerDisconnect(vte, scrollEventHandlerId);
+                    scrollEventHandlerId = 0;
+                }
+            }
             break;
         default:
             break;
