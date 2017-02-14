@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-05 18:40-0500\n"
+"POT-Creation-Date: 2017-02-14 10:42+0100\n"
 "PO-Revision-Date: 2017-02-12 01:39+0000\n"
 "Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
-"Language-Team: Czech "
-"<https://hosted.weblate.org/projects/terminix/translations/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/terminix/"
+"translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,173 +18,1536 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 2.12-dev\n"
 
-#: source/app.d:110
+#: source/gx/terminix/preferences.d:212
+msgid "UpdateState"
+msgstr "AktualizovatStav"
+
+#: source/gx/terminix/preferences.d:213
+msgid "ExecuteCommand"
+msgstr "ProvéstPříkaz"
+
+#: source/gx/terminix/preferences.d:214
+msgid "SendNotification"
+msgstr "PoslatOznámení"
+
+#: source/gx/terminix/preferences.d:215
+msgid "UpdateTitle"
+msgstr "AktualizovatTitulek"
+
+#: source/gx/terminix/preferences.d:216
+msgid "PlayBell"
+msgstr "Zazvonit"
+
+#: source/gx/terminix/preferences.d:217
+msgid "SendText"
+msgstr "PoslatText"
+
+#: source/gx/terminix/preferences.d:218
+msgid "InsertPassword"
+msgstr "VložitHeslo"
+
+#: source/gx/terminix/preferences.d:219
+msgid "UpdateBadge"
+msgstr "AktualizovatOdznak"
+
+#: source/gx/terminix/preferences.d:326
 #, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Máte příliš starou verzi GTK, potřebujete nejméně GTK %d.%d.%d!"
+msgid "%s (Copy)"
+msgstr "%s (Kopírovat)"
 
-#: source/app.d:127
-msgid "Unexpected exception occurred"
-msgstr "Nastala neočekávaná výjimka"
+#: source/gx/terminix/prefeditor/profileeditor.d:99
+msgid "General"
+msgstr "Obecné"
 
-#: source/app.d:128
-msgid "Error: "
-msgstr "Chyba: "
-
-#: source/app.d:138
-msgid "Versions"
-msgstr "Verze"
-
-#: source/app.d:139
-#, c-format
-msgid "Terminix version: %s"
-msgstr "Verze Terminixu: %s"
-
-#: source/app.d:140
-#, c-format
-msgid "VTE version: %s"
-msgstr "Verze VTE: %s"
-
-#: source/app.d:141
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "Verze GTK: %d.%d.%d"
-
-#: source/app.d:142
-msgid "Terminix Special Features"
-msgstr "Speciální vlastnosti Terminixu"
-
-#: source/app.d:143
-msgid "Notifications enabled=%b"
-msgstr "Oznámení povolena=%b"
-
-#: source/app.d:144
-msgid "Triggers enabled=%b"
-msgstr "Spouštěče povoleny=%b"
-
-#: source/app.d:145
-msgid "Badges enabled=%b"
-msgstr "Odznaky povoleny=%b"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "zakázáno"
-
-#: source/gx/terminix/bookmark/bmeditor.d:68
-#: source/gx/terminix/bookmark/bmchooser.d:104
-msgid "Select Folder"
-msgstr "Vybrat složku"
-
-#: source/gx/terminix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Vybrat složku"
-
-#: source/gx/terminix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Vyčistit složku"
-
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Add Bookmark"
-msgstr "Přidat záložku"
-
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Edit Bookmark"
-msgstr "Upravit záložku"
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195
-msgid "OK"
-msgstr "Budiž"
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195 source/gx/terminix/appwindow.d:1274
-#: source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: source/gx/terminix/bookmark/bmeditor.d:228
-#: source/gx/terminix/bookmark/bmtreeview.d:74
-#: source/gx/terminix/session.d:1428 source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425
-msgid "Name"
-msgstr "Název"
-
-#: source/gx/terminix/bookmark/bmeditor.d:289
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Path"
-msgstr "Cesta"
-
-#: source/gx/terminix/bookmark/bmeditor.d:291
-msgid "Select Path"
-msgstr "Vybrat cestu"
-
-#: source/gx/terminix/bookmark/bmeditor.d:330
-#: source/gx/terminix/bookmark/bmeditor.d:425
-#: source/gx/terminix/bookmark/manager.d:623
-#: source/gx/terminix/terminal/layout.d:76
 #: source/gx/terminix/prefeditor/profileeditor.d:100
 #: source/gx/terminix/prefeditor/profileeditor.d:1030
 #: source/gx/terminix/prefeditor/profileeditor.d:1328
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:330
+#: source/gx/terminix/bookmark/bmeditor.d:425
 msgid "Command"
 msgstr "Příkaz"
 
-#: source/gx/terminix/bookmark/bmeditor.d:379
-msgid "Protocol"
-msgstr "Protokol"
+#: source/gx/terminix/prefeditor/profileeditor.d:101
+msgid "Color"
+msgstr "Barva"
 
-#: source/gx/terminix/bookmark/bmeditor.d:395
-msgid "Host"
-msgstr "Hostitel"
+#: source/gx/terminix/prefeditor/profileeditor.d:102
+msgid "Scrolling"
+msgstr "Posouvání"
 
-#: source/gx/terminix/bookmark/bmeditor.d:411
-msgid "User"
-msgstr "Uživatel"
+#: source/gx/terminix/prefeditor/profileeditor.d:103
+msgid "Compatibility"
+msgstr "Kompatibilita"
 
-#: source/gx/terminix/bookmark/bmeditor.d:418
-msgid "Parameters"
-msgstr "Parametry"
+#: source/gx/terminix/prefeditor/profileeditor.d:104
+#: source/gx/terminix/prefeditor/profileeditor.d:489
+msgid "Advanced"
+msgstr "Pokročilé"
 
-#: source/gx/terminix/bookmark/bmchooser.d:104
-msgid "Select Bookmark"
-msgstr "Vybrat záložku"
+#: source/gx/terminix/prefeditor/profileeditor.d:216
+msgid "Profile name"
+msgstr "Název profilu"
 
-#: source/gx/terminix/bookmark/bmtreeview.d:71
-#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/prefeditor/profileeditor.d:240
+msgid "Terminal size"
+msgstr "Velikost terminálu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:250
+msgid "columns"
+msgstr "sloupce"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:256
+msgid "rows"
+msgstr "řádky"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:261
+#: source/gx/terminix/terminal/terminal.d:727
+msgid "Reset"
+msgstr "Obnovit"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:272
+#: source/gx/terminix/prefeditor/profileeditor.d:569
+msgid "Cursor"
+msgstr "Kurzor"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Block"
+msgstr "Blokový"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "IBeam"
+msgstr "Svislá čára"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Underline"
+msgstr "Podtrhávací čára"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:283
+msgid "Blink mode"
+msgstr "Mód blikání"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "System"
+msgstr "Podle systému"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "On"
+msgstr "Zapnuto"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "Off"
+msgstr "Vypnuto"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:292
+#: source/gx/terminix/terminal/terminal.d:379
+msgid "Terminal bell"
+msgstr "Zvonek terminálu"
+
 #: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "None"
+msgstr "Žádný"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Sound"
+msgstr "Zvuk"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/bookmark/bmtreeview.d:71
 msgid "Icon"
 msgstr "Ikona"
 
-#: source/gx/terminix/bookmark/manager.d:226
-msgid "Error deserializing bookmark"
-msgstr "Chyba při deserializaci záložky"
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Icon and Sound"
+msgstr "Ikona a zvuk"
 
-#: source/gx/terminix/bookmark/manager.d:501
-msgid "Root"
-msgstr "Kořen"
+#: source/gx/terminix/prefeditor/profileeditor.d:301
+msgid "Terminal title"
+msgstr "Titulek terminálu"
 
-#: source/gx/terminix/bookmark/manager.d:569
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Načítání záložek selhalo kvůli neočekávané chybě"
+#: source/gx/terminix/prefeditor/profileeditor.d:313
+#: source/gx/terminix/prefeditor/profileeditor.d:605
+#: source/gx/terminix/terminal/layout.d:60
+msgid "Badge"
+msgstr "Odznak"
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Folder"
-msgstr "Složka"
+#: source/gx/terminix/prefeditor/profileeditor.d:323
+msgid "Badge position"
+msgstr "Umístění odznaku"
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Remote"
-msgstr "Vzdálené"
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northwest"
+msgstr "Severozápad"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northeast"
+msgstr "Severovýchod"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southwest"
+msgstr "Jihozápad"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southeast"
+msgstr "Jihovýchod"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:338
+msgid "Text Appearance"
+msgstr "Vzhled textu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:344
+msgid "Allow bold text"
+msgstr "Povolit tučný text"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:349
+msgid "Rewrap on resize"
+msgstr "Při změně velikosti znovu zalomit"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:355
+msgid "Custom font"
+msgstr "Vlastní písmo"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:361
+msgid "Choose A Terminal Font"
+msgstr "Vyberte písmo terminálu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:381
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:427
+msgid "Color scheme"
+msgstr "Barevné schéma"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:437
+#: source/gx/terminix/prefeditor/profileeditor.d:884
+msgid "Custom"
+msgstr "Vlastní"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:450
+msgid "Export"
+msgstr "Exportovat"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:462
+msgid "Color palette"
+msgstr "Barevná paleta"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:470
+#: source/gx/terminix/prefeditor/prefdialog.d:1099
+msgid "Options"
+msgstr "Možnosti"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:484
+msgid "Use theme colors for foreground/background"
+msgstr "Použít barvy z motivu i pro popředí/pozadí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:502
+msgid "Transparency"
+msgstr "Průhlednost"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:516
+msgid "Unfocused dim"
+msgstr "Ztlumení nezaměřeného okna"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:564
+msgid "Text"
+msgstr "Text"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:565
+#: source/gx/terminix/prefeditor/profileeditor.d:669
+msgid "Background"
+msgstr "Pozadí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:576
+msgid "Select Cursor Foreground Color"
+msgstr "Vyberte barvu popředí kurzoru"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:578
+msgid "Select Cursor Background Color"
+msgstr "Vyberte barvu pozadí kurzoru"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:583
+msgid "Highlight"
+msgstr "Zvýraznění"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:588
+msgid "Select Highlight Foreground Color"
+msgstr "Vyberte barvu zvýraznění popředí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:590
+msgid "Select Highlight Background Color"
+msgstr "Vyberte barvu zvýraznění pozadí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:595
+msgid "Dim"
+msgstr "Ztlumení"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:600
+msgid "Select Dim Color"
+msgstr "Vyberte barvu ztlumení"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:609
+msgid "Select Badge Color"
+msgstr "Vyberte barvu odznaku"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:658
+msgid "Select Background Color"
+msgstr "Vyberte barvu pozadí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:674
+#: source/gx/terminix/prefeditor/profileeditor.d:690
+msgid "Select Foreground Color"
+msgstr "Vyberte barvu popředí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:689
+msgid "Foreground"
+msgstr "Popředí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Black"
+msgstr "černá"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Red"
+msgstr "červená"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Green"
+msgstr "zelená"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Orange"
+msgstr "oranžová"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Blue"
+msgstr "modrá"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Purple"
+msgstr "fialová"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Turquoise"
+msgstr "tyrkysová"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Grey"
+msgstr "šedá"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:699
+#, c-format
+msgid "Select %s Color"
+msgstr "Vyberte barvu „%s“"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:706
+#, c-format
+msgid "Select %s Light Color"
+msgstr "Vyberte barvu „světlá %s“"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:841
+msgid "Export Color Scheme"
+msgstr "Exportovat barevné schéma"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1312
+msgid "Save"
+msgstr "Uložit"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/terminal/layout.d:30 source/gx/terminix/appwindow.d:1278
+#: source/gx/terminix/appwindow.d:1312
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:857
+#: source/gx/terminix/appwindow.d:1232
+msgid "All JSON Files"
+msgstr "Všechny soubory JSON"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:861
+#: source/gx/terminix/prefeditor/prefdialog.d:953
+#: source/gx/terminix/terminal/terminal.d:2728
+#: source/gx/terminix/appwindow.d:1236
+msgid "All Files"
+msgstr "Všechny soubory"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:916
+msgid "Show scrollbar"
+msgstr "Ukazovat posuvník"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:920
+msgid "Scroll on output"
+msgstr "Posouvat při výstupu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:924
+msgid "Scroll on keystroke"
+msgstr "Posouvat při stisku klávesy"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:928
+msgid "Limit scrollback to:"
+msgstr "Omezit historii posouvání na:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:963
+msgid "Backspace key generates"
+msgstr "Klávesa Backspace posílá"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Automatic"
+msgstr "Automaticky"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Escape sequence"
+msgstr "Únikovou sekvenci"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:972
+msgid "Delete key generates"
+msgstr "Klávesa Delete posílá"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:981
+#: source/gx/terminix/prefeditor/prefdialog.d:154
+#: source/gx/terminix/prefeditor/prefdialog.d:155
+#: source/gx/terminix/prefeditor/prefdialog.d:407
+#: source/gx/terminix/prefeditor/prefdialog.d:615
+#: source/gx/terminix/terminal/terminal.d:732
+msgid "Encoding"
+msgstr "Kódování"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:996
+msgid "Ambiguous-width characters"
+msgstr "Znaky nejednoznačné šířky"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Narrow"
+msgstr "Úzké"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Wide"
+msgstr "Široké"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1020
+msgid "Run command as a login shell"
+msgstr "Spustit příkaz jako přihlašovací shell"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Run a custom command instead of my shell"
+msgstr "Místo mého shellu spustit vlastní příkaz"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1040
+msgid "When command exits"
+msgstr "Až příkaz skončí"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Exit the terminal"
+msgstr "Zavřít terminál"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Restart the command"
+msgstr "Znovu spustit příkaz"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Hold the terminal open"
+msgstr "Podržet terminál otevřený"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1081
+msgid "Custom Links"
+msgstr "Vlastní odkazy"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1086
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"Seznam uživatelem definovaných odkazů, na něž je možné v terminálu kliknout, "
+"zakládající se na regulérních výrazech."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1089
+#: source/gx/terminix/prefeditor/profileeditor.d:1116
+#: source/gx/terminix/prefeditor/profileeditor.d:1183
+#: source/gx/terminix/terminal/password.d:180
+msgid "Edit"
+msgstr "Upravit"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1107
+msgid "Triggers"
+msgstr "Spouštěče"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1113
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Spouštěče jsou regulérní výrazy, které slouží k vyhledávání textu ve výstupu "
+"terminálu. Když je nalezena shoda, provede se nastavená činnost."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1133
+msgid "Automatic Profile Switching"
+msgstr "Automatické přepínání profilu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1141
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
+"Hodnoty se zapisují ve formátu <i>uživatelské_jméno@hostitel:adresář</i>. "
+"Buď hostitele nebo adresář je možné vynechat, ale je nutné zachovat "
+"dvojtečku. Položky postrádající hostitele i adresář nejsou povoleny."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1143
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
+"Hodnoty se zapisují ve formátu <i>hostitel:adresář</i>. Buď hostitele nebo "
+"adresář je možné vynechat, ale je nutné zachovat dvojtečku. Položky "
+"postrádající hostitele i adresář nejsou povoleny."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1154
+msgid "Match"
+msgstr "Shoda"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1165
+#: source/gx/terminix/prefeditor/profileeditor.d:1353
+#: source/gx/terminix/prefeditor/profileeditor.d:1506
+msgid "Add"
+msgstr "Přidat"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1169
+msgid "Enter username@hostname:directory to match"
+msgstr "Zadejte shodu pro uživatel@hostitel:adresář"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1171
+msgid "Enter hostname:directory to match"
+msgstr "Zadejte shodu pro hostitel:adresář"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1173
+msgid "Add New Match"
+msgstr "Přidat novou shodu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1190
+msgid "Edit username@hostname:directory to match"
+msgstr "Upravit shodu pro uživatel@hostitel:adresář"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1192
+msgid "Edit hostname:directory to match"
+msgstr "Upravit shodu pro hostitel:adresář"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1194
+msgid "Edit Match"
+msgstr "Upravit shodu"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1202
+#: source/gx/terminix/prefeditor/profileeditor.d:1359
+#: source/gx/terminix/prefeditor/profileeditor.d:1512
+#: source/gx/terminix/prefeditor/prefdialog.d:496
+#: source/gx/terminix/terminal/password.d:209
+msgid "Delete"
+msgstr "Smazat"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1316
+#: source/gx/terminix/prefeditor/profileeditor.d:1454
+msgid "Regex"
+msgstr "Regulérní výraz"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1340
+msgid "Case Insensitive"
+msgstr "Nerozlišovat velikost"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+msgid "Edit Custom Links"
+msgstr "Upravit vlastní odkazy"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/terminal/password.d:367
+msgid "Apply"
+msgstr "Použít"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1480
+#: source/gx/terminix/prefeditor/prefdialog.d:688
+msgid "Action"
+msgstr "Činnost"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1492
+msgid "Parameter"
+msgstr "Parametr"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1528
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Omezit počet řádků, v nichž hledat spouštěče, na:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Edit Triggers"
+msgstr "Upravit spouštěče"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1597
+#, c-format
+msgid "Row %d: "
+msgstr "Řádek %d: "
+
+#: source/gx/terminix/prefeditor/titleeditor.d:90
+#: source/gx/terminix/terminal/terminal.d:315
+#: source/gx/terminix/terminal/terminal.d:3078
+msgid "Terminal"
+msgstr "Terminál"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:108
+msgid "Window"
+msgstr "Okno"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:118
+#: source/gx/terminix/prefeditor/titleeditor.d:119
+msgid "Help"
+msgstr "Nápověda"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:117
+msgid "Terminix Preferences"
+msgstr "Předvolby Terminixu"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:134
+#: source/gx/terminix/prefeditor/prefdialog.d:135
+#: source/gx/terminix/prefeditor/prefdialog.d:203
+msgid "Global"
+msgstr "Obecné"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:138
+#: source/gx/terminix/prefeditor/prefdialog.d:139
+msgid "Appearance"
+msgstr "Vzhled"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:142
+#: source/gx/terminix/prefeditor/prefdialog.d:143
+msgid "Quake"
+msgstr "Quake"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:146
+#: source/gx/terminix/prefeditor/prefdialog.d:147
+msgid "Bookmarks"
+msgstr "Záložky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:150
+#: source/gx/terminix/prefeditor/prefdialog.d:151
+#: source/gx/terminix/application.d:223
+msgid "Shortcuts"
+msgstr "Klávesové zkratky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:160
+#: source/gx/terminix/session.d:1439
+msgid "Profile"
+msgstr "Profil"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:173
+msgid "Add profile"
+msgstr "Přidat profil"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:178
+msgid "Delete profile"
+msgstr "Smazat profil"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:235
+#: source/gx/terminix/prefeditor/prefdialog.d:358
+#: source/gx/terminix/appwindow.d:654 source/gx/terminix/application.d:221
+msgid "Preferences"
+msgstr "Předvolby"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:255
+#: source/gx/terminix/terminal/terminal.d:720
+msgid "Profiles"
+msgstr "Profily"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:279
+#: source/gx/terminix/prefeditor/prefdialog.d:287
+#, c-format
+msgid "Profile: %s"
+msgstr "Profil: %s"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:497
+msgid "Clone"
+msgstr "Klonovat"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:501
+msgid "Use for new terminals"
+msgstr "Použít pro nové terminály"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:577
+msgid "Encodings showing in menu:"
+msgstr "Kódování zobrazená v nabídce:"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:613
+msgid "Enabled"
+msgstr "Povoleno"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:719
+msgid "Shortcut Key"
+msgstr "Klávesová zkratka"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:731
+msgid "Enable shortcuts"
+msgstr "Povolit zkratky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:759
+msgid "Overwrite Existing Shortcut"
+msgstr "Přepsat stávající zkratku"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:760
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"Zkratka %s je už přiřazena k %s.\n"
+"Odejmout zkratku od stávající akce a přiřadit ji místo toho sem?"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:901
+msgid "Enable transparency, requires re-start"
+msgstr "Povolit průhlednost; vyžaduje restart"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:912
+msgid "Window style"
+msgstr "Styl okna"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Normal"
+msgstr "Normální"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Disable CSD"
+msgstr "Zakázat CSD"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Disable CSD, hide toolbar"
+msgstr "Zakázat CSD, skrýt panel nástrojů"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Borderless"
+msgstr "Bez okrajů"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:918
+msgid "Window restart required"
+msgstr "Nutný restart okna"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:927
+msgid "Terminal title style"
+msgstr "Styl titulku terminálu"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Small"
+msgstr "Malý"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:934
+msgid "Theme variant"
+msgstr "Varianta motivu"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+#: source/gx/terminix/appwindow.d:880 source/gx/terminix/session.d:1120
+msgid "Default"
+msgstr "Výchozí"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Light"
+msgstr "Světlý"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Dark"
+msgstr "Tmavý"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:941
+msgid "Background image"
+msgstr "Obrázek na pozadí"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Select Image"
+msgstr "Vybrat obrázek"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:946
+msgid "All Image Files"
+msgstr "Všechny obrázky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:967
+msgid "Reset background image"
+msgstr "Odstranit obrázek na pozadí"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Scale"
+msgstr "Škálovat"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Tile"
+msgstr "Dlaždice"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Center"
+msgstr "Vystředit"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Stretch"
+msgstr "Roztáhnout"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:992
+msgid "Default session name"
+msgstr "Výchozí název sezení"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1003
+msgid "Application title"
+msgstr "Titulek aplikace"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1016
+msgid "Use a wide handle for splitters"
+msgstr "Použít široký oddělovač terminálů"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1021
+msgid "Place the sidebar on the right"
+msgstr "Umístit boční panel doprava"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1025
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Ukazovat titulek terminálu, i když je to jediný terminál"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1057
+msgid "Size"
+msgstr "Velikost"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1068
+msgid "Height percent"
+msgstr "Procenta výšky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1079
+msgid "Width percent"
+msgstr "Procenta šířky"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1089
+msgid "Alignment"
+msgstr "Poloha"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Left"
+msgstr "Vlevo"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Right"
+msgstr "Vpravo"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1107
+msgid "Show terminal on all workspaces"
+msgstr "Ukazovat terminál na všech plochách"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1112
+msgid "Set hint for window manager to disable animation"
+msgstr "Nastavit pro správce oken příznak k potlačení animace"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1117
+msgid "Hide window when focus is lost"
+msgstr "Při ztrátě zaměření skrýt okno"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1122
+msgid "Hide the titlebar of the window"
+msgstr "Skrýt titulek okna"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1137
+msgid "Display terminal on active monitor"
+msgstr "Zobrazit terminál na aktivním monitoru"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1144
+msgid "Display on specific monitor"
+msgstr "Zobrazit na zvoleném monitoru"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1186
+msgid "Behavior"
+msgstr "Chování"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1192
+msgid "Prompt when creating a new session"
+msgstr "Upozornit při vytváření nového sezení"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1197
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Zaměřit terminál, když na něj ukáže myš"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1202
+msgid "Autohide the mouse pointer when typing"
+msgstr "Při psaní automaticky skrývat kurzor myši"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1207
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "Zavřít terminál kliknutím prostředním tlačítkem na titulek"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1212
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "Přibližte terminál pomocí <Controlu>u a kolečka myši"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1217
+msgid "Close window when last session is closed"
+msgstr "Zavřít okno, když se zavře poslední sezení"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1223
+msgid "Send desktop notification on process complete"
+msgstr "Po skončení procesu zaslat upozornění"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1231
+msgid "On new instance"
+msgstr "Při nové instanci"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:217
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
+msgid "New Window"
+msgstr "Nové okno"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:216 source/gx/terminix/session.d:1462
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
+msgid "New Session"
+msgstr "Nové sezení"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Right"
+msgstr "Rozdělit doprava"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Down"
+msgstr "Rozdělit dolů"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Focus Window"
+msgstr "Zaměřit okno"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1240
+#: source/gx/terminix/terminal/terminal.d:1459
+msgid "Clipboard"
+msgstr "Schránka"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1246
+msgid "Always use advanced paste dialog"
+msgstr "Vždy použít dialog pokročilého vkládání"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1251
+msgid "Warn when attempting unsafe paste"
+msgstr "Varovat při pokusu o nebezpečné vkládání"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1256
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+"Odstranit první znak vkládaného, pokud jde o komentář nebo deklaraci proměnné"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1261
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Při označení automaticky zkopírovat text do schránky"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Přidat záložku"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Upravit záložku"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Smazat záložku"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Zrušit vybrání záložky"
+
+#: source/gx/terminix/closedialog.d:113 source/gx/terminix/terminal/layout.d:51
+#: source/gx/terminix/constants.d:116
+msgid "Title"
+msgstr "Titulek"
+
+#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
+msgid "Do not show this again"
+msgstr "Příště už neukazovat"
+
+#: source/gx/terminix/closedialog.d:160
+#, c-format
+msgid "Window (%s)"
+msgstr "Okno (%s)"
+
+#: source/gx/terminix/closedialog.d:163
+#, c-format
+msgid "Session (%s)"
+msgstr "Sezení (%s)"
+
+#: source/gx/terminix/closedialog.d:183
+msgid "Close Application"
+msgstr "Zavřít aplikaci"
+
+#: source/gx/terminix/closedialog.d:186
+msgid "Close Window"
+msgstr "Zavřít okno"
+
+#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
+msgid "Close Session"
+msgstr "Zavřít sezení"
+
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "OK"
+msgstr "Budiž"
+
+#: source/gx/terminix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Tento příkaz vás žádá o administrátorský přístup k počítači"
+
+#: source/gx/terminix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Kopírování příkazu z internetu může být nebezpečné. "
+
+#: source/gx/terminix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Ujistěte se, že rozumíte, co která část příkazu znamená."
+
+#: source/gx/terminix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Transformace"
+
+#: source/gx/terminix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Převést mezery na tabulátory"
+
+#: source/gx/terminix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "Převést CRLF a CR na LF"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Pokročilé vkládání"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/terminal.d:1440
+#: source/gx/terminix/terminal/terminal.d:1451
+msgid "Paste"
+msgstr "Vložit"
+
+#: source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1428
+#: source/gx/terminix/bookmark/bmeditor.d:228
+#: source/gx/terminix/bookmark/bmtreeview.d:74
+msgid "Name"
+msgstr "Název"
+
+#: source/gx/terminix/terminal/password.d:136
+#: source/gx/terminix/constants.d:118
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/terminix/terminal/password.d:157
+msgid "New"
+msgstr "Nový"
+
+#: source/gx/terminix/terminal/password.d:231
+msgid "Include return character with password"
+msgstr "S heslem zadejte i znak nového řádku"
+
+#: source/gx/terminix/terminal/password.d:367
+msgid "Insert Password"
+msgstr "Vložit heslo"
+
+#: source/gx/terminix/terminal/password.d:433
+msgid "Password"
+msgstr "Heslo"
+
+#: source/gx/terminix/terminal/password.d:441
+msgid "Confirm Password"
+msgstr "Potvrdit heslo"
+
+#: source/gx/terminix/terminal/password.d:487
+msgid "Add Password"
+msgstr "Přidat heslo"
+
+#: source/gx/terminix/terminal/password.d:492
+msgid "Edit Password"
+msgstr "Upravit heslo"
+
+#: source/gx/terminix/terminal/search.d:122
+msgid "Search Options"
+msgstr "Možnosti hledání"
+
+#: source/gx/terminix/terminal/search.d:135
+msgid "Find next"
+msgstr "Hledat další"
+
+#: source/gx/terminix/terminal/search.d:141
+msgid "Find previous"
+msgstr "Hledat předchozí"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match case"
+msgstr "Rozlišovat velikost"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match entire word only"
+msgstr "Hledat jen celá slova"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Match as regular expression"
+msgstr "Hledat jako regulérní výraz"
+
+#: source/gx/terminix/terminal/search.d:191
+msgid "Wrap around"
+msgstr "Pokračovat při dosažení konce"
+
+#: source/gx/terminix/terminal/terminal.d:346
+#: source/gx/terminix/terminal/terminal.d:1469 source/gx/terminix/sidebar.d:362
+#: source/gx/terminix/appwindow.d:644
+msgid "Close"
+msgstr "Zavřít"
+
+#: source/gx/terminix/terminal/terminal.d:354
+#: source/gx/terminix/terminal/terminal.d:1092
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Maximize"
+msgstr "Maximalizovat"
+
+#: source/gx/terminix/terminal/terminal.d:364
+#: source/gx/terminix/terminal/terminal.d:604
+msgid "Disable input synchronization for this terminal"
+msgstr "Pro tento terminál vypnout synchronizaci vstupu"
+
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:710
+msgid "Read-Only"
+msgstr "Jen pro čtení"
+
+#: source/gx/terminix/terminal/terminal.d:424
+msgid "Edit Profile"
+msgstr "Upravit profil"
+
+#: source/gx/terminix/terminal/terminal.d:442
+msgid "Edit Encodings"
+msgstr "Upravit kódování"
+
+#: source/gx/terminix/terminal/terminal.d:606
+msgid "Enable input synchronization for this terminal"
+msgstr "Pro tento terminál zapnout synchronizaci vstupu"
+
+#: source/gx/terminix/terminal/terminal.d:635
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Knihovnu %s se nepodařilo načíst; funkcionalita související s hesly není "
+"dostupná."
+
+#: source/gx/terminix/terminal/terminal.d:635
+msgid "Library Not Loaded"
+msgstr "Knihovna nenačtena"
+
+#: source/gx/terminix/terminal/terminal.d:709
+msgid "Find…"
+msgstr "Najít…"
+
+#: source/gx/terminix/terminal/terminal.d:714
+#, fuzzy
+msgid "Password..."
+msgstr "Heslo"
+
+#: source/gx/terminix/terminal/terminal.d:715
+#, fuzzy
+msgid "Bookmark..."
+msgstr "Přidat záložku…"
+
+#: source/gx/terminix/terminal/terminal.d:716
+msgid "Add Bookmark..."
+msgstr "Přidat záložku…"
+
+#: source/gx/terminix/terminal/terminal.d:726
+msgid "Save Output…"
+msgstr "Uložit výstup…"
+
+#: source/gx/terminix/terminal/terminal.d:728
+msgid "Reset and Clear"
+msgstr "Obnovit a vyčistit"
+
+#: source/gx/terminix/terminal/terminal.d:733
+msgid "Layout Options…"
+msgstr "Možnosti rozložení…"
+
+#: source/gx/terminix/terminal/terminal.d:736
+#, fuzzy
+msgid "Other"
+msgstr "Další"
+
+#: source/gx/terminix/terminal/terminal.d:745
+msgid "Add Right"
+msgstr "Přidat vpravo"
+
+#: source/gx/terminix/terminal/terminal.d:749
+msgid "Add Down"
+msgstr "Přidat dolů"
+
+#: source/gx/terminix/terminal/terminal.d:1089
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Restore"
+msgstr "Obnovit"
+
+#: source/gx/terminix/terminal/terminal.d:1428
+msgid "Open Link"
+msgstr "Otevřít odkaz"
+
+#: source/gx/terminix/terminal/terminal.d:1429
+msgid "Copy Link Address"
+msgstr "Zkopírovat adresu odkazu"
+
+#: source/gx/terminix/terminal/terminal.d:1439
+#: source/gx/terminix/terminal/terminal.d:1446
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: source/gx/terminix/terminal/terminal.d:1441
+#: source/gx/terminix/terminal/terminal.d:1456
+msgid "Select All"
+msgstr "Vybrat vše"
+
+#: source/gx/terminix/terminal/terminal.d:1473
+msgid "Synchronize input"
+msgstr "Synchronizovat vstup"
+
+#: source/gx/terminix/terminal/terminal.d:1967
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "Regulérní výraz odkazu ‚%s‘ obsahuje chybu, ignoruje se"
+
+#: source/gx/terminix/terminal/terminal.d:2105
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Nastala neočekávaná chyba, bližší informace nejsou dostupné"
+
+#: source/gx/terminix/terminal/terminal.d:2111
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Nastala neočekávaná chyba: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2715
+msgid "Save Terminal Output"
+msgstr "Uložit výstup terminálu"
+
+#: source/gx/terminix/terminal/terminal.d:2724
+msgid "All Text Files"
+msgstr "Všechny textové soubory"
+
+#: source/gx/terminix/terminal/terminal.d:3228
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Proces potomka skončil normálně se statusem %d"
+
+#: source/gx/terminix/terminal/terminal.d:3229
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Proces potomka byl ukončen signálem %d."
+
+#: source/gx/terminix/terminal/terminal.d:3230
+msgid "The child process was aborted."
+msgstr "Proces potomka byl ukončen."
+
+#: source/gx/terminix/terminal/terminal.d:3236
+msgid "Relaunch"
+msgstr "Znovu spustit"
+
+#: source/gx/terminix/terminal/terminal.d:3281
+msgid "Don't Paste"
+msgstr "Nevkládat"
+
+#: source/gx/terminix/terminal/terminal.d:3282
+msgid "Paste Anyway"
+msgstr "Přesto vložit"
+
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "Možnosti rozložení"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "Aktivní"
+
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "Načíst sezení"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Aktivní předvolby vždy platí a zapínají se okamžitě.\n"
+"Možnosti „Načítání sezení“ se uplatňují, jen když se načítá sezení."
+
+#: source/gx/terminix/appwindow.d:320
+msgid "View session sidebar"
+msgstr "Ukázat boční panel sezení"
+
+#: source/gx/terminix/appwindow.d:345
+msgid "Create a new session"
+msgstr "Vytvořit nové sezení"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Add terminal right"
+msgstr "Přidat terminál vpravo"
+
+#: source/gx/terminix/appwindow.d:367
+msgid "Add terminal down"
+msgstr "Přidat terminál dolů"
+
+#: source/gx/terminix/appwindow.d:373
+msgid "Find text in terminal"
+msgstr "Hledat v terminálu text"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Change Session Name"
+msgstr "Změnit název sezení"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Enter a new name for the session"
+msgstr "Napište nový název sezení"
+
+#: source/gx/terminix/appwindow.d:641
+msgid "Open…"
+msgstr "Otevřít…"
+
+#: source/gx/terminix/appwindow.d:643
+msgid "Save As…"
+msgstr "Uložit jako…"
+
+#: source/gx/terminix/appwindow.d:648
+msgid "Name…"
+msgstr "Název…"
+
+#: source/gx/terminix/appwindow.d:649
+msgid "Synchronize Input"
+msgstr "Synchronizovat vstup"
+
+#: source/gx/terminix/appwindow.d:660
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:977
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Je otevřeno více sezení; přesto zavřít?"
+
+#: source/gx/terminix/appwindow.d:1245
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Soubor „%s“ neexistuje"
+
+#: source/gx/terminix/appwindow.d:1275
+msgid "Load Session"
+msgstr "Načíst sezení"
+
+#: source/gx/terminix/appwindow.d:1278
+msgid "Open"
+msgstr "Otevřít"
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Could not load session due to unexpected error."
+msgstr "Načítání sezení selhalo kvůli neočekávané chybě."
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Error Loading Session"
+msgstr "Chyba při načítání sezení"
+
+#: source/gx/terminix/appwindow.d:1309
+msgid "Save Session"
+msgstr "Uložit sezení"
+
+#: source/gx/terminix/appwindow.d:1392 source/gx/terminix/application.d:321
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/application.d:228
+msgid "About"
+msgstr "O aplikaci"
+
+#: source/gx/terminix/application.d:229
+msgid "Quit"
+msgstr "Ukončit"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/terminix/application.d:275
+msgid "translator-credits"
+msgstr "Marek Suchánek"
+
+#: source/gx/terminix/application.d:284
+msgid "Credits"
+msgstr "Zásluhy"
+
+#: source/gx/terminix/application.d:623
+msgid "Set the working directory of the terminal"
+msgstr "Nastavit pracovní adresář terminálu"
+
+#: source/gx/terminix/application.d:623
+msgid "DIRECTORY"
+msgstr "ADRESÁŘ"
+
+#: source/gx/terminix/application.d:624
+msgid "Set the starting profile"
+msgstr "Nastavit výchozí profil"
+
+#: source/gx/terminix/application.d:624
+msgid "PROFILE_NAME"
+msgstr "NÁZEV_PROFILU"
+
+#: source/gx/terminix/application.d:625
+msgid "Set the title of the new terminal"
+msgstr "Nastavit titulek nového terminálu"
+
+#: source/gx/terminix/application.d:625
+msgid "TITLE"
+msgstr "TITULEK"
+
+#: source/gx/terminix/application.d:626
+msgid "Open the specified session"
+msgstr "Otevřít zvolené sezení"
+
+#: source/gx/terminix/application.d:626
+msgid "SESSION_NAME"
+msgstr "NÁZEV_SEZENÍ"
+
+#: source/gx/terminix/application.d:627
+msgid "Send an action to current Terminix instance"
+msgstr "Poslat akci běžící instanci Terminixu"
+
+#: source/gx/terminix/application.d:627
+msgid "ACTION_NAME"
+msgstr "NÁZEV_AKCE"
+
+#: source/gx/terminix/application.d:628
+msgid "Execute the parameter as a command"
+msgstr "Provést předaný parametr jako příkaz"
+
+#: source/gx/terminix/application.d:628
+msgid "COMMAND"
+msgstr "PŘÍKAZ"
+
+#: source/gx/terminix/application.d:629
+msgid "Maximize the terminal window"
+msgstr "Maximalizovat okno terminálu"
+
+#: source/gx/terminix/application.d:630
+msgid "Minimize the terminal window"
+msgstr "Minimalizovat okno terminálu"
+
+#: source/gx/terminix/application.d:631
+msgid "Full-screen the terminal window"
+msgstr "Roztáhnout okno na celou obrazovku"
+
+#: source/gx/terminix/application.d:632
+msgid "Focus the existing window"
+msgstr "Zaměřit stávající okno"
+
+#: source/gx/terminix/application.d:633
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Spouštět další instanci jako nový proces (Nedoporučováno)"
+
+#: source/gx/terminix/application.d:634
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Nastavit velikost okna; například 80x24 nebo 80x24+200+200 (SLOUPCExŘÁDKY+X"
+"+Y)"
+
+#: source/gx/terminix/application.d:634
+msgid "GEOMETRY"
+msgstr "GEOMETRIE"
+
+#: source/gx/terminix/application.d:635
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Otevře okno v módu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
+
+#: source/gx/terminix/application.d:636
+msgid "Show the Terminix and dependant component versions"
+msgstr "Ukázat verze Terminixu a závislých komponentů"
+
+#: source/gx/terminix/application.d:637
+msgid "Show the Terminix preferences dialog directly"
+msgstr "Ukázat dialog s předvolbami Terminixu přímo"
+
+#: source/gx/terminix/application.d:640
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Skrytý argument k předání UUID terminálu"
+
+#: source/gx/terminix/application.d:640
+msgid "TERMINAL_UUID"
+msgstr "UUID_TERMINÁLU"
+
+#: source/gx/terminix/application.d:801
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Byl zřejmě nalezen problém s konfigurací terminálu. Není vážný,\n"
+"ale jeho náprava zpříjemní používání aplikace.\n"
+"Pro další informace klikněte na odkaz níže:"
+
+#: source/gx/terminix/application.d:802
+msgid "Configuration Issue Detected"
+msgstr "Detekován problém v konfiguraci"
+
+#: source/gx/terminix/application.d:814
+msgid "Do not show this message again"
+msgstr "Tuto zprávu již neukazovat"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Soubor %s není JSON obsahující platné barevné schéma"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "Paleta barevného schématu vyžaduje 16 barev"
+
+#: source/gx/terminix/session.d:544
+msgid "Could not locate dropped terminal"
+msgstr "Nebylo možno nalézt přetažený terminál"
+
+#: source/gx/terminix/session.d:549
+msgid "Could not locate session for dropped terminal"
+msgstr "Nebylo možno nalézt sezení pro přetažený terminál"
 
 #: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
@@ -212,75 +1575,41 @@ msgstr "GtkD za to, že vytvořili tak skvělý obal okolo GTK"
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org za vynikající jazyk D"
 
-#: source/gx/terminix/constants.d:117 source/gx/terminix/terminal/layout.d:51
-#: source/gx/terminix/closedialog.d:113
-msgid "Title"
-msgstr "Titulek"
-
-#: source/gx/terminix/constants.d:118
+#: source/gx/terminix/constants.d:117
 msgid "Icon title"
 msgstr "Název ikony"
 
 #: source/gx/terminix/constants.d:119
-#: source/gx/terminix/terminal/password.d:136
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/terminix/constants.d:120
 msgid "Directory"
 msgstr "Adresář"
 
-#: source/gx/terminix/constants.d:121
+#: source/gx/terminix/constants.d:120
 msgid "Hostname"
 msgstr "Jméno hostitele"
 
-#: source/gx/terminix/constants.d:122
+#: source/gx/terminix/constants.d:121
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: source/gx/terminix/constants.d:123
+#: source/gx/terminix/constants.d:122
 msgid "Columns"
 msgstr "Sloupce"
 
-#: source/gx/terminix/constants.d:124
+#: source/gx/terminix/constants.d:123
 msgid "Rows"
 msgstr "Řádky"
 
-#: source/gx/terminix/constants.d:139
+#: source/gx/terminix/constants.d:138
 msgid "Application name"
 msgstr "Název aplikace"
 
-#: source/gx/terminix/constants.d:140
+#: source/gx/terminix/constants.d:139
 msgid "Session name"
 msgstr "Název sezení"
 
-#: source/gx/terminix/constants.d:141
+#: source/gx/terminix/constants.d:140
 msgid "Session number"
 msgstr "Číslo sezení"
-
-#: source/gx/terminix/session.d:544
-msgid "Could not locate dropped terminal"
-msgstr "Nebylo možno nalézt přetažený terminál"
-
-#: source/gx/terminix/session.d:549
-msgid "Could not locate session for dropped terminal"
-msgstr "Nebylo možno nalézt sezení pro přetažený terminál"
-
-#: source/gx/terminix/session.d:1120 source/gx/terminix/appwindow.d:880
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Default"
-msgstr "Výchozí"
-
-#: source/gx/terminix/session.d:1439
-#: source/gx/terminix/prefeditor/prefdialog.d:155
-msgid "Profile"
-msgstr "Profil"
-
-#: source/gx/terminix/session.d:1462 source/gx/terminix/application.d:216
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
-msgid "New Session"
-msgstr "Nové sezení"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -417,1405 +1746,6 @@ msgstr "vietnamské"
 msgid "Thai"
 msgstr "thajské"
 
-#: source/gx/terminix/terminal/layout.d:30
-msgid "Layout Options"
-msgstr "Možnosti rozložení"
-
-#: source/gx/terminix/terminal/layout.d:45
-msgid "Active"
-msgstr "Aktivní"
-
-#: source/gx/terminix/terminal/layout.d:60
-#: source/gx/terminix/prefeditor/profileeditor.d:313
-#: source/gx/terminix/prefeditor/profileeditor.d:605
-msgid "Badge"
-msgstr "Odznak"
-
-#: source/gx/terminix/terminal/layout.d:69
-msgid "Session Load"
-msgstr "Načíst sezení"
-
-#: source/gx/terminix/terminal/layout.d:85
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Aktivní předvolby vždy platí a zapínají se okamžitě.\n"
-"Možnosti „Načítání sezení“ se uplatňují, jen když se načítá sezení."
-
-#: source/gx/terminix/terminal/terminal.d:315
-#: source/gx/terminix/terminal/terminal.d:3056
-#: source/gx/terminix/prefeditor/titleeditor.d:90
-msgid "Terminal"
-msgstr "Terminál"
-
-#: source/gx/terminix/terminal/terminal.d:346
-#: source/gx/terminix/terminal/terminal.d:1461
-#: source/gx/terminix/appwindow.d:644 source/gx/terminix/sidebar.d:362
-msgid "Close"
-msgstr "Zavřít"
-
-#: source/gx/terminix/terminal/terminal.d:354
-#: source/gx/terminix/terminal/terminal.d:1085
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Maximize"
-msgstr "Maximalizovat"
-
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:604
-msgid "Disable input synchronization for this terminal"
-msgstr "Pro tento terminál vypnout synchronizaci vstupu"
-
-#: source/gx/terminix/terminal/terminal.d:373
-#: source/gx/terminix/terminal/terminal.d:727
-msgid "Read-Only"
-msgstr "Jen pro čtení"
-
-#: source/gx/terminix/terminal/terminal.d:379
-#: source/gx/terminix/prefeditor/profileeditor.d:292
-msgid "Terminal bell"
-msgstr "Zvonek terminálu"
-
-#: source/gx/terminix/terminal/terminal.d:424
-msgid "Edit Profile"
-msgstr "Upravit profil"
-
-#: source/gx/terminix/terminal/terminal.d:442
-msgid "Edit Encodings"
-msgstr "Upravit kódování"
-
-#: source/gx/terminix/terminal/terminal.d:606
-msgid "Enable input synchronization for this terminal"
-msgstr "Pro tento terminál zapnout synchronizaci vstupu"
-
-#: source/gx/terminix/terminal/terminal.d:635
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Knihovnu %s se nepodařilo načíst; funkcionalita související s hesly není "
-"dostupná."
-
-#: source/gx/terminix/terminal/terminal.d:635
-msgid "Library Not Loaded"
-msgstr "Knihovna nenačtena"
-
-#: source/gx/terminix/terminal/terminal.d:709
-msgid "Save Output…"
-msgstr "Uložit výstup…"
-
-#: source/gx/terminix/terminal/terminal.d:710
-#: source/gx/terminix/prefeditor/profileeditor.d:261
-msgid "Reset"
-msgstr "Obnovit"
-
-#: source/gx/terminix/terminal/terminal.d:711
-msgid "Reset and Clear"
-msgstr "Obnovit a vyčistit"
-
-#: source/gx/terminix/terminal/terminal.d:715
-#: source/gx/terminix/prefeditor/prefdialog.d:250
-msgid "Profiles"
-msgstr "Profily"
-
-#: source/gx/terminix/terminal/terminal.d:716
-#: source/gx/terminix/prefeditor/prefdialog.d:149
-#: source/gx/terminix/prefeditor/prefdialog.d:150
-#: source/gx/terminix/prefeditor/prefdialog.d:402
-#: source/gx/terminix/prefeditor/prefdialog.d:610
-#: source/gx/terminix/prefeditor/profileeditor.d:981
-msgid "Encoding"
-msgstr "Kódování"
-
-#: source/gx/terminix/terminal/terminal.d:720
-msgid "Add Bookmark..."
-msgstr "Přidat záložku…"
-
-#: source/gx/terminix/terminal/terminal.d:721
-msgid "Select Bookmark..."
-msgstr "Vybrat záložku…"
-
-#: source/gx/terminix/terminal/terminal.d:722
-#: source/gx/terminix/prefeditor/prefdialog.d:141
-#: source/gx/terminix/prefeditor/prefdialog.d:142
-msgid "Bookmarks"
-msgstr "Záložky"
-
-#: source/gx/terminix/terminal/terminal.d:725
-msgid "Find…"
-msgstr "Najít…"
-
-#: source/gx/terminix/terminal/terminal.d:726
-msgid "Layout Options…"
-msgstr "Možnosti rozložení…"
-
-#: source/gx/terminix/terminal/terminal.d:737
-msgid "Add Right"
-msgstr "Přidat vpravo"
-
-#: source/gx/terminix/terminal/terminal.d:741
-msgid "Add Down"
-msgstr "Přidat dolů"
-
-#: source/gx/terminix/terminal/terminal.d:1082
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Restore"
-msgstr "Obnovit"
-
-#: source/gx/terminix/terminal/terminal.d:1420
-msgid "Open Link"
-msgstr "Otevřít odkaz"
-
-#: source/gx/terminix/terminal/terminal.d:1421
-msgid "Copy Link Address"
-msgstr "Zkopírovat adresu odkazu"
-
-#: source/gx/terminix/terminal/terminal.d:1431
-#: source/gx/terminix/terminal/terminal.d:1438
-msgid "Copy"
-msgstr "Kopírovat"
-
-#: source/gx/terminix/terminal/terminal.d:1432
-#: source/gx/terminix/terminal/terminal.d:1443
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Vložit"
-
-#: source/gx/terminix/terminal/terminal.d:1433
-#: source/gx/terminix/terminal/terminal.d:1448
-msgid "Select All"
-msgstr "Vybrat vše"
-
-#: source/gx/terminix/terminal/terminal.d:1451
-#: source/gx/terminix/prefeditor/prefdialog.d:1210
-msgid "Clipboard"
-msgstr "Schránka"
-
-#: source/gx/terminix/terminal/terminal.d:1465
-msgid "Synchronize input"
-msgstr "Synchronizovat vstup"
-
-#: source/gx/terminix/terminal/terminal.d:1945
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Regulérní výraz odkazu ‚%s‘ obsahuje chybu, ignoruje se"
-
-#: source/gx/terminix/terminal/terminal.d:2083
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Nastala neočekávaná chyba, bližší informace nejsou dostupné"
-
-#: source/gx/terminix/terminal/terminal.d:2089
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Nastala neočekávaná chyba: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2693
-msgid "Save Terminal Output"
-msgstr "Uložit výstup terminálu"
-
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-msgid "Save"
-msgstr "Uložit"
-
-#: source/gx/terminix/terminal/terminal.d:2702
-msgid "All Text Files"
-msgstr "Všechny textové soubory"
-
-#: source/gx/terminix/terminal/terminal.d:2706
-#: source/gx/terminix/appwindow.d:1232
-#: source/gx/terminix/prefeditor/prefdialog.d:923
-#: source/gx/terminix/prefeditor/profileeditor.d:861
-msgid "All Files"
-msgstr "Všechny soubory"
-
-#: source/gx/terminix/terminal/terminal.d:3206
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Proces potomka skončil normálně se statusem %d"
-
-#: source/gx/terminix/terminal/terminal.d:3207
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Proces potomka byl ukončen signálem %d."
-
-#: source/gx/terminix/terminal/terminal.d:3208
-msgid "The child process was aborted."
-msgstr "Proces potomka byl ukončen."
-
-#: source/gx/terminix/terminal/terminal.d:3214
-msgid "Relaunch"
-msgstr "Znovu spustit"
-
-#: source/gx/terminix/terminal/terminal.d:3259
-msgid "Don't Paste"
-msgstr "Nevkládat"
-
-#: source/gx/terminix/terminal/terminal.d:3260
-msgid "Paste Anyway"
-msgstr "Přesto vložit"
-
-#: source/gx/terminix/terminal/search.d:122
-msgid "Search Options"
-msgstr "Možnosti hledání"
-
-#: source/gx/terminix/terminal/search.d:135
-msgid "Find next"
-msgstr "Hledat další"
-
-#: source/gx/terminix/terminal/search.d:141
-msgid "Find previous"
-msgstr "Hledat předchozí"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match case"
-msgstr "Rozlišovat velikost"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match entire word only"
-msgstr "Hledat jen celá slova"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Match as regular expression"
-msgstr "Hledat jako regulérní výraz"
-
-#: source/gx/terminix/terminal/search.d:191
-msgid "Wrap around"
-msgstr "Pokračovat při dosažení konce"
-
-#: source/gx/terminix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Tento příkaz vás žádá o administrátorský přístup k počítači"
-
-#: source/gx/terminix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Kopírování příkazu z internetu může být nebezpečné. "
-
-#: source/gx/terminix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Ujistěte se, že rozumíte, co která část příkazu znamená."
-
-#: source/gx/terminix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Transformace"
-
-#: source/gx/terminix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Převést mezery na tabulátory"
-
-#: source/gx/terminix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "Převést CRLF a CR na LF"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Pokročilé vkládání"
-
-#: source/gx/terminix/terminal/password.d:157
-msgid "New"
-msgstr "Nový"
-
-#: source/gx/terminix/terminal/password.d:180
-#: source/gx/terminix/prefeditor/profileeditor.d:1089
-#: source/gx/terminix/prefeditor/profileeditor.d:1116
-#: source/gx/terminix/prefeditor/profileeditor.d:1183
-msgid "Edit"
-msgstr "Upravit"
-
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/prefeditor/prefdialog.d:491
-#: source/gx/terminix/prefeditor/profileeditor.d:1202
-#: source/gx/terminix/prefeditor/profileeditor.d:1359
-#: source/gx/terminix/prefeditor/profileeditor.d:1512
-msgid "Delete"
-msgstr "Smazat"
-
-#: source/gx/terminix/terminal/password.d:231
-msgid "Include return character with password"
-msgstr "S heslem zadejte i znak nového řádku"
-
-#: source/gx/terminix/terminal/password.d:367
-msgid "Insert Password"
-msgstr "Vložit heslo"
-
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Apply"
-msgstr "Použít"
-
-#: source/gx/terminix/terminal/password.d:433
-msgid "Password"
-msgstr "Heslo"
-
-#: source/gx/terminix/terminal/password.d:441
-msgid "Confirm Password"
-msgstr "Potvrdit heslo"
-
-#: source/gx/terminix/terminal/password.d:487
-msgid "Add Password"
-msgstr "Přidat heslo"
-
-#: source/gx/terminix/terminal/password.d:492
-msgid "Edit Password"
-msgstr "Upravit heslo"
-
-#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
-msgid "Do not show this again"
-msgstr "Příště už neukazovat"
-
-#: source/gx/terminix/closedialog.d:160
-#, c-format
-msgid "Window (%s)"
-msgstr "Okno (%s)"
-
-#: source/gx/terminix/closedialog.d:163
-#, c-format
-msgid "Session (%s)"
-msgstr "Sezení (%s)"
-
-#: source/gx/terminix/closedialog.d:183
-msgid "Close Application"
-msgstr "Zavřít aplikaci"
-
-#: source/gx/terminix/closedialog.d:186
-msgid "Close Window"
-msgstr "Zavřít okno"
-
-#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
-msgid "Close Session"
-msgstr "Zavřít sezení"
-
-#: source/gx/terminix/application.d:217
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
-msgid "New Window"
-msgstr "Nové okno"
-
-#: source/gx/terminix/application.d:221 source/gx/terminix/appwindow.d:654
-#: source/gx/terminix/prefeditor/prefdialog.d:230
-#: source/gx/terminix/prefeditor/prefdialog.d:353
-msgid "Preferences"
-msgstr "Předvolby"
-
-#: source/gx/terminix/application.d:223
-#: source/gx/terminix/prefeditor/prefdialog.d:145
-#: source/gx/terminix/prefeditor/prefdialog.d:146
-msgid "Shortcuts"
-msgstr "Klávesové zkratky"
-
-#: source/gx/terminix/application.d:228
-msgid "About"
-msgstr "O aplikaci"
-
-#: source/gx/terminix/application.d:229
-msgid "Quit"
-msgstr "Ukončit"
-
-#: source/gx/terminix/application.d:283
-msgid "Credits"
-msgstr "Zásluhy"
-
-#: source/gx/terminix/application.d:320 source/gx/terminix/appwindow.d:1388
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:622
-msgid "Set the working directory of the terminal"
-msgstr "Nastavit pracovní adresář terminálu"
-
-#: source/gx/terminix/application.d:622
-msgid "DIRECTORY"
-msgstr "ADRESÁŘ"
-
-#: source/gx/terminix/application.d:623
-msgid "Set the starting profile"
-msgstr "Nastavit výchozí profil"
-
-#: source/gx/terminix/application.d:623
-msgid "PROFILE_NAME"
-msgstr "NÁZEV_PROFILU"
-
-#: source/gx/terminix/application.d:624
-msgid "Set the title of the new terminal"
-msgstr "Nastavit titulek nového terminálu"
-
-#: source/gx/terminix/application.d:624
-msgid "TITLE"
-msgstr "TITULEK"
-
-#: source/gx/terminix/application.d:625
-msgid "Open the specified session"
-msgstr "Otevřít zvolené sezení"
-
-#: source/gx/terminix/application.d:625
-msgid "SESSION_NAME"
-msgstr "NÁZEV_SEZENÍ"
-
-#: source/gx/terminix/application.d:626
-msgid "Send an action to current Terminix instance"
-msgstr "Poslat akci běžící instanci Terminixu"
-
-#: source/gx/terminix/application.d:626
-msgid "ACTION_NAME"
-msgstr "NÁZEV_AKCE"
-
-#: source/gx/terminix/application.d:627
-msgid "Execute the parameter as a command"
-msgstr "Provést předaný parametr jako příkaz"
-
-#: source/gx/terminix/application.d:627
-msgid "COMMAND"
-msgstr "PŘÍKAZ"
-
-#: source/gx/terminix/application.d:628
-msgid "Maximize the terminal window"
-msgstr "Maximalizovat okno terminálu"
-
-#: source/gx/terminix/application.d:629
-msgid "Minimize the terminal window"
-msgstr "Minimalizovat okno terminálu"
-
-#: source/gx/terminix/application.d:630
-msgid "Full-screen the terminal window"
-msgstr "Roztáhnout okno na celou obrazovku"
-
-#: source/gx/terminix/application.d:631
-msgid "Focus the existing window"
-msgstr "Zaměřit stávající okno"
-
-#: source/gx/terminix/application.d:632
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Spouštět další instanci jako nový proces (Nedoporučováno)"
-
-#: source/gx/terminix/application.d:633
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Nastavit velikost okna; například 80x24 nebo 80x24+200+200 (SLOUPCExŘÁDKY+X"
-"+Y)"
-
-#: source/gx/terminix/application.d:633
-msgid "GEOMETRY"
-msgstr "GEOMETRIE"
-
-#: source/gx/terminix/application.d:634
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Otevře okno v módu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
-
-#: source/gx/terminix/application.d:635
-msgid "Show the Terminix and dependant component versions"
-msgstr "Ukázat verze Terminixu a závislých komponentů"
-
-#: source/gx/terminix/application.d:636
-msgid "Show the Terminix preferences dialog directly"
-msgstr "Ukázat dialog s předvolbami Terminixu přímo"
-
-#: source/gx/terminix/application.d:639
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Skrytý argument k předání UUID terminálu"
-
-#: source/gx/terminix/application.d:639
-msgid "TERMINAL_UUID"
-msgstr "UUID_TERMINÁLU"
-
-#: source/gx/terminix/application.d:800
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Byl zřejmě nalezen problém s konfigurací terminálu. Není vážný,\n"
-"ale jeho náprava zpříjemní používání aplikace.\n"
-"Pro další informace klikněte na odkaz níže:"
-
-#: source/gx/terminix/application.d:801
-msgid "Configuration Issue Detected"
-msgstr "Detekován problém v konfiguraci"
-
-#: source/gx/terminix/application.d:813
-msgid "Do not show this message again"
-msgstr "Tuto zprávu již neukazovat"
-
-#: source/gx/terminix/appwindow.d:320
-msgid "View session sidebar"
-msgstr "Ukázat boční panel sezení"
-
-#: source/gx/terminix/appwindow.d:345
-msgid "Create a new session"
-msgstr "Vytvořit nové sezení"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Add terminal right"
-msgstr "Přidat terminál vpravo"
-
-#: source/gx/terminix/appwindow.d:367
-msgid "Add terminal down"
-msgstr "Přidat terminál dolů"
-
-#: source/gx/terminix/appwindow.d:373
-msgid "Find text in terminal"
-msgstr "Hledat v terminálu text"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Change Session Name"
-msgstr "Změnit název sezení"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Enter a new name for the session"
-msgstr "Napište nový název sezení"
-
-#: source/gx/terminix/appwindow.d:641
-msgid "Open…"
-msgstr "Otevřít…"
-
-#: source/gx/terminix/appwindow.d:643
-msgid "Save As…"
-msgstr "Uložit jako…"
-
-#: source/gx/terminix/appwindow.d:648
-msgid "Name…"
-msgstr "Název…"
-
-#: source/gx/terminix/appwindow.d:649
-msgid "Synchronize Input"
-msgstr "Synchronizovat vstup"
-
-#: source/gx/terminix/appwindow.d:660
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:977
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Je otevřeno více sezení; přesto zavřít?"
-
-#: source/gx/terminix/appwindow.d:1228
-#: source/gx/terminix/prefeditor/profileeditor.d:857
-msgid "All JSON Files"
-msgstr "Všechny soubory JSON"
-
-#: source/gx/terminix/appwindow.d:1241
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Soubor „%s“ neexistuje"
-
-#: source/gx/terminix/appwindow.d:1271
-msgid "Load Session"
-msgstr "Načíst sezení"
-
-#: source/gx/terminix/appwindow.d:1274
-msgid "Open"
-msgstr "Otevřít"
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Could not load session due to unexpected error."
-msgstr "Načítání sezení selhalo kvůli neočekávané chybě."
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Error Loading Session"
-msgstr "Chyba při načítání sezení"
-
-#: source/gx/terminix/appwindow.d:1305
-msgid "Save Session"
-msgstr "Uložit sezení"
-
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Soubor %s není JSON obsahující platné barevné schéma"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "Paleta barevného schématu vyžaduje 16 barev"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Přidat záložku"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Upravit záložku"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Smazat záložku"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Zrušit vybrání záložky"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:112
-msgid "Terminix Preferences"
-msgstr "Předvolby Terminixu"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:129
-#: source/gx/terminix/prefeditor/prefdialog.d:130
-#: source/gx/terminix/prefeditor/prefdialog.d:198
-msgid "Global"
-msgstr "Obecné"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:133
-#: source/gx/terminix/prefeditor/prefdialog.d:134
-msgid "Appearance"
-msgstr "Vzhled"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:137
-#: source/gx/terminix/prefeditor/prefdialog.d:138
-msgid "Quake"
-msgstr "Quake"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:168
-msgid "Add profile"
-msgstr "Přidat profil"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:173
-msgid "Delete profile"
-msgstr "Smazat profil"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:274
-#: source/gx/terminix/prefeditor/prefdialog.d:282
-#, c-format
-msgid "Profile: %s"
-msgstr "Profil: %s"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:492
-msgid "Clone"
-msgstr "Klonovat"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:496
-msgid "Use for new terminals"
-msgstr "Použít pro nové terminály"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:572
-msgid "Encodings showing in menu:"
-msgstr "Kódování zobrazená v nabídce:"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:608
-msgid "Enabled"
-msgstr "Povoleno"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:669
-#: source/gx/terminix/prefeditor/profileeditor.d:1480
-msgid "Action"
-msgstr "Činnost"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:698
-msgid "Shortcut Key"
-msgstr "Klávesová zkratka"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:710
-msgid "Enable shortcuts"
-msgstr "Povolit zkratky"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:738
-msgid "Overwrite Existing Shortcut"
-msgstr "Přepsat stávající zkratku"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:739
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"Zkratka %s je už přiřazena k %s.\n"
-"Odejmout zkratku od stávající akce a přiřadit ji místo toho sem?"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:871
-msgid "Enable transparency, requires re-start"
-msgstr "Povolit průhlednost; vyžaduje restart"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:882
-msgid "Window style"
-msgstr "Styl okna"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Normal"
-msgstr "Normální"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Disable CSD"
-msgstr "Zakázat CSD"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Disable CSD, hide toolbar"
-msgstr "Zakázat CSD, skrýt panel nástrojů"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Borderless"
-msgstr "Bez okrajů"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:888
-msgid "Window restart required"
-msgstr "Nutný restart okna"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:897
-msgid "Terminal title style"
-msgstr "Styl titulku terminálu"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Small"
-msgstr "Malý"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "None"
-msgstr "Žádný"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:904
-msgid "Theme variant"
-msgstr "Varianta motivu"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Light"
-msgstr "Světlý"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Dark"
-msgstr "Tmavý"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:911
-msgid "Background image"
-msgstr "Obrázek na pozadí"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:913
-msgid "Select Image"
-msgstr "Vybrat obrázek"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:916
-msgid "All Image Files"
-msgstr "Všechny obrázky"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:937
-msgid "Reset background image"
-msgstr "Odstranit obrázek na pozadí"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Scale"
-msgstr "Škálovat"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Tile"
-msgstr "Dlaždice"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Center"
-msgstr "Vystředit"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Stretch"
-msgstr "Roztáhnout"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:962
-msgid "Default session name"
-msgstr "Výchozí název sezení"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Application title"
-msgstr "Titulek aplikace"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:986
-msgid "Use a wide handle for splitters"
-msgstr "Použít široký oddělovač terminálů"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:991
-msgid "Place the sidebar on the right"
-msgstr "Umístit boční panel doprava"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:995
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Ukazovat titulek terminálu, i když je to jediný terminál"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1027
-msgid "Size"
-msgstr "Velikost"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1038
-msgid "Height percent"
-msgstr "Procenta výšky"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1049
-msgid "Width percent"
-msgstr "Procenta šířky"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1059
-msgid "Alignment"
-msgstr "Poloha"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Left"
-msgstr "Vlevo"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Right"
-msgstr "Vpravo"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1069
-#: source/gx/terminix/prefeditor/profileeditor.d:470
-msgid "Options"
-msgstr "Možnosti"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1077
-msgid "Show terminal on all workspaces"
-msgstr "Ukazovat terminál na všech plochách"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1082
-msgid "Set hint for window manager to disable animation"
-msgstr "Nastavit pro správce oken příznak k potlačení animace"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1087
-msgid "Hide window when focus is lost"
-msgstr "Při ztrátě zaměření skrýt okno"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1092
-msgid "Hide the titlebar of the window"
-msgstr "Skrýt titulek okna"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1107
-msgid "Display terminal on active monitor"
-msgstr "Zobrazit terminál na aktivním monitoru"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1114
-msgid "Display on specific monitor"
-msgstr "Zobrazit na zvoleném monitoru"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1156
-msgid "Behavior"
-msgstr "Chování"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1162
-msgid "Prompt when creating a new session"
-msgstr "Upozornit při vytváření nového sezení"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1167
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Zaměřit terminál, když na něj ukáže myš"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1172
-msgid "Autohide the mouse pointer when typing"
-msgstr "Při psaní automaticky skrývat kurzor myši"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1177
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Zavřít terminál kliknutím prostředním tlačítkem na titulek"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1182
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Přibližte terminál pomocí <Controlu>u a kolečka myši"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1187
-msgid "Close window when last session is closed"
-msgstr "Zavřít okno, když se zavře poslední sezení"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1193
-msgid "Send desktop notification on process complete"
-msgstr "Po skončení procesu zaslat upozornění"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1201
-msgid "On new instance"
-msgstr "Při nové instanci"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Right"
-msgstr "Rozdělit doprava"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Down"
-msgstr "Rozdělit dolů"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Focus Window"
-msgstr "Zaměřit okno"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1216
-msgid "Always use advanced paste dialog"
-msgstr "Vždy použít dialog pokročilého vkládání"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1221
-msgid "Warn when attempting unsafe paste"
-msgstr "Varovat při pokusu o nebezpečné vkládání"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1226
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-"Odstranit první znak vkládaného, pokud jde o komentář nebo deklaraci proměnné"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1231
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Při označení automaticky zkopírovat text do schránky"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:99
-msgid "General"
-msgstr "Obecné"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:101
-msgid "Color"
-msgstr "Barva"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:102
-msgid "Scrolling"
-msgstr "Posouvání"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:103
-msgid "Compatibility"
-msgstr "Kompatibilita"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:104
-#: source/gx/terminix/prefeditor/profileeditor.d:489
-msgid "Advanced"
-msgstr "Pokročilé"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:216
-msgid "Profile name"
-msgstr "Název profilu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:240
-msgid "Terminal size"
-msgstr "Velikost terminálu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:250
-msgid "columns"
-msgstr "sloupce"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:256
-msgid "rows"
-msgstr "řádky"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:272
-#: source/gx/terminix/prefeditor/profileeditor.d:569
-msgid "Cursor"
-msgstr "Kurzor"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Block"
-msgstr "Blokový"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "IBeam"
-msgstr "Svislá čára"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Underline"
-msgstr "Podtrhávací čára"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:283
-msgid "Blink mode"
-msgstr "Mód blikání"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "System"
-msgstr "Podle systému"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "On"
-msgstr "Zapnuto"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "Off"
-msgstr "Vypnuto"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Sound"
-msgstr "Zvuk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Icon and Sound"
-msgstr "Ikona a zvuk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:301
-msgid "Terminal title"
-msgstr "Titulek terminálu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:323
-msgid "Badge position"
-msgstr "Umístění odznaku"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northwest"
-msgstr "Severozápad"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northeast"
-msgstr "Severovýchod"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southwest"
-msgstr "Jihozápad"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southeast"
-msgstr "Jihovýchod"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:338
-msgid "Text Appearance"
-msgstr "Vzhled textu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:344
-msgid "Allow bold text"
-msgstr "Povolit tučný text"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:349
-msgid "Rewrap on resize"
-msgstr "Při změně velikosti znovu zalomit"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:355
-msgid "Custom font"
-msgstr "Vlastní písmo"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:361
-msgid "Choose A Terminal Font"
-msgstr "Vyberte písmo terminálu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:381
-#, c-format
-msgid "ID: %s"
-msgstr "ID: %s"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:427
-msgid "Color scheme"
-msgstr "Barevné schéma"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:437
-#: source/gx/terminix/prefeditor/profileeditor.d:884
-msgid "Custom"
-msgstr "Vlastní"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:450
-msgid "Export"
-msgstr "Exportovat"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:462
-msgid "Color palette"
-msgstr "Barevná paleta"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:484
-msgid "Use theme colors for foreground/background"
-msgstr "Použít barvy z motivu i pro popředí/pozadí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:502
-msgid "Transparency"
-msgstr "Průhlednost"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:516
-msgid "Unfocused dim"
-msgstr "Ztlumení nezaměřeného okna"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:564
-msgid "Text"
-msgstr "Text"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:565
-#: source/gx/terminix/prefeditor/profileeditor.d:669
-msgid "Background"
-msgstr "Pozadí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:576
-msgid "Select Cursor Foreground Color"
-msgstr "Vyberte barvu popředí kurzoru"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:578
-msgid "Select Cursor Background Color"
-msgstr "Vyberte barvu pozadí kurzoru"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:583
-msgid "Highlight"
-msgstr "Zvýraznění"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:588
-msgid "Select Highlight Foreground Color"
-msgstr "Vyberte barvu zvýraznění popředí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:590
-msgid "Select Highlight Background Color"
-msgstr "Vyberte barvu zvýraznění pozadí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:595
-msgid "Dim"
-msgstr "Ztlumení"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:600
-msgid "Select Dim Color"
-msgstr "Vyberte barvu ztlumení"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:609
-msgid "Select Badge Color"
-msgstr "Vyberte barvu odznaku"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:658
-msgid "Select Background Color"
-msgstr "Vyberte barvu pozadí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:674
-#: source/gx/terminix/prefeditor/profileeditor.d:690
-msgid "Select Foreground Color"
-msgstr "Vyberte barvu popředí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:689
-msgid "Foreground"
-msgstr "Popředí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Black"
-msgstr "černá"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Red"
-msgstr "červená"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Green"
-msgstr "zelená"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Orange"
-msgstr "oranžová"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Blue"
-msgstr "modrá"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Purple"
-msgstr "fialová"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Turquoise"
-msgstr "tyrkysová"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Grey"
-msgstr "šedá"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:699
-#, c-format
-msgid "Select %s Color"
-msgstr "Vyberte barvu „%s“"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:706
-#, c-format
-msgid "Select %s Light Color"
-msgstr "Vyberte barvu „světlá %s“"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:841
-msgid "Export Color Scheme"
-msgstr "Exportovat barevné schéma"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:916
-msgid "Show scrollbar"
-msgstr "Ukazovat posuvník"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:920
-msgid "Scroll on output"
-msgstr "Posouvat při výstupu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:924
-msgid "Scroll on keystroke"
-msgstr "Posouvat při stisku klávesy"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:928
-msgid "Limit scrollback to:"
-msgstr "Omezit historii posouvání na:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:963
-msgid "Backspace key generates"
-msgstr "Klávesa Backspace posílá"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Automatic"
-msgstr "Automaticky"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Escape sequence"
-msgstr "Únikovou sekvenci"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:972
-msgid "Delete key generates"
-msgstr "Klávesa Delete posílá"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:996
-msgid "Ambiguous-width characters"
-msgstr "Znaky nejednoznačné šířky"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Narrow"
-msgstr "Úzké"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Wide"
-msgstr "Široké"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1020
-msgid "Run command as a login shell"
-msgstr "Spustit příkaz jako přihlašovací shell"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1024
-msgid "Run a custom command instead of my shell"
-msgstr "Místo mého shellu spustit vlastní příkaz"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1040
-msgid "When command exits"
-msgstr "Až příkaz skončí"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Exit the terminal"
-msgstr "Zavřít terminál"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Restart the command"
-msgstr "Znovu spustit příkaz"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Hold the terminal open"
-msgstr "Podržet terminál otevřený"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1081
-msgid "Custom Links"
-msgstr "Vlastní odkazy"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1086
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"Seznam uživatelem definovaných odkazů, na něž je možné v terminálu kliknout, "
-"zakládající se na regulérních výrazech."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1107
-msgid "Triggers"
-msgstr "Spouštěče"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1113
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"Spouštěče jsou regulérní výrazy, které slouží k vyhledávání textu ve výstupu "
-"terminálu. Když je nalezena shoda, provede se nastavená činnost."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1133
-msgid "Automatic Profile Switching"
-msgstr "Automatické přepínání profilu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1141
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
-"Hodnoty se zapisují ve formátu <i>uživatelské_jméno@hostitel:adresář</i>. "
-"Buď hostitele nebo adresář je možné vynechat, ale je nutné zachovat "
-"dvojtečku. Položky postrádající hostitele i adresář nejsou povoleny."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1143
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
-"Hodnoty se zapisují ve formátu <i>hostitel:adresář</i>. Buď hostitele nebo "
-"adresář je možné vynechat, ale je nutné zachovat dvojtečku. Položky "
-"postrádající hostitele i adresář nejsou povoleny."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1154
-msgid "Match"
-msgstr "Shoda"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1165
-#: source/gx/terminix/prefeditor/profileeditor.d:1353
-#: source/gx/terminix/prefeditor/profileeditor.d:1506
-msgid "Add"
-msgstr "Přidat"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1169
-msgid "Enter username@hostname:directory to match"
-msgstr "Zadejte shodu pro uživatel@hostitel:adresář"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1171
-msgid "Enter hostname:directory to match"
-msgstr "Zadejte shodu pro hostitel:adresář"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1173
-msgid "Add New Match"
-msgstr "Přidat novou shodu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1190
-msgid "Edit username@hostname:directory to match"
-msgstr "Upravit shodu pro uživatel@hostitel:adresář"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1192
-msgid "Edit hostname:directory to match"
-msgstr "Upravit shodu pro hostitel:adresář"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1194
-msgid "Edit Match"
-msgstr "Upravit shodu"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1316
-#: source/gx/terminix/prefeditor/profileeditor.d:1454
-msgid "Regex"
-msgstr "Regulérní výraz"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1340
-msgid "Case Insensitive"
-msgstr "Nerozlišovat velikost"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-msgid "Edit Custom Links"
-msgstr "Upravit vlastní odkazy"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1492
-msgid "Parameter"
-msgstr "Parametr"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1528
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Omezit počet řádků, v nichž hledat spouštěče, na:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Edit Triggers"
-msgstr "Upravit spouštěče"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1597
-#, c-format
-msgid "Row %d: "
-msgstr "Řádek %d: "
-
-#: source/gx/terminix/prefeditor/titleeditor.d:108
-msgid "Window"
-msgstr "Okno"
-
-#: source/gx/terminix/prefeditor/titleeditor.d:118
-#: source/gx/terminix/prefeditor/titleeditor.d:119
-msgid "Help"
-msgstr "Nápověda"
-
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
@@ -1850,42 +1780,127 @@ msgstr ""
 "Mód „quake“ nemůžete použít s parametry maximalizace, minimalizace či "
 "geometrie"
 
-#: source/gx/terminix/preferences.d:212
-msgid "UpdateState"
-msgstr "AktualizovatStav"
+#: source/gx/terminix/bookmark/manager.d:223
+msgid "Error deserializing bookmark"
+msgstr "Chyba při deserializaci záložky"
 
-#: source/gx/terminix/preferences.d:213
-msgid "ExecuteCommand"
-msgstr "ProvéstPříkaz"
+#: source/gx/terminix/bookmark/manager.d:512
+msgid "Root"
+msgstr "Kořen"
 
-#: source/gx/terminix/preferences.d:214
-msgid "SendNotification"
-msgstr "PoslatOznámení"
+#: source/gx/terminix/bookmark/manager.d:586
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Načítání záložek selhalo kvůli neočekávané chybě"
 
-#: source/gx/terminix/preferences.d:215
-msgid "UpdateTitle"
-msgstr "AktualizovatTitulek"
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Folder"
+msgstr "Složka"
 
-#: source/gx/terminix/preferences.d:216
-msgid "PlayBell"
-msgstr "Zazvonit"
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:289
+msgid "Path"
+msgstr "Cesta"
 
-#: source/gx/terminix/preferences.d:217
-msgid "SendText"
-msgstr "PoslatText"
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Remote"
+msgstr "Vzdálené"
 
-#: source/gx/terminix/preferences.d:218
-msgid "InsertPassword"
-msgstr "VložitHeslo"
+#: source/gx/terminix/bookmark/bmeditor.d:68
+#: source/gx/terminix/bookmark/bmchooser.d:104
+msgid "Select Folder"
+msgstr "Vybrat složku"
 
-#: source/gx/terminix/preferences.d:219
-msgid "UpdateBadge"
-msgstr "AktualizovatOdznak"
+#: source/gx/terminix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Vybrat složku"
 
-#: source/gx/terminix/preferences.d:326
+#: source/gx/terminix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Vyčistit složku"
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Add Bookmark"
+msgstr "Přidat záložku"
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Edit Bookmark"
+msgstr "Upravit záložku"
+
+#: source/gx/terminix/bookmark/bmeditor.d:291
+msgid "Select Path"
+msgstr "Vybrat cestu"
+
+#: source/gx/terminix/bookmark/bmeditor.d:379
+msgid "Protocol"
+msgstr "Protokol"
+
+#: source/gx/terminix/bookmark/bmeditor.d:395
+msgid "Host"
+msgstr "Hostitel"
+
+#: source/gx/terminix/bookmark/bmeditor.d:411
+msgid "User"
+msgstr "Uživatel"
+
+#: source/gx/terminix/bookmark/bmeditor.d:418
+msgid "Parameters"
+msgstr "Parametry"
+
+#: source/gx/terminix/bookmark/bmchooser.d:104
+msgid "Select Bookmark"
+msgstr "Vybrat záložku"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "zakázáno"
+
+#: source/app.d:110
 #, c-format
-msgid "%s (Copy)"
-msgstr "%s (Kopírovat)"
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Máte příliš starou verzi GTK, potřebujete nejméně GTK %d.%d.%d!"
+
+#: source/app.d:127
+msgid "Unexpected exception occurred"
+msgstr "Nastala neočekávaná výjimka"
+
+#: source/app.d:128
+msgid "Error: "
+msgstr "Chyba: "
+
+#: source/app.d:138
+msgid "Versions"
+msgstr "Verze"
+
+#: source/app.d:139
+#, c-format
+msgid "Terminix version: %s"
+msgstr "Verze Terminixu: %s"
+
+#: source/app.d:140
+#, c-format
+msgid "VTE version: %s"
+msgstr "Verze VTE: %s"
+
+#: source/app.d:141
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "Verze GTK: %d.%d.%d"
+
+#: source/app.d:142
+msgid "Terminix Special Features"
+msgstr "Speciální vlastnosti Terminixu"
+
+#: source/app.d:143
+msgid "Notifications enabled=%b"
+msgstr "Oznámení povolena=%b"
+
+#: source/app.d:144
+msgid "Triggers enabled=%b"
+msgstr "Spouštěče povoleny=%b"
+
+#: source/app.d:145
+msgid "Badges enabled=%b"
+msgstr "Odznaky povoleny=%b"
 
 #: data/nautilus/open-terminix.py:108
 msgid "Open Remote Terminix"
@@ -2425,6 +2440,9 @@ msgstr ""
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:31
 msgid "Terminix has been tested with GNOME and with Unity."
 msgstr "Terminix je testován v GNOME a Unity."
+
+#~ msgid "Select Bookmark..."
+#~ msgstr "Vybrat záložku…"
 
 #~ msgid "The expression %s is not a valid regex"
 #~ msgstr "Výraz %s není platný regulérní výraz"

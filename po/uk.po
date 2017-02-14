@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-05 18:40-0500\n"
+"POT-Creation-Date: 2017-02-14 10:42+0100\n"
 "PO-Revision-Date: 2016-12-14 19:18+0000\n"
 "Last-Translator: Мирослав Білоус <murukmaniak@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/terminix/"
@@ -18,182 +18,1542 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.10-dev\n"
 
-#: source/app.d:110
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Версія GTK — застара, потрібно щонайменше GTK %d.%d.%d!"
+#: source/gx/terminix/preferences.d:212
+msgid "UpdateState"
+msgstr "Оновити стан"
 
-#: source/app.d:127
-msgid "Unexpected exception occurred"
-msgstr "Трапився неочікувана виняток"
+#: source/gx/terminix/preferences.d:213
+msgid "ExecuteCommand"
+msgstr "Виконати команду"
 
-#: source/app.d:128
-msgid "Error: "
-msgstr "Помилка: "
-
-#: source/app.d:138
-#, fuzzy
-msgid "Versions"
-msgstr "Перське"
-
-#: source/app.d:139
-#, fuzzy, c-format
-msgid "Terminix version: %s"
-msgstr "Відкрити Terminix в %s"
-
-#: source/app.d:140
-#, fuzzy, c-format
-msgid "VTE version: %s"
-msgstr "Відкрити Terminix в %s"
-
-#: source/app.d:141
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr ""
-
-#: source/app.d:142
-#, fuzzy
-msgid "Terminix Special Features"
-msgstr "Параметри Terminix"
-
-#: source/app.d:143
-#, fuzzy
-msgid "Notifications enabled=%b"
+#: source/gx/terminix/preferences.d:214
+msgid "SendNotification"
 msgstr "Надіслати сповіщення"
 
-#: source/app.d:144
-msgid "Triggers enabled=%b"
-msgstr ""
+#: source/gx/terminix/preferences.d:215
+msgid "UpdateTitle"
+msgstr "Оновити заголовок"
 
-#: source/app.d:145
-msgid "Badges enabled=%b"
-msgstr ""
+#: source/gx/terminix/preferences.d:216
+msgid "PlayBell"
+msgstr "Дати гудок"
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "вимкнено"
+#: source/gx/terminix/preferences.d:217
+msgid "SendText"
+msgstr "Надіслати повідомлення"
 
-#: source/gx/terminix/bookmark/bmeditor.d:68
-#: source/gx/terminix/bookmark/bmchooser.d:104
-#, fuzzy
-msgid "Select Folder"
-msgstr "Вибрати %s колір"
+#: source/gx/terminix/preferences.d:218
+msgid "InsertPassword"
+msgstr "Вставити пароль"
 
-#: source/gx/terminix/bookmark/bmeditor.d:74
-#, fuzzy
-msgid "Select folder"
-msgstr "Вибрати %s колір"
+#: source/gx/terminix/preferences.d:219
+msgid "UpdateBadge"
+msgstr "Оновити значок"
 
-#: source/gx/terminix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr ""
+#: source/gx/terminix/preferences.d:326
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (Копіювати)"
 
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Add Bookmark"
-msgstr ""
+#: source/gx/terminix/prefeditor/profileeditor.d:99
+msgid "General"
+msgstr "Загальне"
 
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Edit Bookmark"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195
-msgid "OK"
-msgstr "Гаразд"
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195 source/gx/terminix/appwindow.d:1274
-#: source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Cancel"
-msgstr "Скасувати"
-
-#: source/gx/terminix/bookmark/bmeditor.d:228
-#: source/gx/terminix/bookmark/bmtreeview.d:74
-#: source/gx/terminix/session.d:1428 source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425
-msgid "Name"
-msgstr "Назва"
-
-#: source/gx/terminix/bookmark/bmeditor.d:289
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Path"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:291
-#, fuzzy
-msgid "Select Path"
-msgstr "Вибрати все"
-
-#: source/gx/terminix/bookmark/bmeditor.d:330
-#: source/gx/terminix/bookmark/bmeditor.d:425
-#: source/gx/terminix/bookmark/manager.d:623
-#: source/gx/terminix/terminal/layout.d:76
 #: source/gx/terminix/prefeditor/profileeditor.d:100
 #: source/gx/terminix/prefeditor/profileeditor.d:1030
 #: source/gx/terminix/prefeditor/profileeditor.d:1328
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:330
+#: source/gx/terminix/bookmark/bmeditor.d:425
 msgid "Command"
 msgstr "Команда"
 
-#: source/gx/terminix/bookmark/bmeditor.d:379
-msgid "Protocol"
-msgstr ""
+#: source/gx/terminix/prefeditor/profileeditor.d:101
+msgid "Color"
+msgstr "Колір"
 
-#: source/gx/terminix/bookmark/bmeditor.d:395
-msgid "Host"
-msgstr ""
+#: source/gx/terminix/prefeditor/profileeditor.d:102
+msgid "Scrolling"
+msgstr "Прокручування"
 
-#: source/gx/terminix/bookmark/bmeditor.d:411
-msgid "User"
-msgstr ""
+#: source/gx/terminix/prefeditor/profileeditor.d:103
+msgid "Compatibility"
+msgstr "Сумісність"
 
-#: source/gx/terminix/bookmark/bmeditor.d:418
-#, fuzzy
-msgid "Parameters"
-msgstr "Параметр"
+#: source/gx/terminix/prefeditor/profileeditor.d:104
+#: source/gx/terminix/prefeditor/profileeditor.d:489
+msgid "Advanced"
+msgstr "Додатково"
 
-#: source/gx/terminix/bookmark/bmchooser.d:104
-#, fuzzy
-msgid "Select Bookmark"
-msgstr "Вибрати колір значка"
+#: source/gx/terminix/prefeditor/profileeditor.d:216
+msgid "Profile name"
+msgstr "Назва профілю"
 
-#: source/gx/terminix/bookmark/bmtreeview.d:71
-#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/prefeditor/profileeditor.d:240
+msgid "Terminal size"
+msgstr "Розмір терміналу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:250
+msgid "columns"
+msgstr "стовпці"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:256
+msgid "rows"
+msgstr "рядки"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:261
+#: source/gx/terminix/terminal/terminal.d:727
+msgid "Reset"
+msgstr "Скинути"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:272
+#: source/gx/terminix/prefeditor/profileeditor.d:569
+msgid "Cursor"
+msgstr "Курсор"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Block"
+msgstr "Блок"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "IBeam"
+msgstr "IBeam"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Underline"
+msgstr "Підкреслення"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:283
+msgid "Blink mode"
+msgstr "Режим блимання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "System"
+msgstr "Система"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "On"
+msgstr "Увімкнено"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "Off"
+msgstr "Вимкнено"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:292
+#: source/gx/terminix/terminal/terminal.d:379
+msgid "Terminal bell"
+msgstr "Гудки терміналу"
+
 #: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "None"
+msgstr "Немає"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Sound"
+msgstr "Звук"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/bookmark/bmtreeview.d:71
 msgid "Icon"
 msgstr "Піктограма"
 
-#: source/gx/terminix/bookmark/manager.d:226
-msgid "Error deserializing bookmark"
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Icon and Sound"
+msgstr "Піктограма та звук"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:301
+msgid "Terminal title"
+msgstr "Заголовок терміналу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:313
+#: source/gx/terminix/prefeditor/profileeditor.d:605
+#: source/gx/terminix/terminal/layout.d:60
+msgid "Badge"
+msgstr "Знак"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:323
+msgid "Badge position"
+msgstr "Позиція знака"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northwest"
+msgstr "Північний захід"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northeast"
+msgstr "Північний схід"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southwest"
+msgstr "Південний захід"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southeast"
+msgstr "Південний схід"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:338
+msgid "Text Appearance"
+msgstr "Вигляд тексту"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:344
+msgid "Allow bold text"
+msgstr "Дозволити жирний текст"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:349
+msgid "Rewrap on resize"
+msgstr "Підлаштовувати під розмір"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:355
+msgid "Custom font"
+msgstr "Інший шрифт"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:361
+msgid "Choose A Terminal Font"
+msgstr "Виберіть шрифт терміналу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:381
+#, c-format
+msgid "ID: %s"
+msgstr "Ідентифікатор: %s"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:427
+msgid "Color scheme"
+msgstr "Схема кольорів"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:437
+#: source/gx/terminix/prefeditor/profileeditor.d:884
+msgid "Custom"
+msgstr "Інша"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:450
+msgid "Export"
+msgstr "Експорт"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:462
+msgid "Color palette"
+msgstr "Палітра кольорів"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:470
+#: source/gx/terminix/prefeditor/prefdialog.d:1099
+msgid "Options"
+msgstr "Параметри"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:484
+msgid "Use theme colors for foreground/background"
+msgstr "Використовувати кольори для тексту й тла"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:502
+msgid "Transparency"
+msgstr "Прозорість"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:516
+msgid "Unfocused dim"
+msgstr "Несфокусоване затемнювання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:564
+msgid "Text"
+msgstr "Текст"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:565
+#: source/gx/terminix/prefeditor/profileeditor.d:669
+msgid "Background"
+msgstr "Тло"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:576
+msgid "Select Cursor Foreground Color"
+msgstr "Вибрати колір тексту курсора"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:578
+msgid "Select Cursor Background Color"
+msgstr "Вибрати колір тла курсора"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:583
+msgid "Highlight"
+msgstr "Підсвічування"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:588
+msgid "Select Highlight Foreground Color"
+msgstr "Вибрати колір підсвічування тексту"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:590
+msgid "Select Highlight Background Color"
+msgstr "Вибрати колір підсвічування тла"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:595
+msgid "Dim"
+msgstr "Затемнювання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:600
+msgid "Select Dim Color"
+msgstr "Вибрати колір затемнювання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:609
+msgid "Select Badge Color"
+msgstr "Вибрати колір значка"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:658
+msgid "Select Background Color"
+msgstr "Вибрати колір тла"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:674
+#: source/gx/terminix/prefeditor/profileeditor.d:690
+msgid "Select Foreground Color"
+msgstr "Вибрати колір тексту"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:689
+msgid "Foreground"
+msgstr "Текст"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Black"
+msgstr "Чорний"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Red"
+msgstr "Червоний"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Green"
+msgstr "Зелений"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Orange"
+msgstr "Оранжевий"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Blue"
+msgstr "Синій"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Purple"
+msgstr "Фіолетовий"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Turquoise"
+msgstr "Бірюзовий"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Grey"
+msgstr "Сірий"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:699
+#, c-format
+msgid "Select %s Color"
+msgstr "Вибрати %s колір"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:706
+#, c-format
+msgid "Select %s Light Color"
+msgstr "Вибрати світлий %s колір"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:841
+msgid "Export Color Scheme"
+msgstr "Експорт кольорової схеми"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1312
+msgid "Save"
+msgstr "Зберегти"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/terminal/layout.d:30 source/gx/terminix/appwindow.d:1278
+#: source/gx/terminix/appwindow.d:1312
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:857
+#: source/gx/terminix/appwindow.d:1232
+msgid "All JSON Files"
+msgstr "Усі файли JSON"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:861
+#: source/gx/terminix/prefeditor/prefdialog.d:953
+#: source/gx/terminix/terminal/terminal.d:2728
+#: source/gx/terminix/appwindow.d:1236
+msgid "All Files"
+msgstr "Всі файли"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:916
+msgid "Show scrollbar"
+msgstr "Показувати прокручування"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:920
+msgid "Scroll on output"
+msgstr "Прокручувати при виведенні"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:924
+msgid "Scroll on keystroke"
+msgstr "Прокручувати клавішами"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:928
+msgid "Limit scrollback to:"
+msgstr "Обмежено прокручування до:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:963
+msgid "Backspace key generates"
+msgstr "Клавіша «Backspace» породжує"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Automatic"
+msgstr "Автоматично"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Escape sequence"
+msgstr "Керівні послідовності"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:972
+msgid "Delete key generates"
+msgstr "Клавіша «Delete» породжує"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:981
+#: source/gx/terminix/prefeditor/prefdialog.d:154
+#: source/gx/terminix/prefeditor/prefdialog.d:155
+#: source/gx/terminix/prefeditor/prefdialog.d:407
+#: source/gx/terminix/prefeditor/prefdialog.d:615
+#: source/gx/terminix/terminal/terminal.d:732
+msgid "Encoding"
+msgstr "Кодування"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:996
+msgid "Ambiguous-width characters"
+msgstr "Неоднозначної ширини символи"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Narrow"
+msgstr "Вузькі"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Wide"
+msgstr "Широкі"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1020
+msgid "Run command as a login shell"
+msgstr "Запустити команду як оболонку входу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Run a custom command instead of my shell"
+msgstr "Запустити іншу команду замість моєї оболонки"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1040
+msgid "When command exits"
+msgstr "Коли виходите з команди"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Exit the terminal"
+msgstr "Вийти з терміналу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Restart the command"
+msgstr "Перезапустити команду"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Hold the terminal open"
+msgstr "Утримувати термінал відкритим"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1081
+msgid "Custom Links"
+msgstr "Власні посилання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1086
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"перелік користувацьких посилань, на які можна натиснути в терміналі на "
+"основі означень формальних виразів."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1089
+#: source/gx/terminix/prefeditor/profileeditor.d:1116
+#: source/gx/terminix/prefeditor/profileeditor.d:1183
+#: source/gx/terminix/terminal/password.d:180
+msgid "Edit"
+msgstr "Редагувати"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1107
+msgid "Triggers"
+msgstr "Перемикачі"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1113
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Перемикачі — формальні вирази, які перевіряють текст виводу в терміналі. "
+"Коли виникає збіг, виконується певна налаштована дії."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1133
+msgid "Automatic Profile Switching"
+msgstr "Автоматичне перемикання профілів"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1141
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"Профілі автоматично вибирають на основі значення введених тут.\n"
+"Значення введено через формат <i>користувач@вузол:каталог</i>. Або вузол, "
+"або каталог можуть бути порожні, але стовпці мають бути. Записи без вузла і "
+"каталогу — заборонені."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1143
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Профілі автоматично вибирають на основі значення введених тут.\n"
+"Значення введено через формат <i>вузол:каталог</i>. Або вузол, або каталог "
+"можуть бути порожні, але стовпці мають бути. Записи без вузла і каталогу — "
+"заборонені."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1154
+msgid "Match"
+msgstr "Збіги"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1165
+#: source/gx/terminix/prefeditor/profileeditor.d:1353
+#: source/gx/terminix/prefeditor/profileeditor.d:1506
+msgid "Add"
+msgstr "Додати"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1169
+msgid "Enter username@hostname:directory to match"
+msgstr "Ввести користувач@вузол:каталог для збігу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1171
+msgid "Enter hostname:directory to match"
+msgstr "Введіть вузол:каталог для збігу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1173
+msgid "Add New Match"
+msgstr "Додати новий збіг"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1190
+msgid "Edit username@hostname:directory to match"
+msgstr "Редагувати користувач@вузол:каталог для збігу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1192
+msgid "Edit hostname:directory to match"
+msgstr "Редагувати вузол:каталог для збігу"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1194
+msgid "Edit Match"
+msgstr "Редагувати збіг"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1202
+#: source/gx/terminix/prefeditor/profileeditor.d:1359
+#: source/gx/terminix/prefeditor/profileeditor.d:1512
+#: source/gx/terminix/prefeditor/prefdialog.d:496
+#: source/gx/terminix/terminal/password.d:209
+msgid "Delete"
+msgstr "Вилучити"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1316
+#: source/gx/terminix/prefeditor/profileeditor.d:1454
+msgid "Regex"
+msgstr "Формальний вираз"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1340
+msgid "Case Insensitive"
+msgstr "Без урахування регістру"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+msgid "Edit Custom Links"
+msgstr "Редагувати власні посилання"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/terminal/password.d:367
+msgid "Apply"
+msgstr "Застосувати"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1480
+#: source/gx/terminix/prefeditor/prefdialog.d:688
+msgid "Action"
+msgstr "Дія"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1492
+msgid "Parameter"
+msgstr "Параметр"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1528
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Обмежити кількість рядків для обробки запуску до:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Edit Triggers"
+msgstr "Редагувати перемикачі"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1597
+#, c-format
+msgid "Row %d: "
 msgstr ""
 
-#: source/gx/terminix/bookmark/manager.d:501
-msgid "Root"
-msgstr ""
+#: source/gx/terminix/prefeditor/titleeditor.d:90
+#: source/gx/terminix/terminal/terminal.d:315
+#: source/gx/terminix/terminal/terminal.d:3078
+msgid "Terminal"
+msgstr "Термінал"
 
-#: source/gx/terminix/bookmark/manager.d:569
+#: source/gx/terminix/prefeditor/titleeditor.d:108
 #, fuzzy
-msgid "Could not load bookmarks due to unexpected error"
+msgid "Window"
+msgstr "Вікно"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:118
+#: source/gx/terminix/prefeditor/titleeditor.d:119
+msgid "Help"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:117
+msgid "Terminix Preferences"
+msgstr "Параметри Terminix"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:134
+#: source/gx/terminix/prefeditor/prefdialog.d:135
+#: source/gx/terminix/prefeditor/prefdialog.d:203
+msgid "Global"
+msgstr "Загальне"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:138
+#: source/gx/terminix/prefeditor/prefdialog.d:139
+msgid "Appearance"
+msgstr "Вигляд"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:142
+#: source/gx/terminix/prefeditor/prefdialog.d:143
+msgid "Quake"
+msgstr "Обвал"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:146
+#: source/gx/terminix/prefeditor/prefdialog.d:147
+msgid "Bookmarks"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:150
+#: source/gx/terminix/prefeditor/prefdialog.d:151
+#: source/gx/terminix/application.d:223
+msgid "Shortcuts"
+msgstr "Скорочення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:160
+#: source/gx/terminix/session.d:1439
+msgid "Profile"
+msgstr "Профіль"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:173
+msgid "Add profile"
+msgstr "Додати профіль"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:178
+msgid "Delete profile"
+msgstr "Видалити профіль"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:235
+#: source/gx/terminix/prefeditor/prefdialog.d:358
+#: source/gx/terminix/appwindow.d:654 source/gx/terminix/application.d:221
+msgid "Preferences"
+msgstr "Параметри"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:255
+#: source/gx/terminix/terminal/terminal.d:720
+msgid "Profiles"
+msgstr "Профілі"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:279
+#: source/gx/terminix/prefeditor/prefdialog.d:287
+#, c-format
+msgid "Profile: %s"
+msgstr "Профілі: %s"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:497
+msgid "Clone"
+msgstr "Клонування"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:501
+msgid "Use for new terminals"
+msgstr "Використовувати для нових терміналів"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:577
+msgid "Encodings showing in menu:"
+msgstr "Кодування в меню:"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:613
+msgid "Enabled"
+msgstr "Увімкнено"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:719
+msgid "Shortcut Key"
+msgstr "Клавіша скорочення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:731
+msgid "Enable shortcuts"
+msgstr "Увімкнути скорочення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:759
+msgid "Overwrite Existing Shortcut"
+msgstr "Перезаписати наявні скорочення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:760
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"Скорочення  %s уже призначено на %s.\n"
+"Вимкнути скорочення для іншої дії і призначити сюди натомість?"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:901
+msgid "Enable transparency, requires re-start"
+msgstr "Увімкнути прозорість, вимагає перезапуск"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:912
+#, fuzzy
+msgid "Window style"
+msgstr "Вікно (%s)"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Normal"
+msgstr "Звичайний"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+#, fuzzy
+msgid "Disable CSD"
+msgstr "вимкнено"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Disable CSD, hide toolbar"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Borderless"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:918
+msgid "Window restart required"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:927
+msgid "Terminal title style"
+msgstr "Стиль заголовку термінала"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Small"
+msgstr "Малий"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:934
+msgid "Theme variant"
+msgstr "Варіант теми"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+#: source/gx/terminix/appwindow.d:880 source/gx/terminix/session.d:1120
+msgid "Default"
+msgstr "Типово"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Light"
+msgstr "Світлий"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Dark"
+msgstr "Темний"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:941
+msgid "Background image"
+msgstr "Зображення тла"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Select Image"
+msgstr "Вибрати зображення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:946
+msgid "All Image Files"
+msgstr "Усі файли зображення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:967
+msgid "Reset background image"
+msgstr "Скинути зображення тла"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Scale"
+msgstr "Шкала"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Tile"
+msgstr "Черепиця"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Center"
+msgstr "Центр"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Stretch"
+msgstr "Розтягнення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:992
+msgid "Default session name"
+msgstr "Стандартне ім'я сесії"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1003
+msgid "Application title"
+msgstr "Заголовок програми"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1016
+msgid "Use a wide handle for splitters"
+msgstr "Використовувати широкі відступи"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1021
+msgid "Place the sidebar on the right"
+msgstr "Розмістити бокову панель праворуч"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1025
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Показувати назву терміналу, навіть якщо це єдиний термінал"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1057
+msgid "Size"
+msgstr "Розмір"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1068
+msgid "Height percent"
+msgstr "Висота у відсотках"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1079
+msgid "Width percent"
+msgstr "Ширина у відсотках"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1089
+msgid "Alignment"
+msgstr "Вирівнювання"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Left"
+msgstr "Ліворуч"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Right"
+msgstr "Праворуч"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1107
+msgid "Show terminal on all workspaces"
+msgstr "Показувати термінал на всіх робочих просторах"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1112
+msgid "Set hint for window manager to disable animation"
+msgstr "Встановити властивість вікон для відключення анімації"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1117
+msgid "Hide window when focus is lost"
+msgstr "Ховати вікно, коли фокус втрачено"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1122
+msgid "Hide the titlebar of the window"
+msgstr "Приховати заголовок вікна"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1137
+msgid "Display terminal on active monitor"
+msgstr "Показувати термінал на основному екрані"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1144
+msgid "Display on specific monitor"
+msgstr "Показувати на певному екрані"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1186
+msgid "Behavior"
+msgstr "Поведінка"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1192
+msgid "Prompt when creating a new session"
+msgstr "Запитувати, якщо створюється новий сеанс"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1197
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Фокусуватись на терміналі, коли мишка над ним"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1202
+msgid "Autohide the mouse pointer when typing"
+msgstr "Автоматично ховати вказівник миші, коли щось вводите"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1207
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "Закрити термінал натиском на середню кнопку миші на заголовку"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1212
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "Зум терміналу використовуючи <Ctrl> і колесо мишки"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1217
+msgid "Close window when last session is closed"
+msgstr "Закрити вікно, коли останній сеанс закрито"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1223
+msgid "Send desktop notification on process complete"
+msgstr "Надсилати сповіщення, коли дія закінчиться"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1231
+msgid "On new instance"
+msgstr "Відкривати новий термінал"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:217
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
+msgid "New Window"
+msgstr "Створити вікно"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:216 source/gx/terminix/session.d:1462
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
+msgid "New Session"
+msgstr "Створити сеанс"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Right"
+msgstr "Розділити праворуч"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Down"
+msgstr "Розділити додолу"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Focus Window"
+msgstr "Сфокусувати вікно"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1240
+#: source/gx/terminix/terminal/terminal.d:1459
+msgid "Clipboard"
+msgstr "Буфер"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1246
+msgid "Always use advanced paste dialog"
+msgstr "Завжди використовувати розширений діалог вставки"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1251
+msgid "Warn when attempting unsafe paste"
+msgstr "Попереджати про небезпечні вставлення"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1256
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+"Обрізати перший символ вставлення, якщо це коментар або оголошення змінної"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1261
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Автоматично копіювати текст у буфер, коли його вибираєте"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr ""
+
+#: source/gx/terminix/closedialog.d:113 source/gx/terminix/terminal/layout.d:51
+#: source/gx/terminix/constants.d:116
+msgid "Title"
+msgstr "Заголовок"
+
+#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
+msgid "Do not show this again"
+msgstr "Більше не показувати це повідомлення"
+
+#: source/gx/terminix/closedialog.d:160
+#, c-format
+msgid "Window (%s)"
+msgstr "Вікно (%s)"
+
+#: source/gx/terminix/closedialog.d:163
+#, c-format
+msgid "Session (%s)"
+msgstr "Сеанс (%s)"
+
+#: source/gx/terminix/closedialog.d:183
+msgid "Close Application"
+msgstr "Вийти з програми"
+
+#: source/gx/terminix/closedialog.d:186
+msgid "Close Window"
+msgstr "Закрити вікно"
+
+#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
+msgid "Close Session"
+msgstr "Вийти з сесії"
+
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "OK"
+msgstr "Гаразд"
+
+#: source/gx/terminix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Ця команда прохає адміністраторські права до вашого комп'ютера"
+
+#: source/gx/terminix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Копіювання команд з інтернету можуть бути небезпечним. "
+
+#: source/gx/terminix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Переконайтесь, що кожна частина цієї команди робить."
+
+#: source/gx/terminix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Перетворення"
+
+#: source/gx/terminix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Перетворення пробілів в таби"
+
+#: source/gx/terminix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "Перетворення CRLF і CR в LF"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Розширена вставка"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/terminal.d:1440
+#: source/gx/terminix/terminal/terminal.d:1451
+msgid "Paste"
+msgstr "Вставити"
+
+#: source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1428
+#: source/gx/terminix/bookmark/bmeditor.d:228
+#: source/gx/terminix/bookmark/bmtreeview.d:74
+msgid "Name"
+msgstr "Назва"
+
+#: source/gx/terminix/terminal/password.d:136
+#: source/gx/terminix/constants.d:118
+msgid "ID"
+msgstr "Ідентифікатор"
+
+#: source/gx/terminix/terminal/password.d:157
+msgid "New"
+msgstr "Додати"
+
+#: source/gx/terminix/terminal/password.d:231
+msgid "Include return character with password"
+msgstr "Враховувати повернення символу з паролем"
+
+#: source/gx/terminix/terminal/password.d:367
+msgid "Insert Password"
+msgstr "Вставити пароль"
+
+#: source/gx/terminix/terminal/password.d:433
+msgid "Password"
+msgstr "Пароль"
+
+#: source/gx/terminix/terminal/password.d:441
+msgid "Confirm Password"
+msgstr "Підтвердити пароль"
+
+#: source/gx/terminix/terminal/password.d:487
+msgid "Add Password"
+msgstr "Додати пароль"
+
+#: source/gx/terminix/terminal/password.d:492
+msgid "Edit Password"
+msgstr "Редагувати пароль"
+
+#: source/gx/terminix/terminal/search.d:122
+msgid "Search Options"
+msgstr "Параметри пошуку"
+
+#: source/gx/terminix/terminal/search.d:135
+msgid "Find next"
+msgstr "Знайти наступне"
+
+#: source/gx/terminix/terminal/search.d:141
+msgid "Find previous"
+msgstr "Знайти попереднє"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match case"
+msgstr "Враховувати регістр"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match entire word only"
+msgstr "Враховувати тільки цілі слова"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Match as regular expression"
+msgstr "Враховувати як формальний вираз"
+
+#: source/gx/terminix/terminal/search.d:191
+msgid "Wrap around"
+msgstr "Обгорнути довкола"
+
+#: source/gx/terminix/terminal/terminal.d:346
+#: source/gx/terminix/terminal/terminal.d:1469 source/gx/terminix/sidebar.d:362
+#: source/gx/terminix/appwindow.d:644
+msgid "Close"
+msgstr "Закрити"
+
+#: source/gx/terminix/terminal/terminal.d:354
+#: source/gx/terminix/terminal/terminal.d:1092
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Maximize"
+msgstr "Розгорнути"
+
+#: source/gx/terminix/terminal/terminal.d:364
+#: source/gx/terminix/terminal/terminal.d:604
+msgid "Disable input synchronization for this terminal"
+msgstr "Вимкнути синхронізування вводу для цього терміналу"
+
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:710
+msgid "Read-Only"
+msgstr "Тільки для читання"
+
+#: source/gx/terminix/terminal/terminal.d:424
+msgid "Edit Profile"
+msgstr "Редагувати профіль"
+
+#: source/gx/terminix/terminal/terminal.d:442
+#, fuzzy
+msgid "Edit Encodings"
+msgstr "Кодування"
+
+#: source/gx/terminix/terminal/terminal.d:606
+msgid "Enable input synchronization for this terminal"
+msgstr "Увімкнути синхронізування вводу для цього терміналу"
+
+#: source/gx/terminix/terminal/terminal.d:635
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Бібліотеку %s неможливо завантажити, можливість введення паролю недоступна."
+
+#: source/gx/terminix/terminal/terminal.d:635
+msgid "Library Not Loaded"
+msgstr "Бібліотеку не завантажено"
+
+#: source/gx/terminix/terminal/terminal.d:709
+msgid "Find…"
+msgstr "Знайти…"
+
+#: source/gx/terminix/terminal/terminal.d:714
+#, fuzzy
+msgid "Password..."
+msgstr "Пароль"
+
+#: source/gx/terminix/terminal/terminal.d:715
+#, fuzzy
+msgid "Bookmark..."
+msgstr "Вибрати колір значка"
+
+#: source/gx/terminix/terminal/terminal.d:716
+msgid "Add Bookmark..."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:726
+msgid "Save Output…"
+msgstr "Зберегти вивід…"
+
+#: source/gx/terminix/terminal/terminal.d:728
+msgid "Reset and Clear"
+msgstr "Скинути і очистити"
+
+#: source/gx/terminix/terminal/terminal.d:733
+msgid "Layout Options…"
+msgstr "Параметри компонування…"
+
+#: source/gx/terminix/terminal/terminal.d:736
+#, fuzzy
+msgid "Other"
+msgstr "Інше"
+
+#: source/gx/terminix/terminal/terminal.d:745
+msgid "Add Right"
+msgstr "Додати праворуч"
+
+#: source/gx/terminix/terminal/terminal.d:749
+msgid "Add Down"
+msgstr "Додати додолу"
+
+#: source/gx/terminix/terminal/terminal.d:1089
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Restore"
+msgstr "Відновити"
+
+#: source/gx/terminix/terminal/terminal.d:1428
+msgid "Open Link"
+msgstr "Відкрити посилання"
+
+#: source/gx/terminix/terminal/terminal.d:1429
+msgid "Copy Link Address"
+msgstr "Скопіювати адресу посилання"
+
+#: source/gx/terminix/terminal/terminal.d:1439
+#: source/gx/terminix/terminal/terminal.d:1446
+msgid "Copy"
+msgstr "Скопіювати"
+
+#: source/gx/terminix/terminal/terminal.d:1441
+#: source/gx/terminix/terminal/terminal.d:1456
+msgid "Select All"
+msgstr "Вибрати все"
+
+#: source/gx/terminix/terminal/terminal.d:1473
+msgid "Synchronize input"
+msgstr "Синхронізувати введення"
+
+#: source/gx/terminix/terminal/terminal.d:1967
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:2105
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Трапилася неочікувана помилка, додаткових відомостей немає"
+
+#: source/gx/terminix/terminal/terminal.d:2111
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Трапилась неочікувана помилка: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2715
+msgid "Save Terminal Output"
+msgstr "Зберегти вивід терміналу"
+
+#: source/gx/terminix/terminal/terminal.d:2724
+msgid "All Text Files"
+msgstr "Всі текстові файли"
+
+#: source/gx/terminix/terminal/terminal.d:3228
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Підпроцес вийшов нормально зі станом %d"
+
+#: source/gx/terminix/terminal/terminal.d:3229
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Підпроцес завершено сигналом %d."
+
+#: source/gx/terminix/terminal/terminal.d:3230
+msgid "The child process was aborted."
+msgstr "Підпроцес завершено."
+
+#: source/gx/terminix/terminal/terminal.d:3236
+msgid "Relaunch"
+msgstr "Перезапустити"
+
+#: source/gx/terminix/terminal/terminal.d:3281
+msgid "Don't Paste"
+msgstr "Не вставляти"
+
+#: source/gx/terminix/terminal/terminal.d:3282
+msgid "Paste Anyway"
+msgstr "Однаково вставити"
+
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "Параметри компонування"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "Чинний"
+
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "Завантаження сеансу"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Чинні параметри завжди діють і негайно застосовуються.\n"
+"Параметри завантаження сеансу застосовуються тільки, коли завантажується "
+"файл сеансу."
+
+#: source/gx/terminix/appwindow.d:320
+msgid "View session sidebar"
+msgstr "Переглянути бокову панель сеансів"
+
+#: source/gx/terminix/appwindow.d:345
+msgid "Create a new session"
+msgstr "Створити новий сеанс"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Add terminal right"
+msgstr "Додати термінал праворуч"
+
+#: source/gx/terminix/appwindow.d:367
+msgid "Add terminal down"
+msgstr "Додати термінал додолу"
+
+#: source/gx/terminix/appwindow.d:373
+msgid "Find text in terminal"
+msgstr "Знайти текст у терміналі"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Change Session Name"
+msgstr "Змінити назву сеансу"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Enter a new name for the session"
+msgstr "Ввести нову назву для сеансу"
+
+#: source/gx/terminix/appwindow.d:641
+msgid "Open…"
+msgstr "Відкрити…"
+
+#: source/gx/terminix/appwindow.d:643
+msgid "Save As…"
+msgstr "Зберегти як…"
+
+#: source/gx/terminix/appwindow.d:648
+msgid "Name…"
+msgstr "Назва…"
+
+#: source/gx/terminix/appwindow.d:649
+msgid "Synchronize Input"
+msgstr "Синхронізувати введення"
+
+#: source/gx/terminix/appwindow.d:660
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:977
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Відкрито декілька сесій. Все одно закрити?"
+
+#: source/gx/terminix/appwindow.d:1245
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Файл з назвою «%s» не існує"
+
+#: source/gx/terminix/appwindow.d:1275
+msgid "Load Session"
+msgstr "Завантажити сеанс"
+
+#: source/gx/terminix/appwindow.d:1278
+msgid "Open"
+msgstr "Відкрити"
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Could not load session due to unexpected error."
 msgstr "Неможливо завантажити сеанс через неочікувану помилку."
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Folder"
+#: source/gx/terminix/appwindow.d:1293
+msgid "Error Loading Session"
+msgstr "Помилка завантаження сеансу"
+
+#: source/gx/terminix/appwindow.d:1309
+msgid "Save Session"
+msgstr "Зберегти сеанс"
+
+#: source/gx/terminix/appwindow.d:1392 source/gx/terminix/application.d:321
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/application.d:228
+msgid "About"
+msgstr "Про програму"
+
+#: source/gx/terminix/application.d:229
+msgid "Quit"
+msgstr "Вийти"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/terminix/application.d:275
+msgid "translator-credits"
+msgstr ""
+"Danylo Korostil\n"
+"Мирослав Білоус"
+
+#: source/gx/terminix/application.d:284
+msgid "Credits"
+msgstr "Подяки"
+
+#: source/gx/terminix/application.d:623
+msgid "Set the working directory of the terminal"
+msgstr "Вказати робочий каталог термінала"
+
+#: source/gx/terminix/application.d:623
+msgid "DIRECTORY"
+msgstr "КАТАЛОГ"
+
+#: source/gx/terminix/application.d:624
+msgid "Set the starting profile"
+msgstr "Вказати початковий профіль"
+
+#: source/gx/terminix/application.d:624
+msgid "PROFILE_NAME"
+msgstr "НАЗВА_ПРОФІЛЮ"
+
+#: source/gx/terminix/application.d:625
+msgid "Set the title of the new terminal"
+msgstr "Вказати заголовок нового термінала"
+
+#: source/gx/terminix/application.d:625
+msgid "TITLE"
+msgstr "ЗАГОЛОВОК"
+
+#: source/gx/terminix/application.d:626
+msgid "Open the specified session"
+msgstr "Відкрити певний сеанс"
+
+#: source/gx/terminix/application.d:626
+msgid "SESSION_NAME"
+msgstr "НАЗВА_СЕАНСУ"
+
+#: source/gx/terminix/application.d:627
+msgid "Send an action to current Terminix instance"
+msgstr "Надіслати дію до поточного зразку Terminix"
+
+#: source/gx/terminix/application.d:627
+msgid "ACTION_NAME"
+msgstr "НАЗВА_ДІЇ"
+
+#: source/gx/terminix/application.d:628
+msgid "Execute the parameter as a command"
+msgstr "Виконати параметр як команду"
+
+#: source/gx/terminix/application.d:628
+msgid "COMMAND"
+msgstr "КОМАНДА"
+
+#: source/gx/terminix/application.d:629
+msgid "Maximize the terminal window"
+msgstr "Розгорнути вікно термінала"
+
+#: source/gx/terminix/application.d:630
+msgid "Minimize the terminal window"
+msgstr "Згорнути вікно терміналу"
+
+#: source/gx/terminix/application.d:631
+msgid "Full-screen the terminal window"
+msgstr "Повноекранне вікно термінала"
+
+#: source/gx/terminix/application.d:632
+msgid "Focus the existing window"
+msgstr "Сфокусувати наявне вікно"
+
+#: source/gx/terminix/application.d:633
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Запускати додатковий зразок як новий процес (не бажано)"
+
+#: source/gx/terminix/application.d:634
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Вказати розмір вікна, наприклад: 80x24 або 80x24+200+200 (СТОВПЦІxРЯДКИ+X+Y)"
+
+#: source/gx/terminix/application.d:634
+msgid "GEOMETRY"
+msgstr "ГЕОМЕТРІЯ"
+
+#: source/gx/terminix/application.d:635
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Відкриває вікно в обвальному режимі або перемикає видимість поточного "
+"обвального режиму"
+
+#: source/gx/terminix/application.d:636
+msgid "Show the Terminix and dependant component versions"
+msgstr "Показати версії Terminix і компонентів"
+
+#: source/gx/terminix/application.d:637
+msgid "Show the Terminix preferences dialog directly"
 msgstr ""
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Remote"
+#: source/gx/terminix/application.d:640
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Прихований аргумент, який передається в UUID терміналу"
+
+#: source/gx/terminix/application.d:640
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/terminix/application.d:801
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
 msgstr ""
+"Схоже, це помилка в налаштуваннях терміналу.\n"
+"Це несерйозна помилка, однак її виправлення покращить роботу.\n"
+"Натисніть на посилання нижче для подробиць:"
+
+#: source/gx/terminix/application.d:802
+msgid "Configuration Issue Detected"
+msgstr "Виявлено проблему в налаштуваннях"
+
+#: source/gx/terminix/application.d:814
+msgid "Do not show this message again"
+msgstr "Більше не показувати це повідомлення"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Файл %s — не схема кольорів, яка сумісна з файлами JSON"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "Палітра схеми кольорів потребує 16 кольорів"
+
+#: source/gx/terminix/session.d:544
+msgid "Could not locate dropped terminal"
+msgstr "Неможливо знайти втрачений термінал"
+
+#: source/gx/terminix/session.d:549
+msgid "Could not locate session for dropped terminal"
+msgstr "Неможливо знайти сеанс втраченого термінала"
 
 #: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
@@ -221,80 +1581,46 @@ msgstr "GtkD за надання такої чудової обгортки на
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org за таку чудову мови, D"
 
-#: source/gx/terminix/constants.d:117 source/gx/terminix/terminal/layout.d:51
-#: source/gx/terminix/closedialog.d:113
-msgid "Title"
-msgstr "Заголовок"
-
-#: source/gx/terminix/constants.d:118
+#: source/gx/terminix/constants.d:117
 #, fuzzy
 msgid "Icon title"
 msgstr "Заголовок програми"
 
 #: source/gx/terminix/constants.d:119
-#: source/gx/terminix/terminal/password.d:136
-msgid "ID"
-msgstr "Ідентифікатор"
-
-#: source/gx/terminix/constants.d:120
 msgid "Directory"
 msgstr ""
 
-#: source/gx/terminix/constants.d:121
+#: source/gx/terminix/constants.d:120
 msgid "Hostname"
 msgstr ""
 
-#: source/gx/terminix/constants.d:122
+#: source/gx/terminix/constants.d:121
 msgid "Username"
 msgstr ""
 
-#: source/gx/terminix/constants.d:123
+#: source/gx/terminix/constants.d:122
 #, fuzzy
 msgid "Columns"
 msgstr "стовпці"
 
-#: source/gx/terminix/constants.d:124
+#: source/gx/terminix/constants.d:123
 msgid "Rows"
 msgstr ""
 
-#: source/gx/terminix/constants.d:139
+#: source/gx/terminix/constants.d:138
 #, fuzzy
 msgid "Application name"
 msgstr "Програма"
 
-#: source/gx/terminix/constants.d:140
+#: source/gx/terminix/constants.d:139
 #, fuzzy
 msgid "Session name"
 msgstr "Завантаження сеансу"
 
-#: source/gx/terminix/constants.d:141
+#: source/gx/terminix/constants.d:140
 #, fuzzy
 msgid "Session number"
 msgstr "Сеанс"
-
-#: source/gx/terminix/session.d:544
-msgid "Could not locate dropped terminal"
-msgstr "Неможливо знайти втрачений термінал"
-
-#: source/gx/terminix/session.d:549
-msgid "Could not locate session for dropped terminal"
-msgstr "Неможливо знайти сеанс втраченого термінала"
-
-#: source/gx/terminix/session.d:1120 source/gx/terminix/appwindow.d:880
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Default"
-msgstr "Типово"
-
-#: source/gx/terminix/session.d:1439
-#: source/gx/terminix/prefeditor/prefdialog.d:155
-msgid "Profile"
-msgstr "Профіль"
-
-#: source/gx/terminix/session.d:1462 source/gx/terminix/application.d:216
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
-msgid "New Session"
-msgstr "Створити сеанс"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -431,1410 +1757,6 @@ msgstr "В'єтнамське"
 msgid "Thai"
 msgstr "Тайське"
 
-#: source/gx/terminix/terminal/layout.d:30
-msgid "Layout Options"
-msgstr "Параметри компонування"
-
-#: source/gx/terminix/terminal/layout.d:45
-msgid "Active"
-msgstr "Чинний"
-
-#: source/gx/terminix/terminal/layout.d:60
-#: source/gx/terminix/prefeditor/profileeditor.d:313
-#: source/gx/terminix/prefeditor/profileeditor.d:605
-msgid "Badge"
-msgstr "Знак"
-
-#: source/gx/terminix/terminal/layout.d:69
-msgid "Session Load"
-msgstr "Завантаження сеансу"
-
-#: source/gx/terminix/terminal/layout.d:85
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Чинні параметри завжди діють і негайно застосовуються.\n"
-"Параметри завантаження сеансу застосовуються тільки, коли завантажується "
-"файл сеансу."
-
-#: source/gx/terminix/terminal/terminal.d:315
-#: source/gx/terminix/terminal/terminal.d:3056
-#: source/gx/terminix/prefeditor/titleeditor.d:90
-msgid "Terminal"
-msgstr "Термінал"
-
-#: source/gx/terminix/terminal/terminal.d:346
-#: source/gx/terminix/terminal/terminal.d:1461
-#: source/gx/terminix/appwindow.d:644 source/gx/terminix/sidebar.d:362
-msgid "Close"
-msgstr "Закрити"
-
-#: source/gx/terminix/terminal/terminal.d:354
-#: source/gx/terminix/terminal/terminal.d:1085
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Maximize"
-msgstr "Розгорнути"
-
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:604
-msgid "Disable input synchronization for this terminal"
-msgstr "Вимкнути синхронізування вводу для цього терміналу"
-
-#: source/gx/terminix/terminal/terminal.d:373
-#: source/gx/terminix/terminal/terminal.d:727
-msgid "Read-Only"
-msgstr "Тільки для читання"
-
-#: source/gx/terminix/terminal/terminal.d:379
-#: source/gx/terminix/prefeditor/profileeditor.d:292
-msgid "Terminal bell"
-msgstr "Гудки терміналу"
-
-#: source/gx/terminix/terminal/terminal.d:424
-msgid "Edit Profile"
-msgstr "Редагувати профіль"
-
-#: source/gx/terminix/terminal/terminal.d:442
-#, fuzzy
-msgid "Edit Encodings"
-msgstr "Кодування"
-
-#: source/gx/terminix/terminal/terminal.d:606
-msgid "Enable input synchronization for this terminal"
-msgstr "Увімкнути синхронізування вводу для цього терміналу"
-
-#: source/gx/terminix/terminal/terminal.d:635
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Бібліотеку %s неможливо завантажити, можливість введення паролю недоступна."
-
-#: source/gx/terminix/terminal/terminal.d:635
-msgid "Library Not Loaded"
-msgstr "Бібліотеку не завантажено"
-
-#: source/gx/terminix/terminal/terminal.d:709
-msgid "Save Output…"
-msgstr "Зберегти вивід…"
-
-#: source/gx/terminix/terminal/terminal.d:710
-#: source/gx/terminix/prefeditor/profileeditor.d:261
-msgid "Reset"
-msgstr "Скинути"
-
-#: source/gx/terminix/terminal/terminal.d:711
-msgid "Reset and Clear"
-msgstr "Скинути і очистити"
-
-#: source/gx/terminix/terminal/terminal.d:715
-#: source/gx/terminix/prefeditor/prefdialog.d:250
-msgid "Profiles"
-msgstr "Профілі"
-
-#: source/gx/terminix/terminal/terminal.d:716
-#: source/gx/terminix/prefeditor/prefdialog.d:149
-#: source/gx/terminix/prefeditor/prefdialog.d:150
-#: source/gx/terminix/prefeditor/prefdialog.d:402
-#: source/gx/terminix/prefeditor/prefdialog.d:610
-#: source/gx/terminix/prefeditor/profileeditor.d:981
-msgid "Encoding"
-msgstr "Кодування"
-
-#: source/gx/terminix/terminal/terminal.d:720
-msgid "Add Bookmark..."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:721
-#, fuzzy
-msgid "Select Bookmark..."
-msgstr "Вибрати колір значка"
-
-#: source/gx/terminix/terminal/terminal.d:722
-#: source/gx/terminix/prefeditor/prefdialog.d:141
-#: source/gx/terminix/prefeditor/prefdialog.d:142
-msgid "Bookmarks"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:725
-msgid "Find…"
-msgstr "Знайти…"
-
-#: source/gx/terminix/terminal/terminal.d:726
-msgid "Layout Options…"
-msgstr "Параметри компонування…"
-
-#: source/gx/terminix/terminal/terminal.d:737
-msgid "Add Right"
-msgstr "Додати праворуч"
-
-#: source/gx/terminix/terminal/terminal.d:741
-msgid "Add Down"
-msgstr "Додати додолу"
-
-#: source/gx/terminix/terminal/terminal.d:1082
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Restore"
-msgstr "Відновити"
-
-#: source/gx/terminix/terminal/terminal.d:1420
-msgid "Open Link"
-msgstr "Відкрити посилання"
-
-#: source/gx/terminix/terminal/terminal.d:1421
-msgid "Copy Link Address"
-msgstr "Скопіювати адресу посилання"
-
-#: source/gx/terminix/terminal/terminal.d:1431
-#: source/gx/terminix/terminal/terminal.d:1438
-msgid "Copy"
-msgstr "Скопіювати"
-
-#: source/gx/terminix/terminal/terminal.d:1432
-#: source/gx/terminix/terminal/terminal.d:1443
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Вставити"
-
-#: source/gx/terminix/terminal/terminal.d:1433
-#: source/gx/terminix/terminal/terminal.d:1448
-msgid "Select All"
-msgstr "Вибрати все"
-
-#: source/gx/terminix/terminal/terminal.d:1451
-#: source/gx/terminix/prefeditor/prefdialog.d:1210
-msgid "Clipboard"
-msgstr "Буфер"
-
-#: source/gx/terminix/terminal/terminal.d:1465
-msgid "Synchronize input"
-msgstr "Синхронізувати введення"
-
-#: source/gx/terminix/terminal/terminal.d:1945
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:2083
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Трапилася неочікувана помилка, додаткових відомостей немає"
-
-#: source/gx/terminix/terminal/terminal.d:2089
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Трапилась неочікувана помилка: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2693
-msgid "Save Terminal Output"
-msgstr "Зберегти вивід терміналу"
-
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-msgid "Save"
-msgstr "Зберегти"
-
-#: source/gx/terminix/terminal/terminal.d:2702
-msgid "All Text Files"
-msgstr "Всі текстові файли"
-
-#: source/gx/terminix/terminal/terminal.d:2706
-#: source/gx/terminix/appwindow.d:1232
-#: source/gx/terminix/prefeditor/prefdialog.d:923
-#: source/gx/terminix/prefeditor/profileeditor.d:861
-msgid "All Files"
-msgstr "Всі файли"
-
-#: source/gx/terminix/terminal/terminal.d:3206
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Підпроцес вийшов нормально зі станом %d"
-
-#: source/gx/terminix/terminal/terminal.d:3207
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Підпроцес завершено сигналом %d."
-
-#: source/gx/terminix/terminal/terminal.d:3208
-msgid "The child process was aborted."
-msgstr "Підпроцес завершено."
-
-#: source/gx/terminix/terminal/terminal.d:3214
-msgid "Relaunch"
-msgstr "Перезапустити"
-
-#: source/gx/terminix/terminal/terminal.d:3259
-msgid "Don't Paste"
-msgstr "Не вставляти"
-
-#: source/gx/terminix/terminal/terminal.d:3260
-msgid "Paste Anyway"
-msgstr "Однаково вставити"
-
-#: source/gx/terminix/terminal/search.d:122
-msgid "Search Options"
-msgstr "Параметри пошуку"
-
-#: source/gx/terminix/terminal/search.d:135
-msgid "Find next"
-msgstr "Знайти наступне"
-
-#: source/gx/terminix/terminal/search.d:141
-msgid "Find previous"
-msgstr "Знайти попереднє"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match case"
-msgstr "Враховувати регістр"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match entire word only"
-msgstr "Враховувати тільки цілі слова"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Match as regular expression"
-msgstr "Враховувати як формальний вираз"
-
-#: source/gx/terminix/terminal/search.d:191
-msgid "Wrap around"
-msgstr "Обгорнути довкола"
-
-#: source/gx/terminix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Ця команда прохає адміністраторські права до вашого комп'ютера"
-
-#: source/gx/terminix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Копіювання команд з інтернету можуть бути небезпечним. "
-
-#: source/gx/terminix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Переконайтесь, що кожна частина цієї команди робить."
-
-#: source/gx/terminix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Перетворення"
-
-#: source/gx/terminix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Перетворення пробілів в таби"
-
-#: source/gx/terminix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "Перетворення CRLF і CR в LF"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Розширена вставка"
-
-#: source/gx/terminix/terminal/password.d:157
-msgid "New"
-msgstr "Додати"
-
-#: source/gx/terminix/terminal/password.d:180
-#: source/gx/terminix/prefeditor/profileeditor.d:1089
-#: source/gx/terminix/prefeditor/profileeditor.d:1116
-#: source/gx/terminix/prefeditor/profileeditor.d:1183
-msgid "Edit"
-msgstr "Редагувати"
-
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/prefeditor/prefdialog.d:491
-#: source/gx/terminix/prefeditor/profileeditor.d:1202
-#: source/gx/terminix/prefeditor/profileeditor.d:1359
-#: source/gx/terminix/prefeditor/profileeditor.d:1512
-msgid "Delete"
-msgstr "Вилучити"
-
-#: source/gx/terminix/terminal/password.d:231
-msgid "Include return character with password"
-msgstr "Враховувати повернення символу з паролем"
-
-#: source/gx/terminix/terminal/password.d:367
-msgid "Insert Password"
-msgstr "Вставити пароль"
-
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Apply"
-msgstr "Застосувати"
-
-#: source/gx/terminix/terminal/password.d:433
-msgid "Password"
-msgstr "Пароль"
-
-#: source/gx/terminix/terminal/password.d:441
-msgid "Confirm Password"
-msgstr "Підтвердити пароль"
-
-#: source/gx/terminix/terminal/password.d:487
-msgid "Add Password"
-msgstr "Додати пароль"
-
-#: source/gx/terminix/terminal/password.d:492
-msgid "Edit Password"
-msgstr "Редагувати пароль"
-
-#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
-msgid "Do not show this again"
-msgstr "Більше не показувати це повідомлення"
-
-#: source/gx/terminix/closedialog.d:160
-#, c-format
-msgid "Window (%s)"
-msgstr "Вікно (%s)"
-
-#: source/gx/terminix/closedialog.d:163
-#, c-format
-msgid "Session (%s)"
-msgstr "Сеанс (%s)"
-
-#: source/gx/terminix/closedialog.d:183
-msgid "Close Application"
-msgstr "Вийти з програми"
-
-#: source/gx/terminix/closedialog.d:186
-msgid "Close Window"
-msgstr "Закрити вікно"
-
-#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
-msgid "Close Session"
-msgstr "Вийти з сесії"
-
-#: source/gx/terminix/application.d:217
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
-msgid "New Window"
-msgstr "Створити вікно"
-
-#: source/gx/terminix/application.d:221 source/gx/terminix/appwindow.d:654
-#: source/gx/terminix/prefeditor/prefdialog.d:230
-#: source/gx/terminix/prefeditor/prefdialog.d:353
-msgid "Preferences"
-msgstr "Параметри"
-
-#: source/gx/terminix/application.d:223
-#: source/gx/terminix/prefeditor/prefdialog.d:145
-#: source/gx/terminix/prefeditor/prefdialog.d:146
-msgid "Shortcuts"
-msgstr "Скорочення"
-
-#: source/gx/terminix/application.d:228
-msgid "About"
-msgstr "Про програму"
-
-#: source/gx/terminix/application.d:229
-msgid "Quit"
-msgstr "Вийти"
-
-#: source/gx/terminix/application.d:283
-msgid "Credits"
-msgstr "Подяки"
-
-#: source/gx/terminix/application.d:320 source/gx/terminix/appwindow.d:1388
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:622
-msgid "Set the working directory of the terminal"
-msgstr "Вказати робочий каталог термінала"
-
-#: source/gx/terminix/application.d:622
-msgid "DIRECTORY"
-msgstr "КАТАЛОГ"
-
-#: source/gx/terminix/application.d:623
-msgid "Set the starting profile"
-msgstr "Вказати початковий профіль"
-
-#: source/gx/terminix/application.d:623
-msgid "PROFILE_NAME"
-msgstr "НАЗВА_ПРОФІЛЮ"
-
-#: source/gx/terminix/application.d:624
-msgid "Set the title of the new terminal"
-msgstr "Вказати заголовок нового термінала"
-
-#: source/gx/terminix/application.d:624
-msgid "TITLE"
-msgstr "ЗАГОЛОВОК"
-
-#: source/gx/terminix/application.d:625
-msgid "Open the specified session"
-msgstr "Відкрити певний сеанс"
-
-#: source/gx/terminix/application.d:625
-msgid "SESSION_NAME"
-msgstr "НАЗВА_СЕАНСУ"
-
-#: source/gx/terminix/application.d:626
-msgid "Send an action to current Terminix instance"
-msgstr "Надіслати дію до поточного зразку Terminix"
-
-#: source/gx/terminix/application.d:626
-msgid "ACTION_NAME"
-msgstr "НАЗВА_ДІЇ"
-
-#: source/gx/terminix/application.d:627
-msgid "Execute the parameter as a command"
-msgstr "Виконати параметр як команду"
-
-#: source/gx/terminix/application.d:627
-msgid "COMMAND"
-msgstr "КОМАНДА"
-
-#: source/gx/terminix/application.d:628
-msgid "Maximize the terminal window"
-msgstr "Розгорнути вікно термінала"
-
-#: source/gx/terminix/application.d:629
-msgid "Minimize the terminal window"
-msgstr "Згорнути вікно терміналу"
-
-#: source/gx/terminix/application.d:630
-msgid "Full-screen the terminal window"
-msgstr "Повноекранне вікно термінала"
-
-#: source/gx/terminix/application.d:631
-msgid "Focus the existing window"
-msgstr "Сфокусувати наявне вікно"
-
-#: source/gx/terminix/application.d:632
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Запускати додатковий зразок як новий процес (не бажано)"
-
-#: source/gx/terminix/application.d:633
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Вказати розмір вікна, наприклад: 80x24 або 80x24+200+200 (СТОВПЦІxРЯДКИ+X+Y)"
-
-#: source/gx/terminix/application.d:633
-msgid "GEOMETRY"
-msgstr "ГЕОМЕТРІЯ"
-
-#: source/gx/terminix/application.d:634
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Відкриває вікно в обвальному режимі або перемикає видимість поточного "
-"обвального режиму"
-
-#: source/gx/terminix/application.d:635
-msgid "Show the Terminix and dependant component versions"
-msgstr "Показати версії Terminix і компонентів"
-
-#: source/gx/terminix/application.d:636
-msgid "Show the Terminix preferences dialog directly"
-msgstr ""
-
-#: source/gx/terminix/application.d:639
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Прихований аргумент, який передається в UUID терміналу"
-
-#: source/gx/terminix/application.d:639
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/terminix/application.d:800
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Схоже, це помилка в налаштуваннях терміналу.\n"
-"Це несерйозна помилка, однак її виправлення покращить роботу.\n"
-"Натисніть на посилання нижче для подробиць:"
-
-#: source/gx/terminix/application.d:801
-msgid "Configuration Issue Detected"
-msgstr "Виявлено проблему в налаштуваннях"
-
-#: source/gx/terminix/application.d:813
-msgid "Do not show this message again"
-msgstr "Більше не показувати це повідомлення"
-
-#: source/gx/terminix/appwindow.d:320
-msgid "View session sidebar"
-msgstr "Переглянути бокову панель сеансів"
-
-#: source/gx/terminix/appwindow.d:345
-msgid "Create a new session"
-msgstr "Створити новий сеанс"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Add terminal right"
-msgstr "Додати термінал праворуч"
-
-#: source/gx/terminix/appwindow.d:367
-msgid "Add terminal down"
-msgstr "Додати термінал додолу"
-
-#: source/gx/terminix/appwindow.d:373
-msgid "Find text in terminal"
-msgstr "Знайти текст у терміналі"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Change Session Name"
-msgstr "Змінити назву сеансу"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Enter a new name for the session"
-msgstr "Ввести нову назву для сеансу"
-
-#: source/gx/terminix/appwindow.d:641
-msgid "Open…"
-msgstr "Відкрити…"
-
-#: source/gx/terminix/appwindow.d:643
-msgid "Save As…"
-msgstr "Зберегти як…"
-
-#: source/gx/terminix/appwindow.d:648
-msgid "Name…"
-msgstr "Назва…"
-
-#: source/gx/terminix/appwindow.d:649
-msgid "Synchronize Input"
-msgstr "Синхронізувати введення"
-
-#: source/gx/terminix/appwindow.d:660
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:977
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Відкрито декілька сесій. Все одно закрити?"
-
-#: source/gx/terminix/appwindow.d:1228
-#: source/gx/terminix/prefeditor/profileeditor.d:857
-msgid "All JSON Files"
-msgstr "Усі файли JSON"
-
-#: source/gx/terminix/appwindow.d:1241
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Файл з назвою «%s» не існує"
-
-#: source/gx/terminix/appwindow.d:1271
-msgid "Load Session"
-msgstr "Завантажити сеанс"
-
-#: source/gx/terminix/appwindow.d:1274
-msgid "Open"
-msgstr "Відкрити"
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Could not load session due to unexpected error."
-msgstr "Неможливо завантажити сеанс через неочікувану помилку."
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Error Loading Session"
-msgstr "Помилка завантаження сеансу"
-
-#: source/gx/terminix/appwindow.d:1305
-msgid "Save Session"
-msgstr "Зберегти сеанс"
-
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Файл %s — не схема кольорів, яка сумісна з файлами JSON"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "Палітра схеми кольорів потребує 16 кольорів"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:112
-msgid "Terminix Preferences"
-msgstr "Параметри Terminix"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:129
-#: source/gx/terminix/prefeditor/prefdialog.d:130
-#: source/gx/terminix/prefeditor/prefdialog.d:198
-msgid "Global"
-msgstr "Загальне"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:133
-#: source/gx/terminix/prefeditor/prefdialog.d:134
-msgid "Appearance"
-msgstr "Вигляд"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:137
-#: source/gx/terminix/prefeditor/prefdialog.d:138
-msgid "Quake"
-msgstr "Обвал"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:168
-msgid "Add profile"
-msgstr "Додати профіль"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:173
-msgid "Delete profile"
-msgstr "Видалити профіль"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:274
-#: source/gx/terminix/prefeditor/prefdialog.d:282
-#, c-format
-msgid "Profile: %s"
-msgstr "Профілі: %s"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:492
-msgid "Clone"
-msgstr "Клонування"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:496
-msgid "Use for new terminals"
-msgstr "Використовувати для нових терміналів"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:572
-msgid "Encodings showing in menu:"
-msgstr "Кодування в меню:"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:608
-msgid "Enabled"
-msgstr "Увімкнено"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:669
-#: source/gx/terminix/prefeditor/profileeditor.d:1480
-msgid "Action"
-msgstr "Дія"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:698
-msgid "Shortcut Key"
-msgstr "Клавіша скорочення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:710
-msgid "Enable shortcuts"
-msgstr "Увімкнути скорочення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:738
-msgid "Overwrite Existing Shortcut"
-msgstr "Перезаписати наявні скорочення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:739
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"Скорочення  %s уже призначено на %s.\n"
-"Вимкнути скорочення для іншої дії і призначити сюди натомість?"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:871
-msgid "Enable transparency, requires re-start"
-msgstr "Увімкнути прозорість, вимагає перезапуск"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:882
-#, fuzzy
-msgid "Window style"
-msgstr "Вікно (%s)"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Normal"
-msgstr "Звичайний"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-#, fuzzy
-msgid "Disable CSD"
-msgstr "вимкнено"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Disable CSD, hide toolbar"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Borderless"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:888
-msgid "Window restart required"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:897
-msgid "Terminal title style"
-msgstr "Стиль заголовку термінала"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Small"
-msgstr "Малий"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "None"
-msgstr "Немає"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:904
-msgid "Theme variant"
-msgstr "Варіант теми"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Light"
-msgstr "Світлий"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Dark"
-msgstr "Темний"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:911
-msgid "Background image"
-msgstr "Зображення тла"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:913
-msgid "Select Image"
-msgstr "Вибрати зображення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:916
-msgid "All Image Files"
-msgstr "Усі файли зображення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:937
-msgid "Reset background image"
-msgstr "Скинути зображення тла"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Scale"
-msgstr "Шкала"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Tile"
-msgstr "Черепиця"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Center"
-msgstr "Центр"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Stretch"
-msgstr "Розтягнення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:962
-msgid "Default session name"
-msgstr "Стандартне ім'я сесії"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Application title"
-msgstr "Заголовок програми"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:986
-msgid "Use a wide handle for splitters"
-msgstr "Використовувати широкі відступи"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:991
-msgid "Place the sidebar on the right"
-msgstr "Розмістити бокову панель праворуч"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:995
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Показувати назву терміналу, навіть якщо це єдиний термінал"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1027
-msgid "Size"
-msgstr "Розмір"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1038
-msgid "Height percent"
-msgstr "Висота у відсотках"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1049
-msgid "Width percent"
-msgstr "Ширина у відсотках"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1059
-msgid "Alignment"
-msgstr "Вирівнювання"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Left"
-msgstr "Ліворуч"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Right"
-msgstr "Праворуч"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1069
-#: source/gx/terminix/prefeditor/profileeditor.d:470
-msgid "Options"
-msgstr "Параметри"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1077
-msgid "Show terminal on all workspaces"
-msgstr "Показувати термінал на всіх робочих просторах"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1082
-msgid "Set hint for window manager to disable animation"
-msgstr "Встановити властивість вікон для відключення анімації"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1087
-msgid "Hide window when focus is lost"
-msgstr "Ховати вікно, коли фокус втрачено"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1092
-msgid "Hide the titlebar of the window"
-msgstr "Приховати заголовок вікна"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1107
-msgid "Display terminal on active monitor"
-msgstr "Показувати термінал на основному екрані"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1114
-msgid "Display on specific monitor"
-msgstr "Показувати на певному екрані"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1156
-msgid "Behavior"
-msgstr "Поведінка"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1162
-msgid "Prompt when creating a new session"
-msgstr "Запитувати, якщо створюється новий сеанс"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1167
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Фокусуватись на терміналі, коли мишка над ним"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1172
-msgid "Autohide the mouse pointer when typing"
-msgstr "Автоматично ховати вказівник миші, коли щось вводите"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1177
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Закрити термінал натиском на середню кнопку миші на заголовку"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1182
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Зум терміналу використовуючи <Ctrl> і колесо мишки"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1187
-msgid "Close window when last session is closed"
-msgstr "Закрити вікно, коли останній сеанс закрито"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1193
-msgid "Send desktop notification on process complete"
-msgstr "Надсилати сповіщення, коли дія закінчиться"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1201
-msgid "On new instance"
-msgstr "Відкривати новий термінал"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Right"
-msgstr "Розділити праворуч"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Down"
-msgstr "Розділити додолу"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Focus Window"
-msgstr "Сфокусувати вікно"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1216
-msgid "Always use advanced paste dialog"
-msgstr "Завжди використовувати розширений діалог вставки"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1221
-msgid "Warn when attempting unsafe paste"
-msgstr "Попереджати про небезпечні вставлення"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1226
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-"Обрізати перший символ вставлення, якщо це коментар або оголошення змінної"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1231
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Автоматично копіювати текст у буфер, коли його вибираєте"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:99
-msgid "General"
-msgstr "Загальне"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:101
-msgid "Color"
-msgstr "Колір"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:102
-msgid "Scrolling"
-msgstr "Прокручування"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:103
-msgid "Compatibility"
-msgstr "Сумісність"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:104
-#: source/gx/terminix/prefeditor/profileeditor.d:489
-msgid "Advanced"
-msgstr "Додатково"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:216
-msgid "Profile name"
-msgstr "Назва профілю"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:240
-msgid "Terminal size"
-msgstr "Розмір терміналу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:250
-msgid "columns"
-msgstr "стовпці"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:256
-msgid "rows"
-msgstr "рядки"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:272
-#: source/gx/terminix/prefeditor/profileeditor.d:569
-msgid "Cursor"
-msgstr "Курсор"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Block"
-msgstr "Блок"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "IBeam"
-msgstr "IBeam"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Underline"
-msgstr "Підкреслення"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:283
-msgid "Blink mode"
-msgstr "Режим блимання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "System"
-msgstr "Система"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "On"
-msgstr "Увімкнено"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "Off"
-msgstr "Вимкнено"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Sound"
-msgstr "Звук"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Icon and Sound"
-msgstr "Піктограма та звук"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:301
-msgid "Terminal title"
-msgstr "Заголовок терміналу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:323
-msgid "Badge position"
-msgstr "Позиція знака"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northwest"
-msgstr "Північний захід"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northeast"
-msgstr "Північний схід"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southwest"
-msgstr "Південний захід"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southeast"
-msgstr "Південний схід"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:338
-msgid "Text Appearance"
-msgstr "Вигляд тексту"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:344
-msgid "Allow bold text"
-msgstr "Дозволити жирний текст"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:349
-msgid "Rewrap on resize"
-msgstr "Підлаштовувати під розмір"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:355
-msgid "Custom font"
-msgstr "Інший шрифт"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:361
-msgid "Choose A Terminal Font"
-msgstr "Виберіть шрифт терміналу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:381
-#, c-format
-msgid "ID: %s"
-msgstr "Ідентифікатор: %s"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:427
-msgid "Color scheme"
-msgstr "Схема кольорів"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:437
-#: source/gx/terminix/prefeditor/profileeditor.d:884
-msgid "Custom"
-msgstr "Інша"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:450
-msgid "Export"
-msgstr "Експорт"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:462
-msgid "Color palette"
-msgstr "Палітра кольорів"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:484
-msgid "Use theme colors for foreground/background"
-msgstr "Використовувати кольори для тексту й тла"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:502
-msgid "Transparency"
-msgstr "Прозорість"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:516
-msgid "Unfocused dim"
-msgstr "Несфокусоване затемнювання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:564
-msgid "Text"
-msgstr "Текст"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:565
-#: source/gx/terminix/prefeditor/profileeditor.d:669
-msgid "Background"
-msgstr "Тло"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:576
-msgid "Select Cursor Foreground Color"
-msgstr "Вибрати колір тексту курсора"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:578
-msgid "Select Cursor Background Color"
-msgstr "Вибрати колір тла курсора"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:583
-msgid "Highlight"
-msgstr "Підсвічування"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:588
-msgid "Select Highlight Foreground Color"
-msgstr "Вибрати колір підсвічування тексту"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:590
-msgid "Select Highlight Background Color"
-msgstr "Вибрати колір підсвічування тла"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:595
-msgid "Dim"
-msgstr "Затемнювання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:600
-msgid "Select Dim Color"
-msgstr "Вибрати колір затемнювання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:609
-msgid "Select Badge Color"
-msgstr "Вибрати колір значка"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:658
-msgid "Select Background Color"
-msgstr "Вибрати колір тла"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:674
-#: source/gx/terminix/prefeditor/profileeditor.d:690
-msgid "Select Foreground Color"
-msgstr "Вибрати колір тексту"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:689
-msgid "Foreground"
-msgstr "Текст"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Black"
-msgstr "Чорний"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Red"
-msgstr "Червоний"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Green"
-msgstr "Зелений"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Orange"
-msgstr "Оранжевий"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Blue"
-msgstr "Синій"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Purple"
-msgstr "Фіолетовий"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Turquoise"
-msgstr "Бірюзовий"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Grey"
-msgstr "Сірий"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:699
-#, c-format
-msgid "Select %s Color"
-msgstr "Вибрати %s колір"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:706
-#, c-format
-msgid "Select %s Light Color"
-msgstr "Вибрати світлий %s колір"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:841
-msgid "Export Color Scheme"
-msgstr "Експорт кольорової схеми"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:916
-msgid "Show scrollbar"
-msgstr "Показувати прокручування"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:920
-msgid "Scroll on output"
-msgstr "Прокручувати при виведенні"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:924
-msgid "Scroll on keystroke"
-msgstr "Прокручувати клавішами"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:928
-msgid "Limit scrollback to:"
-msgstr "Обмежено прокручування до:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:963
-msgid "Backspace key generates"
-msgstr "Клавіша «Backspace» породжує"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Automatic"
-msgstr "Автоматично"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Escape sequence"
-msgstr "Керівні послідовності"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:972
-msgid "Delete key generates"
-msgstr "Клавіша «Delete» породжує"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:996
-msgid "Ambiguous-width characters"
-msgstr "Неоднозначної ширини символи"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Narrow"
-msgstr "Вузькі"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Wide"
-msgstr "Широкі"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1020
-msgid "Run command as a login shell"
-msgstr "Запустити команду як оболонку входу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1024
-msgid "Run a custom command instead of my shell"
-msgstr "Запустити іншу команду замість моєї оболонки"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1040
-msgid "When command exits"
-msgstr "Коли виходите з команди"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Exit the terminal"
-msgstr "Вийти з терміналу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Restart the command"
-msgstr "Перезапустити команду"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Hold the terminal open"
-msgstr "Утримувати термінал відкритим"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1081
-msgid "Custom Links"
-msgstr "Власні посилання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1086
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"перелік користувацьких посилань, на які можна натиснути в терміналі на "
-"основі означень формальних виразів."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1107
-msgid "Triggers"
-msgstr "Перемикачі"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1113
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"Перемикачі — формальні вирази, які перевіряють текст виводу в терміналі. "
-"Коли виникає збіг, виконується певна налаштована дії."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1133
-msgid "Automatic Profile Switching"
-msgstr "Автоматичне перемикання профілів"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1141
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"Профілі автоматично вибирають на основі значення введених тут.\n"
-"Значення введено через формат <i>користувач@вузол:каталог</i>. Або вузол, "
-"або каталог можуть бути порожні, але стовпці мають бути. Записи без вузла і "
-"каталогу — заборонені."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1143
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"Профілі автоматично вибирають на основі значення введених тут.\n"
-"Значення введено через формат <i>вузол:каталог</i>. Або вузол, або каталог "
-"можуть бути порожні, але стовпці мають бути. Записи без вузла і каталогу — "
-"заборонені."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1154
-msgid "Match"
-msgstr "Збіги"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1165
-#: source/gx/terminix/prefeditor/profileeditor.d:1353
-#: source/gx/terminix/prefeditor/profileeditor.d:1506
-msgid "Add"
-msgstr "Додати"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1169
-msgid "Enter username@hostname:directory to match"
-msgstr "Ввести користувач@вузол:каталог для збігу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1171
-msgid "Enter hostname:directory to match"
-msgstr "Введіть вузол:каталог для збігу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1173
-msgid "Add New Match"
-msgstr "Додати новий збіг"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1190
-msgid "Edit username@hostname:directory to match"
-msgstr "Редагувати користувач@вузол:каталог для збігу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1192
-msgid "Edit hostname:directory to match"
-msgstr "Редагувати вузол:каталог для збігу"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1194
-msgid "Edit Match"
-msgstr "Редагувати збіг"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1316
-#: source/gx/terminix/prefeditor/profileeditor.d:1454
-msgid "Regex"
-msgstr "Формальний вираз"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1340
-msgid "Case Insensitive"
-msgstr "Без урахування регістру"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-msgid "Edit Custom Links"
-msgstr "Редагувати власні посилання"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1492
-msgid "Parameter"
-msgstr "Параметр"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1528
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Обмежити кількість рядків для обробки запуску до:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Edit Triggers"
-msgstr "Редагувати перемикачі"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1597
-#, c-format
-msgid "Row %d: "
-msgstr ""
-
-#: source/gx/terminix/prefeditor/titleeditor.d:108
-#, fuzzy
-msgid "Window"
-msgstr "Вікно"
-
-#: source/gx/terminix/prefeditor/titleeditor.d:118
-#: source/gx/terminix/prefeditor/titleeditor.d:119
-msgid "Help"
-msgstr ""
-
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
@@ -1870,42 +1792,136 @@ msgstr ""
 "Неможливо використовувати випадаючий режим з параметрами: розгорнути, "
 "згорнути, на весь екран чи геометрія"
 
-#: source/gx/terminix/preferences.d:212
-msgid "UpdateState"
-msgstr "Оновити стан"
+#: source/gx/terminix/bookmark/manager.d:223
+msgid "Error deserializing bookmark"
+msgstr ""
 
-#: source/gx/terminix/preferences.d:213
-msgid "ExecuteCommand"
-msgstr "Виконати команду"
+#: source/gx/terminix/bookmark/manager.d:512
+msgid "Root"
+msgstr ""
 
-#: source/gx/terminix/preferences.d:214
-msgid "SendNotification"
+#: source/gx/terminix/bookmark/manager.d:586
+#, fuzzy
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Неможливо завантажити сеанс через неочікувану помилку."
+
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Folder"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:289
+msgid "Path"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Remote"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:68
+#: source/gx/terminix/bookmark/bmchooser.d:104
+#, fuzzy
+msgid "Select Folder"
+msgstr "Вибрати %s колір"
+
+#: source/gx/terminix/bookmark/bmeditor.d:74
+#, fuzzy
+msgid "Select folder"
+msgstr "Вибрати %s колір"
+
+#: source/gx/terminix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Add Bookmark"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Edit Bookmark"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:291
+#, fuzzy
+msgid "Select Path"
+msgstr "Вибрати все"
+
+#: source/gx/terminix/bookmark/bmeditor.d:379
+msgid "Protocol"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:395
+msgid "Host"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:411
+msgid "User"
+msgstr ""
+
+#: source/gx/terminix/bookmark/bmeditor.d:418
+#, fuzzy
+msgid "Parameters"
+msgstr "Параметр"
+
+#: source/gx/terminix/bookmark/bmchooser.d:104
+#, fuzzy
+msgid "Select Bookmark"
+msgstr "Вибрати колір значка"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "вимкнено"
+
+#: source/app.d:110
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Версія GTK — застара, потрібно щонайменше GTK %d.%d.%d!"
+
+#: source/app.d:127
+msgid "Unexpected exception occurred"
+msgstr "Трапився неочікувана виняток"
+
+#: source/app.d:128
+msgid "Error: "
+msgstr "Помилка: "
+
+#: source/app.d:138
+#, fuzzy
+msgid "Versions"
+msgstr "Перське"
+
+#: source/app.d:139
+#, fuzzy, c-format
+msgid "Terminix version: %s"
+msgstr "Відкрити Terminix в %s"
+
+#: source/app.d:140
+#, fuzzy, c-format
+msgid "VTE version: %s"
+msgstr "Відкрити Terminix в %s"
+
+#: source/app.d:141
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr ""
+
+#: source/app.d:142
+#, fuzzy
+msgid "Terminix Special Features"
+msgstr "Параметри Terminix"
+
+#: source/app.d:143
+#, fuzzy
+msgid "Notifications enabled=%b"
 msgstr "Надіслати сповіщення"
 
-#: source/gx/terminix/preferences.d:215
-msgid "UpdateTitle"
-msgstr "Оновити заголовок"
+#: source/app.d:144
+msgid "Triggers enabled=%b"
+msgstr ""
 
-#: source/gx/terminix/preferences.d:216
-msgid "PlayBell"
-msgstr "Дати гудок"
-
-#: source/gx/terminix/preferences.d:217
-msgid "SendText"
-msgstr "Надіслати повідомлення"
-
-#: source/gx/terminix/preferences.d:218
-msgid "InsertPassword"
-msgstr "Вставити пароль"
-
-#: source/gx/terminix/preferences.d:219
-msgid "UpdateBadge"
-msgstr "Оновити значок"
-
-#: source/gx/terminix/preferences.d:326
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (Копіювати)"
+#: source/app.d:145
+msgid "Badges enabled=%b"
+msgstr ""
 
 #: data/nautilus/open-terminix.py:108
 #, fuzzy
