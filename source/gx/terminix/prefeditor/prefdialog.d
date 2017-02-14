@@ -50,6 +50,7 @@ import gtk.ListStore;
 import gtk.MenuButton;
 import gtk.MessageDialog;
 import gtk.Popover;
+import gtk.Revealer;
 import gtk.Scale;
 import gtk.ScrolledWindow;
 import gtk.SearchEntry;
@@ -59,6 +60,7 @@ import gtk.SizeGroup;
 import gtk.SpinButton;
 import gtk.Stack;
 import gtk.Switch;
+import gtk.ToggleButton;
 import gtk.TreeIter;
 import gtk.TreeModel;
 import gtk.TreeModelFilter;
@@ -97,6 +99,7 @@ import gx.terminix.prefeditor.bookmarkeditor;
 class PreferenceDialog : ApplicationWindow {
 
 private:
+    ToggleButton searchButton;
     Stack pages;
     GSettings gsSettings;
     HeaderBar hbMain;
@@ -147,6 +150,9 @@ private:
         lbSide.add(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
+        searchButton.addOnToggled(delegate(ToggleButton button) {
+            sp.toggleShortcutsFind();
+        });
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
         lbSide.add(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
 
@@ -227,6 +233,12 @@ private:
         hbMain = new HeaderBar();
         hbMain.setHexpand(true);
         hbMain.setTitle("");
+
+        searchButton = new ToggleButton();
+        searchButton.setImage(new Image("system-search-symbolic", IconSize.MENU));
+        searchButton.setVisible(false);
+        hbMain.packEnd(searchButton);
+
         hbMain.setShowCloseButton(true);
 
         hbSide = new HeaderBar();
@@ -268,6 +280,11 @@ private:
         scope(exit) {updateUI();}
         GenericPreferenceRow gr = cast(GenericPreferenceRow) row;
         if (gr !is null) {
+            if (gr.name == N_("Shortcuts")) {
+                searchButton.setVisible(true);
+            } else {
+                searchButton.setVisible(false);
+            }
             pages.setVisibleChildName(gr.name);
             hbMain.setTitle(gr.title);
             return;
@@ -645,7 +662,8 @@ class ShortcutPreferences : Box {
 private:
     GSettings gsShortcuts;
     GSettings gsSettings;
-
+    SearchEntry se;
+    Revealer rFind;
     BindingHelper bh;
 
     TreeStore tsShortcuts;
@@ -654,7 +672,6 @@ private:
     string[string] labels;
     string[string] prefixes;
 
-    SearchEntry se;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -665,13 +682,15 @@ private:
         setMarginRight(18);
         setMarginTop(18);
         setMarginBottom(18);
-
+        rFind = new Revealer();
         se = new SearchEntry();
         se.addOnSearchChanged(delegate(SearchEntry) {
             filter.refilter();
             tvShortcuts.expandAll();
         });
-        add(se);
+        rFind.add(se);
+        rFind.setRevealChild(false);
+        add(rFind);
 
         //Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
         tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING]);
@@ -733,6 +752,16 @@ private:
         add(cbAccelerators);
 
         tvShortcuts.expandAll();
+    }
+
+    void toggleShortcutsFind(){
+        if (!rFind.getRevealChild()) {
+            rFind.setRevealChild(true);
+            se.grabFocus();
+        } else {
+            rFind.setRevealChild(false);
+            se.setText("");
+        }
     }
 
     /**
