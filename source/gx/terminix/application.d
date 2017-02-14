@@ -271,7 +271,8 @@ private:
             setAuthors(APPLICATION_AUTHORS.dup);
             setArtists(APPLICATION_ARTISTS.dup);
             setDocumenters(APPLICATION_DOCUMENTERS.dup);
-            setTranslatorCredits(APPLICATION_TRANSLATORS);
+            // TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+            setTranslatorCredits(_("translator-credits"));
             setLicense(_(APPLICATION_LICENSE));
             setLogoIconName(APPLICATION_ICON_NAME);
 
