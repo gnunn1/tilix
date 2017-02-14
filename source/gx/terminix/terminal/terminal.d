@@ -1647,7 +1647,7 @@ private:
     /**
      * Handler ID for scroll-event
      */
-    ulong scrollEventHandlerId;
+    size_t scrollEventHandlerId;
 
     void initColors() {
         vteFG = new RGBA();
