@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-05 18:40-0500\n"
+"POT-Creation-Date: 2017-02-14 10:42+0100\n"
 "PO-Revision-Date: 2017-02-06 11:05+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch "
-"<https://hosted.weblate.org/projects/terminix/translations/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/terminix/"
+"translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,177 +18,1549 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11\n"
 
-#: source/app.d:110
+#: source/gx/terminix/preferences.d:212
+msgid "UpdateState"
+msgstr "StatusBijwerken"
+
+#: source/gx/terminix/preferences.d:213
+msgid "ExecuteCommand"
+msgstr "CommandoUitvoeren"
+
+#: source/gx/terminix/preferences.d:214
+msgid "SendNotification"
+msgstr "MeldingVersturen"
+
+#: source/gx/terminix/preferences.d:215
+msgid "UpdateTitle"
+msgstr "TitelBijwerken"
+
+#: source/gx/terminix/preferences.d:216
+msgid "PlayBell"
+msgstr "BelAfspelen"
+
+#: source/gx/terminix/preferences.d:217
+msgid "SendText"
+msgstr "TekstVersturen"
+
+#: source/gx/terminix/preferences.d:218
+msgid "InsertPassword"
+msgstr "WachtwoordInvoeren"
+
+#: source/gx/terminix/preferences.d:219
+msgid "UpdateBadge"
+msgstr "Badge bijwerken"
+
+#: source/gx/terminix/preferences.d:326
 #, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"Uw GTK-versie is verouderd; u moet op zijn minst beschikken over versie %d."
-"%d.%d!"
+msgid "%s (Copy)"
+msgstr "%s (Kopiëren)"
 
-#: source/app.d:127
-msgid "Unexpected exception occurred"
-msgstr "Er is een onverwachte fout opgetreden"
+#: source/gx/terminix/prefeditor/profileeditor.d:99
+msgid "General"
+msgstr "Algemeen"
 
-#: source/app.d:128
-msgid "Error: "
-msgstr "Fout: "
-
-#: source/app.d:138
-msgid "Versions"
-msgstr "Versies"
-
-#: source/app.d:139
-#, c-format
-msgid "Terminix version: %s"
-msgstr "Terminix-versie: %s"
-
-#: source/app.d:140
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE-versie: %s"
-
-#: source/app.d:141
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK-versie: %d.%d.%d"
-
-#: source/app.d:142
-msgid "Terminix Special Features"
-msgstr "Terminix Speciale Mogelijkheden"
-
-#: source/app.d:143
-msgid "Notifications enabled=%b"
-msgstr "Meldingen ingeschakeld=%b"
-
-#: source/app.d:144
-msgid "Triggers enabled=%b"
-msgstr "Triggers ingeschakeld=%b"
-
-#: source/app.d:145
-msgid "Badges enabled=%b"
-msgstr "Badges ingeschakeld=%b"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "uitgeschakeld"
-
-#: source/gx/terminix/bookmark/bmeditor.d:68
-#: source/gx/terminix/bookmark/bmchooser.d:104
-msgid "Select Folder"
-msgstr "Selecteer map"
-
-#: source/gx/terminix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Selecteer map"
-
-#: source/gx/terminix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Map legen"
-
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Add Bookmark"
-msgstr "Bladwijzer toevoegen"
-
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Edit Bookmark"
-msgstr "Bladwijzer bewerken"
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195
-msgid "OK"
-msgstr "Oké"
-
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-#: source/gx/terminix/terminal/layout.d:30
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/closedialog.d:195 source/gx/terminix/appwindow.d:1274
-#: source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: source/gx/terminix/bookmark/bmeditor.d:228
-#: source/gx/terminix/bookmark/bmtreeview.d:74
-#: source/gx/terminix/session.d:1428 source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425
-msgid "Name"
-msgstr "Naam"
-
-#: source/gx/terminix/bookmark/bmeditor.d:289
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Path"
-msgstr "Pad"
-
-#: source/gx/terminix/bookmark/bmeditor.d:291
-msgid "Select Path"
-msgstr "Selecteer pad"
-
-#: source/gx/terminix/bookmark/bmeditor.d:330
-#: source/gx/terminix/bookmark/bmeditor.d:425
-#: source/gx/terminix/bookmark/manager.d:623
-#: source/gx/terminix/terminal/layout.d:76
 #: source/gx/terminix/prefeditor/profileeditor.d:100
 #: source/gx/terminix/prefeditor/profileeditor.d:1030
 #: source/gx/terminix/prefeditor/profileeditor.d:1328
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:330
+#: source/gx/terminix/bookmark/bmeditor.d:425
 msgid "Command"
 msgstr "Opdracht"
 
-#: source/gx/terminix/bookmark/bmeditor.d:379
-msgid "Protocol"
-msgstr "Protocol"
+#: source/gx/terminix/prefeditor/profileeditor.d:101
+msgid "Color"
+msgstr "Kleur"
 
-#: source/gx/terminix/bookmark/bmeditor.d:395
-msgid "Host"
-msgstr "Host"
+#: source/gx/terminix/prefeditor/profileeditor.d:102
+msgid "Scrolling"
+msgstr "Scrollen"
 
-#: source/gx/terminix/bookmark/bmeditor.d:411
-msgid "User"
-msgstr "Gebruiker"
+#: source/gx/terminix/prefeditor/profileeditor.d:103
+msgid "Compatibility"
+msgstr "Compatibiliteit"
 
-#: source/gx/terminix/bookmark/bmeditor.d:418
-msgid "Parameters"
-msgstr "Parameters"
+#: source/gx/terminix/prefeditor/profileeditor.d:104
+#: source/gx/terminix/prefeditor/profileeditor.d:489
+msgid "Advanced"
+msgstr "Geavanceerd"
 
-#: source/gx/terminix/bookmark/bmchooser.d:104
-msgid "Select Bookmark"
-msgstr "Selecteer bladwijzer"
+#: source/gx/terminix/prefeditor/profileeditor.d:216
+msgid "Profile name"
+msgstr "Profielnaam"
 
-#: source/gx/terminix/bookmark/bmtreeview.d:71
-#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/prefeditor/profileeditor.d:240
+msgid "Terminal size"
+msgstr "Terminalgrootte"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:250
+msgid "columns"
+msgstr "kolommen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:256
+msgid "rows"
+msgstr "rijen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:261
+#: source/gx/terminix/terminal/terminal.d:727
+msgid "Reset"
+msgstr "Herstellen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:272
+#: source/gx/terminix/prefeditor/profileeditor.d:569
+msgid "Cursor"
+msgstr "Cursor"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Block"
+msgstr "Blok"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "IBeam"
+msgstr "Verticale streep"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:275
+msgid "Underline"
+msgstr "Onderliggende streep"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:283
+msgid "Blink mode"
+msgstr "Knippermodus"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "System"
+msgstr "Systeem"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "On"
+msgstr "Ingeschakeld"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:286
+msgid "Off"
+msgstr "Uitgeschakeld"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:292
+#: source/gx/terminix/terminal/terminal.d:379
+msgid "Terminal bell"
+msgstr "Terminalbel"
+
 #: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "None"
+msgstr "Geen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Sound"
+msgstr "Geluid"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+#: source/gx/terminix/closedialog.d:119
+#: source/gx/terminix/bookmark/bmtreeview.d:71
 msgid "Icon"
 msgstr "Pictogram"
 
-#: source/gx/terminix/bookmark/manager.d:226
-msgid "Error deserializing bookmark"
-msgstr "Fout tijdens deserialiseren van bladwijzer"
+#: source/gx/terminix/prefeditor/profileeditor.d:295
+msgid "Icon and Sound"
+msgstr "Pictogram en geluid"
 
-#: source/gx/terminix/bookmark/manager.d:501
-msgid "Root"
-msgstr "Root"
+#: source/gx/terminix/prefeditor/profileeditor.d:301
+msgid "Terminal title"
+msgstr "Terminaltitel"
 
-#: source/gx/terminix/bookmark/manager.d:569
-msgid "Could not load bookmarks due to unexpected error"
+#: source/gx/terminix/prefeditor/profileeditor.d:313
+#: source/gx/terminix/prefeditor/profileeditor.d:605
+#: source/gx/terminix/terminal/layout.d:60
+msgid "Badge"
+msgstr "Logo"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:323
+msgid "Badge position"
+msgstr "Logo-positie"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northwest"
+msgstr "Noordwest"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Northeast"
+msgstr "Noordoost"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southwest"
+msgstr "Zuidwest"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:327
+msgid "Southeast"
+msgstr "Zuidoost"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:338
+msgid "Text Appearance"
+msgstr "Tekstuiterlijk"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:344
+msgid "Allow bold text"
+msgstr "Vetgedrukte tekst toestaan"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:349
+msgid "Rewrap on resize"
+msgstr "Tekstterugloop passend maken bij herschalen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:355
+msgid "Custom font"
+msgstr "Aangepast lettertype"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:361
+msgid "Choose A Terminal Font"
+msgstr "Kies een terminal-lettertype"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:381
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:427
+msgid "Color scheme"
+msgstr "Kleurenschema"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:437
+#: source/gx/terminix/prefeditor/profileeditor.d:884
+msgid "Custom"
+msgstr "Aangepast"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:450
+msgid "Export"
+msgstr "Exporteren"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:462
+msgid "Color palette"
+msgstr "Kleurenpalet"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:470
+#: source/gx/terminix/prefeditor/prefdialog.d:1099
+msgid "Options"
+msgstr "Opties"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:484
+msgid "Use theme colors for foreground/background"
+msgstr "Themakleuren gebruiken voor voorgrond/achtergrond"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:502
+msgid "Transparency"
+msgstr "Doorzichtigheid"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:516
+msgid "Unfocused dim"
+msgstr "Ongefocusde verduistering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:564
+msgid "Text"
+msgstr "Tekst"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:565
+#: source/gx/terminix/prefeditor/profileeditor.d:669
+msgid "Background"
+msgstr "Achtergrond"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:576
+msgid "Select Cursor Foreground Color"
+msgstr "Selecteer voorgrondkleur van cursor"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:578
+msgid "Select Cursor Background Color"
+msgstr "Selecteer achtergrondkleur van cursor"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:583
+msgid "Highlight"
+msgstr "Markeren"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:588
+msgid "Select Highlight Foreground Color"
+msgstr "Selecteer voorgrondkleur van markering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:590
+msgid "Select Highlight Background Color"
+msgstr "Selecteer achtergrondkleur van markering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:595
+msgid "Dim"
+msgstr "Verduisteren"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:600
+msgid "Select Dim Color"
+msgstr "Selecteer verduisteringskleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:609
+msgid "Select Badge Color"
+msgstr "Selecteer badgekleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:658
+msgid "Select Background Color"
+msgstr "Selecteer achtergrondkleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:674
+#: source/gx/terminix/prefeditor/profileeditor.d:690
+msgid "Select Foreground Color"
+msgstr "Selecteer voorgrondkleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:689
+msgid "Foreground"
+msgstr "Voorgrond"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Black"
+msgstr "Zwart"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Red"
+msgstr "Rood"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Green"
+msgstr "Groen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Orange"
+msgstr "Oranje"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Blue"
+msgstr "Blauw"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Purple"
+msgstr "Paars"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Turquoise"
+msgstr "Turkoois"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:693
+msgid "Grey"
+msgstr "Grijs"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:699
+#, c-format
+msgid "Select %s Color"
+msgstr "Selecteer %s kleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:706
+#, c-format
+msgid "Select %s Light Color"
+msgstr "Selecteer %s lichte kleur"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:841
+msgid "Export Color Scheme"
+msgstr "Kleurenschema exporteren"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1312
+msgid "Save"
+msgstr "Opslaan"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:844
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/terminal.d:2718
+#: source/gx/terminix/terminal/layout.d:30 source/gx/terminix/appwindow.d:1278
+#: source/gx/terminix/appwindow.d:1312
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:857
+#: source/gx/terminix/appwindow.d:1232
+msgid "All JSON Files"
+msgstr "Alle JSON-bestanden"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:861
+#: source/gx/terminix/prefeditor/prefdialog.d:953
+#: source/gx/terminix/terminal/terminal.d:2728
+#: source/gx/terminix/appwindow.d:1236
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:916
+msgid "Show scrollbar"
+msgstr "Scrollbalk weergeven"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:920
+msgid "Scroll on output"
+msgstr "Scrollen bij uitvoer"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:924
+msgid "Scroll on keystroke"
+msgstr "Scrollen bij toetsaanslag"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:928
+msgid "Limit scrollback to:"
+msgstr "Scrolluitvoer beperken tot:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:963
+msgid "Backspace key generates"
+msgstr "Backspace-toets genereert"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "Escape sequence"
+msgstr "Escape-volgorde"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:966
+#: source/gx/terminix/prefeditor/profileeditor.d:975
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:972
+msgid "Delete key generates"
+msgstr "Delete-toets genereert"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:981
+#: source/gx/terminix/prefeditor/prefdialog.d:154
+#: source/gx/terminix/prefeditor/prefdialog.d:155
+#: source/gx/terminix/prefeditor/prefdialog.d:407
+#: source/gx/terminix/prefeditor/prefdialog.d:615
+#: source/gx/terminix/terminal/terminal.d:732
+msgid "Encoding"
+msgstr "Tekstcodering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:996
+msgid "Ambiguous-width characters"
+msgstr "Tekens met eenduidige breedte"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Narrow"
+msgstr "Smal"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:999
+msgid "Wide"
+msgstr "Breed"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1020
+msgid "Run command as a login shell"
+msgstr "Opdracht uitvoeren als inlog-shell"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Run a custom command instead of my shell"
+msgstr "Een aangepast commando uitvoeren in plaats van mijn shell"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1040
+msgid "When command exits"
+msgstr "Als de opdracht is afgerond"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Exit the terminal"
+msgstr "Terminal afsluiten"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Restart the command"
+msgstr "Opdracht herstarten"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1042
+msgid "Hold the terminal open"
+msgstr "Terminalvenster openhouden"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1081
+msgid "Custom Links"
+msgstr "Aangepaste links"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1086
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
 msgstr ""
-"De bladwijzers kunnen niet worden geladen omdat er een onverwachte fout is "
-"opgetreden"
+"Een gebruikers-gedefinieerde lijst van links die kunnen worden aangeklikt in "
+"de terminal gebaseerd op reguliere expressies."
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Folder"
-msgstr "Map"
+#: source/gx/terminix/prefeditor/profileeditor.d:1089
+#: source/gx/terminix/prefeditor/profileeditor.d:1116
+#: source/gx/terminix/prefeditor/profileeditor.d:1183
+#: source/gx/terminix/terminal/password.d:180
+msgid "Edit"
+msgstr "Bewerken"
 
-#: source/gx/terminix/bookmark/manager.d:623
-msgid "Remote"
-msgstr "Op afstand"
+#: source/gx/terminix/prefeditor/profileeditor.d:1107
+msgid "Triggers"
+msgstr "Triggers"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1113
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Triggers zijn reguliere expressies die worden gebruikt om de uitvoertekst in "
+"de terminal te controleren. Als een overeenkomst is aangetroffen zal de "
+"ingestelde actie worden uitgevoerd."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1133
+msgid "Automatic Profile Switching"
+msgstr "Automatische profieloverschakeling"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1141
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"Profielen worden automatisch geselecteerd op basis van de hier ingevoerde "
+"waarden.\n"
+"Waarden moeten worden ingevoerd in de notatie <i>gebruikersnaam@hostnaam:"
+"map</i>. De hostnaam of map kan leeg worden gelaten maar de dubbele punt "
+"moet ten alle tijde aanwezig zijn. Het leeglaten van zowels de hostnaam als "
+"de map is niet toegestaan."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1143
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Profielen worden automatisch geselecteerd op basis van de hier ingevoerde "
+"waarden.\n"
+"Waarden moeten worden ingevoerd in de notatie <i>hostnaam:map</i>. De "
+"hostnaam of map kan leeg worden gelaten maar de dubbele punt moet ten alle "
+"tijde aanwezig zijn. Het leeglaten van zowels de hostnaam als de map is niet "
+"toegestaan."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1154
+msgid "Match"
+msgstr "Overeenkomen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1165
+#: source/gx/terminix/prefeditor/profileeditor.d:1353
+#: source/gx/terminix/prefeditor/profileeditor.d:1506
+msgid "Add"
+msgstr "Toevoegen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1169
+msgid "Enter username@hostname:directory to match"
+msgstr "Voer de overeen te komen gebruikersnaam@hostnaam:map in"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1171
+msgid "Enter hostname:directory to match"
+msgstr "Voer de overeen te komen hostnaam:map in"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1173
+msgid "Add New Match"
+msgstr "Nieuw overeenkomst toevoegen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1190
+msgid "Edit username@hostname:directory to match"
+msgstr "Bewerk de overeen te komen gebruikersnaam@hostnaam:map"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1192
+msgid "Edit hostname:directory to match"
+msgstr "Bewerk de overeen te komen hostnaam:map"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1194
+msgid "Edit Match"
+msgstr "Overeenkomst bewerken"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1202
+#: source/gx/terminix/prefeditor/profileeditor.d:1359
+#: source/gx/terminix/prefeditor/profileeditor.d:1512
+#: source/gx/terminix/prefeditor/prefdialog.d:496
+#: source/gx/terminix/terminal/password.d:209
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1316
+#: source/gx/terminix/prefeditor/profileeditor.d:1454
+msgid "Regex"
+msgstr "Regex"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1340
+msgid "Case Insensitive"
+msgstr "Hoofdletterongevoelig"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+msgid "Edit Custom Links"
+msgstr "Aangepaste links bewerken"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1385
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+#: source/gx/terminix/terminal/password.d:367
+msgid "Apply"
+msgstr "Toevoegen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1480
+#: source/gx/terminix/prefeditor/prefdialog.d:688
+msgid "Action"
+msgstr "Actie"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1492
+msgid "Parameter"
+msgstr "Parameter"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1528
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Aantal regels voor triggerdoorvoering beperken tot:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1554
+msgid "Edit Triggers"
+msgstr "Triggers bewerken"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1597
+#, c-format
+msgid "Row %d: "
+msgstr "Rij %d: "
+
+#: source/gx/terminix/prefeditor/titleeditor.d:90
+#: source/gx/terminix/terminal/terminal.d:315
+#: source/gx/terminix/terminal/terminal.d:3078
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:108
+msgid "Window"
+msgstr "Venster"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:118
+#: source/gx/terminix/prefeditor/titleeditor.d:119
+msgid "Help"
+msgstr "Hulp"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:117
+msgid "Terminix Preferences"
+msgstr "Terminix-voorkeuren"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:134
+#: source/gx/terminix/prefeditor/prefdialog.d:135
+#: source/gx/terminix/prefeditor/prefdialog.d:203
+msgid "Global"
+msgstr "Globaal"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:138
+#: source/gx/terminix/prefeditor/prefdialog.d:139
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:142
+#: source/gx/terminix/prefeditor/prefdialog.d:143
+msgid "Quake"
+msgstr "Quake"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:146
+#: source/gx/terminix/prefeditor/prefdialog.d:147
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:150
+#: source/gx/terminix/prefeditor/prefdialog.d:151
+#: source/gx/terminix/application.d:223
+msgid "Shortcuts"
+msgstr "Sneltoetsen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:160
+#: source/gx/terminix/session.d:1439
+msgid "Profile"
+msgstr "Profiel"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:173
+msgid "Add profile"
+msgstr "Profiel toevoegen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:178
+msgid "Delete profile"
+msgstr "Profiel verwijderen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:235
+#: source/gx/terminix/prefeditor/prefdialog.d:358
+#: source/gx/terminix/appwindow.d:654 source/gx/terminix/application.d:221
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:255
+#: source/gx/terminix/terminal/terminal.d:720
+msgid "Profiles"
+msgstr "Profielen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:279
+#: source/gx/terminix/prefeditor/prefdialog.d:287
+#, c-format
+msgid "Profile: %s"
+msgstr "Profiel: %s"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:497
+msgid "Clone"
+msgstr "Dupliceren"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:501
+msgid "Use for new terminals"
+msgstr "G"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:577
+msgid "Encodings showing in menu:"
+msgstr "Tekstcoderingen die moeten worden weergegeven in het menu:"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:613
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:719
+msgid "Shortcut Key"
+msgstr "Sneltoets"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:731
+msgid "Enable shortcuts"
+msgstr "Sneltoetsen inschakelen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:759
+msgid "Overwrite Existing Shortcut"
+msgstr "Bestaande sneltoets overschrijven"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:760
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"De snelkoppeling %s is al toegewezen aan %s.\n"
+"Wilt u de sneltoets van de andere actie uitschakelen en toewijzen aan deze "
+"actie?"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:901
+msgid "Enable transparency, requires re-start"
+msgstr "Doorzichtigheid inschakelen; herstart vereist"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:912
+msgid "Window style"
+msgstr "Vensterstijl"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Normal"
+msgstr "Normaal"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Disable CSD"
+msgstr "CSD uitschakelen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Disable CSD, hide toolbar"
+msgstr "CSD uitschakelen, werkbalk verbergen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:914
+msgid "Borderless"
+msgstr "Randloos"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:918
+msgid "Window restart required"
+msgstr "Vensterherstart vereist"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:927
+msgid "Terminal title style"
+msgstr "Titelstijl van terminal"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:928
+msgid "Small"
+msgstr "Klein"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:934
+msgid "Theme variant"
+msgstr "Themastijl"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+#: source/gx/terminix/appwindow.d:880 source/gx/terminix/session.d:1120
+msgid "Default"
+msgstr "Standaard"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Light"
+msgstr "Licht"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:935
+msgid "Dark"
+msgstr "Donker"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:941
+msgid "Background image"
+msgstr "Achtergrondafbeelding"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:943
+msgid "Select Image"
+msgstr "Afbeelding selecteren"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:946
+msgid "All Image Files"
+msgstr "Alle afbeeldingsbestanden"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:967
+msgid "Reset background image"
+msgstr "Achtergrondafbeelding verwijderen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Scale"
+msgstr "Schalen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Tile"
+msgstr "Tegelen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Center"
+msgstr "Centreren"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:973
+msgid "Stretch"
+msgstr "Uitrekken"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:992
+msgid "Default session name"
+msgstr "Standaard sessienaam"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1003
+msgid "Application title"
+msgstr "Applicatietitel"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1016
+msgid "Use a wide handle for splitters"
+msgstr "Brede handgreep gebruiken voor splitsingen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1021
+msgid "Place the sidebar on the right"
+msgstr "Zijbalk aan de rechterkant plaatsen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1025
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Terminaltitel weergeven, zelfs als het de enige terminal is"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1057
+msgid "Size"
+msgstr "Grootte"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1068
+msgid "Height percent"
+msgstr "Hoogtepercentage"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1079
+msgid "Width percent"
+msgstr "Breedtepercentage"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1089
+msgid "Alignment"
+msgstr "Uitlijning"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Left"
+msgstr "Links"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1090
+msgid "Right"
+msgstr "Rechts"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1107
+msgid "Show terminal on all workspaces"
+msgstr "Terminal weergeven op alle werkbladen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1112
+msgid "Set hint for window manager to disable animation"
+msgstr "Hint instellen voor vensterbeheerder om animaties uit te schakelen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1117
+msgid "Hide window when focus is lost"
+msgstr "Venster sluiten bij verliezen van focus"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1122
+msgid "Hide the titlebar of the window"
+msgstr "Venstertitelbalk verbergen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1137
+msgid "Display terminal on active monitor"
+msgstr "Terminal weergeven op actief beeldscherm"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1144
+msgid "Display on specific monitor"
+msgstr "Weergeven op specifiek beeldscherm"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1186
+msgid "Behavior"
+msgstr "Gedrag"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1192
+msgid "Prompt when creating a new session"
+msgstr "Vragen bij creëren van nieuwe sessie"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1197
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Focus een terminal wanneer de muis eroverheen zweeft"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1202
+msgid "Autohide the mouse pointer when typing"
+msgstr "Cursor verbergen tijdens typen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1207
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "Terminal sluiten door met de middelste muisknop te klikken op de titel"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1212
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "Zoomen in terminalvenster middels <Control> en scrollwiel"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1217
+msgid "Close window when last session is closed"
+msgstr "Venster sluiten wanneer de laatste sessie wordt afgesloten"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1223
+msgid "Send desktop notification on process complete"
+msgstr "Bureaubladmelding weergeven bij afronden van proces"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1231
+msgid "On new instance"
+msgstr "Bij nieuw proces"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:217
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
+msgid "New Window"
+msgstr "Nieuw venster"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+#: source/gx/terminix/application.d:216 source/gx/terminix/session.d:1462
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
+msgid "New Session"
+msgstr "Nieuwe sessie"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Right"
+msgstr "Splitsen naar rechts"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Split Down"
+msgstr "Splitsen naar onderen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1234
+msgid "Focus Window"
+msgstr "Venster focussen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1240
+#: source/gx/terminix/terminal/terminal.d:1459
+msgid "Clipboard"
+msgstr "Klembord"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1246
+msgid "Always use advanced paste dialog"
+msgstr "Altijd geavanceerd plakken gebruiken"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1251
+msgid "Warn when attempting unsafe paste"
+msgstr "Waarschuwen bij plakken van onveilige opdracht"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1256
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "Eerste teken weglaten bij plakken van een comment of variabel"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1261
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Geselecteerde tekst automatisch kopiëren naar het klembord"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Bladwijzer toevoegen"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Bladwijzer bewerken"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Bladwijzer verwijderen"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Bladwijzer de-selecteren"
+
+#: source/gx/terminix/closedialog.d:113 source/gx/terminix/terminal/layout.d:51
+#: source/gx/terminix/constants.d:116
+msgid "Title"
+msgstr "Titel"
+
+#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
+msgid "Do not show this again"
+msgstr "Dit bericht niet meer weergeven"
+
+#: source/gx/terminix/closedialog.d:160
+#, c-format
+msgid "Window (%s)"
+msgstr "Venster (%s)"
+
+#: source/gx/terminix/closedialog.d:163
+#, c-format
+msgid "Session (%s)"
+msgstr "Sessie (%s)"
+
+#: source/gx/terminix/closedialog.d:183
+msgid "Close Application"
+msgstr "Applicatie sluiten"
+
+#: source/gx/terminix/closedialog.d:186
+msgid "Close Window"
+msgstr "Venster sluiten"
+
+#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
+msgid "Close Session"
+msgstr "Sessie sluiten"
+
+#: source/gx/terminix/closedialog.d:195
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+msgid "OK"
+msgstr "Oké"
+
+#: source/gx/terminix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Deze opdracht vraagt om administrator-toegang tot uw computer"
+
+#: source/gx/terminix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Het kopiëren van opdrachten vanaf het internet kan gevaarlijk zijn. "
+
+#: source/gx/terminix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Zorg ervoor dat u begrijpt wat alle delen van deze opdracht uitvoeren."
+
+#: source/gx/terminix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Transformeren"
+
+#: source/gx/terminix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Spaties omzetten naar tabs"
+
+#: source/gx/terminix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "CRLF en CR converteren naar LF"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Geavanceerd plakken"
+
+#: source/gx/terminix/terminal/advpaste.d:137
+#: source/gx/terminix/terminal/terminal.d:1440
+#: source/gx/terminix/terminal/terminal.d:1451
+msgid "Paste"
+msgstr "Plakken"
+
+#: source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1428
+#: source/gx/terminix/bookmark/bmeditor.d:228
+#: source/gx/terminix/bookmark/bmtreeview.d:74
+msgid "Name"
+msgstr "Naam"
+
+#: source/gx/terminix/terminal/password.d:136
+#: source/gx/terminix/constants.d:118
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/terminix/terminal/password.d:157
+msgid "New"
+msgstr "Nieuw"
+
+#: source/gx/terminix/terminal/password.d:231
+msgid "Include return character with password"
+msgstr "Wederkerend teken opnemen met wachtwoord"
+
+#: source/gx/terminix/terminal/password.d:367
+msgid "Insert Password"
+msgstr "Wachtwoord invoeren"
+
+#: source/gx/terminix/terminal/password.d:433
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: source/gx/terminix/terminal/password.d:441
+msgid "Confirm Password"
+msgstr "Wachtwoord bevestigen"
+
+#: source/gx/terminix/terminal/password.d:487
+msgid "Add Password"
+msgstr "Wachtwoord toevoegen"
+
+#: source/gx/terminix/terminal/password.d:492
+msgid "Edit Password"
+msgstr "Wachtwoord bewerken"
+
+#: source/gx/terminix/terminal/search.d:122
+msgid "Search Options"
+msgstr "Zoekopties"
+
+#: source/gx/terminix/terminal/search.d:135
+msgid "Find next"
+msgstr "Volgende zoeken"
+
+#: source/gx/terminix/terminal/search.d:141
+msgid "Find previous"
+msgstr "Vorige zoeken"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match case"
+msgstr "Hoofdlettergevoelig"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match entire word only"
+msgstr "Alleen gehele woorden"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Match as regular expression"
+msgstr "Alleen reguliere expressies"
+
+#: source/gx/terminix/terminal/search.d:191
+msgid "Wrap around"
+msgstr "Tekstomloop"
+
+#: source/gx/terminix/terminal/terminal.d:346
+#: source/gx/terminix/terminal/terminal.d:1469 source/gx/terminix/sidebar.d:362
+#: source/gx/terminix/appwindow.d:644
+msgid "Close"
+msgstr "Sluiten"
+
+#: source/gx/terminix/terminal/terminal.d:354
+#: source/gx/terminix/terminal/terminal.d:1092
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Maximize"
+msgstr "Maximaliseren"
+
+#: source/gx/terminix/terminal/terminal.d:364
+#: source/gx/terminix/terminal/terminal.d:604
+msgid "Disable input synchronization for this terminal"
+msgstr "Invoer-synchronisatie uitschakelen voor dit terminalvenster"
+
+#: source/gx/terminix/terminal/terminal.d:373
+#: source/gx/terminix/terminal/terminal.d:710
+msgid "Read-Only"
+msgstr "Alleen-lezen"
+
+#: source/gx/terminix/terminal/terminal.d:424
+msgid "Edit Profile"
+msgstr "Profiel bewerken"
+
+#: source/gx/terminix/terminal/terminal.d:442
+msgid "Edit Encodings"
+msgstr "Coderingen bewerken"
+
+#: source/gx/terminix/terminal/terminal.d:606
+msgid "Enable input synchronization for this terminal"
+msgstr "Invoer-synchronisatie inschakelen voor dit terminalvenster"
+
+#: source/gx/terminix/terminal/terminal.d:635
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Het laden van de  %s-bibliotheek is mislukt; de wachtwoordfunctionaliteit is "
+"niet beschikbaar."
+
+#: source/gx/terminix/terminal/terminal.d:635
+msgid "Library Not Loaded"
+msgstr "Bibliotheek is niet geladen"
+
+#: source/gx/terminix/terminal/terminal.d:709
+msgid "Find…"
+msgstr "Zoeken…"
+
+#: source/gx/terminix/terminal/terminal.d:714
+#, fuzzy
+msgid "Password..."
+msgstr "Wachtwoord"
+
+#: source/gx/terminix/terminal/terminal.d:715
+#, fuzzy
+msgid "Bookmark..."
+msgstr "Bladwijzer toevoegen..."
+
+#: source/gx/terminix/terminal/terminal.d:716
+msgid "Add Bookmark..."
+msgstr "Bladwijzer toevoegen..."
+
+#: source/gx/terminix/terminal/terminal.d:726
+msgid "Save Output…"
+msgstr "Uitvoer opslaan…"
+
+#: source/gx/terminix/terminal/terminal.d:728
+msgid "Reset and Clear"
+msgstr "Terugzetten en wissen"
+
+#: source/gx/terminix/terminal/terminal.d:733
+msgid "Layout Options…"
+msgstr "Indelingsopties…"
+
+#: source/gx/terminix/terminal/terminal.d:736
+#, fuzzy
+msgid "Other"
+msgstr "Overig"
+
+#: source/gx/terminix/terminal/terminal.d:745
+msgid "Add Right"
+msgstr "Rechts toevoegen"
+
+#: source/gx/terminix/terminal/terminal.d:749
+msgid "Add Down"
+msgstr "Onder toevoegen"
+
+#: source/gx/terminix/terminal/terminal.d:1089
+#: source/gx/terminix/terminal/terminal.d:1468
+msgid "Restore"
+msgstr "Herstellen"
+
+#: source/gx/terminix/terminal/terminal.d:1428
+msgid "Open Link"
+msgstr "Link openen"
+
+#: source/gx/terminix/terminal/terminal.d:1429
+msgid "Copy Link Address"
+msgstr "Linkadres kopiëren"
+
+#: source/gx/terminix/terminal/terminal.d:1439
+#: source/gx/terminix/terminal/terminal.d:1446
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: source/gx/terminix/terminal/terminal.d:1441
+#: source/gx/terminix/terminal/terminal.d:1456
+msgid "Select All"
+msgstr "Alles selecteren"
+
+#: source/gx/terminix/terminal/terminal.d:1473
+msgid "Synchronize input"
+msgstr "Invoer synchroniseren"
+
+#: source/gx/terminix/terminal/terminal.d:1967
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "De aangepaste linkregex '%s' bevat een fout en wordt genegeerd"
+
+#: source/gx/terminix/terminal/terminal.d:2105
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+"Er is een onverwachte fout opgetreden; geen verdere informatie beschikbaar"
+
+#: source/gx/terminix/terminal/terminal.d:2111
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Er is een onverwachte fout opgetreden: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2715
+msgid "Save Terminal Output"
+msgstr "Terminaluitvoer opslaan"
+
+#: source/gx/terminix/terminal/terminal.d:2724
+msgid "All Text Files"
+msgstr "Alle tekstbestanden"
+
+#: source/gx/terminix/terminal/terminal.d:3228
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Het dochterproces is normaal afgerond met de status %d"
+
+#: source/gx/terminix/terminal/terminal.d:3229
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Het dochterproces is afgebroken door signaal %d."
+
+#: source/gx/terminix/terminal/terminal.d:3230
+msgid "The child process was aborted."
+msgstr "Het dochterproces is afgebroken."
+
+#: source/gx/terminix/terminal/terminal.d:3236
+msgid "Relaunch"
+msgstr "Herstarten"
+
+#: source/gx/terminix/terminal/terminal.d:3281
+msgid "Don't Paste"
+msgstr "Niet plakken"
+
+#: source/gx/terminix/terminal/terminal.d:3282
+msgid "Paste Anyway"
+msgstr "Tóch plakken"
+
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "Indelingsopties"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "Actief"
+
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "Laden van sessie"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Actieve opties zijn altijd actief en worden onmiddelijk toegepast.\n"
+"Laden van sessie-opties worden alleen toegepast bij het laden van een "
+"sessiebestand."
+
+#: source/gx/terminix/appwindow.d:320
+msgid "View session sidebar"
+msgstr "Sessie-zijbalk weergeven"
+
+#: source/gx/terminix/appwindow.d:345
+msgid "Create a new session"
+msgstr "Nieuwe sessie creëren"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Add terminal right"
+msgstr "Terminal rechts toevoegen"
+
+#: source/gx/terminix/appwindow.d:367
+msgid "Add terminal down"
+msgstr "Terminal onder toevoegen"
+
+#: source/gx/terminix/appwindow.d:373
+msgid "Find text in terminal"
+msgstr "Naar tekst zoeken in de terminal"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Change Session Name"
+msgstr "Sessienaam wijzigen"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Enter a new name for the session"
+msgstr "Voer een nieuwe sessienaam in"
+
+#: source/gx/terminix/appwindow.d:641
+msgid "Open…"
+msgstr "Openen…"
+
+#: source/gx/terminix/appwindow.d:643
+msgid "Save As…"
+msgstr "Opslaan als…"
+
+#: source/gx/terminix/appwindow.d:648
+msgid "Name…"
+msgstr "Naam…"
+
+#: source/gx/terminix/appwindow.d:649
+msgid "Synchronize Input"
+msgstr "Invoer synchroniseren"
+
+#: source/gx/terminix/appwindow.d:660
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:977
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Dit venster bevat actieve processen. Wilt u het venster tóch sluiten?"
+
+#: source/gx/terminix/appwindow.d:1245
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "De bestandsnaam '%s' bestaat niet"
+
+#: source/gx/terminix/appwindow.d:1275
+msgid "Load Session"
+msgstr "Sessie laden"
+
+#: source/gx/terminix/appwindow.d:1278
+msgid "Open"
+msgstr "Openen"
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Could not load session due to unexpected error."
+msgstr ""
+"De sessie kan niet worden geladen omdat er een onverwachte fout is "
+"opgetreden."
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Error Loading Session"
+msgstr "Er is een fout opgetreden tijdens het laden van de sessie"
+
+#: source/gx/terminix/appwindow.d:1309
+msgid "Save Session"
+msgstr "Sessie opslaan"
+
+#: source/gx/terminix/appwindow.d:1392 source/gx/terminix/application.d:321
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/application.d:228
+msgid "About"
+msgstr "Over"
+
+#: source/gx/terminix/application.d:229
+msgid "Quit"
+msgstr "Afsluiten"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/terminix/application.d:275
+msgid "translator-credits"
+msgstr "Heimen Stoffels"
+
+#: source/gx/terminix/application.d:284
+msgid "Credits"
+msgstr "Met dank aan"
+
+#: source/gx/terminix/application.d:623
+msgid "Set the working directory of the terminal"
+msgstr "Stel de terminal-werkmap in"
+
+#: source/gx/terminix/application.d:623
+msgid "DIRECTORY"
+msgstr "MAP"
+
+#: source/gx/terminix/application.d:624
+msgid "Set the starting profile"
+msgstr "Stel het startprofiel in"
+
+#: source/gx/terminix/application.d:624
+msgid "PROFILE_NAME"
+msgstr "PROFIEL_NAAM"
+
+#: source/gx/terminix/application.d:625
+msgid "Set the title of the new terminal"
+msgstr "Stel de nieuwe terminaltitel in"
+
+#: source/gx/terminix/application.d:625
+msgid "TITLE"
+msgstr "TITEL"
+
+#: source/gx/terminix/application.d:626
+msgid "Open the specified session"
+msgstr "Open de opgegeven sessie"
+
+#: source/gx/terminix/application.d:626
+msgid "SESSION_NAME"
+msgstr "SESSIE_NAAM"
+
+#: source/gx/terminix/application.d:627
+msgid "Send an action to current Terminix instance"
+msgstr "Verstuur een actie naar het huidige Terminix-proces"
+
+#: source/gx/terminix/application.d:627
+msgid "ACTION_NAME"
+msgstr "ACTIE_NAAM"
+
+#: source/gx/terminix/application.d:628
+msgid "Execute the parameter as a command"
+msgstr "Parameter uitvoeren als opdracht"
+
+#: source/gx/terminix/application.d:628
+msgid "COMMAND"
+msgstr "OPDRACHT"
+
+#: source/gx/terminix/application.d:629
+msgid "Maximize the terminal window"
+msgstr "Maximaliseer het terminalvenster"
+
+#: source/gx/terminix/application.d:630
+msgid "Minimize the terminal window"
+msgstr "Terminalvenster minimaliseren"
+
+#: source/gx/terminix/application.d:631
+msgid "Full-screen the terminal window"
+msgstr "Volledige scherm-modus"
+
+#: source/gx/terminix/application.d:632
+msgid "Focus the existing window"
+msgstr "Focus het huidige venster"
+
+#: source/gx/terminix/application.d:633
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Nieuwe vensters starten als nieuw proces (niet aanbevolen)"
+
+#: source/gx/terminix/application.d:634
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Stel de venstergrootte in; bijv.: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+
+#: source/gx/terminix/application.d:634
+msgid "GEOMETRY"
+msgstr "AFMETINGEN"
+
+#: source/gx/terminix/application.d:635
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Opent een venster in quake-modus of weergeeft/verwerpt een actief quake-"
+"venster"
+
+#: source/gx/terminix/application.d:636
+msgid "Show the Terminix and dependant component versions"
+msgstr "Terminix-versie en vereiste componenten-versies weergeven"
+
+#: source/gx/terminix/application.d:637
+msgid "Show the Terminix preferences dialog directly"
+msgstr "Terminix-voorkeurenvenster direct weergeven"
+
+#: source/gx/terminix/application.d:640
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Verborgen argument om door te geven aan de terminal UUID"
+
+#: source/gx/terminix/application.d:640
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/terminix/application.d:801
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Er lijkt een probleem te zijn met de configuratie van de terminal. Het "
+"probleem\n"
+"is niet ernstig maar het oplossen ervan zal uw terminal-ervaring verbeteren. "
+"Voor\n"
+"meer informatie, klik op de onderstaande link:"
+
+#: source/gx/terminix/application.d:802
+msgid "Configuration Issue Detected"
+msgstr "Configuratieprobleem ontdekt"
+
+#: source/gx/terminix/application.d:814
+msgid "Do not show this message again"
+msgstr "Dit bericht niet meer weergeven"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Het bestand %s is geen JSON-compatibel kleurenschemabestand"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "Het kleurenschemapalet vereist 16 kleuren"
+
+#: source/gx/terminix/session.d:544
+msgid "Could not locate dropped terminal"
+msgstr "Er is een probleem opgetreden bij het vinden van de gedaalde terminal"
+
+#: source/gx/terminix/session.d:549
+msgid "Could not locate session for dropped terminal"
+msgstr ""
+"Er is een probleem opgetreden bij het vinden van de sessie van de gedaalde "
+"terminal"
 
 #: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
@@ -216,77 +1588,41 @@ msgstr "GtkD voor het beschikbaar stellen van een geweldige GTK-wrapper"
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org voor de geweldige D-taal"
 
-#: source/gx/terminix/constants.d:117 source/gx/terminix/terminal/layout.d:51
-#: source/gx/terminix/closedialog.d:113
-msgid "Title"
-msgstr "Titel"
-
-#: source/gx/terminix/constants.d:118
+#: source/gx/terminix/constants.d:117
 msgid "Icon title"
 msgstr "Pictogramtitel"
 
 #: source/gx/terminix/constants.d:119
-#: source/gx/terminix/terminal/password.d:136
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/terminix/constants.d:120
 msgid "Directory"
 msgstr "Map"
 
-#: source/gx/terminix/constants.d:121
+#: source/gx/terminix/constants.d:120
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: source/gx/terminix/constants.d:122
+#: source/gx/terminix/constants.d:121
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: source/gx/terminix/constants.d:123
+#: source/gx/terminix/constants.d:122
 msgid "Columns"
 msgstr "Kolommen"
 
-#: source/gx/terminix/constants.d:124
+#: source/gx/terminix/constants.d:123
 msgid "Rows"
 msgstr "Rijen"
 
-#: source/gx/terminix/constants.d:139
+#: source/gx/terminix/constants.d:138
 msgid "Application name"
 msgstr "Applicatienaam"
 
-#: source/gx/terminix/constants.d:140
+#: source/gx/terminix/constants.d:139
 msgid "Session name"
 msgstr "Sessienaam"
 
-#: source/gx/terminix/constants.d:141
+#: source/gx/terminix/constants.d:140
 msgid "Session number"
 msgstr "Sessienummer"
-
-#: source/gx/terminix/session.d:544
-msgid "Could not locate dropped terminal"
-msgstr "Er is een probleem opgetreden bij het vinden van de gedaalde terminal"
-
-#: source/gx/terminix/session.d:549
-msgid "Could not locate session for dropped terminal"
-msgstr ""
-"Er is een probleem opgetreden bij het vinden van de sessie van de gedaalde "
-"terminal"
-
-#: source/gx/terminix/session.d:1120 source/gx/terminix/appwindow.d:880
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Default"
-msgstr "Standaard"
-
-#: source/gx/terminix/session.d:1439
-#: source/gx/terminix/prefeditor/prefdialog.d:155
-msgid "Profile"
-msgstr "Profiel"
-
-#: source/gx/terminix/session.d:1462 source/gx/terminix/application.d:216
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
-msgid "New Session"
-msgstr "Nieuwe sessie"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -423,1416 +1759,6 @@ msgstr "Vietnamees"
 msgid "Thai"
 msgstr "Thais"
 
-#: source/gx/terminix/terminal/layout.d:30
-msgid "Layout Options"
-msgstr "Indelingsopties"
-
-#: source/gx/terminix/terminal/layout.d:45
-msgid "Active"
-msgstr "Actief"
-
-#: source/gx/terminix/terminal/layout.d:60
-#: source/gx/terminix/prefeditor/profileeditor.d:313
-#: source/gx/terminix/prefeditor/profileeditor.d:605
-msgid "Badge"
-msgstr "Logo"
-
-#: source/gx/terminix/terminal/layout.d:69
-msgid "Session Load"
-msgstr "Laden van sessie"
-
-#: source/gx/terminix/terminal/layout.d:85
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Actieve opties zijn altijd actief en worden onmiddelijk toegepast.\n"
-"Laden van sessie-opties worden alleen toegepast bij het laden van een "
-"sessiebestand."
-
-#: source/gx/terminix/terminal/terminal.d:315
-#: source/gx/terminix/terminal/terminal.d:3056
-#: source/gx/terminix/prefeditor/titleeditor.d:90
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/terminix/terminal/terminal.d:346
-#: source/gx/terminix/terminal/terminal.d:1461
-#: source/gx/terminix/appwindow.d:644 source/gx/terminix/sidebar.d:362
-msgid "Close"
-msgstr "Sluiten"
-
-#: source/gx/terminix/terminal/terminal.d:354
-#: source/gx/terminix/terminal/terminal.d:1085
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Maximize"
-msgstr "Maximaliseren"
-
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:604
-msgid "Disable input synchronization for this terminal"
-msgstr "Invoer-synchronisatie uitschakelen voor dit terminalvenster"
-
-#: source/gx/terminix/terminal/terminal.d:373
-#: source/gx/terminix/terminal/terminal.d:727
-msgid "Read-Only"
-msgstr "Alleen-lezen"
-
-#: source/gx/terminix/terminal/terminal.d:379
-#: source/gx/terminix/prefeditor/profileeditor.d:292
-msgid "Terminal bell"
-msgstr "Terminalbel"
-
-#: source/gx/terminix/terminal/terminal.d:424
-msgid "Edit Profile"
-msgstr "Profiel bewerken"
-
-#: source/gx/terminix/terminal/terminal.d:442
-msgid "Edit Encodings"
-msgstr "Coderingen bewerken"
-
-#: source/gx/terminix/terminal/terminal.d:606
-msgid "Enable input synchronization for this terminal"
-msgstr "Invoer-synchronisatie inschakelen voor dit terminalvenster"
-
-#: source/gx/terminix/terminal/terminal.d:635
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Het laden van de  %s-bibliotheek is mislukt; de wachtwoordfunctionaliteit is "
-"niet beschikbaar."
-
-#: source/gx/terminix/terminal/terminal.d:635
-msgid "Library Not Loaded"
-msgstr "Bibliotheek is niet geladen"
-
-#: source/gx/terminix/terminal/terminal.d:709
-msgid "Save Output…"
-msgstr "Uitvoer opslaan…"
-
-#: source/gx/terminix/terminal/terminal.d:710
-#: source/gx/terminix/prefeditor/profileeditor.d:261
-msgid "Reset"
-msgstr "Herstellen"
-
-#: source/gx/terminix/terminal/terminal.d:711
-msgid "Reset and Clear"
-msgstr "Terugzetten en wissen"
-
-#: source/gx/terminix/terminal/terminal.d:715
-#: source/gx/terminix/prefeditor/prefdialog.d:250
-msgid "Profiles"
-msgstr "Profielen"
-
-#: source/gx/terminix/terminal/terminal.d:716
-#: source/gx/terminix/prefeditor/prefdialog.d:149
-#: source/gx/terminix/prefeditor/prefdialog.d:150
-#: source/gx/terminix/prefeditor/prefdialog.d:402
-#: source/gx/terminix/prefeditor/prefdialog.d:610
-#: source/gx/terminix/prefeditor/profileeditor.d:981
-msgid "Encoding"
-msgstr "Tekstcodering"
-
-#: source/gx/terminix/terminal/terminal.d:720
-msgid "Add Bookmark..."
-msgstr "Bladwijzer toevoegen..."
-
-#: source/gx/terminix/terminal/terminal.d:721
-msgid "Select Bookmark..."
-msgstr "Bladwijzer selecteren..."
-
-#: source/gx/terminix/terminal/terminal.d:722
-#: source/gx/terminix/prefeditor/prefdialog.d:141
-#: source/gx/terminix/prefeditor/prefdialog.d:142
-msgid "Bookmarks"
-msgstr "Bladwijzers"
-
-#: source/gx/terminix/terminal/terminal.d:725
-msgid "Find…"
-msgstr "Zoeken…"
-
-#: source/gx/terminix/terminal/terminal.d:726
-msgid "Layout Options…"
-msgstr "Indelingsopties…"
-
-#: source/gx/terminix/terminal/terminal.d:737
-msgid "Add Right"
-msgstr "Rechts toevoegen"
-
-#: source/gx/terminix/terminal/terminal.d:741
-msgid "Add Down"
-msgstr "Onder toevoegen"
-
-#: source/gx/terminix/terminal/terminal.d:1082
-#: source/gx/terminix/terminal/terminal.d:1460
-msgid "Restore"
-msgstr "Herstellen"
-
-#: source/gx/terminix/terminal/terminal.d:1420
-msgid "Open Link"
-msgstr "Link openen"
-
-#: source/gx/terminix/terminal/terminal.d:1421
-msgid "Copy Link Address"
-msgstr "Linkadres kopiëren"
-
-#: source/gx/terminix/terminal/terminal.d:1431
-#: source/gx/terminix/terminal/terminal.d:1438
-msgid "Copy"
-msgstr "Kopiëren"
-
-#: source/gx/terminix/terminal/terminal.d:1432
-#: source/gx/terminix/terminal/terminal.d:1443
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Plakken"
-
-#: source/gx/terminix/terminal/terminal.d:1433
-#: source/gx/terminix/terminal/terminal.d:1448
-msgid "Select All"
-msgstr "Alles selecteren"
-
-#: source/gx/terminix/terminal/terminal.d:1451
-#: source/gx/terminix/prefeditor/prefdialog.d:1210
-msgid "Clipboard"
-msgstr "Klembord"
-
-#: source/gx/terminix/terminal/terminal.d:1465
-msgid "Synchronize input"
-msgstr "Invoer synchroniseren"
-
-#: source/gx/terminix/terminal/terminal.d:1945
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "De aangepaste linkregex '%s' bevat een fout en wordt genegeerd"
-
-#: source/gx/terminix/terminal/terminal.d:2083
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"Er is een onverwachte fout opgetreden; geen verdere informatie beschikbaar"
-
-#: source/gx/terminix/terminal/terminal.d:2089
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Er is een onverwachte fout opgetreden: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2693
-msgid "Save Terminal Output"
-msgstr "Terminaluitvoer opslaan"
-
-#: source/gx/terminix/terminal/terminal.d:2696
-#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1308
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-msgid "Save"
-msgstr "Opslaan"
-
-#: source/gx/terminix/terminal/terminal.d:2702
-msgid "All Text Files"
-msgstr "Alle tekstbestanden"
-
-#: source/gx/terminix/terminal/terminal.d:2706
-#: source/gx/terminix/appwindow.d:1232
-#: source/gx/terminix/prefeditor/prefdialog.d:923
-#: source/gx/terminix/prefeditor/profileeditor.d:861
-msgid "All Files"
-msgstr "Alle bestanden"
-
-#: source/gx/terminix/terminal/terminal.d:3206
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Het dochterproces is normaal afgerond met de status %d"
-
-#: source/gx/terminix/terminal/terminal.d:3207
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Het dochterproces is afgebroken door signaal %d."
-
-#: source/gx/terminix/terminal/terminal.d:3208
-msgid "The child process was aborted."
-msgstr "Het dochterproces is afgebroken."
-
-#: source/gx/terminix/terminal/terminal.d:3214
-msgid "Relaunch"
-msgstr "Herstarten"
-
-#: source/gx/terminix/terminal/terminal.d:3259
-msgid "Don't Paste"
-msgstr "Niet plakken"
-
-#: source/gx/terminix/terminal/terminal.d:3260
-msgid "Paste Anyway"
-msgstr "Tóch plakken"
-
-#: source/gx/terminix/terminal/search.d:122
-msgid "Search Options"
-msgstr "Zoekopties"
-
-#: source/gx/terminix/terminal/search.d:135
-msgid "Find next"
-msgstr "Volgende zoeken"
-
-#: source/gx/terminix/terminal/search.d:141
-msgid "Find previous"
-msgstr "Vorige zoeken"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match case"
-msgstr "Hoofdlettergevoelig"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match entire word only"
-msgstr "Alleen gehele woorden"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Match as regular expression"
-msgstr "Alleen reguliere expressies"
-
-#: source/gx/terminix/terminal/search.d:191
-msgid "Wrap around"
-msgstr "Tekstomloop"
-
-#: source/gx/terminix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Deze opdracht vraagt om administrator-toegang tot uw computer"
-
-#: source/gx/terminix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Het kopiëren van opdrachten vanaf het internet kan gevaarlijk zijn. "
-
-#: source/gx/terminix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Zorg ervoor dat u begrijpt wat alle delen van deze opdracht uitvoeren."
-
-#: source/gx/terminix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Transformeren"
-
-#: source/gx/terminix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Spaties omzetten naar tabs"
-
-#: source/gx/terminix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "CRLF en CR converteren naar LF"
-
-#: source/gx/terminix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Geavanceerd plakken"
-
-#: source/gx/terminix/terminal/password.d:157
-msgid "New"
-msgstr "Nieuw"
-
-#: source/gx/terminix/terminal/password.d:180
-#: source/gx/terminix/prefeditor/profileeditor.d:1089
-#: source/gx/terminix/prefeditor/profileeditor.d:1116
-#: source/gx/terminix/prefeditor/profileeditor.d:1183
-msgid "Edit"
-msgstr "Bewerken"
-
-#: source/gx/terminix/terminal/password.d:209
-#: source/gx/terminix/prefeditor/prefdialog.d:491
-#: source/gx/terminix/prefeditor/profileeditor.d:1202
-#: source/gx/terminix/prefeditor/profileeditor.d:1359
-#: source/gx/terminix/prefeditor/profileeditor.d:1512
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: source/gx/terminix/terminal/password.d:231
-msgid "Include return character with password"
-msgstr "Wederkerend teken opnemen met wachtwoord"
-
-#: source/gx/terminix/terminal/password.d:367
-msgid "Insert Password"
-msgstr "Wachtwoord invoeren"
-
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Apply"
-msgstr "Toevoegen"
-
-#: source/gx/terminix/terminal/password.d:433
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: source/gx/terminix/terminal/password.d:441
-msgid "Confirm Password"
-msgstr "Wachtwoord bevestigen"
-
-#: source/gx/terminix/terminal/password.d:487
-msgid "Add Password"
-msgstr "Wachtwoord toevoegen"
-
-#: source/gx/terminix/terminal/password.d:492
-msgid "Edit Password"
-msgstr "Wachtwoord bewerken"
-
-#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
-msgid "Do not show this again"
-msgstr "Dit bericht niet meer weergeven"
-
-#: source/gx/terminix/closedialog.d:160
-#, c-format
-msgid "Window (%s)"
-msgstr "Venster (%s)"
-
-#: source/gx/terminix/closedialog.d:163
-#, c-format
-msgid "Session (%s)"
-msgstr "Sessie (%s)"
-
-#: source/gx/terminix/closedialog.d:183
-msgid "Close Application"
-msgstr "Applicatie sluiten"
-
-#: source/gx/terminix/closedialog.d:186
-msgid "Close Window"
-msgstr "Venster sluiten"
-
-#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
-msgid "Close Session"
-msgstr "Sessie sluiten"
-
-#: source/gx/terminix/application.d:217
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
-msgid "New Window"
-msgstr "Nieuw venster"
-
-#: source/gx/terminix/application.d:221 source/gx/terminix/appwindow.d:654
-#: source/gx/terminix/prefeditor/prefdialog.d:230
-#: source/gx/terminix/prefeditor/prefdialog.d:353
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: source/gx/terminix/application.d:223
-#: source/gx/terminix/prefeditor/prefdialog.d:145
-#: source/gx/terminix/prefeditor/prefdialog.d:146
-msgid "Shortcuts"
-msgstr "Sneltoetsen"
-
-#: source/gx/terminix/application.d:228
-msgid "About"
-msgstr "Over"
-
-#: source/gx/terminix/application.d:229
-msgid "Quit"
-msgstr "Afsluiten"
-
-#: source/gx/terminix/application.d:283
-msgid "Credits"
-msgstr "Met dank aan"
-
-#: source/gx/terminix/application.d:320 source/gx/terminix/appwindow.d:1388
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:622
-msgid "Set the working directory of the terminal"
-msgstr "Stel de terminal-werkmap in"
-
-#: source/gx/terminix/application.d:622
-msgid "DIRECTORY"
-msgstr "MAP"
-
-#: source/gx/terminix/application.d:623
-msgid "Set the starting profile"
-msgstr "Stel het startprofiel in"
-
-#: source/gx/terminix/application.d:623
-msgid "PROFILE_NAME"
-msgstr "PROFIEL_NAAM"
-
-#: source/gx/terminix/application.d:624
-msgid "Set the title of the new terminal"
-msgstr "Stel de nieuwe terminaltitel in"
-
-#: source/gx/terminix/application.d:624
-msgid "TITLE"
-msgstr "TITEL"
-
-#: source/gx/terminix/application.d:625
-msgid "Open the specified session"
-msgstr "Open de opgegeven sessie"
-
-#: source/gx/terminix/application.d:625
-msgid "SESSION_NAME"
-msgstr "SESSIE_NAAM"
-
-#: source/gx/terminix/application.d:626
-msgid "Send an action to current Terminix instance"
-msgstr "Verstuur een actie naar het huidige Terminix-proces"
-
-#: source/gx/terminix/application.d:626
-msgid "ACTION_NAME"
-msgstr "ACTIE_NAAM"
-
-#: source/gx/terminix/application.d:627
-msgid "Execute the parameter as a command"
-msgstr "Parameter uitvoeren als opdracht"
-
-#: source/gx/terminix/application.d:627
-msgid "COMMAND"
-msgstr "OPDRACHT"
-
-#: source/gx/terminix/application.d:628
-msgid "Maximize the terminal window"
-msgstr "Maximaliseer het terminalvenster"
-
-#: source/gx/terminix/application.d:629
-msgid "Minimize the terminal window"
-msgstr "Terminalvenster minimaliseren"
-
-#: source/gx/terminix/application.d:630
-msgid "Full-screen the terminal window"
-msgstr "Volledige scherm-modus"
-
-#: source/gx/terminix/application.d:631
-msgid "Focus the existing window"
-msgstr "Focus het huidige venster"
-
-#: source/gx/terminix/application.d:632
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Nieuwe vensters starten als nieuw proces (niet aanbevolen)"
-
-#: source/gx/terminix/application.d:633
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Stel de venstergrootte in; bijv.: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-
-#: source/gx/terminix/application.d:633
-msgid "GEOMETRY"
-msgstr "AFMETINGEN"
-
-#: source/gx/terminix/application.d:634
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Opent een venster in quake-modus of weergeeft/verwerpt een actief quake-"
-"venster"
-
-#: source/gx/terminix/application.d:635
-msgid "Show the Terminix and dependant component versions"
-msgstr "Terminix-versie en vereiste componenten-versies weergeven"
-
-#: source/gx/terminix/application.d:636
-msgid "Show the Terminix preferences dialog directly"
-msgstr "Terminix-voorkeurenvenster direct weergeven"
-
-#: source/gx/terminix/application.d:639
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Verborgen argument om door te geven aan de terminal UUID"
-
-#: source/gx/terminix/application.d:639
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/terminix/application.d:800
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Er lijkt een probleem te zijn met de configuratie van de terminal. Het "
-"probleem\n"
-"is niet ernstig maar het oplossen ervan zal uw terminal-ervaring verbeteren. "
-"Voor\n"
-"meer informatie, klik op de onderstaande link:"
-
-#: source/gx/terminix/application.d:801
-msgid "Configuration Issue Detected"
-msgstr "Configuratieprobleem ontdekt"
-
-#: source/gx/terminix/application.d:813
-msgid "Do not show this message again"
-msgstr "Dit bericht niet meer weergeven"
-
-#: source/gx/terminix/appwindow.d:320
-msgid "View session sidebar"
-msgstr "Sessie-zijbalk weergeven"
-
-#: source/gx/terminix/appwindow.d:345
-msgid "Create a new session"
-msgstr "Nieuwe sessie creëren"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Add terminal right"
-msgstr "Terminal rechts toevoegen"
-
-#: source/gx/terminix/appwindow.d:367
-msgid "Add terminal down"
-msgstr "Terminal onder toevoegen"
-
-#: source/gx/terminix/appwindow.d:373
-msgid "Find text in terminal"
-msgstr "Naar tekst zoeken in de terminal"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Change Session Name"
-msgstr "Sessienaam wijzigen"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Enter a new name for the session"
-msgstr "Voer een nieuwe sessienaam in"
-
-#: source/gx/terminix/appwindow.d:641
-msgid "Open…"
-msgstr "Openen…"
-
-#: source/gx/terminix/appwindow.d:643
-msgid "Save As…"
-msgstr "Opslaan als…"
-
-#: source/gx/terminix/appwindow.d:648
-msgid "Name…"
-msgstr "Naam…"
-
-#: source/gx/terminix/appwindow.d:649
-msgid "Synchronize Input"
-msgstr "Invoer synchroniseren"
-
-#: source/gx/terminix/appwindow.d:660
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:977
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Dit venster bevat actieve processen. Wilt u het venster tóch sluiten?"
-
-#: source/gx/terminix/appwindow.d:1228
-#: source/gx/terminix/prefeditor/profileeditor.d:857
-msgid "All JSON Files"
-msgstr "Alle JSON-bestanden"
-
-#: source/gx/terminix/appwindow.d:1241
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "De bestandsnaam '%s' bestaat niet"
-
-#: source/gx/terminix/appwindow.d:1271
-msgid "Load Session"
-msgstr "Sessie laden"
-
-#: source/gx/terminix/appwindow.d:1274
-msgid "Open"
-msgstr "Openen"
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Could not load session due to unexpected error."
-msgstr ""
-"De sessie kan niet worden geladen omdat er een onverwachte fout is "
-"opgetreden."
-
-#: source/gx/terminix/appwindow.d:1289
-msgid "Error Loading Session"
-msgstr "Er is een fout opgetreden tijdens het laden van de sessie"
-
-#: source/gx/terminix/appwindow.d:1305
-msgid "Save Session"
-msgstr "Sessie opslaan"
-
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Het bestand %s is geen JSON-compatibel kleurenschemabestand"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "Het kleurenschemapalet vereist 16 kleuren"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Bladwijzer toevoegen"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Bladwijzer bewerken"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Bladwijzer verwijderen"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Bladwijzer de-selecteren"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:112
-msgid "Terminix Preferences"
-msgstr "Terminix-voorkeuren"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:129
-#: source/gx/terminix/prefeditor/prefdialog.d:130
-#: source/gx/terminix/prefeditor/prefdialog.d:198
-msgid "Global"
-msgstr "Globaal"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:133
-#: source/gx/terminix/prefeditor/prefdialog.d:134
-msgid "Appearance"
-msgstr "Uiterlijk"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:137
-#: source/gx/terminix/prefeditor/prefdialog.d:138
-msgid "Quake"
-msgstr "Quake"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:168
-msgid "Add profile"
-msgstr "Profiel toevoegen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:173
-msgid "Delete profile"
-msgstr "Profiel verwijderen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:274
-#: source/gx/terminix/prefeditor/prefdialog.d:282
-#, c-format
-msgid "Profile: %s"
-msgstr "Profiel: %s"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:492
-msgid "Clone"
-msgstr "Dupliceren"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:496
-msgid "Use for new terminals"
-msgstr "G"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:572
-msgid "Encodings showing in menu:"
-msgstr "Tekstcoderingen die moeten worden weergegeven in het menu:"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:608
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:669
-#: source/gx/terminix/prefeditor/profileeditor.d:1480
-msgid "Action"
-msgstr "Actie"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:698
-msgid "Shortcut Key"
-msgstr "Sneltoets"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:710
-msgid "Enable shortcuts"
-msgstr "Sneltoetsen inschakelen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:738
-msgid "Overwrite Existing Shortcut"
-msgstr "Bestaande sneltoets overschrijven"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:739
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"De snelkoppeling %s is al toegewezen aan %s.\n"
-"Wilt u de sneltoets van de andere actie uitschakelen en toewijzen aan deze "
-"actie?"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:871
-msgid "Enable transparency, requires re-start"
-msgstr "Doorzichtigheid inschakelen; herstart vereist"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:882
-msgid "Window style"
-msgstr "Vensterstijl"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Normal"
-msgstr "Normaal"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Disable CSD"
-msgstr "CSD uitschakelen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Disable CSD, hide toolbar"
-msgstr "CSD uitschakelen, werkbalk verbergen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:884
-msgid "Borderless"
-msgstr "Randloos"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:888
-msgid "Window restart required"
-msgstr "Vensterherstart vereist"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:897
-msgid "Terminal title style"
-msgstr "Titelstijl van terminal"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-msgid "Small"
-msgstr "Klein"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:898
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "None"
-msgstr "Geen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:904
-msgid "Theme variant"
-msgstr "Themastijl"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Light"
-msgstr "Licht"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:905
-msgid "Dark"
-msgstr "Donker"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:911
-msgid "Background image"
-msgstr "Achtergrondafbeelding"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:913
-msgid "Select Image"
-msgstr "Afbeelding selecteren"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:916
-msgid "All Image Files"
-msgstr "Alle afbeeldingsbestanden"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:937
-msgid "Reset background image"
-msgstr "Achtergrondafbeelding verwijderen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Scale"
-msgstr "Schalen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Tile"
-msgstr "Tegelen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Center"
-msgstr "Centreren"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Stretch"
-msgstr "Uitrekken"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:962
-msgid "Default session name"
-msgstr "Standaard sessienaam"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Application title"
-msgstr "Applicatietitel"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:986
-msgid "Use a wide handle for splitters"
-msgstr "Brede handgreep gebruiken voor splitsingen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:991
-msgid "Place the sidebar on the right"
-msgstr "Zijbalk aan de rechterkant plaatsen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:995
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Terminaltitel weergeven, zelfs als het de enige terminal is"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1027
-msgid "Size"
-msgstr "Grootte"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1038
-msgid "Height percent"
-msgstr "Hoogtepercentage"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1049
-msgid "Width percent"
-msgstr "Breedtepercentage"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1059
-msgid "Alignment"
-msgstr "Uitlijning"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Left"
-msgstr "Links"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1060
-msgid "Right"
-msgstr "Rechts"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1069
-#: source/gx/terminix/prefeditor/profileeditor.d:470
-msgid "Options"
-msgstr "Opties"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1077
-msgid "Show terminal on all workspaces"
-msgstr "Terminal weergeven op alle werkbladen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1082
-msgid "Set hint for window manager to disable animation"
-msgstr "Hint instellen voor vensterbeheerder om animaties uit te schakelen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1087
-msgid "Hide window when focus is lost"
-msgstr "Venster sluiten bij verliezen van focus"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1092
-msgid "Hide the titlebar of the window"
-msgstr "Venstertitelbalk verbergen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1107
-msgid "Display terminal on active monitor"
-msgstr "Terminal weergeven op actief beeldscherm"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1114
-msgid "Display on specific monitor"
-msgstr "Weergeven op specifiek beeldscherm"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1156
-msgid "Behavior"
-msgstr "Gedrag"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1162
-msgid "Prompt when creating a new session"
-msgstr "Vragen bij creëren van nieuwe sessie"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1167
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Focus een terminal wanneer de muis eroverheen zweeft"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1172
-msgid "Autohide the mouse pointer when typing"
-msgstr "Cursor verbergen tijdens typen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1177
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Terminal sluiten door met de middelste muisknop te klikken op de titel"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1182
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Zoomen in terminalvenster middels <Control> en scrollwiel"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1187
-msgid "Close window when last session is closed"
-msgstr "Venster sluiten wanneer de laatste sessie wordt afgesloten"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1193
-msgid "Send desktop notification on process complete"
-msgstr "Bureaubladmelding weergeven bij afronden van proces"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1201
-msgid "On new instance"
-msgstr "Bij nieuw proces"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Right"
-msgstr "Splitsen naar rechts"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Split Down"
-msgstr "Splitsen naar onderen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1204
-msgid "Focus Window"
-msgstr "Venster focussen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1216
-msgid "Always use advanced paste dialog"
-msgstr "Altijd geavanceerd plakken gebruiken"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1221
-msgid "Warn when attempting unsafe paste"
-msgstr "Waarschuwen bij plakken van onveilige opdracht"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1226
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "Eerste teken weglaten bij plakken van een comment of variabel"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1231
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Geselecteerde tekst automatisch kopiëren naar het klembord"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:99
-msgid "General"
-msgstr "Algemeen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:101
-msgid "Color"
-msgstr "Kleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:102
-msgid "Scrolling"
-msgstr "Scrollen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:103
-msgid "Compatibility"
-msgstr "Compatibiliteit"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:104
-#: source/gx/terminix/prefeditor/profileeditor.d:489
-msgid "Advanced"
-msgstr "Geavanceerd"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:216
-msgid "Profile name"
-msgstr "Profielnaam"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:240
-msgid "Terminal size"
-msgstr "Terminalgrootte"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:250
-msgid "columns"
-msgstr "kolommen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:256
-msgid "rows"
-msgstr "rijen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:272
-#: source/gx/terminix/prefeditor/profileeditor.d:569
-msgid "Cursor"
-msgstr "Cursor"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Block"
-msgstr "Blok"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "IBeam"
-msgstr "Verticale streep"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Underline"
-msgstr "Onderliggende streep"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:283
-msgid "Blink mode"
-msgstr "Knippermodus"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "System"
-msgstr "Systeem"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "On"
-msgstr "Ingeschakeld"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "Off"
-msgstr "Uitgeschakeld"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Sound"
-msgstr "Geluid"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Icon and Sound"
-msgstr "Pictogram en geluid"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:301
-msgid "Terminal title"
-msgstr "Terminaltitel"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:323
-msgid "Badge position"
-msgstr "Logo-positie"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northwest"
-msgstr "Noordwest"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northeast"
-msgstr "Noordoost"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southwest"
-msgstr "Zuidwest"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southeast"
-msgstr "Zuidoost"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:338
-msgid "Text Appearance"
-msgstr "Tekstuiterlijk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:344
-msgid "Allow bold text"
-msgstr "Vetgedrukte tekst toestaan"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:349
-msgid "Rewrap on resize"
-msgstr "Tekstterugloop passend maken bij herschalen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:355
-msgid "Custom font"
-msgstr "Aangepast lettertype"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:361
-msgid "Choose A Terminal Font"
-msgstr "Kies een terminal-lettertype"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:381
-#, c-format
-msgid "ID: %s"
-msgstr "ID: %s"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:427
-msgid "Color scheme"
-msgstr "Kleurenschema"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:437
-#: source/gx/terminix/prefeditor/profileeditor.d:884
-msgid "Custom"
-msgstr "Aangepast"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:450
-msgid "Export"
-msgstr "Exporteren"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:462
-msgid "Color palette"
-msgstr "Kleurenpalet"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:484
-msgid "Use theme colors for foreground/background"
-msgstr "Themakleuren gebruiken voor voorgrond/achtergrond"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:502
-msgid "Transparency"
-msgstr "Doorzichtigheid"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:516
-msgid "Unfocused dim"
-msgstr "Ongefocusde verduistering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:564
-msgid "Text"
-msgstr "Tekst"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:565
-#: source/gx/terminix/prefeditor/profileeditor.d:669
-msgid "Background"
-msgstr "Achtergrond"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:576
-msgid "Select Cursor Foreground Color"
-msgstr "Selecteer voorgrondkleur van cursor"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:578
-msgid "Select Cursor Background Color"
-msgstr "Selecteer achtergrondkleur van cursor"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:583
-msgid "Highlight"
-msgstr "Markeren"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:588
-msgid "Select Highlight Foreground Color"
-msgstr "Selecteer voorgrondkleur van markering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:590
-msgid "Select Highlight Background Color"
-msgstr "Selecteer achtergrondkleur van markering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:595
-msgid "Dim"
-msgstr "Verduisteren"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:600
-msgid "Select Dim Color"
-msgstr "Selecteer verduisteringskleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:609
-msgid "Select Badge Color"
-msgstr "Selecteer badgekleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:658
-msgid "Select Background Color"
-msgstr "Selecteer achtergrondkleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:674
-#: source/gx/terminix/prefeditor/profileeditor.d:690
-msgid "Select Foreground Color"
-msgstr "Selecteer voorgrondkleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:689
-msgid "Foreground"
-msgstr "Voorgrond"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Black"
-msgstr "Zwart"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Red"
-msgstr "Rood"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Green"
-msgstr "Groen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Orange"
-msgstr "Oranje"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Blue"
-msgstr "Blauw"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Purple"
-msgstr "Paars"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Turquoise"
-msgstr "Turkoois"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Grey"
-msgstr "Grijs"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:699
-#, c-format
-msgid "Select %s Color"
-msgstr "Selecteer %s kleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:706
-#, c-format
-msgid "Select %s Light Color"
-msgstr "Selecteer %s lichte kleur"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:841
-msgid "Export Color Scheme"
-msgstr "Kleurenschema exporteren"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:916
-msgid "Show scrollbar"
-msgstr "Scrollbalk weergeven"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:920
-msgid "Scroll on output"
-msgstr "Scrollen bij uitvoer"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:924
-msgid "Scroll on keystroke"
-msgstr "Scrollen bij toetsaanslag"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:928
-msgid "Limit scrollback to:"
-msgstr "Scrolluitvoer beperken tot:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:963
-msgid "Backspace key generates"
-msgstr "Backspace-toets genereert"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Automatic"
-msgstr "Automatisch"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Escape sequence"
-msgstr "Escape-volgorde"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:972
-msgid "Delete key generates"
-msgstr "Delete-toets genereert"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:996
-msgid "Ambiguous-width characters"
-msgstr "Tekens met eenduidige breedte"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Narrow"
-msgstr "Smal"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Wide"
-msgstr "Breed"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1020
-msgid "Run command as a login shell"
-msgstr "Opdracht uitvoeren als inlog-shell"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1024
-msgid "Run a custom command instead of my shell"
-msgstr "Een aangepast commando uitvoeren in plaats van mijn shell"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1040
-msgid "When command exits"
-msgstr "Als de opdracht is afgerond"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Exit the terminal"
-msgstr "Terminal afsluiten"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Restart the command"
-msgstr "Opdracht herstarten"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Hold the terminal open"
-msgstr "Terminalvenster openhouden"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1081
-msgid "Custom Links"
-msgstr "Aangepaste links"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1086
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"Een gebruikers-gedefinieerde lijst van links die kunnen worden aangeklikt in "
-"de terminal gebaseerd op reguliere expressies."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1107
-msgid "Triggers"
-msgstr "Triggers"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1113
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"Triggers zijn reguliere expressies die worden gebruikt om de uitvoertekst in "
-"de terminal te controleren. Als een overeenkomst is aangetroffen zal de "
-"ingestelde actie worden uitgevoerd."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1133
-msgid "Automatic Profile Switching"
-msgstr "Automatische profieloverschakeling"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1141
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"Profielen worden automatisch geselecteerd op basis van de hier ingevoerde "
-"waarden.\n"
-"Waarden moeten worden ingevoerd in de notatie <i>gebruikersnaam@hostnaam:"
-"map</i>. De hostnaam of map kan leeg worden gelaten maar de dubbele punt "
-"moet ten alle tijde aanwezig zijn. Het leeglaten van zowels de hostnaam als "
-"de map is niet toegestaan."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1143
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"Profielen worden automatisch geselecteerd op basis van de hier ingevoerde "
-"waarden.\n"
-"Waarden moeten worden ingevoerd in de notatie <i>hostnaam:map</i>. De "
-"hostnaam of map kan leeg worden gelaten maar de dubbele punt moet ten alle "
-"tijde aanwezig zijn. Het leeglaten van zowels de hostnaam als de map is niet "
-"toegestaan."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1154
-msgid "Match"
-msgstr "Overeenkomen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1165
-#: source/gx/terminix/prefeditor/profileeditor.d:1353
-#: source/gx/terminix/prefeditor/profileeditor.d:1506
-msgid "Add"
-msgstr "Toevoegen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1169
-msgid "Enter username@hostname:directory to match"
-msgstr "Voer de overeen te komen gebruikersnaam@hostnaam:map in"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1171
-msgid "Enter hostname:directory to match"
-msgstr "Voer de overeen te komen hostnaam:map in"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1173
-msgid "Add New Match"
-msgstr "Nieuw overeenkomst toevoegen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1190
-msgid "Edit username@hostname:directory to match"
-msgstr "Bewerk de overeen te komen gebruikersnaam@hostnaam:map"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1192
-msgid "Edit hostname:directory to match"
-msgstr "Bewerk de overeen te komen hostnaam:map"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1194
-msgid "Edit Match"
-msgstr "Overeenkomst bewerken"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1316
-#: source/gx/terminix/prefeditor/profileeditor.d:1454
-msgid "Regex"
-msgstr "Regex"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1340
-msgid "Case Insensitive"
-msgstr "Hoofdletterongevoelig"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-msgid "Edit Custom Links"
-msgstr "Aangepaste links bewerken"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1492
-msgid "Parameter"
-msgstr "Parameter"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1528
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Aantal regels voor triggerdoorvoering beperken tot:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-msgid "Edit Triggers"
-msgstr "Triggers bewerken"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1597
-#, c-format
-msgid "Row %d: "
-msgstr "Rij %d: "
-
-#: source/gx/terminix/prefeditor/titleeditor.d:108
-msgid "Window"
-msgstr "Venster"
-
-#: source/gx/terminix/prefeditor/titleeditor.d:118
-#: source/gx/terminix/prefeditor/titleeditor.d:119
-msgid "Help"
-msgstr "Hulp"
-
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
@@ -1867,42 +1793,131 @@ msgstr ""
 "U kunt de quake-modus niet gebruiken met de parameters voor maximaliseren, "
 "minimaliseren of afmetingen"
 
-#: source/gx/terminix/preferences.d:212
-msgid "UpdateState"
-msgstr "StatusBijwerken"
+#: source/gx/terminix/bookmark/manager.d:223
+msgid "Error deserializing bookmark"
+msgstr "Fout tijdens deserialiseren van bladwijzer"
 
-#: source/gx/terminix/preferences.d:213
-msgid "ExecuteCommand"
-msgstr "CommandoUitvoeren"
+#: source/gx/terminix/bookmark/manager.d:512
+msgid "Root"
+msgstr "Root"
 
-#: source/gx/terminix/preferences.d:214
-msgid "SendNotification"
-msgstr "MeldingVersturen"
+#: source/gx/terminix/bookmark/manager.d:586
+msgid "Could not load bookmarks due to unexpected error"
+msgstr ""
+"De bladwijzers kunnen niet worden geladen omdat er een onverwachte fout is "
+"opgetreden"
 
-#: source/gx/terminix/preferences.d:215
-msgid "UpdateTitle"
-msgstr "TitelBijwerken"
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Folder"
+msgstr "Map"
 
-#: source/gx/terminix/preferences.d:216
-msgid "PlayBell"
-msgstr "BelAfspelen"
+#: source/gx/terminix/bookmark/manager.d:640
+#: source/gx/terminix/bookmark/bmeditor.d:289
+msgid "Path"
+msgstr "Pad"
 
-#: source/gx/terminix/preferences.d:217
-msgid "SendText"
-msgstr "TekstVersturen"
+#: source/gx/terminix/bookmark/manager.d:640
+msgid "Remote"
+msgstr "Op afstand"
 
-#: source/gx/terminix/preferences.d:218
-msgid "InsertPassword"
-msgstr "WachtwoordInvoeren"
+#: source/gx/terminix/bookmark/bmeditor.d:68
+#: source/gx/terminix/bookmark/bmchooser.d:104
+msgid "Select Folder"
+msgstr "Selecteer map"
 
-#: source/gx/terminix/preferences.d:219
-msgid "UpdateBadge"
-msgstr "Badge bijwerken"
+#: source/gx/terminix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Selecteer map"
 
-#: source/gx/terminix/preferences.d:326
+#: source/gx/terminix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Map legen"
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Add Bookmark"
+msgstr "Bladwijzer toevoegen"
+
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Edit Bookmark"
+msgstr "Bladwijzer bewerken"
+
+#: source/gx/terminix/bookmark/bmeditor.d:291
+msgid "Select Path"
+msgstr "Selecteer pad"
+
+#: source/gx/terminix/bookmark/bmeditor.d:379
+msgid "Protocol"
+msgstr "Protocol"
+
+#: source/gx/terminix/bookmark/bmeditor.d:395
+msgid "Host"
+msgstr "Host"
+
+#: source/gx/terminix/bookmark/bmeditor.d:411
+msgid "User"
+msgstr "Gebruiker"
+
+#: source/gx/terminix/bookmark/bmeditor.d:418
+msgid "Parameters"
+msgstr "Parameters"
+
+#: source/gx/terminix/bookmark/bmchooser.d:104
+msgid "Select Bookmark"
+msgstr "Selecteer bladwijzer"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "uitgeschakeld"
+
+#: source/app.d:110
 #, c-format
-msgid "%s (Copy)"
-msgstr "%s (Kopiëren)"
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr ""
+"Uw GTK-versie is verouderd; u moet op zijn minst beschikken over versie %d."
+"%d.%d!"
+
+#: source/app.d:127
+msgid "Unexpected exception occurred"
+msgstr "Er is een onverwachte fout opgetreden"
+
+#: source/app.d:128
+msgid "Error: "
+msgstr "Fout: "
+
+#: source/app.d:138
+msgid "Versions"
+msgstr "Versies"
+
+#: source/app.d:139
+#, c-format
+msgid "Terminix version: %s"
+msgstr "Terminix-versie: %s"
+
+#: source/app.d:140
+#, c-format
+msgid "VTE version: %s"
+msgstr "VTE-versie: %s"
+
+#: source/app.d:141
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK-versie: %d.%d.%d"
+
+#: source/app.d:142
+msgid "Terminix Special Features"
+msgstr "Terminix Speciale Mogelijkheden"
+
+#: source/app.d:143
+msgid "Notifications enabled=%b"
+msgstr "Meldingen ingeschakeld=%b"
+
+#: source/app.d:144
+msgid "Triggers enabled=%b"
+msgstr "Triggers ingeschakeld=%b"
+
+#: source/app.d:145
+msgid "Badges enabled=%b"
+msgstr "Badges ingeschakeld=%b"
 
 #: data/nautilus/open-terminix.py:108
 msgid "Open Remote Terminix"
@@ -2452,6 +2467,9 @@ msgstr ""
 #: data/appdata/com.gexperts.Terminix.appdata.xml.in:31
 msgid "Terminix has been tested with GNOME and with Unity."
 msgstr "Terminix is getest onder GNOME en Unity."
+
+#~ msgid "Select Bookmark..."
+#~ msgstr "Bladwijzer selecteren..."
 
 #~ msgid "The expression %s is not a valid regex"
 #~ msgstr "De expressie %s is een ongeldige regex"
