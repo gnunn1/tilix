@@ -236,7 +236,7 @@ private:
 
         searchButton = new ToggleButton();
         searchButton.setImage(new Image("system-search-symbolic", IconSize.MENU));
-        searchButton.setVisible(false);
+        searchButton.setNoShowAll(true);
         hbMain.packEnd(searchButton);
 
         hbMain.setShowCloseButton(true);
