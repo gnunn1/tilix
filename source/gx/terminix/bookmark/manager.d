@@ -14,11 +14,13 @@ import std.path;
 import std.uuid;
 
 import gdk.Pixbuf;
+import gdk.RGBA;
 
 import glib.Util;
 
 import gtk.IconInfo;
 import gtk.IconTheme;
+import gtk.StyleContext;
 
 import gx.i18n.l10n;
 
@@ -614,12 +616,24 @@ Pixbuf[] getBookmarkIcons() {
     string[] names = ["folder-symbolic","mark-location-symbolic","folder-remote-symbolic", "application-x-executable-symbolic"];
     Pixbuf[] icons;
     IconTheme iconTheme = new IconTheme();
+
+    RGBA fg;
+    StyleContext sc = new StyleContext();
+    sc.lookupColor("theme_fg_color", fg);
     foreach(name; names) {
         IconInfo iconInfo = iconTheme.lookupIcon(name, 16, cast(IconLookupFlags) 0);
-        icons ~= iconInfo.loadIcon();
+        bool wasSymbolic;
+        icons ~= iconInfo.loadSymbolic(fg, null, null, null, wasSymbolic);
     }
     bmIcons = icons;
     return icons;
+}
+
+/**
+ * Clears the bookmark icon cache.
+ */
+void clearBookmarkIconCache() {
+    bmIcons.length = 0;
 }
 
 /**

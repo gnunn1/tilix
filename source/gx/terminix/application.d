@@ -535,6 +535,7 @@ private:
                         Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
                     }
                 }
+                clearBookmarkIconCache();
                 break;
             case SETTINGS_MENU_ACCELERATOR_KEY:
                 if (defaultMenuAccel is null) {
