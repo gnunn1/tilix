@@ -68,7 +68,7 @@ string[] APPLICATION_CREDITS = [
     N_("Dlang.org for such an excellent language, D")
 ];
 immutable string[] APPLICATION_ARTISTS = [];
-immutable string[] APPLICATION_DOCUMENTERS = [""];
+immutable string[] APPLICATION_DOCUMENTERS = [];
 
 //GTK Settings
 enum GTK_APP_PREFER_DARK_THEME = "gtk-application-prefer-dark-theme";

@@ -611,7 +611,7 @@ void initBookmarkManager() {
 
 Pixbuf[] getBookmarkIcons() {
     if (bmIcons.length > 0) return bmIcons;
-    string[] names = ["folder-symbolic","mark-location-symbolic","folder-remote-symbolic", "folder-remote-symbolic", "application-x-executable-symbolic"];
+    string[] names = ["folder-symbolic","mark-location-symbolic","folder-remote-symbolic", "application-x-executable-symbolic"];
     Pixbuf[] icons;
     IconTheme iconTheme = new IconTheme();
     foreach(name; names) {
