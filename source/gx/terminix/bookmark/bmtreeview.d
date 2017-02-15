@@ -296,14 +296,22 @@ public:
      */
     FolderBookmark addBookmark(Bookmark bm) {
         TreeIter parent;
-        FolderBookmark fbm = getParentBookmark(bm, parent);
+        FolderBookmark fbm = cast(FolderBookmark) getSelectedBookmark();
         if (fbm is null) {
-            fbm = bmMgr.root;
+            fbm = getParentBookmark(bm, parent);
+            if (fbm is null) {
+                fbm = bmMgr.root;
+            }
+        } else {
+            parent = getSelectedIter();
         }
+
         bmMgr.add(fbm, bm);
         ignoreOperationFlag = true;
-        addBookmarktoParent(ts, parent, bm, icons);
+        TreeIter iter = addBookmarktoParent(ts, parent, bm, icons);
         ignoreOperationFlag = false;
+        expandRow(parent, ts, false);
+        getSelection().selectIter(iter);
         return fbm;
     }
 
