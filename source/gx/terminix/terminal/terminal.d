@@ -917,6 +917,7 @@ private:
         terminalOverlay = new Overlay();
         if (Version.checkVersion(3, 22, 0).length == 0) {
             sw = new ScrolledWindow(vte);
+            sw.getStyleContext.addClass("terminix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
             sw.setPropagateNaturalWidth(true);
             terminalOverlay.add(sw);
