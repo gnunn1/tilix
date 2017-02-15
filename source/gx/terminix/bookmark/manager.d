@@ -572,7 +572,11 @@ public:
     }
 
     void save() {
-        string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
+        string path = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER);
+        if (!exists(path)) {
+            mkdirRecurse(path);
+        }
+        string filename = buildPath(path, BOOKMARK_FILE);
         string json = root.serialize(null).toPrettyString();
         write(filename, json);
     }
