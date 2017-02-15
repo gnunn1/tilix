@@ -305,7 +305,7 @@ public:
     override void update(Bookmark bm) {
         super.update(bm);
         PathBookmark pb = cast(PathBookmark) bm;
-        if (pb !is null && pb.path.length > 0) {
+        if (pb !is null) {
             pb.path = fcbPath.getFilename();
         }
     }
