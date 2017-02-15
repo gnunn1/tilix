@@ -888,7 +888,6 @@ private:
         string name = page.tsShortcuts.getValueString(iter, COLUMN_NAME);
         //import std.string: No;
         string text = page.se.getText();
-        tracef("Comparing %s against %s", name, text);
         return (page.tsShortcuts.iterHasChild(iter) || text.length==0 || name.indexOf(text, No.caseSensitive) >= 0);
     }
 
