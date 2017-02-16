@@ -58,6 +58,7 @@ import gtk.TreeIter;
 import gtk.TreePath;
 import gtk.TreeView;
 import gtk.TreeViewColumn;
+import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 
@@ -304,7 +305,11 @@ protected:
         Entry eTerminalTitle = new Entry();
         eTerminalTitle.setHexpand(true);
         bh.bind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
-        grid.attach(createTitleEditHelper(eTerminalTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            grid.attach(createTitleEditHelper(eTerminalTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
+        } else {
+            grid.attach(eTerminalTitle, 1, row, 1, 1);
+        }
         row++;
 
         //Badge
@@ -316,7 +321,11 @@ protected:
             Entry eBadge = new Entry();
             eBadge.setHexpand(true);
             bh.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
-            grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
+            if (Version.checkVersion(3, 16, 0).length == 0) {
+                grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
+            } else {
+                grid.attach(eBadge, 1, row, 1, 1);
+            }
             row++;
 
             //Badge Position
