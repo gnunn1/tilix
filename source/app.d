@@ -9,6 +9,7 @@ import std.experimental.logger;
 import std.file;
 import std.format;
 import std.process;
+import std.string;
 
 import glib.FileUtils;
 import glib.Util;
@@ -50,14 +51,36 @@ int main(string[] args) {
     string uhd = Util.getHomeDir();
     trace("UHD = " ~ uhd);
 
+    //Debug args
+    foreach(i, arg; args) {
+        tracef("args[%d]=%s", i, arg);
+    }
+
     // Look for execute command and convert it into a normal -e
     // We do this because this switch means take everything after
     // the switch as a command which GApplication options cannot handle
     // without a callback which D doesn't expose at this time.
     foreach(i, arg; args) {
         if (arg == "-x" || arg == "-e") {
-            string executeCommand = join(args[i+1 .. $], " ");
-            executeCommand = replace(executeCommand, "\"", "\\\"");
+            string executeCommand;
+            // Are we dealing with a single command that either
+            // has no spaces or been escaped by the user or a string
+            // of multiple commands
+            if (args.length == i + 2) {
+                trace("Single command");
+                executeCommand = args[i + 1];
+            } else {
+                for(size_t j=i+1; j<args.length; j++) {
+                    if (j > i + 1) {
+                        executeCommand ~= " ";
+                    }
+                    if (args[j].indexOf(" ") > 0) {
+                        executeCommand ~= "\"" ~ replace(args[j], "\"", "\\\"") ~ "\"";
+                    } else {
+                        executeCommand ~= args[j];
+                    }
+                }
+            }
             trace("Execute Command: " ~ executeCommand);
             args = args[0..i];
             if (arg == "-x") {

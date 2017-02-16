@@ -2054,7 +2054,7 @@ private:
         if (command.length > 0) {
             //keep copy of command around
             _overrideCommand = command;
-            trace("Overriding the command from command prompt: " ~ overrides.command);
+            trace("Overriding the command from command prompt: " ~ command);
             ShellUtils.shellParseArgv(command, args);
             flags = flags | GSpawnFlags.SEARCH_PATH;
         } else if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
