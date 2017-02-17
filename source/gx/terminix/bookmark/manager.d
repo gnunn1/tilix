@@ -203,7 +203,13 @@ public:
     }
 
     override JSONValue serialize(FolderBookmark parent) {
-        JSONValue value = super.serialize(parent);
+        // LDC 1.0.0 breaks on super call to abstract class, see #769
+        JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
+        value[NODE_NAME] = name;
+        _parent = parent;
+
+        //JSONValue value = super.serialize(parent);
+
         JSONValue[] jsonList = [];
         foreach(item; list) {
             jsonList ~= item.serialize(this);
@@ -266,7 +272,12 @@ public:
     }
 
     override JSONValue serialize(FolderBookmark parent) {
-        JSONValue value = super.serialize(parent);
+        // LDC 1.0.0 breaks on super call to abstract class, see #769
+        JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
+        value[NODE_NAME] = name;
+        _parent = parent;
+
+        //JSONValue value = super.serialize(parent);
         value[NODE_PATH] = _path;
         return value;
     }
@@ -383,7 +394,12 @@ public:
     }
 
     override JSONValue serialize(FolderBookmark parent) {
-        JSONValue value = super.serialize(parent);
+        // LDC 1.0.0 breaks on super call to abstract class, see #769
+        JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
+        value[NODE_NAME] = name;
+        _parent = parent;
+
+        //JSONValue value = super.serialize(parent);
         value[NODE_HOST] = _host;
         value[NODE_PORT] = _port;
         value[NODE_USER] = _user;
@@ -466,7 +482,12 @@ public:
     }
 
     override JSONValue serialize(FolderBookmark parent) {
-        JSONValue value = super.serialize(parent);
+        // LDC 1.0.0 breaks on super call to abstract class, see #769
+        JSONValue value = [NODE_BOOKMARK_TYPE : to!string(type())];
+        value[NODE_NAME] = name;
+        _parent = parent;
+
+        //JSONValue value = super.serialize(parent);
         value[NODE_COMMAND] = _command;
         return value;
     }
