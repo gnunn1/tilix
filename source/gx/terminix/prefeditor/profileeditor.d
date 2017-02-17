@@ -339,6 +339,22 @@ protected:
             row++;
         }
 
+        //Notify silence threshold
+        Label lblSilence = new Label(_("Notify new activity"));
+        lblSilence.setHalign(Align.END);
+        grid.attach(lblSilence, 0, row, 1, 1);
+
+        Box bSilence = new Box(Orientation.HORIZONTAL, 6);
+        SpinButton sbSilence = new SpinButton(0, 3600, 60);
+        bh.bind(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY, sbSilence, "value", GSettingsBindFlags.DEFAULT);
+        bSilence.add(sbSilence);
+
+        Label lblSilenceDesc = new Label(_("Threshold for continuous silence (seconds)"));
+        lblSilenceDesc.setSensitive(false);
+        bSilence.add(lblSilenceDesc);
+        grid.attach(bSilence, 1, row, 1, 1);
+        row++;
+
         add(grid);
 
         //Text Appearance

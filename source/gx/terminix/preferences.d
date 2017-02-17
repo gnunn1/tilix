@@ -196,6 +196,8 @@ enum SETTINGS_PROFILE_TRIGGERS_KEY = "triggers";
 enum SETTINGS_PROFILE_TRIGGERS_LINES_KEY = "triggers-lines";
 enum SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY = "trigger-unlimit-lines";
 
+enum SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY = "notify-silence-threshold";
+
 //Shortcuts
 enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Terminix.Keybindings";
 

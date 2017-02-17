@@ -282,6 +282,10 @@ private:
     bool deferShowBell;
     Timeout timer;
 
+    // Track when the last activity was
+    long lastActivity;
+    long silenceThreshold;
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -845,6 +849,24 @@ private:
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             gst.updateState();
+
+            //Check if output was generated
+            if (silenceThreshold > 0) {
+                long time = Clock.currStdTime();
+                if ((lastActivity > 0) && (time > lastActivity + (silenceThreshold * 1_000_000_0))) {
+                    // If we are have notifications enabled, only show notification if process is
+                    // running, otherwise let normal process finished do it's magic
+                    if (!checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION) || (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION) && isProcessRunning())) {
+                        glong cursorCol, cursorRow;
+                        vte.getCursorPosition(cursorCol, cursorRow);
+                        if (cursorRow > 0) cursorRow--;
+                        ArrayG attr = new ArrayG(false, false, 16);
+                        string text = vte.getTextRange(cursorRow, 0, cursorRow, 128, null, null, attr);
+                        notifyProcessNotification(_("Terminal Activity"), text, uuid);
+                    }
+                }
+                lastActivity = time;
+            }
         });
 
         /*
@@ -1863,6 +1885,9 @@ private:
                 }
             }
             break;
+        case SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY:
+            silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
+            break;
         default:
             break;
         }
@@ -1892,7 +1917,8 @@ private:
             SETTINGS_PROFILE_BADGE_TEXT_KEY,
             SETTINGS_PROFILE_BADGE_COLOR_KEY,
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
-            SETTINGS_CONTROL_SCROLL_ZOOM_KEY
+            SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
+            SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY
         ];
 
         foreach (key; keys) {

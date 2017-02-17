@@ -760,6 +760,11 @@
       <summary>The position where the badge is displayed</summary>
       <description>Determines the position based on quadrants whre the badge is rendered in the terminal.</description>
     </key>
+    <key name="notify-silence-threshold" type="i">
+      <default>0</default>
+      <summary>The threshold for no activity before new activity notifies</summary>
+      <description>When the threshold is non-zero, the terminal will output a notification if output is detected after a period of silence exceeds the threshold.</description>
+    </key>
   </schema>
 
   <!-- Keybinding settings -->
