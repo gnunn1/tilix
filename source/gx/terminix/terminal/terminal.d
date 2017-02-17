@@ -342,6 +342,9 @@ private:
         });
 
         mbTitle.add(bTitleLabel);
+        mbTitle.addOnShow(delegate(Widget w) {
+            w.queueResize();
+        }, ConnectFlags.AFTER);
 
         bTitle.packStart(mbTitle, false, false, 0);
 
