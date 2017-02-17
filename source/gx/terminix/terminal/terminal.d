@@ -856,7 +856,8 @@ private:
                 if ((lastActivity > 0) && (time > lastActivity + (silenceThreshold * 1_000_000_0))) {
                     // If we are have notifications enabled, only show notification if process is
                     // running, otherwise let normal process finished do it's magic
-                    if (!checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION) || (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION) && isProcessRunning())) {
+                    bool commandNotification = checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION) && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY);
+                    if (!commandNotification || (commandNotification && isProcessRunning())) {
                         glong cursorCol, cursorRow;
                         vte.getCursorPosition(cursorCol, cursorRow);
                         if (cursorRow > 0) cursorRow--;
