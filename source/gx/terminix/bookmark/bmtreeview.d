@@ -310,7 +310,9 @@ public:
         ignoreOperationFlag = true;
         TreeIter iter = addBookmarktoParent(ts, parent, bm, icons);
         ignoreOperationFlag = false;
-        expandRow(parent, ts, false);
+        if (parent !is null) {
+            expandRow(parent, ts, false);
+        }
         getSelection().selectIter(iter);
         return fbm;
     }
