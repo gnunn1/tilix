@@ -2994,8 +2994,13 @@ public:
         pid_t childPid;
         bool result = isProcessRunning(childPid);
 
-        import std.file: read;
-        name = to!string(cast(char[])read(format("/proc/%d/cmdline", childPid)));
+        import std.file: read, FileException;
+        try {
+            name = to!string(cast(char[])read(format("/proc/%d/cmdline", childPid)));
+        } catch (FileException fe) {
+            name = _("Unknown");
+            warning(fe);
+        }
         name = replace(name, "\0", " ");
 
         return result;

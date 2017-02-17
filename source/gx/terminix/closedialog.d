@@ -77,9 +77,10 @@ private:
         // Create icons
         IconTheme iconTheme = new IconTheme();
         IconInfo iconInfo = iconTheme.lookupIcon("utilities-terminal", 16, cast(IconLookupFlags) 0);
-        pbTerminal = iconInfo.loadIcon();
-        tracef("Pixbuf width,height = %d,%d", pbTerminal.getWidth(), pbTerminal.getHeight());
-
+        if (iconInfo !is null) {
+            pbTerminal = iconInfo.loadIcon();
+            tracef("Pixbuf width,height = %d,%d", pbTerminal.getWidth(), pbTerminal.getHeight());
+        }
         setAllMargins(getContentArea(), 18);
         Box box = new Box(Orientation.VERTICAL, 6);
 
