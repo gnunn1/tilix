@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 10:42+0100\n"
+"POT-Creation-Date: 2017-02-17 14:07-0500\n"
 "PO-Revision-Date: 2016-09-15 08:49+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/terminix/"
@@ -18,1571 +18,181 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.8\n"
 
-#: source/gx/terminix/preferences.d:212
-msgid "UpdateState"
-msgstr ""
+#: source/app.d:133
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Din GTK-version är för gammal, du behöver minst GTK %d.%d.%d!"
 
-#: source/gx/terminix/preferences.d:213
+#: source/app.d:150
+msgid "Unexpected exception occurred"
+msgstr "Ett oväntat undantag inträffade"
+
+#: source/app.d:151
+msgid "Error: "
+msgstr "Fel: "
+
+#: source/app.d:161
 #, fuzzy
-msgid "ExecuteCommand"
-msgstr "Kommando"
+msgid "Versions"
+msgstr "Persisk"
 
-#: source/gx/terminix/preferences.d:214
-msgid "SendNotification"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:215
-#, fuzzy
-msgid "UpdateTitle"
-msgstr "Titel"
-
-#: source/gx/terminix/preferences.d:216
-msgid "PlayBell"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:217
-#, fuzzy
-msgid "SendText"
-msgstr "Text"
-
-#: source/gx/terminix/preferences.d:218
-msgid "InsertPassword"
-msgstr ""
-
-#: source/gx/terminix/preferences.d:219
-#, fuzzy
-msgid "UpdateBadge"
-msgstr "Titel"
-
-#: source/gx/terminix/preferences.d:326
+#: source/app.d:162
 #, fuzzy, c-format
-msgid "%s (Copy)"
-msgstr "Kopiera"
+msgid "Terminix version: %s"
+msgstr "Öppna Terminix i %s"
 
-#: source/gx/terminix/prefeditor/profileeditor.d:99
-msgid "General"
-msgstr "Allmänt"
+#: source/app.d:163
+#, fuzzy, c-format
+msgid "VTE version: %s"
+msgstr "Öppna Terminix i %s"
 
-#: source/gx/terminix/prefeditor/profileeditor.d:100
-#: source/gx/terminix/prefeditor/profileeditor.d:1030
-#: source/gx/terminix/prefeditor/profileeditor.d:1328
-#: source/gx/terminix/terminal/layout.d:76
-#: source/gx/terminix/bookmark/manager.d:640
-#: source/gx/terminix/bookmark/bmeditor.d:330
-#: source/gx/terminix/bookmark/bmeditor.d:425
-msgid "Command"
-msgstr "Kommando"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:101
-msgid "Color"
-msgstr "Färg"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:102
-msgid "Scrolling"
-msgstr "Rullning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:103
-msgid "Compatibility"
-msgstr "Kompatibilitet"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:104
-#: source/gx/terminix/prefeditor/profileeditor.d:489
-msgid "Advanced"
-msgstr "Avancerat"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:216
-msgid "Profile name"
-msgstr "Profilnamn"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:240
-msgid "Terminal size"
-msgstr "Terminalstorlek"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:250
-msgid "columns"
-msgstr "kolumner"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:256
-msgid "rows"
-msgstr "rader"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:261
-#: source/gx/terminix/terminal/terminal.d:727
-msgid "Reset"
-msgstr "Återställ"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:272
-#: source/gx/terminix/prefeditor/profileeditor.d:569
-msgid "Cursor"
-msgstr "Markör"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Block"
-msgstr "Block"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "IBeam"
-msgstr "I-balk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:275
-msgid "Underline"
-msgstr "Understreck"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:283
-msgid "Blink mode"
-msgstr "Blinkningsläge"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "System"
-msgstr "System"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "On"
-msgstr "På"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:286
-msgid "Off"
-msgstr "Av"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:292
-#: source/gx/terminix/terminal/terminal.d:379
-msgid "Terminal bell"
-msgstr "Terminalljud"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-#: source/gx/terminix/prefeditor/prefdialog.d:928
-msgid "None"
-msgstr "Ingen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Sound"
-msgstr "Ljud"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-#: source/gx/terminix/closedialog.d:119
-#: source/gx/terminix/bookmark/bmtreeview.d:71
-msgid "Icon"
-msgstr "Ikon"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:295
-msgid "Icon and Sound"
-msgstr "Ikon och ljud"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:301
-msgid "Terminal title"
-msgstr "Terminaltitel"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:313
-#: source/gx/terminix/prefeditor/profileeditor.d:605
-#: source/gx/terminix/terminal/layout.d:60
-msgid "Badge"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:323
-msgid "Badge position"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northwest"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Northeast"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-msgid "Southwest"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:327
-#, fuzzy
-msgid "Southeast"
-msgstr "Sydeuropeisk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:338
-msgid "Text Appearance"
-msgstr "Textutseende"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:344
-msgid "Allow bold text"
-msgstr "Tillåt fet text"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:349
-msgid "Rewrap on resize"
-msgstr "Justera radbrytningar vid storleksförändring"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:355
-msgid "Custom font"
-msgstr "Anpassat typsnitt"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:361
-msgid "Choose A Terminal Font"
-msgstr "Välj ett terminaltypsnitt"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:381
+#: source/app.d:164
 #, c-format
-msgid "ID: %s"
-msgstr "ID: %s"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:427
-msgid "Color scheme"
-msgstr "Färgschema"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:437
-#: source/gx/terminix/prefeditor/profileeditor.d:884
-msgid "Custom"
-msgstr "Anpassat"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:450
-msgid "Export"
+msgid "GTK Version: %d.%d.%d"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/profileeditor.d:462
-msgid "Color palette"
-msgstr "Färgpalett"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:470
-#: source/gx/terminix/prefeditor/prefdialog.d:1099
-msgid "Options"
-msgstr "Alternativ"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:484
-msgid "Use theme colors for foreground/background"
-msgstr "Använd temafärger för förgrund/bakgrund"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:502
-msgid "Transparency"
-msgstr "Transparens"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:516
-msgid "Unfocused dim"
-msgstr "Ofokuserad dämpad"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:564
-msgid "Text"
-msgstr "Text"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:565
-#: source/gx/terminix/prefeditor/profileeditor.d:669
-msgid "Background"
-msgstr "Bakgrund"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:576
-msgid "Select Cursor Foreground Color"
-msgstr "Välj förgrundsfärg för markör"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:578
-msgid "Select Cursor Background Color"
-msgstr "Välj bakgrundsfärg för markör"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:583
-msgid "Highlight"
-msgstr "Färgmarkering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:588
-msgid "Select Highlight Foreground Color"
-msgstr "Välj förgrundsfärg för färgmarkering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:590
-msgid "Select Highlight Background Color"
-msgstr "Välj bakgrundsfärg för färgmarkering"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:595
-msgid "Dim"
-msgstr "Dämpad"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:600
-msgid "Select Dim Color"
-msgstr "Välj färg för dämpad"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:609
+#: source/app.d:165
 #, fuzzy
-msgid "Select Badge Color"
-msgstr "Välj %s färg"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:658
-msgid "Select Background Color"
-msgstr "Välj bakgrundsfärg"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:674
-#: source/gx/terminix/prefeditor/profileeditor.d:690
-msgid "Select Foreground Color"
-msgstr "Välj förgrundsfärg"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:689
-msgid "Foreground"
-msgstr "Förgrund"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Black"
-msgstr "Svart"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Red"
-msgstr "Röd"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Green"
-msgstr "Grön"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Orange"
-msgstr "Orange"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Blue"
-msgstr "Blå"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Purple"
-msgstr "Lila"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Turquoise"
-msgstr "Turkos"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:693
-msgid "Grey"
-msgstr "Grå"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:699
-#, c-format
-msgid "Select %s Color"
-msgstr "Välj %s färg"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:706
-#, c-format
-msgid "Select %s Light Color"
-msgstr "Välj %s färg (ljus)"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:841
-#, fuzzy
-msgid "Export Color Scheme"
-msgstr "Färgschema"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-#: source/gx/terminix/terminal/terminal.d:2718
-#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1312
-msgid "Save"
-msgstr "Spara"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:844
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-#: source/gx/terminix/closedialog.d:195
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/password.d:367
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/terminal.d:2718
-#: source/gx/terminix/terminal/layout.d:30 source/gx/terminix/appwindow.d:1278
-#: source/gx/terminix/appwindow.d:1312
-#: source/gx/terminix/bookmark/bmeditor.d:148
-#: source/gx/terminix/bookmark/bmchooser.d:105
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:857
-#: source/gx/terminix/appwindow.d:1232
-msgid "All JSON Files"
-msgstr "Alla JSON-filer"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:861
-#: source/gx/terminix/prefeditor/prefdialog.d:953
-#: source/gx/terminix/terminal/terminal.d:2728
-#: source/gx/terminix/appwindow.d:1236
-msgid "All Files"
-msgstr "Alla filer"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:916
-msgid "Show scrollbar"
-msgstr "Visa rullningslist"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:920
-msgid "Scroll on output"
-msgstr "Rulla vid utdata"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:924
-msgid "Scroll on keystroke"
-msgstr "Rulla vid tangentnedtryckning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:928
-msgid "Limit scrollback to:"
-msgstr "Begränsa rullningshistorik till:"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:963
-msgid "Backspace key generates"
-msgstr "Backstegstangenten genererar"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Automatic"
-msgstr "Automatisk"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "Escape sequence"
-msgstr "Kontrollsekvens"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:966
-#: source/gx/terminix/prefeditor/profileeditor.d:975
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:972
-msgid "Delete key generates"
-msgstr "Delete-tangenten genererar"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:981
-#: source/gx/terminix/prefeditor/prefdialog.d:154
-#: source/gx/terminix/prefeditor/prefdialog.d:155
-#: source/gx/terminix/prefeditor/prefdialog.d:407
-#: source/gx/terminix/prefeditor/prefdialog.d:615
-#: source/gx/terminix/terminal/terminal.d:732
-msgid "Encoding"
-msgstr "Kodning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:996
-msgid "Ambiguous-width characters"
-msgstr "Tecken med tvetydig bredd"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Narrow"
-msgstr "Smal"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:999
-msgid "Wide"
-msgstr "Bred"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1020
-msgid "Run command as a login shell"
-msgstr "Kör kommando som ett inloggningsskal"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1024
-msgid "Run a custom command instead of my shell"
-msgstr "Kör ett eget kommando istället för mitt skal"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1040
-msgid "When command exits"
-msgstr "Då kommandot avslutar"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Exit the terminal"
-msgstr "Avsluta terminal"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Restart the command"
-msgstr "Starta om kommandot"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1042
-msgid "Hold the terminal open"
-msgstr "Håll terminalen öppen"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1081
-#, fuzzy
-msgid "Custom Links"
-msgstr "Anpassat typsnitt"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1086
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"En lista över användardefinierade länkar som kan klickas på i terminalen "
-"baserad på reguljära uttrycksdefinitioner."
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1089
-#: source/gx/terminix/prefeditor/profileeditor.d:1116
-#: source/gx/terminix/prefeditor/profileeditor.d:1183
-#: source/gx/terminix/terminal/password.d:180
-msgid "Edit"
-msgstr "Redigera"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1107
-msgid "Triggers"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1113
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1133
-msgid "Automatic Profile Switching"
-msgstr "Automatisk profilväxling"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1141
-#, fuzzy
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"Profiler väljs automatiskt baserat på värdena som matas in här.\n"
-"Värden matas in med ett <i>värdnamn:katalog</i>-format. Antingen värdnamnet "
-"eller katalogen kan uteslutas men kolonet måste finnas med. Värden med "
-"varken värdnamn eller katalog tillåts inte"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1143
-#, fuzzy
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"Profiler väljs automatiskt baserat på värdena som matas in här.\n"
-"Värden matas in med ett <i>värdnamn:katalog</i>-format. Antingen värdnamnet "
-"eller katalogen kan uteslutas men kolonet måste finnas med. Värden med "
-"varken värdnamn eller katalog tillåts inte"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1154
-msgid "Match"
-msgstr "Matchning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1165
-#: source/gx/terminix/prefeditor/profileeditor.d:1353
-#: source/gx/terminix/prefeditor/profileeditor.d:1506
-msgid "Add"
-msgstr "Lägg till"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1169
-#, fuzzy
-msgid "Enter username@hostname:directory to match"
-msgstr "Ange värdnamn:katalog att matcha"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1171
-msgid "Enter hostname:directory to match"
-msgstr "Ange värdnamn:katalog att matcha"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1173
-msgid "Add New Match"
-msgstr "Lägg till ny matchning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1190
-#, fuzzy
-msgid "Edit username@hostname:directory to match"
-msgstr "Redigera värdnamn:katalog att matcha"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1192
-msgid "Edit hostname:directory to match"
-msgstr "Redigera värdnamn:katalog att matcha"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1194
-msgid "Edit Match"
-msgstr "Redigera matchning"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1202
-#: source/gx/terminix/prefeditor/profileeditor.d:1359
-#: source/gx/terminix/prefeditor/profileeditor.d:1512
-#: source/gx/terminix/prefeditor/prefdialog.d:496
-#: source/gx/terminix/terminal/password.d:209
-msgid "Delete"
-msgstr "Ta bort"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1316
-#: source/gx/terminix/prefeditor/profileeditor.d:1454
-msgid "Regex"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1340
-msgid "Case Insensitive"
-msgstr "Skiftlägesokänslig"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-msgid "Edit Custom Links"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1385
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-#: source/gx/terminix/terminal/password.d:367
-msgid "Apply"
-msgstr "Verkställ"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1480
-#: source/gx/terminix/prefeditor/prefdialog.d:688
-msgid "Action"
-msgstr "Åtgärd"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1492
-msgid "Parameter"
-msgstr "Parameter"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1528
-msgid "Limit number of lines for trigger processing to:"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1554
-#, fuzzy
-msgid "Edit Triggers"
-msgstr "Redigera profil"
-
-#: source/gx/terminix/prefeditor/profileeditor.d:1597
-#, c-format
-msgid "Row %d: "
-msgstr ""
-
-#: source/gx/terminix/prefeditor/titleeditor.d:90
-#: source/gx/terminix/terminal/terminal.d:315
-#: source/gx/terminix/terminal/terminal.d:3078
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/terminix/prefeditor/titleeditor.d:108
-#, fuzzy
-msgid "Window"
-msgstr "Fönster"
-
-#: source/gx/terminix/prefeditor/titleeditor.d:118
-#: source/gx/terminix/prefeditor/titleeditor.d:119
-msgid "Help"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:117
-#, fuzzy
-msgid "Terminix Preferences"
+msgid "Terminix Special Features"
 msgstr "Öppna inställningar"
 
-#: source/gx/terminix/prefeditor/prefdialog.d:134
-#: source/gx/terminix/prefeditor/prefdialog.d:135
-#: source/gx/terminix/prefeditor/prefdialog.d:203
-msgid "Global"
-msgstr "Globala"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:138
-#: source/gx/terminix/prefeditor/prefdialog.d:139
-msgid "Appearance"
-msgstr "Utseende"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:142
-#: source/gx/terminix/prefeditor/prefdialog.d:143
-msgid "Quake"
+#: source/app.d:166
+msgid "Notifications enabled=%b"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:146
-#: source/gx/terminix/prefeditor/prefdialog.d:147
-msgid "Bookmarks"
+#: source/app.d:167
+msgid "Triggers enabled=%b"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:150
-#: source/gx/terminix/prefeditor/prefdialog.d:151
-#: source/gx/terminix/application.d:223
-msgid "Shortcuts"
-msgstr "Kortkommandon"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:160
-#: source/gx/terminix/session.d:1439
-msgid "Profile"
-msgstr "Profil"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:173
-#, fuzzy
-msgid "Add profile"
-msgstr "Redigera profil"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:178
-#, fuzzy
-msgid "Delete profile"
-msgstr "Ny profil"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:235
-#: source/gx/terminix/prefeditor/prefdialog.d:358
-#: source/gx/terminix/appwindow.d:654 source/gx/terminix/application.d:221
-msgid "Preferences"
-msgstr "Inställningar"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:255
-#: source/gx/terminix/terminal/terminal.d:720
-msgid "Profiles"
-msgstr "Profiler"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:279
-#: source/gx/terminix/prefeditor/prefdialog.d:287
-#, fuzzy, c-format
-msgid "Profile: %s"
-msgstr "Profiler"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:497
-msgid "Clone"
+#: source/app.d:168
+msgid "Badges enabled=%b"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:501
-#, fuzzy
-msgid "Use for new terminals"
-msgstr "Återställ terminalen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:577
-msgid "Encodings showing in menu:"
-msgstr "Kodningar som visas i meny:"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:613
-msgid "Enabled"
-msgstr "Aktiverad"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:719
-msgid "Shortcut Key"
-msgstr "Snabbtangent"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:731
-msgid "Enable shortcuts"
-msgstr "Aktivera genvägar"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:759
-msgid "Overwrite Existing Shortcut"
-msgstr "Skriv över befintligt kortkommando"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:760
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"Kortkommandot %s är redan tilldelat till %s.\n"
-"Inaktivera kortkommandot för den andra åtgärden och tilldela det här "
-"istället?"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:901
-msgid "Enable transparency, requires re-start"
-msgstr "Aktivera transparens, kräver omstart"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:912
-#, fuzzy
-msgid "Window style"
-msgstr "Fönster"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:914
-#: source/gx/terminix/prefeditor/prefdialog.d:928
-msgid "Normal"
-msgstr "Normal"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:914
-#, fuzzy
-msgid "Disable CSD"
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
 msgstr "inaktiverad"
 
-#: source/gx/terminix/prefeditor/prefdialog.d:914
-msgid "Disable CSD, hide toolbar"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:914
-msgid "Borderless"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:918
-msgid "Window restart required"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:927
-msgid "Terminal title style"
-msgstr "Titelstil för terminal"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:928
-msgid "Small"
-msgstr "Liten"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:934
-msgid "Theme variant"
-msgstr "Temavariant"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:935
-#: source/gx/terminix/appwindow.d:880 source/gx/terminix/session.d:1120
-msgid "Default"
-msgstr "Standard"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:935
-msgid "Light"
-msgstr "Ljus"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:935
-msgid "Dark"
-msgstr "Mörk"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:941
-msgid "Background image"
-msgstr "Bakgrundsbild"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:943
-msgid "Select Image"
-msgstr "Välj bild"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:946
-msgid "All Image Files"
-msgstr "Alla bildfiler"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:967
-msgid "Reset background image"
-msgstr "Återställ bakgrundsbild"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Scale"
-msgstr "Skala"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Tile"
-msgstr "Sida vid sida"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-#: source/gx/terminix/prefeditor/prefdialog.d:1090
-msgid "Center"
-msgstr "Centrera"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:973
-msgid "Stretch"
-msgstr "Sträck ut"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:992
+#: source/gx/terminix/bookmark/bmeditor.d:68
+#: source/gx/terminix/bookmark/bmchooser.d:104
 #, fuzzy
-msgid "Default session name"
-msgstr "Redigera sessionsnamnet"
+msgid "Select Folder"
+msgstr "Välj %s färg"
 
-#: source/gx/terminix/prefeditor/prefdialog.d:1003
+#: source/gx/terminix/bookmark/bmeditor.d:74
 #, fuzzy
-msgid "Application title"
-msgstr "Program"
+msgid "Select folder"
+msgstr "Välj %s färg"
 
-#: source/gx/terminix/prefeditor/prefdialog.d:1016
-msgid "Use a wide handle for splitters"
-msgstr "Använd ett brett handtag för delare"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1021
-msgid "Place the sidebar on the right"
+#: source/gx/terminix/bookmark/bmeditor.d:86
+msgid "Clear folder"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:1025
-#, fuzzy
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Ställ in titeln för den nya terminalen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1057
-msgid "Size"
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Add Bookmark"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:1068
-msgid "Height percent"
+#: source/gx/terminix/bookmark/bmeditor.d:147
+msgid "Edit Bookmark"
 msgstr ""
 
-#: source/gx/terminix/prefeditor/prefdialog.d:1079
-msgid "Width percent"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1089
-msgid "Alignment"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1090
-msgid "Left"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1090
-#, fuzzy
-msgid "Right"
-msgstr "Ljus"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1107
-msgid "Show terminal on all workspaces"
-msgstr "Visa terminal på alla arbetsytor"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1112
-msgid "Set hint for window manager to disable animation"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1117
-#, fuzzy
-msgid "Hide window when focus is lost"
-msgstr "Stäng fönster då sista session stängs"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1122
-#, fuzzy
-msgid "Hide the titlebar of the window"
-msgstr "Ställ in titeln för den nya terminalen"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1137
-#, fuzzy
-msgid "Display terminal on active monitor"
-msgstr "Visa terminal på primär skärm"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1144
-msgid "Display on specific monitor"
-msgstr "Visa på specifik skärm"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1186
-msgid "Behavior"
-msgstr "Beteende"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1192
-msgid "Prompt when creating a new session"
-msgstr "Fråga då en ny session skapas"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1197
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Fokusera en terminal då musen hålls över den"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1202
-msgid "Autohide the mouse pointer when typing"
-msgstr "Dölj automatiskt muspekaren då du skriver"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1207
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1212
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1217
-msgid "Close window when last session is closed"
-msgstr "Stäng fönster då sista session stängs"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1223
-msgid "Send desktop notification on process complete"
-msgstr "Skicka skrivbordsaviseringar då process klar"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1231
-msgid "On new instance"
-msgstr "Vid ny instans"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1234
-#: source/gx/terminix/application.d:217
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
-msgid "New Window"
-msgstr "Nytt fönster"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1234
-#: source/gx/terminix/application.d:216 source/gx/terminix/session.d:1462
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
-msgid "New Session"
-msgstr "Ny session"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1234
-msgid "Split Right"
-msgstr "Dela åt höger"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1234
-msgid "Split Down"
-msgstr "Dela nedåt"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1234
-msgid "Focus Window"
-msgstr "Fokusera fönster"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1240
-#: source/gx/terminix/terminal/terminal.d:1459
-msgid "Clipboard"
-msgstr "Urklipp"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1246
-msgid "Always use advanced paste dialog"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1251
-msgid "Warn when attempting unsafe paste"
-msgstr "Varna vid försök till osäker inklistring"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1256
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-"Ta bort första tecken i inklistring om kommentar eller variabeldeklaration"
-
-#: source/gx/terminix/prefeditor/prefdialog.d:1261
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Kopiera automatiskt text till urklipp vid markering"
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr ""
-
-#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr ""
-
-#: source/gx/terminix/closedialog.d:113 source/gx/terminix/terminal/layout.d:51
-#: source/gx/terminix/constants.d:116
-msgid "Title"
-msgstr "Titel"
-
-#: source/gx/terminix/closedialog.d:133 source/gx/terminix/appwindow.d:978
-#, fuzzy
-msgid "Do not show this again"
-msgstr "Visa inte detta meddelande igen"
-
-#: source/gx/terminix/closedialog.d:160
-#, fuzzy, c-format
-msgid "Window (%s)"
-msgstr "Fönster"
-
-#: source/gx/terminix/closedialog.d:163
-#, fuzzy, c-format
-msgid "Session (%s)"
-msgstr "Session"
-
-#: source/gx/terminix/closedialog.d:183
-#, fuzzy
-msgid "Close Application"
-msgstr "Program"
-
-#: source/gx/terminix/closedialog.d:186
-#, fuzzy
-msgid "Close Window"
-msgstr "Fokusera fönster"
-
-#: source/gx/terminix/closedialog.d:189 source/gx/terminix/closedialog.d:192
-#, fuzzy
-msgid "Close Session"
-msgstr "Ny session"
-
-#: source/gx/terminix/closedialog.d:195
-#: source/gx/terminix/terminal/password.d:481
-#: source/gx/terminix/terminal/layout.d:30
 #: source/gx/terminix/bookmark/bmeditor.d:148
 #: source/gx/terminix/bookmark/bmchooser.d:105
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/closedialog.d:198
 msgid "OK"
 msgstr "OK"
 
-#: source/gx/terminix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Det här kommandot efterfrågar administratörsåtkomst till din dator"
-
-#: source/gx/terminix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Att kopiera kommandon från internet kan vara farligt. "
-
-#: source/gx/terminix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Säkerställ att du förstår vad varje del av det här kommandot gör."
-
-#: source/gx/terminix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr ""
-
-#: source/gx/terminix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr ""
-
-#: source/gx/terminix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr ""
-
+#: source/gx/terminix/bookmark/bmeditor.d:148
+#: source/gx/terminix/bookmark/bmchooser.d:105
+#: source/gx/terminix/terminal/layout.d:30
+#: source/gx/terminix/terminal/terminal.d:2746
 #: source/gx/terminix/terminal/advpaste.d:137
-#, fuzzy
-msgid "Advanced Paste"
-msgstr "Avancerat"
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/terminal/password.d:481
+#: source/gx/terminix/closedialog.d:198 source/gx/terminix/appwindow.d:1278
+#: source/gx/terminix/appwindow.d:1312
+#: source/gx/terminix/prefeditor/profileeditor.d:869
+#: source/gx/terminix/prefeditor/profileeditor.d:1410
+#: source/gx/terminix/prefeditor/profileeditor.d:1579
+msgid "Cancel"
+msgstr "Avbryt"
 
-#: source/gx/terminix/terminal/advpaste.d:137
-#: source/gx/terminix/terminal/terminal.d:1440
-#: source/gx/terminix/terminal/terminal.d:1451
-msgid "Paste"
-msgstr "Klistra in"
-
-#: source/gx/terminix/terminal/password.d:133
-#: source/gx/terminix/terminal/password.d:425 source/gx/terminix/session.d:1428
 #: source/gx/terminix/bookmark/bmeditor.d:228
 #: source/gx/terminix/bookmark/bmtreeview.d:74
+#: source/gx/terminix/session.d:1428 source/gx/terminix/terminal/password.d:133
+#: source/gx/terminix/terminal/password.d:425
 msgid "Name"
 msgstr "Namn"
 
-#: source/gx/terminix/terminal/password.d:136
-#: source/gx/terminix/constants.d:118
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/terminix/terminal/password.d:157
-msgid "New"
-msgstr "Ny"
-
-#: source/gx/terminix/terminal/password.d:231
-msgid "Include return character with password"
+#: source/gx/terminix/bookmark/bmeditor.d:289
+#: source/gx/terminix/bookmark/manager.d:679
+msgid "Path"
 msgstr ""
 
-#: source/gx/terminix/terminal/password.d:367
-msgid "Insert Password"
-msgstr "Infoga lösenord"
-
-#: source/gx/terminix/terminal/password.d:433
-msgid "Password"
-msgstr "Lösenord"
-
-#: source/gx/terminix/terminal/password.d:441
-msgid "Confirm Password"
-msgstr "Bekräfta lösenord"
-
-#: source/gx/terminix/terminal/password.d:487
-msgid "Add Password"
-msgstr "Lägg till lösenord"
-
-#: source/gx/terminix/terminal/password.d:492
-msgid "Edit Password"
-msgstr "Redigera lösenord"
-
-#: source/gx/terminix/terminal/search.d:122
-msgid "Search Options"
-msgstr "Sökalternativ"
-
-#: source/gx/terminix/terminal/search.d:135
-msgid "Find next"
-msgstr "Sök nästa"
-
-#: source/gx/terminix/terminal/search.d:141
-msgid "Find previous"
-msgstr "Sök föregående"
-
-#: source/gx/terminix/terminal/search.d:188
-msgid "Match case"
-msgstr "Gör skillnad på gemener/VERSALER"
-
-#: source/gx/terminix/terminal/search.d:189
-msgid "Match entire word only"
-msgstr "Sök endast hela ord"
-
-#: source/gx/terminix/terminal/search.d:190
-msgid "Match as regular expression"
-msgstr "Matcha som reguljärt uttryck"
-
-#: source/gx/terminix/terminal/search.d:191
-msgid "Wrap around"
-msgstr "Börja om från början"
-
-#: source/gx/terminix/terminal/terminal.d:346
-#: source/gx/terminix/terminal/terminal.d:1469 source/gx/terminix/sidebar.d:362
-#: source/gx/terminix/appwindow.d:644
-msgid "Close"
-msgstr "Stäng"
-
-#: source/gx/terminix/terminal/terminal.d:354
-#: source/gx/terminix/terminal/terminal.d:1092
-#: source/gx/terminix/terminal/terminal.d:1468
-msgid "Maximize"
-msgstr "Maximera"
-
-#: source/gx/terminix/terminal/terminal.d:364
-#: source/gx/terminix/terminal/terminal.d:604
-msgid "Disable input synchronization for this terminal"
-msgstr "Inaktivera inmatningssynkronisering för denna terminal"
-
-#: source/gx/terminix/terminal/terminal.d:373
-#: source/gx/terminix/terminal/terminal.d:710
-msgid "Read-Only"
-msgstr "Skrivskyddad"
-
-#: source/gx/terminix/terminal/terminal.d:424
-msgid "Edit Profile"
-msgstr "Redigera profil"
-
-#: source/gx/terminix/terminal/terminal.d:442
+#: source/gx/terminix/bookmark/bmeditor.d:291
 #, fuzzy
-msgid "Edit Encodings"
-msgstr "Kodning"
-
-#: source/gx/terminix/terminal/terminal.d:606
-msgid "Enable input synchronization for this terminal"
-msgstr "Aktivera inmatningssynkronisering för denna terminal"
-
-#: source/gx/terminix/terminal/terminal.d:635
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Biblioteket %s kunde inte läsas in, lösenordsfunktionalitet är ej "
-"tillgänglig."
-
-#: source/gx/terminix/terminal/terminal.d:635
-msgid "Library Not Loaded"
-msgstr "Bibliotek ej inläst"
-
-#: source/gx/terminix/terminal/terminal.d:709
-msgid "Find…"
-msgstr "Sök…"
-
-#: source/gx/terminix/terminal/terminal.d:714
-#, fuzzy
-msgid "Password..."
-msgstr "Lösenord"
-
-#: source/gx/terminix/terminal/terminal.d:715
-#, fuzzy
-msgid "Bookmark..."
-msgstr "Välj %s färg"
-
-#: source/gx/terminix/terminal/terminal.d:716
-msgid "Add Bookmark..."
-msgstr ""
-
-#: source/gx/terminix/terminal/terminal.d:726
-msgid "Save Output…"
-msgstr "Spara utdata…"
-
-#: source/gx/terminix/terminal/terminal.d:728
-msgid "Reset and Clear"
-msgstr "Återställ och töm"
-
-#: source/gx/terminix/terminal/terminal.d:733
-msgid "Layout Options…"
-msgstr "Layoutalternativ…"
-
-#: source/gx/terminix/terminal/terminal.d:736
-#, fuzzy
-msgid "Other"
-msgstr "Annat"
-
-#: source/gx/terminix/terminal/terminal.d:745
-msgid "Add Right"
-msgstr "Lägg till åt höger"
-
-#: source/gx/terminix/terminal/terminal.d:749
-msgid "Add Down"
-msgstr "Lägg till nedåt"
-
-#: source/gx/terminix/terminal/terminal.d:1089
-#: source/gx/terminix/terminal/terminal.d:1468
-msgid "Restore"
-msgstr "Återställ"
-
-#: source/gx/terminix/terminal/terminal.d:1428
-msgid "Open Link"
-msgstr "Öppna länk"
-
-#: source/gx/terminix/terminal/terminal.d:1429
-msgid "Copy Link Address"
-msgstr "Kopiera länkadress"
-
-#: source/gx/terminix/terminal/terminal.d:1439
-#: source/gx/terminix/terminal/terminal.d:1446
-msgid "Copy"
-msgstr "Kopiera"
-
-#: source/gx/terminix/terminal/terminal.d:1441
-#: source/gx/terminix/terminal/terminal.d:1456
-msgid "Select All"
+msgid "Select Path"
 msgstr "Markera allt"
 
-#: source/gx/terminix/terminal/terminal.d:1473
-msgid "Synchronize input"
-msgstr "Synkronisera inmatning"
+#: source/gx/terminix/bookmark/bmeditor.d:330
+#: source/gx/terminix/bookmark/bmeditor.d:425
+#: source/gx/terminix/bookmark/manager.d:679
+#: source/gx/terminix/terminal/layout.d:76
+#: source/gx/terminix/prefeditor/profileeditor.d:101
+#: source/gx/terminix/prefeditor/profileeditor.d:1055
+#: source/gx/terminix/prefeditor/profileeditor.d:1353
+msgid "Command"
+msgstr "Kommando"
 
-#: source/gx/terminix/terminal/terminal.d:1967
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
+#: source/gx/terminix/bookmark/bmeditor.d:379
+msgid "Protocol"
 msgstr ""
 
-#: source/gx/terminix/terminal/terminal.d:2105
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Oväntat fel inträffade, ingen ytterligare information tillgänglig"
-
-#: source/gx/terminix/terminal/terminal.d:2111
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Oväntat fel inträffade: %s"
-
-#: source/gx/terminix/terminal/terminal.d:2715
-msgid "Save Terminal Output"
-msgstr "Spara terminalutdata"
-
-#: source/gx/terminix/terminal/terminal.d:2724
-msgid "All Text Files"
-msgstr "Alla textfiler"
-
-#: source/gx/terminix/terminal/terminal.d:3228
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Underprocessen avslutades normalt med status %d"
-
-#: source/gx/terminix/terminal/terminal.d:3229
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Underprocessen terminerades av signal %d."
-
-#: source/gx/terminix/terminal/terminal.d:3230
-msgid "The child process was aborted."
-msgstr "Underprocessen terminerades."
-
-#: source/gx/terminix/terminal/terminal.d:3236
-msgid "Relaunch"
-msgstr "Starta om"
-
-#: source/gx/terminix/terminal/terminal.d:3281
-msgid "Don't Paste"
-msgstr "Klistra inte in"
-
-#: source/gx/terminix/terminal/terminal.d:3282
-msgid "Paste Anyway"
-msgstr "Klistra in i alla fall"
-
-#: source/gx/terminix/terminal/layout.d:30
-msgid "Layout Options"
-msgstr "Layoutalternativ"
-
-#: source/gx/terminix/terminal/layout.d:45
-msgid "Active"
-msgstr "Aktivt"
-
-#: source/gx/terminix/terminal/layout.d:69
-msgid "Session Load"
-msgstr "Sessionsinläst"
-
-#: source/gx/terminix/terminal/layout.d:85
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
+#: source/gx/terminix/bookmark/bmeditor.d:395
+msgid "Host"
 msgstr ""
-"Aktiva alternativ är alltid aktiva och tillämpas omedelbart.\n"
-"Sessionsinlästa alternativ tillämpas då en sessionsfil läses in."
 
-#: source/gx/terminix/appwindow.d:320
-msgid "View session sidebar"
-msgstr "Visa sessionssidopanel"
+#: source/gx/terminix/bookmark/bmeditor.d:411
+msgid "User"
+msgstr ""
 
-#: source/gx/terminix/appwindow.d:345
-msgid "Create a new session"
-msgstr "Skapa en ny session"
-
-#: source/gx/terminix/appwindow.d:363
-msgid "Add terminal right"
-msgstr "Lägg till terminal åt höger"
-
-#: source/gx/terminix/appwindow.d:367
-msgid "Add terminal down"
-msgstr "Lägg till terminal nedåt"
-
-#: source/gx/terminix/appwindow.d:373
-msgid "Find text in terminal"
-msgstr "Sök nästa i terminal"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Change Session Name"
-msgstr "Ändra sessionsnamn"
-
-#: source/gx/terminix/appwindow.d:586
-msgid "Enter a new name for the session"
-msgstr "Ange ett nytt namn för sessionen"
-
-#: source/gx/terminix/appwindow.d:641
-msgid "Open…"
-msgstr "Öppna…"
-
-#: source/gx/terminix/appwindow.d:643
-msgid "Save As…"
-msgstr "Spara som…"
-
-#: source/gx/terminix/appwindow.d:648
-msgid "Name…"
-msgstr "Namn…"
-
-#: source/gx/terminix/appwindow.d:649
-msgid "Synchronize Input"
-msgstr "Synkronisera inmatning"
-
-#: source/gx/terminix/appwindow.d:660
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/terminix/appwindow.d:977
+#: source/gx/terminix/bookmark/bmeditor.d:418
 #, fuzzy
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Det finns fortfarande processer som är igång, stäng i alla fall?"
+msgid "Parameters"
+msgstr "Parameter"
 
-#: source/gx/terminix/appwindow.d:1245
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Filenamnet ”%s” existerar inte"
+#: source/gx/terminix/bookmark/bmchooser.d:104
+#, fuzzy
+msgid "Select Bookmark"
+msgstr "Välj %s färg"
 
-#: source/gx/terminix/appwindow.d:1275
-msgid "Load Session"
-msgstr "Läs in session"
+#: source/gx/terminix/bookmark/bmtreeview.d:71
+#: source/gx/terminix/closedialog.d:122
+#: source/gx/terminix/prefeditor/profileeditor.d:296
+msgid "Icon"
+msgstr "Ikon"
 
-#: source/gx/terminix/appwindow.d:1278
-msgid "Open"
-msgstr "Öppna"
+#: source/gx/terminix/bookmark/manager.d:231
+msgid "Error deserializing bookmark"
+msgstr ""
 
-#: source/gx/terminix/appwindow.d:1293
-msgid "Could not load session due to unexpected error."
+#: source/gx/terminix/bookmark/manager.d:535
+msgid "Root"
+msgstr ""
+
+#: source/gx/terminix/bookmark/manager.d:613
+#, fuzzy
+msgid "Could not load bookmarks due to unexpected error"
 msgstr "Kunde inte läsa in session på grund av ett oväntat fel."
 
-#: source/gx/terminix/appwindow.d:1293
-msgid "Error Loading Session"
-msgstr "Fel vid inläsning av session"
-
-#: source/gx/terminix/appwindow.d:1309
-msgid "Save Session"
-msgstr "Spara session"
-
-#: source/gx/terminix/appwindow.d:1392 source/gx/terminix/application.d:321
-#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
-#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
-msgid "Terminix"
-msgstr "Terminix"
-
-#: source/gx/terminix/application.d:228
-msgid "About"
-msgstr "Om"
-
-#: source/gx/terminix/application.d:229
-msgid "Quit"
-msgstr "Avsluta"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/terminix/application.d:275
-msgid "translator-credits"
-msgstr "Anders Jonsson"
-
-#: source/gx/terminix/application.d:284
-msgid "Credits"
-msgstr "Tack till"
-
-#: source/gx/terminix/application.d:623
-msgid "Set the working directory of the terminal"
-msgstr "Ställ in arbetskatalogen för terminalen"
-
-#: source/gx/terminix/application.d:623
-msgid "DIRECTORY"
-msgstr "KATALOG"
-
-#: source/gx/terminix/application.d:624
-msgid "Set the starting profile"
-msgstr "Ställ in startprofilen"
-
-#: source/gx/terminix/application.d:624
-msgid "PROFILE_NAME"
-msgstr "PROFILNAMN"
-
-#: source/gx/terminix/application.d:625
-msgid "Set the title of the new terminal"
-msgstr "Ställ in titeln för den nya terminalen"
-
-#: source/gx/terminix/application.d:625
-msgid "TITLE"
-msgstr "TITEL"
-
-#: source/gx/terminix/application.d:626
-msgid "Open the specified session"
-msgstr "Öppna den angivna sessionen"
-
-#: source/gx/terminix/application.d:626
-msgid "SESSION_NAME"
-msgstr "SESSIONSNAMN"
-
-#: source/gx/terminix/application.d:627
-msgid "Send an action to current Terminix instance"
-msgstr "Skicka en åtgärd till aktuell Terminix-instans"
-
-#: source/gx/terminix/application.d:627
-msgid "ACTION_NAME"
-msgstr "ÅTGÄRDSNAMN"
-
-#: source/gx/terminix/application.d:628
-#, fuzzy
-msgid "Execute the parameter as a command"
-msgstr "Kör det skickade kommandot"
-
-#: source/gx/terminix/application.d:628
-msgid "COMMAND"
+#: source/gx/terminix/bookmark/manager.d:679
+msgid "Folder"
 msgstr ""
 
-#: source/gx/terminix/application.d:629
-msgid "Maximize the terminal window"
-msgstr "Maximera terminalfönstret"
-
-#: source/gx/terminix/application.d:630
-#, fuzzy
-msgid "Minimize the terminal window"
-msgstr "Maximera terminalfönstret"
-
-#: source/gx/terminix/application.d:631
-msgid "Full-screen the terminal window"
-msgstr "Helskärm för terminalfönstret"
-
-#: source/gx/terminix/application.d:632
-msgid "Focus the existing window"
-msgstr "Fokusera det befintliga fönstret"
-
-#: source/gx/terminix/application.d:633
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Starta ytterligare instans som ny process (Rekommenderas ej)"
-
-#: source/gx/terminix/application.d:634
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+#: source/gx/terminix/bookmark/manager.d:679
+msgid "Remote"
 msgstr ""
-"Ställ in fönsterstorleken; till exempel: 80x24, eller 80x24+200+200 (KOLxRAD"
-"+X+Y)"
-
-#: source/gx/terminix/application.d:634
-msgid "GEOMETRY"
-msgstr "GEOMETRI"
-
-#: source/gx/terminix/application.d:635
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-
-#: source/gx/terminix/application.d:636
-msgid "Show the Terminix and dependant component versions"
-msgstr ""
-
-#: source/gx/terminix/application.d:637
-msgid "Show the Terminix preferences dialog directly"
-msgstr ""
-
-#: source/gx/terminix/application.d:640
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Dolt argument för att skicka terminal-UUID"
-
-#: source/gx/terminix/application.d:640
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL-UUID"
-
-#: source/gx/terminix/application.d:801
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Det verkar ha uppstått problem med konfigurationen av terminalen.\n"
-"Detta är inte allvarligt, men att rätta till det kommer förbättra din "
-"användarupplevelse.\n"
-"Klick på länken nedan för mer information:"
-
-#: source/gx/terminix/application.d:802
-msgid "Configuration Issue Detected"
-msgstr "Konfigurationsproblem upptäckt"
-
-#: source/gx/terminix/application.d:814
-msgid "Do not show this message again"
-msgstr "Visa inte detta meddelande igen"
-
-#: source/gx/terminix/colorschemes.d:182
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Filen %s är inte en JSON-fil som följer färgschemat"
-
-#: source/gx/terminix/colorschemes.d:245
-msgid "Color scheme palette requires 16 colors"
-msgstr "Palett för färgschema kräver 16 färger"
-
-#: source/gx/terminix/session.d:544
-msgid "Could not locate dropped terminal"
-msgstr "Kunde inte hitta släppt terminal"
-
-#: source/gx/terminix/session.d:549
-msgid "Could not locate session for dropped terminal"
-msgstr "Kunde inte hitta session för släppt terminal"
 
 #: source/gx/terminix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
@@ -1612,10 +222,20 @@ msgstr "GtkD för att ha tillhandahållit ett utmärkt GTK-omslag"
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org för det fantastiska språket D"
 
+#: source/gx/terminix/constants.d:116 source/gx/terminix/terminal/layout.d:51
+#: source/gx/terminix/closedialog.d:116
+msgid "Title"
+msgstr "Titel"
+
 #: source/gx/terminix/constants.d:117
 #, fuzzy
 msgid "Icon title"
 msgstr "Program"
+
+#: source/gx/terminix/constants.d:118
+#: source/gx/terminix/terminal/password.d:136
+msgid "ID"
+msgstr "ID"
 
 #: source/gx/terminix/constants.d:119
 msgid "Directory"
@@ -1652,6 +272,30 @@ msgstr "Sessionsinläst"
 #, fuzzy
 msgid "Session number"
 msgstr "Session"
+
+#: source/gx/terminix/session.d:544
+msgid "Could not locate dropped terminal"
+msgstr "Kunde inte hitta släppt terminal"
+
+#: source/gx/terminix/session.d:549
+msgid "Could not locate session for dropped terminal"
+msgstr "Kunde inte hitta session för släppt terminal"
+
+#: source/gx/terminix/session.d:1120 source/gx/terminix/appwindow.d:880
+#: source/gx/terminix/prefeditor/prefdialog.d:963
+msgid "Default"
+msgstr "Standard"
+
+#: source/gx/terminix/session.d:1439
+#: source/gx/terminix/prefeditor/prefdialog.d:166
+msgid "Profile"
+msgstr "Profil"
+
+#: source/gx/terminix/session.d:1462 source/gx/terminix/application.d:216
+#: source/gx/terminix/prefeditor/prefdialog.d:1270
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:21
+msgid "New Session"
+msgstr "Ny session"
 
 #: source/gx/terminix/encoding.d:18 source/gx/terminix/encoding.d:31
 #: source/gx/terminix/encoding.d:45 source/gx/terminix/encoding.d:67
@@ -1788,6 +432,1469 @@ msgstr "Vietnamesisk"
 msgid "Thai"
 msgstr "Thai"
 
+#: source/gx/terminix/terminal/layout.d:30
+msgid "Layout Options"
+msgstr "Layoutalternativ"
+
+#: source/gx/terminix/terminal/layout.d:45
+msgid "Active"
+msgstr "Aktivt"
+
+#: source/gx/terminix/terminal/layout.d:60
+#: source/gx/terminix/prefeditor/profileeditor.d:318
+#: source/gx/terminix/prefeditor/profileeditor.d:630
+msgid "Badge"
+msgstr ""
+
+#: source/gx/terminix/terminal/layout.d:69
+msgid "Session Load"
+msgstr "Sessionsinläst"
+
+#: source/gx/terminix/terminal/layout.d:85
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Aktiva alternativ är alltid aktiva och tillämpas omedelbart.\n"
+"Sessionsinlästa alternativ tillämpas då en sessionsfil läses in."
+
+#: source/gx/terminix/terminal/terminal.d:319
+#: source/gx/terminix/terminal/terminal.d:3111
+#: source/gx/terminix/prefeditor/titleeditor.d:90
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/terminix/terminal/terminal.d:350
+#: source/gx/terminix/terminal/terminal.d:1493
+#: source/gx/terminix/appwindow.d:644 source/gx/terminix/sidebar.d:362
+msgid "Close"
+msgstr "Stäng"
+
+#: source/gx/terminix/terminal/terminal.d:358
+#: source/gx/terminix/terminal/terminal.d:1116
+#: source/gx/terminix/terminal/terminal.d:1492
+msgid "Maximize"
+msgstr "Maximera"
+
+#: source/gx/terminix/terminal/terminal.d:368
+#: source/gx/terminix/terminal/terminal.d:608
+msgid "Disable input synchronization for this terminal"
+msgstr "Inaktivera inmatningssynkronisering för denna terminal"
+
+#: source/gx/terminix/terminal/terminal.d:377
+#: source/gx/terminix/terminal/terminal.d:714
+msgid "Read-Only"
+msgstr "Skrivskyddad"
+
+#: source/gx/terminix/terminal/terminal.d:383
+#: source/gx/terminix/prefeditor/profileeditor.d:293
+msgid "Terminal bell"
+msgstr "Terminalljud"
+
+#: source/gx/terminix/terminal/terminal.d:428
+msgid "Edit Profile"
+msgstr "Redigera profil"
+
+#: source/gx/terminix/terminal/terminal.d:446
+#, fuzzy
+msgid "Edit Encodings"
+msgstr "Kodning"
+
+#: source/gx/terminix/terminal/terminal.d:610
+msgid "Enable input synchronization for this terminal"
+msgstr "Aktivera inmatningssynkronisering för denna terminal"
+
+#: source/gx/terminix/terminal/terminal.d:639
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Biblioteket %s kunde inte läsas in, lösenordsfunktionalitet är ej "
+"tillgänglig."
+
+#: source/gx/terminix/terminal/terminal.d:639
+msgid "Library Not Loaded"
+msgstr "Bibliotek ej inläst"
+
+#: source/gx/terminix/terminal/terminal.d:713
+msgid "Find…"
+msgstr "Sök…"
+
+#: source/gx/terminix/terminal/terminal.d:718
+#, fuzzy
+msgid "Password..."
+msgstr "Lösenord"
+
+#: source/gx/terminix/terminal/terminal.d:719
+#, fuzzy
+msgid "Bookmark..."
+msgstr "Välj %s färg"
+
+#: source/gx/terminix/terminal/terminal.d:720
+msgid "Add Bookmark..."
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:724
+#: source/gx/terminix/prefeditor/prefdialog.d:267
+msgid "Profiles"
+msgstr "Profiler"
+
+#: source/gx/terminix/terminal/terminal.d:730
+msgid "Save Output…"
+msgstr "Spara utdata…"
+
+#: source/gx/terminix/terminal/terminal.d:731
+#: source/gx/terminix/prefeditor/profileeditor.d:262
+msgid "Reset"
+msgstr "Återställ"
+
+#: source/gx/terminix/terminal/terminal.d:732
+msgid "Reset and Clear"
+msgstr "Återställ och töm"
+
+#: source/gx/terminix/terminal/terminal.d:736
+#: source/gx/terminix/prefeditor/prefdialog.d:160
+#: source/gx/terminix/prefeditor/prefdialog.d:161
+#: source/gx/terminix/prefeditor/prefdialog.d:424
+#: source/gx/terminix/prefeditor/prefdialog.d:632
+#: source/gx/terminix/prefeditor/profileeditor.d:1006
+msgid "Encoding"
+msgstr "Kodning"
+
+#: source/gx/terminix/terminal/terminal.d:737
+msgid "Layout Options…"
+msgstr "Layoutalternativ…"
+
+#: source/gx/terminix/terminal/terminal.d:740
+#, fuzzy
+msgid "Other"
+msgstr "Annat"
+
+#: source/gx/terminix/terminal/terminal.d:749
+msgid "Add Right"
+msgstr "Lägg till åt höger"
+
+#: source/gx/terminix/terminal/terminal.d:753
+msgid "Add Down"
+msgstr "Lägg till nedåt"
+
+#: source/gx/terminix/terminal/terminal.d:866
+#, fuzzy
+msgid "Terminal Activity"
+msgstr "Terminaltitel"
+
+#: source/gx/terminix/terminal/terminal.d:1113
+#: source/gx/terminix/terminal/terminal.d:1492
+msgid "Restore"
+msgstr "Återställ"
+
+#: source/gx/terminix/terminal/terminal.d:1452
+msgid "Open Link"
+msgstr "Öppna länk"
+
+#: source/gx/terminix/terminal/terminal.d:1453
+msgid "Copy Link Address"
+msgstr "Kopiera länkadress"
+
+#: source/gx/terminix/terminal/terminal.d:1463
+#: source/gx/terminix/terminal/terminal.d:1470
+msgid "Copy"
+msgstr "Kopiera"
+
+#: source/gx/terminix/terminal/terminal.d:1464
+#: source/gx/terminix/terminal/terminal.d:1475
+#: source/gx/terminix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "Klistra in"
+
+#: source/gx/terminix/terminal/terminal.d:1465
+#: source/gx/terminix/terminal/terminal.d:1480
+msgid "Select All"
+msgstr "Markera allt"
+
+#: source/gx/terminix/terminal/terminal.d:1483
+#: source/gx/terminix/prefeditor/prefdialog.d:1276
+msgid "Clipboard"
+msgstr "Urklipp"
+
+#: source/gx/terminix/terminal/terminal.d:1497
+msgid "Synchronize input"
+msgstr "Synkronisera inmatning"
+
+#: source/gx/terminix/terminal/terminal.d:1995
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:2133
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Oväntat fel inträffade, ingen ytterligare information tillgänglig"
+
+#: source/gx/terminix/terminal/terminal.d:2139
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Oväntat fel inträffade: %s"
+
+#: source/gx/terminix/terminal/terminal.d:2743
+msgid "Save Terminal Output"
+msgstr "Spara terminalutdata"
+
+#: source/gx/terminix/terminal/terminal.d:2746
+#: source/gx/terminix/appwindow.d:642 source/gx/terminix/appwindow.d:1312
+#: source/gx/terminix/prefeditor/profileeditor.d:869
+msgid "Save"
+msgstr "Spara"
+
+#: source/gx/terminix/terminal/terminal.d:2752
+msgid "All Text Files"
+msgstr "Alla textfiler"
+
+#: source/gx/terminix/terminal/terminal.d:2756
+#: source/gx/terminix/appwindow.d:1236
+#: source/gx/terminix/prefeditor/prefdialog.d:981
+#: source/gx/terminix/prefeditor/profileeditor.d:886
+msgid "All Files"
+msgstr "Alla filer"
+
+#: source/gx/terminix/terminal/terminal.d:3001
+msgid "Unknown"
+msgstr ""
+
+#: source/gx/terminix/terminal/terminal.d:3261
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Underprocessen avslutades normalt med status %d"
+
+#: source/gx/terminix/terminal/terminal.d:3262
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Underprocessen terminerades av signal %d."
+
+#: source/gx/terminix/terminal/terminal.d:3263
+msgid "The child process was aborted."
+msgstr "Underprocessen terminerades."
+
+#: source/gx/terminix/terminal/terminal.d:3269
+msgid "Relaunch"
+msgstr "Starta om"
+
+#: source/gx/terminix/terminal/terminal.d:3314
+msgid "Don't Paste"
+msgstr "Klistra inte in"
+
+#: source/gx/terminix/terminal/terminal.d:3315
+msgid "Paste Anyway"
+msgstr "Klistra in i alla fall"
+
+#: source/gx/terminix/terminal/search.d:122
+msgid "Search Options"
+msgstr "Sökalternativ"
+
+#: source/gx/terminix/terminal/search.d:135
+msgid "Find next"
+msgstr "Sök nästa"
+
+#: source/gx/terminix/terminal/search.d:141
+msgid "Find previous"
+msgstr "Sök föregående"
+
+#: source/gx/terminix/terminal/search.d:188
+msgid "Match case"
+msgstr "Gör skillnad på gemener/VERSALER"
+
+#: source/gx/terminix/terminal/search.d:189
+msgid "Match entire word only"
+msgstr "Sök endast hela ord"
+
+#: source/gx/terminix/terminal/search.d:190
+msgid "Match as regular expression"
+msgstr "Matcha som reguljärt uttryck"
+
+#: source/gx/terminix/terminal/search.d:191
+msgid "Wrap around"
+msgstr "Börja om från början"
+
+#: source/gx/terminix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Det här kommandot efterfrågar administratörsåtkomst till din dator"
+
+#: source/gx/terminix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Att kopiera kommandon från internet kan vara farligt. "
+
+#: source/gx/terminix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Säkerställ att du förstår vad varje del av det här kommandot gör."
+
+#: source/gx/terminix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr ""
+
+#: source/gx/terminix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr ""
+
+#: source/gx/terminix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr ""
+
+#: source/gx/terminix/terminal/advpaste.d:137
+#, fuzzy
+msgid "Advanced Paste"
+msgstr "Avancerat"
+
+#: source/gx/terminix/terminal/password.d:157
+msgid "New"
+msgstr "Ny"
+
+#: source/gx/terminix/terminal/password.d:180
+#: source/gx/terminix/prefeditor/profileeditor.d:1114
+#: source/gx/terminix/prefeditor/profileeditor.d:1141
+#: source/gx/terminix/prefeditor/profileeditor.d:1208
+msgid "Edit"
+msgstr "Redigera"
+
+#: source/gx/terminix/terminal/password.d:209
+#: source/gx/terminix/prefeditor/prefdialog.d:513
+#: source/gx/terminix/prefeditor/profileeditor.d:1227
+#: source/gx/terminix/prefeditor/profileeditor.d:1384
+#: source/gx/terminix/prefeditor/profileeditor.d:1537
+msgid "Delete"
+msgstr "Ta bort"
+
+#: source/gx/terminix/terminal/password.d:231
+msgid "Include return character with password"
+msgstr ""
+
+#: source/gx/terminix/terminal/password.d:367
+msgid "Insert Password"
+msgstr "Infoga lösenord"
+
+#: source/gx/terminix/terminal/password.d:367
+#: source/gx/terminix/prefeditor/profileeditor.d:1410
+#: source/gx/terminix/prefeditor/profileeditor.d:1579
+msgid "Apply"
+msgstr "Verkställ"
+
+#: source/gx/terminix/terminal/password.d:433
+msgid "Password"
+msgstr "Lösenord"
+
+#: source/gx/terminix/terminal/password.d:441
+msgid "Confirm Password"
+msgstr "Bekräfta lösenord"
+
+#: source/gx/terminix/terminal/password.d:487
+msgid "Add Password"
+msgstr "Lägg till lösenord"
+
+#: source/gx/terminix/terminal/password.d:492
+msgid "Edit Password"
+msgstr "Redigera lösenord"
+
+#: source/gx/terminix/closedialog.d:136 source/gx/terminix/appwindow.d:978
+#, fuzzy
+msgid "Do not show this again"
+msgstr "Visa inte detta meddelande igen"
+
+#: source/gx/terminix/closedialog.d:163
+#, fuzzy, c-format
+msgid "Window (%s)"
+msgstr "Fönster"
+
+#: source/gx/terminix/closedialog.d:166
+#, fuzzy, c-format
+msgid "Session (%s)"
+msgstr "Session"
+
+#: source/gx/terminix/closedialog.d:186
+#, fuzzy
+msgid "Close Application"
+msgstr "Program"
+
+#: source/gx/terminix/closedialog.d:189
+#, fuzzy
+msgid "Close Window"
+msgstr "Fokusera fönster"
+
+#: source/gx/terminix/closedialog.d:192 source/gx/terminix/closedialog.d:195
+#, fuzzy
+msgid "Close Session"
+msgstr "Ny session"
+
+#: source/gx/terminix/application.d:217
+#: source/gx/terminix/prefeditor/prefdialog.d:1270
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:17
+msgid "New Window"
+msgstr "Nytt fönster"
+
+#: source/gx/terminix/application.d:221 source/gx/terminix/appwindow.d:654
+#: source/gx/terminix/prefeditor/prefdialog.d:247
+#: source/gx/terminix/prefeditor/prefdialog.d:375
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: source/gx/terminix/application.d:223
+#: source/gx/terminix/prefeditor/prefdialog.d:156
+#: source/gx/terminix/prefeditor/prefdialog.d:157
+#: source/gx/terminix/prefeditor/prefdialog.d:283
+msgid "Shortcuts"
+msgstr "Kortkommandon"
+
+#: source/gx/terminix/application.d:228
+msgid "About"
+msgstr "Om"
+
+#: source/gx/terminix/application.d:229
+msgid "Quit"
+msgstr "Avsluta"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/terminix/application.d:275
+msgid "translator-credits"
+msgstr "Anders Jonsson"
+
+#: source/gx/terminix/application.d:284
+msgid "Credits"
+msgstr "Tack till"
+
+#: source/gx/terminix/application.d:321 source/gx/terminix/appwindow.d:1392
+#: data/pkg/desktop/com.gexperts.Terminix.desktop.in:4
+#: data/appdata/com.gexperts.Terminix.appdata.xml.in:8
+msgid "Terminix"
+msgstr "Terminix"
+
+#: source/gx/terminix/application.d:624
+msgid "Set the working directory of the terminal"
+msgstr "Ställ in arbetskatalogen för terminalen"
+
+#: source/gx/terminix/application.d:624
+msgid "DIRECTORY"
+msgstr "KATALOG"
+
+#: source/gx/terminix/application.d:625
+msgid "Set the starting profile"
+msgstr "Ställ in startprofilen"
+
+#: source/gx/terminix/application.d:625
+msgid "PROFILE_NAME"
+msgstr "PROFILNAMN"
+
+#: source/gx/terminix/application.d:626
+msgid "Set the title of the new terminal"
+msgstr "Ställ in titeln för den nya terminalen"
+
+#: source/gx/terminix/application.d:626
+msgid "TITLE"
+msgstr "TITEL"
+
+#: source/gx/terminix/application.d:627
+msgid "Open the specified session"
+msgstr "Öppna den angivna sessionen"
+
+#: source/gx/terminix/application.d:627
+msgid "SESSION_NAME"
+msgstr "SESSIONSNAMN"
+
+#: source/gx/terminix/application.d:628
+msgid "Send an action to current Terminix instance"
+msgstr "Skicka en åtgärd till aktuell Terminix-instans"
+
+#: source/gx/terminix/application.d:628
+msgid "ACTION_NAME"
+msgstr "ÅTGÄRDSNAMN"
+
+#: source/gx/terminix/application.d:629
+#, fuzzy
+msgid "Execute the parameter as a command"
+msgstr "Kör det skickade kommandot"
+
+#: source/gx/terminix/application.d:629
+msgid "COMMAND"
+msgstr ""
+
+#: source/gx/terminix/application.d:630
+msgid "Maximize the terminal window"
+msgstr "Maximera terminalfönstret"
+
+#: source/gx/terminix/application.d:631
+#, fuzzy
+msgid "Minimize the terminal window"
+msgstr "Maximera terminalfönstret"
+
+#: source/gx/terminix/application.d:632
+msgid "Full-screen the terminal window"
+msgstr "Helskärm för terminalfönstret"
+
+#: source/gx/terminix/application.d:633
+msgid "Focus the existing window"
+msgstr "Fokusera det befintliga fönstret"
+
+#: source/gx/terminix/application.d:634
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Starta ytterligare instans som ny process (Rekommenderas ej)"
+
+#: source/gx/terminix/application.d:635
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Ställ in fönsterstorleken; till exempel: 80x24, eller 80x24+200+200 (KOLxRAD"
+"+X+Y)"
+
+#: source/gx/terminix/application.d:635
+msgid "GEOMETRY"
+msgstr "GEOMETRI"
+
+#: source/gx/terminix/application.d:636
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+
+#: source/gx/terminix/application.d:637
+msgid "Show the Terminix and dependant component versions"
+msgstr ""
+
+#: source/gx/terminix/application.d:638
+msgid "Show the Terminix preferences dialog directly"
+msgstr ""
+
+#: source/gx/terminix/application.d:641
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Dolt argument för att skicka terminal-UUID"
+
+#: source/gx/terminix/application.d:641
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL-UUID"
+
+#: source/gx/terminix/application.d:802
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Det verkar ha uppstått problem med konfigurationen av terminalen.\n"
+"Detta är inte allvarligt, men att rätta till det kommer förbättra din "
+"användarupplevelse.\n"
+"Klick på länken nedan för mer information:"
+
+#: source/gx/terminix/application.d:803
+msgid "Configuration Issue Detected"
+msgstr "Konfigurationsproblem upptäckt"
+
+#: source/gx/terminix/application.d:815
+msgid "Do not show this message again"
+msgstr "Visa inte detta meddelande igen"
+
+#: source/gx/terminix/appwindow.d:320
+msgid "View session sidebar"
+msgstr "Visa sessionssidopanel"
+
+#: source/gx/terminix/appwindow.d:345
+msgid "Create a new session"
+msgstr "Skapa en ny session"
+
+#: source/gx/terminix/appwindow.d:363
+msgid "Add terminal right"
+msgstr "Lägg till terminal åt höger"
+
+#: source/gx/terminix/appwindow.d:367
+msgid "Add terminal down"
+msgstr "Lägg till terminal nedåt"
+
+#: source/gx/terminix/appwindow.d:373
+msgid "Find text in terminal"
+msgstr "Sök nästa i terminal"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Change Session Name"
+msgstr "Ändra sessionsnamn"
+
+#: source/gx/terminix/appwindow.d:586
+msgid "Enter a new name for the session"
+msgstr "Ange ett nytt namn för sessionen"
+
+#: source/gx/terminix/appwindow.d:641
+msgid "Open…"
+msgstr "Öppna…"
+
+#: source/gx/terminix/appwindow.d:643
+msgid "Save As…"
+msgstr "Spara som…"
+
+#: source/gx/terminix/appwindow.d:648
+msgid "Name…"
+msgstr "Namn…"
+
+#: source/gx/terminix/appwindow.d:649
+msgid "Synchronize Input"
+msgstr "Synkronisera inmatning"
+
+#: source/gx/terminix/appwindow.d:660
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/terminix/appwindow.d:977
+#, fuzzy
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Det finns fortfarande processer som är igång, stäng i alla fall?"
+
+#: source/gx/terminix/appwindow.d:1232
+#: source/gx/terminix/prefeditor/profileeditor.d:882
+msgid "All JSON Files"
+msgstr "Alla JSON-filer"
+
+#: source/gx/terminix/appwindow.d:1245
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Filenamnet ”%s” existerar inte"
+
+#: source/gx/terminix/appwindow.d:1275
+msgid "Load Session"
+msgstr "Läs in session"
+
+#: source/gx/terminix/appwindow.d:1278
+msgid "Open"
+msgstr "Öppna"
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Could not load session due to unexpected error."
+msgstr "Kunde inte läsa in session på grund av ett oväntat fel."
+
+#: source/gx/terminix/appwindow.d:1293
+msgid "Error Loading Session"
+msgstr "Fel vid inläsning av session"
+
+#: source/gx/terminix/appwindow.d:1309
+msgid "Save Session"
+msgstr "Spara session"
+
+#: source/gx/terminix/colorschemes.d:182
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Filen %s är inte en JSON-fil som följer färgschemat"
+
+#: source/gx/terminix/colorschemes.d:245
+msgid "Color scheme palette requires 16 colors"
+msgstr "Palett för färgschema kräver 16 färger"
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:120
+#, fuzzy
+msgid "Terminix Preferences"
+msgstr "Öppna inställningar"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:137
+#: source/gx/terminix/prefeditor/prefdialog.d:138
+#: source/gx/terminix/prefeditor/prefdialog.d:209
+msgid "Global"
+msgstr "Globala"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:141
+#: source/gx/terminix/prefeditor/prefdialog.d:142
+msgid "Appearance"
+msgstr "Utseende"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:145
+#: source/gx/terminix/prefeditor/prefdialog.d:146
+msgid "Quake"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:149
+#: source/gx/terminix/prefeditor/prefdialog.d:150
+msgid "Bookmarks"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:179
+#, fuzzy
+msgid "Add profile"
+msgstr "Redigera profil"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:184
+#, fuzzy
+msgid "Delete profile"
+msgstr "Ny profil"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:296
+#: source/gx/terminix/prefeditor/prefdialog.d:304
+#, fuzzy, c-format
+msgid "Profile: %s"
+msgstr "Profiler"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:514
+msgid "Clone"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:518
+#, fuzzy
+msgid "Use for new terminals"
+msgstr "Återställ terminalen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:594
+msgid "Encodings showing in menu:"
+msgstr "Kodningar som visas i meny:"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:630
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:707
+#: source/gx/terminix/prefeditor/profileeditor.d:1505
+msgid "Action"
+msgstr "Åtgärd"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:738
+msgid "Shortcut Key"
+msgstr "Snabbtangent"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:750
+msgid "Enable shortcuts"
+msgstr "Aktivera genvägar"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:788
+msgid "Overwrite Existing Shortcut"
+msgstr "Skriv över befintligt kortkommando"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:789
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"Kortkommandot %s är redan tilldelat till %s.\n"
+"Inaktivera kortkommandot för den andra åtgärden och tilldela det här "
+"istället?"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:929
+msgid "Enable transparency, requires re-start"
+msgstr "Aktivera transparens, kräver omstart"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:940
+#, fuzzy
+msgid "Window style"
+msgstr "Fönster"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:942
+#: source/gx/terminix/prefeditor/prefdialog.d:956
+msgid "Normal"
+msgstr "Normal"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:942
+#, fuzzy
+msgid "Disable CSD"
+msgstr "inaktiverad"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:942
+msgid "Disable CSD, hide toolbar"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:942
+msgid "Borderless"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:946
+msgid "Window restart required"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:955
+msgid "Terminal title style"
+msgstr "Titelstil för terminal"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:956
+msgid "Small"
+msgstr "Liten"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:956
+#: source/gx/terminix/prefeditor/profileeditor.d:296
+msgid "None"
+msgstr "Ingen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:962
+msgid "Theme variant"
+msgstr "Temavariant"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:963
+msgid "Light"
+msgstr "Ljus"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:963
+msgid "Dark"
+msgstr "Mörk"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:969
+msgid "Background image"
+msgstr "Bakgrundsbild"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:971
+msgid "Select Image"
+msgstr "Välj bild"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:974
+msgid "All Image Files"
+msgstr "Alla bildfiler"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:995
+msgid "Reset background image"
+msgstr "Återställ bakgrundsbild"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1001
+msgid "Scale"
+msgstr "Skala"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1001
+msgid "Tile"
+msgstr "Sida vid sida"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1001
+#: source/gx/terminix/prefeditor/prefdialog.d:1126
+msgid "Center"
+msgstr "Centrera"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1001
+msgid "Stretch"
+msgstr "Sträck ut"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1020
+#, fuzzy
+msgid "Default session name"
+msgstr "Redigera sessionsnamnet"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1035
+#, fuzzy
+msgid "Application title"
+msgstr "Program"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1052
+msgid "Use a wide handle for splitters"
+msgstr "Använd ett brett handtag för delare"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1057
+msgid "Place the sidebar on the right"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1061
+#, fuzzy
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Ställ in titeln för den nya terminalen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1093
+msgid "Size"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1104
+msgid "Height percent"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1115
+msgid "Width percent"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1125
+msgid "Alignment"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1126
+msgid "Left"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1126
+#, fuzzy
+msgid "Right"
+msgstr "Ljus"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1135
+#: source/gx/terminix/prefeditor/profileeditor.d:495
+msgid "Options"
+msgstr "Alternativ"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1143
+msgid "Show terminal on all workspaces"
+msgstr "Visa terminal på alla arbetsytor"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1148
+msgid "Set hint for window manager to disable animation"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1153
+#, fuzzy
+msgid "Hide window when focus is lost"
+msgstr "Stäng fönster då sista session stängs"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1158
+#, fuzzy
+msgid "Hide the titlebar of the window"
+msgstr "Ställ in titeln för den nya terminalen"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1173
+#, fuzzy
+msgid "Display terminal on active monitor"
+msgstr "Visa terminal på primär skärm"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1180
+msgid "Display on specific monitor"
+msgstr "Visa på specifik skärm"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1222
+msgid "Behavior"
+msgstr "Beteende"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1228
+msgid "Prompt when creating a new session"
+msgstr "Fråga då en ny session skapas"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1233
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Fokusera en terminal då musen hålls över den"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1238
+msgid "Autohide the mouse pointer when typing"
+msgstr "Dölj automatiskt muspekaren då du skriver"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1243
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1248
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1253
+msgid "Close window when last session is closed"
+msgstr "Stäng fönster då sista session stängs"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1259
+msgid "Send desktop notification on process complete"
+msgstr "Skicka skrivbordsaviseringar då process klar"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1267
+msgid "On new instance"
+msgstr "Vid ny instans"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1270
+msgid "Split Right"
+msgstr "Dela åt höger"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1270
+msgid "Split Down"
+msgstr "Dela nedåt"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1270
+msgid "Focus Window"
+msgstr "Fokusera fönster"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1282
+msgid "Always use advanced paste dialog"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1287
+msgid "Warn when attempting unsafe paste"
+msgstr "Varna vid försök till osäker inklistring"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1292
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+"Ta bort första tecken i inklistring om kommentar eller variabeldeklaration"
+
+#: source/gx/terminix/prefeditor/prefdialog.d:1297
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Kopiera automatiskt text till urklipp vid markering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:100
+msgid "General"
+msgstr "Allmänt"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:102
+msgid "Color"
+msgstr "Färg"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:103
+msgid "Scrolling"
+msgstr "Rullning"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:104
+msgid "Compatibility"
+msgstr "Kompatibilitet"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:105
+#: source/gx/terminix/prefeditor/profileeditor.d:514
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:217
+msgid "Profile name"
+msgstr "Profilnamn"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:241
+msgid "Terminal size"
+msgstr "Terminalstorlek"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:251
+msgid "columns"
+msgstr "kolumner"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:257
+msgid "rows"
+msgstr "rader"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:273
+#: source/gx/terminix/prefeditor/profileeditor.d:594
+msgid "Cursor"
+msgstr "Markör"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:276
+msgid "Block"
+msgstr "Block"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:276
+msgid "IBeam"
+msgstr "I-balk"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:276
+msgid "Underline"
+msgstr "Understreck"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:284
+msgid "Blink mode"
+msgstr "Blinkningsläge"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:287
+msgid "System"
+msgstr "System"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:287
+msgid "On"
+msgstr "På"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:287
+msgid "Off"
+msgstr "Av"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:296
+msgid "Sound"
+msgstr "Ljud"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:296
+msgid "Icon and Sound"
+msgstr "Ikon och ljud"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:302
+msgid "Terminal title"
+msgstr "Terminaltitel"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:332
+msgid "Badge position"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:336
+msgid "Northwest"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:336
+msgid "Northeast"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:336
+msgid "Southwest"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:336
+#, fuzzy
+msgid "Southeast"
+msgstr "Sydeuropeisk"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:343
+msgid "Notify new activity"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:352
+msgid "Threshold for continuous silence (seconds)"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:363
+msgid "Text Appearance"
+msgstr "Textutseende"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:369
+msgid "Allow bold text"
+msgstr "Tillåt fet text"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:374
+msgid "Rewrap on resize"
+msgstr "Justera radbrytningar vid storleksförändring"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:380
+msgid "Custom font"
+msgstr "Anpassat typsnitt"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:386
+msgid "Choose A Terminal Font"
+msgstr "Välj ett terminaltypsnitt"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:406
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:452
+msgid "Color scheme"
+msgstr "Färgschema"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:462
+#: source/gx/terminix/prefeditor/profileeditor.d:909
+msgid "Custom"
+msgstr "Anpassat"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:475
+msgid "Export"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:487
+msgid "Color palette"
+msgstr "Färgpalett"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:509
+msgid "Use theme colors for foreground/background"
+msgstr "Använd temafärger för förgrund/bakgrund"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:527
+msgid "Transparency"
+msgstr "Transparens"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:541
+msgid "Unfocused dim"
+msgstr "Ofokuserad dämpad"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:589
+msgid "Text"
+msgstr "Text"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:590
+#: source/gx/terminix/prefeditor/profileeditor.d:694
+msgid "Background"
+msgstr "Bakgrund"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:601
+msgid "Select Cursor Foreground Color"
+msgstr "Välj förgrundsfärg för markör"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:603
+msgid "Select Cursor Background Color"
+msgstr "Välj bakgrundsfärg för markör"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:608
+msgid "Highlight"
+msgstr "Färgmarkering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:613
+msgid "Select Highlight Foreground Color"
+msgstr "Välj förgrundsfärg för färgmarkering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:615
+msgid "Select Highlight Background Color"
+msgstr "Välj bakgrundsfärg för färgmarkering"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:620
+msgid "Dim"
+msgstr "Dämpad"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:625
+msgid "Select Dim Color"
+msgstr "Välj färg för dämpad"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:634
+#, fuzzy
+msgid "Select Badge Color"
+msgstr "Välj %s färg"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:683
+msgid "Select Background Color"
+msgstr "Välj bakgrundsfärg"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:699
+#: source/gx/terminix/prefeditor/profileeditor.d:715
+msgid "Select Foreground Color"
+msgstr "Välj förgrundsfärg"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:714
+msgid "Foreground"
+msgstr "Förgrund"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Black"
+msgstr "Svart"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Red"
+msgstr "Röd"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Green"
+msgstr "Grön"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Orange"
+msgstr "Orange"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Blue"
+msgstr "Blå"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Purple"
+msgstr "Lila"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Turquoise"
+msgstr "Turkos"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:718
+msgid "Grey"
+msgstr "Grå"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:724
+#, c-format
+msgid "Select %s Color"
+msgstr "Välj %s färg"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:731
+#, c-format
+msgid "Select %s Light Color"
+msgstr "Välj %s färg (ljus)"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:866
+#, fuzzy
+msgid "Export Color Scheme"
+msgstr "Färgschema"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:941
+msgid "Show scrollbar"
+msgstr "Visa rullningslist"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:945
+msgid "Scroll on output"
+msgstr "Rulla vid utdata"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:949
+msgid "Scroll on keystroke"
+msgstr "Rulla vid tangentnedtryckning"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:953
+msgid "Limit scrollback to:"
+msgstr "Begränsa rullningshistorik till:"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:988
+msgid "Backspace key generates"
+msgstr "Backstegstangenten genererar"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:991
+#: source/gx/terminix/prefeditor/profileeditor.d:1000
+msgid "Automatic"
+msgstr "Automatisk"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:991
+#: source/gx/terminix/prefeditor/profileeditor.d:1000
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:991
+#: source/gx/terminix/prefeditor/profileeditor.d:1000
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:991
+#: source/gx/terminix/prefeditor/profileeditor.d:1000
+msgid "Escape sequence"
+msgstr "Kontrollsekvens"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:991
+#: source/gx/terminix/prefeditor/profileeditor.d:1000
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:997
+msgid "Delete key generates"
+msgstr "Delete-tangenten genererar"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1021
+msgid "Ambiguous-width characters"
+msgstr "Tecken med tvetydig bredd"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Narrow"
+msgstr "Smal"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1024
+msgid "Wide"
+msgstr "Bred"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1045
+msgid "Run command as a login shell"
+msgstr "Kör kommando som ett inloggningsskal"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1049
+msgid "Run a custom command instead of my shell"
+msgstr "Kör ett eget kommando istället för mitt skal"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1065
+msgid "When command exits"
+msgstr "Då kommandot avslutar"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1067
+msgid "Exit the terminal"
+msgstr "Avsluta terminal"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1067
+msgid "Restart the command"
+msgstr "Starta om kommandot"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1067
+msgid "Hold the terminal open"
+msgstr "Håll terminalen öppen"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1106
+#, fuzzy
+msgid "Custom Links"
+msgstr "Anpassat typsnitt"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1111
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"En lista över användardefinierade länkar som kan klickas på i terminalen "
+"baserad på reguljära uttrycksdefinitioner."
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1132
+msgid "Triggers"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1138
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1158
+msgid "Automatic Profile Switching"
+msgstr "Automatisk profilväxling"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1166
+#, fuzzy
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"Profiler väljs automatiskt baserat på värdena som matas in här.\n"
+"Värden matas in med ett <i>värdnamn:katalog</i>-format. Antingen värdnamnet "
+"eller katalogen kan uteslutas men kolonet måste finnas med. Värden med "
+"varken värdnamn eller katalog tillåts inte"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1168
+#, fuzzy
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Profiler väljs automatiskt baserat på värdena som matas in här.\n"
+"Värden matas in med ett <i>värdnamn:katalog</i>-format. Antingen värdnamnet "
+"eller katalogen kan uteslutas men kolonet måste finnas med. Värden med "
+"varken värdnamn eller katalog tillåts inte"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1179
+msgid "Match"
+msgstr "Matchning"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1190
+#: source/gx/terminix/prefeditor/profileeditor.d:1378
+#: source/gx/terminix/prefeditor/profileeditor.d:1531
+msgid "Add"
+msgstr "Lägg till"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1194
+#, fuzzy
+msgid "Enter username@hostname:directory to match"
+msgstr "Ange värdnamn:katalog att matcha"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1196
+msgid "Enter hostname:directory to match"
+msgstr "Ange värdnamn:katalog att matcha"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1198
+msgid "Add New Match"
+msgstr "Lägg till ny matchning"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1215
+#, fuzzy
+msgid "Edit username@hostname:directory to match"
+msgstr "Redigera värdnamn:katalog att matcha"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1217
+msgid "Edit hostname:directory to match"
+msgstr "Redigera värdnamn:katalog att matcha"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1219
+msgid "Edit Match"
+msgstr "Redigera matchning"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1341
+#: source/gx/terminix/prefeditor/profileeditor.d:1479
+msgid "Regex"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1365
+msgid "Case Insensitive"
+msgstr "Skiftlägesokänslig"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1410
+msgid "Edit Custom Links"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1517
+msgid "Parameter"
+msgstr "Parameter"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1553
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1579
+#, fuzzy
+msgid "Edit Triggers"
+msgstr "Redigera profil"
+
+#: source/gx/terminix/prefeditor/profileeditor.d:1622
+#, c-format
+msgid "Row %d: "
+msgstr ""
+
+#: source/gx/terminix/prefeditor/titleeditor.d:108
+#, fuzzy
+msgid "Window"
+msgstr "Fönster"
+
+#: source/gx/terminix/prefeditor/titleeditor.d:118
+#: source/gx/terminix/prefeditor/titleeditor.d:119
+msgid "Help"
+msgstr ""
+
 #: source/gx/terminix/cmdparams.d:113
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
@@ -1820,135 +1927,46 @@ msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
 
-#: source/gx/terminix/bookmark/manager.d:223
-msgid "Error deserializing bookmark"
+#: source/gx/terminix/preferences.d:214
+msgid "UpdateState"
 msgstr ""
 
-#: source/gx/terminix/bookmark/manager.d:512
-msgid "Root"
-msgstr ""
-
-#: source/gx/terminix/bookmark/manager.d:586
+#: source/gx/terminix/preferences.d:215
 #, fuzzy
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Kunde inte läsa in session på grund av ett oväntat fel."
+msgid "ExecuteCommand"
+msgstr "Kommando"
 
-#: source/gx/terminix/bookmark/manager.d:640
-msgid "Folder"
+#: source/gx/terminix/preferences.d:216
+msgid "SendNotification"
 msgstr ""
 
-#: source/gx/terminix/bookmark/manager.d:640
-#: source/gx/terminix/bookmark/bmeditor.d:289
-msgid "Path"
-msgstr ""
-
-#: source/gx/terminix/bookmark/manager.d:640
-msgid "Remote"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:68
-#: source/gx/terminix/bookmark/bmchooser.d:104
+#: source/gx/terminix/preferences.d:217
 #, fuzzy
-msgid "Select Folder"
-msgstr "Välj %s färg"
+msgid "UpdateTitle"
+msgstr "Titel"
 
-#: source/gx/terminix/bookmark/bmeditor.d:74
+#: source/gx/terminix/preferences.d:218
+msgid "PlayBell"
+msgstr ""
+
+#: source/gx/terminix/preferences.d:219
 #, fuzzy
-msgid "Select folder"
-msgstr "Välj %s färg"
+msgid "SendText"
+msgstr "Text"
 
-#: source/gx/terminix/bookmark/bmeditor.d:86
-msgid "Clear folder"
+#: source/gx/terminix/preferences.d:220
+msgid "InsertPassword"
 msgstr ""
 
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Add Bookmark"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:147
-msgid "Edit Bookmark"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:291
+#: source/gx/terminix/preferences.d:221
 #, fuzzy
-msgid "Select Path"
-msgstr "Markera allt"
+msgid "UpdateBadge"
+msgstr "Titel"
 
-#: source/gx/terminix/bookmark/bmeditor.d:379
-msgid "Protocol"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:395
-msgid "Host"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:411
-msgid "User"
-msgstr ""
-
-#: source/gx/terminix/bookmark/bmeditor.d:418
-#, fuzzy
-msgid "Parameters"
-msgstr "Parameter"
-
-#: source/gx/terminix/bookmark/bmchooser.d:104
-#, fuzzy
-msgid "Select Bookmark"
-msgstr "Välj %s färg"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "inaktiverad"
-
-#: source/app.d:110
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Din GTK-version är för gammal, du behöver minst GTK %d.%d.%d!"
-
-#: source/app.d:127
-msgid "Unexpected exception occurred"
-msgstr "Ett oväntat undantag inträffade"
-
-#: source/app.d:128
-msgid "Error: "
-msgstr "Fel: "
-
-#: source/app.d:138
-#, fuzzy
-msgid "Versions"
-msgstr "Persisk"
-
-#: source/app.d:139
+#: source/gx/terminix/preferences.d:328
 #, fuzzy, c-format
-msgid "Terminix version: %s"
-msgstr "Öppna Terminix i %s"
-
-#: source/app.d:140
-#, fuzzy, c-format
-msgid "VTE version: %s"
-msgstr "Öppna Terminix i %s"
-
-#: source/app.d:141
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr ""
-
-#: source/app.d:142
-#, fuzzy
-msgid "Terminix Special Features"
-msgstr "Öppna inställningar"
-
-#: source/app.d:143
-msgid "Notifications enabled=%b"
-msgstr ""
-
-#: source/app.d:144
-msgid "Triggers enabled=%b"
-msgstr ""
-
-#: source/app.d:145
-msgid "Badges enabled=%b"
-msgstr ""
+msgid "%s (Copy)"
+msgstr "Kopiera"
 
 #: data/nautilus/open-terminix.py:108
 #, fuzzy

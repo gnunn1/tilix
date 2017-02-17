@@ -80,6 +80,8 @@ private:
         if (iconInfo !is null) {
             pbTerminal = iconInfo.loadIcon();
             tracef("Pixbuf width,height = %d,%d", pbTerminal.getWidth(), pbTerminal.getHeight());
+        } else {
+            warning("Could not load icon for 'utilities-terminal'");
         }
         setAllMargins(getContentArea(), 18);
         Box box = new Box(Orientation.VERTICAL, 6);
