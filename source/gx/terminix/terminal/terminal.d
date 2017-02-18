@@ -342,12 +342,16 @@ private:
         });
 
         mbTitle.add(bTitleLabel);
-        mbTitle.addOnShow(delegate(Widget w) {
-            w.queueResize();
-        }, ConnectFlags.AFTER);
-        mbTitle.setHalign(Align.START);
+        mbTitle.addOnShow(delegate(Widget) {
+            import gx.gtk.threads: threadsAddIdleDelegate;
 
-        bTitle.packStart(mbTitle, true, true, 0);
+            threadsAddIdleDelegate(delegate() {
+                mbTitle.queueResize();
+                return false;
+            });
+        }, ConnectFlags.AFTER);
+
+        bTitle.packStart(mbTitle, false, false, 0);
 
         //Close Button
         Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
