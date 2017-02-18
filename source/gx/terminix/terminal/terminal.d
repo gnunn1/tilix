@@ -345,8 +345,9 @@ private:
         mbTitle.addOnShow(delegate(Widget w) {
             w.queueResize();
         }, ConnectFlags.AFTER);
+        mbTitle.setHalign(Align.START);
 
-        bTitle.packStart(mbTitle, false, false, 0);
+        bTitle.packStart(mbTitle, true, true, 0);
 
         //Close Button
         Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
