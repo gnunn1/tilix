@@ -343,12 +343,7 @@ private:
 
         mbTitle.add(bTitleLabel);
         mbTitle.addOnShow(delegate(Widget) {
-            import gx.gtk.threads: threadsAddTimeoutDelegate;
-
-            threadsAddTimeoutDelegate(100, delegate() {
-                mbTitle.queueResize();
-                return false;
-            });
+            mbTitle.queueResize();
         }, ConnectFlags.AFTER);
 
         bTitle.packStart(mbTitle, false, false, 0);
