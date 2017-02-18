@@ -343,9 +343,9 @@ private:
 
         mbTitle.add(bTitleLabel);
         mbTitle.addOnShow(delegate(Widget) {
-            import gx.gtk.threads: threadsAddIdleDelegate;
+            import gx.gtk.threads: threadsAddTimeoutDelegate;
 
-            threadsAddIdleDelegate(delegate() {
+            threadsAddTimeoutDelegate(100, delegate() {
                 mbTitle.queueResize();
                 return false;
             });
