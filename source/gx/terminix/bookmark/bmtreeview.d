@@ -41,8 +41,7 @@ enum Columns : uint {
     FILTER = 3
 }
 
-TreeStore createBMTreeModel(bool foldersOnly) {
-    Pixbuf[] icons = getBookmarkIcons();
+TreeStore createBMTreeModel(Pixbuf[] icons, bool foldersOnly) {
     TreeStore ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING, GType.BOOLEAN]);
     loadBookmarks(ts, null, bmMgr.root, foldersOnly, icons);
     return ts;
@@ -267,8 +266,8 @@ private:
 public:
     this(bool enableFilter = false, bool foldersOnly = false, bool reorganizeable = false) {
         super();
-        icons = getBookmarkIcons();
-        ts = createBMTreeModel(foldersOnly);
+        icons = getBookmarkIcons(this);
+        ts = createBMTreeModel(icons, foldersOnly);
 
         if (enableFilter) {
             filter = new TreeModelFilter(ts, null);

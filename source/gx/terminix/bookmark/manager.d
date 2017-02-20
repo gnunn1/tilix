@@ -15,12 +15,14 @@ import std.uuid;
 
 import gdk.Pixbuf;
 import gdk.RGBA;
+import gdk.Screen;
 
 import glib.Util;
 
 import gtk.IconInfo;
 import gtk.IconTheme;
 import gtk.StyleContext;
+import gtk.Widget;
 
 import gx.i18n.l10n;
 
@@ -636,17 +638,23 @@ void initBookmarkManager() {
     bmMgr = new BookmarkManager();
 }
 
-Pixbuf[] getBookmarkIcons() {
+Pixbuf[] getBookmarkIcons(Widget widget) {
     if (bmIcons.length > 0) return bmIcons;
     string[] names = ["folder-symbolic","mark-location-symbolic","folder-remote-symbolic", "application-x-executable-symbolic"];
     Pixbuf[] icons;
-    IconTheme iconTheme = new IconTheme();
+    IconTheme iconTheme = IconTheme.getForScreen(Screen.getDefault());
+    if (iconTheme is null) {
+        error("IconTheme could not be loaded");
+        return [null, null, null, null];
+    }
 
     RGBA fg;
-    StyleContext sc = new StyleContext();
-    sc.lookupColor("theme_fg_color", fg);
+    if (!widget.getStyleContext().lookupColor("theme_fg_color", fg)) {
+        error("theme_fg_color could not be loaded");
+        return [null, null, null, null];
+    }
     foreach(name; names) {
-        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, cast(IconLookupFlags) 0);
+        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, IconLookupFlags.GENERIC_FALLBACK);
         bool wasSymbolic;
         icons ~= iconInfo.loadSymbolic(fg, null, null, null, wasSymbolic);
     }

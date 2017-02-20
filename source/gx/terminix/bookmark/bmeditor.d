@@ -96,7 +96,9 @@ private:
         stEditors.addOnNotify(delegate(ParamSpec, ObjectG) {
             updateUI();
             BaseEditor be = cast(BaseEditor)stEditors.getVisibleChild();
-            be.focusEditor();
+            if (be !is null) {
+                be.focusEditor();
+            }
         },"visible-child", ConnectFlags.AFTER);
 
         // Adding a new bookmark or editing one?
