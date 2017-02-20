@@ -1026,9 +1026,7 @@ private:
             changeActionState(ACTION_WIN_FULLSCREEN, new GVariant(true));
             fullscreen();
         } else if (isQuake()) {
-            if (gsSettings.getBoolean(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY)) {
-                moveAndSizeQuake();
-            }
+            moveAndSizeQuake();
             setKeepAbove(true);
             trace("Focus terminal");
             activate();
