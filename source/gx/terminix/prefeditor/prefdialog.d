@@ -924,13 +924,6 @@ class AppearancePreferences: Box {
             setMarginLeft(18);
             setMarginRight(18);
 
-            //Enable Transparency, only enabled if less then 3.18
-            if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
-                CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
-                bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
-                add(cbTransparent);
-            }
-
             Grid grid = new Grid();
             grid.setColumnSpacing(12);
             grid.setRowSpacing(6);
@@ -1047,6 +1040,13 @@ class AppearancePreferences: Box {
             row++;
 
             add(grid);
+
+            //Enable Transparency, only enabled if less then 3.18
+            if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
+                CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
+                bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+                add(cbTransparent);
+            }
 
             if (Version.checkVersion(3, 16, 0).length == 0) {
                 CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
