@@ -873,6 +873,7 @@ private:
         title = title.replace(VARIABLE_APP_NAME, _(APPLICATION_NAME));
         Session session = getCurrentSession();
         if (session) {
+            title = session.getDisplayText(title);
             title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
             title = title.replace(VARIABLE_SESSION_NAME, session.displayName);
         } else {
