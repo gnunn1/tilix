@@ -1112,6 +1112,21 @@ public:
         }
     }
 
+    /**
+     * Takes a string with tokens/variables like ${title} and
+     * performs the substitution to get the displayed title.
+     *
+     * This is public because the window can use it to resolve these variables
+     * for the active terminal for it's own name shown in the sidebar.
+     */
+    string getDisplayText(string text) {
+        string result = text;
+        if (currentTerminal !is null) {
+            result = currentTerminal.getDisplayText(result);
+        }
+        return result;
+    }
+
     @property string displayName() {
         string result;
         if (currentTerminal is null) result = name;
