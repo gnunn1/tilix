@@ -11,14 +11,18 @@ import gdk.Keysyms;
 
 import glib.Timeout;
 
+import gobject.Signals;
 import gobject.Value;
 
+import gtk.Box;
 import gtk.Entry;
 import gtk.EventBox;
 import gtk.Label;
 import gtk.Settings;
 import gtk.Stack;
 import gtk.Widget;
+import gtk.Window;
+import gtk.Version;
 
 import gtkc.glib;
 
@@ -27,6 +31,7 @@ import gx.i18n.l10n;
 
 import gx.terminix.common;
 import gx.terminix.constants;
+import gx.terminix.prefeditor.titleeditor;
 
 /**
  * Custom title for AppWindow that allows the user
@@ -50,6 +55,10 @@ private:
 
     bool buttonDown;
 
+    TitleEditBox titleEditor;
+
+    size_t focusOutHandlerId;
+
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
         lblTitle.getStyleContext().addClass("title");
@@ -61,6 +70,8 @@ private:
         addNamed(eb, PAGE_LABEL);
 
         eTitle = new Entry();
+        eTitle.setWidthChars(5);
+        eTitle.setHexpand(true);
         eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
             uint keyval;
             if (event.getKeyval(keyval)) {
@@ -78,14 +89,15 @@ private:
             }
             return false;
         });
-        eTitle.addOnFocusOut(delegate(Event event, Widget widget) {
-            trace("Focus out");
-            removeTimeout();
-            setVisibleChildName(PAGE_LABEL);
-            onCancelEdit.emit();
-            return false;
-        });
-        addNamed(eTitle, PAGE_EDIT);
+        focusOutHandlerId = eTitle.addOnFocusOut(&onFocusOut, ConnectFlags.AFTER);
+        if (Version.checkVersion(3,14, 0).length == 0) {
+            titleEditor = createTitleEditHelper(eTitle, TitleEditScope.WINDOW);
+            titleEditor.onPopoverShow.connect(&onPopoverShow);
+            titleEditor.onPopoverClosed.connect(&onPopoverClosed);
+            addNamed(titleEditor, PAGE_EDIT);
+        } else {
+            addNamed(eTitle, PAGE_EDIT);
+        }
     }
 
     bool onButtonRelease(Event event, Widget widget) {
@@ -126,6 +138,14 @@ private:
         return false;
     }
 
+    bool onFocusOut(Event event, Widget widget) {
+        trace("Focus out");
+        removeTimeout();
+        setVisibleChildName(PAGE_LABEL);
+        onCancelEdit.emit();
+        return false;
+    }
+
     bool onSingleClickTimer() {
         doEdit();
         return false;
@@ -162,6 +182,16 @@ private:
                 timeout = null;
             }
         }
+    }
+
+    void onPopoverShow() {
+        trace("Popover showing");
+        Signals.handlerBlock(eTitle, focusOutHandlerId);
+    }
+
+    void onPopoverClosed() {
+        trace("Popover closing");
+        Signals.handlerUnblock(eTitle, focusOutHandlerId);
     }
 
 	extern(C) static bool timeoutCallback(CustomTitle ct) {

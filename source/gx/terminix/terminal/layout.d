@@ -10,10 +10,13 @@ import gtk.Dialog;
 import gtk.Entry;
 import gtk.Grid;
 import gtk.Label;
+import gtk.Version;
 import gtk.Window;
 
 import gx.i18n.l10n;
 import gx.gtk.vte;
+
+import gx.terminix.prefeditor.titleeditor;
 
 /**
  * Dialog that enables the user to set the layout options for a terminal
@@ -53,7 +56,12 @@ public:
         grid.attach(lblTitle, 0, row, 1, 1);
         eTitle = new Entry();
         eTitle.setWidthChars(20);
-        grid.attach(eTitle, 1, row, 1, 1);
+        eTitle.setHexpand(true);
+        if (Version.checkVersion(3,14, 0).length == 0) {
+            grid.attach(createTitleEditHelper(eTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
+        } else {
+            grid.attach(eTitle, 1, row, 1, 1);
+        }
         row++;
 
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
@@ -61,8 +69,13 @@ public:
             lblBadge.setHalign(Align.END);
             grid.attach(lblBadge, 0, row, 1, 1);
             eBadge = new Entry();
+            eBadge.setHexpand(true);
             eBadge.setWidthChars(20);
-            grid.attach(eBadge, 1, row, 1, 1);
+            if (Version.checkVersion(3,14, 0).length == 0) {
+                grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
+            } else {
+                grid.attach(eBadge, 1, row, 1, 1);
+            }
             row++;
         }
 

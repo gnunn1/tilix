@@ -403,7 +403,11 @@ private:
     }
 
     void onCustomTitleEdit(CumulativeResult!string result) {
-        result.addResult(_overrideTitle);
+        if (_overrideTitle.length > 0) {
+            result.addResult(_overrideTitle);
+        } else {
+            result.addResult(gsSettings.getString(SETTINGS_APP_TITLE_KEY));
+        }
     }
 
     Widget createCustomTitle() {

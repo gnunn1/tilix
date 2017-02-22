@@ -7,6 +7,7 @@ module gx.terminix.prefeditor.titleeditor;
 import std.conv;
 import std.experimental.logger;
 import std.format;
+import std.signals;
 
 import gio.SimpleAction;
 import gio.SimpleActionGroup;
@@ -28,6 +29,7 @@ import gx.gtk.actions;
 
 import gx.i18n.l10n;
 
+import gx.terminix.common;
 import gx.terminix.constants;
 
 /**
@@ -39,15 +41,17 @@ enum TitleEditScope {WINDOW, SESSION, TERMINAL}
  * Wraps an entry into a box that includes other
  * helper widgets to edit the title.
  */
-Box createTitleEditHelper(Entry entry, TitleEditScope tes) {
+TitleEditBox createTitleEditHelper(Entry entry, TitleEditScope tes) {
     return new TitleEditBox(entry, tes);
 }
 
-private:
 
 /**
  * Wraps an entry with helpers for editing various titles
- * like terminal title, window title, etc where variables can be used
+ * like terminal title, window title, etc where variables can be used.
+ *
+ * Note that this editor is not supported in GTK 3.14 so version check it
+ * before using it.
  */
 class TitleEditBox: Box {
 private:
@@ -119,6 +123,14 @@ private:
         model.appendSection(_("Help"), helpSection);
 
         PopoverMenu pm = new PopoverMenu();
+        pm.addOnMap(delegate(Widget) {
+            onPopoverShow.emit();
+        });
+        pm.addOnClosed(delegate(Widget) {
+            entry.grabFocus();
+            onPopoverClosed.emit();
+        }, ConnectFlags.AFTER);
+
         pm.bindModel(model, null);
         return pm;
     }
@@ -136,4 +148,9 @@ public:
             sagVariables = null;
         });
     }
+
+    GenericEvent!() onPopoverShow;
+
+    GenericEvent!() onPopoverClosed;
+
 }
