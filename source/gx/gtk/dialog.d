@@ -64,3 +64,4 @@ bool showInputDialog(Window parent, out string value, string initialValue = "", 
         return false;
     }
 }
+

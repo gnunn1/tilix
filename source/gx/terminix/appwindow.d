@@ -98,6 +98,7 @@ import gx.terminix.cmdparams;
 import gx.terminix.common;
 import gx.terminix.constants;
 import gx.terminix.customtitle;
+import gx.terminix.prefeditor.titleeditor;
 import gx.terminix.preferences;
 import gx.terminix.session;
 import gx.terminix.sessionswitcher;
@@ -586,12 +587,28 @@ private:
         //Change name of session
         registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_NAME, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
-            string name = session.name;
-            if (showInputDialog(this, name, name, _("Change Session Name"), _("Enter a new name for the session"))) {
-                if (name.length > 0) {
-                    session.name = name;
-                    updateTitle();
-                }
+
+            MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL, _("Enter a new name for the session"), null);
+            scope (exit) {
+                dialog.destroy();
+            }
+            dialog.setTransientFor(this);
+            dialog.setTitle( _("Change Session Name"));
+            Entry entry = new Entry(session.name);
+            entry.setWidthChars(30);
+            entry.addOnActivate(delegate(Entry) {
+                dialog.response(ResponseType.OK);
+            });
+            if (isWayland(this) && Version.checkVersion(3, 14, 0).length == 0) {
+                dialog.getMessageArea().add(createTitleEditHelper(entry, TitleEditScope.SESSION));
+            } else {
+                dialog.getMessageArea().add(entry);
+            }
+            dialog.setDefaultResponse(ResponseType.OK);
+            dialog.showAll();
+            if (dialog.run() == ResponseType.OK && entry.getText().length > 0) {
+                session.name = entry.getText();
+                updateTitle();
             }
         });
 
