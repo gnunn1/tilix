@@ -439,6 +439,8 @@ private:
     ColorButton cbDimBG;
     CheckButton cbUseBadgeColor;
     ColorButton cbBadgeFG;
+    CheckButton cbUseBoldColor;
+    ColorButton cbBoldFG;
     ColorButton[16] cbPalette;
 
     Button btnExport;
@@ -616,6 +618,16 @@ private:
         gColors.attach(cbHighlightBG, 2, row, 1, 1);
         row++;
 
+        //Bold
+        cbUseBoldColor = new CheckButton(_("Bold"));
+        cbUseBoldColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
+        bh.bind(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY, cbUseBoldColor, "active", GSettingsBindFlags.DEFAULT);
+        gColors.attach(cbUseBoldColor, 0, row, 1, 1);
+
+        cbBoldFG = createColorButton(SETTINGS_PROFILE_BOLD_COLOR_KEY, _("Select Bold Color"), SETTINGS_PROFILE_USE_BOLD_COLOR_KEY);
+        gColors.attach(cbBoldFG, 1, row, 1, 1);
+        row++;
+
         //Dim
         cbUseDimColor = new CheckButton(_("Dim"));
         cbUseDimColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
@@ -665,6 +677,8 @@ private:
         cbHighlightBG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY)));
 
         cbDimBG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY)));
+
+        cbBoldFG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_BOLD_COLOR_KEY)));
 
         cbBadgeFG.setRgba(parseColor(gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY)));
     }
@@ -777,8 +791,13 @@ private:
         scheme.useCursorColor = cbUseCursorColor.getActive();
         cbCursorFG.getRgba(scheme.cursorFG);
         cbCursorBG.getRgba(scheme.cursorBG);
+
         scheme.useDimColor = cbUseDimColor.getActive();
         cbDimBG.getRgba(scheme.dimColor);
+
+        scheme.useBoldColor = cbUseBoldColor.getActive();
+        cbBoldFG.getRgba(scheme.boldColor);
+
         scheme.useBadgeColor = cbUseBadgeColor.getActive();
         cbBadgeFG.getRgba(scheme.badgeColor);
 
@@ -825,6 +844,11 @@ private:
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY, scheme.useDimColor);
             if (scheme.useDimColor) {
                 cbDimBG.setRgba(scheme.dimColor);
+            }
+            //Bold colors
+            gsProfile.setBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY, scheme.useBoldColor);
+            if (scheme.useBoldColor) {
+                cbBoldFG.setRgba(scheme.boldColor);
             }
             //Badge colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, scheme.useBadgeColor);

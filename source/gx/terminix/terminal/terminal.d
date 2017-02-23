@@ -1664,6 +1664,7 @@ private:
     RGBA vteDimBG;
     RGBA[16] vtePalette;
     RGBA vteBadge;
+    RGBA vteBold;
     double dimPercent;
 
     /**
@@ -1685,6 +1686,7 @@ private:
         vteCursorBG = new RGBA();
         vteDimBG = new RGBA();
         vteBadge = new RGBA();
+        vteBold = new RGBA();
 
         vtePalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
@@ -1874,6 +1876,14 @@ private:
                 queueDraw();
             }
             break;
+        case SETTINGS_PROFILE_BOLD_COLOR_KEY, SETTINGS_PROFILE_USE_BOLD_COLOR_KEY:
+            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY)) {
+                string boldColor = gsProfile.getString(SETTINGS_PROFILE_BOLD_COLOR_KEY);
+                if (vteBold.parse(boldColor)) vte.setColorBold(vteBold);
+            } else {
+                vte.setColorBold(null);
+            }
+            break;
         case SETTINGS_PROFILE_BADGE_POSITION_KEY:
             queueDraw();
             break;
@@ -1922,7 +1932,8 @@ private:
             SETTINGS_PROFILE_BADGE_COLOR_KEY,
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
             SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
-            SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY
+            SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY,
+            SETTINGS_PROFILE_BOLD_COLOR_KEY
         ];
 
         foreach (key; keys) {

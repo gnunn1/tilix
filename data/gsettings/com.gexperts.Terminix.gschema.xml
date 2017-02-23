@@ -748,7 +748,7 @@
     <key name="badge-color" type="s">
       <default>'#ffffff'</default>
       <summary>Badge colour</summary>
-      <description>Custom color for the badge, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if highlight-colors-set is false.</description>
+      <description>Custom color for the badge, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if badge-color-set is false.</description>
     </key>
     <key name="badge-color-set" type="b">
       <default>false</default>
@@ -764,6 +764,17 @@
       <default>0</default>
       <summary>The threshold for no activity before new activity notifies</summary>
       <description>When the threshold is non-zero, the terminal will output a notification if output is detected after a period of silence exceeds the threshold.</description>
+    </key>
+    <!-- Bold Color-->
+    <key name="bold-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Bold colour</summary>
+      <description>Custom color for bold text, as a color specification (can be HTML-style hex digits, or a color name such as "red"). This is ignored if bold-color-set is false.</description>
+    </key>
+    <key name="bold-color-set" type="b">
+      <default>false</default>
+      <summary>Whether to use custom bold color</summary>
+      <description>If true, use the bold color from the profile.</description>
     </key>
   </schema>
 
