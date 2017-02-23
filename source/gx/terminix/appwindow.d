@@ -196,6 +196,7 @@ private:
             Value value = new Value("");
             settings.getProperty(GTK_DECORATION_LAYOUT, value);
             string layout = value.getString();
+            tracef("Layout: %s", layout);
             if (layout.indexOf("menu") < 0) {
                 size_t index = layout.indexOf(":");
                 if (index > 0) {
@@ -288,17 +289,16 @@ private:
 
         if (isQuake() || isCSDDisabled()) {
             hb.getStyleContext().addClass("terminix-embedded-headerbar");
-            Grid grid = new Grid();
-            grid.setOrientation(Orientation.VERTICAL);
-            grid.add(hb);
-            grid.add(overlay);
+            Box box = new Box(Orientation.VERTICAL, 0);
+            box.add(hb);
+            box.add(overlay);
             if (isQuake()) {
-                Frame f = new Frame(grid, null);
+                Frame f = new Frame(box, null);
                 f.setShadowType(ShadowType.NONE);
                 f.getStyleContext().addClass("terminix-quake-frame");
                 add(f);
             } else {
-                add(grid);
+                add(box);
             }
             hb.setNoShowAll(hideToolbar());
         } else {
