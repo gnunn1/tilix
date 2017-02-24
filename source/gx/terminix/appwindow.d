@@ -1494,6 +1494,14 @@ public:
             terminix.withdrawNotification(uuid);
             return false;
         });
+        addOnWindowState(delegate(GdkEventWindowState* state, Widget) {
+            trace("Window state changed");
+            if ((state.newWindowState & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN) {
+                trace("Window state is fullscreen");
+            }
+            return false;
+        });
+
         handleGeometry();
     }
 
@@ -1532,13 +1540,6 @@ public:
     void closeNoPrompt() {
         _noPrompt = true;
         close();
-    }
-
-    /**
-     * Returns true if this window is in quake mode.
-     */
-    bool isQuake() {
-        return _quake;
     }
 
     /**
@@ -1740,5 +1741,44 @@ public:
         int scale = gsSettings.getEnum(SETTINGS_BACKGROUND_IMAGE_SCALE_KEY);
         isBGImage = renderImage(surface, widget.getAllocatedWidth(), widget.getAllocatedHeight(), mode, true, cast(cairo_filter_t) scale);
         return isBGImage;
+    }
+
+// Quake methods
+private:
+    bool wasFullscreen = false;
+
+public:
+
+    /**
+     * Returns true if this window is in quake mode.
+     */
+    bool isQuake() {
+        return _quake;
+    }
+
+    /**
+     * Override hide to handle hiding quake window when full screened
+     */
+    override void hide() {
+        if (isQuake()) {
+            if (getWindow() !is null && ((getWindow().getState() & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN)) {
+                unfullscreen();
+                wasFullscreen = true;
+            }
+        }
+        super.hide();
+    }
+
+    /**
+     * If quake window was hidden when fullscreen, restore fullscreen
+     */
+    override void present() {
+        super.present();
+        if (isQuake()) {
+            if (getWindow() !is null && wasFullscreen) {
+                wasFullscreen = true;
+                fullscreen();
+            }
+        }
     }
 }
