@@ -451,12 +451,12 @@ private:
 
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             trace("Setting fullscreen");
-            bool newState = !sa.getState().getBoolean();
-            sa.setState(new GVariant(newState));
-            if (newState) {
-                fullscreen();
-            } else {
+            if (getWindow() !is null && ((getWindow().getState() & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN)) {
                 unfullscreen();
+                sa.setState(new GVariant(false));
+            } else {
+                fullscreen();
+                sa.setState(new GVariant(true));
             }
         }, null, new GVariant(false));
 
@@ -1764,6 +1764,8 @@ public:
             if (getWindow() !is null && ((getWindow().getState() & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN)) {
                 unfullscreen();
                 wasFullscreen = true;
+            } else {
+                wasFullscreen = false;
             }
         }
         super.hide();
@@ -1776,7 +1778,7 @@ public:
         super.present();
         if (isQuake()) {
             if (getWindow() !is null && wasFullscreen) {
-                wasFullscreen = true;
+                wasFullscreen = false;
                 fullscreen();
             }
         }
