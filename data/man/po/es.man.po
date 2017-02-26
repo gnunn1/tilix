@@ -7,65 +7,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-01-31 23:37+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2017-02-26 00:48+0000\n"
+"Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/terminix/manpage/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.12-dev\n"
 
 #. type: TH
 #: ./data/man/terminix:3
 #, no-wrap
 msgid "TERMINIX"
-msgstr ""
+msgstr "TERMINIX"
 
 #. type: TH
 #: ./data/man/terminix:3
 #, no-wrap
 msgid "26 December 2016"
-msgstr ""
+msgstr "26 de diciembre de 2016"
 
 #. type: TH
 #: ./data/man/terminix:3
 #, no-wrap
 msgid "1.4.0"
-msgstr ""
+msgstr "1.4.0"
 
 #. type: TH
 #: ./data/man/terminix:3
 #, no-wrap
 msgid "Terminix Commands"
-msgstr ""
+msgstr "Comandos de Terminix"
 
 #. type: SH
 #: ./data/man/terminix:4
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NOMBRE"
 
 #. type: Plain text
 #: ./data/man/terminix:6
 msgid "B<terminix> - Tiling GTK3 terminal emulator for GNOME"
-msgstr ""
+msgstr "B<terminix> - Emulador de terminal GTK3 para GNOME"
 
 #. type: SH
 #: ./data/man/terminix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "VISTAZO GENERAL"
 
 #. type: Plain text
 #: ./data/man/terminix:9
 msgid "B<terminix> [I<options>]"
-msgstr ""
+msgstr "B<terminix> [I<opciones>]"
 
 #. type: SH
 #: ./data/man/terminix:9
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPCIÓN"
 
 #. type: Plain text
 #: ./data/man/terminix:11
@@ -73,58 +76,60 @@ msgid ""
 "B<terminix> is an advanced GTK3 tiling terminal emulator designed to adhere "
 "to Gnome Human Interface Guidelines."
 msgstr ""
+"B<terminix> es un emulador de terminal en GTK3 siguiendo las pautas de "
+"interfaz de Gnome."
 
 #. type: SH
 #: ./data/man/terminix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPCIONES"
 
 #. type: Plain text
 #: ./data/man/terminix:13
 msgid "The B<terminix> application accepts the following command line parameters:"
-msgstr ""
+msgstr "La aplicación B<terminix> acepta los siguientes parámetros:"
 
 #. type: TP
 #: ./data/man/terminix:13
 #, no-wrap
 msgid "B<-h --help>"
-msgstr ""
+msgstr "B<-h --help>"
 
 #. type: Plain text
 #: ./data/man/terminix:16
 msgid "Show help options."
-msgstr ""
+msgstr "Muestra la ayuda de las opciones."
 
 #. type: TP
 #: ./data/man/terminix:16
 #, no-wrap
 msgid "B<-v --version>"
-msgstr ""
+msgstr "B<-v --version>"
 
 #. type: Plain text
 #: ./data/man/terminix:19
 msgid ""
 "Show the version of Terminix as well as the versions of dependent "
 "components."
-msgstr ""
+msgstr "Muestra la versión de Terminix y la de los componentes de que depende."
 
 #. type: TP
 #: ./data/man/terminix:19
 #, no-wrap
 msgid "B<-w --working-directory=DIRECTORY>"
-msgstr ""
+msgstr "B<-w --working-directory=CARPETA>"
 
 #. type: Plain text
 #: ./data/man/terminix:22
 msgid "Set the working directory of the terminal."
-msgstr ""
+msgstr "Especifica el directorio en el que trabajará la terminal."
 
 #. type: TP
 #: ./data/man/terminix:22
 #, no-wrap
 msgid "B<-p --profile=PROFILE_NAME>"
-msgstr ""
+msgstr "B<-p --profile=NOMBRE_DE_PERFIL>"
 
 #. type: Plain text
 #: ./data/man/terminix:25
@@ -133,23 +138,26 @@ msgid ""
 "a name is passed that does not correspond to an existing profile, the "
 "default profile will be used."
 msgstr ""
+"Especifica el profil inicial usando el nombre de uno de los perfiles ya "
+"existentes. Si se pasa un nombre que no corresponde con ningún perfil "
+"existente, se utilizará el perfil por defecto."
 
 #. type: TP
 #: ./data/man/terminix:25
 #, no-wrap
 msgid "B<-t --title=TITLE>"
-msgstr ""
+msgstr "B<-t --title=TITULO>"
 
 #. type: Plain text
 #: ./data/man/terminix:28
 msgid "Set the title of the new terminal."
-msgstr ""
+msgstr "Especifica el título de la nueva terminal."
 
 #. type: TP
 #: ./data/man/terminix:28
 #, no-wrap
 msgid "B<-s --session=SESSION_NAME>"
-msgstr ""
+msgstr "B<-s --session=NOMBRE_DE_SESION>"
 
 #. type: Plain text
 #: ./data/man/terminix:31
@@ -160,12 +168,17 @@ msgid ""
 "layout and layout options are saved, this will not restore the terminal to "
 "where it was left off, rather new terminals are created."
 msgstr ""
+"Abre el archivo de sesión que ha sido guardado anteriormente. Las sesiones "
+"se guardan desde Terminix, guardan el diseño de la sesión permitiendo al "
+"usuario volver a cargarlo cuando sea necesario. Ten en cuenta que solo el "
+"diseño y las opciones de diseño se guardan, esto no restaurará la terminal "
+"donde se dejó, sino que especifica el diseño de las nuevas terminales."
 
 #. type: TP
 #: ./data/man/terminix:31
 #, no-wrap
 msgid "B<-a --action=ACTION_NAME>"
-msgstr ""
+msgstr "B<-a --action=NOMBRE_DE_ACCION>"
 
 #. type: Plain text
 #: ./data/man/terminix:34
@@ -173,6 +186,8 @@ msgid ""
 "Perform an action in the current Terminix instance, the following actions "
 "are supported:"
 msgstr ""
+"Ejecuta una acción en la actual instancia de Terminix; soportando las "
+"siguientes acciones:"
 
 #. type: Plain text
 #: ./data/man/terminix:37
@@ -180,27 +195,31 @@ msgid ""
 "B<session-add-right> Adds a new terminal to the right of the current "
 "terminal."
 msgstr ""
+"B<session-add-right> Añade una nueva terminal a la derecha de la terminal "
+"actual."
 
 #. type: Plain text
 #: ./data/man/terminix:40
 msgid "B<session-add-down> Adds a new terminal down from the current terminal."
 msgstr ""
+"B<session-add-down> Añade una nueva terminal debajo de la terminal actual."
 
 #. type: Plain text
 #: ./data/man/terminix:43
 msgid "B<app-new-session> Creates a new Terminix session within the current window."
 msgstr ""
+"B<app-new-session> Crea una nueva sesión de Terminix en la ventana actual."
 
 #. type: Plain text
 #: ./data/man/terminix:46
 msgid "B<app-new-window> Creates a new Terminix window."
-msgstr ""
+msgstr "B<app-new-window> Crea una nueva ventana de Terminix."
 
 #. type: TP
 #: ./data/man/terminix:46
 #, no-wrap
 msgid "B<-e --command=COMMAND>"
-msgstr ""
+msgstr "B<-e --command=COMANDO>"
 
 #. type: Plain text
 #: ./data/man/terminix:49
@@ -208,56 +227,58 @@ msgid ""
 "Execute all text after this parameter as a command, thus this parameter must "
 "be the last parameter."
 msgstr ""
+"Ejecuta todo el texto después de este parámetro como un comando, por lo que "
+"este parámetro debe ser el último parámetro."
 
 #. type: TP
 #: ./data/man/terminix:49
 #, no-wrap
 msgid "B<--maximize>"
-msgstr ""
+msgstr "B<--maximize>"
 
 #. type: Plain text
 #: ./data/man/terminix:52
 msgid "Maximize the terminal window."
-msgstr ""
+msgstr "Maximiza la ventana de la terminal."
 
 #. type: TP
 #: ./data/man/terminix:52
 #, no-wrap
 msgid "B<--minimize>"
-msgstr ""
+msgstr "B<--minimize>"
 
 #. type: Plain text
 #: ./data/man/terminix:55
 msgid "Minimize the terminal window."
-msgstr ""
+msgstr "Minimiza la ventana de la terminal."
 
 #. type: TP
 #: ./data/man/terminix:55
 #, no-wrap
 msgid "B<--full-screen>"
-msgstr ""
+msgstr "B<--full-screen>"
 
 #. type: Plain text
 #: ./data/man/terminix:58
 msgid "Full-screen the terminal window."
-msgstr ""
+msgstr "Pone la ventana de la terminal en pantalla completa."
 
 #. type: TP
 #: ./data/man/terminix:58
 #, no-wrap
 msgid "B<--focus-window>"
-msgstr ""
+msgstr "B<--focus-window>"
 
 #. type: Plain text
 #: ./data/man/terminix:61
 msgid "Focus the existing window."
-msgstr ""
+msgstr "Enfoca la ventana actual."
 
 #. type: TP
 #: ./data/man/terminix:61
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: ./data/man/terminix:64
@@ -269,69 +290,79 @@ msgid ""
 "option will prevent different Terminix windows from communicating with each "
 "other."
 msgstr ""
+"Inicia una nueva instancia de Terminix como nuevo proceso. Por defecto y "
+"según dictan las líneas de GTK+ 3, Terminix mantiene un único proceso al "
+"cual pertenecen todas las ventanas. Esta opción obliga a Terminix a "
+"iniciarse como un proceso aparte. Esto no se recomienda y su intención es "
+"únicamente para propósitos de depuración. Usando esta opción evitará que "
+"diferentes ventanas de Terminix se comuniquen entre ellas."
 
 #. type: TP
 #: ./data/man/terminix:64
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=GEOMETRIA>"
 
 #. type: Plain text
 #: ./data/man/terminix:67
 msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Define el tamaño de la ventana; por ejemplo: 80x24, or 80x24+200+200 "
+"(COLUMNASxFILAS+X+Y)."
 
 #. type: TP
 #: ./data/man/terminix:67
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: ./data/man/terminix:70
 msgid "Open a window in quake mode or toggle existing quake mode window visibility."
 msgstr ""
+"Abre la ventana en modo quake o alterna la visibilidad de ventanas ya "
+"activas en modo quake."
 
 #. type: TP
 #: ./data/man/terminix:70
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: ./data/man/terminix:73
 msgid "Show the Terminix preferences dialog directly."
-msgstr ""
+msgstr "Muestra directamente las preferencias de Terminix."
 
 #. type: SH
 #: ./data/man/terminix:73
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VEASE TAMBIEN"
 
 #. type: Plain text
 #: ./data/man/terminix:75
 msgid "None"
-msgstr ""
+msgstr "Ninguna"
 
 #. type: SH
 #: ./data/man/terminix:75
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "ERRORES"
 
 #. type: Plain text
 #: ./data/man/terminix:77
 msgid "See bugs at https://github.com/gnunn1/terminix/issues"
-msgstr ""
+msgstr "Mira los errores en https://github.com/gnunn1/terminix/issues"
 
 #. type: SH
 #: ./data/man/terminix:77
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTOR"
 
 #. type: Plain text
 #: ./data/man/terminix:78
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Gerald Nunn y otros contribuidores."
