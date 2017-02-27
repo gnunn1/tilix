@@ -9,8 +9,6 @@ import std.experimental.logger;
 import gdk.Event;
 import gdk.Keysyms;
 
-import glib.Timeout;
-
 import gobject.Signals;
 import gobject.Value;
 
@@ -45,13 +43,10 @@ private:
     enum PAGE_LABEL = "label";
     enum PAGE_EDIT = "edit";
 
-    immutable bool CUSTOM_TIMEOUT = true;
-
     Entry eTitle;
     Label lblTitle;
 
     uint timeoutID;
-    Timeout timeout;
 
     bool buttonDown;
 
@@ -111,15 +106,7 @@ private:
         Value value = new Value(500);
         getSettings().getProperty(GTK_DOUBLE_CLICK_TIME, value);
         uint doubleClickTime = value.getInt();
-        trace("Create timeout");
-        if (CUSTOM_TIMEOUT) {
-            timeoutID = g_timeout_add(doubleClickTime, cast(GSourceFunc)&timeoutCallback, cast(void*)this);
-            tracef("**** DoubleClickTime=%d, timeoutID=%d", doubleClickTime, timeoutID);
-        } else {
-            timeout = new Timeout(doubleClickTime, &onSingleClickTimer);
-            tracef("**** DoubleClickTime=%d, timeoutID=%d", doubleClickTime, timeout.timeoutID);
-        }
-
+        timeoutID = g_timeout_add(doubleClickTime, cast(GSourceFunc)&timeoutCallback, cast(void*)this);
         buttonDown = false;
         return false;
     }
@@ -168,19 +155,9 @@ private:
     }
 
     void removeTimeout() {
-        if (CUSTOM_TIMEOUT) {
-            if (timeoutID > 0) {
-                g_source_remove(timeoutID);
-                timeoutID = 0;
-            }
-        } else {
-            if (timeout !is null) {
-                trace("Removing timeout");
-                //if (timeout.timeoutID > 0)
-                timeout.stop();
-                //timeout.destroy();
-                timeout = null;
-            }
+        if (timeoutID > 0) {
+            g_source_remove(timeoutID);
+            timeoutID = 0;
         }
     }
 

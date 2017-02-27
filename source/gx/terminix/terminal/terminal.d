@@ -54,7 +54,6 @@ import gio.ThemedIcon;
 import glib.ArrayG;
 import glib.GException;
 import glib.Regex : GRegex = Regex;
-import glib.Timeout;
 import glib.ShellUtils;
 import glib.SimpleXML;
 import glib.Str;
@@ -102,6 +101,8 @@ import gtk.ToggleButton;
 import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
+
+import gtkc.glib;
 
 import pango.PgCairo;
 import pango.PgContext;
@@ -280,7 +281,7 @@ private:
     //Track last time bell was shown
     long bellStart = 0;
     bool deferShowBell;
-    Timeout timer;
+    uint timeoutID;
 
     // Track when the last activity was
     long lastActivity;
@@ -1017,22 +1018,25 @@ private:
             if (!spBell.getVisible()) {
                 spBell.show();
                 spBell.start();
-                if (timer !is null) {
-                    timer.stop();
+                if (timeoutID > 0) {
+                    g_source_remove(timeoutID);
+                    timeoutID = 0;
                 }
-                timer = new Timeout(5000, delegate() {
-                    tracef("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), bellStart, (bellStart + 5 * 1000 * 1000));
-                    if (Clock.currStdTime() >= bellStart + (5 * 1000 * 1000)) {
-                        trace("Timer expired, hiding Bell");
-                        spBell.stop();
-                        spBell.hide();
-                        return false;
-                    }
-                    return true;
-                });
+                timeoutID = g_timeout_add(5000, cast(GSourceFunc)&timeoutCallback, cast(void*)this);
             }
             bellStart = Clock.currStdTime();
         }
+    }
+
+	extern(C) static bool timeoutCallback(Terminal terminal) {
+        tracef("Current Time=%d, bellstart=%d, expired=%d", Clock.currStdTime(), terminal.bellStart, (terminal.bellStart + 5 * 1000 * 1000));
+        if (Clock.currStdTime() >= terminal.bellStart + (5 * 1000 * 1000)) {
+            trace("Timer expired, hiding Bell");
+            terminal.spBell.stop();
+            terminal.spBell.hide();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -2906,7 +2910,10 @@ public:
     void finalizeTerminal() {
         stopProcess();
         terminix.onThemeChange.disconnect(&onThemeChanged);
-        if (timer !is null) timer.stop();
+        if (timeoutID > 0) {
+            g_source_remove(timeoutID);
+            timeoutID = 0;
+        }
         if (sagTerminalActions !is null) {
             sagTerminalActions.destroy();
             sagTerminalActions = null;
