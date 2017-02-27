@@ -19,7 +19,6 @@ require_version('Nautilus', '3.0')
 from gi.repository import GObject, Gdk, Gio, Gtk, Nautilus
 
 TERMINAL = "terminix"
-IS_INSTALLED = bool(call(['which', TERMINAL], stdout=PIPE, stderr=PIPE) == 0)
 
 
 def open_terminl_in_file(filename):
@@ -33,7 +32,8 @@ class OpenTerminixShortcutProvider(GObject.GObject, Nautilus.LocationWidgetProvi
 
     def __init__(self):
         self.accel_group = Gtk.AccelGroup()
-        if IS_INSTALLED:
+        source = Gio.SettingsSchemaSource.get_default()
+        if source.lookup("com.gexperts.Terminix.Keybindings", True):
             self.gsettings = Gio.Settings.new(
                 "com.gexperts.Terminix.Keybindings")
             self.gsettings.connect("changed", self.bind_shortcut)
@@ -122,8 +122,6 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
             item.connect('activate', self.menu_activate_cb, file)
             items.append(item)
 
-        if not IS_INSTALLED:
-            items = []
         return items
 
     def get_background_items(self, window, file):
@@ -140,7 +138,4 @@ class OpenTerminixExtension(GObject.GObject, Nautilus.MenuProvider):
                                  tip=_(u'Open Terminix In This Directory'))
         item.connect('activate', self.menu_background_activate_cb, file)
         items.append(item)
-
-        if not IS_INSTALLED:
-            items = []
         return items
