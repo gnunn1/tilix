@@ -189,6 +189,8 @@ class Terminal : EventBox, ITerminal {
 
 private:
 
+    enum GTK_SCROLLEDWINDOW_VERSION = 22;
+
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
@@ -942,7 +944,7 @@ private:
         });
 
         terminalOverlay = new Overlay();
-        if (Version.checkVersion(3, 22, 0).length == 0) {
+        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
             sw = new ScrolledWindow(vte);
             sw.getStyleContext.addClass("terminix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
@@ -958,7 +960,7 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        if (Version.checkVersion(3, 22, 0).length != 0) {
+        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("terminix-terminal-scrollbar");
             terminalBox.add(sb);
@@ -1132,7 +1134,7 @@ private:
         if (vte is null) return;
 
         Adjustment adjustment;
-        if (Version.checkVersion(3, 22, 0).length == 0) {
+        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
             adjustment = sw.getVadjustment();
         } else {
             adjustment = sb.getAdjustment();
@@ -1741,7 +1743,7 @@ private:
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // terminix resources
-            if (!Version.checkVersion(3, 22, 0).length == 0) {
+            if (!Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
                 if (sbProvider !is null) {
                     sb.getStyleContext().removeProvider(sbProvider);
                     sbProvider = null;
@@ -1792,7 +1794,7 @@ private:
             vte.queueDraw();
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
-            if (Version.checkVersion(3, 22, 0).length == 0) {
+            if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY)) {
                     sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
                 } else {
