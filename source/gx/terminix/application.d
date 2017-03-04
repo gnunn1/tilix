@@ -408,7 +408,7 @@ private:
                     if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
                     switch (instanceAction) {
                         //New Session
-                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[1]:
+                        case SETTINGS_NEW_INSTANCE_MODE_NEW_SESSION_VALUE:
                             aw.present();
                             if (cp.session.length > 0) {
                                 // This will use global override and load sessions
@@ -418,7 +418,7 @@ private:
                             }
                             return cp.exitCode;
                         //Split Right, Split Down
-                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[2], SETTINGS_NEW_INSTANCE_MODE_VALUES[3]:
+                        case SETTINGS_NEW_INSTANCE_MODE_SPLIT_RIGHT_VALUE, SETTINGS_NEW_INSTANCE_MODE_SPLIT_DOWN_VALUE:
                             if (cp.session.length > 0) break;
                             aw.present();
                             //If workingDir is not set, override it with cwd so that it takes priority for
@@ -432,7 +432,7 @@ private:
                                 executeAction(aw.getActiveTerminalUUID, "terminal-split-down");
                             return cp.exitCode;
                         //Focus Window
-                        case SETTINGS_NEW_INSTANCE_MODE_VALUES[4]:
+                        case SETTINGS_NEW_INSTANCE_MODE_FOCUS_WINDOW_VALUE:
                             if (cp.session.length > 0) {
                                 // This will use global override and load sessions
                                 aw.initialize();
