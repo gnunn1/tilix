@@ -164,10 +164,6 @@ public:
         if (_session.length > 0) {
             for (auto i = _session.length - 1; i--; i >= 0) {
                 _session[i] = expandTilde(_session[i]);
-                if (!isFile(_session[i])) {
-                    writeln(format(_("Ignoring parameter session as '%s' does not exist"), _session));
-                    remove(_session, i);
-                }
             }
         }
         _profileName = getValue(vd, CMD_PROFILE, vts);

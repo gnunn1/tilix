@@ -1519,7 +1519,12 @@ public:
                     if (!exists(sessionFilename)) {
                         string filename = buildPath(terminix.getGlobalOverrides().cwd, sessionFilename);
                         tracef("Trying filename %s", filename);
-                        if (exists(filename)) sessionFilename = filename;
+                        if (exists(filename)) {
+                            sessionFilename = filename;
+                        } else {
+                            warningf("Session filename '%s' does not exist, ignoring", filename);
+                            continue;
+                        }
                     }
                     loadSession(sessionFilename);
                 } catch (SessionCreationException e) {
