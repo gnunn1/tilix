@@ -2897,8 +2897,7 @@ public:
                 width = terminix.getGlobalOverrides().geometry.width;
                 height = terminix.getGlobalOverrides().geometry.height;
             }
-            trace("Set VTE Size for rows " ~ to!string(width));
-            trace("Set VTE Size for columns " ~ to!string(height));
+            tracef("Set VTE Size for columns=%d, rows=%d", width, height);
             vte.setSize(width, height);
         }
         trace("Terminal initialized");
