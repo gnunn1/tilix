@@ -52,7 +52,7 @@ private:
 
     TitleEditBox titleEditor;
 
-    size_t focusOutHandlerId;
+    gulong focusOutHandlerId;
 
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
