@@ -927,11 +927,6 @@ private:
             }
         });
 
-        vte.addOnShow(delegate(Widget) {
-            trace("**** Update vte size");
-            vte.setSize(120, 30);
-        }, ConnectFlags.AFTER);
-
         pmContext = new Popover(vte);
         pmContext.setModal(true);
         pmContext.setPosition(PositionType.BOTTOM);
