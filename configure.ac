@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([Terminix], [1.1.0], [https://github.com/gnunn1/terminix/issues], [terminix], [https://github.com/gnunn1/terminix])
-AC_CONFIG_SRCDIR([source/gx/terminix/application.d])
+AC_INIT([Tilix], [1.1.0], [https://github.com/gnunn1/tilix/issues], [tilix], [https://github.com/gnunn1/tilix])
+AC_CONFIG_SRCDIR([source/gx/tilix/application.d])
 AC_CONFIG_AUX_DIR([acaux])
 
 AC_ARG_VAR([DC], [D compiler executable])
@@ -19,7 +19,7 @@ AC_SUBST([DCFLAGS])
 # Checks for programs.
 AC_PROG_INSTALL
 # Look for D compiler. Use dmd-compatible wrapper for ldc and gdc.
-# NOTE: Terminix cannot be compiled with gdc currently.
+# NOTE: Tilix cannot be compiled with gdc currently.
 AC_PATH_PROGS([DC], [ldmd ldmd2 dmd gdmd], NOT_FOUND)
 AC_PATH_PROG([GLIB_COMPILE_RES], [glib-compile-resources])
 PKG_PROG_PKG_CONFIG
