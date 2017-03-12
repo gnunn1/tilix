@@ -137,6 +137,8 @@ private:
                 string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
                     errorf("Could not load CSS %s", cssURI);
+                } else {
+                    tracef("Loaded %s css file", cssURI);
                 }
             }
         }
