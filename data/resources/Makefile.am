@@ -1,7 +1,7 @@
 resources = $(shell find $(srcdir)/css $(srcdir)/icons $(srcdir)/ui)
 
-gresourcedir = $(datadir)/terminix/resources/
-gresource_DATA = terminix.gresource
+gresourcedir = $(datadir)/tilix/resources/
+gresource_DATA = tilix.gresource
 $(gresource_DATA): $(srcdir)/$(gresource_DATA).xml $(resources)
 	$(GLIB_COMPILE_RES) --sourcedir=$(srcdir) --target=$@ $<
 

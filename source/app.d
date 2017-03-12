@@ -21,13 +21,13 @@ import gtk.MessageDialog;
 import gx.i18n.l10n;
 import gx.gtk.util;
 
-import gx.terminix.application;
-import gx.terminix.cmdparams;
-import gx.terminix.constants;
+import gx.tilix.application;
+import gx.tilix.cmdparams;
+import gx.tilix.constants;
 
 int main(string[] args) {
     static if (USE_FILE_LOGGING) {
-        sharedLog = new FileLogger("/tmp/terminix.log");
+        sharedLog = new FileLogger("/tmp/tilix.log");
     }
 
     bool newProcess = false;
@@ -94,12 +94,12 @@ int main(string[] args) {
     }
 
     //textdomain
-    textdomain(TERMINIX_DOMAIN);
+    textdomain(TILIX_DOMAIN);
     // Init GTK early so localization is available
     // Note used to pass empty args but was interfering with GTK default args
     Main.init(args);
 
-    trace(format("Starting terminix with %d arguments...", args.length));
+    trace(format("Starting tilix with %d arguments...", args.length));
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));
         // Workaround issue with Unity and older Gnome Shell when DBusActivatable sometimes CWD is set to /, see #285
@@ -116,14 +116,14 @@ int main(string[] args) {
             return 0;
         }
     }
-    //append TERMINIX_ID to args if present
+    //append TILIX_ID to args if present
     try {
-        string terminalUUID = environment["TERMINIX_ID"];
+        string terminalUUID = environment["TILIX_ID"];
         trace("Inserting terminal UUID " ~ terminalUUID);
         args ~= ("--" ~ CMD_TERMINAL_UUID ~ "=" ~ terminalUUID);
     }
     catch (Exception e) {
-        trace("No terminix UUID found");
+        trace("No tilix UUID found");
     }
 
     //Version checking cribbed from grestful, thanks!
@@ -139,11 +139,11 @@ int main(string[] args) {
     }
 
     trace("Creating app");
-    auto terminixApp = new Terminix(newProcess);
+    auto tilixApp = new Tilix(newProcess);
     int result;
     try {
         trace("Running application...");
-        result = terminixApp.run(args);
+        result = tilixApp.run(args);
         trace("App completed...");
     }
     catch (Exception e) {
@@ -159,7 +159,7 @@ private:
         import gtk.Version: Version;
 
         writeln(_("Versions"));
-        writeln("\t" ~ format(_("Terminix version: %s"), APPLICATION_VERSION));
+        writeln("\t" ~ format(_("Tilix version: %s"), APPLICATION_VERSION));
         writeln("\t" ~ format(_("VTE version: %s"), getVTEVersion()));
         writeln("\t" ~ format(_("GTK Version: %d.%d.%d") ~ "\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
         writeln(_("Terminix Special Features"));

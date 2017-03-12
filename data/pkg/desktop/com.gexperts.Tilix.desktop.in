@@ -1,0 +1,21 @@
+[Desktop Entry]
+Version=1.0
+Name=Tilix
+Comment=A tiling terminal for Gnome
+Keywords=shell;prompt;command;commandline;cmd;
+Exec=tilix
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=System;TerminalEmulator;X-GNOME-Utilities;
+Icon=com.gexperts.Tilix
+DBusActivatable=true
+Actions=new-window;new-session;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=tilix --action=app-new-window
+
+[Desktop Action new-session]
+Name=New Session
+Exec=tilix --action=app-new-session

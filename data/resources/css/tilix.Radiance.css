@@ -1,0 +1,45 @@
+/** Radiance specific CSS to fix Ubuntu problems so the rest of us can have nice things **/
+
+/* Fix Ubuntu Popover label borders, see #217 */
+GtkBox > .label.separator {
+    border: 0px;
+    color: @theme_fg_color;
+    opacity: 0.4;
+}
+
+/* Attempt to improve scrollbars */
+.tilix-terminal-scrollbar:hover:not(.slider),
+.tilix-terminal-scrollbar.dragging:not(.slider) {
+    background-color: alpha(@scrollbar_track_color, 0.4);
+}
+
+/* Since .hovering class is not working here, we always use the same radius */
+.tilix-terminal-scrollbar.slider.hovering,
+.tilix-terminal-scrollbar.slider.dragging {
+    /*border-radius: 1px;*/
+    border-left: 0px;
+}
+
+.tilix-terminal-scrollbar.vertical:hover:dir(ltr),
+.tilix-terminal-scrollbar.vertical.dragging:dir(ltr) {
+    margin-left: 0px;
+}
+
+.tilix-terminal-scrollbar.vertical:hover:dir(rtl),
+.tilix-terminal-scrollbar.vertical.dragging:dir(rtl) {
+    margin-right: 0px;
+}
+
+/* Add support for wide handle toggle to Ubuntu themes */
+GtkPaned {
+  -GtkPaned-handle-size: 2;
+}
+
+GtkPaned.wide {
+  -GtkPaned-handle-size: 6;
+}
+
+/* Fix split header bar colors */
+.tilix-title-separator {
+	background-color: #AEA79F;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016 Matthias Clasen -->
+<component type="desktop">
+  <id>com.gexperts.Tilix.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MPL-2.0</project_license>
+
+  <name>Tilix</name>
+  <summary>A tiling terminal for GNOME</summary>
+
+  <description>
+    <p>
+      Tilix is a tiling terminal emulator.
+    </p>
+    <p>It lets you:</p>
+    <ul>
+    <li>Layout terminals in any fashion by splitting them horizontally or vertically</li>
+    <li>Terminals can be re-arranged using drag and drop both within and between windows</li>
+    <li>Terminals can be detached into a new window via drag and drop</li>
+    <li>Input can be synchronized between terminals so commands typed in one terminal are replicated to the others</li>
+    <li>The grouping of terminals can be saved and loaded from disk</li>
+    <li>Terminals support custom titles</li>
+    <li>Color schemes are stored in files and custom color schemes can be created by simply creating a new file</li>
+    <li>Transparent background</li>
+    <li>Supports notifications when processes are completed out of view</li>
+    </ul>
+    <p>
+      The application was written using GTK 3 and an effort was made to conform to
+      GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-decorations, though it can be disabled if necessary.
+    </p>
+    <p>Tilix has been tested with GNOME and with Unity.</p>
+  </description>
+
+  <screenshots>
+​    <screenshot type="default">
+      <image>http://www.gexperts.com/img/tilix/tilix2.png</image>
+    </screenshot>
+  </screenshots>
+
+  <kudos>
+    <kudo>AppMenu</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>ModernToolkit</kudo>
+    <kudo>Notifications</kudo>
+  </kudos>
+
+  <url type="homepage">https://gnunn1.github.io/tilix-web/</url>
+  <url type="help">https://gnunn1.github.io/tilix-web/manual/</url>
+  <url type="faq">https://gnunn1.github.io/tilix-web/faq</url>
+  <url type="bugtracker">https://github.com/gnunn1/tilix/issues</url>
+  <url type="translate">https://hosted.weblate.org/projects/tilix/translations/</url>
+
+  <translation type="gettext">tilix</translation>
+
+  <provides>
+    <binary>tilix</binary>
+  </provides>
+</component>

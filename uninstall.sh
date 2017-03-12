@@ -13,17 +13,17 @@ fi
 
 echo "Uninstalling from prefix ${PREFIX}"
 
-rm ${PREFIX}/bin/terminix
-rm ${PREFIX}/share/glib-2.0/schemas/com.gexperts.Terminix.gschema.xml
+rm ${PREFIX}/bin/tilix
+rm ${PREFIX}/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
 glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
-rm -rf ${PREFIX}/share/terminix
+rm -rf ${PREFIX}/share/tilix
 
-find ${PREFIX}/share/locale -type f -name "terminix.mo" -delete
-find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Terminix.png" -delete
-find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Terminix*.svg" -delete
-rm ${PREFIX}/share/nautilus-python/extensions/open-terminix.py
-rm ${PREFIX}/share/dbus-1/services/com.gexperts.Terminix.service
-rm ${PREFIX}/share/applications/com.gexperts.Terminix.desktop
-rm ${PREFIX}/share/metainfo/com.gexperts.Terminix.appdata.xml
-rm ${PREFIX}/share/man/man1/terminix.1.gz
-rm ${PREFIX}/share/man/*/man1/terminix.1.gz
+find ${PREFIX}/share/locale -type f -name "tilix.mo" -delete
+find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Tilix.png" -delete
+find ${PREFIX}/share/icons/hicolor -type f -name "com.gexperts.Tilix*.svg" -delete
+rm ${PREFIX}/share/nautilus-python/extensions/open-tilix.py
+rm ${PREFIX}/share/dbus-1/services/com.gexperts.Tilix.service
+rm ${PREFIX}/share/applications/com.gexperts.Tilix.desktop
+rm ${PREFIX}/share/metainfo/com.gexperts.Tilix.appdata.xml
+rm ${PREFIX}/share/man/man1/tilix.1.gz
+rm ${PREFIX}/share/man/*/man1/tilix.1.gz

@@ -12,8 +12,8 @@ if [ "$PREFIX" = "/usr" ] && [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-if [ ! -f terminix ]; then
-    echo "The terminix executable does not exist, please run 'dub build --build=release' before using this script"
+if [ ! -f tilix ]; then
+    echo "The tilix executable does not exist, please run 'dub build --build=release' before using this script"
     exit 1
 fi
 
@@ -41,10 +41,10 @@ echo "Installing to prefix ${PREFIX}"
 # Copy and compile schema
 echo "Copying and compiling schema..."
 install -d ${PREFIX}/share/glib-2.0/schemas
-install -m 644 data/gsettings/com.gexperts.Terminix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
+install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
 glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
 
-export TERMINIX_SHARE=${PREFIX}/share/terminix
+export TERMINIX_SHARE=${PREFIX}/share/tilix
 
 install -d ${TERMINIX_SHARE}/resources ${TERMINIX_SHARE}/schemes ${TERMINIX_SHARE}/scripts
 
@@ -52,8 +52,8 @@ install -d ${TERMINIX_SHARE}/resources ${TERMINIX_SHARE}/schemes ${TERMINIX_SHAR
 cd data/resources
 
 echo "Building and copy resources..."
-glib-compile-resources terminix.gresource.xml
-install -m 644 terminix.gresource ${TERMINIX_SHARE}/resources/
+glib-compile-resources tilix.gresource.xml
+install -m 644 tilix.gresource ${TERMINIX_SHARE}/resources/
 
 cd ../..
 
@@ -75,48 +75,48 @@ for f in po/*.po; do
     LOCALE=$(basename "$f" .po)
     msgfmt $f -o "${LOCALE}.mo"
     install -d ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
-    install -m 644 "${LOCALE}.mo" ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/terminix.mo
+    install -m 644 "${LOCALE}.mo" ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/tilix.mo
     rm -f "${LOCALE}.mo"
 done
 
 # Generate desktop file
-msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Terminix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Terminix.desktop
+msgfmt --desktop --template=data/pkg/desktop/com.gexperts.Tilix.desktop.in -d po -o data/pkg/desktop/com.gexperts.Tilix.desktop
 if [ $? -ne 0 ]; then
     echo "Note that localizating appdata requires a newer version of xgettext, copying instead"
-    cp data/pkg/desktop/com.gexperts.Terminix.desktop.in data/pkg/desktop/com.gexperts.Terminix.desktop
+    cp data/pkg/desktop/com.gexperts.Tilix.desktop.in data/pkg/desktop/com.gexperts.Tilix.desktop
 fi
 
-desktop-file-validate data/pkg/desktop/com.gexperts.Terminix.desktop
+desktop-file-validate data/pkg/desktop/com.gexperts.Tilix.desktop
 
 # Generate appdata file, requires xgettext 0.19.7
-msgfmt --xml --template=data/appdata/com.gexperts.Terminix.appdata.xml.in -d po -o data/appdata/com.gexperts.Terminix.appdata.xml
+msgfmt --xml --template=data/appdata/com.gexperts.Tilix.appdata.xml.in -d po -o data/appdata/com.gexperts.Tilix.appdata.xml
 if [ $? -ne 0 ]; then
     echo "Note that localizating appdata requires xgettext 0.19.7 or later, copying instead"
-    cp data/appdata/com.gexperts.Terminix.appdata.xml.in data/appdata/com.gexperts.Terminix.appdata.xml
+    cp data/appdata/com.gexperts.Tilix.appdata.xml.in data/appdata/com.gexperts.Tilix.appdata.xml
 fi
 
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
 install -d ${PREFIX}/share/nautilus-python/extensions/
-install -m 644 data/nautilus/open-terminix.py ${PREFIX}/share/nautilus-python/extensions/
+install -m 644 data/nautilus/open-tilix.py ${PREFIX}/share/nautilus-python/extensions/
 
 # Copy D-Bus service descriptor
 install -d ${PREFIX}/share/dbus-1/services
-install -m 644 data/dbus/com.gexperts.Terminix.service ${PREFIX}/share/dbus-1/services/
+install -m 644 data/dbus/com.gexperts.Tilix.service ${PREFIX}/share/dbus-1/services/
 
 # Copy man page
 echo "Installing man pages"
 install -d ${PREFIX}/share/man/man1
-install -m 644 data/man/terminix ${PREFIX}/share/man/man1/terminix.1
-gzip -f ${PREFIX}/share/man/man1/terminix.1
+install -m 644 data/man/tilix ${PREFIX}/share/man/man1/tilix.1
+gzip -f ${PREFIX}/share/man/man1/tilix.1
 
 if type po4a-translate >/dev/null 2>&1; then
     for f in data/man/po/*.man.po
     do
         LOCALE=$(basename "$f" .man.po)
         install -d ${PREFIX}/share/man/${LOCALE}/man1
-        po4a-translate -f man -m data/man/terminix -p data/man/po/${LOCALE}.man.po -l ${PREFIX}/share/man/${LOCALE}/man1/terminix.1
-        gzip -f ${PREFIX}/share/man/${LOCALE}/man1/terminix.1
+        po4a-translate -f man -m data/man/tilix -p data/man/po/${LOCALE}.man.po -l ${PREFIX}/share/man/${LOCALE}/man1/tilix.1
+        gzip -f ${PREFIX}/share/man/${LOCALE}/man1/tilix.1
     done
 fi
 
@@ -132,11 +132,11 @@ cd ../../..
 
 # Copy executable, desktop and appdata file
 install -d ${PREFIX}/bin
-install -m 755 terminix ${PREFIX}/bin/
+install -m 755 tilix ${PREFIX}/bin/
 
 install -d ${PREFIX}/share/applications ${PREFIX}/share/metainfo/
-install -m 644 data/pkg/desktop/com.gexperts.Terminix.desktop ${PREFIX}/share/applications/
-install -m 644 data/appdata/com.gexperts.Terminix.appdata.xml ${PREFIX}/share/metainfo/
+install -m 644 data/pkg/desktop/com.gexperts.Tilix.desktop ${PREFIX}/share/applications/
+install -m 644 data/appdata/com.gexperts.Tilix.appdata.xml ${PREFIX}/share/metainfo/
 
 # Update icon cache if Prefix is /usr
 if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
