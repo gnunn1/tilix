@@ -7,13 +7,13 @@ tilix$(EXEEXT): tilix.o
 	$(DC) $(GTKD_LIBS) -L$(X11_LIBS) $^ -of$@
 
 gschemasdir = $(datadir)/glib-2.0/schemas/
-dist_gschemas_DATA = $(srcdir)/data/gsettings/com.gexperts.tilix.gschema.xml
+dist_gschemas_DATA = $(srcdir)/data/gsettings/com.gexperts.Tilix.gschema.xml
 
 colorschemesdir = $(datadir)/tilix/schemes/
 dist_colorschemes_DATA = $(shell find $(srcdir)/data/schemes/ -name '*\.json')
 
 dbusservicesdir = $(datadir)/dbus-1/services/
-dist_dbusservices_DATA = $(srcdir)/data/dbus/com.gexperts.tilix.service
+dist_dbusservices_DATA = $(srcdir)/data/dbus/com.gexperts.Tilix.service
 
 nautilusextdir = $(datadir)/nautilus-python/extensions/
 dist_nautilusext_DATA = $(srcdir)/data/nautilus/open-tilix.py
