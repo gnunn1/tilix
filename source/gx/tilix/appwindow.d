@@ -1051,7 +1051,8 @@ private:
             moveAndSizeQuake();
             setKeepAbove(true);
             trace("Focus terminal");
-            activate();
+            activateWindow(this);
+            // activate();
             activateFocus();
             if (getActiveTerminal() !is null) {
                 getActiveTerminal().focusTerminal();
