@@ -14,6 +14,8 @@ import gdk.Keysyms;
 
 import gio.Settings: GSettings = Settings;
 
+import gobject.Value;
+
 import gtk.Box;
 import gtk.CellRendererPixbuf;
 import gtk.CellRendererText;
@@ -65,6 +67,8 @@ private:
 class CloseDialog: Dialog {
 
 private:
+    enum MAX_DESCRIPTION = 120;
+
     ProcessInformation processes;
 
     TreeStore ts;
@@ -113,7 +117,10 @@ private:
         });
         tv.setHeadersVisible(false);
 
-        TreeViewColumn column = new TreeViewColumn(_("Title"), new CellRendererText(), "text", COLUMNS.NAME);
+        CellRendererText crt = new CellRendererText();
+        crt.setProperty("ellipsize", new Value(PangoEllipsizeMode.END));
+
+        TreeViewColumn column = new TreeViewColumn(_("Title"), crt, "text", COLUMNS.NAME);
         column.setExpand(true);
         tv.appendColumn(column);
 
