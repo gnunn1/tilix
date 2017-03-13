@@ -6,7 +6,8 @@ CURRENT_DIR=$(pwd)
 
 echo "Building application..."
 cd ../../..
-dub build --build=release --compiler=ldc2
+dub build --build=release
+strip tilix
 
 ./install.sh ${TERMINIX_ARCHIVE_PATH}/usr
 
