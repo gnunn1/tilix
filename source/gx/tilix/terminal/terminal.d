@@ -687,6 +687,26 @@ private:
             selectBookmark();
         }, null, null);
 
+        // Scroll Up
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_UP, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            vte.getVadjustment().setValue(vte.getVadjustment().getValue() - 1);
+        }, null, null);
+
+        // Scroll Down
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_DOWN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            vte.getVadjustment().setValue(vte.getVadjustment().getValue() + 1);
+        }, null, null);
+
+        // Page Up
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_UP, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            vte.getVadjustment().setValue(vte.getVadjustment().getValue() - vte.getVadjustment().getPageSize());
+        }, null, null);
+
+        // Page Down
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_DOWN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            vte.getVadjustment().setValue(vte.getVadjustment().getValue() + vte.getVadjustment().getPageSize());
+        }, null, null);
+
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
