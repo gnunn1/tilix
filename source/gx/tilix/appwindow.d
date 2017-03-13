@@ -1113,6 +1113,7 @@ private:
                     else unstick();
                 }
                 break;
+            /*
             case SETTINGS_QUAKE_DISABLE_ANIMATION_KEY:
                 if (isQuake) {
                     if (gsSettings.getBoolean(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY)) {
@@ -1122,6 +1123,7 @@ private:
                     }
                 }
                 break;
+            */
             case SETTINGS_QUAKE_HIDE_HEADERBAR_KEY:
                 if (isQuake) {
                     bool hide = gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY);
@@ -1450,11 +1452,13 @@ public:
         addOnDelete(&onWindowClosed);
         addOnDestroy(&onWindowDestroyed);
         addOnRealize(&onWindowRealized);
+        /*
         addOnMap(delegate(Widget) {
             if (isQuake()) {
                 applyPreference(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY);
             }
         }, ConnectFlags.AFTER);
+        */
 
         addOnShow(&onWindowShow, ConnectFlags.AFTER);
         addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {

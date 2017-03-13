@@ -380,7 +380,6 @@ public:
         createSchema();
         createUI();
         createService();
-        trace("Main Thread ID " ~ to!string(thisThreadID));
     }
 
     @property string password() {

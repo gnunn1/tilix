@@ -107,7 +107,9 @@ enum SETTINGS_QUAKE_HEIGHT_PERCENT_KEY = "quake-height-percent";
 enum SETTINGS_QUAKE_ACTIVE_MONITOR_KEY = "quake-active-monitor";
 enum SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY = "quake-specific-monitor";
 enum SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY = "quake-show-on-all-workspaces";
+/*
 enum SETTINGS_QUAKE_DISABLE_ANIMATION_KEY = "quake-disable-animation";
+*/
 enum SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY = "quake-hide-lose-focus";
 enum SETTINGS_QUAKE_ALIGNMENT_KEY = "quake-alignment";
 enum SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE = "left";

@@ -1145,9 +1145,11 @@ private:
         bContent.add(cbAllWorkspaces);
 
         //Disable animations
+        /*
         CheckButton cbDisableAnimations = new CheckButton(_("Set hint for window manager to disable animation"));
         bh.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbDisableAnimations);
+        */
 
         //Hide window on lose focus
         CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
