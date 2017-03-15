@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-14 16:29-0400\n"
-"PO-Revision-Date: 2017-03-15 14:54+0000\n"
+"PO-Revision-Date: 2017-03-15 16:01+0000\n"
 "Last-Translator: night1ynx <night1ynxd@gmail.com>\n"
 "Language-Team: Japanese "
 "<https://hosted.weblate.org/projects/tilix/translations/ja/>\n"
@@ -38,7 +38,7 @@ msgstr "バージョン"
 #: source/app.d:162
 #, c-format
 msgid "Tilix version: %s"
-msgstr ""
+msgstr "Tilix バージョン: %s"
 
 #: source/app.d:163
 #, c-format
@@ -73,7 +73,7 @@ msgstr "無効"
 #: source/gx/tilix/bookmark/bmeditor.d:68
 #: source/gx/tilix/bookmark/bmchooser.d:104
 msgid "Select Folder"
-msgstr ""
+msgstr "フォルダーを選択"
 
 #: source/gx/tilix/bookmark/bmeditor.d:74
 msgid "Select folder"
@@ -150,7 +150,6 @@ msgid "User"
 msgstr ""
 
 #: source/gx/tilix/bookmark/bmeditor.d:420
-#, fuzzy
 msgid "Parameters"
 msgstr "パラメーター"
 
@@ -222,7 +221,7 @@ msgstr "ID"
 
 #: source/gx/tilix/constants.d:119
 msgid "Directory"
-msgstr ""
+msgstr "ディレクトリ"
 
 #: source/gx/tilix/constants.d:120
 msgid "Hostname"
@@ -241,18 +240,16 @@ msgid "Rows"
 msgstr ""
 
 #: source/gx/tilix/constants.d:138
-#, fuzzy
 msgid "Application name"
-msgstr "アプリケーション"
+msgstr "アプリケーション名"
 
 #: source/gx/tilix/constants.d:139
 msgid "Session name"
-msgstr ""
+msgstr "セッション名"
 
 #: source/gx/tilix/constants.d:140
-#, fuzzy
 msgid "Session number"
-msgstr "セッション"
+msgstr "セッション番号"
 
 #: source/gx/tilix/session.d:544
 msgid "Could not locate dropped terminal"
@@ -265,7 +262,7 @@ msgstr ""
 #: source/gx/tilix/session.d:1135 source/gx/tilix/appwindow.d:902
 #: source/gx/tilix/prefeditor/prefdialog.d:956
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: source/gx/tilix/session.d:1454 source/gx/tilix/prefeditor/prefdialog.d:166
 msgid "Profile"
@@ -286,22 +283,22 @@ msgstr "西欧"
 #: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
 #: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
 msgid "Central European"
-msgstr "中央ヨーロッパ"
+msgstr "中欧"
 
 #: source/gx/tilix/encoding.d:20
 msgid "South European"
-msgstr "南ヨーロッパ"
+msgstr "南欧"
 
 #: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
 #: source/gx/tilix/encoding.d:83
 msgid "Baltic"
-msgstr "バルト"
+msgstr "バルト言語"
 
 #: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
 #: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
 #: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
 msgid "Cyrillic"
-msgstr "キリル"
+msgstr "キリル言語"
 
 #: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
 #: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
@@ -329,11 +326,11 @@ msgstr "トルコ語"
 
 #: source/gx/tilix/encoding.d:28
 msgid "Nordic"
-msgstr "ノルディック"
+msgstr "北欧"
 
 #: source/gx/tilix/encoding.d:30
 msgid "Celtic"
-msgstr "ケルト"
+msgstr "ケルト語"
 
 #: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
 msgid "Romanian"
@@ -354,7 +351,7 @@ msgstr "中国語 繁体字"
 
 #: source/gx/tilix/encoding.d:37
 msgid "Cyrillic/Russian"
-msgstr ""
+msgstr "キリル文字/ロシア語"
 
 #: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
 #: source/gx/tilix/encoding.d:71
@@ -373,7 +370,7 @@ msgstr "中国語 簡体字"
 
 #: source/gx/tilix/encoding.d:44
 msgid "Georgian"
-msgstr "ジョージア語"
+msgstr "グルジア語"
 
 #: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
 msgid "Cyrillic/Ukrainian"
@@ -463,7 +460,7 @@ msgstr ""
 #: source/gx/tilix/terminal/terminal.d:383
 #: source/gx/tilix/terminal/terminal.d:740
 msgid "Read-Only"
-msgstr ""
+msgstr "読み込み専用"
 
 #: source/gx/tilix/terminal/terminal.d:389
 #: source/gx/tilix/prefeditor/profileeditor.d:293
@@ -472,7 +469,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:434
 msgid "Edit Profile"
-msgstr ""
+msgstr "プロファイルを編集"
 
 #: source/gx/tilix/terminal/terminal.d:452
 #, fuzzy
@@ -495,12 +492,11 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:739
 msgid "Find…"
-msgstr ""
+msgstr "検索…"
 
 #: source/gx/tilix/terminal/terminal.d:744
-#, fuzzy
 msgid "Password..."
-msgstr "パスワード"
+msgstr "パスワード..."
 
 #: source/gx/tilix/terminal/terminal.d:745
 msgid "Bookmark..."
@@ -517,7 +513,7 @@ msgstr "プロファイル"
 
 #: source/gx/tilix/terminal/terminal.d:756
 msgid "Save Output…"
-msgstr "出力の保存…"
+msgstr "出力を保存…"
 
 #: source/gx/tilix/terminal/terminal.d:757
 #: source/gx/tilix/prefeditor/profileeditor.d:262
@@ -535,14 +531,13 @@ msgstr ""
 #: source/gx/tilix/prefeditor/prefdialog.d:632
 #: source/gx/tilix/prefeditor/profileeditor.d:1030
 msgid "Encoding"
-msgstr "エンコード"
+msgstr "エンコーディング"
 
 #: source/gx/tilix/terminal/terminal.d:763
 msgid "Layout Options…"
 msgstr "レイアウトオプション…"
 
 #: source/gx/tilix/terminal/terminal.d:766
-#, fuzzy
 msgid "Other"
 msgstr "その他"
 
@@ -628,7 +623,7 @@ msgstr "保存"
 
 #: source/gx/tilix/terminal/terminal.d:2792
 msgid "All Text Files"
-msgstr ""
+msgstr "すべてのテキストファイル"
 
 #: source/gx/tilix/terminal/terminal.d:2796 source/gx/tilix/appwindow.d:1259
 #: source/gx/tilix/prefeditor/prefdialog.d:974
@@ -717,7 +712,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/advpaste.d:115
 msgid "Convert CRLF and CR to LF"
-msgstr ""
+msgstr "CRLF と CR を LF に変換する"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Advanced Paste"
@@ -767,7 +762,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/password.d:486
 msgid "Add Password"
-msgstr ""
+msgstr "パスワードを追加"
 
 #: source/gx/tilix/terminal/password.d:491
 msgid "Edit Password"
@@ -780,7 +775,7 @@ msgstr ""
 #: source/gx/tilix/closedialog.d:170
 #, c-format
 msgid "Window (%s)"
-msgstr ""
+msgstr "ウィンドウ (%s)"
 
 #: source/gx/tilix/closedialog.d:173
 #, c-format
@@ -793,7 +788,7 @@ msgstr "アプリケーションを閉じる"
 
 #: source/gx/tilix/closedialog.d:196
 msgid "Close Window"
-msgstr "ウインドウを閉じる"
+msgstr "ウィンドウを閉じる"
 
 #: source/gx/tilix/closedialog.d:199 source/gx/tilix/closedialog.d:202
 msgid "Close Session"
@@ -803,7 +798,7 @@ msgstr "セッションを閉じる"
 #: source/gx/tilix/prefeditor/prefdialog.d:1272
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
-msgstr "新しいウインドウ"
+msgstr "新しいウィンドウ"
 
 #: source/gx/tilix/application.d:223 source/gx/tilix/appwindow.d:675
 #: source/gx/tilix/prefeditor/prefdialog.d:247
@@ -819,9 +814,8 @@ msgid "Shortcuts"
 msgstr "ショートカット"
 
 #: source/gx/tilix/application.d:230
-#, fuzzy
 msgid "About"
-msgstr "情報"
+msgstr "Tilix について"
 
 #: source/gx/tilix/application.d:231
 msgid "Quit"
@@ -840,7 +834,7 @@ msgstr ""
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
-msgstr ""
+msgstr "Tilix"
 
 #: source/gx/tilix/application.d:626
 msgid "Set the working directory of the terminal"
@@ -1064,9 +1058,8 @@ msgid "Unselect bookmark"
 msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:120
-#, fuzzy
 msgid "Tilix Preferences"
-msgstr "Terminix 設定"
+msgstr "Tilix の設定"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:137
 #: source/gx/tilix/prefeditor/prefdialog.d:138
@@ -1082,7 +1075,7 @@ msgstr "外観"
 #: source/gx/tilix/prefeditor/prefdialog.d:145
 #: source/gx/tilix/prefeditor/prefdialog.d:146
 msgid "Quake"
-msgstr "振動"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:149
 #: source/gx/tilix/prefeditor/prefdialog.d:150
@@ -1226,7 +1219,7 @@ msgstr "中央"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:994
 msgid "Stretch"
-msgstr "ストレッジ"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1013
 msgid "Default session name"
@@ -1347,7 +1340,7 @@ msgstr "下に分割"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1272
 msgid "Focus Window"
-msgstr "ウインドウのフォーカス"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1284
 msgid "Always use advanced paste dialog"
@@ -1545,7 +1538,7 @@ msgstr "テキスト"
 #: source/gx/tilix/prefeditor/profileeditor.d:592
 #: source/gx/tilix/prefeditor/profileeditor.d:708
 msgid "Background"
-msgstr "背景"
+msgstr "背景色"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:603
 msgid "Select Cursor Foreground Color"
@@ -1598,39 +1591,39 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:728
 msgid "Foreground"
-msgstr "前景"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Black"
-msgstr "黒"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Red"
-msgstr "赤"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Green"
-msgstr "緑"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Orange"
-msgstr "橙"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Blue"
-msgstr "青"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Purple"
-msgstr "紫"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Turquoise"
-msgstr "水色"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:732
 msgid "Grey"
-msgstr "灰色"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:738
 #, c-format
@@ -1683,9 +1676,8 @@ msgstr "ASCII DEL"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1015
 #: source/gx/tilix/prefeditor/profileeditor.d:1024
-#, fuzzy
 msgid "Escape sequence"
-msgstr "Escape シーケンス"
+msgstr "エスケープシーケンス"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1015
 #: source/gx/tilix/prefeditor/profileeditor.d:1024
@@ -1775,7 +1767,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1203
 msgid "Match"
-msgstr "一致"
+msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1214
 #: source/gx/tilix/prefeditor/profileeditor.d:1402
@@ -1840,7 +1832,7 @@ msgstr ""
 #: source/gx/tilix/prefeditor/titleeditor.d:112
 #, fuzzy
 msgid "Window"
-msgstr "ウインドウ"
+msgstr "ウィンドウ"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:122
 #: source/gx/tilix/prefeditor/titleeditor.d:123
@@ -1878,31 +1870,31 @@ msgstr "UpdateState"
 
 #: source/gx/tilix/preferences.d:224
 msgid "ExecuteCommand"
-msgstr "ExecuteCommand"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:225
 msgid "SendNotification"
-msgstr "SendNotification"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:226
 msgid "UpdateTitle"
-msgstr "UpdateTitle"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:227
 msgid "PlayBell"
-msgstr "PlayBell"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:228
 msgid "SendText"
-msgstr "SendText"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:229
 msgid "InsertPassword"
-msgstr "InsertPassword"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:230
 msgid "UpdateBadge"
-msgstr "UpdateBadge"
+msgstr ""
 
 #: source/gx/tilix/preferences.d:337
 #, c-format
@@ -1971,7 +1963,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Window"
-msgstr "ウインドウ"
+msgstr "ウィンドウ"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
@@ -2219,7 +2211,6 @@ msgid "Switch to terminal 10"
 msgstr "ターミナル 10 へ切り替える"
 
 #: data/resources/ui/shortcuts.ui:356
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Terminal"
 msgstr "ターミナル"
@@ -2382,7 +2373,6 @@ msgid "Nautilus"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:561
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "開く"
