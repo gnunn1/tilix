@@ -162,7 +162,7 @@ private:
         writeln("\t" ~ format(_("Tilix version: %s"), APPLICATION_VERSION));
         writeln("\t" ~ format(_("VTE version: %s"), getVTEVersion()));
         writeln("\t" ~ format(_("GTK Version: %d.%d.%d") ~ "\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
-        writeln(_("Terminix Special Features"));
+        writeln(_("Tilix Special Features"));
         writeln("\t" ~ format(_("Notifications enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
         writeln("\t" ~ format(_("Triggers enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
         writeln("\t" ~ format(_("Badges enabled=%b"), checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
