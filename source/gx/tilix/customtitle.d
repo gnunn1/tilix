@@ -9,6 +9,8 @@ import std.experimental.logger;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.Settings : GSettings = Settings;
+
 import gobject.Signals;
 import gobject.Value;
 
@@ -29,6 +31,7 @@ import gx.i18n.l10n;
 
 import gx.tilix.common;
 import gx.tilix.constants;
+import gx.tilix.preferences;
 import gx.tilix.prefeditor.titleeditor;
 
 /**
@@ -53,6 +56,9 @@ private:
     TitleEditBox titleEditor;
 
     gulong focusOutHandlerId;
+
+    GSettings gsSettings;
+    bool controlRequired;
 
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
@@ -100,6 +106,10 @@ private:
         if (event.button.button != MouseButton.PRIMARY || !buttonDown) {
             tracef("Ignoring release %b", buttonDown);
             return false;
+        }
+        if (controlRequired && !(event.button.state & ModifierType.CONTROL_MASK)) {
+            tracef("No control modifier, ignoring: %d", event.button.state);
+             return false;
         }
         removeTimeout();
 
@@ -181,9 +191,18 @@ private:
 public:
     this() {
         super();
+        gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_CONTROL_CLICK_TITLE_KEY) {
+                controlRequired = gsSettings.getBoolean(SETTINGS_CONTROL_CLICK_TITLE_KEY);
+            }
+        });
+        controlRequired = gsSettings.getBoolean(SETTINGS_CONTROL_CLICK_TITLE_KEY);
         createUI();
         addOnDestroy(delegate(Widget) {
             removeTimeout();
+            gsSettings.destroy();
+            gsSettings = null;
         });
     }
 
