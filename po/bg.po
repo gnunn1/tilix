@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 16:29-0400\n"
+"POT-Creation-Date: 2017-03-17 08:38-0400\n"
 "PO-Revision-Date: 2017-03-15 19:41+0000\n"
 "Last-Translator: Ivaylo Kuzev <ivkuzev@gmail.com>\n"
-"Language-Team: Bulgarian "
-"<https://hosted.weblate.org/projects/tilix/translations/bg/>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/tilix/"
+"translations/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "GTK Версия: %d.%d.%d"
 
 #: source/app.d:165
-msgid "Terminix Special Features"
+#, fuzzy
+msgid "Tilix Special Features"
 msgstr "Специални възможности Tilix"
 
 #: source/app.d:166
@@ -275,7 +276,7 @@ msgid "Profile"
 msgstr "Профил"
 
 #: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Нова сесия"
@@ -606,7 +607,7 @@ msgid "Select All"
 msgstr "Избиране на всичко"
 
 #: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1278
+#: source/gx/tilix/prefeditor/prefdialog.d:1283
 #, fuzzy
 msgid "Clipboard"
 msgstr "Клипборд"
@@ -823,7 +824,7 @@ msgid "Close Session"
 msgstr "Нова сесия"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Нов прозорец"
@@ -1382,44 +1383,48 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
+msgid "Require the <Control> modified to edit title on click"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1261
+#: source/gx/tilix/prefeditor/prefdialog.d:1266
 msgid "Send desktop notification on process complete"
 msgstr "Изпратете уведомяване на десктопа когато процеса завърши"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "On new instance"
 msgstr "На нова инстанция"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #, fuzzy
 msgid "Split Right"
 msgstr "Разделяне Надясно"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #, fuzzy
 msgid "Split Down"
 msgstr "Разделяне Надолу"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Focus Window"
 msgstr "Фокусирай Прозорец"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1284
+#: source/gx/tilix/prefeditor/prefdialog.d:1289
 msgid "Always use advanced paste dialog"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Warn when attempting unsafe paste"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Automatically copy text to clipboard when selecting"
 msgstr ""
 
@@ -1933,43 +1938,43 @@ msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:223
+#: source/gx/tilix/preferences.d:224
 msgid "UpdateState"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:225
 #, fuzzy
 msgid "ExecuteCommand"
 msgstr "Команда"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:226
 msgid "SendNotification"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:227
 #, fuzzy
 msgid "UpdateTitle"
 msgstr "Заглавие"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:228
 msgid "PlayBell"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:229
 #, fuzzy
 msgid "SendText"
 msgstr "Текст"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:230
 msgid "InsertPassword"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:231
 #, fuzzy
 msgid "UpdateBadge"
 msgstr "Заглавие"
 
-#: source/gx/tilix/preferences.d:337
+#: source/gx/tilix/preferences.d:338
 #, fuzzy, c-format
 msgid "%s (Copy)"
 msgstr "Копиране"
@@ -2480,8 +2485,8 @@ msgstr "Отваряне…"
 #: data/resources/ui/shortcuts.ui:565
 #, fuzzy
 msgctxt "shortcut window"
-msgid "Open in Terminix"
-msgstr "Отваряне в Tilix"
+msgid "Open in Tilix"
+msgstr "Отваряне на настройки"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2568,6 +2573,11 @@ msgstr ""
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Отваряне в Tilix"
 
 #~ msgid "Select Bookmark..."
 #~ msgstr "Изберете Отметка..."

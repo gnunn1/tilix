@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 16:29-0400\n"
+"POT-Creation-Date: 2017-03-17 08:38-0400\n"
 "PO-Revision-Date: 2017-02-27 23:10+0000\n"
 "Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/terminix/"
@@ -51,7 +51,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "Verze GTK: %d.%d.%d"
 
 #: source/app.d:165
-msgid "Terminix Special Features"
+#, fuzzy
+msgid "Tilix Special Features"
 msgstr "Speciální vlastnosti Terminixu"
 
 #: source/app.d:166
@@ -272,7 +273,7 @@ msgid "Profile"
 msgstr "Profil"
 
 #: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Nové sezení"
@@ -592,7 +593,7 @@ msgid "Select All"
 msgstr "Vybrat vše"
 
 #: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1278
+#: source/gx/tilix/prefeditor/prefdialog.d:1283
 msgid "Clipboard"
 msgstr "Schránka"
 
@@ -796,7 +797,7 @@ msgid "Close Session"
 msgstr "Zavřít sezení"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Nové okno"
@@ -1329,43 +1330,47 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Přiblížit terminál pomocí <Controlu>u a kolečka myši"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
+msgid "Require the <Control> modified to edit title on click"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
 msgstr "Zavřít okno, když se zavře poslední sezení"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1261
+#: source/gx/tilix/prefeditor/prefdialog.d:1266
 msgid "Send desktop notification on process complete"
 msgstr "Po skončení procesů zasílat upozornění"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "On new instance"
 msgstr "Při nové instanci"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Right"
 msgstr "Rozdělit doprava"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Down"
 msgstr "Rozdělit dolů"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Focus Window"
 msgstr "Zaměřit okno"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1284
+#: source/gx/tilix/prefeditor/prefdialog.d:1289
 msgid "Always use advanced paste dialog"
 msgstr "Vždy použít dialog pokročilého vkládání"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Warn when attempting unsafe paste"
 msgstr "Varovat při pokusu o nebezpečné vkládání"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Odstranit první znak vkládaného, pokud jde o komentář nebo deklaraci proměnné"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Při označení automaticky zkopírovat text do schránky"
 
@@ -1881,39 +1886,39 @@ msgstr ""
 "Mód „quake“ nemůžete použít s parametry maximalizace, minimalizace či "
 "geometrie"
 
-#: source/gx/tilix/preferences.d:223
+#: source/gx/tilix/preferences.d:224
 msgid "UpdateState"
 msgstr "AktualizovatStav"
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:225
 msgid "ExecuteCommand"
 msgstr "ProvéstPříkaz"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:226
 msgid "SendNotification"
 msgstr "PoslatOznámení"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateTitle"
 msgstr "AktualizovatTitulek"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:228
 msgid "PlayBell"
 msgstr "Zazvonit"
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:229
 msgid "SendText"
 msgstr "PoslatText"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:230
 msgid "InsertPassword"
 msgstr "VložitHeslo"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:231
 msgid "UpdateBadge"
 msgstr "AktualizovatOdznak"
 
-#: source/gx/tilix/preferences.d:337
+#: source/gx/tilix/preferences.d:338
 #, c-format
 msgid "%s (Copy)"
 msgstr "%s (Kopírovat)"
@@ -2401,8 +2406,9 @@ msgid "Open"
 msgstr "Otevřít"
 
 #: data/resources/ui/shortcuts.ui:565
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Open in Terminix"
+msgid "Open in Tilix"
 msgstr "Otevřít v Terminixu"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
@@ -2492,6 +2498,10 @@ msgstr ""
 #, fuzzy
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "Terminix je testován v GNOME a Unity."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Otevřít v Terminixu"
 
 #~ msgid "Terminix"
 #~ msgstr "Terminix"
