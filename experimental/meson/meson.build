@@ -1,42 +1,72 @@
-project('Terminix', 'd')
+project('Tilix', 'd')
 
-if meson.get_compiler('d').get_id() == 'gcc'
-    error('Terminix can not be compiled with GDC at time, since the standard library version of all GDC versions is currently (2016) too old. Sorry.')
+compiler = meson.get_compiler('d')
+
+if compiler.get_id() == 'gcc'
+    error('Tilix can not be compiled with GDC at time, since the standard library version of all GDC versions is currently (2016) too old. Sorry.')
 endif
 
 glib = import('gnome')
 i18n = import('i18n')
 
-terminix_sources = ['source/app.d',
-    'source/gx/gtk/actions.d',
+tilix_sources = [
+    'source/gx/util/array.d',
+    'source/gx/util/string.d',
+    'source/gx/i18n/l10n.d',
+    'source/gx/tilix/encoding.d',
+    'source/gx/tilix/appwindow.d',
+    'source/gx/tilix/cmdparams.d',
+    'source/gx/tilix/session.d',
+    'source/gx/tilix/sidebar.d',
+    'source/gx/tilix/preferences.d',
+    'source/gx/tilix/colorschemes.d',
+    'source/gx/tilix/terminal/search.d',
+    'source/gx/tilix/terminal/exvte.d',
+    'source/gx/tilix/terminal/terminal.d',
+    'source/gx/tilix/terminal/regex.d',
+    'source/gx/tilix/terminal/password.d',
+    'source/gx/tilix/terminal/layout.d',
+    'source/gx/tilix/terminal/advpaste.d',
+    'source/gx/tilix/terminal/util.d',
+    'source/gx/tilix/terminal/actions.d',
+    'source/gx/tilix/constants.d',
+    'source/gx/tilix/bookmark/bmtreeview.d',
+    'source/gx/tilix/bookmark/bmeditor.d',
+    'source/gx/tilix/bookmark/manager.d',
+    'source/gx/tilix/bookmark/bmchooser.d',
+    'source/gx/tilix/shortcuts.d',
+    'source/gx/tilix/sessionswitcher.d',
+    'source/gx/tilix/application.d',
+    'source/gx/tilix/closedialog.d',
+    'source/gx/tilix/customtitle.d',
+    'source/gx/tilix/common.d',
+    'source/gx/tilix/prefeditor/prefdialog.d',
+    'source/gx/tilix/prefeditor/titleeditor.d',
+    'source/gx/tilix/prefeditor/bookmarkeditor.d',
+    'source/gx/tilix/prefeditor/profileeditor.d',
+    'source/gx/gtk/resource.d',
+    'source/gx/gtk/dialog.d',
     'source/gx/gtk/cairo.d',
     'source/gx/gtk/clipboard.d',
-    'source/gx/gtk/dialog.d',
-    'source/gx/gtk/resource.d',
-    'source/gx/gtk/threads.d',
-    'source/gx/gtk/util.d',
     'source/gx/gtk/vte.d',
-    'source/gx/i18n/l10n.d',
-    'source/gx/terminix/application.d',
-    'source/gx/terminix/appwindow.d',
-    'source/gx/terminix/cmdparams.d',
-    'source/gx/terminix/colorschemes.d',
-    'source/gx/terminix/common.d',
-    'source/gx/terminix/constants.d',
-    'source/gx/terminix/encoding.d',
-    'source/gx/terminix/preferences.d',
-    'source/gx/terminix/prefwindow.d',
-    'source/gx/terminix/profilewindow.d',
-    'source/gx/terminix/session.d',
-    'source/gx/terminix/shortcuts.d',
-    'source/gx/terminix/sidebar.d',
-    'source/gx/terminix/terminal/actions.d',
-    'source/gx/terminix/terminal/layout.d',
-    'source/gx/terminix/terminal/search.d',
-    'source/gx/terminix/terminal/terminal.d',
-    'source/gx/terminix/terminal/vtenotification.d',
-    'source/gx/util/array.d',
-    'source/gx/util/string.d'
+    'source/gx/gtk/threads.d',
+    'source/gx/gtk/settings.d',
+    'source/gx/gtk/util.d',
+    'source/gx/gtk/x11.d',
+    'source/gx/gtk/actions.d',
+    'source/secret/Service.d',
+    'source/secret/Item.d',
+    'source/secret/Secret.d',
+    'source/secret/Prompt.d',
+    'source/secret/Collection.d',
+    'source/secret/SchemaAttribute.d',
+    'source/secret/Schema.d',
+    'source/secret/Value.d',
+    'source/x11/X.d',
+    'source/x11/Xlib.d',
+    'source/secretc/secret.d',
+    'source/secretc/secrettypes.d',
+    'source/app.d'
 ]
 
 source_root = meson.source_root()
@@ -45,30 +75,31 @@ sources_dir = include_directories('source/')
 #
 # Dependencies
 #
-gtkd_dep = dependency('gtkd-3 >= 3.3.0')
-vted_dep = dependency('vted-3 >= 3.3.0')
+gtkd_dep = dependency('gtkd-3', version: '>=3.5.0')
+vted_dep = dependency('vted-3', version: '>=3.5.0')
+xlib_dep = dependency('x11')
 gcr = find_program('glib-compile-resources')
 msgfmt = find_program('msgfmt')
 
 # install target for arch-indep data
-terminix_share = 'share/terminix'
+tilix_share = 'share/tilix'
 
 #
 # Build resources and metadata files
 #
 gresource = custom_target('glib-resource',
-    input: 'data/resources/terminix.gresource.xml',
-    output: 'terminix.gresource',
+    input: 'data/resources/tilix.gresource.xml',
+    output: 'tilix.gresource',
     command: [gcr, '@INPUT@',
         '--sourcedir', source_root + '/data/resources',
         '--target', '@OUTPUT@'],
     install: true,
-    install_dir: terminix_share + '/resources'
+    install_dir: tilix_share + '/resources'
 )
 
 desktop_target = custom_target('desktop-file',
-    input: 'data/pkg/desktop/com.gexperts.Terminix.desktop.in',
-    output: 'com.gexperts.Terminix.desktop',
+    input: 'data/pkg/desktop/com.gexperts.Tilix.desktop.in',
+    output: 'com.gexperts.Tilix.desktop',
     command: [msgfmt, '--desktop',
         '-d', source_root + '/po',
         '--template', '@INPUT@',
@@ -78,8 +109,8 @@ desktop_target = custom_target('desktop-file',
 )
 
 metainfo_target = custom_target('metainfo',
-    input: 'data/appdata/com.gexperts.Terminix.appdata.xml.in',
-    output: 'com.gexperts.Terminix.appdata.xml',
+    input: 'data/appdata/com.gexperts.Tilix.appdata.xml.in',
+    output: 'com.gexperts.Tilix.appdata.xml',
     command: [msgfmt, '--xml',
         '-d', source_root + '/po',
         '--template', '@INPUT@',
@@ -91,22 +122,25 @@ metainfo_target = custom_target('metainfo',
 #
 # Build & Test
 #
-terminix_exe = executable('terminix',
-    [terminix_sources],
+tilix_exe = executable('tilix',
+    [tilix_sources],
     include_directories : [sources_dir],
     dependencies : [gtkd_dep,
-                    vted_dep],
+                    vted_dep,
+                    xlib_dep],
     install : true
 )
 
-terminix_test_exe = executable('terminix_test',
-    [terminix_sources],
-    include_directories : [sources_dir],
-    dependencies : [gtkd_dep,
-                    vted_dep],
-    d_args: [meson.get_compiler('d').get_unittest_flag()]
-)
-test('terminix_test', terminix_test_exe)
+# FIXME: Unittests are currently broken
+#tilix_test_exe = executable('tilix_test',
+#    [tilix_sources],
+#    include_directories : [sources_dir],
+#    dependencies : [gtkd_dep,
+#                    vted_dep,
+#                    xlib_dep],
+#    d_args: compiler.unittest_args()
+#)
+#test('tilix_test', tilix_test_exe)
 
 # Validate things
 desktop_file_validate = find_program('desktop-file-validate', required: false)
@@ -143,19 +177,19 @@ color_schemes = [
 ]
 
 # GSettings schema
-install_data('data/gsettings/com.gexperts.Terminix.gschema.xml', install_dir: 'share/glib-2.0/schemas')
+install_data('data/gsettings/com.gexperts.Tilix.gschema.xml', install_dir: 'share/glib-2.0/schemas')
 
 # Color schemes
-install_data(color_schemes, install_dir: terminix_share + '/schemes')
+install_data(color_schemes, install_dir: tilix_share + '/schemes')
 
 # Scripts
-install_data('data/scripts/terminix_int.sh', install_dir: terminix_share + '/scripts')
+install_data('data/scripts/tilix_int.sh', install_dir: tilix_share + '/scripts')
 
 # Copying Nautilus extension
-install_data('data/nautilus/open-terminix.py', install_dir: 'share/nautilus-python/extensions/')
+install_data('data/nautilus/open-tilix.py', install_dir: 'share/nautilus-python/extensions/')
 
 # Copy D-Bus service descriptor
-install_data('data/dbus/com.gexperts.Terminix.service', install_dir: 'share/dbus-1/services/')
+install_data('data/dbus/com.gexperts.Tilix.service', install_dir: 'share/dbus-1/services/')
 
 #
 # Subdirectories

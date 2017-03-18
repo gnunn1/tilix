@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 16:29-0400\n"
+"POT-Creation-Date: 2017-03-17 08:38-0400\n"
 "PO-Revision-Date: 2017-03-02 14:17+0000\n"
 "Last-Translator: Davi da Silva Böger <dsboger@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -49,7 +49,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "Versão do GTK: %d.%d.%d"
 
 #: source/app.d:165
-msgid "Terminix Special Features"
+#, fuzzy
+msgid "Tilix Special Features"
 msgstr "Funcionalidades especiais do Terminix"
 
 #: source/app.d:166
@@ -271,7 +272,7 @@ msgid "Profile"
 msgstr "Perfil"
 
 #: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Nova sessão"
@@ -595,7 +596,7 @@ msgid "Select All"
 msgstr "Selecionar tudo"
 
 #: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1278
+#: source/gx/tilix/prefeditor/prefdialog.d:1283
 msgid "Clipboard"
 msgstr "Área de transferência"
 
@@ -804,7 +805,7 @@ msgid "Close Session"
 msgstr "Fechar sessão"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Nova janela"
@@ -1340,44 +1341,48 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Aumentar ou diminuir zoom usando <Control> e rolagem do mouse"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
+msgid "Require the <Control> modified to edit title on click"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
 msgstr "Fechar janela ao encerrar a última sessão"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1261
+#: source/gx/tilix/prefeditor/prefdialog.d:1266
 msgid "Send desktop notification on process complete"
 msgstr "Enviar notificação para a área de trabalho quando o processo terminar"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "On new instance"
 msgstr "Ao iniciar nova instância"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Right"
 msgstr "Dividir à direita"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Down"
 msgstr "Dividir abaixo"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Focus Window"
 msgstr "Ativar janela existente"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1284
+#: source/gx/tilix/prefeditor/prefdialog.d:1289
 msgid "Always use advanced paste dialog"
 msgstr "Sempre usar o diálogo de colagem avançada"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Warn when attempting unsafe paste"
 msgstr "Alertar ao tentar colar comando inseguro"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Retira o primeiro caractere da colagem se comentário ou declaração de "
 "variável"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Copiar texto automaticamente ao selecionar"
 
@@ -1895,39 +1900,39 @@ msgstr ""
 "Você não pode usar os parâmetros maximizar, tela cheia ou geometria no modo "
 "Quake"
 
-#: source/gx/tilix/preferences.d:223
+#: source/gx/tilix/preferences.d:224
 msgid "UpdateState"
 msgstr "AtualizarEstado"
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:225
 msgid "ExecuteCommand"
 msgstr "ExecutarComando"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:226
 msgid "SendNotification"
 msgstr "EnviarNotificação"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateTitle"
 msgstr "AtualizarTítulo"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:228
 msgid "PlayBell"
 msgstr "SinalizarAtenção"
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:229
 msgid "SendText"
 msgstr "EnviarTexto"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:230
 msgid "InsertPassword"
 msgstr "InserirSenha"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:231
 msgid "UpdateBadge"
 msgstr "AtualizarDistintivo"
 
-#: source/gx/tilix/preferences.d:337
+#: source/gx/tilix/preferences.d:338
 #, c-format
 msgid "%s (Copy)"
 msgstr "%s (Cópia)"
@@ -2429,8 +2434,9 @@ msgstr "Abrir"
 # Nautilus extension
 # ******************
 #: data/resources/ui/shortcuts.ui:565
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Open in Terminix"
+msgid "Open in Tilix"
 msgstr "Abrir no Terminix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
@@ -2524,6 +2530,13 @@ msgstr ""
 #, fuzzy
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "O Terminix foi testado nos ambientes GNOME e Unity."
+
+# ******************
+# Nautilus extension
+# ******************
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Abrir no Terminix"
 
 #~ msgid "Terminix"
 #~ msgstr "Terminix"

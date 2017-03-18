@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 16:29-0400\n"
+"POT-Creation-Date: 2017-03-17 08:38-0400\n"
 "PO-Revision-Date: 2017-03-15 19:36+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch "
-"<https://hosted.weblate.org/projects/tilix/translations/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/tilix/translations/"
+"nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "GTK-versie: %d.%d.%d"
 
 #: source/app.d:165
-msgid "Terminix Special Features"
+#, fuzzy
+msgid "Tilix Special Features"
 msgstr "Terminix Speciale Mogelijkheden"
 
 #: source/app.d:166
@@ -277,7 +278,7 @@ msgid "Profile"
 msgstr "Profiel"
 
 #: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Nieuwe sessie"
@@ -598,7 +599,7 @@ msgid "Select All"
 msgstr "Alles selecteren"
 
 #: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1278
+#: source/gx/tilix/prefeditor/prefdialog.d:1283
 msgid "Clipboard"
 msgstr "Klembord"
 
@@ -803,7 +804,7 @@ msgid "Close Session"
 msgstr "Sessie sluiten"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Nieuw venster"
@@ -1337,42 +1338,46 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Zoomen in terminalvenster middels <Control> en scrollwiel"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
+msgid "Require the <Control> modified to edit title on click"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
 msgstr "Venster sluiten wanneer de laatste sessie wordt afgesloten"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1261
+#: source/gx/tilix/prefeditor/prefdialog.d:1266
 msgid "Send desktop notification on process complete"
 msgstr "Bureaubladmelding weergeven bij afronden van proces"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "On new instance"
 msgstr "Bij nieuw proces"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Right"
 msgstr "Splitsen naar rechts"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Down"
 msgstr "Splitsen naar onderen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Focus Window"
 msgstr "Venster focussen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1284
+#: source/gx/tilix/prefeditor/prefdialog.d:1289
 msgid "Always use advanced paste dialog"
 msgstr "Altijd geavanceerd plakken gebruiken"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Warn when attempting unsafe paste"
 msgstr "Waarschuwen bij plakken van onveilige opdracht"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "Eerste teken weglaten bij plakken van een comment of variabel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Geselecteerde tekst automatisch kopiëren naar het klembord"
 
@@ -1892,39 +1897,39 @@ msgstr ""
 "U kunt de quake-modus niet gebruiken met de parameters voor maximaliseren, "
 "minimaliseren of afmetingen"
 
-#: source/gx/tilix/preferences.d:223
+#: source/gx/tilix/preferences.d:224
 msgid "UpdateState"
 msgstr "StatusBijwerken"
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:225
 msgid "ExecuteCommand"
 msgstr "CommandoUitvoeren"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:226
 msgid "SendNotification"
 msgstr "MeldingVersturen"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateTitle"
 msgstr "TitelBijwerken"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:228
 msgid "PlayBell"
 msgstr "BelAfspelen"
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:229
 msgid "SendText"
 msgstr "TekstVersturen"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:230
 msgid "InsertPassword"
 msgstr "WachtwoordInvoeren"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:231
 msgid "UpdateBadge"
 msgstr "Badge bijwerken"
 
-#: source/gx/tilix/preferences.d:337
+#: source/gx/tilix/preferences.d:338
 #, c-format
 msgid "%s (Copy)"
 msgstr "%s (Kopiëren)"
@@ -2404,9 +2409,10 @@ msgid "Open"
 msgstr "Openen"
 
 #: data/resources/ui/shortcuts.ui:565
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Open in Terminix"
-msgstr "Openen in Terminix"
+msgid "Open in Tilix"
+msgstr "Openen in Tilix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2502,6 +2508,10 @@ msgstr ""
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "Tilix is getest onder GNOME en Unity."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Openen in Terminix"
 
 #~ msgid "Terminix"
 #~ msgstr "Terminix"

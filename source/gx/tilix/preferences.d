@@ -57,6 +57,7 @@ enum SETTINGS_PROMPT_ON_NEW_SESSION_KEY = "prompt-on-new-session";
 enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
 enum SETTINGS_CLOSE_WITH_LAST_SESSION_KEY = "close-with-last-session";
 enum SETTINGS_APP_TITLE_KEY = "app-title";
+enum SETTINGS_CONTROL_CLICK_TITLE_KEY = "control-click-titlebar";
 
 enum SETTINGS_TERMINAL_TITLE_STYLE_KEY = "terminal-title-style";
 enum SETTINGS_TERMINAL_TITLE_STYLE_VALUE_NORMAL = "normal";

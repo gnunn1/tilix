@@ -1251,6 +1251,11 @@ private:
         bh.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", GSettingsBindFlags.DEFAULT);
         add(cbControlScrollZoom);
 
+        //require control modifier when clicking title
+        CheckButton cbControlClickTitle = new CheckButton(_("Require the <Control> modified to edit title on click"));
+        bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", GSettingsBindFlags.DEFAULT);
+        add(cbControlClickTitle);
+
         //Closing of last session closes window
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);

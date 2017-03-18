@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 16:29-0400\n"
+"POT-Creation-Date: 2017-03-17 08:38-0400\n"
 "PO-Revision-Date: 2017-03-15 17:12+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian "
-"<https://hosted.weblate.org/projects/tilix/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/tilix/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.12\n"
 
 #: source/app.d:133
@@ -54,7 +54,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "Версия GTK: %d.%d.%d"
 
 #: source/app.d:165
-msgid "Terminix Special Features"
+#, fuzzy
+msgid "Tilix Special Features"
 msgstr "Особые возможности Terminix"
 
 #: source/app.d:166
@@ -274,7 +275,7 @@ msgid "Profile"
 msgstr "Профиль"
 
 #: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Новый сеанс"
@@ -594,7 +595,7 @@ msgid "Select All"
 msgstr "Выбрать всё"
 
 #: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1278
+#: source/gx/tilix/prefeditor/prefdialog.d:1283
 msgid "Clipboard"
 msgstr "Буфер обмена"
 
@@ -799,7 +800,7 @@ msgid "Close Session"
 msgstr "Завершить сеанс"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Новое окно"
@@ -1336,44 +1337,48 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Изменять масштаб с помощью <Control> и колёсика прокрутки мыши"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
+msgid "Require the <Control> modified to edit title on click"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
 msgstr "Закрыть окно, когда последняя сессия закрыта"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1261
+#: source/gx/tilix/prefeditor/prefdialog.d:1266
 msgid "Send desktop notification on process complete"
 msgstr "Посылать извещение при окончании процесса"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "On new instance"
 msgstr "Открывать новые терминалы"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Right"
 msgstr "Разделить справа"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Split Down"
 msgstr "Разделить снизу"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1272
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Focus Window"
 msgstr "Показать текущее окно"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1284
+#: source/gx/tilix/prefeditor/prefdialog.d:1289
 msgid "Always use advanced paste dialog"
 msgstr "Всегда использовать расширенный диалог вставки"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Warn when attempting unsafe paste"
 msgstr "Предупреждать при попытке небезопасной вставки"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Обрезать первый символ вставки, если это комментарий или определение "
 "переменной"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Автоматически копировать текст в буфер обмена при выделении"
 
@@ -1889,39 +1894,39 @@ msgstr ""
 "Вы не можете использовать выпадающий режим с параметрами развернуть, "
 "свернуть или геометрия"
 
-#: source/gx/tilix/preferences.d:223
+#: source/gx/tilix/preferences.d:224
 msgid "UpdateState"
 msgstr "Обновить состояние"
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:225
 msgid "ExecuteCommand"
 msgstr "Выполнить команду"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:226
 msgid "SendNotification"
 msgstr "Отправить уведомление"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateTitle"
 msgstr "Обновить заголовок"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:228
 msgid "PlayBell"
 msgstr "Проиграть звук"
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:229
 msgid "SendText"
 msgstr "Отправить текст"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:230
 msgid "InsertPassword"
 msgstr "Вставить пароль"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:231
 msgid "UpdateBadge"
 msgstr "Обновить значок"
 
-#: source/gx/tilix/preferences.d:337
+#: source/gx/tilix/preferences.d:338
 #, c-format
 msgid "%s (Copy)"
 msgstr "%s (Скопировать)"
@@ -2401,9 +2406,10 @@ msgid "Open"
 msgstr "Открыть"
 
 #: data/resources/ui/shortcuts.ui:565
+#, fuzzy
 msgctxt "shortcut window"
-msgid "Open in Terminix"
-msgstr "Открыть в Terminix"
+msgid "Open in Tilix"
+msgstr "Открыть в Tilix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2494,6 +2500,10 @@ msgstr ""
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "Tilix был протестирован с GNOME и Unity."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Открыть в Terminix"
 
 #~ msgid "Terminix"
 #~ msgstr "Terminix"
