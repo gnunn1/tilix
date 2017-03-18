@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-17 08:38-0400\n"
-"PO-Revision-Date: 2017-02-27 23:10+0000\n"
+"PO-Revision-Date: 2017-03-18 21:52+0000\n"
 "Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/terminix/"
-"translations/cs/>\n"
+"Language-Team: Czech "
+"<https://hosted.weblate.org/projects/tilix/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.12-dev\n"
+"X-Generator: Weblate 2.12\n"
 
 #: source/app.d:133
 #, c-format
@@ -36,9 +36,9 @@ msgid "Versions"
 msgstr "Verze"
 
 #: source/app.d:162
-#, fuzzy, c-format
+#, c-format
 msgid "Tilix version: %s"
-msgstr "Verze Terminixu: %s"
+msgstr "Verze Tilixu: %s"
 
 #: source/app.d:163
 #, c-format
@@ -51,9 +51,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "Verze GTK: %d.%d.%d"
 
 #: source/app.d:165
-#, fuzzy
 msgid "Tilix Special Features"
-msgstr "Speciální vlastnosti Terminixu"
+msgstr "Speciální vlastnosti Tilixu"
 
 #: source/app.d:166
 msgid "Notifications enabled=%b"
@@ -198,9 +197,8 @@ msgstr ""
 "ji získat na http://mozilla.org/MPL/2.0/."
 
 #: source/gx/tilix/constants.d:66
-#, fuzzy
 msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "Tým GTK VTE widgetu. Terminix by bez jejich práce nebyl možný"
+msgstr "Tým GTK VTE widgetu. Tilix by bez jejich práce nebyl možný"
 
 #: source/gx/tilix/constants.d:67
 msgid "GtkD for providing such an excellent GTK wrapper"
@@ -566,7 +564,7 @@ msgstr "Obnovit"
 
 #: source/gx/tilix/terminal/terminal.d:1388
 msgid "Tilix Custom Notification"
-msgstr ""
+msgstr "Vlastní oznamování Tilixu"
 
 #: source/gx/tilix/terminal/terminal.d:1481
 msgid "Open Link"
@@ -836,7 +834,7 @@ msgstr "Zásluhy"
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
-msgstr ""
+msgstr "Tilix"
 
 #: source/gx/tilix/application.d:626
 msgid "Set the working directory of the terminal"
@@ -871,9 +869,8 @@ msgid "SESSION_NAME"
 msgstr "NÁZEV_SEZENÍ"
 
 #: source/gx/tilix/application.d:630
-#, fuzzy
 msgid "Send an action to current Tilix instance"
-msgstr "Poslat akci běžící instanci Terminixu"
+msgstr "Poslat akci běžící instanci Tilixu"
 
 #: source/gx/tilix/application.d:630
 msgid "ACTION_NAME"
@@ -925,14 +922,12 @@ msgstr ""
 "Otevře okno v módu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
 
 #: source/gx/tilix/application.d:639
-#, fuzzy
 msgid "Show the Tilix and dependant component versions"
-msgstr "Ukázat verze Terminixu a závislých komponentů"
+msgstr "Ukázat verze Tilixu a závislých komponentů"
 
 #: source/gx/tilix/application.d:640
-#, fuzzy
 msgid "Show the Tilix preferences dialog directly"
-msgstr "Ukázat dialog s předvolbami Terminixu přímo"
+msgstr "Ukázat dialog s předvolbami Tilixu přímo"
 
 #: source/gx/tilix/application.d:643
 msgid "Hidden argument to pass terminal UUID"
@@ -1068,9 +1063,8 @@ msgid "Unselect bookmark"
 msgstr "Zrušit vybrání záložky"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:120
-#, fuzzy
 msgid "Tilix Preferences"
-msgstr "Předvolby Terminixu"
+msgstr "Předvolby Tilixu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:137
 #: source/gx/tilix/prefeditor/prefdialog.d:138
@@ -1331,7 +1325,7 @@ msgstr "Přiblížit terminál pomocí <Controlu>u a kolečka myši"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
 msgid "Require the <Control> modified to edit title on click"
-msgstr ""
+msgstr "Pro úpravu titulku kliknutím vyžadovat modifikátor <Control>"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
@@ -1875,9 +1869,8 @@ msgstr ""
 "prováděný příkaz. Vyberte prosím první či druhé"
 
 #: source/gx/tilix/cmdparams.d:181
-#, fuzzy
 msgid "You can only use the action parameter within Tilix"
-msgstr "Parametr akce můžete použít jen uvnitř Terminixu"
+msgstr "Parametr akce můžete použít jen uvnitř Tilixu"
 
 #: source/gx/tilix/cmdparams.d:203
 msgid ""
@@ -1924,44 +1917,38 @@ msgid "%s (Copy)"
 msgstr "%s (Kopírovat)"
 
 #: data/nautilus/open-tilix.py:108
-#, fuzzy
 msgid "Open Remote Tilix"
-msgstr "Otevřít vzdálený Terminix"
+msgstr "Otevřít vzdálený Tilix"
 
 #: data/nautilus/open-tilix.py:109
-#, fuzzy, python-format
+#, python-format
 msgid "Open Remote Tilix In %s"
-msgstr "Otevřít vzdálený Terminix v %s"
+msgstr "Otevřít vzdálený Tilix v %s"
 
 #: data/nautilus/open-tilix.py:120
-#, fuzzy
 msgid "Open In Tilix"
-msgstr "Otevřít v Terminixu"
+msgstr "Otevřít v Tilixu"
 
 #: data/nautilus/open-tilix.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "Open Tilix In %s"
-msgstr "Otevřít Terminix v %s"
+msgstr "Otevřít Tilix v %s"
 
 #: data/nautilus/open-tilix.py:131
-#, fuzzy
 msgid "Open Remote Tilix Here"
-msgstr "Otevřít zde vzdálený Terminix"
+msgstr "Otevřít zde vzdálený Tilix"
 
 #: data/nautilus/open-tilix.py:132
-#, fuzzy
 msgid "Open Remote Tilix In This Directory"
-msgstr "Otevřít v tomto adresáři vzdálený Terminix"
+msgstr "Otevřít v tomto adresáři vzdálený Tilix"
 
 #: data/nautilus/open-tilix.py:137
-#, fuzzy
 msgid "Open Tilix Here"
-msgstr "Otevřít zde Terminix"
+msgstr "Otevřít zde Tilix"
 
 #: data/nautilus/open-tilix.py:138
-#, fuzzy
 msgid "Open Tilix In This Directory"
-msgstr "Otevřít v tomto adresáři Terminix"
+msgstr "Otevřít v tomto adresáři Tilix"
 
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
@@ -2306,29 +2293,27 @@ msgstr "Obnovit běžnou velikost"
 #: data/resources/ui/shortcuts.ui:439
 msgctxt "shortcut window"
 msgid "Navigation"
-msgstr ""
+msgstr "Navigace"
 
 #: data/resources/ui/shortcuts.ui:443
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll up"
-msgstr "Posouvat při výstupu"
+msgstr "Posunout nahoru"
 
 #: data/resources/ui/shortcuts.ui:449
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll down"
-msgstr "Posouvání"
+msgstr "Posunout dolů"
 
 #: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Page up"
-msgstr ""
+msgstr "Předchozí strana"
 
 #: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Page down"
-msgstr ""
+msgstr "Další strana"
 
 #: data/resources/ui/shortcuts.ui:473
 msgctxt "shortcut window"
@@ -2406,10 +2391,9 @@ msgid "Open"
 msgstr "Otevřít"
 
 #: data/resources/ui/shortcuts.ui:565
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"
-msgstr "Otevřít v Terminixu"
+msgstr "Otevřít v Tilixu"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2420,18 +2404,16 @@ msgid "shell;prompt;command;commandline;cmd;"
 msgstr "shell;terminál;příkaz;příkazová řádka;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
-#, fuzzy
 msgid "com.gexperts.Tilix"
-msgstr "com.gexperts.Terminix"
+msgstr "com.gexperts.Tilix"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
 msgid "A tiling terminal for GNOME"
 msgstr "Dlaždicový terminál pro GNOME"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:12
-#, fuzzy
 msgid "Tilix is a tiling terminal emulator."
-msgstr "Terminix je dlaždicový emulátor terminálu."
+msgstr "Tilix je dlaždicový emulátor terminálu."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:15
 msgid "It lets you:"
@@ -2495,9 +2477,8 @@ msgstr ""
 "dekorace na straně klienta, umí je však v případě nutnosti i vypnout."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
-#, fuzzy
 msgid "Tilix has been tested with GNOME and with Unity."
-msgstr "Terminix je testován v GNOME a Unity."
+msgstr "Tilix je testován v GNOME a Unity."
 
 #~ msgctxt "shortcut window"
 #~ msgid "Open in Terminix"
