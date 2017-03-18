@@ -63,6 +63,7 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantBuilder : GVariantBuilder = VariantBuilder;
 import glib.VariantType : GVariantType = VariantType;
 
+import gobject.ObjectG;
 import gobject.Signals;
 
 import gtk.Adjustment;
@@ -2371,6 +2372,7 @@ private:
 private:
 
     DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
+    bool isRootWindow = false;
     static if (USE_PIXBUF_DND) {
         Pixbuf dragImage;
     } else {
@@ -2393,8 +2395,10 @@ private:
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
         TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
-        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
-        //vte.dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
+
+        // This is required to be able to drop on root window in Wayland, see gtknotebook.c
+        TargetEntry rootEntry = new TargetEntry("application/x-rootwindow-drop", 0, 0);
+        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry, rootEntry], DragAction.MOVE);
 
         //Title bar events
         addOnDragBegin(&onTitleDragBegin);
@@ -2422,6 +2426,15 @@ private:
      */
     void onTitleDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
         char[] buffer = (uuid ~ '\0').dup;
+        GdkAtom gdkAtom = data.getTarget();
+        string name = gdk.Atom.name(gdkAtom);
+        if (name == "application/x-rootwindow-drop") {
+            trace("Root window drop");
+            isRootWindow = true;
+        } else {
+            tracef("onTitleDragDataGet atom: %s", name);
+            isRootWindow = false;
+        }
         data.set(intern(VTE_DND, false), 8, buffer);
     }
 
@@ -2437,6 +2450,7 @@ private:
      */
     void onTitleDragBegin(DragContext dc, Widget widget) {
         trace("Title Drag begin");
+        isRootWindow = false;
         static if (USE_PIXBUF_DND) {
             dragImage = getWidgetImage(this, 0.20);
             DragAndDrop.dragSetIconPixbuf(dc, dragImage, 0, 0);
@@ -2451,8 +2465,17 @@ private:
 
     void onTitleDragEnd(DragContext dc, Widget widget) {
         trace("Title drag end");
+        if (isRootWindow) {
+            detachTerminalOnDrop(dc);
+        }
+        trace("*** Destroying dragImage");
+        isRootWindow = false;
         dragImage.destroy();
         dragImage = null;
+
+        // Under Wayland needed to fix cursor sticking due to
+        // GtkD holding reference to GTK DragReference
+        dc.destroy();
     }
 
     /**
@@ -2460,25 +2483,30 @@ private:
      */
     bool onTitleDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
+        isRootWindow = false;
         if (dr == GtkDragResult.NO_TARGET) {
             //Only allow detach if whole heirarchy agrees (application, window, session)
-            if (!notifyIsActionAllowed(ActionType.DETACH))
-                return false;
-            trace("Detaching terminal");
-            Screen screen;
-            int x, y;
-            dc.getDevice().getPosition(screen, x, y);
-            //Detach here
-            Terminal terminal = getDragTerminal(dc);
-            if (terminal !is null) {
-                trace("Detaching terminal ", dr);
-                notifyTerminalRequestDetach(terminal, x, y);
-                terminalWindowState = TerminalWindowState.NORMAL;
-                updateActions();
-            } else {
-                error("Failed to get terminal therefore detach request failed");
+            if (notifyIsActionAllowed(ActionType.DETACH)) {
+                if (detachTerminalOnDrop(dc)) return true;
             }
+        }
+        return false;
+    }
+
+    bool detachTerminalOnDrop(DragContext dc) {
+        trace("Detaching terminal");
+        Screen screen;
+        int x, y;
+        dc.getDevice().getPosition(screen, x, y);
+        //Detach here
+        Terminal terminal = getDragTerminal(dc);
+        if (terminal !is null) {
+            notifyTerminalRequestDetach(terminal, x, y);
+            terminalWindowState = TerminalWindowState.NORMAL;
+            updateActions();
             return true;
+        } else {
+            error("Failed to get terminal therefore detach request failed");
         }
         return false;
     }
@@ -2503,8 +2531,9 @@ private:
      */
     bool onVTEDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
         //Is this a terminal drag or something else?
-        if (!dc.listTargets().find(intern(VTE_DND, false)))
+        if (!dc.listTargets().find(intern(VTE_DND, false))) {
             return true;
+        }
         //Don't allow drop on the same terminal or if it is maximized
         if (isSourceAndDestEqual(dc, this) || terminalWindowState == TerminalWindowState.MAXIMIZED) {
             //trace("Invalid drop");
@@ -2515,7 +2544,7 @@ private:
         dragInfo = DragInfo(true, dq);
         vte.queueDraw();
         //Uncomment this if debugging motion otherwise generates annoying amount of trace noise
-        //tracef("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq);
+        tracef("Drag motion: %s %d, %d, %d", _terminalUUID, x, y, dq);
 
         return true;
     }

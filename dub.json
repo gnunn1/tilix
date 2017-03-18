@@ -4,7 +4,7 @@
     "copyright": "Copyright © 2016, Gerald Nunn",
     "authors": ["Gerald Nunn"],
     "mainSourceFile": "source/app.d",
-    "dflags-ldc": ["-disable-linker-strip-dead"],
+    "dflags-ldc": ["-disable-linker-strip-dead","-defaultlib=:libphobos2-ldc.a,:libdruntime-ldc.a"],
 
     "dependencies": {
         "gtk-d": "~>3.5.0"
