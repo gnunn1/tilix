@@ -91,7 +91,7 @@ private:
             return false;
         });
         focusOutHandlerId = eTitle.addOnFocusOut(&onFocusOut, ConnectFlags.AFTER);
-        if (Version.checkVersion(3,14, 0).length == 0) {
+        if (Version.checkVersion(3,16, 0).length == 0) {
             titleEditor = createTitleEditHelper(eTitle, TitleEditScope.WINDOW);
             titleEditor.onPopoverShow.connect(&onPopoverShow);
             titleEditor.onPopoverClosed.connect(&onPopoverClosed);
