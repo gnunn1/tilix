@@ -5,7 +5,7 @@ A tiling terminal emulator for Linux using GTK+ 3. The Tilix web site for users 
 *Note that Terminix is changing it's name to Tilix due to a trademark issue with the Terminix International Corporation. It may take a few weeks to complete the process, thank you in advance for your patience while we work through this change.*
 
 ###### Screenshot
-![Screenshot](http://www.gexperts.com/img/terminix/terminix11.png)
+![Screenshot](https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png)
 
 ### About
 
