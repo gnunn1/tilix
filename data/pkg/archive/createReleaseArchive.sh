@@ -1,6 +1,6 @@
-export TERMINIX_ARCHIVE_PATH="/tmp/terminix/archive";
+export TILIX_ARCHIVE_PATH="/tmp/tilix/archive";
 
-rm -rf ${TERMINIX_ARCHIVE_PATH}
+rm -rf ${TILIX_ARCHIVE_PATH}
 
 CURRENT_DIR=$(pwd)
 
@@ -9,14 +9,14 @@ cd ../../..
 dub build --build=release --compiler=ldc2
 strip tilix
 
-./install.sh ${TERMINIX_ARCHIVE_PATH}/usr
+./install.sh ${TILIX_ARCHIVE_PATH}/usr
 
 # Remove compiled schema
-rm ${TERMINIX_ARCHIVE_PATH}/usr/share/glib-2.0/schemas/gschemas.compiled
+rm ${TILIX_ARCHIVE_PATH}/usr/share/glib-2.0/schemas/gschemas.compiled
 
 echo "Creating archive"
-cd ${TERMINIX_ARCHIVE_PATH}
-zip -r terminix.zip *
+cd ${TILIX_ARCHIVE_PATH}
+zip -r tilix.zip *
 
-cp terminix.zip ${CURRENT_DIR}/terminix.zip
+cp tilix.zip ${CURRENT_DIR}/tilix.zip
 cd ${CURRENT_DIR}

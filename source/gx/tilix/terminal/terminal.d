@@ -1066,14 +1066,16 @@ private:
      * Check automatic profile switch and make switch if necessary
      */
     void checkAutomaticProfileSwitch() {
-        string UUID = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
-        if (UUID.length > 0) {
+        string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
+        if (uuid.length > 0) {
+            trace("Automatically switching profile to %s", uuid);
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
-                activeProfileUUID = UUID;
+                activeProfileUUID = uuid;
             }
         } else {
+            trace("Switching back to default profile to %s", _defaultProfileUUID);
             // Switch back to default profile?
             if (_defaultProfileUUID.length > 0) {
                 activeProfileUUID = _defaultProfileUUID;
@@ -1329,7 +1331,7 @@ private:
             TerminalTriggerMatch[] triggerMatches;
             foreach(trigger; triggers) {
                 auto matches = matchAll(text, trigger.compiledRegex);
-                //tracef("Matching trigger '%s' against text '%s'", trigger.pattern, text);play
+                //tracef("Matching trigger '%s' against text '%s'", trigger.pattern, text);
                 foreach (m; matches) {
                     string[] groups = [m.hit];
                     foreach (group; m.captures) {
