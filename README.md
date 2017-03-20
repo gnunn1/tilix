@@ -29,6 +29,26 @@ Tilix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the fo
 
 The application was written using GTK 3 and an effort was made to conform to GNOME Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than GNOME, only Unity has been tested officially though users have had success with other desktop environments.
 
+### Migrating Settings From Terminix
+
+Terminix was recently re-named to Tilix and as a result the settings key changed. To migrate your settings to Tilix, please perform the following steps:
+
+```
+dconf dump /com/gexperts/Terminix/ > terminix.dconf
+dconf load /com/gexperts/Tilix/ < terminix.dconf
+```
+This will export your settings from the Terminix key in dconf and re-import them into the Tilix key.
+
+Note that this will work even after you have uninstalled the tTerminix schema, since the user customized settings are available even after the schema got removed, and the default settings are identical between the two and thus do not matter.
+
+Once you have imported the settings and everything is ok you can clear the old Terminix settings with:
+```
+dconf reset -f /com/gexperts/Terminix/
+```
+Finally to copy the bookmarks and custom themes just do:
+
+mv ~/.config/terminix ~/.config/tilix
+
 ### Dependencies
 
 Tilix requires the following libraries to be installed in order to run:
