@@ -378,7 +378,11 @@ private:
                 cp.workingDir = cp.cwd;
             }
             tracef("Executing action %s with working-dir %s", cp.action, cp.workingDir);
-            executeAction(terminalUUID, cp.action);
+            Widget widget = executeAction(terminalUUID, cp.action);
+            if (cp.focusWindow && widget !is null) {
+                Window window = cast(Window) widget.getToplevel();
+                if (window !is null) window.present;
+            }
             return cp.exitCode;
         }
         trace("Activating app");
@@ -567,7 +571,7 @@ private:
         }
     }
 
-    void executeAction(string terminalUUID, string action) {
+    Widget executeAction(string terminalUUID, string action) {
         trace("Executing action " ~ action);
         string prefix;
         string actionName;
@@ -578,16 +582,17 @@ private:
             if (group !is null && group.hasAction(actionName)) {
                 tracef("Activating action for prefix=%s and action=%s", prefix, actionName);
                 group.activateAction(actionName, null);
-                return;
+                return widget;
             }
             widget = widget.getParent();
         }
         //Check if the action belongs to the app
         if (prefix == ACTION_PREFIX) {
             activateAction(actionName, null);
-            return;
+            return widget;
         }
-        tracef("Could not find action for prefix=%s and action=%s", prefix, actionName);
+        warningf("Could not find action for prefix=%s and action=%s", prefix, actionName);
+        return widget;
     }
 
     /**
