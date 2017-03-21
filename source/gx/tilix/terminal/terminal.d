@@ -1180,6 +1180,7 @@ private:
                 text ~= '\n';
             }
             vte.feedChild(text, text.length);
+            vte.grabFocus();
         }
     }
 
