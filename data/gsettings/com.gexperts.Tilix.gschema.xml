@@ -325,6 +325,11 @@
       <summary>Whether to include return character with password</summary>
       <description>If true, when selecting a password to submit to the terminal a return character will automatically be added.</description>
     </key>
+    <key name="bookmark-include-return" type="b">
+      <default>true</default>
+      <summary>Whether to include return character with bookmark</summary>
+      <description>If true, when selecting a bookmark to submit to the terminal a return character will automatically be added.</description>
+    </key>
     <key name="sidebar-on-right" type="b">
       <default>false</default>
       <summary>Whether the sidebar should be on the right</summary>
@@ -1084,6 +1089,7 @@
       <default>'disabled'</default>
       <summary>Keyboard shortcut to add a bookmark</summary>
     </key>
+
     <key name="terminal-scroll-up" type="s">
       <default>'&lt;Ctrl&gt;&lt;Shift&gt;Up'</default>
       <summary>Keyboard shortcut to scroll up</summary>

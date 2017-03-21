@@ -1175,6 +1175,10 @@ private:
         bc.showAll();
         if (bc.run() == ResponseType.OK) {
             string text = bc.bookmark.terminalCommand;
+            if (gsSettings.getBoolean(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY)) {
+                trace("Add new line");
+                text ~= '\n';
+            }
             vte.feedChild(text, text.length);
         }
     }
