@@ -7,7 +7,10 @@ module gx.tilix.bookmark.bmchooser;
 import gdk.Event;
 import gdk.Keysyms;
 
+import gio.Settings: GSettings = Settings;
+
 import gtk.Box;
+import gtk.CheckButton;
 import gtk.Dialog;
 import gtk.ScrolledWindow;
 import gtk.SearchEntry;
@@ -20,8 +23,11 @@ import gx.i18n.l10n;
 
 import gx.tilix.bookmark.bmtreeview;
 import gx.tilix.bookmark.manager;
+import gx.tilix.preferences;
 
-
+/**
+ * Selection mode dialog should used
+ */
 enum BMSelectionMode {ANY, LEAF, FOLDER}
 
 /**
@@ -33,6 +39,8 @@ class BookmarkChooser: Dialog {
 private:
     BMTreeView tv;
     BMSelectionMode mode;
+
+    GSettings gsSettings;
 
     void createUI() {
         tv = new BMTreeView(true, mode == BMSelectionMode.FOLDER);
@@ -65,6 +73,14 @@ private:
         setAllMargins(box, 18);
         box.add(se);
         box.add(sw);
+
+        if (mode != BMSelectionMode.FOLDER) {
+            gsSettings = new GSettings(SETTINGS_ID);
+            CheckButton cbIncludeEnter = new CheckButton(_("Include return character with bookmark"));
+            gsSettings.bind(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", GSettingsBindFlags.DEFAULT);
+            box.add(cbIncludeEnter);
+        }
+
         getContentArea().add(box);
     }
 

@@ -81,6 +81,7 @@ enum SETTINGS_ENCODINGS_KEY = "encodings";
 enum SETTINGS_MIDDLE_CLICK_CLOSE_KEY = "middle-click-close";
 enum SETTINGS_CONTROL_SCROLL_ZOOM_KEY = "control-scroll-zoom";
 enum SETTINGS_PASSWORD_INCLUDE_RETURN_KEY = "password-include-return";
+enum SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY = "bookmark-include-return";
 
 enum SETTINGS_SEARCH_DEFAULT_MATCH_CASE = "search-default-match-case";
 enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-word";
