@@ -940,8 +940,11 @@ private:
         //Cached render
         ImageSurface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
+
+        cr.save();
         cr.setSourceSurface(isBGImage, 0, 0);
-        cr.setOperator(cairo_operator_t.SOURCE);
+        // Line below was causing issue for #83-, doesn't seem to be any ill effect removing it
+        //cr.setOperator(cairo_operator_t.SOURCE);
         cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
@@ -955,6 +958,8 @@ private:
         cr.setSourceSurface(isChildSurface, 0, 0);
         cr.setOperator(cairo_operator_t.OVER);
         cr.paint();
+
+        cr.restore();
         return true;
     }
 
