@@ -1252,7 +1252,7 @@ private:
         add(cbControlScrollZoom);
 
         //require control modifier when clicking title
-        CheckButton cbControlClickTitle = new CheckButton(_("Require the <Control> modified to edit title on click"));
+        CheckButton cbControlClickTitle = new CheckButton(_("Require the <Control> modifier to edit title on click"));
         bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", GSettingsBindFlags.DEFAULT);
         add(cbControlClickTitle);
 
