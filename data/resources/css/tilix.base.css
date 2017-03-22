@@ -141,12 +141,14 @@ revealer.right > scrolledwindow {
 
 /* Quake window border */
 .tilix-quake-frame {
-    border: 1px solid alpha(black, 0.35);
+    border: 1px solid rgba(0, 0, 0, .7);
 }
 
+/*
 .tilix-quake-frame > border {
     border-width: 0px;
 }
+*/
 
 .tilix-error {
     color: @error_color;

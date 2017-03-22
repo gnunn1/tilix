@@ -293,13 +293,9 @@ private:
             box.add(hb);
             box.add(overlay);
             if (isQuake()) {
-                Frame f = new Frame(box, null);
-                f.setShadowType(ShadowType.NONE);
-                f.getStyleContext().addClass("tilix-quake-frame");
-                add(f);
-            } else {
-                add(box);
+                box.getStyleContext().addClass("tilix-quake-frame");
             }
+            add(box);
             hb.setNoShowAll(hideToolbar());
         } else {
             this.setTitlebar(hb);
@@ -1430,6 +1426,7 @@ public:
         if (tilix.getGlobalOverrides().quake) {
             _quake = true;
             setDecorated(false);
+            // Todo: Should this be NORTH instead?
             setGravity(GdkGravity.STATIC);
             setKeepAbove(true);
             setSkipTaskbarHint(true);
