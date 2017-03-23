@@ -25,6 +25,7 @@ AC_PATH_PROG([GLIB_COMPILE_RES], [glib-compile-resources])
 PKG_PROG_PKG_CONFIG
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.7])
+AC_PATH_PROG([PO4A_TRANS], [po4a-translate])
 
 DC_SUFFIX=
 case $(basename $DC) in
@@ -45,5 +46,5 @@ PKG_CHECK_MODULES([GTKD], [gtkd-3$DC_SUFFIX >= 3.3.0 vted-3$DC_SUFFIX >= 3.3.0],
 PKG_CHECK_MODULES([X11], [x11])
 
 AM_INIT_AUTOMAKE([1.15 foreign])
-AC_CONFIG_FILES([Makefile data/appdata/Makefile data/icons/Makefile data/pkg/desktop/Makefile data/resources/Makefile po/Makefile.in])
+AC_CONFIG_FILES([Makefile data/appdata/Makefile data/icons/Makefile data/pkg/desktop/Makefile data/resources/Makefile data/man/Makefile po/Makefile.in])
 AC_OUTPUT
