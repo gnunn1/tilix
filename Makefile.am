@@ -21,10 +21,8 @@ dist_nautilusext_DATA = $(srcdir)/data/nautilus/open-tilix.py
 scriptsdir = $(datadir)/tilix/scripts/
 dist_scripts_DATA = $(srcdir)/data/scripts/tilix_int.sh
 
-man1_MANS = $(srcdir)/data/man/tilix
-
 EXTRA_DIST = LICENSE README.md
 CLEANFILES = tilix.o
 
-SUBDIRS = data/appdata data/icons data/pkg/desktop data/resources po
+SUBDIRS = data/appdata data/icons data/pkg/desktop data/resources data/man po
 ACLOCAL_AMFLAGS = -I m4
