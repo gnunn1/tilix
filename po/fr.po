@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-17 08:38-0400\n"
-"PO-Revision-Date: 2017-03-21 17:25+0000\n"
+"PO-Revision-Date: 2017-03-23 15:16+0000\n"
 "Last-Translator: Sogal BOOGALSKY <sogal@volted.net>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/tilix/translations/fr/>\n"
@@ -162,16 +162,15 @@ msgstr "Icône"
 
 #: source/gx/tilix/bookmark/manager.d:233
 msgid "Error deserializing bookmark"
-msgstr ""
+msgstr "Erreur de désérialisation des signets"
 
 #: source/gx/tilix/bookmark/manager.d:537
 msgid "Root"
 msgstr "Superutilisateur"
 
 #: source/gx/tilix/bookmark/manager.d:615
-#, fuzzy
 msgid "Could not load bookmarks due to unexpected error"
-msgstr "Impossible de charger la session en raison d'une erreur inattendue."
+msgstr "Impossible de charger les signets en raison d'une erreur inattendue"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Folder"
@@ -179,7 +178,7 @@ msgstr "Répertoire"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
-msgstr ""
+msgstr "Distant"
 
 #: source/gx/tilix/constants.d:60
 msgid "A VTE based terminal emulator for Linux"
@@ -222,18 +221,16 @@ msgid "ID"
 msgstr "ID"
 
 #: source/gx/tilix/constants.d:119
-#, fuzzy
 msgid "Directory"
 msgstr "Répertoire"
 
 #: source/gx/tilix/constants.d:120
-#, fuzzy
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
 #: source/gx/tilix/constants.d:121
 msgid "Username"
-msgstr ""
+msgstr "Utilisateur"
 
 #: source/gx/tilix/constants.d:122
 msgid "Columns"
@@ -241,7 +238,7 @@ msgstr "Colonnes"
 
 #: source/gx/tilix/constants.d:123
 msgid "Rows"
-msgstr ""
+msgstr "Lignes"
 
 #: source/gx/tilix/constants.d:138
 msgid "Application name"
@@ -510,12 +507,10 @@ msgid "Password..."
 msgstr "Mot de passe..."
 
 #: source/gx/tilix/terminal/terminal.d:745
-#, fuzzy
 msgid "Bookmark..."
-msgstr "Sélectionner la couleur du badge"
+msgstr "Signet..."
 
 #: source/gx/tilix/terminal/terminal.d:746
-#, fuzzy
 msgid "Add Bookmark..."
 msgstr "Ajouter un signet..."
 
@@ -572,7 +567,6 @@ msgid "Restore"
 msgstr "Restaurer"
 
 #: source/gx/tilix/terminal/terminal.d:1388
-#, fuzzy
 msgid "Tilix Custom Notification"
 msgstr "Notification personnalisée de Tilix"
 
@@ -613,6 +607,8 @@ msgstr "Synchroniser l'entrée"
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
+"L'expression rationnelle du lien personnalisé '%s' présente une erreur et "
+"sera ignorée"
 
 #: source/gx/tilix/terminal/terminal.d:2173
 msgid "Unexpected error occurred, no additional information available"
@@ -846,7 +842,8 @@ msgstr "Quitter"
 msgid "translator-credits"
 msgstr ""
 "Boiethios\n"
-"MetotoSakamoto"
+"MetotoSakamoto\n"
+"Sogal Boogalsky"
 
 #: source/gx/tilix/application.d:286
 msgid "Credits"
@@ -1073,22 +1070,18 @@ msgid "Color scheme palette requires 16 colors"
 msgstr "Une palette de couleurs requiert 16 couleurs"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-#, fuzzy
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-#, fuzzy
 msgid "Edit bookmark"
 msgstr "Modifier le signet"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-#, fuzzy
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-#, fuzzy
 msgid "Unselect bookmark"
 msgstr "Désélectionner le signet"
 
@@ -1114,7 +1107,6 @@ msgstr "Quake"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:149
 #: source/gx/tilix/prefeditor/prefdialog.d:150
-#, fuzzy
 msgid "Bookmarks"
 msgstr "Signets"
 
@@ -1185,21 +1177,20 @@ msgid "Normal"
 msgstr "Normal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:935
-#, fuzzy
 msgid "Disable CSD"
-msgstr "désactivé"
+msgstr "Désactiver CSD"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:935
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Désactiver CSD, cacher la barre d'outils"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:935
 msgid "Borderless"
-msgstr ""
+msgstr "Aucune bordure"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Window restart required"
-msgstr ""
+msgstr "Redémarrage de la fenêtre requis"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:948
 msgid "Terminal title style"
@@ -1357,11 +1348,10 @@ msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Zoomer sur le terminal en utilisant <ctrl> et la molette de la souris"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1255
-#, fuzzy
 msgid "Require the <Control> modified to edit title on click"
 msgstr ""
-"Nécessiter l'appui sur la touche <Control> pour éditer le titre grâce au "
-"clic de souris"
+"Appui sur la touche <Control> nécessaire pour éditer le titre grâce au clic "
+"de souris"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Close window when last session is closed"
@@ -1513,7 +1503,6 @@ msgid "Notify new activity"
 msgstr "Avertir d'une nouvelle activité"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:352
-#, fuzzy
 msgid "Threshold for continuous silence (seconds)"
 msgstr "Seuil de silence continu (en secondes)"
 
@@ -1601,14 +1590,12 @@ msgid "Select Highlight Background Color"
 msgstr "Sélectionner la couleur de l'arrière-plan du surlignage"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:622
-#, fuzzy
 msgid "Bold"
 msgstr "Gras"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:627
-#, fuzzy
 msgid "Select Bold Color"
-msgstr "Sélectionner la couleur du badge"
+msgstr "Sélectionner la couleur de police grasse"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:632
 msgid "Dim"
@@ -1885,7 +1872,7 @@ msgstr "Modifier les déclencheurs"
 #: source/gx/tilix/prefeditor/profileeditor.d:1646
 #, c-format
 msgid "Row %d: "
-msgstr ""
+msgstr "Ligne %d : "
 
 #: source/gx/tilix/prefeditor/titleeditor.d:112
 msgid "Window"
@@ -1904,7 +1891,7 @@ msgstr "Ignorer que « %s » n'est pas un dossier"
 #: source/gx/tilix/cmdparams.d:142
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
+msgstr "Le paramètre de géométrie '%s' est invalide et n'a pas pu être analysé"
 
 #: source/gx/tilix/cmdparams.d:174
 msgid ""
@@ -1916,9 +1903,8 @@ msgstr ""
 "vous plaît"
 
 #: source/gx/tilix/cmdparams.d:181
-#, fuzzy
 msgid "You can only use the action parameter within Tilix"
-msgstr "Vous pouvez utiliser le paramètre d'action seulement dans Terminix"
+msgstr "Vous ne pouvez utiliser le paramètre d'action que dans Tilix"
 
 #: source/gx/tilix/cmdparams.d:203
 msgid ""
@@ -1928,28 +1914,24 @@ msgstr ""
 "maximisation, de réduction ou de géométrie"
 
 #: source/gx/tilix/preferences.d:224
-#, fuzzy
 msgid "UpdateState"
-msgstr "UpdateState"
+msgstr "ActualiserÉtat"
 
 #: source/gx/tilix/preferences.d:225
-#, fuzzy
 msgid "ExecuteCommand"
-msgstr "ExecuteCommand"
+msgstr "ExécuterCommande"
 
 #: source/gx/tilix/preferences.d:226
-#, fuzzy
 msgid "SendNotification"
-msgstr "SendNotification"
+msgstr "EnvoyerNotification"
 
 #: source/gx/tilix/preferences.d:227
 msgid "UpdateTitle"
 msgstr "Mettre à jour le titre"
 
 #: source/gx/tilix/preferences.d:228
-#, fuzzy
 msgid "PlayBell"
-msgstr "PlayBell"
+msgstr "JouerSonnerie"
 
 #: source/gx/tilix/preferences.d:229
 msgid "SendText"
@@ -1962,9 +1944,8 @@ msgstr ""
 "Insérer le mot de passe"
 
 #: source/gx/tilix/preferences.d:231
-#, fuzzy
 msgid "UpdateBadge"
-msgstr "Titre"
+msgstr "ActualiserBadge"
 
 #: source/gx/tilix/preferences.d:338
 #, c-format
@@ -2281,7 +2262,6 @@ msgid "Switch to terminal 10"
 msgstr "Basculer vers le terminal 10"
 
 #: data/resources/ui/shortcuts.ui:356
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Terminal"
 msgstr "Terminal"
@@ -2352,31 +2332,26 @@ msgid "Zoom normal size"
 msgstr "Réinitialiser le niveau de zoom"
 
 #: data/resources/ui/shortcuts.ui:439
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Navigation"
 msgstr "Navigation"
 
 #: data/resources/ui/shortcuts.ui:443
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll up"
 msgstr "Défiler vers le haut"
 
 #: data/resources/ui/shortcuts.ui:449
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll down"
 msgstr "Défiler vers le bas"
 
 #: data/resources/ui/shortcuts.ui:455
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Page up"
 msgstr "Page précédente"
 
 #: data/resources/ui/shortcuts.ui:461
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Page down"
 msgstr "Page suivante"
@@ -2432,22 +2407,19 @@ msgid "Insert password"
 msgstr "Insérer le mot de passe"
 
 #: data/resources/ui/shortcuts.ui:533
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Select bookmark"
-msgstr "Sélectionner l'image"
+msgstr "Sélectionner le signet"
 
 #: data/resources/ui/shortcuts.ui:539
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
 #: data/resources/ui/shortcuts.ui:545
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Cycle title style"
-msgstr "Style du titre du terminal"
+msgstr "Faire défiler les styles du titre"
 
 #: data/resources/ui/shortcuts.ui:556
 msgctxt "shortcut window"
@@ -2473,7 +2445,6 @@ msgid "shell;prompt;command;commandline;cmd;"
 msgstr "shell;prompt;commande;ligne de commande;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
-#, fuzzy
 msgid "com.gexperts.Tilix"
 msgstr "com.gexperts.Tilix"
 
