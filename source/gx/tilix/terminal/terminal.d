@@ -53,6 +53,7 @@ import gio.ThemedIcon;
 
 import glib.ArrayG;
 import glib.GException;
+import glib.MatchInfo : GMatchInfo = MatchInfo;
 import glib.Regex : GRegex = Regex;
 import glib.ShellUtils;
 import glib.SimpleXML;
@@ -1068,14 +1069,14 @@ private:
     void checkAutomaticProfileSwitch() {
         string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (uuid.length > 0) {
-            trace("Automatically switching profile to %s", uuid);
+            tracef("Automatically switching profile to %s", uuid);
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
                 activeProfileUUID = uuid;
             }
         } else {
-            trace("Switching back to default profile to %s", _defaultProfileUUID);
+            tracef("Switching back to default profile to %s", _defaultProfileUUID);
             // Switch back to default profile?
             if (_defaultProfileUUID.length > 0) {
                 activeProfileUUID = _defaultProfileUUID;
@@ -1622,7 +1623,32 @@ private:
             // Also I'm mixing GRegex which is used to detect initial click
             // with D's regex library to parse out groups, might cause some
             // incompatibilities but we'll see
-
+            if (urlMatch.tag in regexTag) {
+                TerminalRegex tr = regexTag[urlMatch.tag];
+                try {
+                    GRegex regex = compileRegex(tr);
+                    if (regex !is null) {
+                        GMatchInfo info;
+                        regex.match(urlMatch.match, cast(GRegexMatchFlags) 0, info);
+                        tracef("Match count %d", info.getMatchCount());
+                        if (info.matches) {
+                            string[] groups = [info.getString()];
+                            groups ~= info.fetchAll();
+                            foreach(group; groups) tracef("Group %s", group);
+                            string command = replaceMatchTokens(tr.command, groups);
+                            trace("Command: " ~ command);
+                            string[string] env;
+                            spawnShell(command, env, Config.none, currentLocalDirectory);
+                        }
+                    }
+                } catch (GException ge) {
+                    string message = format(_("Custom link regex '%s' has an error, ignoring"), tr.pattern);
+                    showErrorDialog(cast(Window)getToplevel(), message, _("Regular Expression Error"));
+                    error(message);
+                    error(ge.msg);
+                }
+            }
+            /*
             if (urlMatch.tag in regexTag) {
                 TerminalRegex tr = regexTag[urlMatch.tag];
                 auto regexMatch = matchAll(urlMatch.match, regex(tr.pattern, tr.caseless?"i":""));
@@ -1636,6 +1662,7 @@ private:
                 string[string] env;
                 spawnShell(command, env, Config.none, currentLocalDirectory);
             }
+            */
             return;
         default:
             break;
