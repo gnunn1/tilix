@@ -53,6 +53,7 @@ import gio.ThemedIcon;
 
 import glib.ArrayG;
 import glib.GException;
+import glib.MatchInfo : GMatchInfo = MatchInfo;
 import glib.Regex : GRegex = Regex;
 import glib.ShellUtils;
 import glib.SimpleXML;
@@ -1068,14 +1069,14 @@ private:
     void checkAutomaticProfileSwitch() {
         string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (uuid.length > 0) {
-            trace("Automatically switching profile to %s", uuid);
+            tracef("Automatically switching profile to %s", uuid);
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
                 activeProfileUUID = uuid;
             }
         } else {
-            trace("Switching back to default profile to %s", _defaultProfileUUID);
+            tracef("Switching back to default profile to %s", _defaultProfileUUID);
             // Switch back to default profile?
             if (_defaultProfileUUID.length > 0) {
                 activeProfileUUID = _defaultProfileUUID;
@@ -1289,6 +1290,8 @@ private:
 
     // List of triggers to test for
     TerminalTrigger[] triggers;
+    uint maxLines = 256;
+    bool unlimitedLines = false;
     glong triggerLastRowChecked = -1;
     glong triggerLastColChecked = -1;
 
@@ -1316,11 +1319,10 @@ private:
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
-            auto maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
             auto startRow = triggerLastRowChecked;
             auto startCol = triggerLastColChecked;
             // Enforce maximum lines to check
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && (cursorRow - startRow) > maxLines) {
+            if (!unlimitedLines && (cursorRow - startRow) > maxLines) {
                 startRow = cast(glong) cursorRow - maxLines;
                 // If we clip lines set column to 0
                 startCol = 0;
@@ -1622,7 +1624,32 @@ private:
             // Also I'm mixing GRegex which is used to detect initial click
             // with D's regex library to parse out groups, might cause some
             // incompatibilities but we'll see
-
+            if (urlMatch.tag in regexTag) {
+                TerminalRegex tr = regexTag[urlMatch.tag];
+                try {
+                    GRegex regex = compileRegex(tr);
+                    if (regex !is null) {
+                        GMatchInfo info;
+                        regex.match(urlMatch.match, cast(GRegexMatchFlags) 0, info);
+                        tracef("Match count %d", info.getMatchCount());
+                        if (info.matches) {
+                            string[] groups = [info.getString()];
+                            groups ~= info.fetchAll();
+                            foreach(group; groups) tracef("Group %s", group);
+                            string command = replaceMatchTokens(tr.command, groups);
+                            trace("Command: " ~ command);
+                            string[string] env;
+                            spawnShell(command, env, Config.none, currentLocalDirectory);
+                        }
+                    }
+                } catch (GException ge) {
+                    string message = format(_("Custom link regex '%s' has an error, ignoring"), tr.pattern);
+                    showErrorDialog(cast(Window)getToplevel(), message, _("Regular Expression Error"));
+                    error(message);
+                    error(ge.msg);
+                }
+            }
+            /*
             if (urlMatch.tag in regexTag) {
                 TerminalRegex tr = regexTag[urlMatch.tag];
                 auto regexMatch = matchAll(urlMatch.match, regex(tr.pattern, tr.caseless?"i":""));
@@ -1636,6 +1663,7 @@ private:
                 string[string] env;
                 spawnShell(command, env, Config.none, currentLocalDirectory);
             }
+            */
             return;
         default:
             break;
@@ -1887,11 +1915,17 @@ private:
         case SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY:
             updateTitleBar();
             break;
-        case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
+        case SETTINGS_ALL_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
             break;
-        case SETTINGS_PROFILE_TRIGGERS_KEY:
+        case SETTINGS_ALL_TRIGGERS_KEY:
             loadTriggers();
+            break;
+        case SETTINGS_TRIGGERS_LINES_KEY:
+            maxLines = gsSettings.getInt(SETTINGS_TRIGGERS_LINES_KEY);
+            break;
+        case SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY:
+            unlimitedLines = gsSettings.getBoolean(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY);
             break;
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
@@ -1960,8 +1994,10 @@ private:
             SETTINGS_PROFILE_USE_DIM_COLOR_KEY,
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
-            SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
-            SETTINGS_PROFILE_TRIGGERS_KEY,
+            SETTINGS_ALL_CUSTOM_HYPERLINK_KEY,
+            SETTINGS_ALL_TRIGGERS_KEY,
+            SETTINGS_TRIGGERS_LINES_KEY,
+            SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY,
             SETTINGS_PROFILE_BADGE_TEXT_KEY,
             SETTINGS_PROFILE_BADGE_COLOR_KEY,
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
@@ -1998,7 +2034,8 @@ private:
 
     void loadTriggers() {
         TerminalTrigger[] tmpTriggers;
-        string[] trgDefs = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
+        string[] trgDefs = gsSettings.getStrv(SETTINGS_ALL_TRIGGERS_KEY);
+        trgDefs ~= gsProfile.getStrv(SETTINGS_ALL_TRIGGERS_KEY);
         foreach (trgDef; trgDefs) {
             foreach(value; csvReader!(Tuple!(string, string, string))(trgDef)) {
                 TerminalTrigger trigger = new TerminalTrigger(value[0], value[1], value[2]);
@@ -2021,7 +2058,8 @@ private:
         }
 
         //Re-load custom regex
-        string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
+        string[] links = gsSettings.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
+        links ~= gsProfile.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
         foreach(link; links) {
             foreach(value; csvReader!(Tuple!(string, string, string))(link)) {
                 bool caseInsensitive = false;

@@ -113,20 +113,23 @@ import gx.tilix.sidebar;
  */
 class AppWindow : ApplicationWindow, IIdentifiable {
 
+public:
+    //Public Actions
+    enum ACTION_PREFIX = "session";
+    enum ACTION_SESSION_ADD_RIGHT = "add-right";
+    enum ACTION_SESSION_ADD_DOWN = "add-down";
+
 private:
 
     // GTK CSS Style to flag attention
     enum CSS_CLASS_NEEDS_ATTENTION = "needs-attention";
 
-    // Actions
-    enum ACTION_PREFIX = "session";
+    // Private Actions
     enum ACTION_SESSION_CLOSE = "close";
     enum ACTION_SESSION_NAME = "name";
     enum ACTION_SESSION_NEXT_TERMINAL = "switch-to-next-terminal";
     enum ACTION_SESSION_PREV_TERMINAL = "switch-to-previous-terminal";
     enum ACTION_SESSION_TERMINAL_X = "switch-to-terminal-";
-    enum ACTION_SESSION_ADD_RIGHT = "add-right";
-    enum ACTION_SESSION_ADD_DOWN = "add-down";
     enum ACTION_RESIZE_TERMINAL_DIRECTION = "resize-terminal-";
     enum ACTION_SESSION_SAVE = "save";
     enum ACTION_SESSION_SAVE_AS = "save-as";

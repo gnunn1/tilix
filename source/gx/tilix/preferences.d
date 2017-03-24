@@ -32,6 +32,13 @@ enum SETTINGS_PROXY_ID = "org.gnome.system.proxy";
 enum SETTINGS_ID = "com.gexperts.Tilix.Settings";
 enum SETTINGS_BASE_PATH = "/com/gexperts/Tilix";
 
+// Settings for links and triggers that can be set at both global and profile level
+enum SETTINGS_ALL_CUSTOM_HYPERLINK_KEY = "custom-hyperlinks";
+enum SETTINGS_ALL_TRIGGERS_KEY = "triggers";
+enum SETTINGS_TRIGGERS_LINES_KEY = "triggers-lines";
+enum SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY = "trigger-unlimit-lines";
+
+// Theme Settings
 enum SETTINGS_THEME_VARIANT_KEY = "theme-variant";
 enum SETTINGS_THEME_VARIANT_SYSTEM_VALUE = "system";
 enum SETTINGS_THEME_VARIANT_LIGHT_VALUE = "light";
@@ -201,11 +208,6 @@ enum SETTINGS_PROFILE_CUSTOM_COMMAND_KEY = "custom-command";
 enum SETTINGS_PROFILE_TITLE_KEY = "terminal-title";
 
 enum SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY = "automatic-switch";
-enum SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY = "custom-hyperlinks";
-
-enum SETTINGS_PROFILE_TRIGGERS_KEY = "triggers";
-enum SETTINGS_PROFILE_TRIGGERS_LINES_KEY = "triggers-lines";
-enum SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY = "trigger-unlimit-lines";
 
 enum SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY = "notify-silence-threshold";
 

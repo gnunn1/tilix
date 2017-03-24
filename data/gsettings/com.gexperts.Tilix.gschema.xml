@@ -429,6 +429,28 @@
       <summary>Whether to require control modifier to edit title on click</summary>
       <description>If true, editing the title requires using the control key modifier when clicking.</description>
     </key>
+
+    <!-- Global settings for triggers and custom links-->
+    <key name="custom-hyperlinks" type="as">
+      <default>[]</default>
+      <summary>A list of custom links that can be clicked on in the terminal</summary>
+      <description>A list of custom links, each link consists of a regex and optional launcher encoded according to CSV rules.</description>
+    </key>
+    <key name="triggers" type="as">
+      <default>[]</default>
+      <summary>A list of definitions that trigger actions based on content matches</summary>
+      <description>A list of trigger definitions with each definition consisting of a regex, action to trigger and parameter.</description>
+    </key>
+    <key name="triggers-lines" type="i">
+      <default>256</default>
+      <summary>The maximum number of lines to check for trigger matches</summary>
+      <description>When the terminal reports a block of text, this setting determines how many lines are checked for trigger matches starting with the last line.</description>
+    </key>
+    <key name="trigger-unlimit-lines" type="b">
+      <default>false</default>
+      <summary>Whether an unlimited number of lines should be processed for triggers</summary>
+      <description>If true, all available lines will be processed for triggers. When outputing large amounts of text to the terminal this may impact performance.</description>
+    </key>
   </schema>
 
   <!-- SettingsList base schema -->
@@ -742,16 +764,6 @@
       <default>[]</default>
       <summary>A list of definitions that trigger actions based on content matches</summary>
       <description>A list of trigger definitions with each definition consisting of a regex, action to trigger and parameter.</description>
-    </key>
-    <key name="triggers-lines" type="i">
-      <default>256</default>
-      <summary>The maximum number of lines to check for trigger matches</summary>
-      <description>When the terminal reports a block of text, this setting determines how many lines are checked for trigger matches starting with the last line.</description>
-    </key>
-    <key name="trigger-unlimit-lines" type="b">
-      <default>false</default>
-      <summary>Whether an unlimited number of lines should be processed for triggers</summary>
-      <description>If true, all available lines will be processed for triggers. When outputing large amounts of text to the terminal this may impact performance.</description>
     </key>
     <!-- Badges -->
     <key name="badge-text" type="s">
