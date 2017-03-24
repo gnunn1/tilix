@@ -88,10 +88,10 @@ import gx.tilix.constants;
 import gx.tilix.encoding;
 import gx.tilix.preferences;
 
+import gx.tilix.prefeditor.bookmarkeditor;
+import gx.tilix.prefeditor.common;
 import gx.tilix.prefeditor.profileeditor;
 import gx.tilix.prefeditor.titleeditor;
-
-import gx.tilix.prefeditor.bookmarkeditor;
 
 /**
  * UI for managing preferences
@@ -159,6 +159,10 @@ private:
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
         pages.addTitled(ep, N_("Encoding"), _("Encoding"));
         lbSide.add(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
+
+        AdvancedPreferences advp = new AdvancedPreferences(gsSettings);
+        pages.addTitled(advp, N_("Advanced"), _("Advanced"));
+        lbSide.add(new GenericPreferenceRow(N_("Advanced"), _("Advanced")));
 
         // Profile Editor - Re-used for all profiles
         pe = new ProfileEditor();
@@ -1317,6 +1321,32 @@ public:
             bh = null;
         });
     }
+}
+
+/**
+ * Global preferences page *
+ */
+class AdvancedPreferences : Box {
+private:
+    GSettings gsSettings;
+
+    void createUI() {
+        setAllMargins(this, 18);
+        createAdvancedUI(this, &getSettings, true);
+    }
+
+    GSettings getSettings() {
+        return gsSettings;
+    }
+
+public:
+
+    this(GSettings gsSettings) {
+        super(Orientation.VERTICAL, 6);
+        this.gsSettings = gsSettings;
+        createUI();
+    }
+
 }
 
 // Function to create a right aligned label with appropriate margins

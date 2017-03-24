@@ -1290,6 +1290,8 @@ private:
 
     // List of triggers to test for
     TerminalTrigger[] triggers;
+    uint maxLines = 256;
+    bool unlimitedLines = false;
     glong triggerLastRowChecked = -1;
     glong triggerLastColChecked = -1;
 
@@ -1317,11 +1319,10 @@ private:
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
-            auto maxLines = gsProfile.getInt(SETTINGS_PROFILE_TRIGGERS_LINES_KEY);
             auto startRow = triggerLastRowChecked;
             auto startCol = triggerLastColChecked;
             // Enforce maximum lines to check
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_TRIGGERS_UNLIMITED_LINES_KEY) && (cursorRow - startRow) > maxLines) {
+            if (!unlimitedLines && (cursorRow - startRow) > maxLines) {
                 startRow = cast(glong) cursorRow - maxLines;
                 // If we clip lines set column to 0
                 startCol = 0;
@@ -1914,11 +1915,17 @@ private:
         case SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY:
             updateTitleBar();
             break;
-        case SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY:
+        case SETTINGS_ALL_CUSTOM_HYPERLINK_KEY:
             loadCustomRegex();
             break;
-        case SETTINGS_PROFILE_TRIGGERS_KEY:
+        case SETTINGS_ALL_TRIGGERS_KEY:
             loadTriggers();
+            break;
+        case SETTINGS_TRIGGERS_LINES_KEY:
+            maxLines = gsSettings.getInt(SETTINGS_TRIGGERS_LINES_KEY);
+            break;
+        case SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY:
+            unlimitedLines = gsSettings.getBoolean(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY);
             break;
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
@@ -1987,8 +1994,10 @@ private:
             SETTINGS_PROFILE_USE_DIM_COLOR_KEY,
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
             SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY,
-            SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY,
-            SETTINGS_PROFILE_TRIGGERS_KEY,
+            SETTINGS_ALL_CUSTOM_HYPERLINK_KEY,
+            SETTINGS_ALL_TRIGGERS_KEY,
+            SETTINGS_TRIGGERS_LINES_KEY,
+            SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY,
             SETTINGS_PROFILE_BADGE_TEXT_KEY,
             SETTINGS_PROFILE_BADGE_COLOR_KEY,
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
@@ -2025,7 +2034,8 @@ private:
 
     void loadTriggers() {
         TerminalTrigger[] tmpTriggers;
-        string[] trgDefs = gsProfile.getStrv(SETTINGS_PROFILE_TRIGGERS_KEY);
+        string[] trgDefs = gsSettings.getStrv(SETTINGS_ALL_TRIGGERS_KEY);
+        trgDefs ~= gsProfile.getStrv(SETTINGS_ALL_TRIGGERS_KEY);
         foreach (trgDef; trgDefs) {
             foreach(value; csvReader!(Tuple!(string, string, string))(trgDef)) {
                 TerminalTrigger trigger = new TerminalTrigger(value[0], value[1], value[2]);
@@ -2048,7 +2058,8 @@ private:
         }
 
         //Re-load custom regex
-        string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
+        string[] links = gsSettings.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
+        links ~= gsProfile.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
         foreach(link; links) {
             foreach(value; csvReader!(Tuple!(string, string, string))(link)) {
                 bool caseInsensitive = false;

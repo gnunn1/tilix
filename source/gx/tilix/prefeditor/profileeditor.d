@@ -73,6 +73,7 @@ import gx.tilix.encoding;
 import gx.tilix.preferences;
 
 import gx.tilix.prefeditor.advdialog;
+import gx.tilix.prefeditor.common;
 import gx.tilix.prefeditor.titleeditor;
 
 /**
@@ -1109,68 +1110,9 @@ private:
     Button btnEdit;
     Button btnDelete;
 
-    Label createDescriptionLabel(string desc) {
-        Label lblDescription = new Label(desc);
-        lblDescription.setUseMarkup(true);
-        lblDescription.setSensitive(false);
-        lblDescription.setLineWrap(true);
-        lblDescription.setHalign(Align.START);
-        lblDescription.setMaxWidthChars(70);
-        return lblDescription;
-    }
+     void createUI() {
 
-    void createUI() {
-        // Custom Links Section
-        Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
-        lblCustomLinks.setUseMarkup(true);
-        lblCustomLinks.setHalign(Align.START);
-        add(lblCustomLinks);
-
-        string customLinksDescription = _("A list of user defined links that can be clicked on in the terminal based on regular expression definitions.");
-        packStart(createDescriptionLabel(customLinksDescription), false, false, 0);
-
-        Button btnEditLink = new Button(_("Edit"));
-        btnEditLink.setHexpand(false);
-        btnEditLink.setHalign(Align.START);
-        btnEditLink.addOnClicked(delegate(Button) {
-            string[] links = gsProfile.getStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY);
-            EditCustomLinksDialog dlg = new EditCustomLinksDialog(cast(Window) getToplevel(), links);
-            scope (exit) {
-                dlg.destroy();
-            }
-            dlg.showAll();
-            if (dlg.run() == ResponseType.APPLY) {
-                gsProfile.setStrv(SETTINGS_PROFILE_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
-            }
-        });
-        packStart(btnEditLink, false, false, 0);
-
-        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            // Triggers Section
-            Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
-            lblTriggers.setUseMarkup(true);
-            lblTriggers.setHalign(Align.START);
-            lblTriggers.setMarginTop(12);
-            packStart(lblTriggers, false, false, 0);
-
-            string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
-            packStart(createDescriptionLabel(triggersDescription), false, false, 0);
-
-            Button btnEditTriggers = new Button(_("Edit"));
-            btnEditTriggers.setHexpand(false);
-            btnEditTriggers.setHalign(Align.START);
-            btnEditTriggers.addOnClicked(delegate(Button) {
-                EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) getToplevel(), gsProfile);
-                scope (exit) {
-                    dlg.destroy();
-                }
-                dlg.showAll();
-                if (dlg.run() == ResponseType.APPLY) {
-                    gsProfile.setStrv(SETTINGS_PROFILE_TRIGGERS_KEY, dlg.getTriggers());
-                }
-            });
-            packStart(btnEditTriggers, false, false, 0);
-        }
+        createAdvancedUI(this, &getSettings);
 
         //Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
@@ -1288,6 +1230,10 @@ private:
             values ~= lsValues.getValueString(iter, 0);
         }
         gsProfile.setStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY, values);
+    }
+
+    GSettings getSettings() {
+        return gsProfile;
     }
 
 public:
