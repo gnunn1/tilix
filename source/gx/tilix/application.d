@@ -415,7 +415,7 @@ private:
                     switch (instanceAction) {
                         //New Session
                         case SETTINGS_NEW_INSTANCE_MODE_NEW_SESSION_VALUE:
-                            aw.present();
+                            activateWindow(aw);
                             if (cp.session.length > 0) {
                                 // This will use global override and load sessions
                                 aw.initialize();
@@ -426,7 +426,7 @@ private:
                         //Split Right, Split Down
                         case SETTINGS_NEW_INSTANCE_MODE_SPLIT_RIGHT_VALUE, SETTINGS_NEW_INSTANCE_MODE_SPLIT_DOWN_VALUE:
                             if (cp.session.length > 0) break;
-                            aw.present();
+                            activateWindow(aw);
                             //If workingDir is not set, override it with cwd so that it takes priority for
                             //executing actions below
                             if (cp.workingDir.length == 0) {
@@ -445,7 +445,7 @@ private:
                                 // This will use global override and load sessions
                                 aw.initialize();
                             }
-                            aw.present();
+                            activateWindow(aw);
                             aw.getActiveTerminal().focusTerminal();
                             return cp.exitCode;
                         default:
