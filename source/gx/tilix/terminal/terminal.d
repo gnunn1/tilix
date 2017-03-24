@@ -1396,14 +1396,13 @@ private:
                 string[string] parameters = getParameters(trigger.parameters);
                 tracef("Parameters count: %d", parameters.length);
                 string title = _("Tilix Custom Notification");
-                string summary;
+                string _body;
                 if ("title" in parameters) title = parameters["title"];
-                if ("body" in parameters) summary = parameters["body"];
-                else summary = replaceMatchTokens(trigger.parameters, groups);
-                GNotification n = new GNotification(title);
-                n.setBody(summary);
-                n.setDefaultAction("app.activate-terminal::" ~ _terminalUUID);
-                tilix.sendNotification(null, n);
+                if ("body" in parameters) _body = parameters["body"];
+                else _body = replaceMatchTokens(trigger.parameters, groups);
+                if (!hasFocus()) {
+                    notifyProcessNotification(title, _body, uuid);
+                }
                 break;
             case TriggerAction.UPDATE_BADGE:
                 _overrideBadge = replaceMatchTokens(trigger.parameters, groups);
