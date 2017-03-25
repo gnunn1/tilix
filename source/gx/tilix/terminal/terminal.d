@@ -1428,6 +1428,11 @@ private:
                     sa.activate(null);
                 }
                 break;
+            case TriggerAction.RUN_PROCESS:
+                string process = replaceMatchTokens(trigger.parameters, groups);
+                auto response = executeShell(process);
+                vte.feedChild(response.output, response.output.length);
+                break;
         }
     }
 
@@ -3450,7 +3455,8 @@ enum TriggerAction {
     PLAY_BELL,
     SEND_TEXT,
     INSERT_PASSWORD,
-    UPDATE_BADGE
+    UPDATE_BADGE,
+    RUN_PROCESS
 }
 
 /**
@@ -3493,6 +3499,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE:
                 action = TriggerAction.INSERT_PASSWORD;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_RUN_PROCESS_VALUE:
+                action = TriggerAction.RUN_PROCESS;
                 break;
             default:
                 break;
