@@ -1396,14 +1396,13 @@ private:
                 string[string] parameters = getParameters(trigger.parameters);
                 tracef("Parameters count: %d", parameters.length);
                 string title = _("Tilix Custom Notification");
-                string summary;
+                string _body;
                 if ("title" in parameters) title = parameters["title"];
-                if ("body" in parameters) summary = parameters["body"];
-                else summary = replaceMatchTokens(trigger.parameters, groups);
-                GNotification n = new GNotification(title);
-                n.setBody(summary);
-                n.setDefaultAction("app.activate-terminal::" ~ _terminalUUID);
-                tilix.sendNotification(null, n);
+                if ("body" in parameters) _body = parameters["body"];
+                else _body = replaceMatchTokens(trigger.parameters, groups);
+                if (!hasFocus()) {
+                    notifyProcessNotification(title, _body, uuid);
+                }
                 break;
             case TriggerAction.UPDATE_BADGE:
                 _overrideBadge = replaceMatchTokens(trigger.parameters, groups);
@@ -1428,6 +1427,11 @@ private:
                 if (sa !is null) {
                     sa.activate(null);
                 }
+                break;
+            case TriggerAction.RUN_PROCESS:
+                string process = replaceMatchTokens(trigger.parameters, groups);
+                auto response = executeShell(process);
+                vte.feedChild(response.output, response.output.length);
                 break;
         }
     }
@@ -3451,7 +3455,8 @@ enum TriggerAction {
     PLAY_BELL,
     SEND_TEXT,
     INSERT_PASSWORD,
-    UPDATE_BADGE
+    UPDATE_BADGE,
+    RUN_PROCESS
 }
 
 /**
@@ -3494,6 +3499,9 @@ public:
                 break;
             case SETTINGS_PROFILE_TRIGGER_INSERT_PASSWORD_VALUE:
                 action = TriggerAction.INSERT_PASSWORD;
+                break;
+            case SETTINGS_PROFILE_TRIGGER_RUN_PROCESS_VALUE:
+                action = TriggerAction.RUN_PROCESS;
                 break;
             default:
                 break;
