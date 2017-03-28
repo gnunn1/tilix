@@ -291,6 +291,9 @@ private:
     long lastActivity;
     long silenceThreshold;
 
+    //When true, silence threshold monitoring is enabled
+    bool monitorSilence = false;
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -598,6 +601,11 @@ private:
             else imgReadOnly.hide();
         }, null, new GVariant(false));
 
+        //Silence Action
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MONITOR_SILENCE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+            monitorSilence = !sa.getState().getBoolean();
+            sa.setState(new GVariant(monitorSilence));
+        }, null, new GVariant(false));
 
         //Clear Terminal && Reset and Clear Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -765,6 +773,10 @@ private:
         menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
         submenu.appendSection(null, menuSection);
 
+        menuSection = new GMenu();
+        menuSection.append(_("Monitor Silence"), getActionDetailedName(ACTION_PREFIX, ACTION_MONITOR_SILENCE));
+        submenu.appendSection(null, menuSection);
+
         model.appendSubmenu(_("Other"), submenu);
     }
 
@@ -879,7 +891,7 @@ private:
             gst.updateState();
 
             //Check if output was generated
-            if (silenceThreshold > 0) {
+            if (monitorSilence && silenceThreshold > 0) {
                 long time = Clock.currStdTime();
                 if ((lastActivity > 0) && (time > lastActivity + (silenceThreshold * 1_000_000_0))) {
                     // If we are have notifications enabled, only show notification if process is
