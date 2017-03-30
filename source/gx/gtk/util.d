@@ -56,6 +56,7 @@ void activateWindow(Window window) {
     if (isWayland(window)) {
         window.present();
     } else {
+        window.present();
         activateX11Window(window);
     }
 }
