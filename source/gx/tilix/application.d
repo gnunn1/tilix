@@ -381,7 +381,10 @@ private:
             Widget widget = executeAction(terminalUUID, cp.action);
             if (cp.focusWindow && widget !is null) {
                 Window window = cast(Window) widget.getToplevel();
-                if (window !is null) window.present;
+                if (window !is null) {
+                    trace("Focusing window after action");
+                    activateWindow(window);
+                }
             }
             return cp.exitCode;
         }
@@ -580,22 +583,23 @@ private:
         string actionName;
         getActionNameFromKey(action, prefix, actionName);
         Widget widget = findWidgetForUUID(terminalUUID);
+        Widget result = widget;
         while (widget !is null) {
             ActionGroupIF group = widget.getActionGroup(prefix);
             if (group !is null && group.hasAction(actionName)) {
                 tracef("Activating action for prefix=%s and action=%s", prefix, actionName);
                 group.activateAction(actionName, null);
-                return widget;
+                return result;
             }
             widget = widget.getParent();
         }
         //Check if the action belongs to the app
         if (prefix == ACTION_PREFIX) {
             activateAction(actionName, null);
-            return widget;
+            return result;
         }
         warningf("Could not find action for prefix=%s and action=%s", prefix, actionName);
-        return widget;
+        return result;
     }
 
     /**
