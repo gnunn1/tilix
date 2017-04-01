@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-17 08:38-0400\n"
+"POT-Creation-Date: 2017-04-01 15:58-0400\n"
 "PO-Revision-Date: 2017-03-26 22:19+0000\n"
 "Last-Translator: Sogal BOOGALSKY <sogal@volted.net>\n"
-"Language-Team: French "
-"<https://hosted.weblate.org/projects/tilix/translations/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/tilix/"
+"translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +69,7 @@ msgid "disabled"
 msgstr "désactivé"
 
 #: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:104
+#: source/gx/tilix/bookmark/bmchooser.d:120
 msgid "Select Folder"
 msgstr "Sélectionner un dossier"
 
@@ -90,28 +90,28 @@ msgid "Edit Bookmark"
 msgstr "Modifier un signet"
 
 #: source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:105
+#: source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:480
 #: source/gx/tilix/closedialog.d:205
 msgid "OK"
 msgstr "Ok"
 
 #: source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:105
+#: source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/terminal.d:2786
+#: source/gx/tilix/terminal/terminal.d:2876
 #: source/gx/tilix/terminal/advpaste.d:137
 #: source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:480 source/gx/tilix/closedialog.d:205
-#: source/gx/tilix/appwindow.d:1301 source/gx/tilix/appwindow.d:1335
-#: source/gx/tilix/prefeditor/profileeditor.d:893
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
+#: source/gx/tilix/appwindow.d:1300 source/gx/tilix/appwindow.d:1334
+#: source/gx/tilix/prefeditor/profileeditor.d:888
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Cancel"
 msgstr "Annuler"
 
 #: source/gx/tilix/bookmark/bmeditor.d:230
-#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1443
+#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1448
 #: source/gx/tilix/terminal/password.d:133
 #: source/gx/tilix/terminal/password.d:424
 msgid "Name"
@@ -129,9 +129,9 @@ msgstr "Sélectionner un chemin"
 #: source/gx/tilix/bookmark/bmeditor.d:332
 #: source/gx/tilix/bookmark/bmeditor.d:427
 #: source/gx/tilix/bookmark/manager.d:687 source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/profileeditor.d:101
-#: source/gx/tilix/prefeditor/profileeditor.d:1079
-#: source/gx/tilix/prefeditor/profileeditor.d:1377
+#: source/gx/tilix/prefeditor/profileeditor.d:96
+#: source/gx/tilix/prefeditor/profileeditor.d:1074
+#: source/gx/tilix/prefeditor/advdialog.d:104
 msgid "Command"
 msgstr "Commande"
 
@@ -151,12 +151,17 @@ msgstr "Utilisateur"
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: source/gx/tilix/bookmark/bmchooser.d:104
+#: source/gx/tilix/bookmark/bmchooser.d:79
+#, fuzzy
+msgid "Include return character with bookmark"
+msgstr "Inclure le caractère de retour à la ligne dans le mot de passe"
+
+#: source/gx/tilix/bookmark/bmchooser.d:120
 msgid "Select Bookmark"
 msgstr "Sélectionner le signet"
 
 #: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Icon"
 msgstr "Icône"
 
@@ -260,17 +265,17 @@ msgstr "Impossible de localiser le terminal lâché"
 msgid "Could not locate session for dropped terminal"
 msgstr "Impossible de trouver une session pour le terminal déplacé"
 
-#: source/gx/tilix/session.d:1135 source/gx/tilix/appwindow.d:902
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/session.d:1140 source/gx/tilix/appwindow.d:901
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Default"
 msgstr "Par défaut"
 
-#: source/gx/tilix/session.d:1454 source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/session.d:1459 source/gx/tilix/prefeditor/prefdialog.d:170
 msgid "Profile"
 msgstr "Profil"
 
-#: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/session.d:1482 source/gx/tilix/application.d:218
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Nouvelle session"
@@ -422,8 +427,8 @@ msgid "Active"
 msgstr "Actif"
 
 #: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:318
-#: source/gx/tilix/prefeditor/profileeditor.d:642
+#: source/gx/tilix/prefeditor/profileeditor.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:637
 msgid "Badge"
 msgstr "Badge"
 
@@ -441,52 +446,52 @@ msgstr ""
 "Les options « Chargement de session » s'appliquent seulement quand une "
 "session est chargée."
 
-#: source/gx/tilix/terminal/terminal.d:322
-#: source/gx/tilix/terminal/terminal.d:3153
+#: source/gx/tilix/terminal/terminal.d:327
+#: source/gx/tilix/terminal/terminal.d:3243
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "Terminal"
 
-#: source/gx/tilix/terminal/terminal.d:356
-#: source/gx/tilix/terminal/terminal.d:1522 source/gx/tilix/appwindow.d:665
+#: source/gx/tilix/terminal/terminal.d:361
+#: source/gx/tilix/terminal/terminal.d:1548 source/gx/tilix/appwindow.d:664
 #: source/gx/tilix/sidebar.d:362
 msgid "Close"
 msgstr "Fermer"
 
-#: source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1145
-#: source/gx/tilix/terminal/terminal.d:1521
+#: source/gx/tilix/terminal/terminal.d:369
+#: source/gx/tilix/terminal/terminal.d:1161
+#: source/gx/tilix/terminal/terminal.d:1547
 msgid "Maximize"
 msgstr "Maximiser"
 
-#: source/gx/tilix/terminal/terminal.d:374
-#: source/gx/tilix/terminal/terminal.d:614
+#: source/gx/tilix/terminal/terminal.d:379
+#: source/gx/tilix/terminal/terminal.d:624
 msgid "Disable input synchronization for this terminal"
 msgstr "Désactiver la synchronisation d'entrée pour ce terminal"
 
-#: source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:740
+#: source/gx/tilix/terminal/terminal.d:388
+#: source/gx/tilix/terminal/terminal.d:750
 msgid "Read-Only"
 msgstr "Lecture seule"
 
-#: source/gx/tilix/terminal/terminal.d:389
-#: source/gx/tilix/prefeditor/profileeditor.d:293
+#: source/gx/tilix/terminal/terminal.d:394
+#: source/gx/tilix/prefeditor/profileeditor.d:288
 msgid "Terminal bell"
 msgstr "« Bip » du terminal"
 
-#: source/gx/tilix/terminal/terminal.d:434
+#: source/gx/tilix/terminal/terminal.d:439
 msgid "Edit Profile"
 msgstr "Modifier le profil"
 
-#: source/gx/tilix/terminal/terminal.d:452
+#: source/gx/tilix/terminal/terminal.d:457
 msgid "Edit Encodings"
 msgstr "Modifier les encodages"
 
-#: source/gx/tilix/terminal/terminal.d:616
+#: source/gx/tilix/terminal/terminal.d:626
 msgid "Enable input synchronization for this terminal"
 msgstr "Activer la synchronisation d'entrée pour ce terminal"
 
-#: source/gx/tilix/terminal/terminal.d:645
+#: source/gx/tilix/terminal/terminal.d:655
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
@@ -494,180 +499,190 @@ msgstr ""
 "La bibliothèque %s n'a pas pu être chargée, la fonctionnalité des mots de "
 "passe n'est pas disponible."
 
-#: source/gx/tilix/terminal/terminal.d:645
+#: source/gx/tilix/terminal/terminal.d:655
 msgid "Library Not Loaded"
 msgstr "Bibliothèque non chargée"
 
-#: source/gx/tilix/terminal/terminal.d:739
+#: source/gx/tilix/terminal/terminal.d:749
 msgid "Find…"
 msgstr "Rechercher…"
 
-#: source/gx/tilix/terminal/terminal.d:744
+#: source/gx/tilix/terminal/terminal.d:754
 msgid "Password..."
 msgstr "Mot de passe..."
 
-#: source/gx/tilix/terminal/terminal.d:745
+#: source/gx/tilix/terminal/terminal.d:755
 msgid "Bookmark..."
 msgstr "Signet..."
 
-#: source/gx/tilix/terminal/terminal.d:746
+#: source/gx/tilix/terminal/terminal.d:756
 msgid "Add Bookmark..."
 msgstr "Ajouter un signet…"
 
-#: source/gx/tilix/terminal/terminal.d:750
-#: source/gx/tilix/prefeditor/prefdialog.d:267
+#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "Profils"
 
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:766
 msgid "Save Output…"
 msgstr "Enregistrer la sortie sous…"
 
-#: source/gx/tilix/terminal/terminal.d:757
-#: source/gx/tilix/prefeditor/profileeditor.d:262
+#: source/gx/tilix/terminal/terminal.d:767
+#: source/gx/tilix/prefeditor/profileeditor.d:257
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: source/gx/tilix/terminal/terminal.d:758
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Reset and Clear"
 msgstr "Réinitialiser et effacer"
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:772
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
-#: source/gx/tilix/prefeditor/prefdialog.d:424
-#: source/gx/tilix/prefeditor/prefdialog.d:632
-#: source/gx/tilix/prefeditor/profileeditor.d:1030
+#: source/gx/tilix/prefeditor/prefdialog.d:428
+#: source/gx/tilix/prefeditor/prefdialog.d:636
+#: source/gx/tilix/prefeditor/profileeditor.d:1025
 msgid "Encoding"
 msgstr "Codage"
 
-#: source/gx/tilix/terminal/terminal.d:763
+#: source/gx/tilix/terminal/terminal.d:773
 msgid "Layout Options…"
 msgstr "Options de disposition…"
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:777
+msgid "Monitor Silence"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:780
 msgid "Other"
 msgstr "Autre"
 
-#: source/gx/tilix/terminal/terminal.d:775
+#: source/gx/tilix/terminal/terminal.d:789
 msgid "Add Right"
 msgstr "Division à droite"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:793
 msgid "Add Down"
 msgstr "Division en bas"
 
-#: source/gx/tilix/terminal/terminal.d:892
+#: source/gx/tilix/terminal/terminal.d:906
 msgid "Terminal Activity"
 msgstr "Activité du terminal"
 
-#: source/gx/tilix/terminal/terminal.d:1142
-#: source/gx/tilix/terminal/terminal.d:1521
+#: source/gx/tilix/terminal/terminal.d:1158
+#: source/gx/tilix/terminal/terminal.d:1547
 msgid "Restore"
 msgstr "Restaurer"
 
-#: source/gx/tilix/terminal/terminal.d:1388
+#: source/gx/tilix/terminal/terminal.d:1410
 msgid "Tilix Custom Notification"
 msgstr "Notification personnalisée de Tilix"
 
-#: source/gx/tilix/terminal/terminal.d:1481
+#: source/gx/tilix/terminal/terminal.d:1507
 msgid "Open Link"
 msgstr "Ouvrir le lien"
 
-#: source/gx/tilix/terminal/terminal.d:1482
+#: source/gx/tilix/terminal/terminal.d:1508
 msgid "Copy Link Address"
 msgstr "Copier l'adresse du lien"
 
-#: source/gx/tilix/terminal/terminal.d:1492
-#: source/gx/tilix/terminal/terminal.d:1499
+#: source/gx/tilix/terminal/terminal.d:1518
+#: source/gx/tilix/terminal/terminal.d:1525
 msgid "Copy"
 msgstr "Copier"
 
-#: source/gx/tilix/terminal/terminal.d:1493
-#: source/gx/tilix/terminal/terminal.d:1504
+#: source/gx/tilix/terminal/terminal.d:1519
+#: source/gx/tilix/terminal/terminal.d:1530
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Coller"
 
-#: source/gx/tilix/terminal/terminal.d:1494
-#: source/gx/tilix/terminal/terminal.d:1509
+#: source/gx/tilix/terminal/terminal.d:1520
+#: source/gx/tilix/terminal/terminal.d:1535
 msgid "Select All"
 msgstr "Tout sélectionner"
 
-#: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1283
+#: source/gx/tilix/terminal/terminal.d:1538
+#: source/gx/tilix/prefeditor/prefdialog.d:1287
 msgid "Clipboard"
 msgstr "Presse-papier"
 
-#: source/gx/tilix/terminal/terminal.d:1526
+#: source/gx/tilix/terminal/terminal.d:1552
 msgid "Synchronize input"
 msgstr "Synchroniser l'entrée"
 
-#: source/gx/tilix/terminal/terminal.d:2035
+#: source/gx/tilix/terminal/terminal.d:1662
+#: source/gx/tilix/terminal/terminal.d:2097
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 "L'expression rationnelle du lien personnalisé '%s' présente une erreur et "
 "sera ignorée"
 
-#: source/gx/tilix/terminal/terminal.d:2173
+#: source/gx/tilix/terminal/terminal.d:1663
+#, fuzzy
+msgid "Regular Expression Error"
+msgstr "Utiliser comme expression régulière"
+
+#: source/gx/tilix/terminal/terminal.d:2235
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 "Une erreur inattendue est survenue, aucune information supplémentaire n'est "
 "disponible"
 
-#: source/gx/tilix/terminal/terminal.d:2179
+#: source/gx/tilix/terminal/terminal.d:2241
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Une erreur inattendue est survenue : %s"
 
-#: source/gx/tilix/terminal/terminal.d:2783
+#: source/gx/tilix/terminal/terminal.d:2873
 msgid "Save Terminal Output"
 msgstr "Enregistrer la sortie du terminal"
 
-#: source/gx/tilix/terminal/terminal.d:2786 source/gx/tilix/appwindow.d:663
-#: source/gx/tilix/appwindow.d:1335
-#: source/gx/tilix/prefeditor/profileeditor.d:893
+#: source/gx/tilix/terminal/terminal.d:2876 source/gx/tilix/appwindow.d:662
+#: source/gx/tilix/appwindow.d:1334
+#: source/gx/tilix/prefeditor/profileeditor.d:888
 msgid "Save"
 msgstr "Enregistrer"
 
-#: source/gx/tilix/terminal/terminal.d:2792
+#: source/gx/tilix/terminal/terminal.d:2882
 msgid "All Text Files"
 msgstr "Tous les fichiers texte"
 
-#: source/gx/tilix/terminal/terminal.d:2796 source/gx/tilix/appwindow.d:1259
-#: source/gx/tilix/prefeditor/prefdialog.d:974
-#: source/gx/tilix/prefeditor/profileeditor.d:910
+#: source/gx/tilix/terminal/terminal.d:2886 source/gx/tilix/appwindow.d:1258
+#: source/gx/tilix/prefeditor/prefdialog.d:978
+#: source/gx/tilix/prefeditor/profileeditor.d:905
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: source/gx/tilix/terminal/terminal.d:3043
+#: source/gx/tilix/terminal/terminal.d:3133
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: source/gx/tilix/terminal/terminal.d:3303
+#: source/gx/tilix/terminal/terminal.d:3393
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Le processus fils a quitté normalement avec le status %d"
 
-#: source/gx/tilix/terminal/terminal.d:3304
+#: source/gx/tilix/terminal/terminal.d:3394
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Le processus fils a été interrompu par le signal %d."
 
-#: source/gx/tilix/terminal/terminal.d:3305
+#: source/gx/tilix/terminal/terminal.d:3395
 msgid "The child process was aborted."
 msgstr "Le processus fils a été interrompu."
 
-#: source/gx/tilix/terminal/terminal.d:3311
+#: source/gx/tilix/terminal/terminal.d:3401
 msgid "Relaunch"
 msgstr "Relancer"
 
-#: source/gx/tilix/terminal/terminal.d:3356
+#: source/gx/tilix/terminal/terminal.d:3446
 msgid "Don't Paste"
 msgstr "Ne pas coller"
 
-#: source/gx/tilix/terminal/terminal.d:3357
+#: source/gx/tilix/terminal/terminal.d:3447
 msgid "Paste Anyway"
 msgstr "Coller quand même"
 
@@ -740,17 +755,17 @@ msgid "New"
 msgstr "Nouveau"
 
 #: source/gx/tilix/terminal/password.d:180
-#: source/gx/tilix/prefeditor/profileeditor.d:1138
-#: source/gx/tilix/prefeditor/profileeditor.d:1165
-#: source/gx/tilix/prefeditor/profileeditor.d:1232
+#: source/gx/tilix/prefeditor/profileeditor.d:1168
+#: source/gx/tilix/prefeditor/common.d:42
+#: source/gx/tilix/prefeditor/common.d:70
 msgid "Edit"
 msgstr "Modifier"
 
 #: source/gx/tilix/terminal/password.d:209
-#: source/gx/tilix/prefeditor/prefdialog.d:513
-#: source/gx/tilix/prefeditor/profileeditor.d:1251
-#: source/gx/tilix/prefeditor/profileeditor.d:1408
-#: source/gx/tilix/prefeditor/profileeditor.d:1561
+#: source/gx/tilix/prefeditor/prefdialog.d:517
+#: source/gx/tilix/prefeditor/profileeditor.d:1187
+#: source/gx/tilix/prefeditor/advdialog.d:135
+#: source/gx/tilix/prefeditor/advdialog.d:288
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -763,8 +778,8 @@ msgid "Insert Password"
 msgstr "Insérer le mot de passe"
 
 #: source/gx/tilix/terminal/password.d:367
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -784,7 +799,7 @@ msgstr "Ajouter un mot de passe"
 msgid "Edit Password"
 msgstr "Éditer le mot de passe"
 
-#: source/gx/tilix/closedialog.d:143 source/gx/tilix/appwindow.d:1000
+#: source/gx/tilix/closedialog.d:143 source/gx/tilix/appwindow.d:999
 msgid "Do not show this again"
 msgstr "Ne plus afficher ce message"
 
@@ -811,21 +826,21 @@ msgid "Close Session"
 msgstr "Fermer la session"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Nouvelle fenêtre"
 
-#: source/gx/tilix/application.d:223 source/gx/tilix/appwindow.d:675
-#: source/gx/tilix/prefeditor/prefdialog.d:247
-#: source/gx/tilix/prefeditor/prefdialog.d:375
+#: source/gx/tilix/application.d:223 source/gx/tilix/appwindow.d:674
+#: source/gx/tilix/prefeditor/prefdialog.d:251
+#: source/gx/tilix/prefeditor/prefdialog.d:379
 msgid "Preferences"
 msgstr "Préférences"
 
 #: source/gx/tilix/application.d:225
 #: source/gx/tilix/prefeditor/prefdialog.d:156
 #: source/gx/tilix/prefeditor/prefdialog.d:157
-#: source/gx/tilix/prefeditor/prefdialog.d:283
+#: source/gx/tilix/prefeditor/prefdialog.d:287
 msgid "Shortcuts"
 msgstr "Raccourcis"
 
@@ -849,117 +864,117 @@ msgstr ""
 msgid "Credits"
 msgstr "Crédits"
 
-#: source/gx/tilix/application.d:323 source/gx/tilix/appwindow.d:1415
+#: source/gx/tilix/application.d:323 source/gx/tilix/appwindow.d:1414
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
 msgstr "Tilix"
 
-#: source/gx/tilix/application.d:626
+#: source/gx/tilix/application.d:638
 msgid "Set the working directory of the terminal"
 msgstr "Définir le répertoire de travail pour le terminal"
 
-#: source/gx/tilix/application.d:626
+#: source/gx/tilix/application.d:638
 msgid "DIRECTORY"
 msgstr "RÉPERTOIRE"
 
-#: source/gx/tilix/application.d:627
+#: source/gx/tilix/application.d:639
 msgid "Set the starting profile"
 msgstr "Définir le profil de démarrage"
 
-#: source/gx/tilix/application.d:627
+#: source/gx/tilix/application.d:639
 msgid "PROFILE_NAME"
 msgstr "NOM_PROFIL"
 
-#: source/gx/tilix/application.d:628
+#: source/gx/tilix/application.d:640
 msgid "Set the title of the new terminal"
 msgstr "Définir le titre du nouveau terminal"
 
-#: source/gx/tilix/application.d:628
+#: source/gx/tilix/application.d:640
 msgid "TITLE"
 msgstr "TITRE"
 
-#: source/gx/tilix/application.d:629
+#: source/gx/tilix/application.d:641
 msgid "Open the specified session"
 msgstr "Ouvrir la session spécifiée"
 
-#: source/gx/tilix/application.d:629
+#: source/gx/tilix/application.d:641
 msgid "SESSION_NAME"
 msgstr "NOM_SESSION"
 
-#: source/gx/tilix/application.d:630
+#: source/gx/tilix/application.d:642
 msgid "Send an action to current Tilix instance"
 msgstr "Envoyer une action à l'instance actuelle de Tilix"
 
-#: source/gx/tilix/application.d:630
+#: source/gx/tilix/application.d:642
 msgid "ACTION_NAME"
 msgstr "NOM_ACTION"
 
-#: source/gx/tilix/application.d:631
+#: source/gx/tilix/application.d:643
 msgid "Execute the parameter as a command"
 msgstr "Exécuter le paramètre en tant que commande"
 
-#: source/gx/tilix/application.d:631
+#: source/gx/tilix/application.d:643
 msgid "COMMAND"
 msgstr "COMMANDE"
 
-#: source/gx/tilix/application.d:632
+#: source/gx/tilix/application.d:644
 msgid "Maximize the terminal window"
 msgstr "Maximiser la fenêtre du terminal"
 
-#: source/gx/tilix/application.d:633
+#: source/gx/tilix/application.d:645
 msgid "Minimize the terminal window"
 msgstr "Réduire la fenêtre du terminal"
 
-#: source/gx/tilix/application.d:634
+#: source/gx/tilix/application.d:646
 msgid "Full-screen the terminal window"
 msgstr "Mettre la fenêtre du terminal en plein écran"
 
-#: source/gx/tilix/application.d:635
+#: source/gx/tilix/application.d:647
 msgid "Focus the existing window"
 msgstr "Donner le focus à la fenêtre existante"
 
-#: source/gx/tilix/application.d:636
+#: source/gx/tilix/application.d:648
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr ""
 "Démarrer une instance supplémentaire en tant que nouveau processus (non "
 "recommandé)"
 
-#: source/gx/tilix/application.d:637
+#: source/gx/tilix/application.d:649
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
 "Définir la taille de la fenêtre ; par exemple : 80x24, ou 80x24+200+200 "
 "(COLSxLIGNES+X+Y)"
 
-#: source/gx/tilix/application.d:637
+#: source/gx/tilix/application.d:649
 msgid "GEOMETRY"
 msgstr "GÉOMETRIE"
 
-#: source/gx/tilix/application.d:638
+#: source/gx/tilix/application.d:650
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 "Ouvre une fenêtre en mode quake ou bascule la visibilité d'une fenêtre en "
 "mode quake existante"
 
-#: source/gx/tilix/application.d:639
+#: source/gx/tilix/application.d:651
 msgid "Show the Tilix and dependant component versions"
 msgstr "Afficher la version de Tilix et de ses composants"
 
-#: source/gx/tilix/application.d:640
+#: source/gx/tilix/application.d:652
 msgid "Show the Tilix preferences dialog directly"
 msgstr "Afficher directement la fenêtre de préférences de Tilix"
 
-#: source/gx/tilix/application.d:643
+#: source/gx/tilix/application.d:655
 msgid "Hidden argument to pass terminal UUID"
 msgstr "Argument caché passant l'UUID du terminal"
 
-#: source/gx/tilix/application.d:643
+#: source/gx/tilix/application.d:655
 msgid "TERMINAL_UUID"
 msgstr "UUID_TERMINAL"
 
-#: source/gx/tilix/application.d:804
+#: source/gx/tilix/application.d:816
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
@@ -970,93 +985,93 @@ msgstr ""
 "expérience.\n"
 "Cliquez sur le lien ci-dessous pour plus d'informations :"
 
-#: source/gx/tilix/application.d:805
+#: source/gx/tilix/application.d:817
 msgid "Configuration Issue Detected"
 msgstr "Problème de configuration détecté"
 
-#: source/gx/tilix/application.d:817
+#: source/gx/tilix/application.d:829
 msgid "Do not show this message again"
 msgstr "Ne pas réafficher ce message"
 
-#: source/gx/tilix/appwindow.d:321
+#: source/gx/tilix/appwindow.d:320
 msgid "View session sidebar"
 msgstr "Voir la barre latérale de session"
 
-#: source/gx/tilix/appwindow.d:346
+#: source/gx/tilix/appwindow.d:345
 msgid "Create a new session"
 msgstr "Créer une nouvelle session"
 
-#: source/gx/tilix/appwindow.d:364
+#: source/gx/tilix/appwindow.d:363
 msgid "Add terminal right"
 msgstr "Ajouter un terminal à droite"
 
-#: source/gx/tilix/appwindow.d:368
+#: source/gx/tilix/appwindow.d:367
 msgid "Add terminal down"
 msgstr "Ajouter un terminal en bas"
 
-#: source/gx/tilix/appwindow.d:374
+#: source/gx/tilix/appwindow.d:373
 msgid "Find text in terminal"
 msgstr "Chercher le texte dans le terminal"
 
-#: source/gx/tilix/appwindow.d:591
+#: source/gx/tilix/appwindow.d:590
 msgid "Enter a new name for the session"
 msgstr "Entrer un nouveau nom pour la session"
 
-#: source/gx/tilix/appwindow.d:596
+#: source/gx/tilix/appwindow.d:595
 msgid "Change Session Name"
 msgstr "Changer le nom de la session"
 
-#: source/gx/tilix/appwindow.d:662
+#: source/gx/tilix/appwindow.d:661
 msgid "Open…"
 msgstr "Ouvrir…"
 
-#: source/gx/tilix/appwindow.d:664
+#: source/gx/tilix/appwindow.d:663
 msgid "Save As…"
 msgstr "Enregistrer sous…"
 
-#: source/gx/tilix/appwindow.d:669
+#: source/gx/tilix/appwindow.d:668
 msgid "Name…"
 msgstr "Nom…"
 
-#: source/gx/tilix/appwindow.d:670
+#: source/gx/tilix/appwindow.d:669
 msgid "Synchronize Input"
 msgstr "Synchroniser l'entrée"
 
-#: source/gx/tilix/appwindow.d:681
+#: source/gx/tilix/appwindow.d:680
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/tilix/appwindow.d:999
+#: source/gx/tilix/appwindow.d:998
 msgid "There are multiple sessions open, close anyway?"
 msgstr "Plusieurs sessions sont ouvertes, fermer quand-même ?"
 
-#: source/gx/tilix/appwindow.d:1255
-#: source/gx/tilix/prefeditor/profileeditor.d:906
+#: source/gx/tilix/appwindow.d:1254
+#: source/gx/tilix/prefeditor/profileeditor.d:901
 msgid "All JSON Files"
 msgstr "Tous les fichiers JSON"
 
-#: source/gx/tilix/appwindow.d:1268
+#: source/gx/tilix/appwindow.d:1267
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Le nom de fichier « %s » n'existe pas"
 
-#: source/gx/tilix/appwindow.d:1298
+#: source/gx/tilix/appwindow.d:1297
 msgid "Load Session"
 msgstr "Charger la session"
 
-#: source/gx/tilix/appwindow.d:1301
+#: source/gx/tilix/appwindow.d:1300
 msgid "Open"
 msgstr "Ouvrir"
 
-#: source/gx/tilix/appwindow.d:1316
+#: source/gx/tilix/appwindow.d:1315
 msgid "Could not load session due to unexpected error."
 msgstr "Impossible de charger la session en raison d'une erreur inattendue."
 
-#: source/gx/tilix/appwindow.d:1316
+#: source/gx/tilix/appwindow.d:1315
 msgid "Error Loading Session"
 msgstr "Erreur lors du chargement de la session"
 
-#: source/gx/tilix/appwindow.d:1332
+#: source/gx/tilix/appwindow.d:1331
 msgid "Save Session"
 msgstr "Enregistrer la session"
 
@@ -1091,7 +1106,7 @@ msgstr "Préférences de Tilix"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:137
 #: source/gx/tilix/prefeditor/prefdialog.d:138
-#: source/gx/tilix/prefeditor/prefdialog.d:209
+#: source/gx/tilix/prefeditor/prefdialog.d:213
 msgid "Global"
 msgstr "Général"
 
@@ -1110,678 +1125,656 @@ msgstr "Quake"
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:179
+#: source/gx/tilix/prefeditor/prefdialog.d:164
+#: source/gx/tilix/prefeditor/prefdialog.d:165
+#: source/gx/tilix/prefeditor/profileeditor.d:100
+#: source/gx/tilix/prefeditor/profileeditor.d:511
+msgid "Advanced"
+msgstr "Avancé"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:183
 msgid "Add profile"
 msgstr "Ajouter un profil"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:184
+#: source/gx/tilix/prefeditor/prefdialog.d:188
 msgid "Delete profile"
 msgstr "Supprimer le profil"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:296
-#: source/gx/tilix/prefeditor/prefdialog.d:304
+#: source/gx/tilix/prefeditor/prefdialog.d:300
+#: source/gx/tilix/prefeditor/prefdialog.d:308
 #, c-format
 msgid "Profile: %s"
 msgstr "Profil : %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:514
+#: source/gx/tilix/prefeditor/prefdialog.d:518
 msgid "Clone"
 msgstr "Cloner"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:518
+#: source/gx/tilix/prefeditor/prefdialog.d:522
 msgid "Use for new terminals"
 msgstr "Utiliser pour les nouveaux terminaux"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:594
+#: source/gx/tilix/prefeditor/prefdialog.d:598
 msgid "Encodings showing in menu:"
 msgstr "Codages affichés dans le menu :"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:630
+#: source/gx/tilix/prefeditor/prefdialog.d:634
 msgid "Enabled"
 msgstr "Activé"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:707
-#: source/gx/tilix/prefeditor/profileeditor.d:1529
+#: source/gx/tilix/prefeditor/prefdialog.d:711
+#: source/gx/tilix/prefeditor/advdialog.d:256
 msgid "Action"
 msgstr "Action"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:738
+#: source/gx/tilix/prefeditor/prefdialog.d:742
 msgid "Shortcut Key"
 msgstr "Touche de raccourci"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:750
+#: source/gx/tilix/prefeditor/prefdialog.d:754
 msgid "Enable shortcuts"
 msgstr "Activer les raccourcis"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:788
+#: source/gx/tilix/prefeditor/prefdialog.d:792
 msgid "Overwrite Existing Shortcut"
 msgstr "Écraser le raccourci actuel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:789
+#: source/gx/tilix/prefeditor/prefdialog.d:793
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
 "Le raccourci %s est déjà assigné à %s.\n"
-"Supprimer le raccourci de l'autre action et l'assigner à celle-ci à la place "
-"?"
+"Supprimer le raccourci de l'autre action et l'assigner à celle-ci à la "
+"place ?"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:933
+#: source/gx/tilix/prefeditor/prefdialog.d:937
 msgid "Window style"
 msgstr "Style de fenêtre"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
-#: source/gx/tilix/prefeditor/prefdialog.d:949
+#: source/gx/tilix/prefeditor/prefdialog.d:939
+#: source/gx/tilix/prefeditor/prefdialog.d:953
 msgid "Normal"
 msgstr "Normal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Disable CSD"
 msgstr "Désactiver CSD"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Disable CSD, hide toolbar"
 msgstr "Désactiver CSD, cacher la barre d'outils"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Borderless"
 msgstr "Aucune bordure"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:939
+#: source/gx/tilix/prefeditor/prefdialog.d:943
 msgid "Window restart required"
 msgstr "Redémarrage de la fenêtre requis"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:948
+#: source/gx/tilix/prefeditor/prefdialog.d:952
 msgid "Terminal title style"
 msgstr "Style du titre du terminal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:949
+#: source/gx/tilix/prefeditor/prefdialog.d:953
 msgid "Small"
 msgstr "Petit"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:949
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/prefdialog.d:953
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "None"
 msgstr "Aucun"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:955
+#: source/gx/tilix/prefeditor/prefdialog.d:959
 msgid "Theme variant"
 msgstr "Variante de thème"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Light"
 msgstr "Clair"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Dark"
 msgstr "Sombre"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:962
+#: source/gx/tilix/prefeditor/prefdialog.d:966
 msgid "Background image"
 msgstr "Image d'arrière-plan"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:964
+#: source/gx/tilix/prefeditor/prefdialog.d:968
 msgid "Select Image"
 msgstr "Sélectionner l'image"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:967
+#: source/gx/tilix/prefeditor/prefdialog.d:971
 msgid "All Image Files"
 msgstr "Tous les fichiers image"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:988
+#: source/gx/tilix/prefeditor/prefdialog.d:992
 msgid "Reset background image"
 msgstr "Réinitialiser l'image d'arrière-plan"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Scale"
 msgstr "Mettre à l'échelle"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Tile"
 msgstr "Mosaïque"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:998
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Center"
 msgstr "Centrer"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Stretch"
 msgstr "Étirer"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1013
+#: source/gx/tilix/prefeditor/prefdialog.d:1017
 msgid "Default session name"
 msgstr "Nom de session par défaut"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1028
+#: source/gx/tilix/prefeditor/prefdialog.d:1032
 msgid "Application title"
 msgstr "Titre de l'application"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1046
+#: source/gx/tilix/prefeditor/prefdialog.d:1050
 msgid "Enable transparency, requires re-start"
 msgstr "Activer la transparence, requiert un redémarrage"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1052
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
 msgid "Use a wide handle for splitters"
 msgstr "Utiliser une poignée large pour les séparateurs"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1057
+#: source/gx/tilix/prefeditor/prefdialog.d:1061
 msgid "Place the sidebar on the right"
 msgstr "Placer la barre latérale à droite"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1061
+#: source/gx/tilix/prefeditor/prefdialog.d:1065
 msgid "Show the terminal title even if it's the only terminal"
 msgstr "Afficher le titre du terminal même s'il est le seul ouvert"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1093
+#: source/gx/tilix/prefeditor/prefdialog.d:1097
 msgid "Size"
 msgstr "Taille"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1104
+#: source/gx/tilix/prefeditor/prefdialog.d:1108
 msgid "Height percent"
 msgstr "Pourcentage de la hauteur"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1115
+#: source/gx/tilix/prefeditor/prefdialog.d:1119
 msgid "Width percent"
 msgstr "Pourcentage de la largeur"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1125
+#: source/gx/tilix/prefeditor/prefdialog.d:1129
 msgid "Alignment"
 msgstr "Alignement"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Left"
 msgstr "Gauche"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Right"
 msgstr "Droite"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-#: source/gx/tilix/prefeditor/profileeditor.d:497
+#: source/gx/tilix/prefeditor/prefdialog.d:1139
+#: source/gx/tilix/prefeditor/profileeditor.d:492
 msgid "Options"
 msgstr "Options"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1143
+#: source/gx/tilix/prefeditor/prefdialog.d:1147
 msgid "Show terminal on all workspaces"
 msgstr "Afficher le terminal sur tous les espaces de travail"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1155
+#: source/gx/tilix/prefeditor/prefdialog.d:1159
 msgid "Hide window when focus is lost"
 msgstr "Cacher la fenêtre quand le focus est perdu"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1160
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
 msgid "Hide the titlebar of the window"
 msgstr "Cacher la barre de titre de la fenêtre"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
+#: source/gx/tilix/prefeditor/prefdialog.d:1179
 msgid "Display terminal on active monitor"
 msgstr "Afficher le terminal sur le moniteur actif"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/prefdialog.d:1186
 msgid "Display on specific monitor"
 msgstr "Afficher sur un moniteur spécifique"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1228
 msgid "Behavior"
 msgstr "Comportement"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1230
+#: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Prompt when creating a new session"
 msgstr "Dialogue de configuration à la création d'une nouvelle session"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1235
+#: source/gx/tilix/prefeditor/prefdialog.d:1239
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Donner le focus au terminal au survol de la souris"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1240
+#: source/gx/tilix/prefeditor/prefdialog.d:1244
 msgid "Autohide the mouse pointer when typing"
 msgstr "Cacher automatiquement le pointeur de la souris pendant la frappe"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1245
+#: source/gx/tilix/prefeditor/prefdialog.d:1249
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr "Fermer le terminal avec un clic du milieu sur le titre"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1250
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
 msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr ""
 "Zoomer sur le terminal en utilisant <Control> et la molette de la souris"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1255
-msgid "Require the <Control> modified to edit title on click"
+#: source/gx/tilix/prefeditor/prefdialog.d:1259
+#, fuzzy
+msgid "Require the <Control> modifier to edit title on click"
 msgstr "Éditer le titre grâce à la touche <Control> et un clic de souris"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
+#: source/gx/tilix/prefeditor/prefdialog.d:1264
 msgid "Close window when last session is closed"
 msgstr "Fermer la fenêtre quand la dernière session est close"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1266
+#: source/gx/tilix/prefeditor/prefdialog.d:1270
 msgid "Send desktop notification on process complete"
 msgstr "Envoyer une notification une fois le processus terminé"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
+#: source/gx/tilix/prefeditor/prefdialog.d:1278
 msgid "On new instance"
 msgstr "Lors d'une nouvelle instance"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Split Right"
 msgstr "Diviser à droite"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Split Down"
 msgstr "Diviser en bas"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Focus Window"
 msgstr "Donner le focus à la fenêtre"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1293
 msgid "Always use advanced paste dialog"
 msgstr "Toujours utiliser la fenêtre de dialogue avancé pour coller"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1298
 msgid "Warn when attempting unsafe paste"
 msgstr "Alerter lors d'un collage dangereux"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1303
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 "Supprimer le premier caractère collé si c'est un commentaire ou une "
 "déclaration de variable"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1304
+#: source/gx/tilix/prefeditor/prefdialog.d:1308
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Copier automatiquement le texte sélectionné dans le presse-papier"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:100
+#: source/gx/tilix/prefeditor/profileeditor.d:95
 msgid "General"
 msgstr "Général"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:102
+#: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "Color"
 msgstr "Couleur"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:98
 msgid "Scrolling"
 msgstr "Défilement"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:104
+#: source/gx/tilix/prefeditor/profileeditor.d:99
 msgid "Compatibility"
 msgstr "Compatibilité"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:516
-msgid "Advanced"
-msgstr "Avancé"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:217
+#: source/gx/tilix/prefeditor/profileeditor.d:212
 msgid "Profile name"
 msgstr "Nom du profil"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:241
+#: source/gx/tilix/prefeditor/profileeditor.d:236
 msgid "Terminal size"
 msgstr "Taille du terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:251
+#: source/gx/tilix/prefeditor/profileeditor.d:246
 msgid "columns"
 msgstr "colonnes"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:257
+#: source/gx/tilix/prefeditor/profileeditor.d:252
 msgid "rows"
 msgstr "lignes"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:273
-#: source/gx/tilix/prefeditor/profileeditor.d:596
+#: source/gx/tilix/prefeditor/profileeditor.d:268
+#: source/gx/tilix/prefeditor/profileeditor.d:591
 msgid "Cursor"
 msgstr "Forme du curseur"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "Block"
 msgstr "Bloc"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "IBeam"
 msgstr "Barre verticale"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "Underline"
 msgstr "Souligné"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:284
+#: source/gx/tilix/prefeditor/profileeditor.d:279
 msgid "Blink mode"
 msgstr "Mode clignotement"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "System"
 msgstr "Système"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "On"
 msgstr "Activer"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "Off"
 msgstr "Désactiver"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Sound"
 msgstr "Son"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Icon and Sound"
 msgstr "Icône et son"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:302
+#: source/gx/tilix/prefeditor/profileeditor.d:297
 msgid "Terminal title"
 msgstr "Titre du terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:332
+#: source/gx/tilix/prefeditor/profileeditor.d:327
 msgid "Badge position"
 msgstr "Position du badge"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northwest"
 msgstr "Nord-ouest"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northeast"
 msgstr "Nord-est"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Southwest"
 msgstr "Sud-ouest"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Southeast"
 msgstr "Sud-est"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:343
+#: source/gx/tilix/prefeditor/profileeditor.d:338
 msgid "Notify new activity"
 msgstr "Avertir d'une nouvelle activité"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:352
+#: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Threshold for continuous silence (seconds)"
 msgstr "Seuil de silence continu (en secondes)"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:363
+#: source/gx/tilix/prefeditor/profileeditor.d:358
 msgid "Text Appearance"
 msgstr "Apparence du texte"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:369
+#: source/gx/tilix/prefeditor/profileeditor.d:364
 msgid "Allow bold text"
 msgstr "Autoriser le texte en gras"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:374
+#: source/gx/tilix/prefeditor/profileeditor.d:369
 msgid "Rewrap on resize"
 msgstr "Réaligner après redimensionnement"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:380
+#: source/gx/tilix/prefeditor/profileeditor.d:375
 msgid "Custom font"
 msgstr "Police personnalisée"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:386
+#: source/gx/tilix/prefeditor/profileeditor.d:381
 msgid "Choose A Terminal Font"
 msgstr "Choisissez la police du terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:406
+#: source/gx/tilix/prefeditor/profileeditor.d:401
 #, c-format
 msgid "ID: %s"
 msgstr "ID : %s"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:454
+#: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Color scheme"
 msgstr "Palettes prédéfinies"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:464
-#: source/gx/tilix/prefeditor/profileeditor.d:933
+#: source/gx/tilix/prefeditor/profileeditor.d:459
+#: source/gx/tilix/prefeditor/profileeditor.d:928
 msgid "Custom"
 msgstr "Personnalisée"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:477
+#: source/gx/tilix/prefeditor/profileeditor.d:472
 msgid "Export"
 msgstr "Exporter"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:489
+#: source/gx/tilix/prefeditor/profileeditor.d:484
 msgid "Color palette"
 msgstr "Palette de couleur"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:511
+#: source/gx/tilix/prefeditor/profileeditor.d:506
 msgid "Use theme colors for foreground/background"
 msgstr "Utiliser les couleurs du thème système"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:529
+#: source/gx/tilix/prefeditor/profileeditor.d:524
 msgid "Transparency"
 msgstr "Transparence"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:543
+#: source/gx/tilix/prefeditor/profileeditor.d:538
 msgid "Unfocused dim"
 msgstr "Atténuation des terminaux sans le focus"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:591
+#: source/gx/tilix/prefeditor/profileeditor.d:586
 msgid "Text"
 msgstr "Texte"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:592
-#: source/gx/tilix/prefeditor/profileeditor.d:708
+#: source/gx/tilix/prefeditor/profileeditor.d:587
+#: source/gx/tilix/prefeditor/profileeditor.d:703
 msgid "Background"
 msgstr "Arrière-plan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:603
+#: source/gx/tilix/prefeditor/profileeditor.d:598
 msgid "Select Cursor Foreground Color"
 msgstr "Sélectionner la couleur de premier plan du curseur"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:605
+#: source/gx/tilix/prefeditor/profileeditor.d:600
 msgid "Select Cursor Background Color"
 msgstr "Sélectionner la couleur d'arrière-plan du curseur"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:610
+#: source/gx/tilix/prefeditor/profileeditor.d:605
 msgid "Highlight"
 msgstr "Surligner"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:615
+#: source/gx/tilix/prefeditor/profileeditor.d:610
 msgid "Select Highlight Foreground Color"
 msgstr "Sélectionner la couleur de premier plan du surlignage"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:617
+#: source/gx/tilix/prefeditor/profileeditor.d:612
 msgid "Select Highlight Background Color"
 msgstr "Sélectionner la couleur d'arrière-plan du surlignage"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:622
+#: source/gx/tilix/prefeditor/profileeditor.d:617
 msgid "Bold"
 msgstr "Gras"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:627
+#: source/gx/tilix/prefeditor/profileeditor.d:622
 msgid "Select Bold Color"
 msgstr "Sélectionner la couleur de police grasse"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:632
+#: source/gx/tilix/prefeditor/profileeditor.d:627
 msgid "Dim"
 msgstr "Atténuation"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:637
+#: source/gx/tilix/prefeditor/profileeditor.d:632
 msgid "Select Dim Color"
 msgstr "Sélectionner la couleur d'atténuation"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:646
+#: source/gx/tilix/prefeditor/profileeditor.d:641
 msgid "Select Badge Color"
 msgstr "Sélectionner la couleur du badge"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:692
 msgid "Select Background Color"
 msgstr "Sélectionner la couleur de l'arrière-plan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:713
-#: source/gx/tilix/prefeditor/profileeditor.d:729
+#: source/gx/tilix/prefeditor/profileeditor.d:708
+#: source/gx/tilix/prefeditor/profileeditor.d:724
 msgid "Select Foreground Color"
 msgstr "Sélectionner couleur de premier plan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:728
+#: source/gx/tilix/prefeditor/profileeditor.d:723
 msgid "Foreground"
 msgstr "Premier plan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Black"
 msgstr "Noir"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Red"
 msgstr "Rouge"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Green"
 msgstr "Vert"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Orange"
 msgstr "Orange"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Blue"
 msgstr "Bleu"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Purple"
 msgstr "Violet"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Turquoise"
 msgstr "Turquoise"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Grey"
 msgstr "Gris"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:738
+#: source/gx/tilix/prefeditor/profileeditor.d:733
 #, c-format
 msgid "Select %s Color"
 msgstr "Sélectionner la couleur : %s"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:745
+#: source/gx/tilix/prefeditor/profileeditor.d:740
 #, c-format
 msgid "Select %s Light Color"
 msgstr "Sélectionner la couleur : %s clair"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:890
+#: source/gx/tilix/prefeditor/profileeditor.d:885
 msgid "Export Color Scheme"
 msgstr "Exporter la palette de couleurs"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:965
+#: source/gx/tilix/prefeditor/profileeditor.d:960
 msgid "Show scrollbar"
 msgstr "Afficher la barre de défilement"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:969
+#: source/gx/tilix/prefeditor/profileeditor.d:964
 msgid "Scroll on output"
 msgstr "Défilement sur la sortie"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:973
+#: source/gx/tilix/prefeditor/profileeditor.d:968
 msgid "Scroll on keystroke"
 msgstr "Défilement sur pression d'une touche"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:977
+#: source/gx/tilix/prefeditor/profileeditor.d:972
 msgid "Limit scrollback to:"
 msgstr "Limiter les lignes d'historique à :"
 
 # Terminix gettext pot file
-#: source/gx/tilix/prefeditor/profileeditor.d:1012
+#: source/gx/tilix/prefeditor/profileeditor.d:1007
 msgid "Backspace key generates"
 msgstr "La touche « Retour arrière » émet"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Automatic"
 msgstr "Automatique"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Control-H"
 msgstr "Contrôle-H"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "ASCII DEL"
 msgstr "ASCII DEL"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Escape sequence"
 msgstr "Séquence d'échappement"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "TTY"
 msgstr "TTY"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1021
+#: source/gx/tilix/prefeditor/profileeditor.d:1016
 msgid "Delete key generates"
 msgstr "La touche « Suppr » émet"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1045
+#: source/gx/tilix/prefeditor/profileeditor.d:1040
 msgid "Ambiguous-width characters"
 msgstr "Caractères de largeur ambiguë"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1048
+#: source/gx/tilix/prefeditor/profileeditor.d:1043
 msgid "Narrow"
 msgstr "Fins"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1048
+#: source/gx/tilix/prefeditor/profileeditor.d:1043
 msgid "Wide"
 msgstr "Larges"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1069
+#: source/gx/tilix/prefeditor/profileeditor.d:1064
 msgid "Run command as a login shell"
 msgstr "Lancer la commande en tant que shell de connexion"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1073
+#: source/gx/tilix/prefeditor/profileeditor.d:1068
 msgid "Run a custom command instead of my shell"
 msgstr "Exécuter une commande personnalisée au lieu du shell"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1089
+#: source/gx/tilix/prefeditor/profileeditor.d:1084
 msgid "When command exits"
 msgstr "Lorsqu'une commande se termine"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Exit the terminal"
 msgstr "Quitter le terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Restart the command"
 msgstr "Relancer la commande"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Hold the terminal open"
 msgstr "Conserver le terminal ouvert"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1130
-msgid "Custom Links"
-msgstr "Liens personnalisés"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1135
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"Une liste de liens définis par l'utilisateur et cliquables dans le terminal "
-"sur la base d'expressions régulières."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1156
-msgid "Triggers"
-msgstr "Déclencheurs"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1162
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"Les déclencheurs sont des expressions régulières utilisées pour contrôler le "
-"texte affiché dans le terminal. Quand un texte correspondant est détecté, "
-"l'action est exécutée."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:1118
 msgid "Automatic Profile Switching"
 msgstr "Changement de profil automatique"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1190
+#: source/gx/tilix/prefeditor/profileeditor.d:1126
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>username@hostname:directory</i> format. Either "
@@ -1795,7 +1788,7 @@ msgstr ""
 "peuvent être omis, mais les deux points doivent être présents. Les valeurs "
 "sans nom d'hôte ni dossier ne sont pas permises."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1192
+#: source/gx/tilix/prefeditor/profileeditor.d:1128
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>hostname:directory</i> format. Either the "
@@ -1808,69 +1801,64 @@ msgstr ""
 "Le nom d'hôte ou le dossier peuvent être omis, mais les deux points doivent "
 "être présents. Les valeurs sans nom d'hôte ni dossier ne sont pas permises."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1203
+#: source/gx/tilix/prefeditor/profileeditor.d:1139
 msgid "Match"
 msgstr "Correspond à"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1214
-#: source/gx/tilix/prefeditor/profileeditor.d:1402
-#: source/gx/tilix/prefeditor/profileeditor.d:1555
+#: source/gx/tilix/prefeditor/profileeditor.d:1150
+#: source/gx/tilix/prefeditor/advdialog.d:129
+#: source/gx/tilix/prefeditor/advdialog.d:282
 msgid "Add"
 msgstr "Ajouter"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1218
+#: source/gx/tilix/prefeditor/profileeditor.d:1154
 msgid "Enter username@hostname:directory to match"
 msgstr "Entrez un nom_d_utilisateur@nom_d_hôte:dossier correspondant"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1220
+#: source/gx/tilix/prefeditor/profileeditor.d:1156
 msgid "Enter hostname:directory to match"
 msgstr "Entrez un nom_d'hôte:dossier correspondant"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1222
+#: source/gx/tilix/prefeditor/profileeditor.d:1158
 msgid "Add New Match"
 msgstr "Ajouter une nouvelle correspondance"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1239
+#: source/gx/tilix/prefeditor/profileeditor.d:1175
 msgid "Edit username@hostname:directory to match"
 msgstr "Modifier le nom_d_utilisateur@nom_d_hôte:dossier correspondant"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1241
+#: source/gx/tilix/prefeditor/profileeditor.d:1177
 msgid "Edit hostname:directory to match"
 msgstr "Modifier le nom_d'hôte:dossier correspondant"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1243
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
 msgid "Edit Match"
 msgstr "Modifier la correspondance"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1365
-#: source/gx/tilix/prefeditor/profileeditor.d:1503
-msgid "Regex"
-msgstr "Expression régulière"
+#: source/gx/tilix/prefeditor/common.d:34
+msgid "Custom Links"
+msgstr "Liens personnalisés"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1389
-msgid "Case Insensitive"
-msgstr "Insensible à la casse"
+#: source/gx/tilix/prefeditor/common.d:39
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"Une liste de liens définis par l'utilisateur et cliquables dans le terminal "
+"sur la base d'expressions régulières."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-msgid "Edit Custom Links"
-msgstr "Modifier les liens personnalisés"
+#: source/gx/tilix/prefeditor/common.d:61
+msgid "Triggers"
+msgstr "Déclencheurs"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1541
-msgid "Parameter"
-msgstr "Paramètres"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1577
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Limiter le nombre de lignes que le déclencheur doit traiter à :"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
-msgid "Edit Triggers"
-msgstr "Modifier les déclencheurs"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1646
-#, c-format
-msgid "Row %d: "
-msgstr "Ligne %d : "
+#: source/gx/tilix/prefeditor/common.d:67
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Les déclencheurs sont des expressions régulières utilisées pour contrôler le "
+"texte affiché dans le terminal. Quand un texte correspondant est détecté, "
+"l'action est exécutée."
 
 #: source/gx/tilix/prefeditor/titleeditor.d:112
 msgid "Window"
@@ -1881,18 +1869,48 @@ msgstr "Fenêtre"
 msgid "Help"
 msgstr "Aide"
 
-#: source/gx/tilix/cmdparams.d:113
+#: source/gx/tilix/prefeditor/advdialog.d:92
+#: source/gx/tilix/prefeditor/advdialog.d:230
+msgid "Regex"
+msgstr "Expression régulière"
+
+#: source/gx/tilix/prefeditor/advdialog.d:116
+msgid "Case Insensitive"
+msgstr "Insensible à la casse"
+
+#: source/gx/tilix/prefeditor/advdialog.d:161
+msgid "Edit Custom Links"
+msgstr "Modifier les liens personnalisés"
+
+#: source/gx/tilix/prefeditor/advdialog.d:268
+msgid "Parameter"
+msgstr "Paramètres"
+
+#: source/gx/tilix/prefeditor/advdialog.d:306
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Limiter le nombre de lignes que le déclencheur doit traiter à :"
+
+#: source/gx/tilix/prefeditor/advdialog.d:331
+msgid "Edit Triggers"
+msgstr "Modifier les déclencheurs"
+
+#: source/gx/tilix/prefeditor/advdialog.d:374
+#, c-format
+msgid "Row %d: "
+msgstr "Ligne %d : "
+
+#: source/gx/tilix/cmdparams.d:114
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr "Ignorer que « %s » n'est pas un dossier"
 
-#: source/gx/tilix/cmdparams.d:142
+#: source/gx/tilix/cmdparams.d:143
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
 msgstr ""
 "Le paramètre de géométrie « %s » est invalide et n'a pas pu être analysé"
 
-#: source/gx/tilix/cmdparams.d:174
+#: source/gx/tilix/cmdparams.d:175
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
@@ -1900,50 +1918,54 @@ msgstr ""
 "Vous ne pouvez pas charger une session et activer une option profil / "
 "dossier de travail / exécuter une commande : veuillez choisir l'un ou l'autre"
 
-#: source/gx/tilix/cmdparams.d:181
+#: source/gx/tilix/cmdparams.d:182
 msgid "You can only use the action parameter within Tilix"
 msgstr "Vous ne pouvez utiliser le paramètre d'action que dans Tilix"
 
-#: source/gx/tilix/cmdparams.d:203
+#: source/gx/tilix/cmdparams.d:204
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
 "Vous ne pouvez pas utiliser le mode quake avec les paramètres de "
 "maximisation, de réduction ou de géométrie"
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateState"
 msgstr "ActualiserEtat"
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:228
 msgid "ExecuteCommand"
 msgstr "ExécuterCommande"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:229
 msgid "SendNotification"
 msgstr "EnvoyerNotification"
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:230
 msgid "UpdateTitle"
 msgstr "ActualiserTitre"
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:231
 msgid "PlayBell"
 msgstr "JouerSonnerie"
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:232
 msgid "SendText"
 msgstr "EnvoyerTexte"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:233
 msgid "InsertPassword"
 msgstr "InsérerMotdepasse"
 
-#: source/gx/tilix/preferences.d:231
+#: source/gx/tilix/preferences.d:234
 msgid "UpdateBadge"
 msgstr "ActualiserBadge"
 
-#: source/gx/tilix/preferences.d:338
+#: source/gx/tilix/preferences.d:235
+msgid "RunProcess"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:343
 #, c-format
 msgid "%s (Copy)"
 msgstr "%s (copier)"
@@ -2157,7 +2179,7 @@ msgctxt "shortcut window"
 msgid "Resize the terminal right"
 msgstr "Redimensionner le terminal vers la droite"
 
-#: data/resources/ui/shortcuts.ui:227 data/resources/ui/shortcuts.ui:469
+#: data/resources/ui/shortcuts.ui:227 data/resources/ui/shortcuts.ui:475
 msgctxt "shortcut window"
 msgid "Other"
 msgstr "Autre"
@@ -2299,135 +2321,145 @@ msgstr "Coller"
 
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
+msgid "Paste selection"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:407
+msgctxt "shortcut window"
 msgid "Advanced paste"
 msgstr "Outil de collage avancé"
 
-#: data/resources/ui/shortcuts.ui:407
+#: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
 msgid "Select all"
 msgstr "Tout sélectionner"
 
-#: data/resources/ui/shortcuts.ui:415
+#: data/resources/ui/shortcuts.ui:421
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: data/resources/ui/shortcuts.ui:419
+#: data/resources/ui/shortcuts.ui:425
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Zoom avant"
 
-#: data/resources/ui/shortcuts.ui:425
+#: data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Zoom arrière"
 
-#: data/resources/ui/shortcuts.ui:431
+#: data/resources/ui/shortcuts.ui:437
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "Réinitialiser le niveau de zoom"
 
-#: data/resources/ui/shortcuts.ui:439
+#: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
 msgid "Navigation"
 msgstr "Navigation"
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Scroll up"
 msgstr "Défiler vers le haut"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Scroll down"
 msgstr "Défiler vers le bas"
 
-#: data/resources/ui/shortcuts.ui:455
+#: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Page up"
 msgstr "Page précédente"
 
-#: data/resources/ui/shortcuts.ui:461
+#: data/resources/ui/shortcuts.ui:467
 msgctxt "shortcut window"
 msgid "Page down"
 msgstr "Page suivante"
 
-#: data/resources/ui/shortcuts.ui:473
+#: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "Enregistrer le contenu du terminal"
 
-#: data/resources/ui/shortcuts.ui:479
+#: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "Fermer le terminal"
 
-#: data/resources/ui/shortcuts.ui:485
+#: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "Maximiser le terminal"
 
-#: data/resources/ui/shortcuts.ui:491
+#: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "Préférences du profil en cours"
 
-#: data/resources/ui/shortcuts.ui:497
+#: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "Réinitialiser le terminal"
 
-#: data/resources/ui/shortcuts.ui:503
+#: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr "Réinitialiser et effacer le terminal"
 
-#: data/resources/ui/shortcuts.ui:509
+#: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr "Lecture seule"
 
-#: data/resources/ui/shortcuts.ui:515
+#: data/resources/ui/shortcuts.ui:521
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "Options de disposition"
 
-#: data/resources/ui/shortcuts.ui:521
+#: data/resources/ui/shortcuts.ui:527
 msgctxt "shortcut window"
 msgid "Insert terminal number"
 msgstr "Insérer le numéro du terminal"
 
-#: data/resources/ui/shortcuts.ui:527
+#: data/resources/ui/shortcuts.ui:533
 msgctxt "shortcut window"
 msgid "Insert password"
 msgstr "Insérer le mot de passe"
 
-#: data/resources/ui/shortcuts.ui:533
+#: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Select bookmark"
 msgstr "Sélectionner le signet"
 
-#: data/resources/ui/shortcuts.ui:539
+#: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
-#: data/resources/ui/shortcuts.ui:545
+#: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Cycle title style"
 msgstr "Faire défiler les styles du titre"
 
-#: data/resources/ui/shortcuts.ui:556
+#: data/resources/ui/shortcuts.ui:557
+msgctxt "shortcut window"
+msgid "Monitor silence"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:568
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr "Nautilus"
 
-#: data/resources/ui/shortcuts.ui:561
+#: data/resources/ui/shortcuts.ui:573
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Ouvrir"
 
-#: data/resources/ui/shortcuts.ui:565
+#: data/resources/ui/shortcuts.ui:577
 msgctxt "shortcut window"
 msgid "Open in Tilix"
 msgstr "Ouvrir dans Tilix"
