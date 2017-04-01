@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-17 08:38-0400\n"
+"POT-Creation-Date: 2017-04-01 15:58-0400\n"
 "PO-Revision-Date: 2016-11-09 23:12+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/terminix/"
@@ -71,7 +71,7 @@ msgid "disabled"
 msgstr ""
 
 #: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:104
+#: source/gx/tilix/bookmark/bmchooser.d:120
 #, fuzzy
 msgid "Select Folder"
 msgstr "Επιλογή όλων"
@@ -94,28 +94,28 @@ msgid "Edit Bookmark"
 msgstr ""
 
 #: source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:105
+#: source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:480
 #: source/gx/tilix/closedialog.d:205
 msgid "OK"
 msgstr "Eντάξει"
 
 #: source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:105
+#: source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/terminal.d:2786
+#: source/gx/tilix/terminal/terminal.d:2876
 #: source/gx/tilix/terminal/advpaste.d:137
 #: source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:480 source/gx/tilix/closedialog.d:205
-#: source/gx/tilix/appwindow.d:1301 source/gx/tilix/appwindow.d:1335
-#: source/gx/tilix/prefeditor/profileeditor.d:893
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
+#: source/gx/tilix/appwindow.d:1300 source/gx/tilix/appwindow.d:1334
+#: source/gx/tilix/prefeditor/profileeditor.d:888
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Cancel"
 msgstr "Ακύρωση"
 
 #: source/gx/tilix/bookmark/bmeditor.d:230
-#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1443
+#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1448
 #: source/gx/tilix/terminal/password.d:133
 #: source/gx/tilix/terminal/password.d:424
 msgid "Name"
@@ -134,9 +134,9 @@ msgstr "Επιλογή όλων"
 #: source/gx/tilix/bookmark/bmeditor.d:332
 #: source/gx/tilix/bookmark/bmeditor.d:427
 #: source/gx/tilix/bookmark/manager.d:687 source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/profileeditor.d:101
-#: source/gx/tilix/prefeditor/profileeditor.d:1079
-#: source/gx/tilix/prefeditor/profileeditor.d:1377
+#: source/gx/tilix/prefeditor/profileeditor.d:96
+#: source/gx/tilix/prefeditor/profileeditor.d:1074
+#: source/gx/tilix/prefeditor/advdialog.d:104
 msgid "Command"
 msgstr "Εντολή"
 
@@ -157,13 +157,17 @@ msgstr ""
 msgid "Parameters"
 msgstr "Παράμετρος"
 
-#: source/gx/tilix/bookmark/bmchooser.d:104
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr ""
+
+#: source/gx/tilix/bookmark/bmchooser.d:120
 #, fuzzy
 msgid "Select Bookmark"
 msgstr "Επιλογή χρώματος ετικέτας"
 
 #: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Icon"
 msgstr "Εικονίδιο"
 
@@ -269,17 +273,17 @@ msgstr ""
 msgid "Could not locate session for dropped terminal"
 msgstr ""
 
-#: source/gx/tilix/session.d:1135 source/gx/tilix/appwindow.d:902
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/session.d:1140 source/gx/tilix/appwindow.d:901
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Default"
 msgstr ""
 
-#: source/gx/tilix/session.d:1454 source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/session.d:1459 source/gx/tilix/prefeditor/prefdialog.d:170
 msgid "Profile"
 msgstr "Προφίλ"
 
-#: source/gx/tilix/session.d:1477 source/gx/tilix/application.d:218
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/session.d:1482 source/gx/tilix/application.d:218
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Νέα συνεδρία"
@@ -428,8 +432,8 @@ msgid "Active"
 msgstr "Ενεργό"
 
 #: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:318
-#: source/gx/tilix/prefeditor/profileeditor.d:642
+#: source/gx/tilix/prefeditor/profileeditor.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:637
 msgid "Badge"
 msgstr "Ετικέτα"
 
@@ -443,232 +447,242 @@ msgid ""
 "Session Load options only apply when loading a session file."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:322
-#: source/gx/tilix/terminal/terminal.d:3153
+#: source/gx/tilix/terminal/terminal.d:327
+#: source/gx/tilix/terminal/terminal.d:3243
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "Τερματικό"
 
-#: source/gx/tilix/terminal/terminal.d:356
-#: source/gx/tilix/terminal/terminal.d:1522 source/gx/tilix/appwindow.d:665
+#: source/gx/tilix/terminal/terminal.d:361
+#: source/gx/tilix/terminal/terminal.d:1548 source/gx/tilix/appwindow.d:664
 #: source/gx/tilix/sidebar.d:362
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1145
-#: source/gx/tilix/terminal/terminal.d:1521
+#: source/gx/tilix/terminal/terminal.d:369
+#: source/gx/tilix/terminal/terminal.d:1161
+#: source/gx/tilix/terminal/terminal.d:1547
 msgid "Maximize"
 msgstr "Μεγιστοποίηση"
 
-#: source/gx/tilix/terminal/terminal.d:374
-#: source/gx/tilix/terminal/terminal.d:614
+#: source/gx/tilix/terminal/terminal.d:379
+#: source/gx/tilix/terminal/terminal.d:624
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:740
+#: source/gx/tilix/terminal/terminal.d:388
+#: source/gx/tilix/terminal/terminal.d:750
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
-#: source/gx/tilix/terminal/terminal.d:389
-#: source/gx/tilix/prefeditor/profileeditor.d:293
+#: source/gx/tilix/terminal/terminal.d:394
+#: source/gx/tilix/prefeditor/profileeditor.d:288
 msgid "Terminal bell"
 msgstr "Κουδούνι  τερματικού"
 
-#: source/gx/tilix/terminal/terminal.d:434
+#: source/gx/tilix/terminal/terminal.d:439
 msgid "Edit Profile"
 msgstr "Επεξεργασία προφίλ"
 
-#: source/gx/tilix/terminal/terminal.d:452
+#: source/gx/tilix/terminal/terminal.d:457
 #, fuzzy
 msgid "Edit Encodings"
 msgstr "Κωδικοποίηση"
 
-#: source/gx/tilix/terminal/terminal.d:616
+#: source/gx/tilix/terminal/terminal.d:626
 msgid "Enable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:645
+#: source/gx/tilix/terminal/terminal.d:655
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:645
+#: source/gx/tilix/terminal/terminal.d:655
 msgid "Library Not Loaded"
 msgstr "Δεν φορτώθηκε η βιβλιοθήκη"
 
-#: source/gx/tilix/terminal/terminal.d:739
+#: source/gx/tilix/terminal/terminal.d:749
 msgid "Find…"
 msgstr "Εύρεση…"
 
-#: source/gx/tilix/terminal/terminal.d:744
+#: source/gx/tilix/terminal/terminal.d:754
 #, fuzzy
 msgid "Password..."
 msgstr "Κωδικός πρόσβασης"
 
-#: source/gx/tilix/terminal/terminal.d:745
+#: source/gx/tilix/terminal/terminal.d:755
 #, fuzzy
 msgid "Bookmark..."
 msgstr "Επιλογή χρώματος ετικέτας"
 
-#: source/gx/tilix/terminal/terminal.d:746
+#: source/gx/tilix/terminal/terminal.d:756
 msgid "Add Bookmark..."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:750
-#: source/gx/tilix/prefeditor/prefdialog.d:267
+#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "Προφίλ"
 
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:766
 msgid "Save Output…"
 msgstr "Αποθήκευση εξόδου κονσόλας…"
 
-#: source/gx/tilix/terminal/terminal.d:757
-#: source/gx/tilix/prefeditor/profileeditor.d:262
+#: source/gx/tilix/terminal/terminal.d:767
+#: source/gx/tilix/prefeditor/profileeditor.d:257
 msgid "Reset"
 msgstr "Επαναφορά"
 
-#: source/gx/tilix/terminal/terminal.d:758
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Reset and Clear"
 msgstr "Επαναφορά και καθαρισμός"
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:772
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
-#: source/gx/tilix/prefeditor/prefdialog.d:424
-#: source/gx/tilix/prefeditor/prefdialog.d:632
-#: source/gx/tilix/prefeditor/profileeditor.d:1030
+#: source/gx/tilix/prefeditor/prefdialog.d:428
+#: source/gx/tilix/prefeditor/prefdialog.d:636
+#: source/gx/tilix/prefeditor/profileeditor.d:1025
 msgid "Encoding"
 msgstr "Κωδικοποίηση"
 
-#: source/gx/tilix/terminal/terminal.d:763
+#: source/gx/tilix/terminal/terminal.d:773
 msgid "Layout Options…"
 msgstr "Επιλογές διάταξης…"
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:777
+msgid "Monitor Silence"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:780
 #, fuzzy
 msgid "Other"
 msgstr "Άλλα"
 
-#: source/gx/tilix/terminal/terminal.d:775
+#: source/gx/tilix/terminal/terminal.d:789
 msgid "Add Right"
 msgstr "Προσθήκη δεξιά"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:793
 msgid "Add Down"
 msgstr "Προσθήκη κάτω"
 
-#: source/gx/tilix/terminal/terminal.d:892
+#: source/gx/tilix/terminal/terminal.d:906
 #, fuzzy
 msgid "Terminal Activity"
 msgstr "Τίτλος τερματικού"
 
-#: source/gx/tilix/terminal/terminal.d:1142
-#: source/gx/tilix/terminal/terminal.d:1521
+#: source/gx/tilix/terminal/terminal.d:1158
+#: source/gx/tilix/terminal/terminal.d:1547
 msgid "Restore"
 msgstr "Επαναφορά"
 
-#: source/gx/tilix/terminal/terminal.d:1388
+#: source/gx/tilix/terminal/terminal.d:1410
 msgid "Tilix Custom Notification"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1481
+#: source/gx/tilix/terminal/terminal.d:1507
 msgid "Open Link"
 msgstr "Άνοιγμα συνδέσμου"
 
-#: source/gx/tilix/terminal/terminal.d:1482
+#: source/gx/tilix/terminal/terminal.d:1508
 msgid "Copy Link Address"
 msgstr "Αντιγραφή διεύθυνσης συνδέσμου"
 
-#: source/gx/tilix/terminal/terminal.d:1492
-#: source/gx/tilix/terminal/terminal.d:1499
+#: source/gx/tilix/terminal/terminal.d:1518
+#: source/gx/tilix/terminal/terminal.d:1525
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: source/gx/tilix/terminal/terminal.d:1493
-#: source/gx/tilix/terminal/terminal.d:1504
+#: source/gx/tilix/terminal/terminal.d:1519
+#: source/gx/tilix/terminal/terminal.d:1530
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: source/gx/tilix/terminal/terminal.d:1494
-#: source/gx/tilix/terminal/terminal.d:1509
+#: source/gx/tilix/terminal/terminal.d:1520
+#: source/gx/tilix/terminal/terminal.d:1535
 msgid "Select All"
 msgstr "Επιλογή όλων"
 
-#: source/gx/tilix/terminal/terminal.d:1512
-#: source/gx/tilix/prefeditor/prefdialog.d:1283
+#: source/gx/tilix/terminal/terminal.d:1538
+#: source/gx/tilix/prefeditor/prefdialog.d:1287
 msgid "Clipboard"
 msgstr "Πρόχειρο"
 
-#: source/gx/tilix/terminal/terminal.d:1526
+#: source/gx/tilix/terminal/terminal.d:1552
 msgid "Synchronize input"
 msgstr "Συγχρονισμός εξόδου"
 
-#: source/gx/tilix/terminal/terminal.d:2035
+#: source/gx/tilix/terminal/terminal.d:1662
+#: source/gx/tilix/terminal/terminal.d:2097
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2173
+#: source/gx/tilix/terminal/terminal.d:1663
+#, fuzzy
+msgid "Regular Expression Error"
+msgstr "Ταίριασμα ως κανονική έκφραση"
+
+#: source/gx/tilix/terminal/terminal.d:2235
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2179
+#: source/gx/tilix/terminal/terminal.d:2241
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Συνέβη ένα απρόσμενο σφάλμα: %s"
 
-#: source/gx/tilix/terminal/terminal.d:2783
+#: source/gx/tilix/terminal/terminal.d:2873
 msgid "Save Terminal Output"
 msgstr "Αποθήκευση εξόδου κονσόλας"
 
-#: source/gx/tilix/terminal/terminal.d:2786 source/gx/tilix/appwindow.d:663
-#: source/gx/tilix/appwindow.d:1335
-#: source/gx/tilix/prefeditor/profileeditor.d:893
+#: source/gx/tilix/terminal/terminal.d:2876 source/gx/tilix/appwindow.d:662
+#: source/gx/tilix/appwindow.d:1334
+#: source/gx/tilix/prefeditor/profileeditor.d:888
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: source/gx/tilix/terminal/terminal.d:2792
+#: source/gx/tilix/terminal/terminal.d:2882
 msgid "All Text Files"
 msgstr "Όλα τα αρχεία κειμένου"
 
-#: source/gx/tilix/terminal/terminal.d:2796 source/gx/tilix/appwindow.d:1259
-#: source/gx/tilix/prefeditor/prefdialog.d:974
-#: source/gx/tilix/prefeditor/profileeditor.d:910
+#: source/gx/tilix/terminal/terminal.d:2886 source/gx/tilix/appwindow.d:1258
+#: source/gx/tilix/prefeditor/prefdialog.d:978
+#: source/gx/tilix/prefeditor/profileeditor.d:905
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
-#: source/gx/tilix/terminal/terminal.d:3043
+#: source/gx/tilix/terminal/terminal.d:3133
 msgid "Unknown"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3303
+#: source/gx/tilix/terminal/terminal.d:3393
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Η θυγατρική διεργασία τερματίσθηκε κανονικά με κατάσταση %d"
 
-#: source/gx/tilix/terminal/terminal.d:3304
+#: source/gx/tilix/terminal/terminal.d:3394
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3305
+#: source/gx/tilix/terminal/terminal.d:3395
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3311
+#: source/gx/tilix/terminal/terminal.d:3401
 msgid "Relaunch"
 msgstr "Επανεκκίνηση"
 
-#: source/gx/tilix/terminal/terminal.d:3356
+#: source/gx/tilix/terminal/terminal.d:3446
 msgid "Don't Paste"
 msgstr "Να μη γίνει επικόλληση"
 
-#: source/gx/tilix/terminal/terminal.d:3357
+#: source/gx/tilix/terminal/terminal.d:3447
 msgid "Paste Anyway"
 msgstr "Επικόλληση ούτως ή άλλως"
 
@@ -733,17 +747,17 @@ msgid "New"
 msgstr "Νέο"
 
 #: source/gx/tilix/terminal/password.d:180
-#: source/gx/tilix/prefeditor/profileeditor.d:1138
-#: source/gx/tilix/prefeditor/profileeditor.d:1165
-#: source/gx/tilix/prefeditor/profileeditor.d:1232
+#: source/gx/tilix/prefeditor/profileeditor.d:1168
+#: source/gx/tilix/prefeditor/common.d:42
+#: source/gx/tilix/prefeditor/common.d:70
 msgid "Edit"
 msgstr "Επεξεργασία"
 
 #: source/gx/tilix/terminal/password.d:209
-#: source/gx/tilix/prefeditor/prefdialog.d:513
-#: source/gx/tilix/prefeditor/profileeditor.d:1251
-#: source/gx/tilix/prefeditor/profileeditor.d:1408
-#: source/gx/tilix/prefeditor/profileeditor.d:1561
+#: source/gx/tilix/prefeditor/prefdialog.d:517
+#: source/gx/tilix/prefeditor/profileeditor.d:1187
+#: source/gx/tilix/prefeditor/advdialog.d:135
+#: source/gx/tilix/prefeditor/advdialog.d:288
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -756,8 +770,8 @@ msgid "Insert Password"
 msgstr "Εισαγωγή κωδικού πρόσβασης"
 
 #: source/gx/tilix/terminal/password.d:367
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Apply"
 msgstr "Εφαρμογή"
 
@@ -777,7 +791,7 @@ msgstr "Προσθήκη κωδικού πρόσβασης"
 msgid "Edit Password"
 msgstr "Επεξεργασία κωδικού πρόσβασης"
 
-#: source/gx/tilix/closedialog.d:143 source/gx/tilix/appwindow.d:1000
+#: source/gx/tilix/closedialog.d:143 source/gx/tilix/appwindow.d:999
 msgid "Do not show this again"
 msgstr "Να μην εμφανιστεί αυτό ξανά"
 
@@ -807,21 +821,21 @@ msgid "Close Session"
 msgstr "Νέα συνεδρία"
 
 #: source/gx/tilix/application.d:219
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Νέο παράθυρο"
 
-#: source/gx/tilix/application.d:223 source/gx/tilix/appwindow.d:675
-#: source/gx/tilix/prefeditor/prefdialog.d:247
-#: source/gx/tilix/prefeditor/prefdialog.d:375
+#: source/gx/tilix/application.d:223 source/gx/tilix/appwindow.d:674
+#: source/gx/tilix/prefeditor/prefdialog.d:251
+#: source/gx/tilix/prefeditor/prefdialog.d:379
 msgid "Preferences"
 msgstr ""
 
 #: source/gx/tilix/application.d:225
 #: source/gx/tilix/prefeditor/prefdialog.d:156
 #: source/gx/tilix/prefeditor/prefdialog.d:157
-#: source/gx/tilix/prefeditor/prefdialog.d:283
+#: source/gx/tilix/prefeditor/prefdialog.d:287
 msgid "Shortcuts"
 msgstr "Συντομεύσεις"
 
@@ -844,206 +858,206 @@ msgstr ""
 msgid "Credits"
 msgstr "Μνεία"
 
-#: source/gx/tilix/application.d:323 source/gx/tilix/appwindow.d:1415
+#: source/gx/tilix/application.d:323 source/gx/tilix/appwindow.d:1414
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
 msgstr ""
 
-#: source/gx/tilix/application.d:626
+#: source/gx/tilix/application.d:638
 msgid "Set the working directory of the terminal"
 msgstr "Ορισμός καταλόγου εργασίας του τερματικού"
 
-#: source/gx/tilix/application.d:626
+#: source/gx/tilix/application.d:638
 msgid "DIRECTORY"
 msgstr "ΚΑΤΑΛΟΓΟΣ"
 
-#: source/gx/tilix/application.d:627
+#: source/gx/tilix/application.d:639
 msgid "Set the starting profile"
 msgstr "Ορισμός του αρχικού προφίλ"
 
-#: source/gx/tilix/application.d:627
+#: source/gx/tilix/application.d:639
 msgid "PROFILE_NAME"
 msgstr "ΟΝΟΜΑ_ΠΡΟΦΙΛ"
 
-#: source/gx/tilix/application.d:628
+#: source/gx/tilix/application.d:640
 msgid "Set the title of the new terminal"
 msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
 
-#: source/gx/tilix/application.d:628
+#: source/gx/tilix/application.d:640
 msgid "TITLE"
 msgstr "ΤΙΤΛΟΣ"
 
-#: source/gx/tilix/application.d:629
+#: source/gx/tilix/application.d:641
 msgid "Open the specified session"
 msgstr "Άνοιγμα της καθορισμένης συνεδρίας"
 
-#: source/gx/tilix/application.d:629
+#: source/gx/tilix/application.d:641
 msgid "SESSION_NAME"
 msgstr "ΟΝΟΜΑ_ΣΥΝΕΔΡΙΑΣ"
 
-#: source/gx/tilix/application.d:630
+#: source/gx/tilix/application.d:642
 msgid "Send an action to current Tilix instance"
 msgstr ""
 
-#: source/gx/tilix/application.d:630
+#: source/gx/tilix/application.d:642
 msgid "ACTION_NAME"
 msgstr "ΟΝΟΜΑ_ΕΝΕΡΓΕΙΑΣ"
 
-#: source/gx/tilix/application.d:631
+#: source/gx/tilix/application.d:643
 msgid "Execute the parameter as a command"
 msgstr "Εκτέλεση της παραμέτρου ως εντολή"
 
-#: source/gx/tilix/application.d:631
+#: source/gx/tilix/application.d:643
 msgid "COMMAND"
 msgstr "ΕΝΤΟΛΗ"
 
-#: source/gx/tilix/application.d:632
+#: source/gx/tilix/application.d:644
 msgid "Maximize the terminal window"
 msgstr "Μεγιστοποίηση του παραθύρου τερματικού"
 
-#: source/gx/tilix/application.d:633
+#: source/gx/tilix/application.d:645
 msgid "Minimize the terminal window"
 msgstr "Ελαχιστοποίηση του παραθύρου τερματικού"
 
-#: source/gx/tilix/application.d:634
+#: source/gx/tilix/application.d:646
 msgid "Full-screen the terminal window"
 msgstr "Πλήρης οθόνη του παραθύρου τερματικού"
 
-#: source/gx/tilix/application.d:635
+#: source/gx/tilix/application.d:647
 msgid "Focus the existing window"
 msgstr "Εστίαση του τρέχοντος παραθύρου"
 
-#: source/gx/tilix/application.d:636
+#: source/gx/tilix/application.d:648
 msgid "Start additional instance as new process (Not Recommended)"
 msgstr ""
 
-#: source/gx/tilix/application.d:637
+#: source/gx/tilix/application.d:649
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
 "Ορίστε το μεγέθους του παραθύρου· για παράδειγμα: 80x24, ή 80x24+200+200 "
 "(COLSxROWS+X+Y)"
 
-#: source/gx/tilix/application.d:637
+#: source/gx/tilix/application.d:649
 msgid "GEOMETRY"
 msgstr "ΓΕΩΜΕΤΡΙΑ"
 
-#: source/gx/tilix/application.d:638
+#: source/gx/tilix/application.d:650
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
 
-#: source/gx/tilix/application.d:639
+#: source/gx/tilix/application.d:651
 msgid "Show the Tilix and dependant component versions"
 msgstr ""
 
-#: source/gx/tilix/application.d:640
+#: source/gx/tilix/application.d:652
 msgid "Show the Tilix preferences dialog directly"
 msgstr ""
 
-#: source/gx/tilix/application.d:643
+#: source/gx/tilix/application.d:655
 msgid "Hidden argument to pass terminal UUID"
 msgstr ""
 
-#: source/gx/tilix/application.d:643
+#: source/gx/tilix/application.d:655
 msgid "TERMINAL_UUID"
 msgstr ""
 
-#: source/gx/tilix/application.d:804
+#: source/gx/tilix/application.d:816
 msgid ""
 "There appears to be an issue with the configuration of the terminal.\n"
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
 
-#: source/gx/tilix/application.d:805
+#: source/gx/tilix/application.d:817
 msgid "Configuration Issue Detected"
 msgstr ""
 
-#: source/gx/tilix/application.d:817
+#: source/gx/tilix/application.d:829
 msgid "Do not show this message again"
 msgstr "Να μην εμφανιστεί ξανά αυτό το μήνυμα"
 
-#: source/gx/tilix/appwindow.d:321
+#: source/gx/tilix/appwindow.d:320
 msgid "View session sidebar"
 msgstr "Προβολή στήλης συνεδρίας"
 
-#: source/gx/tilix/appwindow.d:346
+#: source/gx/tilix/appwindow.d:345
 msgid "Create a new session"
 msgstr "Δημιουργία νέας συνεδρίας"
 
-#: source/gx/tilix/appwindow.d:364
+#: source/gx/tilix/appwindow.d:363
 msgid "Add terminal right"
 msgstr "Προσθήκη τερματικού δεξιά"
 
-#: source/gx/tilix/appwindow.d:368
+#: source/gx/tilix/appwindow.d:367
 msgid "Add terminal down"
 msgstr "Προσθήκη τερματικού κάτω"
 
-#: source/gx/tilix/appwindow.d:374
+#: source/gx/tilix/appwindow.d:373
 msgid "Find text in terminal"
 msgstr "Εύρεση κειμένου στο τερματικό"
 
-#: source/gx/tilix/appwindow.d:591
+#: source/gx/tilix/appwindow.d:590
 msgid "Enter a new name for the session"
 msgstr "Εισάγετε ένα νέο όνομα για την συνεδρία"
 
-#: source/gx/tilix/appwindow.d:596
+#: source/gx/tilix/appwindow.d:595
 msgid "Change Session Name"
 msgstr "Αλλαγή ονόματος συνεδρίας"
 
-#: source/gx/tilix/appwindow.d:662
+#: source/gx/tilix/appwindow.d:661
 msgid "Open…"
 msgstr "Άνοιγμα…"
 
-#: source/gx/tilix/appwindow.d:664
+#: source/gx/tilix/appwindow.d:663
 msgid "Save As…"
 msgstr "Αποθήκευση ως…"
 
-#: source/gx/tilix/appwindow.d:669
+#: source/gx/tilix/appwindow.d:668
 msgid "Name…"
 msgstr "Όνομα…"
 
-#: source/gx/tilix/appwindow.d:670
+#: source/gx/tilix/appwindow.d:669
 msgid "Synchronize Input"
 msgstr "Συγχρονισμός εισόδου"
 
-#: source/gx/tilix/appwindow.d:681
+#: source/gx/tilix/appwindow.d:680
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/tilix/appwindow.d:999
+#: source/gx/tilix/appwindow.d:998
 msgid "There are multiple sessions open, close anyway?"
 msgstr ""
 
-#: source/gx/tilix/appwindow.d:1255
-#: source/gx/tilix/prefeditor/profileeditor.d:906
+#: source/gx/tilix/appwindow.d:1254
+#: source/gx/tilix/prefeditor/profileeditor.d:901
 msgid "All JSON Files"
 msgstr "Όλα τα αρχεία JSON"
 
-#: source/gx/tilix/appwindow.d:1268
+#: source/gx/tilix/appwindow.d:1267
 #, c-format
 msgid "Filename '%s' does not exist"
 msgstr "Δεν υπάρχει το όνομα αρχείου '%s'"
 
-#: source/gx/tilix/appwindow.d:1298
+#: source/gx/tilix/appwindow.d:1297
 msgid "Load Session"
 msgstr "Φόρτωση συνεδρίας"
 
-#: source/gx/tilix/appwindow.d:1301
+#: source/gx/tilix/appwindow.d:1300
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: source/gx/tilix/appwindow.d:1316
+#: source/gx/tilix/appwindow.d:1315
 msgid "Could not load session due to unexpected error."
 msgstr "Αδυναμία φόρτωσης της συνεδρίας λόγω ενός απρόσμενου σφάλματος."
 
-#: source/gx/tilix/appwindow.d:1316
+#: source/gx/tilix/appwindow.d:1315
 msgid "Error Loading Session"
 msgstr "Σφάλμα κατά την φόρτωση της συνεδρίας"
 
-#: source/gx/tilix/appwindow.d:1332
+#: source/gx/tilix/appwindow.d:1331
 msgid "Save Session"
 msgstr "Αποθήκευση συνεδρίας"
 
@@ -1078,7 +1092,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:137
 #: source/gx/tilix/prefeditor/prefdialog.d:138
-#: source/gx/tilix/prefeditor/prefdialog.d:209
+#: source/gx/tilix/prefeditor/prefdialog.d:213
 msgid "Global"
 msgstr ""
 
@@ -1097,675 +1111,657 @@ msgstr "Quake"
 msgid "Bookmarks"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:179
+#: source/gx/tilix/prefeditor/prefdialog.d:164
+#: source/gx/tilix/prefeditor/prefdialog.d:165
+#: source/gx/tilix/prefeditor/profileeditor.d:100
+#: source/gx/tilix/prefeditor/profileeditor.d:511
+msgid "Advanced"
+msgstr "Για προχωρημένους"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:183
 #, fuzzy
 msgid "Add profile"
 msgstr "Επεξεργασία προφίλ"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:184
+#: source/gx/tilix/prefeditor/prefdialog.d:188
 #, fuzzy
 msgid "Delete profile"
 msgstr "Νέο προφίλ"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:296
-#: source/gx/tilix/prefeditor/prefdialog.d:304
+#: source/gx/tilix/prefeditor/prefdialog.d:300
+#: source/gx/tilix/prefeditor/prefdialog.d:308
 #, fuzzy, c-format
 msgid "Profile: %s"
 msgstr "Προφίλ"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:514
+#: source/gx/tilix/prefeditor/prefdialog.d:518
 msgid "Clone"
 msgstr "Κλωνοποίηση"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:518
+#: source/gx/tilix/prefeditor/prefdialog.d:522
 #, fuzzy
 msgid "Use for new terminals"
 msgstr "Επαναφορά του τερματικού"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:594
+#: source/gx/tilix/prefeditor/prefdialog.d:598
 msgid "Encodings showing in menu:"
 msgstr "Κωδικοποιήσεις που εμφανίζονται στο μενού:"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:630
+#: source/gx/tilix/prefeditor/prefdialog.d:634
 msgid "Enabled"
 msgstr "Ενεργοποιημένα"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:707
-#: source/gx/tilix/prefeditor/profileeditor.d:1529
+#: source/gx/tilix/prefeditor/prefdialog.d:711
+#: source/gx/tilix/prefeditor/advdialog.d:256
 msgid "Action"
 msgstr "Ενέργεια"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:738
+#: source/gx/tilix/prefeditor/prefdialog.d:742
 msgid "Shortcut Key"
 msgstr "Πλήκτρο συντόμευσης"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:750
+#: source/gx/tilix/prefeditor/prefdialog.d:754
 msgid "Enable shortcuts"
 msgstr "Ενεργοποίηση συντομεύσεων"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:788
+#: source/gx/tilix/prefeditor/prefdialog.d:792
 msgid "Overwrite Existing Shortcut"
 msgstr "Αντικατάσταση της υπάρχουσας συντόμευσης"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:789
+#: source/gx/tilix/prefeditor/prefdialog.d:793
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:933
+#: source/gx/tilix/prefeditor/prefdialog.d:937
 #, fuzzy
 msgid "Window style"
 msgstr "Παράθυρο"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
-#: source/gx/tilix/prefeditor/prefdialog.d:949
+#: source/gx/tilix/prefeditor/prefdialog.d:939
+#: source/gx/tilix/prefeditor/prefdialog.d:953
 msgid "Normal"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Disable CSD"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Disable CSD, hide toolbar"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:935
+#: source/gx/tilix/prefeditor/prefdialog.d:939
 msgid "Borderless"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:939
+#: source/gx/tilix/prefeditor/prefdialog.d:943
 msgid "Window restart required"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:948
+#: source/gx/tilix/prefeditor/prefdialog.d:952
 msgid "Terminal title style"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:949
+#: source/gx/tilix/prefeditor/prefdialog.d:953
 msgid "Small"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:949
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/prefdialog.d:953
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "None"
 msgstr "Κανένα"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:955
+#: source/gx/tilix/prefeditor/prefdialog.d:959
 msgid "Theme variant"
 msgstr "Παραλλαγή θέματος"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Light"
 msgstr "Φωτεινό"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:956
+#: source/gx/tilix/prefeditor/prefdialog.d:960
 msgid "Dark"
 msgstr "Σκούρο"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:962
+#: source/gx/tilix/prefeditor/prefdialog.d:966
 msgid "Background image"
 msgstr "Εικόνα παρασκηνίου"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:964
+#: source/gx/tilix/prefeditor/prefdialog.d:968
 msgid "Select Image"
 msgstr "Επιλογή εικόνας"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:967
+#: source/gx/tilix/prefeditor/prefdialog.d:971
 msgid "All Image Files"
 msgstr "Όλα τα αρχεία εικόνων"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:988
+#: source/gx/tilix/prefeditor/prefdialog.d:992
 msgid "Reset background image"
 msgstr "Επαναφορά εικόνας παρασκηνίου"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Scale"
 msgstr "Κλιμάκωση"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Tile"
 msgstr "Παράθεση"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:998
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Center"
 msgstr "Κεντράρισμα"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:994
+#: source/gx/tilix/prefeditor/prefdialog.d:998
 msgid "Stretch"
 msgstr "Παραμόρφωση"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1013
+#: source/gx/tilix/prefeditor/prefdialog.d:1017
 msgid "Default session name"
 msgstr "Προεπιλεγμένο όνομα συνεδρίας"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1028
+#: source/gx/tilix/prefeditor/prefdialog.d:1032
 #, fuzzy
 msgid "Application title"
 msgstr "Εφαρμογή"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1046
+#: source/gx/tilix/prefeditor/prefdialog.d:1050
 msgid "Enable transparency, requires re-start"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1052
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
 msgid "Use a wide handle for splitters"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1057
+#: source/gx/tilix/prefeditor/prefdialog.d:1061
 msgid "Place the sidebar on the right"
 msgstr "Τοποθέτηση της πλευρικής στήλης στα δεξιά"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1061
+#: source/gx/tilix/prefeditor/prefdialog.d:1065
 #, fuzzy
 msgid "Show the terminal title even if it's the only terminal"
 msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1093
+#: source/gx/tilix/prefeditor/prefdialog.d:1097
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1104
+#: source/gx/tilix/prefeditor/prefdialog.d:1108
 msgid "Height percent"
 msgstr "Ποσοστό ήψους"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1115
+#: source/gx/tilix/prefeditor/prefdialog.d:1119
 msgid "Width percent"
 msgstr "Ποσοστό πλάτους"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1125
+#: source/gx/tilix/prefeditor/prefdialog.d:1129
 msgid "Alignment"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Left"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1126
+#: source/gx/tilix/prefeditor/prefdialog.d:1130
 #, fuzzy
 msgid "Right"
 msgstr "Φωτεινό"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-#: source/gx/tilix/prefeditor/profileeditor.d:497
+#: source/gx/tilix/prefeditor/prefdialog.d:1139
+#: source/gx/tilix/prefeditor/profileeditor.d:492
 msgid "Options"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1143
+#: source/gx/tilix/prefeditor/prefdialog.d:1147
 msgid "Show terminal on all workspaces"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1155
+#: source/gx/tilix/prefeditor/prefdialog.d:1159
 msgid "Hide window when focus is lost"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1160
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
 #, fuzzy
 msgid "Hide the titlebar of the window"
 msgstr "Ορισμός του αρχικού τίτλου του τερματικού"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
+#: source/gx/tilix/prefeditor/prefdialog.d:1179
 msgid "Display terminal on active monitor"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/prefdialog.d:1186
 msgid "Display on specific monitor"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1228
 msgid "Behavior"
 msgstr "Συμπεριφορά"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1230
+#: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Prompt when creating a new session"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1235
+#: source/gx/tilix/prefeditor/prefdialog.d:1239
 msgid "Focus a terminal when the mouse moves over it"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1240
+#: source/gx/tilix/prefeditor/prefdialog.d:1244
 msgid "Autohide the mouse pointer when typing"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1245
+#: source/gx/tilix/prefeditor/prefdialog.d:1249
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1250
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
 msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1255
-msgid "Require the <Control> modified to edit title on click"
+#: source/gx/tilix/prefeditor/prefdialog.d:1259
+msgid "Require the <Control> modifier to edit title on click"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
+#: source/gx/tilix/prefeditor/prefdialog.d:1264
 msgid "Close window when last session is closed"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1266
+#: source/gx/tilix/prefeditor/prefdialog.d:1270
 msgid "Send desktop notification on process complete"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
+#: source/gx/tilix/prefeditor/prefdialog.d:1278
 msgid "On new instance"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Split Right"
 msgstr "Διαχωρισμός στα δεξιά"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Split Down"
 msgstr "Διαχωρισμός κάτω"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1277
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Focus Window"
 msgstr "Εστίαση παραθύρου"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1289
+#: source/gx/tilix/prefeditor/prefdialog.d:1293
 msgid "Always use advanced paste dialog"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1294
+#: source/gx/tilix/prefeditor/prefdialog.d:1298
 msgid "Warn when attempting unsafe paste"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1299
+#: source/gx/tilix/prefeditor/prefdialog.d:1303
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1304
+#: source/gx/tilix/prefeditor/prefdialog.d:1308
 msgid "Automatically copy text to clipboard when selecting"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:100
+#: source/gx/tilix/prefeditor/profileeditor.d:95
 msgid "General"
 msgstr "Γενικά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:102
+#: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "Color"
 msgstr "Χρώμα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:98
 msgid "Scrolling"
 msgstr "Κύλιση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:104
+#: source/gx/tilix/prefeditor/profileeditor.d:99
 msgid "Compatibility"
 msgstr "Συμβατότητα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:516
-msgid "Advanced"
-msgstr "Για προχωρημένους"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:217
+#: source/gx/tilix/prefeditor/profileeditor.d:212
 msgid "Profile name"
 msgstr "'Ονομα προφίλ"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:241
+#: source/gx/tilix/prefeditor/profileeditor.d:236
 msgid "Terminal size"
 msgstr "Μεγέθος τερματικού"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:251
+#: source/gx/tilix/prefeditor/profileeditor.d:246
 msgid "columns"
 msgstr "στήλες"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:257
+#: source/gx/tilix/prefeditor/profileeditor.d:252
 msgid "rows"
 msgstr "σειρές"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:273
-#: source/gx/tilix/prefeditor/profileeditor.d:596
+#: source/gx/tilix/prefeditor/profileeditor.d:268
+#: source/gx/tilix/prefeditor/profileeditor.d:591
 msgid "Cursor"
 msgstr "Κέρσορας"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "Block"
 msgstr "Τούβλο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "IBeam"
 msgstr "Δέσμη"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:276
+#: source/gx/tilix/prefeditor/profileeditor.d:271
 msgid "Underline"
 msgstr "Υπογραμμίση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:284
+#: source/gx/tilix/prefeditor/profileeditor.d:279
 msgid "Blink mode"
 msgstr "Αναβόσβημα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "System"
 msgstr "Σύστημα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "On"
 msgstr "On"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:287
+#: source/gx/tilix/prefeditor/profileeditor.d:282
 msgid "Off"
 msgstr "Off"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Sound"
 msgstr "Ήχος"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:296
+#: source/gx/tilix/prefeditor/profileeditor.d:291
 msgid "Icon and Sound"
 msgstr "Εικονίδιο και ήχος"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:302
+#: source/gx/tilix/prefeditor/profileeditor.d:297
 msgid "Terminal title"
 msgstr "Τίτλος τερματικού"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:332
+#: source/gx/tilix/prefeditor/profileeditor.d:327
 msgid "Badge position"
 msgstr "Θέση ετικέτας"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northwest"
 msgstr "Βορειοδυτικά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northeast"
 msgstr "Βορειοανατολικά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Southwest"
 msgstr "Νοτιοδυτικά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:336
+#: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Southeast"
 msgstr "Νοτιοανατολικά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:343
+#: source/gx/tilix/prefeditor/profileeditor.d:338
 msgid "Notify new activity"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:352
+#: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Threshold for continuous silence (seconds)"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:363
+#: source/gx/tilix/prefeditor/profileeditor.d:358
 msgid "Text Appearance"
 msgstr "Εμφάνιση κειμένου"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:369
+#: source/gx/tilix/prefeditor/profileeditor.d:364
 msgid "Allow bold text"
 msgstr "Να επιτραπεί έντονο κέιμενο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:374
+#: source/gx/tilix/prefeditor/profileeditor.d:369
 msgid "Rewrap on resize"
 msgstr "Αναδίπλωση κατά την αυξομείωση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:380
+#: source/gx/tilix/prefeditor/profileeditor.d:375
 msgid "Custom font"
 msgstr "Προσαρμοσμένη γραμματοσειρά"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:386
+#: source/gx/tilix/prefeditor/profileeditor.d:381
 msgid "Choose A Terminal Font"
 msgstr "Επιλογή γραμματοσειράς τερματικού"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:406
+#: source/gx/tilix/prefeditor/profileeditor.d:401
 #, c-format
 msgid "ID: %s"
 msgstr "Αναγνωριστικό: %s"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:454
+#: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Color scheme"
 msgstr "Θέμα χρώματος"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:464
-#: source/gx/tilix/prefeditor/profileeditor.d:933
+#: source/gx/tilix/prefeditor/profileeditor.d:459
+#: source/gx/tilix/prefeditor/profileeditor.d:928
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:477
+#: source/gx/tilix/prefeditor/profileeditor.d:472
 msgid "Export"
 msgstr "Εξαγωγή"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:489
+#: source/gx/tilix/prefeditor/profileeditor.d:484
 msgid "Color palette"
 msgstr "Παλέτα χρωμάτων"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:511
+#: source/gx/tilix/prefeditor/profileeditor.d:506
 msgid "Use theme colors for foreground/background"
 msgstr "Χρήση χρωμάτων θέματος για το προσήνιο/παρασκήνιο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:529
+#: source/gx/tilix/prefeditor/profileeditor.d:524
 msgid "Transparency"
 msgstr "Διαφάνεια"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:543
+#: source/gx/tilix/prefeditor/profileeditor.d:538
 msgid "Unfocused dim"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:591
+#: source/gx/tilix/prefeditor/profileeditor.d:586
 msgid "Text"
 msgstr "Κείμενο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:592
-#: source/gx/tilix/prefeditor/profileeditor.d:708
+#: source/gx/tilix/prefeditor/profileeditor.d:587
+#: source/gx/tilix/prefeditor/profileeditor.d:703
 msgid "Background"
 msgstr "Φόντο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:603
+#: source/gx/tilix/prefeditor/profileeditor.d:598
 msgid "Select Cursor Foreground Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:605
+#: source/gx/tilix/prefeditor/profileeditor.d:600
 msgid "Select Cursor Background Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:610
+#: source/gx/tilix/prefeditor/profileeditor.d:605
 msgid "Highlight"
 msgstr "Επισήμανση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:615
+#: source/gx/tilix/prefeditor/profileeditor.d:610
 msgid "Select Highlight Foreground Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:617
+#: source/gx/tilix/prefeditor/profileeditor.d:612
 msgid "Select Highlight Background Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:622
+#: source/gx/tilix/prefeditor/profileeditor.d:617
 msgid "Bold"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:627
+#: source/gx/tilix/prefeditor/profileeditor.d:622
 #, fuzzy
 msgid "Select Bold Color"
 msgstr "Επιλογή χρώματος ετικέτας"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:632
+#: source/gx/tilix/prefeditor/profileeditor.d:627
 msgid "Dim"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:637
+#: source/gx/tilix/prefeditor/profileeditor.d:632
 msgid "Select Dim Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:646
+#: source/gx/tilix/prefeditor/profileeditor.d:641
 msgid "Select Badge Color"
 msgstr "Επιλογή χρώματος ετικέτας"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:692
 msgid "Select Background Color"
 msgstr "Επιλογή χρώματος παρασκηνίου"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:713
-#: source/gx/tilix/prefeditor/profileeditor.d:729
+#: source/gx/tilix/prefeditor/profileeditor.d:708
+#: source/gx/tilix/prefeditor/profileeditor.d:724
 msgid "Select Foreground Color"
 msgstr "Επιλογή χρώματος προσκήνιου"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:728
+#: source/gx/tilix/prefeditor/profileeditor.d:723
 msgid "Foreground"
 msgstr "Προσκήνιο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Black"
 msgstr "Μαύρο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Red"
 msgstr "Κόκκινο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Green"
 msgstr "Πράσινο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Orange"
 msgstr "Πορτοκαλί"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Blue"
 msgstr "Μπλε"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Purple"
 msgstr "Μωβ"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Turquoise"
 msgstr "Τιρκουάζ"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:732
+#: source/gx/tilix/prefeditor/profileeditor.d:727
 msgid "Grey"
 msgstr "Γκρίζο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:738
+#: source/gx/tilix/prefeditor/profileeditor.d:733
 #, c-format
 msgid "Select %s Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:745
+#: source/gx/tilix/prefeditor/profileeditor.d:740
 #, c-format
 msgid "Select %s Light Color"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:890
+#: source/gx/tilix/prefeditor/profileeditor.d:885
 msgid "Export Color Scheme"
 msgstr "Εξαγωγή χρωματικού συνδυασμού"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:965
+#: source/gx/tilix/prefeditor/profileeditor.d:960
 msgid "Show scrollbar"
 msgstr "Εμφάνιση γραμμή κύλισης"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:969
+#: source/gx/tilix/prefeditor/profileeditor.d:964
 msgid "Scroll on output"
 msgstr "Κύλιση στην έξοδο"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:973
+#: source/gx/tilix/prefeditor/profileeditor.d:968
 msgid "Scroll on keystroke"
 msgstr "Κύλιση στην πληκτρολόγηση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:977
+#: source/gx/tilix/prefeditor/profileeditor.d:972
 msgid "Limit scrollback to:"
 msgstr "Περιορισμός οπισθοκύλισης σε:"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1012
+#: source/gx/tilix/prefeditor/profileeditor.d:1007
 msgid "Backspace key generates"
 msgstr "Το πλήκτρο οπισθοδρόμησης προκαλεί"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Automatic"
 msgstr "Αυτόματα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Control-H"
 msgstr "Control-H"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "ASCII DEL"
 msgstr "ASCII DEL"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Escape sequence"
 msgstr "Ακολουθία διαφυγής"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1015
-#: source/gx/tilix/prefeditor/profileeditor.d:1024
+#: source/gx/tilix/prefeditor/profileeditor.d:1010
+#: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "TTY"
 msgstr "TTY"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1021
+#: source/gx/tilix/prefeditor/profileeditor.d:1016
 msgid "Delete key generates"
 msgstr "Το πλήκτρο διαγραφής προκαλεί"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1045
+#: source/gx/tilix/prefeditor/profileeditor.d:1040
 msgid "Ambiguous-width characters"
 msgstr "Χαρακτήρες ασαφούς πλάτους"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1048
+#: source/gx/tilix/prefeditor/profileeditor.d:1043
 msgid "Narrow"
 msgstr "Στενοί"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1048
+#: source/gx/tilix/prefeditor/profileeditor.d:1043
 msgid "Wide"
 msgstr "Πλατιοί"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1069
+#: source/gx/tilix/prefeditor/profileeditor.d:1064
 msgid "Run command as a login shell"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1073
+#: source/gx/tilix/prefeditor/profileeditor.d:1068
 msgid "Run a custom command instead of my shell"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1089
+#: source/gx/tilix/prefeditor/profileeditor.d:1084
 msgid "When command exits"
 msgstr "Κατά την έξοδο της εντολής"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Exit the terminal"
 msgstr "Έξοδος από το τερματικό"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Restart the command"
 msgstr "Επανεκτέλεση της εντολής"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/prefeditor/profileeditor.d:1086
 msgid "Hold the terminal open"
 msgstr "Διατήρηση του τερματικού ανοιχτό"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1130
-msgid "Custom Links"
-msgstr "Προσαρμοσμένοι σύνδεσμοι"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1135
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1156
-msgid "Triggers"
-msgstr "Εναύσματα"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1162
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:1118
 msgid "Automatic Profile Switching"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1190
+#: source/gx/tilix/prefeditor/profileeditor.d:1126
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>username@hostname:directory</i> format. Either "
@@ -1773,7 +1769,7 @@ msgid ""
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1192
+#: source/gx/tilix/prefeditor/profileeditor.d:1128
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>hostname:directory</i> format. Either the "
@@ -1781,68 +1777,58 @@ msgid ""
 "with neither hostname or directory are not permitted."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1203
+#: source/gx/tilix/prefeditor/profileeditor.d:1139
 msgid "Match"
 msgstr "Αντιστοίχιση"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1214
-#: source/gx/tilix/prefeditor/profileeditor.d:1402
-#: source/gx/tilix/prefeditor/profileeditor.d:1555
+#: source/gx/tilix/prefeditor/profileeditor.d:1150
+#: source/gx/tilix/prefeditor/advdialog.d:129
+#: source/gx/tilix/prefeditor/advdialog.d:282
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1218
+#: source/gx/tilix/prefeditor/profileeditor.d:1154
 msgid "Enter username@hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1220
+#: source/gx/tilix/prefeditor/profileeditor.d:1156
 msgid "Enter hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1222
+#: source/gx/tilix/prefeditor/profileeditor.d:1158
 msgid "Add New Match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1239
+#: source/gx/tilix/prefeditor/profileeditor.d:1175
 msgid "Edit username@hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1241
+#: source/gx/tilix/prefeditor/profileeditor.d:1177
 msgid "Edit hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1243
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
 msgid "Edit Match"
 msgstr "Επεξεργασία αντιστοιχίας"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1365
-#: source/gx/tilix/prefeditor/profileeditor.d:1503
-msgid "Regex"
-msgstr "Κανονική έκφραση"
+#: source/gx/tilix/prefeditor/common.d:34
+msgid "Custom Links"
+msgstr "Προσαρμοσμένοι σύνδεσμοι"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1389
-msgid "Case Insensitive"
-msgstr "Διάκριση πεζών/κεφαλαίων"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1434
-msgid "Edit Custom Links"
-msgstr "Επεξεργασία προσαρμοσμένων συνδέσμων"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1541
-msgid "Parameter"
-msgstr "Παράμετρος"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1577
-msgid "Limit number of lines for trigger processing to:"
+#: source/gx/tilix/prefeditor/common.d:39
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1603
-msgid "Edit Triggers"
-msgstr "Επεξεργασία εναυσμάτων"
+#: source/gx/tilix/prefeditor/common.d:61
+msgid "Triggers"
+msgstr "Εναύσματα"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1646
-#, c-format
-msgid "Row %d: "
+#: source/gx/tilix/prefeditor/common.d:67
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
 msgstr ""
 
 #: source/gx/tilix/prefeditor/titleeditor.d:112
@@ -1855,67 +1841,101 @@ msgstr "Παράθυρο"
 msgid "Help"
 msgstr ""
 
-#: source/gx/tilix/cmdparams.d:113
+#: source/gx/tilix/prefeditor/advdialog.d:92
+#: source/gx/tilix/prefeditor/advdialog.d:230
+msgid "Regex"
+msgstr "Κανονική έκφραση"
+
+#: source/gx/tilix/prefeditor/advdialog.d:116
+msgid "Case Insensitive"
+msgstr "Διάκριση πεζών/κεφαλαίων"
+
+#: source/gx/tilix/prefeditor/advdialog.d:161
+msgid "Edit Custom Links"
+msgstr "Επεξεργασία προσαρμοσμένων συνδέσμων"
+
+#: source/gx/tilix/prefeditor/advdialog.d:268
+msgid "Parameter"
+msgstr "Παράμετρος"
+
+#: source/gx/tilix/prefeditor/advdialog.d:306
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:331
+msgid "Edit Triggers"
+msgstr "Επεξεργασία εναυσμάτων"
+
+#: source/gx/tilix/prefeditor/advdialog.d:374
+#, c-format
+msgid "Row %d: "
+msgstr ""
+
+#: source/gx/tilix/cmdparams.d:114
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
 msgstr ""
 
-#: source/gx/tilix/cmdparams.d:142
+#: source/gx/tilix/cmdparams.d:143
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
 msgstr ""
 
-#: source/gx/tilix/cmdparams.d:174
+#: source/gx/tilix/cmdparams.d:175
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
 
-#: source/gx/tilix/cmdparams.d:181
+#: source/gx/tilix/cmdparams.d:182
 msgid "You can only use the action parameter within Tilix"
 msgstr ""
 
-#: source/gx/tilix/cmdparams.d:203
+#: source/gx/tilix/cmdparams.d:204
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:224
+#: source/gx/tilix/preferences.d:227
 msgid "UpdateState"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:225
+#: source/gx/tilix/preferences.d:228
 #, fuzzy
 msgid "ExecuteCommand"
 msgstr "Εντολή"
 
-#: source/gx/tilix/preferences.d:226
+#: source/gx/tilix/preferences.d:229
 msgid "SendNotification"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:227
+#: source/gx/tilix/preferences.d:230
 msgid "UpdateTitle"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:228
+#: source/gx/tilix/preferences.d:231
 msgid "PlayBell"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:229
+#: source/gx/tilix/preferences.d:232
 #, fuzzy
 msgid "SendText"
 msgstr "Κείμενο"
 
-#: source/gx/tilix/preferences.d:230
+#: source/gx/tilix/preferences.d:233
 msgid "InsertPassword"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:231
+#: source/gx/tilix/preferences.d:234
 #, fuzzy
 msgid "UpdateBadge"
 msgstr "Ετικέτα"
 
-#: source/gx/tilix/preferences.d:338
+#: source/gx/tilix/preferences.d:235
+msgid "RunProcess"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:343
 #, fuzzy, c-format
 msgid "%s (Copy)"
 msgstr "Αντιγραφή"
@@ -2134,7 +2154,7 @@ msgctxt "shortcut window"
 msgid "Resize the terminal right"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:227 data/resources/ui/shortcuts.ui:469
+#: data/resources/ui/shortcuts.ui:227 data/resources/ui/shortcuts.ui:475
 msgctxt "shortcut window"
 msgid "Other"
 msgstr "Άλλα"
@@ -2272,139 +2292,149 @@ msgstr "Επικόλληση"
 
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
+msgid "Paste selection"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:407
+msgctxt "shortcut window"
 msgid "Advanced paste"
 msgstr "Προχωρημένη επικόλληση"
 
-#: data/resources/ui/shortcuts.ui:407
+#: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
 msgid "Select all"
 msgstr "Επιλογή όλων"
 
-#: data/resources/ui/shortcuts.ui:415
+#: data/resources/ui/shortcuts.ui:421
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Εστίαση"
 
-#: data/resources/ui/shortcuts.ui:419
+#: data/resources/ui/shortcuts.ui:425
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Μεγέθυνση"
 
-#: data/resources/ui/shortcuts.ui:425
+#: data/resources/ui/shortcuts.ui:431
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Σμίκρυνση"
 
-#: data/resources/ui/shortcuts.ui:431
+#: data/resources/ui/shortcuts.ui:437
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "Εστίαση στο κανονικό μέγεθος"
 
-#: data/resources/ui/shortcuts.ui:439
+#: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
 msgid "Navigation"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:449
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll up"
 msgstr "Κύλιση στην έξοδο"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:455
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll down"
 msgstr "Κύλιση"
 
-#: data/resources/ui/shortcuts.ui:455
+#: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Page up"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:461
+#: data/resources/ui/shortcuts.ui:467
 msgctxt "shortcut window"
 msgid "Page down"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:473
+#: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "Αποθήκευση περιεχομένων τερματικού"
 
-#: data/resources/ui/shortcuts.ui:479
+#: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "Κλείσιμο τερματικού"
 
-#: data/resources/ui/shortcuts.ui:485
+#: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "Μεγιστοποίηση τερματικού"
 
-#: data/resources/ui/shortcuts.ui:491
+#: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:497
+#: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "Επαναφορά του τερματικού"
 
-#: data/resources/ui/shortcuts.ui:503
+#: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:509
+#: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:515
+#: data/resources/ui/shortcuts.ui:521
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "Επιλογές διάταξης"
 
-#: data/resources/ui/shortcuts.ui:521
+#: data/resources/ui/shortcuts.ui:527
 msgctxt "shortcut window"
 msgid "Insert terminal number"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:527
+#: data/resources/ui/shortcuts.ui:533
 msgctxt "shortcut window"
 msgid "Insert password"
 msgstr "Εισαγωγή κωδικού πρόσβασης"
 
-#: data/resources/ui/shortcuts.ui:533
+#: data/resources/ui/shortcuts.ui:539
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Select bookmark"
 msgstr "Επιλογή εικόνας"
 
-#: data/resources/ui/shortcuts.ui:539
+#: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
 msgid "Add bookmark"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:545
+#: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Cycle title style"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:556
+#: data/resources/ui/shortcuts.ui:557
+msgctxt "shortcut window"
+msgid "Monitor silence"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:568
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:561
+#: data/resources/ui/shortcuts.ui:573
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: data/resources/ui/shortcuts.ui:565
+#: data/resources/ui/shortcuts.ui:577
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"
