@@ -17,6 +17,7 @@ import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
 
 import gx.i18n.l10n;
+import gx.util.path;
 
 enum CMD_WORKING_DIRECTORY = "working-directory";
 enum CMD_SESSION = "session";
@@ -108,7 +109,7 @@ private:
 
     string validatePath(string path) {
         if (path.length > 0) {
-            path = expandTilde(path);
+            path = resolvePath(path);
             if (!isDir(path)) {
                 writeln(format(_("Ignoring as '%s' is not a directory"), path));
                 path.length = 0;
@@ -162,8 +163,8 @@ public:
 
         _session = getValues(vd, CMD_SESSION);
         if (_session.length > 0) {
-            for (auto i = _session.length - 1; i--; i >= 0) {
-                _session[i] = expandTilde(_session[i]);
+            foreach(i, filename; _session) {
+                _session[i] = resolvePath(filename);
             }
         }
         _profileName = getValue(vd, CMD_PROFILE, vts);
