@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([Tilix], [1.1.0], [https://github.com/gnunn1/tilix/issues], [tilix], [https://github.com/gnunn1/tilix])
+AC_INIT([Tilix], [1.5.4], [https://github.com/gnunn1/tilix/issues], [tilix], [https://github.com/gnunn1/tilix])
 AC_CONFIG_SRCDIR([source/gx/tilix/application.d])
 AC_CONFIG_AUX_DIR([acaux])
 
@@ -36,10 +36,10 @@ case $(basename $DC) in
 esac
 
 # Checks for libraries.
-
+GTKDVER=3.5.0
 # Use pkg-config to look for gtkd. Tries to find a compiler specific suffix, then falls back to suffix-less
-PKG_CHECK_MODULES([GTKD], [gtkd-3$DC_SUFFIX >= 3.3.0 vted-3$DC_SUFFIX >= 3.3.0],,
-				  [PKG_CHECK_MODULES([GTKD], [gtkd-3 >= 3.3.0 vted-3 >= 3.3.0])])
+PKG_CHECK_MODULES([GTKD], [gtkd-3$DC_SUFFIX >= $GTKDVER vted-3$DC_SUFFIX >= $GTKDVER],,
+				  [PKG_CHECK_MODULES([GTKD], [gtkd-3 >= $GTKDVER vted-3 >= $GTKDVER])])
 # TODO: test if library was compiled with @DC@?
 
 # libx11 is a C library, so no need of suffix
