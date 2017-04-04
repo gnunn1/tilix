@@ -13,6 +13,7 @@ import gdk.Keysyms;
 
 import gio.Settings : GSettings = Settings;
 
+import gtk.Adjustment;
 import gtk.AspectFrame;
 import gtk.Box;
 import gtk.Button;
@@ -35,6 +36,7 @@ import gx.gtk.util;
 import gx.i18n.l10n;
 
 static import gx.util.array;
+import gx.gtk.threads;
 
 import gx.tilix.common;
 import gx.tilix.preferences;
@@ -48,6 +50,7 @@ private:
     GSettings gsSettings;
 
     ListBox lbSessions;
+    ScrolledWindow sw;
 
     bool blockSelectedHandler;
 
@@ -198,7 +201,7 @@ public:
         lbSessions.addOnRowActivated(&onRowActivated);
         //lbSessions.addOnKeynavFailed(&onKeyNavFailed);
 
-        ScrolledWindow sw = new ScrolledWindow(lbSessions);
+        sw = new ScrolledWindow(lbSessions);
         sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
         sw.setShadowType(ShadowType.IN);
 
@@ -209,6 +212,20 @@ public:
            }
             hide();
         });
+        sw.addOnMap(delegate(Widget) {
+            // Need to give some time for adjustment values to catch up
+            threadsAddTimeoutDelegate(20, delegate() {
+                //Make sure row is visible
+                Adjustment adj = sw.getVadjustment();
+                double increment = adj.getUpper() / lbSessions.getChildren().length;
+                double value = lbSessions.getSelectedRow().getIndex() * increment;
+                tracef("Adjustment Values: Lower=%f, Upper=%f, Value=%f, Row=%f", adj.getLower(), adj.getUpper(), adj.getValue(), value);
+                if (value + increment > adj.getValue() + adj.getPageSize) {
+                    adj.setValue(value);
+                }
+                return false;
+            });
+        }, ConnectFlags.AFTER);
 
         add(sw);
     }
