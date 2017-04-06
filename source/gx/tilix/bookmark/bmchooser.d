@@ -39,7 +39,6 @@ class BookmarkChooser: Dialog {
 private:
     BMTreeView tv;
     BMSelectionMode mode;
-    Popover pContext;
 
     GSettings gsSettings;
 
