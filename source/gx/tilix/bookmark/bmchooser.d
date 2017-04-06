@@ -39,6 +39,7 @@ class BookmarkChooser: Dialog {
 private:
     BMTreeView tv;
     BMSelectionMode mode;
+    Popover pContext;
 
     GSettings gsSettings;
 
@@ -122,7 +123,6 @@ public:
         setDefaultResponse(GtkResponseType.OK);
         this.mode = mode;
         createUI();
-        tv.expandAll();
         updateUI();
     }
 
