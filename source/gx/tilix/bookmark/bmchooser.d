@@ -122,7 +122,6 @@ public:
         setDefaultResponse(GtkResponseType.OK);
         this.mode = mode;
         createUI();
-        tv.expandAll();
         updateUI();
     }
 

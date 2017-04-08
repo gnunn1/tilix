@@ -115,7 +115,7 @@ if type po4a-translate >/dev/null 2>&1; then
     do
         LOCALE=$(basename "$f" .man.po)
         install -d ${PREFIX}/share/man/${LOCALE}/man1
-        po4a-translate -f man -m data/man/tilix -p data/man/po/${LOCALE}.man.po -l ${PREFIX}/share/man/${LOCALE}/man1/tilix.1
+        po4a-translate -k 0 -f man -m data/man/tilix -p data/man/po/${LOCALE}.man.po -l ${PREFIX}/share/man/${LOCALE}/man1/tilix.1
         gzip -f ${PREFIX}/share/man/${LOCALE}/man1/tilix.1
     done
 fi

@@ -755,14 +755,14 @@ public:
     }
 
     /**
-     * Add additional accelerators to force paste actions to always gobject
+     * Add additional accelerators to force paste actions to always go
      * through Tilix, see #666 fore more information.
      */
     override void setAccelsForAction(string detailedActionName, string[] accels) {
         import gx.tilix.terminal.actions;
 
         if (detailedActionName == getActionDetailedName(gx.tilix.terminal.actions.ACTION_PREFIX, gx.tilix.terminal.actions.ACTION_PASTE)) {
-            accels ~= ["<Ctrl><Shift>V","<Shift><Ctrl>Insert"];
+            accels ~= ["<Shift><Ctrl>Insert"];
         } else if (detailedActionName == getActionDetailedName(gx.tilix.terminal.actions.ACTION_PREFIX, gx.tilix.terminal.actions.ACTION_PASTE_PRIMARY)) {
             accels ~= ["<Shift>Insert"];
         }
