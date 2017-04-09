@@ -860,16 +860,37 @@ private:
         }
     }
 
+    /**
+     * Returns a list of shortcuts that require a minimum
+     * version of GTK to function correctly.
+     *
+     * This avoids the user trying to customize shortcuts
+     * they can't use.
+     */
+    int[2][string] getGTKVersionedShortcuts() {
+        int[2][string] result;
+
+        result["app-shortcuts"] = [3, 19];
+
+        return result;
+    }
+
     void loadShortcuts(TreeStore ts) {
 
-        loadLocalizedShortcutLabels();
+        int[2][string] versioned = getGTKVersionedShortcuts();
 
+        loadLocalizedShortcutLabels();
         string[] keys = gsShortcuts.listKeys();
         sort(keys);
 
         TreeIter currentIter;
         string currentPrefix;
         foreach (key; keys) {
+            if (key in versioned) {
+                int[2] gtkVersion = versioned[key];
+                if (Version.checkVersion(gtkVersion[0], gtkVersion[1], 0).length > 0) continue;
+            }
+
             string prefix, id;
             getActionNameFromKey(key, prefix, id);
             if (prefix != currentPrefix) {
