@@ -1534,10 +1534,10 @@ public:
         double newRatio = ratio;
         if (getOrientation() == Orientation.HORIZONTAL) {
             newRatio = to!double(getChild1().getAllocatedWidth()) / to!double(getAllocatedWidth());
-            //tracef("Child1 Width=%d, Paned Width=%d",getChild1().getAllocatedWidth(),getAllocatedWidth());
+            //tracef("Child1 Width=%d, Paned Width=%d, newRatio=%f",getChild1().getAllocatedWidth(),getAllocatedWidth(), newRatio);
         } else {
-            newRatio = to!double(getChild1().getAllocatedHeight()) / to!double(getHeight());
-            //tracef("Child1 Height=%d, Paned Height=%d",getChild1().getAllocatedHeight(),getAllocatedHeight());
+            newRatio = to!double(getChild1().getAllocatedHeight()) / to!double(getAllocatedHeight());
+            //tracef("Child1 Height=%d, Paned Height=%d, newRatio=%f",getChild1().getAllocatedHeight(),getAllocatedHeight(), newRatio);
         }
         if (newRatio > 0.0 && newRatio < 1.0) {
             ratio = newRatio;
