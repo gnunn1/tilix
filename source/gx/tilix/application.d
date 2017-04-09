@@ -399,7 +399,7 @@ private:
             } else if (cp.quake) {
                 AppWindow qw = getQuakeWindow();
                 if (qw !is null) {
-                    if (qw.getVisible) {
+                    if (qw.isVisible) {
                         qw.hide();
                     } else {
                         qw.show();
