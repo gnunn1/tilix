@@ -1720,7 +1720,7 @@ private:
      * outer ones are re-sized first.
      */
     void resize(PanedNode node) {
-        trace("Resizing");
+        trace("Resizing panes for redistribution");
         for (int i = 0; i < height; i++) {
             PanedNode[] nodes = getBranch(root, i);
             tracef("Branch %d has %d nodes", i, nodes.length);
@@ -1752,6 +1752,19 @@ private:
         }
     }
 
+    void updateIgnoreRatio(PanedNode node, bool value) {
+        TerminalPaned paned = cast(TerminalPaned)node.paned;
+        if (paned !is null) {
+            paned.ignoreRatio = value;
+            if (!value) paned.updateRatio();
+        }
+        foreach(child; node.child) {
+            if (child !is null) {
+                updateIgnoreRatio(child, value);
+            }
+        }
+    }
+
 public:
 
     this(Paned paned) {
@@ -1763,8 +1776,10 @@ public:
     }
 
     void resize() {
+        //updateIgnoreRatio(root, true);
         updateResizeProperty(root);
         resize(root);
+        //updateIgnoreRatio(root, false);
     }
 
     @property int height() {
