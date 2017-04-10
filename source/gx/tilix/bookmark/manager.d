@@ -290,7 +290,7 @@ public:
     }
 
     @property string terminalCommand() {
-        return "cd " ~ _path;
+        return "cd " ~ _path.replace(" ", "\\ ");
     }
 }
 

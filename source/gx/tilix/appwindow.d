@@ -1489,7 +1489,9 @@ public:
                 }
                 trace("Focus lost, hiding quake window");
                 threadsAddTimeoutDelegate(100, delegate() {
-                    this.hide();
+                    if (isVisible()) {
+                        this.hide();
+                    }
                     return false;
                 });
             }

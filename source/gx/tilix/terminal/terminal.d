@@ -112,6 +112,7 @@ import pango.PgFontDescription;
 import pango.PgLayout;
 
 import vte.Pty;
+import vte.Regex : VRegex = Regex;
 import vte.Terminal : VTE = Terminal;
 import vtec.vtetypes;
 
@@ -815,12 +816,19 @@ private:
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
         //URL Regex Experessions
-        foreach (i, regex; compiledRegex) {
-            int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
-            regexTag[id] = URL_REGEX_PATTERNS[i];
-            vte.matchSetCursorType(id, CursorType.HAND2);
+        if (checkVTEVersionNumber(0, 46)) {
+            foreach (i, regex; compiledVRegex) {
+                int id = vte.matchAddRegex(cast(VRegex) regex, 0);
+                regexTag[id] = URL_REGEX_PATTERNS[i];
+                vte.matchSetCursorType(id, CursorType.HAND2);
+            }
+        } else {
+            foreach (i, regex; compiledGRegex) {
+                int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
+                regexTag[id] = URL_REGEX_PATTERNS[i];
+                vte.matchSetCursorType(id, CursorType.HAND2);
+            }
         }
-
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnBell(delegate(VTE) {
@@ -1643,7 +1651,9 @@ private:
             if (urlMatch.tag in regexTag) {
                 TerminalRegex tr = regexTag[urlMatch.tag];
                 try {
-                    GRegex regex = compileRegex(tr);
+                    // TODO: This should be updated to PCRE2 for VTE 0.46, need to
+                    // find a D language binding for PCRE2 ideally
+                    GRegex regex = compileGRegex(tr);
                     if (regex !is null) {
                         GMatchInfo info;
                         regex.match(urlMatch.match, cast(GRegexMatchFlags) 0, info);
@@ -2086,12 +2096,22 @@ private:
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 try {
-                    GRegex compiledRegex = compileRegex(regex);
-                    if (compiledRegex !is null) {
-                        int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
-                        regexTag[id] = regex;
-                        vte.matchSetCursorType(id, CursorType.HAND2);
-                        tracef("Added regex: %s with tag %d",value[0], id);
+                    if (checkVTEVersionNumber(0, 46)) {
+                        VRegex compiledRegex = compileVRegex(regex);
+                        if (compiledRegex !is null) {
+                            int id = vte.matchAddRegex(compiledRegex, 0);
+                            regexTag[id] = regex;
+                            vte.matchSetCursorType(id, CursorType.HAND2);
+                            tracef("Added regex: %s with tag %d",value[0], id);
+                        }
+                    } else {
+                        GRegex compiledRegex = compileGRegex(regex);
+                        if (compiledRegex !is null) {
+                            int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
+                            regexTag[id] = regex;
+                            vte.matchSetCursorType(id, CursorType.HAND2);
+                            tracef("Added regex: %s with tag %d",value[0], id);
+                        }
                     }
                 } catch (GException ge) {
                     error(format(_("Custom link regex '%s' has an error, ignoring"), regex));

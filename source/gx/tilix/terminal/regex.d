@@ -47,6 +47,8 @@ import gtkc.glibtypes;
 
 import gx.gtk.vte;
 
+import vte.Regex: VRegex = Regex;
+
 enum SCHEME = "(?ix: news | telnet | nntp | https? | ftps? | sftp | webcal )";
 
 enum USERCHARS = "-+.[:alnum:]";
@@ -205,9 +207,10 @@ immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(REGEX_NEWS_MAN, TerminalURLFlavor.AS_IS, true)
 ];
 
-immutable GRegex[URL_REGEX_PATTERNS.length] compiledRegex;
+immutable GRegex[URL_REGEX_PATTERNS.length] compiledGRegex;
+immutable VRegex[URL_REGEX_PATTERNS.length] compiledVRegex;
 
-GRegex compileRegex(TerminalRegex regex) {
+GRegex compileGRegex(TerminalRegex regex) {
     if (regex.pattern.length == 0) return null;
     GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
     if (checkVTEVersionNumber(0, 44)) {
@@ -216,14 +219,28 @@ GRegex compileRegex(TerminalRegex regex) {
     return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
 }
 
+VRegex compileVRegex(TerminalRegex regex) {
+    if (regex.pattern.length == 0) return null;
+    uint flags = PCRE2Flags.UTF | PCRE2Flags.MULTILINE | PCRE2Flags.NO_UTF_CHECK | regex.caseless ? PCRE2Flags.CASELESS : 0;
+    return VRegex.newMatch(regex.pattern, -1, flags);
+}
+
 static this() {
     import std.exception : assumeUnique;
 
-    GRegex[URL_REGEX_PATTERNS.length] tempRegex;
-    foreach (i, regex; URL_REGEX_PATTERNS) {
-        tempRegex[i] = compileRegex(regex);
+    if (checkVTEVersionNumber(0, 46)) {
+        VRegex[URL_REGEX_PATTERNS.length] tempRegex;
+        foreach (i, regex; URL_REGEX_PATTERNS) {
+            tempRegex[i] = compileVRegex(regex);
+        }
+        compiledVRegex = assumeUnique(tempRegex);
+    } else {
+        GRegex[URL_REGEX_PATTERNS.length] tempRegex;
+        foreach (i, regex; URL_REGEX_PATTERNS) {
+            tempRegex[i] = compileGRegex(regex);
+        }
+        compiledGRegex = assumeUnique(tempRegex);
     }
-    compiledRegex = assumeUnique(tempRegex);
 }
 
 unittest {
