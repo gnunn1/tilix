@@ -47,7 +47,9 @@ dconf reset -f /com/gexperts/Terminix/
 ```
 Finally to copy the bookmarks and custom themes just do:
 
+```
 mv ~/.config/terminix ~/.config/tilix
+```
 
 ### Dependencies
 
