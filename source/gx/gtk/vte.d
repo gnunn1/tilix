@@ -15,19 +15,47 @@ import vte.Terminal;
 import vte.Version;
 
 /**
+ * PCRE2 constants for VTE Regex
+ */
+enum PCRE2Flags : uint {
+    ALLOW_EMPTY_CLASS   = 0x00000001u,  /* C       */
+    ALT_BSUX            = 0x00000002u,  /* C       */
+    PCRE2_AUTO_CALLOUT  = 0x00000004u,  /* C       */
+    CASELESS            = 0x00000008u,  /* C       */
+    DOLLAR_ENDONLY      = 0x00000010u,  /*   J M D */
+    DOTALL              = 0x00000020u,  /* C       */
+    DUPNAMES            = 0x00000040u,  /* C       */
+    EXTENDED            = 0x00000080u,  /* C       */
+    FIRSTLINE           = 0x00000100u,  /*   J M D */
+    MATCH_UNSET_BACKREF = 0x00000200u,  /* C J M   */
+    MULTILINE           = 0x00000400u,  /* C       */
+    NEVER_UCP           = 0x00000800u,  /* C       */
+    NEVER_UTF           = 0x00001000u,  /* C       */
+    NO_AUTO_CAPTURE     = 0x00002000u,  /* C       */
+    NO_AUTO_POSSESS     = 0x00004000u,  /* C       */
+    NO_DOTSTAR_ANCHOR   = 0x00008000u,  /* C       */
+    NO_START_OPTIMIZE   = 0x00010000u,  /*   J M D */
+    UCP                 = 0x00020000u,  /* C J M D */
+    UNGREEDY            = 0x00040000u,  /* C       */
+    UTF                 = 0x00080000u,  /* C J M D */
+    ANCHORED            = 0x80000000u,
+    NO_UTF_CHECK        = 0x40000000u
+}
+
+/**
  * Determines if the key value and modifier represent a hard coded key sequence
  * that VTE handles internally.
  */
 bool isVTEHandledKeystroke(uint keyval, GdkModifierType modifier) {
-    if ((keyval == GdkKeysyms.GDK_Page_Up || 
+    if ((keyval == GdkKeysyms.GDK_Page_Up ||
         keyval == GdkKeysyms.GDK_Page_Down ||
         keyval == GdkKeysyms.GDK_Home ||
         keyval == GdkKeysyms.GDK_End) && (GdkModifierType.SHIFT_MASK & modifier)) {
             return true;
         }
-    if ((keyval == GdkKeysyms.GDK_Up || 
-        keyval == GdkKeysyms.GDK_Down) && 
-        (GdkModifierType.SHIFT_MASK & modifier) && 
+    if ((keyval == GdkKeysyms.GDK_Up ||
+        keyval == GdkKeysyms.GDK_Down) &&
+        (GdkModifierType.SHIFT_MASK & modifier) &&
         (GdkModifierType.CONTROL_MASK & modifier)) {
             return true;
         }
