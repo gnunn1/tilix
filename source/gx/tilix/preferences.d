@@ -452,7 +452,7 @@ public:
                 }
                 if ((matchUsername.length == 0 || matchUsername == username) &&
                    (matchHostname.length == 0 || matchHostname == hostname) &&
-                   (matchDirectory.length == 0 || matchDirectory == directory)) {
+                   (matchDirectory.length == 0 || directory.startsWith(matchDirectory))) {
                     return uuid;
                 }
             }
