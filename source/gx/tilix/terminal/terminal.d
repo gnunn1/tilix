@@ -499,24 +499,10 @@ private:
                     return;
                 }
             }
-            if (Clipboard.get(null).waitIsTextAvailable()) {
-                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                    advancedPaste(GDK_SELECTION_CLIPBOARD);
-                } else {
-                    paste(GDK_SELECTION_CLIPBOARD);
-                }
-            }
-        });
-
-        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (!vte.hasFocus()) return;
-
-            if (Clipboard.get(null).waitIsTextAvailable()) {
-                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                    advancedPaste(GDK_SELECTION_PRIMARY);
-                } else {
-                    paste(GDK_SELECTION_PRIMARY);
-                }
+            if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                advancedPaste(GDK_SELECTION_CLIPBOARD);
+            } else {
+                paste(GDK_SELECTION_CLIPBOARD);
             }
         });
 
