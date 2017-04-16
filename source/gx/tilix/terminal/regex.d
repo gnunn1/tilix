@@ -221,7 +221,10 @@ GRegex compileGRegex(TerminalRegex regex) {
 
 VRegex compileVRegex(TerminalRegex regex) {
     if (regex.pattern.length == 0) return null;
-    uint flags = PCRE2Flags.UTF | PCRE2Flags.MULTILINE | PCRE2Flags.NO_UTF_CHECK | regex.caseless ? PCRE2Flags.CASELESS : 0;
+    uint flags = PCRE2Flags.MULTILINE | PCRE2Flags.UTF | PCRE2Flags.NO_UTF_CHECK;
+    if (regex.caseless) {
+        flags |= PCRE2Flags.CASELESS;
+    }
     return VRegex.newMatch(regex.pattern, -1, flags);
 }
 
