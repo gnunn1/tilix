@@ -1825,8 +1825,7 @@ private:
                     sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
                 }
             }
-            // Fix issue #885
-            applyPreference(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY);
+            applySecondaryColorPreferences();
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
@@ -1987,6 +1986,16 @@ private:
         default:
             break;
         }
+    }
+
+    /**
+     * Fix for #855 where these secondary colors get reset after changing fg, bg or palette
+     * Also see: https://bugzilla.gnome.org/show_bug.cgi?id=781369
+     */
+    void applySecondaryColorPreferences() {
+        applyPreference(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY);
+        applyPreference(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY);
+        applyPreference(SETTINGS_PROFILE_BOLD_COLOR_KEY);
     }
 
     /**
