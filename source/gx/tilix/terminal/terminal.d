@@ -1792,14 +1792,14 @@ private:
             break;
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_USE_THEME_COLORS_KEY,
         SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                    getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
-                    getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
-                } else {
-                if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
-                    trace("Parsing foreground color failed");
-                if (!vteBG.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
-                    trace("Parsing background color failed");
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
+                getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
+                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
+            } else {
+            if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
+                trace("Parsing foreground color failed");
+            if (!vteBG.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                trace("Parsing background color failed");
             }
             vteBG.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
@@ -1825,6 +1825,8 @@ private:
                     sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
                 }
             }
+            // Fix issue #885
+            applyPreference(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY);
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
