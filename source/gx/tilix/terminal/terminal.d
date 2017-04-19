@@ -499,24 +499,10 @@ private:
                     return;
                 }
             }
-            if (Clipboard.get(null).waitIsTextAvailable()) {
-                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                    advancedPaste(GDK_SELECTION_CLIPBOARD);
-                } else {
-                    paste(GDK_SELECTION_CLIPBOARD);
-                }
-            }
-        });
-
-        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (!vte.hasFocus()) return;
-
-            if (Clipboard.get(null).waitIsTextAvailable()) {
-                if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                    advancedPaste(GDK_SELECTION_PRIMARY);
-                } else {
-                    paste(GDK_SELECTION_PRIMARY);
-                }
+            if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                advancedPaste(GDK_SELECTION_CLIPBOARD);
+            } else {
+                paste(GDK_SELECTION_CLIPBOARD);
             }
         });
 
@@ -1806,14 +1792,14 @@ private:
             break;
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_USE_THEME_COLORS_KEY,
         SETTINGS_PROFILE_BG_TRANSPARENCY_KEY:
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                    getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
-                    getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
-                } else {
-                if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
-                    trace("Parsing foreground color failed");
-                if (!vteBG.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
-                    trace("Parsing background color failed");
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
+                getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
+                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
+            } else {
+            if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
+                trace("Parsing foreground color failed");
+            if (!vteBG.parse(gsProfile.getString(SETTINGS_PROFILE_BG_COLOR_KEY)))
+                trace("Parsing background color failed");
             }
             vteBG.alpha = to!double(100 - gsProfile.getInt(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY)) / 100.0;
             string[] colors = gsProfile.getStrv(SETTINGS_PROFILE_PALETTE_COLOR_KEY);
@@ -1839,6 +1825,7 @@ private:
                     sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
                 }
             }
+            applySecondaryColorPreferences();
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
@@ -1999,6 +1986,16 @@ private:
         default:
             break;
         }
+    }
+
+    /**
+     * Fix for #855 where these secondary colors get reset after changing fg, bg or palette
+     * Also see: https://bugzilla.gnome.org/show_bug.cgi?id=781369
+     */
+    void applySecondaryColorPreferences() {
+        applyPreference(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY);
+        applyPreference(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY);
+        applyPreference(SETTINGS_PROFILE_BOLD_COLOR_KEY);
     }
 
     /**
