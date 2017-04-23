@@ -71,7 +71,7 @@ public:
             eBadge = new Entry();
             eBadge.setHexpand(true);
             eBadge.setWidthChars(20);
-            if (Version.checkVersion(3,14, 0).length == 0) {
+            if (Version.checkVersion(3,16, 0).length == 0) {
                 grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
             } else {
                 grid.attach(eBadge, 1, row, 1, 1);
