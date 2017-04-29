@@ -758,7 +758,7 @@ private:
             TreeIter iter = tvShortcuts.getSelectedIter();
             if (iter is null) return;
             string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
-            ulong length;
+            size_t length;
             string defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
             filter.convertIterToChildIter(iter, iter);
             if (defaultValue == SHORTCUT_DISABLED) {
