@@ -27,6 +27,10 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.7])
 AC_PATH_PROG([PO4A_TRANS], [po4a-translate])
 
+if test -z $PO4A_TRANS; then
+	AC_MSG_ERROR([cannot find po4a-translate])
+fi
+
 DC_SUFFIX=
 case $(basename $DC) in
 	dmd) DC_SUFFIX=-dmd ;;
