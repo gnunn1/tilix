@@ -676,6 +676,7 @@ private:
     string[string] labels;
     string[string] prefixes;
 
+    Button btnDefault;
 
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
@@ -705,8 +706,11 @@ private:
 
         tvShortcuts = new TreeView(filter);
         tvShortcuts.setActivateOnSingleClick(false);
+        tvShortcuts.addOnCursorChanged(delegate(TreeView) {
+            updateUI();
+        });
+        
         bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", GSettingsBindFlags.DEFAULT);
-
 
         TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
         column.setExpand(true);
@@ -730,14 +734,7 @@ private:
             trace("Updating shortcut as " ~ label);
             TreeIter iter = new TreeIter();
             filter.getIter(iter, new TreePath(path));
-            string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
-            if (checkAndPromptChangeShortcut(action, name, label)) {
-                filter.convertIterToChildIter(iter, iter);
-                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
-                tracef("Setting action %s to shortcut %s", action, label);
-                //Note accelerator changed by app which is monitoring gsetting changes
-                gsShortcuts.setString(action, name);
-            }
+            accelChanged(label, name, iter);
         });
         column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
 
@@ -753,9 +750,56 @@ private:
 
         CheckButton cbAccelerators = new CheckButton(_("Enable shortcuts"));
         bh.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
-        add(cbAccelerators);
+
+        btnDefault = new Button("edit-undo-symbolic", IconSize.BUTTON);
+        btnDefault.setTooltipText(_("Set default"));
+        btnDefault.setSensitive(false);
+        btnDefault.addOnClicked(delegate(Button) {
+            TreeIter iter = tvShortcuts.getSelectedIter();
+            if (iter is null) return;
+            string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
+            ulong length;
+            string defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
+            filter.convertIterToChildIter(iter, iter);
+            if (defaultValue == SHORTCUT_DISABLED) {
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+                gsShortcuts.setString(action, defaultValue);
+            } else if (checkAndPromptChangeShortcut(action, defaultValue)) {
+                gsShortcuts.setString(action, defaultValue);
+                uint key;
+                ModifierType mods;
+                AccelGroup.acceleratorParse(defaultValue, key, mods);
+                string label = AccelGroup.acceleratorGetLabel(key, mods);
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+            }
+        });
+
+        Box box = new Box(Orientation.HORIZONTAL, 0);
+        box.packStart(btnDefault, false, false, 0);
+        box.packEnd(cbAccelerators, false, false, 0);
+
+        add(box);
 
         tvShortcuts.expandAll();
+    }
+
+    void updateUI() {
+        TreeIter selected = tvShortcuts.getSelectedIter();
+        btnDefault.setSensitive(selected !is null && selected.getParent() !is null);
+    }
+
+    /**
+     * Called when user changes accelerator, will prompt if accelerator duplicates
+     */
+    void accelChanged(string label, string name, TreeIter iter) {
+        string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
+        if (checkAndPromptChangeShortcut(action, label)) {
+            filter.convertIterToChildIter(iter, iter);
+            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+            tracef("Setting action %s to shortcut %s", action, label);
+            //Note accelerator changed by app which is monitoring gsetting changes
+            gsShortcuts.setString(action, name);
+        }
     }
 
     void toggleShortcutsFind(){
@@ -771,7 +815,7 @@ private:
     /**
      * Check if shortcut is already assigned and if so disable it
      */
-    bool checkAndPromptChangeShortcut(string actionName, string accelName, string accelLabel) {
+    bool checkAndPromptChangeShortcut(string actionName, string accelLabel) {
         // Do not check if accel is already used for nautilus shortcuts
         if (actionName.startsWith("nautilus")) return true;
 
