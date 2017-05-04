@@ -110,11 +110,7 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
                 item.connect('activate', self.menu_activate_cb, file)
                 items.append(item)
 
-            gfile = Gio.File.new_for_uri(file.get_uri())
-            info = gfile.query_info(
-                "standard::*", Gio.FileQueryInfoFlags.NONE, None)
-            # Get UTF-8 version of basename
-            filename = info.get_attribute_as_string("standard::name")
+            filename = file.get_name()
 
             item = Nautilus.MenuItem(name='NautilusPython::openterminal_file_item',
                                      label=_(u'Open In Tilix'),

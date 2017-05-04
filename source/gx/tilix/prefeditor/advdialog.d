@@ -306,7 +306,7 @@ private:
             CheckButton cbTriggerLimit = new CheckButton(_("Limit number of lines for trigger processing to:"));
             gs.bind(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY, cbTriggerLimit, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
 
-            SpinButton sbLines = new SpinButton(256, long.max, 256);
+            SpinButton sbLines = new SpinButton(256.0, double.max, 256.0);
             gs.bind(SETTINGS_TRIGGERS_LINES_KEY, sbLines, "value", GSettingsBindFlags.DEFAULT);
             gs.bind(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY, sbLines, "sensitive",
                     GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);
