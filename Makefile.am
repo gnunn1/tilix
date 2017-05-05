@@ -4,7 +4,7 @@ tilix.o: $(tilix_SOURCES)
 	$(DC) $(DCFLAGS) $(GTKD_CFLAGS) $(GTKD_LIBS) -c $^ -of$@
 # libx11 is a C library, so we need to precede with -L
 tilix$(EXEEXT): tilix.o
-	$(DC) $(GTKD_LIBS) -L$(X11_LIBS) $^ -of$@
+	$(DC) $(GTKD_LIBS) $(addprefix -L,$(X11_LIBS)) $^ -of$@
 
 gschemasdir = $(datadir)/glib-2.0/schemas/
 dist_gschemas_DATA = $(srcdir)/data/gsettings/com.gexperts.Tilix.gschema.xml
