@@ -261,6 +261,10 @@ public:
         return _profileName;
     }
 
+    @property void profileName(string name) {
+        _profileName = name;
+    } 
+
     @property string[] session() {
         return _session;
     }
