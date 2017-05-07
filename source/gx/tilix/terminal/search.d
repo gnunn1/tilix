@@ -109,9 +109,9 @@ private:
                         break;
                     case GdkKeysyms.GDK_Return:
                         if (event.key.state & GdkModifierType.SHIFT_MASK) {
-                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);
-                        } else {
                             terminalActions.activateAction(ACTION_FIND_NEXT, null);
+                        } else {
+                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);
                         }
                         break;
                     default:
