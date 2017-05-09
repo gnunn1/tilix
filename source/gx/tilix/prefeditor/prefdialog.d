@@ -1330,6 +1330,10 @@ private:
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
         add(cbCloseWithLastSession);
 
+        CheckButton cbNewWindowInheritState = new CheckButton(_("New window inherits directory and profile from active terminal"));
+        bh.bind(SETTINGS_INHERIT_WINDOW_STATE_KEY, cbNewWindowInheritState, "active", GSettingsBindFlags.DEFAULT);
+        add(cbNewWindowInheritState);
+
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));

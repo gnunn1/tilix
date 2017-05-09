@@ -244,7 +244,19 @@ private:
     }
 
     void onCreateNewWindow() {
+        if (gsGeneral.getBoolean(SETTINGS_INHERIT_WINDOW_STATE_KEY)) {
+            AppWindow window = getActiveAppWindow();
+            if (window !is null) {
+                ITerminal terminal = window.getActiveTerminal();
+                if (terminal !is null) {
+                    cp.workingDir = terminal.currentLocalDirectory();
+                    ProfileInfo info = prfMgr.getProfile(terminal.activeProfileUUID());
+                    cp.profileName = info.name;
+                }
+            }
+        }
         createAppWindow();
+        cp.clear();
     }
 
     void onShowPreferences() {
