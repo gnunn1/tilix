@@ -802,18 +802,22 @@ private:
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
         //URL Regex Experessions
-        if (checkVTEVersionNumber(0, 46)) {
-            foreach (i, regex; compiledVRegex) {
-                int id = vte.matchAddRegex(cast(VRegex) regex, 0);
-                regexTag[id] = URL_REGEX_PATTERNS[i];
-                vte.matchSetCursorType(id, CursorType.HAND2);
+        try {
+            if (checkVTEVersionNumber(0, 46)) {
+                foreach (i, regex; compiledVRegex) {
+                    int id = vte.matchAddRegex(cast(VRegex) regex, 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
+            } else {
+                foreach (i, regex; compiledGRegex) {
+                    int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
             }
-        } else {
-            foreach (i, regex; compiledGRegex) {
-                int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
-                regexTag[id] = URL_REGEX_PATTERNS[i];
-                vte.matchSetCursorType(id, CursorType.HAND2);
-            }
+        } catch (GException e) {
+            errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
         }
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
