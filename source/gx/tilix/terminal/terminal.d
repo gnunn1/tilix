@@ -801,6 +801,10 @@ private:
         vte.setVexpand(true);
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
+        if (checkVTEVersionNumber(0, 49)) {
+            vte.setAllowHyperlink(true);
+            trace("Custom hyperlinks enabled for VTE 0.49");
+        }
         //URL Regex Experessions
         try {
             if (checkVTEVersionNumber(0, 46)) {
@@ -1559,6 +1563,44 @@ private:
         pmContext.bindModel(mmContext, null);
     }
 
+    public void checkHyperlinkMatch(Event event) {
+        if (!checkVTEVersionNumber(0, 49)) return;
+        match.match = vte.hyperlinkCheckEvent(event);
+        if (match.match.length == 0) return;
+
+
+        match.flavor = TerminalURLFlavor.AS_IS;
+        // Check if it already has a URI, if not resolve to a file URI
+        // This code probably is going to need lot's of debugging and improvements
+        import std.uri: uriLength, emailLength;
+        import std.file: exists;
+        import std.path: buildPath;
+        if (uriLength(match.match) < 0 && emailLength(match.match) < 0) {
+            string filename = match.match;
+            if (gst.hasState(TerminalStateType.REMOTE)) {
+                // Does the filename have a path associated with it, if no add it.
+                if (filename.indexOf("/") < 0) {
+                    filename = buildPath(gst.currentDirectory(), filename);
+                }
+                // is the file remote, if so add hostname
+                if (filename.indexOf(gst.currentHostname()) < 0) {
+                    filename = gst.currentHostname() ~ "/" ~ filename;
+                }
+                filename = "file://" ~ filename;
+            } else {
+                // checks to see if file is qualified in order to determine
+                // whether to add the path.
+                if (!exists(filename) || filename.indexOf("/") < 0) {
+                    string fqn = buildPath(gst.currentDirectory(), filename);
+                    if (exists(fqn))
+                        filename = fqn;
+                }
+                filename = "file:///" ~ filename;
+            }
+            match.match = filename;
+        }
+    }
+
     /**
      * Signal received when mouse button is pressed in terminal
      */
@@ -1568,7 +1610,11 @@ private:
         void updateMatch(Event event) {
             match.clear;
             int tag;
-            match.match = vte.matchCheckEvent(event, tag);
+            checkHyperlinkMatch(event);
+            // Check standard hyperlink if new hyperlink feature returns nothing
+            if (!match.match) {
+                match.match = vte.matchCheckEvent(event, tag);
+            }
             if (match.match) {
                 tracef("Match checked: %s for tag %d", match.match, tag);
                 if (tag in regexTag) {
@@ -1577,7 +1623,7 @@ private:
                     match.tag = tag;
                     trace("Found matching regex");
                 }
-            }
+            } 
         }
 
         if (vte is null) return false;
@@ -1622,7 +1668,7 @@ private:
     }
 
     void openURI(TerminalURLMatch urlMatch) {
-        trace("Match clicked");
+        tracef("Match clicked %s", match.match);
         string uri = urlMatch.match;
         switch (urlMatch.flavor) {
         case TerminalURLFlavor.DEFAULT_TO_HTTP:
@@ -1665,26 +1711,18 @@ private:
                     error(ge.msg);
                 }
             }
-            /*
-            if (urlMatch.tag in regexTag) {
-                TerminalRegex tr = regexTag[urlMatch.tag];
-                auto regexMatch = matchAll(urlMatch.match, regex(tr.pattern, tr.caseless?"i":""));
-                string[] groups = [urlMatch.match];
-                foreach(group; regexMatch.captures) {
-                    groups ~= group;
-                }
-                trace("Command: " ~ tr.command);
-                string command = replaceMatchTokens(tr.command, groups);
-                trace("Command: " ~ command);
-                string[string] env;
-                spawnShell(command, env, Config.none, currentLocalDirectory);
-            }
-            */
             return;
         default:
             break;
         }
-        MountOperation.showUri(null, uri, Main.getCurrentEventTime());
+        try {
+            MountOperation.showUri(null, uri, Main.getCurrentEventTime());
+        } catch (Exception e) {
+            string message = format(_("Could not open match '%s'"), match.match);
+            showErrorDialog(cast(Window)getToplevel(), message, _("Error Opening Match"));
+            error(message);
+            error(e.msg);
+        }
     }
 
     /**
