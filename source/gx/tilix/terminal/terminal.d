@@ -1567,9 +1567,9 @@ private:
         if (!checkVTEVersionNumber(0, 49)) return;
         match.match = vte.hyperlinkCheckEvent(event);
         if (match.match.length == 0) return;
-
-
         match.flavor = TerminalURLFlavor.AS_IS;
+
+        /*
         // Check if it already has a URI, if not resolve to a file URI
         // This code probably is going to need lot's of debugging and improvements
         import std.uri: uriLength, emailLength;
@@ -1599,6 +1599,7 @@ private:
             }
             match.match = filename;
         }
+        */
     }
 
     /**
