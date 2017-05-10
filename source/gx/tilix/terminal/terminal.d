@@ -1339,6 +1339,8 @@ private:
      * not sure if an ideal way to accomplish that without being leading to false detections.
      */
     void onVTECheckTriggers(VTE) {
+        if (vte is null) return;
+
         //Only process triggers for normal screen
         if (currentScreen != TerminalScreen.NORMAL) return;
 
