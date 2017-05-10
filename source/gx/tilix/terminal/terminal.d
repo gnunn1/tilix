@@ -1811,6 +1811,14 @@ private:
         }
     }
 
+    void updateDimColor() {
+        if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
+            vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
+        } else {
+            vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY));
+        }
+    }
+
     /**
      * Updates a setting based on the passed key. Note that using gio.Settings.bind
      * would have been very viable here to handle configuration changes but the VTE widget
@@ -1851,6 +1859,8 @@ private:
                     trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(vteFG, vteBG, vtePalette);
+            // Default Dim color depends on FG so update if necessary
+            updateDimColor();
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // tilix resources
@@ -1897,11 +1907,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
-                vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
-            } else {
-                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, vteDimBG);
-            }
+            updateDimColor();
             dimPercent = to!double(gsProfile.getInt(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY)) / 100.0;
             vte.queueDraw();
             break;
