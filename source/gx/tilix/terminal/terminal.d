@@ -34,6 +34,7 @@ import cairo.Context;
 import gdk.Atom;
 import gdk.DragContext;
 import gdk.Event;
+import gdk.Keysyms;
 import gdk.RGBA;
 import gdk.Screen;
 import gdk.Window: GdkWindow = Window;
@@ -933,10 +934,27 @@ private:
         }, GConnectFlags.AFTER);
 
         vte.addOnButtonPress(&onTerminalButtonPress);
+        vte.addOnKeyRelease(delegate(Event event, Widget widget) {
+            if (vte is null) return false;
+
+            // If copy is assiged to control-c, check if VTE has selection and then
+            // copy otherwise pass it on to VTE as interrupt
+            uint keyval;
+            event.getKeyval(keyval);
+            if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
+                string[] actions = tilix.getActionsForAccel("<Ctrl>c");
+                if (actions.length > 0 && actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) && !vte.getHasSelection()) {
+                    string controlc = "\u0003";
+                    vte.feedChild(controlc, controlc.length);
+                    return true;
+                }
+            }
+            return false;
+        });
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
-            if (isSynchronizedInput() && event.key.sendEvent == 0) {
+            if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
                 // Only synchronize hard code VTE keys otherwise let commit event take care of it
                 if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
                     tracef("Synchronizing key %d", event.key.keyval);
@@ -3231,7 +3249,7 @@ public:
                 break;
             case SyncInputEventType.KEY_PRESS:
                 Event newEvent = sie.event.copy();
-                newEvent.key.sendEvent = 1;
+                newEvent.key.sendEvent = SendEvent.SYNC;
                 newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
                 break;
@@ -3517,6 +3535,17 @@ public:
         showAll();
         btnIgnore.grabFocus();
     }
+}
+
+
+private:
+/**
+ * Constants used in Event.key.sendEvent to flag particular situations
+ */
+enum SendEvent {
+    NONE = 0,
+    SYNC = 1,
+    NATURAL_COPY = 2
 }
 
 
