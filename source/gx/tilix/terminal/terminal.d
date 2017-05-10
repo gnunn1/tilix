@@ -1585,8 +1585,9 @@ private:
 
     public void checkHyperlinkMatch(Event event) {
         if (!checkVTEVersionNumber(0, 49)) return;
-        match.match = vte.hyperlinkCheckEvent(event);
-        if (match.match.length == 0) return;
+        string uri = vte.hyperlinkCheckEvent(event);
+        if (uri.length == 0) return;
+        match.match = uri;
         match.flavor = TerminalURLFlavor.AS_IS;
 
         /*
@@ -1698,6 +1699,18 @@ private:
         case TerminalURLFlavor.EMAIL:
             if (!uri.startsWith("mailto:")) {
                 uri = "mailto:" ~ uri;
+            }
+            break;
+        case TerminalURLFlavor.AS_IS:
+            if (uri.startsWith("file:")) {
+                string filename, hostname;
+                filename = URI.filenameFromUri(uri, hostname);
+                if (filename.length != 0 && hostname.length !=0 && hostname != "localhost" && hostname != gst.localHostname()) {
+                    showErrorDialog(cast(Window)getToplevel(),
+                                    format(_("Remote file URIs are not supported with hyperlinks.\nUri was '%s'"), uri),
+                                    _("Remote File URI Unsupported"));
+                    return;
+                }
             }
             break;
         case TerminalURLFlavor.CUSTOM:
@@ -3686,12 +3699,12 @@ class GlobalTerminalState {
 private:
     TerminalState local;
     TerminalState remote;
-    string localHostname;
+    string _localHostname;
     string _initialCWD;
     bool _initialized = false;
 
     void updateHostname(string hostname) {
-        if (hostname.length > 0 && hostname != localHostname) {
+        if (hostname.length > 0 && hostname != _localHostname) {
             if (remote.hostname != hostname) {
                 remote.hostname = hostname;
                 remote.username.length = 0;
@@ -3734,8 +3747,8 @@ public:
         //Get local hostname to detect difference between remote and local
         char[1024] systemHostname;
         if (gethostname(cast(char*)&systemHostname, 1024) == 0) {
-            localHostname = to!string(cast(char*)&systemHostname);
-            trace("Local Hostname: " ~ localHostname);
+            _localHostname = to!string(cast(char*)&systemHostname);
+            trace("Local Hostname: " ~ _localHostname);
         }
     }
 
@@ -3830,6 +3843,10 @@ public:
 
     @property bool initialized() {
         return _initialized;
+    }
+
+    @property string localHostname() {
+        return _localHostname;
     }
 }
 
