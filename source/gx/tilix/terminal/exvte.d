@@ -7,6 +7,8 @@ module gx.tilix.terminal.exvte;
 import std.algorithm;
 import std.experimental.logger;
 
+import gdk.Event;
+
 import gobject.Signals;
 
 import glib.Str;
@@ -172,6 +174,79 @@ public:
 		}
 	}
 
+	protected class OnHyperlinkHoverUriDelegateWrapper
+	{
+		void delegate(string, Terminal) dlg;
+		gulong handlerId;
+		ConnectFlags flags;
+		this(void delegate(string, Terminal) dlg, gulong handlerId, ConnectFlags flags)
+		{
+			this.dlg = dlg;
+			this.handlerId = handlerId;
+			this.flags = flags;
+		}
+	}
+
+	protected OnHyperlinkHoverUriDelegateWrapper[] onHyperlinkHoverUriListeners;
+
+	/**
+	 * Emitted to track a hyperlink uri change
+	 *
+	 * Params:
+	 *     uri = The URI of the hyperlink
+	 */
+	gulong addOnHyperlinkHoverUri(void delegate(string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	{
+		if (Signals.lookup("hyperlink-hover-uri", getType()) != 0) {
+			onHyperlinkHoverUriListeners ~= new OnHyperlinkHoverUriDelegateWrapper(dlg, 0, connectFlags);
+			onHyperlinkHoverUriListeners[onHyperlinkHoverUriListeners.length - 1].handlerId = Signals.connectData(
+				this,
+				"hyperlink-hover-uri",
+				cast(GCallback)&callBackHyperlinkHoverUri,
+				cast(void*)onHyperlinkHoverUriListeners[onHyperlinkHoverUriListeners.length - 1],
+				cast(GClosureNotify)&callBackHyperlinkHoverUriDestroy,
+				connectFlags);
+			return onHyperlinkHoverUriListeners[onHyperlinkHoverUriListeners.length - 1].handlerId;
+		} else {
+			return 0;
+		}
+	}
+
+	extern(C) static void callBackHyperlinkHoverUri(VteTerminal* terminalStruct, char* uri, OnHyperlinkHoverUriDelegateWrapper wrapper)
+	{
+		wrapper.dlg(Str.toString(uri), wrapper.outer);
+	}
+
+	extern(C) static void callBackHyperlinkHoverUriDestroy(OnHyperlinkHoverUriDelegateWrapper wrapper, GClosure* closure)
+	{
+		wrapper.outer.internalRemoveOnHyperlinkHoverUri(wrapper);
+	}
+
+	protected void internalRemoveOnHyperlinkHoverUri(OnHyperlinkHoverUriDelegateWrapper source)
+	{
+		foreach(index, wrapper; onHyperlinkHoverUriListeners)
+		{
+			if (wrapper.dlg == source.dlg && wrapper.flags == source.flags && wrapper.handlerId == source.handlerId)
+			{
+				onHyperlinkHoverUriListeners[index] = null;
+				onHyperlinkHoverUriListeners = std.algorithm.remove(onHyperlinkHoverUriListeners, index);
+				break;
+			}
+		}
+	}
+
+	public bool getAllowHyperlink() {
+		return vte_terminal_get_allow_hyperlink(vteTerminal) != 0;
+	}
+
+	public void setAllowHyperlink(bool enabled) {
+		vte_terminal_set_allow_hyperlink(vteTerminal, enabled);
+	}
+
+	public string hyperlinkCheckEvent(Event event) {
+		return Str.toString(vte_terminal_hyperlink_check_event(vteTerminal, (event is null) ? null : event.getEventStruct()));
+	}
+
     public bool getDisableBGDraw() {
 		return vte_terminal_get_disable_bg_draw(vteTerminal) != 0;
     }
@@ -189,12 +264,25 @@ import gtkc.paths;
 __gshared extern(C) {
 	int function(VteTerminal* terminal) c_vte_terminal_get_disable_bg_draw;
 	void function(VteTerminal* terminal, int isAudible) c_vte_terminal_set_disable_bg_draw;
+
+	// Custom hyperlink
+	int function(VteTerminal *terminal) c_vte_terminal_get_allow_hyperlink;
+	void function(VteTerminal *terminal, int allow_hyperlink) c_vte_terminal_set_allow_hyperlink;
+	char* function (VteTerminal *terminal, GdkEvent *event) c_vte_terminal_hyperlink_check_event;
 }
 
 alias c_vte_terminal_get_disable_bg_draw vte_terminal_get_disable_bg_draw;
 alias c_vte_terminal_set_disable_bg_draw vte_terminal_set_disable_bg_draw;
 
+alias c_vte_terminal_get_allow_hyperlink vte_terminal_get_allow_hyperlink;
+alias c_vte_terminal_set_allow_hyperlink vte_terminal_set_allow_hyperlink;
+alias c_vte_terminal_hyperlink_check_event vte_terminal_hyperlink_check_event;
+
 shared static this() {
 	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY.VTE);
 	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY.VTE);
+
+	Linker.link(vte_terminal_set_allow_hyperlink, "vte_terminal_get_allow_hyperlink", LIBRARY.VTE);
+	Linker.link(vte_terminal_set_allow_hyperlink, "vte_terminal_set_allow_hyperlink", LIBRARY.VTE);
+	Linker.link(vte_terminal_hyperlink_check_event, "vte_terminal_hyperlink_check_event", LIBRARY.VTE);
 }

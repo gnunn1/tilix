@@ -34,6 +34,7 @@ import cairo.Context;
 import gdk.Atom;
 import gdk.DragContext;
 import gdk.Event;
+import gdk.Keysyms;
 import gdk.RGBA;
 import gdk.Screen;
 import gdk.Window: GdkWindow = Window;
@@ -801,19 +802,27 @@ private:
         vte.setVexpand(true);
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
+        if (checkVTEVersionNumber(0, 49)) {
+            vte.setAllowHyperlink(true);
+            trace("Custom hyperlinks enabled for VTE 0.49");
+        }
         //URL Regex Experessions
-        if (checkVTEVersionNumber(0, 46)) {
-            foreach (i, regex; compiledVRegex) {
-                int id = vte.matchAddRegex(cast(VRegex) regex, 0);
-                regexTag[id] = URL_REGEX_PATTERNS[i];
-                vte.matchSetCursorType(id, CursorType.HAND2);
+        try {
+            if (checkVTEVersionNumber(0, 46)) {
+                foreach (i, regex; compiledVRegex) {
+                    int id = vte.matchAddRegex(cast(VRegex) regex, 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
+            } else {
+                foreach (i, regex; compiledGRegex) {
+                    int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
             }
-        } else {
-            foreach (i, regex; compiledGRegex) {
-                int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
-                regexTag[id] = URL_REGEX_PATTERNS[i];
-                vte.matchSetCursorType(id, CursorType.HAND2);
-            }
+        } catch (GException e) {
+            errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
         }
         //Event handlers
         vte.addOnChildExited(&onTerminalChildExited);
@@ -925,10 +934,27 @@ private:
         }, GConnectFlags.AFTER);
 
         vte.addOnButtonPress(&onTerminalButtonPress);
+        vte.addOnKeyRelease(delegate(Event event, Widget widget) {
+            if (vte is null) return false;
+
+            // If copy is assiged to control-c, check if VTE has selection and then
+            // copy otherwise pass it on to VTE as interrupt
+            uint keyval;
+            event.getKeyval(keyval);
+            if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
+                string[] actions = tilix.getActionsForAccel("<Ctrl>c");
+                if (actions.length > 0 && actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) && !vte.getHasSelection()) {
+                    string controlc = "\u0003";
+                    vte.feedChild(controlc, controlc.length);
+                    return true;
+                }
+            }
+            return false;
+        });
         vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
-            if (isSynchronizedInput() && event.key.sendEvent == 0) {
+            if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
                 // Only synchronize hard code VTE keys otherwise let commit event take care of it
                 if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
                     tracef("Synchronizing key %d", event.key.keyval);
@@ -1313,6 +1339,8 @@ private:
      * not sure if an ideal way to accomplish that without being leading to false detections.
      */
     void onVTECheckTriggers(VTE) {
+        if (vte is null) return;
+
         //Only process triggers for normal screen
         if (currentScreen != TerminalScreen.NORMAL) return;
 
@@ -1555,6 +1583,46 @@ private:
         pmContext.bindModel(mmContext, null);
     }
 
+    public void checkHyperlinkMatch(Event event) {
+        if (!checkVTEVersionNumber(0, 49)) return;
+        string uri = vte.hyperlinkCheckEvent(event);
+        if (uri.length == 0) return;
+        match.match = uri;
+        match.flavor = TerminalURLFlavor.AS_IS;
+
+        /*
+        // Check if it already has a URI, if not resolve to a file URI
+        // This code probably is going to need lot's of debugging and improvements
+        import std.uri: uriLength, emailLength;
+        import std.file: exists;
+        import std.path: buildPath;
+        if (uriLength(match.match) < 0 && emailLength(match.match) < 0) {
+            string filename = match.match;
+            if (gst.hasState(TerminalStateType.REMOTE)) {
+                // Does the filename have a path associated with it, if no add it.
+                if (filename.indexOf("/") < 0) {
+                    filename = buildPath(gst.currentDirectory(), filename);
+                }
+                // is the file remote, if so add hostname
+                if (filename.indexOf(gst.currentHostname()) < 0) {
+                    filename = gst.currentHostname() ~ "/" ~ filename;
+                }
+                filename = "file://" ~ filename;
+            } else {
+                // checks to see if file is qualified in order to determine
+                // whether to add the path.
+                if (!exists(filename) || filename.indexOf("/") < 0) {
+                    string fqn = buildPath(gst.currentDirectory(), filename);
+                    if (exists(fqn))
+                        filename = fqn;
+                }
+                filename = "file:///" ~ filename;
+            }
+            match.match = filename;
+        }
+        */
+    }
+
     /**
      * Signal received when mouse button is pressed in terminal
      */
@@ -1564,7 +1632,11 @@ private:
         void updateMatch(Event event) {
             match.clear;
             int tag;
-            match.match = vte.matchCheckEvent(event, tag);
+            checkHyperlinkMatch(event);
+            // Check standard hyperlink if new hyperlink feature returns nothing
+            if (!match.match) {
+                match.match = vte.matchCheckEvent(event, tag);
+            }
             if (match.match) {
                 tracef("Match checked: %s for tag %d", match.match, tag);
                 if (tag in regexTag) {
@@ -1573,7 +1645,7 @@ private:
                     match.tag = tag;
                     trace("Found matching regex");
                 }
-            }
+            } 
         }
 
         if (vte is null) return false;
@@ -1618,7 +1690,7 @@ private:
     }
 
     void openURI(TerminalURLMatch urlMatch) {
-        trace("Match clicked");
+        tracef("Match clicked %s", match.match);
         string uri = urlMatch.match;
         switch (urlMatch.flavor) {
         case TerminalURLFlavor.DEFAULT_TO_HTTP:
@@ -1627,6 +1699,18 @@ private:
         case TerminalURLFlavor.EMAIL:
             if (!uri.startsWith("mailto:")) {
                 uri = "mailto:" ~ uri;
+            }
+            break;
+        case TerminalURLFlavor.AS_IS:
+            if (uri.startsWith("file:")) {
+                string filename, hostname;
+                filename = URI.filenameFromUri(uri, hostname);
+                if (filename.length != 0 && hostname.length !=0 && hostname != "localhost" && hostname != gst.localHostname()) {
+                    showErrorDialog(cast(Window)getToplevel(),
+                                    format(_("Remote file URIs are not supported with hyperlinks.\nUri was '%s'"), uri),
+                                    _("Remote File URI Unsupported"));
+                    return;
+                }
             }
             break;
         case TerminalURLFlavor.CUSTOM:
@@ -1661,26 +1745,18 @@ private:
                     error(ge.msg);
                 }
             }
-            /*
-            if (urlMatch.tag in regexTag) {
-                TerminalRegex tr = regexTag[urlMatch.tag];
-                auto regexMatch = matchAll(urlMatch.match, regex(tr.pattern, tr.caseless?"i":""));
-                string[] groups = [urlMatch.match];
-                foreach(group; regexMatch.captures) {
-                    groups ~= group;
-                }
-                trace("Command: " ~ tr.command);
-                string command = replaceMatchTokens(tr.command, groups);
-                trace("Command: " ~ command);
-                string[string] env;
-                spawnShell(command, env, Config.none, currentLocalDirectory);
-            }
-            */
             return;
         default:
             break;
         }
-        MountOperation.showUri(null, uri, Main.getCurrentEventTime());
+        try {
+            MountOperation.showUri(null, uri, Main.getCurrentEventTime());
+        } catch (Exception e) {
+            string message = format(_("Could not open match '%s'"), match.match);
+            showErrorDialog(cast(Window)getToplevel(), message, _("Error Opening Match"));
+            error(message);
+            error(e.msg);
+        }
     }
 
     /**
@@ -1768,6 +1844,14 @@ private:
         }
     }
 
+    void updateDimColor() {
+        if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
+            vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
+        } else {
+            vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY));
+        }
+    }
+
     /**
      * Updates a setting based on the passed key. Note that using gio.Settings.bind
      * would have been very viable here to handle configuration changes but the VTE widget
@@ -1808,6 +1892,8 @@ private:
                     trace("Parsing color failed " ~ colors[i]);
             }
             vte.setColors(vteFG, vteBG, vtePalette);
+            // Default Dim color depends on FG so update if necessary
+            updateDimColor();
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // tilix resources
@@ -1854,11 +1940,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_USE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_COLOR_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
-                vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
-            } else {
-                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.INSENSITIVE, vteDimBG);
-            }
+            updateDimColor();
             dimPercent = to!double(gsProfile.getInt(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY)) / 100.0;
             vte.queueDraw();
             break;
@@ -3182,7 +3264,7 @@ public:
                 break;
             case SyncInputEventType.KEY_PRESS:
                 Event newEvent = sie.event.copy();
-                newEvent.key.sendEvent = 1;
+                newEvent.key.sendEvent = SendEvent.SYNC;
                 newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
                 break;
@@ -3471,6 +3553,17 @@ public:
 }
 
 
+private:
+/**
+ * Constants used in Event.key.sendEvent to flag particular situations
+ */
+enum SendEvent {
+    NONE = 0,
+    SYNC = 1,
+    NATURAL_COPY = 2
+}
+
+
 /************************************************************************
  * Block for supporting triggers
  ***********************************************************************/
@@ -3606,12 +3699,12 @@ class GlobalTerminalState {
 private:
     TerminalState local;
     TerminalState remote;
-    string localHostname;
+    string _localHostname;
     string _initialCWD;
     bool _initialized = false;
 
     void updateHostname(string hostname) {
-        if (hostname.length > 0 && hostname != localHostname) {
+        if (hostname.length > 0 && hostname != _localHostname) {
             if (remote.hostname != hostname) {
                 remote.hostname = hostname;
                 remote.username.length = 0;
@@ -3654,8 +3747,8 @@ public:
         //Get local hostname to detect difference between remote and local
         char[1024] systemHostname;
         if (gethostname(cast(char*)&systemHostname, 1024) == 0) {
-            localHostname = to!string(cast(char*)&systemHostname);
-            trace("Local Hostname: " ~ localHostname);
+            _localHostname = to!string(cast(char*)&systemHostname);
+            trace("Local Hostname: " ~ _localHostname);
         }
     }
 
@@ -3750,6 +3843,10 @@ public:
 
     @property bool initialized() {
         return _initialized;
+    }
+
+    @property string localHostname() {
+        return _localHostname;
     }
 }
 

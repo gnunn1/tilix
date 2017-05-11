@@ -171,6 +171,7 @@ struct TerminalURLMatch {
     TerminalURLFlavor flavor;
     string match;
     int tag;
+    bool uri;
 
     void clear() {
         flavor = TerminalURLFlavor.AS_IS;

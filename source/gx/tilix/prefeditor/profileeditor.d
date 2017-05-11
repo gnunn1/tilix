@@ -1220,7 +1220,10 @@ private:
     // Validate input, just checks something was entered at this point
     // and least one delimiter, either @ or :
     bool validateInput(string match) {
-        return (match.length > 1 && (match.indexOf('@') >= 0 || match.indexOf(':') >= 0));
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED))        
+            return (match.length > 1 && (match.indexOf('@') >= 0 || match.indexOf(':') >= 0));
+        else
+            return (match.length > 1 && (match.indexOf('@') == 0 || match.indexOf(':') >= 0));
     }
 
     // Store the values in the ListStore into settings
