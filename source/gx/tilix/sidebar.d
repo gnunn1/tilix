@@ -89,14 +89,6 @@ private:
         }
         trace("Close on button press");
         notifySessionSelected(null);
-
-        /*
-        if (event.getWindow() !is null && lbSessions.getWindow() !is null) {
-            if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
-                notifySessionSelected(null);
-            }
-        }
-        */
         return false;
     }
 
@@ -123,23 +115,83 @@ private:
         }
     }
 
-    void reorderSessions(string sourceUUID, string targetUUID) {
+    void reorderSessions(string sourceUUID, string targetUUID, bool after = false) {
         if (sourceUUID == targetUUID) return;
-        trace("Re-order sessions source=%s, target=%s", sourceUUID, targetUUID);
-        CumulativeResult!bool result = new CumulativeResult!bool();
-        onReorder.emit(sourceUUID, targetUUID, result);
-        if (result.isAnyResult(false)) return;
-
         SideBarRow source = getRow(sourceUUID);
         SideBarRow target = getRow(targetUUID);
         if (source is null || target is null) {
             errorf("Unexpected error for DND, source or target row is null %s, %s", sourceUUID, targetUUID);
             return;
         }
-        int index = target.getIndex();
+        reorderSessions(source, target);
+    }
+
+    void reorderSessions(SideBarRow source, SideBarRow target, bool after = false) {
+        if (source is null || target is null) {
+            error("Unexpected error for DND, source or target row is null");
+            return;
+        }
+
+        CumulativeResult!bool result = new CumulativeResult!bool();
+        onReorder.emit(source.sessionUUID, target.sessionUUID, after, result);
+        if (result.isAnyResult(false)) return;
+
+        lbSessions.unselectRow(source);
         lbSessions.remove(source);
-        lbSessions.insert(source, index);
+        int index = target.getIndex();
+        if (!after) {
+            lbSessions.insert(source, index);
+        } else {
+            if (index == lbSessions.getChildren().length() -1) {
+                lbSessions.add(source);
+            } else {
+                lbSessions.insert(source, index + 1);
+            }
+        }
         reindexSessions();
+        lbSessions.selectRow(source);
+    }
+
+    bool onKeyPress(Event event, Widget w) {
+        uint keyval;
+        if (event.getKeyval(keyval)) {
+            switch (keyval) {
+            case GdkKeysyms.GDK_Page_Up:
+                if (event.key.state & ModifierType.CONTROL_MASK) {
+                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                    if (source is null) {
+                        trace("No selected row");
+                        return true;
+                    }
+                    int index = source.getIndex();
+                    if (index > 0) {
+                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index - 1);
+                        reorderSessions(source, target);
+                    }
+                    return true;
+                }
+                break;
+            case GdkKeysyms.GDK_Page_Down:
+                if (event.key.state & ModifierType.CONTROL_MASK) {
+                    trace("Moving row down");
+                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                    if (source is null) {
+                        trace("No selected row");
+                        return true;
+                    }
+                    int index = source.getIndex();
+                    if (index < lbSessions.getChildren().length - 1) {
+                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index + 1);
+                        reorderSessions(source, target, true);
+                    }
+                    return true;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        return false;        
     }
 
     bool onKeyRelease(Event event, Widget w) {
@@ -231,6 +283,7 @@ public:
 
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
+        addOnKeyPress(&onKeyPress);
 
         setHexpand(false);
         setVexpand(true);
@@ -346,7 +399,7 @@ public:
      *   sourceUUID = The session that needs to be moved
      *   targetUUID = The target session to move in front of
      */
-    GenericEvent!(string, string, CumulativeResult!bool) onReorder;
+    GenericEvent!(string, string, bool, CumulativeResult!bool) onReorder;
 }
 
 private:
@@ -481,9 +534,9 @@ private:
     }
 
     void onRowDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
-        string targetUUID = to!string(data.getDataWithLength()[0 .. $ - 1]);
-        tracef("Session UUID %s dropped", targetUUID);
-        sidebar.reorderSessions(sessionUUID, targetUUID);
+        string sourceUUID = to!string(data.getDataWithLength()[0 .. $ - 1]);
+        tracef("Session UUID %s dropped", sourceUUID);
+        sidebar.reorderSessions(sourceUUID, sessionUUID);
     }
 
 public:

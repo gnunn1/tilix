@@ -828,7 +828,7 @@ private:
         }
     }
 
-    void onSessionReorder(string sourceUUID, string targetUUID, CumulativeResult!bool result) {
+    void onSessionReorder(string sourceUUID, string targetUUID, bool after, CumulativeResult!bool result) {
         Session sourceSession = getSession(sourceUUID);
         Session targetSession = getSession(targetUUID);
         if (sourceSession is null || targetSession is null) {
@@ -836,8 +836,16 @@ private:
             result.addResult(false);
             return;
         }
-        nb.reorderChild(sourceSession, nb.pageNum(targetSession));
+        int index;
+        if (!after) {
+            index = nb.pageNum(targetSession);
+        } else {
+            index = nb.pageNum(targetSession);
+            if (index == nb.getNPages() - 1) index = -1;
+        }
+        nb.reorderChild(sourceSession, index);
         result.addResult(true);
+        updateUIState();
     }
 
     /**
