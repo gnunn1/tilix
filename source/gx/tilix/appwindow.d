@@ -868,6 +868,9 @@ private:
         }
     }
 
+    /**
+     * Invoked by DND a session on a terminal
+     */
     void onSessionAttach(string sessionUUID) {
 
         AppWindow getWindow(Session session) {
@@ -888,13 +891,13 @@ private:
 
         session = cast(Session) tilix.findWidgetForUUID(sessionUUID);
         if (session is null) {
-            error("The session %s could not be located");
+            errorf("The session %s could not be located", sessionUUID);
             return;
         }
 
         AppWindow sourceWindow = getWindow(session);
         if (sourceWindow is null) {
-            error("The AppWindow for session %s could not be located");
+            errorf("The AppWindow for session %s could not be located", sessionUUID);
             return;
         }
 
