@@ -275,6 +275,7 @@ private:
         sb = new SideBar();
         sb.onSelected.connect(&onSessionSelected);
         sb.onClose.connect(&onUserSessionClose);
+        sb.onReorder.connect(&onSessionReorder);
 
         ss = new SessionSwitcher();
         ss.onFileSelected.connect(&onFileSelected);
@@ -827,6 +828,29 @@ private:
         }
     }
 
+    void onSessionReorder(string sourceUUID, string targetUUID, bool after, CumulativeResult!bool result) {
+        Session sourceSession = getSession(sourceUUID);
+        Session targetSession = getSession(targetUUID);
+        if (sourceSession is null || targetSession is null) {
+            errorf("Unexpected error for DND, source or target page is null %s, %s", sourceUUID, targetUUID);
+            result.addResult(false);
+            return;
+        }
+        int index;
+        if (!after) {
+            index = nb.pageNum(targetSession);
+        } else {
+            index = nb.pageNum(targetSession);
+            if (index == nb.getNPages() - 1) index = -1;
+        }
+        nb.reorderChild(sourceSession, index);
+        result.addResult(true);
+        updateUIState();
+    }
+
+    /**
+     * Invoked by sidebar when user selects a session.
+     */
     void onSessionSelected(string sessionUUID) {
         trace("Session selected " ~ sessionUUID);
         saViewSideBar.activate(null);

@@ -8,8 +8,11 @@ import std.conv;
 import std.format;
 import std.experimental.logger;
 
+import gdk.Atom;
+import gdk.DragContext;
 import gdk.Event;
 import gdk.Keysyms;
+import gdk.Window: GdkWindow = Window;
 
 import gio.Settings : GSettings = Settings;
 
@@ -17,6 +20,7 @@ import gtk.Adjustment;
 import gtk.AspectFrame;
 import gtk.Box;
 import gtk.Button;
+import gtk.DragAndDrop;
 import gtk.EventBox;
 import gtk.Frame;
 import gtk.Grid;
@@ -28,7 +32,10 @@ import gtk.Main;
 import gtk.Overlay;
 import gtk.Revealer;
 import gtk.ScrolledWindow;
+import gtk.SelectionData;
+import gtk.TargetEntry;
 import gtk.Widget;
+import gtk.Window;
 
 import gx.gtk.cairo;
 import gx.gtk.util;
@@ -67,12 +74,21 @@ private:
 
     bool onButtonPress(Event event, Widget w) {
         trace("** Sidebar button press");
-        //If button press happened outside of sidebar close it
+        // If button press happened outside of sidebar close it
+        // Modified since DND uses eventbox so additional windows in play
         if (event.getWindow() !is null && lbSessions.getWindow() !is null) {
-            if (event.getWindow().getWindowStruct() != getWindow().getWindowStruct() && event.getWindow().getWindowStruct() != lbSessions.getWindow().getWindowStruct()) {
-                notifySessionSelected(null);
+            if (event.getWindow().getWindowStruct() == getWindow().getWindowStruct() || event.getWindow().getWindowStruct() == lbSessions.getWindow().getWindowStruct()) {
+                return false;
+            }
+            GdkWindow[] windows = lbSessions.getWindow().getChildren().toArray!GdkWindow();
+            foreach(window; windows) {
+                if (event.getWindow().getWindowStruct() == window.getWindowStruct()) {
+                    return false;
+                }
             }
         }
+        trace("Close on button press");
+        notifySessionSelected(null);
         return false;
     }
 
@@ -97,6 +113,85 @@ private:
         foreach(i, row; rows) {
             row.sessionIndex = i + 1;
         }
+    }
+
+    void reorderSessions(string sourceUUID, string targetUUID, bool after = false) {
+        if (sourceUUID == targetUUID) return;
+        SideBarRow source = getRow(sourceUUID);
+        SideBarRow target = getRow(targetUUID);
+        if (source is null || target is null) {
+            errorf("Unexpected error for DND, source or target row is null %s, %s", sourceUUID, targetUUID);
+            return;
+        }
+        reorderSessions(source, target);
+    }
+
+    void reorderSessions(SideBarRow source, SideBarRow target, bool after = false) {
+        if (source is null || target is null) {
+            error("Unexpected error for DND, source or target row is null");
+            return;
+        }
+
+        CumulativeResult!bool result = new CumulativeResult!bool();
+        onReorder.emit(source.sessionUUID, target.sessionUUID, after, result);
+        if (result.isAnyResult(false)) return;
+
+        lbSessions.unselectRow(source);
+        lbSessions.remove(source);
+        int index = target.getIndex();
+        if (!after) {
+            lbSessions.insert(source, index);
+        } else {
+            if (index == lbSessions.getChildren().length() -1) {
+                lbSessions.add(source);
+            } else {
+                lbSessions.insert(source, index + 1);
+            }
+        }
+        reindexSessions();
+        lbSessions.selectRow(source);
+    }
+
+    bool onKeyPress(Event event, Widget w) {
+        uint keyval;
+        if (event.getKeyval(keyval)) {
+            switch (keyval) {
+            case GdkKeysyms.GDK_Page_Up:
+                if (event.key.state & ModifierType.CONTROL_MASK) {
+                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                    if (source is null) {
+                        trace("No selected row");
+                        return true;
+                    }
+                    int index = source.getIndex();
+                    if (index > 0) {
+                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index - 1);
+                        reorderSessions(source, target);
+                    }
+                    return true;
+                }
+                break;
+            case GdkKeysyms.GDK_Page_Down:
+                if (event.key.state & ModifierType.CONTROL_MASK) {
+                    trace("Moving row down");
+                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                    if (source is null) {
+                        trace("No selected row");
+                        return true;
+                    }
+                    int index = source.getIndex();
+                    if (index < lbSessions.getChildren().length - 1) {
+                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index + 1);
+                        reorderSessions(source, target, true);
+                    }
+                    return true;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        return false;        
     }
 
     bool onKeyRelease(Event event, Widget w) {
@@ -188,6 +283,7 @@ public:
 
         addOnButtonPress(&onButtonPress);
         addOnKeyRelease(&onKeyRelease);
+        addOnKeyPress(&onKeyPress);
 
         setHexpand(false);
         setVexpand(true);
@@ -294,15 +390,28 @@ public:
     *   result = Whether the session was closed or not
     */
     GenericEvent!(string, CumulativeResult!bool) onClose;
+
+    /**
+     * Event that requests that two sessions be re-ordered, returns
+     * true if the re-order was successful, false if not.
+     * 
+     * Params:
+     *   sourceUUID = The session that needs to be moved
+     *   targetUUID = The target session to move in front of
+     */
+    GenericEvent!(string, string, bool, CumulativeResult!bool) onReorder;
 }
 
 private:
+
+enum SIDEBAR_DND = "sidebar";
 
 class SideBarRow : ListBoxRow {
 private:
     string _sessionUUID;
     Label lblIndex;
     SideBar sidebar;
+    Window dragImage;
 
     AspectFrame wrapWidget(Widget widget, string cssClass) {
         AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
@@ -382,11 +491,52 @@ private:
         grid.attach(btnClose, 2, 0, 1, 1);
 
         overlay.addOverlay(grid);
-        add(overlay);
+
+        //Setup drag and drop
+        EventBox eb = new EventBox();
+        eb.add(overlay);
+        // Drag and Drop
+        TargetEntry[] targets = [new TargetEntry(SIDEBAR_DND, TargetFlags.SAME_APP, 0)];
+        eb.dragSourceSet(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
+        eb.dragDestSet(DestDefaults.ALL, targets, DragAction.MOVE);
+        eb.addOnDragDataGet(&onRowDragDataGet);
+        eb.addOnDragDataReceived(&onRowDragDataReceived);
+        eb.addOnDragBegin(&onRowDragBegin);
+        eb.addOnDragEnd(&onRowDragEnd);
+
+        add(eb);
 
         btnClose.addOnClicked(delegate(Button) {
             sidebar.removeSession(_sessionUUID);
         });
+    }
+
+    void onRowDragBegin(DragContext dc, Widget widget) {
+        Image image = new Image(getWidgetImage(this, 1.00));
+        image.show();
+        dragImage = new Window(GtkWindowType.POPUP);
+        dragImage.add(image);
+        DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+    }
+
+    void onRowDragEnd(DragContext dc, Widget widget) {
+        dragImage.destroy();
+        dragImage = null;
+
+        // Under Wayland needed to fix cursor sticking due to
+        // GtkD holding reference to GTK DragReference
+        dc.destroy();
+    }
+
+    void onRowDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
+        char[] buffer = (sessionUUID ~ '\0').dup;
+        data.set(intern(SIDEBAR_DND, false), 8, buffer);
+    }
+
+    void onRowDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
+        string sourceUUID = to!string(data.getDataWithLength()[0 .. $ - 1]);
+        tracef("Session UUID %s dropped", sourceUUID);
+        sidebar.reorderSessions(sourceUUID, sessionUUID);
     }
 
 public:

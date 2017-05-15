@@ -1,0 +1,26 @@
+/**
+ * CSS that is loaded with lower priority to lower themes to override.
+ */
+.terminal-titlebar {
+    border-bottom: 1px solid @borders;
+}
+
+.terminal-titlebar > button {
+    border-radius: 0;
+    border-top: none;
+    border-bottom: none;
+}
+
+.terminal-titlebar > button:first-child {
+    border-left: none;
+}
+
+.terminal-titlebar > button:last-child {
+    border-right: none;
+}
+
+.terminal-titlebar > image,
+.tilix-bell {
+    padding-left: 8px;
+    padding-right: 8px;
+}

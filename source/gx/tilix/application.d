@@ -141,13 +141,22 @@ private:
                     tracef("Loaded %s css file", cssURI);
                 }
             }
-        }
-        //Check if tilix has a theme specific CSS file to load
-        string theme = getGtkTheme();
-        string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/tilix." ~ theme ~ ".css";
-        themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION);
-        if (!themeCssProvider) {
-            tracef("No specific CSS found %s", cssURI);
+            foreach (cssFile; THEME_CSS_RESOURCES) {
+                string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
+                if (!addCssProvider(cssURI, ProviderPriority.THEME)) {
+                    errorf("Could not load CSS %s", cssURI);
+                } else {
+                    tracef("Loaded %s css file", cssURI);
+                }
+            }
+
+            //Check if tilix has a theme specific CSS file to load
+            string theme = getGtkTheme();
+            string cssURI = APPLICATION_RESOURCE_ROOT ~ "/css/tilix." ~ theme ~ ".css";
+            themeCssProvider = addCssProvider(cssURI, ProviderPriority.APPLICATION);
+            if (!themeCssProvider) {
+                tracef("No specific CSS found %s", cssURI);
+            }
         }
     }
 

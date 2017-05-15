@@ -1780,6 +1780,7 @@ private:
     void terminalWidgetFocusIn(Widget widget) {
         trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
+        bTitle.setStateFlags(StateFlags.ACTIVE, false);
         //Fire focus events so session can track which terminal last had focus
         onFocusIn.emit(this);
         if (dimPercent > 0) {
@@ -1798,6 +1799,9 @@ private:
     void terminalWidgetFocusOut(Widget widget) {
         trace("Terminal lost focus" ~ uuid);
         lblTitle.setSensitive(isTerminalWidgetFocused());
+        if (!isTerminalWidgetFocused()) {
+            bTitle.unsetStateFlags(StateFlags.ACTIVE);
+        }
         if (dimPercent > 0) {
             vte.queueDraw();
         }
