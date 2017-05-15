@@ -1317,6 +1317,10 @@ private:
         onClose.emit(this);
     }
 
+    void notifySessionRequestAttach(string sessionUUID) {
+        onSessionAttach.emit(this, sessionUUID);
+    }
+
 // Block for processing triggers
 private:
 
@@ -2557,7 +2561,8 @@ private:
         TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
         TargetEntry colorEntry = new TargetEntry("application/x-color", TargetFlags.OTHER_APP, DropTargets.COLOR);
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
-        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry];
+        TargetEntry sessionEntry = new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, DropTargets.SESSION);
+        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
 
         // This is required to be able to drop on root window in Wayland, see gtknotebook.c
@@ -2650,7 +2655,7 @@ private:
         isRootWindow = false;
         if (dr == GtkDragResult.NO_TARGET) {
             //Only allow detach if whole heirarchy agrees (application, window, session)
-            if (notifyIsActionAllowed(ActionType.DETACH)) {
+            if (notifyIsActionAllowed(ActionType.DETACH_TERMINAL)) {
                 if (detachTerminalOnDrop(dc)) return true;
             }
         }
@@ -2818,6 +2823,10 @@ private:
             tracef("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq);
             notifyTerminalRequestMove(uuid, this, dq);
             dragInfo = DragInfo(false, dq);
+            break;
+        case DropTargets.SESSION:
+            string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
+            notifySessionRequestAttach(uuid);
             break;
         }
     }
@@ -3482,9 +3491,13 @@ public:
     /**
     * Triggered when the terminal needs to change state. Delegate returns whether
     * state change was successful.
-
     */
     GenericEvent!(Terminal, TerminalWindowState, CumulativeResult!bool) onRequestStateChange;
+
+    /**
+     * Invoked when a session is dropped on the terminal and needs to be attached.
+     */
+    GenericEvent!(Terminal, string) onSessionAttach;
 }
 
 /**
@@ -3662,9 +3675,13 @@ enum DropTargets {
     TEXT,
     COLOR,
     /**
-        * Used when one VTE is dropped on another
-        */
-    VTE
+     * Used when one VTE is dropped on another
+     */
+    VTE,
+    /**
+     * Used when session is dropped on terminal
+     */
+    SESSION
 };
 
 struct DragInfo {

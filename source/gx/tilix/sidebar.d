@@ -12,6 +12,7 @@ import gdk.Atom;
 import gdk.DragContext;
 import gdk.Event;
 import gdk.Keysyms;
+import gdk.Screen;
 import gdk.Window: GdkWindow = Window;
 
 import gio.Settings : GSettings = Settings;
@@ -54,6 +55,10 @@ import gx.tilix.session;
  */
 class SideBar : Revealer {
 private:
+
+    // mixin for managing is action allowed event delegates
+    mixin IsActionAllowedHandler;
+
     GSettings gsSettings;
 
     ListBox lbSessions;
@@ -70,6 +75,10 @@ private:
 
     void notifySessionSelected(string sessionUUID) {
         onSelected.emit(sessionUUID);
+    }
+
+    void notifyRequestDetach(string sessionUUID, int x, int y) {
+        onSessionDetach.emit(sessionUUID, x, y);
     }
 
     bool onButtonPress(Event event, Widget w) {
@@ -133,7 +142,7 @@ private:
         }
 
         CumulativeResult!bool result = new CumulativeResult!bool();
-        onReorder.emit(source.sessionUUID, target.sessionUUID, after, result);
+        onRequestReorder.emit(source.sessionUUID, target.sessionUUID, after, result);
         if (result.isAnyResult(false)) return;
 
         lbSessions.unselectRow(source);
@@ -399,12 +408,19 @@ public:
      *   sourceUUID = The session that needs to be moved
      *   targetUUID = The target session to move in front of
      */
-    GenericEvent!(string, string, bool, CumulativeResult!bool) onReorder;
+    GenericEvent!(string, string, bool, CumulativeResult!bool) onRequestReorder;
+
+    /**
+     * Event that is called when session requests detach from terminal
+     *
+     * Params:
+     *   sessionUUID - Session to detach
+     *   x, y - Coordinates where detach was requested
+     */
+    GenericEvent!(string, int, int) onSessionDetach;
 }
 
 private:
-
-enum SIDEBAR_DND = "sidebar";
 
 class SideBarRow : ListBoxRow {
 private:
@@ -412,6 +428,8 @@ private:
     Label lblIndex;
     SideBar sidebar;
     Window dragImage;
+
+    bool isRootWindow = false;
 
     AspectFrame wrapWidget(Widget widget, string cssClass) {
         AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
@@ -496,13 +514,14 @@ private:
         EventBox eb = new EventBox();
         eb.add(overlay);
         // Drag and Drop
-        TargetEntry[] targets = [new TargetEntry(SIDEBAR_DND, TargetFlags.SAME_APP, 0)];
+        TargetEntry[] targets = [new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, 0)];
         eb.dragSourceSet(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
         eb.dragDestSet(DestDefaults.ALL, targets, DragAction.MOVE);
         eb.addOnDragDataGet(&onRowDragDataGet);
         eb.addOnDragDataReceived(&onRowDragDataReceived);
         eb.addOnDragBegin(&onRowDragBegin);
         eb.addOnDragEnd(&onRowDragEnd);
+        eb.addOnDragFailed(&onRowDragFailed);
 
         add(eb);
 
@@ -512,6 +531,7 @@ private:
     }
 
     void onRowDragBegin(DragContext dc, Widget widget) {
+        isRootWindow = false;
         Image image = new Image(getWidgetImage(this, 1.00));
         image.show();
         dragImage = new Window(GtkWindowType.POPUP);
@@ -520,6 +540,10 @@ private:
     }
 
     void onRowDragEnd(DragContext dc, Widget widget) {
+        if (isRootWindow && sidebar.notifyIsActionAllowed(ActionType.DETACH_SESSION)) {
+            detachSessionOnDrop(dc);
+        }
+        
         dragImage.destroy();
         dragImage = null;
 
@@ -528,9 +552,44 @@ private:
         dc.destroy();
     }
 
+    /**
+     * Called when drag failed, used this to detach a session into a new window
+     */
+    bool onRowDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
+        trace("Drag Failed with ", dr);
+        isRootWindow = false;
+        if (dr == GtkDragResult.NO_TARGET) {
+            //Only allow detach if whole heirarchy agrees (application, window, session)
+            if (sidebar.notifyIsActionAllowed(ActionType.DETACH_SESSION)) {
+                if (detachSessionOnDrop(dc)) return true;
+            }
+        }
+        return false;
+    }
+    
+    bool detachSessionOnDrop(DragContext dc) {
+        trace("Detaching session");
+        Screen screen;
+        int x, y;
+        dc.getDevice().getPosition(screen, x, y);
+        //Detach here
+        sidebar.notifyRequestDetach(sessionUUID, x, y);
+        return true;
+    }
+
     void onRowDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
+        GdkAtom gdkAtom = data.getTarget();
+        string name = gdk.Atom.name(gdkAtom);
+        if (name == "application/x-rootwindow-drop") {
+            trace("onRowDragDataGet Root window drop");
+            isRootWindow = true;
+        } else {
+            tracef("onRowDragDataGet atom: %s", name);
+            isRootWindow = false;
+        }
         char[] buffer = (sessionUUID ~ '\0').dup;
-        data.set(intern(SIDEBAR_DND, false), 8, buffer);
+        data.set(intern(SESSION_DND, false), 8, buffer);
+
     }
 
     void onRowDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {

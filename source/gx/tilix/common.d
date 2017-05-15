@@ -133,8 +133,15 @@ unittest {
 public:
 
 enum ActionType {
-    DETACH
+    DETACH_TERMINAL,
+    DETACH_SESSION
 }
+
+/**
+ * Constant for sidebar DND target since both vte and terminal
+ * need to handle it.
+ */
+enum SESSION_DND = "session";
 
 //alias OnIsActionAllowed = bool delegate(ActionType actionType);
 

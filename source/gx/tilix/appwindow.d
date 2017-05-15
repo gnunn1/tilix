@@ -275,7 +275,9 @@ private:
         sb = new SideBar();
         sb.onSelected.connect(&onSessionSelected);
         sb.onClose.connect(&onUserSessionClose);
-        sb.onReorder.connect(&onSessionReorder);
+        sb.onRequestReorder.connect(&onSessionReorder);
+        sb.onSessionDetach.connect(&onSessionDetach);
+        sb.onIsActionAllowed.connect(&onIsActionAllowed);
 
         ss = new SessionSwitcher();
         ss.onFileSelected.connect(&onFileSelected);
@@ -710,10 +712,11 @@ private:
 
     void addSession(Session session) {
         session.onClose.connect(&onSessionClose);
+        session.onAttach.connect(&onSessionAttach);
         session.onDetach.connect(&onSessionDetach);
         session.onStateChange.connect(&onSessionStateChange);
 
-        session.onIsActionAllowed.connect(&onSessionIsActionAllowed);
+        session.onIsActionAllowed.connect(&onIsActionAllowed);
         session.onProcessNotification.connect(&onSessionProcessNotification);
 
         int index = nb.appendPage(session, session.name);
@@ -725,10 +728,11 @@ private:
     void removeSession(Session session) {
         //remove event handlers
         session.onClose.disconnect(&onSessionClose);
+        session.onAttach.disconnect(&onSessionAttach);
         session.onDetach.disconnect(&onSessionDetach);
         session.onStateChange.disconnect(&onSessionStateChange);
 
-        session.onIsActionAllowed.disconnect(&onSessionIsActionAllowed);
+        session.onIsActionAllowed.disconnect(&onIsActionAllowed);
         session.onProcessNotification.disconnect(&onSessionProcessNotification);
         //remove session from Notebook
         nb.remove(session);
@@ -864,6 +868,49 @@ private:
         }
     }
 
+    void onSessionAttach(string sessionUUID) {
+
+        AppWindow getWindow(Session session) {
+
+            Widget widget = session.getParent();
+            while (widget !is null) {
+                AppWindow result = cast(AppWindow) widget;
+                if (result !is null)
+                    return result;
+                widget = widget.getParent();
+            }
+            return null;
+        }
+
+        Session session = getSession(sessionUUID);
+        // If session isn't null it already belongs to this window, ignore
+        if (session !is null) return;
+
+        session = cast(Session) tilix.findWidgetForUUID(sessionUUID);
+        if (session is null) {
+            error("The session %s could not be located");
+            return;
+        }
+
+        AppWindow sourceWindow = getWindow(session);
+        if (sourceWindow is null) {
+            error("The AppWindow for session %s could not be located");
+            return;
+        }
+
+        sourceWindow.removeSession(session);
+        addSession(session);
+    }
+
+    void onSessionDetach(string sessionUUID, int x, int y) {
+        Session session = getSession(sessionUUID);
+        if (session !is null) {
+            onSessionDetach(session, x, y, false);
+        } else {
+            errorf("Could not locate session for %s", sessionUUID);
+        }
+    }
+
     void onSessionDetach(Session session, int x, int y, bool isNewSession) {
         trace("Detaching session");
         //Detach an existing session, let's close it
@@ -971,15 +1018,17 @@ private:
         return false;
     }
 
-    void onSessionIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
-        switch (actionType) {
-        case ActionType.DETACH:
-            //Only allow if there is more then one session
-            result.addResult( nb.getNPages() > 1);
-            break;
-        default:
-            result.addResult(false);
-            break;
+    void onIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
+        final switch (actionType) {
+            case ActionType.DETACH_TERMINAL:
+                // Only allow if there is more then one session, note that session
+                // checks if there is more then one terminal and allows in either case
+                result.addResult( nb.getNPages() > 1);
+                break;
+            case ActionType.DETACH_SESSION:
+                // Only allow if there is more then one session
+                result.addResult( nb.getNPages() > 1);
+                break;
         }
         return;
     }

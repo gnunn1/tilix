@@ -284,6 +284,7 @@ private:
         terminal.onTitleChange.connect(&onTerminalTitleChange);
         terminal.onProcessNotification.connect(&onTerminalProcessNotification);
         terminal.onIsActionAllowed.connect(&onTerminalIsActionAllowed);
+        terminal.onSessionAttach.connect(&onTerminalSessionAttach);
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
@@ -363,6 +364,7 @@ private:
         terminal.onTitleChange.disconnect(&onTerminalTitleChange);
         terminal.onProcessNotification.disconnect(&onTerminalProcessNotification);
         terminal.onIsActionAllowed.disconnect(&onTerminalIsActionAllowed);
+        terminal.onSessionAttach.disconnect(&onTerminalSessionAttach);
     }
 
     /**
@@ -581,11 +583,11 @@ private:
 
     void onTerminalIsActionAllowed(ActionType actionType, CumulativeResult!bool result) {
         switch (actionType) {
-        case ActionType.DETACH:
+        case ActionType.DETACH_TERMINAL:
             //Ok this is a bit weird but we only allow a terminal to be detached
             //if a session has more then one terminal in it OR the application
             //has multiple sessions.
-            result.addResult(terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH));
+            result.addResult(terminals.length > 1 || notifyIsActionAllowed(ActionType.DETACH_TERMINAL));
             break;
         default:
             result.addResult(false);
@@ -611,6 +613,10 @@ private:
             sequenceTerminalID();
             showAll();
         }
+    }
+
+    void onTerminalSessionAttach(Terminal terminal, string sessionUUID) {
+        onAttach.emit(sessionUUID);
     }
 
     void onTerminalFocusIn(Terminal terminal) {
@@ -1417,6 +1423,14 @@ public:
      *  isNewSession = Whether this is a new session
      */
     GenericEvent!(Session, int, int, bool) onDetach;
+
+    /**
+     * Occurs when a session requests to be attached
+     *
+     * Params:
+     *  sessionUUID = The UUID of the session to be attached
+     */           
+    GenericEvent!(string) onAttach;
 
     /**
      * Triggered when state changes, such as title, occur
