@@ -179,7 +179,7 @@ private:
             tracef("activate-session triggered for session %s", sessionUUID);
             foreach (window; appWindows) {
                 if (window.activateSession(sessionUUID)) {
-                    window.present();
+                    activateWindow(window);
                     break;
                 }
             }
@@ -195,7 +195,7 @@ private:
             tracef("activate-terminal triggered for terminal %s", terminalUUID);
             foreach (window; appWindows) {
                 if (window.activateTerminal(terminalUUID)) {
-                    window.present();
+                    activateWindow(window);
                     break;
                 }
             }
@@ -435,7 +435,7 @@ private:
                 if (aw !is null) {
                     string instanceAction = gsGeneral.getString(SETTINGS_NEW_INSTANCE_MODE_KEY);
                     //If focus-window command line parameter was passed, override setting
-                    if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_VALUES[4];
+                    if (cp.focusWindow) instanceAction = SETTINGS_NEW_INSTANCE_MODE_FOCUS_WINDOW_VALUE;
                     switch (instanceAction) {
                         //New Session
                         case SETTINGS_NEW_INSTANCE_MODE_NEW_SESSION_VALUE:

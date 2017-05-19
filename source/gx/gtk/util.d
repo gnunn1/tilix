@@ -33,6 +33,7 @@ import gtk.CellRendererText;
 import gtk.Container;
 import gtk.Entry;
 import gtk.ListStore;
+import gtk.Main;
 import gtk.Paned;
 import gtk.Settings;
 import gtk.StyleContext;
@@ -54,8 +55,10 @@ void activateWindow(Window window) {
     if (window.isActive()) return;
 
     if (isWayland(window)) {
-        window.present();
+        trace("Present Window for Wayland");
+        window.presentWithTime(Main.getCurrentEventTime);
     } else {
+        trace("Present Window for X11");
         window.present();
         activateX11Window(window);
     }
