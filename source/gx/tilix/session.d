@@ -11,6 +11,7 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 import std.json;
+import std.string;
 import std.uuid;
 
 import cairo.Context;
@@ -1133,6 +1134,7 @@ public:
     string getDisplayText(string text) {
         string result = text;
         if (currentTerminal !is null) {
+            result = result.replace(VARIABLE_ACTIVE_TERMINAL_TITLE, currentTerminal.title);
             result = currentTerminal.getDisplayText(result);
         }
         return result;

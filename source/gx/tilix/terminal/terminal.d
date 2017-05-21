@@ -3442,6 +3442,13 @@ public:
     }
 
     /**
+     * Returns the displayed title of the terminal
+     */
+    @property string title() {
+        return lastTitle;
+    }
+
+    /**
      * A unique ID for the terminal, it is constant for the lifespan
      * of the terminal
      */
