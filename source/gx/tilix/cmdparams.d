@@ -332,4 +332,8 @@ public:
     @property bool preferences() {
         return _preferences;
     }
+
+    @property bool windowStateOverride() {
+        return _maximize || _minimize || _fullscreen;
+    }
 }

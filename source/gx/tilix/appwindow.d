@@ -1145,7 +1145,7 @@ private:
         }
     }
 
-    void handleGeometry() {
+    bool handleGeometry() {
         if (!isQuake() && tilix.getGlobalOverrides().geometry.flag == GeometryFlag.FULL && !isWayland(this)) {
             int x, y;
             Geometry geometry = tilix.getGlobalOverrides().geometry;
@@ -1167,7 +1167,9 @@ private:
             }
             setGravity(gravity);
             move(x, y);
+            return true;
         }
+        return false;
     }
 
     void onCompositedChanged(Widget) {
@@ -1582,10 +1584,24 @@ public:
             if ((state.newWindowState & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN) {
                 trace("Window state is fullscreen");
             }
+            if (getWindow() !is null) {
+                gsSettings.setInt(SETTINGS_WINDOW_STATE_KEY, getWindow().getState());
+            }
             return false;
         });
-
-        handleGeometry();
+        if (!handleGeometry() && !isQuake() && !tilix.getGlobalOverrides().windowStateOverride) {
+            GdkWindowState state = cast(GdkWindowState)gsSettings.getInt(SETTINGS_WINDOW_STATE_KEY);
+            if (state & GdkWindowState.MAXIMIZED) {
+                maximize();
+            } else if (state & GdkWindowState.ICONIFIED) {
+                iconify();
+            } else if (state & GdkWindowState.FULLSCREEN) {
+                fullscreen();
+            }
+            if (state & GdkWindowState.STICKY) {
+                stick();
+            }
+        }
     }
 
     debug(Destructors) {

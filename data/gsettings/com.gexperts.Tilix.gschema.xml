@@ -136,6 +136,12 @@
   <!-- Global settings -->
   <schema id="com.gexperts.Tilix.Settings" path="/com/gexperts/Tilix/">
 
+    <key name="window-state" type="i">
+      <default>0</default>
+      <summary>The window state (maximized, minimized, etc) to restore</summary>
+      <description>Saves the last window state on exit and restores it upon new invocation</description>
+    </key>
+
     <key name="window-style" enum="com.gexperts.Window.Style">
       <default>'normal'</default>
       <summary>Style to use for displaying the tilix window</summary>

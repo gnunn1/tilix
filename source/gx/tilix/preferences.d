@@ -56,6 +56,7 @@ immutable string[] SETTINGS_NEW_INSTANCE_MODE_VALUES = [SETTINGS_NEW_INSTANCE_MO
 enum SETTINGS_MENU_ACCELERATOR_KEY = "menu-accelerator-enabled";
 enum SETTINGS_ACCELERATORS_ENABLED = "accelerators-enabled";
 
+enum SETTINGS_WINDOW_STATE_KEY = "window-state";
 enum SETTINGS_WINDOW_STYLE_KEY = "window-style";
 immutable string[] SETTINGS_WINDOW_STYLE_VALUES = ["normal","disable-csd","disable-csd-hide-toolbar","borderless"];
 
