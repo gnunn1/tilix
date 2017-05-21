@@ -314,6 +314,7 @@ private:
     HeaderBar createHeaderBar() {
         //View sessions button
         tbSideBar = new ToggleButton();
+        tbSideBar.getStyleContext().addClass("session-sidebar-button");
         Box b = new Box(Orientation.HORIZONTAL, 6);
         lblSideBar = new Label("1 / 1");
         Image img = new Image("pan-down-symbolic", IconSize.MENU);
