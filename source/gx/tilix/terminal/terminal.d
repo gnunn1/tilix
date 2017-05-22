@@ -974,7 +974,7 @@ private:
         });
 
         _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
-            tracef("%d Terminal Commit: %s", _terminalID, text);
+            //tracef("%d Terminal Commit: %s", _terminalID, text);
             if (vte !is null && isSynchronizedInput() && length > 0) {
                 // Workaround for #888
                 if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
