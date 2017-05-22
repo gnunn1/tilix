@@ -1090,6 +1090,7 @@ private:
             trace("Timer expired, hiding Bell");
             terminal.spBell.stop();
             terminal.spBell.hide();
+            terminal.timeoutID = 0;
             return false;
         }
         return true;
