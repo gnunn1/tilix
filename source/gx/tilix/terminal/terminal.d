@@ -260,8 +260,8 @@ private:
     bool _synchronizeInput;
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
-    //When synchronizing ignore the commit event to prevent recursion
-    bool _ignoreCommit = false;
+    // The handler for the VTE commit signal, tracked to disable it when required
+    gulong _commitHandlerId;
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
 
@@ -973,9 +973,9 @@ private:
             }
         });
 
-        vte.addOnCommit(delegate(string text, uint length, VTE) {
+        _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
             tracef("%d Terminal Commit: %s", _terminalID, text);
-            if (vte !is null && !_ignoreCommit && isSynchronizedInput() && length > 0) {
+            if (vte !is null && isSynchronizedInput() && length > 0) {
                 // Workaround for #888
                 if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
@@ -2214,9 +2214,13 @@ private:
 private:
 
     void feedChild(string text, bool ignoreCommit) {
-        _ignoreCommit = ignoreCommit;
+        if (ignoreCommit) {
+            Signals.handlerBlock(vte, _commitHandlerId);
+        }
         vte.feedChild(text, text.length);
-        _ignoreCommit = false;
+        if (ignoreCommit) {
+            Signals.handlerUnblock(vte, _commitHandlerId);
+        }
     }
 
     void showInfoBarMessage(string message) {
