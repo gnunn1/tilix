@@ -49,6 +49,20 @@ import gtk.Window;
 import gx.gtk.x11;
 
 /**
+ * Directly process events for up to a specified period
+ */
+void processEvents(uint millis) {
+    import std.datetime: StopWatch, AutoStart;
+    StopWatch sw = StopWatch(AutoStart.yes);
+    scope (exit) {
+        sw.stop();
+    }
+    while (gtk.Main.Main.eventsPending() && sw.peek().msecs < millis) {
+        Main.iterationDo(false);
+    }
+}
+
+/**
  * Activates a window using the X11 APIs when available
  */
 void activateWindow(Window window) {

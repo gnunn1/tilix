@@ -631,8 +631,7 @@ private:
     void onTerminalSyncInput(Terminal originator, SyncInputEvent event) {
         //trace("Got sync input event");
         foreach (terminal; terminals) {
-            if (originator.getWidgetStruct() != terminal.getWidgetStruct() && terminal.synchronizeInput) {
-                //trace("sending sync event");
+            if (terminal.synchronizeInput && terminal.uuid != event.senderUUID) {
                 terminal.handleSyncInput(event);
             }
         }

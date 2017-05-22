@@ -974,8 +974,10 @@ private:
         });
 
         vte.addOnCommit(delegate(string text, uint length, VTE) {
-            if (vte !is null && !_ignoreCommit && isSynchronizedInput()) {
-                //tracef("Sync commit: %s", text);
+            tracef("%d Terminal Commit: %s", _terminalID, text);
+            if (vte !is null && !_ignoreCommit && isSynchronizedInput() && length > 0) {
+                // Workaround for #888
+                if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                 onSyncInput.emit(this, se);
             }
