@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-04-04 14:52+0000\n"
+"PO-Revision-Date: 2017-05-23 14:33+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/tilix/"
-"translations/ru/>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/tilix/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.13-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.14.1-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -269,11 +269,13 @@ msgid "Wrap around"
 msgstr "Автоматически переходить к началу"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "Выражение %s не является допустимым регулярным выражением"
+msgstr ""
+"Выражение \"%s\" не является допустимым регулярным выражением\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:329
 #: source/gx/tilix/terminal/terminal.d:3355
@@ -389,9 +391,10 @@ msgid "Add Down"
 msgstr "Добавить снизу"
 
 #: source/gx/tilix/terminal/terminal.d:825
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Произошла неожиданная ошибка: %s"
+msgstr ""
+"Произошла неожиданная ошибка при добавлении регулярного выражения ссылки: %s"
 
 #: source/gx/tilix/terminal/terminal.d:909
 msgid "Terminal Activity"
@@ -439,10 +442,12 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"Удалённые файловые URI не поддерживаются гиперссылками.\n"
+"URI: \"%s\""
 
 #: source/gx/tilix/terminal/terminal.d:1715
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "Удалённые файловые URI не поддерживаются"
 
 #: source/gx/tilix/terminal/terminal.d:1746
 #: source/gx/tilix/terminal/terminal.d:2204
@@ -458,11 +463,11 @@ msgstr "Ошибка регулярного выражения"
 #: source/gx/tilix/terminal/terminal.d:1759
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "Не удалось открыть совпадение \"%s\""
 
 #: source/gx/tilix/terminal/terminal.d:1760
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Ошибка открытия совпадения"
 
 #: source/gx/tilix/terminal/terminal.d:2342
 msgid "Unexpected error occurred, no additional information available"
@@ -1176,9 +1181,8 @@ msgid "Enable shortcuts"
 msgstr "Включить комбинации клавиш"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:755
-#, fuzzy
 msgid "Set default"
-msgstr "По умолчанию"
+msgstr "Установить по умолчанию"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:836
 msgid "Overwrite Existing Shortcut"
@@ -1375,9 +1379,8 @@ msgid "Close window when last session is closed"
 msgstr "Закрыть окно, когда последняя сессия закрыта"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1333
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Установить рабочий каталог терминала"
+msgstr "Новое окно наследует рабочий каталог и профиль активного терминала"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1339
 msgid "Send desktop notification on process complete"
@@ -1724,9 +1727,8 @@ msgid "Application name"
 msgstr "Название приложения"
 
 #: source/gx/tilix/constants.d:142
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Заголовок терминала"
+msgstr "Заголовок активного терминала"
 
 #: source/gx/tilix/constants.d:143
 msgid "Session name"
