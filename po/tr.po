@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-05-23 12:32+0000\n"
+"PO-Revision-Date: 2017-05-25 21:24+0000\n"
 "Last-Translator: monolifed <monolifed@gmail.com>\n"
 "Language-Team: Turkish "
 "<https://hosted.weblate.org/projects/tilix/translations/tr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.14.1-dev\n"
+"X-Generator: Weblate 2.14.1\n"
 
 #: source/app.d:133
 #, c-format
@@ -271,6 +271,8 @@ msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
 msgstr ""
+"'%s' araması geçerli bir regex değil\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:329
 #: source/gx/tilix/terminal/terminal.d:3355
@@ -301,7 +303,7 @@ msgstr "Terminal çanı"
 
 #: source/gx/tilix/terminal/terminal.d:441
 msgid "Edit Profile"
-msgstr "Profil Düzenle"
+msgstr "Profili Düzenle"
 
 #: source/gx/tilix/terminal/terminal.d:459
 msgid "Edit Encodings"
@@ -315,7 +317,7 @@ msgstr "Girdi senkronizasyonunu bu terminal için aç"
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
+msgstr "%s kütüphanesi yüklenemiyor, parola işlevi mevcut değil."
 
 #: source/gx/tilix/terminal/terminal.d:643
 msgid "Library Not Loaded"
@@ -370,7 +372,7 @@ msgstr "Yerleşim Seçenekleri…"
 
 #: source/gx/tilix/terminal/terminal.d:765
 msgid "Monitor Silence"
-msgstr ""
+msgstr "Sessizliği Gözle"
 
 #: source/gx/tilix/terminal/terminal.d:768
 msgid "Other"
@@ -444,7 +446,7 @@ msgstr "Uzak Dosya URI Desteklenmiyor"
 #: source/gx/tilix/terminal/terminal.d:2204
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
+msgstr "Özel bağlantı '%s' regex'inin bir hatası var, yok sayılıyor"
 
 #: source/gx/tilix/terminal/terminal.d:1747
 msgid "Regular Expression Error"
@@ -453,11 +455,11 @@ msgstr "Düzenli İfade Hatası"
 #: source/gx/tilix/terminal/terminal.d:1759
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "'%s' eşleşmesi açılamıyor"
 
 #: source/gx/tilix/terminal/terminal.d:1760
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Eşleşme Açmada Hata"
 
 #: source/gx/tilix/terminal/terminal.d:2342
 msgid "Unexpected error occurred, no additional information available"
@@ -478,7 +480,7 @@ msgstr "Bütün Metin Dosyaları"
 
 #: source/gx/tilix/terminal/terminal.d:3245
 msgid "Unknown"
-msgstr ""
+msgstr "Bilinmeyen"
 
 #: source/gx/tilix/terminal/terminal.d:3516
 #, c-format
@@ -529,7 +531,7 @@ msgstr "Başlık"
 #: source/gx/tilix/prefeditor/profileeditor.d:313
 #: source/gx/tilix/prefeditor/profileeditor.d:637
 msgid "Badge"
-msgstr ""
+msgstr "Rozet"
 
 #: source/gx/tilix/terminal/layout.d:82
 msgid "Session Load"
@@ -585,7 +587,7 @@ msgstr "Sil"
 
 #: source/gx/tilix/terminal/password.d:231
 msgid "Include return character with password"
-msgstr ""
+msgstr "Parolada dönüş karakterini içer"
 
 #: source/gx/tilix/terminal/password.d:367
 msgid "Insert Password"
@@ -725,7 +727,7 @@ msgstr "Terminal başlığı"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:327
 msgid "Badge position"
-msgstr ""
+msgstr "Rozet yeri"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northwest"
@@ -745,11 +747,11 @@ msgstr "Güneydoğu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:338
 msgid "Notify new activity"
-msgstr ""
+msgstr "Yeni etkinliği bildir"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Threshold for continuous silence (seconds)"
-msgstr ""
+msgstr "Sürekli sessizlik için eşik (saniye)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:358
 msgid "Text Appearance"
@@ -841,7 +843,7 @@ msgstr "Arkaplan vurgulama rengini seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:617
 msgid "Bold"
-msgstr ""
+msgstr "Kalın"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:622
 msgid "Select Bold Color"
@@ -941,7 +943,7 @@ msgstr "Backspace tuşu üretir"
 #: source/gx/tilix/prefeditor/profileeditor.d:1010
 #: source/gx/tilix/prefeditor/profileeditor.d:1019
 msgid "Automatic"
-msgstr "Otomatik"
+msgstr "Kendiliğinden"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1010
 #: source/gx/tilix/prefeditor/profileeditor.d:1019
@@ -1005,7 +1007,7 @@ msgstr "Terminali açık tut"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1118
 msgid "Automatic Profile Switching"
-msgstr ""
+msgstr "Kendiliğinden Profil Değiştirme"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1126
 msgid ""
@@ -1014,6 +1016,10 @@ msgid ""
 "the hostname or directory can be omitted but the colon must be present. "
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
+"Profiller buraya girilen değerlere göre kendiliğinden seçilir.\n"
+"Değerler <i>kullanıcı@bilgisayar:dizin</i> biçimi kullanarak girilir. Ya "
+"bilgisayar adı ya da dizin atlanabilir ancak iki nokta üst üste bulunması "
+"gerekir. Ne bilgisayar adı ne de dizin içeren girdilere izin verilmez."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1128
 msgid ""
@@ -1022,6 +1028,10 @@ msgid ""
 "hostname or directory can be omitted but the colon must be present. Entries "
 "with neither hostname or directory are not permitted."
 msgstr ""
+"Profiller buraya girilen değerlere göre kendiliğinden seçilir.\n"
+"Değerler <i>bilgisayar:dizin</i> biçimi kullanarak girilir. Ya bilgisayar "
+"adı ya da dizin atlanabilir ancak iki nokta üst üste bulunması gerekir. Ne "
+"bilgisayar adı ne de dizin içeren girdilere izin verilmez."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1139
 msgid "Match"
@@ -1285,7 +1295,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1184
 msgid "Width percent"
-msgstr ""
+msgstr "Genişlik yüzdesi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1194
 msgid "Alignment"
@@ -1305,7 +1315,7 @@ msgstr "Terminali tüm çalışma alanlarında göster"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1224
 msgid "Hide window when focus is lost"
-msgstr ""
+msgstr "Odak kaybolduğunda pencereyi gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1229
 msgid "Hide the titlebar of the window"
@@ -1313,11 +1323,11 @@ msgstr "Pencerenin başlık çubuğu gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1244
 msgid "Display terminal on active monitor"
-msgstr ""
+msgstr "Etkin monitörde terminali gösterir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1251
 msgid "Display on specific monitor"
-msgstr ""
+msgstr "Belirli monitörde göster"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1293
 msgid "Behavior"
@@ -1333,15 +1343,16 @@ msgstr "Fare üstündeyken terminale odakla"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1309
 msgid "Autohide the mouse pointer when typing"
-msgstr "Fare imlecini yazareken gizle"
+msgstr "Fare imlecini yazarken gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1314
 msgid "Close terminal by clicking middle mouse button on title"
-msgstr ""
+msgstr "Terminali başlığa orta fare düğmesiyle tıklanınca kapat"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1319
 msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr ""
+"Terminali <Control> ve kaydırma tekeri kullanarak yakınlaştır/uzaklaştır"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1324
 msgid "Require the <Control> modifier to edit title on click"
@@ -1401,7 +1412,7 @@ msgstr "Açıklama (comment) veya değişken yapıştırken ilk harfi a"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1377
 msgid "Automatically copy text to clipboard when selecting"
-msgstr ""
+msgstr "Seçerken metni panoya kendiliğinden kopyala"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:112
 msgid "Window"
@@ -1448,7 +1459,7 @@ msgstr "DurumuGüncelle"
 
 #: source/gx/tilix/preferences.d:230
 msgid "ExecuteCommand"
-msgstr "KomutÇalıştır"
+msgstr "KomutYürüt"
 
 #: source/gx/tilix/preferences.d:231
 msgid "SendNotification"
@@ -1513,7 +1524,7 @@ msgstr "DIZIN"
 
 #: source/gx/tilix/application.d:660
 msgid "Set the starting profile"
-msgstr "Başlangıç profilini seç"
+msgstr "Başlangıç profili seç"
 
 #: source/gx/tilix/application.d:660
 msgid "PROFILE_NAME"
@@ -1545,7 +1556,7 @@ msgstr "ACTION_NAME"
 
 #: source/gx/tilix/application.d:666
 msgid "Execute the parameter as a command"
-msgstr "Parametreyi bir komut olarak çalıştır"
+msgstr "Parametreyi bir komut olarak yürütür"
 
 #: source/gx/tilix/application.d:666
 msgid "COMMAND"
@@ -1575,6 +1586,7 @@ msgstr ""
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
+"Pencere boyutunu ayarla; Örneğin: 80x24 veya 80x24+200+200 (SÜTUNxSATIR+X+Y)"
 
 #: source/gx/tilix/application.d:672
 msgid "GEOMETRY"
@@ -1584,6 +1596,8 @@ msgstr "GEOMETRİ"
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
+"Deprem modunda bir pencere açar veya varolan deprem modu penceresinin "
+"görünürlüğünü açar/kapar"
 
 #: source/gx/tilix/application.d:674
 msgid "Show the Tilix and dependant component versions"
@@ -1712,15 +1726,15 @@ msgstr "'%s' dizin olmadığı için önemsemiyorum"
 #: source/gx/tilix/cmdparams.d:143
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
+msgstr "Geometri dizisi '%s' geçersiz ve ayrıştırılamadı"
 
 #: source/gx/tilix/cmdparams.d:175
 msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
-"Aynı anda hem oturum yükleyip hem de profil/çalışma dizini/komut "
-"seçemiyoruz, lütfen birini yada diğerini seç"
+"Bir oturum yükleyip, bir profil/çalışma dizini/komut yürütme seçeneği "
+"ayarlayamazsınız, lütfen birini yada diğerini seçin"
 
 #: source/gx/tilix/cmdparams.d:182
 msgid "You can only use the action parameter within Tilix"
@@ -2339,7 +2353,7 @@ msgstr "Uzaklaştır"
 #: data/resources/ui/shortcuts.ui:437
 msgctxt "shortcut window"
 msgid "Zoom normal size"
-msgstr "Normal boyuta yakınlaştır"
+msgstr "Normal boyuta getir"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -2434,7 +2448,7 @@ msgstr "Başlık stilini döndür"
 #: data/resources/ui/shortcuts.ui:557
 msgctxt "shortcut window"
 msgid "Monitor silence"
-msgstr "Sessizliği izle"
+msgstr "Sessizliği gözle"
 
 #: data/resources/ui/shortcuts.ui:568
 msgctxt "shortcut window"
@@ -2486,10 +2500,12 @@ msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
 msgstr ""
+"Terminaller sürükle ve bırak kullanarak pencereler içinde ve arasında "
+"yeniden düzenlenebilir"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:19
 msgid "Terminals can be detached into a new window via drag and drop"
-msgstr ""
+msgstr "Terminaller sürükle ve bırak ile yeni bir pencereye ayrılabilir"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
 msgid ""
@@ -2499,7 +2515,7 @@ msgstr ""
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
-msgstr ""
+msgstr "Terminallerin gruplaması kaydedilebilir ve diskten yüklenebilir"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid "Terminals support custom titles"
@@ -2510,6 +2526,8 @@ msgid ""
 "Color schemes are stored in files and custom color schemes can be created by "
 "simply creating a new file"
 msgstr ""
+"Renk düzenleri dosyalarda depolanır ve özel renk düzenleri sadece yeni bir "
+"dosya oluşturarak yaratılabilir"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Transparent background"
