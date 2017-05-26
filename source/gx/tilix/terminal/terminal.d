@@ -855,6 +855,7 @@ private:
 
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
+            tracef("hostname %s, gst.currentHostname %s, directory %s, gst.currentDirectory %s",hostname, gst.currentHostname, directory, gst.currentDirectory);
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
                 gst.updateState(hostname, directory);
                 updateDisplayText();
@@ -1102,14 +1103,15 @@ private:
      * Check automatic profile switch and make switch if necessary
      */
     void checkAutomaticProfileSwitch() {
+        trace("Checking profile switch");
         string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (uuid.length > 0) {
             tracef("Automatically switching profile to %s", uuid);
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
-                activeProfileUUID = uuid;
             }
+            activeProfileUUID = uuid;
         } else {
             tracef("Switching back to default profile to %s", _defaultProfileUUID);
             // Switch back to default profile?
