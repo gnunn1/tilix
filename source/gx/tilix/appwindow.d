@@ -1585,7 +1585,7 @@ public:
             if ((state.newWindowState & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN) {
                 trace("Window state is fullscreen");
             }
-            if (getWindow() !is null) {
+            if (getWindow() !is null && !isQuake()) {
                 gsSettings.setInt(SETTINGS_WINDOW_STATE_KEY, getWindow().getState());
             }
             return false;
