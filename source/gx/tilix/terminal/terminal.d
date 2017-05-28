@@ -855,6 +855,7 @@ private:
 
             string hostname, directory;
             getHostnameAndDirectory(hostname, directory);
+            tracef("hostname %s, gst.currentHostname %s, directory %s, gst.currentDirectory %s",hostname, gst.currentHostname, directory, gst.currentDirectory);
             if (hostname != gst.currentHostname || directory != gst.currentDirectory) {
                 gst.updateState(hostname, directory);
                 updateDisplayText();
@@ -1102,14 +1103,15 @@ private:
      * Check automatic profile switch and make switch if necessary
      */
     void checkAutomaticProfileSwitch() {
+        trace("Checking profile switch");
         string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (uuid.length > 0) {
             tracef("Automatically switching profile to %s", uuid);
             // If defaultProfileUUID is not alredy set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
-                activeProfileUUID = uuid;
             }
+            activeProfileUUID = uuid;
         } else {
             tracef("Switching back to default profile to %s", _defaultProfileUUID);
             // Switch back to default profile?
@@ -1925,7 +1927,7 @@ private:
             applySecondaryColorPreferences();
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
                 vteHighlightFG.parse(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY));
                 vteHighlightBG.parse(gsProfile.getString(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY));
                 vte.setColorHighlightForeground(vteHighlightFG);
@@ -1936,7 +1938,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY:
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
                 vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
                 if (checkVTEVersionNumber(0, 44)) {
@@ -2041,7 +2043,7 @@ private:
         case SETTINGS_PROFILE_BADGE_COLOR_KEY, SETTINGS_PROFILE_USE_BADGE_COLOR_KEY:
             if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
                 string badgeColor;
-                if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY);
                 } else {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY);
@@ -2051,7 +2053,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_BOLD_COLOR_KEY, SETTINGS_PROFILE_USE_BOLD_COLOR_KEY:
-            if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY)) {
+            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY)) {
                 string boldColor = gsProfile.getString(SETTINGS_PROFILE_BOLD_COLOR_KEY);
                 if (vteBold.parse(boldColor)) vte.setColorBold(vteBold);
             } else {

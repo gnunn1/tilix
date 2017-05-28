@@ -1590,7 +1590,8 @@ public:
             }
             return false;
         });
-        if (!handleGeometry() && !isQuake() && !tilix.getGlobalOverrides().windowStateOverride) {
+        handleGeometry();
+        if (tilix.getGlobalOverrides().geometry.flag == GeometryFlag.NONE && !isQuake() && !tilix.getGlobalOverrides().windowStateOverride) {
             GdkWindowState state = cast(GdkWindowState)gsSettings.getInt(SETTINGS_WINDOW_STATE_KEY);
             if (state & GdkWindowState.MAXIMIZED) {
                 maximize();

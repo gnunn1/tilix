@@ -35,9 +35,6 @@ static import gx.util.array;
 import gx.tilix.common;
 import gx.tilix.session;
 
-extern (C) alias FilterCallback = static int function(gtkc.gtktypes.GtkListBoxRow*, void*);
-extern (C) alias DestroyNotify = static void function(void*);
-
 /**
  * Provides the session loading drop down
  */
@@ -382,3 +379,10 @@ public:
         super();
     }
 }
+
+private:
+
+private import gtkc.gdk;
+
+extern (C) alias FilterCallback = static int function(gtkc.gtktypes.GtkListBoxRow*, void*);
+extern (C) alias DestroyNotify = static void function(void*);

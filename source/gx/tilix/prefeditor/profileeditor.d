@@ -510,8 +510,6 @@ private:
         MenuButton mbAdvanced = new MenuButton();
         mbAdvanced.add(createBox(Orientation.HORIZONTAL, 6, [new Label(_("Advanced")), new Image("pan-down-symbolic", IconSize.MENU)]));
         mbAdvanced.setPopover(createPopover(mbAdvanced));
-        bh.bind(SETTINGS_PROFILE_USE_THEME_COLORS_KEY, mbAdvanced, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
-                .INVERT_BOOLEAN);
         box.add(createBox(Orientation.HORIZONTAL, 6, [cbUseThemeColors, mbAdvanced]));
 
         Grid gSliders = new Grid();
