@@ -47,6 +47,7 @@ private:
     enum PAGE_EDIT = "edit";
 
     Entry eTitle;
+    EventBox eb;
     Label lblTitle;
 
     uint timeoutID;
@@ -62,28 +63,28 @@ private:
 
     void createUI() {
         lblTitle = new Label(_(APPLICATION_NAME));
+        lblTitle.setHalign(Align.CENTER);
         lblTitle.getStyleContext().addClass("title");
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
-        EventBox eb = new EventBox();
-        eb.add(lblTitle);
+        eb = new EventBox();
         eb.addOnButtonPress(&onButtonPress);
         eb.addOnButtonRelease(&onButtonRelease);
+        eb.add(lblTitle);
         addNamed(eb, PAGE_LABEL);
 
         eTitle = new Entry();
         eTitle.setWidthChars(5);
-        eTitle.setHexpand(true);
         eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
             uint keyval;
             if (event.getKeyval(keyval)) {
                 switch (keyval) {
                     case GdkKeysyms.GDK_Escape:
-                        setVisibleChildName(PAGE_LABEL);
+                        setViewMode(ViewMode.LABEL);
                         onCancelEdit.emit();
                         return true;
                     case GdkKeysyms.GDK_Return:
                         onTitleChange.emit(eTitle.getText());
-                        setVisibleChildName(PAGE_LABEL);
+                        setViewMode(ViewMode.LABEL);
                         return true;
                     default:
                 }
@@ -99,6 +100,7 @@ private:
         } else {
             addNamed(eTitle, PAGE_EDIT);
         }
+        setViewMode(ViewMode.LABEL);
     }
 
     bool onButtonRelease(Event event, Widget widget) {
@@ -148,6 +150,25 @@ private:
         return false;
     }
 
+    enum ViewMode {LABEL, EDITOR}
+
+    void setViewMode(ViewMode mode) {
+        final switch (mode) {
+            case ViewMode.LABEL:
+                eTitle.setHexpand(false);
+                setHalign(Align.CENTER);
+                eb.setHalign(Align.CENTER);
+                setVisibleChildName(PAGE_LABEL);
+                break;
+            case ViewMode.EDITOR:
+                eTitle.setHexpand(true);
+                setHalign(Align.FILL);
+                eb.setHalign(Align.FILL);
+                setVisibleChildName(PAGE_EDIT);
+                eTitle.grabFocus();
+        }
+    }
+
     void doEdit() {
         buttonDown = false;
 
@@ -160,8 +181,7 @@ private:
         if (value.length > 0) {
             eTitle.setText(value);
         }
-        setVisibleChildName(PAGE_EDIT);
-        eTitle.grabFocus();
+        setViewMode(ViewMode.EDITOR);
     }
 
     void removeTimeout() {
