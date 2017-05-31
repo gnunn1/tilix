@@ -62,6 +62,8 @@ private:
     bool controlRequired;
 
     void createUI() {
+        setHalign(Align.FILL);
+        
         lblTitle = new Label(_(APPLICATION_NAME));
         lblTitle.setHalign(Align.CENTER);
         lblTitle.getStyleContext().addClass("title");
@@ -70,10 +72,12 @@ private:
         eb.addOnButtonPress(&onButtonPress);
         eb.addOnButtonRelease(&onButtonRelease);
         eb.add(lblTitle);
+        eb.setHalign(Align.FILL);
         addNamed(eb, PAGE_LABEL);
-
+        
         eTitle = new Entry();
         eTitle.setWidthChars(5);
+        eTitle.setHexpand(true);
         eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
             uint keyval;
             if (event.getKeyval(keyval)) {
@@ -140,7 +144,7 @@ private:
     bool onFocusOut(Event event, Widget widget) {
         trace("Focus out");
         removeTimeout();
-        setVisibleChildName(PAGE_LABEL);
+        setViewMode(ViewMode.LABEL);
         onCancelEdit.emit();
         return false;
     }
@@ -155,15 +159,11 @@ private:
     void setViewMode(ViewMode mode) {
         final switch (mode) {
             case ViewMode.LABEL:
-                eTitle.setHexpand(false);
-                setHalign(Align.CENTER);
-                eb.setHalign(Align.CENTER);
                 setVisibleChildName(PAGE_LABEL);
+                setHexpand(false);
                 break;
             case ViewMode.EDITOR:
-                eTitle.setHexpand(true);
-                setHalign(Align.FILL);
-                eb.setHalign(Align.FILL);
+                setHexpand(true);
                 setVisibleChildName(PAGE_EDIT);
                 eTitle.grabFocus();
         }
