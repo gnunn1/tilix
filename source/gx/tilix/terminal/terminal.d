@@ -1858,7 +1858,7 @@ private:
     }
 
     void updateDimColor() {
-        if (!gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY) && gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
+        if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_DIM_COLOR_KEY)) {
             vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_DIM_COLOR_KEY));
         } else {
             vteDimBG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY));
