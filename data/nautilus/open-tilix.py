@@ -22,7 +22,7 @@ textdomain("tilix")
 _ = gettext
 
 
-def open_terminl_in_file(filename):
+def open_terminal_in_file(filename):
   if filename:
     call('{0} -w "{1}" &'.format(TERMINAL, filename), shell=True)
   else:
@@ -55,7 +55,7 @@ class OpenTilixShortcutProvider(GObject.GObject,
 
   def _open_terminal(self, *args):
     filename = unquote(self._uri[7:])
-    open_terminl_in_file(filename)
+    open_terminal_in_file(filename)
 
   def get_widget(self, uri, window):
     self._uri = uri
@@ -85,7 +85,7 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
       call('{0} -e "{1}" &'.format(TERMINAL, value), shell=True)
     else:
       filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
-      open_terminl_in_file(filename)
+      open_terminal_in_file(filename)
 
   def _menu_activate_cb(self, menu, file_):
     self._open_terminal(file_)
