@@ -47,6 +47,7 @@ private:
     enum PAGE_EDIT = "edit";
 
     Entry eTitle;
+    EventBox eb;
     Label lblTitle;
 
     uint timeoutID;
@@ -61,15 +62,19 @@ private:
     bool controlRequired;
 
     void createUI() {
+        setHalign(Align.FILL);
+        
         lblTitle = new Label(_(APPLICATION_NAME));
+        lblTitle.setHalign(Align.CENTER);
         lblTitle.getStyleContext().addClass("title");
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
-        EventBox eb = new EventBox();
-        eb.add(lblTitle);
+        eb = new EventBox();
         eb.addOnButtonPress(&onButtonPress);
         eb.addOnButtonRelease(&onButtonRelease);
+        eb.add(lblTitle);
+        eb.setHalign(Align.FILL);
         addNamed(eb, PAGE_LABEL);
-
+        
         eTitle = new Entry();
         eTitle.setWidthChars(5);
         eTitle.setHexpand(true);
@@ -78,12 +83,12 @@ private:
             if (event.getKeyval(keyval)) {
                 switch (keyval) {
                     case GdkKeysyms.GDK_Escape:
-                        setVisibleChildName(PAGE_LABEL);
+                        setViewMode(ViewMode.LABEL);
                         onCancelEdit.emit();
                         return true;
                     case GdkKeysyms.GDK_Return:
                         onTitleChange.emit(eTitle.getText());
-                        setVisibleChildName(PAGE_LABEL);
+                        setViewMode(ViewMode.LABEL);
                         return true;
                     default:
                 }
@@ -99,6 +104,7 @@ private:
         } else {
             addNamed(eTitle, PAGE_EDIT);
         }
+        setViewMode(ViewMode.LABEL);
     }
 
     bool onButtonRelease(Event event, Widget widget) {
@@ -138,7 +144,7 @@ private:
     bool onFocusOut(Event event, Widget widget) {
         trace("Focus out");
         removeTimeout();
-        setVisibleChildName(PAGE_LABEL);
+        setViewMode(ViewMode.LABEL);
         onCancelEdit.emit();
         return false;
     }
@@ -146,6 +152,21 @@ private:
     bool onSingleClickTimer() {
         doEdit();
         return false;
+    }
+
+    enum ViewMode {LABEL, EDITOR}
+
+    void setViewMode(ViewMode mode) {
+        final switch (mode) {
+            case ViewMode.LABEL:
+                setVisibleChildName(PAGE_LABEL);
+                setHexpand(false);
+                break;
+            case ViewMode.EDITOR:
+                setHexpand(true);
+                setVisibleChildName(PAGE_EDIT);
+                eTitle.grabFocus();
+        }
     }
 
     void doEdit() {
@@ -160,8 +181,7 @@ private:
         if (value.length > 0) {
             eTitle.setText(value);
         }
-        setVisibleChildName(PAGE_EDIT);
-        eTitle.grabFocus();
+        setViewMode(ViewMode.EDITOR);
     }
 
     void removeTimeout() {

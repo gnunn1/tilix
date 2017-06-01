@@ -49,7 +49,7 @@ private:
 
         ScrolledWindow sw = new ScrolledWindow(tv);
         sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
         sw.setHexpand(true);
         sw.setVexpand(true);
 
