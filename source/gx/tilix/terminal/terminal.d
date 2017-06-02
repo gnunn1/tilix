@@ -1640,13 +1640,14 @@ private:
         // Find the matching regex that was clicked
         void updateMatch(Event event) {
             match.clear;
-            int tag;
+            int tag = -1;
             checkHyperlinkMatch(event);
             // Check standard hyperlink if new hyperlink feature returns nothing
-            if (!match.match) {
+            if (match.match.length == 0) {
                 match.match = vte.matchCheckEvent(event, tag);
+                tracef("Match event received %s", match.match);
             }
-            if (match.match) {
+            if (match.match.length > 0) {
                 tracef("Match checked: %s for tag %d", match.match, tag);
                 if (tag in regexTag) {
                     TerminalRegex regex = regexTag[tag];
