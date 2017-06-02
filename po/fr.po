@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-04-08 09:26+0000\n"
+"PO-Revision-Date: 2017-06-01 07:08+0000\n"
 "Last-Translator: Sogal BOOGALSKY <sogal@volted.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/tilix/"
-"translations/fr/>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/tilix/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.13-dev\n"
+"X-Generator: Weblate 2.15-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -272,11 +272,13 @@ msgid "Wrap around"
 msgstr "Recherche circulaire"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "L'expression %s n'est pas une expression régulière valide"
+msgstr ""
+"La recherche %s n'est pas une expression rationnelle valide\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:329
 #: source/gx/tilix/terminal/terminal.d:3355
@@ -393,9 +395,11 @@ msgid "Add Down"
 msgstr "Division en bas"
 
 #: source/gx/tilix/terminal/terminal.d:825
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Une erreur inattendue est survenue : %s"
+msgstr ""
+"Une erreur inattendue est survenue en ajoutant l'expression rationnelle du "
+"lien : %s"
 
 #: source/gx/tilix/terminal/terminal.d:909
 msgid "Terminal Activity"
@@ -443,10 +447,13 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"Les URIs de fichiers distants ne sont pas pris en charge dans les hyperliens."
+"\n"
+"L'URI était %s"
 
 #: source/gx/tilix/terminal/terminal.d:1715
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "URI de fichiers distants non pris en charge"
 
 #: source/gx/tilix/terminal/terminal.d:1746
 #: source/gx/tilix/terminal/terminal.d:2204
@@ -463,11 +470,11 @@ msgstr "Erreur dans l'expression rationnelle"
 #: source/gx/tilix/terminal/terminal.d:1759
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "Impossible d'ouvrir la correspondance %s"
 
 #: source/gx/tilix/terminal/terminal.d:1760
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Erreur en ouvrant la correspondance"
 
 #: source/gx/tilix/terminal/terminal.d:2342
 msgid "Unexpected error occurred, no additional information available"
@@ -1188,9 +1195,8 @@ msgid "Enable shortcuts"
 msgstr "Activer les raccourcis"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:755
-#, fuzzy
 msgid "Set default"
-msgstr "Par défaut"
+msgstr "Définir la valeur par défaut"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:836
 msgid "Overwrite Existing Shortcut"
@@ -1386,9 +1392,8 @@ msgid "Close window when last session is closed"
 msgstr "Fermer la fenêtre quand la dernière session est close"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1333
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Définir le répertoire de travail pour le terminal"
+msgstr "La nouvelle fenêtre hérite du répertoire et du profil du terminal actif"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1339
 msgid "Send desktop notification on process complete"
@@ -1736,9 +1741,8 @@ msgid "Application name"
 msgstr "Nom de l'application"
 
 #: source/gx/tilix/constants.d:142
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Titre du terminal"
+msgstr "Titre du terminal actif"
 
 #: source/gx/tilix/constants.d:143
 msgid "Session name"
