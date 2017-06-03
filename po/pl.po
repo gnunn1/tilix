@@ -1,23 +1,21 @@
 # Polish translation for terminix.
 # This file is put in the public domain.
 # Piotr Sokół <psokol.l10n@gmail.com>, 2016, 2017.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-05-09 12:26+0000\n"
+"PO-Revision-Date: 2017-06-03 09:51+0200\n"
 "Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/tilix/"
-"translations/pl/>\n"
+"Language-Team: polski <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.14-dev\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: source/app.d:133
 #, c-format
@@ -39,9 +37,9 @@ msgid "Versions"
 msgstr "Wersje"
 
 #: source/app.d:162
-#, fuzzy, c-format
+#, c-format
 msgid "Tilix version: %s"
-msgstr "Wersja Terminix: %s"
+msgstr "Wersja Tilix: %s"
 
 #: source/app.d:163
 #, c-format
@@ -67,7 +65,7 @@ msgstr "Wyzwalacze włączone=%b"
 
 #: source/app.d:168
 msgid "Badges enabled=%b"
-msgstr ""
+msgstr "Plakietki włączone=%b"
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
@@ -272,11 +270,13 @@ msgid "Wrap around"
 msgstr "Przeszukanie od początku po osiągnięciu końca"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "Wyrażenie %s nie jest prawidłowym wyrażeniem regularnym"
+msgstr ""
+"Ciąg „%s” nie jest prawidłowym wyrażeniem regularnym\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:329
 #: source/gx/tilix/terminal/terminal.d:3355
@@ -310,9 +310,8 @@ msgid "Edit Profile"
 msgstr "Zmodyfikuj profil"
 
 #: source/gx/tilix/terminal/terminal.d:459
-#, fuzzy
 msgid "Edit Encodings"
-msgstr "Kodowanie znaków"
+msgstr "Zmodyfikuj kodowanie"
 
 #: source/gx/tilix/terminal/terminal.d:614
 msgid "Enable input synchronization for this terminal"
@@ -381,7 +380,6 @@ msgid "Monitor Silence"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:768
-#, fuzzy
 msgid "Other"
 msgstr "Inne"
 
@@ -395,14 +393,15 @@ msgid "Add Down"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:825
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Wystąpił nieoczekiwany błąd: %s"
+msgstr ""
+"Wystąpił nieoczekiwany błąd podczas dodawania wyrażenia regularnego "
+"odnośnika: %s"
 
 #: source/gx/tilix/terminal/terminal.d:909
-#, fuzzy
 msgid "Terminal Activity"
-msgstr "Tytuł terminala"
+msgstr "Aktywność terminala"
 
 #: source/gx/tilix/terminal/terminal.d:1178
 #: source/gx/tilix/terminal/terminal.d:1573
@@ -411,7 +410,7 @@ msgstr "Przywróć"
 
 #: source/gx/tilix/terminal/terminal.d:1436
 msgid "Tilix Custom Notification"
-msgstr ""
+msgstr "Własne powiadomienia Tilix"
 
 #: source/gx/tilix/terminal/terminal.d:1533
 msgid "Open Link"
@@ -446,10 +445,12 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"Adresy zdalnych plików nie są obsługiwane przez odnośniki.\n"
+"Adres to „%s”."
 
 #: source/gx/tilix/terminal/terminal.d:1715
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "Nieobsługiwany adres URL zdalnego pliku"
 
 #: source/gx/tilix/terminal/terminal.d:1746
 #: source/gx/tilix/terminal/terminal.d:2204
@@ -459,18 +460,17 @@ msgstr ""
 "Wyrażenie regularne własnego odnośnika „%s” jest nieprawidłowe. Ignorowanie."
 
 #: source/gx/tilix/terminal/terminal.d:1747
-#, fuzzy
 msgid "Regular Expression Error"
-msgstr "Dopasowanie do wyrażenia regularnego"
+msgstr "Błąd wyrażenia regularnego"
 
 #: source/gx/tilix/terminal/terminal.d:1759
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "Nie można otworzyć dopasowania „%s”."
 
 #: source/gx/tilix/terminal/terminal.d:1760
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Błąd otwierania dopasowania"
 
 #: source/gx/tilix/terminal/terminal.d:2342
 msgid "Unexpected error occurred, no additional information available"
@@ -542,7 +542,7 @@ msgstr "Tytuł"
 #: source/gx/tilix/prefeditor/profileeditor.d:313
 #: source/gx/tilix/prefeditor/profileeditor.d:637
 msgid "Badge"
-msgstr ""
+msgstr "Plakietka"
 
 #: source/gx/tilix/terminal/layout.d:82
 msgid "Session Load"
@@ -738,7 +738,7 @@ msgstr "Tytuł terminala"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:327
 msgid "Badge position"
-msgstr ""
+msgstr "Położenie plakietki"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:331
 msgid "Northwest"
@@ -858,9 +858,8 @@ msgid "Bold"
 msgstr "Pogrubienie"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:622
-#, fuzzy
 msgid "Select Bold Color"
-msgstr "Wybór koloru: %s"
+msgstr "Wybór koloru pogrubienia"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:627
 msgid "Dim"
@@ -1031,6 +1030,13 @@ msgid ""
 "the hostname or directory can be omitted but the colon must be present. "
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
+"Profile są automatycznie wybierane na podstawie wprowadzonych poniżej "
+"wartości.\n"
+"Wartości te należy wprowadzać w formacie "
+"<i>nazwa_użytkownika@nazwa_komputera:katalog</i>. Można pominąć nazwę "
+"komputera lub ścieżkę katalogu, ale należy zachować znak dwukropka. "
+"Niedozwolone są dopasowania pomijające nazwę komputera wraz ze ścieżką "
+"katalogu."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1128
 msgid ""
@@ -1184,9 +1190,8 @@ msgid "Enable shortcuts"
 msgstr "Włączenie skrótów klawiszowych"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:755
-#, fuzzy
 msgid "Set default"
-msgstr "Domyślny"
+msgstr "Przywraca domyślny"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:836
 msgid "Overwrite Existing Shortcut"
@@ -1273,7 +1278,7 @@ msgstr "Rozmieszczony sąsiadująco"
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 #: source/gx/tilix/prefeditor/prefdialog.d:1195
 msgid "Center"
-msgstr "Środek"
+msgstr "Wyśrodkowany"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Stretch"
@@ -1353,7 +1358,7 @@ msgstr "Zachowanie"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1299
 msgid "Prompt when creating a new session"
-msgstr "Dialog tworzenia nowej sesji"
+msgstr "Okno dialogowe nowej sesji"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1304
 msgid "Focus a terminal when the mouse moves over it"
@@ -1381,9 +1386,8 @@ msgid "Close window when last session is closed"
 msgstr "Zamknięcie okna po zakończeniu ostatniej sesji"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1333
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Ustala katalog roboczy terminala"
+msgstr "Dziedziczenie katalogu i profilu nowych okien po aktywnym terminalu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1339
 msgid "Send desktop notification on process complete"
@@ -1682,6 +1686,9 @@ msgid ""
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
+"Ten kod źródłowy jest tematem ustaleń Licencji Publicznej Mozilla, w wersji "
+"2.0. Jeśli nie udostępniono kopii licencji wraz z tym plikiem, można ją "
+"uzyskać pod adresem http://mozilla.org/MPL/2.0/. "
 
 #: source/gx/tilix/constants.d:66
 msgid "GTK VTE widget team, Tilix would not be possible without their work"
@@ -1755,8 +1762,9 @@ msgstr ""
 "roboczego/wykonywanego polecenia. Proszę wykonać jedną z tych czynności."
 
 #: source/gx/tilix/cmdparams.d:182
+#, fuzzy
 msgid "You can only use the action parameter within Tilix"
-msgstr ""
+msgstr "Można użyć tylko parametru action"
 
 #: source/gx/tilix/cmdparams.d:204
 msgid ""
@@ -1910,18 +1918,16 @@ msgid "Session (%s)"
 msgstr "Sesja (%s)"
 
 #: source/gx/tilix/closedialog.d:193
-#, fuzzy
 msgid "Close Application"
-msgstr "Program"
+msgstr "Kończenie programu"
 
 #: source/gx/tilix/closedialog.d:196
 msgid "Close Window"
 msgstr "Zamykanie okna"
 
 #: source/gx/tilix/closedialog.d:199 source/gx/tilix/closedialog.d:202
-#, fuzzy
 msgid "Close Session"
-msgstr "Nowa sesja"
+msgstr "Zamykanie sesji"
 
 #: source/gx/tilix/bookmark/manager.d:233
 msgid "Error deserializing bookmark"
@@ -1949,7 +1955,6 @@ msgid "Remote"
 msgstr "Zdalne położenie"
 
 #: source/gx/tilix/bookmark/bmchooser.d:79
-#, fuzzy
 msgid "Include return character with bookmark"
 msgstr "Uwzględnienie znaku końca wiersza"
 
@@ -2345,7 +2350,7 @@ msgstr "Wklejenie tekstu"
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Paste selection"
-msgstr ""
+msgstr "Wklejenie zaznaczonego tekstu"
 
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
@@ -2485,7 +2490,7 @@ msgstr "Otwieranie"
 #: data/resources/ui/shortcuts.ui:577
 msgctxt "shortcut window"
 msgid "Open in Tilix"
-msgstr "Otwórz w Tilix"
+msgstr "Otwarcie w Tilix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
