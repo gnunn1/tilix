@@ -57,7 +57,7 @@ public:
         eTitle = new Entry();
         eTitle.setWidthChars(20);
         eTitle.setHexpand(true);
-        if (Version.checkVersion(3,14, 0).length == 0) {
+        if (Version.checkVersion(3,16, 0).length == 0) {
             grid.attach(createTitleEditHelper(eTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
         } else {
             grid.attach(eTitle, 1, row, 1, 1);

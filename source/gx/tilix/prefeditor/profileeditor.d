@@ -969,7 +969,7 @@ private:
 
         CheckButton cbLimitScroll = new CheckButton(_("Limit scrollback to:"));
         bh.bind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, cbLimitScroll, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
-        SpinButton sbScrollbackSize = new SpinButton(256.0, double.max, 256.0);
+        SpinButton sbScrollbackSize = new SpinButton(256.0, to!double(int.max), 256.0);
         bh.bind(SETTINGS_PROFILE_SCROLLBACK_LINES_KEY, sbScrollbackSize, "value", GSettingsBindFlags.DEFAULT);
         bh.bind(SETTINGS_PROFILE_UNLIMITED_SCROLL_KEY, sbScrollbackSize, "sensitive",
                 GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags.INVERT_BOOLEAN);

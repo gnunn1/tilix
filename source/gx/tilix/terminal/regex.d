@@ -170,12 +170,14 @@ import std.regex.internal.thompson: ThompsonMatcher;
 struct TerminalURLMatch {
     TerminalURLFlavor flavor;
     string match;
-    int tag;
+    int tag = -1;
     bool uri;
 
     void clear() {
         flavor = TerminalURLFlavor.AS_IS;
         match.length = 0;
+        uri = false;
+        tag = -1;
     }
 }
 
