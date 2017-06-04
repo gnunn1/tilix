@@ -3362,7 +3362,7 @@ public:
     string getDisplayText(string text) {
         string windowTitle = vte.getWindowTitle();
         if (windowTitle.length == 0)
-            windowTitle = _("Terminal");
+            windowTitle = _overrideTitle.length > 0 ? _overrideTitle : _("Terminal");
         text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
         text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
         text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
