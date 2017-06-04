@@ -54,7 +54,7 @@ enum APPLICATION_ID = "com.gexperts.Tilix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Tilix";
-enum APPLICATION_VERSION = "1.6.0";
+enum APPLICATION_VERSION = "1.6.1";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2017 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
