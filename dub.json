@@ -7,9 +7,9 @@
     "dflags-ldc": ["-disable-linker-strip-dead","-defaultlib=:libphobos2-ldc.a,:libdruntime-ldc.a"],
 
     "dependencies": {
-        "gtk-d": "~>3.5.1"
+        "gtk-d:gtkd": "~>3.6.5",
+        "gtk-d:vte": "~>3.6.5"
     },
-
     "buildTypes": {
         "release": {
         },
