@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-05-25 21:24+0000\n"
+"PO-Revision-Date: 2017-06-09 22:36+0000\n"
 "Last-Translator: monolifed <monolifed@gmail.com>\n"
 "Language-Team: Turkish "
 "<https://hosted.weblate.org/projects/tilix/translations/tr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.14.1\n"
+"X-Generator: Weblate 2.15-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -284,7 +284,7 @@ msgstr "Terminal"
 #: source/gx/tilix/terminal/terminal.d:1181
 #: source/gx/tilix/terminal/terminal.d:1573
 msgid "Maximize"
-msgstr "Tam Boyut"
+msgstr "Kapla"
 
 #: source/gx/tilix/terminal/terminal.d:381
 #: source/gx/tilix/terminal/terminal.d:612
@@ -437,6 +437,8 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"Uzak dosya URI'ları ile köprüler desteklenmez.\n"
+"URI '%s' idi"
 
 #: source/gx/tilix/terminal/terminal.d:1715
 msgid "Remote File URI Unsupported"
@@ -1053,7 +1055,7 @@ msgstr "Eşleme için hostname:directory girin"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1158
 msgid "Add New Match"
-msgstr ""
+msgstr "Yeni Eşleşme Ekle"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1175
 msgid "Edit username@hostname:directory to match"
@@ -1065,7 +1067,7 @@ msgstr "Eşleme için hostname:directory girin"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1179
 msgid "Edit Match"
-msgstr ""
+msgstr "Eşleşmeyi Düzenle"
 
 #: source/gx/tilix/prefeditor/common.d:34
 msgid "Custom Links"
@@ -1076,16 +1078,20 @@ msgid ""
 "A list of user defined links that can be clicked on in the terminal based on "
 "regular expression definitions."
 msgstr ""
+"Düzenli ifade tanımlarını temel alan terminalden  tıklanabilen kullanıcı "
+"tanımlı bağlantıların listesi."
 
 #: source/gx/tilix/prefeditor/common.d:61
 msgid "Triggers"
-msgstr ""
+msgstr "Tetikleyiciler"
 
 #: source/gx/tilix/prefeditor/common.d:67
 msgid ""
 "Triggers are regular expressions that are used to check against output text "
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
+"Tetikleyiciler çıkış metnine karşı terminali denetleyen düzenli ifadelerdir. "
+"Bir eşleşme algılandığında yapılandırılmış eylem yürütülür."
 
 #: source/gx/tilix/prefeditor/prefdialog.d:120
 msgid "Tilix Preferences"
@@ -1105,7 +1111,7 @@ msgstr "Görünüm"
 #: source/gx/tilix/prefeditor/prefdialog.d:145
 #: source/gx/tilix/prefeditor/prefdialog.d:146
 msgid "Quake"
-msgstr ""
+msgstr "Deprem"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:149
 #: source/gx/tilix/prefeditor/prefdialog.d:150
@@ -1143,7 +1149,7 @@ msgstr "Klon"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:522
 msgid "Use for new terminals"
-msgstr ""
+msgstr "Yeni terminaller için kullan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:598
 msgid "Encodings showing in menu:"
@@ -1198,15 +1204,15 @@ msgstr "CSD'yi etkisiz kıl"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1004
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "CSD'yi devre dışı bırak, araç çubuğunu gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1004
 msgid "Borderless"
-msgstr ""
+msgstr "Kenarlıksız"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1008
 msgid "Window restart required"
-msgstr ""
+msgstr "Pencere yeniden başlatma gerekiyor"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1017
 msgid "Terminal title style"
@@ -1259,7 +1265,7 @@ msgstr "Ortala"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Stretch"
-msgstr ""
+msgstr "Uzat"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1082
 msgid "Default session name"
@@ -1279,7 +1285,7 @@ msgstr "Ayraçlar için geniş kulp kullan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1126
 msgid "Place the sidebar on the right"
-msgstr ""
+msgstr "Sağa kenar çubuğunu yerleştir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Show the terminal title even if it's the only terminal"
@@ -1291,7 +1297,7 @@ msgstr "Boyut"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1173
 msgid "Height percent"
-msgstr ""
+msgstr "Yükseklik yüzdesi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1184
 msgid "Width percent"
@@ -1356,11 +1362,11 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1324
 msgid "Require the <Control> modifier to edit title on click"
-msgstr ""
+msgstr "Başlığı tıklayınca düzenlemek için <Control> değiştiricisi gerekli kıl"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1329
 msgid "Close window when last session is closed"
-msgstr ""
+msgstr "Son oturum kapatıldığında pencereyi Kapat"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1333
 msgid "New window inherits directory and profile from active terminal"
@@ -1400,7 +1406,7 @@ msgstr "Pencereye odaklan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Always use advanced paste dialog"
-msgstr ""
+msgstr "Her zaman gelişmiş yapıştır iletişim kutusunu kullan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1367
 msgid "Warn when attempting unsafe paste"
@@ -1421,7 +1427,7 @@ msgstr "Pencere"
 #: source/gx/tilix/prefeditor/titleeditor.d:122
 #: source/gx/tilix/prefeditor/titleeditor.d:123
 msgid "Help"
-msgstr ""
+msgstr "Yardım"
 
 #: source/gx/tilix/prefeditor/advdialog.d:92
 #: source/gx/tilix/prefeditor/advdialog.d:230
@@ -1442,7 +1448,7 @@ msgstr "Parametre"
 
 #: source/gx/tilix/prefeditor/advdialog.d:306
 msgid "Limit number of lines for trigger processing to:"
-msgstr ""
+msgstr "Tetikleyici işleme için satır sayısını sınırla:"
 
 #: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Edit Triggers"
@@ -1564,7 +1570,7 @@ msgstr "KOMUT"
 
 #: source/gx/tilix/application.d:667
 msgid "Maximize the terminal window"
-msgstr "Terminal penceresini tam boyut yap"
+msgstr "Terminal penceresini kaplat"
 
 #: source/gx/tilix/application.d:668
 msgid "Minimize the terminal window"
@@ -1580,7 +1586,7 @@ msgstr "Var olan pencereye odakla"
 
 #: source/gx/tilix/application.d:671
 msgid "Start additional instance as new process (Not Recommended)"
-msgstr ""
+msgstr "Ek örnekleri yeni işlem olarak başlat (Önerilmez)"
 
 #: source/gx/tilix/application.d:672
 msgid ""
@@ -1744,6 +1750,8 @@ msgstr "Eylem parametresi yalnızca Tilix içinde kullanabilirsiniz"
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
+"Deprem modunu kaplatma, küçültme veya geometri parametreleri ile "
+"kullanamazsınız"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -2393,7 +2401,7 @@ msgstr "Terminali kapat"
 #: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Maximize terminal"
-msgstr "Terminali tam boyut yap"
+msgstr "Terminali kaplat"
 
 #: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
@@ -2482,7 +2490,6 @@ msgid "A tiling terminal for GNOME"
 msgstr "GNOME için döşeyen bir terminal"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:12
-#, fuzzy
 msgid "Tilix is a tiling terminal emulator."
 msgstr "Tilix döşeyen bir terminal emülatörüdür."
 
@@ -2512,6 +2519,8 @@ msgid ""
 "Input can be synchronized between terminals so commands typed in one "
 "terminal are replicated to the others"
 msgstr ""
+"Giriş terminaller arasında eşitlenebilir böylece bir terminalde yazılan "
+"komutları diğerlerine kopyalanır"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
@@ -2543,6 +2552,9 @@ msgid ""
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
+"Uygulama GTK 3 kullanarak yazılmıştır ve GNOME İnsan Arabirim Yönergelerine "
+"(HIG) uyması için çaba harcanmıştır. Sonuç olarak, istemci tarafı "
+"süslemeleri kullanır, yine de gerekirse bunlar devre dışı bırakılabilir."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
