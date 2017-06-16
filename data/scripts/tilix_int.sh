@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+HOSTNAME=$(hostname)
 
 # Not bash or zsh?
 [ -n "$BASH_VERSION" -o -n "$ZSH_VERSION" ] || return 0
