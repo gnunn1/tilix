@@ -1567,7 +1567,7 @@ public:
                     }
                 }
                 trace("Focus lost, hiding quake window");
-                threadsAddTimeoutDelegate(100, delegate() {
+                threadsAddTimeoutDelegate(gsSettings.getInt(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY), delegate() {
                     if (isVisible()) {
                         this.hide();
                     }

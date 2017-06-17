@@ -215,6 +215,9 @@ public:
         trace("\tcommand=" ~ _command);
         trace("\tcwd=" ~ _cwd);
         trace("\tpwd=" ~ _pwd);
+        if (_quake) {
+            trace("\tquake");
+        }
     }
 
     void clear() {

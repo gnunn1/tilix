@@ -1220,10 +1220,22 @@ private:
         bContent.add(cbDisableAnimations);
         */
 
-        //Hide window on lose focus
+        //Hide window on lose focus, note issue #858
         CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
         bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideOnLoseFocus);
+        
+        Label lblDelay = new Label(_("Delay hiding window by (ms)"));
+        SpinButton sbDelay = new SpinButton(50, 1000, 50);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY, sbDelay, "value", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, sbDelay, "sensitive", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, lblDelay, "sensitive", GSettingsBindFlags.DEFAULT);
+
+        Box bDelay = new Box(Orientation.HORIZONTAL, 6);
+        bDelay.add(lblDelay);
+        bDelay.add(sbDelay);
+        bDelay.setMarginLeft(48);
+        bContent.add(bDelay);
 
         //Hide headerbar
         CheckButton cbHideHeaderbar = new CheckButton(_("Hide the titlebar of the window"));
