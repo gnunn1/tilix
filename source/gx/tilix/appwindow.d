@@ -1135,6 +1135,18 @@ private:
             } else if (getCurrentSession() !is null) {
                 getCurrentSession().focusTerminal(1);
             }
+        } else if (tilix.getGlobalOverrides().geometry.flag == GeometryFlag.NONE && !isWayland(this)) {
+            GdkWindowState state = cast(GdkWindowState)gsSettings.getInt(SETTINGS_WINDOW_STATE_KEY);
+            if (state & GdkWindowState.MAXIMIZED) {
+                maximize();
+            } else if (state & GdkWindowState.ICONIFIED) {
+                iconify();
+            } else if (state & GdkWindowState.FULLSCREEN) {
+                fullscreen();
+            }
+            if (state & GdkWindowState.STICKY) {
+                stick();
+            }
         }
     }
 
@@ -1567,7 +1579,7 @@ public:
                     }
                 }
                 trace("Focus lost, hiding quake window");
-                threadsAddTimeoutDelegate(100, delegate() {
+                threadsAddTimeoutDelegate(gsSettings.getInt(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY), delegate() {
                     if (isVisible()) {
                         this.hide();
                     }
@@ -1591,19 +1603,6 @@ public:
             return false;
         });
         handleGeometry();
-        if (tilix.getGlobalOverrides().geometry.flag == GeometryFlag.NONE && !isQuake() && !tilix.getGlobalOverrides().windowStateOverride) {
-            GdkWindowState state = cast(GdkWindowState)gsSettings.getInt(SETTINGS_WINDOW_STATE_KEY);
-            if (state & GdkWindowState.MAXIMIZED) {
-                maximize();
-            } else if (state & GdkWindowState.ICONIFIED) {
-                iconify();
-            } else if (state & GdkWindowState.FULLSCREEN) {
-                fullscreen();
-            }
-            if (state & GdkWindowState.STICKY) {
-                stick();
-            }
-        }
     }
 
     debug(Destructors) {
