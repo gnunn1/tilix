@@ -408,6 +408,9 @@ class PasswordDialog: Dialog {
 private:
 
     Label lblMatch;
+    Label lblName;
+    Label lblPassword;
+    Label lblRepeatPwd;
 
     Entry eLabel;
     Entry ePassword;
@@ -421,7 +424,9 @@ private:
 
         int row = 0;
         // Name (i.e. Label in libsecret parlance)
-        grid.attach(new Label(_("Name")), 0, row, 1, 1);
+        lblName = new Label(_("Name"));
+        lblName.setHalign(Align.END);
+        grid.attach(lblName, 0, row, 1, 1);
         eLabel = new Entry();
         eLabel.setWidthChars(40);
         eLabel.setText(_label);
@@ -429,7 +434,9 @@ private:
         row++;
 
         //Password
-        grid.attach(new Label(_("Password")), 0, row, 1, 1);
+        lblPassword = new Label(_("Password"));
+        lblPassword.setHalign(Align.END);
+        grid.attach(lblPassword, 0, row, 1, 1);
         ePassword = new Entry();
         ePassword.setVisibility(false);
         ePassword.setText(_password);
@@ -437,7 +444,9 @@ private:
         row++;
 
         //Confirm Password
-        grid.attach(new Label(_("Confirm Password")), 0, row, 1, 1);
+        lblRepeatPwd = new Label(_("Confirm Password"));
+        lblRepeatPwd.setHalign(Align.END);
+        grid.attach(lblRepeatPwd, 0, row, 1, 1);
         eConfirmPassword = new Entry();
         eConfirmPassword.setVisibility(false);
         eConfirmPassword.setText(_password);
