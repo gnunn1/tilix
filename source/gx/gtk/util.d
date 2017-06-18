@@ -229,49 +229,6 @@ bool equal(Widget w1, Widget w2) {
 }
 
 /**
- * Converts an RGBA structure to a 8 bit HEX string, i.e #2E3436
- *
- * Params:
- * RGBA	 = The color to convert
- * includeAlpha = Whether to include the alpha channel
- * includeHash = Whether to preface the color string with a #
- */
-string rgbaTo8bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
-    string prepend = includeHash ? "#" : "";
-    int red = to!(int)(color.red() * 255);
-    int green = to!(int)(color.green() * 255);
-    int blue = to!(int)(color.blue() * 255);
-    if (includeAlpha) {
-        int alpha = to!(int)(color.alpha() * 255);
-        return prepend ~ format("%02X%02X%02X%02X", red, green, blue, alpha);
-    } else {
-        return prepend ~ format("%02X%02X%02X", red, green, blue);
-    }
-}
-
-/**
- * Converts an RGBA structure to a 16 bit HEX string, i.e #2E2E34343636
- * Right now this just takes an 8 bit string and repeats each channel
- *
- * Params:
- * RGBA	 = The color to convert
- * includeAlpha = Whether to include the alpha channel
- * includeHash = Whether to preface the color string with a #
- */
-string rgbaTo16bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
-    string prepend = includeHash ? "#" : "";
-    int red = to!(int)(color.red() * 255);
-    int green = to!(int)(color.green() * 255);
-    int blue = to!(int)(color.blue() * 255);
-    if (includeAlpha) {
-        int alpha = to!(int)(color.alpha() * 255);
-        return prepend ~ format("%02X%02X%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue, alpha, alpha);
-    } else {
-        return prepend ~ format("%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue);
-    }
-}
-
-/**
  * Appends multiple values to a row in a list store
  */
 TreeIter appendValues(TreeStore ts, TreeIter parentIter, string[] values) {
