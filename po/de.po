@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: German (Terminix)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 17:18-0400\n"
-"PO-Revision-Date: 2017-06-18 00:07+0000\n"
+"PO-Revision-Date: 2017-06-19 10:14+0000\n"
 "Last-Translator: Sebastian Hippe <sebastian_development97@yahoo.com>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/tilix/translations/de/>\n"
@@ -18,12 +18,12 @@ msgstr ""
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr ""
-"Die installierte GTK-Version ist zu alt, es ist mindestens GTK %d.%d.%d "
-"erforderlich!"
+"Die installierte GTK-Version ist veraltet, es wird mindestens GTK %d.%d.%d "
+"benötigt!"
 
 #: source/app.d:150
 msgid "Unexpected exception occurred"
-msgstr "Unerwartete Ausnahme aufgetreten"
+msgstr "Eine unerwartete Ausnahme ist aufgetreten"
 
 #: source/app.d:151
 msgid "Error: "
@@ -1529,10 +1529,11 @@ msgstr "Beenden"
 #. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
 #: source/gx/tilix/application.d:298
 msgid "translator-credits"
-msgstr "Philipp Wolfer <ph.wolfer@gmail.com>"
+msgstr ""
+"Sebastian Hippe <sebastian.hippe97@yahoo.de>\n"
+"Philipp Wolfer <ph.wolfer@gmail.com>"
 
 #: source/gx/tilix/application.d:307
-#, fuzzy
 msgid "Credits"
 msgstr "Danksagungen"
 
@@ -1554,7 +1555,7 @@ msgstr "PROFIL_NAME"
 
 #: source/gx/tilix/application.d:661
 msgid "Set the title of the new terminal"
-msgstr "Titel des neuen Terminals setzen"
+msgstr "Titel des neuen Terminals festlegen"
 
 #: source/gx/tilix/application.d:661
 msgid "TITLE"
@@ -1566,7 +1567,7 @@ msgstr "Die angegebene Sitzung öffnen"
 
 #: source/gx/tilix/application.d:662
 msgid "SESSION_NAME"
-msgstr "SITZUNGS_NAME"
+msgstr "SITZUNGSNAME"
 
 #: source/gx/tilix/application.d:664
 msgid "Send an action to current Tilix instance"
@@ -1574,7 +1575,7 @@ msgstr "Eine Aktion an die aktuelle Tilix-Instanz senden"
 
 #: source/gx/tilix/application.d:664
 msgid "ACTION_NAME"
-msgstr "AKTIONS_NAME"
+msgstr "AKTIONSNAME"
 
 #: source/gx/tilix/application.d:666
 msgid "Execute the parameter as a command"
@@ -1602,13 +1603,12 @@ msgstr "Vorhandenes Fenster fokussieren"
 
 #: source/gx/tilix/application.d:671
 msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Neue Instanzen in separaten Prozessen starten (nicht empfohlen)"
+msgstr "Neue Instanzen in seperatem Prozess starten (nicht empfohlen)"
 
 #: source/gx/tilix/application.d:672
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Fenstergröße setzen, z.B. 80x24 oder 80x24+200+200 (SPALTENxZEILEN+X+Y)"
+msgstr "Fenstergröße setzen, z.B: 80x24 oder 80x24+200+200 (SPALTENxZEILEN+X+Y)"
 
 #: source/gx/tilix/application.d:672
 msgid "GEOMETRY"
@@ -1643,13 +1643,15 @@ msgid ""
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
-"Es scheint ein Problem mit der Konfiguration des Terminals zu geben. Es ist "
-"nichts ernstes, aber es zu beheben wird Ihr Benutzererlebnis verbessern. "
-"Klicken Sie auf den unten stehenden Verweis für weitere Informationen:"
+"Es scheint ein Problem mit der Konfiguration des Terminals zu geben. \n"
+"Es ist nichts ernstes, aber es zu beheben wird die Benutzererfahrung "
+"verbessern. \n"
+"Klicken Sie, für weitere Informationen, auf die unten stehende "
+"Internetadresse:"
 
 #: source/gx/tilix/application.d:840
 msgid "Configuration Issue Detected"
-msgstr "Probleme mit der Konfiguration entdeckt"
+msgstr "Konfigurationsproblem entdeckt"
 
 #: source/gx/tilix/application.d:852
 msgid "Do not show this message again"
@@ -1658,11 +1660,11 @@ msgstr "Diese Meldung nicht mehr anzeigen"
 #: source/gx/tilix/colorschemes.d:192
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Die Datei %s ist keine konforme Farbschema-Datei"
+msgstr "Die Datei %s ist keine Farbschema-kompatible JSON-Datei"
 
 #: source/gx/tilix/colorschemes.d:261
 msgid "Color scheme palette requires 16 colors"
-msgstr "Die Palette des Farbschemas erfordert 16 Farben"
+msgstr "Die Farbschema-Palette benötigt 16 Farben"
 
 #: source/gx/tilix/session.d:547
 msgid "Could not locate dropped terminal"
