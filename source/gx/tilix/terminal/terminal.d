@@ -508,6 +508,24 @@ private:
             }
         });
 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
+            trace("*** Paste primary");
+            // Check to see if something other then terminal has focus
+            Window window = cast(Window) getToplevel();
+            if (window !is null) {
+                Entry entry = cast(Entry) window.getFocus();
+                if (entry !is null) {
+                    entry.pasteClipboard();
+                    return;
+                }
+            }
+            if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                advancedPaste(GDK_SELECTION_PRIMARY);
+            } else {
+                paste(GDK_SELECTION_PRIMARY);
+            }
+        });
+
         saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 advancedPaste(GDK_SELECTION_CLIPBOARD);
@@ -1253,7 +1271,8 @@ private:
     }
 
     /**
-     * Tests if the paste is unsafe, currently just looks for sudo
+     * Tests if the paste is unsafe, currently just looks for sudo and 
+     * carriage return.
      */
     bool isPasteUnsafe(string text) {
         return (text.indexOf("sudo") > -1) && (text.indexOf("\n") != 0);
