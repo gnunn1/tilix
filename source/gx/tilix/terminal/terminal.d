@@ -957,12 +957,13 @@ private:
             if (vte is null) return false;
 
             if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
-                // Only synchronize hard code VTE keys otherwise let commit event take care of it
-                if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
-                    tracef("Synchronizing key %d", event.key.keyval);
-                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
-                    onSyncInput.emit(this, se);
+                static if (USE_COMMIT_SYNCHRONIZATION) {
+                    // Only synchronize hard code VTE keys otherwise let commit event take care of it
+                    if (!isVTEHandledKeystroke(event.key.keyval, event.key.state)) return false;
                 }
+                tracef("Synchronizing key %d", event.key.keyval);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
+                onSyncInput.emit(this, se);
             }
             return false;
         });
@@ -975,15 +976,17 @@ private:
             }
         });
 
-        _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
-            //tracef("%d Terminal Commit: %s", _terminalID, text);
-            if (vte !is null && isSynchronizedInput() && length > 0) {
-                // Workaround for #888
-                if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
-                onSyncInput.emit(this, se);
-            }
-        });
+        static if (USE_COMMIT_SYNCHRONIZATION) {
+            _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
+                //tracef("%d Terminal Commit: %s", _terminalID, text);
+                if (vte !is null && isSynchronizedInput() && length > 0) {
+                    // Workaround for #888
+                    if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
+                    onSyncInput.emit(this, se);
+                }
+            });
+        }
 
         pmContext = new Popover(vte);
         pmContext.setModal(true);
@@ -1272,6 +1275,12 @@ private:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                 scrollToBottom();
             }
+            static if (!USE_COMMIT_SYNCHRONIZATION) {
+                if (isSynchronizedInput()) {
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
+                    onSyncInput.emit(this, se);
+                }
+            }
         }
         focusTerminal();
     }
@@ -1294,20 +1303,18 @@ private:
                     return;
             }
         }
-        if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
-            if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
-                vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
-                    scrollToBottom();
-                }
-                return;
-            }
-        }
-
-        if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
+        if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
+            vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
+        } else if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
+        }
+        static if (!USE_COMMIT_SYNCHRONIZATION) {
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
+                onSyncInput.emit(this, se);
+            }
         }
     }
 
@@ -2248,12 +2255,16 @@ private:
 private:
 
     void feedChild(string text, bool ignoreCommit) {
-        if (ignoreCommit) {
-            Signals.handlerBlock(vte, _commitHandlerId);
+        if (USE_COMMIT_SYNCHRONIZATION) {
+            if (ignoreCommit) {
+                Signals.handlerBlock(vte, _commitHandlerId);
+            }
         }
         vte.feedChild(text, text.length);
-        if (ignoreCommit) {
-            Signals.handlerUnblock(vte, _commitHandlerId);
+        if (USE_COMMIT_SYNCHRONIZATION) {
+            if (ignoreCommit) {
+                Signals.handlerUnblock(vte, _commitHandlerId);
+            }
         }
     }
 
