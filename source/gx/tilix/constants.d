@@ -101,6 +101,7 @@ enum VARIABLE_TERMINAL_COLUMNS = "${columns}";
 enum VARIABLE_TERMINAL_ROWS = "${rows}";
 enum VARIABLE_TERMINAL_HOSTNAME = "${hostname}";
 enum VARIABLE_TERMINAL_USERNAME = "${username}";
+enum VARIABLE_TERMINAL_PROCESS = "${process}";
 
 immutable string[] VARIABLE_TERMINAL_VALUES = [
     VARIABLE_TERMINAL_TITLE,
@@ -111,6 +112,7 @@ immutable string[] VARIABLE_TERMINAL_VALUES = [
     VARIABLE_TERMINAL_USERNAME,
     VARIABLE_TERMINAL_COLUMNS,
     VARIABLE_TERMINAL_ROWS
+    //VARIABLE_TERMINAL_PROCESS
     ];
 
 immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
@@ -122,6 +124,7 @@ immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
     N_("Username"),
     N_("Columns"),
     N_("Rows")
+    //N_("Process")
     ];
 
 // Application Window Title tokens

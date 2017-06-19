@@ -1341,6 +1341,7 @@ private:
 
     void onVTEScreenChanged(int screen, VTE) {
         currentScreen = cast(TerminalScreen)screen;
+        updateDisplayText();
     }
 
     /**
@@ -3402,6 +3403,13 @@ public:
         text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
         text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
+        if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+            string name;
+            if (isProcessRunning(name))
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
+            else
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, "");
+        }
         string path;
         if (terminalInitialized) {
             path = gst.currentDirectory;
