@@ -1135,7 +1135,7 @@ private:
             } else if (getCurrentSession() !is null) {
                 getCurrentSession().focusTerminal(1);
             }
-        } else if (tilix.getGlobalOverrides().geometry.flag == GeometryFlag.NONE && !isWayland(this)) {
+        } else if (tilix.getGlobalOverrides().geometry.flag == GeometryFlag.NONE && !isWayland(this) && gsSettings.getBoolean(SETTINGS_WINDOW_SAVE_STATE_KEY)) {
             GdkWindowState state = cast(GdkWindowState)gsSettings.getInt(SETTINGS_WINDOW_STATE_KEY);
             if (state & GdkWindowState.MAXIMIZED) {
                 maximize();
@@ -1597,7 +1597,7 @@ public:
             if ((state.newWindowState & GdkWindowState.FULLSCREEN) == GdkWindowState.FULLSCREEN) {
                 trace("Window state is fullscreen");
             }
-            if (getWindow() !is null && !isQuake()) {
+            if (getWindow() !is null && !isQuake() && gsSettings.getBoolean(SETTINGS_WINDOW_SAVE_STATE_KEY)) {
                 gsSettings.setInt(SETTINGS_WINDOW_STATE_KEY, getWindow().getState());
             }
             return false;

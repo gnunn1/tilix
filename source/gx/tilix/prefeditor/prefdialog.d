@@ -1346,6 +1346,11 @@ private:
         bh.bind(SETTINGS_INHERIT_WINDOW_STATE_KEY, cbNewWindowInheritState, "active", GSettingsBindFlags.DEFAULT);
         add(cbNewWindowInheritState);
 
+        // Save window state (maximized, minimized, fullscreen) between invocations
+        CheckButton cbWindowSaveState = new CheckButton(_("Save and restore window state"));
+        bh.bind(SETTINGS_WINDOW_SAVE_STATE_KEY, cbWindowSaveState, "active", GSettingsBindFlags.DEFAULT);
+        add(cbWindowSaveState);
+
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
             CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
