@@ -509,7 +509,6 @@ private:
         });
 
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
-            trace("*** Paste primary");
             // Check to see if something other then terminal has focus
             Window window = cast(Window) getToplevel();
             if (window !is null) {
@@ -1275,7 +1274,7 @@ private:
      * carriage return.
      */
     bool isPasteUnsafe(string text) {
-        return (text.indexOf("sudo") > -1) && (text.indexOf("\n") != 0);
+        return (text.indexOf("sudo") > -1) && (text.indexOf("\n") > -1);
     }
 
     void advancedPaste(GdkAtom source) {
