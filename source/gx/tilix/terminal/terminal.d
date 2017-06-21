@@ -508,6 +508,23 @@ private:
             }
         });
 
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
+            // Check to see if something other then terminal has focus
+            Window window = cast(Window) getToplevel();
+            if (window !is null) {
+                Entry entry = cast(Entry) window.getFocus();
+                if (entry !is null) {
+                    entry.pasteClipboard();
+                    return;
+                }
+            }
+            if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
+                advancedPaste(GDK_SELECTION_PRIMARY);
+            } else {
+                paste(GDK_SELECTION_PRIMARY);
+            }
+        });
+
         saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
                 advancedPaste(GDK_SELECTION_CLIPBOARD);
@@ -957,12 +974,13 @@ private:
             if (vte is null) return false;
 
             if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
-                // Only synchronize hard code VTE keys otherwise let commit event take care of it
-                if (isVTEHandledKeystroke(event.key.keyval, event.key.state)) {
-                    tracef("Synchronizing key %d", event.key.keyval);
-                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
-                    onSyncInput.emit(this, se);
+                static if (USE_COMMIT_SYNCHRONIZATION) {
+                    // Only synchronize hard code VTE keys otherwise let commit event take care of it
+                    if (!isVTEHandledKeystroke(event.key.keyval, event.key.state)) return false;
                 }
+                tracef("Synchronizing key %d", event.key.keyval);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
+                onSyncInput.emit(this, se);
             }
             return false;
         });
@@ -975,15 +993,17 @@ private:
             }
         });
 
-        _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
-            //tracef("%d Terminal Commit: %s", _terminalID, text);
-            if (vte !is null && isSynchronizedInput() && length > 0) {
-                // Workaround for #888
-                if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
-                onSyncInput.emit(this, se);
-            }
-        });
+        static if (USE_COMMIT_SYNCHRONIZATION) {
+            _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
+                //tracef("%d Terminal Commit: %s", _terminalID, text);
+                if (vte !is null && isSynchronizedInput() && length > 0) {
+                    // Workaround for #888
+                    if (text.endsWith("[2;2R") || text.endsWith("[>1;4803;0c")) return;
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
+                    onSyncInput.emit(this, se);
+                }
+            });
+        }
 
         pmContext = new Popover(vte);
         pmContext.setModal(true);
@@ -1250,10 +1270,11 @@ private:
     }
 
     /**
-     * Tests if the paste is unsafe, currently just looks for sudo
+     * Tests if the paste is unsafe, currently just looks for sudo and 
+     * carriage return.
      */
     bool isPasteUnsafe(string text) {
-        return (text.indexOf("sudo") > -1) && (text.indexOf("\n") != 0);
+        return (text.indexOf("sudo") > -1) && (text.indexOf("\n") > -1);
     }
 
     void advancedPaste(GdkAtom source) {
@@ -1271,6 +1292,12 @@ private:
             vte.feedChild(pasteText[0 .. $], pasteText.length);
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                 scrollToBottom();
+            }
+            static if (!USE_COMMIT_SYNCHRONIZATION) {
+                if (isSynchronizedInput()) {
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
+                    onSyncInput.emit(this, se);
+                }
             }
         }
         focusTerminal();
@@ -1294,20 +1321,18 @@ private:
                     return;
             }
         }
-        if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY)) {
-            if (pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
-                vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
-                    scrollToBottom();
-                }
-                return;
-            }
-        }
-
-        if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
+        if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
+            vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
+        } else if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
         else vte.pastePrimary();
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
+        }
+        static if (!USE_COMMIT_SYNCHRONIZATION) {
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, pasteText);
+                onSyncInput.emit(this, se);
+            }
         }
     }
 
@@ -1341,6 +1366,7 @@ private:
 
     void onVTEScreenChanged(int screen, VTE) {
         currentScreen = cast(TerminalScreen)screen;
+        updateDisplayText();
     }
 
     /**
@@ -2247,12 +2273,16 @@ private:
 private:
 
     void feedChild(string text, bool ignoreCommit) {
-        if (ignoreCommit) {
-            Signals.handlerBlock(vte, _commitHandlerId);
+        if (USE_COMMIT_SYNCHRONIZATION) {
+            if (ignoreCommit) {
+                Signals.handlerBlock(vte, _commitHandlerId);
+            }
         }
         vte.feedChild(text, text.length);
-        if (ignoreCommit) {
-            Signals.handlerUnblock(vte, _commitHandlerId);
+        if (USE_COMMIT_SYNCHRONIZATION) {
+            if (ignoreCommit) {
+                Signals.handlerUnblock(vte, _commitHandlerId);
+            }
         }
     }
 
@@ -3402,6 +3432,13 @@ public:
         text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
         text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
+        if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+            string name;
+            if (isProcessRunning(name))
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
+            else
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, "");
+        }
         string path;
         if (terminalInitialized) {
             path = gst.currentDirectory;

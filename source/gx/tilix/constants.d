@@ -35,6 +35,14 @@ immutable bool USE_FILE_LOGGING = false;
  */
 immutable bool FLATPAK = false;
 
+/**
+ * Determines whether synchronization of multiple terminals
+ * is driven off of the commit event or by keystrokes. The commit
+ * event allows for IME to work but causes some issues with
+ * certain programs like VIM. See #888
+ */
+immutable bool USE_COMMIT_SYNCHRONIZATION = false;
+
 /**************************************
  * Application Constants
  **************************************/
@@ -101,6 +109,7 @@ enum VARIABLE_TERMINAL_COLUMNS = "${columns}";
 enum VARIABLE_TERMINAL_ROWS = "${rows}";
 enum VARIABLE_TERMINAL_HOSTNAME = "${hostname}";
 enum VARIABLE_TERMINAL_USERNAME = "${username}";
+enum VARIABLE_TERMINAL_PROCESS = "${process}";
 
 immutable string[] VARIABLE_TERMINAL_VALUES = [
     VARIABLE_TERMINAL_TITLE,
@@ -111,6 +120,7 @@ immutable string[] VARIABLE_TERMINAL_VALUES = [
     VARIABLE_TERMINAL_USERNAME,
     VARIABLE_TERMINAL_COLUMNS,
     VARIABLE_TERMINAL_ROWS
+    //VARIABLE_TERMINAL_PROCESS
     ];
 
 immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
@@ -122,6 +132,7 @@ immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
     N_("Username"),
     N_("Columns"),
     N_("Rows")
+    //N_("Process")
     ];
 
 // Application Window Title tokens

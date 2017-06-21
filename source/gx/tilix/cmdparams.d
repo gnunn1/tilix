@@ -110,7 +110,12 @@ private:
     string validatePath(string path) {
         if (path.length > 0) {
             path = resolvePath(path);
-            if (!isDir(path)) {
+            try {
+                if (!isDir(path)) {
+                    writeln(format(_("Ignoring as '%s' is not a directory"), path));
+                    path.length = 0;
+                }
+            } catch (Exception e) {
                 writeln(format(_("Ignoring as '%s' is not a directory"), path));
                 path.length = 0;
             }
