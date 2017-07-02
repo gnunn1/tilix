@@ -189,6 +189,9 @@ private:
     // Handler of the Find button "toggled" signal
     gulong _tbFindToggledId;
 
+    // Preference for the Window Style, i.e normal,disable-csd,disable-csd-hide-toolbar,borderless
+    size_t windowStyle = 0;
+
     /**
      * Forces the app menu in the decoration layouts so in environments without an app-menu
      * it will be rendered by GTK as part of the window.
@@ -236,11 +239,11 @@ private:
     }
 
     bool isCSDDisabled() {
-        return gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) > 0;
+        return windowStyle > 0;
     }
 
     bool hideToolbar() {
-        return gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) > 1;
+        return gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || windowStyle > 1;
     }
 
     /**
@@ -1492,6 +1495,18 @@ private:
         }
     }
 
+    void setWindowStyle() {
+        windowStyle = gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY);
+        if (tilix.getGlobalOverrides().windowStyle.length > 0) {
+            foreach(i, style; SETTINGS_WINDOW_STYLE_VALUES) {
+                if (style == tilix.getGlobalOverrides().windowStyle) {
+                    windowStyle = i;
+                    break;
+                }
+            }
+        }
+    }
+
 public:
 
     this(Application application) {
@@ -1504,7 +1519,7 @@ public:
         });
         setTitle(_("Tilix"));
         setIconName("com.gexperts.Tilix");
-
+        setWindowStyle();
         loadRecentSessionFileList();
         gsSettings.addOnChanged(delegate(string key, GSettings) {
             if (key == SETTINGS_RECENT_SESSION_FILES_KEY) {
@@ -1531,7 +1546,7 @@ public:
             //setResizable(false);
             setRole("quake");
         } else {
-            if (gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY) == 3) {
+            if (windowStyle == 3) {
                 setDecorated(false);
             }
             forceAppMenu();
