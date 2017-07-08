@@ -410,7 +410,7 @@ private:
                 return false;
             }
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
-                maximize();
+                toggleMaximize();
             } else if (event.getEventType() == EventType.BUTTON_PRESS) {
                 if (event.button.button == MouseButton.MIDDLE && gsSettings.getBoolean(SETTINGS_MIDDLE_CLICK_CLOSE_KEY)) {
                     SimpleAction close = cast(SimpleAction) sagTerminalActions.lookupAction(ACTION_CLOSE);
@@ -586,7 +586,7 @@ private:
         });
 
         //Maximize Terminal
-        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { maximize(); });
+        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { toggleMaximize(); });
 
         //Close Terminal Action
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -3236,7 +3236,7 @@ public:
      * Maximizes or restores terminal by requesting
      * state change from container.
      */
-    void maximize() {
+    void toggleMaximize() {
         TerminalWindowState newState = (terminalWindowState == TerminalWindowState.NORMAL) ? TerminalWindowState.MAXIMIZED : TerminalWindowState.NORMAL;
         CumulativeResult!bool result = new CumulativeResult!bool();
         onRequestStateChange.emit(this, newState, result);

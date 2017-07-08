@@ -670,9 +670,27 @@ private:
         return true;
     }
 
+    /**
+     * Swaps the maximized terminal for a new one
+     */
+    bool swapMaximized(Terminal terminal) {
+        if (!maximizedInfo.isMaximized) {
+            error("No terminal is not maximized, ignoring");
+            return false;
+        }
+        if (maximizedInfo.terminal == terminal) {
+            error("The terminal is already maximized, ignoring");
+            return false;
+        }
+        //Restore old terminal
+        maximizedInfo.terminal.toggleMaximize;
+        terminal.toggleMaximize;
+        return true;
+    }
+
     bool restoreTerminal(Terminal terminal) {
         if (!maximizedInfo.isMaximized) {
-            error("Terminal is not maximized, ignoring");
+            error("No terminal is not maximized, ignoring");
             return false;
         }
         if (maximizedInfo.terminal != terminal) {
@@ -906,7 +924,7 @@ private:
             Terminal terminal = findTerminal(maximizedUUID);
             if (terminal !is null) {
                 trace("Maximizing terminal " ~ maximizedUUID);
-                terminal.maximize();
+                terminal.toggleMaximize();
             }
         }
     }
@@ -1358,8 +1376,9 @@ public:
     }
 
     bool focusTerminal(Terminal terminal) {
-        if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminal)
-            return false;
+        if (maximizedInfo.isMaximized && maximizedInfo.terminal != terminal) {
+            return swapMaximized(terminal);
+        }
         terminal.focusTerminal();
         return true;
     }
