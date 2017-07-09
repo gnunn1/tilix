@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 20:46-0400\n"
+"POT-Creation-Date: 2017-07-08 21:26-0400\n"
 "PO-Revision-Date: 2017-05-19 21:34+0000\n"
 "Last-Translator: Luis Garcia <floss.dev@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tilix/"
@@ -104,7 +104,7 @@ msgid "Open…"
 msgstr "Abrir…"
 
 #: source/gx/tilix/appwindow.d:669 source/gx/tilix/appwindow.d:1428
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/prefeditor/profileeditor.d:865
 msgid "Save"
 msgstr "Guardar"
@@ -114,7 +114,7 @@ msgid "Save As…"
 msgstr "Guardar como…"
 
 #: source/gx/tilix/appwindow.d:671 source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1606 source/gx/tilix/sidebar.d:506
+#: source/gx/tilix/terminal/terminal.d:1618 source/gx/tilix/sidebar.d:506
 msgid "Close"
 msgstr "Cerrar"
 
@@ -154,7 +154,7 @@ msgstr "No mostrar de nuevo"
 msgid "All JSON Files"
 msgstr "Todos los ficheros JSON"
 
-#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3075
+#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3087
 #: source/gx/tilix/prefeditor/profileeditor.d:882
 #: source/gx/tilix/prefeditor/prefdialog.d:1043
 msgid "All Files"
@@ -175,7 +175,7 @@ msgstr "Abrir"
 
 #: source/gx/tilix/appwindow.d:1394 source/gx/tilix/appwindow.d:1428
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:489
 #: source/gx/tilix/prefeditor/profileeditor.d:865
@@ -233,8 +233,8 @@ msgid "Advanced Paste"
 msgstr "Pegado avanzado"
 
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1577
-#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1589
+#: source/gx/tilix/terminal/terminal.d:1600
 msgid "Paste"
 msgstr "Pegar"
 
@@ -274,24 +274,24 @@ msgid ""
 msgstr "%s no es una expresión regular válida"
 
 #: source/gx/tilix/terminal/terminal.d:330
-#: source/gx/tilix/terminal/terminal.d:3432
+#: source/gx/tilix/terminal/terminal.d:3444
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "Terminal"
 
 #: source/gx/tilix/terminal/terminal.d:372
-#: source/gx/tilix/terminal/terminal.d:1207
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1219
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Maximize"
 msgstr "Maximinar"
 
 #: source/gx/tilix/terminal/terminal.d:382
-#: source/gx/tilix/terminal/terminal.d:630
+#: source/gx/tilix/terminal/terminal.d:638
 msgid "Disable input synchronization for this terminal"
 msgstr "Desactivar sincronización en esta terminal"
 
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:764
 msgid "Read-Only"
 msgstr "Sólo lectura"
 
@@ -308,11 +308,11 @@ msgstr "Editar perfil"
 msgid "Edit Encodings"
 msgstr "Editar la codificación"
 
-#: source/gx/tilix/terminal/terminal.d:632
+#: source/gx/tilix/terminal/terminal.d:640
 msgid "Enable input synchronization for this terminal"
 msgstr "Activar sincronización de entrada para esta terminal"
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
@@ -320,45 +320,49 @@ msgstr ""
 "No se pudo cargar la biblioteca %s. La funcionalidad de contraseñas no está "
 "disponible."
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 msgid "Library Not Loaded"
 msgstr "Biblioteca no cargada"
 
-#: source/gx/tilix/terminal/terminal.d:755
+#: source/gx/tilix/terminal/terminal.d:763
 msgid "Find…"
 msgstr "Buscar…"
 
-#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Password..."
 msgstr "Contraseña..."
 
-#: source/gx/tilix/terminal/terminal.d:761
+#: source/gx/tilix/terminal/terminal.d:769
 msgid "Bookmark..."
 msgstr "Marcador..."
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:770
 msgid "Add Bookmark..."
 msgstr "Añadir marcador..."
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:774
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:778
 #: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: source/gx/tilix/terminal/terminal.d:772
+#: source/gx/tilix/terminal/terminal.d:784
 msgid "Save Output…"
 msgstr "Guardar salida…"
 
-#: source/gx/tilix/terminal/terminal.d:773
+#: source/gx/tilix/terminal/terminal.d:785
 #: source/gx/tilix/prefeditor/profileeditor.d:258
 msgid "Reset"
 msgstr "Reiniciar"
 
-#: source/gx/tilix/terminal/terminal.d:774
+#: source/gx/tilix/terminal/terminal.d:786
 msgid "Reset and Clear"
 msgstr "Reiniciar y limpiar"
 
-#: source/gx/tilix/terminal/terminal.d:778
+#: source/gx/tilix/terminal/terminal.d:790
 #: source/gx/tilix/prefeditor/profileeditor.d:1002
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
@@ -367,149 +371,149 @@ msgstr "Reiniciar y limpiar"
 msgid "Encoding"
 msgstr "Codificación"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:791
 msgid "Layout Options…"
 msgstr "Opciones de diseño…"
 
-#: source/gx/tilix/terminal/terminal.d:783
+#: source/gx/tilix/terminal/terminal.d:795
 #, fuzzy
 msgid "Monitor Silence"
 msgstr "Monitorizar la inactividad"
 
-#: source/gx/tilix/terminal/terminal.d:786
+#: source/gx/tilix/terminal/terminal.d:798
 msgid "Other"
 msgstr "Otros"
 
-#: source/gx/tilix/terminal/terminal.d:795
+#: source/gx/tilix/terminal/terminal.d:807
 msgid "Add Right"
 msgstr "Añadir a la derecha"
 
-#: source/gx/tilix/terminal/terminal.d:799
+#: source/gx/tilix/terminal/terminal.d:811
 msgid "Add Down"
 msgstr "Añadir abajo"
 
-#: source/gx/tilix/terminal/terminal.d:843
+#: source/gx/tilix/terminal/terminal.d:855
 #, fuzzy, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "Se produjo un error inesperado: %s"
 
-#: source/gx/tilix/terminal/terminal.d:928
+#: source/gx/tilix/terminal/terminal.d:940
 msgid "Terminal Activity"
 msgstr "Actividad de la terminal"
 
-#: source/gx/tilix/terminal/terminal.d:1204
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1216
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Restore"
 msgstr "Restaurar"
 
-#: source/gx/tilix/terminal/terminal.d:1468
+#: source/gx/tilix/terminal/terminal.d:1480
 msgid "Tilix Custom Notification"
 msgstr "Notificaciones personalizadas de Tilix"
 
-#: source/gx/tilix/terminal/terminal.d:1565
+#: source/gx/tilix/terminal/terminal.d:1577
 msgid "Open Link"
 msgstr "Abrir enlace"
 
-#: source/gx/tilix/terminal/terminal.d:1566
+#: source/gx/tilix/terminal/terminal.d:1578
 msgid "Copy Link Address"
 msgstr "Copiar dirección del enlace"
 
-#: source/gx/tilix/terminal/terminal.d:1576
-#: source/gx/tilix/terminal/terminal.d:1583
+#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1595
 msgid "Copy"
 msgstr "Copiar"
 
-#: source/gx/tilix/terminal/terminal.d:1578
-#: source/gx/tilix/terminal/terminal.d:1593
+#: source/gx/tilix/terminal/terminal.d:1590
+#: source/gx/tilix/terminal/terminal.d:1605
 msgid "Select All"
 msgstr "Seleccionar todo"
 
-#: source/gx/tilix/terminal/terminal.d:1596
+#: source/gx/tilix/terminal/terminal.d:1608
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 msgid "Clipboard"
 msgstr "Portapapeles"
 
-#: source/gx/tilix/terminal/terminal.d:1610
+#: source/gx/tilix/terminal/terminal.d:1622
 msgid "Synchronize input"
 msgstr "Sincronizar entrada"
 
-#: source/gx/tilix/terminal/terminal.d:1752
+#: source/gx/tilix/terminal/terminal.d:1764
 #, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1753
+#: source/gx/tilix/terminal/terminal.d:1765
 msgid "Remote File URI Unsupported"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1784
-#: source/gx/tilix/terminal/terminal.d:2271
+#: source/gx/tilix/terminal/terminal.d:1796
+#: source/gx/tilix/terminal/terminal.d:2283
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 "La expresión regular '%s' para un enlace personalizado tiene un error, se "
 "ignorará"
 
-#: source/gx/tilix/terminal/terminal.d:1785
+#: source/gx/tilix/terminal/terminal.d:1797
 msgid "Regular Expression Error"
 msgstr "Error en expresión regular"
 
-#: source/gx/tilix/terminal/terminal.d:1797
+#: source/gx/tilix/terminal/terminal.d:1809
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1810
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2417
+#: source/gx/tilix/terminal/terminal.d:2429
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 "Se produjo un error inesperado, no hay información adicional disponible"
 
-#: source/gx/tilix/terminal/terminal.d:2423
+#: source/gx/tilix/terminal/terminal.d:2435
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Se produjo un error inesperado: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3062
+#: source/gx/tilix/terminal/terminal.d:3074
 msgid "Save Terminal Output"
 msgstr "Guardar salida de la terminal"
 
-#: source/gx/tilix/terminal/terminal.d:3071
+#: source/gx/tilix/terminal/terminal.d:3083
 msgid "All Text Files"
 msgstr "Todos los ficheros de texto"
 
-#: source/gx/tilix/terminal/terminal.d:3322
+#: source/gx/tilix/terminal/terminal.d:3334
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: source/gx/tilix/terminal/terminal.d:3600
+#: source/gx/tilix/terminal/terminal.d:3612
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "El proceso hijo finalizó correctamente con el estado %d"
 
-#: source/gx/tilix/terminal/terminal.d:3601
+#: source/gx/tilix/terminal/terminal.d:3613
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Se interrumpió el proceso hijo con la señal %d."
 
-#: source/gx/tilix/terminal/terminal.d:3602
+#: source/gx/tilix/terminal/terminal.d:3614
 msgid "The child process was aborted."
 msgstr "Se interrumpió el proceso hijo."
 
-#: source/gx/tilix/terminal/terminal.d:3608
+#: source/gx/tilix/terminal/terminal.d:3620
 msgid "Relaunch"
 msgstr "Relanzar"
 
-#: source/gx/tilix/terminal/terminal.d:3653
+#: source/gx/tilix/terminal/terminal.d:3665
 msgid "Don't Paste"
 msgstr "No pegar"
 
-#: source/gx/tilix/terminal/terminal.d:3654
+#: source/gx/tilix/terminal/terminal.d:3666
 msgid "Paste Anyway"
 msgstr "Pegar igualmente"
 
@@ -2496,17 +2500,23 @@ msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "Desactivar sincronización en esta terminal"
 
-#: data/resources/ui/shortcuts.ui:574
+#: data/resources/ui/shortcuts.ui:569
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open file browser"
+msgstr "Abrir Tilix aquí"
+
+#: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr "Nautilus"
 
-#: data/resources/ui/shortcuts.ui:579
+#: data/resources/ui/shortcuts.ui:585
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Abrir"
 
-#: data/resources/ui/shortcuts.ui:583
+#: data/resources/ui/shortcuts.ui:589
 msgctxt "shortcut window"
 msgid "Open in Tilix"
 msgstr "Abrir en Tilix"

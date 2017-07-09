@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 20:46-0400\n"
+"POT-Creation-Date: 2017-07-08 21:26-0400\n"
 "PO-Revision-Date: 2017-05-07 18:41+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tilix/"
@@ -105,7 +105,7 @@ msgid "Open…"
 msgstr "Avaa…"
 
 #: source/gx/tilix/appwindow.d:669 source/gx/tilix/appwindow.d:1428
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/prefeditor/profileeditor.d:865
 msgid "Save"
 msgstr "Tallenna"
@@ -115,7 +115,7 @@ msgid "Save As…"
 msgstr "Tallenna nimellä…"
 
 #: source/gx/tilix/appwindow.d:671 source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1606 source/gx/tilix/sidebar.d:506
+#: source/gx/tilix/terminal/terminal.d:1618 source/gx/tilix/sidebar.d:506
 msgid "Close"
 msgstr "Sulje"
 
@@ -155,7 +155,7 @@ msgstr "Älä näytä tätä uudelleen"
 msgid "All JSON Files"
 msgstr "Kaikki JSON-tiedostot"
 
-#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3075
+#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3087
 #: source/gx/tilix/prefeditor/profileeditor.d:882
 #: source/gx/tilix/prefeditor/prefdialog.d:1043
 msgid "All Files"
@@ -176,7 +176,7 @@ msgstr "Avaa"
 
 #: source/gx/tilix/appwindow.d:1394 source/gx/tilix/appwindow.d:1428
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:489
 #: source/gx/tilix/prefeditor/profileeditor.d:865
@@ -234,8 +234,8 @@ msgid "Advanced Paste"
 msgstr "Edistynyt liittäminen"
 
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1577
-#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1589
+#: source/gx/tilix/terminal/terminal.d:1600
 msgid "Paste"
 msgstr "Liitä"
 
@@ -275,24 +275,24 @@ msgid ""
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:330
-#: source/gx/tilix/terminal/terminal.d:3432
+#: source/gx/tilix/terminal/terminal.d:3444
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "Pääte"
 
 #: source/gx/tilix/terminal/terminal.d:372
-#: source/gx/tilix/terminal/terminal.d:1207
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1219
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Maximize"
 msgstr "Suurenna"
 
 #: source/gx/tilix/terminal/terminal.d:382
-#: source/gx/tilix/terminal/terminal.d:630
+#: source/gx/tilix/terminal/terminal.d:638
 msgid "Disable input synchronization for this terminal"
 msgstr "Poista käytöstä syötesynkronointi tämän päätteen osalta"
 
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:764
 msgid "Read-Only"
 msgstr "Vain luku"
 
@@ -309,56 +309,60 @@ msgstr "Muokkaa profiilia"
 msgid "Edit Encodings"
 msgstr "Muokkaa merkistöjä"
 
-#: source/gx/tilix/terminal/terminal.d:632
+#: source/gx/tilix/terminal/terminal.d:640
 msgid "Enable input synchronization for this terminal"
 msgstr "Käytä syötesynkronointia tässä päätteessä"
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 "Kirjastoa %s ei voitu ladata, salasanatoiminnallisuus ei ole käytettävissä."
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 msgid "Library Not Loaded"
 msgstr "Kirjastoa ei ladattu"
 
-#: source/gx/tilix/terminal/terminal.d:755
+#: source/gx/tilix/terminal/terminal.d:763
 msgid "Find…"
 msgstr "Etsi…"
 
-#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Password..."
 msgstr "Salasana..."
 
-#: source/gx/tilix/terminal/terminal.d:761
+#: source/gx/tilix/terminal/terminal.d:769
 msgid "Bookmark..."
 msgstr "Kirjanmerkki..."
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:770
 msgid "Add Bookmark..."
 msgstr "Lisää kirjanmerkki..."
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:774
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:778
 #: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "Profiilit"
 
-#: source/gx/tilix/terminal/terminal.d:772
+#: source/gx/tilix/terminal/terminal.d:784
 msgid "Save Output…"
 msgstr "Tallenna tuloste…"
 
-#: source/gx/tilix/terminal/terminal.d:773
+#: source/gx/tilix/terminal/terminal.d:785
 #: source/gx/tilix/prefeditor/profileeditor.d:258
 msgid "Reset"
 msgstr "Nollaa"
 
-#: source/gx/tilix/terminal/terminal.d:774
+#: source/gx/tilix/terminal/terminal.d:786
 msgid "Reset and Clear"
 msgstr "Nollaa ja tyhjennä"
 
-#: source/gx/tilix/terminal/terminal.d:778
+#: source/gx/tilix/terminal/terminal.d:790
 #: source/gx/tilix/prefeditor/profileeditor.d:1002
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
@@ -367,145 +371,145 @@ msgstr "Nollaa ja tyhjennä"
 msgid "Encoding"
 msgstr "Merkistö"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:791
 msgid "Layout Options…"
 msgstr "Asetteluvalinnat…"
 
-#: source/gx/tilix/terminal/terminal.d:783
+#: source/gx/tilix/terminal/terminal.d:795
 msgid "Monitor Silence"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:786
+#: source/gx/tilix/terminal/terminal.d:798
 msgid "Other"
 msgstr "Muu"
 
-#: source/gx/tilix/terminal/terminal.d:795
+#: source/gx/tilix/terminal/terminal.d:807
 msgid "Add Right"
 msgstr "Lisää oikea"
 
-#: source/gx/tilix/terminal/terminal.d:799
+#: source/gx/tilix/terminal/terminal.d:811
 msgid "Add Down"
 msgstr "Lisää alas"
 
-#: source/gx/tilix/terminal/terminal.d:843
+#: source/gx/tilix/terminal/terminal.d:855
 #, fuzzy, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "Tapahtui odottamaton virhe: %s"
 
-#: source/gx/tilix/terminal/terminal.d:928
+#: source/gx/tilix/terminal/terminal.d:940
 msgid "Terminal Activity"
 msgstr "Päätteen aktiviisuus"
 
-#: source/gx/tilix/terminal/terminal.d:1204
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1216
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Restore"
 msgstr "Palauta"
 
-#: source/gx/tilix/terminal/terminal.d:1468
+#: source/gx/tilix/terminal/terminal.d:1480
 msgid "Tilix Custom Notification"
 msgstr "Tilixin mukautettu ilmoitus"
 
-#: source/gx/tilix/terminal/terminal.d:1565
+#: source/gx/tilix/terminal/terminal.d:1577
 msgid "Open Link"
 msgstr "Avaa linkki"
 
-#: source/gx/tilix/terminal/terminal.d:1566
+#: source/gx/tilix/terminal/terminal.d:1578
 msgid "Copy Link Address"
 msgstr "Kopioi linkin osoite"
 
-#: source/gx/tilix/terminal/terminal.d:1576
-#: source/gx/tilix/terminal/terminal.d:1583
+#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1595
 msgid "Copy"
 msgstr "Kopioi"
 
-#: source/gx/tilix/terminal/terminal.d:1578
-#: source/gx/tilix/terminal/terminal.d:1593
+#: source/gx/tilix/terminal/terminal.d:1590
+#: source/gx/tilix/terminal/terminal.d:1605
 msgid "Select All"
 msgstr "Valitse kaikki"
 
-#: source/gx/tilix/terminal/terminal.d:1596
+#: source/gx/tilix/terminal/terminal.d:1608
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 msgid "Clipboard"
 msgstr "Leikepöytä"
 
-#: source/gx/tilix/terminal/terminal.d:1610
+#: source/gx/tilix/terminal/terminal.d:1622
 msgid "Synchronize input"
 msgstr "Synkronoi syöte"
 
-#: source/gx/tilix/terminal/terminal.d:1752
+#: source/gx/tilix/terminal/terminal.d:1764
 #, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1753
+#: source/gx/tilix/terminal/terminal.d:1765
 msgid "Remote File URI Unsupported"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1784
-#: source/gx/tilix/terminal/terminal.d:2271
+#: source/gx/tilix/terminal/terminal.d:1796
+#: source/gx/tilix/terminal/terminal.d:2283
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1785
+#: source/gx/tilix/terminal/terminal.d:1797
 msgid "Regular Expression Error"
 msgstr "Säännöllisen lausekkeen virhe"
 
-#: source/gx/tilix/terminal/terminal.d:1797
+#: source/gx/tilix/terminal/terminal.d:1809
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1810
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2417
+#: source/gx/tilix/terminal/terminal.d:2429
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Tapahtui odottamaton virhe, lisätietoja ei ole saatavilla"
 
-#: source/gx/tilix/terminal/terminal.d:2423
+#: source/gx/tilix/terminal/terminal.d:2435
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Tapahtui odottamaton virhe: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3062
+#: source/gx/tilix/terminal/terminal.d:3074
 msgid "Save Terminal Output"
 msgstr "Tallenna päätteen tuloste"
 
-#: source/gx/tilix/terminal/terminal.d:3071
+#: source/gx/tilix/terminal/terminal.d:3083
 msgid "All Text Files"
 msgstr "Kaikki tekstitiedostot"
 
-#: source/gx/tilix/terminal/terminal.d:3322
+#: source/gx/tilix/terminal/terminal.d:3334
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: source/gx/tilix/terminal/terminal.d:3600
+#: source/gx/tilix/terminal/terminal.d:3612
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Lapsiprosessi poistui normaalisti tilalla %d"
 
-#: source/gx/tilix/terminal/terminal.d:3601
+#: source/gx/tilix/terminal/terminal.d:3613
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3602
+#: source/gx/tilix/terminal/terminal.d:3614
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3608
+#: source/gx/tilix/terminal/terminal.d:3620
 msgid "Relaunch"
 msgstr "Käynnistä uudelleen"
 
-#: source/gx/tilix/terminal/terminal.d:3653
+#: source/gx/tilix/terminal/terminal.d:3665
 msgid "Don't Paste"
 msgstr "Älä liitä"
 
-#: source/gx/tilix/terminal/terminal.d:3654
+#: source/gx/tilix/terminal/terminal.d:3666
 msgid "Paste Anyway"
 msgstr "Liitä silti"
 
@@ -2470,17 +2474,23 @@ msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "Poista käytöstä syötesynkronointi tämän päätteen osalta"
 
-#: data/resources/ui/shortcuts.ui:574
+#: data/resources/ui/shortcuts.ui:569
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open file browser"
+msgstr "Avaa Tilix tähän"
+
+#: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr "Nautilus"
 
-#: data/resources/ui/shortcuts.ui:579
+#: data/resources/ui/shortcuts.ui:585
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Avaa"
 
-#: data/resources/ui/shortcuts.ui:583
+#: data/resources/ui/shortcuts.ui:589
 msgctxt "shortcut window"
 msgid "Open in Tilix"
 msgstr "Avaa Tilixissä"

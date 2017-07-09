@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 20:46-0400\n"
+"POT-Creation-Date: 2017-07-08 21:26-0400\n"
 "PO-Revision-Date: 2017-05-09 13:40+0000\n"
 "Last-Translator: Ivaylo Kuzev <ivkuzev@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/tilix/"
@@ -108,7 +108,7 @@ msgid "Open…"
 msgstr "Отваряне…"
 
 #: source/gx/tilix/appwindow.d:669 source/gx/tilix/appwindow.d:1428
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/prefeditor/profileeditor.d:865
 msgid "Save"
 msgstr "Запазване"
@@ -118,7 +118,7 @@ msgid "Save As…"
 msgstr "Запазване Като…"
 
 #: source/gx/tilix/appwindow.d:671 source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1606 source/gx/tilix/sidebar.d:506
+#: source/gx/tilix/terminal/terminal.d:1618 source/gx/tilix/sidebar.d:506
 msgid "Close"
 msgstr "Затваряне"
 
@@ -161,7 +161,7 @@ msgstr "Не показвай отново това съобщение"
 msgid "All JSON Files"
 msgstr "Всички JSON файлове"
 
-#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3075
+#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3087
 #: source/gx/tilix/prefeditor/profileeditor.d:882
 #: source/gx/tilix/prefeditor/prefdialog.d:1043
 msgid "All Files"
@@ -182,7 +182,7 @@ msgstr "Отваряне"
 
 #: source/gx/tilix/appwindow.d:1394 source/gx/tilix/appwindow.d:1428
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:489
 #: source/gx/tilix/prefeditor/profileeditor.d:865
@@ -248,8 +248,8 @@ msgid "Advanced Paste"
 msgstr "Разширено поставяне"
 
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1577
-#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1589
+#: source/gx/tilix/terminal/terminal.d:1600
 msgid "Paste"
 msgstr "Поставяне"
 
@@ -292,24 +292,24 @@ msgid ""
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:330
-#: source/gx/tilix/terminal/terminal.d:3432
+#: source/gx/tilix/terminal/terminal.d:3444
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "Терминал"
 
 #: source/gx/tilix/terminal/terminal.d:372
-#: source/gx/tilix/terminal/terminal.d:1207
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1219
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Maximize"
 msgstr "Максимизиране"
 
 #: source/gx/tilix/terminal/terminal.d:382
-#: source/gx/tilix/terminal/terminal.d:630
+#: source/gx/tilix/terminal/terminal.d:638
 msgid "Disable input synchronization for this terminal"
 msgstr "Изключване входната синхронизация за този терминал"
 
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:764
 msgid "Read-Only"
 msgstr "Само за четене"
 
@@ -327,60 +327,64 @@ msgstr "Редактиране на профила"
 msgid "Edit Encodings"
 msgstr "Редактиране на кодиране"
 
-#: source/gx/tilix/terminal/terminal.d:632
+#: source/gx/tilix/terminal/terminal.d:640
 #, fuzzy
 msgid "Enable input synchronization for this terminal"
 msgstr "Разрешаване входната синхронизация за този терминал"
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, fuzzy, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 "Библиотека %s не може да се зареди, функционалната парола не е налична."
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, fuzzy
 msgid "Library Not Loaded"
 msgstr "Библиотеката не е заредена"
 
-#: source/gx/tilix/terminal/terminal.d:755
+#: source/gx/tilix/terminal/terminal.d:763
 msgid "Find…"
 msgstr "Търсене…"
 
-#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Password..."
 msgstr "Парола..."
 
-#: source/gx/tilix/terminal/terminal.d:761
+#: source/gx/tilix/terminal/terminal.d:769
 #, fuzzy
 msgid "Bookmark..."
 msgstr "Отметка..."
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:770
 msgid "Add Bookmark..."
 msgstr "Добавяне на отметка..."
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:774
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:778
 #: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "Профили"
 
-#: source/gx/tilix/terminal/terminal.d:772
+#: source/gx/tilix/terminal/terminal.d:784
 #, fuzzy
 msgid "Save Output…"
 msgstr "Запази изхода…"
 
-#: source/gx/tilix/terminal/terminal.d:773
+#: source/gx/tilix/terminal/terminal.d:785
 #: source/gx/tilix/prefeditor/profileeditor.d:258
 msgid "Reset"
 msgstr "Възстановяване"
 
-#: source/gx/tilix/terminal/terminal.d:774
+#: source/gx/tilix/terminal/terminal.d:786
 msgid "Reset and Clear"
 msgstr "Възстановяване и изчистване"
 
-#: source/gx/tilix/terminal/terminal.d:778
+#: source/gx/tilix/terminal/terminal.d:790
 #: source/gx/tilix/prefeditor/profileeditor.d:1002
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
@@ -389,160 +393,160 @@ msgstr "Възстановяване и изчистване"
 msgid "Encoding"
 msgstr "Кодиране"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:791
 #, fuzzy
 msgid "Layout Options…"
 msgstr "Разпределение опции…"
 
-#: source/gx/tilix/terminal/terminal.d:783
+#: source/gx/tilix/terminal/terminal.d:795
 #, fuzzy
 msgid "Monitor Silence"
 msgstr "Мониторинг на неактивността"
 
-#: source/gx/tilix/terminal/terminal.d:786
+#: source/gx/tilix/terminal/terminal.d:798
 #, fuzzy
 msgid "Other"
 msgstr "Други"
 
-#: source/gx/tilix/terminal/terminal.d:795
+#: source/gx/tilix/terminal/terminal.d:807
 #, fuzzy
 msgid "Add Right"
 msgstr "Добави в дясно"
 
-#: source/gx/tilix/terminal/terminal.d:799
+#: source/gx/tilix/terminal/terminal.d:811
 #, fuzzy
 msgid "Add Down"
 msgstr "Добави долу"
 
-#: source/gx/tilix/terminal/terminal.d:843
+#: source/gx/tilix/terminal/terminal.d:855
 #, fuzzy, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "Възникна неочаквана грешка: %s"
 
-#: source/gx/tilix/terminal/terminal.d:928
+#: source/gx/tilix/terminal/terminal.d:940
 msgid "Terminal Activity"
 msgstr "Активност на терминала"
 
-#: source/gx/tilix/terminal/terminal.d:1204
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1216
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Restore"
 msgstr "Възстановяване"
 
-#: source/gx/tilix/terminal/terminal.d:1468
+#: source/gx/tilix/terminal/terminal.d:1480
 #, fuzzy
 msgid "Tilix Custom Notification"
 msgstr "Потребителски уведомления в Tilix"
 
-#: source/gx/tilix/terminal/terminal.d:1565
+#: source/gx/tilix/terminal/terminal.d:1577
 msgid "Open Link"
 msgstr "Отваряне на адрес"
 
-#: source/gx/tilix/terminal/terminal.d:1566
+#: source/gx/tilix/terminal/terminal.d:1578
 #, fuzzy
 msgid "Copy Link Address"
 msgstr "Копиране адреса на връзката"
 
-#: source/gx/tilix/terminal/terminal.d:1576
-#: source/gx/tilix/terminal/terminal.d:1583
+#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1595
 msgid "Copy"
 msgstr "Копиране"
 
-#: source/gx/tilix/terminal/terminal.d:1578
-#: source/gx/tilix/terminal/terminal.d:1593
+#: source/gx/tilix/terminal/terminal.d:1590
+#: source/gx/tilix/terminal/terminal.d:1605
 msgid "Select All"
 msgstr "Избиране на всичко"
 
-#: source/gx/tilix/terminal/terminal.d:1596
+#: source/gx/tilix/terminal/terminal.d:1608
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 #, fuzzy
 msgid "Clipboard"
 msgstr "Клипборд"
 
-#: source/gx/tilix/terminal/terminal.d:1610
+#: source/gx/tilix/terminal/terminal.d:1622
 #, fuzzy
 msgid "Synchronize input"
 msgstr "Синхронизация вход"
 
-#: source/gx/tilix/terminal/terminal.d:1752
+#: source/gx/tilix/terminal/terminal.d:1764
 #, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1753
+#: source/gx/tilix/terminal/terminal.d:1765
 msgid "Remote File URI Unsupported"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1784
-#: source/gx/tilix/terminal/terminal.d:2271
+#: source/gx/tilix/terminal/terminal.d:1796
+#: source/gx/tilix/terminal/terminal.d:2283
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1785
+#: source/gx/tilix/terminal/terminal.d:1797
 #, fuzzy
 msgid "Regular Expression Error"
 msgstr "Грешка в регулярния израз"
 
-#: source/gx/tilix/terminal/terminal.d:1797
+#: source/gx/tilix/terminal/terminal.d:1809
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1810
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2417
+#: source/gx/tilix/terminal/terminal.d:2429
 #, fuzzy
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Възникна неочаквана грешка, няма налична допълнителна информация"
 
-#: source/gx/tilix/terminal/terminal.d:2423
+#: source/gx/tilix/terminal/terminal.d:2435
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Възникна неочаквана грешка: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3062
+#: source/gx/tilix/terminal/terminal.d:3074
 #, fuzzy
 msgid "Save Terminal Output"
 msgstr "Запазване изхода от терминала"
 
-#: source/gx/tilix/terminal/terminal.d:3071
+#: source/gx/tilix/terminal/terminal.d:3083
 msgid "All Text Files"
 msgstr "Всички текстови файлове"
 
-#: source/gx/tilix/terminal/terminal.d:3322
+#: source/gx/tilix/terminal/terminal.d:3334
 #, fuzzy
 msgid "Unknown"
 msgstr "Непознат"
 
-#: source/gx/tilix/terminal/terminal.d:3600
+#: source/gx/tilix/terminal/terminal.d:3612
 #, fuzzy, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Дъщерният процес завърши нормално със статус %d"
 
-#: source/gx/tilix/terminal/terminal.d:3601
+#: source/gx/tilix/terminal/terminal.d:3613
 #, fuzzy, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Дъщерният процес е прекратен от сигнал %d"
 
-#: source/gx/tilix/terminal/terminal.d:3602
+#: source/gx/tilix/terminal/terminal.d:3614
 msgid "The child process was aborted."
 msgstr "Дъщерният процес е прекратен."
 
-#: source/gx/tilix/terminal/terminal.d:3608
+#: source/gx/tilix/terminal/terminal.d:3620
 #, fuzzy
 msgid "Relaunch"
 msgstr "Повтори"
 
-#: source/gx/tilix/terminal/terminal.d:3653
+#: source/gx/tilix/terminal/terminal.d:3665
 #, fuzzy
 msgid "Don't Paste"
 msgstr "Не поставай"
 
-#: source/gx/tilix/terminal/terminal.d:3654
+#: source/gx/tilix/terminal/terminal.d:3666
 #, fuzzy
 msgid "Paste Anyway"
 msgstr "Поставете въпреки това"
@@ -2603,18 +2607,24 @@ msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "Изключване входната синхронизация за този терминал"
 
-#: data/resources/ui/shortcuts.ui:574
+#: data/resources/ui/shortcuts.ui:569
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open file browser"
+msgstr "Отваряне на настройки"
+
+#: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:579
+#: data/resources/ui/shortcuts.ui:585
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Отваряне…"
 
-#: data/resources/ui/shortcuts.ui:583
+#: data/resources/ui/shortcuts.ui:589
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"

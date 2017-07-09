@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 20:46-0400\n"
+"POT-Creation-Date: 2017-07-08 21:26-0400\n"
 "PO-Revision-Date: 2016-10-21 14:33+0000\n"
 "Last-Translator: Niv Baehr <bloop93@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/terminix/"
@@ -106,7 +106,7 @@ msgid "Open…"
 msgstr "פתיחה…"
 
 #: source/gx/tilix/appwindow.d:669 source/gx/tilix/appwindow.d:1428
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/prefeditor/profileeditor.d:865
 msgid "Save"
 msgstr "שמירה"
@@ -116,7 +116,7 @@ msgid "Save As…"
 msgstr "שמירה בשם…"
 
 #: source/gx/tilix/appwindow.d:671 source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1606 source/gx/tilix/sidebar.d:506
+#: source/gx/tilix/terminal/terminal.d:1618 source/gx/tilix/sidebar.d:506
 msgid "Close"
 msgstr "סגירה"
 
@@ -158,7 +158,7 @@ msgstr "לא להציג הודעה זו שוב"
 msgid "All JSON Files"
 msgstr "כל קובצי ה־JSON"
 
-#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3075
+#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3087
 #: source/gx/tilix/prefeditor/profileeditor.d:882
 #: source/gx/tilix/prefeditor/prefdialog.d:1043
 msgid "All Files"
@@ -179,7 +179,7 @@ msgstr "פתיחה"
 
 #: source/gx/tilix/appwindow.d:1394 source/gx/tilix/appwindow.d:1428
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:489
 #: source/gx/tilix/prefeditor/profileeditor.d:865
@@ -237,8 +237,8 @@ msgid "Advanced Paste"
 msgstr "הדבקה מתקדמת"
 
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1577
-#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1589
+#: source/gx/tilix/terminal/terminal.d:1600
 msgid "Paste"
 msgstr "הדבקה"
 
@@ -282,25 +282,25 @@ msgid ""
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:330
-#: source/gx/tilix/terminal/terminal.d:3432
+#: source/gx/tilix/terminal/terminal.d:3444
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "מסוף"
 
 #: source/gx/tilix/terminal/terminal.d:372
-#: source/gx/tilix/terminal/terminal.d:1207
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1219
+#: source/gx/tilix/terminal/terminal.d:1617
 #, fuzzy
 msgid "Maximize"
 msgstr "הגדלה"
 
 #: source/gx/tilix/terminal/terminal.d:382
-#: source/gx/tilix/terminal/terminal.d:630
+#: source/gx/tilix/terminal/terminal.d:638
 msgid "Disable input synchronization for this terminal"
 msgstr "השבתת סנכרון קלט עבור מסוף זה"
 
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:764
 msgid "Read-Only"
 msgstr "קריאה בלבד"
 
@@ -318,56 +318,60 @@ msgstr "עריכת פרופיל"
 msgid "Edit Encodings"
 msgstr "קידוד"
 
-#: source/gx/tilix/terminal/terminal.d:632
+#: source/gx/tilix/terminal/terminal.d:640
 msgid "Enable input synchronization for this terminal"
 msgstr "הפעלת סנכרון קלט עבור מסוף זה"
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 msgid "Library Not Loaded"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:755
+#: source/gx/tilix/terminal/terminal.d:763
 msgid "Find…"
 msgstr "חיפוש…"
 
-#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Password..."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:761
+#: source/gx/tilix/terminal/terminal.d:769
 #, fuzzy
 msgid "Bookmark..."
 msgstr "בחירת צבע %s"
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:770
 msgid "Add Bookmark..."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:774
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:778
 #: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "פרופילים"
 
-#: source/gx/tilix/terminal/terminal.d:772
+#: source/gx/tilix/terminal/terminal.d:784
 msgid "Save Output…"
 msgstr "שמירת הפלט…"
 
-#: source/gx/tilix/terminal/terminal.d:773
+#: source/gx/tilix/terminal/terminal.d:785
 #: source/gx/tilix/prefeditor/profileeditor.d:258
 msgid "Reset"
 msgstr "איפוס"
 
-#: source/gx/tilix/terminal/terminal.d:774
+#: source/gx/tilix/terminal/terminal.d:786
 msgid "Reset and Clear"
 msgstr "איפוס וניקוי"
 
-#: source/gx/tilix/terminal/terminal.d:778
+#: source/gx/tilix/terminal/terminal.d:790
 #: source/gx/tilix/prefeditor/profileeditor.d:1002
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
@@ -376,151 +380,151 @@ msgstr "איפוס וניקוי"
 msgid "Encoding"
 msgstr "קידוד"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:791
 msgid "Layout Options…"
 msgstr "אפשרויות פריסה…"
 
-#: source/gx/tilix/terminal/terminal.d:783
+#: source/gx/tilix/terminal/terminal.d:795
 msgid "Monitor Silence"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:786
+#: source/gx/tilix/terminal/terminal.d:798
 #, fuzzy
 msgid "Other"
 msgstr "אחר"
 
-#: source/gx/tilix/terminal/terminal.d:795
+#: source/gx/tilix/terminal/terminal.d:807
 msgid "Add Right"
 msgstr "הוספה ימינה"
 
-#: source/gx/tilix/terminal/terminal.d:799
+#: source/gx/tilix/terminal/terminal.d:811
 msgid "Add Down"
 msgstr "הוספה למטה"
 
-#: source/gx/tilix/terminal/terminal.d:843
+#: source/gx/tilix/terminal/terminal.d:855
 #, fuzzy, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "התרחשה שגיאה בלתי צפויה: %s"
 
-#: source/gx/tilix/terminal/terminal.d:928
+#: source/gx/tilix/terminal/terminal.d:940
 #, fuzzy
 msgid "Terminal Activity"
 msgstr "כותרת מסוף"
 
-#: source/gx/tilix/terminal/terminal.d:1204
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1216
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Restore"
 msgstr "שחזור"
 
-#: source/gx/tilix/terminal/terminal.d:1468
+#: source/gx/tilix/terminal/terminal.d:1480
 msgid "Tilix Custom Notification"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1565
+#: source/gx/tilix/terminal/terminal.d:1577
 #, fuzzy
 msgid "Open Link"
 msgstr "פתיחת קישור"
 
-#: source/gx/tilix/terminal/terminal.d:1566
+#: source/gx/tilix/terminal/terminal.d:1578
 #, fuzzy
 msgid "Copy Link Address"
 msgstr "העתקת כתובת קישור"
 
-#: source/gx/tilix/terminal/terminal.d:1576
-#: source/gx/tilix/terminal/terminal.d:1583
+#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1595
 msgid "Copy"
 msgstr "העתקה"
 
-#: source/gx/tilix/terminal/terminal.d:1578
-#: source/gx/tilix/terminal/terminal.d:1593
+#: source/gx/tilix/terminal/terminal.d:1590
+#: source/gx/tilix/terminal/terminal.d:1605
 msgid "Select All"
 msgstr "בחירת הכל"
 
-#: source/gx/tilix/terminal/terminal.d:1596
+#: source/gx/tilix/terminal/terminal.d:1608
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 msgid "Clipboard"
 msgstr "לוח גזירים"
 
-#: source/gx/tilix/terminal/terminal.d:1610
+#: source/gx/tilix/terminal/terminal.d:1622
 msgid "Synchronize input"
 msgstr "סנכרון הקלט"
 
-#: source/gx/tilix/terminal/terminal.d:1752
+#: source/gx/tilix/terminal/terminal.d:1764
 #, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1753
+#: source/gx/tilix/terminal/terminal.d:1765
 msgid "Remote File URI Unsupported"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1784
-#: source/gx/tilix/terminal/terminal.d:2271
+#: source/gx/tilix/terminal/terminal.d:1796
+#: source/gx/tilix/terminal/terminal.d:2283
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1785
+#: source/gx/tilix/terminal/terminal.d:1797
 #, fuzzy
 msgid "Regular Expression Error"
 msgstr "התאמה כביטוי רגולרי"
 
-#: source/gx/tilix/terminal/terminal.d:1797
+#: source/gx/tilix/terminal/terminal.d:1809
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1810
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2417
+#: source/gx/tilix/terminal/terminal.d:2429
 msgid "Unexpected error occurred, no additional information available"
 msgstr "התרחשה שגיאה בלתי צפויה, אין מידע נוסף זמין"
 
-#: source/gx/tilix/terminal/terminal.d:2423
+#: source/gx/tilix/terminal/terminal.d:2435
 #, fuzzy, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "התרחשה שגיאה בלתי צפויה: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3062
+#: source/gx/tilix/terminal/terminal.d:3074
 msgid "Save Terminal Output"
 msgstr "שמירת פלט מסוף"
 
-#: source/gx/tilix/terminal/terminal.d:3071
+#: source/gx/tilix/terminal/terminal.d:3083
 msgid "All Text Files"
 msgstr "כל קובצי הטקסט"
 
-#: source/gx/tilix/terminal/terminal.d:3322
+#: source/gx/tilix/terminal/terminal.d:3334
 msgid "Unknown"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3600
+#: source/gx/tilix/terminal/terminal.d:3612
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "תהליך הבן יצא כרגיל במצב %d"
 
-#: source/gx/tilix/terminal/terminal.d:3601
+#: source/gx/tilix/terminal/terminal.d:3613
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "תהליך הבן נפל עם האות %d."
 
-#: source/gx/tilix/terminal/terminal.d:3602
+#: source/gx/tilix/terminal/terminal.d:3614
 msgid "The child process was aborted."
 msgstr "תהליך הבן נפל."
 
-#: source/gx/tilix/terminal/terminal.d:3608
+#: source/gx/tilix/terminal/terminal.d:3620
 msgid "Relaunch"
 msgstr "הפעלה מחדש"
 
-#: source/gx/tilix/terminal/terminal.d:3653
+#: source/gx/tilix/terminal/terminal.d:3665
 #, fuzzy
 msgid "Don't Paste"
 msgstr "לא להדביק"
 
-#: source/gx/tilix/terminal/terminal.d:3654
+#: source/gx/tilix/terminal/terminal.d:3666
 #, fuzzy
 msgid "Paste Anyway"
 msgstr "להדביק בכל זאת"
@@ -2539,18 +2543,24 @@ msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "השבתת סנכרון קלט עבור מסוף זה"
 
-#: data/resources/ui/shortcuts.ui:574
+#: data/resources/ui/shortcuts.ui:569
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open file browser"
+msgstr "פתיחת Terminix כאן…"
+
+#: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:579
+#: data/resources/ui/shortcuts.ui:585
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "פתיחה"
 
-#: data/resources/ui/shortcuts.ui:583
+#: data/resources/ui/shortcuts.ui:589
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"

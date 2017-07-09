@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 20:46-0400\n"
+"POT-Creation-Date: 2017-07-08 21:26-0400\n"
 "PO-Revision-Date: 2016-11-08 15:29+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -109,7 +109,7 @@ msgid "Open…"
 msgstr ""
 
 #: source/gx/tilix/appwindow.d:669 source/gx/tilix/appwindow.d:1428
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/prefeditor/profileeditor.d:865
 msgid "Save"
 msgstr "儲存"
@@ -119,7 +119,7 @@ msgid "Save As…"
 msgstr "另存為…"
 
 #: source/gx/tilix/appwindow.d:671 source/gx/tilix/terminal/terminal.d:364
-#: source/gx/tilix/terminal/terminal.d:1606 source/gx/tilix/sidebar.d:506
+#: source/gx/tilix/terminal/terminal.d:1618 source/gx/tilix/sidebar.d:506
 msgid "Close"
 msgstr "關閉"
 
@@ -161,7 +161,7 @@ msgstr "不再顯示該資訊"
 msgid "All JSON Files"
 msgstr ""
 
-#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3075
+#: source/gx/tilix/appwindow.d:1352 source/gx/tilix/terminal/terminal.d:3087
 #: source/gx/tilix/prefeditor/profileeditor.d:882
 #: source/gx/tilix/prefeditor/prefdialog.d:1043
 msgid "All Files"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: source/gx/tilix/appwindow.d:1394 source/gx/tilix/appwindow.d:1428
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3065
+#: source/gx/tilix/terminal/terminal.d:3077
 #: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:367
 #: source/gx/tilix/terminal/password.d:489
 #: source/gx/tilix/prefeditor/profileeditor.d:865
@@ -241,8 +241,8 @@ msgid "Advanced Paste"
 msgstr ""
 
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1577
-#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1589
+#: source/gx/tilix/terminal/terminal.d:1600
 msgid "Paste"
 msgstr "貼上"
 
@@ -289,25 +289,25 @@ msgid ""
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:330
-#: source/gx/tilix/terminal/terminal.d:3432
+#: source/gx/tilix/terminal/terminal.d:3444
 #: source/gx/tilix/prefeditor/titleeditor.d:94
 msgid "Terminal"
 msgstr "終端"
 
 #: source/gx/tilix/terminal/terminal.d:372
-#: source/gx/tilix/terminal/terminal.d:1207
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1219
+#: source/gx/tilix/terminal/terminal.d:1617
 #, fuzzy
 msgid "Maximize"
 msgstr "最大化"
 
 #: source/gx/tilix/terminal/terminal.d:382
-#: source/gx/tilix/terminal/terminal.d:630
+#: source/gx/tilix/terminal/terminal.d:638
 msgid "Disable input synchronization for this terminal"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:756
+#: source/gx/tilix/terminal/terminal.d:764
 msgid "Read-Only"
 msgstr "只讀"
 
@@ -326,57 +326,61 @@ msgstr "編輯配置檔"
 msgid "Edit Encodings"
 msgstr "編碼"
 
-#: source/gx/tilix/terminal/terminal.d:632
+#: source/gx/tilix/terminal/terminal.d:640
 msgid "Enable input synchronization for this terminal"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:661
+#: source/gx/tilix/terminal/terminal.d:669
 msgid "Library Not Loaded"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:755
+#: source/gx/tilix/terminal/terminal.d:763
 msgid "Find…"
 msgstr "查詢…"
 
-#: source/gx/tilix/terminal/terminal.d:760
+#: source/gx/tilix/terminal/terminal.d:768
 msgid "Password..."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:761
+#: source/gx/tilix/terminal/terminal.d:769
 #, fuzzy
 msgid "Bookmark..."
 msgstr "選擇 %s 個顏色"
 
-#: source/gx/tilix/terminal/terminal.d:762
+#: source/gx/tilix/terminal/terminal.d:770
 msgid "Add Bookmark..."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:766
+#: source/gx/tilix/terminal/terminal.d:774
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:778
 #: source/gx/tilix/prefeditor/prefdialog.d:271
 msgid "Profiles"
 msgstr "配置方案"
 
-#: source/gx/tilix/terminal/terminal.d:772
+#: source/gx/tilix/terminal/terminal.d:784
 #, fuzzy
 msgid "Save Output…"
 msgstr "另存為…"
 
-#: source/gx/tilix/terminal/terminal.d:773
+#: source/gx/tilix/terminal/terminal.d:785
 #: source/gx/tilix/prefeditor/profileeditor.d:258
 msgid "Reset"
 msgstr "重置"
 
-#: source/gx/tilix/terminal/terminal.d:774
+#: source/gx/tilix/terminal/terminal.d:786
 msgid "Reset and Clear"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:778
+#: source/gx/tilix/terminal/terminal.d:790
 #: source/gx/tilix/prefeditor/profileeditor.d:1002
 #: source/gx/tilix/prefeditor/prefdialog.d:160
 #: source/gx/tilix/prefeditor/prefdialog.d:161
@@ -385,150 +389,150 @@ msgstr ""
 msgid "Encoding"
 msgstr "編碼"
 
-#: source/gx/tilix/terminal/terminal.d:779
+#: source/gx/tilix/terminal/terminal.d:791
 msgid "Layout Options…"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:783
+#: source/gx/tilix/terminal/terminal.d:795
 msgid "Monitor Silence"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:786
+#: source/gx/tilix/terminal/terminal.d:798
 msgid "Other"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:795
+#: source/gx/tilix/terminal/terminal.d:807
 #, fuzzy
 msgid "Add Right"
 msgstr "向右分割"
 
-#: source/gx/tilix/terminal/terminal.d:799
+#: source/gx/tilix/terminal/terminal.d:811
 msgid "Add Down"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:843
+#: source/gx/tilix/terminal/terminal.d:855
 #, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:928
+#: source/gx/tilix/terminal/terminal.d:940
 #, fuzzy
 msgid "Terminal Activity"
 msgstr "終端標題"
 
-#: source/gx/tilix/terminal/terminal.d:1204
-#: source/gx/tilix/terminal/terminal.d:1605
+#: source/gx/tilix/terminal/terminal.d:1216
+#: source/gx/tilix/terminal/terminal.d:1617
 msgid "Restore"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1468
+#: source/gx/tilix/terminal/terminal.d:1480
 msgid "Tilix Custom Notification"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1565
+#: source/gx/tilix/terminal/terminal.d:1577
 msgid "Open Link"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1566
+#: source/gx/tilix/terminal/terminal.d:1578
 msgid "Copy Link Address"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1576
-#: source/gx/tilix/terminal/terminal.d:1583
+#: source/gx/tilix/terminal/terminal.d:1588
+#: source/gx/tilix/terminal/terminal.d:1595
 msgid "Copy"
 msgstr "複製"
 
-#: source/gx/tilix/terminal/terminal.d:1578
-#: source/gx/tilix/terminal/terminal.d:1593
+#: source/gx/tilix/terminal/terminal.d:1590
+#: source/gx/tilix/terminal/terminal.d:1605
 msgid "Select All"
 msgstr "全選"
 
-#: source/gx/tilix/terminal/terminal.d:1596
+#: source/gx/tilix/terminal/terminal.d:1608
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 msgid "Clipboard"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1610
+#: source/gx/tilix/terminal/terminal.d:1622
 #, fuzzy
 msgid "Synchronize input"
 msgstr "同步輸入"
 
-#: source/gx/tilix/terminal/terminal.d:1752
+#: source/gx/tilix/terminal/terminal.d:1764
 #, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1753
+#: source/gx/tilix/terminal/terminal.d:1765
 msgid "Remote File URI Unsupported"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1784
-#: source/gx/tilix/terminal/terminal.d:2271
+#: source/gx/tilix/terminal/terminal.d:1796
+#: source/gx/tilix/terminal/terminal.d:2283
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1785
+#: source/gx/tilix/terminal/terminal.d:1797
 #, fuzzy
 msgid "Regular Expression Error"
 msgstr "使用正規表示式匹配"
 
-#: source/gx/tilix/terminal/terminal.d:1797
+#: source/gx/tilix/terminal/terminal.d:1809
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1810
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2417
+#: source/gx/tilix/terminal/terminal.d:2429
 msgid "Unexpected error occurred, no additional information available"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2423
+#: source/gx/tilix/terminal/terminal.d:2435
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3062
+#: source/gx/tilix/terminal/terminal.d:3074
 msgid "Save Terminal Output"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3071
+#: source/gx/tilix/terminal/terminal.d:3083
 msgid "All Text Files"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3322
+#: source/gx/tilix/terminal/terminal.d:3334
 msgid "Unknown"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3600
+#: source/gx/tilix/terminal/terminal.d:3612
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3601
+#: source/gx/tilix/terminal/terminal.d:3613
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3602
+#: source/gx/tilix/terminal/terminal.d:3614
 msgid "The child process was aborted."
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3608
+#: source/gx/tilix/terminal/terminal.d:3620
 msgid "Relaunch"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:3653
+#: source/gx/tilix/terminal/terminal.d:3665
 #, fuzzy
 msgid "Don't Paste"
 msgstr "貼上"
 
-#: source/gx/tilix/terminal/terminal.d:3654
+#: source/gx/tilix/terminal/terminal.d:3666
 msgid "Paste Anyway"
 msgstr ""
 
@@ -2619,12 +2623,18 @@ msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:574
+#: data/resources/ui/shortcuts.ui:569
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open file browser"
+msgstr "在此開啟 Terminix…"
+
+#: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:579
+#: data/resources/ui/shortcuts.ui:585
 msgctxt "shortcut window"
 msgid "Open"
 msgstr ""
@@ -2632,7 +2642,7 @@ msgstr ""
 # ******************
 # Nautilus extension
 # ******************
-#: data/resources/ui/shortcuts.ui:583
+#: data/resources/ui/shortcuts.ui:589
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"
