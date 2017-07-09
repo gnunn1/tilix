@@ -1695,6 +1695,11 @@ private:
                     trace("Opening match");
                     openURI(match);
                     return true;
+                } else if (event.button.state & GdkModifierType.MOD1_MASK) {
+                    import gtk.TargetList;
+                    TargetList list = new TargetList([new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE)]);
+                    dragBegin(list, GdkDragAction.MOVE, MouseButton.PRIMARY, event);
+                    return true;
                 } else {
                     return false;
                 }
