@@ -622,7 +622,7 @@ private:
         });
 
         //Sync Input Override
-        registerAction(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, null, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             _synchronizeInputOverride = newState;
