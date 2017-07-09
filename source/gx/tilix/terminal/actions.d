@@ -40,3 +40,4 @@ enum ACTION_SCROLL_DOWN = "scroll-down";
 enum ACTION_PAGE_UP = "page-up";
 enum ACTION_PAGE_DOWN = "page-down";
 enum ACTION_MONITOR_SILENCE = "monitor-silence";
+enum ACTION_FILE_BROWSER = "file-browser";

@@ -12,7 +12,14 @@ import gtk.Window;
  * Displays an error message in a dialog
  */
 void showErrorDialog(Window parent, string message, string title = null) {
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.ERROR, ButtonsType.OK, message, null);
+    showMessageDialog(MessageType.ERROR, parent, message, title);
+}
+
+/**
+ * Displays a message dialog of the specified type
+ */
+void showMessageDialog(MessageType mt, Window parent, string message, string title = null) {
+    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, mt, ButtonsType.OK, message, null);
     scope (exit) {
         dialog.destroy();
     }

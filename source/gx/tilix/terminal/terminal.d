@@ -613,6 +613,14 @@ private:
             sa.setState(new GVariant(monitorSilence));
         }, null, new GVariant(false));
 
+        //Open CWD in Browser
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FILE_BROWSER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+            // Only support local directories for now
+            string uri = URI.filenameToUri(gst.currentLocalDirectory, null);
+            tracef("Opening directory: %s, hostname: %s, uri: %s", gst.currentDirectory, gst.currentHostname, uri);
+            MountOperation.showUri(null, uri, Main.getCurrentEventTime);
+        });
+
         //Clear Terminal && Reset and Clear Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(false, false);
@@ -760,6 +768,10 @@ private:
         menuSection.append(_("Password..."), getActionDetailedName(ACTION_PREFIX, ACTION_INSERT_PASSWORD));
         menuSection.append(_("Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
         menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.append(_("Show File Browser..."), getActionDetailedName(ACTION_PREFIX, ACTION_FILE_BROWSER));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
