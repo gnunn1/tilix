@@ -169,7 +169,9 @@ enum TerminalWindowState {
 enum SyncInputEventType {
     INSERT_TERMINAL_NUMBER,
     INSERT_TEXT,
-    KEY_PRESS
+    KEY_PRESS,
+    RESET,
+    RESET_AND_CLEAR
 };
 
 struct SyncInputEvent {
@@ -627,9 +629,17 @@ private:
         //Clear Terminal && Reset and Clear Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(false, false);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET, null, null);
+                onSyncInput.emit(this, se);
+            }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(true, true);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET_AND_CLEAR, null, null);
+                onSyncInput.emit(this, se);
+            }
         });
 
         //Sync Input Override
@@ -3377,6 +3387,12 @@ public:
                 newEvent.key.sendEvent = SendEvent.SYNC;
                 newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
+                break;
+            case SyncInputEventType.RESET:
+                vte.reset(false, false);
+                break;
+            case SyncInputEventType.RESET_AND_CLEAR:
+                vte.reset(true, true);
                 break;
         }
     }
