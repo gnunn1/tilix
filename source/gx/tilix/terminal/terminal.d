@@ -297,6 +297,9 @@ private:
     //When true, silence threshold monitoring is enabled
     bool monitorSilence = false;
 
+    // Tri-state, -1=true, 0=false, 2=Unknown
+    static int _useOverlayScrollbar = 2;
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -1050,7 +1053,12 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) {
+        if (_useOverlayScrollbar == 2) {
+            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
+            else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
+            tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
+        }
+        if (_useOverlayScrollbar >= 0) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("tilix-terminal-scrollbar");
             terminalBox.add(sb);
