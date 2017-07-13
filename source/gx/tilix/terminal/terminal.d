@@ -302,6 +302,10 @@ private:
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
 
+    @property bool useOverlayScrollbar() {
+        return _useOverlayScrollbar < 0;
+    }
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -1046,8 +1050,14 @@ private:
             saPaste.setEnabled(true);
         });
 
+        if (_useOverlayScrollbar == 2) {
+            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
+            else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
+            tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
+        }
+
         terminalOverlay = new Overlay();
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+        if (useOverlayScrollbar) {
             sw = new ScrolledWindow(vte);
             sw.getStyleContext.addClass("tilix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
@@ -1063,12 +1073,7 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        if (_useOverlayScrollbar == 2) {
-            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
-            else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
-            tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
-        }
-        if (_useOverlayScrollbar >= 0) {
+        if (!useOverlayScrollbar) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("tilix-terminal-scrollbar");
             terminalBox.add(sb);
@@ -1246,7 +1251,7 @@ private:
         if (vte is null) return;
 
         Adjustment adjustment;
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+        if (useOverlayScrollbar) {
             adjustment = sw.getVadjustment();
         } else {
             adjustment = sb.getAdjustment();
@@ -2009,7 +2014,7 @@ private:
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // tilix resources
-            if (!Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+            if (!useOverlayScrollbar) {
                 if (sbProvider !is null) {
                     sb.getStyleContext().removeProvider(sbProvider);
                     sbProvider = null;
@@ -2051,7 +2056,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
-            if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+            if (useOverlayScrollbar) {
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY)) {
                     sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
                 } else {
