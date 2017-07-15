@@ -1267,7 +1267,7 @@ private:
         BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel(), BMSelectionMode.LEAF);
         scope(exit) {bc.destroy();}
         bc.showAll();
-        if (bc.run() == ResponseType.OK) {
+        if (bc.run() == ResponseType.OK && bc.bookmark !is null) {
             string text = bc.bookmark.terminalCommand;
             if (gsSettings.getBoolean(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY)) {
                 trace("Add new line");
