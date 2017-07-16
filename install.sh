@@ -51,6 +51,7 @@ else
     echo "Please refer to https://github.com/gnunn1/tilix/wiki/Installing-to-custom-directory on how to do this manually"
     echo "Continuing with the rest of the install"
     echo
+    set GLIB_SCHEMA_NOT_INSTALLED=true
 fi
 
 export TERMINIX_SHARE=${PREFIX}/share/tilix
@@ -154,4 +155,17 @@ if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
 
     echo "Updating icon cache"
     gtk-update-icon-cache -f ${PREFIX}/share/icons/hicolor/
+fi
+
+if [ GLIB_SCHEMA_NOT_INSTALLED ]; then
+    echo
+    echo "\033[0;31m WARNING : "
+    echo "Tilix was installed to ${PREFIX} without compiling schemas for glib-2.0"
+    echo "Tilix requires to compile some schemas for glib-2.0 which require sudo privileges and without which Tilix will not work \033[0m"
+    echo "Please refer to https://github.com/gnunn1/tilix/wiki/Installing-to-custom-directory on how to do this manually"
+    echo
+    unset GLIB_SCHEMA_NOT_INSTALLED
+    exit 1
+else
+    echo "Tilix was installed successfully to ${PREFIX}/bin"
 fi

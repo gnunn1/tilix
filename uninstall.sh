@@ -24,6 +24,7 @@ else
     echo "sudo glib-compile-schemas /usr/share/glib-2.0/schemas/"
     echo "Comtinuing with the rest of the uninstall"
     echo
+    set GLIB_SCHEMA_UNINSTALL_SKIPPED=true
 fi
 rm -rf ${PREFIX}/share/tilix
 
@@ -36,3 +37,12 @@ rm ${PREFIX}/share/applications/com.gexperts.Tilix.desktop
 rm ${PREFIX}/share/metainfo/com.gexperts.Tilix.appdata.xml
 rm ${PREFIX}/share/man/man1/tilix.1.gz
 rm ${PREFIX}/share/man/*/man1/tilix.1.gz
+
+if [ GLIB_SCHEMA_UNINSTALL_SKIPPED ]; then
+    echo
+    echo "\033[0;31m The gschema that was installed for Tilix (/usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml) could not be removed \033[0m"
+    echo "Please remove the gschema manually and then re-compile the gschema by runnig"
+    echo "sudo glib-compile-schemas /usr/share/glib-2.0/schemas/"
+    echo
+    exit 1
+fi
