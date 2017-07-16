@@ -38,11 +38,20 @@ done
 
 echo "Installing to prefix ${PREFIX}"
 
-# Copy and compile schema
-echo "Copying and compiling schema..."
-install -d ${PREFIX}/share/glib-2.0/schemas
-install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
-glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
+if [ "${PREFIX}" = "/usr" ] || [ "$(id -u)" == "0" ]; then
+    # Copy and compile schema
+    echo "Copying and compiling schema..."
+    install -d /usr/share/glib-2.0/schemas
+    install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml /usr/share/glib-2.0/schemas/
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
+else
+    echo
+    echo "Tilix is being installed to ${PREFIX} without sudo privileges"
+    echo "Tilix requires to compile some schemas for glib-2.0 which require sudo privileges and without which Tilix will not work"
+    echo "Please refer to https://github.com/gnunn1/tilix/wiki/Installing-to-custom-directory on how to do this manually"
+    echo "Continuing with the rest of the install"
+    echo
+fi
 
 export TERMINIX_SHARE=${PREFIX}/share/tilix
 
