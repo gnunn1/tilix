@@ -6,7 +6,7 @@ else
     export PREFIX=$1
 fi
 
-if [ "$PREFIX" = "/usr" ] && [ "$(id -u)" != "0" ]; then
+if [ "$PREFIX" = "/usr" ] && [ $(id -u) -ne 0 ]; then
     # Make sure only root can run our script
     echo "This script must be run as root" 1>&2
     exit 1
@@ -38,11 +38,21 @@ done
 
 echo "Installing to prefix ${PREFIX}"
 
-# Copy and compile schema
-echo "Copying and compiling schema..."
-install -d ${PREFIX}/share/glib-2.0/schemas
-install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
-glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
+if [ "${PREFIX}" = "/usr" ] || [ $(id -u) -eq 0 ]; then
+    # Copy and compile schema
+    echo "Copying and compiling schema..."
+    install -d /usr/share/glib-2.0/schemas
+    install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml /usr/share/glib-2.0/schemas/
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
+else
+    echo
+    echo "Tilix is being installed to ${PREFIX} without sudo privileges"
+    echo "Tilix requires to compile some schemas for glib-2.0 which require sudo privileges and without which Tilix will not work"
+    echo "Please refer to https://github.com/gnunn1/tilix/wiki/Installing-to-custom-directory on how to do this manually"
+    echo "Continuing with the rest of the install"
+    echo
+    set GLIB_SCHEMA_NOT_INSTALLED=true
+fi
 
 export TERMINIX_SHARE=${PREFIX}/share/tilix
 
@@ -145,4 +155,17 @@ if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
 
     echo "Updating icon cache"
     gtk-update-icon-cache -f ${PREFIX}/share/icons/hicolor/
+fi
+
+if [ GLIB_SCHEMA_NOT_INSTALLED ]; then
+    echo
+    echo "\033[0;31m WARNING : "
+    echo "Tilix was installed to ${PREFIX} without compiling schemas for glib-2.0"
+    echo "Tilix requires to compile some schemas for glib-2.0 which require sudo privileges and without which Tilix will not work \033[0m"
+    echo "Please refer to https://github.com/gnunn1/tilix/wiki/Installing-to-custom-directory on how to do this manually"
+    echo
+    unset GLIB_SCHEMA_NOT_INSTALLED
+    exit 1
+else
+    echo "Tilix was installed successfully to ${PREFIX}/bin"
 fi

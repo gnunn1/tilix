@@ -3,7 +3,7 @@
 if [ -z  "$1" ]; then
     export PREFIX=/usr
     # Make sure only root can run our script
-    if [ "$(id -u)" != "0" ]; then
+    if [ $(id -u) -ne 0 ]; then
         echo "This script must be run as root" 1>&2
         exit 1
     fi
@@ -14,8 +14,18 @@ fi
 echo "Uninstalling from prefix ${PREFIX}"
 
 rm ${PREFIX}/bin/tilix
-rm ${PREFIX}/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
-glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
+if [ "${PREFIX}" = "/usr" ] || [ $(id -u) -eq 0 ]; then
+    rm /usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
+else
+    echo
+    echo "sudo privileges is required to remove the glib-2.0 schema (/usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml) that was installed for Tilix"
+    echo "Please remove the gschema manually and then re-compile the gschema by runnig"
+    echo "sudo glib-compile-schemas /usr/share/glib-2.0/schemas/"
+    echo "Comtinuing with the rest of the uninstall"
+    echo
+    set GLIB_SCHEMA_UNINSTALL_SKIPPED=true
+fi
 rm -rf ${PREFIX}/share/tilix
 
 find ${PREFIX}/share/locale -type f -name "tilix.mo" -delete
@@ -27,3 +37,12 @@ rm ${PREFIX}/share/applications/com.gexperts.Tilix.desktop
 rm ${PREFIX}/share/metainfo/com.gexperts.Tilix.appdata.xml
 rm ${PREFIX}/share/man/man1/tilix.1.gz
 rm ${PREFIX}/share/man/*/man1/tilix.1.gz
+
+if [ GLIB_SCHEMA_UNINSTALL_SKIPPED ]; then
+    echo
+    echo "\033[0;31m The gschema that was installed for Tilix (/usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml) could not be removed \033[0m"
+    echo "Please remove the gschema manually and then re-compile the gschema by runnig"
+    echo "sudo glib-compile-schemas /usr/share/glib-2.0/schemas/"
+    echo
+    exit 1
+fi
