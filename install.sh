@@ -6,7 +6,7 @@ else
     export PREFIX=$1
 fi
 
-if [ "$PREFIX" = "/usr" ] && [ "$(id -u)" != "0" ]; then
+if [ "$PREFIX" = "/usr" ] && [ $(id -u) -ne 0 ]; then
     # Make sure only root can run our script
     echo "This script must be run as root" 1>&2
     exit 1
@@ -38,7 +38,7 @@ done
 
 echo "Installing to prefix ${PREFIX}"
 
-if [ "${PREFIX}" = "/usr" ] || [ "$(id -u)" == "0" ]; then
+if [ "${PREFIX}" = "/usr" ] || [ $(id -u) -eq 0 ]; then
     # Copy and compile schema
     echo "Copying and compiling schema..."
     install -d /usr/share/glib-2.0/schemas

@@ -3,7 +3,7 @@
 if [ -z  "$1" ]; then
     export PREFIX=/usr
     # Make sure only root can run our script
-    if [ "$(id -u)" != "0" ]; then
+    if [ $(id -u) -ne 0 ]; then
         echo "This script must be run as root" 1>&2
         exit 1
     fi
@@ -14,7 +14,7 @@ fi
 echo "Uninstalling from prefix ${PREFIX}"
 
 rm ${PREFIX}/bin/tilix
-if [ "${PREFIX}" = "/usr" ] || [ "$(id -u)" == "0" ]; then
+if [ "${PREFIX}" = "/usr" ] || [ $(id -u) -eq 0 ]; then
     rm /usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
     glib-compile-schemas /usr/share/glib-2.0/schemas/
 else
