@@ -14,8 +14,17 @@ fi
 echo "Uninstalling from prefix ${PREFIX}"
 
 rm ${PREFIX}/bin/tilix
-rm ${PREFIX}/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
-glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
+if [ "${PREFIX}" = "/usr" ] || [ "$(id -u)" == "0" ]; then
+    rm /usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
+else
+    echo
+    echo "sudo privileges is required to remove the glib-2.0 schema (/usr/share/glib-2.0/schemas/com.gexperts.Tilix.gschema.xml) that was installed for Tilix"
+    echo "Please remove the gschema manually and then re-compile the gschema by runnig"
+    echo "sudo glib-compile-schemas /usr/share/glib-2.0/schemas/"
+    echo "Comtinuing with the rest of the uninstall"
+    echo
+fi
 rm -rf ${PREFIX}/share/tilix
 
 find ${PREFIX}/share/locale -type f -name "tilix.mo" -delete
