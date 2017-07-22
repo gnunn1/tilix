@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-05-26 18:52+0000\n"
-"Last-Translator: Marek Suchánek <marek.suchanek@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/tilix/translations/"
-"cs/>\n"
+"POT-Creation-Date: 2017-05-21 17:18-0400\n"
+"PO-Revision-Date: 2017-07-22 18:32+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech "
+"<https://hosted.weblate.org/projects/tilix/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.14.1\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -142,7 +142,7 @@ msgstr "Výchozí"
 
 #: source/gx/tilix/appwindow.d:1078
 msgid "There are multiple sessions open, close anyway?"
-msgstr "Je otevřeno více sezení; přesto zavřít?"
+msgstr "Je otevřeno více sezení – přesto zavřít?"
 
 #: source/gx/tilix/appwindow.d:1079 source/gx/tilix/closedialog.d:143
 msgid "Do not show this again"
@@ -183,11 +183,11 @@ msgstr "Otevřít"
 #: source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/bookmark/bmeditor.d:150
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Storno"
 
 #: source/gx/tilix/appwindow.d:1409
 msgid "Could not load session due to unexpected error."
-msgstr "Načítání sezení selhalo kvůli neočekávané chybě."
+msgstr "Načítání sezení se nezdařilo kvůli neočekávané chybě."
 
 #: source/gx/tilix/appwindow.d:1409
 msgid "Error Loading Session"
@@ -205,11 +205,11 @@ msgstr "Tilix"
 
 #: source/gx/tilix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
-msgstr "Tento příkaz vás žádá o administrátorský přístup k počítači"
+msgstr "Tento příkaz vás žádá o správcovský přístup k počítači"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
-msgstr "Kopírování příkazu z internetu může být nebezpečné. "
+msgstr "Kopírování příkazu z Internetu může být nebezpečné. "
 
 #: source/gx/tilix/terminal/advpaste.d:35
 msgid "Be sure you understand what each part of this command does."
@@ -251,7 +251,7 @@ msgstr "Hledat předchozí"
 
 #: source/gx/tilix/terminal/search.d:191
 msgid "Match case"
-msgstr "Rozlišovat velikost"
+msgstr "Rozlišovat velikost písmen"
 
 #: source/gx/tilix/terminal/search.d:192
 msgid "Match entire word only"
@@ -259,11 +259,11 @@ msgstr "Hledat jen celá slova"
 
 #: source/gx/tilix/terminal/search.d:193
 msgid "Match as regular expression"
-msgstr "Hledat jako regulérní výraz"
+msgstr "Hledat jako regulární výraz"
 
 #: source/gx/tilix/terminal/search.d:194
 msgid "Wrap around"
-msgstr "Pokračovat při dosažení konce"
+msgstr "Po dosažení konce pokračovat od začátku"
 
 #: source/gx/tilix/terminal/search.d:235
 #, c-format
@@ -271,7 +271,7 @@ msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
 msgstr ""
-"Hledání „%s“ není platný regulérní výraz\n"
+"Hledání „%s“ není platný regulární výraz\n"
 "%s"
 
 #: source/gx/tilix/terminal/terminal.d:333
@@ -318,7 +318,7 @@ msgstr "Pro tento terminál zapnout synchronizaci vstupu"
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
-"Knihovnu %s se nepodařilo načíst; funkcionalita související s hesly není "
+"Knihovnu %s se nepodařilo načíst – funkcionalita související s hesly není "
 "dostupná."
 
 #: source/gx/tilix/terminal/terminal.d:672
@@ -395,7 +395,7 @@ msgstr "Přidat dolů"
 #: source/gx/tilix/terminal/terminal.d:858
 #, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Nastala neočekávaná chyba při přidávání regulérního výrazu odkazu: %s"
+msgstr "Nastala neočekávaná chyba při přidávání regulárního výrazu odkazu: %s"
 
 #: source/gx/tilix/terminal/terminal.d:943
 msgid "Terminal Activity"
@@ -454,7 +454,7 @@ msgstr "URI vzdálených souborů nepodporováno"
 #: source/gx/tilix/terminal/terminal.d:2291
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Regulérní výraz odkazu ‚%s‘ obsahuje chybu, ignoruje se"
+msgstr "Regulární výraz odkazu „%s“ obsahuje chybu – ignoruje se"
 
 #: source/gx/tilix/terminal/terminal.d:1805
 msgid "Regular Expression Error"
@@ -471,7 +471,7 @@ msgstr "Chyba při otevírání shody"
 
 #: source/gx/tilix/terminal/terminal.d:2437
 msgid "Unexpected error occurred, no additional information available"
-msgstr "Nastala neočekávaná chyba, bližší informace nejsou dostupné"
+msgstr "Nastala neočekávaná chyba, bližší informace nejsou k dispozici"
 
 #: source/gx/tilix/terminal/terminal.d:2443
 #, c-format
@@ -524,7 +524,7 @@ msgstr "Možnosti rozložení"
 #: source/gx/tilix/closedialog.d:205 source/gx/tilix/bookmark/bmchooser.d:121
 #: source/gx/tilix/bookmark/bmeditor.d:150
 msgid "OK"
-msgstr "Budiž"
+msgstr "OK"
 
 #: source/gx/tilix/terminal/layout.d:48
 msgid "Active"
@@ -572,7 +572,7 @@ msgstr "Název"
 
 #: source/gx/tilix/terminal/password.d:136 source/gx/tilix/constants.d:129
 msgid "ID"
-msgstr "ID"
+msgstr "Identifikátor"
 
 #: source/gx/tilix/terminal/password.d:157
 msgid "New"
@@ -784,7 +784,7 @@ msgstr "Vyberte písmo terminálu"
 #: source/gx/tilix/prefeditor/profileeditor.d:402
 #, c-format
 msgid "ID: %s"
-msgstr "ID: %s"
+msgstr "Identifikátor: %s"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:448
 msgid "Color scheme"
@@ -1442,7 +1442,7 @@ msgstr "Nápověda"
 #: source/gx/tilix/prefeditor/advdialog.d:92
 #: source/gx/tilix/prefeditor/advdialog.d:230
 msgid "Regex"
-msgstr "Regulérní výraz"
+msgstr "Regulární výraz"
 
 #: source/gx/tilix/prefeditor/advdialog.d:116
 msgid "Case Insensitive"
@@ -1620,11 +1620,11 @@ msgstr "GEOMETRIE"
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
-"Otevře okno v módu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
+"Otevře okno v režimu „quake“ nebo přepne viditelnost stávajícího okna „quake“"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix and dependant component versions"
-msgstr "Ukázat verze Tilixu a závislých komponentů"
+msgstr "Ukázat verze Tilixu a závislých součástí"
 
 #: source/gx/tilix/application.d:676
 msgid "Show the Tilix preferences dialog directly"
@@ -1644,17 +1644,17 @@ msgid ""
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
-"Byl zřejmě nalezen problém s konfigurací terminálu. Není vážný,\n"
+"Byl zřejmě nalezen problém s nastavením terminálu. Není vážný,\n"
 "ale jeho náprava zpříjemní používání aplikace.\n"
 "Pro další informace klikněte na odkaz níže:"
 
 #: source/gx/tilix/application.d:841
 msgid "Configuration Issue Detected"
-msgstr "Detekován problém v konfiguraci"
+msgstr "Zjištěn problém v nastavení"
 
 #: source/gx/tilix/application.d:853
 msgid "Do not show this message again"
-msgstr "Tuto zprávu již neukazovat"
+msgstr "Tuto zprávu už neukazovat"
 
 #: source/gx/tilix/colorschemes.d:184
 #, c-format
@@ -1697,7 +1697,7 @@ msgstr "GtkD za to, že vytvořili tak skvělý obal okolo GTK"
 
 #: source/gx/tilix/constants.d:76
 msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org za vynikající jazyk D"
+msgstr "Dlang.org za vynikající programovací jazyk D"
 
 #: source/gx/tilix/constants.d:128
 msgid "Icon title"
@@ -1709,7 +1709,7 @@ msgstr "Adresář"
 
 #: source/gx/tilix/constants.d:131
 msgid "Hostname"
-msgstr "Jméno hostitele"
+msgstr "Název stroje"
 
 #: source/gx/tilix/constants.d:132
 msgid "Username"
@@ -1742,12 +1742,12 @@ msgstr "Číslo sezení"
 #: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
-msgstr "Přeskočeno, jelikož „%s“ není adresář"
+msgstr "Přeskočeno, protože „%s“ není adresář"
 
 #: source/gx/tilix/cmdparams.d:150
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "Řetězec geometrie ‚%s‘ je neplatný a nejde jej analyzovat"
+msgstr "Řetězec geometrie „%s“ není platný a nejde ho analyzovat"
 
 #: source/gx/tilix/cmdparams.d:183
 msgid ""
@@ -1755,7 +1755,7 @@ msgid ""
 "command option, please choose one or the other"
 msgstr ""
 "Nemůžete zároveň načíst sezení a nastavit profil / pracovní adresář / "
-"prováděný příkaz. Vyberte prosím první či druhé"
+"prováděný příkaz. Vyberte prosím první nebo druhé"
 
 #: source/gx/tilix/cmdparams.d:190
 msgid "You can only use the action parameter within Tilix"
@@ -1765,7 +1765,7 @@ msgstr "Parametr akce můžete použít jen uvnitř Tilixu"
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
-"Mód „quake“ nemůžete použít s parametry maximalizace, minimalizace či "
+"Režim „quake“ nemůžete použít s parametry maximalizace, minimalizace či "
 "geometrie"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
@@ -1935,7 +1935,7 @@ msgstr "Kořen"
 
 #: source/gx/tilix/bookmark/manager.d:615
 msgid "Could not load bookmarks due to unexpected error"
-msgstr "Načítání záložek selhalo kvůli neočekávané chybě"
+msgstr "Načítání záložek se nezdařilo kvůli neočekávané chybě"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Folder"
@@ -1944,7 +1944,7 @@ msgstr "Složka"
 #: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:291
 msgid "Path"
-msgstr "Cesta"
+msgstr "Popis umístění"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
@@ -1981,7 +1981,7 @@ msgstr "Upravit záložku"
 
 #: source/gx/tilix/bookmark/bmeditor.d:293
 msgid "Select Path"
-msgstr "Vybrat cestu"
+msgstr "Vybrat umístění"
 
 #: source/gx/tilix/bookmark/bmeditor.d:381
 msgid "Protocol"
@@ -1989,7 +1989,7 @@ msgstr "Protokol"
 
 #: source/gx/tilix/bookmark/bmeditor.d:397
 msgid "Host"
-msgstr "Hostitel"
+msgstr "Stroj"
 
 #: source/gx/tilix/bookmark/bmeditor.d:413
 msgid "User"
@@ -2066,7 +2066,7 @@ msgstr "Okno"
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Toggle fullscreen mode"
-msgstr "Přepnout mód na celou obrazovku"
+msgstr "Přepnout režim na celou obrazovku"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
@@ -2081,62 +2081,62 @@ msgstr "Zobrazit přepínač sezení"
 #: data/resources/ui/shortcuts.ui:67
 msgctxt "shortcut window"
 msgid "Switch to next session"
-msgstr "Přepnout do dalšího sezení"
+msgstr "Přepnout na další sezení"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Switch to previous session"
-msgstr "Přepnout do předchozího sezení"
+msgstr "Přepnout na další sezení"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Switch to session 1"
-msgstr "Přepnout do sezení 1"
+msgstr "Přepnout na sezení 1"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Switch to session 2"
-msgstr "Přepnout do sezení 2"
+msgstr "Přepnout na sezení 2"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Switch to session 3"
-msgstr "Přepnout do sezení 3"
+msgstr "Přepnout na sezení 3"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Switch to session 4"
-msgstr "Přepnout do sezení 4"
+msgstr "Přepnout na sezení 4"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Switch to session 5"
-msgstr "Přepnout do sezení 5"
+msgstr "Přepnout na sezení 5"
 
 #: data/resources/ui/shortcuts.ui:109
 msgctxt "shortcut window"
 msgid "Switch to session 6"
-msgstr "Přepnout do sezení 6"
+msgstr "Přepnout na sezení 6"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Switch to session 7"
-msgstr "Přepnout do sezení 7"
+msgstr "Přepnout na sezení 7"
 
 #: data/resources/ui/shortcuts.ui:121
 msgctxt "shortcut window"
 msgid "Switch to session 8"
-msgstr "Přepnout do sezení 8"
+msgstr "Přepnout na sezení 8"
 
 #: data/resources/ui/shortcuts.ui:127
 msgctxt "shortcut window"
 msgid "Switch to session 9"
-msgstr "Přepnout do sezení 9"
+msgstr "Přepnout na sezení 9"
 
 #: data/resources/ui/shortcuts.ui:133
 msgctxt "shortcut window"
 msgid "Switch to session 10"
-msgstr "Přepnout do sezení 10"
+msgstr "Přepnout na sezení 10"
 
 #: data/resources/ui/shortcuts.ui:144
 msgctxt "shortcut window"
