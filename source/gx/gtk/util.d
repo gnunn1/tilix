@@ -129,6 +129,19 @@ int getChildIndex(Container container, Widget child) {
 }
 
 /**
+ * Walks up the parent chain until it finds the parent of the 
+ * requested type.
+ */
+T findParent(T) (Widget widget) {
+    while ((widget !is null)) {
+        widget = widget.getParent();
+        T result = cast(T) widget;
+        if (result !is null) return result;
+    }
+    return null;
+}
+
+/**
  * Template for finding all children of a specific type
  */
 T[] getChildren(T) (Widget widget, bool recursive) {

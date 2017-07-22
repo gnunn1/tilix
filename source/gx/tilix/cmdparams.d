@@ -38,6 +38,7 @@ enum CMD_TITLE = "title";
 enum CMD_QUAKE = "quake";
 enum CMD_VERSION = "version";
 enum CMD_PREFERENCES = "preferences";
+enum CMD_WINDOW_STYLE = "window-style";
 
 
 /**
@@ -71,6 +72,7 @@ private:
     string _cwd;
     string _pwd;
     string _title;
+    string _windowStyle;
     Geometry _geometry;
 
     bool _maximize;
@@ -176,6 +178,7 @@ public:
         _title = getValue(vd, CMD_TITLE, vts);
         _command = getValue(vd, CMD_COMMAND, vts);
         _action = getValue(vd, CMD_ACTION, vts);
+        _windowStyle = getValue(vd, CMD_WINDOW_STYLE, vts);
         if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _command.length > 0)) {
             writeln(_("You cannot load a session and set a profile/working directory/execute command option, please choose one or the other"));
             _exitCode = 1;
@@ -236,6 +239,7 @@ public:
         _terminalUUID.length = 0;
         _cwd.length = 0;
         _pwd.length = 0;
+        _windowStyle.length = 0;
         _maximize = false;
         _minimize = false;
         _fullscreen = false;
@@ -291,6 +295,10 @@ public:
 
     @property string terminalUUID() {
         return _terminalUUID;
+    }
+
+    @property string windowStyle() {
+        return _windowStyle;
     }
 
     @property bool maximize() {

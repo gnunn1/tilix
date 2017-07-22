@@ -1130,6 +1130,12 @@ class AppearancePreferences: Box {
             CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if it's the only terminal"));
             bh.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
             add(cbTitleShowWhenSingle);
+
+            if (Version.checkVersion(3, 22, 0).length == 0) {
+                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Application restart required)"));
+                bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", GSettingsBindFlags.DEFAULT);
+                add(cbOverlay);
+            }
         }
 
     public:

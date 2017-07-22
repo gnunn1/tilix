@@ -169,7 +169,9 @@ enum TerminalWindowState {
 enum SyncInputEventType {
     INSERT_TERMINAL_NUMBER,
     INSERT_TEXT,
-    KEY_PRESS
+    KEY_PRESS,
+    RESET,
+    RESET_AND_CLEAR
 };
 
 struct SyncInputEvent {
@@ -297,6 +299,13 @@ private:
     //When true, silence threshold monitoring is enabled
     bool monitorSilence = false;
 
+    // Tri-state, -1=true, 0=false, 2=Unknown
+    static int _useOverlayScrollbar = 2;
+
+    @property bool useOverlayScrollbar() {
+        return _useOverlayScrollbar < 0;
+    }
+
     /**
      * Create the user interface of the TerminalPane
      */
@@ -410,7 +419,7 @@ private:
                 return false;
             }
             if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
-                maximize();
+                toggleMaximize();
             } else if (event.getEventType() == EventType.BUTTON_PRESS) {
                 if (event.button.button == MouseButton.MIDDLE && gsSettings.getBoolean(SETTINGS_MIDDLE_CLICK_CLOSE_KEY)) {
                     SimpleAction close = cast(SimpleAction) sagTerminalActions.lookupAction(ACTION_CLOSE);
@@ -586,7 +595,7 @@ private:
         });
 
         //Maximize Terminal
-        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { maximize(); });
+        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { toggleMaximize(); });
 
         //Close Terminal Action
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -613,16 +622,32 @@ private:
             sa.setState(new GVariant(monitorSilence));
         }, null, new GVariant(false));
 
+        //Open CWD in Browser
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FILE_BROWSER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+            // Only support local directories for now
+            string uri = URI.filenameToUri(gst.currentLocalDirectory, null);
+            tracef("Opening directory: %s, hostname: %s, uri: %s", gst.currentDirectory, gst.currentHostname, uri);
+            MountOperation.showUri(null, uri, Main.getCurrentEventTime);
+        });
+
         //Clear Terminal && Reset and Clear Terminal
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(false, false);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET, null, null);
+                onSyncInput.emit(this, se);
+            }
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(true, true);
+            if (isSynchronizedInput()) {
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET_AND_CLEAR, null, null);
+                onSyncInput.emit(this, se);
+            }
         });
 
         //Sync Input Override
-        registerAction(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, null, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
             sa.setState(new GVariant(newState));
             _synchronizeInputOverride = newState;
@@ -760,6 +785,10 @@ private:
         menuSection.append(_("Password..."), getActionDetailedName(ACTION_PREFIX, ACTION_INSERT_PASSWORD));
         menuSection.append(_("Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
         menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
+        model.appendSection(null, menuSection);
+
+        menuSection = new GMenu();
+        menuSection.append(_("Show File Browser..."), getActionDetailedName(ACTION_PREFIX, ACTION_FILE_BROWSER));
         model.appendSection(null, menuSection);
 
         menuSection = new GMenu();
@@ -1021,8 +1050,14 @@ private:
             saPaste.setEnabled(true);
         });
 
+        if (_useOverlayScrollbar == 2) {
+            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
+            else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
+            tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
+        }
+
         terminalOverlay = new Overlay();
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+        if (useOverlayScrollbar) {
             sw = new ScrolledWindow(vte);
             sw.getStyleContext.addClass("tilix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
@@ -1038,7 +1073,7 @@ private:
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) {
+        if (!useOverlayScrollbar) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("tilix-terminal-scrollbar");
             terminalBox.add(sb);
@@ -1216,7 +1251,7 @@ private:
         if (vte is null) return;
 
         Adjustment adjustment;
-        if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+        if (useOverlayScrollbar) {
             adjustment = sw.getVadjustment();
         } else {
             adjustment = sb.getAdjustment();
@@ -1232,7 +1267,7 @@ private:
         BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel(), BMSelectionMode.LEAF);
         scope(exit) {bc.destroy();}
         bc.showAll();
-        if (bc.run() == ResponseType.OK) {
+        if (bc.run() == ResponseType.OK && bc.bookmark !is null) {
             string text = bc.bookmark.terminalCommand;
             if (gsSettings.getBoolean(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY)) {
                 trace("Add new line");
@@ -1695,6 +1730,11 @@ private:
                     trace("Opening match");
                     openURI(match);
                     return true;
+                } else if (event.button.state & GdkModifierType.MOD1_MASK) {
+                    import gtk.TargetList;
+                    TargetList list = new TargetList([new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE)]);
+                    dragBegin(list, GdkDragAction.MOVE, MouseButton.PRIMARY, event);
+                    return true;
                 } else {
                     return false;
                 }
@@ -1974,7 +2014,7 @@ private:
 
             // Enhance scrollbar for supported themes, requires a theme specific css file in
             // tilix resources
-            if (!Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+            if (!useOverlayScrollbar) {
                 if (sbProvider !is null) {
                     sb.getStyleContext().removeProvider(sbProvider);
                     sbProvider = null;
@@ -2016,7 +2056,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
-            if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0) {
+            if (useOverlayScrollbar) {
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY)) {
                     sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
                 } else {
@@ -3236,7 +3276,7 @@ public:
      * Maximizes or restores terminal by requesting
      * state change from container.
      */
-    void maximize() {
+    void toggleMaximize() {
         TerminalWindowState newState = (terminalWindowState == TerminalWindowState.NORMAL) ? TerminalWindowState.MAXIMIZED : TerminalWindowState.NORMAL;
         CumulativeResult!bool result = new CumulativeResult!bool();
         onRequestStateChange.emit(this, newState, result);
@@ -3352,6 +3392,12 @@ public:
                 newEvent.key.sendEvent = SendEvent.SYNC;
                 newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
+                break;
+            case SyncInputEventType.RESET:
+                vte.reset(false, false);
+                break;
+            case SyncInputEventType.RESET_AND_CLEAR:
+                vte.reset(true, true);
                 break;
         }
     }

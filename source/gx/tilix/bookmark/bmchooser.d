@@ -85,6 +85,10 @@ private:
     }
 
     void updateUI() {
+        setResponseSensitive(ResponseType.OK, isSelectEnabled());
+    }
+
+    bool isSelectEnabled() {
         Bookmark bm = tv.getSelectedBookmark();
         bool enabled = bm !is null;
         switch (mode) {
@@ -97,7 +101,7 @@ private:
             default:
                 break;
         }
-        setResponseSensitive(ResponseType.OK, enabled);
+        return enabled;
     }
 
     bool checkKeyPress(Event event, Widget w) {
@@ -108,8 +112,10 @@ private:
                 return true;
             }
             if (keyval == GdkKeysyms.GDK_Return) {
-                response = ResponseType.OK;
-                return true;
+                if (isSelectEnabled()) {
+                    response = ResponseType.OK;
+                    return true;
+                }
             }
         }
         return false;
