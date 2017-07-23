@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-06-09 22:36+0000\n"
+"PO-Revision-Date: 2017-07-23 21:58+0000\n"
 "Last-Translator: monolifed <monolifed@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/tilix/"
-"translations/tr/>\n"
+"Language-Team: Turkish "
+"<https://hosted.weblate.org/projects/tilix/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.15-dev\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -123,7 +123,7 @@ msgstr "Ad…"
 
 #: source/gx/tilix/appwindow.d:676
 msgid "Synchronize Input"
-msgstr "Girdiyi Senkronize et"
+msgstr "Giriş Eşitle"
 
 #: source/gx/tilix/appwindow.d:681 source/gx/tilix/prefeditor/prefdialog.d:251
 #: source/gx/tilix/prefeditor/prefdialog.d:379
@@ -289,7 +289,7 @@ msgstr "Kapla"
 #: source/gx/tilix/terminal/terminal.d:385
 #: source/gx/tilix/terminal/terminal.d:641
 msgid "Disable input synchronization for this terminal"
-msgstr "Girdi senkronizasyonunu bu terminal için kapa"
+msgstr "Giriş eşitlemesini bu terminal için kapa"
 
 #: source/gx/tilix/terminal/terminal.d:394
 #: source/gx/tilix/terminal/terminal.d:767
@@ -311,7 +311,7 @@ msgstr "Kodlamaları Düzenle"
 
 #: source/gx/tilix/terminal/terminal.d:643
 msgid "Enable input synchronization for this terminal"
-msgstr "Girdi senkronizasyonunu bu terminal için aç"
+msgstr "Giriş eşitlemesini bu terminal için aç"
 
 #: source/gx/tilix/terminal/terminal.d:672
 #, c-format
@@ -341,7 +341,7 @@ msgstr "Yer İmi Ekle..."
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Dosya Tarayıcısını Göster..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -350,7 +350,7 @@ msgstr "Profiller"
 
 #: source/gx/tilix/terminal/terminal.d:787
 msgid "Save Output…"
-msgstr "Çıktıyı Kaydet…"
+msgstr "Çıkışı Kaydet…"
 
 #: source/gx/tilix/terminal/terminal.d:788
 #: source/gx/tilix/prefeditor/profileeditor.d:258
@@ -433,7 +433,7 @@ msgstr "Pano"
 
 #: source/gx/tilix/terminal/terminal.d:1630
 msgid "Synchronize input"
-msgstr "Grirdiyi Senkronize et"
+msgstr "Giriş eşitle"
 
 #: source/gx/tilix/terminal/terminal.d:1772
 #, c-format
@@ -478,7 +478,7 @@ msgstr "Beklenmeyen hata oluştu: %s"
 
 #: source/gx/tilix/terminal/terminal.d:3082
 msgid "Save Terminal Output"
-msgstr "Terminal Çıktısını Kaydet"
+msgstr "Terminal Çıkışını Kaydet"
 
 #: source/gx/tilix/terminal/terminal.d:3091
 msgid "All Text Files"
@@ -924,7 +924,7 @@ msgstr "Kaydırma çubuğunu göster"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:941
 msgid "Scroll on output"
-msgstr "Çıktı esnasında kaydır"
+msgstr "Çıkış esnasında kaydır"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:945
 msgid "Scroll on keystroke"
@@ -1290,6 +1290,7 @@ msgstr "Tek terminal olsa bile terminal başlığını göster"
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr ""
+"Bindirme kaydırma çubukları kullan (Uygulama yeniden başlatma gerekiyor)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1325,7 +1326,7 @@ msgstr "Odak kaybolduğunda pencereyi gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Pencere gizlemeyi (ms) geciktir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1378,7 +1379,7 @@ msgstr "Yeni pencere dizini ve profili etkin terminalden devralır"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Pencere durumunu kaydet ve geri yükle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1589,10 +1590,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Yeğlenen kullanılacak pencere tarzını geçersiz kıl: normal, disable-csd, "
+"disable-csd-hide-toolbar, borderless"
 
 #: source/gx/tilix/application.d:669
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "WINDOW_STYLE"
 
 #: source/gx/tilix/application.d:670
 msgid "Full-screen the terminal window"
@@ -2007,18 +2010,16 @@ msgid "Open Remote Tilix"
 msgstr "Uzak Tilix Aç"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In"
-msgstr "%s içinde Uzak Tilix Aç"
+msgstr "İçinde Uzak Tilix Aç"
 
 #: data/nautilus/open-tilix.py:117
 msgid "Open In Tilix"
 msgstr "Tilix'de Aç"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "%s içinde Tilix Aç"
+msgstr "{} içinde Tilix Aç"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2477,16 +2478,14 @@ msgid "Monitor silence"
 msgstr "Sessizliği gözle"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Girdi senkronizasyonunu bu terminal için kapa"
+msgstr "Giriş eşitlemesini geçersiz kıl"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Burada Tilix Aç"
+msgstr "Dosya tarayıcısını aç"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
