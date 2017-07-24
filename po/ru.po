@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-05-23 14:33+0000\n"
+"PO-Revision-Date: 2017-07-24 00:01+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/tilix/"
-"translations/ru/>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/tilix/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.14.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -345,7 +345,7 @@ msgstr "Добавить закладку..."
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Показать браузер файлов..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -1299,6 +1299,7 @@ msgstr "Показывать название терминала, даже ес�
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr ""
+"Использовать оверлейную полосу прокрутки (требуется перезапуск приложения)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1334,7 +1335,7 @@ msgstr "Прятать окно при потере фокуса"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Задерживать убирание окна на (мс)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1388,7 +1389,7 @@ msgstr "Новое окно наследует рабочий каталог и 
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Загрузка и сохранение состояния окна"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1603,10 +1604,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Переопределить предпочтительный стиль окна, один из: "
+"нормальный,отключить-csd,отключить-csd-спрятать-тулбар,без-границ-окна"
 
 #: source/gx/tilix/application.d:669
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "WINDOW_STYLE"
 
 #: source/gx/tilix/application.d:670
 msgid "Full-screen the terminal window"
@@ -2021,18 +2024,16 @@ msgid "Open Remote Tilix"
 msgstr "Открыть удалённый Tilix"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In"
-msgstr "Открыть удалённый Tilix в %s"
+msgstr "Открыть удалённый Tilix в"
 
 #: data/nautilus/open-tilix.py:117
 msgid "Open In Tilix"
 msgstr "Открыть в Tilix"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Открыть Tilix в %s"
+msgstr "Открыть Tilix в {}"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2491,16 +2492,14 @@ msgid "Monitor silence"
 msgstr "Следить за неактивностью"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Выключить синхронизацию ввода для этого терминала"
+msgstr "Переопределить синхронизацию ввода"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Открыть Tilix здесь"
+msgstr "Открыть файловый браузер"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
