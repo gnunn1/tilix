@@ -1860,7 +1860,6 @@ private:
         bTitle.setStateFlags(StateFlags.ACTIVE, false);
         //Fire focus events so session can track which terminal last had focus
         onFocusIn.emit(this);
-        vte.setColors(vteFG, vteBG, vtePalette);
         // Set colors for dimPercent
         setVTEColors();
     }
@@ -1900,6 +1899,7 @@ private:
     RGBA[16] dimPalette;
     RGBA vteBadge;
     RGBA vteBold;
+    RGBA dimBold;
     double dimPercent;
 
     VTEColorSet currentColorSet = VTEColorSet.normal;
@@ -1925,6 +1925,7 @@ private:
         vteDimBG = new RGBA();
         vteBadge = new RGBA();
         vteBold = new RGBA();
+        dimBold = new RGBA();
 
         vtePalette = new RGBA[16];
         dimPalette = new RGBA[16];
@@ -1934,20 +1935,29 @@ private:
         }
     }
 
-    void updateDimColors() {
+    void dimColor(RGBA original, RGBA dim, double cf) {
         double r, g, b;
+        adjustColor(cf, original, r, g, b);
+        dim.red = r;
+        dim.green = g;
+        dim.blue = b;
+        dim.alpha = original.alpha;
+    }
+
+    void updateDimColors() {
         double cf = (vteBG.red + vteBG.green + vteBG.blue > 1.5)?dimPercent:-dimPercent;
-        adjustColor(cf, vteFG, r, g, b);
-        dimFG.red = r;
-        dimFG.green = g;
-        dimFG.blue = b;
-        dimFG.alpha = vteFG.alpha;
+        dimColor(vteFG, dimFG, cf);
+        dimColor(vteBold, dimBold, cf);
         foreach(i, color; vtePalette) {
-            adjustColor(cf, color, r, g, b);
-            dimPalette[i].red = r;
-            dimPalette[i].green = g;
-            dimPalette[i].blue = b;
-            dimPalette[i].alpha = color.alpha;
+            dimColor(color, dimPalette[i], cf);
+        }
+    }
+
+    void setBoldColor(RGBA color) {
+        if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY)) {
+            vte.setColorBold(color);
+        } else {
+            vte.setColorBold(null);
         }
     }
 
@@ -1959,10 +1969,12 @@ private:
         if (isTerminalWidgetFocused() || dimPercent == 0) {
             tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
             vte.setColors(vteFG, vteBG, vtePalette);
+            setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
             tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
             vte.setColors(dimFG, vteBG, dimPalette);
+            setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
         }
         applySecondaryColorPreferences();
@@ -2028,6 +2040,14 @@ private:
                     sb.getStyleContext().addProvider(sbProvider, ProviderPriority.APPLICATION);
                 }
             }
+            break;
+        case SETTINGS_PROFILE_BOLD_COLOR_KEY, SETTINGS_PROFILE_USE_BOLD_COLOR_KEY:
+            string boldColor = gsProfile.getString(SETTINGS_PROFILE_BOLD_COLOR_KEY);
+            if (!vteBold.parse(boldColor)) {
+                error("Parsing Bold color failed");
+            }
+            updateDimColors();
+            setVTEColors(true);
             break;
         case SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY)) {
@@ -2150,14 +2170,6 @@ private:
                 queueDraw();
             }
             break;
-        case SETTINGS_PROFILE_BOLD_COLOR_KEY, SETTINGS_PROFILE_USE_BOLD_COLOR_KEY:
-            if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY)) {
-                string boldColor = gsProfile.getString(SETTINGS_PROFILE_BOLD_COLOR_KEY);
-                if (vteBold.parse(boldColor)) vte.setColorBold(vteBold);
-            } else {
-                vte.setColorBold(null);
-            }
-            break;
         case SETTINGS_PROFILE_BADGE_POSITION_KEY:
             queueDraw();
             break;
@@ -2188,7 +2200,6 @@ private:
     void applySecondaryColorPreferences() {
         applyPreference(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY);
         applyPreference(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY);
-        applyPreference(SETTINGS_PROFILE_BOLD_COLOR_KEY);
     }
 
     /**
