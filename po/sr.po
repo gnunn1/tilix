@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-06-08 08:21+0000\n"
+"PO-Revision-Date: 2017-07-25 19:55+0000\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/tilix/"
-"translations/sr/>\n"
+"Language-Team: Serbian "
+"<https://hosted.weblate.org/projects/tilix/translations/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.15-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -342,7 +342,7 @@ msgstr "Додај обележивач…"
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Прикажи управника датотека..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -1290,7 +1290,7 @@ msgstr "Прикажи наслов терминала чак и када је �
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
+msgstr "Користи плутајуће клизаче (захтева поновно покретање програма)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1326,7 +1326,7 @@ msgstr "Сакриј прозор када није у фокусу"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Одужи сакривање прозора за (мс)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1378,7 +1378,7 @@ msgstr "Нови прозор наслеђује фасциклу и профи�
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Сачувај и поврати стање прозора"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1587,10 +1587,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Премости жељени стил прозораза коришћење, могуће: normal,disable-csd,disable-"
+"csd-hide-toolbar,borderless"
 
 #: source/gx/tilix/application.d:669
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "СТИЛ_ПРОЗОРА"
 
 #: source/gx/tilix/application.d:670
 msgid "Full-screen the terminal window"
@@ -2002,18 +2004,16 @@ msgid "Open Remote Tilix"
 msgstr "Отвори удаљени Тиликс"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In"
-msgstr "Отвори удаљени Тиликс у %s"
+msgstr "Отвори удаљени Тиликс у"
 
 #: data/nautilus/open-tilix.py:117
 msgid "Open In Tilix"
 msgstr "Отвори у Тиликсу"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Отвори Тиликс у %s"
+msgstr "Отвори Тиликс у {}"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2472,16 +2472,14 @@ msgid "Monitor silence"
 msgstr "Утишај монитор"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Онемогући усклађивање уноса за овај терминал"
+msgstr "Премости усклађивање уноса"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Отвори Тиликс овде"
+msgstr "Отвори управника датотека"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
