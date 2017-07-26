@@ -4,16 +4,16 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-05-23 14:49+0000\n"
+"PO-Revision-Date: 2017-07-26 23:23+0000\n"
 "Last-Translator: Davi da Silva Böger <dsboger@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"tilix/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) "
+"<https://hosted.weblate.org/projects/tilix/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.14.1-dev\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -346,7 +346,7 @@ msgstr "Adicionar favorito…"
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Abrir no gerenciador de arquivos..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -1297,7 +1297,7 @@ msgstr "Mostrar o título do terminal mesmo que seja o único"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
+msgstr "Usar barras de rolagem sobrepostas (necessário reiniciar aplicação)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1333,7 +1333,7 @@ msgstr "Esconder janela ao retirar foco"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Atraso ao esconder janela (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1385,7 +1385,7 @@ msgstr "Nova janela usa diretório e perfil do terminal ativo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Salvar e restaurar estado da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1598,10 +1598,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Define o estilo de janela. Possíveis valores: normal, disable-csd, disable-"
+"csd-hide-toolbar, borderless"
 
 #: source/gx/tilix/application.d:669
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "ESTILO_DE_JANELA"
 
 #: source/gx/tilix/application.d:670
 msgid "Full-screen the terminal window"
@@ -2021,9 +2023,8 @@ msgid "Open Remote Tilix"
 msgstr "Abrir Tilix remoto"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In"
-msgstr "Abrir Tilix remoto em %s"
+msgstr "Abrir Tilix remoto em"
 
 # ******************
 # Nautilus extension
@@ -2033,9 +2034,8 @@ msgid "Open In Tilix"
 msgstr "Abrir no Tilix"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Abrir Tilix em %s"
+msgstr "Abrir Tilix em {}"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2499,16 +2499,14 @@ msgid "Monitor silence"
 msgstr "Monitorar silêncio"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Desabilitar sincronização de entrada neste terminal"
+msgstr "Alternar sincronização de entrada neste terminal"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Abrir Tilix aqui"
+msgstr "Abrir gerenciador de arquivos"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
