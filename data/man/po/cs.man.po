@@ -1,0 +1,358 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2017-07-12 19:49-0400\n"
+"PO-Revision-Date: 2017-07-28 12:02+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/tilix/manpage/cs/>"
+"\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 2.16-dev\n"
+
+#. type: TH
+#: ./data/man/tilix:3
+#, no-wrap
+msgid "TILIX"
+msgstr "TILIX"
+
+#. type: TH
+#: ./data/man/tilix:3
+#, no-wrap
+msgid "26 December 2016"
+msgstr "26. prosinec 2016"
+
+#. type: TH
+#: ./data/man/tilix:3
+#, no-wrap
+msgid "1.4.0"
+msgstr "1.4.0"
+
+#. type: TH
+#: ./data/man/tilix:3
+#, no-wrap
+msgid "Tilix Commands"
+msgstr "Příkazy pro Tilix"
+
+#. type: SH
+#: ./data/man/tilix:4
+#, no-wrap
+msgid "NAME"
+msgstr "NÁZEV"
+
+#. type: Plain text
+#: ./data/man/tilix:6
+msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
+msgstr "B<tilix> – dlaždicový GTK3 emulátor terminálu pro GNOME"
+
+#. type: SH
+#: ./data/man/tilix:6
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr "SHRNUTÍ"
+
+#. type: Plain text
+#: ./data/man/tilix:9
+msgid "B<tilix> [I<options>]"
+msgstr "B<tilix> [I<predvolby>]"
+
+#. type: SH
+#: ./data/man/tilix:9
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "POPIS"
+
+#. type: Plain text
+#: ./data/man/tilix:11
+msgid ""
+"B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
+"Gnome Human Interface Guidelines."
+msgstr ""
+"B<tilix> je pokročilý GTK3 dlaždicový emulátor terminálu navržený dle "
+"směrnic Gnome Human Interface Guidelines."
+
+#. type: SH
+#: ./data/man/tilix:11
+#, no-wrap
+msgid "OPTIONS"
+msgstr "PŘEDVOLBY"
+
+#. type: Plain text
+#: ./data/man/tilix:13
+msgid "The B<tilix> application accepts the following command line parameters:"
+msgstr "Aplikace B<tilix> přijímá následující parametry příkazového řádku:"
+
+#. type: TP
+#: ./data/man/tilix:13
+#, no-wrap
+msgid "B<-h --help>"
+msgstr "B<-h --help>"
+
+#. type: Plain text
+#: ./data/man/tilix:16
+msgid "Show help options."
+msgstr "Zobrazit nápovědu."
+
+#. type: TP
+#: ./data/man/tilix:16
+#, no-wrap
+msgid "B<-v --version>"
+msgstr "B<-v --version>"
+
+#. type: Plain text
+#: ./data/man/tilix:19
+msgid "Show the version of Tilix as well as the versions of dependent components."
+msgstr "Zobrazit verzi Tilix a součástí, na kterých závisí."
+
+#. type: TP
+#: ./data/man/tilix:19
+#, no-wrap
+msgid "B<-w --working-directory=DIRECTORY>"
+msgstr "B<-w --working-directory=SLOZKA>"
+
+#. type: Plain text
+#: ./data/man/tilix:22
+msgid "Set the working directory of the terminal."
+msgstr "Nastavit pracovní složku terminálu."
+
+#. type: TP
+#: ./data/man/tilix:22
+#, no-wrap
+msgid "B<-p --profile=PROFILE_NAME>"
+msgstr "B<-p --profile=NAZEV_PROFILU>"
+
+#. type: Plain text
+#: ./data/man/tilix:25
+msgid ""
+"Set the starting profile using the name of one of the existing profiles. If "
+"a name is passed that does not correspond to an existing profile, the "
+"default profile will be used."
+msgstr ""
+"Nastavit spouštěcí profil pomocí názvu jednoho z existujících profilů. Pokud "
+"zadaný název neodpovídá existujícímu profilu, bude náhradně použit výchozí "
+"profil."
+
+#. type: TP
+#: ./data/man/tilix:25
+#, no-wrap
+msgid "B<-t --title=TITLE>"
+msgstr "B<-t --title=TITULEK>"
+
+#. type: Plain text
+#: ./data/man/tilix:28
+msgid "Set the title of the new terminal."
+msgstr "Nastavit titulek novému terminálu."
+
+#. type: TP
+#: ./data/man/tilix:28
+#, no-wrap
+msgid "B<-s --session=SESSION_NAME>"
+msgstr "B<-s --session=NAZEV_SEZENI>"
+
+#. type: Plain text
+#: ./data/man/tilix:31
+msgid ""
+"Open the specified session file which has been previously saved. Session "
+"files are saved from within Tilix, they store the complete layout of the "
+"session enabling the user to re-load it when required. Note that only the "
+"layout and layout options are saved, this will not restore the terminal to "
+"where it was left off, rather new terminals are created."
+msgstr ""
+"Otevřít určený soubor, do kterého byla předtím uložena relace. Soubory s "
+"relacemi jsou ukládány z Tilix, uchovávají úplné rozvržení relace a umožňují "
+"uživateli je v případě potřeby znovu načíst. Poznamenejme, že jsou ukládána "
+"pouze rozvržení a jejich předvolby – takže terminál není obnoven přesně jak "
+"byl ale namísto toho jsou vytvořeny nové terminály."
+
+#. type: TP
+#: ./data/man/tilix:31
+#, no-wrap
+msgid "B<-a --action=ACTION_NAME>"
+msgstr "B<-a --action=NAZEV_AKCE>"
+
+#. type: Plain text
+#: ./data/man/tilix:34
+msgid ""
+"Perform an action in the current Tilix instance, the following actions are "
+"supported:"
+msgstr ""
+"Provést akci ve stávající instanci Tilix – podporovány jsou následující akce:"
+
+#. type: Plain text
+#: ./data/man/tilix:37
+msgid ""
+"B<session-add-right> Adds a new terminal to the right of the current "
+"terminal."
+msgstr "B<session-add-right> Přidá nový terminál napravo od toho stávajícího."
+
+#. type: Plain text
+#: ./data/man/tilix:40
+msgid "B<session-add-down> Adds a new terminal down from the current terminal."
+msgstr "B<session-add-down> Přidá nový terminál pod ten stávající."
+
+#. type: Plain text
+#: ./data/man/tilix:43
+msgid "B<app-new-session> Creates a new Tilix session within the current window."
+msgstr "B<app-new-session> Vytvoří novou Tilix relaci ve stávajícím okně."
+
+#. type: Plain text
+#: ./data/man/tilix:46
+msgid "B<app-new-window> Creates a new Tilix window."
+msgstr "B<app-new-window> Vytvoří nové okno Tilix."
+
+#. type: TP
+#: ./data/man/tilix:46
+#, no-wrap
+msgid "B<-e --command=COMMAND>"
+msgstr "B<-e --command=PŘÍKAZ>"
+
+#. type: Plain text
+#: ./data/man/tilix:49
+msgid ""
+"Execute all text after this parameter as a command, thus this parameter must "
+"be the last parameter."
+msgstr ""
+"Vykonat všechen text za tímto parametrem jako příkaz – je tedy třeba, aby "
+"tento parametru byl jako poslední."
+
+#. type: TP
+#: ./data/man/tilix:49
+#, no-wrap
+msgid "B<--maximize>"
+msgstr "B<--maximize>"
+
+#. type: Plain text
+#: ./data/man/tilix:52
+msgid "Maximize the terminal window."
+msgstr "Maximalizovat okno terminálu."
+
+#. type: TP
+#: ./data/man/tilix:52
+#, no-wrap
+msgid "B<--minimize>"
+msgstr "B<--minimize>"
+
+#. type: Plain text
+#: ./data/man/tilix:55
+msgid "Minimize the terminal window."
+msgstr "Minimalizovat okno terminálu."
+
+#. type: TP
+#: ./data/man/tilix:55
+#, no-wrap
+msgid "B<--full-screen>"
+msgstr "B<--full-screen>"
+
+#. type: Plain text
+#: ./data/man/tilix:58
+msgid "Full-screen the terminal window."
+msgstr "Okno terminálu na celou obrazovku."
+
+#. type: TP
+#: ./data/man/tilix:58
+#, no-wrap
+msgid "B<--focus-window>"
+msgstr "B<--focus-window>"
+
+#. type: Plain text
+#: ./data/man/tilix:61
+msgid "Focus the existing window."
+msgstr "Zaměřit existující okno."
+
+#. type: TP
+#: ./data/man/tilix:61
+#, no-wrap
+msgid "B<--new-process>"
+msgstr "B<--new-process>"
+
+#. type: Plain text
+#: ./data/man/tilix:64
+msgid ""
+"Start an additional Tilix instance as a new process. By default and as per "
+"GTK+ 3 guidelines, Tilix maintains a single process that all windows belong "
+"to. This option forces Tilix to start as a separate process. This is not "
+"recommended and is intended for debugging purposes only, using this option "
+"will prevent different Tilix windows from communicating with each other."
+msgstr ""
+"Spustit další instanci Tilix jako nový proces. Ve výchozím stavu a dle "
+"směrnic GTK+ 3, Tilix obhospodařuje jeden proces do kterého přísluší všechna "
+"okna. Oproti tomu tato předvolba vynutí aby se Tilix spouštěl jako oddělené "
+"procesy. Toto není doporučování a je určeno pouze pro účely ladění, protože "
+"to zabrání oknům Tilix komunikovat mezi sebou."
+
+#. type: TP
+#: ./data/man/tilix:64
+#, no-wrap
+msgid "B<--geometry=GEOMETRY>"
+msgstr "B<--geometry=GEOMETRIE>"
+
+#. type: Plain text
+#: ./data/man/tilix:67
+msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
+msgstr ""
+"Nastavit velikost okna – např.: 80x24, or 80x24+200+200 (SLOUPCŮxŘÁDKŮ+X+Y)."
+
+#. type: TP
+#: ./data/man/tilix:67
+#, no-wrap
+msgid "B<-q --quake>"
+msgstr "B<-q --quake>"
+
+#. type: Plain text
+#: ./data/man/tilix:70
+msgid "Open a window in quake mode or toggle existing quake mode window visibility."
+msgstr ""
+"Otevřít okno v quake režimu nebo přepnout viditelnost existujícího okna v "
+"quake režimu."
+
+#. type: TP
+#: ./data/man/tilix:70
+#, no-wrap
+msgid "B<--preferences>"
+msgstr "B<--preferences>"
+
+#. type: Plain text
+#: ./data/man/tilix:73
+msgid "Show the Tilix preferences dialog directly."
+msgstr "Zobrazit přímo dialog předvoleb pro Tilix."
+
+#. type: SH
+#: ./data/man/tilix:73
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "VIZ TAKÉ"
+
+#. type: Plain text
+#: ./data/man/tilix:75
+msgid "None"
+msgstr "Žádné"
+
+#. type: SH
+#: ./data/man/tilix:75
+#, no-wrap
+msgid "BUGS"
+msgstr "CHYBY"
+
+#. type: Plain text
+#: ./data/man/tilix:77
+msgid "See bugs at https://github.com/gnunn1/tilix/issues"
+msgstr "Viz chyby na https://github.com/gnunn1/tilix/issues"
+
+#. type: SH
+#: ./data/man/tilix:77
+#, no-wrap
+msgid "AUTHOR"
+msgstr "AUTOR"
+
+#. type: Plain text
+#: ./data/man/tilix:78
+msgid "Gerald Nunn and other contributors."
+msgstr "Gerald Nunn a další přispěvatelé."
