@@ -1433,7 +1433,10 @@ private:
 
             fcd.setDoOverwriteConfirmation(true);
             fcd.setDefaultResponse(ResponseType.OK);
-            fcd.setCurrentName(filename.length > 0 ? filename : session.displayName ~ ".json");
+            if (filename.length > 0) {
+                fcd.setCurrentFolder(dirName(filename));
+                fcd.setCurrentName(filename.length > 0 ? baseName(filename) : session.displayName ~ ".json");
+            }
 
             if (fcd.run() == ResponseType.OK) {
                 filename = fcd.getFilename();

@@ -3173,7 +3173,7 @@ public:
     /**
      * Creates the TerminalPane using the specified profile
      */
-    this(string profileUUID) {
+    this(string profileUUID, string requestedUUID) {
         super();
         addOnDestroy(delegate(Widget) {
             trace("Terminal destroyed");
@@ -3181,7 +3181,11 @@ public:
         });
         gst = new GlobalTerminalState();
         initColors();
-        _terminalUUID = randomUUID().toString();
+        if (requestedUUID == null) {
+            _terminalUUID = randomUUID().toString();
+        } else {
+            _terminalUUID = requestedUUID;
+        }
         _activeProfileUUID = profileUUID;
         // Check if profile is overridden globally
         if (tilix.getGlobalOverrides().profileName.length > 0) {
