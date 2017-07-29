@@ -423,10 +423,8 @@ private:
                     if (qw.isVisible) {
                         qw.hide();
                     } else {
-                        qw.show();
-                        qw.present();
-                        qw.getActiveTerminal().focusTerminal();
                         activateWindow(qw);
+                        qw.getActiveTerminal().focusTerminal();
                     }
                     return 0;
                 }
