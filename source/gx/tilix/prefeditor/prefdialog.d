@@ -619,16 +619,22 @@ private:
             string encoding = ls.getValue(iter, COLUMN_ENCODING).getString();
             bool enabled = ls.getValue(iter, COLUMN_IS_ENABLED).getBoolean();
             trace("Menu encoding clicked for " ~ encoding);
+
+            string[] encodingList = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
             //Check for the reverse of what toggle is set for since
             //model is not updated until after settings updated
             if (enabled) {
                 trace("Encoding is checked, removing");
-                gx.util.array.remove(menuEncodings, encoding);
+                gx.util.array.remove(encodingList, encoding);
             } else {
                 trace("Encoding is not checked, adding");
-                menuEncodings ~= encoding;
+                encodingList ~= encoding;
             }
-            gsSettings.setStrv(SETTINGS_ENCODINGS_KEY, menuEncodings);
+            if (encodingList.length == 0) {
+                gsSettings.setStrv(SETTINGS_ENCODINGS_KEY, null);
+            } else {
+                gsSettings.setStrv(SETTINGS_ENCODINGS_KEY, encodingList);
+            }
             ls.setValue(iter, COLUMN_IS_ENABLED, !enabled);
         });
         TreeViewColumn column = new TreeViewColumn(_("Enabled"), toggle, "active", COLUMN_IS_ENABLED);

@@ -264,8 +264,8 @@ private:
      *
      * The VTE widget is not exposed to the session.
      */
-    Terminal createTerminal(string profileUUID) {
-        Terminal terminal = new Terminal(profileUUID);
+    Terminal createTerminal(string profileUUID, string uuid = null) {
+        Terminal terminal = new Terminal(profileUUID, uuid);
         addTerminal(terminal);
         return terminal;
     }
@@ -757,6 +757,7 @@ private:
     enum NODE_HEIGHT = "height";
     enum NODE_SYNCHRONIZED_INPUT = "synchronizedInput";
     enum NODE_RATIO = "ratio";
+    enum NODE_UUID = "uuid";
 
     /**
      * Widget Types which are serialized
@@ -841,6 +842,7 @@ private:
         value[NODE_DIRECTORY] = terminal.currentLocalDirectory;
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
+        value[NODE_UUID] = terminal.uuid;
         if (maximizedInfo.isMaximized && equal(terminal, maximizedInfo.terminal)) {
             value[NODE_MAXIMIZED] = JSONValue(true);
         }
@@ -865,7 +867,11 @@ private:
         trace("Loading terminal");
         //TODO Check that the profile exists and use default if it doesn't
         string profileUUID = value[NODE_PROFILE].str();
-        Terminal terminal = createTerminal(profileUUID);
+        string uuid;
+        if (NODE_UUID in value) {
+            uuid = value[NODE_UUID].str();
+        }
+        Terminal terminal = createTerminal(profileUUID, uuid);
         terminal.deserialize(value);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
         if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSON_TYPE.TRUE) {
@@ -915,6 +921,9 @@ private:
         _name = value[NODE_NAME].str();
         if (NODE_SYNCHRONIZED_INPUT in value) {
             _synchronizeInput = value[NODE_SYNCHRONIZED_INPUT].type == JSON_TYPE.TRUE;
+        }
+        if (NODE_UUID in value) {
+            _sessionUUID = value[NODE_UUID].str();
         }
         JSONValue child = value[NODE_CHILD];
         trace(child.toPrettyString());
@@ -1126,6 +1135,7 @@ public:
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
         root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren!(Widget)(groupChild, false)[0], sizeInfo);
+        root.object[NODE_UUID] = _sessionUUID;
         root[NODE_TYPE] = WidgetType.SESSION;
         setlocale(LC_ALL, null);
         return root;
