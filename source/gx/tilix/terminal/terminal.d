@@ -939,7 +939,7 @@ private:
                 }
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
-            gst.updateState();
+            //gst.updateState();
 
             //Check if output was generated
             if (monitorSilence && silenceThreshold > 0) {
@@ -2594,17 +2594,6 @@ private:
 */
 
     /**
-     * Returns the child pid running in the terminal or -1
-     * if no child pid is running. May also return the VTE gpid
-     * as well which also indicates no child process.
-     */
-    pid_t getChildPid() {
-        if (vte.getPty() is null)
-            return false;
-        return tcgetpgrp(vte.getPty().getFd());
-    }
-
-    /**
      * Sets the proxy environment variables in the shell if available in gnome-terminal.
      * Note this only works with manual proxy settings.
      */
@@ -3338,7 +3327,7 @@ public:
     }
 
     bool isProcessRunning() {
-        pid_t childPid = getChildPid();
+        pid_t childPid = vte.getChildPid();
         return isProcessRunning(childPid);
     }
 
@@ -3350,7 +3339,7 @@ public:
         if (vte.getPty() is null)
             return false;
         int fd = vte.getPty().getFd();
-        childPid = getChildPid();
+        childPid = vte.getChildPid();
         tracef("childPid=%d gpid=%d", childPid, gpid);
         return (childPid != -1 && childPid != gpid);
     }
