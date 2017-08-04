@@ -26,8 +26,10 @@ enum MonitorEventType {
 };
 
 /**
- * Class that monitors processes to see if new child process have been
- * create and raises an alert if so.
+ * Class that monitors processes to see if new child processes have been
+ * started or finished and raises an event if detected. This class uses
+ * a seperate thread to monitor the processes and a timeoutDelegate to 
+ * trigger the actual events to the terminals.
  */
 class ProcessMonitor {
 private:
@@ -76,7 +78,7 @@ public:
     void addProcess(GPid gpid, int fd) {
         synchronized {
             if (gpid !in processes) {
-                shared ChildStatus status = new shared(ChildStatus)(gpid, fd);
+                shared ProcessStatus status = new shared(ProcessStatus)(gpid, fd);
                 processes[gpid] = status;
             }
         }
@@ -111,9 +113,15 @@ public:
 
 private:
 
+/**
+ * Constant used for sleep time between checks.
+ */
 enum SLEEP_CONSTANT_MS = 250;
 
-shared ChildStatus[GPid] processes;
+/**
+ * List of processes being monitored.
+ */
+shared ProcessStatus[GPid] processes;
 
 void monitorProcesses(int sleep, Tid tid) {
     bool abort = false;
@@ -143,8 +151,10 @@ void monitorProcesses(int sleep, Tid tid) {
     }
 }
 
-
-shared class ChildStatus {
+/**
+ * Status of a single process
+ */
+shared class ProcessStatus {
     GPid gpid;
     int fd;
     pid_t childPid = -1;
