@@ -109,18 +109,18 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 		try
 		{
 			callAgainNextIdleCycle = theDelegate(parameters);
-			if (callAgainNextIdleCycle) trace("Callback again is true");
-			else trace("Callback again is false");
+			//if (callAgainNextIdleCycle) trace("Callback again is true");
+			//else trace("Callback again is false");
 		}
 
 		catch (Exception e)
 		{
-			trace("Unexpected exception occurred in wrapper");
+			warning("Unexpected exception occurred in wrapper");
 			// Catch exceptions here as otherwise, memory may never be freed below.
 		}
 
 		if (!callAgainNextIdleCycle) {
-			trace("Removing delegate pointer");
+			//trace("Removing delegate pointer");
 			GC.removeRoot(delegatePointer);
 			return false;
 		} else return true;
@@ -162,18 +162,18 @@ void threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegat
 		try
 		{
 			callAgainNextIdleCycle = theDelegate(parameters);
-			if (callAgainNextIdleCycle) trace("Callback again is true");
-			else trace("Callback again is false");
+			//if (callAgainNextIdleCycle) trace("Callback again is true");
+			//else trace("Callback again is false");
 		}
 
 		catch (Exception e)
 		{
-			trace("Unexpected exception occurred in wrapper");
+			warning("Unexpected exception occurred in wrapper");
 			// Catch exceptions here as otherwise, memory may never be freed below.
 		}
 
 		if (!callAgainNextIdleCycle) {
-			trace("Removing delegate pointer");
+			//trace("Removing delegate pointer");
 			GC.removeRoot(delegatePointer);
 			return false;
 		} else return true;

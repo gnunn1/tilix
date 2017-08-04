@@ -43,6 +43,14 @@ immutable bool FLATPAK = false;
  */
 immutable bool USE_COMMIT_SYNCHRONIZATION = false;
 
+/**
+ * When true asynchronous process monitoring is enabled. This
+ * will watch the shell process for new child processes and
+ * raise events when detected. Since this uses polling, quick
+ * commands (ls, cd, etc) may be missed.
+ */
+immutable bool USE_PROCESS_MONITOR = false;
+
 /**************************************
  * Application Constants
  **************************************/
@@ -111,29 +119,54 @@ enum VARIABLE_TERMINAL_HOSTNAME = "${hostname}";
 enum VARIABLE_TERMINAL_USERNAME = "${username}";
 enum VARIABLE_TERMINAL_PROCESS = "${process}";
 
-immutable string[] VARIABLE_TERMINAL_VALUES = [
-    VARIABLE_TERMINAL_TITLE,
-    VARIABLE_TERMINAL_ICON_TITLE ,
-    VARIABLE_TERMINAL_ID,
-    VARIABLE_TERMINAL_DIR,
-    VARIABLE_TERMINAL_HOSTNAME,
-    VARIABLE_TERMINAL_USERNAME,
-    VARIABLE_TERMINAL_COLUMNS,
-    VARIABLE_TERMINAL_ROWS
-    //VARIABLE_TERMINAL_PROCESS
+
+static if (USE_PROCESS_MONITOR) {
+    immutable string[] VARIABLE_TERMINAL_VALUES = [
+        VARIABLE_TERMINAL_TITLE,
+        VARIABLE_TERMINAL_ICON_TITLE ,
+        VARIABLE_TERMINAL_ID,
+        VARIABLE_TERMINAL_DIR,
+        VARIABLE_TERMINAL_HOSTNAME,
+        VARIABLE_TERMINAL_USERNAME,
+        VARIABLE_TERMINAL_COLUMNS,
+        VARIABLE_TERMINAL_ROWS,
+        VARIABLE_TERMINAL_PROCESS
     ];
 
-immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
-    N_("Title"),
-    N_("Icon title"),
-    N_("ID"),
-    N_("Directory"),
-    N_("Hostname"),
-    N_("Username"),
-    N_("Columns"),
-    N_("Rows")
-    //N_("Process")
+    immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
+        N_("Title"),
+        N_("Icon title"),
+        N_("ID"),
+        N_("Directory"),
+        N_("Hostname"),
+        N_("Username"),
+        N_("Columns"),
+        N_("Rows"),
+        N_("Process")
     ];
+} else {
+    immutable string[] VARIABLE_TERMINAL_VALUES = [
+        VARIABLE_TERMINAL_TITLE,
+        VARIABLE_TERMINAL_ICON_TITLE ,
+        VARIABLE_TERMINAL_ID,
+        VARIABLE_TERMINAL_DIR,
+        VARIABLE_TERMINAL_HOSTNAME,
+        VARIABLE_TERMINAL_USERNAME,
+        VARIABLE_TERMINAL_COLUMNS,
+        VARIABLE_TERMINAL_ROWS
+    ];
+
+    immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
+        N_("Title"),
+        N_("Icon title"),
+        N_("ID"),
+        N_("Directory"),
+        N_("Hostname"),
+        N_("Username"),
+        N_("Columns"),
+        N_("Rows")
+    ];
+}
 
 // Application Window Title tokens
 enum VARIABLE_APP_NAME = "${appName}";
@@ -153,5 +186,4 @@ immutable string[] VARIABLE_WINDOW_LOCALIZED = [
     N_("Active terminal title"),
     N_("Session name"),
     N_("Session number"),
-
 ];
