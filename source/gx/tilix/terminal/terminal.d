@@ -3154,7 +3154,9 @@ static if (USE_PROCESS_MONITOR) {
     // Process monitoring
     private:
         void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child) {
-            updateDisplayText();
+            if (process == gpid) {
+                updateDisplayText();
+            }
         }
 }
 
