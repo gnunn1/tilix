@@ -3186,7 +3186,7 @@ public:
     this(string profileUUID, string requestedUUID) {
         super();
         addOnDestroy(delegate(Widget) {
-            trace("Terminal destroyed");
+            //trace("Terminal destroyed");
             finalizeTerminal();
         });
         gst = new GlobalTerminalState();
