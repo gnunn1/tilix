@@ -119,6 +119,10 @@ private:
                     response = ResponseType.CANCEL;
                     return true;
                 }
+                if (keyval == GdkKeysyms.GDK_Return) {
+                    response = ResponseType.APPLY;
+                    return true;
+                }
             }
             return false;
         });

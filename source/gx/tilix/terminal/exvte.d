@@ -4,6 +4,8 @@
  */
 module gx.tilix.terminal.exvte;
 
+import core.sys.posix.unistd;
+
 import std.algorithm;
 import std.experimental.logger;
 
@@ -254,6 +256,18 @@ public:
     public void setDisableBGDraw(bool isDisabled) {
 		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
     }
+
+    /**
+     * Returns the child pid running in the terminal or -1
+     * if no child pid is running. May also return the VTE gpid
+     * as well which also indicates no child process.
+     */
+    pid_t getChildPid() {
+        if (getPty() is null)
+            return false;
+        return tcgetpgrp(getPty().getFd());
+    }
+
 }
 
 private:

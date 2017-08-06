@@ -1142,6 +1142,10 @@ class AppearancePreferences: Box {
                 bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", GSettingsBindFlags.DEFAULT);
                 add(cbOverlay);
             }
+
+            CheckButton cbUseTabs = new CheckButton(_("Use tabs instead of sidebar (Application restart required)"));
+            bh.bind(SETTINGS_USE_TABS_KEY, cbUseTabs, "active", GSettingsBindFlags.DEFAULT);
+            add(cbUseTabs);
         }
 
     public:

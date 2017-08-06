@@ -147,6 +147,10 @@ import gx.tilix.terminal.regex;
 import gx.tilix.terminal.search;
 import gx.tilix.terminal.util;
 
+static if (USE_PROCESS_MONITOR) {
+    import gx.tilix.terminal.monitor;    
+}
+
 /**
 * When dragging over VTE, specifies which quandrant new terminal
 * should snap to
@@ -939,7 +943,7 @@ private:
                 }
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
-            gst.updateState();
+            //gst.updateState();
 
             //Check if output was generated
             if (monitorSilence && silenceThreshold > 0) {
@@ -1564,6 +1568,9 @@ private:
      * Triggered when the terminal signals the child process has exited
      */
     void onTerminalChildExited(int status, VTE terminal) {
+        static if (USE_PROCESS_MONITOR) {
+            ProcessMonitor.instance.removeProcess(gpid);
+        }
         gpid = -1;
         trace("Exit code received is " ~ to!string(status));
         if (vte is null) return;
@@ -2463,6 +2470,10 @@ private:
                 string msg = _("Unexpected error occurred, no additional information available");
                 outputError(msg, workingDir, args, envv);
                 showInfoBarMessage(msg);
+            } else {
+                static if (USE_PROCESS_MONITOR) {
+                    ProcessMonitor.instance.addProcess(gpid, vte.getPty().getFd());
+                }
             }
         }
         catch (GException ge) {
@@ -2592,17 +2603,6 @@ private:
         }
     }
 */
-
-    /**
-     * Returns the child pid running in the terminal or -1
-     * if no child pid is running. May also return the VTE gpid
-     * as well which also indicates no child process.
-     */
-    pid_t getChildPid() {
-        if (vte.getPty() is null)
-            return false;
-        return tcgetpgrp(vte.getPty().getFd());
-    }
 
     /**
      * Sets the proxy environment variables in the shell if available in gnome-terminal.
@@ -3150,6 +3150,16 @@ private:
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
     }
 
+static if (USE_PROCESS_MONITOR) {
+    // Process monitoring
+    private:
+        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child) {
+            if (process == gpid) {
+                updateDisplayText();
+            }
+        }
+}
+
 //Zoom
 private:
     void zoomIn() {
@@ -3176,7 +3186,7 @@ public:
     this(string profileUUID, string requestedUUID) {
         super();
         addOnDestroy(delegate(Widget) {
-            trace("Terminal destroyed");
+            //trace("Terminal destroyed");
             finalizeTerminal();
         });
         gst = new GlobalTerminalState();
@@ -3219,6 +3229,10 @@ public:
         });
         //Get when theme changed
         tilix.onThemeChange.connect(&onThemeChanged);
+
+        static if (USE_PROCESS_MONITOR) {
+            ProcessMonitor.instance.onChildProcess.connect(&childProcessEvent);
+        }        
         trace("Finished creation");
     }
 
@@ -3258,6 +3272,9 @@ public:
      * called multiple times with no ill effect.
      */
     void finalizeTerminal() {
+        static if (USE_PROCESS_MONITOR) {
+            ProcessMonitor.instance.onChildProcess.disconnect(&childProcessEvent);
+        }        
         stopProcess();
         tilix.onThemeChange.disconnect(&onThemeChanged);
         if (timeoutID > 0) {
@@ -3307,6 +3324,10 @@ public:
      */
     void stopProcess() {
         if (gpid > 0) {
+            static if (USE_PROCESS_MONITOR) {
+                ProcessMonitor.instance.removeProcess(gpid);
+            }        
+           
             try {
                 kill(gpid, SIGHUP);
             }
@@ -3338,7 +3359,7 @@ public:
     }
 
     bool isProcessRunning() {
-        pid_t childPid = getChildPid();
+        pid_t childPid = vte.getChildPid();
         return isProcessRunning(childPid);
     }
 
@@ -3350,7 +3371,7 @@ public:
         if (vte.getPty() is null)
             return false;
         int fd = vte.getPty().getFd();
-        childPid = getChildPid();
+        childPid = vte.getChildPid();
         tracef("childPid=%d gpid=%d", childPid, gpid);
         return (childPid != -1 && childPid != gpid);
     }
@@ -3493,12 +3514,14 @@ public:
         text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
         text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
-        if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-            string name;
-            if (isProcessRunning(name))
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
-            else
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, "");
+        static if (USE_PROCESS_MONITOR) {
+            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+                string name;
+                if (isProcessRunning(name))
+                    text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
+                else
+                    text = text.replace(VARIABLE_TERMINAL_PROCESS, "");
+            }
         }
         string path;
         if (terminalInitialized) {

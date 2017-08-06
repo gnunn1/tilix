@@ -125,6 +125,8 @@ private:
 
     bool warnedVTEConfigIssue = false;
 
+    bool useTabs = false;
+
     CssProvider themeCssProvider;
 
     /**
@@ -316,7 +318,7 @@ private:
     }
 
     void createAppWindow() {
-        AppWindow window = new AppWindow(this);
+        AppWindow window = new AppWindow(this, useTabs);
         // Window was being realized here to support inserting Window ID
         // into terminal but had lot's of other issues with it so commented
         // it out.
@@ -423,10 +425,8 @@ private:
                     if (qw.isVisible) {
                         qw.hide();
                     } else {
-                        qw.show();
-                        qw.present();
-                        qw.getActiveTerminal().focusTerminal();
                         activateWindow(qw);
+                        qw.getActiveTerminal().focusTerminal();
                     }
                     return 0;
                 }
@@ -527,6 +527,8 @@ private:
             }
         });
         gsGeneral = new GSettings(SETTINGS_ID);
+        // Set this once globally because it affects more then current window (i.e. shortcuts)
+        useTabs = gsGeneral.getBoolean(SETTINGS_USE_TABS_KEY);
         gsGeneral.addOnChanged(delegate(string key, Settings) {
             applyPreference(key);
         });
