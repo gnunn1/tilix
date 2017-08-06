@@ -261,7 +261,11 @@ private:
         nb.setShowBorder(false);
         if (useTabs) {
             nb.setScrollable(true);
+            nb.setGroupName("tilix");
+            nb.addOnCreateWindow(&onCreateWindow);
         }
+        nb.addOnPageAdded(&onPageAdded);
+        nb.addOnPageRemoved(&onPageRemoved);
         nb.addOnSwitchPage(delegate(Widget page, uint, Notebook) {
             trace("Switched Sessions");
             Session session = cast(Session) page;
@@ -714,22 +718,46 @@ private:
         addSession(session);
     }
 
-    void addSession(Session session) {
+    void onPageAdded(Widget page, uint index, Notebook) {
+        trace("**** Adding page");
+
+        Session session = cast(Session) page;
+
         session.onClose.connect(&onSessionClose);
         session.onAttach.connect(&onSessionAttach);
         session.onDetach.connect(&onSessionDetach);
         session.onStateChange.connect(&onSessionStateChange);
-
         session.onIsActionAllowed.connect(&onIsActionAllowed);
         session.onProcessNotification.connect(&onSessionProcessNotification);
+
+        if (useTabs) {
+            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(page);
+            label.onCloseClicked.connect(&closeSession);
+            nb.setTabReorderable(session, true);
+            nb.setTabDetachable(session, true);
+        }
+    }
+
+    void onPageRemoved(Widget page, uint index, Notebook notebook) {
+        trace("**** Removing page");
+        Session session = cast(Session) page;
+
+        //remove event handlers
+        session.onClose.disconnect(&onSessionClose);
+        session.onAttach.disconnect(&onSessionAttach);
+        session.onDetach.disconnect(&onSessionDetach);
+        session.onStateChange.disconnect(&onSessionStateChange);
+        session.onIsActionAllowed.disconnect(&onIsActionAllowed);
+        session.onProcessNotification.disconnect(&onSessionProcessNotification);
+    }
+
+    void addSession(Session session) {
         int index;
         if (!useTabs) {
             index = nb.appendPage(session, session.name);
         } else {
             SessionTabLabel label = new SessionTabLabel(session.displayName, session);
-            label.onCloseClicked.connect(&closeSession);
             index = nb.appendPage(session, label);
-            nb.setTabReorderable(session, true);
         }
         nb.showAll();
         nb.setCurrentPage(index);
@@ -737,22 +765,6 @@ private:
     }
 
     void removeSession(Session session) {
-        //remove event handlers
-        session.onClose.disconnect(&onSessionClose);
-        session.onAttach.disconnect(&onSessionAttach);
-        session.onDetach.disconnect(&onSessionDetach);
-        session.onStateChange.disconnect(&onSessionStateChange);
-
-        session.onIsActionAllowed.disconnect(&onIsActionAllowed);
-        session.onProcessNotification.disconnect(&onSessionProcessNotification);
-        //remove session from Notebook
-        if (useTabs) {
-            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
-            if (label !is null) {
-                label.onCloseClicked.disconnect(&onSessionClose);
-                label.clear();
-            }
-        }
         nb.remove(session);
         updateUIState();
         //Close Window if there are no pages
@@ -810,6 +822,14 @@ private:
     void closeSession(Session session) {
         bool isCurrentSession = (session == getCurrentSession());
         removeSession(session);
+        //remove session reference from label
+        if (useTabs) {
+            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+            if (label !is null) {
+                label.onCloseClicked.disconnect(&closeSession);
+                label.clear();
+            }
+        }
         // Don't destroy session artificially due to GtkD issues
         //session.destroy();
         if (!isCurrentSession) {
@@ -917,6 +937,25 @@ private:
 
         sourceWindow.removeSession(session);
         addSession(session);
+    }
+
+    AppWindow cloneWindow() {
+        AppWindow result = new AppWindow(tilix, true);
+        tilix.addAppWindow(result);
+        result.setDefaultSize(getAllocatedWidth(), getAllocatedHeight());
+        if (isMaximized) result.maximize();
+        return result;        
+    }
+
+    Notebook onCreateWindow(Widget page, int x, int y, Notebook) {
+        SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(page);
+        if (label !is null) {
+            label.onCloseClicked.disconnect(&closeSession);
+        }
+        AppWindow window = cloneWindow();
+        window.move(x, y);
+        window.showAll();
+        return window.nb;
     }
 
     void onSessionDetach(string sessionUUID, int x, int y) {
