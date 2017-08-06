@@ -144,6 +144,8 @@ private:
 
     string _windowUUID;
 
+    bool useTabs = false;
+
     Notebook nb;
     HeaderBar hb;
     SideBar sb;
@@ -260,6 +262,9 @@ private:
         nb = new Notebook();
         nb.setShowTabs(false);
         nb.setShowBorder(false);
+        if (useTabs) {
+            nb.setScrollable(true);
+        }
         nb.addOnSwitchPage(delegate(Widget page, uint, Notebook) {
             trace("Switched Sessions");
             Session session = cast(Session) page;
@@ -270,17 +275,19 @@ private:
             session.notifyActive();
             session.focusRestore();
             saSyncInput.setState(new GVariant(session.synchronizeInput));
-            if (sb.getChildRevealed() && getCurrentSession() !is null) {
+            if (!useTabs && sb.getChildRevealed() && getCurrentSession() !is null) {
                 sb.selectSession(getCurrentSession().uuid);
             }
         }, ConnectFlags.AFTER);
 
-        sb = new SideBar();
-        sb.onSelected.connect(&onSessionSelected);
-        sb.onClose.connect(&onUserSessionClose);
-        sb.onRequestReorder.connect(&onSessionReorder);
-        sb.onSessionDetach.connect(&onSessionDetach);
-        sb.onIsActionAllowed.connect(&onIsActionAllowed);
+        if (!useTabs) {
+            sb = new SideBar();
+            sb.onSelected.connect(&onSessionSelected);
+            sb.onClose.connect(&onUserSessionClose);
+            sb.onRequestReorder.connect(&onSessionReorder);
+            sb.onSessionDetach.connect(&onSessionDetach);
+            sb.onIsActionAllowed.connect(&onIsActionAllowed);
+        }
 
         ss = new SessionSwitcher();
         ss.onFileSelected.connect(&onFileSelected);
@@ -290,7 +297,11 @@ private:
 
         Overlay overlay = new Overlay();
         overlay.add(nb);
-        overlay.addOverlay(sb);
+
+        if (!useTabs) {
+            overlay.addOverlay(sb);
+        }
+
         overlay.addOverlay(ss);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
@@ -315,35 +326,13 @@ private:
     }
 
     HeaderBar createHeaderBar() {
-        //View sessions button
-        tbSideBar = new ToggleButton();
-        tbSideBar.getStyleContext().addClass("session-sidebar-button");
-        Box b = new Box(Orientation.HORIZONTAL, 6);
-        lblSideBar = new Label("1 / 1");
-        Image img = new Image("pan-down-symbolic", IconSize.MENU);
-        b.add(lblSideBar);
-        b.add(img);
-        tbSideBar.add(b);
-        tbSideBar.setTooltipText(_("View session sidebar"));
-        tbSideBar.setFocusOnClick(false);
-        tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
-        tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
-        tbSideBar.addOnScroll(delegate(Event event, Widget w) {
-            ScrollDirection direction;
-            event.getScrollDirection(direction);
-
-            if (direction == ScrollDirection.UP) {
-                focusPreviousSession();
-            } else if (direction == ScrollDirection.DOWN) {
-                focusNextSession();
-            }
-
-            return false;
-        });
-        tbSideBar.addEvents(EventType.SCROLL);
-
         //New tab button
-        Button btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
+        Button btnNew;
+        if (useTabs) {
+            btnNew = new Button("tab-new-symbolic", IconSize.BUTTON);
+        } else {
+            btnNew = new Button("list-add-symbolic", IconSize.BUTTON);
+        }
         btnNew.setFocusOnClick(false);
         btnNew.setAlwaysShowImage(true);
         btnNew.addOnClicked(delegate(Button) {
@@ -351,18 +340,49 @@ private:
         });
         btnNew.setTooltipText(_("Create a new session"));
 
+        Box bSessionButtons;
+
+        if (!useTabs) {
+            //View sessions button
+            tbSideBar = new ToggleButton();
+            tbSideBar.getStyleContext().addClass("session-sidebar-button");
+            Box b = new Box(Orientation.HORIZONTAL, 6);
+            lblSideBar = new Label("1 / 1");
+            Image img = new Image("pan-down-symbolic", IconSize.MENU);
+            b.add(lblSideBar);
+            b.add(img);
+            tbSideBar.add(b);
+            tbSideBar.setTooltipText(_("View session sidebar"));
+            tbSideBar.setFocusOnClick(false);
+            tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
+            tbSideBar.addOnDraw(&drawSideBarBadge, ConnectFlags.AFTER);
+            tbSideBar.addOnScroll(delegate(Event event, Widget w) {
+                ScrollDirection direction;
+                event.getScrollDirection(direction);
+
+                if (direction == ScrollDirection.UP) {
+                    focusPreviousSession();
+                } else if (direction == ScrollDirection.DOWN) {
+                    focusNextSession();
+                }
+
+                return false;
+            });
+            tbSideBar.addEvents(EventType.SCROLL);
+
+            bSessionButtons = new Box(Orientation.HORIZONTAL, 0);
+            bSessionButtons.getStyleContext().addClass("linked");
+            btnNew.getStyleContext().addClass("session-new-button");
+            bSessionButtons.packStart(tbSideBar, false, false, 0);
+            bSessionButtons.packStart(btnNew, false, false, 0);
+        } 
+
         //Session Actions
         mbSessionActions = new MenuButton();
         mbSessionActions.setFocusOnClick(false);
         Image iHamburger = new Image("open-menu-symbolic", IconSize.MENU);
         mbSessionActions.add(iHamburger);
         mbSessionActions.setPopover(createPopover(mbSessionActions));
-
-        Box bSessionButtons = new Box(Orientation.HORIZONTAL, 0);
-        bSessionButtons.getStyleContext().addClass("linked");
-        btnNew.getStyleContext().addClass("session-new-button");
-        bSessionButtons.packStart(tbSideBar, false, false, 0);
-        bSessionButtons.packStart(btnNew, false, false, 0);
 
         Button btnAddHorizontal = new Button("tilix-add-horizontal-symbolic", IconSize.MENU);
         btnAddHorizontal.setDetailedActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_ADD_RIGHT));
@@ -390,7 +410,11 @@ private:
         if (!isCSDDisabled()) {
             header.setCustomTitle(createCustomTitle());
         }
-        header.packStart(bSessionButtons);
+        if (useTabs) {
+            header.packStart(btnNew);
+        } else {
+            header.packStart(bSessionButtons);
+        }
         header.packStart(btnAddHorizontal);
         header.packStart(btnAddVertical);
         header.packEnd(mbSessionActions);
@@ -466,27 +490,29 @@ private:
             }
         }, null, new GVariant(false));
 
-        saViewSideBar = registerActionWithSettings(this, "win", ACTION_WIN_SIDEBAR, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
-            bool newState = !sa.getState().getBoolean();
-            trace("Sidebar action activated " ~ to!string(newState));
-            // Note that populate sessions does some weird shit with event
-            // handling, don't trigger UI activity until after it is done
-            // See comments in gx.gtk.cairo.getWidgetImage
-            if (newState) {
-                sb.populateSessions(getSessions(), getCurrentSession().uuid, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
-                sb.showAll();
-            }
-            sb.setRevealChild(newState);
-            sa.setState(new GVariant(newState));
-            tbSideBar.setActive(newState);
-            if (!newState) {
-                //Hiding session, restore focus
-                Session session = getCurrentSession();
-                if (session !is null) {
-                    session.focusRestore();
+        if (!useTabs) {
+            saViewSideBar = registerActionWithSettings(this, "win", ACTION_WIN_SIDEBAR, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+                bool newState = !sa.getState().getBoolean();
+                trace("Sidebar action activated " ~ to!string(newState));
+                // Note that populate sessions does some weird shit with event
+                // handling, don't trigger UI activity until after it is done
+                // See comments in gx.gtk.cairo.getWidgetImage
+                if (newState) {
+                    sb.populateSessions(getSessions(), getCurrentSession().uuid, sessionNotifications, nb.getAllocatedWidth(), nb.getAllocatedHeight());
+                    sb.showAll();
                 }
-            }
-        }, null, new GVariant(false));
+                sb.setRevealChild(newState);
+                sa.setState(new GVariant(newState));
+                tbSideBar.setActive(newState);
+                if (!newState) {
+                    //Hiding session, restore focus
+                    Session session = getCurrentSession();
+                    if (session !is null) {
+                        session.focusRestore();
+                    }
+                }
+            }, null, new GVariant(false));
+        }
 
         saViewSessionSwitcher = registerActionWithSettings(this, "win", ACTION_WIN_SESSIONSWITCHER, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
@@ -722,8 +748,15 @@ private:
 
         session.onIsActionAllowed.connect(&onIsActionAllowed);
         session.onProcessNotification.connect(&onSessionProcessNotification);
-
-        int index = nb.appendPage(session, session.name);
+        int index;
+        if (!useTabs) {
+            index = nb.appendPage(session, session.name);
+        } else {
+            SessionTabLabel label = new SessionTabLabel(session.displayName, session);
+            label.onCloseClicked.connect(&closeSession);
+            index = nb.appendPage(session, label);
+            nb.setTabReorderable(session, true);
+        }
         nb.showAll();
         nb.setCurrentPage(index);
         updateUIState();
@@ -739,6 +772,13 @@ private:
         session.onIsActionAllowed.disconnect(&onIsActionAllowed);
         session.onProcessNotification.disconnect(&onSessionProcessNotification);
         //remove session from Notebook
+        if (useTabs) {
+            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+            if (label !is null) {
+                label.onCloseClicked.disconnect(&onSessionClose);
+                label.clear();
+            }
+        }
         nb.remove(session);
         updateUIState();
         //Close Window if there are no pages
@@ -939,19 +979,28 @@ private:
                 Signals.handlerBlock(tbFind, _tbFindToggledId);
                 tbFind.setActive(getActiveTerminal().isFindToggled());
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
+            } else if (useTabs && stateChange == SessionStateChange.TERMINAL_TITLE) {
+                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+                if (label !is null) label.text=session.displayName;
             }
         }
     }
 
     void updateUIState() {
-        tbSideBar.queueDraw();
+        if (!useTabs) {
+            tbSideBar.queueDraw();
+        }
         saCloseSession.setEnabled(nb.getNPages > 1);
         Session session = getCurrentSession();
         if (session !is null) {
             saSessionAddRight.setEnabled(!session.maximized);
             saSessionAddDown.setEnabled(!session.maximized);
         }
-        lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
+        if (useTabs) {
+            nb.setShowTabs(nb.getNPages() > 1);
+        } else {
+            lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
+        }
     }
 
     void updateTitle() {
@@ -1510,9 +1559,10 @@ private:
 
 public:
 
-    this(Application application) {
+    this(Application application, bool useTabs = false) {
         super(application);
         _windowUUID = randomUUID().toString();
+        this.useTabs = useTabs;
         tilix.addAppWindow(this);
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) {
@@ -1757,7 +1807,7 @@ public:
      */
     void createSession() {
         // Hide the sidebar if it is open
-        if (sb.getRevealChild()) {
+        if (!useTabs && sb.getRevealChild()) {
             saViewSideBar.activate(null);
         }
 
@@ -1904,4 +1954,60 @@ public:
             }
         }
     }
+}
+
+/**
+ * Widget used for labels in tabs for sessions.
+ */
+class SessionTabLabel: Box {
+
+private:
+	Button button;
+	Label label;
+	Session session;
+
+	void closeClicked(Button button) {
+		onCloseClicked.emit(session);
+	}
+
+public:
+
+	this(string text, Session session) {
+		super(Orientation.HORIZONTAL, 5);
+
+		this.session = session;
+
+		label = new Label(text);
+        label.setEllipsize(PangoEllipsizeMode.START);
+		label.setWidthChars(10);
+        label.setHexpand(true);
+		add(label);
+
+		button = new Button("window-close-symbolic", IconSize.MENU);
+		button.setRelief(ReliefStyle.NONE);
+		button.setFocusOnClick(false);
+
+		button.addOnClicked(&closeClicked);
+
+		add(button);
+
+		showAll();
+	}
+
+    void clear() {
+        session = null;
+    }
+
+	@property string text() {
+		return label.getText();
+	}
+
+	@property void text(string value) {
+		label.setText(value);
+	}
+
+	/**
+	 * Event triggered when user clicks the close button
+	 */
+    GenericEvent!(Session) onCloseClicked;
 }

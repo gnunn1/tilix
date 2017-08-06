@@ -316,7 +316,7 @@ private:
     }
 
     void createAppWindow() {
-        AppWindow window = new AppWindow(this);
+        AppWindow window = new AppWindow(this, gsGeneral.getBoolean(SETTINGS_USE_TABS_KEY));
         // Window was being realized here to support inserting Window ID
         // into terminal but had lot's of other issues with it so commented
         // it out.

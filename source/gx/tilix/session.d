@@ -1847,5 +1847,4 @@ class PanedNode {
     this(Paned paned) {
         this.paned = paned;
     }
-
 }
