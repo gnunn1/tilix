@@ -101,7 +101,6 @@ import gx.tilix.customtitle;
 import gx.tilix.prefeditor.titleeditor;
 import gx.tilix.preferences;
 import gx.tilix.session;
-import gx.tilix.sessionswitcher;
 import gx.tilix.sidebar;
 
 /**
@@ -149,7 +148,6 @@ private:
     Notebook nb;
     HeaderBar hb;
     SideBar sb;
-    SessionSwitcher ss;
     ToggleButton tbSideBar;
     ToggleButton tbFind;
     CustomTitle cTitle;
@@ -159,7 +157,6 @@ private:
     SimpleAction saSyncInput;
     SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
-    SimpleAction saViewSessionSwitcher;
     SimpleAction saSessionAddRight;
     SimpleAction saSessionAddDown;
 
@@ -289,20 +286,12 @@ private:
             sb.onIsActionAllowed.connect(&onIsActionAllowed);
         }
 
-        ss = new SessionSwitcher();
-        ss.onFileSelected.connect(&onFileSelected);
-        ss.onFileRemoved.connect(&onFileRemoved);
-        ss.onOpenSelected.connect(&onOpenSelected);
-        ss.onOpenRemoved.connect(&onUserSessionClose);
-
         Overlay overlay = new Overlay();
         overlay.add(nb);
 
         if (!useTabs) {
             overlay.addOverlay(sb);
         }
-
-        overlay.addOverlay(ss);
 
         //Could be a Box or a Headerbar depending on value of disable_csd
         hb = createHeaderBar();
@@ -513,21 +502,6 @@ private:
                 }
             }, null, new GVariant(false));
         }
-
-        saViewSessionSwitcher = registerActionWithSettings(this, "win", ACTION_WIN_SESSIONSWITCHER, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
-            bool newState = !sa.getState().getBoolean();
-            trace("Session switcher action activated " ~ to!string(newState));
-            if (newState) {
-                ss.populate(getSessions(), recentSessionFiles);
-                ss.showAll();
-            }
-            ss.setRevealChild(newState);
-            sa.setState(new GVariant(newState));
-            ss.focusSearchEntry();
-            if (!newState) {
-                getCurrentSession().focusRestore();
-            }
-        }, null, new GVariant(false));
     }
 
     /**
@@ -825,7 +799,6 @@ private:
                     }
                 }
                 closeSession(session);
-                ss.populate(getSessions(), recentSessionFiles);
                 result.addResult(true);
                 return;
             }
@@ -851,7 +824,6 @@ private:
     }
 
     void onFileSelected(string file) {
-        saViewSessionSwitcher.activate(null);
         if (file) {
             try {
                 loadSession(file);
@@ -866,11 +838,9 @@ private:
 
     void onFileRemoved(string file) {
         removeRecentSessionFile(file);
-        ss.populate(getSessions(), recentSessionFiles);
     }
 
     void onOpenSelected(string uuid) {
-        saViewSessionSwitcher.activate(null);
         if (uuid) {
             activateSession(uuid);
         }
@@ -1162,7 +1132,6 @@ private:
         saSyncInput  = null;
         saCloseSession = null;
         saViewSideBar = null;
-        saViewSessionSwitcher = null;
         saSessionAddRight = null;
         saSessionAddDown = null;
     }
