@@ -280,8 +280,6 @@ private:
                 sb.selectSession(getCurrentSession().uuid);
             }
         }, ConnectFlags.AFTER);
-        nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
-
         if (!useTabs) {
             sb = new SideBar();
             sb.onSelected.connect(&onSessionSelected);
@@ -289,6 +287,12 @@ private:
             sb.onRequestReorder.connect(&onSessionReorder);
             sb.onSessionDetach.connect(&onSessionDetach);
             sb.onIsActionAllowed.connect(&onIsActionAllowed);
+        } else {
+            if (isQuake) {
+                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_QUAKE_TAB_POSITION_KEY));
+            } else {
+                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
+            }
         }
 
         Overlay overlay = new Overlay();
@@ -1272,8 +1276,13 @@ private:
                     else unstick();
                 }
                 break;
+            case SETTINGS_QUAKE_TAB_POSITION_KEY:
+                if (isQuake && useTabs) {
+                    nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_QUAKE_TAB_POSITION_KEY));
+                }
+                break;
             case SETTINGS_TAB_POSITION_KEY:
-                if (useTabs) {
+                if (useTabs && !isQuake) {
                     nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
                 }
                 break;
