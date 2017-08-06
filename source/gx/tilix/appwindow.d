@@ -968,6 +968,16 @@ private:
         }
         if (useTabs) {
             nb.setShowTabs(nb.getNPages() > 1);
+            for (int i = 0; i < nb.getNPages(); i++) {
+                Session s = getSession(i);
+                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(s);
+                if (label is null) continue;
+                if (s.uuid in sessionNotifications) {
+                    label.updateNotifications(sessionNotifications[s.uuid].messages);
+                } else {
+                    label.clearNotifications();
+                }
+            }
         } else {
             lblSideBar.setLabel(format("%d / %d", nb.getCurrentPage() + 1, nb.getNPages()));
         }
@@ -1932,7 +1942,9 @@ class SessionTabLabel: Box {
 
 private:
 	Button button;
-	Label label;
+    EventBox evNotifications;
+	Label lblText;
+    Label lblNotifications;
 	Session session;
 
 	void closeClicked(Button button) {
@@ -1946,11 +1958,20 @@ public:
 
 		this.session = session;
 
-		label = new Label(text);
-        label.setEllipsize(PangoEllipsizeMode.START);
-		label.setWidthChars(10);
-        label.setHexpand(true);
-		add(label);
+        lblNotifications = new Label("");
+        lblNotifications.getStyleContext().addClass("tilix-tab-notification-counter");
+        
+        evNotifications = new EventBox();
+        evNotifications.add(lblNotifications);
+        evNotifications.setNoShowAll(true);
+        
+        add(evNotifications);
+
+		lblText = new Label(text);
+        lblText.setEllipsize(PangoEllipsizeMode.START);
+		lblText.setWidthChars(10);
+        lblText.setHexpand(true);
+		add(lblText);
 
 		button = new Button("window-close-symbolic", IconSize.MENU);
 		button.setRelief(ReliefStyle.NONE);
@@ -1968,12 +1989,32 @@ public:
     }
 
 	@property string text() {
-		return label.getText();
+		return lblText.getText();
 	}
 
 	@property void text(string value) {
-		label.setText(value);
+		lblText.setText(value);
 	}
+
+    void updateNotifications(ProcessNotificationMessage[] pn) {
+        if (pn is null || pn.length == 0) {
+            evNotifications.hide();
+        } else {
+            lblNotifications.setText(to!string(pn.length));
+            string tooltip;
+            foreach (i, message; pn) {
+                if (i > 0) tooltip ~= "\n\n";
+                tooltip ~= message._body;
+            }
+            evNotifications.setTooltipText(tooltip);
+            evNotifications.show();
+            lblNotifications.show();
+        }
+    }
+
+    void clearNotifications() {
+        evNotifications.hide();
+    }
 
 	/**
 	 * Event triggered when user clicks the close button
