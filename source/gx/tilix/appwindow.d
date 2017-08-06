@@ -280,6 +280,7 @@ private:
                 sb.selectSession(getCurrentSession().uuid);
             }
         }, ConnectFlags.AFTER);
+        nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
 
         if (!useTabs) {
             sb = new SideBar();
@@ -1269,6 +1270,11 @@ private:
                 if (isQuake) {
                     if (gsSettings.getBoolean(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY)) stick();
                     else unstick();
+                }
+                break;
+            case SETTINGS_TAB_POSITION_KEY:
+                if (useTabs) {
+                    nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
                 }
                 break;
             /*

@@ -138,6 +138,8 @@ enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY = "advanced-paste-space-count";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
 
 enum SETTINGS_USE_TABS_KEY = "use-tabs";
+enum SETTINGS_TAB_POSITION_KEY = "tab-position";
+immutable string[] SETTINGS_TAB_POSITION_VALUES = ["left", "right", "top", "bottom"];
 
 //Proxy Environment Variables
 enum SETTINGS_SET_PROXY_ENV_KEY = "set-proxy-env";
