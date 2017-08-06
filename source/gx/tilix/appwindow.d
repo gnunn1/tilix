@@ -825,8 +825,6 @@ private:
     }
 
     void closeSession(Session session) {
-        bool isCurrentSession = (session == getCurrentSession());
-        removeSession(session);
         //remove session reference from label
         if (useTabs) {
             SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
@@ -835,6 +833,8 @@ private:
                 label.clear();
             }
         }
+        bool isCurrentSession = (session == getCurrentSession());
+        removeSession(session);
         // Don't destroy session artificially due to GtkD issues
         //session.destroy();
         if (!isCurrentSession) {
