@@ -260,6 +260,7 @@ private:
         nb.setShowTabs(false);
         nb.setShowBorder(false);
         if (useTabs) {
+            nb.getStyleContext().addClass("tilix-background");
             nb.setScrollable(true);
             nb.setGroupName("tilix");
             nb.addOnCreateWindow(&onCreateWindow);
