@@ -191,6 +191,14 @@ private:
     // Preference for the Window Style, i.e normal,disable-csd,disable-csd-hide-toolbar,borderless
     size_t windowStyle = 0;
 
+    enum DialogPath {
+        SAVE_SESSION,
+        LOAD_SESSION
+    }
+
+    // Save file dialog paths between invocations
+    string[DialogPath] dialogPaths;
+
     /**
      * Forces the app menu in the decoration layouts so in environments without an app-menu
      * it will be rendered by GTK as part of the window.
@@ -1476,12 +1484,16 @@ private:
         scope (exit) {
             fcd.destroy();
         }
+        if (DialogPath.LOAD_SESSION in dialogPaths) {
+            fcd.setCurrentFolder(dialogPaths[DialogPath.LOAD_SESSION]);
+        }
         addFilters(fcd);
         fcd.setDefaultResponse(ResponseType.OK);
         if (fcd.run() == ResponseType.OK) {
             try {
                 loadSession(fcd.getFilename());
                 addRecentSessionFile(fcd.getFilename());
+                dialogPaths[DialogPath.LOAD_SESSION] = fcd.getCurrentFolder();
             }
             catch (Exception e) {
                 fcd.hide();
@@ -1517,10 +1529,12 @@ private:
             if (filename.length > 0) {
                 fcd.setCurrentFolder(dirName(filename));
                 fcd.setCurrentName(filename.length > 0 ? baseName(filename) : session.displayName ~ ".json");
+            } else if (DialogPath.SAVE_SESSION in dialogPaths) {
+                fcd.setCurrentFolder(dialogPaths[DialogPath.SAVE_SESSION]);
             }
-
             if (fcd.run() == ResponseType.OK) {
                 filename = fcd.getFilename();
+                dialogPaths[DialogPath.SAVE_SESSION] = fcd.getCurrentFolder();
             } else {
                 return;
             }
