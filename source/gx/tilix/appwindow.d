@@ -2029,8 +2029,10 @@ public:
 		add(lblText);
 
 		button = new Button("window-close-symbolic", IconSize.MENU);
+        button.getStyleContext().addClass("tilix-small-button");
 		button.setRelief(ReliefStyle.NONE);
 		button.setFocusOnClick(false);
+        button.setTooltipText(_("Close session"));
 
 		button.addOnClicked(&closeClicked);
 
