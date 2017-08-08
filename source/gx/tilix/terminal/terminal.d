@@ -785,21 +785,24 @@ private:
         menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
 
+        // Assistants
+        GMenu submenu = new GMenu();
         menuSection = new GMenu();
         menuSection.append(_("Password..."), getActionDetailedName(ACTION_PREFIX, ACTION_INSERT_PASSWORD));
         menuSection.append(_("Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
         menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
-        model.appendSection(null, menuSection);
+        submenu.appendSection(null, menuSection);
 
         menuSection = new GMenu();
-        menuSection.append(_("Show File Browser..."), getActionDetailedName(ACTION_PREFIX, ACTION_FILE_BROWSER));
-        model.appendSection(null, menuSection);
-
-        menuSection = new GMenu();
+        menuSection.appendSubmenu(_("Assistants"), submenu);
         menuSection.appendSubmenu(_("Profiles"), profileMenu);
         model.appendSection(null, menuSection);
 
-        GMenu submenu = new GMenu();
+        submenu = new GMenu();
+
+        menuSection = new GMenu();
+        menuSection.append(_("Show File Browser..."), getActionDetailedName(ACTION_PREFIX, ACTION_FILE_BROWSER));
+        submenu.appendSection(null, menuSection);
 
         menuSection = new GMenu();
         menuSection.append(_("Save Output…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
