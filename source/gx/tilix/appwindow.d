@@ -304,10 +304,10 @@ private:
             }
         }
 
-        Overlay overlay = new Overlay();
-        overlay.add(nb);
-
+        Overlay overlay;
         if (!useTabs) {
+            overlay = new Overlay();
+            overlay.add(nb);
             overlay.addOverlay(sb);
         }
 
@@ -318,7 +318,8 @@ private:
             hb.getStyleContext().addClass("tilix-embedded-headerbar");
             Box box = new Box(Orientation.VERTICAL, 0);
             box.add(hb);
-            box.add(overlay);
+            if (overlay !is null) box.add(overlay);
+            else box.add(nb);
             if (isQuake()) {
                 box.getStyleContext().addClass("tilix-quake-frame");
             }
@@ -328,7 +329,8 @@ private:
             this.setTitlebar(hb);
             hb.setShowCloseButton(true);
             hb.setTitle(_(APPLICATION_NAME));
-            add(overlay);
+            if (overlay !is null) add(overlay);
+            else add(nb);
         }
     }
 
