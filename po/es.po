@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-05-19 21:34+0000\n"
-"Last-Translator: Luis Garcia <floss.dev@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/tilix/"
-"translations/es/>\n"
+"PO-Revision-Date: 2017-08-09 00:23+0000\n"
+"Last-Translator: Adolfo Jayme-Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/tilix/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.14.1-dev\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -267,11 +267,13 @@ msgid "Wrap around"
 msgstr "Volver al principio"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "%s no es una expresión regular válida"
+msgstr ""
+"La búsqueda «%s» no es una expresión regular válida\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:333
 #: source/gx/tilix/terminal/terminal.d:3452
@@ -342,7 +344,7 @@ msgstr "Añadir marcador..."
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Mostrar gestor de archivos…"
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -393,9 +395,10 @@ msgid "Add Down"
 msgstr "Añadir abajo"
 
 #: source/gx/tilix/terminal/terminal.d:858
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Se produjo un error inesperado: %s"
+msgstr ""
+"Se produjo un error inesperado al añadir la expresión regular del enlace: %s"
 
 #: source/gx/tilix/terminal/terminal.d:943
 msgid "Terminal Activity"
@@ -408,7 +411,7 @@ msgstr "Restaurar"
 
 #: source/gx/tilix/terminal/terminal.d:1488
 msgid "Tilix Custom Notification"
-msgstr "Notificaciones personalizadas de Tilix"
+msgstr "Notificación personalizada de Tilix"
 
 #: source/gx/tilix/terminal/terminal.d:1585
 msgid "Open Link"
@@ -443,17 +446,19 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"No se admiten URI de archivo remotos que contienen hiperenlaces.\n"
+"El URI era «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:1773
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "URI de archivo remoto no admitido"
 
 #: source/gx/tilix/terminal/terminal.d:1804
 #: source/gx/tilix/terminal/terminal.d:2291
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
-"La expresión regular '%s' para un enlace personalizado tiene un error, se "
+"La expresión regular «%s» para un enlace personalizado tiene un error; se "
 "ignorará"
 
 #: source/gx/tilix/terminal/terminal.d:1805
@@ -463,16 +468,15 @@ msgstr "Error en expresión regular"
 #: source/gx/tilix/terminal/terminal.d:1817
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "No se pudo abrir la coincidencia «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:1818
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Error al abrir la coincidencia"
 
 #: source/gx/tilix/terminal/terminal.d:2437
 msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"Se produjo un error inesperado, no hay información adicional disponible"
+msgstr "Se produjo un error inesperado; no hay información adicional disponible"
 
 #: source/gx/tilix/terminal/terminal.d:2443
 #, c-format
@@ -554,7 +558,7 @@ msgstr "Cargar sesión"
 #: source/gx/tilix/bookmark/bmeditor.d:332
 #: source/gx/tilix/bookmark/bmeditor.d:427
 msgid "Command"
-msgstr "Comando"
+msgstr "Orden"
 
 #: source/gx/tilix/terminal/layout.d:98
 msgid ""
@@ -597,7 +601,7 @@ msgstr "Eliminar"
 
 #: source/gx/tilix/terminal/password.d:231
 msgid "Include return character with password"
-msgstr "Incluir carácter de retorno en la contraseña"
+msgstr "Incluir caracter de retorno en la contraseña"
 
 #: source/gx/tilix/terminal/password.d:367
 msgid "Insert Password"
@@ -777,16 +781,16 @@ msgstr "Reajustar al redimensionar"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:376
 msgid "Custom font"
-msgstr "Fuente personalizada"
+msgstr "Tipo de letra personalizado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:382
 msgid "Choose A Terminal Font"
-msgstr "Elija una tipografía para la terminal"
+msgstr "Elija un tipo de letra para la terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:402
 #, c-format
 msgid "ID: %s"
-msgstr "ID: %s"
+msgstr "Id.: %s"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:448
 msgid "Color scheme"
@@ -803,7 +807,7 @@ msgstr "Exportar"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:483
 msgid "Color palette"
-msgstr "Paleta de color"
+msgstr "Paleta de colores"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:491
 #: source/gx/tilix/prefeditor/prefdialog.d:1210
@@ -841,7 +845,7 @@ msgstr "Seleccionar el color de fondo del cursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:602
 msgid "Highlight"
-msgstr "Resaltar"
+msgstr "Resalte"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:607
 msgid "Select Highlight Foreground Color"
@@ -985,15 +989,15 @@ msgstr "Anchos"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1041
 msgid "Run command as a login shell"
-msgstr "Ejecutar el comando como intérprete de conexión"
+msgstr "Ejecutar la orden como intérprete de conexión"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1045
 msgid "Run a custom command instead of my shell"
-msgstr "Ejecutar un comando personalizado en vez de mi intérprete"
+msgstr "Ejecutar una orden personalizada en vez de mi intérprete"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1061
 msgid "When command exits"
-msgstr "Cuando el comando termina"
+msgstr "Cuando la orden termine"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1063
 msgid "Exit the terminal"
@@ -1001,7 +1005,7 @@ msgstr "Salir de la terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1063
 msgid "Restart the command"
-msgstr "Reiniciar el comando"
+msgstr "Reiniciar la orden"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1063
 msgid "Hold the terminal open"
@@ -1181,9 +1185,8 @@ msgid "Enable shortcuts"
 msgstr "Activar atajos de teclado"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:755
-#, fuzzy
 msgid "Set default"
-msgstr "Por defecto"
+msgstr "Predeterminar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:836
 msgid "Overwrite Existing Shortcut"
@@ -1304,6 +1307,8 @@ msgstr "Mostrar el título de la terminal incluso si es la única"
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr ""
+"Utilizar barras de desplazamiento superpuestas (se necesita reiniciar la "
+"aplicación)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1339,7 +1344,7 @@ msgstr "Ocultar la ventana cuando se pierde el foco"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Retrasar la ocultación de la ventana en (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1381,20 +1386,20 @@ msgstr "Aumentar la terminal usando <Ctrl> y la rueda del ratón"
 #: source/gx/tilix/prefeditor/prefdialog.d:1342
 msgid "Require the <Control> modifier to edit title on click"
 msgstr ""
-"Requiere el la modificación de <Control> para editar el título al hacer click"
+"Solicitar la tecla modificadora <Control> para editar el título al pulsar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1347
 msgid "Close window when last session is closed"
 msgstr "Cerrar la ventana cuando se cierre la última sesión"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Establecer directorio de trabajo de la terminal"
+msgstr ""
+"Las ventanas nuevas heredan el directorio y el perfil de la terminal activa"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Guardar y restaurar el estado de la ventana"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1408,13 +1413,13 @@ msgstr "En una instancia nueva"
 #: source/gx/tilix/application.d:228
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
-msgstr "Nueva ventana"
+msgstr "Ventana nueva"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 #: source/gx/tilix/application.d:227 source/gx/tilix/session.d:1516
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
-msgstr "Nueva sesión"
+msgstr "Sesión nueva"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1373
 msgid "Split Right"
@@ -1752,9 +1757,8 @@ msgid "Application name"
 msgstr "Nombre de la aplicación"
 
 #: source/gx/tilix/constants.d:153
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Título de la terminal"
+msgstr "Título de la terminal activa"
 
 #: source/gx/tilix/constants.d:154
 msgid "Session name"
@@ -2038,9 +2042,8 @@ msgid "Open In Tilix"
 msgstr "Abrir en Tilix"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Abrir Tilix en %s"
+msgstr "Abrir Tilix en {}"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2499,16 +2502,14 @@ msgid "Monitor silence"
 msgstr "Monitorizar inactividad"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Desactivar sincronización en esta terminal"
+msgstr "Anular la sincronización de entrada"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Abrir Tilix aquí"
+msgstr "Abrir gestor de archivos"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
