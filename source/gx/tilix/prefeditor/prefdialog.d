@@ -1026,6 +1026,12 @@ class AppearancePreferences: Box {
             grid.attach(cbTitleStyle, 1, row, 1, 1);
             row++;
 
+            grid.attach(createLabel(_("Tab position")), 0, row, 1, 1);
+            ComboBox cbTabPosition = createNameValueCombo([_("Left"), _("Right"), _("Top"), _("Bottom")], SETTINGS_TAB_POSITION_VALUES);
+            bh.bind(SETTINGS_TAB_POSITION_KEY, cbTabPosition, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbTabPosition, 1, row, 1, 1);
+            row++;
+
             //Dark Theme
             grid.attach(createLabel(_("Theme variant")), 0, row, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
@@ -1210,10 +1216,15 @@ private:
             grid.attach(createLabel(_("Alignment")), 0, row, 1, 1);
             ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE]);
             bh.bind(SETTINGS_QUAKE_ALIGNMENT_KEY, cbAlignment, "active-id", GSettingsBindFlags.DEFAULT);
-
             grid.attach(cbAlignment, 1, row, 1, 1);
             row++;
         }
+
+        grid.attach(createLabel(_("Tab position")), 0, row, 1, 1);
+        ComboBox cbTabPosition = createNameValueCombo([_("Left"), _("Right"), _("Top"), _("Bottom")], SETTINGS_TAB_POSITION_VALUES);
+        bh.bind(SETTINGS_QUAKE_TAB_POSITION_KEY, cbTabPosition, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbTabPosition, 1, row, 1, 1);
+        row++;
 
         add(grid);
 

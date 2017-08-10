@@ -130,6 +130,7 @@ enum SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE = "left";
 enum SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE = "center";
 enum SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE = "right";
 enum SETTINGS_QUAKE_HIDE_HEADERBAR_KEY = "quake-hide-headerbar";
+enum SETTINGS_QUAKE_TAB_POSITION_KEY = "quake-tab-position";
 //enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
 
 //Advanced Paste Settings
@@ -138,6 +139,8 @@ enum SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY = "advanced-paste-space-count";
 enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
 
 enum SETTINGS_USE_TABS_KEY = "use-tabs";
+enum SETTINGS_TAB_POSITION_KEY = "tab-position";
+immutable string[] SETTINGS_TAB_POSITION_VALUES = ["left", "right", "top", "bottom"];
 
 //Proxy Environment Variables
 enum SETTINGS_SET_PROXY_ENV_KEY = "set-proxy-env";

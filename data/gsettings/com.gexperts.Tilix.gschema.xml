@@ -133,6 +133,15 @@
     <value nick='borderless' value='3'/>
   </enum>
 
+  <!-- Position enum, used for tab position -->
+  <enum id='com.gexperts.Tilix.Position'>
+    <value nick='left' value = '0'/>
+    <value nick='right' value = '1'/>
+    <value nick='top' value = '2'/>
+    <value nick='bottom' value = '3'/>
+  </enum>
+
+
   <!-- Global settings -->
   <schema id="com.gexperts.Tilix.Settings" path="/com/gexperts/Tilix/">
 
@@ -410,6 +419,11 @@
       <summary>Hide the headerbar when running in quake mode</summary>
       <description>When true, the headerbar of the quake window will be hidden.</description>
     </key>
+    <key name="quake-tab-position" enum="com.gexperts.Tilix.Position">
+      <default>'top'</default>
+      <summary>The position where the tabs are displayed in Quake mode</summary>
+      <description>Determines where the tabs are displayed relative to the notebook in quake mode.</description>
+    </key>
 
     <!--
     <key name="quake-keep-on-top" type="b">
@@ -481,6 +495,11 @@
       <default>false</default>
       <summary>When true tabs are shown instead of the sidebar</summary>
       <description>If true, notebook tabs are used instead of the sidebar as the UI metaphor for sessions.</description>
+    </key>
+    <key name="tab-position" enum="com.gexperts.Tilix.Position">
+      <default>'top'</default>
+      <summary>The position where the tabs are displayed</summary>
+      <description>Determines where the tabs are displayed relative to the notebook.</description>
     </key>
   </schema>
 
