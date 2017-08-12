@@ -272,6 +272,7 @@ private:
             nb.setScrollable(true);
             nb.setGroupName("tilix");
             nb.addOnCreateWindow(&onCreateWindow);
+            nb.setCanFocus(false);
         }
         nb.addOnPageAdded(&onPageAdded);
         nb.addOnPageRemoved(&onPageRemoved);
@@ -287,6 +288,14 @@ private:
             saSyncInput.setState(new GVariant(session.synchronizeInput));
             if (!useTabs && sb.getChildRevealed() && getCurrentSession() !is null) {
                 sb.selectSession(getCurrentSession().uuid);
+            }
+            if (useTabs) {
+                threadsAddIdleDelegate(delegate() {
+                    // Delay focus restore
+                    trace("Delayed focus restore");
+                    session.focusRestore();
+                    return false;
+                });
             }
         }, ConnectFlags.AFTER);
         if (!useTabs) {

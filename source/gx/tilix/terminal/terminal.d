@@ -1883,7 +1883,7 @@ private:
     }
 
     void terminalWidgetFocusOut(Widget widget) {
-        trace("Terminal lost focus" ~ uuid);
+        trace("Terminal lost focus " ~ uuid);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         if (!isTerminalWidgetFocused()) {
             bTitle.unsetStateFlags(StateFlags.ACTIVE);
