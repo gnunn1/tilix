@@ -1006,6 +1006,7 @@ private:
     }
 
     void onSessionStateChange(Session session, SessionStateChange stateChange) {
+        trace("State change received");
         if (getCurrentSession() == session) {
             updateUIState();
             updateTitle();
@@ -1013,10 +1014,11 @@ private:
                 Signals.handlerBlock(tbFind, _tbFindToggledId);
                 tbFind.setActive(getActiveTerminal().isFindToggled());
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
-            } else if (useTabs && stateChange == SessionStateChange.TERMINAL_TITLE) {
-                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
-                if (label !is null) label.text=session.displayName;
             }
+        }
+        if (useTabs && ((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE))) {
+            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+            if (label !is null) label.text=session.displayName;
         }
     }
 
