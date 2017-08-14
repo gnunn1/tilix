@@ -1066,9 +1066,11 @@ private:
         if (session) {
             title = session.getDisplayText(title);
             title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_COUNT, to!string(nb.getNPages()));
             title = title.replace(VARIABLE_SESSION_NAME, session.displayName);
         } else {
             title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_COUNT, to!string(nb.getNPages()));
             title = title.replace(VARIABLE_SESSION_NAME, _("Default"));
         }
         return title;
