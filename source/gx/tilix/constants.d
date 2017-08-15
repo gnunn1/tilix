@@ -173,12 +173,14 @@ enum VARIABLE_APP_NAME = "${appName}";
 enum VARIABLE_ACTIVE_TERMINAL_TITLE = "${activeTerminalTitle}";
 enum VARIABLE_SESSION_NAME = "${sessionName}";
 enum VARIABLE_SESSION_NUMBER = "${sessionNumber}";
+enum VARIABLE_SESSION_COUNT = "${sessionCount}";
 
 immutable string[] VARIABLE_WINDOW_VALUES = [
     VARIABLE_APP_NAME,
     VARIABLE_ACTIVE_TERMINAL_TITLE,
     VARIABLE_SESSION_NAME,
     VARIABLE_SESSION_NUMBER,
+    VARIABLE_SESSION_COUNT,
 ];
 
 immutable string[] VARIABLE_WINDOW_LOCALIZED = [
@@ -186,4 +188,5 @@ immutable string[] VARIABLE_WINDOW_LOCALIZED = [
     N_("Active terminal title"),
     N_("Session name"),
     N_("Session number"),
+    N_("Session count"),
 ];
