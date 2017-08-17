@@ -1580,7 +1580,7 @@ private:
 
         switch (gsProfile.getString(SETTINGS_PROFILE_EXIT_ACTION_KEY)) {
         case SETTINGS_PROFILE_EXIT_ACTION_RESTART_VALUE:
-            spawnTerminalProcess(gst.initialCWD);
+            spawnTerminalProcess(gst.initialCWD, _overrideCommand);
             return;
         case SETTINGS_PROFILE_EXIT_ACTION_CLOSE_VALUE:
             notifyTerminalClose();
@@ -1590,7 +1590,8 @@ private:
             ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
                 if (response == ResponseType.OK) {
                     ibRelaunch.destroy();
-                    spawnTerminalProcess(gst.initialCWD);
+                    tracef("Re-launching with %s", _overrideCommand);
+                    spawnTerminalProcess(gst.initialCWD, _overrideCommand);
                 }
             });
             ibRelaunch.setStatus(status);
@@ -3691,8 +3692,8 @@ public:
         setDefaultResponse(ResponseType.OK);
         setMessageType(MessageType.QUESTION);
         lblPrompt = new Label("");
-        lblPrompt.setHalign(Align.START);
         getContentArea().packStart(lblPrompt, true, true, 0);
+        lblPrompt.setHalign(Align.START);
         setHalign(Align.FILL);
         setValign(Align.START);
     }
