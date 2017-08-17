@@ -133,7 +133,7 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
 	GC.addRoot(delegatePointer);
 
 	gdk.Threads.threadsAddIdle(
-		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), bool),
+		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), int),
 		delegatePointer
 		);
 }
@@ -187,7 +187,7 @@ void threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegat
 
 	gdk.Threads.threadsAddTimeout(
 		interval,
-		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), bool),
+		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), int),
 		delegatePointer
 		);
 }
