@@ -69,7 +69,8 @@ enum SessionStateChange {
     TERMINAL_MAXIMIZED,
     TERMINAL_RESTORED,
     TERMINAL_FOCUSED,
-    TERMINAL_TITLE
+    TERMINAL_TITLE,
+    SESSION_TITLE
 };
 
 /**
@@ -729,6 +730,10 @@ private:
                 if (Version.checkVersion(3, 16, 0).length == 0) {
                     updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
                 }
+                break;
+            case SETTINGS_SESSION_NAME_KEY:
+                name = gsSettings.getString(SETTINGS_SESSION_NAME_KEY);
+                onStateChange.emit(this, SessionStateChange.SESSION_TITLE);
                 break;
             default:
                 break;

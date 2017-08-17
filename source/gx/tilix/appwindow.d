@@ -272,6 +272,7 @@ private:
             nb.setScrollable(true);
             nb.setGroupName("tilix");
             nb.addOnCreateWindow(&onCreateWindow);
+            nb.setCanFocus(false);
         }
         nb.addOnPageAdded(&onPageAdded);
         nb.addOnPageRemoved(&onPageRemoved);
@@ -287,6 +288,14 @@ private:
             saSyncInput.setState(new GVariant(session.synchronizeInput));
             if (!useTabs && sb.getChildRevealed() && getCurrentSession() !is null) {
                 sb.selectSession(getCurrentSession().uuid);
+            }
+            if (useTabs) {
+                threadsAddIdleDelegate(delegate() {
+                    // Delay focus restore
+                    trace("Delayed focus restore");
+                    session.focusRestore();
+                    return false;
+                });
             }
         }, ConnectFlags.AFTER);
         if (!useTabs) {
@@ -997,6 +1006,7 @@ private:
     }
 
     void onSessionStateChange(Session session, SessionStateChange stateChange) {
+        trace("State change received");
         if (getCurrentSession() == session) {
             updateUIState();
             updateTitle();
@@ -1004,10 +1014,11 @@ private:
                 Signals.handlerBlock(tbFind, _tbFindToggledId);
                 tbFind.setActive(getActiveTerminal().isFindToggled());
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
-            } else if (useTabs && stateChange == SessionStateChange.TERMINAL_TITLE) {
-                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
-                if (label !is null) label.text=session.displayName;
             }
+        }
+        if (useTabs && ((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE))) {
+            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+            if (label !is null) label.text=session.displayName;
         }
     }
 
@@ -1057,9 +1068,11 @@ private:
         if (session) {
             title = session.getDisplayText(title);
             title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_COUNT, to!string(nb.getNPages()));
             title = title.replace(VARIABLE_SESSION_NAME, session.displayName);
         } else {
             title = title.replace(VARIABLE_SESSION_NUMBER, to!string(nb.getCurrentPage()+1));
+            title = title.replace(VARIABLE_SESSION_COUNT, to!string(nb.getNPages()));
             title = title.replace(VARIABLE_SESSION_NAME, _("Default"));
         }
         return title;
