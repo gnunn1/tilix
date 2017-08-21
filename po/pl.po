@@ -6,16 +6,17 @@ msgstr ""
 "Project-Id-Version: 1.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-06-03 09:51+0200\n"
-"Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
-"Language-Team: polski <>\n"
+"PO-Revision-Date: 2017-08-22 13:47+0000\n"
+"Last-Translator: Dawid Dziurla <dawidd0811@gmail.com>\n"
+"Language-Team: Polish "
+"<https://hosted.weblate.org/projects/tilix/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Weblate 2.17-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -346,7 +347,7 @@ msgstr "Dodaj zakładkę..."
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Pokaż przeglądarkę plików..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -388,13 +389,12 @@ msgid "Other"
 msgstr "Inne"
 
 #: source/gx/tilix/terminal/terminal.d:810
-#, fuzzy
 msgid "Add Right"
 msgstr "Podzielenie w prawo"
 
 #: source/gx/tilix/terminal/terminal.d:814
 msgid "Add Down"
-msgstr ""
+msgstr "Podzielenie w dół"
 
 #: source/gx/tilix/terminal/terminal.d:858
 #, c-format
@@ -450,7 +450,7 @@ msgid ""
 "Uri was '%s'"
 msgstr ""
 "Adresy zdalnych plików nie są obsługiwane przez odnośniki.\n"
-"Adres to „%s”."
+"Adres to '%s'."
 
 #: source/gx/tilix/terminal/terminal.d:1773
 msgid "Remote File URI Unsupported"
@@ -461,7 +461,7 @@ msgstr "Nieobsługiwany adres URL zdalnego pliku"
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
-"Wyrażenie regularne własnego odnośnika „%s” jest nieprawidłowe. Ignorowanie."
+"Wyrażenie regularne własnego odnośnika '%s' jest nieprawidłowe. Ignorowanie."
 
 #: source/gx/tilix/terminal/terminal.d:1805
 msgid "Regular Expression Error"
@@ -470,7 +470,7 @@ msgstr "Błąd wyrażenia regularnego"
 #: source/gx/tilix/terminal/terminal.d:1817
 #, c-format
 msgid "Could not open match '%s'"
-msgstr "Nie można otworzyć dopasowania „%s”."
+msgstr "Nie można otworzyć dopasowania '%s'."
 
 #: source/gx/tilix/terminal/terminal.d:1818
 msgid "Error Opening Match"
@@ -746,20 +746,19 @@ msgstr "Położenie plakietki"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:332
 msgid "Northwest"
-msgstr ""
+msgstr "Północny zachód"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:332
 msgid "Northeast"
-msgstr ""
+msgstr "Północny wschód"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:332
 msgid "Southwest"
-msgstr ""
+msgstr "Południowy zachód"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:332
-#, fuzzy
 msgid "Southeast"
-msgstr "Południowoeuropejskie"
+msgstr "Południowy wschód"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Notify new activity"
@@ -866,9 +865,8 @@ msgid "Select Bold Color"
 msgstr "Wybór koloru pogrubienia"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:628
-#, fuzzy
 msgid "Select Badge Color"
-msgstr "Wybór koloru: %s"
+msgstr "Wybór koloru odznaki"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:677
 msgid "Select Background Color"
@@ -926,9 +924,8 @@ msgid "Select %s Light Color"
 msgstr "Wybór jasnego koloru: %s"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:862
-#, fuzzy
 msgid "Export Color Scheme"
-msgstr "Zestaw kolorów"
+msgstr "Eksportuj zestaw kolorów"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:937
 msgid "Show scrollbar"
@@ -1302,7 +1299,7 @@ msgstr "Pasek boczny po prawej stronie"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1130
 msgid "Show the terminal title even if it's the only terminal"
-msgstr "Pasek tytułu tylko jednego terminala "
+msgstr "Pokaż pasek tytułu terminala nawet jeśli jest on jedyny"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
@@ -1342,7 +1339,7 @@ msgstr "Ukrycie okna po utraceniu uaktywnienia"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Opóźnij ukrywanie okna o (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1395,7 +1392,7 @@ msgstr "Dziedziczenie katalogu i profilu nowych okien po aktywnym terminalu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Zapisz i przywróć stan okna"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1484,38 +1481,35 @@ msgstr "Zmodyfikuj wyzwalacz"
 #: source/gx/tilix/prefeditor/advdialog.d:374
 #, c-format
 msgid "Row %d: "
-msgstr "Wiersz %d:"
+msgstr "Wiersz %d: "
 
 #: source/gx/tilix/preferences.d:230
 msgid "UpdateState"
 msgstr ""
 
 #: source/gx/tilix/preferences.d:231
-#, fuzzy
 msgid "ExecuteCommand"
-msgstr "Polecenie"
+msgstr "WykonajPolecenie"
 
 #: source/gx/tilix/preferences.d:232
 msgid "SendNotification"
-msgstr ""
+msgstr "WyślijPowiadomienie"
 
 #: source/gx/tilix/preferences.d:233
-#, fuzzy
 msgid "UpdateTitle"
-msgstr "Tytuł"
+msgstr "AktualizujTytuł"
 
 #: source/gx/tilix/preferences.d:234
 msgid "PlayBell"
 msgstr ""
 
 #: source/gx/tilix/preferences.d:235
-#, fuzzy
 msgid "SendText"
-msgstr "Tekst"
+msgstr "WyślijTekst"
 
 #: source/gx/tilix/preferences.d:236
 msgid "InsertPassword"
-msgstr ""
+msgstr "WprowadźHasło"
 
 #: source/gx/tilix/preferences.d:237
 #, fuzzy
@@ -1524,7 +1518,7 @@ msgstr "Tytuł"
 
 #: source/gx/tilix/preferences.d:238
 msgid "RunProcess"
-msgstr ""
+msgstr "UruchomProces"
 
 #: source/gx/tilix/preferences.d:346
 #, c-format
@@ -1749,9 +1743,8 @@ msgid "Application name"
 msgstr "Nazwa programu"
 
 #: source/gx/tilix/constants.d:153
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Tytuł terminala"
+msgstr "Tytuł aktywnego terminala"
 
 #: source/gx/tilix/constants.d:154
 msgid "Session name"
@@ -1953,7 +1946,7 @@ msgstr ""
 
 #: source/gx/tilix/bookmark/manager.d:537
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: source/gx/tilix/bookmark/manager.d:615
 msgid "Could not load bookmarks due to unexpected error"
@@ -2026,18 +2019,16 @@ msgid "Open Remote Tilix"
 msgstr "Otwórz zdalny Tilix"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In"
-msgstr "Otwórz zdalny Tilix w %s"
+msgstr "Otwórz zdalny Tilix w"
 
 #: data/nautilus/open-tilix.py:117
 msgid "Open In Tilix"
 msgstr "Otwórz w Tilix"
 
 #: data/nautilus/open-tilix.py:118
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Otwórz Tilix w %s"
+msgstr "Otwórz Tilix w {}"
 
 #: data/nautilus/open-tilix.py:128
 msgid "Open Remote Tilix Here"
@@ -2502,10 +2493,9 @@ msgid "Override input synchronization"
 msgstr "Przełącza synchronizowanie wprowadzania dla tego terminala"
 
 #: data/resources/ui/shortcuts.ui:569
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Otwórz tutaj Tilix"
+msgstr "Otwórz przeglądarkę plików"
 
 #: data/resources/ui/shortcuts.ui:580
 msgctxt "shortcut window"
@@ -2594,7 +2584,7 @@ msgstr "ustalenie przezroczystego tła,"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid "Supports notifications when processes are completed out of view"
-msgstr "powiadamianie o zakończonych procesach, które są niewidoczne."
+msgstr "Powiadamianie o zakończonych procesach, które są niewidoczne."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
 msgid ""
