@@ -26,7 +26,7 @@ fi
 # Not an interactive shell?
 [[ $- == *i* ]] || return 0
 
-__terminix_urlencode() (
+__tilix_urlencode() (
   # This is important to make sure string manipulation is handled
   # byte-by-byte.
   LC_ALL=C
@@ -42,13 +42,13 @@ __terminix_urlencode() (
   done
 )
 
-__terminix_osc7() (
-  printf "\033]7;file://%s%s\007" "${HOSTNAME:-}" "$(__terminix_urlencode "${PWD}")"
+__tilix_osc7() (
+  printf "\033]7;file://%s%s\007" "${HOSTNAME:-}" "$(__tilix_urlencode "${PWD}")"
 )
 
 if [[ $PROMPT_COMMAND != *"__vte_prompt_command"* ]]
 then
-    echo "Adding terminix osc7"
-    [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__terminix_osc7"
-    [ -n "$ZSH_VERSION"  ] && precmd_functions+=(__terminix_osc7)
+    echo "Adding tilix osc7"
+    [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__tilix_osc7"
+    [ -n "$ZSH_VERSION"  ] && precmd_functions+=(__tilix_osc7)
 fi

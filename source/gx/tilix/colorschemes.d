@@ -42,9 +42,9 @@ enum SCHEME_KEY_BOLD_COLOR = "bold-color";
 enum SCHEME_KEY_USE_BOLD_COLOR = "use-bold-color";
 
 /**
-  * A Terminix color scheme.
+  * A Tilix color scheme.
   *
-  * Unlike gnome terminal, a color scheme in Terminix encompases both the fg/bg
+  * Unlike gnome terminal, a color scheme in Tilix encompases both the fg/bg
   * and palette colors similar to what text editor color schemes typically
   * do.
   */

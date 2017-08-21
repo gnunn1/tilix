@@ -44,26 +44,26 @@ install -d ${PREFIX}/share/glib-2.0/schemas
 install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
 glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
 
-export TERMINIX_SHARE=${PREFIX}/share/tilix
+export TILIX_SHARE=${PREFIX}/share/tilix
 
-install -d ${TERMINIX_SHARE}/resources ${TERMINIX_SHARE}/schemes ${TERMINIX_SHARE}/scripts
+install -d ${TILIX_SHARE}/resources ${TILIX_SHARE}/schemes ${TILIX_SHARE}/scripts
 
 # Copy and compile icons
 cd data/resources
 
 echo "Building and copy resources..."
 glib-compile-resources tilix.gresource.xml
-install -m 644 tilix.gresource ${TERMINIX_SHARE}/resources/
+install -m 644 tilix.gresource ${TILIX_SHARE}/resources/
 
 cd ../..
 
 # Copy shell integration script
 echo "Copying scripts..."
-install -m 755 data/scripts/* ${TERMINIX_SHARE}/scripts/
+install -m 755 data/scripts/* ${TILIX_SHARE}/scripts/
 
 # Copy color schemes
 echo "Copying color schemes..."
-install -m 644 data/schemes/* ${TERMINIX_SHARE}/schemes/
+install -m 644 data/schemes/* ${TILIX_SHARE}/schemes/
 
 # Create/Update LINGUAS file
 find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
