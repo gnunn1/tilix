@@ -40,7 +40,7 @@ dconf load /com/gexperts/Tilix/ < terminix.dconf
 ```
 This will export your settings from the Terminix key in dconf and re-import them into the Tilix key.
 
-Note that this will work even after you have uninstalled the tTerminix schema, since the user customized settings are available even after the schema got removed, and the default settings are identical between the two and thus do not matter.
+Note that this will work even after you have uninstalled the Terminix schema, since the user customized settings are available even after the schema got removed, and the default settings are identical between the two and thus do not matter.
 
 Once you have imported the settings and everything is ok you can clear the old Terminix settings with:
 ```

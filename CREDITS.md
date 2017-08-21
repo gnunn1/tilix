@@ -17,9 +17,9 @@ please feel free to let me know or update this file via a pull request.
 * Christian Herget
 * Allan Day
 
-While not directly contributing to Terminix, I would also like to thank the following
+While not directly contributing to Tilix, I would also like to thank the following
 people and organizations for their contributions to projects without whose existence
-Terminix would not exist.
+Tilix would not exist.
 
 * Christian Pesch for GTK VTE
 * Mike Wey for GtkD
