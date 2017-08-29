@@ -1057,6 +1057,11 @@ private:
             saPaste.setEnabled(true);
         });
 
+        vte.addOnPopupMenu(delegate(Widget) {
+            showContextPopover();
+            return true;
+        });
+
         if (_useOverlayScrollbar == 2) {
             if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
             else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
@@ -1755,12 +1760,7 @@ private:
                     return true;
 
                 widget.grabFocus();
-                buildContextMenu();
-                saCopy.setEnabled(vte.getHasSelection());
-                saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
-                GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
-                pmContext.setPointingTo(&rect);
-                pmContext.showAll();
+                showContextPopover(event);
                 return true;
             case MouseButton.MIDDLE:
                 widget.grabFocus();
@@ -1775,6 +1775,17 @@ private:
             }
         }
         return false;
+    }
+
+    void showContextPopover(Event event = null) {
+        buildContextMenu();
+        saCopy.setEnabled(vte.getHasSelection());
+        saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
+        if (event !is null) {
+            GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
+            pmContext.setPointingTo(&rect);
+        }
+        pmContext.showAll();
     }
 
     void openURI(TerminalURLMatch urlMatch) {
