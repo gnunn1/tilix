@@ -29,6 +29,7 @@ import gdk.Atom;
 import gdk.Gdk;
 import gdk.X11;
 
+import gtk.Main;
 import gtk.Window;
 
 import x11.X: Atom, ClientMessage, StructureNotifyMask, XWindow=Window;
@@ -46,13 +47,19 @@ import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
  * since code translations are considered a derived work under GPL. 
  */
 void activateX11Window(Window window) {
+    uint timestamp = Main.getCurrentEventTime();
+    if (timestamp == 0)
+        timestamp = gdk_x11_get_server_time(window.getWindow().getWindowStruct());    
+    
     XClientMessageEvent event;
     event.type = ClientMessage;
     event.window = getXid(window.getWindow());
     const(char*) name = toStringz("_NET_ACTIVE_WINDOW");
     event.message_type = gdk_x11_get_xatom_by_name(name);
     event.format = 32;
-    event.data.l[0] = 0;
+    event.data.l[0] = 1; /* app */
+    event.data.l[1] = timestamp;
+    event.data.l[2] = event.data.l[3] = event.data.l[4] = 0;    
 
     Display* display = gdk_x11_get_default_xdisplay();
     XWindow root = gdk_x11_get_default_root_xwindow();
@@ -73,6 +80,7 @@ shared static this()
 	Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY.GDK);
 	Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY.GDK);
 	Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY.GDK);
+    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY.GDK);
 }
 
 __gshared extern(C)
@@ -80,4 +88,5 @@ __gshared extern(C)
     Atom function(const(char)* atom_name) gdk_x11_get_xatom_by_name;
     Display* function() gdk_x11_get_default_xdisplay;
     XWindow   function() gdk_x11_get_default_root_xwindow;
+    uint function(GdkWindow *window) gdk_x11_get_server_time;
 }
