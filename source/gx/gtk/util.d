@@ -70,7 +70,7 @@ void activateWindow(Window window) {
 
     if (isWayland(window)) {
         trace("Present Window for Wayland");
-        window.presentWithTime(Main.getCurrentEventTime);
+        window.presentWithTime(GDK_CURRENT_TIME);
     } else {
         trace("Present Window for X11");
         window.present();
@@ -221,6 +221,11 @@ enum MouseButton : uint {
     MIDDLE = 2,
     SECONDARY = 3
 }
+
+/**
+ * Not declared in GtkD
+ */
+enum long GDK_CURRENT_TIME = 0;
 
 /**
  * Compares two RGBA and returns if they are equal, supports null references
