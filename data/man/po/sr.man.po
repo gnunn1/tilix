@@ -7,65 +7,69 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2017-09-09 09:14+0000\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"Language-Team: Serbian "
+"<https://hosted.weblate.org/projects/tilix/manpage/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.17-dev\n"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "TILIX"
-msgstr ""
+msgstr "ТИЛИКС"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "26 December 2016"
-msgstr ""
+msgstr "26. децембар 2016."
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "1.4.0"
-msgstr ""
+msgstr "1.4.0"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "Tilix Commands"
-msgstr ""
+msgstr "Тиликс наредбе"
 
 #. type: SH
 #: ./data/man/tilix:4
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "НАЗИВ"
 
 #. type: Plain text
 #: ./data/man/tilix:6
 msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
-msgstr ""
+msgstr "B<tilix> - Плочасти ГТК3 емулатор терминала за Гном"
 
 #. type: SH
 #: ./data/man/tilix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "СИНОПСИС"
 
 #. type: Plain text
 #: ./data/man/tilix:9
 msgid "B<tilix> [I<options>]"
-msgstr ""
+msgstr "B<tilix> [I<опције>]"
 
 #. type: SH
 #: ./data/man/tilix:9
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "ОПИС"
 
 #. type: Plain text
 #: ./data/man/tilix:11
@@ -73,56 +77,58 @@ msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "Gnome Human Interface Guidelines."
 msgstr ""
+"B<tilix> је напредан плочасти ГТК3 емулатор (опонашавач) терминала који је "
+"осмишљен тако да поштује Гномове упуте за дизајн интерфејса."
 
 #. type: SH
 #: ./data/man/tilix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "ОПЦИЈЕ"
 
 #. type: Plain text
 #: ./data/man/tilix:13
 msgid "The B<tilix> application accepts the following command line parameters:"
-msgstr ""
+msgstr "Програм B<tilix> прихвата следеће параметре у командној линији:"
 
 #. type: TP
 #: ./data/man/tilix:13
 #, no-wrap
 msgid "B<-h --help>"
-msgstr ""
+msgstr "B<-h --help>"
 
 #. type: Plain text
 #: ./data/man/tilix:16
 msgid "Show help options."
-msgstr ""
+msgstr "Прикажи помоћне опције."
 
 #. type: TP
 #: ./data/man/tilix:16
 #, no-wrap
 msgid "B<-v --version>"
-msgstr ""
+msgstr "B<-v --version>"
 
 #. type: Plain text
 #: ./data/man/tilix:19
 msgid "Show the version of Tilix as well as the versions of dependent components."
-msgstr ""
+msgstr "Приказује издање Тиликса и издања осталих међузависности."
 
 #. type: TP
 #: ./data/man/tilix:19
 #, no-wrap
 msgid "B<-w --working-directory=DIRECTORY>"
-msgstr ""
+msgstr "B<-w --working-directory=ФАСЦИКЛА>"
 
 #. type: Plain text
 #: ./data/man/tilix:22
 msgid "Set the working directory of the terminal."
-msgstr ""
+msgstr "Поставља радну фасциклу терминала."
 
 #. type: TP
 #: ./data/man/tilix:22
 #, no-wrap
 msgid "B<-p --profile=PROFILE_NAME>"
-msgstr ""
+msgstr "B<-p --profile=НАЗИВ_ПРОФИЛА>"
 
 #. type: Plain text
 #: ./data/man/tilix:25
@@ -131,23 +137,26 @@ msgid ""
 "a name is passed that does not correspond to an existing profile, the "
 "default profile will be used."
 msgstr ""
+"Поставља назив профила коришћењем назива једног од већ постојећих профила. "
+"Уколико се достави назив који не одговара једном од већ постојећих профила, "
+"подразумевани профил ће се користити."
 
 #. type: TP
 #: ./data/man/tilix:25
 #, no-wrap
 msgid "B<-t --title=TITLE>"
-msgstr ""
+msgstr "B<-t --title=НАСЛОВ>"
 
 #. type: Plain text
 #: ./data/man/tilix:28
 msgid "Set the title of the new terminal."
-msgstr ""
+msgstr "Поставља наслов новог терминала."
 
 #. type: TP
 #: ./data/man/tilix:28
 #, no-wrap
 msgid "B<-s --session=SESSION_NAME>"
-msgstr ""
+msgstr "B<-s --session=НАЗИВ_СЕСИЈЕ>"
 
 #. type: Plain text
 #: ./data/man/tilix:31
@@ -158,19 +167,24 @@ msgid ""
 "layout and layout options are saved, this will not restore the terminal to "
 "where it was left off, rather new terminals are created."
 msgstr ""
+"Отвара наведену датотеку сесије која је претходно сачувана. Датотеке сесије "
+"се чувају унутар Тиликса, оне складиште целокупан распоред сесије и "
+"омогућавају кориснику да их поново учитају када је то потребно. Знајте да се "
+"само чувају распореди и опције распореда, ово неће повратити стање терминала "
+"тамо где је прекинут већ ће нови терминали бити направљени."
 
 #. type: TP
 #: ./data/man/tilix:31
 #, no-wrap
 msgid "B<-a --action=ACTION_NAME>"
-msgstr ""
+msgstr "B<-a --action=НАЗИВ_РАДЊЕ>"
 
 #. type: Plain text
 #: ./data/man/tilix:34
 msgid ""
 "Perform an action in the current Tilix instance, the following actions are "
 "supported:"
-msgstr ""
+msgstr "Изврши радњу у тренутној Тиликс инстанци, следеће радње су подржане:"
 
 #. type: Plain text
 #: ./data/man/tilix:37
@@ -178,27 +192,29 @@ msgid ""
 "B<session-add-right> Adds a new terminal to the right of the current "
 "terminal."
 msgstr ""
+"B<session-add-right> Додаје нови терминал надесно, у односу на тренутни "
+"терминал."
 
 #. type: Plain text
 #: ./data/man/tilix:40
 msgid "B<session-add-down> Adds a new terminal down from the current terminal."
-msgstr ""
+msgstr "B<session-add-down> Додаје нови терминал испод тренутног терминала."
 
 #. type: Plain text
 #: ./data/man/tilix:43
 msgid "B<app-new-session> Creates a new Tilix session within the current window."
-msgstr ""
+msgstr "B<app-new-session> Ствара нову Тиликс сесију унутар тренутног прозора."
 
 #. type: Plain text
 #: ./data/man/tilix:46
 msgid "B<app-new-window> Creates a new Tilix window."
-msgstr ""
+msgstr "B<app-new-window> Ствара нови Тиликс прозор."
 
 #. type: TP
 #: ./data/man/tilix:46
 #, no-wrap
 msgid "B<-e --command=COMMAND>"
-msgstr ""
+msgstr "B<-e --command=НАРЕДБА>"
 
 #. type: Plain text
 #: ./data/man/tilix:49
@@ -206,56 +222,58 @@ msgid ""
 "Execute all text after this parameter as a command, thus this parameter must "
 "be the last parameter."
 msgstr ""
+"Изврши сав текст наведен после овог параметра као наредбу те овај параметар "
+"мора бити последњи параметар."
 
 #. type: TP
 #: ./data/man/tilix:49
 #, no-wrap
 msgid "B<--maximize>"
-msgstr ""
+msgstr "B<--maximize>"
 
 #. type: Plain text
 #: ./data/man/tilix:52
 msgid "Maximize the terminal window."
-msgstr ""
+msgstr "Увећава прозор терминала."
 
 #. type: TP
 #: ./data/man/tilix:52
 #, no-wrap
 msgid "B<--minimize>"
-msgstr ""
+msgstr "B<--minimize>"
 
 #. type: Plain text
 #: ./data/man/tilix:55
 msgid "Minimize the terminal window."
-msgstr ""
+msgstr "Смањује прозор терминала."
 
 #. type: TP
 #: ./data/man/tilix:55
 #, no-wrap
 msgid "B<--full-screen>"
-msgstr ""
+msgstr "B<--full-screen>"
 
 #. type: Plain text
 #: ./data/man/tilix:58
 msgid "Full-screen the terminal window."
-msgstr ""
+msgstr "Прикажи прозор терминала преко целог екрана."
 
 #. type: TP
 #: ./data/man/tilix:58
 #, no-wrap
 msgid "B<--focus-window>"
-msgstr ""
+msgstr "B<--focus-window>"
 
 #. type: Plain text
 #: ./data/man/tilix:61
 msgid "Focus the existing window."
-msgstr ""
+msgstr "Ставља тренутни прозор у жижу."
 
 #. type: TP
 #: ./data/man/tilix:61
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: ./data/man/tilix:64
@@ -266,69 +284,78 @@ msgid ""
 "recommended and is intended for debugging purposes only, using this option "
 "will prevent different Tilix windows from communicating with each other."
 msgstr ""
+"Покреће додатну Тиликс инстанцу у новом процесу. Подразумевано и по ГТК+ 3 "
+"упутима, Тиликс одржава један процес којем сви прозори припадају. Ова опција "
+"налаже Тиликсу да се покрене као засебан процес. Ово није препоручљиво и "
+"замишљено је само зарад решавања грешака, коришћењем ове опције спречавате "
+"различите Тиликс прозоре да разговарају међусобно."
 
 #. type: TP
 #: ./data/man/tilix:64
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=ГЕОМЕТРИЈА>"
 
 #. type: Plain text
 #: ./data/man/tilix:67
 msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Поставља величину прозора. Нпр.: 80x24, или 80x24+200+200 "
+"(КОЛОНЕxРЕДОВИ+ИКС+ИПСИЛОН)."
 
 #. type: TP
 #: ./data/man/tilix:67
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: ./data/man/tilix:70
 msgid "Open a window in quake mode or toggle existing quake mode window visibility."
 msgstr ""
+"Отвара прозор у режиму потреса или мења стање видљивости тренутног прозора у "
+"режиму потреса."
 
 #. type: TP
 #: ./data/man/tilix:70
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: ./data/man/tilix:73
 msgid "Show the Tilix preferences dialog directly."
-msgstr ""
+msgstr "Непосредно приказује прозорче поставки Тиликса."
 
 #. type: SH
 #: ./data/man/tilix:73
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "ТАКОЂЕ ПОГЛЕДАЈТЕ"
 
 #. type: Plain text
 #: ./data/man/tilix:75
 msgid "None"
-msgstr ""
+msgstr "Ништа"
 
 #. type: SH
 #: ./data/man/tilix:75
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "ГРЕШКЕ"
 
 #. type: Plain text
 #: ./data/man/tilix:77
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
-msgstr ""
+msgstr "Погледајте грешке на адреси https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
 #: ./data/man/tilix:77
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "ПИСАЦ"
 
 #. type: Plain text
 #: ./data/man/tilix:78
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Џералд Нан (Gerald Nunn) и други сарадници."
