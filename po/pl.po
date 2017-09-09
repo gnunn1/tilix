@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: 1.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-09-09 09:11+0000\n"
-"Last-Translator: Dawid Dziurla <dawidd0811@gmail.com>\n"
+"PO-Revision-Date: 2017-09-09 09:13+0000\n"
+"Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
 "Language-Team: Polish "
 "<https://hosted.weblate.org/projects/tilix/translations/pl/>\n"
 "Language: pl\n"
@@ -382,7 +382,7 @@ msgstr "Opcje układu…"
 
 #: source/gx/tilix/terminal/terminal.d:798
 msgid "Monitor Silence"
-msgstr ""
+msgstr "Śledzenie bezczynności"
 
 #: source/gx/tilix/terminal/terminal.d:801
 msgid "Other"
@@ -450,7 +450,7 @@ msgid ""
 "Uri was '%s'"
 msgstr ""
 "Adresy zdalnych plików nie są obsługiwane przez odnośniki.\n"
-"Adres to '%s'."
+"Adres to „%s”."
 
 #: source/gx/tilix/terminal/terminal.d:1773
 msgid "Remote File URI Unsupported"
@@ -461,7 +461,7 @@ msgstr "Nieobsługiwany adres URL zdalnego pliku"
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
-"Wyrażenie regularne własnego odnośnika '%s' jest nieprawidłowe. Ignorowanie."
+"Wyrażenie regularne własnego odnośnika „%s” jest nieprawidłowe. Ignorowanie."
 
 #: source/gx/tilix/terminal/terminal.d:1805
 msgid "Regular Expression Error"
@@ -470,7 +470,7 @@ msgstr "Błąd wyrażenia regularnego"
 #: source/gx/tilix/terminal/terminal.d:1817
 #, c-format
 msgid "Could not open match '%s'"
-msgstr "Nie można otworzyć dopasowania '%s'."
+msgstr "Nie można otworzyć dopasowania „%s”."
 
 #: source/gx/tilix/terminal/terminal.d:1818
 msgid "Error Opening Match"
@@ -1058,6 +1058,8 @@ msgstr "Dodaj"
 #: source/gx/tilix/prefeditor/profileeditor.d:1131
 msgid "Enter username@hostname:directory to match"
 msgstr ""
+"Proszę wprowadzić wzór nazwa_użytkownika@nazwa_komputera:katalog do "
+"dopasowania "
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1133
 msgid "Enter hostname:directory to match"
@@ -1070,6 +1072,8 @@ msgstr "Dodawanie dopasowania"
 #: source/gx/tilix/prefeditor/profileeditor.d:1152
 msgid "Edit username@hostname:directory to match"
 msgstr ""
+"Proszę zmodyfikować wzór nazwa_użytkownika@nazwa_komputera:katalog do "
+"dopasowania "
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1154
 msgid "Edit hostname:directory to match"
@@ -1262,20 +1266,20 @@ msgstr "Czyści obraz tła"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Scale"
-msgstr "Przeskalowany"
+msgstr "Przeskalowanie"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Tile"
-msgstr "Rozmieszczony sąsiadująco"
+msgstr "Rozmieszczonie sąsiadująco"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 #: source/gx/tilix/prefeditor/prefdialog.d:1201
 msgid "Center"
-msgstr "Wyśrodkowany"
+msgstr "Wyśrodkowanie"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Stretch"
-msgstr "Rozciągnięty"
+msgstr "Rozciągnięcie"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1082
 msgid "Default session name"
@@ -1303,7 +1307,7 @@ msgstr "Pokaż pasek tytułu terminala nawet jeśli jest on jedyny"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
+msgstr "Nakładane paski przewijania (wymaga ponownego uruchomienia programu)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Size"
@@ -1339,7 +1343,7 @@ msgstr "Ukrycie okna po utraceniu uaktywnienia"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1234
 msgid "Delay hiding window by (ms)"
-msgstr "Opóźnij ukrywanie okna o (ms)"
+msgstr "Opóźnienie ukrywania okna o (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1247
 msgid "Hide the titlebar of the window"
@@ -1392,7 +1396,7 @@ msgstr "Dziedziczenie katalogu i profilu nowych okien po aktywnym terminalu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Save and restore window state"
-msgstr "Zapisz i przywróć stan okna"
+msgstr "Zapisanie i przywrócenie stanu okna"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1362
 msgid "Send desktop notification on process complete"
@@ -1603,10 +1607,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Używa stylu okna innego niż preferowany: normal, disable-csd, disable-csd-"
+"hide-toolbar, borderless."
 
 #: source/gx/tilix/application.d:669
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "STYL_OKNA"
 
 #: source/gx/tilix/application.d:670
 msgid "Full-screen the terminal window"
@@ -1773,7 +1779,6 @@ msgstr ""
 "roboczego/wykonywanego polecenia. Proszę wykonać jedną z tych czynności."
 
 #: source/gx/tilix/cmdparams.d:190
-#, fuzzy
 msgid "You can only use the action parameter within Tilix"
 msgstr "Można użyć tylko parametru action"
 
@@ -2484,13 +2489,12 @@ msgstr "Przełączenie stylu okna"
 #: data/resources/ui/shortcuts.ui:557
 msgctxt "shortcut window"
 msgid "Monitor silence"
-msgstr ""
+msgstr "Przełączenie śledzenia bezczynności"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Przełącza synchronizowanie wprowadzania dla tego terminala"
+msgstr "Przełączenie synchronizowania wprowadzania"
 
 #: data/resources/ui/shortcuts.ui:569
 msgctxt "shortcut window"
