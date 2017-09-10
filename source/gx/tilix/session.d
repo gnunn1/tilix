@@ -648,6 +648,15 @@ private:
         }
     }
 
+    /**
+     * Catch session title change events to propagate up to to application so
+     * it can set it's title.
+     */
+    void onSessionTitleChange() {
+        trace("Session title changed");
+        onStateChange.emit(this, SessionStateChange.SESSION_TITLE);
+    }
+
     bool maximizeTerminal(Terminal terminal) {
         if (terminals.length == 1) {
             trace("Only one terminal in session, ignoring maximize request");
@@ -1191,6 +1200,7 @@ public:
     @property void name(string value) {
         if (value.length > 0) {
             _name = value;
+            onSessionTitleChange();
         }
     }
 
@@ -1464,7 +1474,7 @@ public:
      *
      * Params:
      *  sessionUUID = The UUID of the session to be attached
-     */           
+     */
     GenericEvent!(string) onAttach;
 
     /**
