@@ -261,7 +261,7 @@ private:
                 ITerminal terminal = window.getActiveTerminal();
                 if (terminal !is null) {
                     cp.workingDir = terminal.currentLocalDirectory();
-                    ProfileInfo info = prfMgr.getProfile(terminal.activeProfileUUID());
+                    ProfileInfo info = prfMgr.getProfile(terminal.defaultProfileUUID());
                     cp.profileName = info.name;
                 }
             }

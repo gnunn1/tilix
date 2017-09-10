@@ -1882,7 +1882,7 @@ public:
             ITerminal terminal = getActiveTerminal();
             if (terminal !is null) {
                 workingDir = terminal.currentLocalDirectory;
-                profileUUID = terminal.activeProfileUUID;
+                profileUUID = terminal.defaultProfileUUID;
             }
         }
         if (gsSettings.getBoolean(SETTINGS_PROMPT_ON_NEW_SESSION_KEY)) {

@@ -289,8 +289,15 @@ interface ITerminal : IIdentifiable {
 
     /**
      * Returns the UUID of the current profile being used
-     * by the terminal.
+     * by the terminal. The active profile can be different then
+     * the default if profile switching is being used.
      */
     @property string activeProfileUUID();
+
+    /**
+     * Returns the UUID of the default profile being used
+     * by the terminal.
+     */
+    @property string defaultProfileUUID();
 
 }
