@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-12 19:49-0400\n"
-"PO-Revision-Date: 2017-03-15 22:08+0000\n"
-"Last-Translator: Vincenzo <vmercuri.dev@gmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/tilix/"
-"translations/it/>\n"
+"PO-Revision-Date: 2017-09-08 13:46+0000\n"
+"Last-Translator: Luca <meti@lplab.net>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/tilix/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.17-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -269,11 +269,11 @@ msgid "Wrap around"
 msgstr "Riparti con la ricerca dall'inizio"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "%s non è una espressione regolare valida"
+msgstr "La regex cercata '%s' non è valida"
 
 #: source/gx/tilix/terminal/terminal.d:333
 #: source/gx/tilix/terminal/terminal.d:3452
@@ -344,7 +344,7 @@ msgstr "Aggiungi segnalibro..."
 
 #: source/gx/tilix/terminal/terminal.d:777
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Visualizza File Browser..."
 
 #: source/gx/tilix/terminal/terminal.d:781
 #: source/gx/tilix/prefeditor/prefdialog.d:271
@@ -379,7 +379,7 @@ msgstr "Opzioni di disposizione…"
 
 #: source/gx/tilix/terminal/terminal.d:798
 msgid "Monitor Silence"
-msgstr ""
+msgstr "Verifica silenzio"
 
 #: source/gx/tilix/terminal/terminal.d:801
 msgid "Other"
@@ -394,9 +394,10 @@ msgid "Add Down"
 msgstr "Aggiungi in basso"
 
 #: source/gx/tilix/terminal/terminal.d:858
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Si è verificato un errore imprevisto: %s"
+msgstr ""
+"Errore imprevisto occorso durante l'aggiunta della regex di collegamento: %s"
 
 #: source/gx/tilix/terminal/terminal.d:943
 msgid "Terminal Activity"
@@ -444,6 +445,8 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"URI di file remoti non sono supportati mediante hyperlink.\n"
+"L'URI era '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:1773
 msgid "Remote File URI Unsupported"
