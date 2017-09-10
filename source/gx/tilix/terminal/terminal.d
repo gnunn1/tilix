@@ -226,6 +226,7 @@ private:
     ToggleButton tbSyncInput;
     Spinner spBell;
     Image imgReadOnly;
+    Image imgNewOuput;
 
     SimpleActionGroup sagTerminalActions;
 
@@ -302,9 +303,11 @@ private:
 
     //When true, silence threshold monitoring is enabled
     bool monitorSilence = false;
+    bool scrollOnOutput = true;
 
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
+
 
     @property bool useOverlayScrollbar() {
         return _useOverlayScrollbar < 0;
@@ -403,6 +406,12 @@ private:
         imgReadOnly.setNoShowAll(true);
         imgReadOnly.setTooltipText(_("Read-Only"));
         bTitle.packEnd(imgReadOnly, false, false, 0);
+
+        //New Output
+        imgNewOuput = new Image("insert-text-symbolic", IconSize.MENU);
+        imgNewOuput.setNoShowAll(true);
+        imgNewOuput.setTooltipText(_("New output"));
+        bTitle.packEnd(imgNewOuput, false, false, 0);
 
         //Terminal Bell Spinner
         spBell = new Spinner();
@@ -966,6 +975,14 @@ private:
                 }
                 lastActivity = time;
             }
+
+            // Check whether to show new output indicator
+            if (!scrollOnOutput) {
+                Adjustment adjustment = getAdjustment();
+                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) { 
+                    imgNewOuput.show();
+                }
+            }
         });
 
         /*
@@ -1074,6 +1091,7 @@ private:
             sw.getStyleContext.addClass("tilix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
             sw.setPropagateNaturalWidth(true);
+            sw.getVadjustment().addOnValueChanged(&updateNewOutputIndicator);
             terminalOverlay.add(sw);
         } else {
             terminalOverlay.add(vte);
@@ -1088,6 +1106,7 @@ private:
         if (!useOverlayScrollbar) {
             sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
             sb.getStyleContext().addClass("tilix-terminal-scrollbar");
+            sb.getAdjustment().addOnValueChanged(&updateNewOutputIndicator);
             terminalBox.add(sb);
 
             //Draw a transparent background to override Window draw
@@ -1132,6 +1151,7 @@ private:
 
         box.add(rFind);
         box.add(terminalBox);
+
         return box;
     }
 
@@ -1262,13 +1282,22 @@ private:
     void scrollToBottom() {
         if (vte is null) return;
 
-        Adjustment adjustment;
-        if (useOverlayScrollbar) {
-            adjustment = sw.getVadjustment();
-        } else {
-            adjustment = sb.getAdjustment();
-        }
+        Adjustment adjustment = getAdjustment();
         adjustment.setValue(adjustment.getUpper());
+    }
+
+    Adjustment getAdjustment() {
+        if (useOverlayScrollbar) {
+            return sw.getVadjustment();
+        } else {
+            return sb.getAdjustment();
+        }
+    }
+
+    void updateNewOutputIndicator(Adjustment adjustment) {
+        if (adjustment.getValue() >= (adjustment.getUpper() - adjustment.getPageSize())) {
+            imgNewOuput.hide();
+        }
     }
 
     /**
@@ -2110,7 +2139,8 @@ private:
             }
             break;
         case SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY:
-            vte.setScrollOnOutput(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY));
+            scrollOnOutput = gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_OUTPUT_KEY);
+            vte.setScrollOnOutput(scrollOnOutput);
             break;
         case SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY:
             vte.setScrollOnKeystroke(gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY));
