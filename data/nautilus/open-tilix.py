@@ -107,8 +107,7 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
         uri = file_.get_uri().decode('utf-8')
         item = Nautilus.MenuItem(name='NautilusPython::open_remote_item',
                                  label=_(u'Open Remote Tilix'),
-                                 tip=_(u'Open Remote Tilix '
-                                       'In').format(uri))
+                                 tip=_(u'Open Remote Tilix In {}').format(uri))
         item.connect('activate', self._menu_activate_cb, file_)
         items.append(item)
 
