@@ -2542,14 +2542,9 @@ private:
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
-            sendHostCommand(pty, workingDir, args, envv);
 
-            import glib.Spawn: Spawn;
             import vtec.vte: vte_pty_child_setup;
-            import gtkc.Loader: Linker;
-            import gtkc.paths: LIBRARY;
-
-            flags |= GSpawnFlags.DO_NOT_REAP_CHILD;
+            vte_pty_child_setup(pty.getPtyStruct());
 
             envv ~= ["TERM=" ~"xterm-256color"];
             string[string] envParent = environment.toAA();
@@ -2557,36 +2552,35 @@ private:
                 envv ~= [key ~ "=" ~ envParent[key]];
             }
 
-            // TODO
-            // This is a bit hacky in order to cast from 'void function(VtePty* pty)' to 'void function(void* pty)' required by Spawn.async
-            if (c_vte_pty_child_setup_void is null) {
-                Linker.link(c_vte_pty_child_setup_void, "vte_pty_child_setup", LIBRARY.VTE);
-            }
-            bool result = Spawn.async(workingDir, args, envv, flags, c_vte_pty_child_setup_void, pty.getPtyStruct(), gpid);
-            // TODO - Need to retry if it fails due to permissions on workingDir, see vte code
-            // https://github.com/GNOME/vte/blob/bcc7bdbed0e2897b67333685cdf8771d832e01d1/src/pty.cc#L397
+            bool result = sendHostCommand(pty, workingDir, args, envv);
 
             vte.setPty(pty);
+
             return result;
         } else {
             return vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
         }
     }
 
-    GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
+    GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, uint[] handles) {
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
 
         GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
-        foreach(i, fd; fdlist) {
-            fdBuilder.addValue(new GVariant(new GVariant(i), new GVariant(fd)));
+        foreach(uint i, fd; handles) {
+            fdBuilder.addValue(new GVariant(new GVariant(i), new GVariant(g_variant_new_handle(fd), true)));
         }
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {
             string[] envPair = env.split("=");
-            tracef("Adding env var %s=%s", envPair[0], envPair[1]);
-            if (envPair.length ==2) {
-                GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
-                envBuilder.addValue(pair);
+            // TODO: filter more flatpak env vars
+            if (envPair[0] != "PATH") {
+                tracef("Adding env var %s=%s", envPair[0], envPair[1]);
+                if (envPair.length ==2) {
+                    GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
+                    envBuilder.addValue(pair);
+                }
+            } else {
+                tracef("Ignoring env var %s=%s", envPair[0], envPair[1]);
             }
         }
 
@@ -2597,43 +2591,49 @@ private:
         foreach(i, arg; args) {
             argsv ~= toStringz(arg);
         }
-
+        argsv ~= null;
         gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
                           wd,
                           argsv.ptr,
                           fdBuilder.end().getVariantStruct(),
                           envBuilder.end().getVariantStruct(),
-                          0);
+                          cast(uint) 1);
 
         return new GVariant(vs, true);
     }
 
     enum O_CLOEXEC = 0x80000;
 
-    void sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
+    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
         import gio.DBusConnection;
         import gio.UnixFDList;
 
+        uint[] handles;
         int[] fdList;
 
         fdList ~= std.stdio.stdin.fileno;
         fdList ~= std.stdio.stdout.fileno;
         fdList ~= std.stdio.stderr.fileno;
 
-
         UnixFDList outFdList = new UnixFDList();
         UnixFDList inFdList = new UnixFDList();
-        foreach(fd; fdList) {
-            inFdList.append(fd);
+        foreach(i, fd; fdList) {
+            handles ~= inFdList.append(fd);
+            if (handles[i] == -1) {
+                warning("Error creating fd list handles");
+            }
         }
 
         DBusConnection connection = tilix.getDbusConnection();
+
+        // TODO: handle HostCommandExited signal
+
         GVariant reply = connection.callWithUnixFdListSync(
             "org.freedesktop.Flatpak",
             "/org/freedesktop/Flatpak/Development",
             "org.freedesktop.Flatpak.Development",
             "HostCommand",
-            buildHostCommandVariant(workingDir, args, envv, fdList),
+            buildHostCommandVariant(workingDir, args, envv, handles),
             new GVariantType("(u)"),
             GDBusCallFlags.NONE,
             -1,
@@ -2644,6 +2644,9 @@ private:
 
         if (reply is null) {
             warning("No reply from flatpak dbus service");
+            return false;
+        } else {
+            return true;
         }
     }
 
