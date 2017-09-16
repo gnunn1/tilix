@@ -2542,7 +2542,7 @@ private:
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
-            //sendHostCommand(pty, workingDir, args, envv);
+            sendHostCommand(pty, workingDir, args, envv);
 
             import glib.Spawn: Spawn;
             import vtec.vte: vte_pty_child_setup;
@@ -2573,7 +2573,6 @@ private:
         }
     }
 
-/*
     GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, int[] fdlist) {
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
 
@@ -2647,7 +2646,6 @@ private:
             warning("No reply from flatpak dbus service");
         }
     }
-*/
 
     /**
      * Sets the proxy environment variables in the shell if available in gnome-terminal.
