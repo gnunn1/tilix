@@ -1771,8 +1771,10 @@ public:
             //      sh: cannot set terminal process group (-1): Inappropriate ioctl for device
             //      sh: no job control in this shell
             Session init_session = getSession(0);
-            createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
-            closeSession(init_session);
+            if (init_session !is null) {
+                createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
+                closeSession(init_session);
+            }
         }
     }
 
