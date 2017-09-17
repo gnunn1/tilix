@@ -1765,6 +1765,15 @@ public:
         }
         //Create an initial session using default session name and profile
         createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
+
+        static if (FLATPAK) {
+            // Inside flatpak sandbox first session complains:
+            //      sh: cannot set terminal process group (-1): Inappropriate ioctl for device
+            //      sh: no job control in this shell
+            Session init_session = getSession(0);
+            createSession(gsSettings.getString(SETTINGS_SESSION_NAME_KEY), prfMgr.getDefaultProfile());
+            closeSession(init_session);
+        }
     }
 
     void initialize(Session session) {
