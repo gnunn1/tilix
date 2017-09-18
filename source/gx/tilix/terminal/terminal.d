@@ -2543,12 +2543,27 @@ private:
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
 
+            int[] stdio;
+
+            stdio ~= std.stdio.stdin.fileno;
+            stdio ~= std.stdio.stdout.fileno;
+            stdio ~= std.stdio.stderr.fileno;
+
+            foreach(i, fd; stdio) {
+                stdio[i] = core.sys.posix.unistd.dup(fd);
+            }
+
             import vtec.vte: vte_pty_child_setup;
             vte_pty_child_setup(pty.getPtyStruct());
 
             envv ~= ["TERM=" ~"xterm-256color"];
 
             bool result = sendHostCommand(pty, workingDir, args, envv);
+
+            foreach(int i, fd; stdio) {
+                core.sys.posix.unistd.dup2(fd, i);
+                core.sys.posix.unistd.close(fd);
+            }
 
             vte.setPty(pty);
 
