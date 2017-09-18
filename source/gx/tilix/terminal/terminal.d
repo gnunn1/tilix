@@ -2583,15 +2583,10 @@ private:
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {
             string[] envPair = env.split("=");
-            // TODO: filter more flatpak env vars
-            if (envPair[0] != "PATH") {
-                tracef("Adding env var %s=%s", envPair[0], envPair[1]);
-                if (envPair.length ==2) {
-                    GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
-                    envBuilder.addValue(pair);
-                }
-            } else {
-                tracef("Ignoring env var %s=%s", envPair[0], envPair[1]);
+            tracef("Adding env var %s=%s", envPair[0], envPair[1]);
+            if (envPair.length ==2) {
+                GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
+                envBuilder.addValue(pair);
             }
         }
 
