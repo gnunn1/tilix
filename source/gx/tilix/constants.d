@@ -49,7 +49,7 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
  * raise events when detected. Since this uses polling, quick
  * commands (ls, cd, etc) may be missed.
  */
-immutable bool USE_PROCESS_MONITOR = true;
+immutable bool USE_PROCESS_MONITOR = false;
 
 /**************************************
  * Application Constants
