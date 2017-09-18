@@ -2545,18 +2545,21 @@ private:
 
             int pty_master = pty.getFd();
 
-            if (core.sys.posix.stdlib.grantpt(pty_master) != 0) {
+            import core.sys.posix.stdlib: grantpt, unlockpt, ptsname;
+            import core.sys.posix.fcntl: open, O_RDWR;
+
+            if (grantpt(pty_master) != 0) {
                 warning("Failed granting access to slave pseudoterminal device");
                 return false;
             }
 
-            if (core.sys.posix.stdlib.unlockpt(pty_master) != 0) {
+            if (unlockpt(pty_master) != 0) {
                 warning("Failed unlocking slave pseudoterminal device");
                 return false;
             }
 
             int[] pty_slaves;
-            pty_slaves ~= core.sys.posix.fcntl.open(core.sys.posix.stdlib.ptsname(pty_master), core.sys.posix.fcntl.O_RDWR);
+            pty_slaves ~= open(ptsname(pty_master), O_RDWR);
             if (pty_slaves[0] < 0) {
                 warning("Failed opening slave pseudoterminal device");
                 return false;
