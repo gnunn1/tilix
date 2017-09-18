@@ -2543,27 +2543,29 @@ private:
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
 
-            int[] stdio;
+            int pty_master = pty.getFd();
 
-            stdio ~= std.stdio.stdin.fileno;
-            stdio ~= std.stdio.stdout.fileno;
-            stdio ~= std.stdio.stderr.fileno;
-
-            foreach(i, fd; stdio) {
-                stdio[i] = core.sys.posix.unistd.dup(fd);
+            if (core.sys.posix.stdlib.grantpt(pty_master) != 0) {
+                warning("Failed granting access to slave pseudoterminal device");
             }
 
-            import vtec.vte: vte_pty_child_setup;
-            vte_pty_child_setup(pty.getPtyStruct());
+            if (core.sys.posix.stdlib.unlockpt(pty_master) != 0) {
+                warning("Failed unlocking slave pseudoterminal device");
+            }
+
+            int[] pty_slaves;
+            int pty_slave = core.sys.posix.fcntl.open(core.sys.posix.stdlib.ptsname(pty_master), core.sys.posix.fcntl.O_RDWR);
+            if (pty_slave < 0) {
+                warning("Failed opening slave pseudoterminal device");
+            } else {
+                foreach(i; 0 .. 3) {
+                    pty_slaves ~= core.sys.posix.unistd.dup(pty_slave);
+                }
+            }
 
             envv ~= ["TERM=" ~"xterm-256color"];
 
-            bool result = sendHostCommand(pty, workingDir, args, envv);
-
-            foreach(int i, fd; stdio) {
-                core.sys.posix.unistd.dup2(fd, i);
-                core.sys.posix.unistd.close(fd);
-            }
+            bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves);
 
             vte.setPty(pty);
 
@@ -2610,20 +2612,15 @@ private:
 
     enum O_CLOEXEC = 0x80000;
 
-    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
+    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds) {
         import gio.DBusConnection;
         import gio.UnixFDList;
 
         uint[] handles;
-        int[] fdList;
-
-        fdList ~= std.stdio.stdin.fileno;
-        fdList ~= std.stdio.stdout.fileno;
-        fdList ~= std.stdio.stderr.fileno;
 
         UnixFDList outFdList = new UnixFDList();
         UnixFDList inFdList = new UnixFDList();
-        foreach(i, fd; fdList) {
+        foreach(i, fd; stdio_fds) {
             handles ~= inFdList.append(fd);
             if (handles[i] == -1) {
                 warning("Error creating fd list handles");
