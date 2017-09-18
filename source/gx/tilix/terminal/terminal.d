@@ -2633,10 +2633,9 @@ private:
             }
         }
 
-        DBusConnection connection = DBusConnection.newForAddressSync(
-            g_getenv ("DBUS_SESSION_BUS_ADDRESS"),
-            G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT | G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION,
-            null,
+        DBusConnection connection = new DBusConnection (
+            environment.get("DBUS_SESSION_BUS_ADDRESS"),
+            GDBusConnectionFlags.AUTHENTICATION_CLIENT | GDBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             null,
             null
         );
