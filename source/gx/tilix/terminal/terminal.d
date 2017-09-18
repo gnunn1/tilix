@@ -2556,14 +2556,14 @@ private:
             }
 
             int[] pty_slaves;
-            int pty_slave = core.sys.posix.fcntl.open(core.sys.posix.stdlib.ptsname(pty_master), core.sys.posix.fcntl.O_RDWR);
-            if (pty_slave < 0) {
+            pty_slaves ~= core.sys.posix.fcntl.open(core.sys.posix.stdlib.ptsname(pty_master), core.sys.posix.fcntl.O_RDWR);
+            if (pty_slaves[0] < 0) {
                 warning("Failed opening slave pseudoterminal device");
                 return false;
             }
 
-            foreach(i; 0 .. 3) {
-                pty_slaves ~= core.sys.posix.unistd.dup(pty_slave);
+            foreach(i; 0 .. 2) {
+                pty_slaves ~= core.sys.posix.unistd.dup(pty_slaves[0]);
             }
 
             envv ~= ["TERM=" ~"xterm-256color"];
