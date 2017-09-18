@@ -1,0 +1,25 @@
+From 8a13b9d3ccc77315c0e622dc55089137489a615c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Jedelsk=C3=BD?= <hjajet@gmail.com>
+Date: Sat, 16 Sep 2017 04:12:01 +0200
+Subject: [PATCH 1/1] Enable flatpak
+
+---
+ source/gx/tilix/constants.d | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source/gx/tilix/constants.d b/source/gx/tilix/constants.d
+index 8df9d50..8609b7b 100644
+--- a/source/gx/tilix/constants.d
++++ b/source/gx/tilix/constants.d
+@@ -33,7 +33,7 @@ immutable bool USE_FILE_LOGGING = false;
+ /**
+  * When true builds the application for flatpak
+  */
+-immutable bool FLATPAK = false;
++immutable bool FLATPAK = true;
+ 
+ /**
+  * Determines whether synchronization of multiple terminals
+-- 
+2.14.1
+

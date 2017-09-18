@@ -18,8 +18,11 @@ if [ ! -f tilix ]; then
 fi
 
 # Check availability of required commands
-COMMANDS="install glib-compile-schemas glib-compile-resources msgfmt desktop-file-validate xdg-desktop-menu gtk-update-icon-cache"
-PACKAGES="coreutils glib2 glib2 gettext desktop-file-utils xdg-utils gtk-update-icon-cache"
+COMMANDS="install glib-compile-schemas glib-compile-resources msgfmt desktop-file-validate gtk-update-icon-cache"
+if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
+    COMMANDS="$COMMANDS xdg-desktop-menu"
+fi
+PACKAGES="coreutils glib2 glib2 gettext desktop-file-utils gtk-update-icon-cache xdg-utils"
 i=0
 for COMMAND in $COMMANDS; do
     type $COMMAND >/dev/null 2>&1 || {

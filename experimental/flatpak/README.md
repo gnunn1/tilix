@@ -1,23 +1,19 @@
-### Building Terminix XDG-APP Bundle
+### Building Tilix Flatpak Bundle
 
-This folder contains the scripts required to build Terminix as an XDG-APP bundle. XDG-APP allows desktop applications to be distributed independently of traditional Linux package managers, applications distributed in this way run in a sandboxed environment. Additional information on XDG-APP can be found [here](https://wiki.gnome.org/Projects/SandboxedApps).
+This folder contains the scripts required to build Terminix as an Flatpak bundle. Flatpak allows desktop applications to be distributed independently of traditional Linux package managers, applications distributed in this way run in a sandboxed environment. Additional information on Flatpak can be found [here](http://flatpak.org/).
 
-The first step to building the Terminix XDG-APP Bundle is to install the xdg-app framework. This will vary by distribution, on Arch it is easily installed using the [xdg-app](https://aur.archlinux.org/packages/xdg-app) package from AUR as follows:
+The first step to building the Tilix Flatpak Bundle is to install the flatpak framework. This will vary by distribution, see [Getting Flatpak](http://flatpak.org/getting.html).
 
-```yaourt xdg-app```
-
-Once that is done you will need to install the Gnome and Freedesktop runtimes, this can be done by following the instructions on the [Gnome wiki](https://wiki.gnome.org/Projects/SandboxedApps#Gnome_sdk). The specific steps you need are as follows:
+Once that is done you will need to install the Gnome runtimes, this can be done by following the instructions on the [Flatpak wiki](http://docs.flatpak.org/en/latest/getting-setup.html). The specific steps you need are as follows:
 )
 ```
-$ wget https://people.gnome.org/~alexl/keys/gnome-sdk.gpg
-$ xdg-app --user remote-add gnome --gpg-key=gnome-sdk.gpg http://sdk.gnome.org/repo/
-$ xdg-app --user install gnome org.gnome.Platform 3.20
-$ xdg-app --user install gnome org.gnome.Sdk 3.20
-$ xdg-app --user install gnome org.freedesktop.Platform 1.4
+$ flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+$ flatpak --user install flathub org.gnome.Platform 3.24
+$ flatpak --user install flathub org.gnome.Sdk 3.24
 ```
 With all the dependencies in place, you can now build the bundle:
 
 ```
-./build
+./build.sh
+flatpak build-bundle ./repo tilix.flatpak com.gexperts.Tilix
 ```
-
