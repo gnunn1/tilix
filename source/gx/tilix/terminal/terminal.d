@@ -2570,6 +2570,7 @@ private:
             }
 
             envv ~= ["TERM=" ~"xterm-256color"];
+            envv ~= ["LANG=" ~ environment.get("LANG")];
 
             bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves);
 
