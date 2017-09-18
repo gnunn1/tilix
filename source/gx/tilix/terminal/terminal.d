@@ -2547,10 +2547,6 @@ private:
             vte_pty_child_setup(pty.getPtyStruct());
 
             envv ~= ["TERM=" ~"xterm-256color"];
-            string[string] envParent = environment.toAA();
-            foreach(key; envParent.byKey()) {
-                envv ~= [key ~ "=" ~ envParent[key]];
-            }
 
             bool result = sendHostCommand(pty, workingDir, args, envv);
 
