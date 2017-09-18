@@ -1144,7 +1144,7 @@ class AppearancePreferences: Box {
             add(cbTitleShowWhenSingle);
 
             if (Version.checkVersion(3, 22, 0).length == 0) {
-                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Application restart required)"));
+                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Warning experimental, application restart required)"));
                 bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", GSettingsBindFlags.DEFAULT);
                 add(cbOverlay);
             }
