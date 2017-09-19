@@ -2570,7 +2570,28 @@ private:
             }
 
             envv ~= ["TERM=" ~"xterm-256color"];
-            envv ~= ["LANG=" ~ environment.get("LANG")];
+            envv ~= ["VTE_VERSION=" ~]
+
+            string[] igneredEnvv = [
+                "PATH",
+                "LD_LIBRARY_PATH",
+                "XDG_CONFIG_DIRS",
+                "XDG_CONFIG_HOME",
+                "XDG_DATA_DIRS",
+                "XDG_DATA_HOME",
+                "XDG_CACHE_HOME",
+                "XDG_RUNTIME_DIR",
+                "GST_PLUGIN_SYSTEM_PATH",
+                "DCONF_USER_CONFIG_DIR",
+                "GI_TYPELIB_PATH",
+                "DISPLAY",
+            ];
+            string[string] envParent = environment.toAA();
+            foreach(key; envParent.byKey()) {
+                if (!igneredEnvv.canFind(key)) {
+                    envv ~= [key ~ "=" ~ envParent[key]];
+                }
+            }
 
             bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves, gpid);
 
