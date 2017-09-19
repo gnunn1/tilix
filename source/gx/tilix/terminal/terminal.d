@@ -2569,8 +2569,10 @@ private:
                 pty_slaves ~= core.sys.posix.unistd.dup(pty_slaves[0]);
             }
 
+            import VteVersion = vte.Version;
+
             envv ~= ["TERM=" ~"xterm-256color"];
-            envv ~= ["VTE_VERSION=" ~]
+            envv ~= [format("VTE_VERSION=%02u%02u", VteVersion.Version.getMinorVersion(), VteVersion.Version.getMicroVersion())];
 
             string[] igneredEnvv = [
                 "PATH",
