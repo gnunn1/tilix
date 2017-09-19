@@ -263,6 +263,7 @@ public:
      * as well which also indicates no child process.
      */
     pid_t getChildPid() {
+        // TODO: be correct for flatpak sandbox
         if (getPty() is null)
             return false;
         return tcgetpgrp(getPty().getFd());

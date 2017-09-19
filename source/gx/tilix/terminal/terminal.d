@@ -2572,7 +2572,7 @@ private:
             envv ~= ["TERM=" ~"xterm-256color"];
             envv ~= ["LANG=" ~ environment.get("LANG")];
 
-            bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves);
+            bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves, gpid);
 
             vte.setPty(pty);
 
@@ -2619,7 +2619,7 @@ private:
 
     enum O_CLOEXEC = 0x80000;
 
-    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds) {
+    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid) {
         import gio.DBusConnection;
         import gio.UnixFDList;
 
@@ -2662,6 +2662,9 @@ private:
             warning("No reply from flatpak dbus service");
             return false;
         } else {
+            uint pid;
+            g_variant_get (reply.getVariantStruct(), "(u)", &pid);
+            gpid = pid;
             return true;
         }
     }
@@ -3443,6 +3446,7 @@ public:
      * returns the name
      */
     bool isProcessRunning(out string name) {
+        // TODO: be correct for flatpak sandbox
         if (vte.getPty() is null)
             return false;
         pid_t childPid;
