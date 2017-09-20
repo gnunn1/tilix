@@ -2529,6 +2529,8 @@ private:
         vte.grabFocus();
     }
 
+    enum O_CLOEXEC = 0x80000;
+
     /**
      * Needed spawnSync function to handle flatpak where we need to generate out VtePty in order
      * for it to work at the system level outside of flatpak.
@@ -2559,7 +2561,7 @@ private:
             }
 
             int[] pty_slaves;
-            pty_slaves ~= open(ptsname(pty_master), O_RDWR);
+            pty_slaves ~= open(ptsname(pty_master), O_RDWR | O_CLOEXEC);
             if (pty_slaves[0] < 0) {
                 warning("Failed opening slave pseudoterminal device");
                 return false;
@@ -2639,8 +2641,6 @@ private:
 
         return new GVariant(vs, true);
     }
-
-    enum O_CLOEXEC = 0x80000;
 
     bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid) {
         import gio.DBusConnection;
