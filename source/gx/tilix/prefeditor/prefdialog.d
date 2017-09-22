@@ -112,8 +112,8 @@ private:
 
     bool _wayland;
 
-    // Track how many non-profile rows there are to prevent the last profile from being deleted
-    immutable int NON_PROFILE_ROW_COUNT = 6;
+    int nonProfileRowCount = 0;
+
 
     void createUI() {
 
@@ -135,40 +135,40 @@ private:
 
         GlobalPreferences gp = new GlobalPreferences(gsSettings);
         pages.addTitled(gp, N_("Global"), _("Global"));
-        lbSide.add(new GenericPreferenceRow(N_("Global"), _("Global")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Global"), _("Global")));
 
         AppearancePreferences ap = new AppearancePreferences(gsSettings);
         pages.addTitled(ap, N_("Appearance"), _("Appearance"));
-        lbSide.add(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
 
         QuakePreferences qp = new QuakePreferences(gsSettings, _wayland);
         pages.addTitled(qp, N_("Quake"), _("Quake"));
-        lbSide.add(new GenericPreferenceRow(N_("Quake"), _("Quake")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Quake"), _("Quake")));
 
         bmEditor = new GlobalBookmarkEditor();
         pages.addTitled(bmEditor, N_("Bookmarks"), _("Bookmarks"));
-        lbSide.add(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
         searchButton.addOnToggled(delegate(ToggleButton button) {
             sp.toggleShortcutsFind();
         });
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
-        lbSide.add(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Shortcuts"), _("Shortcuts")));
 
         EncodingPreferences ep = new EncodingPreferences(gsSettings);
         pages.addTitled(ep, N_("Encoding"), _("Encoding"));
-        lbSide.add(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Encoding"), _("Encoding")));
 
         AdvancedPreferences advp = new AdvancedPreferences(gsSettings);
         pages.addTitled(advp, N_("Advanced"), _("Advanced"));
-        lbSide.add(new GenericPreferenceRow(N_("Advanced"), _("Advanced")));
+        addNonProfileRow(new GenericPreferenceRow(N_("Advanced"), _("Advanced")));
 
         // Profile Editor - Re-used for all profiles
         pe = new ProfileEditor();
         pe.onProfileNameChanged.connect(&profileNameChanged);
         pages.addTitled(pe, N_("Profile"), _("Profile"));
-        lbSide.add(createProfileTitleRow());
+        addNonProfileRow(createProfileTitleRow());
         loadProfiles();
 
         ScrolledWindow sw = new ScrolledWindow(lbSide);
@@ -211,6 +211,12 @@ private:
 
         //Set initial title
         hbMain.setTitle(_("Global"));
+    }
+
+    // Keep track of non-profile rows
+    void addNonProfileRow(ListBoxRow row) {
+        lbSide.add(row);
+        nonProfileRowCount++;
     }
 
     void onDecorationLayout() {
@@ -312,8 +318,14 @@ private:
     void updateUI() {
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
         if (row !is null) {
-            btnDeleteProfile.setSensitive((lbSide.getChildren().length  > NON_PROFILE_ROW_COUNT + 1) && (row !is null));
+            btnDeleteProfile.setSensitive(getProfileRowCount() >= 2);
+        } else {
+            btnDeleteProfile.setSensitive(false);
         }
+    }
+
+    int getProfileRowCount() {
+        return lbSide.getChildren().length - nonProfileRowCount;
     }
 
 // Stuff that deals with profiles
@@ -342,7 +354,7 @@ private:
     }
 
     void deleteProfile(ProfilePreferenceRow row) {
-        if (lbSide.getChildren().length  <= NON_PROFILE_ROW_COUNT + 1) return;
+        if (getProfileRowCount() < 2) return;
         string uuid = row.uuid;
         int index = getChildIndex(lbSide, row) - 1;
         lbSide.remove(row);
