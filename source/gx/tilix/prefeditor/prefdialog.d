@@ -362,6 +362,7 @@ private:
         if (index < 0) index = 0;
         lbSide.selectRow(lbSide.getRowAtIndex(index));
         updateUI();
+        updateDefaultProfileMarker();
     }
 
     void cloneProfile(ProfilePreferenceRow sourceRow) {
@@ -382,6 +383,18 @@ private:
             }
         }
         row.updateDefault(true);
+    }
+
+    void updateDefaultProfileMarker() {
+        string uuid = prfMgr.getDefaultProfile();
+        ProfilePreferenceRow[] rows = gx.gtk.util.getChildren!ProfilePreferenceRow(lbSide, false);
+        foreach(r; rows) {
+            if (r.uuid != uuid) {
+                r.updateDefault(false);
+            } else {
+                r.updateDefault(true);
+            }
+        }
     }
 
 public:
