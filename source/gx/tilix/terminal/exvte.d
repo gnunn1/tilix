@@ -18,6 +18,8 @@ import glib.Str;
 import vte.Terminal;
 import vtec.vtetypes;
 
+import gx.tilix.constants;
+
 enum TerminalScreen {
     NORMAL = 0,
     ALTERNATE = 1
@@ -263,9 +265,14 @@ public:
      * as well which also indicates no child process.
      */
     pid_t getChildPid() {
-        if (getPty() is null)
-            return false;
-        return tcgetpgrp(getPty().getFd());
+        // TODO: be correct for flatpak sandbox
+		static if (FLATPAK) {
+			return -1;
+		} else {
+			if (getPty() is null)
+            	return false;
+        	return tcgetpgrp(getPty().getFd());
+		}
     }
 
 }

@@ -2529,6 +2529,8 @@ private:
         vte.grabFocus();
     }
 
+    enum O_CLOEXEC = 0x80000;
+
     /**
      * Needed spawnSync function to handle flatpak where we need to generate out VtePty in order
      * for it to work at the system level outside of flatpak.
@@ -2543,16 +2545,59 @@ private:
         static if (FLATPAK) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
 
-            import vtec.vte: vte_pty_child_setup;
-            vte_pty_child_setup(pty.getPtyStruct());
+            int pty_master = pty.getFd();
 
-            envv ~= ["TERM=" ~"xterm-256color"];
-            string[string] envParent = environment.toAA();
-            foreach(key; envParent.byKey()) {
-                envv ~= [key ~ "=" ~ envParent[key]];
+            import core.sys.posix.stdlib: grantpt, unlockpt, ptsname;
+            import core.sys.posix.fcntl: open, O_RDWR;
+
+            if (grantpt(pty_master) != 0) {
+                warning("Failed granting access to slave pseudoterminal device");
+                return false;
             }
 
-            bool result = sendHostCommand(pty, workingDir, args, envv);
+            if (unlockpt(pty_master) != 0) {
+                warning("Failed unlocking slave pseudoterminal device");
+                return false;
+            }
+
+            int[] pty_slaves;
+            pty_slaves ~= open(ptsname(pty_master), O_RDWR | O_CLOEXEC);
+            if (pty_slaves[0] < 0) {
+                warning("Failed opening slave pseudoterminal device");
+                return false;
+            }
+
+            foreach(i; 0 .. 2) {
+                pty_slaves ~= core.sys.posix.unistd.dup(pty_slaves[0]);
+            }
+
+            import VteVersion = vte.Version;
+
+            envv ~= ["TERM=" ~"xterm-256color"];
+            envv ~= [format("VTE_VERSION=%02u%02u", VteVersion.Version.getMinorVersion(), VteVersion.Version.getMicroVersion())];
+
+            string[] igneredEnvv = [
+                "PATH",
+                "LD_LIBRARY_PATH",
+                "XDG_CONFIG_DIRS",
+                "XDG_CONFIG_HOME",
+                "XDG_DATA_DIRS",
+                "XDG_DATA_HOME",
+                "XDG_CACHE_HOME",
+                "XDG_RUNTIME_DIR",
+                "GST_PLUGIN_SYSTEM_PATH",
+                "DCONF_USER_CONFIG_DIR",
+                "GI_TYPELIB_PATH",
+                "DISPLAY",
+            ];
+            string[string] envParent = environment.toAA();
+            foreach(key; envParent.byKey()) {
+                if (!igneredEnvv.canFind(key)) {
+                    envv ~= [key ~ "=" ~ envParent[key]];
+                }
+            }
+
+            bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves, gpid);
 
             vte.setPty(pty);
 
@@ -2572,15 +2617,10 @@ private:
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {
             string[] envPair = env.split("=");
-            // TODO: filter more flatpak env vars
-            if (envPair[0] != "PATH") {
-                tracef("Adding env var %s=%s", envPair[0], envPair[1]);
-                if (envPair.length ==2) {
-                    GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
-                    envBuilder.addValue(pair);
-                }
-            } else {
-                tracef("Ignoring env var %s=%s", envPair[0], envPair[1]);
+            tracef("Adding env var %s=%s", envPair[0], envPair[1]);
+            if (envPair.length ==2) {
+                GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
+                envBuilder.addValue(pair);
             }
         }
 
@@ -2602,29 +2642,28 @@ private:
         return new GVariant(vs, true);
     }
 
-    enum O_CLOEXEC = 0x80000;
-
-    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv) {
+    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid) {
         import gio.DBusConnection;
         import gio.UnixFDList;
 
         uint[] handles;
-        int[] fdList;
-
-        fdList ~= std.stdio.stdin.fileno;
-        fdList ~= std.stdio.stdout.fileno;
-        fdList ~= std.stdio.stderr.fileno;
 
         UnixFDList outFdList = new UnixFDList();
         UnixFDList inFdList = new UnixFDList();
-        foreach(i, fd; fdList) {
+        foreach(i, fd; stdio_fds) {
             handles ~= inFdList.append(fd);
             if (handles[i] == -1) {
                 warning("Error creating fd list handles");
             }
         }
 
-        DBusConnection connection = tilix.getDbusConnection();
+        DBusConnection connection = new DBusConnection (
+            environment.get("DBUS_SESSION_BUS_ADDRESS"),
+            GDBusConnectionFlags.AUTHENTICATION_CLIENT | GDBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+            null,
+            null
+        );
+        connection.setExitOnClose(false);
 
         // TODO: handle HostCommandExited signal
 
@@ -2646,6 +2685,9 @@ private:
             warning("No reply from flatpak dbus service");
             return false;
         } else {
+            uint pid;
+            g_variant_get (reply.getVariantStruct(), "(u)", &pid);
+            gpid = pid;
             return true;
         }
     }
@@ -3427,6 +3469,7 @@ public:
      * returns the name
      */
     bool isProcessRunning(out string name) {
+        // TODO: be correct for flatpak sandbox
         if (vte.getPty() is null)
             return false;
         pid_t childPid;
