@@ -9,6 +9,7 @@ import std.conv;
 import std.experimental.logger;
 import std.file;
 import std.format;
+import std.process;
 import std.string;
 import std.typecons : No;
 import std.variant;
@@ -1168,8 +1169,8 @@ class AppearancePreferences: Box {
             bh.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
             add(cbTitleShowWhenSingle);
 
-            if (Version.checkVersion(3, 22, 0).length == 0) {
-                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Warning experimental, application restart required)"));
+            if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0 && environment.get("GTK_OVERLAY_SCROLLING","1") == "1") {
+                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Application restart required)"));
                 bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", GSettingsBindFlags.DEFAULT);
                 add(cbOverlay);
             }

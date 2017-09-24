@@ -200,8 +200,6 @@ class Terminal : EventBox, ITerminal {
 
 private:
 
-    enum GTK_SCROLLEDWINDOW_VERSION = 22;
-
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
@@ -1080,7 +1078,7 @@ private:
         });
 
         if (_useOverlayScrollbar == 2) {
-            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
+            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0 || environment.get("GTK_OVERLAY_SCROLLING","1") == "0") _useOverlayScrollbar = 0;
             else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
             tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
         }
