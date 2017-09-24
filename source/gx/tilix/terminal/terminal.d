@@ -698,7 +698,6 @@ private:
             }
         }, null, null);
 
-
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
 
@@ -1396,9 +1395,13 @@ private:
             }
         }
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
-            vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
-        } else if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
-        else vte.pastePrimary();
+            pasteText = pasteText[1 .. $];
+            vte.feedChild(pasteText, pasteText.length);
+        } else if (source == GDK_SELECTION_CLIPBOARD) {
+            vte.pasteClipboard();
+        } else {
+            vte.pastePrimary();
+        }
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
         }
