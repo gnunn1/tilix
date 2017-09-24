@@ -3248,6 +3248,18 @@ static if (USE_PROCESS_MONITOR) {
         }
 }
 
+// Profile deleted
+private:
+    void onProfileDeleted(string uuid) {
+        if (uuid == _defaultProfileUUID) {
+            _defaultProfileUUID = prfMgr.getDefaultProfile();
+        }
+        if (uuid == _activeProfileUUID) {
+            activeProfileUUID = prfMgr.getDefaultProfile();
+        }
+        checkAutomaticProfileSwitch();
+    }
+
 //Zoom
 private:
     void zoomIn() {
@@ -3315,12 +3327,14 @@ public:
         gsProfile.addOnChanged(delegate(string key, Settings) {
             applyPreference(key);
         });
-        //Get when theme changed
+        // notified when theme changed
         tilix.onThemeChange.connect(&onThemeChanged);
+        // notified when profile deleted
+        prfMgr.onDelete.connect(&onProfileDeleted);
 
         static if (USE_PROCESS_MONITOR) {
             ProcessMonitor.instance.onChildProcess.connect(&childProcessEvent);
-        }        
+        }
         trace("Finished creation");
     }
 
@@ -3365,6 +3379,7 @@ public:
         }        
         stopProcess();
         tilix.onThemeChange.disconnect(&onThemeChanged);
+        prfMgr.onDelete.disconnect(&onProfileDeleted);
         if (timeoutID > 0) {
             g_source_remove(timeoutID);
             timeoutID = 0;
