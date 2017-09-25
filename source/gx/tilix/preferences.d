@@ -376,6 +376,7 @@ public:
             //Update default profile to be the first one
             gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, ps[0]);
         }
+        onDelete.emit(uuid);
         //TODO - Need to figure out a way to remove path from GSettings
         //GSettings has no API to do this, terminal is using dconf API directly
         //This delete removes the profile in the sense it is no longer in the list
@@ -490,6 +491,13 @@ public:
     void setDefaultProfile(string uuid) {
         gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, uuid);
     }
+
+    /**
+     * Event to signal a profile was deleted, the uuid of the
+     * deleted profile is passed.
+     */
+    GenericEvent!(string) onDelete;
+    
 }
 
 void initProfileManager() {

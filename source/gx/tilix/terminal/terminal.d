@@ -200,8 +200,6 @@ class Terminal : EventBox, ITerminal {
 
 private:
 
-    enum GTK_SCROLLEDWINDOW_VERSION = 22;
-
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
@@ -700,7 +698,6 @@ private:
             }
         }, null, null);
 
-
         //SaveAs
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
 
@@ -1080,7 +1077,7 @@ private:
         });
 
         if (_useOverlayScrollbar == 2) {
-            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0) _useOverlayScrollbar = 0;
+            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0 || environment.get("GTK_OVERLAY_SCROLLING","1") == "0") _useOverlayScrollbar = 0;
             else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
             tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
         }
@@ -1398,9 +1395,13 @@ private:
             }
         }
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
-            vte.feedChild(pasteText[1 .. $], pasteText.length - 1);
-        } else if (source == GDK_SELECTION_CLIPBOARD) vte.pasteClipboard();
-        else vte.pastePrimary();
+            pasteText = pasteText[1 .. $];
+            vte.feedChild(pasteText, pasteText.length);
+        } else if (source == GDK_SELECTION_CLIPBOARD) {
+            vte.pasteClipboard();
+        } else {
+            vte.pastePrimary();
+        }
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
         }
@@ -3248,6 +3249,18 @@ static if (USE_PROCESS_MONITOR) {
         }
 }
 
+// Profile deleted
+private:
+    void onProfileDeleted(string uuid) {
+        if (uuid == _defaultProfileUUID) {
+            _defaultProfileUUID = prfMgr.getDefaultProfile();
+        }
+        if (uuid == _activeProfileUUID) {
+            activeProfileUUID = prfMgr.getDefaultProfile();
+        }
+        checkAutomaticProfileSwitch();
+    }
+
 //Zoom
 private:
     void zoomIn() {
@@ -3315,12 +3328,14 @@ public:
         gsProfile.addOnChanged(delegate(string key, Settings) {
             applyPreference(key);
         });
-        //Get when theme changed
+        // notified when theme changed
         tilix.onThemeChange.connect(&onThemeChanged);
+        // notified when profile deleted
+        prfMgr.onDelete.connect(&onProfileDeleted);
 
         static if (USE_PROCESS_MONITOR) {
             ProcessMonitor.instance.onChildProcess.connect(&childProcessEvent);
-        }        
+        }
         trace("Finished creation");
     }
 
@@ -3365,6 +3380,7 @@ public:
         }        
         stopProcess();
         tilix.onThemeChange.disconnect(&onThemeChanged);
+        prfMgr.onDelete.disconnect(&onProfileDeleted);
         if (timeoutID > 0) {
             g_source_remove(timeoutID);
             timeoutID = 0;

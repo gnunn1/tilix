@@ -55,10 +55,13 @@ immutable bool USE_PROCESS_MONITOR = false;
  * Application Constants
  **************************************/
 
-//GTK Version required
-immutable uint GTK_VERSION_MAJOR = 3;
-immutable uint GTK_VERSION_MINOR = 14;
-immutable uint GTK_VERSION_PATCH = 0;
+// GTK Version required
+enum GTK_VERSION_MAJOR = 3;
+enum GTK_VERSION_MINOR = 14;
+enum GTK_VERSION_PATCH = 0;
+
+// GTK version required for scrolledwindow
+enum GTK_SCROLLEDWINDOW_VERSION = 22;
 
 // GetText Domain
 enum TILIX_DOMAIN = "tilix";
