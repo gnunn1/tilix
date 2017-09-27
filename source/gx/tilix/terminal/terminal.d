@@ -212,6 +212,7 @@ private:
     SearchRevealer rFind;
 
     ExtendedVTE vte;
+    gulong[] vteHandlers;
     Overlay terminalOverlay;
     ScrolledWindow sw;
     Scrollbar sb;
@@ -885,7 +886,7 @@ private:
             errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
         }
         //Event handlers
-        vte.addOnChildExited(&onTerminalChildExited);
+        vteHandlers ~= vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnBell(delegate(VTE) {
             // Originally planned on not showing bell when window is not active but too many edge cases
             // like window is active in different monitor, window is visible but not active, just a message
@@ -898,19 +899,19 @@ private:
             }
         });
 
-        vte.addOnWindowTitleChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.addOnWindowTitleChanged(delegate(VTE terminal) {
             if (vte !is null) {
                 trace("Window title changed");
                 gst.updateState();
                 updateDisplayText();
             }
         });
-        vte.addOnIconTitleChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.addOnIconTitleChanged(delegate(VTE terminal) {
             if (vte !is null) {
                 updateDisplayText();
             }
         });
-        vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
             if (vte is null) return;
 
             string hostname, directory;
@@ -922,15 +923,15 @@ private:
                 checkAutomaticProfileSwitch();
             }
         });
-        vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
-        vte.addOnFocusIn(&onTerminalWidgetFocusIn);
-        vte.addOnFocusOut(&onTerminalWidgetFocusOut);
-        vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
+        vteHandlers ~= vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
+        vteHandlers ~= vte.addOnFocusIn(&onTerminalWidgetFocusIn);
+        vteHandlers ~= vte.addOnFocusOut(&onTerminalWidgetFocusOut);
+        vteHandlers ~= vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (terminalInitialized && !terminal.hasFocus() && gpid > 0) {
                 notifyProcessNotification(summary, _body, uuid);
             }
         });
-        vte.addOnContentsChanged(delegate(VTE) {
+        vteHandlers ~= vte.addOnContentsChanged(delegate(VTE) {
             if (vte is null) return;
 
             // VTE configuration problem, Issue #34
@@ -986,14 +987,14 @@ private:
          * Monitor changes in the VTE to test for triggers
          */
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
-            vte.addOnTerminalScreenChanged(&onVTEScreenChanged);
+            vteHandlers ~= vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
+            vteHandlers ~= vte.addOnTerminalScreenChanged(&onVTEScreenChanged);
         }
 
-        vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
+        vteHandlers ~= vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
             updateDisplayText();
         }, GConnectFlags.AFTER);
-        vte.addOnEnterNotify(delegate(Event event, Widget) {
+        vteHandlers ~= vte.addOnEnterNotify(delegate(Event event, Widget) {
             if (vte is null) return false;
 
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
@@ -1002,8 +1003,8 @@ private:
             return false;
         }, GConnectFlags.AFTER);
 
-        vte.addOnButtonPress(&onTerminalButtonPress);
-        vte.addOnKeyRelease(delegate(Event event, Widget widget) {
+        vteHandlers ~= vte.addOnButtonPress(&onTerminalButtonPress);
+        vteHandlers ~= vte.addOnKeyRelease(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
             // If copy is assiged to control-c, check if VTE has selection and then
@@ -1020,7 +1021,7 @@ private:
             }
             return false;
         });
-        vte.addOnKeyPress(delegate(Event event, Widget widget) {
+        vteHandlers ~= vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
             if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
@@ -1035,7 +1036,7 @@ private:
             return false;
         });
 
-        vte.addOnSelectionChanged(delegate(VTE) {
+        vteHandlers ~= vte.addOnSelectionChanged(delegate(VTE) {
             if (vte is null) return;
 
             if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
@@ -1071,7 +1072,7 @@ private:
             saPaste.setEnabled(true);
         });
 
-        vte.addOnPopupMenu(delegate(Widget) {
+        vteHandlers ~= vte.addOnPopupMenu(delegate(Widget) {
             showContextPopover();
             return true;
         });
@@ -3375,9 +3376,16 @@ public:
      * called multiple times with no ill effect.
      */
     void finalizeTerminal() {
+        // Disconnect all the VTE handlers, check for null since this
+        // method can be called multiple times
+        if (vte !is null) {
+            foreach(handler; vteHandlers) {
+                Signals.handlerDisconnect(vte, handler);
+            }
+        }
         static if (USE_PROCESS_MONITOR) {
             ProcessMonitor.instance.onChildProcess.disconnect(&childProcessEvent);
-        }        
+        }
         stopProcess();
         tilix.onThemeChange.disconnect(&onThemeChanged);
         prfMgr.onDelete.disconnect(&onProfileDeleted);
