@@ -19,7 +19,9 @@
                         "--talk-name=org.freedesktop.Flatpak",
                         "--own-name=com.gexperts.Tilix",
                         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
-                        "--allow=devel"],
+                        "--allow=devel",
+                        /* share pseudoterminal device with host */
+                        "--device=all"],
         "modules": [
                 {
                         "name": "dmd",

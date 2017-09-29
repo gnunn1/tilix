@@ -2591,6 +2591,8 @@ private:
                 "DCONF_USER_CONFIG_DIR",
                 "GI_TYPELIB_PATH",
                 "DISPLAY",
+                "TERM",
+                "VTE_VERSION"
             ];
             string[string] envParent = environment.toAA();
             foreach(key; envParent.byKey()) {
