@@ -165,6 +165,7 @@ private:
             case ViewMode.EDITOR:
                 setHexpand(true);
                 setVisibleChildName(PAGE_EDIT);
+                eTitle.grabFocus();
         }
     }
 

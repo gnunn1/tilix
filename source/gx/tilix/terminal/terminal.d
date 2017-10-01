@@ -277,7 +277,6 @@ private:
 
     // Keep track of previous title to avoid triggering too many TitleChange events
     string lastTitle;
-    string lastAppTitle;
 
     //Whether to ignore unsafe paste, basically when
     //option is turned on but user opts to ignore it for this terminal
@@ -1234,17 +1233,15 @@ private:
      */
     void updateTitle() {
         string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
-        string appTitle = gsSettings.getString(SETTINGS_APP_TITLE_KEY);
         title = getDisplayText(title);
-        appTitle = getDisplayText(appTitle);
         if (title != lastTitle) {
             lblTitle.setMarkup(title);
             lastTitle = title;
-            onTitleChange.emit(this);
-        } else if (appTitle != lastAppTitle) {
-            lastAppTitle = appTitle;
-            onTitleChange.emit(this);
         }
+        // Need to always emit title since other titles could be tracking variables that terminal isn't
+        // The session checks whether this terminal is focused before passing it onto the window so it
+        // shouldn't be too inefficient
+        onTitleChange.emit(this);
     }
 
     void updateTitleBar() {
