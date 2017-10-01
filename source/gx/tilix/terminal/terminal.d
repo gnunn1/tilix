@@ -275,8 +275,9 @@ private:
     //Cached badged so it is not calculated on each draw
     string _cachedBadge;
 
-    // Keep track of previous title to avoid triggering too many TerminalTitleChange events
+    // Keep track of previous title to avoid triggering too many TitleChange events
     string lastTitle;
+    string lastAppTitle;
 
     //Whether to ignore unsafe paste, basically when
     //option is turned on but user opts to ignore it for this terminal
@@ -1229,14 +1230,19 @@ private:
     }
 
     /**
-     * Updates the terminal title in response to UI changes
+     * Updates the terminal title and the application title in response to UI changes
      */
     void updateTitle() {
         string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
+        string appTitle = gsSettings.getString(SETTINGS_APP_TITLE_KEY);
         title = getDisplayText(title);
+        appTitle = getDisplayText(appTitle);
         if (title != lastTitle) {
             lblTitle.setMarkup(title);
             lastTitle = title;
+            onTitleChange.emit(this);
+        } else if (appTitle != lastAppTitle) {
+            lastAppTitle = appTitle;
             onTitleChange.emit(this);
         }
     }
@@ -3503,7 +3509,9 @@ public:
 
         import std.file: read, FileException;
         try {
-            name = to!string(cast(char[])read(format("/proc/%d/cmdline", childPid)));
+            string data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));
+            long rpar = data.lastIndexOf(")");
+            name = data[data.indexOf("(") + 1..rpar];
         } catch (FileException fe) {
             name = _("Unknown");
             warning(fe);
@@ -3632,10 +3640,8 @@ public:
         static if (USE_PROCESS_MONITOR) {
             if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
                 string name;
-                if (isProcessRunning(name))
-                    text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
-                else
-                    text = text.replace(VARIABLE_TERMINAL_PROCESS, "");
+                isProcessRunning(name);
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
             }
         }
         string path;
