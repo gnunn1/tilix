@@ -266,7 +266,20 @@ private:
      * The VTE widget is not exposed to the session.
      */
     Terminal createTerminal(string profileUUID, string uuid = null) {
-        Terminal terminal = new Terminal(profileUUID, uuid);
+        // Check that profile exists, if it doesn't use default
+        string[] profileUUIDs = prfMgr.getProfileUUIDs();
+        string realUUID;
+        foreach(pUUID; profileUUIDs) {
+            if (pUUID == profileUUID) {
+                realUUID = pUUID;
+                break;
+            }
+        }
+        if (realUUID.length == 0) {
+            warningf("Warning, the profile %s does not exist, using default profile instead", profileUUID);
+            realUUID = prfMgr.getDefaultProfile();
+        }
+        Terminal terminal = new Terminal(realUUID, uuid);
         addTerminal(terminal);
         return terminal;
     }
