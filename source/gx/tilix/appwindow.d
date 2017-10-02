@@ -52,6 +52,7 @@ import glib.VariantType : GVariantType = VariantType;
 import gobject.Signals;
 import gobject.Value;
 
+import gtk.AspectFrame;
 import gtk.Box;
 import gtk.Button;
 import gtk.CheckButton;
@@ -2027,6 +2028,7 @@ class SessionTabLabel: Box {
 private:
 	Button button;
     EventBox evNotifications;
+    AspectFrame afNotifications;
 	Label lblText;
     Label lblNotifications;
 	Session session;
@@ -2043,13 +2045,19 @@ public:
 		this.session = session;
 
         lblNotifications = new Label("");
-        lblNotifications.getStyleContext().addClass("tilix-tab-notification-counter");
+        lblNotifications.setUseMarkup(true);
+        lblNotifications.setWidthChars(2);
+        setAllMargins(lblNotifications, 4);
         
         evNotifications = new EventBox();
         evNotifications.add(lblNotifications);
-        evNotifications.setNoShowAll(true);
-        
-        add(evNotifications);
+        evNotifications.getStyleContext().addClass("tilix-notification-count");
+
+        afNotifications = new AspectFrame(null, 0.5, 0.5, 1.0, false);
+        afNotifications.setShadowType(ShadowType.NONE);
+        afNotifications.add(evNotifications);
+
+        add(afNotifications);
 
 		lblText = new Label(text);
         lblText.setEllipsize(PangoEllipsizeMode.START);
@@ -2084,7 +2092,7 @@ public:
 
     void updateNotifications(ProcessNotificationMessage[] pn) {
         if (pn is null || pn.length == 0) {
-            evNotifications.hide();
+            afNotifications.hide();
         } else {
             lblNotifications.setText(to!string(pn.length));
             string tooltip;
@@ -2093,13 +2101,13 @@ public:
                 tooltip ~= message._body;
             }
             evNotifications.setTooltipText(tooltip);
-            evNotifications.show();
+            afNotifications.show();
             lblNotifications.show();
         }
     }
 
     void clearNotifications() {
-        evNotifications.hide();
+        afNotifications.hide();
     }
 
 	/**
