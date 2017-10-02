@@ -3803,13 +3803,16 @@ private:
 public:
     this() {
         super([_("Relaunch")], [ResponseType.OK]);
-        setDefaultResponse(ResponseType.OK);
-        setMessageType(MessageType.QUESTION);
         lblPrompt = new Label("");
         getContentArea().packStart(lblPrompt, true, true, 0);
         lblPrompt.setHalign(Align.START);
         setHalign(Align.FILL);
         setValign(Align.START);
+        trace("Infobar created");
+        addOnMap(delegate(Widget) {
+            setDefaultResponse(ResponseType.OK);
+            setMessageType(MessageType.QUESTION);
+        }, ConnectFlags.AFTER);
     }
 
     void setMessage(string message) {
