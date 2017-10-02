@@ -3820,7 +3820,7 @@ public:
     }
 
     void setStatus(int value) {
-        if (WEXITSTATUS(value)) {
+        if (WIFEXITED(value)) {
             lblPrompt.setText(format(_(STATUS_NORMAL), WEXITSTATUS(value)));
         } else if (WIFSIGNALED(value)) {
             lblPrompt.setText(format(_(STATUS_ABORT_STATUS), WTERMSIG(value)));
