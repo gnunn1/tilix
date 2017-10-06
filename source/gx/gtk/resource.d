@@ -78,8 +78,14 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
     try {
         CssProvider provider = createCssProvider(filename, variables);
         if (provider !is null) {
-            StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
-            return provider;
+            Screen screen = Screen.getDefault();
+            if (screen !is null) {
+                StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
+                return provider;
+            } else {
+                warning("Default screen is null, no CSS provider added and as a result Tilix UI may appear incorrect");
+                return null;
+            }
         }
     } catch (GException ge) {
         trace("Unexpected error loading css provider " ~ filename);
