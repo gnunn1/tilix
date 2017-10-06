@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-11 10:30+0200\n"
+"POT-Creation-Date: 2017-10-06 08:39-0400\n"
 "PO-Revision-Date: 2017-09-12 17:56+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch "
-"<https://hosted.weblate.org/projects/tilix/translations/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/tilix/translations/"
+"nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,59 +18,651 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.17-dev\n"
 
-#: source/gx/tilix/preferences.d:235
-msgid "UpdateState"
-msgstr "StatusBijwerken"
-
-#: source/gx/tilix/preferences.d:236
-msgid "ExecuteCommand"
-msgstr "CommandoUitvoeren"
-
-#: source/gx/tilix/preferences.d:237
-msgid "SendNotification"
-msgstr "MeldingVersturen"
-
-#: source/gx/tilix/preferences.d:238
-msgid "UpdateTitle"
-msgstr "TitelBijwerken"
-
-#: source/gx/tilix/preferences.d:239
-msgid "PlayBell"
-msgstr "BelAfspelen"
-
-#: source/gx/tilix/preferences.d:240
-msgid "SendText"
-msgstr "TekstVersturen"
-
-#: source/gx/tilix/preferences.d:241
-msgid "InsertPassword"
-msgstr "WachtwoordInvoeren"
-
-#: source/gx/tilix/preferences.d:242
-msgid "UpdateBadge"
-msgstr "Badge bijwerken"
-
-#: source/gx/tilix/preferences.d:243
-msgid "RunProcess"
-msgstr "ProcesUitvoeren"
-
-#: source/gx/tilix/preferences.d:351
+#: source/app.d:133
 #, c-format
-msgid "%s (Copy)"
-msgstr "%s (Kopiëren)"
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr ""
+"Uw GTK-versie is verouderd; u moet op zijn minst beschikken over versie %d."
+"%d.%d!"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:96
-msgid "General"
-msgstr "Algemeen"
+#: source/app.d:150
+msgid "Unexpected exception occurred"
+msgstr "Er is een onverwachte fout opgetreden"
 
+#: source/app.d:151
+msgid "Error: "
+msgstr "Fout: "
+
+#: source/app.d:161
+msgid "Versions"
+msgstr "Versies"
+
+#: source/app.d:162
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Tilix-versie: %s"
+
+#: source/app.d:163
+#, c-format
+msgid "VTE version: %s"
+msgstr "VTE-versie: %s"
+
+#: source/app.d:164
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK-versie: %d.%d.%d"
+
+#: source/app.d:165
+msgid "Tilix Special Features"
+msgstr "Tilix Speciale Mogelijkheden"
+
+#: source/app.d:166
+msgid "Notifications enabled=%b"
+msgstr "Meldingen ingeschakeld=%b"
+
+#: source/app.d:167
+msgid "Triggers enabled=%b"
+msgstr "Triggers ingeschakeld=%b"
+
+#: source/app.d:168
+msgid "Badges enabled=%b"
+msgstr "Badges ingeschakeld=%b"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "uitgeschakeld"
+
+#: source/gx/tilix/appwindow.d:360
+msgid "Create a new session"
+msgstr "Nieuwe sessie creëren"
+
+#: source/gx/tilix/appwindow.d:374
+msgid "View session sidebar"
+msgstr "Sessie-zijbalk weergeven"
+
+#: source/gx/tilix/appwindow.d:409
+msgid "Add terminal right"
+msgstr "Terminal rechts toevoegen"
+
+#: source/gx/tilix/appwindow.d:413
+msgid "Add terminal down"
+msgstr "Terminal onder toevoegen"
+
+#: source/gx/tilix/appwindow.d:419
+msgid "Find text in terminal"
+msgstr "Naar tekst zoeken in de terminal"
+
+#: source/gx/tilix/appwindow.d:627
+msgid "Enter a new name for the session"
+msgstr "Voer een nieuwe sessienaam in"
+
+#: source/gx/tilix/appwindow.d:632
+msgid "Change Session Name"
+msgstr "Sessienaam wijzigen"
+
+#: source/gx/tilix/appwindow.d:698
+msgid "Open…"
+msgstr "Openen…"
+
+#: source/gx/tilix/appwindow.d:699 source/gx/tilix/appwindow.d:1537
+#: source/gx/tilix/terminal/terminal.d:3206
+#: source/gx/tilix/prefeditor/profileeditor.d:865
+msgid "Save"
+msgstr "Opslaan"
+
+#: source/gx/tilix/appwindow.d:700
+msgid "Save As…"
+msgstr "Opslaan als…"
+
+#: source/gx/tilix/appwindow.d:701 source/gx/tilix/terminal/terminal.d:379
+#: source/gx/tilix/terminal/terminal.d:1691 source/gx/tilix/sidebar.d:506
+msgid "Close"
+msgstr "Sluiten"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "Name…"
+msgstr "Naam…"
+
+#: source/gx/tilix/appwindow.d:706
+msgid "Synchronize Input"
+msgstr "Invoer synchroniseren"
+
+#: source/gx/tilix/appwindow.d:711 source/gx/tilix/prefeditor/prefdialog.d:258
+#: source/gx/tilix/prefeditor/prefdialog.d:405
+#: source/gx/tilix/application.d:234
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: source/gx/tilix/appwindow.d:717
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/tilix/appwindow.d:1077
+#: source/gx/tilix/prefeditor/prefdialog.d:1063 source/gx/tilix/session.d:1202
+msgid "Default"
+msgstr "Standaard"
+
+#: source/gx/tilix/appwindow.d:1176
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Dit venster bevat actieve processen. Wilt u het venster tóch sluiten?"
+
+#: source/gx/tilix/appwindow.d:1177 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "Dit bericht niet meer weergeven"
+
+#: source/gx/tilix/appwindow.d:1453
+#: source/gx/tilix/prefeditor/profileeditor.d:878
+msgid "All JSON Files"
+msgstr "Alle JSON-bestanden"
+
+#: source/gx/tilix/appwindow.d:1457 source/gx/tilix/terminal/terminal.d:3216
+#: source/gx/tilix/prefeditor/profileeditor.d:882
+#: source/gx/tilix/prefeditor/prefdialog.d:1081
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: source/gx/tilix/appwindow.d:1466
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "De bestandsnaam '%s' bestaat niet"
+
+#: source/gx/tilix/appwindow.d:1496
+msgid "Load Session"
+msgstr "Sessie laden"
+
+#: source/gx/tilix/appwindow.d:1499
+msgid "Open"
+msgstr "Openen"
+
+#: source/gx/tilix/appwindow.d:1499 source/gx/tilix/appwindow.d:1537
+#: source/gx/tilix/terminal/advpaste.d:137
+#: source/gx/tilix/terminal/terminal.d:3206
+#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493
+#: source/gx/tilix/prefeditor/profileeditor.d:865
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331 source/gx/tilix/closedialog.d:205
+#: source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: source/gx/tilix/appwindow.d:1518
+msgid "Could not load session due to unexpected error."
+msgstr ""
+"De sessie kan niet worden geladen omdat er een onverwachte fout is "
+"opgetreden."
+
+#: source/gx/tilix/appwindow.d:1518
+msgid "Error Loading Session"
+msgstr "Er is een fout opgetreden tijdens het laden van de sessie"
+
+#: source/gx/tilix/appwindow.d:1534
+msgid "Save Session"
+msgstr "Sessie opslaan"
+
+#: source/gx/tilix/appwindow.d:1635 source/gx/tilix/application.d:346
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+msgid "Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:2072
+msgid "Close session"
+msgstr "Sessie sluiten"
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Deze opdracht vraagt om administrator-toegang tot uw computer"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Het kopiëren van opdrachten vanaf het internet kan gevaarlijk zijn. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Zorg ervoor dat u begrijpt wat alle delen van deze opdracht uitvoeren."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Transformeren"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Spaties omzetten naar tabs"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "CRLF en CR converteren naar LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Geavanceerd plakken"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+#: source/gx/tilix/terminal/terminal.d:1662
+#: source/gx/tilix/terminal/terminal.d:1673
+msgid "Paste"
+msgstr "Plakken"
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "Zoekopties"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "Volgende zoeken"
+
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "Vorige zoeken"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "Hoofdlettergevoelig"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "Alleen gehele woorden"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "Alleen reguliere expressies"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "Tekstomloop"
+
+#: source/gx/tilix/terminal/search.d:235
+#, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr ""
+"De zoekopdracht '%s' is een ongeldige regex\n"
+"%s"
+
+#: source/gx/tilix/terminal/terminal.d:345
+#: source/gx/tilix/terminal/terminal.d:3629
+#: source/gx/tilix/prefeditor/titleeditor.d:94
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/tilix/terminal/terminal.d:387
+#: source/gx/tilix/terminal/terminal.d:1275
+#: source/gx/tilix/terminal/terminal.d:1690
+msgid "Maximize"
+msgstr "Maximaliseren"
+
+#: source/gx/tilix/terminal/terminal.d:397
+#: source/gx/tilix/terminal/terminal.d:667
+msgid "Disable input synchronization for this terminal"
+msgstr "Invoer-synchronisatie uitschakelen voor dit terminalvenster"
+
+#: source/gx/tilix/terminal/terminal.d:406
+#: source/gx/tilix/terminal/terminal.d:792
+msgid "Read-Only"
+msgstr "Alleen-lezen"
+
+#: source/gx/tilix/terminal/terminal.d:412
+msgid "New output"
+msgstr "Nieuwe uitvoer"
+
+#: source/gx/tilix/terminal/terminal.d:418
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+msgid "Terminal bell"
+msgstr "Terminalbel"
+
+#: source/gx/tilix/terminal/terminal.d:463
+msgid "Edit Profile"
+msgstr "Profiel bewerken"
+
+#: source/gx/tilix/terminal/terminal.d:481
+msgid "Edit Encodings"
+msgstr "Coderingen bewerken"
+
+#: source/gx/tilix/terminal/terminal.d:669
+msgid "Enable input synchronization for this terminal"
+msgstr "Invoer-synchronisatie inschakelen voor dit terminalvenster"
+
+#: source/gx/tilix/terminal/terminal.d:698
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Het laden van de  %s-bibliotheek is mislukt; de wachtwoordfunctionaliteit is "
+"niet beschikbaar."
+
+#: source/gx/tilix/terminal/terminal.d:698
+msgid "Library Not Loaded"
+msgstr "Bibliotheek is niet geladen"
+
+#: source/gx/tilix/terminal/terminal.d:791
+msgid "Find…"
+msgstr "Zoeken…"
+
+#: source/gx/tilix/terminal/terminal.d:798
+msgid "Password..."
+msgstr "Wachtwoord..."
+
+#: source/gx/tilix/terminal/terminal.d:799
+msgid "Bookmark..."
+msgstr "Bladwijzer toevoegen..."
+
+#: source/gx/tilix/terminal/terminal.d:800
+msgid "Add Bookmark..."
+msgstr "Bladwijzer toevoegen..."
+
+#: source/gx/tilix/terminal/terminal.d:804
+msgid "Assistants"
+msgstr "Assistenten"
+
+#: source/gx/tilix/terminal/terminal.d:805
+#: source/gx/tilix/prefeditor/prefdialog.d:278
+msgid "Profiles"
+msgstr "Profielen"
+
+#: source/gx/tilix/terminal/terminal.d:811
+msgid "Show File Browser..."
+msgstr "Bestandsverkenner weergeven..."
+
+#: source/gx/tilix/terminal/terminal.d:815
+msgid "Save Output…"
+msgstr "Uitvoer opslaan…"
+
+#: source/gx/tilix/terminal/terminal.d:816
+#: source/gx/tilix/prefeditor/profileeditor.d:258
+msgid "Reset"
+msgstr "Herstellen"
+
+#: source/gx/tilix/terminal/terminal.d:817
+msgid "Reset and Clear"
+msgstr "Terugzetten en wissen"
+
+#: source/gx/tilix/terminal/terminal.d:821
+#: source/gx/tilix/prefeditor/profileeditor.d:1002
+#: source/gx/tilix/prefeditor/prefdialog.d:161
+#: source/gx/tilix/prefeditor/prefdialog.d:162
+#: source/gx/tilix/prefeditor/prefdialog.d:454
+#: source/gx/tilix/prefeditor/prefdialog.d:668
+msgid "Encoding"
+msgstr "Tekstcodering"
+
+#: source/gx/tilix/terminal/terminal.d:822
+msgid "Layout Options…"
+msgstr "Indelingsopties…"
+
+#: source/gx/tilix/terminal/terminal.d:826
+msgid "Monitor Silence"
+msgstr "Stilte bijhouden"
+
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Other"
+msgstr "Overig"
+
+#: source/gx/tilix/terminal/terminal.d:838
+msgid "Add Right"
+msgstr "Rechts toevoegen"
+
+#: source/gx/tilix/terminal/terminal.d:842
+msgid "Add Down"
+msgstr "Onder toevoegen"
+
+#: source/gx/tilix/terminal/terminal.d:886
+#, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr ""
+"Er is een onverwachte fout opgetreden tijdens het toevoegen van de "
+"linkregex: %s"
+
+#: source/gx/tilix/terminal/terminal.d:971
+msgid "Terminal Activity"
+msgstr "Terminalactiviteit"
+
+#: source/gx/tilix/terminal/terminal.d:1272
+#: source/gx/tilix/terminal/terminal.d:1690
+msgid "Restore"
+msgstr "Herstellen"
+
+#: source/gx/tilix/terminal/terminal.d:1549
+msgid "Tilix Custom Notification"
+msgstr "Tilix aangepaste melding"
+
+#: source/gx/tilix/terminal/terminal.d:1650
+msgid "Open Link"
+msgstr "Link openen"
+
+#: source/gx/tilix/terminal/terminal.d:1651
+msgid "Copy Link Address"
+msgstr "Linkadres kopiëren"
+
+#: source/gx/tilix/terminal/terminal.d:1661
+#: source/gx/tilix/terminal/terminal.d:1668
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: source/gx/tilix/terminal/terminal.d:1663
+#: source/gx/tilix/terminal/terminal.d:1678
+msgid "Select All"
+msgstr "Alles selecteren"
+
+#: source/gx/tilix/terminal/terminal.d:1681
+#: source/gx/tilix/prefeditor/prefdialog.d:1426
+msgid "Clipboard"
+msgstr "Klembord"
+
+#: source/gx/tilix/terminal/terminal.d:1695
+msgid "Synchronize input"
+msgstr "Invoer synchroniseren"
+
+#: source/gx/tilix/terminal/terminal.d:1843
+#, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"Uri was '%s'"
+msgstr ""
+"BestandsURI's op afstand worden niet ondersteund met hyperlinks.\n"
+"URI is '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:1844
+msgid "Remote File URI Unsupported"
+msgstr "BestandsURI op afstand niet ondersteund"
+
+#: source/gx/tilix/terminal/terminal.d:1875
+#: source/gx/tilix/terminal/terminal.d:2374
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "De aangepaste linkregex '%s' bevat een fout en wordt genegeerd"
+
+#: source/gx/tilix/terminal/terminal.d:1876
+msgid "Regular Expression Error"
+msgstr "Reguliere expressie-fout"
+
+#: source/gx/tilix/terminal/terminal.d:1888
+#, c-format
+msgid "Could not open match '%s'"
+msgstr "Overeenkomst '%s' kan niet worden geopend"
+
+#: source/gx/tilix/terminal/terminal.d:1889
+msgid "Error Opening Match"
+msgstr "Fout tijdens openen van overeenkomst"
+
+#: source/gx/tilix/terminal/terminal.d:2520
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+"Er is een onverwachte fout opgetreden; geen verdere informatie beschikbaar"
+
+#: source/gx/tilix/terminal/terminal.d:2530
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Er is een onverwachte fout opgetreden: %s"
+
+#: source/gx/tilix/terminal/terminal.d:3203
+msgid "Save Terminal Output"
+msgstr "Terminaluitvoer opslaan"
+
+#: source/gx/tilix/terminal/terminal.d:3212
+msgid "All Text Files"
+msgstr "Alle tekstbestanden"
+
+#: source/gx/tilix/terminal/terminal.d:3513
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: source/gx/tilix/terminal/terminal.d:3797
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Het dochterproces is normaal afgerond met de status %d"
+
+#: source/gx/tilix/terminal/terminal.d:3798
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Het dochterproces is afgebroken door signaal %d."
+
+#: source/gx/tilix/terminal/terminal.d:3799
+msgid "The child process was aborted."
+msgstr "Het dochterproces is afgebroken."
+
+#: source/gx/tilix/terminal/terminal.d:3805
+msgid "Relaunch"
+msgstr "Herstarten"
+
+#: source/gx/tilix/terminal/terminal.d:3853
+msgid "Don't Paste"
+msgstr "Niet plakken"
+
+#: source/gx/tilix/terminal/terminal.d:3854
+msgid "Paste Anyway"
+msgstr "Tóch plakken"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "Indelingsopties"
+
+#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:493
+#: source/gx/tilix/closedialog.d:205 source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "OK"
+msgstr "Oké"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "Actief"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:140
+#: source/gx/tilix/constants.d:163 source/gx/tilix/closedialog.d:123
+msgid "Title"
+msgstr "Titel"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:314
+#: source/gx/tilix/prefeditor/profileeditor.d:624
+msgid "Badge"
+msgstr "Logo"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "Laden van sessie"
+
+#: source/gx/tilix/terminal/layout.d:89
 #: source/gx/tilix/prefeditor/profileeditor.d:97
 #: source/gx/tilix/prefeditor/profileeditor.d:1051
 #: source/gx/tilix/prefeditor/advdialog.d:104
-#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/manager.d:687
+#: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:332
 #: source/gx/tilix/bookmark/bmeditor.d:427
 msgid "Command"
 msgstr "Opdracht"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Actieve opties zijn altijd actief en worden onmiddelijk toegepast.\n"
+"Laden van sessie-opties worden alleen toegepast bij het laden van een "
+"sessiebestand."
+
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1520
+#: source/gx/tilix/bookmark/bmeditor.d:230
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+msgid "Name"
+msgstr "Naam"
+
+#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:142
+#: source/gx/tilix/constants.d:165
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "Nieuw"
+
+#: source/gx/tilix/terminal/password.d:184
+#: source/gx/tilix/prefeditor/profileeditor.d:1145
+#: source/gx/tilix/prefeditor/common.d:42
+#: source/gx/tilix/prefeditor/common.d:70
+msgid "Edit"
+msgstr "Bewerken"
+
+#: source/gx/tilix/terminal/password.d:213
+#: source/gx/tilix/prefeditor/profileeditor.d:1164
+#: source/gx/tilix/prefeditor/prefdialog.d:543
+#: source/gx/tilix/prefeditor/advdialog.d:135
+#: source/gx/tilix/prefeditor/advdialog.d:288
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr "Wederkerend teken opnemen met wachtwoord"
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "Wachtwoord invoeren"
+
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/prefeditor/advdialog.d:161
+#: source/gx/tilix/prefeditor/advdialog.d:331
+msgid "Apply"
+msgstr "Toevoegen"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "Wachtwoord bevestigen"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "Wachtwoord toevoegen"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "Wachtwoord bewerken"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Bladwijzer toevoegen"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Bladwijzer bewerken"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Bladwijzer verwijderen"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Bladwijzer de-selecteren"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:96
+msgid "General"
+msgstr "Algemeen"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:98
 msgid "Color"
@@ -86,8 +678,8 @@ msgstr "Compatibiliteit"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:101
 #: source/gx/tilix/prefeditor/profileeditor.d:510
-#: source/gx/tilix/prefeditor/prefdialog.d:164
 #: source/gx/tilix/prefeditor/prefdialog.d:165
+#: source/gx/tilix/prefeditor/prefdialog.d:166
 msgid "Advanced"
 msgstr "Geavanceerd"
 
@@ -106,11 +698,6 @@ msgstr "kolommen"
 #: source/gx/tilix/prefeditor/profileeditor.d:253
 msgid "rows"
 msgstr "rijen"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:258
-#: source/gx/tilix/terminal/terminal.d:818
-msgid "Reset"
-msgstr "Herstellen"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:269
 #: source/gx/tilix/prefeditor/profileeditor.d:588
@@ -145,13 +732,8 @@ msgstr "Ingeschakeld"
 msgid "Off"
 msgstr "Uitgeschakeld"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/terminal/terminal.d:419
-msgid "Terminal bell"
-msgstr "Terminalbel"
-
 #: source/gx/tilix/prefeditor/profileeditor.d:292
-#: source/gx/tilix/prefeditor/prefdialog.d:1024
+#: source/gx/tilix/prefeditor/prefdialog.d:1050
 msgid "None"
 msgstr "Geen"
 
@@ -171,12 +753,6 @@ msgstr "Pictogram en geluid"
 #: source/gx/tilix/prefeditor/profileeditor.d:298
 msgid "Terminal title"
 msgstr "Terminaltitel"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:314
-#: source/gx/tilix/prefeditor/profileeditor.d:624
-#: source/gx/tilix/terminal/layout.d:68
-msgid "Badge"
-msgstr "Logo"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:328
 msgid "Badge position"
@@ -249,7 +825,7 @@ msgid "Color palette"
 msgstr "Kleurenpalet"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:491
-#: source/gx/tilix/prefeditor/prefdialog.d:1231
+#: source/gx/tilix/prefeditor/prefdialog.d:1257
 msgid "Options"
 msgstr "Opties"
 
@@ -365,36 +941,6 @@ msgstr "Selecteer %s lichte kleur"
 msgid "Export Color Scheme"
 msgstr "Kleurenschema exporteren"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:865
-#: source/gx/tilix/terminal/terminal.d:3156 source/gx/tilix/appwindow.d:698
-#: source/gx/tilix/appwindow.d:1536
-msgid "Save"
-msgstr "Opslaan"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:865
-#: source/gx/tilix/prefeditor/advdialog.d:161
-#: source/gx/tilix/prefeditor/advdialog.d:331 source/gx/tilix/closedialog.d:205
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/terminal/terminal.d:3156
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/appwindow.d:1498
-#: source/gx/tilix/appwindow.d:1536 source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:878
-#: source/gx/tilix/appwindow.d:1452
-msgid "All JSON Files"
-msgstr "Alle JSON-bestanden"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:882
-#: source/gx/tilix/prefeditor/prefdialog.d:1055
-#: source/gx/tilix/terminal/terminal.d:3166 source/gx/tilix/appwindow.d:1456
-msgid "All Files"
-msgstr "Alle bestanden"
-
 #: source/gx/tilix/prefeditor/profileeditor.d:937
 msgid "Show scrollbar"
 msgstr "Scrollbalk weergeven"
@@ -443,15 +989,6 @@ msgstr "TTY"
 #: source/gx/tilix/prefeditor/profileeditor.d:993
 msgid "Delete key generates"
 msgstr "Delete-toets genereert"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1002
-#: source/gx/tilix/prefeditor/prefdialog.d:160
-#: source/gx/tilix/prefeditor/prefdialog.d:161
-#: source/gx/tilix/prefeditor/prefdialog.d:428
-#: source/gx/tilix/prefeditor/prefdialog.d:642
-#: source/gx/tilix/terminal/terminal.d:823
-msgid "Encoding"
-msgstr "Tekstcodering"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1017
 msgid "Ambiguous-width characters"
@@ -543,13 +1080,6 @@ msgstr "Voer de overeen te komen hostnaam:map in"
 msgid "Add New Match"
 msgstr "Nieuw overeenkomst toevoegen"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1145
-#: source/gx/tilix/prefeditor/common.d:42
-#: source/gx/tilix/prefeditor/common.d:70
-#: source/gx/tilix/terminal/password.d:184
-msgid "Edit"
-msgstr "Bewerken"
-
 #: source/gx/tilix/prefeditor/profileeditor.d:1152
 msgid "Edit username@hostname:directory to match"
 msgstr "Bewerk de overeen te komen gebruikersnaam@hostnaam:map"
@@ -561,29 +1091,6 @@ msgstr "Bewerk de overeen te komen hostnaam:map"
 #: source/gx/tilix/prefeditor/profileeditor.d:1156
 msgid "Edit Match"
 msgstr "Overeenkomst bewerken"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1164
-#: source/gx/tilix/prefeditor/prefdialog.d:517
-#: source/gx/tilix/prefeditor/advdialog.d:135
-#: source/gx/tilix/prefeditor/advdialog.d:288
-#: source/gx/tilix/terminal/password.d:213
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:94
-#: source/gx/tilix/terminal/terminal.d:346
-#: source/gx/tilix/terminal/terminal.d:3554
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:112
-msgid "Window"
-msgstr "Venster"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:122
-#: source/gx/tilix/prefeditor/titleeditor.d:123
-msgid "Help"
-msgstr "Hulp"
 
 #: source/gx/tilix/prefeditor/common.d:34
 msgid "Custom Links"
@@ -610,105 +1117,94 @@ msgstr ""
 "de terminal te controleren. Als een overeenkomst is aangetroffen zal de "
 "ingestelde actie worden uitgevoerd."
 
-#: source/gx/tilix/prefeditor/prefdialog.d:120
+#: source/gx/tilix/prefeditor/prefdialog.d:121
 msgid "Tilix Preferences"
 msgstr "Tilix-voorkeuren"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:137
 #: source/gx/tilix/prefeditor/prefdialog.d:138
-#: source/gx/tilix/prefeditor/prefdialog.d:213
+#: source/gx/tilix/prefeditor/prefdialog.d:139
+#: source/gx/tilix/prefeditor/prefdialog.d:214
 msgid "Global"
 msgstr "Globaal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:141
 #: source/gx/tilix/prefeditor/prefdialog.d:142
+#: source/gx/tilix/prefeditor/prefdialog.d:143
 msgid "Appearance"
 msgstr "Uiterlijk"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:145
 #: source/gx/tilix/prefeditor/prefdialog.d:146
+#: source/gx/tilix/prefeditor/prefdialog.d:147
 msgid "Quake"
 msgstr "Quake"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:149
 #: source/gx/tilix/prefeditor/prefdialog.d:150
+#: source/gx/tilix/prefeditor/prefdialog.d:151
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:156
 #: source/gx/tilix/prefeditor/prefdialog.d:157
-#: source/gx/tilix/prefeditor/prefdialog.d:287
+#: source/gx/tilix/prefeditor/prefdialog.d:158
+#: source/gx/tilix/prefeditor/prefdialog.d:294
 #: source/gx/tilix/application.d:236
 msgid "Shortcuts"
 msgstr "Sneltoetsen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:170 source/gx/tilix/session.d:1518
+#: source/gx/tilix/prefeditor/prefdialog.d:171 source/gx/tilix/session.d:1531
 msgid "Profile"
 msgstr "Profiel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:183
+#: source/gx/tilix/prefeditor/prefdialog.d:184
 msgid "Add profile"
 msgstr "Profiel toevoegen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:188
+#: source/gx/tilix/prefeditor/prefdialog.d:189
 msgid "Delete profile"
 msgstr "Profiel verwijderen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:251
-#: source/gx/tilix/prefeditor/prefdialog.d:379 source/gx/tilix/appwindow.d:710
-#: source/gx/tilix/application.d:234
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:271
-#: source/gx/tilix/terminal/terminal.d:807
-msgid "Profiles"
-msgstr "Profielen"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:300
-#: source/gx/tilix/prefeditor/prefdialog.d:308
+#: source/gx/tilix/prefeditor/prefdialog.d:307
+#: source/gx/tilix/prefeditor/prefdialog.d:315
 #, c-format
 msgid "Profile: %s"
 msgstr "Profiel: %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:518
+#: source/gx/tilix/prefeditor/prefdialog.d:544
 msgid "Clone"
 msgstr "Dupliceren"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:522
+#: source/gx/tilix/prefeditor/prefdialog.d:548
 msgid "Use for new terminals"
 msgstr "G"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:598
+#: source/gx/tilix/prefeditor/prefdialog.d:624
 msgid "Encodings showing in menu:"
 msgstr "Tekstcoderingen die moeten worden weergegeven in het menu:"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:640
+#: source/gx/tilix/prefeditor/prefdialog.d:666
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:721
+#: source/gx/tilix/prefeditor/prefdialog.d:747
 #: source/gx/tilix/prefeditor/advdialog.d:256
 msgid "Action"
 msgstr "Actie"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:745
+#: source/gx/tilix/prefeditor/prefdialog.d:771
 msgid "Shortcut Key"
 msgstr "Sneltoets"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:757
+#: source/gx/tilix/prefeditor/prefdialog.d:783
 msgid "Enable shortcuts"
 msgstr "Sneltoetsen inschakelen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:761
+#: source/gx/tilix/prefeditor/prefdialog.d:787
 msgid "Set default"
 msgstr "Als standaard instellen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:842
+#: source/gx/tilix/prefeditor/prefdialog.d:868
 msgid "Overwrite Existing Shortcut"
 msgstr "Bestaande sneltoets overschrijven"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:843
+#: source/gx/tilix/prefeditor/prefdialog.d:869
 #, c-format
 msgid ""
 "The shortcut %s is already assigned to %s.\n"
@@ -718,296 +1214,279 @@ msgstr ""
 "Wilt u de sneltoets van de andere actie uitschakelen en toewijzen aan deze "
 "actie?"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1008
+#: source/gx/tilix/prefeditor/prefdialog.d:1034
 msgid "Window style"
 msgstr "Vensterstijl"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1010
-#: source/gx/tilix/prefeditor/prefdialog.d:1024
+#: source/gx/tilix/prefeditor/prefdialog.d:1036
+#: source/gx/tilix/prefeditor/prefdialog.d:1050
 msgid "Normal"
 msgstr "Normaal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1010
+#: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Disable CSD"
 msgstr "CSD uitschakelen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1010
+#: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Disable CSD, hide toolbar"
 msgstr "CSD uitschakelen, werkbalk verbergen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1010
+#: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Borderless"
 msgstr "Randloos"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1014
+#: source/gx/tilix/prefeditor/prefdialog.d:1040
 msgid "Window restart required"
 msgstr "Vensterherstart vereist"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1023
+#: source/gx/tilix/prefeditor/prefdialog.d:1049
 msgid "Terminal title style"
 msgstr "Titelstijl van terminal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1024
+#: source/gx/tilix/prefeditor/prefdialog.d:1050
 msgid "Small"
 msgstr "Klein"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1029
-#: source/gx/tilix/prefeditor/prefdialog.d:1223
+#: source/gx/tilix/prefeditor/prefdialog.d:1055
+#: source/gx/tilix/prefeditor/prefdialog.d:1249
 msgid "Tab position"
 msgstr "Tabpositie"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1030
-#: source/gx/tilix/prefeditor/prefdialog.d:1217
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
+#: source/gx/tilix/prefeditor/prefdialog.d:1243
+#: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Left"
 msgstr "Links"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1030
-#: source/gx/tilix/prefeditor/prefdialog.d:1217
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
+#: source/gx/tilix/prefeditor/prefdialog.d:1243
+#: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Right"
 msgstr "Rechts"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1030
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
+#: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Top"
 msgstr "Bovenkant"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1030
-#: source/gx/tilix/prefeditor/prefdialog.d:1224
+#: source/gx/tilix/prefeditor/prefdialog.d:1056
+#: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Bottom"
 msgstr "Onderkant"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1036
+#: source/gx/tilix/prefeditor/prefdialog.d:1062
 msgid "Theme variant"
 msgstr "Themastijl"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1037
-#: source/gx/tilix/appwindow.d:1076 source/gx/tilix/session.d:1189
-msgid "Default"
-msgstr "Standaard"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1037
+#: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Light"
 msgstr "Licht"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1037
+#: source/gx/tilix/prefeditor/prefdialog.d:1063
 msgid "Dark"
 msgstr "Donker"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1043
+#: source/gx/tilix/prefeditor/prefdialog.d:1069
 msgid "Background image"
 msgstr "Achtergrondafbeelding"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1045
+#: source/gx/tilix/prefeditor/prefdialog.d:1071
 msgid "Select Image"
 msgstr "Afbeelding selecteren"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1048
+#: source/gx/tilix/prefeditor/prefdialog.d:1074
 msgid "All Image Files"
 msgstr "Alle afbeeldingsbestanden"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1069
+#: source/gx/tilix/prefeditor/prefdialog.d:1095
 msgid "Reset background image"
 msgstr "Achtergrondafbeelding verwijderen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1075
+#: source/gx/tilix/prefeditor/prefdialog.d:1101
 msgid "Scale"
 msgstr "Schalen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1075
+#: source/gx/tilix/prefeditor/prefdialog.d:1101
 msgid "Tile"
 msgstr "Tegelen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1075
-#: source/gx/tilix/prefeditor/prefdialog.d:1217
+#: source/gx/tilix/prefeditor/prefdialog.d:1101
+#: source/gx/tilix/prefeditor/prefdialog.d:1243
 msgid "Center"
 msgstr "Centreren"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1075
+#: source/gx/tilix/prefeditor/prefdialog.d:1101
 msgid "Stretch"
 msgstr "Uitrekken"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1094
+#: source/gx/tilix/prefeditor/prefdialog.d:1120
 msgid "Default session name"
 msgstr "Standaard sessienaam"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1109
+#: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Application title"
 msgstr "Applicatietitel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1127
+#: source/gx/tilix/prefeditor/prefdialog.d:1153
 msgid "Enable transparency, requires re-start"
 msgstr "Doorzichtigheid inschakelen; herstart vereist"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1133
+#: source/gx/tilix/prefeditor/prefdialog.d:1159
 msgid "Use a wide handle for splitters"
 msgstr "Brede handgreep gebruiken voor splitsingen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1138
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
 msgid "Place the sidebar on the right"
 msgstr "Zijbalk aan de rechterkant plaatsen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1142
+#: source/gx/tilix/prefeditor/prefdialog.d:1168
 msgid "Show the terminal title even if it's the only terminal"
 msgstr "Terminaltitel weergeven, zelfs als het de enige terminal is"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1147
+#: source/gx/tilix/prefeditor/prefdialog.d:1173
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr "Overlay-scrollbalken gebruiken (vereist applicatieherstart)"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1152
+#: source/gx/tilix/prefeditor/prefdialog.d:1178
 msgid "Use tabs instead of sidebar (Application restart required)"
 msgstr "Tabbladen gebruiken i.p.v. zijbalk (vereist applicatieherstart)"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1184
+#: source/gx/tilix/prefeditor/prefdialog.d:1210
 msgid "Size"
 msgstr "Grootte"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1195
+#: source/gx/tilix/prefeditor/prefdialog.d:1221
 msgid "Height percent"
 msgstr "Hoogtepercentage"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1206
+#: source/gx/tilix/prefeditor/prefdialog.d:1232
 msgid "Width percent"
 msgstr "Breedtepercentage"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1216
+#: source/gx/tilix/prefeditor/prefdialog.d:1242
 msgid "Alignment"
 msgstr "Uitlijning"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1239
+#: source/gx/tilix/prefeditor/prefdialog.d:1265
 msgid "Show terminal on all workspaces"
 msgstr "Terminal weergeven op alle werkbladen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1251
+#: source/gx/tilix/prefeditor/prefdialog.d:1277
 msgid "Hide window when focus is lost"
 msgstr "Venster sluiten bij verliezen van focus"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1255
+#: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Delay hiding window by (ms)"
 msgstr "Verbergen van venster ... (ms) uitstellen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1268
+#: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Hide the titlebar of the window"
 msgstr "Venstertitelbalk verbergen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1283
+#: source/gx/tilix/prefeditor/prefdialog.d:1309
 msgid "Display terminal on active monitor"
 msgstr "Terminal weergeven op actief beeldscherm"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1290
+#: source/gx/tilix/prefeditor/prefdialog.d:1316
 msgid "Display on specific monitor"
 msgstr "Weergeven op specifiek beeldscherm"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1332
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
 msgid "Behavior"
 msgstr "Gedrag"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1338
+#: source/gx/tilix/prefeditor/prefdialog.d:1364
 msgid "Prompt when creating a new session"
 msgstr "Vragen bij creëren van nieuwe sessie"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1343
+#: source/gx/tilix/prefeditor/prefdialog.d:1369
 msgid "Focus a terminal when the mouse moves over it"
 msgstr "Focus een terminal wanneer de muis eroverheen zweeft"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1348
+#: source/gx/tilix/prefeditor/prefdialog.d:1374
 msgid "Autohide the mouse pointer when typing"
 msgstr "Cursor verbergen tijdens typen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1353
+#: source/gx/tilix/prefeditor/prefdialog.d:1379
 msgid "Close terminal by clicking middle mouse button on title"
 msgstr "Terminal sluiten door met de middelste muisknop te klikken op de titel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
+#: source/gx/tilix/prefeditor/prefdialog.d:1384
 msgid "Zoom the terminal using <Control> and scroll wheel"
 msgstr "Zoomen in terminalvenster middels <Control> en scrollwiel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1363
+#: source/gx/tilix/prefeditor/prefdialog.d:1389
 msgid "Require the <Control> modifier to edit title on click"
 msgstr "<Control>-klik vereisen om titel te bewerken"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1368
+#: source/gx/tilix/prefeditor/prefdialog.d:1394
 msgid "Close window when last session is closed"
 msgstr "Venster sluiten wanneer de laatste sessie wordt afgesloten"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1372
+#: source/gx/tilix/prefeditor/prefdialog.d:1398
 msgid "New window inherits directory and profile from active terminal"
 msgstr "Nieuw venster neemt map en profiel over van actieve terminal"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1377
+#: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Save and restore window state"
 msgstr "Vensterstatus opslaan en herstellen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1383
+#: source/gx/tilix/prefeditor/prefdialog.d:1409
 msgid "Send desktop notification on process complete"
 msgstr "Bureaubladmelding weergeven bij afronden van proces"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1391
+#: source/gx/tilix/prefeditor/prefdialog.d:1417
 msgid "On new instance"
 msgstr "Bij nieuw proces"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1394
+#: source/gx/tilix/prefeditor/prefdialog.d:1420
 #: source/gx/tilix/application.d:230
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Nieuw venster"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1394
-#: source/gx/tilix/application.d:229 source/gx/tilix/session.d:1541
+#: source/gx/tilix/prefeditor/prefdialog.d:1420
+#: source/gx/tilix/application.d:229 source/gx/tilix/session.d:1554
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
 msgid "New Session"
 msgstr "Nieuwe sessie"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1394
+#: source/gx/tilix/prefeditor/prefdialog.d:1420
 msgid "Split Right"
 msgstr "Splitsen naar rechts"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1394
+#: source/gx/tilix/prefeditor/prefdialog.d:1420
 msgid "Split Down"
 msgstr "Splitsen naar onderen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1394
+#: source/gx/tilix/prefeditor/prefdialog.d:1420
 msgid "Focus Window"
 msgstr "Venster focussen"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1400
-#: source/gx/tilix/terminal/terminal.d:1676
-msgid "Clipboard"
-msgstr "Klembord"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1406
+#: source/gx/tilix/prefeditor/prefdialog.d:1432
 msgid "Always use advanced paste dialog"
 msgstr "Altijd geavanceerd plakken gebruiken"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1411
+#: source/gx/tilix/prefeditor/prefdialog.d:1437
 msgid "Warn when attempting unsafe paste"
 msgstr "Waarschuwen bij plakken van onveilige opdracht"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1416
+#: source/gx/tilix/prefeditor/prefdialog.d:1442
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr "Eerste teken weglaten bij plakken van een comment of variabel"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1421
+#: source/gx/tilix/prefeditor/prefdialog.d:1447
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Geselecteerde tekst automatisch kopiëren naar het klembord"
 
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Bladwijzer toevoegen"
+#: source/gx/tilix/prefeditor/titleeditor.d:112
+msgid "Window"
+msgstr "Venster"
 
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Bladwijzer bewerken"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Bladwijzer verwijderen"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Bladwijzer de-selecteren"
+#: source/gx/tilix/prefeditor/titleeditor.d:122
+#: source/gx/tilix/prefeditor/titleeditor.d:123
+msgid "Help"
+msgstr "Hulp"
 
 #: source/gx/tilix/prefeditor/advdialog.d:92
 #: source/gx/tilix/prefeditor/advdialog.d:230
@@ -1021,12 +1500,6 @@ msgstr "Hoofdletterongevoelig"
 #: source/gx/tilix/prefeditor/advdialog.d:161
 msgid "Edit Custom Links"
 msgstr "Aangepaste links bewerken"
-
-#: source/gx/tilix/prefeditor/advdialog.d:161
-#: source/gx/tilix/prefeditor/advdialog.d:331
-#: source/gx/tilix/terminal/password.d:371
-msgid "Apply"
-msgstr "Toevoegen"
 
 #: source/gx/tilix/prefeditor/advdialog.d:268
 msgid "Parameter"
@@ -1045,487 +1518,46 @@ msgstr "Triggers bewerken"
 msgid "Row %d: "
 msgstr "Rij %d: "
 
-#: source/gx/tilix/closedialog.d:123 source/gx/tilix/terminal/layout.d:54
-#: source/gx/tilix/constants.d:137 source/gx/tilix/constants.d:160
-msgid "Title"
-msgstr "Titel"
+#: source/gx/tilix/preferences.d:235
+msgid "UpdateState"
+msgstr "StatusBijwerken"
 
-#: source/gx/tilix/closedialog.d:143 source/gx/tilix/appwindow.d:1176
-msgid "Do not show this again"
-msgstr "Dit bericht niet meer weergeven"
+#: source/gx/tilix/preferences.d:236
+msgid "ExecuteCommand"
+msgstr "CommandoUitvoeren"
 
-#: source/gx/tilix/closedialog.d:170
+#: source/gx/tilix/preferences.d:237
+msgid "SendNotification"
+msgstr "MeldingVersturen"
+
+#: source/gx/tilix/preferences.d:238
+msgid "UpdateTitle"
+msgstr "TitelBijwerken"
+
+#: source/gx/tilix/preferences.d:239
+msgid "PlayBell"
+msgstr "BelAfspelen"
+
+#: source/gx/tilix/preferences.d:240
+msgid "SendText"
+msgstr "TekstVersturen"
+
+#: source/gx/tilix/preferences.d:241
+msgid "InsertPassword"
+msgstr "WachtwoordInvoeren"
+
+#: source/gx/tilix/preferences.d:242
+msgid "UpdateBadge"
+msgstr "Badge bijwerken"
+
+#: source/gx/tilix/preferences.d:243
+msgid "RunProcess"
+msgstr "ProcesUitvoeren"
+
+#: source/gx/tilix/preferences.d:351
 #, c-format
-msgid "Window (%s)"
-msgstr "Venster (%s)"
-
-#: source/gx/tilix/closedialog.d:173
-#, c-format
-msgid "Session (%s)"
-msgstr "Sessie (%s)"
-
-#: source/gx/tilix/closedialog.d:193
-msgid "Close Application"
-msgstr "Applicatie sluiten"
-
-#: source/gx/tilix/closedialog.d:196
-msgid "Close Window"
-msgstr "Venster sluiten"
-
-#: source/gx/tilix/closedialog.d:199 source/gx/tilix/closedialog.d:202
-msgid "Close Session"
-msgstr "Sessie sluiten"
-
-#: source/gx/tilix/closedialog.d:205 source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/bookmark/bmeditor.d:150
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "OK"
-msgstr "Oké"
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Deze opdracht vraagt om administrator-toegang tot uw computer"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Het kopiëren van opdrachten vanaf het internet kan gevaarlijk zijn. "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Zorg ervoor dat u begrijpt wat alle delen van deze opdracht uitvoeren."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Transformeren"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Spaties omzetten naar tabs"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "CRLF en CR converteren naar LF"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Geavanceerd plakken"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1657
-#: source/gx/tilix/terminal/terminal.d:1668
-msgid "Paste"
-msgstr "Plakken"
-
-#: source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1507
-#: source/gx/tilix/bookmark/bmeditor.d:230
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-msgid "Name"
-msgstr "Naam"
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:139
-#: source/gx/tilix/constants.d:162
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "Nieuw"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr "Wederkerend teken opnemen met wachtwoord"
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "Wachtwoord invoeren"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "Wachtwoord bevestigen"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "Wachtwoord toevoegen"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "Wachtwoord bewerken"
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "Zoekopties"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "Volgende zoeken"
-
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "Vorige zoeken"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "Hoofdlettergevoelig"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "Alleen gehele woorden"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "Alleen reguliere expressies"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "Tekstomloop"
-
-#: source/gx/tilix/terminal/search.d:235
-#, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr ""
-"De zoekopdracht '%s' is een ongeldige regex\n"
-"%s"
-
-#: source/gx/tilix/terminal/terminal.d:380
-#: source/gx/tilix/terminal/terminal.d:1686 source/gx/tilix/sidebar.d:506
-#: source/gx/tilix/appwindow.d:700
-msgid "Close"
-msgstr "Sluiten"
-
-#: source/gx/tilix/terminal/terminal.d:388
-#: source/gx/tilix/terminal/terminal.d:1274
-#: source/gx/tilix/terminal/terminal.d:1685
-msgid "Maximize"
-msgstr "Maximaliseren"
-
-#: source/gx/tilix/terminal/terminal.d:398
-#: source/gx/tilix/terminal/terminal.d:668
-msgid "Disable input synchronization for this terminal"
-msgstr "Invoer-synchronisatie uitschakelen voor dit terminalvenster"
-
-#: source/gx/tilix/terminal/terminal.d:407
-#: source/gx/tilix/terminal/terminal.d:794
-msgid "Read-Only"
-msgstr "Alleen-lezen"
-
-#: source/gx/tilix/terminal/terminal.d:413
-msgid "New output"
-msgstr "Nieuwe uitvoer"
-
-#: source/gx/tilix/terminal/terminal.d:464
-msgid "Edit Profile"
-msgstr "Profiel bewerken"
-
-#: source/gx/tilix/terminal/terminal.d:482
-msgid "Edit Encodings"
-msgstr "Coderingen bewerken"
-
-#: source/gx/tilix/terminal/terminal.d:670
-msgid "Enable input synchronization for this terminal"
-msgstr "Invoer-synchronisatie inschakelen voor dit terminalvenster"
-
-#: source/gx/tilix/terminal/terminal.d:699
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Het laden van de  %s-bibliotheek is mislukt; de wachtwoordfunctionaliteit is "
-"niet beschikbaar."
-
-#: source/gx/tilix/terminal/terminal.d:699
-msgid "Library Not Loaded"
-msgstr "Bibliotheek is niet geladen"
-
-#: source/gx/tilix/terminal/terminal.d:793
-msgid "Find…"
-msgstr "Zoeken…"
-
-#: source/gx/tilix/terminal/terminal.d:800
-msgid "Password..."
-msgstr "Wachtwoord..."
-
-#: source/gx/tilix/terminal/terminal.d:801
-msgid "Bookmark..."
-msgstr "Bladwijzer toevoegen..."
-
-#: source/gx/tilix/terminal/terminal.d:802
-msgid "Add Bookmark..."
-msgstr "Bladwijzer toevoegen..."
-
-#: source/gx/tilix/terminal/terminal.d:806
-msgid "Assistants"
-msgstr "Assistenten"
-
-#: source/gx/tilix/terminal/terminal.d:813
-msgid "Show File Browser..."
-msgstr "Bestandsverkenner weergeven..."
-
-#: source/gx/tilix/terminal/terminal.d:817
-msgid "Save Output…"
-msgstr "Uitvoer opslaan…"
-
-#: source/gx/tilix/terminal/terminal.d:819
-msgid "Reset and Clear"
-msgstr "Terugzetten en wissen"
-
-#: source/gx/tilix/terminal/terminal.d:824
-msgid "Layout Options…"
-msgstr "Indelingsopties…"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Monitor Silence"
-msgstr "Stilte bijhouden"
-
-#: source/gx/tilix/terminal/terminal.d:831
-msgid "Other"
-msgstr "Overig"
-
-#: source/gx/tilix/terminal/terminal.d:840
-msgid "Add Right"
-msgstr "Rechts toevoegen"
-
-#: source/gx/tilix/terminal/terminal.d:844
-msgid "Add Down"
-msgstr "Onder toevoegen"
-
-#: source/gx/tilix/terminal/terminal.d:888
-#, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr ""
-"Er is een onverwachte fout opgetreden tijdens het toevoegen van de "
-"linkregex: %s"
-
-#: source/gx/tilix/terminal/terminal.d:973
-msgid "Terminal Activity"
-msgstr "Terminalactiviteit"
-
-#: source/gx/tilix/terminal/terminal.d:1271
-#: source/gx/tilix/terminal/terminal.d:1685
-msgid "Restore"
-msgstr "Herstellen"
-
-#: source/gx/tilix/terminal/terminal.d:1544
-msgid "Tilix Custom Notification"
-msgstr "Tilix aangepaste melding"
-
-#: source/gx/tilix/terminal/terminal.d:1645
-msgid "Open Link"
-msgstr "Link openen"
-
-#: source/gx/tilix/terminal/terminal.d:1646
-msgid "Copy Link Address"
-msgstr "Linkadres kopiëren"
-
-#: source/gx/tilix/terminal/terminal.d:1656
-#: source/gx/tilix/terminal/terminal.d:1663
-msgid "Copy"
-msgstr "Kopiëren"
-
-#: source/gx/tilix/terminal/terminal.d:1658
-#: source/gx/tilix/terminal/terminal.d:1673
-msgid "Select All"
-msgstr "Alles selecteren"
-
-#: source/gx/tilix/terminal/terminal.d:1690
-msgid "Synchronize input"
-msgstr "Invoer synchroniseren"
-
-#: source/gx/tilix/terminal/terminal.d:1838
-#, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"Uri was '%s'"
-msgstr ""
-"BestandsURI's op afstand worden niet ondersteund met hyperlinks.\n"
-"URI is '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:1839
-msgid "Remote File URI Unsupported"
-msgstr "BestandsURI op afstand niet ondersteund"
-
-#: source/gx/tilix/terminal/terminal.d:1870
-#: source/gx/tilix/terminal/terminal.d:2369
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "De aangepaste linkregex '%s' bevat een fout en wordt genegeerd"
-
-#: source/gx/tilix/terminal/terminal.d:1871
-msgid "Regular Expression Error"
-msgstr "Reguliere expressie-fout"
-
-#: source/gx/tilix/terminal/terminal.d:1883
-#, c-format
-msgid "Could not open match '%s'"
-msgstr "Overeenkomst '%s' kan niet worden geopend"
-
-#: source/gx/tilix/terminal/terminal.d:1884
-msgid "Error Opening Match"
-msgstr "Fout tijdens openen van overeenkomst"
-
-#: source/gx/tilix/terminal/terminal.d:2515
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"Er is een onverwachte fout opgetreden; geen verdere informatie beschikbaar"
-
-#: source/gx/tilix/terminal/terminal.d:2525
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Er is een onverwachte fout opgetreden: %s"
-
-#: source/gx/tilix/terminal/terminal.d:3153
-msgid "Save Terminal Output"
-msgstr "Terminaluitvoer opslaan"
-
-#: source/gx/tilix/terminal/terminal.d:3162
-msgid "All Text Files"
-msgstr "Alle tekstbestanden"
-
-#: source/gx/tilix/terminal/terminal.d:3438
-msgid "Unknown"
-msgstr "Onbekend"
-
-#: source/gx/tilix/terminal/terminal.d:3724
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Het dochterproces is normaal afgerond met de status %d"
-
-#: source/gx/tilix/terminal/terminal.d:3725
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Het dochterproces is afgebroken door signaal %d."
-
-#: source/gx/tilix/terminal/terminal.d:3726
-msgid "The child process was aborted."
-msgstr "Het dochterproces is afgebroken."
-
-#: source/gx/tilix/terminal/terminal.d:3732
-msgid "Relaunch"
-msgstr "Herstarten"
-
-#: source/gx/tilix/terminal/terminal.d:3777
-msgid "Don't Paste"
-msgstr "Niet plakken"
-
-#: source/gx/tilix/terminal/terminal.d:3778
-msgid "Paste Anyway"
-msgstr "Tóch plakken"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "Indelingsopties"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "Actief"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "Laden van sessie"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Actieve opties zijn altijd actief en worden onmiddelijk toegepast.\n"
-"Laden van sessie-opties worden alleen toegepast bij het laden van een "
-"sessiebestand."
-
-#: source/gx/tilix/appwindow.d:359
-msgid "Create a new session"
-msgstr "Nieuwe sessie creëren"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "View session sidebar"
-msgstr "Sessie-zijbalk weergeven"
-
-#: source/gx/tilix/appwindow.d:408
-msgid "Add terminal right"
-msgstr "Terminal rechts toevoegen"
-
-#: source/gx/tilix/appwindow.d:412
-msgid "Add terminal down"
-msgstr "Terminal onder toevoegen"
-
-#: source/gx/tilix/appwindow.d:418
-msgid "Find text in terminal"
-msgstr "Naar tekst zoeken in de terminal"
-
-#: source/gx/tilix/appwindow.d:626
-msgid "Enter a new name for the session"
-msgstr "Voer een nieuwe sessienaam in"
-
-#: source/gx/tilix/appwindow.d:631
-msgid "Change Session Name"
-msgstr "Sessienaam wijzigen"
-
-#: source/gx/tilix/appwindow.d:697
-msgid "Open…"
-msgstr "Openen…"
-
-#: source/gx/tilix/appwindow.d:699
-msgid "Save As…"
-msgstr "Opslaan als…"
-
-#: source/gx/tilix/appwindow.d:704
-msgid "Name…"
-msgstr "Naam…"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "Synchronize Input"
-msgstr "Invoer synchroniseren"
-
-#: source/gx/tilix/appwindow.d:716
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/tilix/appwindow.d:1175
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Dit venster bevat actieve processen. Wilt u het venster tóch sluiten?"
-
-#: source/gx/tilix/appwindow.d:1465
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "De bestandsnaam '%s' bestaat niet"
-
-#: source/gx/tilix/appwindow.d:1495
-msgid "Load Session"
-msgstr "Sessie laden"
-
-#: source/gx/tilix/appwindow.d:1498
-msgid "Open"
-msgstr "Openen"
-
-#: source/gx/tilix/appwindow.d:1517
-msgid "Could not load session due to unexpected error."
-msgstr ""
-"De sessie kan niet worden geladen omdat er een onverwachte fout is "
-"opgetreden."
-
-#: source/gx/tilix/appwindow.d:1517
-msgid "Error Loading Session"
-msgstr "Er is een fout opgetreden tijdens het laden van de sessie"
-
-#: source/gx/tilix/appwindow.d:1533
-msgid "Save Session"
-msgstr "Sessie opslaan"
-
-#: source/gx/tilix/appwindow.d:1634 source/gx/tilix/application.d:346
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
-msgid "Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:2064
-msgid "Close session"
-msgstr "Sessie sluiten"
+msgid "%s (Copy)"
+msgstr "%s (Kopiëren)"
 
 #: source/gx/tilix/application.d:241
 msgid "About"
@@ -1686,21 +1718,21 @@ msgstr "Het bestand %s is geen JSON-compatibel kleurenschemabestand"
 msgid "Color scheme palette requires 16 colors"
 msgstr "Het kleurenschemapalet vereist 16 kleuren"
 
-#: source/gx/tilix/session.d:548
+#: source/gx/tilix/session.d:561
 msgid "Could not locate dropped terminal"
 msgstr "Er is een probleem opgetreden bij het vinden van de gedaalde terminal"
 
-#: source/gx/tilix/session.d:553
+#: source/gx/tilix/session.d:566
 msgid "Could not locate session for dropped terminal"
 msgstr ""
 "Er is een probleem opgetreden bij het vinden van de sessie van de gedaalde "
 "terminal"
 
-#: source/gx/tilix/constants.d:76
+#: source/gx/tilix/constants.d:79
 msgid "A VTE based terminal emulator for Linux"
 msgstr "Een op VTE gebaseerde terminal-applicatie voor Linux"
 
-#: source/gx/tilix/constants.d:77
+#: source/gx/tilix/constants.d:80
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
@@ -1710,65 +1742,94 @@ msgstr ""
 "versie 2.0. Als er bij het verspreiden van dit bestand geen kopie van de MPL "
 "is meegeleverd, kunt u deze verkrijgen op http://mozilla.org/MPL/2.0/."
 
-#: source/gx/tilix/constants.d:82
+#: source/gx/tilix/constants.d:85
 msgid "GTK VTE widget team, Tilix would not be possible without their work"
 msgstr "GTK VTE-widget-team. Tilix zou niet mogelijk zijn zonder hun werk"
 
-#: source/gx/tilix/constants.d:83
+#: source/gx/tilix/constants.d:86
 msgid "GtkD for providing such an excellent GTK wrapper"
 msgstr "GtkD voor het beschikbaar stellen van een geweldige GTK-wrapper"
 
-#: source/gx/tilix/constants.d:84
+#: source/gx/tilix/constants.d:87
 msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org voor de geweldige D-taal"
 
-#: source/gx/tilix/constants.d:138 source/gx/tilix/constants.d:161
+#: source/gx/tilix/constants.d:141 source/gx/tilix/constants.d:164
 msgid "Icon title"
 msgstr "Pictogramtitel"
 
-#: source/gx/tilix/constants.d:140 source/gx/tilix/constants.d:163
+#: source/gx/tilix/constants.d:143 source/gx/tilix/constants.d:166
 msgid "Directory"
 msgstr "Map"
 
-#: source/gx/tilix/constants.d:141 source/gx/tilix/constants.d:164
+#: source/gx/tilix/constants.d:144 source/gx/tilix/constants.d:167
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: source/gx/tilix/constants.d:142 source/gx/tilix/constants.d:165
+#: source/gx/tilix/constants.d:145 source/gx/tilix/constants.d:168
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: source/gx/tilix/constants.d:143 source/gx/tilix/constants.d:166
+#: source/gx/tilix/constants.d:146 source/gx/tilix/constants.d:169
 msgid "Columns"
 msgstr "Kolommen"
 
-#: source/gx/tilix/constants.d:144 source/gx/tilix/constants.d:167
+#: source/gx/tilix/constants.d:147 source/gx/tilix/constants.d:170
 msgid "Rows"
 msgstr "Rijen"
 
-#: source/gx/tilix/constants.d:145
+#: source/gx/tilix/constants.d:148
 msgid "Process"
 msgstr "Proces"
 
-#: source/gx/tilix/constants.d:187
+#: source/gx/tilix/constants.d:190
 msgid "Application name"
 msgstr "Applicatienaam"
 
-#: source/gx/tilix/constants.d:188
+#: source/gx/tilix/constants.d:191
 msgid "Active terminal title"
 msgstr "Actieve terminaltitel"
 
-#: source/gx/tilix/constants.d:189
+#: source/gx/tilix/constants.d:192
 msgid "Session name"
 msgstr "Sessienaam"
 
-#: source/gx/tilix/constants.d:190
+#: source/gx/tilix/constants.d:193
 msgid "Session number"
 msgstr "Sessienummer"
 
-#: source/gx/tilix/constants.d:191
+#: source/gx/tilix/constants.d:194
 msgid "Session count"
 msgstr "Sessietelling"
+
+#: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "'%s' wordt genegeerd omdat het geen map is"
+
+#: source/gx/tilix/cmdparams.d:150
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "De afmetingenstring '%s' is ongeldig en kan niet worden verwerkt"
+
+#: source/gx/tilix/cmdparams.d:183
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"U kunt geen sessie laden en een profiel-/werkmap- en/of opdracht uitvoeren-"
+"optie instellen; kies één van de twee"
+
+#: source/gx/tilix/cmdparams.d:190
+msgid "You can only use the action parameter within Tilix"
+msgstr "U kunt de actie-parameter alleen gebruiken binnen Tilix"
+
+#: source/gx/tilix/cmdparams.d:212
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+"U kunt de quake-modus niet gebruiken met de parameters voor maximaliseren, "
+"minimaliseren of afmetingen"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -1905,34 +1966,27 @@ msgstr "Vietnamees"
 msgid "Thai"
 msgstr "Thais"
 
-#: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
+#: source/gx/tilix/closedialog.d:170
 #, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "'%s' wordt genegeerd omdat het geen map is"
+msgid "Window (%s)"
+msgstr "Venster (%s)"
 
-#: source/gx/tilix/cmdparams.d:150
+#: source/gx/tilix/closedialog.d:173
 #, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "De afmetingenstring '%s' is ongeldig en kan niet worden verwerkt"
+msgid "Session (%s)"
+msgstr "Sessie (%s)"
 
-#: source/gx/tilix/cmdparams.d:183
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"U kunt geen sessie laden en een profiel-/werkmap- en/of opdracht uitvoeren-"
-"optie instellen; kies één van de twee"
+#: source/gx/tilix/closedialog.d:193
+msgid "Close Application"
+msgstr "Applicatie sluiten"
 
-#: source/gx/tilix/cmdparams.d:190
-msgid "You can only use the action parameter within Tilix"
-msgstr "U kunt de actie-parameter alleen gebruiken binnen Tilix"
+#: source/gx/tilix/closedialog.d:196
+msgid "Close Window"
+msgstr "Venster sluiten"
 
-#: source/gx/tilix/cmdparams.d:212
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-"U kunt de quake-modus niet gebruiken met de parameters voor maximaliseren, "
-"minimaliseren of afmetingen"
+#: source/gx/tilix/closedialog.d:199 source/gx/tilix/closedialog.d:202
+msgid "Close Session"
+msgstr "Sessie sluiten"
 
 #: source/gx/tilix/bookmark/manager.d:233
 msgid "Error deserializing bookmark"
@@ -1961,10 +2015,18 @@ msgstr "Pad"
 msgid "Remote"
 msgstr "Op afstand"
 
-#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "Wederkerend teken opnemen met bladwijzer"
+
 #: source/gx/tilix/bookmark/bmchooser.d:126
+#: source/gx/tilix/bookmark/bmeditor.d:68
 msgid "Select Folder"
 msgstr "Selecteer map"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "Selecteer bladwijzer"
 
 #: source/gx/tilix/bookmark/bmeditor.d:74
 msgid "Select folder"
@@ -2001,68 +2063,6 @@ msgstr "Gebruiker"
 #: source/gx/tilix/bookmark/bmeditor.d:420
 msgid "Parameters"
 msgstr "Parameters"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "Wederkerend teken opnemen met bladwijzer"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "Selecteer bladwijzer"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "uitgeschakeld"
-
-#: source/app.d:133
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"Uw GTK-versie is verouderd; u moet op zijn minst beschikken over versie %d."
-"%d.%d!"
-
-#: source/app.d:150
-msgid "Unexpected exception occurred"
-msgstr "Er is een onverwachte fout opgetreden"
-
-#: source/app.d:151
-msgid "Error: "
-msgstr "Fout: "
-
-#: source/app.d:161
-msgid "Versions"
-msgstr "Versies"
-
-#: source/app.d:162
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Tilix-versie: %s"
-
-#: source/app.d:163
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE-versie: %s"
-
-#: source/app.d:164
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK-versie: %d.%d.%d"
-
-#: source/app.d:165
-msgid "Tilix Special Features"
-msgstr "Tilix Speciale Mogelijkheden"
-
-#: source/app.d:166
-msgid "Notifications enabled=%b"
-msgstr "Meldingen ingeschakeld=%b"
-
-#: source/app.d:167
-msgid "Triggers enabled=%b"
-msgstr "Triggers ingeschakeld=%b"
-
-#: source/app.d:168
-msgid "Badges enabled=%b"
-msgstr "Badges ingeschakeld=%b"
 
 #: data/nautilus/open-tilix.py:109
 msgid "Open Remote Tilix"
