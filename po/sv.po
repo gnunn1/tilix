@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-06 08:39-0400\n"
-"PO-Revision-Date: 2017-09-25 22:47+0000\n"
+"PO-Revision-Date: 2017-10-11 19:40+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/tilix/"
-"translations/sv/>\n"
+"Language-Team: Swedish "
+"<https://hosted.weblate.org/projects/tilix/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,11 +60,11 @@ msgstr "Aviseringar aktiverade=%b"
 
 #: source/app.d:167
 msgid "Triggers enabled=%b"
-msgstr "Aktiverade utlösare=%b"
+msgstr "Utlösare aktiverade=%b"
 
 #: source/app.d:168
 msgid "Badges enabled=%b"
-msgstr ""
+msgstr "Emblem aktiverade=%b"
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
@@ -204,9 +204,8 @@ msgid "Tilix"
 msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:2072
-#, fuzzy
 msgid "Close session"
-msgstr "Ny session"
+msgstr "Stäng session"
 
 #: source/gx/tilix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
@@ -234,7 +233,7 @@ msgstr "Omvandla CRLF och CR till LF"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Advanced Paste"
-msgstr "Klistra in..."
+msgstr "Avancerad klistra in"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 #: source/gx/tilix/terminal/terminal.d:1662
@@ -303,7 +302,7 @@ msgstr "Skrivskyddad"
 
 #: source/gx/tilix/terminal/terminal.d:412
 msgid "New output"
-msgstr ""
+msgstr "Ny utmatning"
 
 #: source/gx/tilix/terminal/terminal.d:418
 #: source/gx/tilix/prefeditor/profileeditor.d:289
@@ -340,19 +339,19 @@ msgstr "Sök…"
 
 #: source/gx/tilix/terminal/terminal.d:798
 msgid "Password..."
-msgstr "Lösenord..."
+msgstr "Lösenord…"
 
 #: source/gx/tilix/terminal/terminal.d:799
 msgid "Bookmark..."
-msgstr "Bokmärke..."
+msgstr "Bokmärke…"
 
 #: source/gx/tilix/terminal/terminal.d:800
 msgid "Add Bookmark..."
-msgstr "Bokmärk..."
+msgstr "Bokmärk…"
 
 #: source/gx/tilix/terminal/terminal.d:804
 msgid "Assistants"
-msgstr ""
+msgstr "Guider"
 
 #: source/gx/tilix/terminal/terminal.d:805
 #: source/gx/tilix/prefeditor/prefdialog.d:278
@@ -361,7 +360,7 @@ msgstr "Profiler"
 
 #: source/gx/tilix/terminal/terminal.d:811
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Visa filbläddrare…"
 
 #: source/gx/tilix/terminal/terminal.d:815
 msgid "Save Output…"
@@ -391,7 +390,7 @@ msgstr "Layoutalternativ…"
 
 #: source/gx/tilix/terminal/terminal.d:826
 msgid "Monitor Silence"
-msgstr ""
+msgstr "Övervaka tystnad"
 
 #: source/gx/tilix/terminal/terminal.d:829
 msgid "Other"
@@ -413,7 +412,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:971
 msgid "Terminal Activity"
-msgstr "Terminaltitel"
+msgstr "Terminalaktivitet"
 
 #: source/gx/tilix/terminal/terminal.d:1272
 #: source/gx/tilix/terminal/terminal.d:1690
@@ -422,7 +421,7 @@ msgstr "Återställ"
 
 #: source/gx/tilix/terminal/terminal.d:1549
 msgid "Tilix Custom Notification"
-msgstr "Anpassad Tilix-notifiering"
+msgstr "Anpassad Tilix-avisering"
 
 #: source/gx/tilix/terminal/terminal.d:1650
 msgid "Open Link"
@@ -457,16 +456,18 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"Fjärrfils-URI:er stöds inte med hyperlänkar.\n"
+"Uri var ”%s”"
 
 #: source/gx/tilix/terminal/terminal.d:1844
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "Fjärrfils-URI stöds inte"
 
 #: source/gx/tilix/terminal/terminal.d:1875
 #: source/gx/tilix/terminal/terminal.d:2374
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Anpassat länkat reguljärt uttryck '%s 1' innehåller fel, bortses från"
+msgstr "Anpassat länkat reguljärt uttryck ”%s” innehåller fel, bortses från"
 
 #: source/gx/tilix/terminal/terminal.d:1876
 msgid "Regular Expression Error"
@@ -475,7 +476,7 @@ msgstr "Fel i reguljärt uttryck"
 #: source/gx/tilix/terminal/terminal.d:1888
 #, c-format
 msgid "Could not open match '%s'"
-msgstr "Sökträff '%s 1' kunde inte öppnas"
+msgstr "Sökträff ”%s” kunde inte öppnas"
 
 #: source/gx/tilix/terminal/terminal.d:1889
 msgid "Error Opening Match"
@@ -500,7 +501,7 @@ msgstr "Alla textfiler"
 
 #: source/gx/tilix/terminal/terminal.d:3513
 msgid "Unknown"
-msgstr "Ökänd/t"
+msgstr "Okänd"
 
 #: source/gx/tilix/terminal/terminal.d:3797
 #, c-format
@@ -551,7 +552,7 @@ msgstr "Titel"
 #: source/gx/tilix/prefeditor/profileeditor.d:314
 #: source/gx/tilix/prefeditor/profileeditor.d:624
 msgid "Badge"
-msgstr ""
+msgstr "Emblem"
 
 #: source/gx/tilix/terminal/layout.d:82
 msgid "Session Load"
@@ -748,7 +749,7 @@ msgstr "Terminaltitel"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:328
 msgid "Badge position"
-msgstr ""
+msgstr "Emblemposition"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:332
 msgid "Northwest"
@@ -768,11 +769,11 @@ msgstr "sydost"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Notify new activity"
-msgstr ""
+msgstr "Avisera ny aktivitet"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:348
 msgid "Threshold for continuous silence (seconds)"
-msgstr "Tröskelvärde för fortsatt tystning (sekunder)"
+msgstr "Tröskelvärde för sammanhängande tystnad (sekunder)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:359
 msgid "Text Appearance"
@@ -871,9 +872,8 @@ msgid "Select Bold Color"
 msgstr "Välj färg för fetstil"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:628
-#, fuzzy
 msgid "Select Badge Color"
-msgstr "Välj %s färg"
+msgstr "Välj emblemfärg"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:677
 msgid "Select Background Color"
@@ -1031,8 +1031,9 @@ msgid ""
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
 "Profil väljs automatiskt baserat på värden som matas in här.\n"
-"Värden matas in i formatet <i>värdnamn:katalog</i>. Värdnamnet eller katalog "
-"kan uteslutas men kolon måste finnas med."
+"Värden matas in i formatet <i>användarnamn@värdnamn:katalog</i>. Värdnamnet "
+"eller katalog kan uteslutas men kolon måste finnas med. Poster med varken "
+"värdnamn eller katalog tillåts inte."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1105
 msgid ""
@@ -1042,8 +1043,9 @@ msgid ""
 "with neither hostname or directory are not permitted."
 msgstr ""
 "Profil väljs automatiskt baserat på värden som matas in här.\n"
-"Värden matas in i formatet <i>värdnamn:katalog</i>. Värdnamnet eller katalog "
-"kan uteslutas men kolon måste finnas med."
+"Värden matas in i formatet <i>värdnamn:katalog</i>. Värdnamn eller katalog "
+"kan uteslutas men kolon måste finnas med. Poster med varken värdnamn eller "
+"katalog tillåts inte."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1116
 msgid "Match"
@@ -1069,7 +1071,7 @@ msgstr "Lägg till ny jämförelse"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1152
 msgid "Edit username@hostname:directory to match"
-msgstr "Ändra värdnamn:katalog att jämföra med"
+msgstr "Ändra användarnamn@värdnamn:katalog att jämföra med"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1154
 msgid "Edit hostname:directory to match"
@@ -1159,7 +1161,7 @@ msgstr "Klona"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:548
 msgid "Use for new terminals"
-msgstr "Använd för nya fönster"
+msgstr "Använd för nya terminaler"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:624
 msgid "Encodings showing in menu:"
@@ -1209,13 +1211,12 @@ msgid "Normal"
 msgstr "Normal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1036
-#, fuzzy
 msgid "Disable CSD"
-msgstr "inaktiverad"
+msgstr "Inaktivera dekorationer på klientsidan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Inaktivera dekorationer på klientsidan, dölj verktygsfält"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Borderless"
@@ -1223,7 +1224,7 @@ msgstr "Kantlös"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1040
 msgid "Window restart required"
-msgstr ""
+msgstr "Fönsteromstart krävs"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1049
 msgid "Terminal title style"
@@ -1236,7 +1237,7 @@ msgstr "Liten"
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 #: source/gx/tilix/prefeditor/prefdialog.d:1249
 msgid "Tab position"
-msgstr ""
+msgstr "Flikposition"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1243
@@ -1247,19 +1248,18 @@ msgstr "Vänster"
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1243
 #: source/gx/tilix/prefeditor/prefdialog.d:1250
-#, fuzzy
 msgid "Right"
 msgstr "Höger"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Top"
-msgstr ""
+msgstr "Överst"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Bottom"
-msgstr ""
+msgstr "Nederst"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1062
 msgid "Theme variant"
@@ -1332,11 +1332,11 @@ msgstr "Visa terminalnamnet även om det bara finns en"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1173
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
+msgstr "Använd överläggsrullningslister (omstart av program krävs)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1178
 msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr ""
+msgstr "Använd flikar istället för sidopanel (omstart av program krävs)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1210
 msgid "Size"
@@ -1364,7 +1364,7 @@ msgstr "Göm fönstret då det tappar fokus"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Fördröj döljande av fönster med (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Hide the titlebar of the window"
@@ -1420,7 +1420,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Spara och återställ fönstertillstånd"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1409
 msgid "Send desktop notification on process complete"
@@ -1456,7 +1456,7 @@ msgstr "Fokusera fönster"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1432
 msgid "Always use advanced paste dialog"
-msgstr ""
+msgstr "Använd alltid avancerad inklistringsdialog"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1437
 msgid "Warn when attempting unsafe paste"
@@ -1478,12 +1478,12 @@ msgstr "Fönster"
 #: source/gx/tilix/prefeditor/titleeditor.d:122
 #: source/gx/tilix/prefeditor/titleeditor.d:123
 msgid "Help"
-msgstr ""
+msgstr "Hjälp"
 
 #: source/gx/tilix/prefeditor/advdialog.d:92
 #: source/gx/tilix/prefeditor/advdialog.d:230
 msgid "Regex"
-msgstr ""
+msgstr "Reguttryck"
 
 #: source/gx/tilix/prefeditor/advdialog.d:116
 msgid "Case Insensitive"
@@ -1491,7 +1491,7 @@ msgstr "Skiftlägesokänslig"
 
 #: source/gx/tilix/prefeditor/advdialog.d:161
 msgid "Edit Custom Links"
-msgstr ""
+msgstr "Redigera anpassade länkar"
 
 #: source/gx/tilix/prefeditor/advdialog.d:268
 msgid "Parameter"
@@ -1499,7 +1499,7 @@ msgstr "Parameter"
 
 #: source/gx/tilix/prefeditor/advdialog.d:306
 msgid "Limit number of lines for trigger processing to:"
-msgstr ""
+msgstr "Begränsa antal rader för utlösarbehandling till:"
 
 #: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Edit Triggers"
@@ -1508,20 +1508,19 @@ msgstr "Ändra utlösare"
 #: source/gx/tilix/prefeditor/advdialog.d:374
 #, c-format
 msgid "Row %d: "
-msgstr ""
+msgstr "Rad %d: "
 
 #: source/gx/tilix/preferences.d:235
 msgid "UpdateState"
-msgstr ""
+msgstr "UppdateraTillstånd"
 
 #: source/gx/tilix/preferences.d:236
-#, fuzzy
 msgid "ExecuteCommand"
-msgstr "Kommando"
+msgstr "KörKommando"
 
 #: source/gx/tilix/preferences.d:237
 msgid "SendNotification"
-msgstr ""
+msgstr "SkickaAvisering"
 
 #: source/gx/tilix/preferences.d:238
 msgid "UpdateTitle"
@@ -1529,25 +1528,23 @@ msgstr "Uppdatera namn"
 
 #: source/gx/tilix/preferences.d:239
 msgid "PlayBell"
-msgstr ""
+msgstr "SpelaLjud"
 
 #: source/gx/tilix/preferences.d:240
-#, fuzzy
 msgid "SendText"
-msgstr "Text"
+msgstr "SkickaText"
 
 #: source/gx/tilix/preferences.d:241
 msgid "InsertPassword"
-msgstr ""
+msgstr "InfogaLösenord"
 
 #: source/gx/tilix/preferences.d:242
-#, fuzzy
 msgid "UpdateBadge"
-msgstr "Titel"
+msgstr "UppdateraEmblem"
 
 #: source/gx/tilix/preferences.d:243
 msgid "RunProcess"
-msgstr ""
+msgstr "KörProcess"
 
 #: source/gx/tilix/preferences.d:351
 #, c-format
@@ -1612,32 +1609,32 @@ msgid "ACTION_NAME"
 msgstr "ÅTGÄRDSNAMN"
 
 #: source/gx/tilix/application.d:668
-#, fuzzy
 msgid "Execute the parameter as a command"
-msgstr "Kör det skickade kommandot"
+msgstr "Exekvera parametern som ett kommando"
 
 #: source/gx/tilix/application.d:668
 msgid "COMMAND"
-msgstr ""
+msgstr "KOMMANDO"
 
 #: source/gx/tilix/application.d:669
 msgid "Maximize the terminal window"
 msgstr "Maximera terminalfönstret"
 
 #: source/gx/tilix/application.d:670
-#, fuzzy
 msgid "Minimize the terminal window"
-msgstr "Maximera terminalfönstret"
+msgstr "Minimera terminalfönstret"
 
 #: source/gx/tilix/application.d:671
 msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Åsidosätt den föredragna fönsterstilen att använda, en av: normal,disable-csd"
+",disable-csd-hide-toolbar,borderless"
 
 #: source/gx/tilix/application.d:671
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "FÖNSTERSTIL"
 
 #: source/gx/tilix/application.d:672
 msgid "Full-screen the terminal window"
@@ -1666,14 +1663,16 @@ msgstr "GEOMETRI"
 msgid ""
 "Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
+"Öppnar ett fönster i quake-läge eller växlar synlighet för befintligt "
+"fönster i quake-läge"
 
 #: source/gx/tilix/application.d:677
 msgid "Show the Tilix and dependant component versions"
-msgstr ""
+msgstr "Visar versionerna av Tilix och beroende komponenter"
 
 #: source/gx/tilix/application.d:678
 msgid "Show the Tilix preferences dialog directly"
-msgstr ""
+msgstr "Visa inställningsdialogen för Tilix direkt"
 
 #: source/gx/tilix/application.d:681
 msgid "Hidden argument to pass terminal UUID"
@@ -1734,11 +1733,10 @@ msgstr ""
 "http://mozilla.org/MPL/2.0/."
 
 #: source/gx/tilix/constants.d:85
-#, fuzzy
 msgid "GTK VTE widget team, Tilix would not be possible without their work"
 msgstr ""
-"Gruppen för VTE-komponenter i GTK, Terminix skulle inte vara möjligt utan "
-"deras arbete"
+"Gruppen för VTE-komponenter i GTK, Tilix skulle inte vara möjligt utan deras "
+"arbete"
 
 #: source/gx/tilix/constants.d:86
 msgid "GtkD for providing such an excellent GTK wrapper"
@@ -1749,59 +1747,52 @@ msgid "Dlang.org for such an excellent language, D"
 msgstr "Dlang.org för det fantastiska språket D"
 
 #: source/gx/tilix/constants.d:141 source/gx/tilix/constants.d:164
-#, fuzzy
 msgid "Icon title"
-msgstr "Program"
+msgstr "Ikontitel"
 
 #: source/gx/tilix/constants.d:143 source/gx/tilix/constants.d:166
 msgid "Directory"
-msgstr ""
+msgstr "Katalog"
 
 #: source/gx/tilix/constants.d:144 source/gx/tilix/constants.d:167
 msgid "Hostname"
-msgstr ""
+msgstr "Värdnamn"
 
 #: source/gx/tilix/constants.d:145 source/gx/tilix/constants.d:168
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: source/gx/tilix/constants.d:146 source/gx/tilix/constants.d:169
-#, fuzzy
 msgid "Columns"
-msgstr "kolumner"
+msgstr "Kolumner"
 
 #: source/gx/tilix/constants.d:147 source/gx/tilix/constants.d:170
 msgid "Rows"
-msgstr ""
+msgstr "Rader"
 
 #: source/gx/tilix/constants.d:148
 msgid "Process"
-msgstr ""
+msgstr "Process"
 
 #: source/gx/tilix/constants.d:190
-#, fuzzy
 msgid "Application name"
-msgstr "Program"
+msgstr "Programnamn"
 
 #: source/gx/tilix/constants.d:191
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Terminaltitel"
+msgstr "Aktiv terminaltitel"
 
 #: source/gx/tilix/constants.d:192
-#, fuzzy
 msgid "Session name"
-msgstr "Sessionsinläst"
+msgstr "Sessionsnamn"
 
 #: source/gx/tilix/constants.d:193
-#, fuzzy
 msgid "Session number"
-msgstr "Session"
+msgstr "Sessionsnummer"
 
 #: source/gx/tilix/constants.d:194
-#, fuzzy
 msgid "Session count"
-msgstr "Sessionsinläst"
+msgstr "Sessionsantal"
 
 #: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
 #, c-format
@@ -1811,7 +1802,7 @@ msgstr "Ignorerar eftersom ”%s” inte är en katalog"
 #: source/gx/tilix/cmdparams.d:150
 #, c-format
 msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
+msgstr "Geometristrängen ”%s” är ogiltig och kunde inte tolkas"
 
 #: source/gx/tilix/cmdparams.d:183
 msgid ""
@@ -1823,12 +1814,14 @@ msgstr ""
 
 #: source/gx/tilix/cmdparams.d:190
 msgid "You can only use the action parameter within Tilix"
-msgstr ""
+msgstr "Du kan bara använda parametern action inuti Tilix"
 
 #: source/gx/tilix/cmdparams.d:212
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
+"Du kan inte använda quake-läget med parametrarna maximize, minimize eller "
+"geometry"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -1966,46 +1959,42 @@ msgid "Thai"
 msgstr "Thai"
 
 #: source/gx/tilix/closedialog.d:170
-#, fuzzy, c-format
+#, c-format
 msgid "Window (%s)"
-msgstr "Fönster"
+msgstr "Fönster (%s)"
 
 #: source/gx/tilix/closedialog.d:173
-#, fuzzy, c-format
+#, c-format
 msgid "Session (%s)"
-msgstr "Session"
+msgstr "Session (%s)"
 
 #: source/gx/tilix/closedialog.d:193
-#, fuzzy
 msgid "Close Application"
-msgstr "Program"
+msgstr "Stäng program"
 
 #: source/gx/tilix/closedialog.d:196
-#, fuzzy
 msgid "Close Window"
-msgstr "Fokusera fönster"
+msgstr "Stäng fönster"
 
 #: source/gx/tilix/closedialog.d:199 source/gx/tilix/closedialog.d:202
-#, fuzzy
 msgid "Close Session"
-msgstr "Ny session"
+msgstr "Stäng session"
 
 #: source/gx/tilix/bookmark/manager.d:233
 msgid "Error deserializing bookmark"
-msgstr ""
+msgstr "Fel vid deserialisering av bokmärke"
 
 #: source/gx/tilix/bookmark/manager.d:537
 msgid "Root"
-msgstr ""
+msgstr "Rot"
 
 #: source/gx/tilix/bookmark/manager.d:615
-#, fuzzy
 msgid "Could not load bookmarks due to unexpected error"
-msgstr "Kunde inte läsa in session på grund av ett oväntat fel."
+msgstr "Kunde inte läsa in bokmärken på grund av ett oväntat fel"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Folder"
-msgstr ""
+msgstr "Mapp"
 
 #: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:291
@@ -2014,11 +2003,11 @@ msgstr "Sökväg"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
-msgstr ""
+msgstr "Fjärr"
 
 #: source/gx/tilix/bookmark/bmchooser.d:79
 msgid "Include return character with bookmark"
-msgstr ""
+msgstr "Inkludera returtecken med bokmärke"
 
 #: source/gx/tilix/bookmark/bmchooser.d:126
 #: source/gx/tilix/bookmark/bmeditor.d:68
@@ -2026,9 +2015,8 @@ msgid "Select Folder"
 msgstr "Välj mapp"
 
 #: source/gx/tilix/bookmark/bmchooser.d:126
-#, fuzzy
 msgid "Select Bookmark"
-msgstr "Välj %s färg"
+msgstr "Välj bokmärke"
 
 #: source/gx/tilix/bookmark/bmeditor.d:74
 msgid "Select folder"
@@ -2056,56 +2044,47 @@ msgstr "Protokoll"
 
 #: source/gx/tilix/bookmark/bmeditor.d:397
 msgid "Host"
-msgstr ""
+msgstr "Värd"
 
 #: source/gx/tilix/bookmark/bmeditor.d:413
 msgid "User"
-msgstr ""
+msgstr "Användare"
 
 #: source/gx/tilix/bookmark/bmeditor.d:420
-#, fuzzy
 msgid "Parameters"
-msgstr "Parameter"
+msgstr "Parametrar"
 
 #: data/nautilus/open-tilix.py:109
-#, fuzzy
 msgid "Open Remote Tilix"
-msgstr "Öppna i Terminix…"
+msgstr "Öppna fjärr-Tilix"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In {}"
-msgstr "Öppna Terminix i %s"
+msgstr "Öppna fjärr-Tilix i {}"
 
 #: data/nautilus/open-tilix.py:116
-#, fuzzy
 msgid "Open In Tilix"
-msgstr "Öppna i Terminix…"
+msgstr "Öppna i Tilix"
 
 #: data/nautilus/open-tilix.py:117
-#, fuzzy
 msgid "Open Tilix In {}"
-msgstr "Öppna Terminix i %s"
+msgstr "Öppna Tilix i {}"
 
 #: data/nautilus/open-tilix.py:127
-#, fuzzy
 msgid "Open Remote Tilix Here"
-msgstr "Öppna Terminix här…"
+msgstr "Öppna fjärr-Tilix här"
 
 #: data/nautilus/open-tilix.py:128
-#, fuzzy
 msgid "Open Remote Tilix In This Directory"
-msgstr "Öppna Terminix i denna katalog"
+msgstr "Öppna fjärr-Tilix i denna katalog"
 
 #: data/nautilus/open-tilix.py:133
-#, fuzzy
 msgid "Open Tilix Here"
-msgstr "Öppna Terminix här…"
+msgstr "Öppna Tilix här"
 
 #: data/nautilus/open-tilix.py:134
-#, fuzzy
 msgid "Open Tilix In This Directory"
-msgstr "Öppna Terminix i denna katalog"
+msgstr "Öppna Tilix i denna katalog"
 
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
@@ -2378,7 +2357,6 @@ msgid "Switch to terminal 10"
 msgstr "Växla till terminal 10"
 
 #: data/resources/ui/shortcuts.ui:350
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Terminal"
 msgstr "Terminal"
@@ -2416,13 +2394,12 @@ msgstr "Klistra in"
 #: data/resources/ui/shortcuts.ui:395
 msgctxt "shortcut window"
 msgid "Paste selection"
-msgstr ""
+msgstr "Klistra in markering"
 
 #: data/resources/ui/shortcuts.ui:401
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Advanced paste"
-msgstr "Avancerat"
+msgstr "Avancerad klistra in"
 
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
@@ -2452,29 +2429,27 @@ msgstr "Zooma till normal storlek"
 #: data/resources/ui/shortcuts.ui:439
 msgctxt "shortcut window"
 msgid "Navigation"
-msgstr ""
+msgstr "Navigering"
 
 #: data/resources/ui/shortcuts.ui:443
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll up"
-msgstr "Rulla vid utdata"
+msgstr "Rulla upp"
 
 #: data/resources/ui/shortcuts.ui:449
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Scroll down"
-msgstr "Rullning"
+msgstr "Rulla ner"
 
 #: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Page up"
-msgstr ""
+msgstr "En sida uppåt"
 
 #: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Page down"
-msgstr ""
+msgstr "En sida nedåt"
 
 #: data/resources/ui/shortcuts.ui:473
 msgctxt "shortcut window"
@@ -2517,10 +2492,9 @@ msgid "Layout options"
 msgstr "Layoutalternativ"
 
 #: data/resources/ui/shortcuts.ui:521
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Insert terminal number"
-msgstr "Ändra storlek på terminalen uppåt"
+msgstr "Infoga terminalnummer"
 
 #: data/resources/ui/shortcuts.ui:527
 msgctxt "shortcut window"
@@ -2528,55 +2502,49 @@ msgid "Insert password"
 msgstr "Infoga lösenord"
 
 #: data/resources/ui/shortcuts.ui:533
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Select bookmark"
-msgstr "Välj bild"
+msgstr "Välj bokmärke"
 
 #: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Add bookmark"
-msgstr ""
+msgstr "Lägg till bokmärke"
 
 #: data/resources/ui/shortcuts.ui:545
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Cycle title style"
-msgstr "Titelstil för terminal"
+msgstr "Växla titelstil"
 
 #: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Monitor silence"
-msgstr ""
+msgstr "Övervaka tystnad"
 
 #: data/resources/ui/shortcuts.ui:557
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr "Inaktivera inmatningssynkronisering för denna terminal"
+msgstr "Åsidosätt inmatningssynkronisering"
 
 #: data/resources/ui/shortcuts.ui:563
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Öppna Terminix här…"
+msgstr "Öppna filbläddrare"
 
 #: data/resources/ui/shortcuts.ui:574
 msgctxt "shortcut window"
 msgid "Nautilus"
-msgstr ""
+msgstr "Nautilus"
 
 #: data/resources/ui/shortcuts.ui:579
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Öppna"
 
 #: data/resources/ui/shortcuts.ui:583
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"
-msgstr "Öppna i Terminix…"
+msgstr "Öppna i Tilix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2584,21 +2552,19 @@ msgstr "En sida-vid-sida-terminal för GNOME"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr ""
+msgstr "skal;prompt;kommando;kommandorad;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
-#, fuzzy
 msgid "com.gexperts.Tilix"
-msgstr "com.gexperts.Terminix"
+msgstr "com.gexperts.Tilix"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
 msgid "A tiling terminal for GNOME"
 msgstr "En sida-vid-sida-terminal för GNOME"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:12
-#, fuzzy
 msgid "Tilix is a tiling terminal emulator."
-msgstr "Terminix är en terminalemulator där terminaler placeras sida vid sida."
+msgstr "Tilix är en terminalemulator där terminaler placeras sida vid sida."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:15
 msgid "It lets you:"
@@ -2668,9 +2634,8 @@ msgstr ""
 "dekorationer från klientsidan, men det kan inaktiveras om nödvändigt."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
-#, fuzzy
 msgid "Tilix has been tested with GNOME and with Unity."
-msgstr "Terminix har testats med GNOME och med Unity."
+msgstr "Tilix har testats med GNOME och med Unity."
 
 #, fuzzy
 #~ msgctxt "shortcut window"
