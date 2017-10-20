@@ -12,7 +12,7 @@ import std.string;
 import std.file;
 import std.path;
 
-
+// a stripped-down version of psutil's Process class
 class Process {
 
     pid_t pid;
@@ -38,6 +38,7 @@ class Process {
     }
 
     string[] parseStatFile() {
+        // see man7.org/linux/man-pages/man5/proc.5.html for index number
         try {
             string data = to!string(cast(char[])read(format("/proc/%d/stat", pid)));
             long rpar = data.lastIndexOf(")");
@@ -54,7 +55,7 @@ class Process {
         if (!Process.pidExists(pid)) {
             return false;
         }
-
+        // check if pid is reused by another process
         return createTime() == to!long(parseStatFile()[20]);
     }
 
@@ -66,6 +67,8 @@ class Process {
         long pgrp = to!long(tempStat[3]);
         long tty = to!long(tempStat[5]);
         long tpgid = to!long(tempStat[6]);
+        // foreground process has a controlling terminal and
+        // process groud id == terminal process group id
         return tty > 0 && pgrp == tpgid;
     }
 
@@ -88,7 +91,7 @@ class Process {
     }
 
     Process[] children(bool recursive) {
-        Process[] ret = []; 
+        Process[] ret = [];
         if (!recursive) {
             ret = children();
         } else {
@@ -117,6 +120,7 @@ class Process {
     }
 
     static pid_t[] pids() {
+        // get all pids of system
         return std.file.dirEntries("/proc", SpanMode.shallow)
             .filter!(a => std.path.baseName(a.name).isNumeric)
             .map!(a => to!pid_t(std.path.baseName(a.name)))
@@ -166,9 +170,11 @@ class Process {
 }
 
 
+// retrieve all foreground process
 class ForegroundProcess {
 
     Process[] parentProcess;
+    // set alternative
     bool[Process] foregroundProcesses;
     Process[] processArray;
     pid_t pid;
@@ -229,7 +235,9 @@ class GetActiveProcess: ForegroundProcess {
         foreach (proc; getArray()) {
             if (!(proc.isRunning() && proc.isForeground())) {
                 continue;
-            } 
+            }
+            // if a process has atleat one foreground
+            // process then it is not a active process
             if (ForegroundProcess.anyForeground(proc.children())) {
                 continue;
             }
