@@ -307,6 +307,11 @@ private:
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
 
+    static if (USE_PROCESS_MONITOR) {
+        // Store active process.
+        // keys are gpid and values are the name of active process
+        string[GPid] activeProcessInfo;
+    }
 
     @property bool useOverlayScrollbar() {
         return _useOverlayScrollbar < 0;
@@ -3248,7 +3253,8 @@ private:
 static if (USE_PROCESS_MONITOR) {
     // Process monitoring
     private:
-        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child) {
+        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child, string name) {
+            activeProcessInfo[process] = name;
             if (process == gpid) {
                 updateDisplayText();
             }
@@ -3636,8 +3642,7 @@ public:
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
         static if (USE_PROCESS_MONITOR) {
             if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-                string name;
-                isProcessRunning(name);
+                auto name = activeProcessInfo.get(gpid, "Unknown");
                 text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
             }
         }

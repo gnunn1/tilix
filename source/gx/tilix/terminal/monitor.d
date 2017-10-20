@@ -17,6 +17,7 @@ import vtec.vtetypes;
 import gx.gtk.threads;
 
 import gx.tilix.common;
+import gx.tilix.terminal.activeprocess;
 
 enum MonitorEventType {
     NONE,
@@ -40,7 +41,7 @@ private:
         synchronized {
             foreach(process; processes.values()) {
                 if (process.eventType != MonitorEventType.NONE) {
-                    onChildProcess.emit(process.eventType, process.gpid, process.fd);
+                    onChildProcess.emit(process.eventType, process.gpid, process.activePid, process.activeName);
                     process.eventType = MonitorEventType.NONE;
                 }
             }
@@ -100,7 +101,7 @@ public:
     /**
      * When a process changes inform children
      */
-    GenericEvent!(MonitorEventType, GPid, pid_t) onChildProcess;
+    GenericEvent!(MonitorEventType, GPid, pid_t, string) onChildProcess;
 
     static @property ProcessMonitor instance() {
         if (_instance is null) {
@@ -116,7 +117,7 @@ private:
 /**
  * Constant used for sleep time between checks.
  */
-enum SLEEP_CONSTANT_MS = 250;
+enum SLEEP_CONSTANT_MS = 300;
 
 /**
  * List of processes being monitored.
@@ -129,9 +130,12 @@ void monitorProcesses(int sleep, Tid tid) {
         synchronized {
             foreach(process; processes.values()) {
                 pid_t childPid = tcgetpgrp(process.fd);
-                if (childPid != process.childPid && (process.childPid == -1 || process.childPid == process.gpid)) {
+                auto getActive = new GetActiveProcess(childPid);
+                auto activeProcess  = getActive.process();
+                if (activeProcess !is null && activeProcess.pid != process.activePid) {
                     process.childPid = childPid;
-                    process.lastChanged = Clock.currStdTime();
+                    process.activeName = activeProcess.name;
+                    process.activePid = activeProcess.pid;
                     process.eventType = MonitorEventType.STARTED;
                 } else if (childPid != process.childPid) {
                     process.childPid = childPid;
@@ -158,7 +162,8 @@ shared class ProcessStatus {
     GPid gpid;
     int fd;
     pid_t childPid = -1;
-    long lastChanged;
+    pid_t activePid = -1;
+    string activeName = "";
     MonitorEventType eventType = MonitorEventType.NONE;
 
     this(GPid gpid, int fd) {
