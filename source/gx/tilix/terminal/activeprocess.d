@@ -55,7 +55,7 @@ class Process {
         if (!Process.pidExists(pid)) {
             return false;
         }
-        // check if pid is reused by another process
+        // check if pid has been reused by another process
         return createTime() == to!long(parseStatFile()[20]);
     }
 
@@ -68,7 +68,7 @@ class Process {
         long tty = to!long(tempStat[5]);
         long tpgid = to!long(tempStat[6]);
         // foreground process has a controlling terminal and
-        // process groud id == terminal process group id
+        // process group id == terminal process group id
         return tty > 0 && pgrp == tpgid;
     }
 
@@ -143,8 +143,8 @@ class Process {
             Process.PMap.remove(p);
         }
 
-        auto pids = Process.pids().sort;
-        auto pmapKeys = Process.PMap.keys.sort;
+        auto pids = Process.pids().sort();
+        auto pmapKeys = Process.PMap.keys.sort();
         auto gonePids = setDifference(pmapKeys, pids);
 
         foreach(p; gonePids) {
@@ -236,7 +236,7 @@ class GetActiveProcess: ForegroundProcess {
             if (!(proc.isRunning() && proc.isForeground())) {
                 continue;
             }
-            // if a process has atleat one foreground
+            // if a process has at least one foreground
             // process then it is not a active process
             if (ForegroundProcess.anyForeground(proc.children())) {
                 continue;
