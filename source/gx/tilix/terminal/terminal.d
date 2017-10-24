@@ -148,7 +148,8 @@ import gx.tilix.terminal.search;
 import gx.tilix.terminal.util;
 
 static if (USE_PROCESS_MONITOR) {
-    import gx.tilix.terminal.monitor;    
+    import gx.tilix.terminal.monitor;
+    import gx.tilix.terminal.activeprocess;
 }
 
 /**
@@ -308,8 +309,8 @@ private:
     static int _useOverlayScrollbar = 2;
 
     static if (USE_PROCESS_MONITOR) {
-        // Store active process.
-        // keys are gpid and values are the name of active process
+        // Caching active processes.
+        // keys are session id and values are the active process.
         string[GPid] activeProcessInfo;
     }
 
@@ -982,7 +983,7 @@ private:
             // Check whether to show new output indicator
             if (!scrollOnOutput) {
                 Adjustment adjustment = getAdjustment();
-                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) { 
+                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) {
                     imgNewOuput.show();
                 }
             }
@@ -1352,7 +1353,7 @@ private:
     }
 
     /**
-     * Tests if the paste is unsafe, currently just looks for sudo and 
+     * Tests if the paste is unsafe, currently just looks for sudo and
      * carriage return.
      */
     bool isPasteUnsafe(string text) {
@@ -1772,7 +1773,7 @@ private:
                     match.tag = tag;
                     trace("Found matching regex");
                 }
-            } 
+            }
         }
 
         if (vte is null) return false;
@@ -2527,7 +2528,7 @@ private:
                 showInfoBarMessage(msg);
             } else {
                 static if (USE_PROCESS_MONITOR) {
-                    ProcessMonitor.instance.addProcess(gpid, vte.getPty().getFd());
+                    ProcessMonitor.instance.addProcess(gpid);
                 }
             }
         }
@@ -3449,8 +3450,8 @@ public:
         if (gpid > 0) {
             static if (USE_PROCESS_MONITOR) {
                 ProcessMonitor.instance.removeProcess(gpid);
-            }        
-           
+            }
+
             try {
                 kill(gpid, SIGHUP);
             }

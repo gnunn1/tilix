@@ -12,12 +12,15 @@ import std.string;
 import std.file;
 import std.path;
 
-// a stripped-down version of psutil's Process class
+/**
+* A stripped-down (plus extended) version of psutil's Process class.
+*/
 class Process {
 
     pid_t pid;
     string[] processStat;
-    static Process[pid_t] PMap;
+    static Process[pid_t] processMap;
+    static Process[][pid_t] sessionMap;
 
     this(pid_t p)
     {
@@ -33,12 +36,7 @@ class Process {
         return to!pid_t(processStat[2]);
     }
 
-    string status() {
-        return processStat[1];
-    }
-
     string[] parseStatFile() {
-        // see man7.org/linux/man-pages/man5/proc.5.html for index number
         try {
             string data = to!string(cast(char[])read(format("/proc/%d/stat", pid)));
             long rpar = data.lastIndexOf(")");
@@ -47,18 +45,14 @@ class Process {
             return name ~ other;
         } catch (FileException fe) {
             warning(fe);
-        }
+            }
         return [];
     }
 
-    bool isRunning() {
-        if (!Process.pidExists(pid)) {
-            return false;
-        }
-        // check if pid has been reused by another process
-        return createTime() == to!long(parseStatFile()[20]);
-    }
-
+    /**
+    * Foreground process has a controlling terminal and
+    * process group id == terminal process group id.
+    */
     bool isForeground() {
         if (!Process.pidExists(pid)) {
             return false;
@@ -67,8 +61,6 @@ class Process {
         long pgrp = to!long(tempStat[3]);
         long tty = to!long(tempStat[5]);
         long tpgid = to!long(tempStat[6]);
-        // foreground process has a controlling terminal and
-        // process group id == terminal process group id
         return tty > 0 && pgrp == tpgid;
     }
 
@@ -80,9 +72,19 @@ class Process {
         return to!long(processStat[5]) > 0;
     }
 
-    Process[] children() {
+    /**
+    * Shell PID == sessionID
+    */
+    pid_t sessionID() {
+        return to!pid_t(processStat[4]);
+    }
+
+    /**
+    * Returns all foreground child process of this Process.
+    */
+    Process[] fChildren() {
         Process[] ret = [];
-        foreach (p; Process.processIter()) {
+        foreach (p; Process.sessionMap.get(sessionID(), [])) {
             if (p.ppid == pid && createTime() <= p.createTime()) {
                 ret ~= p;
             }
@@ -90,37 +92,10 @@ class Process {
         return ret;
     }
 
-    Process[] children(bool recursive) {
-        Process[] ret = [];
-        if (!recursive) {
-            ret = children();
-        } else {
-            Process[][pid_t] table;
-            foreach (p; Process.processIter()) {
-                table[p.ppid] ~= p;
-            }
-
-            pid_t[] checkpids = [pid];
-
-            for(int i=0; i < checkpids.length; i++) {
-                pid_t checkpid = checkpids[i];
-                if((checkpid in table) !is null){
-                    foreach (child; table[checkpid]) {
-                        if (createTime() <= child.createTime()) {
-                            ret ~= child;
-                            if (!checkpids.canFind(child.pid)) {
-                                checkpids ~= child.pid;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return ret;
-    }
-
+    /**
+    * Get all running PIDs of system.
+    */
     static pid_t[] pids() {
-        // get all pids of system
         return std.file.dirEntries("/proc", SpanMode.shallow)
             .filter!(a => std.path.baseName(a.name).isNumeric)
             .map!(a => to!pid_t(std.path.baseName(a.name)))
@@ -131,118 +106,82 @@ class Process {
             return exists(format("/proc/%d", p));
     }
 
-    static Process[] processIter() {
+    /**
+    * Create `Process` object of all PIDs and store them on
+    * `Process.processMap` then store foreground processes
+    * on `Process.sessionMap` using session id as their key.
+    */
+    static void updateMap() {
 
         Process add(pid_t p) {
             auto proc = new Process(p);
-            Process.PMap[p] = proc;
+            Process.processMap[p] = proc;
             return proc;
         }
 
         void remove(pid_t p) {
-            Process.PMap.remove(p);
+            Process.processMap.remove(p);
         }
 
-        auto pids = Process.pids().sort();
-        auto pmapKeys = Process.PMap.keys.sort();
+        auto pids = Process.pids().sort;
+        auto pmapKeys = Process.processMap.keys.sort;
         auto gonePids = setDifference(pmapKeys, pids);
 
         foreach(p; gonePids) {
             remove(p);
         }
 
-        Process.PMap.rehash();
+        Process.processMap.rehash();
         Process proc;
-        Process[] ret = [];
+        Process.sessionMap.clear;
 
         foreach(p; pids) {
-            if ((p in Process.PMap) !is null) {
-                proc = Process.PMap[p];
+            if ((p in Process.processMap) !is null) {
+                proc = Process.processMap[p]; // Cached process.
             } else if (Process.pidExists(p)) {
-                proc = add(p);
+                proc = add(p); // New Process.
             }
-            if (proc !is null && proc.hasTTY()) {
-                ret ~= proc;
+            // Taking advantages of short-circuit operator `&&` using `proc.hasTTY()`
+            // to reduce calling on `proc.isForeground()`.
+            if (proc !is null && proc.hasTTY() && proc.isForeground()) {
+                Process.sessionMap[proc.sessionID] ~= proc;
             }
         }
-        return ret;
     }
 }
 
 
-// retrieve all foreground process
-class ForegroundProcess {
-
-    Process[] parentProcess;
-    // set alternative
-    bool[Process] foregroundProcesses;
-    Process[] processArray;
-    pid_t pid;
-
-    this(pid_t p) {
-        pid = p;
-    }
-
-    Process[] getArray() {
-        update();
-        return foregroundProcesses.keys;
-    }
-
-    void update() {
-        updateProcess();
-        updateForeground();
-    }
-
-    void updateProcess() {
-        if (!Process.pidExists(pid)){
-            processArray = [];
+/**
+ * Get active process list of all terminals.
+ * `Process.sessionMap` contains all foreground of all
+ * open terminals using session id as their key. We are
+ * iterating through all session id (shell PID) and trying to find
+ * their active process and finally returning all active process.
+ * Returning all active process is very efficient when there are too
+ * many open terminals.
+ */
+Process[pid_t] getActiveProcessList() {
+    //  Update `Process.sessionMap` and `Process.processMap`.
+    Process.updateMap();
+    Process[pid_t] ret;
+    foreach(pid; Process.sessionMap.keys) {
+        auto shellChild = Process.sessionMap[pid];
+        auto shellChildCount = shellChild.length;
+         // The shell process has only one foreground
+         // process, so, it is an active process.
+        if (shellChildCount == 1) {
+            auto proc = shellChild[0];
+            ret[proc.sessionID()] = proc;
         } else {
-            auto parentProcess = new Process(pid);
-            processArray = parentProcess.children(true) ~ [parentProcess];
-         }
-    }
-
-    void updateForeground() {
-        foregroundProcesses.clear;
-        foreach(process; processArray) {
-            if (!process.isRunning()) {
-                Process.PMap.remove(process.pid);
-            }
-            if (process.isForeground()) {
-                foregroundProcesses[process] = true;
+            // If we are lucky, last item is the active process :D
+            foreach_reverse(proc; shellChild) {
+                // If a foreground process has no foreground
+                // child process then it is an active process.
+                if(proc.fChildren().length == 0)
+                    ret[proc.sessionID()] = proc;
+                    break;
             }
         }
     }
-
-    static bool anyForeground(Process[] processes) {
-        foreach(proc; processes) {
-            if (proc.isForeground()) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-
-
-class GetActiveProcess: ForegroundProcess {
-
-    this(pid_t p) {
-        super(p);
-    }
-
-    Process process() {
-        foreach (proc; getArray()) {
-            if (!(proc.isRunning() && proc.isForeground())) {
-                continue;
-            }
-            // if a process has at least one foreground
-            // process then it is not a active process
-            if (ForegroundProcess.anyForeground(proc.children())) {
-                continue;
-            }
-           return proc;
-        }
-        return null;
-    }
+    return ret;
 }

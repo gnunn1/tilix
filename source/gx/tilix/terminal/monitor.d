@@ -21,15 +21,15 @@ import gx.tilix.terminal.activeprocess;
 
 enum MonitorEventType {
     NONE,
-    STARTED, 
-    CHANGED, 
+    STARTED,
+    CHANGED,
     FINISHED
 };
 
 /**
  * Class that monitors processes to see if new child processes have been
  * started or finished and raises an event if detected. This class uses
- * a seperate thread to monitor the processes and a timeoutDelegate to 
+ * a seperate thread to monitor the processes and a timeoutDelegate to
  * trigger the actual events to the terminals.
  */
 class ProcessMonitor {
@@ -76,10 +76,10 @@ public:
     /**
      * Add a process for monitoring
      */
-    void addProcess(GPid gpid, int fd) {
+    void addProcess(GPid gpid) {
         synchronized {
             if (gpid !in processes) {
-                shared ProcessStatus status = new shared(ProcessStatus)(gpid, fd);
+                shared ProcessStatus status = new shared(ProcessStatus)(gpid);
                 processes[gpid] = status;
             }
         }
@@ -128,30 +128,22 @@ void monitorProcesses(int sleep, Tid tid) {
     bool abort = false;
     while (!abort) {
         synchronized {
+            auto activeProcesses = getActiveProcessList();
             foreach(process; processes.values()) {
-                pid_t childPid = tcgetpgrp(process.fd);
-                auto getActive = new GetActiveProcess(childPid);
-                auto activeProcess  = getActive.process();
+                auto activeProcess  = activeProcesses.get(process.gpid, null);
+                // Don't raise event for same process.
                 if (activeProcess !is null && activeProcess.pid != process.activePid) {
-                    process.childPid = childPid;
                     process.activeName = activeProcess.name;
                     process.activePid = activeProcess.pid;
                     process.eventType = MonitorEventType.STARTED;
-                } else if (childPid != process.childPid) {
-                    process.childPid = childPid;
-                    if (childPid == -1 || process.childPid == process.gpid) {
-                        process.eventType = MonitorEventType.FINISHED;
-                    } else {
-                        process.eventType = MonitorEventType.CHANGED;
-                    }
                 }
             }
         }
-        receiveTimeout(dur!("msecs")( sleep ), 
+        receiveTimeout(dur!("msecs")( sleep ),
                 (bool msg) {
                     if (msg) abort = true;
                 }
-        );    
+        );
     }
 }
 
@@ -160,14 +152,11 @@ void monitorProcesses(int sleep, Tid tid) {
  */
 shared class ProcessStatus {
     GPid gpid;
-    int fd;
-    pid_t childPid = -1;
     pid_t activePid = -1;
     string activeName = "";
     MonitorEventType eventType = MonitorEventType.NONE;
 
-    this(GPid gpid, int fd) {
+    this(GPid gpid) {
         this.gpid = gpid;
-        this.fd = fd;
     }
 }
