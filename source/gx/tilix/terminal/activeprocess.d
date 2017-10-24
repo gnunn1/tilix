@@ -123,8 +123,8 @@ class Process {
             Process.processMap.remove(p);
         }
 
-        auto pids = Process.pids().sort;
-        auto pmapKeys = Process.processMap.keys.sort;
+        auto pids = Process.pids().sort();
+        auto pmapKeys = Process.processMap.keys.sort();
         auto gonePids = setDifference(pmapKeys, pids);
 
         foreach(p; gonePids) {

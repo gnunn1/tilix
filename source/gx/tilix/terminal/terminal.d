@@ -310,7 +310,7 @@ private:
 
     static if (USE_PROCESS_MONITOR) {
         // Caching active processes.
-        // keys are session id and values are the active process.
+        // keys are shell PID and values are the active process name.
         string[GPid] activeProcessInfo;
     }
 
