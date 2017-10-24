@@ -57,6 +57,7 @@ class Process {
         if (!Process.pidExists(pid)) {
             return false;
         }
+        // Need updated version.
         string[] tempStat = parseStatFile();
         long pgrp = to!long(tempStat[3]);
         long tty = to!long(tempStat[5]);
@@ -81,6 +82,7 @@ class Process {
 
     /**
     * Returns all foreground child process of this Process.
+    * Note that `Process.sessionMap` contains foreground processes only.
     */
     Process[] fChildren() {
         Process[] ret = [];
@@ -107,9 +109,9 @@ class Process {
     }
 
     /**
-    * Create `Process` object of all PIDs and store them on
-    * `Process.processMap` then store foreground processes
-    * on `Process.sessionMap` using session id as their key.
+    * Create `Process` object of all PIDs and store them in
+    * `Process.processMap` and store foreground processes
+    * in `Process.sessionMap` using session id as their key.
     */
     static void updateMap() {
 
@@ -153,12 +155,13 @@ class Process {
 
 /**
  * Get active process list of all terminals.
- * `Process.sessionMap` contains all foreground of all
+ * `Process.sessionMap` contains foreground processes of all
  * open terminals using session id as their key. We are
  * iterating through all session id (shell PID) and trying to find
  * their active process and finally returning all active process.
  * Returning all active process is very efficient when there are too
- * many open terminals.
+ * many open terminals comparing to find active process of several
+ * terminals one by one.
  */
 Process[pid_t] getActiveProcessList() {
     //  Update `Process.sessionMap` and `Process.processMap`.
