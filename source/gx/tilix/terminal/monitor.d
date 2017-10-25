@@ -128,10 +128,13 @@ void monitorProcesses(int sleep, Tid tid) {
     bool abort = false;
     while (!abort) {
         synchronized {
+            // At this point we have a list of active processes of
+            // all open terminals. We need to get these using shell
+            // PID and will store them to raise events for each terminal.
             auto activeProcesses = getActiveProcessList();
             foreach(process; processes.values()) {
                 auto activeProcess  = activeProcesses.get(process.gpid, null);
-                // Don't raise event for same process.
+                // No need to raise event for same process.
                 if (activeProcess !is null && activeProcess.pid != process.activePid) {
                     process.activeName = activeProcess.name;
                     process.activePid = activeProcess.pid;

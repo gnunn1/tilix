@@ -74,14 +74,14 @@ class Process {
     }
 
     /**
-    * Shell PID == sessionID
+    * Shell PID == session ID
     */
     pid_t sessionID() {
         return to!pid_t(processStat[4]);
     }
 
     /**
-    * Returns all foreground child process of this Process.
+    * Return all foreground child process of this process.
     * Note that `Process.sessionMap` contains foreground processes only.
     */
     Process[] fChildren() {
@@ -95,7 +95,7 @@ class Process {
     }
 
     /**
-    * Get all running PIDs of system.
+    * Get all running PIDs.
     */
     static pid_t[] pids() {
         return std.file.dirEntries("/proc", SpanMode.shallow)
@@ -156,11 +156,11 @@ class Process {
 /**
  * Get active process list of all terminals.
  * `Process.sessionMap` contains foreground processes of all
- * open terminals using session id as their key. We are
- * iterating through all session id (shell PID) and trying to find
+ * open terminals using session id (shell PID) as their key. We are
+ * iterating through all session id and trying to find
  * their active process and finally returning all active process.
  * Returning all active process is very efficient when there are too
- * many open terminals comparing to find active process of several
+ * many open terminals comparing to find the active process of several
  * terminals one by one.
  */
 Process[pid_t] getActiveProcessList() {
@@ -176,7 +176,7 @@ Process[pid_t] getActiveProcessList() {
             auto proc = shellChild[0];
             ret[proc.sessionID()] = proc;
         } else {
-            // If we are lucky, last item is the active process :D
+            // If we are lucky, the last item is the active process :D
             foreach_reverse(proc; shellChild) {
                 // If a foreground process has no foreground
                 // child process then it is an active process.
