@@ -335,6 +335,15 @@ protected:
             row++;
         }
 
+        //Select-by-word-chars
+        Label lblSelectByWordChars = new Label(_("Word-Wise Select Chars"));
+        lblSelectByWordChars.setHalign(Align.END);
+        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
+        Entry eSelectByWordChars = new Entry();
+        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
+        grid.attach(eSelectByWordChars, 1, row, 1, 1);
+        row++;
+
         //Notify silence threshold
         Label lblSilence = new Label(_("Notify new activity"));
         lblSilence.setHalign(Align.END);

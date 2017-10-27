@@ -2245,6 +2245,10 @@ private:
         case SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
+        case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
+            if (vte !is null) 
+                vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
+            break;
         default:
             break;
         }
@@ -2286,7 +2290,8 @@ private:
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
             SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
             SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY,
-            SETTINGS_PROFILE_BOLD_COLOR_KEY
+            SETTINGS_PROFILE_BOLD_COLOR_KEY,
+            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY
         ];
 
         foreach (key; keys) {
