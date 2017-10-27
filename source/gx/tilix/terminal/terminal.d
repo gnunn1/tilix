@@ -3507,7 +3507,7 @@ public:
         import std.file: read, FileException;
         try {
             string data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));
-            long rpar = data.lastIndexOf(")");
+            size_t rpar = data.lastIndexOf(")");
             name = data[data.indexOf("(") + 1..rpar];
         } catch (FileException fe) {
             name = _("Unknown");
