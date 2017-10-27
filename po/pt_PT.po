@@ -6,16 +6,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-06 08:39-0400\n"
-"PO-Revision-Date: 2017-01-23 15:11+0000\n"
-"Last-Translator: Daniel Pinto <danielpinto8zz6@gmail.com>\n"
-"Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
-"terminix/translations/pt_PT/>\n"
+"PO-Revision-Date: 2017-10-15 16:46+0000\n"
+"Last-Translator: Nuno Dio <nunossdionisio@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) "
+"<https://hosted.weblate.org/projects/tilix/translations/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 2.17\n"
 
 #: source/app.d:133
 #, c-format
@@ -36,9 +36,9 @@ msgid "Versions"
 msgstr "Versões"
 
 #: source/app.d:162
-#, fuzzy, c-format
+#, c-format
 msgid "Tilix version: %s"
-msgstr "Versão do Terminix: %s"
+msgstr "Versão do Tilix: %s"
 
 #: source/app.d:163
 #, c-format
@@ -51,9 +51,8 @@ msgid "GTK Version: %d.%d.%d"
 msgstr "Versão do GTK: %d.%d.%d"
 
 #: source/app.d:165
-#, fuzzy
 msgid "Tilix Special Features"
-msgstr "Funcionalidades especiais do Terminix"
+msgstr "Funcionalidades especiais do Tilix"
 
 #: source/app.d:166
 msgid "Notifications enabled=%b"
@@ -202,10 +201,9 @@ msgstr "Salvar sessão"
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
-msgstr ""
+msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:2072
-#, fuzzy
 msgid "Close session"
 msgstr "Fechar sessão"
 
@@ -276,11 +274,13 @@ msgid "Wrap around"
 msgstr "Voltar ao início"
 
 #: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
-msgstr "A expressão %s não é uma expressão regular válida"
+msgstr ""
+"A expressão '%s' não é uma expressão regular válida\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:345
 #: source/gx/tilix/terminal/terminal.d:3629
@@ -305,8 +305,9 @@ msgid "Read-Only"
 msgstr "Somente leitura"
 
 #: source/gx/tilix/terminal/terminal.d:412
+#, fuzzy
 msgid "New output"
-msgstr ""
+msgstr "Nova saída"
 
 #: source/gx/tilix/terminal/terminal.d:418
 #: source/gx/tilix/prefeditor/profileeditor.d:289
@@ -318,9 +319,8 @@ msgid "Edit Profile"
 msgstr "Editar perfil"
 
 #: source/gx/tilix/terminal/terminal.d:481
-#, fuzzy
 msgid "Edit Encodings"
-msgstr "Codificação"
+msgstr "Editar Codificações"
 
 #: source/gx/tilix/terminal/terminal.d:669
 msgid "Enable input synchronization for this terminal"
@@ -343,22 +343,20 @@ msgid "Find…"
 msgstr "Localizar…"
 
 #: source/gx/tilix/terminal/terminal.d:798
-#, fuzzy
 msgid "Password..."
-msgstr "Senha"
+msgstr "Palavra-passe..."
 
 #: source/gx/tilix/terminal/terminal.d:799
-#, fuzzy
 msgid "Bookmark..."
-msgstr "Selecionar cor do distintivo"
+msgstr "Favorito..."
 
 #: source/gx/tilix/terminal/terminal.d:800
 msgid "Add Bookmark..."
-msgstr ""
+msgstr "Adicionar Favorito..."
 
 #: source/gx/tilix/terminal/terminal.d:804
 msgid "Assistants"
-msgstr ""
+msgstr "Assistentes"
 
 #: source/gx/tilix/terminal/terminal.d:805
 #: source/gx/tilix/prefeditor/prefdialog.d:278
@@ -367,7 +365,7 @@ msgstr "Perfis"
 
 #: source/gx/tilix/terminal/terminal.d:811
 msgid "Show File Browser..."
-msgstr ""
+msgstr "Abrir gestor de ficheiros..."
 
 #: source/gx/tilix/terminal/terminal.d:815
 msgid "Save Output…"
@@ -397,10 +395,9 @@ msgstr "Opções de layout…"
 
 #: source/gx/tilix/terminal/terminal.d:826
 msgid "Monitor Silence"
-msgstr ""
+msgstr "Monitor de Silêncio"
 
 #: source/gx/tilix/terminal/terminal.d:829
-#, fuzzy
 msgid "Other"
 msgstr "Outro"
 
@@ -415,12 +412,11 @@ msgstr "Adicionar terminal abaixo"
 #: source/gx/tilix/terminal/terminal.d:886
 #, fuzzy, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Ocorreu um erro inesperado: %s"
+msgstr "Ocorreu um erro inesperado ao adicionar a expressão regular: %s"
 
 #: source/gx/tilix/terminal/terminal.d:971
-#, fuzzy
 msgid "Terminal Activity"
-msgstr "Título do terminal"
+msgstr "Atividade do terminal"
 
 #: source/gx/tilix/terminal/terminal.d:1272
 #: source/gx/tilix/terminal/terminal.d:1690
@@ -428,16 +424,17 @@ msgid "Restore"
 msgstr "Restaurar"
 
 #: source/gx/tilix/terminal/terminal.d:1549
+#, fuzzy
 msgid "Tilix Custom Notification"
-msgstr ""
+msgstr "Notificação Personalizada do Tilix"
 
 #: source/gx/tilix/terminal/terminal.d:1650
 msgid "Open Link"
-msgstr "Abrir link"
+msgstr "Abrir Ligação"
 
 #: source/gx/tilix/terminal/terminal.d:1651
 msgid "Copy Link Address"
-msgstr "Copiar endereço do link"
+msgstr "Copiar Endereço"
 
 #: source/gx/tilix/terminal/terminal.d:1661
 #: source/gx/tilix/terminal/terminal.d:1668
@@ -447,7 +444,7 @@ msgstr "Copiar"
 #: source/gx/tilix/terminal/terminal.d:1663
 #: source/gx/tilix/terminal/terminal.d:1678
 msgid "Select All"
-msgstr "Selecionar tudo"
+msgstr "Selecionar Tudo"
 
 #: source/gx/tilix/terminal/terminal.d:1681
 #: source/gx/tilix/prefeditor/prefdialog.d:1426
@@ -467,7 +464,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:1844
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "URI do ficheiro remoto não suportado"
 
 #: source/gx/tilix/terminal/terminal.d:1875
 #: source/gx/tilix/terminal/terminal.d:2374
@@ -476,9 +473,8 @@ msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:1876
-#, fuzzy
 msgid "Regular Expression Error"
-msgstr "Coincidir como expressão regular"
+msgstr "Erro na expressão regular"
 
 #: source/gx/tilix/terminal/terminal.d:1888
 #, c-format
@@ -504,11 +500,11 @@ msgstr "Salvar saída do terminal"
 
 #: source/gx/tilix/terminal/terminal.d:3212
 msgid "All Text Files"
-msgstr "Todos os arquivos de texto"
+msgstr "Todos os ficheiros de texto"
 
 #: source/gx/tilix/terminal/terminal.d:3513
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: source/gx/tilix/terminal/terminal.d:3797
 #, c-format
@@ -521,22 +517,26 @@ msgid "The child process was aborted by signal %d."
 msgstr "O processo filho foi abortado pelo sinal %d."
 
 #: source/gx/tilix/terminal/terminal.d:3799
+#, fuzzy
 msgid "The child process was aborted."
-msgstr "O processo filho foi abortado."
+msgstr "O processo filho foi cancelado."
 
 #: source/gx/tilix/terminal/terminal.d:3805
 msgid "Relaunch"
 msgstr "Recarregar"
 
 #: source/gx/tilix/terminal/terminal.d:3853
+#, fuzzy
 msgid "Don't Paste"
 msgstr "Não colar"
 
 #: source/gx/tilix/terminal/terminal.d:3854
+#, fuzzy
 msgid "Paste Anyway"
 msgstr "Colar mesmo assim"
 
 #: source/gx/tilix/terminal/layout.d:33
+#, fuzzy
 msgid "Layout Options"
 msgstr "Opções de layout"
 
@@ -616,12 +616,14 @@ msgid "Delete"
 msgstr "Apagar"
 
 #: source/gx/tilix/terminal/password.d:235
+#, fuzzy
 msgid "Include return character with password"
-msgstr "Incluir quebra de linha com senha"
+msgstr "Incluir quebra de linha com palavra-passe"
 
 #: source/gx/tilix/terminal/password.d:371
+#, fuzzy
 msgid "Insert Password"
-msgstr "Inserir Senha"
+msgstr "Inserir palavra-passe"
 
 #: source/gx/tilix/terminal/password.d:371
 #: source/gx/tilix/prefeditor/advdialog.d:161
@@ -630,32 +632,36 @@ msgid "Apply"
 msgstr "Aplicar"
 
 #: source/gx/tilix/terminal/password.d:441
+#, fuzzy
 msgid "Password"
-msgstr "Senha"
+msgstr "Palavra-passe"
 
 #: source/gx/tilix/terminal/password.d:451
+#, fuzzy
 msgid "Confirm Password"
-msgstr "Confirmar senha"
+msgstr "Confirmar palavra-passe"
 
 #: source/gx/tilix/terminal/password.d:499
+#, fuzzy
 msgid "Add Password"
-msgstr "Adicionar senha"
+msgstr "Adicionar palavra-passe"
 
 #: source/gx/tilix/terminal/password.d:504
+#, fuzzy
 msgid "Edit Password"
-msgstr "Editar senha"
+msgstr "Editar palavra-passe"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
-msgstr ""
+msgstr "Adicionar favorito"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:67
 msgid "Edit bookmark"
-msgstr ""
+msgstr "Editar favorito"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:72
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Apagar favorito"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:77
 msgid "Unselect bookmark"
@@ -873,7 +879,7 @@ msgstr "Selecionar cor de fundo selecionado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:614
 msgid "Bold"
-msgstr ""
+msgstr "Negrito"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:619
 #, fuzzy
@@ -1140,7 +1146,7 @@ msgstr "Modo Quake"
 #: source/gx/tilix/prefeditor/prefdialog.d:150
 #: source/gx/tilix/prefeditor/prefdialog.d:151
 msgid "Bookmarks"
-msgstr ""
+msgstr "Favoritos"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:157
 #: source/gx/tilix/prefeditor/prefdialog.d:158
@@ -1231,15 +1237,15 @@ msgstr "desativado"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Desativar CSD, ocultar barra de ferramentas"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1036
 msgid "Borderless"
-msgstr ""
+msgstr "Sem bordas"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1040
 msgid "Window restart required"
-msgstr ""
+msgstr "Necessário reiniciar a janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1049
 msgid "Terminal title style"
@@ -1270,7 +1276,7 @@ msgstr "Direita"
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1250
 msgid "Top"
-msgstr ""
+msgstr "Topo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1056
 #: source/gx/tilix/prefeditor/prefdialog.d:1250
@@ -1352,7 +1358,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1178
 msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr ""
+msgstr "Usar abas em vez da barra lateral (necessário reiniciar aplicação)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1210
 msgid "Size"
@@ -1380,7 +1386,7 @@ msgstr "Esconder janela ao retirar foco"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1281
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Atraso ao esconder janela (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1294
 msgid "Hide the titlebar of the window"
@@ -1432,8 +1438,9 @@ msgid "New window inherits directory and profile from active terminal"
 msgstr "Definir o diretório de trabalho para o terminal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
+#, fuzzy
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Guardar e restaurar estado da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1409
 msgid "Send desktop notification on process complete"
@@ -1493,7 +1500,7 @@ msgstr "Janela"
 #: source/gx/tilix/prefeditor/titleeditor.d:122
 #: source/gx/tilix/prefeditor/titleeditor.d:123
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: source/gx/tilix/prefeditor/advdialog.d:92
 #: source/gx/tilix/prefeditor/advdialog.d:230
@@ -1523,7 +1530,7 @@ msgstr "Editar acionadores"
 #: source/gx/tilix/prefeditor/advdialog.d:374
 #, c-format
 msgid "Row %d: "
-msgstr ""
+msgstr "Linha %d: "
 
 #: source/gx/tilix/preferences.d:235
 msgid "UpdateState"
@@ -1559,7 +1566,7 @@ msgstr "AtualizarDistintivo"
 
 #: source/gx/tilix/preferences.d:243
 msgid "RunProcess"
-msgstr ""
+msgstr "ExecutarProcesso"
 
 #: source/gx/tilix/preferences.d:351
 #, c-format
@@ -1647,8 +1654,9 @@ msgid ""
 msgstr ""
 
 #: source/gx/tilix/application.d:671
+#, fuzzy
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "ESTILO_DA_JANELA"
 
 #: source/gx/tilix/application.d:672
 msgid "Full-screen the terminal window"
@@ -1767,16 +1775,19 @@ msgid "Icon title"
 msgstr "Título da aplicação"
 
 #: source/gx/tilix/constants.d:143 source/gx/tilix/constants.d:166
+#, fuzzy
 msgid "Directory"
-msgstr ""
+msgstr "Diretoria"
 
 #: source/gx/tilix/constants.d:144 source/gx/tilix/constants.d:167
+#, fuzzy
 msgid "Hostname"
-msgstr ""
+msgstr "Nome do host"
 
 #: source/gx/tilix/constants.d:145 source/gx/tilix/constants.d:168
+#, fuzzy
 msgid "Username"
-msgstr ""
+msgstr "Nome de utilizador"
 
 #: source/gx/tilix/constants.d:146 source/gx/tilix/constants.d:169
 #, fuzzy
@@ -1785,11 +1796,11 @@ msgstr "colunas"
 
 #: source/gx/tilix/constants.d:147 source/gx/tilix/constants.d:170
 msgid "Rows"
-msgstr ""
+msgstr "Linhas"
 
 #: source/gx/tilix/constants.d:148
 msgid "Process"
-msgstr ""
+msgstr "Processo"
 
 #: source/gx/tilix/constants.d:190
 #, fuzzy
@@ -2007,12 +2018,14 @@ msgid "Close Session"
 msgstr "Fechar sessão"
 
 #: source/gx/tilix/bookmark/manager.d:233
+#, fuzzy
 msgid "Error deserializing bookmark"
-msgstr ""
+msgstr "Erro ao carregar favorito"
 
 #: source/gx/tilix/bookmark/manager.d:537
+#, fuzzy
 msgid "Root"
-msgstr ""
+msgstr "Raiz"
 
 #: source/gx/tilix/bookmark/manager.d:615
 #, fuzzy
@@ -2021,16 +2034,16 @@ msgstr "Não foi possível carregar a sessão devido a um erro inesperado."
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Folder"
-msgstr ""
+msgstr "Pasta"
 
 #: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:291
 msgid "Path"
-msgstr ""
+msgstr "Caminho"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
-msgstr ""
+msgstr "Remoto"
 
 #: source/gx/tilix/bookmark/bmchooser.d:79
 #, fuzzy
@@ -2055,15 +2068,15 @@ msgstr "Selecionar cor %s"
 
 #: source/gx/tilix/bookmark/bmeditor.d:86
 msgid "Clear folder"
-msgstr ""
+msgstr "Limpar pasta"
 
 #: source/gx/tilix/bookmark/bmeditor.d:149
 msgid "Add Bookmark"
-msgstr ""
+msgstr "Adicionar favorito"
 
 #: source/gx/tilix/bookmark/bmeditor.d:149
 msgid "Edit Bookmark"
-msgstr ""
+msgstr "Editar favorito"
 
 #: source/gx/tilix/bookmark/bmeditor.d:293
 #, fuzzy
@@ -2072,15 +2085,15 @@ msgstr "Selecionar tudo"
 
 #: source/gx/tilix/bookmark/bmeditor.d:381
 msgid "Protocol"
-msgstr ""
+msgstr "Protocolo"
 
 #: source/gx/tilix/bookmark/bmeditor.d:397
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: source/gx/tilix/bookmark/bmeditor.d:413
 msgid "User"
-msgstr ""
+msgstr "Utilizador"
 
 #: source/gx/tilix/bookmark/bmeditor.d:420
 #, fuzzy
@@ -2204,7 +2217,7 @@ msgstr "Alternar para a sessão 4"
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Switch to session 5"
-msgstr "Alternar para a sessão 5"
+msgstr "Mudar para a sessão 5"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
@@ -2364,7 +2377,7 @@ msgstr "Alternar para o terminal 2"
 #: data/resources/ui/shortcuts.ui:297
 msgctxt "shortcut window"
 msgid "Switch to terminal 3"
-msgstr "Alternar para o terminal 3"
+msgstr "Mudar para o terminal 3"
 
 #: data/resources/ui/shortcuts.ui:303
 msgctxt "shortcut window"
@@ -2479,7 +2492,7 @@ msgstr "Restaurar zoom padrão"
 #: data/resources/ui/shortcuts.ui:439
 msgctxt "shortcut window"
 msgid "Navigation"
-msgstr ""
+msgstr "Navegação"
 
 #: data/resources/ui/shortcuts.ui:443
 #, fuzzy
@@ -2562,7 +2575,7 @@ msgstr "Selecionar imagem"
 #: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Add bookmark"
-msgstr ""
+msgstr "Adicionar favorito"
 
 #: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
@@ -2570,9 +2583,10 @@ msgid "Cycle title style"
 msgstr "Alternar estilo de título"
 
 #: data/resources/ui/shortcuts.ui:551
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Monitor silence"
-msgstr ""
+msgstr "Monitorizar silêncio"
 
 #: data/resources/ui/shortcuts.ui:557
 #, fuzzy
@@ -2589,7 +2603,7 @@ msgstr "Abrir Terminix aqui"
 #: data/resources/ui/shortcuts.ui:574
 msgctxt "shortcut window"
 msgid "Nautilus"
-msgstr ""
+msgstr "Nautilus"
 
 #: data/resources/ui/shortcuts.ui:579
 #, fuzzy
