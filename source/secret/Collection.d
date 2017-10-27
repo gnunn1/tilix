@@ -66,12 +66,6 @@ public class Collection : DBusProxy
 		return cast(void*)secretCollection;
 	}
 
-	protected override void setStruct(GObject* obj)
-	{
-		secretCollection = cast(SecretCollection*)obj;
-		super.setStruct(obj);
-	}
-
 	/**
 	 * Sets our main struct and passes it to the parent class.
 	 */

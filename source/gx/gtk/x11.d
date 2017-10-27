@@ -74,13 +74,15 @@ void activateX11Window(Window window) {
 
 private:
 
+import gdk.c.functions;
+
 shared static this()
 {
     // Link in some extra functions not provided by GtkD
-	Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY.GDK);
-	Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY.GDK);
-	Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY.GDK);
-    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY.GDK);
+	Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY_GDK);
+	Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY_GDK);
+	Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY_GDK);
+    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY_GDK);
 }
 
 __gshared extern(C)

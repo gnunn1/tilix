@@ -102,7 +102,8 @@ bool checkVTEFeature(TerminalFeature feature) {
 
         import gtkc.Loader: Linker;
         import gtkc.paths: LIBRARY;
-        string[] failures = Linker.getLoadFailures(LIBRARY.VTE);
+        import vte.c.functions;
+        string[] failures = Linker.getLoadFailures(LIBRARY_VTE);
 
         foreach(failure; failures) {
             if (failure == "vte_terminal_get_disable_bg_draw") {

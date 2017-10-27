@@ -42,8 +42,8 @@ import gdk.Window: GdkWindow = Window;
 import gdkpixbuf.Pixbuf;
 
 import gio.ActionMapIF;
-import gio.File : GFile = File;
 import gio.FileIF : GFileIF = FileIF;
+import gio.FileT: GFileT = FileT;
 import gio.Menu : GMenu = Menu;
 import gio.MenuItem : GMenuItem = MenuItem;
 import gio.Notification : GNotification = Notification;
@@ -3001,7 +3001,7 @@ private:
             if (uris) {
                 foreach (uri; uris) {
                     trace("Dropped filename " ~ uri);
-                    GFileIF file = GFile.parseName(uri);
+                    GFileIF file = parseName(uri);
                     string filename;
                     if (file !is null) {
                         filename = file.getPath();
@@ -3230,7 +3230,7 @@ private:
             }
         }
         //Do work here
-        GFileIF file = GFile.parseName(outputFilename);
+        GFileIF file = parseName(outputFilename);
         gio.OutputStream.OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
         scope (exit) {
             stream.close(null);

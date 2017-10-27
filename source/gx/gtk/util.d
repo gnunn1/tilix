@@ -15,11 +15,13 @@ import gdk.Gdk;
 import gdk.RGBA;
 import gdk.X11;
 
+import gio.FileIF;
 import gio.ListModelIF;
 import gio.Settings: GSettings = Settings;
 
 import glib.GException;
 import glib.ListG;
+import glib.Str;
 
 import gobject.ObjectG;
 import gobject.Type;
@@ -47,6 +49,20 @@ import gtk.Widget;
 import gtk.Window;
 
 import gx.gtk.x11;
+
+/**
+ * Parse filename and return FileIF object
+ */
+public FileIF parseName(string parseName) {
+    import gio.c.functions;
+    auto p = g_file_parse_name(Str.toStringz(parseName));
+
+    if(p is null) {
+        return null;
+    }
+
+    return ObjectG.getDObject!(FileIF)(cast(GFile*) p, true);
+}
 
 /**
  * Directly process events for up to a specified period
