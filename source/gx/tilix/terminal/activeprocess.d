@@ -7,10 +7,10 @@ import std.algorithm;
 import std.array;
 import std.conv;
 import std.experimental.logger;
-import std.stdio;
-import std.string;
 import std.file;
 import std.path;
+import std.string;
+
 
 /**
 * A stripped-down (plus extended) version of psutil's Process class.
@@ -65,10 +65,6 @@ class Process {
         return tty > 0 && pgrp == tpgid;
     }
 
-    long createTime() {
-        return to!long(processStat[20]);
-    }
-
     bool hasTTY() {
         return to!long(processStat[5]) > 0;
     }
@@ -81,17 +77,16 @@ class Process {
     }
 
     /**
-    * Return all foreground child process of this process.
+    * Return true if this process has any foreground child process.
     * Note that `Process.sessionMap` contains foreground processes only.
     */
-    Process[] fChildren() {
-        Process[] ret = [];
+    bool HasForegroundChildren() {
         foreach (p; Process.sessionMap.get(sessionID(), [])) {
-            if (p.ppid == pid && createTime() <= p.createTime()) {
-                ret ~= p;
+            if (p.ppid == pid) {
+                return true;
             }
         }
-        return ret;
+        return false;
     }
 
     /**
@@ -133,7 +128,7 @@ class Process {
             remove(p);
         }
 
-        Process.processMap.rehash();
+        Process.processMap.rehash;
         Process proc;
         Process.sessionMap.clear;
 
@@ -146,7 +141,7 @@ class Process {
             // Taking advantages of short-circuit operator `&&` using `proc.hasTTY()`
             // to reduce calling on `proc.isForeground()`.
             if (proc !is null && proc.hasTTY() && proc.isForeground()) {
-                Process.sessionMap[proc.sessionID] ~= proc;
+                Process.sessionMap[proc.sessionID()] ~= proc;
             }
         }
     }
@@ -157,8 +152,8 @@ class Process {
  * Get active process list of all terminals.
  * `Process.sessionMap` contains foreground processes of all
  * open terminals using session id (shell PID) as their key. We are
- * iterating through all session id and trying to find
- * their active process and finally returning all active process.
+ * iterating through all processes for each session id and trying
+ * to find their active process and finally returning all active process.
  * Returning all active process is very efficient when there are too
  * many open terminals comparing to find the active process of several
  * terminals one by one.
@@ -167,22 +162,21 @@ Process[pid_t] getActiveProcessList() {
     //  Update `Process.sessionMap` and `Process.processMap`.
     Process.updateMap();
     Process[pid_t] ret;
-    foreach(pid; Process.sessionMap.keys) {
-        auto shellChild = Process.sessionMap[pid];
-        auto shellChildCount = shellChild.length;
+    foreach(shellChild; Process.sessionMap.byValue()) {
          // The shell process has only one foreground
          // process, so, it is an active process.
-        if (shellChildCount == 1) {
+        if (shellChild.length == 1) {
             auto proc = shellChild[0];
             ret[proc.sessionID()] = proc;
         } else {
-            // If we are lucky, the last item is the active process :D
+            // Probably, the last item is the active process.
             foreach_reverse(proc; shellChild) {
                 // If a foreground process has no foreground
                 // child process then it is an active process.
-                if(proc.fChildren().length == 0)
+                if (!proc.HasForegroundChildren()) {
                     ret[proc.sessionID()] = proc;
                     break;
+                }
             }
         }
     }
