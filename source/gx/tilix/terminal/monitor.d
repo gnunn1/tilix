@@ -17,18 +17,19 @@ import vtec.vtetypes;
 import gx.gtk.threads;
 
 import gx.tilix.common;
+import gx.tilix.terminal.activeprocess;
 
 enum MonitorEventType {
     NONE,
-    STARTED, 
-    CHANGED, 
+    STARTED,
+    CHANGED,
     FINISHED
 };
 
 /**
  * Class that monitors processes to see if new child processes have been
  * started or finished and raises an event if detected. This class uses
- * a seperate thread to monitor the processes and a timeoutDelegate to 
+ * a seperate thread to monitor the processes and a timeoutDelegate to
  * trigger the actual events to the terminals.
  */
 class ProcessMonitor {
@@ -40,7 +41,7 @@ private:
         synchronized {
             foreach(process; processes.values()) {
                 if (process.eventType != MonitorEventType.NONE) {
-                    onChildProcess.emit(process.eventType, process.gpid, process.fd);
+                    onChildProcess.emit(process.eventType, process.gpid, process.activePid, process.activeName);
                     process.eventType = MonitorEventType.NONE;
                 }
             }
@@ -75,10 +76,10 @@ public:
     /**
      * Add a process for monitoring
      */
-    void addProcess(GPid gpid, int fd) {
+    void addProcess(GPid gpid) {
         synchronized {
             if (gpid !in processes) {
-                shared ProcessStatus status = new shared(ProcessStatus)(gpid, fd);
+                shared ProcessStatus status = new shared(ProcessStatus)(gpid);
                 processes[gpid] = status;
             }
         }
@@ -100,7 +101,7 @@ public:
     /**
      * When a process changes inform children
      */
-    GenericEvent!(MonitorEventType, GPid, pid_t) onChildProcess;
+    GenericEvent!(MonitorEventType, GPid, pid_t, string) onChildProcess;
 
     static @property ProcessMonitor instance() {
         if (_instance is null) {
@@ -116,7 +117,7 @@ private:
 /**
  * Constant used for sleep time between checks.
  */
-enum SLEEP_CONSTANT_MS = 250;
+enum SLEEP_CONSTANT_MS = 300;
 
 /**
  * List of processes being monitored.
@@ -127,27 +128,25 @@ void monitorProcesses(int sleep, Tid tid) {
     bool abort = false;
     while (!abort) {
         synchronized {
+            // At this point we have a list of active processes of
+            // all open terminals. We need to get these using shell
+            // PID and will store them to raise events for each terminal.
+            auto activeProcesses = getActiveProcessList();
             foreach(process; processes.values()) {
-                pid_t childPid = tcgetpgrp(process.fd);
-                if (childPid != process.childPid && (process.childPid == -1 || process.childPid == process.gpid)) {
-                    process.childPid = childPid;
-                    process.lastChanged = Clock.currStdTime();
+                auto activeProcess  = activeProcesses.get(process.gpid, null);
+                // No need to raise event for same process.
+                if (activeProcess !is null && activeProcess.pid != process.activePid) {
+                    process.activeName = activeProcess.name;
+                    process.activePid = activeProcess.pid;
                     process.eventType = MonitorEventType.STARTED;
-                } else if (childPid != process.childPid) {
-                    process.childPid = childPid;
-                    if (childPid == -1 || process.childPid == process.gpid) {
-                        process.eventType = MonitorEventType.FINISHED;
-                    } else {
-                        process.eventType = MonitorEventType.CHANGED;
-                    }
                 }
             }
         }
-        receiveTimeout(dur!("msecs")( sleep ), 
+        receiveTimeout(dur!("msecs")( sleep ),
                 (bool msg) {
                     if (msg) abort = true;
                 }
-        );    
+        );
     }
 }
 
@@ -156,13 +155,11 @@ void monitorProcesses(int sleep, Tid tid) {
  */
 shared class ProcessStatus {
     GPid gpid;
-    int fd;
-    pid_t childPid = -1;
-    long lastChanged;
+    pid_t activePid = -1;
+    string activeName = "";
     MonitorEventType eventType = MonitorEventType.NONE;
 
-    this(GPid gpid, int fd) {
+    this(GPid gpid) {
         this.gpid = gpid;
-        this.fd = fd;
     }
 }

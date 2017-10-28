@@ -148,7 +148,8 @@ import gx.tilix.terminal.search;
 import gx.tilix.terminal.util;
 
 static if (USE_PROCESS_MONITOR) {
-    import gx.tilix.terminal.monitor;    
+    import gx.tilix.terminal.monitor;
+    import gx.tilix.terminal.activeprocess;
 }
 
 /**
@@ -307,6 +308,10 @@ private:
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
 
+    static if (USE_PROCESS_MONITOR) {
+        // store active process name.
+        string activeProcessName = "Unknown";
+    }
 
     @property bool useOverlayScrollbar() {
         return _useOverlayScrollbar < 0;
@@ -978,7 +983,7 @@ private:
             // Check whether to show new output indicator
             if (!scrollOnOutput) {
                 Adjustment adjustment = getAdjustment();
-                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) { 
+                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) {
                     imgNewOuput.show();
                 }
             }
@@ -1348,7 +1353,7 @@ private:
     }
 
     /**
-     * Tests if the paste is unsafe, currently just looks for sudo and 
+     * Tests if the paste is unsafe, currently just looks for sudo and
      * carriage return.
      */
     bool isPasteUnsafe(string text) {
@@ -1768,7 +1773,7 @@ private:
                     match.tag = tag;
                     trace("Found matching regex");
                 }
-            } 
+            }
         }
 
         if (vte is null) return false;
@@ -2538,7 +2543,7 @@ private:
                 showInfoBarMessage(msg);
             } else {
                 static if (USE_PROCESS_MONITOR) {
-                    ProcessMonitor.instance.addProcess(gpid, vte.getPty().getFd());
+                    ProcessMonitor.instance.addProcess(gpid);
                 }
             }
         }
@@ -3268,8 +3273,9 @@ private:
 static if (USE_PROCESS_MONITOR) {
     // Process monitoring
     private:
-        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child) {
+        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child, string name) {
             if (process == gpid) {
+                activeProcessName = name;
                 updateDisplayText();
             }
         }
@@ -3463,8 +3469,8 @@ public:
         if (gpid > 0) {
             static if (USE_PROCESS_MONITOR) {
                 ProcessMonitor.instance.removeProcess(gpid);
-            }        
-           
+            }
+
             try {
                 kill(gpid, SIGHUP);
             }
@@ -3656,9 +3662,7 @@ public:
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
         static if (USE_PROCESS_MONITOR) {
             if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-                string name;
-                isProcessRunning(name);
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
             }
         }
         string path;
