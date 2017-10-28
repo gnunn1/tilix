@@ -309,7 +309,7 @@ protected:
         row++;
 
         //Badge
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             //Badge text
             Label lblBadge = new Label(_("Badge"));
             lblBadge.setHalign(Align.END);
@@ -637,7 +637,7 @@ private:
         cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
         // Only attach badge components if badge feature is available
         // Need to still create them to support color scheme matching
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             gColors.attach(cbUseBadgeColor, 0, row, 1, 1);
             gColors.attach(cbBadgeFG, 1, row, 1, 1);
         }

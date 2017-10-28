@@ -186,6 +186,11 @@ public:
 		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
     }
 
+	public void setBackgroundOperator(cairo_operator_t operator) {
+		trace("Setting background operator");
+		vte_terminal_set_background_operator(vteTerminal, operator);
+	}
+
     /**
      * Returns the child pid running in the terminal or -1
      * if no child pid is running. May also return the VTE gpid
@@ -201,7 +206,6 @@ public:
         	return tcgetpgrp(getPty().getFd());
 		}
     }
-
 }
 
 private:
@@ -213,12 +217,16 @@ __gshared extern(C) {
 	int function(VteTerminal* terminal) c_vte_terminal_get_disable_bg_draw;
 	void function(VteTerminal* terminal, int isAudible) c_vte_terminal_set_disable_bg_draw;
 
+	void function(VteTerminal* terminal, cairo_operator_t op) c_vte_terminal_set_background_operator;
 }
 
 alias vte_terminal_get_disable_bg_draw = c_vte_terminal_get_disable_bg_draw;
 alias vte_terminal_set_disable_bg_draw = c_vte_terminal_set_disable_bg_draw;
 
+alias vte_terminal_set_background_operator = c_vte_terminal_set_background_operator;
+
 shared static this() {
 	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY_VTE);
 	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY_VTE);
+	Linker.link(vte_terminal_set_background_operator, "vte_terminal_set_background_operator", LIBRARY_VTE);
 }

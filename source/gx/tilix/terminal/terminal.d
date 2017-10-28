@@ -1138,7 +1138,7 @@ private:
         }
 
         //Disable background draw if available
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
             vte.setDisableBGDraw(true);
         }
 
@@ -1946,6 +1946,7 @@ private:
     RGBA vteFG;
     RGBA dimFG;
     RGBA vteBG;
+    RGBA vteBGClear;
     RGBA vteHighlightFG;
     RGBA vteHighlightBG;
     RGBA vteCursorFG;
@@ -1982,6 +1983,8 @@ private:
         vteBadge = new RGBA();
         vteBold = new RGBA();
         dimBold = new RGBA();
+
+        vteBGClear = new RGBA(0.0, 0.0, 0.0, 0.0);
 
         vtePalette = new RGBA[16];
         dimPalette = new RGBA[16];
@@ -2022,14 +2025,21 @@ private:
         VTEColorSet desired = (isTerminalWidgetFocused() || dimPercent == 0)? VTEColorSet.normal: VTEColorSet.dim;
         if (desired == currentColorSet && !force) return;
 
+        RGBA vteBGUsed;
+        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+            vteBGUsed = vteBGClear;
+        } else {
+            vteBGUsed = vteBG;
+        }
+
         if (isTerminalWidgetFocused() || dimPercent == 0) {
             tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
-            vte.setColors(vteFG, vteBG, vtePalette);
+            vte.setColors(vteFG, vteBGUsed, vtePalette);
             setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
             tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
-            vte.setColors(dimFG, vteBG, dimPalette);
+            vte.setColors(dimFG, vteBGUsed, dimPalette);
             setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
         }
@@ -2211,12 +2221,12 @@ private:
             unlimitedLines = gsSettings.getBoolean(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY);
             break;
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
-            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            if (isVTEBackgroundDrawEnabled()) {
                 updateBadge();
             }
             break;
         case SETTINGS_PROFILE_BADGE_COLOR_KEY, SETTINGS_PROFILE_USE_BADGE_COLOR_KEY:
-            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            if (isVTEBackgroundDrawEnabled()) {
                 string badgeColor;
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY);
@@ -2801,8 +2811,11 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
 
+        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+            vte.setBackgroundOperator(cairo_operator_t.OVER);
+        }
         //TODO - Figure out why this is causing issues, see #545
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             vte.addOnDraw(&onVTEDrawBadge);
         }
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
@@ -3060,7 +3073,7 @@ private:
         double height = to!double(w.getAllocatedHeight());
 
         // Only draw background if vte background draw is disabled
-        if (vte.getDisableBGDraw()) {
+        if (isVTEBackgroundDrawEnabled()) {
             cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
@@ -3072,7 +3085,8 @@ private:
         if (_cachedBadge.length > 0) {
             // Paint badge
             // Use same alpha as background color to match transparency slider
-            cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
+            //cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
+            cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, 1.0);
 
             // Create rect for default NW position
             GdkRectangle rect = GdkRectangle(BADGE_MARGIN, BADGE_MARGIN, to!int(width/2) - BADGE_MARGIN, to!int(height/2) - BADGE_MARGIN);
