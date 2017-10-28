@@ -371,6 +371,7 @@ private:
         mbTitle.addOnShow(delegate(Widget) {
             mbTitle.queueResize();
         }, ConnectFlags.AFTER);
+        mbTitle.setMarginRight(10);
 
         bTitle.packStart(mbTitle, false, false, 0);
 
