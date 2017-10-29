@@ -126,7 +126,7 @@ fi
 # Copy Icons
 cd data/icons/hicolor
 
-find -type f | while read f; do
+find . -type f | while read f; do
     install -d "${PREFIX}/share/icons/hicolor/$(dirname "$f")"
     install -m 644 "$f" "${PREFIX}/share/icons/hicolor/${f}"
 done
