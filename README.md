@@ -25,8 +25,8 @@ Tilix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the fo
 * Custom hyperlinks
 * Automatic (triggered) profile switches based on hostname and directory
 * Supports notifications when processes are completed out of view. Requires the Fedora notification patches for VTE
-* Experimental trigger support (Requires patched VTE, see [wiki ](https://github.com/gnunn1/tilix/wiki/Automatic-(Triggered)-Profile-Switching))
-* Experimental badge support (Requires patched VTE, see [wiki](https://github.com/gnunn1/tilix/wiki/Badges)
+* Experimental trigger support (Requires patched VTE, see [wiki](https://github.com/gnunn1/tilix/wiki/Automatic-(Triggered)-Profile-Switching))
+* Experimental badge support (Requires patched VTE, see [wiki](https://github.com/gnunn1/tilix/wiki/Badges))
 
 The application was written using GTK 3 and an effort was made to conform to GNOME Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than GNOME, only Unity has been tested officially though users have had success with other desktop environments.
 
@@ -71,7 +71,7 @@ Tilix is localized using Weblate, please visit the Weblate hosted [Tilix transla
 
 ### Building
 
-Tilix is written in D and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (DMD and Phobos) along with dub itself. Note that D supports three compilers (DMD, GDC and LDC) and Tilix only supports DMD.
+Tilix is written in [D](https://dlang.org/) and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (compiler and Phobos) along with dub itself. Note that D supports three [compilers](https://wiki.dlang.org/Compilers) (DMD, GDC and LDC) but Tilix only supports DMD and LDC.
 
 Once you have those installed, compiling the application is a one line command as follows:
 
