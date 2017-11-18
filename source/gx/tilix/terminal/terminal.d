@@ -3411,7 +3411,10 @@ public:
         // method can be called multiple times
         if (vte !is null) {
             foreach(handler; vteHandlers) {
-                Signals.handlerDisconnect(vte, handler);
+                if (handler > 0) {
+                    Signals.handlerDisconnect(vte, handler);
+                    handler = 0;
+                }
             }
         }
         static if (USE_PROCESS_MONITOR) {
