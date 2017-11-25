@@ -1017,7 +1017,7 @@ private:
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
             }
         }
-        if (useTabs && ((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE))) {
+        if (useTabs && ((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE)) || (stateChange == SessionStateChange.TERMINAL_FOCUSED)) {
             SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
             if (label !is null) label.text=session.displayName;
         }
