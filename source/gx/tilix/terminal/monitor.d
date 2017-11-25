@@ -17,6 +17,7 @@ import vtec.vtetypes;
 import gx.gtk.threads;
 
 import gx.tilix.common;
+import gx.tilix.constants;
 import gx.tilix.terminal.activeprocess;
 
 enum MonitorEventType {
@@ -104,10 +105,11 @@ public:
     GenericEvent!(MonitorEventType, GPid, pid_t, string) onChildProcess;
 
     static @property ProcessMonitor instance() {
-        if (_instance is null) {
-            _instance = new ProcessMonitor();
+        static if (USE_PROCESS_MONITOR) {
+            if (_instance is null) {
+                _instance = new ProcessMonitor();
+            }
         }
-
         return _instance;
     }
 }
