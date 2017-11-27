@@ -44,24 +44,23 @@ import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
  * http://bazaar.launchpad.net/~vcs-imports/xfce4-terminal/trunk/view/head:/terminal/terminal-util.c
  *
  * The original xfce code was licensed under GPL and that license remains in effect for this method only,
- * since code translations are considered a derived work under GPL. 
+ * since code translations are considered a derived work under GPL.
  */
 void activateX11Window(Window window) {
-    if (window is null) return;
     uint timestamp = Main.getCurrentEventTime();
 
-    //if (timestamp == 0)
-    //    timestamp = gdk_x11_get_server_time(window.getWindow().getWindowStruct());    
-    
+    if (timestamp == 0)
+        timestamp = gdk_x11_get_server_time(window.getWindow().getWindowStruct());
+
     XClientMessageEvent event;
     event.type = ClientMessage;
     event.window = getXid(window.getWindow());
     const(char*) name = toStringz("_NET_ACTIVE_WINDOW");
     event.message_type = gdk_x11_get_xatom_by_name(name);
     event.format = 32;
-    event.data.l[0] = 1; 
+    event.data.l[0] = 1;
     event.data.l[1] = timestamp;
-    event.data.l[2] = event.data.l[3] = event.data.l[4] = 0;    
+    event.data.l[2] = event.data.l[3] = event.data.l[4] = 0;
 
     Display* display = gdk_x11_get_default_xdisplay();
     XWindow root = gdk_x11_get_default_root_xwindow();
@@ -81,16 +80,21 @@ import gdk.c.functions;
 shared static this()
 {
     // Link in some extra functions not provided by GtkD
-	Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY_GDK);
-	Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY_GDK);
-	Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY_GDK);
-    //Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY_GDK);
+    Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY_GDK);
+    Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY_GDK);
+    Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY_GDK);
+    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY_GDK);
 }
 
 __gshared extern(C)
 {
-    Atom function(const(char)* atom_name) gdk_x11_get_xatom_by_name;
-    Display* function() gdk_x11_get_default_xdisplay;
-    XWindow function() gdk_x11_get_default_root_xwindow;
-    //uint function(GdkWindow* window) gdk_x11_get_server_time;
+    Atom function(const(char)* atom_name) c_gdk_x11_get_xatom_by_name;
+    Display* function() c_gdk_x11_get_default_xdisplay;
+    XWindow function() c_gdk_x11_get_default_root_xwindow;
+    uint function(GdkWindow* window) c_gdk_x11_get_server_time;
 }
+
+alias c_gdk_x11_get_xatom_by_name gdk_x11_get_xatom_by_name;
+alias c_gdk_x11_get_default_xdisplay gdk_x11_get_default_xdisplay;
+alias c_gdk_x11_get_default_root_xwindow gdk_x11_get_default_root_xwindow;
+alias c_gdk_x11_get_server_time gdk_x11_get_server_time;
