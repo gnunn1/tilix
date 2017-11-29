@@ -3073,10 +3073,7 @@ private:
 
     const uint BADGE_MARGIN = 10;
 
-    bool onVTEDrawBadge(Context cr, Widget w) {
-        scope (exit) {
-            cr.destroy();
-        }
+    bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
         double width = to!double(w.getAllocatedWidth());
         double height = to!double(w.getAllocatedHeight());
@@ -3168,11 +3165,7 @@ private:
     enum STROKE_WIDTH = 4;
 
     //Draw the drag hint if dragging is occurring
-    bool onVTEDraw(Context cr, Widget widget) {
-        scope (exit) {
-            cr.destroy();
-        }
-
+    bool onVTEDraw(Scoped!Context cr, Widget widget) {
         /*
         if (dimPercent > 0) {
             Window window = cast(Window) getToplevel();
