@@ -63,12 +63,6 @@ public class Prompt : DBusProxy
 		return cast(void*)secretPrompt;
 	}
 
-	protected override void setStruct(GObject* obj)
-	{
-		secretPrompt = cast(SecretPrompt*)obj;
-		super.setStruct(obj);
-	}
-
 	/**
 	 * Sets our main struct and passes it to the parent class.
 	 */

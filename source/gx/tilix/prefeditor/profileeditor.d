@@ -309,7 +309,7 @@ protected:
         row++;
 
         //Badge
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             //Badge text
             Label lblBadge = new Label(_("Badge"));
             lblBadge.setHalign(Align.END);
@@ -334,6 +334,15 @@ protected:
             grid.attach(cbBadgePosition, 1, row, 1, 1);
             row++;
         }
+
+        //Select-by-word-chars
+        Label lblSelectByWordChars = new Label(_("Word-Wise Select Chars"));
+        lblSelectByWordChars.setHalign(Align.END);
+        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
+        Entry eSelectByWordChars = new Entry();
+        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
+        grid.attach(eSelectByWordChars, 1, row, 1, 1);
+        row++;
 
         //Notify silence threshold
         Label lblSilence = new Label(_("Notify new activity"));
@@ -628,7 +637,7 @@ private:
         cbBadgeFG = createColorButton(SETTINGS_PROFILE_BADGE_COLOR_KEY, _("Select Badge Color"), SETTINGS_PROFILE_USE_BADGE_COLOR_KEY);
         // Only attach badge components if badge feature is available
         // Need to still create them to support color scheme matching
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             gColors.attach(cbUseBadgeColor, 0, row, 1, 1);
             gColors.attach(cbBadgeFG, 1, row, 1, 1);
         }

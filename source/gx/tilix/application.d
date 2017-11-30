@@ -378,12 +378,12 @@ private:
         }
     }
 
-    int onCommandLine(ApplicationCommandLine acl, GApplication) {
+    int onCommandLine(Scoped!ApplicationCommandLine acl, GApplication) {
         trace("App processing command line");
         scope (exit) {
             cp.clear();
             acl.setExitStatus(cp.exitCode);
-            acl.destroy();
+//            acl.destroy();
         }
         cp = CommandParameters(acl);
         if (cp.exit) {

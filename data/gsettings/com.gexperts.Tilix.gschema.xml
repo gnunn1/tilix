@@ -695,6 +695,11 @@
       <summary>The string to display as the terminal title</summary>
       <description>The title supports tokens which are replaced at runtime, additionally pango markup can be used as well.</description>
     </key>
+    <key name="select-by-word-chars" type="s">
+      <default>'-,./?%&amp;#:_'</default>
+      <summary>Characters which are considered as part of word-wise selection</summary>
+      <description>Set of characters which will be considered parts of a word when doing word-wise selection, in addition to the default which only considers alphanumeric characters part of a word.</description>
+    </key>
     <!-- Command Tab Options -->
     <key name="exit-action" enum="com.gexperts.Tilix.ExitAction">
       <default>'close'</default>

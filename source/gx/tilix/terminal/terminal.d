@@ -42,8 +42,8 @@ import gdk.Window: GdkWindow = Window;
 import gdkpixbuf.Pixbuf;
 
 import gio.ActionMapIF;
-import gio.File : GFile = File;
 import gio.FileIF : GFileIF = FileIF;
+import gio.FileT: GFileT = FileT;
 import gio.Menu : GMenu = Menu;
 import gio.MenuItem : GMenuItem = MenuItem;
 import gio.Notification : GNotification = Notification;
@@ -148,7 +148,8 @@ import gx.tilix.terminal.search;
 import gx.tilix.terminal.util;
 
 static if (USE_PROCESS_MONITOR) {
-    import gx.tilix.terminal.monitor;    
+    import gx.tilix.terminal.monitor;
+    import gx.tilix.terminal.activeprocess;
 }
 
 /**
@@ -307,6 +308,10 @@ private:
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
 
+    static if (USE_PROCESS_MONITOR) {
+        // store active process name.
+        string activeProcessName = "Unknown";
+    }
 
     @property bool useOverlayScrollbar() {
         return _useOverlayScrollbar < 0;
@@ -371,6 +376,7 @@ private:
         mbTitle.addOnShow(delegate(Widget) {
             mbTitle.queueResize();
         }, ConnectFlags.AFTER);
+        mbTitle.setMarginRight(10);
 
         bTitle.packStart(mbTitle, false, false, 0);
 
@@ -977,7 +983,7 @@ private:
             // Check whether to show new output indicator
             if (!scrollOnOutput) {
                 Adjustment adjustment = getAdjustment();
-                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) { 
+                if (adjustment.getValue() < (adjustment.getUpper() - adjustment.getPageSize())) {
                     imgNewOuput.show();
                 }
             }
@@ -1138,7 +1144,7 @@ private:
         }
 
         //Disable background draw if available
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
             vte.setDisableBGDraw(true);
         }
 
@@ -1347,7 +1353,7 @@ private:
     }
 
     /**
-     * Tests if the paste is unsafe, currently just looks for sudo and 
+     * Tests if the paste is unsafe, currently just looks for sudo and
      * carriage return.
      */
     bool isPasteUnsafe(string text) {
@@ -1767,7 +1773,7 @@ private:
                     match.tag = tag;
                     trace("Found matching regex");
                 }
-            } 
+            }
         }
 
         if (vte is null) return false;
@@ -1946,6 +1952,7 @@ private:
     RGBA vteFG;
     RGBA dimFG;
     RGBA vteBG;
+    RGBA vteBGClear;
     RGBA vteHighlightFG;
     RGBA vteHighlightBG;
     RGBA vteCursorFG;
@@ -1982,6 +1989,8 @@ private:
         vteBadge = new RGBA();
         vteBold = new RGBA();
         dimBold = new RGBA();
+
+        vteBGClear = new RGBA(0.0, 0.0, 0.0, 0.0);
 
         vtePalette = new RGBA[16];
         dimPalette = new RGBA[16];
@@ -2022,14 +2031,21 @@ private:
         VTEColorSet desired = (isTerminalWidgetFocused() || dimPercent == 0)? VTEColorSet.normal: VTEColorSet.dim;
         if (desired == currentColorSet && !force) return;
 
+        RGBA vteBGUsed;
+        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+            vteBGUsed = vteBGClear;
+        } else {
+            vteBGUsed = vteBG;
+        }
+
         if (isTerminalWidgetFocused() || dimPercent == 0) {
             tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
-            vte.setColors(vteFG, vteBG, vtePalette);
+            vte.setColors(vteFG, vteBGUsed, vtePalette);
             setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
             tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
-            vte.setColors(dimFG, vteBG, dimPalette);
+            vte.setColors(dimFG, vteBGUsed, dimPalette);
             setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
         }
@@ -2211,12 +2227,12 @@ private:
             unlimitedLines = gsSettings.getBoolean(SETTINGS_TRIGGERS_UNLIMITED_LINES_KEY);
             break;
         case SETTINGS_PROFILE_BADGE_TEXT_KEY:
-            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            if (isVTEBackgroundDrawEnabled()) {
                 updateBadge();
             }
             break;
         case SETTINGS_PROFILE_BADGE_COLOR_KEY, SETTINGS_PROFILE_USE_BADGE_COLOR_KEY:
-            if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+            if (isVTEBackgroundDrawEnabled()) {
                 string badgeColor;
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY)) {
                     badgeColor = gsProfile.getString(SETTINGS_PROFILE_BADGE_COLOR_KEY);
@@ -2244,6 +2260,10 @@ private:
             break;
         case SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
+            break;
+        case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
+            if (vte !is null) 
+                vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         default:
             break;
@@ -2286,7 +2306,8 @@ private:
             SETTINGS_PROFILE_BADGE_POSITION_KEY,
             SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
             SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY,
-            SETTINGS_PROFILE_BOLD_COLOR_KEY
+            SETTINGS_PROFILE_BOLD_COLOR_KEY,
+            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY
         ];
 
         foreach (key; keys) {
@@ -2522,7 +2543,7 @@ private:
                 showInfoBarMessage(msg);
             } else {
                 static if (USE_PROCESS_MONITOR) {
-                    ProcessMonitor.instance.addProcess(gpid, vte.getPty().getFd());
+                    ProcessMonitor.instance.addProcess(gpid);
                 }
             }
         }
@@ -2796,8 +2817,11 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
 
+        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+            vte.setBackgroundOperator(cairo_operator_t.OVER);
+        }
         //TODO - Figure out why this is causing issues, see #545
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
+        if (isVTEBackgroundDrawEnabled()) {
             vte.addOnDraw(&onVTEDrawBadge);
         }
         vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
@@ -3001,7 +3025,7 @@ private:
             if (uris) {
                 foreach (uri; uris) {
                     trace("Dropped filename " ~ uri);
-                    GFileIF file = GFile.parseName(uri);
+                    GFileIF file = parseName(uri);
                     string filename;
                     if (file !is null) {
                         filename = file.getPath();
@@ -3055,7 +3079,7 @@ private:
         double height = to!double(w.getAllocatedHeight());
 
         // Only draw background if vte background draw is disabled
-        if (vte.getDisableBGDraw()) {
+        if (isVTEBackgroundDrawEnabled()) {
             cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
@@ -3067,7 +3091,8 @@ private:
         if (_cachedBadge.length > 0) {
             // Paint badge
             // Use same alpha as background color to match transparency slider
-            cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
+            //cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
+            cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, 1.0);
 
             // Create rect for default NW position
             GdkRectangle rect = GdkRectangle(BADGE_MARGIN, BADGE_MARGIN, to!int(width/2) - BADGE_MARGIN, to!int(height/2) - BADGE_MARGIN);
@@ -3141,7 +3166,6 @@ private:
 
     //Draw the drag hint if dragging is occurring
     bool onVTEDraw(Scoped!Context cr, Widget widget) {
-
         /*
         if (dimPercent > 0) {
             Window window = cast(Window) getToplevel();
@@ -3230,7 +3254,7 @@ private:
             }
         }
         //Do work here
-        GFileIF file = GFile.parseName(outputFilename);
+        GFileIF file = parseName(outputFilename);
         gio.OutputStream.OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
         scope (exit) {
             stream.close(null);
@@ -3248,8 +3272,9 @@ private:
 static if (USE_PROCESS_MONITOR) {
     // Process monitoring
     private:
-        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child) {
+        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child, string name) {
             if (process == gpid) {
+                activeProcessName = name;
                 updateDisplayText();
             }
         }
@@ -3385,7 +3410,10 @@ public:
         // method can be called multiple times
         if (vte !is null) {
             foreach(handler; vteHandlers) {
-                Signals.handlerDisconnect(vte, handler);
+                if (handler > 0) {
+                    Signals.handlerDisconnect(vte, handler);
+                    handler = 0;
+                }
             }
         }
         static if (USE_PROCESS_MONITOR) {
@@ -3443,8 +3471,8 @@ public:
         if (gpid > 0) {
             static if (USE_PROCESS_MONITOR) {
                 ProcessMonitor.instance.removeProcess(gpid);
-            }        
-           
+            }
+
             try {
                 kill(gpid, SIGHUP);
             }
@@ -3507,7 +3535,7 @@ public:
         import std.file: read, FileException;
         try {
             string data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));
-            long rpar = data.lastIndexOf(")");
+            size_t rpar = data.lastIndexOf(")");
             name = data[data.indexOf("(") + 1..rpar];
         } catch (FileException fe) {
             name = _("Unknown");
@@ -3636,9 +3664,7 @@ public:
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
         static if (USE_PROCESS_MONITOR) {
             if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-                string name;
-                isProcessRunning(name);
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, name);
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
             }
         }
         string path;

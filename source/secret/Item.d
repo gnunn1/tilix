@@ -68,12 +68,6 @@ public class Item : DBusProxy
 		return cast(void*)secretItem;
 	}
 
-	protected override void setStruct(GObject* obj)
-	{
-		secretItem = cast(SecretItem*)obj;
-		super.setStruct(obj);
-	}
-
 	/**
 	 * Sets our main struct and passes it to the parent class.
 	 */
