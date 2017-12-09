@@ -1485,8 +1485,9 @@ private:
                 startCol = 0;
             }
             //tracef("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol);
-            ArrayG attr = new ArrayG(false, false, 16);
+            ArrayG attr;
             //tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
+            if (startRow <0) startRow = 0;
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
             // Update position early in case we get re-entrant event
             triggerLastRowChecked = cursorRow;
