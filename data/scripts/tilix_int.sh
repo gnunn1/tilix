@@ -48,7 +48,9 @@ __tilix_osc7() (
 
 if [[ $PROMPT_COMMAND != *"__vte_prompt_command"* ]]
 then
-    echo "Adding tilix osc7"
+    if [ "$TILIX_SILENT" != "1" ]; then
+        echo "Adding tilix osc7"
+    fi
     [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__tilix_osc7"
     [ -n "$ZSH_VERSION"  ] && precmd_functions+=(__tilix_osc7)
 fi
