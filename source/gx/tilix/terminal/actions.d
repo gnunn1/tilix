@@ -19,6 +19,7 @@ enum ACTION_READ_ONLY = "read-only";
 enum ACTION_RESET = "reset";
 enum ACTION_RESET_AND_CLEAR = "reset-and-clear";
 enum ACTION_COPY = "copy";
+enum ACTION_COPY_AS_HTML = "copy-as-html";
 enum ACTION_PASTE = "paste";
 enum ACTION_PASTE_PRIMARY = "paste-primary";
 enum ACTION_ADVANCED_PASTE = "advanced-paste";
