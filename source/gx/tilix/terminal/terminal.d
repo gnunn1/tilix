@@ -237,6 +237,7 @@ private:
     GMenu encodingMenu;
 
     SimpleAction saCopy;
+    SimpleAction saCopyAsHtml;
     SimpleAction saPaste;
     SimpleAction saAdvancedPaste;
     Popover pmContext;
@@ -516,6 +517,11 @@ private:
         saCopy = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) {
             if (vte.getHasSelection()) {
                 vte.copyClipboard();
+            }
+        });
+        saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
+            if (vte.getHasSelection()) {
+                vte.copyClipboardFormat(VteFormat.HTML);
             }
         });
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
@@ -1019,7 +1025,9 @@ private:
             event.getKeyval(keyval);
             if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
                 string[] actions = tilix.getActionsForAccel("<Ctrl>c");
-                if (actions.length > 0 && actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) && !vte.getHasSelection()) {
+                if (actions.length > 0 && 
+                   (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) && 
+                   !vte.getHasSelection()) {
                     string controlc = "\u0003";
                     vte.feedChild(controlc, controlc.length);
                     return true;
@@ -1075,6 +1083,7 @@ private:
         pmContext.addOnClosed(delegate(Popover) {
             // See #305 for more info on why this is here
             saCopy.setEnabled(true);
+            saCopyAsHtml.setEnabled(true);
             saPaste.setEnabled(true);
         });
 
@@ -1485,8 +1494,9 @@ private:
                 startCol = 0;
             }
             //tracef("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol);
-            ArrayG attr = new ArrayG(false, false, 16);
+            ArrayG attr;
             //tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
+            if (startRow <0) startRow = 0;
             string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
             // Update position early in case we get re-entrant event
             triggerLastRowChecked = cursorRow;
@@ -1665,6 +1675,7 @@ private:
         GMenu clipSection = new GMenu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
+            clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
             clipSection.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             clipSection.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             mmContext.appendSection(null, clipSection);
@@ -1673,6 +1684,11 @@ private:
             copy.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
             copy.setAttributeValue("label", new GVariant(_("Copy")));
             clipSection.appendItem(copy);
+
+            GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+            copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
+            copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
+            clipSection.appendItem(copyAsHTML);
 
             GMenuItem paste = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
@@ -1820,6 +1836,7 @@ private:
     void showContextPopover(Event event = null) {
         buildContextMenu();
         saCopy.setEnabled(vte.getHasSelection());
+        saCopyAsHtml.setEnabled(vte.getHasSelection());
         saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
         if (event !is null) {
             GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
