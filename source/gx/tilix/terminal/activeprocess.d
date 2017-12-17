@@ -39,7 +39,7 @@ class Process {
     string[] parseStatFile() {
         try {
             string data = to!string(cast(char[])read(format("/proc/%d/stat", pid)));
-            long rpar = data.lastIndexOf(")");
+            size_t rpar = data.lastIndexOf(")");
             string name = data[data.indexOf("(") + 1..rpar];
             string[] other  = data[rpar + 2..data.length].split;
             return name ~ other;
