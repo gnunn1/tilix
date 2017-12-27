@@ -141,6 +141,8 @@ private:
     enum ACTION_WIN_NEXT_SESSION = "switch-to-next-session";
     enum ACTION_WIN_PREVIOUS_SESSION = "switch-to-previous-session";
     enum ACTION_WIN_FULLSCREEN = "fullscreen";
+    enum ACTION_SESSION_REORDER_PREVIOUS = "reorder-previous-session";
+    enum ACTION_SESSION_REORDER_NEXT = "reorder-next-session";
 
     string _windowUUID;
 
@@ -496,6 +498,14 @@ private:
         });
         registerActionWithSettings(this, "win", ACTION_WIN_PREVIOUS_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) {
             focusPreviousSession();
+        });
+
+        registerActionWithSettings(this, "win", ACTION_SESSION_REORDER_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) {
+            reorderCurrentSessionRelative(-1);
+        });
+
+        registerActionWithSettings(this, "win", ACTION_SESSION_REORDER_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            reorderCurrentSessionRelative(1);
         });
 
         registerActionWithSettings(this, "win", ACTION_WIN_FULLSCREEN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
@@ -890,6 +900,12 @@ private:
         if (uuid) {
             activateSession(uuid);
         }
+    }
+
+    void reorderCurrentSessionRelative(int offset) {
+        int page = nb.getCurrentPage();
+        Session session = getCurrentSession();
+        nb.reorderChild(session, page + offset);
     }
 
     void onSessionReorder(string sourceUUID, string targetUUID, bool after, CumulativeResult!bool result) {
