@@ -3591,7 +3591,6 @@ public:
             case SyncInputEventType.KEY_PRESS:
                 Event newEvent = sie.event.copy();
                 newEvent.key.sendEvent = SendEvent.SYNC;
-                newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
                 break;
             case SyncInputEventType.RESET:
