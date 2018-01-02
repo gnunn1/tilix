@@ -951,9 +951,23 @@ private:
         return result;
     }
 
+    /**
+     * Returns a list of shortcuts that require a minimum
+     * version of VTE to function correctly.
+     *
+     * This avoids the user trying to customize shortcuts
+     * they can't use.
+     */
+    int[2][string] getVTEVersionedShortcuts() {
+        int[2][string] result;
+        result["terminal-copy-as-html"] = [VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1]];
+        return result;
+    }
+
     void loadShortcuts(TreeStore ts) {
 
-        int[2][string] versioned = getGTKVersionedShortcuts();
+        int[2][string] gtkVersioned = getGTKVersionedShortcuts();
+        int[2][string] vteVersioned = getVTEVersionedShortcuts();
 
         loadLocalizedShortcutLabels();
         string[] keys = gsShortcuts.listKeys();
@@ -962,9 +976,14 @@ private:
         TreeIter currentIter;
         string currentPrefix;
         foreach (key; keys) {
-            if (key in versioned) {
-                int[2] gtkVersion = versioned[key];
+            if (key in gtkVersioned) {
+                int[2] gtkVersion = gtkVersioned[key];
                 if (Version.checkVersion(gtkVersion[0], gtkVersion[1], 0).length > 0) continue;
+            }
+
+            if (key in vteVersioned) {
+                int[2] vteVersion = vteVersioned[key];
+                if (!checkVTEVersionNumber(vteVersion[0], vteVersion[1])) continue;
             }
 
             string prefix, id;

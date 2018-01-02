@@ -519,11 +519,14 @@ private:
                 vte.copyClipboard();
             }
         });
-        saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (vte.getHasSelection()) {
-                vte.copyClipboardFormat(VteFormat.HTML);
-            }
-        });
+        if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+            saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
+                if (vte.getHasSelection()) {
+                    vte.copyClipboardFormat(VteFormat.HTML);
+                }
+            });
+        }
+
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             // Check to see if something other then terminal has focus
             Window window = cast(Window) getToplevel();
@@ -1083,7 +1086,9 @@ private:
         pmContext.addOnClosed(delegate(Popover) {
             // See #305 for more info on why this is here
             saCopy.setEnabled(true);
-            saCopyAsHtml.setEnabled(true);
+            if (saCopyAsHtml !is null) {
+                saCopyAsHtml.setEnabled(true);
+            }
             saPaste.setEnabled(true);
         });
 
@@ -1675,7 +1680,9 @@ private:
         GMenu clipSection = new GMenu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+            if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+                clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+            }
             clipSection.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             clipSection.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             mmContext.appendSection(null, clipSection);
@@ -1685,10 +1692,12 @@ private:
             copy.setAttributeValue("label", new GVariant(_("Copy")));
             clipSection.appendItem(copy);
 
-            GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
-            copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
-            copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
-            clipSection.appendItem(copyAsHTML);
+            if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+                GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+                copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
+                copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
+                clipSection.appendItem(copyAsHTML);
+            }
 
             GMenuItem paste = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
@@ -1836,7 +1845,9 @@ private:
     void showContextPopover(Event event = null) {
         buildContextMenu();
         saCopy.setEnabled(vte.getHasSelection());
-        saCopyAsHtml.setEnabled(vte.getHasSelection());
+        if (saCopyAsHtml !is null) {
+            saCopyAsHtml.setEnabled(vte.getHasSelection());
+        }
         saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
         if (event !is null) {
             GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);

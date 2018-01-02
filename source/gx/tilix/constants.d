@@ -109,6 +109,8 @@ immutable string[] THEME_CSS_RESOURCES = ["css/tilix.base.theme.css"];
 immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";
 immutable string SHORTCUT_LOCALIZATION_CONTEXT = "shortcut window";
 
+// Constants used to version VTE features
+int[2] VTE_VERSION_COPY_AS_HTML = [0, 49];
 
 // Constants used for the various variables permitted when defining
 // the terminal title.
