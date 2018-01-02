@@ -878,13 +878,12 @@ private:
         vte.setVexpand(true);
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
-        if (checkVTEVersionNumber(0, 49)) {
+        if (checkVTEVersionNumber(VTE_VERSION_HYPERLINK[0], VTE_VERSION_HYPERLINK[1])) {
             vte.setAllowHyperlink(true);
-            trace("Custom hyperlinks enabled for VTE 0.49");
         }
         //URL Regex Experessions
         try {
-            if (checkVTEVersionNumber(0, 46)) {
+            if (checkVTEVersionNumber(VTE_VERSION_REGEX[0], VTE_VERSION_REGEX[1])) {
                 foreach (i, regex; compiledVRegex) {
                     int id = vte.matchAddRegex(cast(VRegex) regex, 0);
                     regexTag[id] = URL_REGEX_PATTERNS[i];
@@ -1736,7 +1735,7 @@ private:
     }
 
     public void checkHyperlinkMatch(Event event) {
-        if (!checkVTEVersionNumber(0, 49)) return;
+        if (!checkVTEVersionNumber(VTE_VERSION_HYPERLINK[0], VTE_VERSION_HYPERLINK[1])) return;
         string uri = vte.hyperlinkCheckEvent(event);
         if (uri.length == 0) return;
         match.match = uri;
@@ -2402,7 +2401,7 @@ private:
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 try {
-                    if (checkVTEVersionNumber(0, 46)) {
+                    if (checkVTEVersionNumber(VTE_VERSION_REGEX[0], VTE_VERSION_REGEX[1])) {
                         VRegex compiledRegex = compileVRegex(regex);
                         if (compiledRegex !is null) {
                             int id = vte.matchAddRegex(compiledRegex, 0);
