@@ -2823,10 +2823,11 @@ private:
         TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
         TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
         TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
+        TargetEntry utf8TextEntry = new TargetEntry("UTF8_STRING", TargetFlags.OTHER_APP, DropTargets.UTF8_TEXT);
         TargetEntry colorEntry = new TargetEntry("application/x-color", TargetFlags.OTHER_APP, DropTargets.COLOR);
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
         TargetEntry sessionEntry = new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, DropTargets.SESSION);
-        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
+        TargetEntry[] targets = [uriEntry, utf8TextEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
 
         // This is required to be able to drop on root window in Wayland, see gtknotebook.c
@@ -3066,8 +3067,9 @@ private:
                 }
             }
             break;
-        case DropTargets.STRING, DropTargets.TEXT:
+        case DropTargets.UTF8_TEXT, DropTargets.STRING, DropTargets.TEXT:
             string text = data.getText();
+            tracef("Text dropped %s,%d,%d", text, text.length, data.getLength);
             if (text.length > 0) {
                 vte.feedChild(text, text.length);
             }
@@ -4015,6 +4017,7 @@ enum VTE_DND = "vte";
 enum DropTargets {
     URILIST,
     STRING,
+    UTF8_TEXT,
     TEXT,
     COLOR,
     /**
