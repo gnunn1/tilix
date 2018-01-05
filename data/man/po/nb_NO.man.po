@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 08:39-0400\n"
-"PO-Revision-Date: 2017-12-10 01:49+0000\n"
+"PO-Revision-Date: 2018-01-09 20:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://hosted.weblate.org/projects/tilix/manpage/nb_NO/>\n"
@@ -16,59 +16,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "TILIX"
-msgstr ""
+msgstr "TILIX"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "26 December 2016"
-msgstr ""
+msgstr "26 Desember 2016"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "1.4.0"
-msgstr ""
+msgstr "1.4.0"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "Tilix Commands"
-msgstr ""
+msgstr "Tilix-kommandoer"
 
 #. type: SH
 #: ./data/man/tilix:4
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NAVN"
 
 #. type: Plain text
 #: ./data/man/tilix:6
 msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
-msgstr ""
+msgstr "B<tilix> - Flisbasert GTK3-terminalemulator for GNOME"
 
 #. type: SH
 #: ./data/man/tilix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SAMMENDRAG"
 
 #. type: Plain text
 #: ./data/man/tilix:9
 msgid "B<tilix> [I<options>]"
-msgstr ""
+msgstr "B<tilix> [I<valg>]"
 
 #. type: SH
 #: ./data/man/tilix:9
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "BESKRIVELSE"
 
 #. type: Plain text
 #: ./data/man/tilix:11
@@ -76,56 +76,58 @@ msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "Gnome Human Interface Guidelines."
 msgstr ""
+"B<tilix> er en avansert flisbasert terminalemulator for GTK3, designet i "
+"henhold til retningslinjene for Gnome menneskelige grensesnitt."
 
 #. type: SH
 #: ./data/man/tilix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "VALG"
 
 #. type: Plain text
 #: ./data/man/tilix:13
 msgid "The B<tilix> application accepts the following command line parameters:"
-msgstr ""
+msgstr "B<tilix>-programmer godtar følgende kommandolinjeparameter:"
 
 #. type: TP
 #: ./data/man/tilix:13
 #, no-wrap
 msgid "B<-h --help>"
-msgstr ""
+msgstr "B<-h --help>"
 
 #. type: Plain text
 #: ./data/man/tilix:16
 msgid "Show help options."
-msgstr ""
+msgstr "Vis hjelpevalg."
 
 #. type: TP
 #: ./data/man/tilix:16
 #, no-wrap
 msgid "B<-v --version>"
-msgstr ""
+msgstr "B<-v --version>"
 
 #. type: Plain text
 #: ./data/man/tilix:19
 msgid "Show the version of Tilix as well as the versions of dependent components."
-msgstr ""
+msgstr "Vis versjonen av Tilix og dens avhengigheter."
 
 #. type: TP
 #: ./data/man/tilix:19
 #, no-wrap
 msgid "B<-w --working-directory=DIRECTORY>"
-msgstr ""
+msgstr "B<-w --working-directory=MAPPE>"
 
 #. type: Plain text
 #: ./data/man/tilix:22
 msgid "Set the working directory of the terminal."
-msgstr ""
+msgstr "Sett terminalens arbeidsområde."
 
 #. type: TP
 #: ./data/man/tilix:22
 #, no-wrap
 msgid "B<-p --profile=PROFILE_NAME>"
-msgstr ""
+msgstr "B<-p --profile=PROFIL_NAVN>"
 
 #. type: Plain text
 #: ./data/man/tilix:25
@@ -134,26 +136,30 @@ msgid ""
 "a name is passed that does not correspond to an existing profile, the "
 "default profile will be used."
 msgstr ""
+"Sett startprofilen ved bruk av navnet på én av de eksisterende profilene. "
+"Hvis et navn sendes som ikke tilhører en eksisterende profil, vil den "
+"forvalgte profilen bli brukt."
 
 #. type: TP
 #: ./data/man/tilix:25
 #, no-wrap
 msgid "B<-t --title=TITLE>"
-msgstr ""
+msgstr "B<-t --title=TITTEL>"
 
 #. type: Plain text
 #: ./data/man/tilix:28
 msgid "Set the title of the new terminal."
-msgstr ""
+msgstr "Sett tittelen for den nye terminalen."
 
 #. type: TP
 #: ./data/man/tilix:28
 #, no-wrap
 msgid "B<-s --session=SESSION_NAME>"
-msgstr ""
+msgstr "B<-s --session=ØKT_NAVN>"
 
 #. type: Plain text
 #: ./data/man/tilix:31
+#, fuzzy
 msgid ""
 "Open the specified session file which has been previously saved. Session "
 "files are saved from within Tilix, they store the complete layout of the "
@@ -161,19 +167,24 @@ msgid ""
 "layout and layout options are saved, this will not restore the terminal to "
 "where it was left off, rather new terminals are created."
 msgstr ""
+"Åpne angitt tidligere lagret øktfil. De lagres fra Tilix, og lagrer hele "
+"oppsettet av en økt, noe som tillater brukeren å laste den inn igjen ved "
+"behov. Merk at bare oppsettet og oppsettsvalgene lagres, dette vil ikke "
+"tilbakestille terminalen til der den ble forlatt, snarere blir nye "
+"terminaler opprettet."
 
 #. type: TP
 #: ./data/man/tilix:31
 #, no-wrap
 msgid "B<-a --action=ACTION_NAME>"
-msgstr ""
+msgstr "B<-a --action=HANDLINGS_NAVN>"
 
 #. type: Plain text
 #: ./data/man/tilix:34
 msgid ""
 "Perform an action in the current Tilix instance, the following actions are "
 "supported:"
-msgstr ""
+msgstr "Utfør en handling i nåværende Tilix-instans, følgende handling støttes:"
 
 #. type: Plain text
 #: ./data/man/tilix:37
@@ -181,87 +192,94 @@ msgid ""
 "B<session-add-right> Adds a new terminal to the right of the current "
 "terminal."
 msgstr ""
+"B<session-add-right> Legger til en ny terminal til høyre for nåværende "
+"terminal."
 
 #. type: Plain text
 #: ./data/man/tilix:40
 msgid "B<session-add-down> Adds a new terminal down from the current terminal."
 msgstr ""
+"B<session-add-down> Legger til en ny terminal nedenfor nåværende terminal."
 
 #. type: Plain text
 #: ./data/man/tilix:43
 msgid "B<app-new-session> Creates a new Tilix session within the current window."
-msgstr ""
+msgstr "B<app-new-session> Oppretter en ny Tilix-økt i gjeldende vindu."
 
 #. type: Plain text
 #: ./data/man/tilix:46
 msgid "B<app-new-window> Creates a new Tilix window."
-msgstr ""
+msgstr "B<app-new-window> Oppretter et nytt Tilix-vindu."
 
 #. type: TP
 #: ./data/man/tilix:46
 #, no-wrap
 msgid "B<-e --command=COMMAND>"
-msgstr ""
+msgstr "B<-e --command=KOMMANDO>"
 
 #. type: Plain text
 #: ./data/man/tilix:49
+#, fuzzy
 msgid ""
 "Execute all text after this parameter as a command, thus this parameter must "
 "be the last parameter."
 msgstr ""
+"Kjør all tekst etter dette parameteret som en kommando, derav må dette "
+"parameteret være det siste."
 
 #. type: TP
 #: ./data/man/tilix:49
 #, no-wrap
 msgid "B<--maximize>"
-msgstr ""
+msgstr "B<--maximize>"
 
 #. type: Plain text
 #: ./data/man/tilix:52
 msgid "Maximize the terminal window."
-msgstr ""
+msgstr "Maksimerer terminalvinduet."
 
 #. type: TP
 #: ./data/man/tilix:52
 #, no-wrap
 msgid "B<--minimize>"
-msgstr ""
+msgstr "B<--minimize>"
 
 #. type: Plain text
 #: ./data/man/tilix:55
 msgid "Minimize the terminal window."
-msgstr ""
+msgstr "Minimerer terminalvinduet."
 
 #. type: TP
 #: ./data/man/tilix:55
 #, no-wrap
 msgid "B<--full-screen>"
-msgstr ""
+msgstr "B<--full-screen>"
 
 #. type: Plain text
 #: ./data/man/tilix:58
 msgid "Full-screen the terminal window."
-msgstr ""
+msgstr "Fullskjermsvisning av terminalvinduet."
 
 #. type: TP
 #: ./data/man/tilix:58
 #, no-wrap
 msgid "B<--focus-window>"
-msgstr ""
+msgstr "B<--focus-window>"
 
 #. type: Plain text
 #: ./data/man/tilix:61
 msgid "Focus the existing window."
-msgstr ""
+msgstr "Fokuser eksisterende vindu."
 
 #. type: TP
 #: ./data/man/tilix:61
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: ./data/man/tilix:64
+#, fuzzy
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
 "GTK+ 3 guidelines, Tilix maintains a single process that all windows belong "
@@ -269,45 +287,55 @@ msgid ""
 "recommended and is intended for debugging purposes only, using this option "
 "will prevent different Tilix windows from communicating with each other."
 msgstr ""
+"Start en ytterligere Tilix-instans som en ny prosess. Som forvalg og i "
+"henhold til GTK3+retningslinjer, forvalter Tilix én prosess som alle vindu "
+"tilhører. Dette valget tvinger Tilix til å starte en separat prosess. Dette "
+"anbefales ikke, og er kun tiltenkt feilrettingsøyemed, bruk av dette valget "
+"vil forhindre andre Tilix-vindu fra å snakke med hverandre."
 
 #. type: TP
 #: ./data/man/tilix:64
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=GEOMETRI>"
 
 #. type: Plain text
 #: ./data/man/tilix:67
 msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Sett vindusstørrelsen; for eksempel: 80x24, eller 80x24+200+200 "
+"(KOLONNERxRADER+X+Y)."
 
 #. type: TP
 #: ./data/man/tilix:67
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: ./data/man/tilix:70
+#, fuzzy
 msgid "Open a window in quake mode or toggle existing quake mode window visibility."
 msgstr ""
+"Åpne et vindu i Quake-modus, eller veksle vindussynlighet for eksisterende "
+"Quake-modus."
 
 #. type: TP
 #: ./data/man/tilix:70
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: ./data/man/tilix:73
 msgid "Show the Tilix preferences dialog directly."
-msgstr ""
+msgstr "Direktevisning av Tilix-innstillingsdialogen."
 
 #. type: SH
 #: ./data/man/tilix:73
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "SE OGSÅ"
 
 #. type: Plain text
 #: ./data/man/tilix:75
@@ -318,20 +346,20 @@ msgstr "Ingen"
 #: ./data/man/tilix:75
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "FEIL"
 
 #. type: Plain text
 #: ./data/man/tilix:77
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
-msgstr ""
+msgstr "Se feil på https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
 #: ./data/man/tilix:77
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "UTVIKLER"
 
 #. type: Plain text
 #: ./data/man/tilix:78
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Gerald Nunn og andre bidragsytere."
