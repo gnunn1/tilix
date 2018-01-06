@@ -51,6 +51,19 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
  */
 immutable bool USE_PROCESS_MONITOR = false;
 
+/**
+ * This flag is used to indicated we want to build against
+ * a future version of VTE. This is used when writing code against
+ * a pending release of VTE where GtkD does not have the linked
+ * functions as of yet. In this case we updated the wrapper
+ * for VTE in GtkD locally using the girtod generator in GtkD.
+ *
+ * Example command below, xxx is where you cloned and built VTE source code.
+ *
+ * wrap/girtod -i src/APILookupVte.txt -o generated/vte -g xxx/vte/bindings/gir --use-bind-dir --use-runtime-linker
+ */
+immutable bool BUILD_FUTURE_VTE = false;
+
 /**************************************
  * Application Constants
  **************************************/
@@ -113,6 +126,7 @@ immutable string SHORTCUT_LOCALIZATION_CONTEXT = "shortcut window";
 int[2] VTE_VERSION_COPY_AS_HTML = [0, 49];
 int[2] VTE_VERSION_HYPERLINK = [0, 49];
 int[2] VTE_VERSION_REGEX = [0, 46];
+int[2] VTE_VERSION_BACKGROUND_OPERATOR = [0, 51];
 
 // Constants used for the various variables permitted when defining
 // the terminal title.

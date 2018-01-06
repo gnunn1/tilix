@@ -519,7 +519,7 @@ private:
                 vte.copyClipboard();
             }
         });
-        if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+        if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
             saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
                 if (vte.getHasSelection()) {
                     vte.copyClipboardFormat(VteFormat.HTML);
@@ -884,12 +884,12 @@ private:
         vte.setVexpand(true);
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
-        if (checkVTEVersionNumber(VTE_VERSION_HYPERLINK[0], VTE_VERSION_HYPERLINK[1])) {
+        if (checkVTEVersion(VTE_VERSION_HYPERLINK)) {
             vte.setAllowHyperlink(true);
         }
         //URL Regex Experessions
         try {
-            if (checkVTEVersionNumber(VTE_VERSION_REGEX[0], VTE_VERSION_REGEX[1])) {
+            if (checkVTEVersion(VTE_VERSION_REGEX)) {
                 foreach (i, regex; compiledVRegex) {
                     int id = vte.matchAddRegex(cast(VRegex) regex, 0);
                     regexTag[id] = URL_REGEX_PATTERNS[i];
@@ -1163,7 +1163,7 @@ private:
         }
 
         //Disable background draw if available
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vte.setDisableBGDraw(true);
         }
 
@@ -1691,7 +1691,7 @@ private:
         GMenu clipSection = new GMenu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+            if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
                 clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
             }
             clipSection.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
@@ -1703,7 +1703,7 @@ private:
             copy.setAttributeValue("label", new GVariant(_("Copy")));
             clipSection.appendItem(copy);
 
-            if (checkVTEVersionNumber(VTE_VERSION_COPY_AS_HTML[0], VTE_VERSION_COPY_AS_HTML[1])) {
+            if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
                 GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
                 copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
                 copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
@@ -1747,7 +1747,7 @@ private:
     }
 
     public void checkHyperlinkMatch(Event event) {
-        if (!checkVTEVersionNumber(VTE_VERSION_HYPERLINK[0], VTE_VERSION_HYPERLINK[1])) return;
+        if (!checkVTEVersion(VTE_VERSION_HYPERLINK)) return;
         string uri = vte.hyperlinkCheckEvent(event);
         if (uri.length == 0) return;
         match.match = uri;
@@ -2071,7 +2071,7 @@ private:
         if (desired == currentColorSet && !force) return;
 
         RGBA vteBGUsed;
-        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vteBGUsed = vteBGClear;
         } else {
             vteBGUsed = vteBG;
@@ -2413,7 +2413,7 @@ private:
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 try {
-                    if (checkVTEVersionNumber(VTE_VERSION_REGEX[0], VTE_VERSION_REGEX[1])) {
+                    if (checkVTEVersion(VTE_VERSION_REGEX)) {
                         VRegex compiledRegex = compileVRegex(regex);
                         if (compiledRegex !is null) {
                             int id = vte.matchAddRegex(compiledRegex, 0);
@@ -2857,8 +2857,10 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
 
-        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
-            vte.setBackgroundOperator(cairo_operator_t.OVER);
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
+            static if (BUILD_FUTURE_VTE) {
+                vte.setBackgroundOperator(cairo_operator_t.OVER);
+            }
         }
         //TODO - Figure out why this is causing issues, see #545
         if (isVTEBackgroundDrawEnabled()) {

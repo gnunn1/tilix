@@ -69,6 +69,13 @@ bool checkVTEVersionNumber(uint major, uint minor) {
     return (major > vteMajorVersion || (major == vteMajorVersion && minor <= vteMinorVersion));
 }
 
+/**
+ * Check version number where first element of array is major and second is minor
+ */
+bool checkVTEVersion(int[2] versionNum) {
+    return checkVTEVersionNumber(versionNum[0], versionNum[1]);
+}
+
 string getVTEVersion() {
     return format("%d.%d", vteMajorVersion, vteMinorVersion);
 }
@@ -76,8 +83,7 @@ string getVTEVersion() {
 enum TerminalFeature {
     EVENT_NOTIFICATION,
     EVENT_SCREEN_CHANGED,
-    DISABLE_BACKGROUND_DRAW,
-    BACKGROUND_OPERATOR
+    DISABLE_BACKGROUND_DRAW
 }
 
 /**
@@ -100,8 +106,6 @@ bool checkVTEFeature(TerminalFeature feature) {
 
         // Check if disable background draw is available
         terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = true;
-        terminalFeatures[TerminalFeature.BACKGROUND_OPERATOR] = true;
-        
 
         import gtkc.Loader: Linker;
         import gtkc.paths: LIBRARY;
@@ -112,9 +116,6 @@ bool checkVTEFeature(TerminalFeature feature) {
             if (failure == "vte_terminal_get_disable_bg_draw") {
                 trace("Background draw disabled");
                 terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = false;
-            } else if (failure == "vte_terminal_set_background_operator") {
-                trace("Background operator disabled");
-                terminalFeatures[TerminalFeature.BACKGROUND_OPERATOR] = false;
             }
             tracef("VTE function %s could not be linked", failure);
         }
@@ -128,7 +129,7 @@ bool checkVTEFeature(TerminalFeature feature) {
 }
 
 bool isVTEBackgroundDrawEnabled() {
-    return checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) || checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR);
+    return checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) || checkVTEVersionNumber(0, 51);
 }
 
 private:
