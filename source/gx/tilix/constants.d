@@ -62,7 +62,7 @@ immutable bool USE_PROCESS_MONITOR = false;
  *
  * wrap/girtod -i src/APILookupVte.txt -o generated/vte -g xxx/vte/bindings/gir --use-bind-dir --use-runtime-linker
  */
-immutable bool BUILD_FUTURE_VTE = false;
+immutable bool BUILD_FUTURE_VTE_52 = false;
 
 /**************************************
  * Application Constants

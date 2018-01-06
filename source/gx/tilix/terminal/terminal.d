@@ -2304,6 +2304,28 @@ private:
             if (vte !is null) 
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
+    static if (BUILD_FUTURE_VTE_52) {
+        case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
+                vte.setTextBlinkMode(getTextBlinkMode(gsProfile.getString(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY)));
+            }
+            break;
+        case SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
+                vte.setBoldIsBright(gsProfile.getBoolean(SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY));
+            }
+            break;
+        case SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
+                vte.setCellHeightScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY));
+            }
+            break;
+        case SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
+                vte.setCellWidthScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY));
+            }
+            break;
+    }
         default:
             break;
         }
@@ -2346,13 +2368,24 @@ private:
             SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
             SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY,
             SETTINGS_PROFILE_BOLD_COLOR_KEY,
-            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY
+            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY,
+            SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY,
+            SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY,
+            SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY,
+            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY
         ];
 
         foreach (key; keys) {
             applyPreference(key);
         }
     }
+
+static if (BUILD_FUTURE_VTE_52) {
+    VteTextBlinkMode getTextBlinkMode(string mode) {
+        long i = countUntil(SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES, mode);
+        return cast(VteTextBlinkMode) i;
+    }
+}
 
     VteCursorBlinkMode getBlinkMode(string mode) {
         long i = countUntil(SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES, mode);
@@ -2858,7 +2891,7 @@ private:
         vte.addOnDragLeave(&onVTEDragLeave);
 
         if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
-            static if (BUILD_FUTURE_VTE) {
+            static if (BUILD_FUTURE_VTE_52) {
                 vte.setBackgroundOperator(cairo_operator_t.OVER);
             }
         }
