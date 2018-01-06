@@ -2175,12 +2175,12 @@ private:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
                 vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
-                if (checkVTEVersionNumber(0, 44)) {
+                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
                     vte.setColorCursorForeground(vteCursorFG);
                 }
                 vte.setColorCursor(vteCursorBG);
             } else {
-                if (checkVTEVersionNumber(0, 44)) {
+                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
                     vte.setColorCursorForeground(null);
                 }
                 vte.setColorCursor(null);
