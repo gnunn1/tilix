@@ -708,6 +708,12 @@ private:
                 if (pdm.run() == ResponseType.APPLY) {
                     string password = pdm.password;
                     vte.feedChild(password, password.length);
+                    static if (!USE_COMMIT_SYNCHRONIZATION) {
+                        if (isSynchronizedInput()) {
+                            SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, password);
+                            onSyncInput.emit(this, se);
+                        }
+                    }
                 }
             } else {
                 showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET), _("Library Not Loaded"));
@@ -1335,6 +1341,12 @@ private:
                 text ~= '\n';
             }
             vte.feedChild(text, text.length);
+            static if (!USE_COMMIT_SYNCHRONIZATION) {
+                if (isSynchronizedInput()) {
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
+                    onSyncInput.emit(this, se);
+                }
+            }
             vte.grabFocus();
         }
     }
