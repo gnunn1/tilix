@@ -122,14 +122,6 @@ immutable string[] THEME_CSS_RESOURCES = ["css/tilix.base.theme.css"];
 immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";
 immutable string SHORTCUT_LOCALIZATION_CONTEXT = "shortcut window";
 
-// Constants used to version VTE features
-int[2] VTE_VERSION_COPY_AS_HTML = [0, 49];
-int[2] VTE_VERSION_HYPERLINK = [0, 49];
-int[2] VTE_VERSION_REGEX = [0, 46];
-int[2] VTE_VERSION_REGEX_MULTILINE = [0, 44];
-int[2] VTE_VERSION_BACKGROUND_OPERATOR = [0, 51];
-int[2] VTE_VERSION_CURSOR_COLOR = [0, 44];
-
 // Constants used for the various variables permitted when defining
 // the terminal title.
 enum VARIABLE_TERMINAL_TITLE = "${title}";
