@@ -597,7 +597,7 @@ private:
         cbUseCursorColor = new CheckButton(_("Cursor"));
         cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         bh.bind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
-        if (checkVTEVersionNumber(0, 44)) {
+        if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
             gColors.attach(cbUseCursorColor, 0, row, 1, 1);
         }
 

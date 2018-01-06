@@ -14,6 +14,8 @@ import gobject.Signals: Signals;
 import vte.Terminal;
 import vte.Version;
 
+import gx.tilix.constants;
+
 /**
  * PCRE2 constants for VTE Regex
  */
@@ -129,7 +131,7 @@ bool checkVTEFeature(TerminalFeature feature) {
 }
 
 bool isVTEBackgroundDrawEnabled() {
-    return checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) || checkVTEVersionNumber(0, 51);
+    return checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) || checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR);
 }
 
 private:

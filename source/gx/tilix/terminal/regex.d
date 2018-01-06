@@ -49,6 +49,8 @@ import gx.gtk.vte;
 
 import vte.Regex: VRegex = Regex;
 
+import gx.tilix.constants;
+
 enum SCHEME = "(?ix: news | telnet | nntp | https? | ftps? | sftp | webcal )";
 
 enum USERCHARS = "-+.[:alnum:]";
@@ -216,7 +218,7 @@ immutable VRegex[URL_REGEX_PATTERNS.length] compiledVRegex;
 GRegex compileGRegex(TerminalRegex regex) {
     if (regex.pattern.length == 0) return null;
     GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-    if (checkVTEVersionNumber(0, 44)) {
+    if (checkVTEVersion(VTE_VERSION_REGEX_MULTILINE)) {
         flags = flags | GRegexCompileFlags.MULTILINE;
     }
     return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
@@ -234,7 +236,7 @@ VRegex compileVRegex(TerminalRegex regex) {
 static this() {
     import std.exception : assumeUnique;
 
-    if (checkVTEVersionNumber(0, 46)) {
+    if (checkVTEVersion(VTE_VERSION_REGEX)) {
         VRegex[URL_REGEX_PATTERNS.length] tempRegex;
         foreach (i, regex; URL_REGEX_PATTERNS) {
             tempRegex[i] = compileVRegex(regex);

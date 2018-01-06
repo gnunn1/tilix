@@ -199,7 +199,7 @@ private:
     void setTerminalSearchCriteria() {
         string text = seSearch.getText();
         if (text.length == 0) {
-            if (checkVTEVersionNumber(0, 46)) {
+            if (checkVTEVersion(VTE_VERSION_REGEX)) {
                 vte.searchSetRegex(null, 0);
             } else {
                 vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
@@ -212,7 +212,7 @@ private:
             text = format("\\b%s\\b", text);
 
         try {
-            if (checkVTEVersionNumber(0, 46)) {
+            if (checkVTEVersion(VTE_VERSION_REGEX)) {
                 uint flags = PCRE2Flags.UTF | PCRE2Flags.MULTILINE | PCRE2Flags.NO_UTF_CHECK;
                 if (!matchCase) {
                     flags |= PCRE2Flags.CASELESS;
