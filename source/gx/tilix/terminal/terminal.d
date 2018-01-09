@@ -519,11 +519,14 @@ private:
                 vte.copyClipboard();
             }
         });
-        saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (vte.getHasSelection()) {
-                vte.copyClipboardFormat(VteFormat.HTML);
-            }
-        });
+        if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
+            saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
+                if (vte.getHasSelection()) {
+                    vte.copyClipboardFormat(VteFormat.HTML);
+                }
+            });
+        }
+
         saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
             // Check to see if something other then terminal has focus
             Window window = cast(Window) getToplevel();
@@ -705,6 +708,12 @@ private:
                 if (pdm.run() == ResponseType.APPLY) {
                     string password = pdm.password;
                     vte.feedChild(password, password.length);
+                    static if (!USE_COMMIT_SYNCHRONIZATION) {
+                        if (isSynchronizedInput()) {
+                            SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, password);
+                            onSyncInput.emit(this, se);
+                        }
+                    }
                 }
             } else {
                 showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET), _("Library Not Loaded"));
@@ -875,13 +884,12 @@ private:
         vte.setVexpand(true);
         //Search Properties
         vte.searchSetWrapAround(gsSettings.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND).getBoolean());
-        if (checkVTEVersionNumber(0, 49)) {
+        if (checkVTEVersion(VTE_VERSION_HYPERLINK)) {
             vte.setAllowHyperlink(true);
-            trace("Custom hyperlinks enabled for VTE 0.49");
         }
         //URL Regex Experessions
         try {
-            if (checkVTEVersionNumber(0, 46)) {
+            if (checkVTEVersion(VTE_VERSION_REGEX)) {
                 foreach (i, regex; compiledVRegex) {
                     int id = vte.matchAddRegex(cast(VRegex) regex, 0);
                     regexTag[id] = URL_REGEX_PATTERNS[i];
@@ -1083,7 +1091,9 @@ private:
         pmContext.addOnClosed(delegate(Popover) {
             // See #305 for more info on why this is here
             saCopy.setEnabled(true);
-            saCopyAsHtml.setEnabled(true);
+            if (saCopyAsHtml !is null) {
+                saCopyAsHtml.setEnabled(true);
+            }
             saPaste.setEnabled(true);
         });
 
@@ -1153,7 +1163,7 @@ private:
         }
 
         //Disable background draw if available
-        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+        if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) && !checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vte.setDisableBGDraw(true);
         }
 
@@ -1331,6 +1341,12 @@ private:
                 text ~= '\n';
             }
             vte.feedChild(text, text.length);
+            static if (!USE_COMMIT_SYNCHRONIZATION) {
+                if (isSynchronizedInput()) {
+                    SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
+                    onSyncInput.emit(this, se);
+                }
+            }
             vte.grabFocus();
         }
     }
@@ -1675,7 +1691,9 @@ private:
         GMenu clipSection = new GMenu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+            if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
+                clipSection.append(_("Copy as HTML"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+            }
             clipSection.append(_("Paste"), getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             clipSection.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             mmContext.appendSection(null, clipSection);
@@ -1685,10 +1703,12 @@ private:
             copy.setAttributeValue("label", new GVariant(_("Copy")));
             clipSection.appendItem(copy);
 
-            GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
-            copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
-            copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
-            clipSection.appendItem(copyAsHTML);
+            if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
+                GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+                copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
+                copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
+                clipSection.appendItem(copyAsHTML);
+            }
 
             GMenuItem paste = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
             paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
@@ -1727,7 +1747,7 @@ private:
     }
 
     public void checkHyperlinkMatch(Event event) {
-        if (!checkVTEVersionNumber(0, 49)) return;
+        if (!checkVTEVersion(VTE_VERSION_HYPERLINK)) return;
         string uri = vte.hyperlinkCheckEvent(event);
         if (uri.length == 0) return;
         match.match = uri;
@@ -1836,7 +1856,9 @@ private:
     void showContextPopover(Event event = null) {
         buildContextMenu();
         saCopy.setEnabled(vte.getHasSelection());
-        saCopyAsHtml.setEnabled(vte.getHasSelection());
+        if (saCopyAsHtml !is null) {
+            saCopyAsHtml.setEnabled(vte.getHasSelection());
+        }
         saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
         if (event !is null) {
             GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
@@ -2049,7 +2071,7 @@ private:
         if (desired == currentColorSet && !force) return;
 
         RGBA vteBGUsed;
-        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vteBGUsed = vteBGClear;
         } else {
             vteBGUsed = vteBG;
@@ -2153,12 +2175,12 @@ private:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
                 vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
-                if (checkVTEVersionNumber(0, 44)) {
+                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
                     vte.setColorCursorForeground(vteCursorFG);
                 }
                 vte.setColorCursor(vteCursorBG);
             } else {
-                if (checkVTEVersionNumber(0, 44)) {
+                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
                     vte.setColorCursorForeground(null);
                 }
                 vte.setColorCursor(null);
@@ -2282,6 +2304,28 @@ private:
             if (vte !is null) 
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
+    static if (BUILD_FUTURE_VTE_52) {
+        case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
+                vte.setTextBlinkMode(getTextBlinkMode(gsProfile.getString(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY)));
+            }
+            break;
+        case SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
+                vte.setBoldIsBright(gsProfile.getBoolean(SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY));
+            }
+            break;
+        case SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
+                vte.setCellHeightScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY));
+            }
+            break;
+        case SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY:
+            if (vte !is null && checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
+                vte.setCellWidthScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY));
+            }
+            break;
+    }
         default:
             break;
         }
@@ -2324,13 +2368,24 @@ private:
             SETTINGS_CONTROL_SCROLL_ZOOM_KEY,
             SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY,
             SETTINGS_PROFILE_BOLD_COLOR_KEY,
-            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY
+            SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY,
+            SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY,
+            SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY,
+            SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY,
+            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY
         ];
 
         foreach (key; keys) {
             applyPreference(key);
         }
     }
+
+static if (BUILD_FUTURE_VTE_52) {
+    VteTextBlinkMode getTextBlinkMode(string mode) {
+        long i = countUntil(SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES, mode);
+        return cast(VteTextBlinkMode) i;
+    }
+}
 
     VteCursorBlinkMode getBlinkMode(string mode) {
         long i = countUntil(SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES, mode);
@@ -2391,7 +2446,7 @@ private:
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 try {
-                    if (checkVTEVersionNumber(0, 46)) {
+                    if (checkVTEVersion(VTE_VERSION_REGEX)) {
                         VRegex compiledRegex = compileVRegex(regex);
                         if (compiledRegex !is null) {
                             int id = vte.matchAddRegex(compiledRegex, 0);
@@ -2813,10 +2868,11 @@ private:
         TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
         TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
         TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
+        TargetEntry utf8TextEntry = new TargetEntry("UTF8_STRING", TargetFlags.OTHER_APP, DropTargets.UTF8_TEXT);
         TargetEntry colorEntry = new TargetEntry("application/x-color", TargetFlags.OTHER_APP, DropTargets.COLOR);
         TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
         TargetEntry sessionEntry = new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, DropTargets.SESSION);
-        TargetEntry[] targets = [uriEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
+        TargetEntry[] targets = [uriEntry, utf8TextEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
 
         // This is required to be able to drop on root window in Wayland, see gtknotebook.c
@@ -2834,8 +2890,10 @@ private:
         vte.addOnDragMotion(&onVTEDragMotion);
         vte.addOnDragLeave(&onVTEDragLeave);
 
-        if (checkVTEFeature(TerminalFeature.BACKGROUND_OPERATOR)) {
-            vte.setBackgroundOperator(cairo_operator_t.OVER);
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
+            static if (BUILD_FUTURE_VTE_52) {
+                vte.setBackgroundOperator(cairo_operator_t.OVER);
+            }
         }
         //TODO - Figure out why this is causing issues, see #545
         if (isVTEBackgroundDrawEnabled()) {
@@ -3056,8 +3114,9 @@ private:
                 }
             }
             break;
-        case DropTargets.STRING, DropTargets.TEXT:
+        case DropTargets.UTF8_TEXT, DropTargets.STRING, DropTargets.TEXT:
             string text = data.getText();
+            tracef("Text dropped %s,%d,%d", text, text.length, data.getLength);
             if (text.length > 0) {
                 vte.feedChild(text, text.length);
             }
@@ -3591,7 +3650,6 @@ public:
             case SyncInputEventType.KEY_PRESS:
                 Event newEvent = sie.event.copy();
                 newEvent.key.sendEvent = SendEvent.SYNC;
-                newEvent.key.window = vte.getWindow().getWindowStruct();
                 vte.event(newEvent);
                 break;
             case SyncInputEventType.RESET:
@@ -4006,6 +4064,7 @@ enum VTE_DND = "vte";
 enum DropTargets {
     URILIST,
     STRING,
+    UTF8_TEXT,
     TEXT,
     COLOR,
     /**

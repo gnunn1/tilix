@@ -1187,9 +1187,15 @@ public:
      */
     string getDisplayText(string text) {
         string result = text;
+        result = result.replace(VARIABLE_TERMINAL_COUNT, to!string(terminals.length));
+
         if (currentTerminal !is null) {
             result = result.replace(VARIABLE_ACTIVE_TERMINAL_TITLE, currentTerminal.title);
+            result = result.replace(VARIABLE_TERMINAL_NUMBER, to!string(currentTerminal.terminalID));
             result = currentTerminal.getDisplayText(result);
+        } else {
+            result = result.replace(VARIABLE_TERMINAL_NUMBER, "");
+            result = result.replace(VARIABLE_ACTIVE_TERMINAL_TITLE, "");
         }
         return result;
     }

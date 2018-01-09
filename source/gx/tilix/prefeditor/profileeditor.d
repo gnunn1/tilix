@@ -46,6 +46,7 @@ import gtk.Notebook;
 import gtk.Popover;
 import gtk.Scale;
 import gtk.ScrolledWindow;
+import gtk.SizeGroup;
 import gtk.SpinButton;
 import gtk.Switch;
 import gtk.TreeIter;
@@ -245,12 +246,14 @@ protected:
         Box box = new Box(Orientation.HORIZONTAL, 5);
         box.add(sbColumn);
         Label lblColumns = new Label(_("columns"));
+        lblColumns.setXalign(0.0);
         lblColumns.setMarginRight(6);
         lblColumns.setSensitive(false);
         box.add(lblColumns);
 
         box.add(sbRow);
         Label lblRows = new Label(_("rows"));
+        lblRows.setXalign(0.0);
         lblRows.setMarginRight(6);
         lblRows.setSensitive(false);
         box.add(lblRows);
@@ -265,6 +268,49 @@ protected:
         grid.attach(box, 1, row, 1, 1);
         row++;
 
+        //Terminal Spacing
+        if (checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
+            Label lblSpacing = new Label(_("Terminal spacing"));
+            lblSpacing.setHalign(Align.END);
+            grid.attach(lblSpacing, 0, row, 1, 1);
+            SpinButton sbWidthSpacing = new SpinButton(1.0, 2.0, 0.1);
+            bh.bind(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY, sbWidthSpacing, "value", GSettingsBindFlags.DEFAULT);
+            SpinButton sbHeightSpacing = new SpinButton(1.0, 2.0, 0.1);
+            bh.bind(SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY, sbHeightSpacing, "value", GSettingsBindFlags.DEFAULT);
+
+            Box bSpacing = new Box(Orientation.HORIZONTAL, 5);
+            bSpacing.add(sbWidthSpacing);
+            Label lblWidthSpacing = new Label(_("width"));
+            lblWidthSpacing.setXalign(0.0);
+            lblWidthSpacing.setMarginRight(6);
+            lblWidthSpacing.setSensitive(false);
+            bSpacing.add(lblWidthSpacing);
+
+            bSpacing.add(sbHeightSpacing);
+            Label lblHeightSpacing = new Label(_("height"));
+            lblHeightSpacing.setXalign(0.0);
+            lblHeightSpacing.setMarginRight(6);
+            lblHeightSpacing.setSensitive(false);
+            bSpacing.add(lblHeightSpacing);
+
+            Button btnSpacingReset = new Button(_("Reset"));
+            btnSpacingReset.addOnClicked(delegate(Button) {
+                gsProfile.reset(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY);
+                gsProfile.reset(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY);
+            });
+            bSpacing.add(btnSpacingReset);
+            grid.attach(bSpacing, 1, row, 1, 1);
+            row++;
+
+            SizeGroup sgWidth = new SizeGroup(SizeGroupMode.HORIZONTAL);
+            sgWidth.addWidget(lblColumns);
+            sgWidth.addWidget(lblWidthSpacing);
+            
+            SizeGroup sgHeight = new SizeGroup(SizeGroupMode.HORIZONTAL);
+            sgHeight.addWidget(lblRows);
+            sgHeight.addWidget(lblHeightSpacing);
+        }
+
         //Cursor Shape
         Label lblCursorShape = new Label(_("Cursor"));
         lblCursorShape.setHalign(Align.END);
@@ -276,14 +322,25 @@ protected:
         grid.attach(cbCursorShape, 1, row, 1, 1);
         row++;
 
-        //Blink Mode
-        Label lblBlinkMode = new Label(_("Blink mode"));
-        lblBlinkMode.setHalign(Align.END);
-        grid.attach(lblBlinkMode, 0, row, 1, 1);
-        ComboBox cbBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
-        bh.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
-        grid.attach(cbBlinkMode, 1, row, 1, 1);
+        //Cursor Blink Mode
+        Label lblCursorBlinkMode = new Label(_("Cursor blink mode"));
+        lblCursorBlinkMode.setHalign(Align.END);
+        grid.attach(lblCursorBlinkMode, 0, row, 1, 1);
+        ComboBox cbCursorBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
+        bh.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbCursorBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbCursorBlinkMode, 1, row, 1, 1);
         row++;
+
+        if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
+            //Text Blink Mode
+            Label lblTextBlinkMode = new Label(_("Text blink mode"));
+            lblTextBlinkMode.setHalign(Align.END);
+            grid.attach(lblTextBlinkMode, 0, row, 1, 1);
+            ComboBox cbTextBlinkMode = createNameValueCombo([_("Never"), _("Focused"), _("Unfocused"), _("Always")], SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES);
+            bh.bind(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY, cbTextBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbTextBlinkMode, 1, row, 1, 1);
+            row++;
+        }
 
         //Terminal Bell
         Label lblBell = new Label(_("Terminal bell"));
@@ -371,9 +428,15 @@ protected:
         b.add(lblTitle);
 
         //Allow Bold
-        CheckButton cbBold = new CheckButton(_("Allow bold text"));
-        bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
-        b.add(cbBold);
+        if (!checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
+            CheckButton cbBold = new CheckButton(_("Allow bold text"));
+            bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
+            b.add(cbBold);
+        } else {
+            CheckButton cbBoldIsBright = new CheckButton(_("Bold is bright"));
+            bh.bind(SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY, cbBoldIsBright, "active", GSettingsBindFlags.DEFAULT);
+            b.add(cbBoldIsBright);
+        }
 
         //Rewrap on resize
         CheckButton cbRewrap = new CheckButton(_("Rewrap on resize"));
@@ -597,7 +660,7 @@ private:
         cbUseCursorColor = new CheckButton(_("Cursor"));
         cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         bh.bind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
-        if (checkVTEVersionNumber(0, 44)) {
+        if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
             gColors.attach(cbUseCursorColor, 0, row, 1, 1);
         }
 

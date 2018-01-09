@@ -92,6 +92,13 @@
     <value nick='underline' value='2'/>
   </enum>
 
+  <enum id='com.gexperts.Tilix.Text.BlinkMode'>
+    <value nick='never' value='0'/>
+    <value nick='focused' value='1'/>
+    <value nick='unfocused' value='2'/>
+    <value nick='always' value='3'/>
+  </enum>
+  
    <enum id='com.gexperts.Tilix.CJKWidth'>
     <value nick='narrow' value='1'/>
     <value nick='wide'   value='2'/>
@@ -543,6 +550,16 @@
       <summary>Default number of rows</summary>
       <description>Number of rows in newly created terminal windows. Has no effect if use_custom_default_size is not enabled.</description>
     </key>
+    <key name="cell-height-scale" type="d">
+      <range min="1.0" max="2.0" />
+      <default>1.0</default>
+      <summary>Scale factor for the cell height to increase line spacing. (Does not increase the font’s height.)</summary>
+    </key>
+    <key name="cell-width-scale" type="d">
+      <range min="1.0" max="2.0" />
+      <default>1.0</default>
+      <summary>Scale factor for the cell width to increase letter spacing. (Does not increase the font’s width.)</summary>
+    </key>    
     <key name="cursor-blink-mode" enum="com.gexperts.Tilix.Cursor.BlinkMode">
       <default>'system'</default>
       <summary>Whether to blink the cursor</summary>
@@ -551,6 +568,11 @@
     <key name="cursor-shape" enum="com.gexperts.Tilix.Cursor.Shape">
       <default>'block'</default>
       <summary>The cursor appearance</summary>
+    </key>
+    <key name="text-blink-mode" enum="com.gexperts.Tilix.Text.BlinkMode">
+      <default>'always'</default>
+      <summary>Whether to enable blinking text</summary>
+      <description>The possible values are "never" to disable text blinking, "always" to enable, or "focused" or "unfocused" to set the mode explicitly.</description>
     </key>
     <key name="terminal-bell" enum="com.gexperts.Tilix.Bell.Mode">
       <default>'sound'</default>
@@ -561,6 +583,11 @@
       <default>true</default>
       <summary>Whether to allow bold text</summary>
       <description>If true, allow applications in the terminal to make text boldface.</description>
+    </key>
+    <key name="bold-is-bright" type="b">
+      <default>true</default>
+      <summary>Whether bold is also bright</summary>
+      <description>If true, setting bold on the first 8 colors also switches to their bright variants.</description>
     </key>
     <key name="rewrap-on-resize" type="b">
       <default>true</default>

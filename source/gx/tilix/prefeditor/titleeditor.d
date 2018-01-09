@@ -73,42 +73,46 @@ private:
         add(mbVariables);
     }
 
-    PopoverMenu createPopover(TitleEditScope tes) {
-        GMenu model = new GMenu();
-
-        //Terminal menu items first
-        GMenu terminalSection = new GMenu();
-        foreach(index, variable; VARIABLE_TERMINAL_LOCALIZED) {
-            string actionName = format("terminal-%d", index);
+    /**
+     * Create menu items from array for each section (window, session, terminal)
+     */
+    GMenu createItems(immutable(string[]) localized, immutable(string[]) values, string actionPrefix) {
+        GMenu section = new GMenu();
+        foreach(index, variable; localized) {
+            string actionName = format("%s-%d", actionPrefix, index);
             SimpleAction action = new SimpleAction(actionName, null);
             action.addOnActivate(delegate(GVariant, SimpleAction sa) {
                 string name = sa.getName();
                 int i = to!int("" ~ name[name.length - 1]);
                 int position = entry.getPosition();
-                string value = VARIABLE_TERMINAL_VALUES[i];
+                string value = values[i];
                 entry.insertText(value, to!int(value.length), position);
             });
             sagVariables.insert(action);
-            terminalSection.append(_(variable), getActionDetailedName(ACTION_PREFIX, actionName));
+            section.append(_(variable), getActionDetailedName(ACTION_PREFIX, actionName));
         }
+        return section;
+    } 
+
+    /**
+     * Create all menu items in popover to help editing menu items
+     */
+    PopoverMenu createPopover(TitleEditScope tes) {
+        GMenu model = new GMenu();
+
+        // Terminal items
+        GMenu terminalSection = createItems(VARIABLE_TERMINAL_LOCALIZED, VARIABLE_TERMINAL_VALUES, "terminal");
         model.appendSection(_("Terminal"), terminalSection);
+
+        //Session menu items
+        if (tes == TitleEditScope.SESSION || tes == TitleEditScope.WINDOW) {
+            GMenu sessionSection = createItems(VARIABLE_SESSION_LOCALIZED, VARIABLE_SESSION_VALUES, "session");
+            model.appendSection(_("Session"), sessionSection);
+        }
 
         //App menu items
         if (tes == TitleEditScope.WINDOW) {
-            GMenu windowSection = new GMenu();
-            foreach(index, variable; VARIABLE_WINDOW_LOCALIZED) {
-                string actionName = format("window-%d", index);
-                SimpleAction action = new SimpleAction(actionName, null);
-                action.addOnActivate(delegate(GVariant, SimpleAction sa) {
-                    string name = sa.getName();
-                    int i = to!int("" ~ name[name.length - 1]);
-                    int position = entry.getPosition();
-                    string value = VARIABLE_WINDOW_VALUES[i];
-                    entry.insertText(value, to!int(value.length), position);
-                });
-                sagVariables.insert(action);
-                windowSection.append(_(variable), getActionDetailedName(ACTION_PREFIX, actionName));
-            }
+            GMenu windowSection = createItems(VARIABLE_WINDOW_LOCALIZED, VARIABLE_WINDOW_VALUES, "window");
             model.appendSection(_("Window"), windowSection);
         }
 

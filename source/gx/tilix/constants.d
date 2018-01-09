@@ -51,6 +51,19 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
  */
 immutable bool USE_PROCESS_MONITOR = false;
 
+/**
+ * This flag is used to indicated we want to build against
+ * a future version of VTE. This is used when writing code against
+ * a pending release of VTE where GtkD does not have the linked
+ * functions as of yet. In this case we updated the wrapper
+ * for VTE in GtkD locally using the girtod generator in GtkD.
+ *
+ * Example command below, xxx is where you cloned and built VTE source code.
+ *
+ * wrap/girtod -i src/APILookupVte.txt -o generated/vte -g xxx/vte/bindings/gir --use-bind-dir --use-runtime-linker
+ */
+immutable bool BUILD_FUTURE_VTE_52 = false;
+
 /**************************************
  * Application Constants
  **************************************/
@@ -73,7 +86,7 @@ enum APPLICATION_ID = "com.gexperts.Tilix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Tilix";
-enum APPLICATION_VERSION = "1.7.3";
+enum APPLICATION_VERSION = "1.7.4-0.0.0";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2017 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");
@@ -108,7 +121,6 @@ immutable string[] THEME_CSS_RESOURCES = ["css/tilix.base.theme.css"];
 
 immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";
 immutable string SHORTCUT_LOCALIZATION_CONTEXT = "shortcut window";
-
 
 // Constants used for the various variables permitted when defining
 // the terminal title.
@@ -171,6 +183,20 @@ static if (USE_PROCESS_MONITOR) {
     ];
 }
 
+// Session Title tokens
+enum VARIABLE_TERMINAL_COUNT = "${terminalCount}";
+enum VARIABLE_TERMINAL_NUMBER = "${terminalNumber}";
+
+immutable string[] VARIABLE_SESSION_VALUES = [
+    VARIABLE_TERMINAL_COUNT,
+    VARIABLE_TERMINAL_NUMBER
+];
+
+immutable string[] VARIABLE_SESSION_LOCALIZED = [
+    N_("Terminal count"),
+    N_("Terminal number")
+];
+
 // Application Window Title tokens
 enum VARIABLE_APP_NAME = "${appName}";
 enum VARIABLE_ACTIVE_TERMINAL_TITLE = "${activeTerminalTitle}";
@@ -183,7 +209,7 @@ immutable string[] VARIABLE_WINDOW_VALUES = [
     VARIABLE_ACTIVE_TERMINAL_TITLE,
     VARIABLE_SESSION_NAME,
     VARIABLE_SESSION_NUMBER,
-    VARIABLE_SESSION_COUNT,
+    VARIABLE_SESSION_COUNT
 ];
 
 immutable string[] VARIABLE_WINDOW_LOCALIZED = [
@@ -191,5 +217,5 @@ immutable string[] VARIABLE_WINDOW_LOCALIZED = [
     N_("Active terminal title"),
     N_("Session name"),
     N_("Session number"),
-    N_("Session count"),
+    N_("Session count")
 ];

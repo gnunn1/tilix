@@ -175,6 +175,13 @@ immutable string[] SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES = ["system", "on", 
 enum SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY = "use-system-font";
 enum SETTINGS_PROFILE_FONT_KEY = "font";
 
+enum SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY = "text-blink-mode";
+immutable string[] SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES = ["never", "focused", "unfocused", "always"];
+enum SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY = "bold-is-bright";
+
+enum SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY = "cell-height-scale";
+enum SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY = "cell-width-scale";
+
 enum SETTINGS_PROFILE_BG_COLOR_KEY = "background-color";
 enum SETTINGS_PROFILE_FG_COLOR_KEY = "foreground-color";
 enum SETTINGS_PROFILE_BG_TRANSPARENCY_KEY = "background-transparency-percent";

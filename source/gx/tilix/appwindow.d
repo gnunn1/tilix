@@ -592,12 +592,12 @@ private:
         //Add Terminal Actions
         saSessionAddRight = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_RIGHT, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
-            if (session !is null)
+            if (session !is null && !session.maximized)
                 session.addTerminal(Orientation.HORIZONTAL);
         });
         saSessionAddDown = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_DOWN, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
-            if (session !is null)
+            if (session !is null && !session.maximized) 
                 session.addTerminal(Orientation.VERTICAL);
         });
 
