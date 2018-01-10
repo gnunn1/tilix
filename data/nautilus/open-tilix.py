@@ -5,9 +5,13 @@
 
 from gettext import gettext, textdomain
 from subprocess import PIPE, call
-from urllib import unquote
-from urlparse import urlparse
 
+try:
+	from urllib import unquote
+	from urlparse import urlparse
+except ImportError:
+	from urllib.parse import unquote, urlparse
+  
 from gi import require_version
 require_version('Gtk', '3.0')
 require_version('Nautilus', '3.0')
