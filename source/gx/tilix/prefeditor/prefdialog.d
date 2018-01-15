@@ -518,12 +518,16 @@ private:
         btnMenu.setRelief(ReliefStyle.NONE);
         btnMenu.setFocusOnClick(false);
         btnMenu.setPopover(createPopover(btnMenu));
+        
         box.packEnd(btnMenu, false, false, 0);
 
         imgDefault = new Image("object-select-symbolic", IconSize.BUTTON);
         imgDefault.setNoShowAll(true);
         box.packEnd(imgDefault, false, false, 0);
-        if (isDefault) imgDefault.show();
+        if (isDefault) {
+            imgDefault.show();
+            saDefault.setEnabled(false);
+        }
 
         add(box);
     }
