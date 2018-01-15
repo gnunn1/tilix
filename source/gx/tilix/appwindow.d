@@ -1185,34 +1185,13 @@ private:
         }
     }
 
-    bool showCanCloseMultipleSessions() {
-        if (!gsSettings.getBoolean(SETTINGS_PROMPT_ON_CLOSE_KEY)) return true;
-
-        MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-                _("There are multiple sessions open, close anyway?"), null);
-        CheckButton cbIgnore = new CheckButton(_("Do not show this again"));
-        cbIgnore.setMarginLeft(12);
-        dialog.getContentArea().add(cbIgnore);
-        dialog.setDefaultResponse(ResponseType.CANCEL);
-        scope (exit) {
-            dialog.destroy();
-        }
-        dialog.showAll();
-        bool result = true;
-        if (dialog.run() != ResponseType.OK) {
-            result = false;
-        }
-        gsSettings.setBoolean(SETTINGS_PROMPT_ON_CLOSE_KEY, !cbIgnore.getActive());
-        return result;
-    }
-
     bool onWindowClosed(Event event, Widget widget) {
         if (_noPrompt) return false;
         ProcessInformation pi = getProcessInformation();
         if (pi.children.length > 0) {
             return !promptCanCloseProcesses(gsSettings, this, pi);
         } else if (nb.getNPages() > 1) {
-            return !showCanCloseMultipleSessions();
+            return !showConfirmDialog(this, _("There are multiple sessions open, close anyway?"), gsSettings, SETTINGS_PROMPT_ON_CLOSE_KEY);
         }
         return false;
     }

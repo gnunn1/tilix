@@ -76,6 +76,7 @@ import gtk.Window;
 import vte.Terminal;
 
 import gx.gtk.actions;
+import gx.gtk.dialog;
 import gx.gtk.resource;
 import gx.gtk.settings;
 import gx.gtk.util;
@@ -351,11 +352,15 @@ private:
 
     void onDeleteProfile(Button button) {
         ProfilePreferenceRow row = cast(ProfilePreferenceRow)lbSide.getSelectedRow();
-        if (row !is null) deleteProfile(row);
+        if (row !is null) {
+            deleteProfile(row);
+        }
     }
 
     void deleteProfile(ProfilePreferenceRow row) {
         if (getProfileRowCount() < 2) return;
+        if (!showConfirmDialog(this, format(_("Are you sure you want to delete '%s'?"), row.name), gsSettings, SETTINGS_PROMPT_ON_DELETE_PROFILE_KEY)) return;
+
         string uuid = row.uuid;
         int index = getChildIndex(lbSide, row) - 1;
         lbSide.remove(row);
