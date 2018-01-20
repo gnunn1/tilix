@@ -346,7 +346,7 @@ protected:
         Label lblBell = new Label(_("Terminal bell"));
         lblBell.setHalign(Align.END);
         grid.attach(lblBell, 0, row, 1, 1);
-        ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and Sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
+        ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
         bh.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbBell, 1, row, 1, 1);
         row++;
@@ -393,7 +393,7 @@ protected:
         }
 
         //Select-by-word-chars
-        Label lblSelectByWordChars = new Label(_("Word-Wise Select Chars"));
+        Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
         lblSelectByWordChars.setHalign(Align.END);
         grid.attach(lblSelectByWordChars, 0, row, 1, 1);
         Entry eSelectByWordChars = new Entry();
