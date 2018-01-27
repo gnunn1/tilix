@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2017-10-21 16:46+0000\n"
-"Last-Translator: Fabio Di Giorgio <ravnos.1@tiscali.it>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/tilix/"
-"translations/it/>\n"
+"PO-Revision-Date: 2018-01-20 12:46+0000\n"
+"Last-Translator: Ktrl S <ktrls.nl@gmail.com>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/tilix/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -306,7 +306,7 @@ msgstr "Sola lettura"
 
 #: source/gx/tilix/terminal/terminal.d:419
 msgid "New output"
-msgstr ""
+msgstr "Nuovo output"
 
 #: source/gx/tilix/terminal/terminal.d:425
 #: source/gx/tilix/prefeditor/profileeditor.d:346
@@ -355,7 +355,7 @@ msgstr "Aggiungi segnalibro..."
 
 #: source/gx/tilix/terminal/terminal.d:825
 msgid "Assistants"
-msgstr ""
+msgstr "Assistenti"
 
 #: source/gx/tilix/terminal/terminal.d:826
 #: source/gx/tilix/prefeditor/prefdialog.d:278
@@ -444,7 +444,7 @@ msgstr "Copia"
 #: source/gx/tilix/terminal/terminal.d:1695
 #: source/gx/tilix/terminal/terminal.d:1709
 msgid "Copy as HTML"
-msgstr ""
+msgstr "Copia come HTML"
 
 #: source/gx/tilix/terminal/terminal.d:1698
 #: source/gx/tilix/terminal/terminal.d:1720
@@ -714,12 +714,11 @@ msgstr "Dimensione del terminale"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:283
 msgid "width"
-msgstr ""
+msgstr "larghezza"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:290
-#, fuzzy
 msgid "height"
-msgstr "Destra"
+msgstr "altezza"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:315
 #: source/gx/tilix/prefeditor/profileeditor.d:660
@@ -739,9 +738,8 @@ msgid "Underline"
 msgstr "Trattino basso"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:326
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Modalità di lampeggio"
+msgstr "Con cursore lampeggiante"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:329
 msgid "System"
@@ -756,23 +754,20 @@ msgid "Off"
 msgstr "Disattivo"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:336
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Modalità di lampeggio"
+msgstr "Con testo lampeggiante"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Never"
 msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
-#, fuzzy
 msgid "Focused"
-msgstr "Focus sulla finestra"
+msgstr "Finestra con focus"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
-#, fuzzy
 msgid "Unfocused"
-msgstr "Offusca alla perdita del focus"
+msgstr "Finestra senza focus"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Always"
@@ -1300,9 +1295,8 @@ msgstr "Piccolo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1074
 #: source/gx/tilix/prefeditor/prefdialog.d:1268
-#, fuzzy
 msgid "Tab position"
-msgstr "Posizione del badge"
+msgstr "Posizione del tab"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1075
 #: source/gx/tilix/prefeditor/prefdialog.d:1262
@@ -1479,9 +1473,9 @@ msgid "Close window when last session is closed"
 msgstr "Chiudi la finestra alla chiusura dell'ultima sessione"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1417
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Imposta la directory di lavoro del terminale"
+msgstr ""
+"La nuova finestra eredita directory di lavoro e profilo dal terminale attivo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1422
 msgid "Save and restore window state"
@@ -1705,10 +1699,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Sovrascrivi lo stile preferito della finestra, scegli tra: normal,disable-csd"
+",disable-csd-hide-toolbar,borderless"
 
 #: source/gx/tilix/application.d:671
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "STILE_FINESTRA"
 
 #: source/gx/tilix/application.d:672
 msgid "Full-screen the terminal window"
@@ -1849,23 +1845,20 @@ msgid "Process"
 msgstr ""
 
 #: source/gx/tilix/constants.d:196
-#, fuzzy
 msgid "Terminal count"
-msgstr "Terminale"
+msgstr "Totale terminali"
 
 #: source/gx/tilix/constants.d:197
-#, fuzzy
 msgid "Terminal number"
-msgstr "Campanella del terminale"
+msgstr "Terminale numero"
 
 #: source/gx/tilix/constants.d:216
 msgid "Application name"
 msgstr "Nome dell'applicazione"
 
 #: source/gx/tilix/constants.d:217
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Titolo del terminale"
+msgstr "Titolo del terminale attivo"
 
 #: source/gx/tilix/constants.d:218
 msgid "Session name"
@@ -1876,9 +1869,8 @@ msgid "Session number"
 msgstr "Numero della sessione"
 
 #: source/gx/tilix/constants.d:220
-#, fuzzy
 msgid "Session count"
-msgstr "Caricamento di sessione"
+msgstr "Totale sessioni"
 
 #: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
 #, c-format
@@ -2092,9 +2084,8 @@ msgid "Remote"
 msgstr "Connessione remota"
 
 #: source/gx/tilix/bookmark/bmchooser.d:79
-#, fuzzy
 msgid "Include return character with bookmark"
-msgstr "Includi il carattere di ritorno a capo con la password"
+msgstr "Includi il ritorno a capo con il segnalibro"
 
 #: source/gx/tilix/bookmark/bmchooser.d:126
 #: source/gx/tilix/bookmark/bmeditor.d:68
@@ -2500,7 +2491,7 @@ msgstr "Incolla"
 #: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
 msgid "Paste selection"
-msgstr ""
+msgstr "Incolla la selezione"
 
 #: data/resources/ui/shortcuts.ui:419
 msgctxt "shortcut window"
@@ -2625,7 +2616,7 @@ msgstr "Alterna tra i vari stili del titolo"
 #: data/resources/ui/shortcuts.ui:569
 msgctxt "shortcut window"
 msgid "Monitor silence"
-msgstr ""
+msgstr "Osserva cambiamenti nel terminale"
 
 #: data/resources/ui/shortcuts.ui:575
 #, fuzzy
@@ -2634,10 +2625,9 @@ msgid "Override input synchronization"
 msgstr "Disabilita la sincronizzazione dell'input per questo terminale"
 
 #: data/resources/ui/shortcuts.ui:581
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
-msgstr "Apri Tilix qui"
+msgstr "Apri il browser dei file"
 
 #: data/resources/ui/shortcuts.ui:592
 msgctxt "shortcut window"
