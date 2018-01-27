@@ -697,7 +697,7 @@ unittest {
     pb = new PathBookmark("Development", "/home/gnunn/Development");
     root.add(pb);
 
-    JSONValue json = root.serialize();
+    JSONValue json = root.serialize(null);
 
     import std.stdio;
     writeln(json.toPrettyString());
