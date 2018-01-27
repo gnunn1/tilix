@@ -1021,7 +1021,7 @@ private:
         if (!isNewSession) {
             removeSession(session);
         }
-        AppWindow window = new AppWindow(tilix);
+        AppWindow window = cloneWindow();//new AppWindow(tilix);
         tilix.addAppWindow(window);
         window.initialize(session);
         window.move(x, y);
