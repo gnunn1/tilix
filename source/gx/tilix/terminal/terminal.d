@@ -2071,12 +2071,13 @@ private:
         if (desired == currentColorSet && !force) return;
 
         RGBA vteBGUsed;
-        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR) && BUILD_FUTURE_VTE_52) {
             vteBGUsed = vteBGClear;
         } else {
             vteBGUsed = vteBG;
         }
 
+        tracef("vteBGUsed: %f, %f, %f, %f", vteBGUsed.red, vteBGUsed.green, vteBGUsed.blue, vteBGUsed.alpha);
         if (isTerminalWidgetFocused() || dimPercent == 0) {
             tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
             vte.setColors(vteFG, vteBGUsed, vtePalette);
