@@ -46,7 +46,7 @@ class Process {
         } catch (FileException fe) {
             warning(fe);
             }
-        return [];
+        return "? 0 0 0 0 0 0".split;
     }
 
     /**
@@ -80,7 +80,7 @@ class Process {
     * Return true if this process has any foreground child process.
     * Note that `Process.sessionMap` contains foreground processes only.
     */
-    bool HasForegroundChildren() {
+    bool hasForegroundChildren() {
         foreach (p; Process.sessionMap.get(sessionID(), [])) {
             if (p.ppid == pid) {
                 return true;
@@ -133,7 +133,7 @@ class Process {
         Process.sessionMap.clear;
 
         foreach(p; pids) {
-            if ((p in Process.processMap) !is null) {
+            if (p in Process.processMap) {
                 proc = Process.processMap[p]; // Cached process.
             } else if (Process.pidExists(p)) {
                 proc = add(p); // New Process.
@@ -173,7 +173,7 @@ Process[pid_t] getActiveProcessList() {
             foreach_reverse(proc; shellChild) {
                 // If a foreground process has no foreground
                 // child process then it is an active process.
-                if (!proc.HasForegroundChildren()) {
+                if (!proc.hasForegroundChildren()) {
                     ret[proc.sessionID()] = proc;
                     break;
                 }
