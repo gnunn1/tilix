@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2017-12-09 11:46+0000\n"
+"PO-Revision-Date: 2018-02-01 08:36+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/tilix/"
-"translations/fi/>\n"
+"Language-Team: Finnish "
+"<https://hosted.weblate.org/projects/tilix/translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -438,7 +438,7 @@ msgstr "Kopioi"
 #: source/gx/tilix/terminal/terminal.d:1695
 #: source/gx/tilix/terminal/terminal.d:1709
 msgid "Copy as HTML"
-msgstr ""
+msgstr "Kopioi HTML:nä"
 
 #: source/gx/tilix/terminal/terminal.d:1698
 #: source/gx/tilix/terminal/terminal.d:1720
@@ -693,18 +693,16 @@ msgid "rows"
 msgstr "riviä"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:273
-#, fuzzy
 msgid "Terminal spacing"
-msgstr "Päätteen koko"
+msgstr "Päätteen välistys"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:283
 msgid "width"
-msgstr ""
+msgstr "leveys"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:290
-#, fuzzy
 msgid "height"
-msgstr "Oikea"
+msgstr "korkeus"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:315
 #: source/gx/tilix/prefeditor/profileeditor.d:660
@@ -724,9 +722,8 @@ msgid "Underline"
 msgstr "Alaviiva"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:326
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Vilkutustila"
+msgstr "Kursorin vilkutustila"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:329
 msgid "System"
@@ -741,27 +738,24 @@ msgid "Off"
 msgstr "Pois"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:336
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Vilkutustila"
+msgstr "Tekstin vilkutustila"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Never"
-msgstr ""
+msgstr "Ei koskaan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
-#, fuzzy
 msgid "Focused"
-msgstr "Kohdista ikkuna"
+msgstr "Kohdistettu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
-#, fuzzy
 msgid "Unfocused"
-msgstr "Kohdistamattoman himmennys"
+msgstr "Kohdistamaton"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Always"
-msgstr ""
+msgstr "Aina"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:349
 #: source/gx/tilix/prefeditor/prefdialog.d:1069
@@ -1261,11 +1255,11 @@ msgstr "Normaali"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD"
-msgstr ""
+msgstr "Poista CSD käytöstä"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Poista CSD käytöstä, piilota työkalupalkki"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Borderless"
@@ -1286,7 +1280,7 @@ msgstr "Pieni"
 #: source/gx/tilix/prefeditor/prefdialog.d:1074
 #: source/gx/tilix/prefeditor/prefdialog.d:1268
 msgid "Tab position"
-msgstr ""
+msgstr "Välilehden sijainti"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1075
 #: source/gx/tilix/prefeditor/prefdialog.d:1262
@@ -1303,12 +1297,12 @@ msgstr "Oikea"
 #: source/gx/tilix/prefeditor/prefdialog.d:1075
 #: source/gx/tilix/prefeditor/prefdialog.d:1269
 msgid "Top"
-msgstr ""
+msgstr "Ylhäällä"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1075
 #: source/gx/tilix/prefeditor/prefdialog.d:1269
 msgid "Bottom"
-msgstr ""
+msgstr "Alhaalla"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1081
 msgid "Theme variant"
@@ -1386,6 +1380,8 @@ msgstr ""
 #: source/gx/tilix/prefeditor/prefdialog.d:1197
 msgid "Use tabs instead of sidebar (Application restart required)"
 msgstr ""
+"Käytä välilehtiä sivupalkin sijaan (vaatii sovelluksen "
+"uudelleenkäynnistyksen)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1229
 msgid "Size"
@@ -1519,7 +1515,6 @@ msgid "Automatically copy text to clipboard when selecting"
 msgstr "Kopioi teksti automaattisesti leikepöydälle valittaessa"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
-#, fuzzy
 msgid "Session"
 msgstr "Istunto"
 
@@ -1758,11 +1753,11 @@ msgstr "Väriteemapaletti vaatii 16 väriä"
 
 #: source/gx/tilix/session.d:561
 msgid "Could not locate dropped terminal"
-msgstr ""
+msgstr "Ei voitu paikallistaa pudotettua päätettä"
 
 #: source/gx/tilix/session.d:566
 msgid "Could not locate session for dropped terminal"
-msgstr ""
+msgstr "Ei voitu paikantaa istuntoa pudotetulle päätteelle"
 
 #: source/gx/tilix/constants.d:92
 msgid "A VTE based terminal emulator for Linux"
@@ -1826,9 +1821,8 @@ msgid "Terminal count"
 msgstr "Pääte"
 
 #: source/gx/tilix/constants.d:197
-#, fuzzy
 msgid "Terminal number"
-msgstr "Päätteen kello"
+msgstr "Päätteen numero"
 
 #: source/gx/tilix/constants.d:216
 msgid "Application name"
@@ -2454,7 +2448,7 @@ msgstr "Kopioi"
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Kopioi HTML:nä"
 
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
