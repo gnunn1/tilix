@@ -76,8 +76,8 @@ bool isVTEHandledKeystroke(uint keyval, GdkModifierType modifier) {
 /**
  * Check if the VTE version is the same or higher then requested
  */
-bool checkVTEVersionNumber(uint major, uint minor) {
-    return (major > vteMajorVersion || (major == vteMajorVersion && minor <= vteMinorVersion));
+bool checkVTEVersionNumber(uint requiredMajor, uint requiredMinor) {
+    return vteMajorVersion > requiredMajor || (vteMajorVersion == requiredMajor && vteMinorVersion >= requiredMinor);
 }
 
 /**
@@ -160,4 +160,20 @@ static this() {
     catch (Error e) {
         //Ignore, means VTE doesn't support version API, default to 42
     }
+}
+
+@system
+unittest {
+    vteMajorVersion = 0;
+    vteMinorVersion = 42;
+    
+    assert(!checkVTEVersionNumber(0, 50));    
+    assert(checkVTEVersionNumber(0, 42));
+    assert(checkVTEVersionNumber(0, 41));
+
+    vteMajorVersion = 1;
+    vteMinorVersion = 0;
+    assert(checkVTEVersionNumber(1, 0));    
+    assert(!checkVTEVersionNumber(1, 1));    
+    assert(checkVTEVersionNumber(0, 9));    
 }

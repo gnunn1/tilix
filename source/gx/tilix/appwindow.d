@@ -906,6 +906,7 @@ private:
         int page = nb.getCurrentPage();
         Session session = getCurrentSession();
         nb.reorderChild(session, page + offset);
+        updateUIState();
     }
 
     void onSessionReorder(string sourceUUID, string targetUUID, bool after, CumulativeResult!bool result) {
@@ -982,14 +983,19 @@ private:
     }
 
     AppWindow cloneWindow() {
-        AppWindow result = new AppWindow(tilix, true);
+        AppWindow result = new AppWindow(tilix, useTabs);
         tilix.addAppWindow(result);
+
         result.setDefaultSize(getAllocatedWidth(), getAllocatedHeight());
         if (isMaximized) result.maximize();
         return result;        
     }
 
+    /*
+     * Event occurs when tab is detached from notebook
+     */
     Notebook onCreateWindow(Widget page, int x, int y, Notebook) {
+        trace("Detaching tab, create new window");
         SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(page);
         if (label !is null) {
             label.onCloseClicked.disconnect(&closeSession);
@@ -1015,7 +1021,7 @@ private:
         if (!isNewSession) {
             removeSession(session);
         }
-        AppWindow window = new AppWindow(tilix);
+        AppWindow window = cloneWindow();//new AppWindow(tilix);
         tilix.addAppWindow(window);
         window.initialize(session);
         window.move(x, y);
