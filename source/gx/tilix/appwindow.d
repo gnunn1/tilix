@@ -158,7 +158,6 @@ private:
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
     SimpleAction saSyncInput;
-    SimpleAction saCloseSession;
     SimpleAction saViewSideBar;
     SimpleAction saSessionAddRight;
     SimpleAction saSessionAddDown;
@@ -614,11 +613,9 @@ private:
         });
 
         //Close Session
-        saCloseSession = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
-            if (nb.getNPages > 1) {
-                CumulativeResult!bool results = new CumulativeResult!bool();
-                onUserSessionClose(getCurrentSession().uuid, results);
-            }
+        registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
+            CumulativeResult!bool results = new CumulativeResult!bool();
+            onUserSessionClose(getCurrentSession().uuid, results);
         });
 
         //Load Session
@@ -1049,7 +1046,7 @@ private:
         if (!useTabs) {
             tbSideBar.queueDraw();
         }
-        saCloseSession.setEnabled(nb.getNPages > 1);
+        //saCloseSession.setEnabled(nb.getNPages > 1);
         Session session = getCurrentSession();
         if (session !is null) {
             saSessionAddRight.setEnabled(!session.maximized);
@@ -1210,7 +1207,6 @@ private:
         sessionActions.destroy();
         sessionActions = null;
         saSyncInput  = null;
-        saCloseSession = null;
         saViewSideBar = null;
         saSessionAddRight = null;
         saSessionAddDown = null;
