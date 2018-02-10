@@ -51,13 +51,15 @@ private:
     TreeView tv;
     ListStore ls;
     Button btnDelete;
+    Button btnMoveUp;
+    Button btnMoveDown;
 
     Label lblErrors;
 
     void createUI(string[] links) {
 
         setAllMargins(getContentArea(), 18);
-        Box box = new Box(Orientation.HORIZONTAL, 6);
+        Box box = new Box(Orientation.VERTICAL, 6);
 
         ls = new ListStore([GType.STRING, GType.STRING, GType.BOOLEAN]);
         foreach(link; links) {
@@ -125,14 +127,18 @@ private:
 
         box.add(sc);
 
-        Box buttons = new Box(Orientation.VERTICAL, 6);
-        Button btnAdd = new Button(_("Add"));
+        Box buttons = new Box(Orientation.HORIZONTAL, 0);
+        buttons.getStyleContext().addClass("linked");
+        
+        Button btnAdd = new Button("list-add-symbolic", IconSize.BUTTON);
+        btnAdd.setTooltipText(_("Add"));
         btnAdd.addOnClicked(delegate(Button) {
             ls.createIter();
             selectRow(tv, ls.iterNChildren(null) - 1, null);
         });
         buttons.add(btnAdd);
-        btnDelete = new Button(_("Delete"));
+        btnDelete = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDelete.setTooltipText(_("Delete"));
         btnDelete.addOnClicked(delegate(Button) {
             TreeIter selected = tv.getSelectedIter();
             if (selected) {
@@ -140,6 +146,28 @@ private:
             }
         });
         buttons.add(btnDelete);
+
+        btnMoveUp = new Button("pan-up-symbolic", IconSize.BUTTON);
+        btnMoveUp.setTooltipText(_("Move up"));
+        btnMoveUp.addOnClicked(delegate(Button) {
+            TreeIter selected = tv.getSelectedIter();
+            if (selected !is null) {
+                TreeIter previous = selected.copy(selected);
+                if (ls.iterPrevious(previous)) ls.swap(selected, previous);
+            }
+        });
+        buttons.add(btnMoveUp);
+
+        btnMoveDown = new Button("pan-down-symbolic", IconSize.BUTTON);
+        btnMoveDown.setTooltipText(_("Move down"));
+        btnMoveDown.addOnClicked(delegate(Button) {
+            TreeIter selected = tv.getSelectedIter();
+            if (selected !is null) {
+                TreeIter next = selected.copy(selected);
+                if (ls.iterNext(next)) ls.swap(selected, next);
+            }
+        });
+        buttons.add(btnMoveDown);
 
         box.add(buttons);
 
@@ -152,7 +180,10 @@ private:
     }
 
     void updateUI() {
-        btnDelete.setSensitive(tv.getSelectedIter() !is null);
+        TreeIter selected = tv.getSelectedIter();
+        btnDelete.setSensitive(selected !is null);
+        btnMoveUp.setSensitive(selected !is null && selected.getTreePath().getIndices()[0] > 0);
+        btnMoveDown.setSensitive(selected !is null && selected.getTreePath().getIndices()[0] < ls.iterNChildren(null) - 1);
         setResponseSensitive(GtkResponseType.APPLY, validateRegex(ls, COLUMN_REGEX, lblErrors));
     }
 
