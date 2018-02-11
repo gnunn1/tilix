@@ -887,24 +887,6 @@ private:
         if (checkVTEVersion(VTE_VERSION_HYPERLINK)) {
             vte.setAllowHyperlink(true);
         }
-        //URL Regex Experessions
-        try {
-            if (checkVTEVersion(VTE_VERSION_REGEX)) {
-                foreach (i, regex; compiledVRegex) {
-                    int id = vte.matchAddRegex(cast(VRegex) regex, 0);
-                    regexTag[id] = URL_REGEX_PATTERNS[i];
-                    vte.matchSetCursorType(id, CursorType.HAND2);
-                }
-            } else {
-                foreach (i, regex; compiledGRegex) {
-                    int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
-                    regexTag[id] = URL_REGEX_PATTERNS[i];
-                    vte.matchSetCursorType(id, CursorType.HAND2);
-                }
-            }
-        } catch (GException e) {
-            errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
-        }
         //Event handlers
         vteHandlers ~= vte.addOnChildExited(&onTerminalChildExited);
         vte.addOnBell(delegate(VTE) {
@@ -1868,7 +1850,8 @@ private:
     }
 
     void openURI(TerminalURLMatch urlMatch) {
-        tracef("Match clicked %s", match.match);
+        tracef("Match information URI: %s. Flavor: %d", urlMatch.match, urlMatch.flavor);
+
         string uri = urlMatch.match;
         switch (urlMatch.flavor) {
         case TerminalURLFlavor.DEFAULT_TO_HTTP:
@@ -1896,6 +1879,7 @@ private:
             // Also I'm mixing GRegex which is used to detect initial click
             // with D's regex library to parse out groups, might cause some
             // incompatibilities but we'll see
+            tracef("Processing custom regex with tag %d", urlMatch.tag);
             if (urlMatch.tag in regexTag) {
                 TerminalRegex tr = regexTag[urlMatch.tag];
                 try {
@@ -2255,7 +2239,7 @@ private:
             updateTitleBar();
             break;
         case SETTINGS_ALL_CUSTOM_HYPERLINK_KEY:
-            loadCustomRegex();
+            loadRegex();
             break;
         case SETTINGS_ALL_TRIGGERS_KEY:
             loadTriggers();
@@ -2422,17 +2406,44 @@ static if (BUILD_FUTURE_VTE_52) {
         triggers = tmpTriggers;
     }
 
+    void loadRegex() {
+        vte.matchRemoveAll();
+        //load custom regex first
+        loadCustomRegex();
+        //URL Regex Experessions
+        try {
+            if (checkVTEVersion(VTE_VERSION_REGEX)) {
+                foreach (i, regex; compiledVRegex) {
+                    int id = vte.matchAddRegex(cast(VRegex) regex, 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
+            } else {
+                foreach (i, regex; compiledGRegex) {
+                    int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
+                    regexTag[id] = URL_REGEX_PATTERNS[i];
+                    vte.matchSetCursorType(id, CursorType.HAND2);
+                }
+            }
+        } catch (GException e) {
+            errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
+        }
+    }
+
     /**
      * Loads the custom regex defined by the user for custom hyperlinks
      */
     void loadCustomRegex() {
-        //Remove all of the custom regex
+        // Remove all of the custom regex
+        // Not needed since we reload everything now
+        /*
         foreach (entry; regexTag.byKeyValue()) {
             if (entry.value.flavor == TerminalURLFlavor.CUSTOM) {
                 vte.matchRemove(entry.key);
                 regexTag.remove(entry.key);
             }
         }
+        */
 
         //Re-load custom regex
         string[] links = gsSettings.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
