@@ -1,12 +1,10 @@
-# Polish translation for terminix.
-# This file is put in the public domain.
-# Piotr Sokół <psokol.l10n@gmail.com>, 2016, 2017.
+# Piotr Sokół <psokol.l10n@gmail.com>, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.4.2\n"
+"Project-Id-Version: Polish (Tilix)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2018-01-24 12:25+0000\n"
+"POT-Creation-Date: 2018-02-17 08:33+0200\n"
+"PO-Revision-Date: 2018-02-17 08:07+0000\n"
 "Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
 "Language-Team: Polish "
 "<https://hosted.weblate.org/projects/tilix/translations/pl/>\n"
@@ -16,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 2.19\n"
 
 #: source/app.d:133
 #, c-format
@@ -725,7 +723,7 @@ msgstr "Kursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:318
 msgid "Block"
-msgstr "Blokowy"
+msgstr "Blok"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:318
 msgid "IBeam"
@@ -736,9 +734,8 @@ msgid "Underline"
 msgstr "Podkreślenie"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:326
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Tryb migania"
+msgstr "Tryb migania kursora"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:329
 msgid "System"
@@ -753,9 +750,8 @@ msgid "Off"
 msgstr "Wyłączony"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:336
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Tryb migania"
+msgstr "Tryb migania tekstu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Never"
@@ -764,12 +760,12 @@ msgstr "Nigdy"
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 #, fuzzy
 msgid "Focused"
-msgstr "Uaktywnienie okna"
+msgstr "Uaktywnione"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 #, fuzzy
 msgid "Unfocused"
-msgstr "Przyciemnienie nieaktywnych"
+msgstr "Nieaktywne"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:339
 msgid "Always"
@@ -1597,7 +1593,7 @@ msgstr "AktualizujTytuł"
 
 #: source/gx/tilix/preferences.d:247
 msgid "PlayBell"
-msgstr ""
+msgstr "OdtwórzDzwonek"
 
 #: source/gx/tilix/preferences.d:248
 msgid "SendText"
@@ -1841,9 +1837,8 @@ msgid "Process"
 msgstr "Proces"
 
 #: source/gx/tilix/constants.d:196
-#, fuzzy
 msgid "Terminal count"
-msgstr "Terminal"
+msgstr "Liczba terminali"
 
 #: source/gx/tilix/constants.d:197
 msgid "Terminal number"
@@ -2056,7 +2051,7 @@ msgstr "Zamykanie sesji"
 
 #: source/gx/tilix/bookmark/manager.d:233
 msgid "Error deserializing bookmark"
-msgstr ""
+msgstr "Błąd deserializowania zakładki"
 
 #: source/gx/tilix/bookmark/manager.d:537
 msgid "Root"
@@ -2133,9 +2128,8 @@ msgid "Open Remote Tilix"
 msgstr "Otwórz zdalny Tilix"
 
 #: data/nautilus/open-tilix.py:110
-#, fuzzy
 msgid "Open Remote Tilix In {}"
-msgstr "Otwórz zdalny Tilix w"
+msgstr "Otwórz zdalny Tilix w {}"
 
 #: data/nautilus/open-tilix.py:116
 msgid "Open In Tilix"
@@ -2212,16 +2206,14 @@ msgid "Switch to previous session"
 msgstr "Przełączenie poprzedniej sesji"
 
 #: data/resources/ui/shortcuts.ui:73
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to next session"
-msgstr "Przełączenie następnej sesji"
+msgstr "Zmienienie kolejności sesji na następną"
 
 #: data/resources/ui/shortcuts.ui:79
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to previous session"
-msgstr "Przełączenie poprzedniej sesji"
+msgstr "Zmienienie kolejności sesji na poprzesnią"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
@@ -2476,7 +2468,7 @@ msgstr "Skopiowanie tekstu"
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Skopiowanie tekstu jako HTML"
 
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
@@ -2645,7 +2637,7 @@ msgstr ""
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr "powłoka;polecenie;wiersz poleceń;cmd;"
+msgstr "powłoka;terminal;polecenie;wiersz poleceń;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 msgid "com.gexperts.Tilix"
@@ -2724,7 +2716,7 @@ msgstr ""
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
-msgstr "Tilix został przetestowany z GNOME i Unity."
+msgstr "Tilix przetestowano z GNOME i Unity."
 
 #~ msgctxt "shortcut window"
 #~ msgid "View session switcher"
