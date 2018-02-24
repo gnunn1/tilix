@@ -1644,7 +1644,7 @@ public:
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             updateVisual();
         }
-        if (tilix.getGlobalOverrides().quake) {
+        if (tilix.getGlobalOverrides().quake && !isWayland(null)) {
             _quake = true;
             setDecorated(false);
             // Todo: Should this be NORTH instead?
@@ -1658,6 +1658,9 @@ public:
             //setResizable(false);
             setRole("quake");
         } else {
+            if (tilix.getGlobalOverrides.quake) {
+                error("Quake mode is not supported under Wayland, running as normal window");
+            }
             if (windowStyle == 3) {
                 setDecorated(false);
             }
