@@ -1157,6 +1157,13 @@ private:
         return;
     }
 
+    void sendNotification(string id, string summary, string _body, ) {
+        Notification n = new Notification(summary);
+        n.setBody(_body);
+        tracef("Sending notification %s", id);
+        getApplication().sendNotification(id, n);
+    }
+
     void onSessionProcessNotification(string summary, string _body, string terminalUUID, string sessionUUID) {
         tracef("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body);
         // If window not active, send notification to shell
@@ -1659,7 +1666,9 @@ public:
             setRole("quake");
         } else {
             if (tilix.getGlobalOverrides.quake) {
-                error("Quake mode is not supported under Wayland, running as normal window");
+                string message = _("Quake mode is not supported under Wayland, running as normal window");
+                error(message);
+                sendNotification("quake", _("Quake Mode Not Supported"), message);
             }
             if (windowStyle == 3) {
                 setDecorated(false);
