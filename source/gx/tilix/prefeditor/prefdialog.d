@@ -143,9 +143,12 @@ private:
         pages.addTitled(ap, N_("Appearance"), _("Appearance"));
         addNonProfileRow(new GenericPreferenceRow(N_("Appearance"), _("Appearance")));
 
-        QuakePreferences qp = new QuakePreferences(gsSettings, _wayland);
-        pages.addTitled(qp, N_("Quake"), _("Quake"));
-        addNonProfileRow(new GenericPreferenceRow(N_("Quake"), _("Quake")));
+        // Quake disabled in Wayland, see #1314
+        if (!isWayland(null)) {
+            QuakePreferences qp = new QuakePreferences(gsSettings, _wayland);
+            pages.addTitled(qp, N_("Quake"), _("Quake"));
+            addNonProfileRow(new GenericPreferenceRow(N_("Quake"), _("Quake")));
+        }
 
         bmEditor = new GlobalBookmarkEditor();
         pages.addTitled(bmEditor, N_("Bookmarks"), _("Bookmarks"));

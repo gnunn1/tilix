@@ -100,8 +100,7 @@ void activateWindow(Window window) {
  */
 bool isWayland(Window window) {
     if (window is null || window.getWindow() is null) {
-        error("GDKWindow is null, could not detect Wayland");
-        return false;
+        return (environment.get("XDG_SESSION_TYPE","x11") == "wayland" && environment.get("GDK_BACKEND")!="x11");
     }
 
     import gtkc.gdk: gdk_x11_window_get_type;
