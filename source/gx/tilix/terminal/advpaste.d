@@ -125,8 +125,8 @@ private:
             text = text.detab(gsSettings.getInt(SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY));
         }
         if (gsSettings.getBoolean(SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY)) {
-            text = text.replace("/r/n", "/n");
-            text = text.replace("/r", "/n");
+            text = text.replace("\r\n", "\n");
+            text = text.replace("\r", "\n");
 
         }
         return text;

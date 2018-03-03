@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2018-01-24 12:06+0000\n"
-"Last-Translator: Vojtěch Hauser <vojtech.hauser@gmail.com>\n"
+"PO-Revision-Date: 2018-03-02 16:35+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech "
 "<https://hosted.weblate.org/projects/tilix/translations/cs/>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 2.20-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -38,7 +38,7 @@ msgstr "Verze"
 #: source/app.d:162
 #, c-format
 msgid "Tilix version: %s"
-msgstr "Verze Tilixu: %s"
+msgstr "Verze Tilix: %s"
 
 #: source/app.d:163
 #, c-format
@@ -52,23 +52,23 @@ msgstr "Verze GTK: %d.%d.%d"
 
 #: source/app.d:165
 msgid "Tilix Special Features"
-msgstr "Speciální vlastnosti Tilixu"
+msgstr "Zvláštní funkce v Tilix"
 
 #: source/app.d:166
 msgid "Notifications enabled=%b"
-msgstr "Oznámení povolena=%b"
+msgstr "Oznámení zapnuta=%b"
 
 #: source/app.d:167
 msgid "Triggers enabled=%b"
-msgstr "Spouštěče povoleny=%b"
+msgstr "Spouštěče zapnuty=%b"
 
 #: source/app.d:168
 msgid "Badges enabled=%b"
-msgstr "Odznaky povoleny=%b"
+msgstr "Symboly zapnuty=%b"
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
-msgstr "zakázáno"
+msgstr "vypnuto"
 
 #: source/gx/tilix/appwindow.d:362
 msgid "Create a new session"
@@ -76,7 +76,7 @@ msgstr "Vytvořit nové sezení"
 
 #: source/gx/tilix/appwindow.d:376
 msgid "View session sidebar"
-msgstr "Ukázat boční panel sezení"
+msgstr "Zobrazit boční panel sezení"
 
 #: source/gx/tilix/appwindow.d:411
 msgid "Add terminal right"
@@ -142,11 +142,11 @@ msgstr "Výchozí"
 
 #: source/gx/tilix/appwindow.d:1192
 msgid "There are multiple sessions open, close anyway?"
-msgstr "Je otevřeno více sezení. Zavřít i přesto?"
+msgstr "Je otevřeno více sezení. Přesto zavřít?"
 
 #: source/gx/tilix/appwindow.d:1193 source/gx/tilix/closedialog.d:143
 msgid "Do not show this again"
-msgstr "Příště už neukazovat"
+msgstr "Příště už nezobrazovat"
 
 #: source/gx/tilix/appwindow.d:1469
 #: source/gx/tilix/prefeditor/profileeditor.d:950
@@ -183,11 +183,11 @@ msgstr "Otevřít"
 #: source/gx/tilix/bookmark/bmchooser.d:127
 #: source/gx/tilix/bookmark/bmeditor.d:150
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Storno"
 
 #: source/gx/tilix/appwindow.d:1534
 msgid "Could not load session due to unexpected error."
-msgstr "Načítání sezení se nezdařilo kvůli neočekávané chybě."
+msgstr "Načtení sezení se nezdařilo kvůli neočekávané chybě."
 
 #: source/gx/tilix/appwindow.d:1534
 msgid "Error Loading Session"
@@ -213,15 +213,15 @@ msgstr "Tento příkaz vás žádá o správcovský přístup k počítači"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
-msgstr "Kopírování příkazu z internetu může být nebezpečné. "
+msgstr "Kopírování příkazů z Internetu může být nebezpečné. "
 
 #: source/gx/tilix/terminal/advpaste.d:35
 msgid "Be sure you understand what each part of this command does."
-msgstr "Ujistěte se, že rozumíte, co která část příkazu znamená."
+msgstr "Ujistěte se, že rozumíte tomu, co která část příkazu dělá."
 
 #: source/gx/tilix/terminal/advpaste.d:96
 msgid "Transform"
-msgstr "Konverze"
+msgstr "Převod"
 
 #: source/gx/tilix/terminal/advpaste.d:104
 msgid "Convert spaces to tabs"
@@ -229,7 +229,7 @@ msgstr "Převést mezery na tabulátory"
 
 #: source/gx/tilix/terminal/advpaste.d:115
 msgid "Convert CRLF and CR to LF"
-msgstr "Převést CRLF a CR na LF"
+msgstr "Převést konce řádků CRLF a CR na LF"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Advanced Paste"
@@ -315,7 +315,7 @@ msgstr "Upravit profil"
 
 #: source/gx/tilix/terminal/terminal.d:488
 msgid "Edit Encodings"
-msgstr "Upravit kódování"
+msgstr "Upravit kódování znaků"
 
 #: source/gx/tilix/terminal/terminal.d:684
 msgid "Enable input synchronization for this terminal"
@@ -325,8 +325,7 @@ msgstr "Pro tento terminál zapnout synchronizaci vstupu"
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Knihovnu %s se nepodařilo načíst: funkcionalita pro hesla není dostupná."
+msgstr "Knihovnu %s se nepodařilo načíst: funkce pro hesla není dostupná."
 
 #: source/gx/tilix/terminal/terminal.d:719
 msgid "Library Not Loaded"
@@ -382,11 +381,11 @@ msgstr "Obnovit a vyčistit"
 #: source/gx/tilix/prefeditor/prefdialog.d:454
 #: source/gx/tilix/prefeditor/prefdialog.d:668
 msgid "Encoding"
-msgstr "Kódování"
+msgstr "Kódování znaků"
 
 #: source/gx/tilix/terminal/terminal.d:843
 msgid "Layout Options…"
-msgstr "Možnosti rozložení…"
+msgstr "Možnosti uspořádání…"
 
 #: source/gx/tilix/terminal/terminal.d:847
 msgid "Monitor Silence"
@@ -420,7 +419,7 @@ msgstr "Obnovit"
 
 #: source/gx/tilix/terminal/terminal.d:1581
 msgid "Tilix Custom Notification"
-msgstr "Vlastní oznamování Tilixu"
+msgstr "Uživatelské oznamování z Tilix"
 
 #: source/gx/tilix/terminal/terminal.d:1682
 msgid "Open Link"
@@ -471,11 +470,11 @@ msgstr "URI vzdálených souborů nepodporováno"
 #: source/gx/tilix/terminal/terminal.d:2467
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Regulární výraz odkazu „%s“ obsahuje chybu, ignoruje se"
+msgstr "Regulární výraz uživatelského odkazu „%s“ obsahuje chybu – ignoruje se"
 
 #: source/gx/tilix/terminal/terminal.d:1921
 msgid "Regular Expression Error"
-msgstr "Chyba regulérního výrazu"
+msgstr "Chyba regulárního výrazu"
 
 #: source/gx/tilix/terminal/terminal.d:1933
 #, c-format
@@ -510,16 +509,16 @@ msgstr "Neznámé"
 #: source/gx/tilix/terminal/terminal.d:3898
 #, c-format
 msgid "The child process exited normally with status %d"
-msgstr "Proces potomka skončil normálně se statusem %d"
+msgstr "Podřízený (child) proces skončil normálně se stavem %d"
 
 #: source/gx/tilix/terminal/terminal.d:3899
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr "Proces potomka byl ukončen signálem %d."
+msgstr "Podřízený (child) proces byl ukončen signálem %d."
 
 #: source/gx/tilix/terminal/terminal.d:3900
 msgid "The child process was aborted."
-msgstr "Proces potomka byl ukončen."
+msgstr "Podřízený (child) proces byl ukončen."
 
 #: source/gx/tilix/terminal/terminal.d:3906
 msgid "Relaunch"
@@ -541,7 +540,7 @@ msgstr "Možnosti rozložení"
 #: source/gx/tilix/closedialog.d:205 source/gx/tilix/bookmark/bmchooser.d:127
 #: source/gx/tilix/bookmark/bmeditor.d:150
 msgid "OK"
-msgstr "Budiž"
+msgstr "Ok"
 
 #: source/gx/tilix/terminal/layout.d:48
 msgid "Active"
@@ -556,7 +555,7 @@ msgstr "Titulek"
 #: source/gx/tilix/prefeditor/profileeditor.d:371
 #: source/gx/tilix/prefeditor/profileeditor.d:696
 msgid "Badge"
-msgstr "Odznak"
+msgstr "Symbol"
 
 #: source/gx/tilix/terminal/layout.d:82
 msgid "Session Load"
@@ -577,8 +576,8 @@ msgid ""
 "Active options are always in effect and apply immediately.\n"
 "Session Load options only apply when loading a session file."
 msgstr ""
-"Aktivní předvolby vždy platí a zapínají se okamžitě.\n"
-"Možnosti „Načítání sezení“ se uplatňují, jen když se načítá sezení."
+"Aktivní předvolby vždy platí a jsou použity okamžitě.\n"
+"Předvolby „Načítání sezení“ se uplatňují jen při načítání souboru sezení."
 
 #: source/gx/tilix/terminal/password.d:137
 #: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1526
@@ -613,7 +612,7 @@ msgstr "Smazat"
 
 #: source/gx/tilix/terminal/password.d:235
 msgid "Include return character with password"
-msgstr "S heslem zadejte i znak nového řádku"
+msgstr "Za heslem zadejte i znak nového řádku"
 
 #: source/gx/tilix/terminal/password.d:371
 msgid "Insert Password"
@@ -785,7 +784,7 @@ msgstr "Titulek terminálu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:385
 msgid "Badge position"
-msgstr "Umístění odznaku"
+msgstr "Umístění symbolu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:389
 msgid "Northwest"
@@ -868,7 +867,7 @@ msgstr "Možnosti"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:577
 msgid "Use theme colors for foreground/background"
-msgstr "Použít barvy z motivu i pro popředí/pozadí"
+msgstr "Použít barvy z motivu vzhledu i pro popředí/pozadí"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:593
 msgid "Transparency"
@@ -876,7 +875,7 @@ msgstr "Průhlednost"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:607
 msgid "Unfocused dim"
-msgstr "Ztlumení nezaměřeného okna"
+msgstr "Ztmavení nezaměřeného okna"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:655
 msgid "Text"
@@ -901,11 +900,11 @@ msgstr "Zvýraznění"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:679
 msgid "Select Highlight Foreground Color"
-msgstr "Vyberte barvu zvýraznění popředí"
+msgstr "Vyberte barvu popředí u zvýraznění"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:681
 msgid "Select Highlight Background Color"
-msgstr "Vyberte barvu zvýraznění pozadí"
+msgstr "Vyberte barvu pozadí u zvýraznění"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:686
 msgid "Bold"
@@ -913,11 +912,11 @@ msgstr "Tučně"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:691
 msgid "Select Bold Color"
-msgstr "Vyberte tučnou barvu"
+msgstr "Vyberte barvu pro tučné"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:700
 msgid "Select Badge Color"
-msgstr "Vyberte barvu odznaku"
+msgstr "Vyberte barvu symbolu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:749
 msgid "Select Background Color"
@@ -980,7 +979,7 @@ msgstr "Exportovat barevné schéma"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1009
 msgid "Show scrollbar"
-msgstr "Ukazovat posuvník"
+msgstr "Zobrazovat posuvník"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1013
 msgid "Scroll on output"
@@ -1045,7 +1044,7 @@ msgstr "Spustit příkaz jako přihlašovací shell"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1117
 msgid "Run a custom command instead of my shell"
-msgstr "Místo mého shellu spustit vlastní příkaz"
+msgstr "Místo mého shellu spustit uživatelský příkaz"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1133
 msgid "When command exits"
@@ -1061,7 +1060,7 @@ msgstr "Znovu spustit příkaz"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1135
 msgid "Hold the terminal open"
-msgstr "Podržet terminál otevřený"
+msgstr "Ponechat terminál otevřený"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1167
 msgid "Automatic Profile Switching"
@@ -1074,10 +1073,10 @@ msgid ""
 "the hostname or directory can be omitted but the colon must be present. "
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
-"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
-"Hodnoty se zapisují ve formátu <i>uživatelské_jméno@hostitel:adresář</i>. "
-"Buď hostitele nebo adresář je možné vynechat, ale je nutné zachovat "
-"dvojtečku. Položky postrádající hostitele i adresář nejsou povoleny."
+"Profily jsou vybírány automaticky podle zde zadaných hodnot.\n"
+"Hodnoty se zapisují ve formátu <i>uzivatelske_jmeno@stroj:adresar</i>. Buď "
+"stroj nebo adresář je možné vynechat, ale je nutné zachovat dvojtečku. "
+"Položky postrádající stroj i adresář není možné použít."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1177
 msgid ""
@@ -1086,10 +1085,10 @@ msgid ""
 "hostname or directory can be omitted but the colon must be present. Entries "
 "with neither hostname or directory are not permitted."
 msgstr ""
-"Profily se vybírají automaticky podle hodnot zde zadaných.\n"
-"Hodnoty se zapisují ve formátu <i>hostitel:adresář</i>. Buď hostitele nebo "
-"adresář je možné vynechat, ale je nutné zachovat dvojtečku. Položky "
-"postrádající hostitele i adresář nejsou povoleny."
+"Profily jsou vybírány automaticky podle zde zadaných hodnot.\n"
+"Hodnoty se zapisují ve formátu <i>stroj:adresar</i>. Buď stroj nebo adresář "
+"je možné vynechat, ale je nutné zachovat dvojtečku. Položky postrádající "
+"stroj i adresář není možné použít."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1188
 msgid "Match"
@@ -1103,11 +1102,11 @@ msgstr "Přidat"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1203
 msgid "Enter username@hostname:directory to match"
-msgstr "Zadejte shodu pro uživatel@hostitel:adresář"
+msgstr "Zadejte uzivatel@stroj:adresar pro který hledat shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1205
 msgid "Enter hostname:directory to match"
-msgstr "Zadejte shodu pro hostitel:adresář"
+msgstr "Zadejte stroj:adresar pro který hledat shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1207
 msgid "Add New Match"
@@ -1115,11 +1114,11 @@ msgstr "Přidat novou shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1224
 msgid "Edit username@hostname:directory to match"
-msgstr "Upravit shodu pro uživatel@hostitel:adresář"
+msgstr "Upravit uzivatel@stroj:adresar pro který hledat shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1226
 msgid "Edit hostname:directory to match"
-msgstr "Upravit shodu pro hostitel:adresář"
+msgstr "Upravit stroj:adresar pro který hledat shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1228
 msgid "Edit Match"
@@ -1127,15 +1126,15 @@ msgstr "Upravit shodu"
 
 #: source/gx/tilix/prefeditor/common.d:34
 msgid "Custom Links"
-msgstr "Vlastní odkazy"
+msgstr "Uživatelské odkazy"
 
 #: source/gx/tilix/prefeditor/common.d:39
 msgid ""
 "A list of user defined links that can be clicked on in the terminal based on "
 "regular expression definitions."
 msgstr ""
-"Seznam uživatelem definovaných odkazů, na něž je možné v terminálu kliknout, "
-"zakládající se na regulérních výrazech."
+"Seznam uživatelem definovaných odkazů, na které je možné v terminálu "
+"kliknout, zakládající se na regulérních výrazech."
 
 #: source/gx/tilix/prefeditor/common.d:61
 msgid "Triggers"
@@ -1146,12 +1145,12 @@ msgid ""
 "Triggers are regular expressions that are used to check against output text "
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
-"Spouštěče jsou regulérní výrazy, které slouží k vyhledávání textu ve výstupu "
+"Spouštěče jsou regulární výrazy, které slouží k vyhledávání textu ve výstupu "
 "terminálu. Když je nalezena shoda, provede se nastavená činnost."
 
 #: source/gx/tilix/prefeditor/prefdialog.d:121
 msgid "Tilix Preferences"
-msgstr "Předvolby Tilixu"
+msgstr "Předvolby pro Tilix"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:138
 #: source/gx/tilix/prefeditor/prefdialog.d:139
@@ -1167,7 +1166,7 @@ msgstr "Vzhled"
 #: source/gx/tilix/prefeditor/prefdialog.d:146
 #: source/gx/tilix/prefeditor/prefdialog.d:147
 msgid "Quake"
-msgstr "Quake"
+msgstr "Vysouvat shora (Quake)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:150
 #: source/gx/tilix/prefeditor/prefdialog.d:151
@@ -1209,11 +1208,11 @@ msgstr "Použít pro nové terminály"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:624
 msgid "Encodings showing in menu:"
-msgstr "Kódování zobrazená v nabídce:"
+msgstr "Kódování znaků která zobrazit v nabídce:"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:666
 msgid "Enabled"
-msgstr "Povoleno"
+msgstr "Zapnuto"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:747
 #: source/gx/tilix/prefeditor/advdialog.d:256
@@ -1226,7 +1225,7 @@ msgstr "Klávesová zkratka"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:783
 msgid "Enable shortcuts"
-msgstr "Povolit zkratky"
+msgstr "Používat zkratky"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:787
 msgid "Set default"
@@ -1256,11 +1255,11 @@ msgstr "Normální"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD"
-msgstr "Zakázat CSD"
+msgstr "Vypnout CSD"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD, hide toolbar"
-msgstr "Zakázat CSD, skrýt panel nástrojů"
+msgstr "Vypnout CSD, skrýt panel nástrojů"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Borderless"
@@ -1307,7 +1306,7 @@ msgstr "Dole"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1081
 msgid "Theme variant"
-msgstr "Varianta motivu"
+msgstr "Varianta motivu vzhledu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1082
 msgid "Light"
@@ -1335,7 +1334,7 @@ msgstr "Odstranit obrázek na pozadí"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1120
 msgid "Scale"
-msgstr "Škálovat"
+msgstr "Přizpůsobit měřítko"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1120
 msgid "Tile"
@@ -1360,7 +1359,7 @@ msgstr "Titulek aplikace"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1172
 msgid "Enable transparency, requires re-start"
-msgstr "Povolit průhlednost; vyžaduje restart"
+msgstr "Zapnout průhlednost (vyžaduje restart aplikace)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1178
 msgid "Use a wide handle for splitters"
@@ -1376,11 +1375,11 @@ msgstr "Ukazovat titulek terminálu, i když je to jediný terminál"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1192
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr "Použít překryvné posuvníky (vyžaduje restart aplikace)"
+msgstr "Používat překryvné posuvníky (vyžaduje restart aplikace)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1197
 msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr "Použít karty místo bočního panelu (vyžaduje restart aplikace)"
+msgstr "Používat karty místo bočního panelu (vyžaduje restart aplikace)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1229
 msgid "Size"
@@ -1396,11 +1395,11 @@ msgstr "Procenta šířky"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1261
 msgid "Alignment"
-msgstr "Poloha"
+msgstr "Zarovnání"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1284
 msgid "Show terminal on all workspaces"
-msgstr "Ukazovat terminál na všech plochách"
+msgstr "Zobrazovat terminál na všech plochách"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1296
 msgid "Hide window when focus is lost"
@@ -1420,7 +1419,7 @@ msgstr "Zobrazit terminál na aktivním monitoru"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1335
 msgid "Display on specific monitor"
-msgstr "Zobrazit na zvoleném monitoru"
+msgstr "Zobrazit na konkrétním monitoru"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1377
 msgid "Behavior"
@@ -1428,7 +1427,7 @@ msgstr "Chování"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1383
 msgid "Prompt when creating a new session"
-msgstr "Upozornit při vytváření nového sezení"
+msgstr "Dotázat se při vytváření nového sezení"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1388
 msgid "Focus a terminal when the mouse moves over it"
@@ -1440,23 +1439,23 @@ msgstr "Při psaní automaticky skrývat kurzor myši"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1398
 msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Zavřít terminál kliknutím prostředním tlačítkem na titulek"
+msgstr "Zavřít terminál kliknutím prostředním tlačítkem myši na titulek"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Přiblížit terminál pomocí <Controlu>u a kolečka myši"
+msgstr "Měnit přiblížení terminálu pomocí klávesy <Control> a kolečka myši"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1408
 msgid "Require the <Control> modifier to edit title on click"
-msgstr "Pro úpravu titulku kliknutím vyžadovat klávesu <Control>"
+msgstr "Pro úpravu titulku kliknutím vyžadovat stisk klávesy <Control>"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1413
 msgid "Close window when last session is closed"
-msgstr "Zavřít okno, když se zavře poslední sezení"
+msgstr "Zavřít okno, když je zavřeno poslední sezení"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1417
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Nové okno dědí adresář a profil od aktivního terminálu"
+msgstr "Nové okno přebírá adresář a profil aktivního terminálu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1422
 msgid "Save and restore window state"
@@ -1464,7 +1463,7 @@ msgstr "Uložit a obnovit stav okna"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1428
 msgid "Send desktop notification on process complete"
-msgstr "Po skončení procesů zasílat upozornění"
+msgstr "Zpravovat o dokončení procesů skrze oznamování v desktopu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
 msgid "On new instance"
@@ -1505,11 +1504,12 @@ msgstr "Varovat při pokusu o nebezpečné vkládání"
 #: source/gx/tilix/prefeditor/prefdialog.d:1461
 msgid "Strip first character of paste if comment or variable declaration"
 msgstr ""
-"Odstranit první znak vkládaného, pokud jde o komentář nebo deklaraci proměnné"
+"Odstranit první znak z vkládaného, pokud jde o komentář nebo deklaraci "
+"proměnné"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1466
 msgid "Automatically copy text to clipboard when selecting"
-msgstr "Při označení automaticky zkopírovat text do schránky"
+msgstr "Označením text automaticky zkopírovat do schránky"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
 msgid "Session"
@@ -1531,11 +1531,11 @@ msgstr "Regulární výraz"
 
 #: source/gx/tilix/prefeditor/advdialog.d:116
 msgid "Case Insensitive"
-msgstr "Nerozlišovat velikost"
+msgstr "Nerozlišovat velikost písmen"
 
 #: source/gx/tilix/prefeditor/advdialog.d:161
 msgid "Edit Custom Links"
-msgstr "Upravit vlastní odkazy"
+msgstr "Upravit uživatelské odkazy"
 
 #: source/gx/tilix/prefeditor/advdialog.d:268
 msgid "Parameter"
@@ -1543,7 +1543,7 @@ msgstr "Parametr"
 
 #: source/gx/tilix/prefeditor/advdialog.d:306
 msgid "Limit number of lines for trigger processing to:"
-msgstr "Omezit počet řádků, v nichž hledat spouštěče, na:"
+msgstr "Omezit počet řádků ve kterých hledat spouštěče na:"
 
 #: source/gx/tilix/prefeditor/advdialog.d:331
 msgid "Edit Triggers"
@@ -1584,7 +1584,7 @@ msgstr "VložitHeslo"
 
 #: source/gx/tilix/preferences.d:250
 msgid "UpdateBadge"
-msgstr "AktualizovatOdznak"
+msgstr "AktualizovatSymbol"
 
 #: source/gx/tilix/preferences.d:251
 msgid "RunProcess"
@@ -1593,7 +1593,7 @@ msgstr "SpustitProces"
 #: source/gx/tilix/preferences.d:359
 #, c-format
 msgid "%s (Copy)"
-msgstr "%s (Kopírovat)"
+msgstr "%s (kopírovat)"
 
 #: source/gx/tilix/application.d:241
 msgid "About"
@@ -1638,7 +1638,7 @@ msgstr "TITULEK"
 
 #: source/gx/tilix/application.d:664
 msgid "Open the specified session"
-msgstr "Otevřít zvolené sezení"
+msgstr "Otevřít určené sezení"
 
 #: source/gx/tilix/application.d:664
 msgid "SESSION_NAME"
@@ -1646,7 +1646,7 @@ msgstr "NÁZEV_SEZENÍ"
 
 #: source/gx/tilix/application.d:666
 msgid "Send an action to current Tilix instance"
-msgstr "Poslat akci běžící instanci Tilixu"
+msgstr "Poslat akci běžící instanci Tilix"
 
 #: source/gx/tilix/application.d:666
 msgid "ACTION_NAME"
@@ -1673,8 +1673,8 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
-"Přepsat upřednostňovaný styl okna který použít; jedno z: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
+"Přepsat upřednostňovaný styl okna který použít – jedno z: normal,disable-csd"
+",disable-csd-hide-toolbar,borderless"
 
 #: source/gx/tilix/application.d:671
 msgid "WINDOW_STYLE"
@@ -1711,15 +1711,16 @@ msgstr ""
 
 #: source/gx/tilix/application.d:677
 msgid "Show the Tilix and dependant component versions"
-msgstr "Ukázat verze Tilixu a závislých komponent"
+msgstr "Zobrazit verzi Tilixu a součástí na kterých závisí"
 
 #: source/gx/tilix/application.d:678
 msgid "Show the Tilix preferences dialog directly"
-msgstr "Ukázat přímo dialog s předvolbami Tilixu"
+msgstr "Zobrazit přímo dialog s předvolbami pro Tilix"
 
 #: source/gx/tilix/application.d:681
 msgid "Hidden argument to pass terminal UUID"
-msgstr "Skrytý argument k předání UUID terminálu"
+msgstr ""
+"Skrytý argument kterému předat nikde se neopakující identifikátoru terminálu"
 
 #: source/gx/tilix/application.d:681
 msgid "TERMINAL_UUID"
@@ -1733,7 +1734,7 @@ msgid ""
 msgstr ""
 "Byl zřejmě nalezen problém s nastavením terminálu. Není vážný,\n"
 "ale jeho náprava zpříjemní používání aplikace.\n"
-"Pro další informace klikněte na odkaz níže:"
+"Další informace získáte kliknutím na odkaz níže:"
 
 #: source/gx/tilix/application.d:843
 msgid "Configuration Issue Detected"
@@ -1741,7 +1742,7 @@ msgstr "Zjištěn problém v nastavení"
 
 #: source/gx/tilix/application.d:855
 msgid "Do not show this message again"
-msgstr "Tuto zprávu už neukazovat"
+msgstr "Tuto zprávu už nezobrazovat"
 
 #: source/gx/tilix/colorschemes.d:184
 #, c-format
@@ -1754,11 +1755,11 @@ msgstr "Paleta barevného schématu vyžaduje 16 barev"
 
 #: source/gx/tilix/session.d:561
 msgid "Could not locate dropped terminal"
-msgstr "Nebylo možno nalézt přetažený terminál"
+msgstr "Přetažený terminál se nepodařilo nalézt"
 
 #: source/gx/tilix/session.d:566
 msgid "Could not locate session for dropped terminal"
-msgstr "Nebylo možno nalézt sezení pro přetažený terminál"
+msgstr "Nepodařilo se nalézt sezení pro přetažený terminál"
 
 #: source/gx/tilix/constants.d:92
 msgid "A VTE based terminal emulator for Linux"
@@ -1770,7 +1771,7 @@ msgid ""
 "v. 2.0. If a copy of the MPL was not distributed with this file, You can "
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
-"Tato „Forma ve zdrojovém kódu“ podléhá podmínkám licence Mozilla Public "
+"Tato „podoba ve zdrojovém kódu“ podléhá podmínkám licence Mozilla Public "
 "License verze 2.0. Pokud nebyla s tímto souborem dodána i kopie MPL, můžete "
 "ji získat na http://mozilla.org/MPL/2.0/."
 
@@ -1857,18 +1858,18 @@ msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
-"Nemůžete zároveň načíst sezení a nastavit volbu profilu / pracovního "
-"adresáře / prováděného příkazu. Vyberte prosím jen jedno"
+"Není možné zároveň načíst sezení a nastavit volbu profilu / pracovního "
+"adresáře / prováděného příkazu. Zvolte jen jedno nebo druhé"
 
 #: source/gx/tilix/cmdparams.d:190
 msgid "You can only use the action parameter within Tilix"
-msgstr "Parametr akce můžete použít jen uvnitř Tilixu"
+msgstr "Parametr akce můžete použít jen v rámci Tilix"
 
 #: source/gx/tilix/cmdparams.d:212
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
-"Režim „quake“ nemůžete použít s parametry maximalizace, minimalizace či "
+"Režim „quake“ není možné použít s parametry maximalizace, minimalizace či "
 "geometrie"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
@@ -1948,7 +1949,7 @@ msgstr "čínské tradiční"
 
 #: source/gx/tilix/encoding.d:37
 msgid "Cyrillic/Russian"
-msgstr "cyrilské/ruské"
+msgstr "cyrilice/ruské"
 
 #: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
 #: source/gx/tilix/encoding.d:71
@@ -1971,7 +1972,7 @@ msgstr "gruzínské"
 
 #: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
 msgid "Cyrillic/Ukrainian"
-msgstr "cyrilské/ukrajinské"
+msgstr "cyrilice/ukrajinské"
 
 #: source/gx/tilix/encoding.d:58
 msgid "Croatian"
@@ -2047,7 +2048,7 @@ msgstr "Složka"
 #: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:291
 msgid "Path"
-msgstr "Cesta"
+msgstr "Popis umístění"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
@@ -2112,7 +2113,7 @@ msgstr "Otevřít v {} vzdálený Tilix"
 
 #: data/nautilus/open-tilix.py:116
 msgid "Open In Tilix"
-msgstr "Otevřít v Tilixu"
+msgstr "Otevřít v Tilix"
 
 #: data/nautilus/open-tilix.py:117
 msgid "Open Tilix In {}"
@@ -2317,7 +2318,7 @@ msgstr "Změnit velikost doprava"
 #: data/resources/ui/shortcuts.ui:233 data/resources/ui/shortcuts.ui:487
 msgctxt "shortcut window"
 msgid "Other"
-msgstr "Další"
+msgstr "Ostatní"
 
 #: data/resources/ui/shortcuts.ui:237
 msgctxt "shortcut window"
@@ -2422,17 +2423,17 @@ msgstr "Terminál"
 #: data/resources/ui/shortcuts.ui:367 data/resources/ui/shortcuts.ui:371
 msgctxt "shortcut window"
 msgid "Find"
-msgstr "Hledání"
+msgstr "Najít"
 
 #: data/resources/ui/shortcuts.ui:377
 msgctxt "shortcut window"
 msgid "Find next"
-msgstr "Hledat další"
+msgstr "Najít další"
 
 #: data/resources/ui/shortcuts.ui:383
 msgctxt "shortcut window"
 msgid "Find previous"
-msgstr "Hledat předchozí"
+msgstr "Najít předchozí"
 
 #: data/resources/ui/shortcuts.ui:391
 msgctxt "shortcut window"
@@ -2557,12 +2558,12 @@ msgstr "Možnosti rozložení"
 #: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Insert terminal number"
-msgstr "Vložte číslo terminálu"
+msgstr "Zadejte číslo terminálu"
 
 #: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
 msgid "Insert password"
-msgstr "Vložit heslo"
+msgstr "Zadejte heslo"
 
 #: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
@@ -2607,7 +2608,7 @@ msgstr "Otevřít"
 #: data/resources/ui/shortcuts.ui:601
 msgctxt "shortcut window"
 msgid "Open in Tilix"
-msgstr "Otevřít v Tilixu"
+msgstr "Otevřít v Tilix"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
 msgid "A tiling terminal for Gnome"
@@ -2615,7 +2616,7 @@ msgstr "Dlaždicový terminál pro Gnome"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr "shell;terminál;příkaz;příkazová řádka;cmd;"
+msgstr "shell;terminál;příkaz;příkazový řádek;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 msgid "com.gexperts.Tilix"
@@ -2631,18 +2632,18 @@ msgstr "Tilix je dlaždicový emulátor terminálu."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:15
 msgid "It lets you:"
-msgstr "Můžete v něm:"
+msgstr "Je v něm možné:"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
 msgid ""
 "Layout terminals in any fashion by splitting them horizontally or vertically"
-msgstr "Rozložit terminály libovolným rozdělením vodorovně či svisle"
+msgstr "Rozmístit terminály libovolným rozdělením vodorovně či svisle"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:18
 msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
-msgstr "Přesouvat terminály přetáhnutím uvnitř oken i mezi okny"
+msgstr "Přesouvat terminály přetažením uvnitř oken i mezi okny"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:19
 msgid "Terminals can be detached into a new window via drag and drop"
@@ -2658,7 +2659,7 @@ msgstr ""
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
-msgstr "Ukládat seskupení terminálů a zpětně načítat z disku"
+msgstr "Ukládat seskupení terminálů a pak je později opět načítat z úložiště"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid "Terminals support custom titles"
@@ -2669,8 +2670,8 @@ msgid ""
 "Color schemes are stored in files and custom color schemes can be created by "
 "simply creating a new file"
 msgstr ""
-"Barevná schémata jsou uložena v souborech a vlastní můžete vytvořit prostě "
-"založením nového souboru"
+"Barevná schémata jsou uložena v souborech a vlastní můžete vytvořit prostým "
+"vytvořením nového souboru"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Transparent background"
@@ -2678,7 +2679,7 @@ msgstr "Průhledné pozadí"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid "Supports notifications when processes are completed out of view"
-msgstr "Podporuje upozornění, když skončí procesy v nezaměřeném okně"
+msgstr "Podporuje oznamování o skončení procesů v nezaměřeném okně"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
 msgid ""
@@ -2687,7 +2688,7 @@ msgid ""
 "decorations, though it can be disabled if necessary."
 msgstr ""
 "Tato aplikace je napsána pomocí GTK 3 a snahou bylo zůstat v souladu se "
-"Zásadami lidského rozhraní (HIG) GNOME. Ve výsledku tedy Terminix využívá "
+"Zásadami lidského rozhraní (HIG) GNOME. Ve výsledku tedy Tilix využívá "
 "dekorace na straně klienta, umí je však v případě nutnosti i vypnout."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
