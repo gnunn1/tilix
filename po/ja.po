@@ -7,25 +7,25 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2017-03-15 16:01+0000\n"
-"Last-Translator: night1ynx <night1ynxd@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/tilix/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2018-03-07 10:49+0000\n"
+"Last-Translator: Atnanasi <ys2000pro+id@gmail.com>\n"
+"Language-Team: Japanese "
+"<https://hosted.weblate.org/projects/tilix/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.20-dev\n"
 
 #: source/app.d:133
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
+msgstr "GTKのバージョンが古すぎます、バージョン %d.%d.%d 以上のGTKをインストールしてください!"
 
 #: source/app.d:150
 msgid "Unexpected exception occurred"
-msgstr ""
+msgstr "予期しない例外が発生しました"
 
 #: source/app.d:151
 msgid "Error: "
@@ -52,11 +52,11 @@ msgstr "GTK バージョン: %d.%d.%d"
 
 #: source/app.d:165
 msgid "Tilix Special Features"
-msgstr ""
+msgstr "Tilixの特徴"
 
 #: source/app.d:166
 msgid "Notifications enabled=%b"
-msgstr ""
+msgstr "通知を有効にする"
 
 #: source/app.d:167
 msgid "Triggers enabled=%b"
@@ -72,7 +72,7 @@ msgstr "無効"
 
 #: source/gx/tilix/appwindow.d:362
 msgid "Create a new session"
-msgstr ""
+msgstr "新しいセッションを開始"
 
 #: source/gx/tilix/appwindow.d:376
 msgid "View session sidebar"
@@ -80,23 +80,23 @@ msgstr ""
 
 #: source/gx/tilix/appwindow.d:411
 msgid "Add terminal right"
-msgstr ""
+msgstr "右側に端末を追加"
 
 #: source/gx/tilix/appwindow.d:415
 msgid "Add terminal down"
-msgstr ""
+msgstr "下側に端末を追加"
 
 #: source/gx/tilix/appwindow.d:421
 msgid "Find text in terminal"
-msgstr ""
+msgstr "端末内の文章を検索"
 
 #: source/gx/tilix/appwindow.d:637
 msgid "Enter a new name for the session"
-msgstr ""
+msgstr "セッションの新しい名前を入力してください"
 
 #: source/gx/tilix/appwindow.d:642
 msgid "Change Session Name"
-msgstr ""
+msgstr "セッションの名前を変える"
 
 #: source/gx/tilix/appwindow.d:708
 msgid "Open…"
@@ -118,13 +118,12 @@ msgid "Close"
 msgstr "閉じる"
 
 #: source/gx/tilix/appwindow.d:715
-#, fuzzy
 msgid "Name…"
 msgstr "名前…"
 
 #: source/gx/tilix/appwindow.d:716
 msgid "Synchronize Input"
-msgstr ""
+msgstr "端末への入力を同期"
 
 #: source/gx/tilix/appwindow.d:721 source/gx/tilix/prefeditor/prefdialog.d:258
 #: source/gx/tilix/prefeditor/prefdialog.d:405
@@ -143,16 +142,16 @@ msgstr "デフォルト"
 
 #: source/gx/tilix/appwindow.d:1192
 msgid "There are multiple sessions open, close anyway?"
-msgstr ""
+msgstr "複数のセッションを開いています、全て閉じますか?"
 
 #: source/gx/tilix/appwindow.d:1193 source/gx/tilix/closedialog.d:143
 msgid "Do not show this again"
-msgstr ""
+msgstr "次から表示しない"
 
 #: source/gx/tilix/appwindow.d:1469
 #: source/gx/tilix/prefeditor/profileeditor.d:950
 msgid "All JSON Files"
-msgstr ""
+msgstr "すべてのJSONファイル"
 
 #: source/gx/tilix/appwindow.d:1473 source/gx/tilix/terminal/terminal.d:3316
 #: source/gx/tilix/prefeditor/profileeditor.d:954
@@ -163,11 +162,11 @@ msgstr "すべてのファイル"
 #: source/gx/tilix/appwindow.d:1482
 #, c-format
 msgid "Filename '%s' does not exist"
-msgstr ""
+msgstr "'%s' ファイルが見つかりません"
 
 #: source/gx/tilix/appwindow.d:1512
 msgid "Load Session"
-msgstr ""
+msgstr "セッションを読み込む"
 
 #: source/gx/tilix/appwindow.d:1515
 msgid "Open"
@@ -188,11 +187,11 @@ msgstr "キャンセル"
 
 #: source/gx/tilix/appwindow.d:1534
 msgid "Could not load session due to unexpected error."
-msgstr ""
+msgstr "予期しないエラーが発生したためセッションを読み込めません。"
 
 #: source/gx/tilix/appwindow.d:1534
 msgid "Error Loading Session"
-msgstr ""
+msgstr "セッションの読み込み中にエラーが発生しました"
 
 #: source/gx/tilix/appwindow.d:1550
 msgid "Save Session"
@@ -205,13 +204,12 @@ msgid "Tilix"
 msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:2088
-#, fuzzy
 msgid "Close session"
 msgstr "セッションを閉じる"
 
 #: source/gx/tilix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
-msgstr ""
+msgstr "このコマンドは管理者権限を要求しています"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
@@ -1558,7 +1556,7 @@ msgstr "トリガーの編集"
 #: source/gx/tilix/prefeditor/advdialog.d:374
 #, c-format
 msgid "Row %d: "
-msgstr ""
+msgstr "%d行目 "
 
 #: source/gx/tilix/preferences.d:243
 msgid "UpdateState"
