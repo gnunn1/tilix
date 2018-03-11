@@ -4,7 +4,7 @@
     "copyright": "Copyright © 2016, Gerald Nunn",
     "authors": ["Gerald Nunn"],
     "mainSourceFile": "source/app.d",
-    "dflags-ldc": ["-disable-linker-strip-dead","-defaultlib=:libphobos2-ldc.a,:libdruntime-ldc.a"],
+    "dflags-ldc": ["-disable-linker-strip-dead","-link-defaultlib-shared=false"],
 
     "dependencies": {
         "gtk-d:gtkd": {
@@ -47,7 +47,7 @@
             "targetType": "executable",
             "libs": ["gtkd-3"],
             "libs-linux": ["X11"],
-            "lflags": ["-defaultlib=gtkd-3.so"],
+            "lflags": ["-defaultlib=libgtkd-3.so"],
             "versions": ["StdLoggerDisableTrace"]
         }
     ]
