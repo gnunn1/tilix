@@ -139,6 +139,7 @@ revealer.right > scrolledwindow {
   opacity: 0;
   -gtk-icon-source: -gtk-icontheme("alarm-symbolic");
 }
+
 .tilix-bell:checked {
     opacity: 1;
     animation: shake 1s linear infinite;
@@ -168,4 +169,21 @@ revealer.right > scrolledwindow {
 
 .tilix-error {
     color: @error_color;
+}
+
+/* Easier navigation in tree view */
+@binding-set TilixTreeViewBinding
+{
+    bind "Left" {
+      "select-cursor-parent" ()
+      "expand-collapse-cursor-row" (0,0,0)
+    };
+    bind "Right" {
+      "expand-collapse-cursor-row" (0,1,0)
+    };
+}
+
+treeview
+{
+    -gtk-key-bindings: TilixTreeViewBinding;
 }
