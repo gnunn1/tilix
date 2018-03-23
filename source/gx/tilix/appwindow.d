@@ -1026,7 +1026,7 @@ private:
     }
 
     void onSessionStateChange(Session session, SessionStateChange stateChange) {
-        trace("State change received");
+        tracef("State change received %d", stateChange);
         if (getCurrentSession() == session) {
             updateUIState();
             updateTitle();
