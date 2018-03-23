@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 09:27-0500\n"
-"PO-Revision-Date: 2018-03-11 16:11+0000\n"
+"PO-Revision-Date: 2018-03-16 12:53+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian "
-"<https://hosted.weblate.org/projects/tilix/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tilix/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -462,6 +462,8 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"URI berkas remote tidak didukung dengan hyperlink.\n"
+"Uri adalah '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:1889
 msgid "Remote File URI Unsupported"
@@ -471,7 +473,7 @@ msgstr "URI Berkas Jarak Jauh Tidak Didukung"
 #: source/gx/tilix/terminal/terminal.d:2467
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
+msgstr "Regex tautan ubahan '%s' memiliki kesalahan, mengabaikan"
 
 #: source/gx/tilix/terminal/terminal.d:1921
 msgid "Regular Expression Error"
@@ -973,7 +975,7 @@ msgstr "Pilih Warna %s"
 #: source/gx/tilix/prefeditor/profileeditor.d:797
 #, c-format
 msgid "Select %s Light Color"
-msgstr ""
+msgstr "Pilih Warna Terang %s"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:934
 msgid "Export Color Scheme"
@@ -1042,11 +1044,11 @@ msgstr "Lebar"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1113
 msgid "Run command as a login shell"
-msgstr ""
+msgstr "Jalankan perintah sebagai suatu shell login"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1117
 msgid "Run a custom command instead of my shell"
-msgstr ""
+msgstr "Jalankan perintah ubahan dan bukan shell saya"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1133
 msgid "When command exits"
@@ -1066,7 +1068,7 @@ msgstr "Pertahankan terminal tetap terbuka"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1167
 msgid "Automatic Profile Switching"
-msgstr ""
+msgstr "Beralih Profil Otomatis"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1175
 msgid ""
@@ -1075,6 +1077,11 @@ msgid ""
 "the hostname or directory can be omitted but the colon must be present. "
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
+"Profil secara otomatis dipilih berdasarkan nilai-nilai yang dimasukkan di "
+"sini.\n"
+"Nilai dimasukkan menggunakan format <i>namapengguna@namahost:direktori</i>. "
+"Nama host atau direktori bisa dihilangkan tapi titik dua harus ada. Entri "
+"tanpa nama host dan tanpa direktori tidak diizinkan."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1177
 msgid ""
@@ -1083,6 +1090,11 @@ msgid ""
 "hostname or directory can be omitted but the colon must be present. Entries "
 "with neither hostname or directory are not permitted."
 msgstr ""
+"Profil dipilih secara otomatis berdasarkan nilai-nilai yang dimasukkan di "
+"sini.\n"
+"Nilai-nilai yang dimasukkan menggunakan format <i>namahost:direktori</i>. "
+"Baik nama host atau direktori dapat diabaikan tapi titik dua harus hadir. "
+"Entri tanpa nama host dan tanpa direktori tidak diizinkan."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1188
 msgid "Match"
@@ -1096,47 +1108,52 @@ msgstr "Tambah"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1203
 msgid "Enter username@hostname:directory to match"
-msgstr ""
+msgstr "Masukkan namapengguna@namahost:direktori untuk dicocokkan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1205
 msgid "Enter hostname:directory to match"
-msgstr ""
+msgstr "Masukkan namahost:direktori untuk dicocokkan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1207
 msgid "Add New Match"
-msgstr ""
+msgstr "Tambahkan Pencocokan Baru"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1224
 msgid "Edit username@hostname:directory to match"
-msgstr ""
+msgstr "Sunting namapengguna@namahost:direktori untuk dicocokkan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1226
 msgid "Edit hostname:directory to match"
-msgstr ""
+msgstr "Sunting namahost:direktori untuk dicocokkan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1228
 msgid "Edit Match"
-msgstr ""
+msgstr "Sunting Pencocokan"
 
 #: source/gx/tilix/prefeditor/common.d:34
 msgid "Custom Links"
-msgstr "Custom Link"
+msgstr "Tautan Ubahan"
 
 #: source/gx/tilix/prefeditor/common.d:39
 msgid ""
 "A list of user defined links that can be clicked on in the terminal based on "
 "regular expression definitions."
 msgstr ""
+"Daftar tautan tentuan pengguna yang dapat diklik di terminal berdasarkan "
+"definisi ekspresi reguler."
 
 #: source/gx/tilix/prefeditor/common.d:61
 msgid "Triggers"
-msgstr "Trigger"
+msgstr "Pemicu"
 
 #: source/gx/tilix/prefeditor/common.d:67
 msgid ""
 "Triggers are regular expressions that are used to check against output text "
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
+"Pemicu adalah ekspresi reguler yang digunakan untuk memeriksa keluaran teks "
+"di terminal. Ketika kecocokan terdeteksi maka aksi yang dikonfigurasi "
+"dieksekusi."
 
 #: source/gx/tilix/prefeditor/prefdialog.d:121
 msgid "Tilix Preferences"
@@ -1198,7 +1215,7 @@ msgstr "Gunakan untuk terminal baru"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:624
 msgid "Encodings showing in menu:"
-msgstr ""
+msgstr "Pengkodean yang ditampilkan di menu:"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:666
 msgid "Enabled"
@@ -1223,7 +1240,7 @@ msgstr "Jadikan baku"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:868
 msgid "Overwrite Existing Shortcut"
-msgstr ""
+msgstr "Timpa Pintasan yang Ada"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:869
 #, c-format
@@ -1231,10 +1248,12 @@ msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
+"Pintasan %s sudah ditetapkan ke %s.\n"
+"Nonaktifkan pintasan untuk tindakan lainnya dan tetapkan di sini?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1053
 msgid "Window style"
-msgstr ""
+msgstr "Gaya jendela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 #: source/gx/tilix/prefeditor/prefdialog.d:1069
@@ -1243,23 +1262,23 @@ msgstr "Normal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD"
-msgstr ""
+msgstr "Nonaktifkan CSD"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Disable CSD, hide toolbar"
-msgstr ""
+msgstr "Nonaktifkan CSD, sembunyikan bilah alat"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1055
 msgid "Borderless"
-msgstr ""
+msgstr "Tanpa perbatasan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1059
 msgid "Window restart required"
-msgstr ""
+msgstr "Perlu menjalankan ulang jendela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1068
 msgid "Terminal title style"
-msgstr ""
+msgstr "Gaya judul terminal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1069
 msgid "Small"
@@ -1268,7 +1287,7 @@ msgstr "Kecil"
 #: source/gx/tilix/prefeditor/prefdialog.d:1074
 #: source/gx/tilix/prefeditor/prefdialog.d:1268
 msgid "Tab position"
-msgstr ""
+msgstr "Posisi tab"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1075
 #: source/gx/tilix/prefeditor/prefdialog.d:1262
@@ -1313,13 +1332,12 @@ msgid "Select Image"
 msgstr "Pilih Gambar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1093
-#, fuzzy
 msgid "All Image Files"
-msgstr "Semua Berkas Teks"
+msgstr "Semua Berkas Citra"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1114
 msgid "Reset background image"
-msgstr ""
+msgstr "Reset gambar latar belakang"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1120
 msgid "Scale"
@@ -1344,7 +1362,7 @@ msgstr "Nama sesi bawaan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1154
 msgid "Application title"
-msgstr ""
+msgstr "Judul aplikasi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1172
 msgid "Enable transparency, requires re-start"
@@ -1356,12 +1374,11 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1183
 msgid "Place the sidebar on the right"
-msgstr ""
+msgstr "Tempatkan bilah sisi di kanan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1187
-#, fuzzy
 msgid "Show the terminal title even if it's the only terminal"
-msgstr "Tampilkan judul terminal meskipun itu hanya satu-satunya terminal"
+msgstr "Tampilkan judul terminal bahkan jika itu terminal satu-satunya"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1192
 msgid "Use overlay scrollbars (Application restart required)"
@@ -1377,11 +1394,11 @@ msgstr "Ukuran"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1240
 msgid "Height percent"
-msgstr ""
+msgstr "Persen tinggi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1251
 msgid "Width percent"
-msgstr ""
+msgstr "Persen lebar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1261
 msgid "Alignment"
@@ -1389,28 +1406,27 @@ msgstr "Perataan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1284
 msgid "Show terminal on all workspaces"
-msgstr ""
+msgstr "Tampilkan terminal di semua ruang kerja"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1296
 msgid "Hide window when focus is lost"
-msgstr ""
+msgstr "Sembunyikan jendela ketika fokus hilang"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1300
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "Penundaan menyembunyikan jendela (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1313
-#, fuzzy
 msgid "Hide the titlebar of the window"
-msgstr "Atur direktori kerja terminal"
+msgstr "Sembunyikan bilah judul jendela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1328
 msgid "Display terminal on active monitor"
-msgstr ""
+msgstr "Tampilan terminal pada monitor aktif"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1335
 msgid "Display on specific monitor"
-msgstr ""
+msgstr "Tampilkan pada monitor tertentu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1377
 msgid "Behavior"
@@ -1422,7 +1438,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1388
 msgid "Focus a terminal when the mouse moves over it"
-msgstr ""
+msgstr "Fokus terminal ketika tetikus bergerak di atasnya"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1393
 msgid "Autohide the mouse pointer when typing"
@@ -1430,36 +1446,35 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1398
 msgid "Close terminal by clicking middle mouse button on title"
-msgstr ""
+msgstr "Tutup terminal dengan mengklik tombol tengah tetikus pada judul"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr ""
+msgstr "Zum terminal menggunakan <Control> dan roda gulir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1408
 msgid "Require the <Control> modifier to edit title on click"
-msgstr ""
+msgstr "Memerlukan pengubah <Control> untuk menyunting judul pada klik"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1413
 msgid "Close window when last session is closed"
-msgstr ""
+msgstr "Tutup jendela ketika sesi terakhir ditutup"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1417
-#, fuzzy
 msgid "New window inherits directory and profile from active terminal"
-msgstr "Atur direktori kerja terminal"
+msgstr "Jendela baru mewarisi direktori dan profil dari terminal aktif"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1422
 msgid "Save and restore window state"
-msgstr ""
+msgstr "Simpan dan pulihkan keadaan jendela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1428
 msgid "Send desktop notification on process complete"
-msgstr ""
+msgstr "Kirim pemberitahuan desktop saat proses berakhir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
 msgid "On new instance"
-msgstr ""
+msgstr "Pada instansi baru"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1439
 #: source/gx/tilix/application.d:230
@@ -1811,37 +1826,32 @@ msgid "Process"
 msgstr "Memproses"
 
 #: source/gx/tilix/constants.d:196
-#, fuzzy
 msgid "Terminal count"
-msgstr "Terminal"
+msgstr "Cacah terminal"
 
 #: source/gx/tilix/constants.d:197
-#, fuzzy
 msgid "Terminal number"
-msgstr "Terminal"
+msgstr "Nomor terminal"
 
 #: source/gx/tilix/constants.d:216
 msgid "Application name"
-msgstr ""
+msgstr "Nama aplikasi"
 
 #: source/gx/tilix/constants.d:217
-#, fuzzy
 msgid "Active terminal title"
-msgstr "Terminal"
+msgstr "Judul terminal aktif"
 
 #: source/gx/tilix/constants.d:218
 msgid "Session name"
 msgstr "Nama sesi"
 
 #: source/gx/tilix/constants.d:219
-#, fuzzy
 msgid "Session number"
-msgstr "Sesi"
+msgstr "Nomor sesi"
 
 #: source/gx/tilix/constants.d:220
-#, fuzzy
 msgid "Session count"
-msgstr "Muatan Sesi"
+msgstr "Cacah sesi"
 
 #: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
 #, c-format
@@ -2006,16 +2016,16 @@ msgstr "Thailand"
 #: source/gx/tilix/closedialog.d:170
 #, c-format
 msgid "Window (%s)"
-msgstr ""
+msgstr "Jendela (%s)"
 
 #: source/gx/tilix/closedialog.d:173
-#, fuzzy, c-format
+#, c-format
 msgid "Session (%s)"
-msgstr "Sesi"
+msgstr "Sesi (%s)"
 
 #: source/gx/tilix/closedialog.d:193
 msgid "Close Application"
-msgstr ""
+msgstr "Tutup Aplikasi"
 
 #: source/gx/tilix/closedialog.d:196
 msgid "Close Window"
@@ -2072,7 +2082,7 @@ msgstr "Pilih Semua"
 
 #: source/gx/tilix/bookmark/bmeditor.d:86
 msgid "Clear folder"
-msgstr ""
+msgstr "Bersihkan folder"
 
 #: source/gx/tilix/bookmark/bmeditor.d:149
 msgid "Add Bookmark"
@@ -2153,12 +2163,12 @@ msgstr "Buka suatu jendela baru"
 #: data/resources/ui/shortcuts.ui:25
 msgctxt "shortcut window"
 msgid "Open a new session"
-msgstr ""
+msgstr "Buka sesi baru"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "Open preferences"
-msgstr ""
+msgstr "Buka preferensi"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
@@ -2183,73 +2193,72 @@ msgstr "Lihat bilah samping sesi"
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Switch to next session"
-msgstr ""
+msgstr "Beralih ke sesi berikutnya"
 
 #: data/resources/ui/shortcuts.ui:67
 msgctxt "shortcut window"
 msgid "Switch to previous session"
-msgstr ""
+msgstr "Beralih ke sesi sebelumnya"
 
 #: data/resources/ui/shortcuts.ui:73
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to next session"
-msgstr "Buat sesi baru"
+msgstr "Susun ulang ke sesi berikutnya"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Reorder to previous session"
-msgstr ""
+msgstr "Susun ulang ke sesi sebelumnya"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Switch to session 1"
-msgstr ""
+msgstr "Beralih ke sesi 1"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Switch to session 2"
-msgstr ""
+msgstr "Beralih ke sesi 2"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Switch to session 3"
-msgstr ""
+msgstr "Beralih ke sesi 3"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Switch to session 4"
-msgstr ""
+msgstr "Beralih ke sesi 4"
 
 #: data/resources/ui/shortcuts.ui:109
 msgctxt "shortcut window"
 msgid "Switch to session 5"
-msgstr ""
+msgstr "Beralih ke sesi 5"
 
 #: data/resources/ui/shortcuts.ui:115
 msgctxt "shortcut window"
 msgid "Switch to session 6"
-msgstr ""
+msgstr "Beralih ke sesi 6"
 
 #: data/resources/ui/shortcuts.ui:121
 msgctxt "shortcut window"
 msgid "Switch to session 7"
-msgstr ""
+msgstr "Beralih ke sesi 7"
 
 #: data/resources/ui/shortcuts.ui:127
 msgctxt "shortcut window"
 msgid "Switch to session 8"
-msgstr ""
+msgstr "Beralih ke sesi 8"
 
 #: data/resources/ui/shortcuts.ui:133
 msgctxt "shortcut window"
 msgid "Switch to session 9"
-msgstr ""
+msgstr "Beralih ke sesi 9"
 
 #: data/resources/ui/shortcuts.ui:139
 msgctxt "shortcut window"
 msgid "Switch to session 10"
-msgstr ""
+msgstr "Beralih ke sesi 10"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
@@ -2264,22 +2273,22 @@ msgstr "Berkas"
 #: data/resources/ui/shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Close the current session"
-msgstr ""
+msgstr "Tutup sesi saat ini"
 
 #: data/resources/ui/shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Save the current session"
-msgstr ""
+msgstr "Simpan sesi kini"
 
 #: data/resources/ui/shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Save the current session with new filename"
-msgstr ""
+msgstr "Simpan sesi saat ini dengan nama berkas baru"
 
 #: data/resources/ui/shortcuts.ui:177
 msgctxt "shortcut window"
 msgid "Open a saved session"
-msgstr ""
+msgstr "Buka sesi tersimpan"
 
 #: data/resources/ui/shortcuts.ui:185
 msgctxt "shortcut window"
@@ -2289,13 +2298,12 @@ msgstr "Tambah"
 #: data/resources/ui/shortcuts.ui:189
 msgctxt "shortcut window"
 msgid "Add terminal right"
-msgstr "Tambahkan terminal kanan"
+msgstr "Tambah terminal di kanan"
 
 #: data/resources/ui/shortcuts.ui:195
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Add terminal down"
-msgstr "Terminal"
+msgstr "Tambah terminal di bawah"
 
 #: data/resources/ui/shortcuts.ui:203
 msgctxt "shortcut window"
@@ -2305,22 +2313,22 @@ msgstr "Ubah Ukuran"
 #: data/resources/ui/shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "Resize the terminal up"
-msgstr ""
+msgstr "Ubah ukuran terminal ke atas"
 
 #: data/resources/ui/shortcuts.ui:213
 msgctxt "shortcut window"
 msgid "Resize the terminal down"
-msgstr ""
+msgstr "Ubah ukuran terminal ke bawah"
 
 #: data/resources/ui/shortcuts.ui:219
 msgctxt "shortcut window"
 msgid "Resize the terminal left"
-msgstr ""
+msgstr "Ubah ukuran terminal ke kiri"
 
 #: data/resources/ui/shortcuts.ui:225
 msgctxt "shortcut window"
 msgid "Resize the terminal right"
-msgstr ""
+msgstr "Ubah ukuran terminal ke kanan"
 
 #: data/resources/ui/shortcuts.ui:233 data/resources/ui/shortcuts.ui:487
 msgctxt "shortcut window"
@@ -2333,10 +2341,9 @@ msgid "Edit the session name"
 msgstr "Ubah nama sesi"
 
 #: data/resources/ui/shortcuts.ui:243
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Synchronize the input"
-msgstr "Sinkronisasi masukan"
+msgstr "Selaraskan masukan"
 
 #: data/resources/ui/shortcuts.ui:251 data/resources/ui/shortcuts.ui:293
 msgctxt "shortcut window"
@@ -2346,82 +2353,82 @@ msgstr "Tukar"
 #: data/resources/ui/shortcuts.ui:255
 msgctxt "shortcut window"
 msgid "Switch to next terminal"
-msgstr ""
+msgstr "Beralih ke terminal berikutnya"
 
 #: data/resources/ui/shortcuts.ui:261
 msgctxt "shortcut window"
 msgid "Switch to previous terminal"
-msgstr ""
+msgstr "Beralih ke terminal sebelumnya"
 
 #: data/resources/ui/shortcuts.ui:267
 msgctxt "shortcut window"
 msgid "Switch to the terminal up"
-msgstr ""
+msgstr "Beralih ke terminal ke atas"
 
 #: data/resources/ui/shortcuts.ui:273
 msgctxt "shortcut window"
 msgid "Switch to the terminal down"
-msgstr ""
+msgstr "Beralih ke terminal bawah"
 
 #: data/resources/ui/shortcuts.ui:279
 msgctxt "shortcut window"
 msgid "Switch to the terminal left"
-msgstr ""
+msgstr "Beralih ke terminal kiri"
 
 #: data/resources/ui/shortcuts.ui:285
 msgctxt "shortcut window"
 msgid "Switch to the terminal right"
-msgstr ""
+msgstr "Beralih ke terminal kanan"
 
 #: data/resources/ui/shortcuts.ui:297
 msgctxt "shortcut window"
 msgid "Switch to terminal 1"
-msgstr ""
+msgstr "Beralih ke terminal 1"
 
 #: data/resources/ui/shortcuts.ui:303
 msgctxt "shortcut window"
 msgid "Switch to terminal 2"
-msgstr ""
+msgstr "Beralih ke terminal 2"
 
 #: data/resources/ui/shortcuts.ui:309
 msgctxt "shortcut window"
 msgid "Switch to terminal 3"
-msgstr ""
+msgstr "Beralih ke terminal 3"
 
 #: data/resources/ui/shortcuts.ui:315
 msgctxt "shortcut window"
 msgid "Switch to terminal 4"
-msgstr ""
+msgstr "Beralih ke terminal 4"
 
 #: data/resources/ui/shortcuts.ui:321
 msgctxt "shortcut window"
 msgid "Switch to terminal 5"
-msgstr ""
+msgstr "Beralih ke terminal 5"
 
 #: data/resources/ui/shortcuts.ui:327
 msgctxt "shortcut window"
 msgid "Switch to terminal 6"
-msgstr ""
+msgstr "Beralih ke terminal 6"
 
 #: data/resources/ui/shortcuts.ui:333
 msgctxt "shortcut window"
 msgid "Switch to terminal 7"
-msgstr ""
+msgstr "Beralih ke terminal 7"
 
 #: data/resources/ui/shortcuts.ui:339
 msgctxt "shortcut window"
 msgid "Switch to terminal 8"
-msgstr ""
+msgstr "Beralih ke terminal 8"
 
 #: data/resources/ui/shortcuts.ui:345
 msgctxt "shortcut window"
 msgid "Switch to terminal 9"
-msgstr ""
+msgstr "Beralih ke terminal 9"
 
 #: data/resources/ui/shortcuts.ui:351
 msgctxt "shortcut window"
 msgid "Switch to terminal 10"
-msgstr ""
+msgstr "Beralih ke terminal 10"
 
 #: data/resources/ui/shortcuts.ui:362
 msgctxt "shortcut window"
@@ -2456,7 +2463,7 @@ msgstr "Salin"
 #: data/resources/ui/shortcuts.ui:401
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Salin Sebagai HTML"
 
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
@@ -2471,7 +2478,7 @@ msgstr "Tempel pilihan"
 #: data/resources/ui/shortcuts.ui:419
 msgctxt "shortcut window"
 msgid "Advanced paste"
-msgstr ""
+msgstr "Tempel tingkat lanjut"
 
 #: data/resources/ui/shortcuts.ui:425
 msgctxt "shortcut window"
