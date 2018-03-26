@@ -58,6 +58,21 @@ Full-screen the terminal window.
 .TP
 .B \-\-focus\-window
 Focus the existing window.
+ .TP
++.B \-\-window-style=WINDOW_STYLE
++Override the preferred window style to use, the following styles are supported:
++.IP
++.B normal
++Normal window look.
++.IP
++.B disable-csd
++Do not show client side decorations.
++.IP
++.B disable-csd-hide-toolbar
++Do not show client side decorations and toolbar.
++.IP
++.B borderless
++Do not show window borders.
 .TP
 .B \-\-new\-process
 Start an additional Tilix instance as a new process. By default and as per GTK+ 3 guidelines, Tilix maintains a single process that all windows belong to. This option forces Tilix to start as a separate process. This is not recommended and is intended for debugging purposes only, using this option will prevent different Tilix windows from communicating with each other. 
@@ -67,9 +82,12 @@ Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y).
 .TP
 .B \-q \-\-quake
 Open a window in quake mode or toggle existing quake mode window visibility.
-.TP 
+.TP
 .B \-\-preferences
 Show the Tilix preferences dialog directly.
++.TP
++.B \-\-display=DISPLAY
++Use the specified X display.
 .SH SEE ALSO
 None
 .SH BUGS
