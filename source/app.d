@@ -155,7 +155,7 @@ int main(string[] args) {
 
 private:
     void outputVersions() {
-        import gx.gtk.vte: getVTEVersion, checkVTEFeature, TerminalFeature;
+        import gx.gtk.vte: getVTEVersion, checkVTEFeature, TerminalFeature, isVTEBackgroundDrawEnabled;
         import gtk.Version: Version;
 
         writeln(_("Versions"));
@@ -165,5 +165,5 @@ private:
         writeln(_("Tilix Special Features"));
         writeln("\t" ~ format(_("Notifications enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
         writeln("\t" ~ format(_("Triggers enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));
-        writeln("\t" ~ format(_("Badges enabled=%b"), checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)));
+        writeln("\t" ~ format(_("Badges enabled=%b"), isVTEBackgroundDrawEnabled));
     }
