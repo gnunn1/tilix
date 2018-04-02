@@ -1,12 +1,12 @@
 diff --git a/src/vte/vteterminal.h b/src/vte/vteterminal.h
-index d468f669..33488e21 100644
+index 4e2896cf..16795eaa 100644
 --- a/src/vte/vteterminal.h
 +++ b/src/vte/vteterminal.h
 @@ -104,8 +104,10 @@ struct _VteTerminalClass {
  
  	void (*bell)(VteTerminal* terminal);
  
-+        void (*terminal_screen_changed)(VteTerminal* terminal);        
++        void (*terminal_screen_changed)(VteTerminal* terminal);
 +
          /* Padding for future expansion. */
 -        gpointer padding[16];
@@ -15,7 +15,7 @@ index d468f669..33488e21 100644
          VteTerminalClassPrivate *priv;
  };
 diff --git a/src/vtegtk.cc b/src/vtegtk.cc
-index ab472fb4..363d5a5e 100644
+index 516e0425..33697c01 100644
 --- a/src/vtegtk.cc
 +++ b/src/vtegtk.cc
 @@ -739,6 +739,8 @@ vte_terminal_class_init(VteTerminalClass *klass)
@@ -52,35 +52,35 @@ index ab472fb4..363d5a5e 100644
           * VteTerminal:allow-bold:
           *
 diff --git a/src/vtegtk.hh b/src/vtegtk.hh
-index c49754ef..ba3e7d93 100644
+index c49754ef..3a13e308 100644
 --- a/src/vtegtk.hh
 +++ b/src/vtegtk.hh
 @@ -52,6 +52,7 @@ enum {
          SIGNAL_RESIZE_WINDOW,
          SIGNAL_RESTORE_WINDOW,
          SIGNAL_SELECTION_CHANGED,
-+        SIGNAL_TERMINAL_SCREEN_CHANGED,    
++        SIGNAL_TERMINAL_SCREEN_CHANGED,        
          SIGNAL_TEXT_DELETED,
          SIGNAL_TEXT_INSERTED,
          SIGNAL_TEXT_MODIFIED,
 diff --git a/src/vteinternal.hh b/src/vteinternal.hh
-index 1fcfea5e..244f80cf 100644
+index f8139131..35334e70 100644
 --- a/src/vteinternal.hh
 +++ b/src/vteinternal.hh
-@@ -1268,6 +1268,8 @@ public:
+@@ -1359,6 +1359,8 @@ public:
          void select_empty(vte::grid::column_t col,
                            vte::grid::row_t row);
  
 +        void emit_terminal_screen_changed(int screen);                          
 +
-         void send(vte::parser::u8SequenceBuilder const& builder,
-                   bool c1 = true,
-                   vte::parser::u8SequenceBuilder::Introducer introducer = vte::parser::u8SequenceBuilder::Introducer::DEFAULT,
+ #define SEQUENCE_HANDLER(name) \
+ 	inline void seq_ ## name (vte::parser::Params const& params);
+ #include "vteseq-list.hh"
 diff --git a/src/vteseq.cc b/src/vteseq.cc
-index cec74fa6..c100757e 100644
+index 99b8bb37..b68b389d 100644
 --- a/src/vteseq.cc
 +++ b/src/vteseq.cc
-@@ -246,6 +246,14 @@ VteTerminalPrivate::emit_resize_window(guint columns,
+@@ -186,6 +186,13 @@ VteTerminalPrivate::emit_resize_window(guint columns,
          g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
  }
  
@@ -91,21 +91,20 @@ index cec74fa6..c100757e 100644
 +        _vte_debug_print(VTE_DEBUG_SIGNALS, "Emitting `terminal_screen_changed'.\n");
 +        g_signal_emit(m_terminal, signals[SIGNAL_TERMINAL_SCREEN_CHANGED], 0, screen);
 +}
-+
+ 
  /* Some common functions */
  
- /* In Xterm, upon printing a character in the last column the cursor doesn't
-@@ -402,6 +410,9 @@ void
+@@ -446,6 +453,9 @@ void
  VteTerminalPrivate::switch_normal_screen()
  {
          switch_screen(&m_normal_screen);
 +
 +        /* Emit signal */
-+        emit_terminal_screen_changed(0);
++        emit_terminal_screen_changed(0);        
  }
  
  void
-@@ -434,6 +445,9 @@ void
+@@ -478,6 +488,9 @@ void
  VteTerminalPrivate::switch_alternate_screen()
  {
          switch_screen(&m_alternate_screen);
@@ -114,4 +113,4 @@ index cec74fa6..c100757e 100644
 +        emit_terminal_screen_changed(1);        
  }
  
- void
+ /* Switch to normal screen and restore cursor (in this order). */
