@@ -1502,7 +1502,15 @@ private:
 
     void createUI() {
         setAllMargins(this, 18);
-        createAdvancedUI(this, &getSettings, true);
+        Grid grid = new Grid();
+        grid.setHalign(Align.FILL);
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+
+        uint row = 0;
+        createAdvancedUI(grid, row, &getSettings);
+
+        this.add(grid);
     }
 
     GSettings getSettings() {

@@ -1160,15 +1160,20 @@ private:
     Button btnDelete;
 
      void createUI() {
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
 
-        createAdvancedUI(this, &getSettings);
+        uint row = 0;
 
+        createAdvancedUI(grid, row, &getSettings);
         //Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         lblProfileSwitching.setMarginTop(12);
-        packStart(lblProfileSwitching, false, false, 0);
+        grid.attach(lblProfileSwitching, 0, row, 3, 1);
+        row++;
 
         string profileSwitchingDescription;
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
@@ -1176,7 +1181,8 @@ private:
         } else {
             profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         }
-        packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
+        grid.attach(createDescriptionLabel(profileSwitchingDescription),0,row,2,1);
+        row++;
 
         lsValues = new ListStore([GType.STRING]);
         tvValues = new TreeView(lsValues);
@@ -1243,10 +1249,10 @@ private:
         });
         bButtons.add(btnDelete);
 
-        Box box = new Box(Orientation.HORIZONTAL, 6);
-        box.add(scValues);
-        box.add(bButtons);
-        packStart(box, false, false, 0);
+        grid.attach(scValues, 0, row, 2, 1);
+        grid.attach(bButtons, 2, row, 1, 1);
+
+        this.add(grid);
     }
 
     void updateUI() {
