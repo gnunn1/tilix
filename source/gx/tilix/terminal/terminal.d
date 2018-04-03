@@ -2500,7 +2500,7 @@ private:
         ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
             if (response == ResponseType.OK) {
                 ibRelaunch.destroy();
-                spawnTerminalProcess(gst.initialCWD);
+                spawnTerminalProcess(gst.initialCWD, _overrideCommand);
             }
         });
         ibRelaunch.setMessage(message);
@@ -2539,7 +2539,8 @@ private:
                 errorf("\tenv %d=%s", i, env);
         }
 
-        trace("workingDir parameter=" ~ workingDir);
+        tracef("workingDir parameter=%s", workingDir);
+        tracef("command parameter=%s", command);
 
         CommandParameters overrides = tilix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
@@ -3753,7 +3754,7 @@ public:
         if (terminalInitialized) {
             path = gst.currentDirectory;
         } else {
-            trace("Terminal not initialized yet or VTE not configured, no path available");
+            //trace("Terminal not initialized yet or VTE not configured, no path available");
             path = "";
         }
         text = text.replace(VARIABLE_TERMINAL_DIR, path);
