@@ -252,7 +252,7 @@ private:
     }
 
     bool hideToolbar() {
-        return gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || windowStyle > 1;
+        return isQuake() && (gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || windowStyle > 1);
     }
 
     /**

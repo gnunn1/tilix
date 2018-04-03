@@ -1322,7 +1322,7 @@ private:
         bContent.add(bDelay);
 
         //Hide headerbar
-        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the titlebar of the window"));
+        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the toolbar of the window"));
         bh.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideHeaderbar);
 
