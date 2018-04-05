@@ -99,6 +99,9 @@ private:
         nb.appendPage(new ColorPage(), _("Color"));
         nb.appendPage(new ScrollPage(), _("Scrolling"));
         nb.appendPage(new CompatibilityPage(), _("Compatibility"));
+        if (isVTEBackgroundDrawEnabled()) {
+            nb.appendPage(new BadgePage(), _("Badge"));
+        }
         nb.appendPage(new AdvancedPage(), _("Advanced"));
         add(nb);
     }
@@ -229,9 +232,30 @@ protected:
         row++;
         //Profile ID
         lblId = new Label("");
-        lblId.setHalign(Align.START);
-        lblId.setSensitive(false);
-        grid.attach(lblId, 1, row, 1, 1);
+        // lblId.setHalign(Align.START);
+        // lblId.setSensitive(false);
+        // grid.attach(lblId, 1, row, 1, 1);
+        // row++;
+
+        //Terminal Title
+        Label lblTerminalTitle = new Label(_("Terminal title"));
+        lblTerminalTitle.setHalign(Align.END);
+        grid.attach(lblTerminalTitle, 0, row, 1, 1);
+        Entry eTerminalTitle = new Entry();
+        eTerminalTitle.setHexpand(true);
+        bh.bind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            grid.attach(createTitleEditHelper(eTerminalTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
+        } else {
+            grid.attach(eTerminalTitle, 1, row, 1, 1);
+        }
+        row++;
+
+        Label lblTextTitle = new Label(format("<b>%s</b>", _("Text Appearance")));
+        lblTextTitle.setUseMarkup(true);
+        lblTextTitle.setHalign(Align.START);
+        lblTextTitle.setMarginTop(6);
+        grid.attach(lblTextTitle, 0, row, 2, 1);
         row++;
 
         //Terminal Size
@@ -270,7 +294,7 @@ protected:
 
         //Terminal Spacing
         if (checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
-            Label lblSpacing = new Label(_("Terminal spacing"));
+            Label lblSpacing = new Label(_("Cell spacing"));
             lblSpacing.setHalign(Align.END);
             grid.attach(lblSpacing, 0, row, 1, 1);
             SpinButton sbWidthSpacing = new SpinButton(1.0, 2.0, 0.1);
@@ -311,6 +335,66 @@ protected:
             sgHeight.addWidget(lblHeightSpacing);
         }
 
+        if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
+            //Text Blink Mode
+            Label lblTextBlinkMode = new Label(_("Text blink mode"));
+            lblTextBlinkMode.setHalign(Align.END);
+            grid.attach(lblTextBlinkMode, 0, row, 1, 1);
+            ComboBox cbTextBlinkMode = createNameValueCombo([_("Never"), _("Focused"), _("Unfocused"), _("Always")], SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES);
+            bh.bind(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY, cbTextBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbTextBlinkMode, 1, row, 1, 1);
+            row++;
+        }
+
+        //Allow Bold
+        // if (!checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
+        //     CheckButton cbBold = new CheckButton(_("Allow bold text"));
+        //     bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
+        //     grid.attach(cbBold, 1, row, 1, 1);
+        // } 
+
+        //Rewrap on resize
+        // CheckButton cbRewrap = new CheckButton(_("Rewrap on resize"));
+        // bh.bind(SETTINGS_PROFILE_REWRAP_KEY, cbRewrap, "active", GSettingsBindFlags.DEFAULT);
+        // b.add(cbRewrap);
+
+        //Custom Font
+        Label lblCustomFont = new Label(_("CustomFont"));
+        lblCustomFont.setHalign(Align.END);
+        grid.attach(lblCustomFont, 0, row, 1, 1);
+
+
+        Box bFont = new Box(Orientation.HORIZONTAL, 12);
+        CheckButton cbCustomFont = new CheckButton();
+        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
+        bFont.add(cbCustomFont);
+
+        //Font Selector
+        FontButton fbFont = new FontButton();
+        fbFont.setTitle(_("Choose A Terminal Font"));
+        bh.bind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+                .INVERT_BOOLEAN);
+        bFont.add(fbFont);
+        grid.attach(bFont, 1, row, 1, 1);
+        row++;
+
+        //Select-by-word-chars
+        Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
+        lblSelectByWordChars.setHalign(Align.END);
+        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
+        Entry eSelectByWordChars = new Entry();
+        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
+        grid.attach(eSelectByWordChars, 1, row, 1, 1);
+        row++;
+
+        Label lblCursorTitle = new Label(format("<b>%s</b>", _("Cursor")));
+        lblCursorTitle.setUseMarkup(true);
+        lblCursorTitle.setHalign(Align.START);
+        lblCursorTitle.setMarginTop(6);
+        grid.attach(lblCursorTitle, 0, row, 2, 1);
+        row++;
+
         //Cursor Shape
         Label lblCursorShape = new Label(_("Cursor"));
         lblCursorShape.setHalign(Align.END);
@@ -331,16 +415,12 @@ protected:
         grid.attach(cbCursorBlinkMode, 1, row, 1, 1);
         row++;
 
-        if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
-            //Text Blink Mode
-            Label lblTextBlinkMode = new Label(_("Text blink mode"));
-            lblTextBlinkMode.setHalign(Align.END);
-            grid.attach(lblTextBlinkMode, 0, row, 1, 1);
-            ComboBox cbTextBlinkMode = createNameValueCombo([_("Never"), _("Focused"), _("Unfocused"), _("Always")], SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES);
-            bh.bind(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY, cbTextBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
-            grid.attach(cbTextBlinkMode, 1, row, 1, 1);
-            row++;
-        }
+        Label lblNotifyTitle = new Label(format("<b>%s</b>", _("Notification")));
+        lblNotifyTitle.setMarginTop(6);
+        lblNotifyTitle.setUseMarkup(true);
+        lblNotifyTitle.setHalign(Align.START);
+        grid.attach(lblNotifyTitle, 0, row, 2, 1);
+        row++;
 
         //Terminal Bell
         Label lblBell = new Label(_("Terminal bell"));
@@ -349,56 +429,6 @@ protected:
         ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
         bh.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbBell, 1, row, 1, 1);
-        row++;
-
-        //Terminal Title
-        Label lblTerminalTitle = new Label(_("Terminal title"));
-        lblTerminalTitle.setHalign(Align.END);
-        grid.attach(lblTerminalTitle, 0, row, 1, 1);
-        Entry eTerminalTitle = new Entry();
-        eTerminalTitle.setHexpand(true);
-        bh.bind(SETTINGS_PROFILE_TITLE_KEY, eTerminalTitle, "text", GSettingsBindFlags.DEFAULT);
-        if (Version.checkVersion(3, 16, 0).length == 0) {
-            grid.attach(createTitleEditHelper(eTerminalTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
-        } else {
-            grid.attach(eTerminalTitle, 1, row, 1, 1);
-        }
-        row++;
-
-        //Badge
-        if (isVTEBackgroundDrawEnabled()) {
-            //Badge text
-            Label lblBadge = new Label(_("Badge"));
-            lblBadge.setHalign(Align.END);
-            grid.attach(lblBadge, 0, row, 1, 1);
-            Entry eBadge = new Entry();
-            eBadge.setHexpand(true);
-            bh.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
-            if (Version.checkVersion(3, 16, 0).length == 0) {
-                grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
-            } else {
-                grid.attach(eBadge, 1, row, 1, 1);
-            }
-            row++;
-
-            //Badge Position
-            Label lblBadgePosition = new Label(_("Badge position"));
-            lblBadgePosition.setHalign(Align.END);
-            grid.attach(lblBadgePosition, 0, row, 1, 1);
-
-            ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
-            bh.bind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
-            grid.attach(cbBadgePosition, 1, row, 1, 1);
-            row++;
-        }
-
-        //Select-by-word-chars
-        Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
-        lblSelectByWordChars.setHalign(Align.END);
-        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
-        Entry eSelectByWordChars = new Entry();
-        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
-        grid.attach(eSelectByWordChars, 1, row, 1, 1);
         row++;
 
         //Notify silence threshold
@@ -418,47 +448,6 @@ protected:
         row++;
 
         add(grid);
-
-        //Text Appearance
-        Box b = new Box(Orientation.VERTICAL, 6);
-        b.setMarginTop(18);
-        Label lblTitle = new Label(format("<b>%s</b>", _("Text Appearance")));
-        lblTitle.setUseMarkup(true);
-        lblTitle.setHalign(Align.START);
-        b.add(lblTitle);
-
-        //Allow Bold
-        if (!checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
-            CheckButton cbBold = new CheckButton(_("Allow bold text"));
-            bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
-            b.add(cbBold);
-        } else {
-            CheckButton cbBoldIsBright = new CheckButton(_("Bold is bright"));
-            bh.bind(SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY, cbBoldIsBright, "active", GSettingsBindFlags.DEFAULT);
-            b.add(cbBoldIsBright);
-        }
-
-        //Rewrap on resize
-        CheckButton cbRewrap = new CheckButton(_("Rewrap on resize"));
-        bh.bind(SETTINGS_PROFILE_REWRAP_KEY, cbRewrap, "active", GSettingsBindFlags.DEFAULT);
-        b.add(cbRewrap);
-
-        //Custom Font
-        Box bFont = new Box(Orientation.HORIZONTAL, 12);
-        CheckButton cbCustomFont = new CheckButton(_("Custom font"));
-        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
-        bFont.add(cbCustomFont);
-
-        //Font Selector
-        FontButton fbFont = new FontButton();
-        fbFont.setTitle(_("Choose A Terminal Font"));
-        bh.bind(SETTINGS_PROFILE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
-        bh.bind(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
-                .INVERT_BOOLEAN);
-        bFont.add(fbFont);
-        b.add(bFont);
-
-        add(b);
     }
 
 public:
@@ -582,6 +571,12 @@ private:
         mbAdvanced.add(createBox(Orientation.HORIZONTAL, 6, [new Label(_("Advanced")), new Image("pan-down-symbolic", IconSize.MENU)]));
         mbAdvanced.setPopover(createPopover(mbAdvanced));
         box.add(createBox(Orientation.HORIZONTAL, 6, [cbUseThemeColors, mbAdvanced]));
+
+        if (checkVTEVersion(VTE_VERSION_BOLD_IS_BRIGHT)) {
+            CheckButton cbBoldIsBright = new CheckButton(_("Show bold text in bright colors"));
+            bh.bind(SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY, cbBoldIsBright, "active", GSettingsBindFlags.DEFAULT);
+            box.add(cbBoldIsBright);
+        }
 
         Grid gSliders = new Grid();
         gSliders.setColumnSpacing(6);
@@ -1147,10 +1142,54 @@ public:
 }
 
 /**
+ * Page that manages options for Badges
+ */
+class BadgePage: ProfilePage {
+
+    void createUI() {
+        int row = 0;
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+
+        //Badge text
+        Label lblBadge = new Label(_("Badge"));
+        lblBadge.setHalign(Align.END);
+        grid.attach(lblBadge, 0, row, 1, 1);
+        Entry eBadge = new Entry();
+        eBadge.setHexpand(true);
+        bh.bind(SETTINGS_PROFILE_BADGE_TEXT_KEY, eBadge, "text", GSettingsBindFlags.DEFAULT);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
+        } else {
+            grid.attach(eBadge, 1, row, 1, 1);
+        }
+        row++;
+
+        //Badge Position
+        Label lblBadgePosition = new Label(_("Badge position"));
+        lblBadgePosition.setHalign(Align.END);
+        grid.attach(lblBadgePosition, 0, row, 1, 1);
+
+        ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
+        bh.bind(SETTINGS_PROFILE_BADGE_POSITION_KEY, cbBadgePosition, "active-id", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbBadgePosition, 1, row, 1, 1);
+        row++;
+
+        add(grid);
+    }
+
+public:
+    this() {
+        super();
+        createUI();
+    }
+}
+
+/**
  * Page for advanced profile options such as custom hyperlinks and profile switching
  */
 class AdvancedPage: ProfilePage {
-
 private:
     TreeView tvValues;
     ListStore lsValues;
@@ -1160,15 +1199,20 @@ private:
     Button btnDelete;
 
      void createUI() {
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
 
-        createAdvancedUI(this, &getSettings);
+        uint row = 0;
 
+        createAdvancedUI(grid, row, &getSettings);
         //Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
         lblProfileSwitching.setMarginTop(12);
-        packStart(lblProfileSwitching, false, false, 0);
+        grid.attach(lblProfileSwitching, 0, row, 3, 1);
+        row++;
 
         string profileSwitchingDescription;
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
@@ -1176,7 +1220,8 @@ private:
         } else {
             profileSwitchingDescription = _("Profiles are automatically selected based on the values entered here.\nValues are entered using a <i>hostname:directory</i> format. Either the hostname or directory can be omitted but the colon must be present. Entries with neither hostname or directory are not permitted.");
         }
-        packStart(createDescriptionLabel(profileSwitchingDescription), false, false, 0);
+        grid.attach(createDescriptionLabel(profileSwitchingDescription),0,row,2,1);
+        row++;
 
         lsValues = new ListStore([GType.STRING]);
         tvValues = new TreeView(lsValues);
@@ -1243,10 +1288,10 @@ private:
         });
         bButtons.add(btnDelete);
 
-        Box box = new Box(Orientation.HORIZONTAL, 6);
-        box.add(scValues);
-        box.add(bButtons);
-        packStart(box, false, false, 0);
+        grid.attach(scValues, 0, row, 2, 1);
+        grid.attach(bButtons, 2, row, 1, 1);
+
+        this.add(grid);
     }
 
     void updateUI() {

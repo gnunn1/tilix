@@ -1322,7 +1322,7 @@ private:
         bContent.add(bDelay);
 
         //Hide headerbar
-        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the titlebar of the window"));
+        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the toolbar of the window"));
         bh.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideHeaderbar);
 
@@ -1502,7 +1502,15 @@ private:
 
     void createUI() {
         setAllMargins(this, 18);
-        createAdvancedUI(this, &getSettings, true);
+        Grid grid = new Grid();
+        grid.setHalign(Align.FILL);
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+
+        uint row = 0;
+        createAdvancedUI(grid, row, &getSettings);
+
+        this.add(grid);
     }
 
     GSettings getSettings() {

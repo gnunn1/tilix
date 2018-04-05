@@ -51,19 +51,6 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
  */
 immutable bool USE_PROCESS_MONITOR = false;
 
-/**
- * This flag is used to indicated we want to build against
- * a future version of VTE. This is used when writing code against
- * a pending release of VTE where GtkD does not have the linked
- * functions as of yet. In this case we updated the wrapper
- * for VTE in GtkD locally using the girtod generator in GtkD.
- *
- * Example command below, xxx is where you cloned and built VTE source code.
- *
- * wrap/girtod -i src/APILookupVte.txt -o generated/vte -g xxx/vte/bindings/gir --use-bind-dir --use-runtime-linker
- */
-immutable bool BUILD_FUTURE_VTE_52 = false;
-
 /**************************************
  * Application Constants
  **************************************/
@@ -86,7 +73,7 @@ enum APPLICATION_ID = "com.gexperts.Tilix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Tilix";
-enum APPLICATION_VERSION = "1.7.7";
+enum APPLICATION_VERSION = "1.7.8-0.0.1";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2017 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");

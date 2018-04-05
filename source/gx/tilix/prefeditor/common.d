@@ -10,6 +10,7 @@ import gio.Settings: GSettings = Settings;
 
 import gtk.Box;
 import gtk.Button;
+import gtk.Grid;
 import gtk.Label;
 import gtk.Window;
 
@@ -29,23 +30,25 @@ import gx.tilix.prefeditor.advdialog;
  * don't use a delegate the references to the event handlers become pinned to
  * one object instance.
  */
-void createAdvancedUI(Box box, GSettings delegate() scb, bool showTriggerLineSettings = false) {
+void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool showTriggerLineSettings = false) {
     // Custom Links Section
     Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
     lblCustomLinks.setUseMarkup(true);
     lblCustomLinks.setHalign(Align.START);
-    box.add(lblCustomLinks);
+    grid.attach(lblCustomLinks, 0, row, 3, 1);
+    row++;
 
     string customLinksDescription = _("A list of user defined links that can be clicked on in the terminal based on regular expression definitions.");
-    box.packStart(createDescriptionLabel(customLinksDescription), false, false, 0);
+    grid.attach(createDescriptionLabel(customLinksDescription), 0, row, 2, 1);
 
     Button btnEditLink = new Button(_("Edit"));
-    btnEditLink.setHexpand(false);
-    btnEditLink.setHalign(Align.START);
+    btnEditLink.setHalign(Align.FILL);
+    btnEditLink.setValign(Align.CENTER);    
+
     btnEditLink.addOnClicked(delegate(Button) {
         GSettings gs = scb();
         string[] links = gs.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
-        EditCustomLinksDialog dlg = new EditCustomLinksDialog(cast(Window) box.getToplevel(), links);
+        EditCustomLinksDialog dlg = new EditCustomLinksDialog(cast(Window) grid.getToplevel(), links);
         scope (exit) {
             dlg.destroy();
         }
@@ -54,7 +57,8 @@ void createAdvancedUI(Box box, GSettings delegate() scb, bool showTriggerLineSet
             gs.setStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
         }
     });
-    box.packStart(btnEditLink, false, false, 0);
+    grid.attach(btnEditLink, 2, row, 1, 1);
+    row++;
 
     if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
         // Triggers Section
@@ -62,17 +66,19 @@ void createAdvancedUI(Box box, GSettings delegate() scb, bool showTriggerLineSet
         lblTriggers.setUseMarkup(true);
         lblTriggers.setHalign(Align.START);
         lblTriggers.setMarginTop(12);
-        box.packStart(lblTriggers, false, false, 0);
+        grid.attach(lblTriggers, 0, row, 3, 1);
+        row++;
 
         string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
-        box.packStart(createDescriptionLabel(triggersDescription), false, false, 0);
+        grid.attach(createDescriptionLabel(triggersDescription), 0, row, 2, 1);
 
         Button btnEditTriggers = new Button(_("Edit"));
-        btnEditTriggers.setHexpand(false);
-        btnEditTriggers.setHalign(Align.START);
+        btnEditTriggers.setHalign(Align.FILL);
+        btnEditTriggers.setValign(Align.CENTER);    
+
         btnEditTriggers.addOnClicked(delegate(Button) {
             GSettings gs = scb();
-            EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) box.getToplevel(), gs, showTriggerLineSettings);
+            EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) grid.getToplevel(), gs, showTriggerLineSettings);
             scope (exit) {
                 dlg.destroy();
             }
@@ -81,7 +87,8 @@ void createAdvancedUI(Box box, GSettings delegate() scb, bool showTriggerLineSet
                 gs.setStrv(SETTINGS_ALL_TRIGGERS_KEY, dlg.getTriggers());
             }
         });
-        box.packStart(btnEditTriggers, false, false, 0);
+        grid.attach(btnEditTriggers, 2, row, 1, 1);
+        row++;
     }
 }
 
@@ -94,6 +101,7 @@ Label createDescriptionLabel(string desc) {
     lblDescription.setSensitive(false);
     lblDescription.setLineWrap(true);
     lblDescription.setHalign(Align.START);
+    lblDescription.setXalign(0.0);
     lblDescription.setMaxWidthChars(70);
     return lblDescription;
 }

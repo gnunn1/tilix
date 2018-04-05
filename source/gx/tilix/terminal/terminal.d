@@ -707,7 +707,7 @@ private:
                 pdm.showAll();
                 if (pdm.run() == ResponseType.APPLY) {
                     string password = pdm.password;
-                    vte.feedChild(password, password.length);
+                    vte.feedChild(password);
                     static if (!USE_COMMIT_SYNCHRONIZATION) {
                         if (isSynchronizedInput()) {
                             SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, password);
@@ -1019,7 +1019,7 @@ private:
                    (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) && 
                    !vte.getHasSelection()) {
                     string controlc = "\u0003";
-                    vte.feedChild(controlc, controlc.length);
+                    vte.feedChild(controlc);
                     return true;
                 }
             }
@@ -1322,7 +1322,7 @@ private:
                 trace("Add new line");
                 text ~= '\n';
             }
-            vte.feedChild(text, text.length);
+            vte.feedChild(text);
             static if (!USE_COMMIT_SYNCHRONIZATION) {
                 if (isSynchronizedInput()) {
                     SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
@@ -1379,7 +1379,7 @@ private:
         dialog.showAll();
         if (dialog.run() == ResponseType.APPLY) {
             pasteText = dialog.text;
-            vte.feedChild(pasteText[0 .. $], pasteText.length);
+            vte.feedChild(pasteText[0 .. $]);
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                 scrollToBottom();
             }
@@ -1413,7 +1413,7 @@ private:
         }
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
             pasteText = pasteText[1 .. $];
-            vte.feedChild(pasteText, pasteText.length);
+            vte.feedChild(pasteText);
         } else if (source == GDK_SELECTION_CLIPBOARD) {
             vte.pasteClipboard();
         } else {
@@ -1584,7 +1584,7 @@ private:
                 break;
             case TriggerAction.SEND_TEXT:
                 string value = replaceMatchTokens(trigger.parameters, groups);
-                vte.feedChild(value, value.length);
+                vte.feedChild(value);
                 break;
             case TriggerAction.INSERT_PASSWORD:
                 trace("Processing insert password trigger");
@@ -1596,7 +1596,7 @@ private:
             case TriggerAction.RUN_PROCESS:
                 string process = replaceMatchTokens(trigger.parameters, groups);
                 auto response = executeShell(process);
-                vte.feedChild(response.output, response.output.length);
+                vte.feedChild(response.output);
                 break;
         }
     }
@@ -2055,7 +2055,7 @@ private:
         if (desired == currentColorSet && !force) return;
 
         RGBA vteBGUsed;
-        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR) && BUILD_FUTURE_VTE_52) {
+        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vteBGUsed = vteBGClear;
         } else {
             vteBGUsed = vteBG;
@@ -2289,7 +2289,6 @@ private:
             if (vte !is null) 
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
-    static if (BUILD_FUTURE_VTE_52) {
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
             if (vte !is null && checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
                 vte.setTextBlinkMode(getTextBlinkMode(gsProfile.getString(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY)));
@@ -2310,7 +2309,6 @@ private:
                 vte.setCellWidthScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY));
             }
             break;
-    }
         default:
             break;
         }
@@ -2365,12 +2363,10 @@ private:
         }
     }
 
-static if (BUILD_FUTURE_VTE_52) {
     VteTextBlinkMode getTextBlinkMode(string mode) {
         long i = countUntil(SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES, mode);
         return cast(VteTextBlinkMode) i;
     }
-}
 
     VteCursorBlinkMode getBlinkMode(string mode) {
         long i = countUntil(SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES, mode);
@@ -2491,7 +2487,7 @@ private:
                 Signals.handlerBlock(vte, _commitHandlerId);
             }
         }
-        vte.feedChild(text, text.length);
+        vte.feedChild(text);
         if (USE_COMMIT_SYNCHRONIZATION) {
             if (ignoreCommit) {
                 Signals.handlerUnblock(vte, _commitHandlerId);
@@ -2504,7 +2500,7 @@ private:
         ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
             if (response == ResponseType.OK) {
                 ibRelaunch.destroy();
-                spawnTerminalProcess(gst.initialCWD);
+                spawnTerminalProcess(gst.initialCWD, _overrideCommand);
             }
         });
         ibRelaunch.setMessage(message);
@@ -2543,7 +2539,8 @@ private:
                 errorf("\tenv %d=%s", i, env);
         }
 
-        trace("workingDir parameter=" ~ workingDir);
+        tracef("workingDir parameter=%s", workingDir);
+        tracef("command parameter=%s", command);
 
         CommandParameters overrides = tilix.getGlobalOverrides();
         //If cwd is set in overrides use that if an explicit working dir wasn't passed as a parameter
@@ -2903,9 +2900,7 @@ private:
         vte.addOnDragLeave(&onVTEDragLeave);
 
         if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
-            static if (BUILD_FUTURE_VTE_52) {
-                vte.setBackgroundOperator(cairo_operator_t.OVER);
-            }
+            vte.setClearBackground(false);
         }
         //TODO - Figure out why this is causing issues, see #545
         if (isVTEBackgroundDrawEnabled()) {
@@ -3122,7 +3117,7 @@ private:
                         filename = URI.filenameFromUri(uri, hostname);
                     }
                     string quoted = ShellUtils.shellQuote(filename) ~ " ";
-                    vte.feedChild(quoted, quoted.length);
+                    vte.feedChild(quoted);
                 }
             }
             break;
@@ -3130,7 +3125,7 @@ private:
             string text = data.getText();
             tracef("Text dropped %s,%d,%d", text, text.length, data.getLength);
             if (text.length > 0) {
-                vte.feedChild(text, text.length);
+                vte.feedChild(text);
             }
             break;
         case DropTargets.COLOR:
@@ -3168,6 +3163,7 @@ private:
 
         // Only draw background if vte background draw is disabled
         if (isVTEBackgroundDrawEnabled()) {
+            //tracef("Draw background: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
@@ -3758,7 +3754,7 @@ public:
         if (terminalInitialized) {
             path = gst.currentDirectory;
         } else {
-            trace("Terminal not initialized yet or VTE not configured, no path available");
+            //trace("Terminal not initialized yet or VTE not configured, no path available");
             path = "";
         }
         text = text.replace(VARIABLE_TERMINAL_DIR, path);
