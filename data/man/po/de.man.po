@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-07-12 19:49-0400\n"
+"POT-Creation-Date: 2018-04-09 21:20-0400\n"
 "PO-Revision-Date: 2017-05-10 13:23+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tilix/manpage/de/"
@@ -274,18 +274,24 @@ msgid "B<--focus-window>"
 msgstr "B<--focus-window>"
 
 #. type: Plain text
-#: data/man/tilix:61
-msgid "Focus the existing window."
-msgstr "Vorhandenes Fenster fokussieren."
+#: data/man/tilix:76
+msgid ""
+"Focus the existing window.  .TP +.B --window-style=WINDOW_STYLE +Override "
+"the preferred window style to use, the following styles are supported: +.IP "
+"+.B normal +Normal window look.  +.IP +.B disable-csd +Do not show client "
+"side decorations.  +.IP +.B disable-csd-hide-toolbar +Do not show client "
+"side decorations and toolbar.  +.IP +.B borderless +Do not show window "
+"borders."
+msgstr ""
 
 #. type: TP
-#: data/man/tilix:61
+#: data/man/tilix:76
 #, no-wrap
 msgid "B<--new-process>"
 msgstr "B<--new-process>"
 
 #. type: Plain text
-#: data/man/tilix:64
+#: data/man/tilix:79
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
 "GTK+ 3 guidelines, Tilix maintains a single process that all windows belong "
@@ -301,13 +307,13 @@ msgstr ""
 "verschiedene Tilix-Fenster untereinander kommunizieren können."
 
 #. type: TP
-#: data/man/tilix:64
+#: data/man/tilix:79
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
 msgstr "B<--geometry=GEOMETRIE>"
 
 #. type: Plain text
-#: data/man/tilix:67
+#: data/man/tilix:82
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
@@ -315,13 +321,13 @@ msgstr ""
 "+Y)."
 
 #. type: TP
-#: data/man/tilix:67
+#: data/man/tilix:82
 #, no-wrap
 msgid "B<-q --quake>"
 msgstr "B<-q --quake>"
 
 #. type: Plain text
-#: data/man/tilix:70
+#: data/man/tilix:85
 msgid ""
 "Open a window in quake mode or toggle existing quake mode window visibility."
 msgstr ""
@@ -329,45 +335,53 @@ msgstr ""
 "vorhandenen Fensters im Quake-Modus um."
 
 #. type: TP
-#: data/man/tilix:70
+#: data/man/tilix:85
 #, no-wrap
 msgid "B<--preferences>"
 msgstr "B<--preferences>"
 
 #. type: Plain text
-#: data/man/tilix:73
-msgid "Show the Tilix preferences dialog directly."
-msgstr "Tilix-Einstellungsdialog direkt anzeigen."
+#: data/man/tilix:91
+msgid ""
+"Show the Tilix preferences dialog directly.  +.TP +.B --display=DISPLAY +Use "
+"the specified X display."
+msgstr ""
 
 #. type: SH
-#: data/man/tilix:73
+#: data/man/tilix:91
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
 
 #. type: Plain text
-#: data/man/tilix:75
+#: data/man/tilix:93
 msgid "None"
 msgstr "Keine"
 
 #. type: SH
-#: data/man/tilix:75
+#: data/man/tilix:93
 #, no-wrap
 msgid "BUGS"
 msgstr "FEHLER"
 
 #. type: Plain text
-#: data/man/tilix:77
+#: data/man/tilix:95
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
 msgstr "Siehe Fehler auf https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
-#: data/man/tilix:77
+#: data/man/tilix:95
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTOR"
 
 #. type: Plain text
-#: data/man/tilix:78
+#: data/man/tilix:96
 msgid "Gerald Nunn and other contributors."
 msgstr "Gerald Nunn und weitere Mitwirkende."
+
+#~ msgid "Focus the existing window."
+#~ msgstr "Vorhandenes Fenster fokussieren."
+
+#~ msgid "Show the Tilix preferences dialog directly."
+#~ msgstr "Tilix-Einstellungsdialog direkt anzeigen."
