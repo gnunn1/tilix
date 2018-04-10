@@ -60,8 +60,13 @@ do
 done
 
 # Update manpage translations
+echo "Updating manpage translations..."
 if type po4a-updatepo >/dev/null 2>&1; then
   MANDIR=${BASEDIR}/data/man
   po4a-gettextize -f man -m ${MANDIR}/tilix -p ${MANDIR}/po/tilix.man.pot
-  po4a-updatepo -f man -m ${MANDIR}/tilix -p ${MANDIR}/po/*.man.po
+  for file in ${MANDIR}/po/*.man.po
+  do
+    echo -n $file
+    po4a-updatepo -f man -m ${MANDIR}/tilix -p $file
+  done
 fi
