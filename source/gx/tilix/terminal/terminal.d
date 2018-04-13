@@ -2013,8 +2013,6 @@ private:
         vteBold = new RGBA();
         dimBold = new RGBA();
 
-        vteBGClear = new RGBA(0.0, 0.0, 0.0, 0.0);
-
         vtePalette = new RGBA[16];
         dimPalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
@@ -2054,22 +2052,15 @@ private:
         VTEColorSet desired = (isTerminalWidgetFocused() || dimPercent == 0)? VTEColorSet.normal: VTEColorSet.dim;
         if (desired == currentColorSet && !force) return;
 
-        RGBA vteBGUsed;
-        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
-            vteBGUsed = vteBGClear;
-        } else {
-            vteBGUsed = vteBG;
-        }
-
-        tracef("vteBGUsed: %f, %f, %f, %f", vteBGUsed.red, vteBGUsed.green, vteBGUsed.blue, vteBGUsed.alpha);
+        tracef("vteBGUsed: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
         if (isTerminalWidgetFocused() || dimPercent == 0) {
             tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
-            vte.setColors(vteFG, vteBGUsed, vtePalette);
+            vte.setColors(vteFG, vteBG, vtePalette);
             setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
             tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
-            vte.setColors(dimFG, vteBGUsed, dimPalette);
+            vte.setColors(dimFG, vteBG, dimPalette);
             setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
         }
