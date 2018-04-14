@@ -1269,6 +1269,36 @@ private:
     }
 
     /**
+     * Replace the various token variables in a string
+     */
+    string replaceVariables(string text) {
+        string windowTitle = vte.getWindowTitle();
+        if (windowTitle.length == 0)
+            windowTitle = _("Terminal");
+        text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
+        text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
+        text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
+        text = text.replace(VARIABLE_TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
+        text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
+        text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
+        static if (USE_PROCESS_MONITOR) {
+            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
+            }
+        }
+        string path;
+        if (terminalInitialized) {
+            path = gst.currentDirectory;
+        } else {
+            //trace("Terminal not initialized yet or VTE not configured, no path available");
+            path = "";
+        }
+        text = text.replace(VARIABLE_TERMINAL_DIR, path);
+        return text;
+    }
+
+    /**
      * Enables/Disables actions depending on UI state
      */
     void updateActions() {
@@ -1537,6 +1567,9 @@ private:
             }
             return result;
         }
+
+        // replace various variable tokens in parameters, i.e. ${rows}, ${title}, etc
+        trigger.parameters = replaceVariables(trigger.parameters);
 
         final switch (trigger.action) {
             case TriggerAction.UPDATE_STATE:
@@ -3726,30 +3759,7 @@ public:
      * for the active terminal for it's own name shown in the sidebar.
      */
     string getDisplayText(string text) {
-        string windowTitle = vte.getWindowTitle();
-        if (windowTitle.length == 0)
-            windowTitle = _("Terminal");
-        text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
-        text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
-        text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
-        text = text.replace(VARIABLE_TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
-        text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
-        text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
-        text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
-        static if (USE_PROCESS_MONITOR) {
-            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
-            }
-        }
-        string path;
-        if (terminalInitialized) {
-            path = gst.currentDirectory;
-        } else {
-            //trace("Terminal not initialized yet or VTE not configured, no path available");
-            path = "";
-        }
-        text = text.replace(VARIABLE_TERMINAL_DIR, path);
-        return text;
+        return replaceVariables(text);
     }
 
     @property string currentLocalDirectory() {
