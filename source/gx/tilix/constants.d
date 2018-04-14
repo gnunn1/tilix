@@ -173,27 +173,28 @@ static if (USE_PROCESS_MONITOR) {
 // Session Title tokens
 enum VARIABLE_TERMINAL_COUNT = "${terminalCount}";
 enum VARIABLE_TERMINAL_NUMBER = "${terminalNumber}";
+enum VARIABLE_ACTIVE_TERMINAL_TITLE = "${activeTerminalTitle}";
 
 immutable string[] VARIABLE_SESSION_VALUES = [
     VARIABLE_TERMINAL_COUNT,
-    VARIABLE_TERMINAL_NUMBER
+    VARIABLE_TERMINAL_NUMBER,
+    VARIABLE_ACTIVE_TERMINAL_TITLE
 ];
 
 immutable string[] VARIABLE_SESSION_LOCALIZED = [
     N_("Terminal count"),
-    N_("Terminal number")
+    N_("Terminal number"),
+    N_("Active terminal title")
 ];
 
 // Application Window Title tokens
 enum VARIABLE_APP_NAME = "${appName}";
-enum VARIABLE_ACTIVE_TERMINAL_TITLE = "${activeTerminalTitle}";
 enum VARIABLE_SESSION_NAME = "${sessionName}";
 enum VARIABLE_SESSION_NUMBER = "${sessionNumber}";
 enum VARIABLE_SESSION_COUNT = "${sessionCount}";
 
 immutable string[] VARIABLE_WINDOW_VALUES = [
     VARIABLE_APP_NAME,
-    VARIABLE_ACTIVE_TERMINAL_TITLE,
     VARIABLE_SESSION_NAME,
     VARIABLE_SESSION_NUMBER,
     VARIABLE_SESSION_COUNT
@@ -201,7 +202,6 @@ immutable string[] VARIABLE_WINDOW_VALUES = [
 
 immutable string[] VARIABLE_WINDOW_LOCALIZED = [
     N_("Application name"),
-    N_("Active terminal title"),
     N_("Session name"),
     N_("Session number"),
     N_("Session count")
