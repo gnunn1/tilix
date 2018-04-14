@@ -22,6 +22,7 @@ import std.format;
 import std.json;
 import std.math;
 import std.process;
+import std.range;
 import std.regex;
 import std.stdio;
 import std.string;
@@ -567,6 +568,16 @@ private:
             }
         });
 
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_NEXT_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+                moveToPrompt(1);
+            });
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_PREVIOUS_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+                moveToPrompt(-1);
+            });
+        }
+
+
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
 
         //Link Actions, no shortcuts, context menu only
@@ -667,6 +678,8 @@ private:
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(true, true);
+            // Clear history of prompts
+            checkPromptBuffer();
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET_AND_CLEAR, null, null);
                 onSyncInput.emit(this, se);
@@ -1028,6 +1041,13 @@ private:
         vteHandlers ~= vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
+            if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
+                long row, column;
+                vte.getCursorPosition(column, row);
+                promptPosition ~= [row];
+                tracef("Added prompt position %d", row);
+            }
+
             if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
                 static if (USE_COMMIT_SYNCHRONIZATION) {
                     // Only synchronize hard code VTE keys otherwise let commit event take care of it
@@ -1057,6 +1077,15 @@ private:
                     SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                     onSyncInput.emit(this, se);
                 }
+            });
+        }
+
+        // Used to track changes to scroll buffer to clear
+        // prompt positions if user cleared VTE buffer, i.e. "clear" command.
+        // Used for terminal-next-prompt and terminal-previous-prompt actions
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+            vte.addOnTextDeleted(delegate(VTE) {
+                checkPromptBuffer();
             });
         }
 
@@ -1474,6 +1503,41 @@ private:
 
     void notifySessionRequestAttach(string sessionUUID) {
         onSessionAttach.emit(this, sessionUUID);
+    }
+
+// Block for handling cycling between command prompts
+private:
+    long[] promptPosition;
+
+    void moveToPrompt(int direction) {
+        if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
+        long result;
+        long row = to!long(vte.getVadjustment().getValue());
+        auto sorted = assumeSorted(promptPosition);
+        if (direction < 0) {
+            auto range = sorted.lowerBound(row);
+            if (range.length > 0) {
+                result = range[range.length -1];
+            } else result = 0;
+        } else {
+            auto range = sorted.upperBound(row);
+            if (range.length > 0) {
+                result = range[0];
+            } else result = to!long(vte.getVadjustment().getUpper());
+        }
+        tracef("Current row %d, Moving to command prompt at %d", row, result);
+        vte.getVadjustment.setValue(to!double(result));
+    }
+
+    void checkPromptBuffer() {
+        if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
+        if (promptPosition.length == 0) return;
+        // If upper bound of last recorded prompt is bigger then current upper bound of rows user must have cleared buffer, i.e. clear command
+        tracef("Check position %d against buffer size %f", promptPosition[promptPosition.length -1], vte.getVadjustment().getUpper());
+        if (promptPosition[promptPosition.length -1] < vte.getVadjustment().getUpper()) {
+            promptPosition = [];
+            trace("Cleared prompt positions");
+        }
     }
 
 // Block for processing triggers
@@ -3689,6 +3753,7 @@ public:
                 break;
             case SyncInputEventType.RESET_AND_CLEAR:
                 vte.reset(true, true);
+                checkPromptBuffer();
                 break;
         }
     }

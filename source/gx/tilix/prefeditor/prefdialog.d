@@ -976,10 +976,18 @@ private:
         return result;
     }
 
+    TerminalFeature[string] getVTEFeatureShortcuts() {
+        TerminalFeature[string] result;
+        result["terminal-next-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
+        result["terminal-previous-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
+        return result;        
+    }
+
     void loadShortcuts(TreeStore ts) {
 
         int[2][string] gtkVersioned = getGTKVersionedShortcuts();
         int[2][string] vteVersioned = getVTEVersionedShortcuts();
+        TerminalFeature[string] vteFeatured = getVTEFeatureShortcuts();
 
         loadLocalizedShortcutLabels();
         string[] keys = gsShortcuts.listKeys();
@@ -996,6 +1004,9 @@ private:
             if (key in vteVersioned) {
                 int[2] vteVersion = vteVersioned[key];
                 if (!checkVTEVersionNumber(vteVersion[0], vteVersion[1])) continue;
+            }
+            if (key in vteFeatured) {
+                if (!checkVTEFeature(vteFeatured[key])) continue;
             }
 
             string prefix, id;
