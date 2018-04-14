@@ -2052,14 +2052,14 @@ private:
         VTEColorSet desired = (isTerminalWidgetFocused() || dimPercent == 0)? VTEColorSet.normal: VTEColorSet.dim;
         if (desired == currentColorSet && !force) return;
 
-        tracef("vteBGUsed: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
+//        tracef("vteBGUsed: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
         if (isTerminalWidgetFocused() || dimPercent == 0) {
-            tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
+//            tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
             vte.setColors(vteFG, vteBG, vtePalette);
             setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
-            tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
+//            tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
             vte.setColors(dimFG, vteBG, dimPalette);
             setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
