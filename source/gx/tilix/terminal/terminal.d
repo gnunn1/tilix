@@ -1511,22 +1511,29 @@ private:
 
     void moveToPrompt(int direction) {
         if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
+        long lower = to!long(vte.getVadjustment.getLower());
+        long upper = to!long(vte.getVadjustment.getUpper());
         long result;
+        tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
         long row = to!long(vte.getVadjustment().getValue());
         auto sorted = assumeSorted(promptPosition);
         if (direction < 0) {
             auto range = sorted.lowerBound(row);
             if (range.length > 0) {
                 result = range[range.length -1];
-            } else result = 0;
+            } else result = lower;
         } else {
             auto range = sorted.upperBound(row);
             if (range.length > 0) {
                 result = range[0];
-            } else result = to!long(vte.getVadjustment().getUpper());
+            } else result = upper;
         }
-        tracef("Current row %d, Moving to command prompt at %d", row, result);
-        vte.getVadjustment.setValue(to!double(result));
+        if (result >= lower) {
+            tracef("Current row %d, Moving to command prompt at %d", row, result);
+            vte.getVadjustment.setValue(to!double(result));
+        } else {
+            tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
+        }
     }
 
     void checkPromptBuffer() {
