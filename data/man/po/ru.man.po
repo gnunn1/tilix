@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-04-09 21:20-0400\n"
+"POT-Creation-Date: 2018-04-15 10:39-0400\n"
 "PO-Revision-Date: 2018-03-26 13:02+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tilix/manpage/ru/"
@@ -267,14 +267,48 @@ msgid "B<--focus-window>"
 msgstr "B<--focus-window>"
 
 #. type: Plain text
-#: data/man/tilix:76
+#: data/man/tilix:61
+msgid "Focus the existing window."
+msgstr "Передать фокус существующему окну."
+
+#. type: TP
+#: data/man/tilix:61
+#, no-wrap
+msgid "B<--window-style=WINDOW_STYLE>"
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:64
+#, fuzzy
+#| msgid ""
+#| "Perform an action in the current Tilix instance, the following actions "
+#| "are supported:"
 msgid ""
-"Focus the existing window.  .TP +.B --window-style=WINDOW_STYLE +Override "
-"the preferred window style to use, the following styles are supported: +.IP "
-"+.B normal +Normal window look.  +.IP +.B disable-csd +Do not show client "
-"side decorations.  +.IP +.B disable-csd-hide-toolbar +Do not show client "
-"side decorations and toolbar.  +.IP +.B borderless +Do not show window "
-"borders."
+"Override the preferred window style to use, the following styles are "
+"supported:"
+msgstr ""
+"Выполнить действие в запущенном процессе Tilix, поддерживаются следующие "
+"действия:"
+
+#. type: Plain text
+#: data/man/tilix:67
+msgid "B<normal> Normal window look."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:70
+msgid "B<disable-csd> Do not show client side decorations."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:73
+msgid ""
+"B<disable-csd-hide-toolbar> Do not show client side decorations and toolbar."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:76
+msgid "B<borderless> Do not show window borders."
 msgstr ""
 
 #. type: TP
@@ -333,10 +367,19 @@ msgid "B<--preferences>"
 msgstr "B<--preferences>"
 
 #. type: Plain text
+#: data/man/tilix:88
+msgid "Show the Tilix preferences dialog directly."
+msgstr "Открыть диалог настроек Tilix."
+
+#. type: TP
+#: data/man/tilix:88
+#, no-wrap
+msgid "B<--display=DISPLAY>"
+msgstr ""
+
+#. type: Plain text
 #: data/man/tilix:91
-msgid ""
-"Show the Tilix preferences dialog directly.  +.TP +.B --display=DISPLAY +Use "
-"the specified X display."
+msgid "Use the specified X display."
 msgstr ""
 
 #. type: SH
@@ -371,9 +414,3 @@ msgstr "АВТОР"
 #: data/man/tilix:96
 msgid "Gerald Nunn and other contributors."
 msgstr "Gerald Nunn и другие участники."
-
-#~ msgid "Focus the existing window."
-#~ msgstr "Передать фокус существующему окну."
-
-#~ msgid "Show the Tilix preferences dialog directly."
-#~ msgstr "Открыть диалог настроек Tilix."
