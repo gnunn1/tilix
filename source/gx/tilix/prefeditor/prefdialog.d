@@ -1347,6 +1347,11 @@ private:
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!wayland) {
 
+            //Always on top
+            CheckButton cbKeepOnTop = new CheckButton(_("Keep window always on top"));
+            bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+            bContent.add(cbKeepOnTop);
+
             //Active Monitor
             CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));
             bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", GSettingsBindFlags.DEFAULT);
