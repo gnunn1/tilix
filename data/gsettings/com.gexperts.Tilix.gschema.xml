@@ -436,14 +436,11 @@
       <summary>The position where the tabs are displayed in Quake mode</summary>
       <description>Determines where the tabs are displayed relative to the notebook in quake mode.</description>
     </key>
-
-    <!--
     <key name="quake-keep-on-top" type="b">
       <default>true</default>
       <summary>When true the quake window is always kept on top</summary>
       <description>When true, the quake window will be kept on top of all other windows.</description>
     </key>
-    -->
 
     <!-- Advanced Paste Options -->
     <key name="advanced-paste-replace-tabs" type="b">
@@ -1213,6 +1210,15 @@
     <key name="terminal-file-browser" type="s">
       <default>'disabled'</default>
       <summary>Keyboard shortcut to open directory in file browser</summary>
+    </key>
+    <!-- Move between prompts -->
+    <key name="terminal-next-prompt" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to move to next prompt</summary>
+    </key>
+    <key name="terminal-previous-prompt" type="s">
+      <default>'disabled'</default>
+      <summary>Keyboard shortcut to move to previous prompt</summary>
     </key>
     <!-- Nautilus Shortcut for Open in Tilix -->
     <key name="nautilus-open" type="s">

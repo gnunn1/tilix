@@ -22,6 +22,7 @@ import std.format;
 import std.json;
 import std.math;
 import std.process;
+import std.range;
 import std.regex;
 import std.stdio;
 import std.string;
@@ -567,6 +568,16 @@ private:
             }
         });
 
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_NEXT_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+                moveToPrompt(1);
+            });
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_PREVIOUS_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+                moveToPrompt(-1);
+            });
+        }
+
+
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
 
         //Link Actions, no shortcuts, context menu only
@@ -667,6 +678,8 @@ private:
         });
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
             vte.reset(true, true);
+            // Clear history of prompts
+            checkPromptBuffer();
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET_AND_CLEAR, null, null);
                 onSyncInput.emit(this, se);
@@ -1028,6 +1041,13 @@ private:
         vteHandlers ~= vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
+            if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
+                long row, column;
+                vte.getCursorPosition(column, row);
+                promptPosition ~= [row];
+                tracef("Added prompt position %d", row);
+            }
+
             if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
                 static if (USE_COMMIT_SYNCHRONIZATION) {
                     // Only synchronize hard code VTE keys otherwise let commit event take care of it
@@ -1057,6 +1077,15 @@ private:
                     SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, text);
                     onSyncInput.emit(this, se);
                 }
+            });
+        }
+
+        // Used to track changes to scroll buffer to clear
+        // prompt positions if user cleared VTE buffer, i.e. "clear" command.
+        // Used for terminal-next-prompt and terminal-previous-prompt actions
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
+            vte.addOnTextDeleted(delegate(VTE) {
+                checkPromptBuffer();
             });
         }
 
@@ -1269,6 +1298,36 @@ private:
     }
 
     /**
+     * Replace the various token variables in a string
+     */
+    string replaceVariables(string text) {
+        string windowTitle = vte.getWindowTitle();
+        if (windowTitle.length == 0)
+            windowTitle = _("Terminal");
+        text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
+        text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
+        text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
+        text = text.replace(VARIABLE_TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
+        text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
+        text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
+        text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
+        static if (USE_PROCESS_MONITOR) {
+            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
+            }
+        }
+        string path;
+        if (terminalInitialized) {
+            path = gst.currentDirectory;
+        } else {
+            //trace("Terminal not initialized yet or VTE not configured, no path available");
+            path = "";
+        }
+        text = text.replace(VARIABLE_TERMINAL_DIR, path);
+        return text;
+    }
+
+    /**
      * Enables/Disables actions depending on UI state
      */
     void updateActions() {
@@ -1446,6 +1505,48 @@ private:
         onSessionAttach.emit(this, sessionUUID);
     }
 
+// Block for handling cycling between command prompts
+private:
+    long[] promptPosition;
+
+    void moveToPrompt(int direction) {
+        if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
+        long lower = to!long(vte.getVadjustment.getLower());
+        long upper = to!long(vte.getVadjustment.getUpper());
+        long result;
+        tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
+        long row = to!long(vte.getVadjustment().getValue());
+        auto sorted = assumeSorted(promptPosition);
+        if (direction < 0) {
+            auto range = sorted.lowerBound(row);
+            if (range.length > 0) {
+                result = range[range.length -1];
+            } else result = lower;
+        } else {
+            auto range = sorted.upperBound(row);
+            if (range.length > 0) {
+                result = range[0];
+            } else result = upper;
+        }
+        if (result >= lower) {
+            tracef("Current row %d, Moving to command prompt at %d", row, result);
+            vte.getVadjustment.setValue(to!double(result));
+        } else {
+            tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
+        }
+    }
+
+    void checkPromptBuffer() {
+        if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
+        if (promptPosition.length == 0) return;
+        // If upper bound of last recorded prompt is bigger then current upper bound of rows user must have cleared buffer, i.e. clear command
+        tracef("Check position %d against buffer size %f", promptPosition[promptPosition.length -1], vte.getVadjustment().getUpper());
+        if (promptPosition[promptPosition.length -1] < vte.getVadjustment().getUpper()) {
+            promptPosition = [];
+            trace("Cleared prompt positions");
+        }
+    }
+
 // Block for processing triggers
 private:
 
@@ -1537,6 +1638,9 @@ private:
             }
             return result;
         }
+
+        // replace various variable tokens in parameters, i.e. ${rows}, ${title}, etc
+        trigger.parameters = replaceVariables(trigger.parameters);
 
         final switch (trigger.action) {
             case TriggerAction.UPDATE_STATE:
@@ -2013,8 +2117,6 @@ private:
         vteBold = new RGBA();
         dimBold = new RGBA();
 
-        vteBGClear = new RGBA(0.0, 0.0, 0.0, 0.0);
-
         vtePalette = new RGBA[16];
         dimPalette = new RGBA[16];
         for (int i = 0; i < 16; i++) {
@@ -2054,22 +2156,15 @@ private:
         VTEColorSet desired = (isTerminalWidgetFocused() || dimPercent == 0)? VTEColorSet.normal: VTEColorSet.dim;
         if (desired == currentColorSet && !force) return;
 
-        RGBA vteBGUsed;
-        if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
-            vteBGUsed = vteBGClear;
-        } else {
-            vteBGUsed = vteBG;
-        }
-
-        tracef("vteBGUsed: %f, %f, %f, %f", vteBGUsed.red, vteBGUsed.green, vteBGUsed.blue, vteBGUsed.alpha);
+//        tracef("vteBGUsed: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
         if (isTerminalWidgetFocused() || dimPercent == 0) {
-            tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
-            vte.setColors(vteFG, vteBGUsed, vtePalette);
+//            tracef("vteFG: %f, %f, %f", vteFG.red, vteFG.green, vteFG.blue);
+            vte.setColors(vteFG, vteBG, vtePalette);
             setBoldColor(vteBold);
             currentColorSet = VTEColorSet.normal;
         } else {
-            tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
-            vte.setColors(dimFG, vteBGUsed, dimPalette);
+//            tracef("dimFG: %f, %f, %f", dimFG.red, dimFG.green, dimFG.blue);
+            vte.setColors(dimFG, vteBG, dimPalette);
             setBoldColor(dimBold);
             currentColorSet = VTEColorSet.dim;
         }
@@ -3665,6 +3760,7 @@ public:
                 break;
             case SyncInputEventType.RESET_AND_CLEAR:
                 vte.reset(true, true);
+                checkPromptBuffer();
                 break;
         }
     }
@@ -3735,30 +3831,7 @@ public:
      * for the active terminal for it's own name shown in the sidebar.
      */
     string getDisplayText(string text) {
-        string windowTitle = vte.getWindowTitle();
-        if (windowTitle.length == 0)
-            windowTitle = _("Terminal");
-        text = text.replace(VARIABLE_TERMINAL_TITLE, windowTitle);
-        text = text.replace(VARIABLE_TERMINAL_ICON_TITLE, vte.getIconTitle());
-        text = text.replace(VARIABLE_TERMINAL_ID, to!string(terminalID));
-        text = text.replace(VARIABLE_TERMINAL_COLUMNS, to!string(vte.getColumnCount()));
-        text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
-        text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
-        text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
-        static if (USE_PROCESS_MONITOR) {
-            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
-                text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
-            }
-        }
-        string path;
-        if (terminalInitialized) {
-            path = gst.currentDirectory;
-        } else {
-            //trace("Terminal not initialized yet or VTE not configured, no path available");
-            path = "";
-        }
-        text = text.replace(VARIABLE_TERMINAL_DIR, path);
-        return text;
+        return replaceVariables(text);
     }
 
     @property string currentLocalDirectory() {

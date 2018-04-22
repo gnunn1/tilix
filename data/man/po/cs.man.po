@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-04-09 21:20-0400\n"
+"POT-Creation-Date: 2018-04-15 10:39-0400\n"
 "PO-Revision-Date: 2018-04-10 05:33+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/tilix/manpage/cs/>"
-"\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/tilix/manpage/cs/"
+">\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -265,21 +265,48 @@ msgid "B<--focus-window>"
 msgstr "B<--focus-window>"
 
 #. type: Plain text
-#: data/man/tilix:76
-msgid ""
-"Focus the existing window.  .TP +.B --window-style=WINDOW_STYLE +Override "
-"the preferred window style to use, the following styles are supported: +.IP "
-"+.B normal +Normal window look.  +.IP +.B disable-csd +Do not show client "
-"side decorations.  +.IP +.B disable-csd-hide-toolbar +Do not show client "
-"side decorations and toolbar.  +.IP +.B borderless +Do not show window "
-"borders."
+#: data/man/tilix:61
+msgid "Focus the existing window."
+msgstr "Zaměřit existující okno."
+
+#. type: TP
+#: data/man/tilix:61
+#, no-wrap
+msgid "B<--window-style=WINDOW_STYLE>"
 msgstr ""
-"Zaměřit stávající okno.  .TP +.B --window-style=STYL_OKNA +Přepsat "
-"upřednostňovaný styl okna který použít, podporované jsou následující styly: +"
-".IP +.B normal +Normální vzhled okna.  +.IP +.B disable-csd +Nezobrazovat "
-"dekorace na straně klienta.  +.IP +.B disable-csd-hide-toolbar +Nezobrazovat "
-"dekorace na straně klienta a lištu nástrojů.  +.IP +.B borderless +"
-"Nezobrazovat okraje okna."
+
+#. type: Plain text
+#: data/man/tilix:64
+#, fuzzy
+#| msgid ""
+#| "Perform an action in the current Tilix instance, the following actions "
+#| "are supported:"
+msgid ""
+"Override the preferred window style to use, the following styles are "
+"supported:"
+msgstr ""
+"Provést akci ve stávající instanci Tilix – podporovány jsou následující akce:"
+
+#. type: Plain text
+#: data/man/tilix:67
+msgid "B<normal> Normal window look."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:70
+msgid "B<disable-csd> Do not show client side decorations."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:73
+msgid ""
+"B<disable-csd-hide-toolbar> Do not show client side decorations and toolbar."
+msgstr ""
+
+#. type: Plain text
+#: data/man/tilix:76
+msgid "B<borderless> Do not show window borders."
+msgstr ""
 
 #. type: TP
 #: data/man/tilix:76
@@ -336,13 +363,20 @@ msgid "B<--preferences>"
 msgstr "B<--preferences>"
 
 #. type: Plain text
-#: data/man/tilix:91
-msgid ""
-"Show the Tilix preferences dialog directly.  +.TP +.B --display=DISPLAY +Use "
-"the specified X display."
+#: data/man/tilix:88
+msgid "Show the Tilix preferences dialog directly."
+msgstr "Zobrazit přímo dialog předvoleb pro Tilix."
+
+#. type: TP
+#: data/man/tilix:88
+#, no-wrap
+msgid "B<--display=DISPLAY>"
 msgstr ""
-"Zobrazit přímo dialog předvoleb.  +.TP +.B --display=ZOBRAZOVAČ +Použít "
-"zadaný zobrazovač X serveru."
+
+#. type: Plain text
+#: data/man/tilix:91
+msgid "Use the specified X display."
+msgstr ""
 
 #. type: SH
 #: data/man/tilix:91
@@ -377,8 +411,24 @@ msgstr "AUTOR"
 msgid "Gerald Nunn and other contributors."
 msgstr "Gerald Nunn a další přispěvatelé."
 
-#~ msgid "Focus the existing window."
-#~ msgstr "Zaměřit existující okno."
+#~ msgid ""
+#~ "Focus the existing window.  .TP +.B --window-style=WINDOW_STYLE +Override "
+#~ "the preferred window style to use, the following styles are supported: +."
+#~ "IP +.B normal +Normal window look.  +.IP +.B disable-csd +Do not show "
+#~ "client side decorations.  +.IP +.B disable-csd-hide-toolbar +Do not show "
+#~ "client side decorations and toolbar.  +.IP +.B borderless +Do not show "
+#~ "window borders."
+#~ msgstr ""
+#~ "Zaměřit stávající okno.  .TP +.B --window-style=STYL_OKNA +Přepsat "
+#~ "upřednostňovaný styl okna který použít, podporované jsou následující "
+#~ "styly: +.IP +.B normal +Normální vzhled okna.  +.IP +.B disable-csd "
+#~ "+Nezobrazovat dekorace na straně klienta.  +.IP +.B disable-csd-hide-"
+#~ "toolbar +Nezobrazovat dekorace na straně klienta a lištu nástrojů.  +.IP "
+#~ "+.B borderless +Nezobrazovat okraje okna."
 
-#~ msgid "Show the Tilix preferences dialog directly."
-#~ msgstr "Zobrazit přímo dialog předvoleb pro Tilix."
+#~ msgid ""
+#~ "Show the Tilix preferences dialog directly.  +.TP +.B --display=DISPLAY "
+#~ "+Use the specified X display."
+#~ msgstr ""
+#~ "Zobrazit přímo dialog předvoleb.  +.TP +.B --display=ZOBRAZOVAČ +Použít "
+#~ "zadaný zobrazovač X serveru."

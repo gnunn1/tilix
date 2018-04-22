@@ -132,7 +132,7 @@ enum SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE = "center";
 enum SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE = "right";
 enum SETTINGS_QUAKE_HIDE_HEADERBAR_KEY = "quake-hide-headerbar";
 enum SETTINGS_QUAKE_TAB_POSITION_KEY = "quake-tab-position";
-//enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
+enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";

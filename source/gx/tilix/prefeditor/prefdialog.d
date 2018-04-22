@@ -976,10 +976,18 @@ private:
         return result;
     }
 
+    TerminalFeature[string] getVTEFeatureShortcuts() {
+        TerminalFeature[string] result;
+        result["terminal-next-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
+        result["terminal-previous-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
+        return result;        
+    }
+
     void loadShortcuts(TreeStore ts) {
 
         int[2][string] gtkVersioned = getGTKVersionedShortcuts();
         int[2][string] vteVersioned = getVTEVersionedShortcuts();
+        TerminalFeature[string] vteFeatured = getVTEFeatureShortcuts();
 
         loadLocalizedShortcutLabels();
         string[] keys = gsShortcuts.listKeys();
@@ -996,6 +1004,9 @@ private:
             if (key in vteVersioned) {
                 int[2] vteVersion = vteVersioned[key];
                 if (!checkVTEVersionNumber(vteVersion[0], vteVersion[1])) continue;
+            }
+            if (key in vteFeatured) {
+                if (!checkVTEFeature(vteFeatured[key])) continue;
             }
 
             string prefix, id;
@@ -1335,6 +1346,11 @@ private:
 
         // Wayland doesn't let you put a window on a specific monitor so don't show this
         if (!wayland) {
+
+            //Always on top
+            CheckButton cbKeepOnTop = new CheckButton(_("Keep window always on top"));
+            bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+            bContent.add(cbKeepOnTop);
 
             //Active Monitor
             CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));

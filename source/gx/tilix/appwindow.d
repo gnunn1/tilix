@@ -252,7 +252,7 @@ private:
     }
 
     bool hideToolbar() {
-        return isQuake() && (gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY) || windowStyle > 1);
+        return (isQuake() && gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY)) || windowStyle > 1;
     }
 
     /**
@@ -1229,7 +1229,7 @@ private:
             fullscreen();
         } else if (isQuake()) {
             moveAndSizeQuake();
-            setKeepAbove(true);
+            applyPreference(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
             trace("Focus terminal");
             activateFocus();
             if (getActiveTerminal() !is null) {
@@ -1334,16 +1334,11 @@ private:
                     else hb.show();
                 }
                 break;
-            /*
             case SETTINGS_QUAKE_KEEP_ON_TOP_KEY:
                 if (isQuake) {
-                    bool keepOnTop = gsSettings.getBoolean(SETTINGS_QUAKE_KEEP_ON_TOP_KEY);
-                    setKeepAbove(keepOnTop);
-                    //setSkipTaskbarHint(keepOnTop);
-                    //setSkipPagerHint(keepOnTop);
+                    setKeepAbove(gsSettings.getBoolean(SETTINGS_QUAKE_KEEP_ON_TOP_KEY));
                 }
                 break;
-            */
             default:
                 break;
         }
@@ -1656,7 +1651,6 @@ public:
             setDecorated(false);
             // Todo: Should this be NORTH instead?
             setGravity(GdkGravity.STATIC);
-            setKeepAbove(true);
             setSkipTaskbarHint(true);
             setSkipPagerHint(true);
             applyPreference(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY);

@@ -42,3 +42,5 @@ enum ACTION_PAGE_UP = "page-up";
 enum ACTION_PAGE_DOWN = "page-down";
 enum ACTION_MONITOR_SILENCE = "monitor-silence";
 enum ACTION_FILE_BROWSER = "file-browser";
+enum ACTION_PREVIOUS_PROMPT = "previous-prompt";
+enum ACTION_NEXT_PROMPT = "next-prompt";

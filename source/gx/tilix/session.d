@@ -232,7 +232,10 @@ private:
                         break;
                     }
                 }
-                parent = cast(Container) parent.getParent();
+                if (parent.getParent() !is null)
+                    parent = cast(Container) parent.getParent();
+                else
+                    parent = null;
             }
             return result;
         }
