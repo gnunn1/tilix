@@ -1526,7 +1526,7 @@ private:
 
         tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
         long row = to!long(vte.getVadjustment().getValue());
-        RBRange!(RBNode!long*) range;
+        ReturnType!(promptPosition.lowerBound) range;
         if (direction < 0) {
             range = promptPosition.lowerBound(row);
             if (range.empty) result = lower;
