@@ -4030,8 +4030,26 @@ public:
         getMessageArea().setMarginLeft(0);
         getMessageArea().setMarginRight(0);
         string[3] msg = getUnsafePasteMessage();
-        setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n\n" ~ "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
+        setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n" );
         setImage(new Image("dialog-warning", IconSize.DIALOG));
+
+        Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
+        lblCmd.setUseMarkup(true);
+        lblCmd.setHalign(Align.START);
+
+        if (count(cmd,"\n") > 6) {
+            ScrolledWindow sw = new ScrolledWindow();
+            sw.setShadowType(ShadowType.ETCHED_IN);
+            sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+            sw.setHexpand(true);
+            sw.setVexpand(true);
+            sw.setSizeRequest(400, 140);
+            sw.add(lblCmd);
+            getMessageArea().add(sw);
+        } else {
+            getMessageArea().add(lblCmd);
+        }
+        
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
         btnIgnore.getStyleContext().addClass("destructive-action");
