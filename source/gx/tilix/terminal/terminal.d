@@ -1044,7 +1044,7 @@ private:
             if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
                 long row, column;
                 vte.getCursorPosition(column, row);
-                promptPosition ~= [row];
+                addPromptPosition(row);
                 tracef("Added prompt position %d", row);
             }
 
@@ -1507,42 +1507,62 @@ private:
 
 // Block for handling cycling between command prompts
 private:
-    long[] promptPosition;
+
+    import std.container.rbtree;
+
+    RedBlackTree!long promptPosition = redBlackTree!long();
+
+    void addPromptPosition(long position) {
+        promptPosition.insert(position);
+    }
 
     void moveToPrompt(int direction) {
         if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
         long lower = to!long(vte.getVadjustment.getLower());
         long upper = to!long(vte.getVadjustment.getUpper());
         long result;
+
+        //debugPromptPositions();
+
         tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
         long row = to!long(vte.getVadjustment().getValue());
-        auto sorted = assumeSorted(promptPosition);
+        ReturnType!(promptPosition.lowerBound) range;
         if (direction < 0) {
-            auto range = sorted.lowerBound(row);
-            if (range.length > 0) {
-                result = range[range.length -1];
-            } else result = lower;
+            range = promptPosition.lowerBound(row);
+            if (range.empty) result = lower;
+            else result = range.back;
         } else {
-            auto range = sorted.upperBound(row);
-            if (range.length > 0) {
-                result = range[0];
-            } else result = upper;
+            range = promptPosition.upperBound(row);
+            if (range.empty) result = upper;
+            else result = range.front();
         }
         if (result >= lower) {
             tracef("Current row %d, Moving to command prompt at %d", row, result);
             vte.getVadjustment.setValue(to!double(result));
         } else {
             tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
+            //debugPromptPositions();
+            promptPosition.remove(range);
+            //debugPromptPositions();
         }
     }
 
+    // void debugPromptPositions() {
+    //     string prompts;
+    //     foreach(p; promptPosition) prompts = prompts ~ "," ~ to!string(p);
+    //     tracef("Prompts: " ~ prompts);
+    // }
+
     void checkPromptBuffer() {
         if (!checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) || currentScreen != TerminalScreen.NORMAL) return;
-        if (promptPosition.length == 0) return;
+        if (promptPosition.empty) return;
+
+        //debugPromptPositions();
+
         // If upper bound of last recorded prompt is bigger then current upper bound of rows user must have cleared buffer, i.e. clear command
-        tracef("Check position %d against buffer size %f", promptPosition[promptPosition.length -1], vte.getVadjustment().getUpper());
-        if (promptPosition[promptPosition.length -1] < vte.getVadjustment().getUpper()) {
-            promptPosition = [];
+        tracef("Check position %d against buffer size %f", promptPosition.back, vte.getVadjustment().getLower());
+        if (promptPosition.back < to!long(vte.getVadjustment().getLower())) {
+            promptPosition.clear();
             trace("Cleared prompt positions");
         }
     }
@@ -4030,8 +4050,26 @@ public:
         getMessageArea().setMarginLeft(0);
         getMessageArea().setMarginRight(0);
         string[3] msg = getUnsafePasteMessage();
-        setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n\n" ~ "<tt><b>" ~ SimpleXML.markupEscapeText(cmd, cmd.length) ~ "</b></tt>");
+        setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n" );
         setImage(new Image("dialog-warning", IconSize.DIALOG));
+
+        Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
+        lblCmd.setUseMarkup(true);
+        lblCmd.setHalign(Align.START);
+
+        if (count(cmd,"\n") > 6) {
+            ScrolledWindow sw = new ScrolledWindow();
+            sw.setShadowType(ShadowType.ETCHED_IN);
+            sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+            sw.setHexpand(true);
+            sw.setVexpand(true);
+            sw.setSizeRequest(400, 140);
+            sw.add(lblCmd);
+            getMessageArea().add(sw);
+        } else {
+            getMessageArea().add(lblCmd);
+        }
+        
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
         btnIgnore.getStyleContext().addClass("destructive-action");
