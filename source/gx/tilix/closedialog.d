@@ -183,26 +183,24 @@ private:
         }
     }
 
+    static string getTitle(ProcessInfoSource source) {
+        final switch (source) {
+            case ProcessInfoSource.APPLICATION:
+                return _("Close Application");
+            case ProcessInfoSource.WINDOW:
+                return _("Close Window");
+            case ProcessInfoSource.SESSION:
+                return _("Close Session");
+            case ProcessInfoSource.TERMINAL:
+                return _("Close Session");
+        }
+    }
+
 public:
 
     this(Window parent, ProcessInformation processes) {
+        super(getTitle(processes.source), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         this.processes = processes;
-        string title;
-        final switch (processes.source) {
-            case ProcessInfoSource.APPLICATION:
-                title = _("Close Application");
-                break;
-            case ProcessInfoSource.WINDOW:
-                title = _("Close Window");
-                break;
-            case ProcessInfoSource.SESSION:
-                title = _("Close Session");
-                break;
-            case ProcessInfoSource.TERMINAL:
-                title = _("Close Session");
-                break;
-        }
-        super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
         setDefaultResponse(GtkResponseType.OK);
         createUI();
     }
