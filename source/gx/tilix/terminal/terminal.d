@@ -1042,7 +1042,7 @@ private:
             if (vte is null) return false;
 
             if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
-                long row, column;
+                glong row, column;
                 vte.getCursorPosition(column, row);
                 addPromptPosition(row);
                 tracef("Added prompt position %d", row);
