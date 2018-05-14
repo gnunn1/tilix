@@ -864,7 +864,7 @@ private:
         bool isCurrentSession = (session == getCurrentSession());
         removeSession(session);
         // Don't destroy session artificially due to GtkD issues
-        //session.destroy();
+        session.destroy();
         if (!isCurrentSession) {
             updateTitle();
             updateUIState();
