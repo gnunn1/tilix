@@ -1465,6 +1465,27 @@ public:
         }
     }
 
+    /**
+      * Adds a new 'auto-oriented' terminal to the currently
+      * focused terminal by comparing the width and the height.
+      *
+      * When the height is greater than the width it
+      * splits the screen horizontally. When the width is greater
+      * than the height it splits the terminal vertically.
+      */
+    void addAutoOrientedTerminal() {
+        if (currentTerminal !is null) {
+            int height = currentTerminal.getAllocatedHeight();
+            int width = currentTerminal.getAllocatedWidth();
+
+            if (height < width) {
+                addNewTerminal(currentTerminal, Orientation.HORIZONTAL);
+            } else {
+                addNewTerminal(currentTerminal, Orientation.VERTICAL);
+            }
+        }
+    }
+
     @property bool maximized() {
         return maximizedInfo.isMaximized;
     }
