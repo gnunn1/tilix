@@ -498,6 +498,8 @@ private:
     ColorButton cbBoldFG;
     ColorButton[16] cbPalette;
 
+    glong schemeOnChangedHandle;
+
     Button btnExport;
 
     void createUI() {
@@ -519,7 +521,7 @@ private:
         cbScheme.append("custom", _("Custom"));
         cbScheme.setHalign(Align.FILL);
         cbScheme.setHexpand(true);
-        cbScheme.addOnChanged(delegate(ComboBoxText cb) {
+        schemeOnChangedHandle = cbScheme.addOnChanged(delegate(ComboBoxText cb) {
             if (cb.getActive >= 0) {
                 if (cb.getActive() < schemes.length) {
                     ColorScheme scheme = schemes[cb.getActive];
@@ -861,12 +863,20 @@ private:
     void initColorSchemeCombo() {
         //Initialize ColorScheme
         ColorScheme scheme = getColorSchemeFromUI();
+        trace("Initialized color scheme");
+        trace(scheme);
 
         int index = findSchemeByColors(schemes, scheme);
-        if (index < 0)
-            cbScheme.setActive(to!int(schemes.length));
-        else
-            cbScheme.setActive(index);
+        import gobject.Signals;
+        Signals.handlerBlock(cbScheme, schemeOnChangedHandle);
+        try {
+            if (index < 0)
+                cbScheme.setActive(to!int(schemes.length));
+            else
+                cbScheme.setActive(index);
+        } finally {
+            Signals.handlerUnblock(cbScheme, schemeOnChangedHandle);
+        }
     }
 
     /**
@@ -887,22 +897,28 @@ private:
             //Bold colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_BOLD_COLOR_KEY, scheme.useBoldColor);
             if (scheme.useBoldColor) {
+                gsProfile.setString(SETTINGS_PROFILE_BOLD_COLOR_KEY, rgbaTo8bitHex(scheme.boldColor, false, true));
                 cbBoldFG.setRgba(scheme.boldColor);
             }
             //Badge colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_BADGE_COLOR_KEY, scheme.useBadgeColor);
             if (scheme.useBadgeColor) {
+                gsProfile.setString(SETTINGS_PROFILE_BADGE_COLOR_KEY, rgbaTo8bitHex(scheme.badgeColor, false, true));
                 cbBadgeFG.setRgba(scheme.badgeColor);
             }
             //Highlight colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_HIGHLIGHT_COLOR_KEY, scheme.useHighlightColor);
             if (scheme.useHighlightColor) {
+                gsProfile.setString(SETTINGS_PROFILE_HIGHLIGHT_FG_COLOR_KEY, rgbaTo8bitHex(scheme.highlightFG, false, true));
+                gsProfile.setString(SETTINGS_PROFILE_HIGHLIGHT_BG_COLOR_KEY, rgbaTo8bitHex(scheme.highlightBG, false, true));
                 cbHighlightFG.setRgba(scheme.highlightFG);
                 cbHighlightBG.setRgba(scheme.highlightBG);
             }
             //Cursor Colors
             gsProfile.setBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, scheme.useCursorColor);
             if (scheme.useCursorColor) {
+                gsProfile.setString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, rgbaTo8bitHex(scheme.cursorFG, false, true));
+                gsProfile.setString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY, rgbaTo8bitHex(scheme.cursorBG, false, true));
                 cbCursorFG.setRgba(scheme.cursorFG);
                 cbCursorBG.setRgba(scheme.cursorBG);
             }
@@ -970,6 +986,8 @@ private:
             cbScheme.append(scheme.id, scheme.name);
         }
         cbScheme.append("custom", _("Custom"));
+        import gtk.Main;
+        Main.iterationDo(false);
         initColorSchemeCombo();
     }
 

@@ -84,68 +84,73 @@ class ColorScheme {
     }
 
     bool equalColor(ColorScheme scheme) {
-        if (useThemeColors != scheme.useThemeColors) {
+        return equal(scheme, true);
+    }
+
+    bool equal(ColorScheme scheme, bool colorOnly) {
+        import gx.gtk.util: equal;
+
+        if (!colorOnly) {
+            if (!(scheme.id == this.id && scheme.name == this.name && scheme.comment == this.comment))
+                return false;
+        }
+        if (!(
+                scheme.useThemeColors == this.useThemeColors &&
+                scheme.useHighlightColor == this.useHighlightColor &&
+                scheme.useCursorColor == this.useCursorColor &&
+                scheme.useBadgeColor == this.useBadgeColor &&
+                scheme.useBoldColor == this.useBoldColor &&
+                scheme.palette.length == this.palette.length)) {
+
             return false;
         }
-        if (!useThemeColors) {
-            if (!(equal(foreground, scheme.foreground) && equal(background, scheme.background)))
+        if (useThemeColors) {
+            if (!(equal(scheme.background, this.background) &&
+                 equal(scheme.foreground, this.foreground))) {
+                     return false;
+                 }
+        }
+        if (useHighlightColor) {
+            if (!(equal(scheme.highlightFG, this.highlightFG) &&
+                  equal(scheme.highlightBG, this.highlightBG))) {
                 return false;
-            if (useCursorColor) {
-                if (!(equal(cursorFG, scheme.cursorFG) && equal(cursorBG, scheme.cursorBG)))
-                    return false;
-            }
-            if (useHighlightColor) {
-                if (!(equal(highlightFG, scheme.highlightFG) && equal(highlightBG, scheme.highlightBG)))
-                    return false;
-            }
-            if (useBadgeColor) {
-                if (!(equal(badgeColor, scheme.badgeColor)))
-                    return false;
-            }
-            if (useBoldColor) {
-                if (!(equal(boldColor, scheme.boldColor)))
-                    return false;
             }
         }
-        bool match = true;
-        foreach (i, color; palette) {
-            if (!equal(color, scheme.palette[i])) {
-                match = false;
-                break;
+        if (useCursorColor) {
+            if (!(  equal(scheme.cursorFG, this.cursorFG) &&
+                    equal(scheme.cursorBG, this.cursorBG))) {
+                return false;
             }
         }
-        return match;
+        if (useBadgeColor) {
+            if (!equal(scheme.badgeColor, this.badgeColor)) return false; 
+        }
+        if (useBoldColor) {
+            if (!equal(scheme.boldColor, this.boldColor)) return false;
+        }
+        foreach (index, color; palette) {
+            if (!equal(color, scheme.palette[index])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     override bool opEquals(Object o) {
-
-        import gx.gtk.util: equal;
-
-        if (auto scheme = cast(ColorScheme) o)
-            return scheme.id == id &&
-                   scheme.name == name &&
-                   scheme.comment == comment &&
-                   scheme.useThemeColors == useThemeColors &&
-                   scheme.useHighlightColor == useHighlightColor &&
-                   scheme.useCursorColor == useCursorColor &&
-                   equal(scheme.background, this.background) &&
-                   equal(scheme.foreground, this.foreground) &&
-                   equal(scheme.highlightFG, this.highlightFG) &&
-                   equal(scheme.highlightBG, this.highlightBG) &&
-                   equal(scheme.cursorFG, this.cursorFG) &&
-                   equal(scheme.cursorBG, this.cursorBG) &&
-                   equal(scheme.badgeColor, this.badgeColor) &&
-                   equal(scheme.boldColor, this.boldColor);
-        else
-            return false;
+        if (auto scheme = cast(ColorScheme) o) {
+            return equal(scheme, false);
+        }
+        return false;
    }
 
    void save(string filename) {
        saveScheme(this, filename);
    }
+
+   override string toString() {
+       return schemeToJson(this).toPrettyString();
+   }
 }
-
-
 
 /**
  * Finds a matching color scheme based on colors. This is used
@@ -153,9 +158,9 @@ class ColorScheme {
  * scheme, just the colors chosen.
  */
 int findSchemeByColors(ColorScheme[] schemes, ColorScheme scheme) {
-    foreach (pi, s; schemes) {
+    foreach (i, s; schemes) {
         if (scheme.equalColor(s))
-            return to!int(pi);
+            return to!int(i);
     }
     return -1;
 }
@@ -252,9 +257,8 @@ private ColorScheme loadScheme(string fileName) {
     return cs;
 }
 
-private void saveScheme(ColorScheme scheme, string filename) {
-
-    JSONValue root = [SCHEME_KEY_NAME : stripExtension(baseName(filename)),
+private JSONValue schemeToJson(ColorScheme scheme) {
+    JSONValue root = [SCHEME_KEY_NAME : stripExtension(baseName(scheme.name)),
                       SCHEME_KEY_COMMENT: scheme.comment,
                       SCHEME_KEY_FOREGROUND: rgbaTo8bitHex(scheme.foreground, false, true),
                       SCHEME_KEY_BACKGROUND: rgbaTo8bitHex(scheme.background, false, true),
@@ -276,8 +280,13 @@ private void saveScheme(ColorScheme scheme, string filename) {
         palette ~= rgbaTo8bitHex(color, false, true);
     }
     root.object["palette"] = palette;
+    return root;
+}
 
-    string json = root.toPrettyString();
+private void saveScheme(ColorScheme scheme, string filename) {
+    JSONValue value = schemeToJson(scheme);
+    value[SCHEME_KEY_NAME] = stripExtension(baseName(filename));
+    string json = value.toPrettyString();
     write(filename, json);
 }
 
