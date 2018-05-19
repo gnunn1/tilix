@@ -1524,7 +1524,7 @@ private:
 
         //debugPromptPositions();
 
-        tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
+        //tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
         long row = to!long(vte.getVadjustment().getValue());
         ReturnType!(promptPosition.lowerBound) range;
         if (direction < 0) {
@@ -1537,10 +1537,10 @@ private:
             else result = range.front();
         }
         if (result >= lower) {
-            tracef("Current row %d, Moving to command prompt at %d", row, result);
+            //tracef("Current row %d, Moving to command prompt at %d", row, result);
             vte.getVadjustment.setValue(to!double(result));
         } else {
-            tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
+            //tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
             //debugPromptPositions();
             promptPosition.remove(range);
             //debugPromptPositions();
@@ -1560,10 +1560,10 @@ private:
         //debugPromptPositions();
 
         // If upper bound of last recorded prompt is bigger then current upper bound of rows user must have cleared buffer, i.e. clear command
-        tracef("Check position %d against buffer size %f", promptPosition.back, vte.getVadjustment().getLower());
+        //tracef("Check position %d against buffer size %f", promptPosition.back, vte.getVadjustment().getLower());
         if (promptPosition.back < to!long(vte.getVadjustment().getLower())) {
             promptPosition.clear();
-            trace("Cleared prompt positions");
+            //trace("Cleared prompt positions");
         }
     }
 
@@ -3565,7 +3565,7 @@ public:
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
-        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
         gsDesktop.addOnChanged(delegate(string key, GSettings) {
             if (key == SETTINGS_MONOSPACE_FONT_KEY) {

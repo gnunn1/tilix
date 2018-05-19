@@ -1040,7 +1040,7 @@ public:
         super(Orientation.VERTICAL, 6);
         this.gsSettings = gsSettings;
         bh = new BindingHelper(gsSettings);
-        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         createUI();
         this.addOnDestroy(delegate(Widget) {
             bh.unbind();

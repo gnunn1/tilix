@@ -261,7 +261,7 @@ private:
      * Create the user interface
      */
     void createUI() {
-        GSettings gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        GSettings gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
 
         createWindowActions(gsShortcuts);
         createSessionActions(gsShortcuts);
