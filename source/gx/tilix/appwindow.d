@@ -118,6 +118,7 @@ public:
     enum ACTION_PREFIX = "session";
     enum ACTION_SESSION_ADD_RIGHT = "add-right";
     enum ACTION_SESSION_ADD_DOWN = "add-down";
+    enum ACTION_SESSION_ADD_AUTO = "add-auto";
 
 private:
 
@@ -161,6 +162,7 @@ private:
     SimpleAction saViewSideBar;
     SimpleAction saSessionAddRight;
     SimpleAction saSessionAddDown;
+    SimpleAction saSessionAddAuto;
 
     Label lblSideBar;
 
@@ -592,8 +594,13 @@ private:
         });
         saSessionAddDown = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_DOWN, gsShortcuts, delegate(GVariant, SimpleAction) {
             Session session = getCurrentSession();
-            if (session !is null && !session.maximized) 
+            if (session !is null && !session.maximized)
                 session.addTerminal(Orientation.VERTICAL);
+        });
+        saSessionAddAuto = registerActionWithSettings(sessionActions, ACTION_PREFIX, ACTION_SESSION_ADD_AUTO, gsShortcuts, delegate(GVariant, SimpleAction) {
+            Session session = getCurrentSession();
+            if (session !is null && !session.maximized)
+                session.addAutoOrientedTerminal();
         });
 
         /* TODO - GTK doesn't support settings Tab for accelerators, need to look into this more */
