@@ -2424,6 +2424,11 @@ private:
                 vte.setCellWidthScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY));
             }
             break;
+        case SETTINGS_PROFILE_MARGIN_KEY:
+            if (vte !is null && isVTEBackgroundDrawEnabled()) {
+                margin = gsProfile.getInt(SETTINGS_PROFILE_MARGIN_KEY);
+                vte.queueDraw();
+            }
         default:
             break;
         }
@@ -2470,7 +2475,8 @@ private:
             SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY,
             SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY,
             SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY,
-            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY
+            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY,
+            SETTINGS_PROFILE_MARGIN_KEY
         ];
 
         foreach (key; keys) {
@@ -3269,7 +3275,11 @@ private:
         }
     }
 
-    const uint BADGE_MARGIN = 10;
+    static const uint BADGE_MARGIN = 10;
+
+    static double[] marginDash = [2.0, 4.0];
+
+    int margin = 0;
 
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
@@ -3286,6 +3296,17 @@ private:
             cr.paint();
             cr.resetClip();
         }
+        //Draw Margin line
+        if (margin > 0) {
+            double r, g, b;
+            contrast(0.40, vteFG, r, g, b);
+            cr.setSourceRgba(r, g, b, 1.0);
+            cr.setDash(marginDash, 0.0);
+            cr.moveTo(vte.getCharWidth() * margin, 0);
+            cr.lineTo(vte.getCharWidth() * margin, height);
+            cr.stroke();
+        }
+
         //Draw badge if badge text is available
         if (_cachedBadge.length > 0) {
             // Paint badge

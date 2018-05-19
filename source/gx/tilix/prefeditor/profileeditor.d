@@ -335,6 +335,16 @@ protected:
             sgHeight.addWidget(lblHeightSpacing);
         }
 
+        if (isVTEBackgroundDrawEnabled()) {
+            Label lblMargin = new Label(_("Margin"));
+            lblMargin.setHalign(Align.END);
+            grid.attach(lblMargin, 0, row, 1, 1);
+            SpinButton sbMargin = new SpinButton(0.0, 256.0, 4);
+            bh.bind(SETTINGS_PROFILE_MARGIN_KEY, sbMargin, "value", GSettingsBindFlags.DEFAULT);
+            grid.attach(sbMargin, 1, row, 1, 1);
+            row++;
+        }
+
         if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
             //Text Blink Mode
             Label lblTextBlinkMode = new Label(_("Text blink mode"));

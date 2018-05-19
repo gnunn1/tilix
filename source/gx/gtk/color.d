@@ -62,6 +62,12 @@ RGBA getOppositeColor(RGBA rgba) {
     return result;
 }
 
+void contrast(double percent, RGBA rgba, out double r, out double g, out double b) {
+    double brightness = ((rgba.red * 299.0) + (rgba.green * 587.0) + (rgba.blue * 114.0)) / 1000;
+    if (brightness > 0.5) darken(percent, rgba, r, g, b);
+    else lighten(percent, rgba, r, g, b);
+}
+
 void lighten(double percent, RGBA rgba, out double r, out double g, out double b) {
     adjustColor(percent, rgba, r, g, b);
 }
