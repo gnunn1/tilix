@@ -308,11 +308,7 @@ private:
             sb.onSessionDetach.connect(&onSessionDetach);
             sb.onIsActionAllowed.connect(&onIsActionAllowed);
         } else {
-            if (isQuake) {
-                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_QUAKE_TAB_POSITION_KEY));
-            } else {
-                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
-            }
+            updateTabPosition();
         }
 
         Overlay overlay;
@@ -789,7 +785,7 @@ private:
         if (!useTabs) {
             index = nb.appendPage(session, session.name);
         } else {
-            SessionTabLabel label = new SessionTabLabel(session.displayName, session);
+            SessionTabLabel label = new SessionTabLabel(nb.getTabPos, session.displayName, session);
             index = nb.appendPage(session, label);
         }
         nb.showAll();
@@ -1292,6 +1288,20 @@ private:
         updateVisual();
     }
 
+    void updateTabPosition() {
+        if (useTabs) {
+            if (isQuake) {
+                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_QUAKE_TAB_POSITION_KEY));
+            } else {
+                nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
+            }
+            for (int i=0; i<nb.getNPages; i++) {
+                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(nb.getNthPage(i));
+                label.updatePositionType(nb.getTabPos);
+            }
+        }
+    }
+
     void applyPreference(string key) {
         switch(key) {
             case SETTINGS_QUAKE_WIDTH_PERCENT_KEY, SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, SETTINGS_QUAKE_ALIGNMENT_KEY:
@@ -1306,14 +1316,10 @@ private:
                 }
                 break;
             case SETTINGS_QUAKE_TAB_POSITION_KEY:
-                if (isQuake && useTabs) {
-                    nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_QUAKE_TAB_POSITION_KEY));
-                }
+                updateTabPosition();
                 break;
             case SETTINGS_TAB_POSITION_KEY:
-                if (useTabs && !isQuake) {
-                    nb.setTabPos(cast(GtkPositionType) gsSettings.getEnum(SETTINGS_TAB_POSITION_KEY));
-                }
+                updateTabPosition();
                 break;
             /*
             case SETTINGS_QUAKE_DISABLE_ANIMATION_KEY:
@@ -2042,8 +2048,8 @@ private:
 
 public:
 
-	this(string text, Session session) {
-		super(Orientation.HORIZONTAL, 5);
+	this(PositionType position, string text, Session session) {
+		super( (position==PositionType.LEFT || PositionType.RIGHT)?Orientation.VERTICAL:Orientation.HORIZONTAL , 5);
 
 		this.session = session;
 
@@ -2065,7 +2071,7 @@ public:
 		lblText = new Label(text);
         lblText.setEllipsize(PangoEllipsizeMode.START);
 		lblText.setWidthChars(10);
-        lblText.setHexpand(true);
+        updatePositionType(position);
 		add(lblText);
 
 		button = new Button("window-close-symbolic", IconSize.MENU);
@@ -2108,6 +2114,21 @@ public:
             lblNotifications.show();
         }
     }
+
+    void updatePositionType(PositionType position) {
+        if (position == PositionType.LEFT || position == PositionType.RIGHT) {
+            setOrientation(Orientation.VERTICAL);
+            lblText.setAngle(position==PositionType.LEFT?90:270);
+            lblText.setHexpand(false);
+            lblText.setVexpand(true);
+        } else {
+            setOrientation(Orientation.HORIZONTAL);
+            lblText.setAngle(0);
+            lblText.setHexpand(true);
+            lblText.setVexpand(false);
+        }
+    }
+
 
     void clearNotifications() {
         afNotifications.hide();
