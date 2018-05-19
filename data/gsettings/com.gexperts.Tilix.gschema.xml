@@ -605,7 +605,7 @@
       <summary>A Pango font name and size</summary>
     </key>
     <key name="draw-margin" type="i">
-      <default>0</default>
+      <default>80</default>
       <summary>Draws a margin line at the column specified</summary>
       <description>Draws a margin line at the column specified, 0 indicates no margin.</description>
     </key>
@@ -1228,6 +1228,10 @@
     <key name="terminal-previous-prompt" type="s">
       <default>'disabled'</default>
       <summary>Keyboard shortcut to move to previous prompt</summary>
+    </key>
+    <key name="terminal-toggle-margin" type="s">
+      <default>'&lt;Ctrl&gt;&lt;Alt&gt;m'</default>
+      <summary>Keyboard shortcut to toggle margin display</summary>
     </key>
     <!-- Nautilus Shortcut for Open in Tilix -->
     <key name="nautilus-open" type="s">

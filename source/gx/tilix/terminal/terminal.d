@@ -793,6 +793,12 @@ private:
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() + vte.getVadjustment().getPageSize());
         }, null, null);
 
+        // Toggle margin
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TOGGLE_MARGIN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            marginEnabled = !marginEnabled;
+            vte.queueDraw();
+        }, null, null);
+
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
@@ -3280,6 +3286,7 @@ private:
     static double[] marginDash = [2.0, 4.0];
 
     int margin = 0;
+    bool marginEnabled = false;
 
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
@@ -3297,7 +3304,7 @@ private:
             cr.resetClip();
         }
         //Draw Margin line
-        if (margin > 0) {
+        if (margin > 0 && marginEnabled) {
             double r, g, b;
             contrast(0.40, vteFG, r, g, b);
             cr.setSourceRgba(r, g, b, 1.0);
