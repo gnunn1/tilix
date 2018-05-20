@@ -2407,7 +2407,7 @@ private:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
         case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
-            if (vte !is null) 
+            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) 
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
