@@ -6,7 +6,12 @@ module gx.gtk.cairo;
 
 import std.algorithm;
 import std.conv;
-import std.datetime;
+static if (__VERSION__ >= 2075) {
+    import std.datetime.date;
+    import std.datetime.stopwatch;
+} else {
+    import std.datetime;
+}
 import std.experimental.logger;
 
 import cairo.Context;
@@ -40,12 +45,20 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
-        tracef("Total time getting thumbnail: %d msecs", sw.peek().msecs);
+        static if (__VERSION__ >= 2075) {
+            tracef("Total time getting thumbnail: %d msecs", sw.peek.total!"msecs");
+        }
     }
     if (widget.isDrawable()) {
         widget.queueDraw();
-        while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
-            Main.iterationDo(false);
+        static if (__VERSION__ >= 2075) {
+            while (gtk.Main.Main.eventsPending() && sw.peek.total!"msecs"<100) {
+                Main.iterationDo(false);
+            }
+        } else {
+            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
+                Main.iterationDo(false);
+            }
         }
         return getDrawableWidgetImage(widget, factor, width, height);
     } else {
@@ -71,8 +84,14 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             gives me even more shudders then the less then optimal
             solution implemented here.
             */
-            while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
-                Main.iterationDo(false);
+            static if (__VERSION__ >= 2075) {
+                while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek.total!"msecs"<100) {
+                    Main.iterationDo(false);
+                }
+            } else {
+                while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
+                    Main.iterationDo(false);
+                }
             }
             // While we could call getPixBuf() on Offscreen Window, drawing
             // it ourselves gives better results when dealing with transparency
@@ -134,7 +153,9 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
-        tracef("Total time getting image: %d msecs", sw.peek().msecs);
+        static if (__VERSION__ >= 2075) {
+            tracef("Total time getting image: %d msecs", sw.peek.total!"msecs");
+        }
     }
     final switch (mode) {
         case ImageLayoutMode.SCALE:

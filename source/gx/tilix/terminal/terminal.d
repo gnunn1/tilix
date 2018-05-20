@@ -2435,6 +2435,7 @@ private:
                 margin = gsProfile.getInt(SETTINGS_PROFILE_MARGIN_KEY);
                 vte.queueDraw();
             }
+            break;
         default:
             break;
         }

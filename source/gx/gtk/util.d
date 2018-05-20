@@ -64,17 +64,32 @@ public FileIF parseName(string parseName) {
     return ObjectG.getDObject!(FileIF)(cast(GFile*) p, true);
 }
 
+
+
 /**
  * Directly process events for up to a specified period
  */
-void processEvents(uint millis) {
-    import std.datetime: StopWatch, AutoStart;
-    StopWatch sw = StopWatch(AutoStart.yes);
-    scope (exit) {
-        sw.stop();
+static if (__VERSION__ >=2075) {
+    void processEvents(uint millis) {
+        import std.datetime.stopwatch: StopWatch, AutoStart;
+        StopWatch sw = StopWatch(AutoStart.yes);
+        scope (exit) {
+            sw.stop();
+        }
+        while (gtk.Main.Main.eventsPending() && sw.peek.total!"msecs" < millis) {
+            Main.iterationDo(false);
+        }
     }
-    while (gtk.Main.Main.eventsPending() && sw.peek().msecs < millis) {
-        Main.iterationDo(false);
+} else {
+    void processEvents(uint millis) {
+        import std.datetime: StopWatch, AutoStart;
+        StopWatch sw = StopWatch(AutoStart.yes);
+        scope (exit) {
+            sw.stop();
+        }
+        while (gtk.Main.Main.eventsPending() && sw.peek().msecs < millis) {
+            Main.iterationDo(false);
+        }
     }
 }
 
