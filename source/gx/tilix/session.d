@@ -1300,6 +1300,7 @@ public:
      * Resize terminal based on direction
      */
     void resizeTerminal(string direction) {
+        if (terminals.length <= 1) return;
         Terminal terminal = currentTerminal;
         if (terminal !is null) {
             Container parent = cast(Container) terminal;
@@ -1322,7 +1323,8 @@ public:
                         return;
                     }
                 }
-                parent = cast(Container) parent.getParent();
+                if (parent.getParent() is null) parent = null;
+                else parent = cast(Container) parent.getParent();
             }
         }
     }
