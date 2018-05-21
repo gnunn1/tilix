@@ -511,7 +511,7 @@ private:
         trace("Startup App Signal");
         Settings.getDefault.addOnNotify(&handleThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
-        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         trace("Monitoring shortcuts");
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
             string actionName = keyToDetailedActionName(key);

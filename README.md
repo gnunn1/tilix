@@ -3,8 +3,6 @@
 # Tilix
 A tiling terminal emulator for Linux using GTK+ 3. The Tilix web site for users is available at [https://gnunn1.github.io/tilix-web](https://gnunn1.github.io/tilix-web).
 
-*Note that Terminix is changing its name to Tilix due to a trademark issue with the Terminix International Corporation. It may take a few weeks to complete the process, thank you in advance for your patience while we work through this change.*
-
 ###### Screenshot
 ![Screenshot](https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png)
 
@@ -87,7 +85,7 @@ Note there is also experimental support for autotools, please see the wiki page 
 #### Build Dependencies
 
 Tilix depends on the following libraries as defined in dub.json:
-* [gtkd](http://gtkd.org/) >= 3.7.5
+* [gtkd](http://gtkd.org/) >= 3.8.2
 * gdk-pixbuf-pixdata (Used when building resource file)
 
 ### Install Tilix

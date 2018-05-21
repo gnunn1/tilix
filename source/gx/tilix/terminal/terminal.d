@@ -793,6 +793,12 @@ private:
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() + vte.getVadjustment().getPageSize());
         }, null, null);
 
+        // Toggle margin
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TOGGLE_MARGIN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+            marginEnabled = !marginEnabled;
+            vte.queueDraw();
+        }, null, null);
+
         //Insert Terminal Actions
         insertActionGroup(ACTION_PREFIX, sagTerminalActions);
     }
@@ -1524,7 +1530,7 @@ private:
 
         //debugPromptPositions();
 
-        tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
+        //tracef("promptPosition length %d, lower bound %d, upper bound %d",promptPosition.length, lower, upper);
         long row = to!long(vte.getVadjustment().getValue());
         ReturnType!(promptPosition.lowerBound) range;
         if (direction < 0) {
@@ -1537,10 +1543,10 @@ private:
             else result = range.front();
         }
         if (result >= lower) {
-            tracef("Current row %d, Moving to command prompt at %d", row, result);
+            //tracef("Current row %d, Moving to command prompt at %d", row, result);
             vte.getVadjustment.setValue(to!double(result));
         } else {
-            tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
+            //tracef("Cannot move to command prompt at %d, buffer doesn't go that far back", result);
             //debugPromptPositions();
             promptPosition.remove(range);
             //debugPromptPositions();
@@ -1560,10 +1566,10 @@ private:
         //debugPromptPositions();
 
         // If upper bound of last recorded prompt is bigger then current upper bound of rows user must have cleared buffer, i.e. clear command
-        tracef("Check position %d against buffer size %f", promptPosition.back, vte.getVadjustment().getLower());
+        //tracef("Check position %d against buffer size %f", promptPosition.back, vte.getVadjustment().getLower());
         if (promptPosition.back < to!long(vte.getVadjustment().getLower())) {
             promptPosition.clear();
-            trace("Cleared prompt positions");
+            //trace("Cleared prompt positions");
         }
     }
 
@@ -2401,7 +2407,7 @@ private:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
         case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
-            if (vte !is null) 
+            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) 
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
@@ -2422,6 +2428,12 @@ private:
         case SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY:
             if (vte !is null && checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
                 vte.setCellWidthScale(gsProfile.getDouble(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY));
+            }
+            break;
+        case SETTINGS_PROFILE_MARGIN_KEY:
+            if (vte !is null && isVTEBackgroundDrawEnabled()) {
+                margin = gsProfile.getInt(SETTINGS_PROFILE_MARGIN_KEY);
+                vte.queueDraw();
             }
             break;
         default:
@@ -2470,7 +2482,8 @@ private:
             SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY,
             SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY,
             SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY,
-            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY
+            SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY,
+            SETTINGS_PROFILE_MARGIN_KEY
         ];
 
         foreach (key; keys) {
@@ -3269,7 +3282,12 @@ private:
         }
     }
 
-    const uint BADGE_MARGIN = 10;
+    static const uint BADGE_MARGIN = 10;
+
+    static double[] marginDash = [2.0, 4.0];
+
+    int margin = 0;
+    bool marginEnabled = false;
 
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
@@ -3286,6 +3304,17 @@ private:
             cr.paint();
             cr.resetClip();
         }
+        //Draw Margin line
+        if (margin > 0 && marginEnabled) {
+            double r, g, b;
+            contrast(0.40, vteFG, r, g, b);
+            cr.setSourceRgba(r, g, b, 1.0);
+            cr.setDash(marginDash, 0.0);
+            cr.moveTo(vte.getCharWidth() * margin, 0);
+            cr.lineTo(vte.getCharWidth() * margin, height);
+            cr.stroke();
+        }
+
         //Draw badge if badge text is available
         if (_cachedBadge.length > 0) {
             // Paint badge
@@ -3544,7 +3573,7 @@ public:
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
-        gsShortcuts = new GSettings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
         gsDesktop.addOnChanged(delegate(string key, GSettings) {
             if (key == SETTINGS_MONOSPACE_FONT_KEY) {

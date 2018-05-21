@@ -228,8 +228,10 @@ enum SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY = "automatic-switch";
 
 enum SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY = "notify-silence-threshold";
 
+enum SETTINGS_PROFILE_MARGIN_KEY = "draw-margin";
+
 //Shortcuts
-enum SETTINGS_PROFILE_KEY_BINDINGS_ID = "com.gexperts.Tilix.Keybindings";
+enum SETTINGS_KEY_BINDINGS_ID = "com.gexperts.Tilix.Keybindings";
 
 /**
  * The default value to use for the name of the default profile

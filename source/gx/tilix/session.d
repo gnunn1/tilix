@@ -1300,6 +1300,7 @@ public:
      * Resize terminal based on direction
      */
     void resizeTerminal(string direction) {
+        if (terminals.length <= 1) return;
         Terminal terminal = currentTerminal;
         if (terminal !is null) {
             Container parent = cast(Container) terminal;
@@ -1322,7 +1323,8 @@ public:
                         return;
                     }
                 }
-                parent = cast(Container) parent.getParent();
+                if (parent.getParent() is null) parent = null;
+                else parent = cast(Container) parent.getParent();
             }
         }
     }
@@ -1462,6 +1464,27 @@ public:
     void addTerminal(Orientation orientation) {
         if (currentTerminal !is null) {
             addNewTerminal(currentTerminal, orientation);
+        }
+    }
+
+    /**
+      * Adds a new 'auto-oriented' terminal to the currently
+      * focused terminal by comparing the width and the height.
+      *
+      * When the height is greater than the width it
+      * splits the screen horizontally. When the width is greater
+      * than the height it splits the terminal vertically.
+      */
+    void addAutoOrientedTerminal() {
+        if (currentTerminal !is null) {
+            int height = currentTerminal.getAllocatedHeight();
+            int width = currentTerminal.getAllocatedWidth();
+
+            if (height < width) {
+                addNewTerminal(currentTerminal, Orientation.HORIZONTAL);
+            } else {
+                addNewTerminal(currentTerminal, Orientation.VERTICAL);
+            }
         }
     }
 

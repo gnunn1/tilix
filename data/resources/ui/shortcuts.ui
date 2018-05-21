@@ -194,6 +194,10 @@
                 <property name="visible">1</property>
                 <property name="title" translatable="yes" context="shortcut window">Add terminal down</property>
               </object>
+              <object class="GtkShortcutsShortcut" id ="session-add-auto">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Add terminal automatically</property>
+              </object>
             </child>
           </object>
         </child>
@@ -591,6 +595,12 @@
               <object class="GtkShortcutsShortcut" id ="terminal-file-browser">
                 <property name="visible">1</property>
                 <property name="title" translatable="yes" context="shortcut window">Open file browser</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id ="terminal-toggle-margin">
+                <property name="visible">1</property>
+                <property name="title" translatable="yes" context="shortcut window">Toggle margin</property>
               </object>
             </child>
           </object>

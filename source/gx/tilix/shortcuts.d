@@ -33,7 +33,7 @@ ShortcutsWindow getShortcutWindow() {
         error("Could not load shortcuts from " ~ SHORTCUT_UI_RESOURCE);
         return null;
     }
-    Settings gsShortcuts = new Settings(SETTINGS_PROFILE_KEY_BINDINGS_ID);
+    Settings gsShortcuts = new Settings(SETTINGS_KEY_BINDINGS_ID);
     string[] keys = gsShortcuts.listKeys();
     foreach(key; keys) {
         ShortcutsShortcut ss = cast(ShortcutsShortcut) builder.getObject(key);

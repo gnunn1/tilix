@@ -5,6 +5,7 @@
 module gx.tilix.prefeditor.common;
 
 import std.format;
+import std.experimental.logger;
 
 import gio.Settings: GSettings = Settings;
 
@@ -13,6 +14,7 @@ import gtk.Button;
 import gtk.Grid;
 import gtk.Label;
 import gtk.Window;
+import gtk.Version;
 
 import gx.gtk.vte;
 import gx.i18n.l10n;
@@ -101,7 +103,9 @@ Label createDescriptionLabel(string desc) {
     lblDescription.setSensitive(false);
     lblDescription.setLineWrap(true);
     lblDescription.setHalign(Align.START);
-    lblDescription.setXalign(0.0);
+    if (Version.checkVersion(3, 16, 0).length == 0) {
+        lblDescription.setXalign(0.0);
+    }
     lblDescription.setMaxWidthChars(70);
     return lblDescription;
 }

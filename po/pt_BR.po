@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-15 10:39-0400\n"
-"PO-Revision-Date: 2018-03-19 23:41+0000\n"
-"Last-Translator: Felipe Gusmao <fgunix@gmail.com>\n"
+"PO-Revision-Date: 2018-05-21 13:29+0000\n"
+"Last-Translator: Davi da Silva Böger <dsboger@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.0-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -203,11 +203,11 @@ msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:1663
 msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr ""
+msgstr "Modo Quake não é suportado no Wayland, usando janela normal"
 
 #: source/gx/tilix/appwindow.d:1665
 msgid "Quake Mode Not Supported"
-msgstr ""
+msgstr "Modo Quake não suportado"
 
 #: source/gx/tilix/appwindow.d:2075
 msgid "Close session"
@@ -719,9 +719,8 @@ msgid "rows"
 msgstr "linhas"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:297
-#, fuzzy
 msgid "Cell spacing"
-msgstr "Espaçamento do terminal"
+msgstr "Espaçamento das células"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:307
 msgid "width"
@@ -732,27 +731,24 @@ msgid "height"
 msgstr "altura"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:340
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Piscar"
+msgstr "Piscar texto"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:343
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:343
-#, fuzzy
 msgid "Focused"
-msgstr "Ativar janela existente"
+msgstr "Quando terminal tiver o foco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:343
-#, fuzzy
 msgid "Unfocused"
-msgstr "Escurecer quando fora de foco"
+msgstr "Quando terminal não tiver o foco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:343
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:362
 #, fuzzy
@@ -765,7 +761,7 @@ msgstr "Escolher fonte do terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:383
 msgid "Word-wise select chars"
-msgstr ""
+msgstr "Delimitadores de seleção"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:391
 #: source/gx/tilix/prefeditor/profileeditor.d:399
@@ -786,9 +782,8 @@ msgid "Underline"
 msgstr "Sublinhado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:410
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Piscar"
+msgstr "Piscar cursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:413
 msgid "System"
@@ -803,9 +798,8 @@ msgid "Off"
 msgstr "Desligado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:418
-#, fuzzy
 msgid "Notification"
-msgstr "EnviarNotificação"
+msgstr "Notificações"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:429
 #: source/gx/tilix/prefeditor/prefdialog.d:1092
@@ -822,7 +816,6 @@ msgid "Icon"
 msgstr "Ícone"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:429
-#, fuzzy
 msgid "Icon and sound"
 msgstr "Ícone e som"
 
@@ -867,7 +860,7 @@ msgstr "Utilizar cores de sistema para texto/fundo"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:576
 msgid "Show bold text in bright colors"
-msgstr ""
+msgstr "Mostrar texto em negrito com cores brilhantes"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:588
 msgid "Transparency"
@@ -1223,7 +1216,7 @@ msgstr "Perfil: %s"
 #: source/gx/tilix/prefeditor/prefdialog.d:365
 #, c-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr ""
+msgstr "Tem certeza de que deseja excluir '%s'?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:556
 msgid "Clone"
@@ -1437,13 +1430,12 @@ msgid "Delay hiding window by (ms)"
 msgstr "Atraso ao esconder janela (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1336
-#, fuzzy
 msgid "Hide the toolbar of the window"
-msgstr "Ocultar a barra de título da janela"
+msgstr "Ocultar a barra de ferramentas da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
 msgid "Keep window always on top"
-msgstr ""
+msgstr "Manter janela sempre no topo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Display terminal on active monitor"
@@ -1544,7 +1536,6 @@ msgid "Automatically copy text to clipboard when selecting"
 msgstr "Copiar texto automaticamente ao selecionar"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
-#, fuzzy
 msgid "Session"
 msgstr "Sessão"
 
@@ -1568,12 +1559,11 @@ msgstr "Não diferenciar maiúsculas/minúsculas"
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
-msgstr ""
+msgstr "Mover acima"
 
 #: source/gx/tilix/prefeditor/advdialog.d:162
-#, fuzzy
 msgid "Move down"
-msgstr "Rolar uma página para baixo"
+msgstr "Mover abaixo"
 
 #: source/gx/tilix/prefeditor/advdialog.d:192
 msgid "Edit Custom Links"
@@ -1861,14 +1851,12 @@ msgid "Process"
 msgstr "Processo"
 
 #: source/gx/tilix/constants.d:185
-#, fuzzy
 msgid "Terminal count"
-msgstr "Terminal"
+msgstr "Número total de terminais"
 
 #: source/gx/tilix/constants.d:186
-#, fuzzy
 msgid "Terminal number"
-msgstr "Sinal de atenção"
+msgstr "Número do terminal"
 
 #: source/gx/tilix/constants.d:187
 msgid "Active terminal title"
@@ -2242,16 +2230,14 @@ msgid "Switch to previous session"
 msgstr "Alternar para a sessão anterior"
 
 #: data/resources/ui/shortcuts.ui:73
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to next session"
-msgstr "Alternar para a próxima sessão"
+msgstr "Mover sessão para baixo/direita"
 
 #: data/resources/ui/shortcuts.ui:79
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to previous session"
-msgstr "Alternar para a sessão anterior"
+msgstr "Mover sessão para cima/esquerda"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
@@ -2581,12 +2567,12 @@ msgstr "Rolar uma página para baixo"
 #: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Previous prompt"
-msgstr ""
+msgstr "Prompt anterior"
 
 #: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Next prompt"
-msgstr ""
+msgstr "Próximo prompt"
 
 #: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"

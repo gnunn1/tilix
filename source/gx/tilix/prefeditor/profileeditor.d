@@ -270,14 +270,18 @@ protected:
         Box box = new Box(Orientation.HORIZONTAL, 5);
         box.add(sbColumn);
         Label lblColumns = new Label(_("columns"));
-        lblColumns.setXalign(0.0);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            lblColumns.setXalign(0.0);
+        }
         lblColumns.setMarginRight(6);
         lblColumns.setSensitive(false);
         box.add(lblColumns);
 
         box.add(sbRow);
         Label lblRows = new Label(_("rows"));
-        lblRows.setXalign(0.0);
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            lblRows.setXalign(0.0);
+        }
         lblRows.setMarginRight(6);
         lblRows.setSensitive(false);
         box.add(lblRows);
@@ -305,14 +309,18 @@ protected:
             Box bSpacing = new Box(Orientation.HORIZONTAL, 5);
             bSpacing.add(sbWidthSpacing);
             Label lblWidthSpacing = new Label(_("width"));
-            lblWidthSpacing.setXalign(0.0);
+            if (Version.checkVersion(3, 16, 0).length == 0) {
+                lblWidthSpacing.setXalign(0.0);
+            }
             lblWidthSpacing.setMarginRight(6);
             lblWidthSpacing.setSensitive(false);
             bSpacing.add(lblWidthSpacing);
 
             bSpacing.add(sbHeightSpacing);
             Label lblHeightSpacing = new Label(_("height"));
-            lblHeightSpacing.setXalign(0.0);
+            if (Version.checkVersion(3, 16, 0).length == 0) {
+                lblHeightSpacing.setXalign(0.0);
+            }
             lblHeightSpacing.setMarginRight(6);
             lblHeightSpacing.setSensitive(false);
             bSpacing.add(lblHeightSpacing);
@@ -333,6 +341,16 @@ protected:
             SizeGroup sgHeight = new SizeGroup(SizeGroupMode.HORIZONTAL);
             sgHeight.addWidget(lblRows);
             sgHeight.addWidget(lblHeightSpacing);
+        }
+
+        if (isVTEBackgroundDrawEnabled()) {
+            Label lblMargin = new Label(_("Margin"));
+            lblMargin.setHalign(Align.END);
+            grid.attach(lblMargin, 0, row, 1, 1);
+            SpinButton sbMargin = new SpinButton(0.0, 256.0, 4);
+            bh.bind(SETTINGS_PROFILE_MARGIN_KEY, sbMargin, "value", GSettingsBindFlags.DEFAULT);
+            grid.attach(sbMargin, 1, row, 1, 1);
+            row++;
         }
 
         if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
@@ -380,13 +398,15 @@ protected:
         row++;
 
         //Select-by-word-chars
-        Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
-        lblSelectByWordChars.setHalign(Align.END);
-        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
-        Entry eSelectByWordChars = new Entry();
-        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
-        grid.attach(eSelectByWordChars, 1, row, 1, 1);
-        row++;
+        if (checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) {
+            Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
+            lblSelectByWordChars.setHalign(Align.END);
+            grid.attach(lblSelectByWordChars, 0, row, 1, 1);
+            Entry eSelectByWordChars = new Entry();
+            bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
+            grid.attach(eSelectByWordChars, 1, row, 1, 1);
+            row++;
+        }
 
         Label lblCursorTitle = new Label(format("<b>%s</b>", _("Cursor")));
         lblCursorTitle.setUseMarkup(true);
