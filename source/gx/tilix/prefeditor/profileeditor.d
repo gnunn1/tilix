@@ -377,7 +377,7 @@ protected:
         // b.add(cbRewrap);
 
         //Custom Font
-        Label lblCustomFont = new Label(_("CustomFont"));
+        Label lblCustomFont = new Label(_("Custom font"));
         lblCustomFont.setHalign(Align.END);
         grid.attach(lblCustomFont, 0, row, 1, 1);
 
