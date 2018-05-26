@@ -124,6 +124,7 @@ private:
         }
         bContent.add(stEditors);
         getContentArea().add(bContent);
+        setSizeRequest(600, -1);
         updateUI();
     }
 
