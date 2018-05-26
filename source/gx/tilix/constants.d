@@ -57,7 +57,7 @@ immutable bool USE_PROCESS_MONITOR = false;
 
 // GTK Version required
 enum GTK_VERSION_MAJOR = 3;
-enum GTK_VERSION_MINOR = 14;
+enum GTK_VERSION_MINOR = 18;
 enum GTK_VERSION_PATCH = 0;
 
 // GTK version required for scrolledwindow
@@ -73,7 +73,7 @@ enum APPLICATION_ID = "com.gexperts.Tilix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Tilix";
-enum APPLICATION_VERSION = "1.8.1";
+enum APPLICATION_VERSION = "1.8.2-0.0.1";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2017 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");

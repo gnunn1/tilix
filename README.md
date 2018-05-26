@@ -53,7 +53,7 @@ mv ~/.config/terminix ~/.config/tilix
 ### Dependencies
 
 Tilix requires the following libraries to be installed in order to run:
-* GTK 3.14 or later
+* GTK 3.18 or later (Tilix 1.8.3 or later, earlier versions supported GTK 3.14)
 * GTK VTE 0.42 or later
 * dconf
 * GSettings
