@@ -1,0 +1,76 @@
+name: tilix
+version: git
+summary: A tiling terminal emulator for Linux using GTK+ 3
+description: |
+  Tilix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the following features:
+    - Layout terminals in any fashion by splitting them horizontally or vertically
+    - Terminals can be re-arranged using drag and drop both within and between windows
+    - Terminals can be detached into a new window via drag and drop
+    - Input can be synchronized between terminals so commands typed in one terminal are replicated to the others
+    - The grouping of terminals can be saved and loaded from disk
+    - Terminals support custom titles
+    - Color schemes are stored in files and custom color schemes can be created by simply creating a new file
+    - Transparent background
+    - Background images
+    - Quake mode support (i.e. drop-down terminal)
+    - Custom hyperlinks
+    - Automatic (triggered) profile switches based on hostname and directory
+
+
+grade: devel
+confinement: classic
+icon: data/icons/hicolor/scalable/apps/com.gexperts.Tilix-symbolic.svg
+
+apps:
+  tilix:
+    command: desktop-launch $SNAP/usr/local/bin/tilix
+    desktop: usr/local/share/applications/com.gexperts.Tilix.desktop
+
+parts:
+  tilix:
+    source: .
+    after: 
+    - desktop-gtk3
+    - vte
+    build-snaps:
+    - dmd
+    build-packages:
+    - dub
+    - desktop-file-utils
+    - libgtk2.0-bin
+    - xdg-utils
+    stage-packages:
+    - libsecret-1-0
+    plugin: nil
+    override-build: |
+      dub build --build=release
+      ./install.sh $SNAPCRAFT_PART_INSTALL/usr/local
+
+  vte:
+    after: [desktop-gtk3]
+    source: https://github.com/GNOME/vte.git
+    source-tag: "0.52.2"
+    plugin: autotools
+    configflags:
+    - --disable-vala
+    - --disable-introspection
+    build-packages:
+    - gtk-doc-tools
+    - libpcre2-dev
+    - libgnutls-dev
+    - libxml2-utils
+    - gperf
+    stage-packages:
+    - libpcre2-8-0
+    - libgnutlsxx28
+
+  #Try fix: https://forum.snapcraft.io/t/snap-to-test-gtk3-glibc-2-25-not-found/3073/23
+  # gnome-3-26:
+  #   plugin: nil
+  #   override-build: |
+  #     add-apt-repository -y ppa:ubuntu-desktop/gnome-3-26
+  #     apt-get update
+  #     apt-get upgrade -yqq
+
+  # desktop-gtk3:
+  #   after: [gnome-3-26]
