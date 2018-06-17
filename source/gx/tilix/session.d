@@ -326,20 +326,21 @@ private:
         Terminal maximizedTerminal;
         if (maximizedInfo.isMaximized) {
             if (maximizedInfo.terminal != terminal) {
+                restoreTerminal(maximizedInfo.terminal);
                 maximizedTerminal = maximizedInfo.terminal;
+            } else {
+                restoreTerminal(terminal);
             }
-            restoreTerminal(terminal);
         }
         //unparent the terminal
         unparentTerminal(terminal);
-        //Only one terminal open, close session
+        //Only one terminal was open, close session
         tracef("There are %d terminals left", terminals.length);
         if (terminals.length == 0) {
             trace("No more terminals, requesting session be closed");
             notifySessionClose();
             return;
         }
-
         foreach (t; terminals) {
             t.isSingleTerminal = (terminals.length == 1);
         }
@@ -357,7 +358,7 @@ private:
         }
 
         if (maximizedTerminal !is null) {
-            maximizeTerminal(terminal);
+            maximizeTerminal(maximizedTerminal);
         }
         showAll();
     }
