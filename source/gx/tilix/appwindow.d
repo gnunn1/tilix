@@ -1390,6 +1390,8 @@ private:
                 int altMonitor = gsSettings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY);
                 if (altMonitor>=0 && altMonitor < getScreen().getNMonitors()) {
                     monitor = altMonitor;
+                } else {
+                    monitor = getScreen().getPrimaryMonitor();
                 }
             }
         }

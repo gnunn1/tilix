@@ -14,6 +14,7 @@ import std.string;
 import std.typecons : No;
 import std.variant;
 
+import gdk.Display;
 import gdk.Event;
 
 import gio.Menu: GMenu = Menu;
@@ -1363,10 +1364,34 @@ private:
             Label lblSpecific = new Label(_("Display on specific monitor"));
             bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
             bSpecific.add(lblSpecific);
-            SpinButton sbScreen = new SpinButton(0, getScreen().getNMonitors() - 1, 1);
-            bh.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, sbScreen, "value", GSettingsBindFlags.DEFAULT);
-            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, sbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
-            bSpecific.add(sbScreen);
+            string[] names = [_("Primary Monitor")];
+            int[] values = [-1];
+            for(int monitor; monitor < Display.getDefault().getNMonitors(); monitor++) {
+                names ~= _("Monitor ") ~ to!string(monitor);
+                values ~= monitor;
+            }
+
+            ComboBox cbScreen = TComboBox!(int).createComboBox(names, values);
+            cbScreen.addOnChanged(delegate(ComboBox cb) {
+                TreeIter iter;
+                if (cb.getActiveIter(iter)) {
+                    ListStore ls = cast(ListStore)cb.getModel();
+                    bh.settings.setInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, ls.getValueInt(iter, 1));
+                } else {
+                    bh.settings.setInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY,-1);
+                }
+            });
+            int index = 0;
+            foreach(TreeIter iter; TreeIterRange(cbScreen.getModel())) {
+                if (cbScreen.getModel().getValueInt(iter, 1) == bh.settings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY)) {
+                    cbScreen.setActive(index);
+                    break;
+                }
+                index++;
+            }
+            //bh.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, cbScreen, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bSpecific.add(cbScreen);
 
             bContent.add(bSpecific);
         }

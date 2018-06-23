@@ -345,6 +345,40 @@ ComboBox createNameValueCombo(const string[] names, const string[] values) {
     return cb;
 }
 
+template TComboBox(T) {
+
+    ComboBox createComboBox(const string[] names, T[] values) {
+        assert(names.length == values.length);
+        trace(typeof(values).stringof);
+        
+        GType valueType = GType.STRING;
+        if (is(typeof(values) == int[])) valueType = GType.INT;
+        else if (is(typeof(values) == uint[])) valueType = GType.INT;
+        else if (is(typeof(values) == long[])) valueType = GType.INT64;
+        else if (is(typeof(values) == ulong[])) valueType = GType.INT64;
+        else if (is(typeof(values) == double[])) valueType = GType.DOUBLE;
+
+        trace(valueType);
+
+        ListStore ls = new ListStore([GType.STRING, valueType]);
+
+        for (int row; row < values.length; row++) {
+            TreeIter iter = ls.createIter();
+            ls.setValue(iter, 0, names[row]);
+            ls.setValue(iter, 1, values[row]);
+        }
+
+        ComboBox cb = new ComboBox(ls, false);
+        cb.setFocusOnClick(false);
+        cb.setIdColumn(1);
+        CellRendererText cell = new CellRendererText();
+        cell.setAlignment(0, 0);
+        cb.packStart(cell, false);
+        cb.addAttribute(cell, "text", 0);
+        return cb;
+    }
+}
+
 /**
  * Selects the specified row in a Treeview
  */
