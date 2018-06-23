@@ -1610,6 +1610,9 @@ private:
 
         //Check that position has moved to warrant check
         if (cursorRow > triggerLastRowChecked || (cursorRow == triggerLastRowChecked && cursorCol > triggerLastColChecked)) {
+
+            onNewOutput.emit(this);
+
             auto startRow = triggerLastRowChecked;
             auto startCol = triggerLastColChecked;
             // Enforce maximum lines to check
@@ -4017,6 +4020,11 @@ public:
      * Invoked when a session is dropped on the terminal and needs to be attached.
      */
     GenericEvent!(Terminal, string) onSessionAttach;
+
+    /**
+     * Signal that gets generated whenever new output is shown
+     */
+    GenericEvent!(Terminal) onNewOutput;
 }
 
 /**

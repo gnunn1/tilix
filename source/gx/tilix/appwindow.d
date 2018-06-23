@@ -298,6 +298,8 @@ private:
                     // Delay focus restore
                     trace("Delayed focus restore");
                     session.focusRestore();
+                    SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+                    label.showNewOutput(false);
                     return false;
                 });
             }
@@ -1029,7 +1031,7 @@ private:
     }
 
     void onSessionStateChange(Session session, SessionStateChange stateChange) {
-        tracef("State change received %d", stateChange);
+        //tracef("State change received %d", stateChange);
         if (getCurrentSession() == session) {
             updateUIState();
             updateTitle();
@@ -1039,9 +1041,15 @@ private:
                 Signals.handlerUnblock(tbFind, _tbFindToggledId);
             }
         }
-        if (useTabs && ((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE)) || (stateChange == SessionStateChange.TERMINAL_FOCUSED)) {
-            SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
-            if (label !is null) label.text=session.displayName;
+        if (useTabs) {
+            if (((stateChange == SessionStateChange.TERMINAL_TITLE) || (stateChange == SessionStateChange.SESSION_TITLE)) || (stateChange == SessionStateChange.TERMINAL_FOCUSED)) {
+                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+                if (label !is null) label.text=session.displayName;
+            }
+            if (getCurrentSession() != session && stateChange == SessionStateChange.TERMINAL_OUTPUT) {
+                SessionTabLabel label = cast(SessionTabLabel) nb.getTabLabel(session);
+                if (label !is null) label.showNewOutput(true);
+            }
         }
     }
 
@@ -2049,6 +2057,7 @@ private:
 	Label lblText;
     Label lblNotifications;
 	Session session;
+    Image imgNewOutput;
 
 	void closeClicked(Button button) {
 		onCloseClicked.emit(session);
@@ -2082,6 +2091,12 @@ public:
         updatePositionType(position);
 		add(lblText);
 
+        imgNewOutput = new Image("view-list-symbolic", IconSize.MENU);
+        imgNewOutput.setNoShowAll(true);
+        imgNewOutput.setTooltipText(_("New output displayed"));
+
+        add(imgNewOutput);
+
 		button = new Button("window-close-symbolic", IconSize.MENU);
         button.getStyleContext().addClass("tilix-small-button");
 		button.setRelief(ReliefStyle.NONE);
@@ -2106,6 +2121,15 @@ public:
 	@property void text(string value) {
 		lblText.setText(value);
 	}
+
+    @property bool showNewOutput() {
+        return imgNewOutput.isVisible();
+    }
+
+    @property void showNewOutput(bool value) {
+        if (value) imgNewOutput.show();
+        else imgNewOutput.hide();
+    }
 
     void updateNotifications(ProcessNotificationMessage[] pn) {
         if (pn is null || pn.length == 0) {

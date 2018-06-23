@@ -70,6 +70,7 @@ enum SessionStateChange {
     TERMINAL_RESTORED,
     TERMINAL_FOCUSED,
     TERMINAL_TITLE,
+    TERMINAL_OUTPUT,
     SESSION_TITLE
 };
 
@@ -303,6 +304,7 @@ private:
         terminal.onProcessNotification.connect(&onTerminalProcessNotification);
         terminal.onIsActionAllowed.connect(&onTerminalIsActionAllowed);
         terminal.onSessionAttach.connect(&onTerminalSessionAttach);
+        terminal.onNewOutput.connect(&onTerminalNewOutput);
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
@@ -384,6 +386,7 @@ private:
         terminal.onProcessNotification.disconnect(&onTerminalProcessNotification);
         terminal.onIsActionAllowed.disconnect(&onTerminalIsActionAllowed);
         terminal.onSessionAttach.disconnect(&onTerminalSessionAttach);
+        terminal.onNewOutput.disconnect(&onTerminalNewOutput);
     }
 
     /**
@@ -612,6 +615,10 @@ private:
             result.addResult(false);
             break;
         }
+    }
+
+    void onTerminalNewOutput(Terminal terminal) {
+        onStateChange.emit(this, SessionStateChange.TERMINAL_OUTPUT);
     }
 
     /**
@@ -1525,7 +1532,6 @@ public:
      * Triggered when state changes, such as title, occur
      */
     GenericEvent!(Session, SessionStateChange) onStateChange;
-
 }
 
 /**
