@@ -103,7 +103,7 @@ enum APPLICATION_CONFIG_FOLDER = "tilix";
 //RESOURCES
 enum APPLICATION_RESOURCES = buildPath(APPLICATION_CONFIG_FOLDER, "resources/tilix.gresource");
 enum APPLICATION_RESOURCE_ROOT = "/com/gexperts/Tilix";
-immutable string[] APPLICATION_CSS_RESOURCES = ["css/tilix.base.css"];
+immutable string[] APPLICATION_CSS_RESOURCES = ["css/tilix.base.css","css/tilix.base320.css"];
 immutable string[] THEME_CSS_RESOURCES = ["css/tilix.base.theme.css"];
 
 immutable string SHORTCUT_UI_RESOURCE = APPLICATION_RESOURCE_ROOT ~ "/ui/shortcuts.ui";

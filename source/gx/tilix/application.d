@@ -138,7 +138,7 @@ private:
             foreach (cssFile; APPLICATION_CSS_RESOURCES) {
                 string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.APPLICATION)) {
-                    errorf("Could not load CSS %s", cssURI);
+                    warningf("Could not load CSS %s", cssURI);
                 } else {
                     tracef("Loaded %s css file", cssURI);
                 }
@@ -146,7 +146,7 @@ private:
             foreach (cssFile; THEME_CSS_RESOURCES) {
                 string cssURI = APPLICATION_RESOURCE_ROOT ~ "/" ~ cssFile;
                 if (!addCssProvider(cssURI, ProviderPriority.THEME)) {
-                    errorf("Could not load CSS %s", cssURI);
+                    warningf("Could not load CSS %s", cssURI);
                 } else {
                     tracef("Loaded %s css file", cssURI);
                 }
