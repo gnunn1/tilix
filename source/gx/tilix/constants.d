@@ -49,7 +49,7 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
  * raise events when detected. Since this uses polling, quick
  * commands (ls, cd, etc) may be missed.
  */
-immutable bool USE_PROCESS_MONITOR = true;
+immutable bool USE_PROCESS_MONITOR = false;
 
 /**************************************
  * Application Constants
@@ -73,7 +73,7 @@ enum APPLICATION_ID = "com.gexperts.Tilix";
 
 // Application values used in About Dialog
 enum APPLICATION_NAME = "Tilix";
-enum APPLICATION_VERSION = "1.8.2-0.0.1";
+enum APPLICATION_VERSION = "1.8.2-0.0.2";
 enum APPLICATION_AUTHOR = "Gerald Nunn";
 enum APPLICATION_COPYRIGHT = "Copyright \xc2\xa9 2017 " ~ APPLICATION_AUTHOR;
 enum APPLICATION_COMMENTS = N_("A VTE based terminal emulator for Linux");

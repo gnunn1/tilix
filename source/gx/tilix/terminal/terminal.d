@@ -1090,7 +1090,7 @@ private:
         // prompt positions if user cleared VTE buffer, i.e. "clear" command.
         // Used for terminal-next-prompt and terminal-previous-prompt actions
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            vte.addOnTextDeleted(delegate(VTE) {
+            vteHandlers ~= vte.addOnTextDeleted(delegate(VTE) {
                 checkPromptBuffer();
             });
         }
