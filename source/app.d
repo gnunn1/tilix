@@ -31,6 +31,8 @@ int main(string[] args) {
     }
 
     bool newProcess = false;
+    string group;
+
     string cwd = Util.getCurrentDir();
     string pwd;
     string de;
@@ -111,6 +113,10 @@ int main(string[] args) {
             FileUtils.chdir(cwd);
         } else if (arg == "--new-process") {
             newProcess = true;
+        } else if (arg == "-g") {
+            group = args[i+1];
+        } else if (arg.startsWith("--group")) {
+            group = arg[8..$];
         } else if (arg == "-v" || arg == "--version") {
             outputVersions();
             return 0;
@@ -139,7 +145,7 @@ int main(string[] args) {
     }
 
     trace("Creating app");
-    auto tilixApp = new Tilix(newProcess);
+    auto tilixApp = new Tilix(newProcess, group);
     int result;
     try {
         trace("Running application...");

@@ -39,6 +39,7 @@ enum CMD_QUAKE = "quake";
 enum CMD_VERSION = "version";
 enum CMD_PREFERENCES = "preferences";
 enum CMD_WINDOW_STYLE = "window-style";
+enum CMD_GROUP = "group";
 
 
 /**
@@ -74,6 +75,8 @@ private:
     string _title;
     string _windowStyle;
     Geometry _geometry;
+
+    string _group;
 
     bool _maximize;
     bool _minimize;
@@ -179,6 +182,7 @@ public:
         _command = getValue(vd, CMD_COMMAND, vts);
         _action = getValue(vd, CMD_ACTION, vts);
         _windowStyle = getValue(vd, CMD_WINDOW_STYLE, vts);
+        _group = getValue(vd, CMD_GROUP, vts);
         if (_session.length > 0 && (_profileName.length > 0 || _workingDir.length > 0 || _command.length > 0)) {
             writeln(_("You cannot load a session and set a profile/working directory/execute command option, please choose one or the other"));
             _exitCode = 1;
@@ -251,6 +255,7 @@ public:
         _title.length = 0;
         _version = false;
         _preferences = false;
+        _group.length = 0;
     }
 
     @property string workingDir() {
@@ -351,5 +356,9 @@ public:
 
     @property bool windowStateOverride() {
         return _maximize || _minimize || _fullscreen;
+    }
+
+    @property string group() {
+        return _group;
     }
 }

@@ -676,6 +676,7 @@ private:
         addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), null);
         addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix and dependant component versions"), null);
         addMainOption(CMD_PREFERENCES, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix preferences dialog directly"), null);
+        addMainOption(CMD_GROUP, 'g', GOptionFlags.NONE, GOptionArg.STRING, _("Group tilix instances into different processes (Experimental, not recommended"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
@@ -683,10 +684,22 @@ private:
 
 public:
 
-    this(bool newProcess) {
+    this(bool newProcess, string group=null) {
         ApplicationFlags flags = ApplicationFlags.HANDLES_COMMAND_LINE;
         if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
+        //flags |= ApplicationFlags.CAN_OVERRIDE_APP_ID;
         super(APPLICATION_ID, flags);
+        
+        if (group.length > 0) {
+            string id = "com.gexperts.Tilix." ~ group;
+            if (idIsValid(id)) {
+                tracef("Setting app id to %s", id);
+                setApplicationId(id);
+            } else {
+                warningf(_("The application ID %s is not valid"));
+            }
+        }
+
         addOptions();
 
         this.addOnActivate(&onAppActivate);
@@ -746,6 +759,8 @@ public:
     }
 
     void presentPreferences() {
+        tracef("*** Application ID %s",getApplicationId());
+
         //Check if preference window already exists
         if (preferenceDialog !is null) {
             AppWindow window = getActiveAppWindow();
