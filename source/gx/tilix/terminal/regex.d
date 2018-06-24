@@ -150,8 +150,6 @@ enum REGEX_URL_VOIP = DEFS ~ "(?i:h323:|sips?:)" ~ USERPASS ~ URL_HOST ~ PORT ~ 
 enum REGEX_EMAIL = DEFS ~ "(?i:mailto:)?" ~ USER ~ "@" ~ EMAIL_HOST;
 enum REGEX_NEWS_MAN = "(?i:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+";
 
-import std.regex.internal.thompson: ThompsonMatcher;
-
 /**
  * This replaces all instances of $x tokens with values
  * from Regex match. The token $0 matches the whole match
