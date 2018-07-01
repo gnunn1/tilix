@@ -14,11 +14,14 @@ import std.parallelism;
 
 import vtec.vtetypes;
 
+import gx.i18n.l10n;
 import gx.gtk.threads;
 
 import gx.tilix.common;
 import gx.tilix.constants;
 import gx.tilix.terminal.activeprocess;
+
+import gx.tilix.application;
 
 enum MonitorEventType {
     NONE,
@@ -105,10 +108,11 @@ public:
     GenericEvent!(MonitorEventType, GPid, pid_t, string) onChildProcess;
 
     static @property ProcessMonitor instance() {
-        static if (USE_PROCESS_MONITOR) {
-            if (_instance is null) {
-                _instance = new ProcessMonitor();
-            }
+        if (!tilix.processMonitor) {
+            warningf(_("Process monitoring is not enabled, this should never be called"));
+        }
+        if (_instance is null) {
+            _instance = new ProcessMonitor();
         }
         return _instance;
     }

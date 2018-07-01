@@ -147,11 +147,8 @@ import gx.tilix.terminal.password;
 import gx.tilix.terminal.regex;
 import gx.tilix.terminal.search;
 import gx.tilix.terminal.util;
-
-static if (USE_PROCESS_MONITOR) {
-    import gx.tilix.terminal.monitor;
-    import gx.tilix.terminal.activeprocess;
-}
+import gx.tilix.terminal.monitor;
+import gx.tilix.terminal.activeprocess;
 
 /**
 * When dragging over VTE, specifies which quandrant new terminal
@@ -310,10 +307,8 @@ private:
     // Tri-state, -1=true, 0=false, 2=Unknown
     static int _useOverlayScrollbar = 2;
 
-    static if (USE_PROCESS_MONITOR) {
-        // store active process name.
-        string activeProcessName = "Unknown";
-    }
+    // store active process name.
+    string activeProcessName = "Unknown";
 
     @property bool useOverlayScrollbar() {
         return _useOverlayScrollbar < 0;
@@ -1317,10 +1312,11 @@ private:
         text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
         text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
-        static if (USE_PROCESS_MONITOR) {
-            if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+        if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
+            if (tilix.processMonitor)
                 text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);
-            }
+            else
+                text = text.replace(VARIABLE_TERMINAL_PROCESS, _("Not Enabled"));
         }
         string path;
         if (terminalInitialized) {
@@ -1757,7 +1753,7 @@ private:
      * Triggered when the terminal signals the child process has exited
      */
     void onTerminalChildExited(int status, VTE terminal) {
-        static if (USE_PROCESS_MONITOR) {
+        if (tilix.processMonitor) {
             ProcessMonitor.instance.removeProcess(gpid);
         }
         gpid = -1;
@@ -2754,7 +2750,7 @@ private:
                 outputError(msg, workingDir, args, envv);
                 showInfoBarMessage(msg);
             } else {
-                static if (USE_PROCESS_MONITOR) {
+                if (tilix.processMonitor) {
                     ProcessMonitor.instance.addProcess(gpid);
                 }
             }
@@ -3500,16 +3496,14 @@ private:
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
     }
 
-static if (USE_PROCESS_MONITOR) {
-    // Process monitoring
-    private:
-        void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child, string name) {
-            if (process == gpid) {
-                activeProcessName = name;
-                updateDisplayText();
-            }
+// Process monitoring
+private:
+    void childProcessEvent(MonitorEventType eventType, GPid process, pid_t child, string name) {
+        if (process == gpid) {
+            activeProcessName = name;
+            updateDisplayText();
         }
-}
+    }
 
 // Profile deleted
 private:
@@ -3595,7 +3589,7 @@ public:
         // notified when profile deleted
         prfMgr.onDelete.connect(&onProfileDeleted);
 
-        static if (USE_PROCESS_MONITOR) {
+        if (tilix.processMonitor) {
             ProcessMonitor.instance.onChildProcess.connect(&childProcessEvent);
         }
         trace("Finished creation");
@@ -3647,7 +3641,7 @@ public:
                 }
             }
         }
-        static if (USE_PROCESS_MONITOR) {
+        if (tilix.processMonitor) {
             ProcessMonitor.instance.onChildProcess.disconnect(&childProcessEvent);
         }
         stopProcess();
@@ -3700,7 +3694,7 @@ public:
      */
     void stopProcess() {
         if (gpid > 0) {
-            static if (USE_PROCESS_MONITOR) {
+            if (tilix.processMonitor) {
                 ProcessMonitor.instance.removeProcess(gpid);
             }
 
