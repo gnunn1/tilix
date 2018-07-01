@@ -27,7 +27,7 @@ Set the starting profile using the name of one of the existing profiles. If it m
 Set the title of the new terminal.
 .TP
 .B \-s \-\-session=SESSION_NAME
-Specify a previously saved session to open. They store the complete layout of the session, saved and re-loaded from within Tilix when required. Note that only the layout and layout options are saved, this will not restore the terminal to where it was left off, rather new terminals are created.  
+Specify a previously saved session to re-load the layout and layout options from. This will not restore the terminal to where it was left off, rather new terminals are created.
 .TP
 .B \-a \-\-action=ACTION_NAME
 Perform one of the following actions in the current Tilix instance:
@@ -75,13 +75,13 @@ Do not show client side decorations and toolbar.
 Do not show window borders.
 .TP
 .B \-\-new\-process
-Start an additional Tilix instance as a new process. By default and as per GTK3+ guidelines, Tilix maintains a single process that all windows belong to. This option forces Tilix to start as a separate process. This is not recommended and only intended for debugging purposes. Its use will prevent different Tilix windows from communicating with each other. 
+Start an additional Tilix instance as a new process. By default and as per GTK+ version 3 guidelines, Tilix maintains a single process that all windows belong to. This option forces Tilix to start as a separate process. This is not recommended and only intended for debugging purposes. Its use will prevent different Tilix windows from communicating with each other. 
 .TP
 .B \-\-geometry=GEOMETRY
 Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y).
 .TP
 .B \-q \-\-quake
-Open a window in quake mode or toggle existing Quake mode window visibility.
+Open a window in Quake mode or toggle existing Quake mode window visibility.
 .TP
 .B \-\-preferences
 Show the Tilix preferences dialog directly.
