@@ -303,6 +303,7 @@ private:
                     return false;
                 });
             }
+            tilix.withdrawNotification(session.uuid);
         }, ConnectFlags.AFTER);
         if (!useTabs) {
             sb = new SideBar();
@@ -1179,6 +1180,7 @@ private:
         tracef("Notification Received\n\tSummary=%s\n\tBody=%s", summary, _body);
         // If window not active, send notification to shell
         if (!isActive() && !_destroyed && gsSettings.getBoolean(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY)) {
+            string uuid = terminalUUID.length == 0? sessionUUID:terminalUUID;
             Notification n = new Notification(_(summary));
             n.setBody(_body);
             n.setDefaultAction("app.activate-session::" ~ sessionUUID);
@@ -1745,6 +1747,9 @@ public:
         }, ConnectFlags.AFTER);
         addOnFocusIn(delegate(Event e, Widget widget) {
             tilix.withdrawNotification(uuid);
+            if (getCurrentSession() !is null) {
+                getCurrentSession().withdrawNotification();
+            }
             return false;
         });
         addOnWindowState(delegate(GdkEventWindowState* state, Widget) {

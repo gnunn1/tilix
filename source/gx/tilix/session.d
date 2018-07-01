@@ -1496,6 +1496,16 @@ public:
         }
     }
 
+    /**
+     * Withdraw notification for the session and all terminals
+     */
+    void withdrawNotification() {
+        tilix.withdrawNotification(uuid);
+        foreach (terminal; terminals) {
+            tilix.withdrawNotification(terminal.uuid);
+        }
+    }
+
     @property bool maximized() {
         return maximizedInfo.isMaximized;
     }
