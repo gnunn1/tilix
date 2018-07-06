@@ -1994,7 +1994,15 @@ private:
         case TerminalURLFlavor.AS_IS:
             if (uri.startsWith("file:")) {
                 string filename, hostname;
-                filename = URI.filenameFromUri(uri, hostname);
+                try {
+                    
+                    filename = URI.filenameFromUri(uri, hostname);
+                } catch (Exception e) {
+                    string message = format(_("Could not check file '%s' due to error '%s'"), match.match, e.msg);
+                    warning(message);
+                    break;
+                }
+
                 if (filename.length != 0 && hostname.length !=0 && hostname != "localhost" && hostname != gst.localHostname()) {
                     showErrorDialog(cast(Window)getToplevel(),
                                     format(_("Remote file URIs are not supported with hyperlinks.\nUri was '%s'"), uri),
@@ -2041,6 +2049,7 @@ private:
             break;
         }
         try {
+            tracef("Showing URI %s", uri);
             MountOperation.showUri(null, uri, Main.getCurrentEventTime());
         } catch (Exception e) {
             string message = format(_("Could not open match '%s'"), match.match);
