@@ -124,6 +124,7 @@ private:
     ImageSurface isFullBGImage;
 
     bool warnedVTEConfigIssue = false;
+    bool shouldWarnVTEConfigIssue = false;
 
     bool useTabs = false;
 
@@ -697,7 +698,7 @@ public:
         if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
         //flags |= ApplicationFlags.CAN_OVERRIDE_APP_ID;
         super(APPLICATION_ID, flags);
-        
+
         if (group.length > 0) {
             string id = "com.gexperts.Tilix." ~ group;
             if (idIsValid(id)) {
@@ -787,6 +788,9 @@ public:
         });
         preferenceDialog.showAll();
         preferenceDialog.present;
+
+        // show VTE config warning dialog if configuration issues were detected
+        showVTEConfigIssueWarning(preferenceDialog);
     }
 
     void presentProfilePreferences(ProfileInfo profile) {
@@ -859,17 +863,23 @@ public:
      * See Issue #34 and https://github.com/gnunn1/tilix/wiki/VTE-Configuration-Issue
      * for more information.
      */
-    void warnVTEConfigIssue() {
+    void showVTEConfigIssueWarning(Window parent = null) {
+        if (!shouldWarnVTEConfigIssue)
+            return;
+
+        if (parent is null)
+            parent = getActiveWindow();
+
         if (testVTEConfig()) {
             warnedVTEConfigIssue = true;
             string msg = _("There appears to be an issue with the configuration of the terminal.\nThis issue is not serious, but correcting it will improve your experience.\nClick the link below for more information:");
             string title = "<span weight='bold' size='larger'>" ~ _("Configuration Issue Detected") ~ "</span>";
-            MessageDialog dlg = new MessageDialog(getActiveWindow(), DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
+            MessageDialog dlg = new MessageDialog(parent, DialogFlags.MODAL, MessageType.WARNING, ButtonsType.OK, null, null);
             scope (exit) {
                 dlg.destroy();
             }
             with (dlg) {
-                setTransientFor(getActiveWindow());
+                setTransientFor(parent);
                 setMarkup(title);
                 getMessageArea().setMarginLeft(0);
                 getMessageArea().setMarginRight(0);
@@ -885,6 +895,15 @@ public:
                 }
             }
         }
+    }
+
+    /**
+     * To not throw a warning message at the user immediately when the
+     * terminal is initialized, we allow to schedule a warning and show
+     * it later (e.g. when the user opens the preferences dialog).
+     */
+    void setShouldWarnVTEConfigIssue(bool value) {
+        shouldWarnVTEConfigIssue = value;
     }
 
     /**
