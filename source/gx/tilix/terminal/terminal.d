@@ -1029,8 +1029,8 @@ private:
             event.getKeyval(keyval);
             if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
                 string[] actions = tilix.getActionsForAccel("<Ctrl>c");
-                if (actions.length > 0 && 
-                   (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) && 
+                if (actions.length > 0 &&
+                   (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) &&
                    !vte.getHasSelection()) {
                     string controlc = "\u0003";
                     vte.feedChild(controlc);
@@ -1995,7 +1995,7 @@ private:
             if (uri.startsWith("file:")) {
                 string filename, hostname;
                 try {
-                    
+
                     filename = URI.filenameFromUri(uri, hostname);
                 } catch (Exception e) {
                     string message = format(_("Could not check file '%s' due to error '%s'"), match.match, e.msg);
@@ -2415,7 +2415,7 @@ private:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
         case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
-            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) 
+            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS))
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
@@ -4109,7 +4109,7 @@ public:
         } else {
             getMessageArea().add(lblCmd);
         }
-        
+
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
         btnIgnore.getStyleContext().addClass("destructive-action");

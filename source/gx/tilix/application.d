@@ -698,7 +698,7 @@ public:
         if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
         //flags |= ApplicationFlags.CAN_OVERRIDE_APP_ID;
         super(APPLICATION_ID, flags);
-        
+
         if (group.length > 0) {
             string id = "com.gexperts.Tilix." ~ group;
             if (idIsValid(id)) {
