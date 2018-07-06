@@ -964,8 +964,8 @@ private:
                 vte.getCursorPosition(cursorCol, cursorRow);
                 //tracef("\trow=%d, column=%d",cursorRow,cursorCol);
                 if (cursorRow > 0 || cursorCol >0) {
-                    trace("Warning VTE Configuration");
-                    tilix.warnVTEConfigIssue();
+                    trace("Scheduling VTE configuration warning");
+                    tilix.setShouldWarnVTEConfigIssue(true);
                 }
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
