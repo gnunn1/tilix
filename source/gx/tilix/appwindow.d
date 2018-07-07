@@ -1405,7 +1405,7 @@ private:
                 }
             }
         }
-        screen.getDisplay().getMonitor(monitor).getWorkarea(rect);
+        screen.getMonitorWorkarea(monitor, rect);
         tracef("Monitor geometry: monitor=%d, x=%d, y=%d, width=%d, height=%d", monitor, rect.x, rect.y, rect.width, rect.height);
 
         // Wayland works with screen factor natively whereas X11 does not
