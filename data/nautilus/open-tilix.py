@@ -35,9 +35,9 @@ def open_terminal(uri):
             value = 'ssh -t {0}'.format(file_obj.hostname)
         if file_obj.port:
             value = "{0} -p {1}".format(value, file_obj.port)
-        _dir = path.dirname(unquote(file_obj.path)).replace(" ", "\ ")
-        value = '{0} cd "{1}" ; $SHELL'.format(value, _dir)
-
+        if Nautilus.FileInfo.create_for_uri(uri).is_directory():
+            _dir = unquote(file_obj.path).replace(" ", "\ ")
+            value = '{0} cd "{1}" ; $SHELL'.format(value, _dir)
         call('{0} -e "{1}" &'.format(TERMINAL, value), shell=True)
     elif file_obj.scheme == "file":
         filename = Gio.File.new_for_uri(uri).get_path()
