@@ -3,7 +3,7 @@
 # Example modified for Tilix
 # Shortcuts Provider was inspired by captain nemo extension
 
-from gettext import gettext, textdomain
+from gettext import gettext as _, textdomain
 from subprocess import PIPE, call
 try:
     from urllib import unquote
@@ -23,7 +23,6 @@ TILIX_KEYBINDINGS = "com.gexperts.Tilix.Keybindings"
 GSETTINGS_OPEN_TERMINAL = "nautilus-open"
 REMOTE_URI_SCHEME = ['ftp', 'sftp']
 textdomain("tilix")
-_ = gettext
 
 
 def open_terminal_in_file(filename):
@@ -42,15 +41,18 @@ class OpenTilixShortcutProvider(GObject.GObject,
             self._gsettings = Gio.Settings.new(TILIX_KEYBINDINGS)
             self._gsettings.connect("changed", self._bind_shortcut)
             self._create_accel_group()
+        else:
+            self._gsettings = None
         self._window = None
         self._uri = None
 
     def _create_accel_group(self):
-        self._accel_group = Gtk.AccelGroup()
-        shortcut = self._gsettings.get_string(GSETTINGS_OPEN_TERMINAL)
-        key, mod = Gtk.accelerator_parse(shortcut)
-        self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE,
-                                  self._open_terminal)
+        if self._gsettings:
+            self._accel_group = Gtk.AccelGroup()
+            shortcut = self._gsettings.get_string(GSETTINGS_OPEN_TERMINAL)
+            key, mod = Gtk.accelerator_parse(shortcut)
+            self._accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE,
+                                        self._open_terminal)
 
     def _bind_shortcut(self, gsettings, key):
         if key == GSETTINGS_OPEN_TERMINAL:
@@ -65,9 +67,9 @@ class OpenTilixShortcutProvider(GObject.GObject,
         self._uri = uri
         if self._window:
             self._window.remove_accel_group(self._accel_group)
-        if self._gsettings:
-            window.add_accel_group(self._accel_group)
         self._window = window
+        if self._gsettings:
+            self._window.add_accel_group(self._accel_group)
         return None
 
 
@@ -84,7 +86,8 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
             if result.port:
                 value = "{0} -p {1}".format(value, result.port)
             if file_.is_directory():
-                value = '{0} cd "{1}" ; $SHELL'.format(value, result.path)
+                _dir = unquote(result.path).replace(" ", "\ ")
+                value = '{0} cd "{1}" ; $SHELL'.format(value, _dir)
 
             call('{0} -e "{1}" &'.format(TERMINAL, value), shell=True)
         else:
