@@ -43,6 +43,11 @@ immutable bool FLATPAK = false;
  */
 immutable bool USE_COMMIT_SYNCHRONIZATION = false;
 
+/**
+ * Compile tilix with support for VTE method vte_terminal_get_color_background_for_draw, 
+ * only needed until VTE 0.54 is released and GtkD is updated.
+ */
+immutable bool COMPILE_VTE_BACKGROUND_COLOR = false;
 
 /**************************************
  * Application Constants
