@@ -177,15 +177,19 @@ T findParent(T) (Widget widget) {
 T[] getChildren(T) (Widget widget, bool recursive) {
     T[] result;
     Widget[] children;
+
+    if (widget is null) return result;
+
     Bin bin = cast(Bin) widget;
     if (bin !is null) {
         children = [bin.getChild()];
-    }
-    Container container = cast(Container) widget;
-    if (container !is null) {
-        ListG list = container.getChildren();
-        if (list !is null)
-            children = list.toArray!(Widget)();
+    } else {
+        Container container = cast(Container) widget;
+        if (container !is null) {
+            ListG list = container.getChildren();
+            if (list !is null)
+                children = list.toArray!(Widget)();
+        }
     }
 
     foreach(child; children) {
