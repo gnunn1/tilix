@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-21 19:31-0400\n"
+"POT-Creation-Date: 2018-07-21 19:52-0400\n"
 "PO-Revision-Date: 2018-01-20 12:46+0000\n"
 "Last-Translator: Ktrl S <ktrls.nl@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tilix/manpage/it/"
@@ -74,7 +74,7 @@ msgstr ""
 #: data/man/tilix:11
 msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
-"Gnome Human Interface Guidelines."
+"GNOME Human Interface Guidelines."
 msgstr ""
 
 #. type: SH
@@ -132,8 +132,7 @@ msgstr ""
 #: data/man/tilix:25
 msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
-"a name is passed that does not correspond to an existing profile, the "
-"default profile will be used."
+"it matches none of those, the default profile will be used."
 msgstr ""
 
 #. type: TP
@@ -156,11 +155,9 @@ msgstr ""
 #. type: Plain text
 #: data/man/tilix:31
 msgid ""
-"Open the specified session file which has been previously saved. Session "
-"files are saved from within Tilix, they store the complete layout of the "
-"session enabling the user to re-load it when required. Note that only the "
-"layout and layout options are saved, this will not restore the terminal to "
-"where it was left off, rather new terminals are created."
+"Specify a previously saved session to re-load the layout and layout options "
+"from. This will not restore the terminal to where it was left off, rather "
+"new terminals are created."
 msgstr ""
 
 #. type: TP
@@ -171,32 +168,28 @@ msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:34
-msgid ""
-"Perform an action in the current Tilix instance, the following actions are "
-"supported:"
+msgid "Perform one of the following actions in the current Tilix instance:"
 msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:37
-msgid ""
-"B<session-add-right> Adds a new terminal to the right of the current "
-"terminal."
+msgid "B<session-add-right> Add a new terminal rightwards of the current one."
 msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:40
-msgid "B<session-add-down> Adds a new terminal down from the current terminal."
+msgid "B<session-add-down> Add a new terminal below the current terminal."
 msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:43
 msgid ""
-"B<app-new-session> Creates a new Tilix session within the current window."
+"B<app-new-session> Create a new Tilix session within the current window."
 msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:46
-msgid "B<app-new-window> Creates a new Tilix window."
+msgid "B<app-new-window> Create a new Tilix window."
 msgstr ""
 
 #. type: TP
@@ -265,8 +258,7 @@ msgstr ""
 #. type: Plain text
 #: data/man/tilix:64
 msgid ""
-"Override the preferred window style to use, the following styles are "
-"supported:"
+"Override the preferred window style, the following styles are supported:"
 msgstr ""
 
 #. type: Plain text
@@ -300,10 +292,10 @@ msgstr ""
 #: data/man/tilix:79
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
-"GTK+ 3 guidelines, Tilix maintains a single process that all windows belong "
-"to. This option forces Tilix to start as a separate process. This is not "
-"recommended and is intended for debugging purposes only, using this option "
-"will prevent different Tilix windows from communicating with each other."
+"GTK+ version 3 guidelines, Tilix maintains a single process that all windows "
+"belong to. This option forces Tilix to start as a separate process. This is "
+"not recommended and only intended for debugging purposes. Its use will "
+"prevent different Tilix windows from communicating with each other."
 msgstr ""
 
 #. type: TP
@@ -327,7 +319,7 @@ msgstr ""
 #. type: Plain text
 #: data/man/tilix:85
 msgid ""
-"Open a window in quake mode or toggle existing quake mode window visibility."
+"Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
 
 #. type: TP

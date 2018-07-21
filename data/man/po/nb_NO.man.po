@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-21 19:31-0400\n"
+"POT-Creation-Date: 2018-07-21 19:52-0400\n"
 "PO-Revision-Date: 2018-05-21 23:17+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tilix/"
@@ -72,9 +72,13 @@ msgstr "BESKRIVELSE"
 
 #. type: Plain text
 #: data/man/tilix:11
+#, fuzzy
+#| msgid ""
+#| "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere "
+#| "to Gnome Human Interface Guidelines."
 msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
-"Gnome Human Interface Guidelines."
+"GNOME Human Interface Guidelines."
 msgstr ""
 "B<tilix> er en avansert flisbasert terminalemulator for GTK3, designet i "
 "henhold til retningslinjene for Gnome menneskelige grensesnitt."
@@ -132,10 +136,14 @@ msgstr "B<-p --profile=PROFIL_NAVN>"
 
 #. type: Plain text
 #: data/man/tilix:25
+#, fuzzy
+#| msgid ""
+#| "Set the starting profile using the name of one of the existing profiles. "
+#| "If a name is passed that does not correspond to an existing profile, the "
+#| "default profile will be used."
 msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
-"a name is passed that does not correspond to an existing profile, the "
-"default profile will be used."
+"it matches none of those, the default profile will be used."
 msgstr ""
 "Sett startprofilen ved bruk av navnet på én av de eksisterende profilene. "
 "Hvis et navn sendes som ikke tilhører en eksisterende profil, vil den "
@@ -162,11 +170,9 @@ msgstr "B<-s --session=ØKT_NAVN>"
 #: data/man/tilix:31
 #, fuzzy
 msgid ""
-"Open the specified session file which has been previously saved. Session "
-"files are saved from within Tilix, they store the complete layout of the "
-"session enabling the user to re-load it when required. Note that only the "
-"layout and layout options are saved, this will not restore the terminal to "
-"where it was left off, rather new terminals are created."
+"Specify a previously saved session to re-load the layout and layout options "
+"from. This will not restore the terminal to where it was left off, rather "
+"new terminals are created."
 msgstr ""
 "Åpne angitt tidligere lagret øktfil. De lagres fra Tilix, og lagrer hele "
 "oppsettet av en økt, noe som tillater brukeren å laste den inn igjen ved "
@@ -182,36 +188,48 @@ msgstr "B<-a --action=HANDLINGS_NAVN>"
 
 #. type: Plain text
 #: data/man/tilix:34
-msgid ""
-"Perform an action in the current Tilix instance, the following actions are "
-"supported:"
+#, fuzzy
+#| msgid ""
+#| "Perform an action in the current Tilix instance, the following actions "
+#| "are supported:"
+msgid "Perform one of the following actions in the current Tilix instance:"
 msgstr ""
 "Utfør en handling i nåværende Tilix-instans, følgende handling støttes:"
 
 #. type: Plain text
 #: data/man/tilix:37
-msgid ""
-"B<session-add-right> Adds a new terminal to the right of the current "
-"terminal."
+#, fuzzy
+#| msgid ""
+#| "B<session-add-right> Adds a new terminal to the right of the current "
+#| "terminal."
+msgid "B<session-add-right> Add a new terminal rightwards of the current one."
 msgstr ""
 "B<session-add-right> Legger til en ny terminal til høyre for nåværende "
 "terminal."
 
 #. type: Plain text
 #: data/man/tilix:40
-msgid "B<session-add-down> Adds a new terminal down from the current terminal."
+#, fuzzy
+#| msgid ""
+#| "B<session-add-down> Adds a new terminal down from the current terminal."
+msgid "B<session-add-down> Add a new terminal below the current terminal."
 msgstr ""
 "B<session-add-down> Legger til en ny terminal nedenfor nåværende terminal."
 
 #. type: Plain text
 #: data/man/tilix:43
+#, fuzzy
+#| msgid ""
+#| "B<app-new-session> Creates a new Tilix session within the current window."
 msgid ""
-"B<app-new-session> Creates a new Tilix session within the current window."
+"B<app-new-session> Create a new Tilix session within the current window."
 msgstr "B<app-new-session> Oppretter en ny Tilix-økt i gjeldende vindu."
 
 #. type: Plain text
 #: data/man/tilix:46
-msgid "B<app-new-window> Creates a new Tilix window."
+#, fuzzy
+#| msgid "B<app-new-window> Creates a new Tilix window."
+msgid "B<app-new-window> Create a new Tilix window."
 msgstr "B<app-new-window> Oppretter et nytt Tilix-vindu."
 
 #. type: TP
@@ -282,9 +300,12 @@ msgstr "B<--window-style=VINDUSSTIL>"
 
 #. type: Plain text
 #: data/man/tilix:64
+#, fuzzy
+#| msgid ""
+#| "Override the preferred window style to use, the following styles are "
+#| "supported:"
 msgid ""
-"Override the preferred window style to use, the following styles are "
-"supported:"
+"Override the preferred window style, the following styles are supported:"
 msgstr "Overstyr foretrukket vindusstil, følgende stiler støttes:"
 
 #. type: Plain text
@@ -321,10 +342,10 @@ msgstr "B<--new-process>"
 #, fuzzy
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
-"GTK+ 3 guidelines, Tilix maintains a single process that all windows belong "
-"to. This option forces Tilix to start as a separate process. This is not "
-"recommended and is intended for debugging purposes only, using this option "
-"will prevent different Tilix windows from communicating with each other."
+"GTK+ version 3 guidelines, Tilix maintains a single process that all windows "
+"belong to. This option forces Tilix to start as a separate process. This is "
+"not recommended and only intended for debugging purposes. Its use will "
+"prevent different Tilix windows from communicating with each other."
 msgstr ""
 "Start en ytterligere Tilix-instans som en ny prosess. Som forvalg og i "
 "henhold til GTK3+retningslinjer, forvalter Tilix én prosess som alle vindu "
@@ -356,7 +377,7 @@ msgstr "B<-q --quake>"
 #: data/man/tilix:85
 #, fuzzy
 msgid ""
-"Open a window in quake mode or toggle existing quake mode window visibility."
+"Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
 "Åpne et vindu i Quake-modus, eller veksle vindussynlighet for eksisterende "
 "Quake-modus."
