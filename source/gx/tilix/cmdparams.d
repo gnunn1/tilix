@@ -40,8 +40,6 @@ enum CMD_VERSION = "version";
 enum CMD_PREFERENCES = "preferences";
 enum CMD_WINDOW_STYLE = "window-style";
 enum CMD_GROUP = "group";
-enum CMD_PROCESS_MONITOR = "process-monitor";
-
 
 /**
  * Indicates how much of geometry was passed
@@ -87,7 +85,6 @@ private:
     bool _quake;
     bool _version;
     bool _preferences;
-    bool _process_monitor;
 
     bool _exit = false;
     int _exitCode = 0;
@@ -208,7 +205,6 @@ public:
         _quake = vd.contains(CMD_QUAKE);
         _version = vd.contains(CMD_VERSION);
         _preferences = vd.contains(CMD_PREFERENCES);
-        _process_monitor = vd.contains(CMD_PROCESS_MONITOR);
         _exit = _version;
 
         string geometryParam = getValue(vd, CMD_GEOMETRY, vts);
@@ -259,7 +255,6 @@ public:
         _version = false;
         _preferences = false;
         _group.length = 0;
-        _process_monitor = false;
     }
 
     @property string workingDir() {
@@ -364,9 +359,5 @@ public:
 
     @property string group() {
         return _group;
-    }
-
-    @property bool processMonitor() {
-        return _process_monitor;
     }
 }

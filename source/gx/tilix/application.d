@@ -419,9 +419,6 @@ private:
             // Check if quake mode or preferences was passed and we have quake window already then
             // just toggle visibility or create quake window. If there isn't a quake window
             // fall through and let activate create one
-            if (cp.processMonitor) {
-                warningf(_("Ignoring %s flag, it must be enabled on the first instance of Tilix"), CMD_PROCESS_MONITOR);
-            }
             if (cp.preferences) {
                 presentPreferences();
             } else if (cp.quake) {
@@ -482,8 +479,6 @@ private:
                     }
                 }
             }
-        } else {
-            _processMonitor = cp.processMonitor;
         }
         activate();
         return cp.exitCode;
@@ -536,6 +531,7 @@ private:
         gsGeneral = new GSettings(SETTINGS_ID);
         // Set this once globally because it affects more then current window (i.e. shortcuts)
         useTabs = gsGeneral.getBoolean(SETTINGS_USE_TABS_KEY);
+        _processMonitor = gsGeneral.getBoolean(SETTINGS_PROCESS_MONITOR);
         gsGeneral.addOnChanged(delegate(string key, Settings) {
             applyPreference(key);
         });
@@ -684,7 +680,6 @@ private:
         addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix and dependant component versions"), null);
         addMainOption(CMD_PREFERENCES, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix preferences dialog directly"), null);
         addMainOption(CMD_GROUP, 'g', GOptionFlags.NONE, GOptionArg.STRING, _("Group tilix instances into different processes (Experimental, not recommended"), null);
-        addMainOption(CMD_PROCESS_MONITOR, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Enables process monitoring (Experimental)"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));

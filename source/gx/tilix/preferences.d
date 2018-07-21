@@ -143,6 +143,8 @@ enum SETTINGS_USE_TABS_KEY = "use-tabs";
 enum SETTINGS_TAB_POSITION_KEY = "tab-position";
 immutable string[] SETTINGS_TAB_POSITION_VALUES = ["left", "right", "top", "bottom"];
 
+enum SETTINGS_PROCESS_MONITOR = "process-monitor";
+
 //Proxy Environment Variables
 enum SETTINGS_SET_PROXY_ENV_KEY = "set-proxy-env";
 
