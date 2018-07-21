@@ -3296,8 +3296,11 @@ private:
 
     int margin = 0;
     bool marginEnabled = false;
-    RGBA drawBG;
 
+    static if (COMPILE_VTE_BACKGROUND_COLOR) {
+        RGBA drawBG;
+    }
+    
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
         double width = to!double(w.getAllocatedWidth());
@@ -3305,14 +3308,18 @@ private:
 
         // Only draw background if vte background draw is disabled
         if (isVTEBackgroundDrawEnabled()) {
-            if (checkVTEVersion(VTE_VERSION_BACKGROUND_GET_COLOR)) {
-                if (drawBG is null) drawBG = new RGBA();
-                vte.getColorBackgroundForDraw(drawBG);
+            static if (COMPILE_VTE_BACKGROUND_COLOR) {
+                if (checkVTEVersion(VTE_VERSION_BACKGROUND_GET_COLOR)) {
+                    if (drawBG is null) drawBG = new RGBA();
+                    vte.getColorBackgroundForDraw(drawBG);
+                } else {
+                    drawBG = vteBG;
+                }
+                //tracef("Draw background: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
+                cr.setSourceRgba(drawBG.red, drawBG.green, drawBG.blue, drawBG.alpha);
             } else {
-                drawBG = vteBG;
+                cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             }
-            //tracef("Draw background: %f, %f, %f, %f", vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
-            cr.setSourceRgba(drawBG.red, drawBG.green, drawBG.blue, drawBG.alpha);
             cr.setOperator(cairo_operator_t.SOURCE);
             cr.rectangle(0.0, 0.0, width, height);
             cr.clip();
