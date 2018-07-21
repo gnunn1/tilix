@@ -1,5 +1,5 @@
-.\" Manpage for tilix.
-.\" add issue at https://github.com/gnunn1/tilix to correct errors or typos.
+.\" Manpage for Tilix.
+.\" add issues at https://github.com/gnunn1/tilix to correct errors or typos.
 .TH TILIX 1 "26 December 2016" "1.4.0" "Tilix Commands"
 .SH NAME
 \fBtilix\fP \- Tiling GTK3 terminal emulator for GNOME 
@@ -7,7 +7,7 @@
 .B tilix
 .RI [ options ]
 .SH DESCRIPTION
-\fBtilix\fP is an advanced GTK3 tiling terminal emulator designed to adhere to Gnome Human Interface Guidelines.
+\fBtilix\fP is an advanced GTK3 tiling terminal emulator designed to adhere to GNOME Human Interface Guidelines.
 .SH OPTIONS
 The \fBtilix\fP application accepts the following command line parameters:
 .TP
@@ -21,28 +21,28 @@ Show the version of Tilix as well as the versions of dependent components.
 Set the working directory of the terminal.
 .TP
 .B \-p \-\-profile=PROFILE_NAME
-Set the starting profile using the name of one of the existing profiles. If a name is passed that does not correspond to an existing profile, the default profile will be used.
+Set the starting profile using the name of one of the existing profiles. If it matches none of those, the default profile will be used.
 .TP
 .B \-t \-\-title=TITLE
 Set the title of the new terminal.
 .TP
 .B \-s \-\-session=SESSION_NAME
-Open the specified session file which has been previously saved. Session files are saved from within Tilix, they store the complete layout of the session enabling the user to re-load it when required. Note that only the layout and layout options are saved, this will not restore the terminal to where it was left off, rather new terminals are created.  
+Specify a previously saved session to re-load the layout and layout options from. This will not restore the terminal to where it was left off, rather new terminals are created.
 .TP
 .B \-a \-\-action=ACTION_NAME
-Perform an action in the current Tilix instance, the following actions are supported:
+Perform one of the following actions in the current Tilix instance:
 .IP
 .B session-add-right
-Adds a new terminal to the right of the current terminal.
+Add a new terminal rightwards of the current one.
 .IP
 .B session-add-down
-Adds a new terminal down from the current terminal.
+Add a new terminal below the current terminal.
 .IP
 .B app-new-session
-Creates a new Tilix session within the current window.
+Create a new Tilix session within the current window.
 .IP
 .B app-new-window
-Creates a new Tilix window.
+Create a new Tilix window.
 .TP
 .B \-e \-\-command=COMMAND
 Execute all text after this parameter as a command, thus this parameter must be the last parameter.
@@ -60,7 +60,7 @@ Full-screen the terminal window.
 Focus the existing window.
 .TP
 .B \-\-window\-style=WINDOW_STYLE
-Override the preferred window style to use, the following styles are supported:
+Override the preferred window style, the following styles are supported:
 .IP
 .B normal
 Normal window look.
@@ -75,13 +75,13 @@ Do not show client side decorations and toolbar.
 Do not show window borders.
 .TP
 .B \-\-new\-process
-Start an additional Tilix instance as a new process. By default and as per GTK+ 3 guidelines, Tilix maintains a single process that all windows belong to. This option forces Tilix to start as a separate process. This is not recommended and is intended for debugging purposes only, using this option will prevent different Tilix windows from communicating with each other. 
+Start an additional Tilix instance as a new process. By default and as per GTK+ version 3 guidelines, Tilix maintains a single process that all windows belong to. This option forces Tilix to start as a separate process. This is not recommended and only intended for debugging purposes. Its use will prevent different Tilix windows from communicating with each other. 
 .TP
 .B \-\-geometry=GEOMETRY
 Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y).
 .TP
 .B \-q \-\-quake
-Open a window in quake mode or toggle existing quake mode window visibility.
+Open a window in Quake mode or toggle existing Quake mode window visibility.
 .TP
 .B \-\-preferences
 Show the Tilix preferences dialog directly.
