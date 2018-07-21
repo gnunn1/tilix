@@ -1573,6 +1573,9 @@ private:
             }
             if (fcd.run() == ResponseType.OK) {
                 filename = fcd.getFilename();
+                if (!filename.endsWith(".json")) {
+                    filename ~= ".json";
+                }
                 dialogPaths[DialogPath.SAVE_SESSION] = fcd.getCurrentFolder();
             } else {
                 return;
