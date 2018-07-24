@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2018-07-21 19:52-0400\n"
-"PO-Revision-Date: 2018-04-29 12:23+0000\n"
+"PO-Revision-Date: 2018-07-24 17:02+0000\n"
 "Last-Translator: JeanDeLaMouche <urgau@numericable.fr>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/tilix/manpage/fr/"
-">\n"
+"Language-Team: French <https://hosted.weblate.org/projects/tilix/manpage/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #. type: TH
 #: data/man/tilix:3
@@ -72,10 +72,6 @@ msgstr "DESCRIPTION"
 
 #. type: Plain text
 #: data/man/tilix:11
-#, fuzzy
-#| msgid ""
-#| "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere "
-#| "to Gnome Human Interface Guidelines."
 msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "GNOME Human Interface Guidelines."
@@ -137,18 +133,12 @@ msgstr "B<-p --profile=NOM_DU_PROFIL>"
 
 #. type: Plain text
 #: data/man/tilix:25
-#, fuzzy
-#| msgid ""
-#| "Set the starting profile using the name of one of the existing profiles. "
-#| "If a name is passed that does not correspond to an existing profile, the "
-#| "default profile will be used."
 msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
 "it matches none of those, the default profile will be used."
 msgstr ""
 "Définir le profil de démarrage en fournissant le nom d'un profil existant. "
-"Si le nom passé en argument ne correspond pas à un profil existant, le "
-"profil par défaut sera utilisé."
+"S'il ne correspond à aucun d'entre eux, le profil par défaut sera utilisé."
 
 #. type: TP
 #: data/man/tilix:25
@@ -169,24 +159,14 @@ msgstr "B<-s --session=NOM_DE_LA_SESSION>"
 
 #. type: Plain text
 #: data/man/tilix:31
-#, fuzzy
-#| msgid ""
-#| "Open the specified session file which has been previously saved. Session "
-#| "files are saved from within Tilix, they store the complete layout of the "
-#| "session enabling the user to re-load it when required. Note that only the "
-#| "layout and layout options are saved, this will not restore the terminal "
-#| "to where it was left off, rather new terminals are created."
 msgid ""
 "Specify a previously saved session to re-load the layout and layout options "
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
-"Ouvrir le fichier de session précédemment enregistré spécifié. Les fichiers "
-"de session sont enregistrés depuis Tilix, ils contiennent la disposition "
-"complète de la session, ce qui permet à l'utilisateur de la recharger quand "
-"il le souhaite. Notez que seules les dispositions et leurs options sont "
-"enregistrées, ceci ne restaure pas les terminaux dans l'état dans lequel ils "
-"étaient en quittant, de nouveaux terminaux sont crées à la place."
+"Spécifiez une session précédemment sauvegardée pour recharger la mise en "
+"page et les options de mise en page. Cela ne restaurera pas le terminal là "
+"où il a été laissé, mais plutôt de nouveaux terminaux sont créés."
 
 #. type: TP
 #: data/man/tilix:31
@@ -196,10 +176,6 @@ msgstr "B<-a --action=NOM_DE_L'ACTION>"
 
 #. type: Plain text
 #: data/man/tilix:34
-#, fuzzy
-#| msgid ""
-#| "Perform an action in the current Tilix instance, the following actions "
-#| "are supported:"
 msgid "Perform one of the following actions in the current Tilix instance:"
 msgstr ""
 "Lancer une action dans l'instance actuelle de Tilix ; les actions suivantes "
@@ -207,41 +183,27 @@ msgstr ""
 
 #. type: Plain text
 #: data/man/tilix:37
-#, fuzzy
-#| msgid ""
-#| "B<session-add-right> Adds a new terminal to the right of the current "
-#| "terminal."
 msgid "B<session-add-right> Add a new terminal rightwards of the current one."
 msgstr ""
-"B<session-add-right> Ajoute un nouveau terminal à la droite du terminal "
-"actuel."
+"B<session-add-right> Ajouter un nouveau terminal à droite du terminal actuel."
 
 #. type: Plain text
 #: data/man/tilix:40
-#, fuzzy
-#| msgid ""
-#| "B<session-add-down> Adds a new terminal down from the current terminal."
 msgid "B<session-add-down> Add a new terminal below the current terminal."
 msgstr ""
-"B<session-add-down> Ajoute un nouveau terminal sous le terminal actuel."
+"B<session-add-down> Ajouter un nouveau terminal sous le terminal actuel."
 
 #. type: Plain text
 #: data/man/tilix:43
-#, fuzzy
-#| msgid ""
-#| "B<app-new-session> Creates a new Tilix session within the current window."
 msgid ""
 "B<app-new-session> Create a new Tilix session within the current window."
 msgstr ""
-"B<app-new-session> Crée une nouvelle session de Tilix dans la fenêtre "
-"actuelle."
+"B<app-new-session> Créez une nouvelle session Tilix dans la fenêtre actuelle."
 
 #. type: Plain text
 #: data/man/tilix:46
-#, fuzzy
-#| msgid "B<app-new-window> Creates a new Tilix window."
 msgid "B<app-new-window> Create a new Tilix window."
-msgstr "B<app-new-window> Crée une nouvelle fenêtre de Tilix."
+msgstr "B<app-new-window> Créez une nouvelle fenêtre Tilix."
 
 #. type: TP
 #: data/man/tilix:46
@@ -310,15 +272,11 @@ msgstr "B<--window-style=WINDOW_STYLE>"
 
 #. type: Plain text
 #: data/man/tilix:64
-#, fuzzy
-#| msgid ""
-#| "Override the preferred window style to use, the following styles are "
-#| "supported:"
 msgid ""
 "Override the preferred window style, the following styles are supported:"
 msgstr ""
-"Remplacez le style de fenêtre préféré à utiliser, les styles suivants sont "
-"pris en charge :"
+"Remplacez le style de fenêtre préféré, les styles suivants sont pris en "
+"charge :"
 
 #. type: Plain text
 #: data/man/tilix:67
@@ -351,14 +309,6 @@ msgstr "B<--new-process>"
 
 #. type: Plain text
 #: data/man/tilix:79
-#, fuzzy
-#| msgid ""
-#| "Start an additional Tilix instance as a new process. By default and as "
-#| "per GTK+ 3 guidelines, Tilix maintains a single process that all windows "
-#| "belong to. This option forces Tilix to start as a separate process. This "
-#| "is not recommended and is intended for debugging purposes only, using "
-#| "this option will prevent different Tilix windows from communicating with "
-#| "each other."
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
 "GTK+ version 3 guidelines, Tilix maintains a single process that all windows "
@@ -366,13 +316,12 @@ msgid ""
 "not recommended and only intended for debugging purposes. Its use will "
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
-"Démarrer une nouvelle instance de Tilix en tant que nouveau processus. Par "
-"défaut, et conformément aux directives GTK+ 3, Tilix utilise un seul "
-"processus auquel appartiennent toutes les fenêtres. Cette option force Tilix "
-"à démarrer en tant que nouveau processus. Ceci n'est pas recommandé et ne "
-"devrait être utilisé qu'à des fins de débogage dans la mesure où cette "
-"option empêchera les différentes fenêtres de Tilix de communiquer entre "
-"elles."
+"Lancez une instance Tilix supplémentaire en tant que nouveau processus. Par "
+"défaut et selon les directives de la version 3 de GTK+, Tilix maintient un "
+"processus unique auquel toutes les fenêtres appartiennent. Cette option "
+"force Tilix à démarrer comme un processus séparé. Ceci n'est pas recommandé "
+"et n'est destiné qu'à des fins de débogage. Son utilisation empêchera les "
+"différentes fenêtres Tilix de communiquer entre elles."
 
 #. type: TP
 #: data/man/tilix:79
@@ -396,15 +345,11 @@ msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: data/man/tilix:85
-#, fuzzy
-#| msgid ""
-#| "Open a window in quake mode or toggle existing quake mode window "
-#| "visibility."
 msgid ""
 "Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
-"Ouvrir une fenêtre en mode quake ou basculer la visibilité d'une fenêtre en "
-"mode quake existante."
+"Ouvrir une fenêtre en mode Quake ou basculer la visibilité d'une fenêtre en "
+"mode Quake existante."
 
 #. type: TP
 #: data/man/tilix:85
