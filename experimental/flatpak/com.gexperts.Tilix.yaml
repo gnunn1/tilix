@@ -1,0 +1,104 @@
+id: com.gexperts.Tilix
+branch: master
+runtime: org.gnome.Platform
+runtime-version: 3.28
+sdk: org.gnome.Sdk
+command: tilix
+tags: ['Terminal', 'Tile']
+finish-args:
+  - '--share=ipc'
+  - '--socket=x11'
+  - '--socket=wayland'
+  - '--filesystem=xdg-run/dconf'
+  - '--filesystem=~/.config/dconf:ro'
+  - '--talk-name=ca.desrt.dconf'
+  - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
+  - '--own-name=com.gexperts.Tilix'
+  - '--device=all'
+cleanup:
+  - '/ldc-0.17'
+  - '/etc/bash_completion.d'
+  - '/include'
+  - '/lib/cmake'
+  - '/lib/debug'
+  - '/lib/pkgconfig'
+  - '/share/gtk-doc'
+  - '/share/man'
+  - '*.la'
+  - '*.a'
+build-options:
+  env:
+    PERLLIB: '/app/lib'
+modules:
+  - name: libconfig
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://hyperrealm.github.io/libconfig/dist/libconfig-1.7.2.tar.gz
+        sha256: 7c3c7a9c73ff3302084386e96f903eb62ce06953bb1666235fac74363a16fad9
+  - name: libedit
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://thrysoee.dk/editline/libedit-20180525-3.1.tar.gz
+        sha256: c41bea8fd140fb57ba67a98ec1d8ae0b8ffa82f4aba9c35a87e5a9499e653116
+  - name: ldc-0.17
+    buildsystem: cmake-ninja
+    config-opts:
+      - '-DCMAKE_SYSTEM_PREFIX_PATH=/app'
+      - '-DCMAKE_INSTALL_PREFIX:PATH=/app/ldc-0.17'
+    sources:
+      - type: archive
+        url: https://github.com/ldc-developers/ldc/releases/download/v0.17.5/ldc-0.17.5-src.tar.gz
+        sha256: 7aa540a135f9fa1ee9722cad73100a8f3600a07f9a11d199d8be68887cc90008
+      - type: patch
+        path: disable-ldc-completions.patch
+  - name: ldc
+    buildsystem: cmake-ninja
+    config-opts:
+      - '-DD_COMPILER=/app/ldc-0.17/bin/ldmd2'
+    sources:
+      - type: archive
+        url: https://github.com/ldc-developers/ldc/releases/download/v1.11.0-beta2/ldc-1.11.0-beta2-src.tar.gz
+        sha256: 49ef9009238859275e80afa20ee6d37b6797a1b2b41923a2a5922b6381efb14c
+  - name: gtkd
+    buildsystem: simple
+    build-commands:
+      - 'make -j2 DC=ldc2 prefix=/app install-gtkd install-vte'
+    sources:
+      - type: archive
+        url: https://gtkd.org/Downloads/sources/GtkD-3.8.3.zip
+        sha256: 2471820137702d6e1cfc9d19a39de5af34524246988c74deffabbbb63e0b6369
+        strip-components: 0
+  - name: po4a
+    buildsystem: simple
+    build-commands:
+      - 'install -m 755 po4a /app/bin'
+      - 'install -m 755 po4a-gettextize /app/bin'
+      - 'install -m 755 po4a-normalize /app/bin'
+      - 'install -m 755 po4a-translate /app/bin'
+      - 'install -m 755 po4a-updatepo /app/bin'
+      - 'cp -r lib/* /app/lib'
+    sources:
+      - type: archive
+        url: https://github.com/mquinson/po4a/releases/download/v0.54/po4a-0.54.tar.gz
+        sha256: 596f7621697f9dd12709958c229e256b56683d25997ac73c9625a2cc0c603d51
+  - name: libvte-patched
+    buildsystem: autotools
+    config-opts:
+      - '--disable-introspection'
+      - '--disable-vala'
+    sources:
+      - type: archive
+        url: https://ftp.gnome.org/pub/GNOME/sources/vte/0.53/vte-0.53.0.tar.xz
+        sha256: c319eb34e9c64c78cd4940cde0892bd18784bcdcaaa7a23a9c8ec6052317a130
+      - type: patch
+        path: vte291-command-notify-scroll-speed.patch
+  - name: tilix
+    buildsystem: autotools
+    sources:
+      - type: git
+        url: https://github.com/gnunn1/tilix
+      - type: patch
+        path: 0001-Enable-flatpak.patch
+        use-git: true
