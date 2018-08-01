@@ -1029,8 +1029,8 @@ private:
             event.getKeyval(keyval);
             if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
                 string[] actions = tilix.getActionsForAccel("<Ctrl>c");
-                if (actions.length > 0 && 
-                   (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) && 
+                if (actions.length > 0 &&
+                   (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) &&
                    !vte.getHasSelection()) {
                     string controlc = "\u0003";
                     vte.feedChild(controlc);
@@ -1995,7 +1995,7 @@ private:
             if (uri.startsWith("file:")) {
                 string filename, hostname;
                 try {
-                    
+
                     filename = URI.filenameFromUri(uri, hostname);
                 } catch (Exception e) {
                     string message = format(_("Could not check file '%s' due to error '%s'"), match.match, e.msg);
@@ -2415,7 +2415,7 @@ private:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
         case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
-            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) 
+            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS))
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
@@ -2697,7 +2697,17 @@ private:
         trace("Spawn setting workingDir to " ~ workingDir);
 
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
-        string shell = getUserShell(vte.getUserShell());
+
+        string shell = null;
+        static if (FLATPAK) {
+            shell = getHostShell();
+            if (shell is null) {
+                shell = "/bin/sh";
+            }
+        } else {
+            shell = getUserShell(vte.getUserShell());
+        }
+
         string[] args;
         // Passed command takes precedence over global override which comes from -x flag
         if (command.length == 0 && overrides.command.length > 0) {
@@ -2775,6 +2785,26 @@ private:
     enum O_CLOEXEC = 0x80000;
 
     /**
+     * In a Flatpak environment, vte.getUserShell() will return the shell *inside* the Flatpak,
+     * which isn't the user's shell. Instead, getent must be used to get the proper shell.
+     */
+    string getHostShell() {
+        import core.sys.posix.unistd: getuid;
+
+        string uid = to!string(getuid());
+        tracef("Asking toolbox for shell", uid);
+
+        string shell = captureHostToolboxCommand("get-shell", to!string(uid), []);
+
+        if (shell == null) {
+            warning("Failed to get host shell");
+            return null;
+        }
+
+        return shell.length > 0 ? shell : null;
+    }
+
+    /**
      * Needed spawnSync function to handle flatpak where we need to generate out VtePty in order
      * for it to work at the system level outside of flatpak.
      *
@@ -2842,7 +2872,11 @@ private:
                 }
             }
 
-            bool result = sendHostCommand(pty, workingDir, args, envv, pty_slaves, gpid);
+            void exitedCallback(int status) {
+                onTerminalChildExited(status, vte);
+            }
+
+            bool result = sendHostCommand(workingDir, args, envv, pty_slaves, gpid, &exitedCallback);
 
             vte.setPty(pty);
 
@@ -2887,7 +2921,31 @@ private:
         return new GVariant(vs, true);
     }
 
-    bool sendHostCommand(Pty pty, string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid) {
+    alias HostCommandExitedCallback = void delegate(int);
+    alias HostCommandExitedArgs = Tuple!(HostCommandExitedCallback, "callback", int, "pid", uint, "signalId", int, "status");
+    static HostCommandExitedArgs*[] activeHostCommandExitedArgs;
+
+    extern(C) static void hostCommandExitedCallback(GDBusConnection *connection, const(char)* senderName, const(char)* objectPath, const(char)* interfaceName,
+                                                    const(char)* signalName, gtkc.glibtypes.GVariant* parameters, HostCommandExitedArgs *args) {
+        uint pid, status;
+        g_variant_get (parameters, "(uu)", &pid, &status);
+
+        if (args.pid == -1 || pid == args.pid) {
+            import gtkc.gio: g_dbus_connection_signal_unsubscribe;
+            activeHostCommandExitedArgs.remove!(a => a == args);
+
+            if (args.pid == -1) {
+                trace("hostCommandExitedCallback was called before spawn completed.");
+                args.pid = pid;
+                args.status = status;
+            } else {
+                g_dbus_connection_signal_unsubscribe(connection, args.signalId);
+                args.callback(status);
+            }
+        }
+    }
+
+    bool sendHostCommand(string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid, HostCommandExitedCallback exitedCallback) {
         import gio.DBusConnection;
         import gio.UnixFDList;
 
@@ -2910,7 +2968,20 @@ private:
         );
         connection.setExitOnClose(false);
 
-        // TODO: handle HostCommandExited signal
+        auto callbackArgs = new HostCommandExitedArgs(exitedCallback, -1, 0u, -1);
+        activeHostCommandExitedArgs ~= callbackArgs;
+
+        uint signalId = connection.signalSubscribe(
+            "org.freedesktop.Flatpak",
+            "org.freedesktop.Flatpak.Development",
+            "HostCommandExited",
+            "/org/freedesktop/Flatpak/Development",
+            null,
+            DBusSignalFlags.NONE,
+            cast(GDBusSignalCallback)&hostCommandExitedCallback,
+            cast(void*)callbackArgs,
+            null,
+        );
 
         GVariant reply = connection.callWithUnixFdListSync(
             "org.freedesktop.Flatpak",
@@ -2928,13 +2999,72 @@ private:
 
         if (reply is null) {
             warning("No reply from flatpak dbus service");
+            connection.signalUnsubscribe(signalId);
             return false;
         } else {
             uint pid;
             g_variant_get (reply.getVariantStruct(), "(u)", &pid);
             gpid = pid;
+
+            if (callbackArgs.pid != -1) {
+                trace("HostCommandExited was already emitted");
+                connection.signalUnsubscribe(signalId);
+                exitedCallback(callbackArgs.status);
+            } else {
+                callbackArgs.pid = pid;
+                callbackArgs.signalId = signalId;
+            }
+
             return true;
         }
+    }
+
+    /*
+     * A thin wrapper over sendHostCommand that asks the tilix-flatpak-toolbox for information
+     * about the host system.
+     */
+    string captureHostToolboxCommand(string command, string arg, int[] extra_fds) {
+        import std.process: Pipe, pipe;
+        import glib.MainContext;
+        import glib.KeyFile;
+
+        KeyFile kf = new KeyFile();
+        kf.loadFromFile("/.flatpak-info", GKeyFileFlags.NONE);
+
+        string hostRoot = kf.getString("Instance", "app-path");
+        string[] args = [format("%s/bin/tilix-flatpak-toolbox", hostRoot), command, arg];
+
+        Pipe output = pipe();
+        scope(exit) pipe.close();
+
+        int gpid, status = -1;
+
+        void commandExited(int command_status) {
+            status = command_status;
+        }
+
+        int[] stdio_fds = [0, output.writeEnd.fileno, 2] ~ extra_fds;
+
+        if (!sendHostCommand("/", args, [], stdio_fds, gpid, &commandExited)) {
+            return null;
+        }
+
+        MainContext ctx = MainContext.getThreadDefault();
+        if (ctx is null) {
+            // https://github.com/gtkd-developers/GtkD/issues/247
+            ctx = MainContext.defaulx();
+        }
+
+        trace("captureHostToolboxCommand is waiting for status to be filled...");
+        while (status == -1) {
+            ctx.iteration(true);
+        }
+
+        if (status != 0) {
+            return null;
+        }
+
+        return output.readEnd.readln().strip();
     }
 
     /**
@@ -3300,7 +3430,7 @@ private:
     static if (COMPILE_VTE_BACKGROUND_COLOR) {
         RGBA drawBG;
     }
-    
+
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
         double width = to!double(w.getAllocatedWidth());
@@ -3751,9 +3881,19 @@ public:
         }
     }
 
+    pid_t getChildPidFromHost() {
+        string result = captureHostToolboxCommand("get-child-pid", "", [vte.getPty().getFd()]);
+        if (result == null) {
+            warning("Failed to get child pid from host");
+            return -1;
+        }
+
+        return to!pid_t(result);
+    }
+
     bool isProcessRunning() {
-        pid_t childPid = vte.getChildPid();
-        return isProcessRunning(childPid);
+        pid_t dummy;
+        return isProcessRunning(dummy);
     }
 
     /**
@@ -3763,8 +3903,13 @@ public:
     bool isProcessRunning(out pid_t childPid) {
         if (vte.getPty() is null)
             return false;
-        int fd = vte.getPty().getFd();
-        childPid = vte.getChildPid();
+
+        static if (FLATPAK) {
+            childPid = getChildPidFromHost();
+        } else {
+            childPid = vte.getChildPid();
+        }
+
         tracef("childPid=%d gpid=%d", childPid, gpid);
         return (childPid != -1 && childPid != gpid);
     }
@@ -3780,9 +3925,19 @@ public:
         pid_t childPid;
         bool result = isProcessRunning(childPid);
 
+        if (childPid == -1) {
+            return false;
+        }
+
         import std.file: read, FileException;
         try {
-            string data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));
+            string data;
+            static if (FLATPAK) {
+                data = captureHostToolboxCommand("get-proc-stat", to!string(childPid), []);
+            } else {
+                data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));
+            }
+
             size_t rpar = data.lastIndexOf(")");
             name = data[data.indexOf("(") + 1..rpar];
         } catch (FileException fe) {
@@ -4123,7 +4278,7 @@ public:
         } else {
             getMessageArea().add(lblCmd);
         }
-        
+
         Button btnCancel = new Button(_("Don't Paste"));
         Button btnIgnore = new Button(_("Paste Anyway"));
         btnIgnore.getStyleContext().addClass("destructive-action");

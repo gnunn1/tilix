@@ -199,8 +199,8 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
      * as well which also indicates no child process.
      */
     pid_t getChildPid() {
-        // TODO: be correct for flatpak sandbox
 		static if (FLATPAK) {
+            warning("getChildPid should not be called from a Flatpak environment.");
 			return -1;
 		} else {
 			if (getPty() is null)

@@ -14,8 +14,14 @@ finish-args:
   - '--talk-name=ca.desrt.dconf'
   - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
   - '--own-name=com.gexperts.Tilix'
+  - '--talk-name=org.freedesktop.Flatpak'
   - '--device=all'
 cleanup:
+  # - '/bin/ldc*'
+  # - '/bin/ldmd2'
+  - '/bin/dmd*'
+  - '/bin/po4a*'
+  - '/bin/vte*'
   - '/ldc-0.17'
   - '/etc/bash_completion.d'
   - '/include'
@@ -24,6 +30,7 @@ cleanup:
   - '/lib/pkgconfig'
   - '/share/gtk-doc'
   - '/share/man'
+  - '/src'
   - '*.la'
   - '*.a'
 build-options:
@@ -53,18 +60,47 @@ modules:
         sha256: 7aa540a135f9fa1ee9722cad73100a8f3600a07f9a11d199d8be68887cc90008
       - type: patch
         path: disable-ldc-completions.patch
-  - name: ldc
-    buildsystem: cmake-ninja
-    config-opts:
-      - '-DD_COMPILER=/app/ldc-0.17/bin/ldmd2'
+  - name: dmd
+    buildsystem: simple
+    build-commands:
+      - 'make -j2 -C dmd -f posix.mak install HOST_DMD=/app/ldc-0.17/bin/ldmd2 INSTALL_DIR=$PWD/install'
+      - 'make -j2 -C phobos -f posix.mak install INSTALL_DIR=$PWD/install'
+      - 'cp -rv install/linux/bin* /app/bin'
+      - 'cp -v dmd.conf /app/bin'
+      - 'cp -rv install/linux/lib* /app'
+      - 'install -d /app/src'
+      - 'cp -rv druntime phobos /app/src'
     sources:
-      - type: archive
-        url: https://github.com/ldc-developers/ldc/releases/download/v1.11.0-beta2/ldc-1.11.0-beta2-src.tar.gz
-        sha256: 49ef9009238859275e80afa20ee6d37b6797a1b2b41923a2a5922b6381efb14c
+      - type: git
+        url: https://github.com/dlang/dmd
+        tag: v2.081.1
+        dest: dmd
+      - type: git
+        url: https://github.com/dlang/druntime
+        tag: v2.081.1
+        dest: druntime
+      - type: git
+        url: https://github.com/dlang/tools
+        tag: v2.081.1
+        dest: tools
+      - type: git
+        url: https://github.com/dlang/phobos
+        tag: v2.081.1
+        dest: phobos
+      - type: file
+        path: dmd.conf
+  # - name: ldc
+  #   buildsystem: cmake-ninja
+  #   config-opts:
+  #     - '-DD_COMPILER=/app/ldc-0.17/bin/ldmd2'
+  #   sources:
+  #     - type: archive
+  #       url: https://github.com/ldc-developers/ldc/releases/download/v1.11.0-beta2/ldc-1.11.0-beta2-src.tar.gz
+  #       sha256: 49ef9009238859275e80afa20ee6d37b6797a1b2b41923a2a5922b6381efb14c
   - name: gtkd
     buildsystem: simple
     build-commands:
-      - 'make -j2 DC=ldc2 prefix=/app install-gtkd install-vte'
+      - 'make -j2 prefix=/app install-gtkd install-vte'
     sources:
       - type: archive
         url: https://gtkd.org/Downloads/sources/GtkD-3.8.3.zip
@@ -96,9 +132,24 @@ modules:
         path: vte291-command-notify-scroll-speed.patch
   - name: tilix
     buildsystem: autotools
+    config-opts:
+      - 'DCFLAGS=-g'
     sources:
-      - type: git
-        url: https://github.com/gnunn1/tilix
+      # - type: git
+      #   url: https://github.com/gnunn1/tilix
+      - type: dir
+        path: ../..
       - type: patch
         path: 0001-Enable-flatpak.patch
         use-git: true
+  - name: toolbox
+    buildsystem: simple
+    build-commands:
+      - 'gcc -static -o /app/bin/tilix-flatpak-toolbox tilix-flatpak-toolbox.c'
+    sources:
+      - type: file
+        path: tilix-flatpak-toolbox.c
+  - name: gsettings
+    buildsystem: simple
+    build-commands:
+      - 'glib-compile-schemas /app/share/glib-2.0/schemas'
