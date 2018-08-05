@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2018-07-21 19:52-0400\n"
-"PO-Revision-Date: 2018-04-23 00:44+0000\n"
+"PO-Revision-Date: 2018-07-24 23:59+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tilix/manpage/ru/"
 ">\n"
@@ -15,9 +15,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #. type: TH
 #: data/man/tilix:3
@@ -73,16 +73,12 @@ msgstr "ОПИСАНИЕ"
 
 #. type: Plain text
 #: data/man/tilix:11
-#, fuzzy
-#| msgid ""
-#| "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere "
-#| "to Gnome Human Interface Guidelines."
 msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "GNOME Human Interface Guidelines."
 msgstr ""
-"B<tilix> – это продвинутый тайлинговый эмулятор терминала, использующий GTK3 "
-"и спроектированный с учётом гайдлайнов по интерфейсу пользователя Gnome."
+"B<tilix> - это продвинутый тайлинговый эмулятор терминала, использующий GTK3 "
+"и спроектированный с учётом гайдлайнов по интерфейсу пользователя GNOME."
 
 #. type: SH
 #: data/man/tilix:11
@@ -137,18 +133,13 @@ msgstr "B<-p --profile=ИМЯ_ПРОФАЙЛА>"
 
 #. type: Plain text
 #: data/man/tilix:25
-#, fuzzy
-#| msgid ""
-#| "Set the starting profile using the name of one of the existing profiles. "
-#| "If a name is passed that does not correspond to an existing profile, the "
-#| "default profile will be used."
 msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
 "it matches none of those, the default profile will be used."
 msgstr ""
 "Задать начальный профайл, используя имя одного из существующих профайлов. "
-"Если указанное имя не соответствует ни одному из существующих профайлов, "
-"будет использован профайл по умолчанию."
+"Если он не совпадает ни с одним из них, будет использован профайл по "
+"умолчанию."
 
 #. type: TP
 #: data/man/tilix:25
@@ -169,23 +160,14 @@ msgstr "B<-s --session=ИМЯ_СЕАНСА>"
 
 #. type: Plain text
 #: data/man/tilix:31
-#, fuzzy
-#| msgid ""
-#| "Open the specified session file which has been previously saved. Session "
-#| "files are saved from within Tilix, they store the complete layout of the "
-#| "session enabling the user to re-load it when required. Note that only the "
-#| "layout and layout options are saved, this will not restore the terminal "
-#| "to where it was left off, rather new terminals are created."
 msgid ""
 "Specify a previously saved session to re-load the layout and layout options "
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
-"Открыть указанный файл сеанса, который был сохранён ранее. Файлы сеансов "
-"сохраняются из Tilix, они содержат полное расположение терминалов в сессии, "
-"позволяя пользователю восстановить его при необходимости. Обратите внимание, "
-"что сохраняется только расположение терминалов, состояние терминалов не "
-"восстанавливается – вместо этого создаются новые терминалы."
+"Указать предварительно сохранённую сессию для восстановления расположения "
+"терминалов и других параметров. Это не восстановит терминал в состоянии, в "
+"котором он был оставлен - вместо этого будут созданы новые терминалы."
 
 #. type: TP
 #: data/man/tilix:31
@@ -195,47 +177,29 @@ msgstr "B<-a --action=ИМЯ_ДЕЙСТВИЯ>"
 
 #. type: Plain text
 #: data/man/tilix:34
-#, fuzzy
-#| msgid ""
-#| "Perform an action in the current Tilix instance, the following actions "
-#| "are supported:"
 msgid "Perform one of the following actions in the current Tilix instance:"
-msgstr ""
-"Выполнить действие в запущенном процессе Tilix, поддерживаются следующие "
-"действия:"
+msgstr "Выполнить одно из следующих действий в запущенном процессе Tilix:"
 
 #. type: Plain text
 #: data/man/tilix:37
-#, fuzzy
-#| msgid ""
-#| "B<session-add-right> Adds a new terminal to the right of the current "
-#| "terminal."
 msgid "B<session-add-right> Add a new terminal rightwards of the current one."
-msgstr "B<session-add-right> Добавляет новый терминал справа от текущего."
+msgstr "B<session-add-right> Добавить новый терминал справа от текущего."
 
 #. type: Plain text
 #: data/man/tilix:40
-#, fuzzy
-#| msgid ""
-#| "B<session-add-down> Adds a new terminal down from the current terminal."
 msgid "B<session-add-down> Add a new terminal below the current terminal."
-msgstr "B<session-add-down> Добавляет новый терминал снизу текущего."
+msgstr "B<session-add-down> Добавить новый терминал снизу текущего."
 
 #. type: Plain text
 #: data/man/tilix:43
-#, fuzzy
-#| msgid ""
-#| "B<app-new-session> Creates a new Tilix session within the current window."
 msgid ""
 "B<app-new-session> Create a new Tilix session within the current window."
-msgstr "B<app-new-session> Создаёт новую сессию Tilix внутри текущего окна."
+msgstr "B<app-new-session> Создать новую сессию Tilix внутри текущего окна."
 
 #. type: Plain text
 #: data/man/tilix:46
-#, fuzzy
-#| msgid "B<app-new-window> Creates a new Tilix window."
 msgid "B<app-new-window> Create a new Tilix window."
-msgstr "B<app-new-window> Создаёт новое окно Tilix."
+msgstr "B<app-new-window> Создать новое окно Tilix."
 
 #. type: TP
 #: data/man/tilix:46
@@ -304,10 +268,6 @@ msgstr "B<--window-style=СТИЛЬ_ОКНА>"
 
 #. type: Plain text
 #: data/man/tilix:64
-#, fuzzy
-#| msgid ""
-#| "Override the preferred window style to use, the following styles are "
-#| "supported:"
 msgid ""
 "Override the preferred window style, the following styles are supported:"
 msgstr ""
@@ -344,14 +304,6 @@ msgstr "B<--new-process>"
 
 #. type: Plain text
 #: data/man/tilix:79
-#, fuzzy
-#| msgid ""
-#| "Start an additional Tilix instance as a new process. By default and as "
-#| "per GTK+ 3 guidelines, Tilix maintains a single process that all windows "
-#| "belong to. This option forces Tilix to start as a separate process. This "
-#| "is not recommended and is intended for debugging purposes only, using "
-#| "this option will prevent different Tilix windows from communicating with "
-#| "each other."
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
 "GTK+ version 3 guidelines, Tilix maintains a single process that all windows "
@@ -360,11 +312,11 @@ msgid ""
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
 "Запустить дополнительный экземпляр Tilix в новом процессе. По умолчанию и "
-"согласно гайдлайнам GTK+ 3, Tilix работает в едином процессе, к которому "
-"принадлежат все окна. Эта опция заставляет Tilix запускаться в отдельном "
-"процессе. Это не рекомендуется и предназначено только для целей отладки, "
-"использование этой опции не позволит разным окнам Tilix общаться друг с "
-"другом."
+"согласно гайдлайнам GTK+ версии 3, Tilix работает в едином процессе, к "
+"которому принадлежат все окна. Эта опция заставляет Tilix запускаться в "
+"отдельном процессе. Это не рекомендуется и предназначено только для целей "
+"отладки. Использование этой опции не позволит разным окнам Tilix общаться "
+"друг с другом."
 
 #. type: TP
 #: data/man/tilix:79
@@ -387,10 +339,6 @@ msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: data/man/tilix:85
-#, fuzzy
-#| msgid ""
-#| "Open a window in quake mode or toggle existing quake mode window "
-#| "visibility."
 msgid ""
 "Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
