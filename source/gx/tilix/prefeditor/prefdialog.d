@@ -763,7 +763,7 @@ private:
 
         CellRendererAccel craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
-        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.GTK);
+        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.OTHER);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
