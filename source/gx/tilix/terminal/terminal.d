@@ -2351,10 +2351,8 @@ private:
             if (desc.getSize() == 0)
                 desc.setSize(10);
             // If we are drawing badges and using system font, invalidate badge font before setting new font
-            if (badgeFont !is null && gsProfile.getBoolean(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY)) {
-                badgeFont = null;
-            }
             vte.setFont(desc);
+            updateBadgeFont();
             break;
         case SETTINGS_AUTO_HIDE_MOUSE_KEY:
             vte.setMouseAutohide(gsSettings.getBoolean(SETTINGS_AUTO_HIDE_MOUSE_KEY));
@@ -2449,14 +2447,7 @@ private:
             }
             break;
         case SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_BADGE_FONT_KEY:
-            if (vte !is null && isVTEBackgroundDrawEnabled()) {
-                if (gsProfile.getBoolean(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY)) {
-                    badgeFont = null;
-                } else {
-                    badgeFont = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_BADGE_FONT_KEY));
-                }
-                vte.queueDraw();
-            }
+            updateBadgeFont();
         default:
             break;
         }
@@ -3317,11 +3308,18 @@ private:
         RGBA drawBG;
     }
 
-    void setDefaultBadgeFont() {
-        badgeFont = vte.getFont().copy();
-        badgeFont.setSize(badgeFont.getSize() * 2);
+    void updateBadgeFont() {
+        if (vte is null || !isVTEBackgroundDrawEnabled()) return;
+        if (gsProfile.getBoolean(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY)) {
+            badgeFont = vte.getFont().copy();
+            badgeFont.setSize(badgeFont.getSize() * 2);
+        } else {
+            badgeFont = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_BADGE_FONT_KEY));
+        }
+        tracef("Badge font is %s:%d", badgeFont.getFamily(), badgeFont.getSize());
+        vte.queueDraw();
     }
-    
+
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
         cr.save();
         double width = to!double(w.getAllocatedWidth());
@@ -3359,7 +3357,7 @@ private:
         }
 
         //Draw badge if badge text is available
-        if (_cachedBadge.length > 0) {
+        if (_cachedBadge.length > 0 && badgeFont !is null) {
             // Paint badge
             // Use same alpha as background color to match transparency slider
             //cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, vteBG.alpha);
@@ -3382,21 +3380,25 @@ private:
                     break;
                 default:
             }
-            if (badgeFont is null) {
-                setDefaultBadgeFont();
-            }
 
             PgLayout pgl = PgCairo.createLayout(cr);
             pgl.setFontDescription(badgeFont);
             pgl.setText(_cachedBadge);
             pgl.setWidth(rect.width * PANGO_SCALE);
             pgl.setHeight(rect.height * PANGO_SCALE);
+            
             int pw, ph;
             pgl.getPixelSize(pw, ph);
+            
+            /**************************************************
+            /* Old code where we auto-sized the badge, 
+            /* leave it here in case we want to bring it back
+
             //Hack, deduct 0.2 from ratio to make sure text will fit when painted
+            /*
             double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph));
             // If a bigger font fits, then increase it
-            if (fontRatio > 1) {
+            if (fontRatio > 1 && defaultFont) {
                 int fontSize = to!int(floor(fontRatio * badgeFont.getSize()));
                 badgeFont.setSize(fontSize);
                 pgl.setFontDescription(badgeFont);
@@ -3405,6 +3407,10 @@ private:
             } else {
                 pgl.setWrap(PangoWrapMode.WORD_CHAR);
             }
+            */
+             /**************************************************/
+ 
+             pgl.setWrap(PangoWrapMode.WORD_CHAR);
 
             switch (position) {
                 case SETTINGS_QUADRANT_NE_VALUE:
