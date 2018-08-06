@@ -1214,6 +1214,27 @@ class BadgePage: ProfilePage {
         grid.attach(cbBadgePosition, 1, row, 1, 1);
         row++;
 
+        //Custom Font
+        Label lblCustomFont = new Label(_("Custom font"));
+        lblCustomFont.setHalign(Align.END);
+        grid.attach(lblCustomFont, 0, row, 1, 1);
+
+
+        Box bFont = new Box(Orientation.HORIZONTAL, 12);
+        CheckButton cbCustomFont = new CheckButton();
+        bh.bind(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY, cbCustomFont, "active", GSettingsBindFlags.DEFAULT | GSettingsBindFlags.INVERT_BOOLEAN);
+        bFont.add(cbCustomFont);
+
+        //Font Selector
+        FontButton fbFont = new FontButton();
+        fbFont.setTitle(_("Choose A Badge Font"));
+        bh.bind(SETTINGS_PROFILE_BADGE_FONT_KEY, fbFont, "font-name", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY, fbFont, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY | GSettingsBindFlags
+                .INVERT_BOOLEAN);
+        bFont.add(fbFont);
+        grid.attach(bFont, 1, row, 1, 1);
+        row++;
+
         add(grid);
     }
 

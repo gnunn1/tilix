@@ -867,6 +867,16 @@
       <summary>The position where the badge is displayed</summary>
       <description>Determines the position based on quadrants whre the badge is rendered in the terminal.</description>
     </key>
+    <key name="badge-use-system-font" type="b">
+      <default>true</default>
+      <summary>Whether to use the system monospace font</summary>
+    </key>
+    <key name="badge-font" type="s">
+      <default>'Monospace 12'</default>
+      <summary>A Pango font name and size</summary>
+    </key>
+
+    <!-- Notify silent -->
     <key name="notify-silence-threshold" type="i">
       <default>0</default>
       <summary>The threshold for no activity before new activity notifies</summary>

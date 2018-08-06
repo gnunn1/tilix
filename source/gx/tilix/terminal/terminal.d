@@ -2350,6 +2350,10 @@ private:
             }
             if (desc.getSize() == 0)
                 desc.setSize(10);
+            // If we are drawing badges and using system font, invalidate badge font before setting new font
+            if (badgeFont !is null && gsProfile.getBoolean(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY)) {
+                badgeFont = null;
+            }
             vte.setFont(desc);
             break;
         case SETTINGS_AUTO_HIDE_MOUSE_KEY:
@@ -2444,6 +2448,15 @@ private:
                 vte.queueDraw();
             }
             break;
+        case SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_BADGE_FONT_KEY:
+            if (vte !is null && isVTEBackgroundDrawEnabled()) {
+                if (gsProfile.getBoolean(SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY)) {
+                    badgeFont = null;
+                } else {
+                    badgeFont = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_BADGE_FONT_KEY));
+                }
+                vte.queueDraw();
+            }
         default:
             break;
         }
@@ -2491,7 +2504,8 @@ private:
             SETTINGS_PROFILE_BOLD_IS_BRIGHT_KEY,
             SETTINGS_PROFILE_CELL_HEIGHT_SCALE_KEY,
             SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY,
-            SETTINGS_PROFILE_MARGIN_KEY
+            SETTINGS_PROFILE_MARGIN_KEY,
+            SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY
         ];
 
         foreach (key; keys) {
@@ -3294,11 +3308,18 @@ private:
 
     static double[] marginDash = [2.0, 4.0];
 
+    PgFontDescription badgeFont = null;
+
     int margin = 0;
     bool marginEnabled = false;
 
     static if (COMPILE_VTE_BACKGROUND_COLOR) {
         RGBA drawBG;
+    }
+
+    void setDefaultBadgeFont() {
+        badgeFont = vte.getFont().copy();
+        badgeFont.setSize(badgeFont.getSize() * 2);
     }
     
     bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
@@ -3361,12 +3382,12 @@ private:
                     break;
                 default:
             }
-
-            PgFontDescription font = vte.getFont().copy();
-            font.setSize(font.getSize() * 2);
+            if (badgeFont is null) {
+                setDefaultBadgeFont();
+            }
 
             PgLayout pgl = PgCairo.createLayout(cr);
-            pgl.setFontDescription(font);
+            pgl.setFontDescription(badgeFont);
             pgl.setText(_cachedBadge);
             pgl.setWidth(rect.width * PANGO_SCALE);
             pgl.setHeight(rect.height * PANGO_SCALE);
@@ -3376,9 +3397,9 @@ private:
             double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph));
             // If a bigger font fits, then increase it
             if (fontRatio > 1) {
-                int fontSize = to!int(floor(fontRatio * font.getSize()));
-                font.setSize(fontSize);
-                pgl.setFontDescription(font);
+                int fontSize = to!int(floor(fontRatio * badgeFont.getSize()));
+                badgeFont.setSize(fontSize);
+                pgl.setFontDescription(badgeFont);
                 //tracef("Width %d, Pixel Width %d, Pixel Height %d, Original Font ratio %f, Font size %d", rect.width, pw, ph, fontRatio, fontSize);
                 pgl.getPixelSize(pw, ph);
             } else {

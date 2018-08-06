@@ -269,6 +269,8 @@ enum SETTINGS_PROFILE_BADGE_TEXT_KEY = "badge-text";
 enum SETTINGS_PROFILE_BADGE_COLOR_KEY = "badge-color";
 enum SETTINGS_PROFILE_USE_BADGE_COLOR_KEY = "badge-color-set";
 enum SETTINGS_PROFILE_BADGE_POSITION_KEY = "badge-position";
+enum SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY = "badge-use-system-font";
+enum SETTINGS_PROFILE_BADGE_FONT_KEY = "badge-font";
 
 enum SETTINGS_QUADRANT_NW_VALUE = "northwest";
 enum SETTINGS_QUADRANT_NE_VALUE = "northeast";
