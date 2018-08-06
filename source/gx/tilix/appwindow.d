@@ -45,6 +45,7 @@ import gio.SimpleActionGroup;
 
 import glib.GException;
 import glib.ListG;
+import glib.ListSG;
 import glib.Util;
 import glib.Variant : GVariant = Variant;
 import glib.VariantType : GVariantType = VariantType;
@@ -889,7 +890,6 @@ private:
             }
             catch (SessionCreationException e) {
                 removeRecentSessionFile(file);
-
                 showErrorDialog(this, e.msg);
             }
         }
@@ -1528,10 +1528,14 @@ private:
         }
         addFilters(fcd);
         fcd.setDefaultResponse(ResponseType.OK);
+        fcd.setSelectMultiple(true);
         if (fcd.run() == ResponseType.OK) {
             try {
-                loadSession(fcd.getFilename());
-                addRecentSessionFile(fcd.getFilename());
+                string[] filenames = fcd.getFilenames().toArray!string();
+                foreach(filename; filenames) {
+                    loadSession(filename);
+                    addRecentSessionFile(filename);
+                }
                 dialogPaths[DialogPath.LOAD_SESSION] = fcd.getCurrentFolder();
             }
             catch (Exception e) {
