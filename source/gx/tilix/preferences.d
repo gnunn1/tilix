@@ -67,7 +67,6 @@ enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
 enum SETTINGS_CLOSE_WITH_LAST_SESSION_KEY = "close-with-last-session";
 enum SETTINGS_APP_TITLE_KEY = "app-title";
 enum SETTINGS_CONTROL_CLICK_TITLE_KEY = "control-click-titlebar";
-enum SETTINGS_INHERIT_WINDOW_STATE_KEY = "new-window-inherit-state";
 enum SETTINGS_USE_OVERLAY_SCROLLBAR_KEY = "use-overlay-scrollbar";
 
 enum SETTINGS_TERMINAL_TITLE_STYLE_KEY = "terminal-title-style";

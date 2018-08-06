@@ -1467,10 +1467,6 @@ private:
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
         add(cbCloseWithLastSession);
 
-        CheckButton cbNewWindowInheritState = new CheckButton(_("New window inherits directory and profile from active terminal"));
-        bh.bind(SETTINGS_INHERIT_WINDOW_STATE_KEY, cbNewWindowInheritState, "active", GSettingsBindFlags.DEFAULT);
-        add(cbNewWindowInheritState);
-
         // Save window state (maximized, minimized, fullscreen) between invocations
         CheckButton cbWindowSaveState = new CheckButton(_("Save and restore window state"));
         bh.bind(SETTINGS_WINDOW_SAVE_STATE_KEY, cbWindowSaveState, "active", GSettingsBindFlags.DEFAULT);
