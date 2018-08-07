@@ -63,6 +63,10 @@ Tilix requires the following libraries to be installed in order to run:
 
 If you are having issues with Tilix, feel free to open issues here in github as necessary. Developers and users can  also be found on IRC on the [freenode](https://freenode.net) network in the #tilix room.
 
+### Customization
+
+You can create your own custom theme by simply creating a new file. Or you can also get common color schemes from [gogh-to-tilix](https://github.com/isacikgoz/gogh-to-tilix) repository.
+
 ### Localization
 
 Tilix is localized using Weblate, please visit the Weblate hosted [Tilix translations site](https://hosted.weblate.org/projects/tilix/translations) in order to assist with translations, please do not submit direct pull requests to this repository for translations.
