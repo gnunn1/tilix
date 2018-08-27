@@ -83,6 +83,7 @@ import gtk.ToggleButton;
 import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
+import gtk.WindowGroup;
 
 import vte.Pty;
 import vte.Terminal;
@@ -156,6 +157,8 @@ private:
     ToggleButton tbSideBar;
     ToggleButton tbFind;
     CustomTitle cTitle;
+    // Put windows in seperate groups
+    WindowGroup group;
 
     SimpleActionGroup sessionActions;
     MenuButton mbSessionActions;
@@ -1236,6 +1239,7 @@ private:
         saViewSideBar = null;
         saSessionAddRight = null;
         saSessionAddDown = null;
+        group = null;
     }
 
     void onWindowShow(Widget) {
@@ -1686,6 +1690,8 @@ public:
 
     this(Application application, bool useTabs = false) {
         super(application);
+        group = new WindowGroup();
+        group.addWindow(this);
         _windowUUID = randomUUID().toString();
         this.useTabs = useTabs;
         tilix.addAppWindow(this);
