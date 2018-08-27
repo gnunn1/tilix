@@ -98,7 +98,7 @@
     <value nick='unfocused' value='2'/>
     <value nick='always' value='3'/>
   </enum>
-  
+
    <enum id='com.gexperts.Tilix.CJKWidth'>
     <value nick='narrow' value='1'/>
     <value nick='wide'   value='2'/>
@@ -148,6 +148,11 @@
     <value nick='bottom' value = '3'/>
   </enum>
 
+  <!-- Position enum, used for quake position -->
+  <enum id='com.gexperts.Tilix.QuakePosition'>
+    <value nick='top' value = '0'/>
+    <value nick='bottom' value = '1'/>
+  </enum>
 
   <!-- Global settings -->
   <schema id="com.gexperts.Tilix.Settings" path="/com/gexperts/Tilix/">
@@ -436,6 +441,11 @@
       <summary>When true the quake window is always kept on top</summary>
       <description>When true, the quake window will be kept on top of all other windows.</description>
     </key>
+    <key name="quake-window-position" enum="com.gexperts.Tilix.QuakePosition">
+      <default>'top'</default>
+      <summary>The position where the window is displayed in Quake mode</summary>
+      <description>Determines where the window is displayed relative to the screen in quake mode.</description>
+    </key>
 
     <!-- Advanced Paste Options -->
     <key name="advanced-paste-replace-tabs" type="b">
@@ -563,7 +573,7 @@
       <range min="1.0" max="2.0" />
       <default>1.0</default>
       <summary>Scale factor for the cell width to increase letter spacing. (Does not increase the font’s width.)</summary>
-    </key>    
+    </key>
     <key name="cursor-blink-mode" enum="com.gexperts.Tilix.Cursor.BlinkMode">
       <default>'system'</default>
       <summary>Whether to blink the cursor</summary>

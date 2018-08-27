@@ -1437,8 +1437,12 @@ private:
             return;
         }
 
-        //Height
-        rect.height = to!int(rect.height * heightPercent);
+        // Calculate Height and offset for bottom positioning
+        int height = to!int(rect.height * heightPercent);
+        if (!wayland && heightPercent < 1 && gsSettings.getString(SETTINGS_QUAKE_WINDOW_POSITION_KEY)==SETTINGS_QUAKE_WINDOW_POSITION_VALUES[1]) {
+            rect.y = rect.height - height;
+        }
+        rect.height = height;
 
         //Width
         // Window only gets positioned properly in Wayland when width is 100%,

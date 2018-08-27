@@ -132,6 +132,7 @@ enum SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE = "right";
 enum SETTINGS_QUAKE_HIDE_HEADERBAR_KEY = "quake-hide-headerbar";
 enum SETTINGS_QUAKE_TAB_POSITION_KEY = "quake-tab-position";
 enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
+enum SETTINGS_QUAKE_WINDOW_POSITION_KEY = "quake-window-position";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
@@ -141,6 +142,7 @@ enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
 enum SETTINGS_USE_TABS_KEY = "use-tabs";
 enum SETTINGS_TAB_POSITION_KEY = "tab-position";
 immutable string[] SETTINGS_TAB_POSITION_VALUES = ["left", "right", "top", "bottom"];
+immutable string[] SETTINGS_QUAKE_WINDOW_POSITION_VALUES = ["top", "bottom"];
 
 enum SETTINGS_PROCESS_MONITOR = "process-monitor";
 
@@ -511,7 +513,7 @@ public:
      * deleted profile is passed.
      */
     GenericEvent!(string) onDelete;
-    
+
 }
 
 void initProfileManager() {
