@@ -312,7 +312,9 @@ private:
                 if (responseId == ResponseType.CANCEL || responseId == ResponseType.DELETE_EVENT)
                     sender.hideOnDelete(); // Needed to make the window closable (and hide instead of be deleted).
             });
-
+            addOnClose(delegate(Dialog dlg) {
+                dlg.destroy();
+            });
             present();
         }
     }
@@ -690,7 +692,7 @@ public:
         if (newProcess) flags |= ApplicationFlags.NON_UNIQUE;
         //flags |= ApplicationFlags.CAN_OVERRIDE_APP_ID;
         super(APPLICATION_ID, flags);
-        
+
         if (group.length > 0) {
             string id = "com.gexperts.Tilix." ~ group;
             if (idIsValid(id)) {

@@ -639,9 +639,6 @@ private:
             Session session = getCurrentSession();
 
             MessageDialog dialog = new MessageDialog(this, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL, _("Enter a new name for the session"), null);
-            scope (exit) {
-                dialog.destroy();
-            }
             dialog.setTransientFor(this);
             dialog.setTitle( _("Change Session Name"));
             Entry entry = new Entry(session.name);
@@ -649,17 +646,26 @@ private:
             entry.addOnActivate(delegate(Entry) {
                 dialog.response(ResponseType.OK);
             });
-            if (isWayland(this) && Version.checkVersion(3, 14, 0).length == 0) {
+            // Note check for Wayland below otherwise popover will clip
+            if (isWayland(this) && Version.checkVersion(3, 16, 0).length == 0) {
                 dialog.getMessageArea().add(createTitleEditHelper(entry, TitleEditScope.SESSION));
             } else {
                 dialog.getMessageArea().add(entry);
             }
             dialog.setDefaultResponse(ResponseType.OK);
+            dialog.addOnResponse(delegate(int response, Dialog) {
+                if (response == ResponseType.OK && entry.getText().length > 0) {
+                    session.name = entry.getText();
+                    updateTitle();
+                }
+                dialog.hide();
+                dialog.destroy();
+            });
+            dialog.addOnClose(delegate(Dialog dlg) {
+                dlg.destroy();
+            });
             dialog.showAll();
-            if (dialog.run() == ResponseType.OK && entry.getText().length > 0) {
-                session.name = entry.getText();
-                updateTitle();
-            }
+            dialog.present();
         });
 
         //Synchronize Input
@@ -1525,6 +1531,9 @@ private:
         if (DialogPath.LOAD_SESSION in dialogPaths) {
             fcd.setCurrentFolder(dialogPaths[DialogPath.LOAD_SESSION]);
         }
+        fcd.setModal(true);
+        fcd.setTransientFor(this);
+
         addFilters(fcd);
         fcd.setSelectMultiple(true);
         fcd.addOnResponse(delegate(int response, Dialog) {
@@ -1568,6 +1577,8 @@ private:
               this,
               FileChooserAction.SAVE,
               [_("Save"), _("Cancel")]);
+            fcd.setModal(true);
+            fcd.setTransientFor(this);
 
             addFilters(fcd);
 
