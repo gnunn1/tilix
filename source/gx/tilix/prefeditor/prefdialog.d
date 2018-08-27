@@ -14,8 +14,8 @@ import std.string;
 import std.typecons : No;
 import std.variant;
 
-import gdk.Display;
 import gdk.Event;
+import gdk.Screen;
 
 import gio.Menu: GMenu = Menu;
 import gio.Settings: GSettings = Settings;
@@ -1366,7 +1366,7 @@ private:
             bSpecific.add(lblSpecific);
             string[] names = [_("Primary Monitor")];
             int[] values = [-1];
-            for(int monitor; monitor < Display.getDefault().getNMonitors(); monitor++) {
+            for(int monitor; monitor < Screen.getDefault().getNMonitors(); monitor++) {
                 names ~= _("Monitor ") ~ to!string(monitor);
                 values ~= monitor;
             }
