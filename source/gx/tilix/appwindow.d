@@ -397,7 +397,7 @@ private:
             btnNew.getStyleContext().addClass("session-new-button");
             bSessionButtons.packStart(tbSideBar, false, false, 0);
             bSessionButtons.packStart(btnNew, false, false, 0);
-        } 
+        }
 
         //Session Actions
         mbSessionActions = new MenuButton();
@@ -991,7 +991,7 @@ private:
 
         result.setDefaultSize(getAllocatedWidth(), getAllocatedHeight());
         if (isMaximized) result.maximize();
-        return result;        
+        return result;
     }
 
     /*
@@ -1511,40 +1511,47 @@ private:
         addSession(session);
     }
 
+    FileChooserDialog fcd;
+
     /**
      * Loads session from a file, prompt user to select file
      */
     void loadSession() {
-        FileChooserDialog fcd = new FileChooserDialog(
+        fcd = new FileChooserDialog(
           _("Load Session"),
           this,
           FileChooserAction.OPEN,
           [_("Open"), _("Cancel")]);
-        scope (exit) {
-            fcd.destroy();
-        }
         if (DialogPath.LOAD_SESSION in dialogPaths) {
             fcd.setCurrentFolder(dialogPaths[DialogPath.LOAD_SESSION]);
         }
         addFilters(fcd);
-        fcd.setDefaultResponse(ResponseType.OK);
         fcd.setSelectMultiple(true);
-        if (fcd.run() == ResponseType.OK) {
-            try {
-                string[] filenames = fcd.getFilenames().toArray!string();
-                foreach(filename; filenames) {
-                    loadSession(filename);
-                    addRecentSessionFile(filename);
+        fcd.addOnResponse(delegate(int response, Dialog) {
+            if (response == ResponseType.OK) {
+                try {
+                    string[] filenames = fcd.getFilenames().toArray!string();
+                    foreach(filename; filenames) {
+                        loadSession(filename);
+                        addRecentSessionFile(filename);
+                    }
+                    dialogPaths[DialogPath.LOAD_SESSION] = fcd.getCurrentFolder();
                 }
-                dialogPaths[DialogPath.LOAD_SESSION] = fcd.getCurrentFolder();
+                catch (Exception e) {
+                    fcd.hide();
+                    removeRecentSessionFile(fcd.getFilename());
+                    error(e);
+                    showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
+                }
             }
-            catch (Exception e) {
-                fcd.hide();
-                removeRecentSessionFile(fcd.getFilename());
-                error(e);
-                showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
-            }
-        }
+            fcd.hide();
+            fcd.destroy();
+        });
+        fcd.addOnClose(delegate(Dialog) {
+            fcd.destroy();
+            fcd = null;
+        });
+        fcd.present();
     }
 
     /**
@@ -1555,40 +1562,53 @@ private:
      */
     void saveSession(bool showSaveAsDialog = true) {
         Session session = getCurrentSession();
-        string filename = session.filename;
-        if (filename.length <= 0 || showSaveAsDialog) {
-            FileChooserDialog fcd = new FileChooserDialog(
+        if (session !is null && (session.filename.length <= 0 || showSaveAsDialog)) {
+            fcd = new FileChooserDialog(
               _("Save Session"),
               this,
               FileChooserAction.SAVE,
               [_("Save"), _("Cancel")]);
-            scope (exit)
-                fcd.destroy();
 
             addFilters(fcd);
 
             fcd.setDoOverwriteConfirmation(true);
             fcd.setDefaultResponse(ResponseType.OK);
-            if (filename.length > 0) {
-                fcd.setCurrentFolder(dirName(filename));
-                fcd.setCurrentName(filename.length > 0 ? baseName(filename) : session.displayName ~ ".json");
+            if (session.filename.length > 0) {
+                fcd.setCurrentFolder(dirName(session.filename));
+                fcd.setCurrentName(session.filename.length > 0 ? baseName(session.filename) : session.displayName ~ ".json");
             } else if (DialogPath.SAVE_SESSION in dialogPaths) {
                 fcd.setCurrentFolder(dialogPaths[DialogPath.SAVE_SESSION]);
             }
-            if (fcd.run() == ResponseType.OK) {
-                filename = fcd.getFilename();
-                if (!filename.endsWith(".json")) {
-                    filename ~= ".json";
+
+            fcd.addOnResponse(delegate(int response, Dialog) {
+                if (response == ResponseType.OK) {
+                    try {
+                        string filename = fcd.getFilename();
+                        if (!filename.endsWith(".json")) {
+                            filename ~= ".json";
+                        }
+                        dialogPaths[DialogPath.SAVE_SESSION] = fcd.getCurrentFolder();
+                        addRecentSessionFile(filename);
+                        string json = session.serialize().toPrettyString();
+                        write(filename, json);
+                        session.filename = filename;
+                    }
+                    catch (Exception e) {
+                        fcd.hide();
+                        removeRecentSessionFile(fcd.getFilename());
+                        error(e);
+                        showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
+                    }
                 }
-                dialogPaths[DialogPath.SAVE_SESSION] = fcd.getCurrentFolder();
-            } else {
-                return;
-            }
+                fcd.hide();
+                fcd.destroy();
+            });
+            fcd.addOnClose(delegate(Dialog) {
+                fcd.destroy();
+                fcd = null;
+            });
+            fcd.present();
         }
-        addRecentSessionFile(filename);
-        string json = session.serialize().toPrettyString();
-        write(filename, json);
-        session.filename = filename;
     }
 
     /**
@@ -2086,7 +2106,7 @@ public:
         lblNotifications.setUseMarkup(true);
         lblNotifications.setWidthChars(2);
         setAllMargins(lblNotifications, 4);
-        
+
         evNotifications = new EventBox();
         evNotifications.add(lblNotifications);
         evNotifications.getStyleContext().addClass("tilix-notification-count");
