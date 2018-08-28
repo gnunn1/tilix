@@ -1,0 +1,41 @@
+Build started at 2018-08-28T15:27:11.993057
+Main binary: /usr/bin/python3
+Python system: Linux
+The Meson build system
+Version: 0.47.1
+Source dir: /home/belmoussaoui/tilix
+Build dir: /home/belmoussaoui/tilix/builddir
+Build type: native build
+Project name: com.gexperts.Tilix
+Project version: 1.8.5
+Native D compiler: dmd (dmd 2.081.2 "DMD64 D Compiler v2.081.2")
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Dependency gtkd-3 found: YES (cached)
+Dependency vted-3 found: YES (cached)
+Dependency x11 found: YES (cached)
+Program msgfmt found: YES (/usr/bin/msgfmt)
+Running command: /usr/bin/bash -c find /home/belmoussaoui/tilix/po -name "*\.po" -printf "%f\n" | sed "s/\.po//g" | sort > /home/belmoussaoui/tilix/po/LINGUAS
+--- stdout ---
+
+--- stderr ---
+
+
+Program desktop-file-validate found: YES (/usr/bin/desktop-file-validate)
+Adding test "Validate desktop file"
+Program appstream-util found: YES (/usr/bin/appstream-util)
+Adding test "Validate appdata file"
+Found pkg-config: /usr/bin/pkg-config (1.4.2)
+Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Called `/usr/bin/pkg-config --modversion glib-2.0` -> 0
+2.56.1
+Called `/usr/bin/pkg-config --cflags glib-2.0` -> 0
+-I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include
+Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+-L/usr/lib64 -lglib-2.0
+Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+-lglib-2.0
+Native dependency glib-2.0 found: YES 2.56.1
+Program meson_post_install.py found: YES (/usr/bin/env python3 /home/belmoussaoui/tilix/meson_post_install.py)
+Build targets in project: 7
+Found ninja-1.8.2 at /usr/bin/ninja
