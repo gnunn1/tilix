@@ -14,8 +14,8 @@ import std.string;
 import std.typecons : No;
 import std.variant;
 
-import gdk.Display;
 import gdk.Event;
+import gdk.Screen;
 
 import gio.Menu: GMenu = Menu;
 import gio.Settings: GSettings = Settings;
@@ -522,7 +522,7 @@ private:
         btnMenu.setRelief(ReliefStyle.NONE);
         btnMenu.setFocusOnClick(false);
         btnMenu.setPopover(createPopover(btnMenu));
-        
+
         box.packEnd(btnMenu, false, false, 0);
 
         imgDefault = new Image("object-select-symbolic", IconSize.BUTTON);
@@ -754,7 +754,7 @@ private:
         tvShortcuts.addOnCursorChanged(delegate(TreeView) {
             updateUI();
         });
-        
+
         bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", GSettingsBindFlags.DEFAULT);
 
         TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
@@ -763,7 +763,7 @@ private:
 
         CellRendererAccel craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
-        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.GTK);
+        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.OTHER);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
@@ -981,7 +981,7 @@ private:
         TerminalFeature[string] result;
         result["terminal-next-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
         result["terminal-previous-prompt"] = TerminalFeature.EVENT_SCREEN_CHANGED;
-        return result;        
+        return result;
     }
 
     void loadShortcuts(TreeStore ts) {
@@ -1295,6 +1295,14 @@ private:
         grid.attach(cbTabPosition, 1, row, 1, 1);
         row++;
 
+        if (!wayland) {
+            grid.attach(createLabel(_("Window position")), 0, row, 1, 1);
+            ComboBox cbWinPosition = createNameValueCombo([_("Top"), _("Bottom")], SETTINGS_QUAKE_WINDOW_POSITION_VALUES);
+            bh.bind(SETTINGS_QUAKE_WINDOW_POSITION_KEY, cbWinPosition, "active-id", GSettingsBindFlags.DEFAULT);
+            grid.attach(cbWinPosition, 1, row, 1, 1);
+            row++;
+        }
+
         add(grid);
 
         Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
@@ -1320,7 +1328,7 @@ private:
         CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
         bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
         bContent.add(cbHideOnLoseFocus);
-        
+
         Label lblDelay = new Label(_("Delay hiding window by (ms)"));
         SpinButton sbDelay = new SpinButton(50, 1000, 50);
         bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY, sbDelay, "value", GSettingsBindFlags.DEFAULT);
@@ -1366,7 +1374,7 @@ private:
             bSpecific.add(lblSpecific);
             string[] names = [_("Primary Monitor")];
             int[] values = [-1];
-            for(int monitor; monitor < Display.getDefault().getNMonitors(); monitor++) {
+            for(int monitor; monitor < Screen.getDefault().getNMonitors(); monitor++) {
                 names ~= _("Monitor ") ~ to!string(monitor);
                 values ~= monitor;
             }
@@ -1466,10 +1474,6 @@ private:
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
         add(cbCloseWithLastSession);
-
-        CheckButton cbNewWindowInheritState = new CheckButton(_("New window inherits directory and profile from active terminal"));
-        bh.bind(SETTINGS_INHERIT_WINDOW_STATE_KEY, cbNewWindowInheritState, "active", GSettingsBindFlags.DEFAULT);
-        add(cbNewWindowInheritState);
 
         // Save window state (maximized, minimized, fullscreen) between invocations
         CheckButton cbWindowSaveState = new CheckButton(_("Save and restore window state"));

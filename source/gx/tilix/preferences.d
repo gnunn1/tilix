@@ -67,7 +67,6 @@ enum SETTINGS_ENABLE_TRANSPARENCY_KEY = "enable-transparency";
 enum SETTINGS_CLOSE_WITH_LAST_SESSION_KEY = "close-with-last-session";
 enum SETTINGS_APP_TITLE_KEY = "app-title";
 enum SETTINGS_CONTROL_CLICK_TITLE_KEY = "control-click-titlebar";
-enum SETTINGS_INHERIT_WINDOW_STATE_KEY = "new-window-inherit-state";
 enum SETTINGS_USE_OVERLAY_SCROLLBAR_KEY = "use-overlay-scrollbar";
 
 enum SETTINGS_TERMINAL_TITLE_STYLE_KEY = "terminal-title-style";
@@ -133,6 +132,7 @@ enum SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE = "right";
 enum SETTINGS_QUAKE_HIDE_HEADERBAR_KEY = "quake-hide-headerbar";
 enum SETTINGS_QUAKE_TAB_POSITION_KEY = "quake-tab-position";
 enum SETTINGS_QUAKE_KEEP_ON_TOP_KEY = "quake-keep-on-top";
+enum SETTINGS_QUAKE_WINDOW_POSITION_KEY = "quake-window-position";
 
 //Advanced Paste Settings
 enum SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY = "advanced-paste-replace-tabs";
@@ -142,6 +142,7 @@ enum SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY = "advanced-paste-replace-crlf";
 enum SETTINGS_USE_TABS_KEY = "use-tabs";
 enum SETTINGS_TAB_POSITION_KEY = "tab-position";
 immutable string[] SETTINGS_TAB_POSITION_VALUES = ["left", "right", "top", "bottom"];
+immutable string[] SETTINGS_QUAKE_WINDOW_POSITION_VALUES = ["top", "bottom"];
 
 enum SETTINGS_PROCESS_MONITOR = "process-monitor";
 
@@ -270,6 +271,8 @@ enum SETTINGS_PROFILE_BADGE_TEXT_KEY = "badge-text";
 enum SETTINGS_PROFILE_BADGE_COLOR_KEY = "badge-color";
 enum SETTINGS_PROFILE_USE_BADGE_COLOR_KEY = "badge-color-set";
 enum SETTINGS_PROFILE_BADGE_POSITION_KEY = "badge-position";
+enum SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY = "badge-use-system-font";
+enum SETTINGS_PROFILE_BADGE_FONT_KEY = "badge-font";
 
 enum SETTINGS_QUADRANT_NW_VALUE = "northwest";
 enum SETTINGS_QUADRANT_NE_VALUE = "northeast";
@@ -510,7 +513,7 @@ public:
      * deleted profile is passed.
      */
     GenericEvent!(string) onDelete;
-    
+
 }
 
 void initProfileManager() {
