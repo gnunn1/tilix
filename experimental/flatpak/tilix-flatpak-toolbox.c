@@ -10,16 +10,10 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (strcmp(argv[1], "get-shell") == 0) {
-        long value = strtol(argv[2], NULL, 10);
-        struct passwd *pwd = getpwuid(value);
-        if (pwd == NULL) {
-            perror("error calling getpwuid");
-            return 1;
-        }
-
-        printf("%s\n", pwd->pw_shell);
-        return 0;
+    if (strcmp(argv[1], "get-passwd") == 0) {
+        execlp("getent", "getent", "passwd", argv[2], NULL);
+        perror("error calling execlp");
+        return 1;
     } else if (strcmp(argv[1], "get-child-pid") == 0) {
         // Caller should have saved terminal to fd 3.
         pid_t pid = tcgetpgrp(3);
@@ -60,7 +54,6 @@ int main(int argc, char **argv) {
 
         fclose(fp);
         fflush(stdout);
-        return 0;
     } else {
         fprintf(stderr, "Invalid command: %s\n", argv[1]);
         return 1;

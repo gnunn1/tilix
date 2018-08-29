@@ -15,6 +15,7 @@ finish-args:
   - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
   - '--own-name=com.gexperts.Tilix'
   - '--talk-name=org.freedesktop.Flatpak'
+  - '--talk-name=org.freedesktop.secrets'
   - '--device=all'
 cleanup:
   # - '/bin/ldc*'
@@ -130,18 +131,6 @@ modules:
         sha256: c319eb34e9c64c78cd4940cde0892bd18784bcdcaaa7a23a9c8ec6052317a130
       - type: patch
         path: vte291-command-notify-scroll-speed.patch
-  - name: tilix
-    buildsystem: autotools
-    config-opts:
-      - 'DCFLAGS=-g'
-    sources:
-      # - type: git
-      #   url: https://github.com/gnunn1/tilix
-      - type: dir
-        path: ../..
-      - type: patch
-        path: 0001-Enable-flatpak.patch
-        use-git: true
   - name: toolbox
     buildsystem: simple
     build-commands:
@@ -149,7 +138,12 @@ modules:
     sources:
       - type: file
         path: tilix-flatpak-toolbox.c
-  - name: gsettings
-    buildsystem: simple
-    build-commands:
+  - name: tilix
+    buildsystem: autotools
+    config-opts:
+      - 'DCFLAGS=-g'
+    post-install:
       - 'glib-compile-schemas /app/share/glib-2.0/schemas'
+    sources:
+      - type: dir
+        path: ../..

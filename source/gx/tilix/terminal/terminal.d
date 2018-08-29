@@ -4,6 +4,7 @@
  */
 module gx.tilix.terminal.terminal;
 
+import core.memory;
 import core.sys.posix.fcntl;
 import core.sys.posix.stdio;
 import core.sys.posix.stdlib;
@@ -2699,7 +2700,7 @@ private:
         GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
 
         string shell = null;
-        static if (FLATPAK) {
+        if (isFlatpak()) {
             shell = getHostShell();
             if (shell is null) {
                 shell = "/bin/sh";
@@ -2794,10 +2795,16 @@ private:
         string uid = to!string(getuid());
         tracef("Asking toolbox for shell", uid);
 
-        string shell = captureHostToolboxCommand("get-shell", to!string(uid), []);
+        string passwd = captureHostToolboxCommand("get-passwd", to!string(uid), []);
 
-        if (shell == null) {
-            warning("Failed to get host shell");
+        if (passwd == null) {
+            warning("Failed to get host passwd entry");
+            return null;
+        }
+
+        string shell = passwd.split(":")[6];
+        if (shell.length == 0) {
+            warning("Host shell is empty from passwd: %s", passwd);
             return null;
         }
 
@@ -2815,7 +2822,7 @@ private:
      * HostCommand(): https://git.gnome.org/browse/gnome-builder/tree/libide/subprocess/ide-breakout-subprocess.c#n1448
      */
     bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
-        static if (FLATPAK) {
+        if (isFlatpak()) {
             Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
 
             int pty_master = pty.getFd();
@@ -2911,28 +2918,34 @@ private:
             argsv ~= toStringz(arg);
         }
         argsv ~= null;
+
+
         gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
                           wd,
                           argsv.ptr,
-                          fdBuilder.end().getVariantStruct(),
-                          envBuilder.end().getVariantStruct(),
+                          fdBuilder.end().getVariantStruct(true),
+                          envBuilder.end().getVariantStruct(true),
                           cast(uint) 1);
 
         return new GVariant(vs, true);
     }
 
     alias HostCommandExitedCallback = void delegate(int);
-    alias HostCommandExitedArgs = Tuple!(HostCommandExitedCallback, "callback", int, "pid", uint, "signalId", int, "status");
-    static HostCommandExitedArgs*[] activeHostCommandExitedArgs;
+
+    struct HostCommandExitedArgs {
+      HostCommandExitedCallback callback;
+      int pid = -1;
+      uint signalId = 0u;
+      int status = -1;
+    };
 
     extern(C) static void hostCommandExitedCallback(GDBusConnection *connection, const(char)* senderName, const(char)* objectPath, const(char)* interfaceName,
                                                     const(char)* signalName, gtkc.glibtypes.GVariant* parameters, HostCommandExitedArgs *args) {
         uint pid, status;
-        g_variant_get (parameters, "(uu)", &pid, &status);
+        g_variant_get(parameters, "(uu)", &pid, &status);
 
         if (args.pid == -1 || pid == args.pid) {
             import gtkc.gio: g_dbus_connection_signal_unsubscribe;
-            activeHostCommandExitedArgs.remove!(a => a == args);
 
             if (args.pid == -1) {
                 trace("hostCommandExitedCallback was called before spawn completed.");
@@ -2942,6 +2955,10 @@ private:
                 g_dbus_connection_signal_unsubscribe(connection, args.signalId);
                 args.callback(status);
             }
+
+            GC.removeRoot(cast(void*)args);
+            warning("**********COLLECT**********");
+            GC.collect();
         }
     }
 
@@ -2951,7 +2968,7 @@ private:
 
         uint[] handles;
 
-        UnixFDList outFdList = new UnixFDList();
+        UnixFDList outFdList;
         UnixFDList inFdList = new UnixFDList();
         foreach(i, fd; stdio_fds) {
             handles ~= inFdList.append(fd);
@@ -2960,16 +2977,18 @@ private:
             }
         }
 
-        DBusConnection connection = new DBusConnection (
+        DBusConnection connection = new DBusConnection(
             environment.get("DBUS_SESSION_BUS_ADDRESS"),
             GDBusConnectionFlags.AUTHENTICATION_CLIENT | GDBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             null,
             null
         );
         connection.setExitOnClose(false);
+        connection.doref();
 
-        auto callbackArgs = new HostCommandExitedArgs(exitedCallback, -1, 0u, -1);
-        activeHostCommandExitedArgs ~= callbackArgs;
+        auto callbackArgs = new HostCommandExitedArgs();
+        callbackArgs.callback = exitedCallback;
+        GC.addRoot(cast(void*)callbackArgs);
 
         uint signalId = connection.signalSubscribe(
             "org.freedesktop.Flatpak",
@@ -3003,7 +3022,7 @@ private:
             return false;
         } else {
             uint pid;
-            g_variant_get (reply.getVariantStruct(), "(u)", &pid);
+            g_variant_get(reply.getVariantStruct(), "(u)", &pid);
             gpid = pid;
 
             if (callbackArgs.pid != -1) {
@@ -3904,7 +3923,7 @@ public:
         if (vte.getPty() is null)
             return false;
 
-        static if (FLATPAK) {
+        if (isFlatpak()) {
             childPid = getChildPidFromHost();
         } else {
             childPid = vte.getChildPid();
@@ -3932,7 +3951,7 @@ public:
         import std.file: read, FileException;
         try {
             string data;
-            static if (FLATPAK) {
+            if (isFlatpak()) {
                 data = captureHostToolboxCommand("get-proc-stat", to!string(childPid), []);
             } else {
                 data = to!string(cast(char[])read(format("/proc/%d/stat", childPid)));

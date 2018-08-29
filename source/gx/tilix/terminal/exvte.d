@@ -20,6 +20,7 @@ import vte.Terminal;
 import vtec.vtetypes;
 
 import gx.tilix.constants;
+import gx.tilix.terminal.util;
 
 enum TerminalScreen {
     NORMAL = 0,
@@ -199,7 +200,7 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
      * as well which also indicates no child process.
      */
     pid_t getChildPid() {
-		static if (FLATPAK) {
+		if (isFlatpak()) {
             warning("getChildPid should not be called from a Flatpak environment.");
 			return -1;
 		} else {
