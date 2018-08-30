@@ -6,6 +6,7 @@ module gx.tilix.terminal.util;
 
 import std.conv;
 import std.experimental.logger;
+import std.file;
 import std.process;
 import std.uuid;
 
@@ -53,4 +54,8 @@ string getUserShell(string shell) {
     }
     error("No shell found, defaulting to /bin/sh");
     return "/bin/sh";
+}
+
+bool isFlatpak() {
+    return "/.flatpak-info".exists;
 }

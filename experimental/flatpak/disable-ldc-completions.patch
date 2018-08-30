@@ -1,0 +1,20 @@
+--- ldc-0.17.5/CMakeLists.orig.txt	2017-09-12 12:08:40.000000000 -0500
++++ ldc-0.17.5/CMakeLists.txt	2018-07-29 19:48:51.253680698 -0500
+@@ -607,17 +607,6 @@
+     configure_file(vcbuild/x86.bat     ${PROJECT_BINARY_DIR}/bin/x86.bat     COPYONLY)
+ endif()
+ 
+-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+-    find_package(bash-completion QUIET)
+-    if(NOT BASH_COMPLETION_FOUND)
+-        set(BASH_COMPLETION_COMPLETIONSDIR "${CONF_INST_DIR}/bash_completion.d")
+-        if(LINUX_DISTRIBUTION_IS_GENTOO)
+-            set(BASH_COMPLETION_COMPLETIONSDIR "/usr/share/bash-completion")
+-        endif()
+-    endif()
+-    install(DIRECTORY bash_completion.d/ DESTINATION ${BASH_COMPLETION_COMPLETIONSDIR})
+-endif()
+-
+ #
+ # Packaging
+ #
