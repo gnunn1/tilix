@@ -123,6 +123,9 @@ enum VARIABLE_TERMINAL_ROWS = "${rows}";
 enum VARIABLE_TERMINAL_HOSTNAME = "${hostname}";
 enum VARIABLE_TERMINAL_USERNAME = "${username}";
 enum VARIABLE_TERMINAL_PROCESS = "${process}";
+enum VARIABLE_TERMINAL_STATUS_READONLY = "${status.readonly}";
+enum VARIABLE_TERMINAL_STATUS_SILENCE = "${status.silence}";
+enum VARIABLE_TERMINAL_STATUS_INPUT_SYNC = "${status.input-sync}";
 
 
 immutable string[] VARIABLE_TERMINAL_VALUES = [
@@ -134,7 +137,10 @@ immutable string[] VARIABLE_TERMINAL_VALUES = [
     VARIABLE_TERMINAL_USERNAME,
     VARIABLE_TERMINAL_COLUMNS,
     VARIABLE_TERMINAL_ROWS,
-    VARIABLE_TERMINAL_PROCESS
+    VARIABLE_TERMINAL_PROCESS,
+    VARIABLE_TERMINAL_STATUS_READONLY,
+    VARIABLE_TERMINAL_STATUS_SILENCE,
+    VARIABLE_TERMINAL_STATUS_INPUT_SYNC
 ];
 
 immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
@@ -146,7 +152,10 @@ immutable string[] VARIABLE_TERMINAL_LOCALIZED = [
     N_("Username"),
     N_("Columns"),
     N_("Rows"),
-    N_("Process")
+    N_("Process"),
+    N_("Status.Read-Only"),
+    N_("Status.Silence"),
+    N_("Status.Input-Sync")
 ];
 
 // Session Title tokens

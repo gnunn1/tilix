@@ -1313,6 +1313,10 @@ private:
         text = text.replace(VARIABLE_TERMINAL_ROWS, to!string(vte.getRowCount()));
         text = text.replace(VARIABLE_TERMINAL_HOSTNAME, gst.currentHostname);
         text = text.replace(VARIABLE_TERMINAL_USERNAME, gst.currentUsername);
+        text = text.replace(VARIABLE_TERMINAL_STATUS_READONLY, to!string(!vte.getInputEnabled()));
+        text = text.replace(VARIABLE_TERMINAL_STATUS_SILENCE, to!string(monitorSilence));
+        text = text.replace(VARIABLE_TERMINAL_STATUS_INPUT_SYNC, to!string(isSynchronizedInput()));
+
         if (text.indexOf(VARIABLE_TERMINAL_PROCESS) >= 0) {
             if (tilix.processMonitor)
                 text = text.replace(VARIABLE_TERMINAL_PROCESS, activeProcessName);

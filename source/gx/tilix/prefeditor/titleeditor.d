@@ -79,11 +79,11 @@ private:
     GMenu createItems(immutable(string[]) localized, immutable(string[]) values, string actionPrefix) {
         GMenu section = new GMenu();
         foreach(index, variable; localized) {
-            string actionName = format("%s-%d", actionPrefix, index);
+            string actionName = format("%s-%02d", actionPrefix, index);
             SimpleAction action = new SimpleAction(actionName, null);
             action.addOnActivate(delegate(GVariant, SimpleAction sa) {
                 string name = sa.getName();
-                int i = to!int("" ~ name[name.length - 1]);
+                int i = to!int("" ~ name[$-2 .. $]);
                 int position = entry.getPosition();
                 string value = values[i];
                 entry.insertText(value, to!int(value.length), position);
@@ -92,7 +92,7 @@ private:
             section.append(_(variable), getActionDetailedName(ACTION_PREFIX, actionName));
         }
         return section;
-    } 
+    }
 
     /**
      * Create all menu items in popover to help editing menu items
