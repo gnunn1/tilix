@@ -654,7 +654,7 @@ private:
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_MONITOR_SILENCE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
             monitorSilence = !sa.getState().getBoolean();
             sa.setState(new GVariant(monitorSilence));
-        }, null, new GVariant(false));
+        }, null, new GVariant(monitorSilence));
 
         //Open CWD in Browser
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_FILE_BROWSER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
@@ -3769,6 +3769,8 @@ public:
         gsSettings = new GSettings(SETTINGS_ID);
         gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
+        monitorSilence = gsProfile.getBoolean(SETTINGS_PROFILE_NOTIFY_ENABLED_KEY);
+
         gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
         gsDesktop.addOnChanged(delegate(string key, GSettings) {

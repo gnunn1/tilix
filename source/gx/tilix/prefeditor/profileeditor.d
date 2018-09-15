@@ -337,7 +337,7 @@ protected:
             SizeGroup sgWidth = new SizeGroup(SizeGroupMode.HORIZONTAL);
             sgWidth.addWidget(lblColumns);
             sgWidth.addWidget(lblWidthSpacing);
-            
+
             SizeGroup sgHeight = new SizeGroup(SizeGroupMode.HORIZONTAL);
             sgHeight.addWidget(lblRows);
             sgHeight.addWidget(lblHeightSpacing);
@@ -369,7 +369,7 @@ protected:
         //     CheckButton cbBold = new CheckButton(_("Allow bold text"));
         //     bh.bind(SETTINGS_PROFILE_ALLOW_BOLD_KEY, cbBold, "active", GSettingsBindFlags.DEFAULT);
         //     grid.attach(cbBold, 1, row, 1, 1);
-        // } 
+        // }
 
         //Rewrap on resize
         // CheckButton cbRewrap = new CheckButton(_("Rewrap on resize"));
@@ -449,22 +449,6 @@ protected:
         ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
         bh.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
         grid.attach(cbBell, 1, row, 1, 1);
-        row++;
-
-        //Notify silence threshold
-        Label lblSilence = new Label(_("Notify new activity"));
-        lblSilence.setHalign(Align.END);
-        grid.attach(lblSilence, 0, row, 1, 1);
-
-        Box bSilence = new Box(Orientation.HORIZONTAL, 6);
-        SpinButton sbSilence = new SpinButton(0, 3600, 60);
-        bh.bind(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY, sbSilence, "value", GSettingsBindFlags.DEFAULT);
-        bSilence.add(sbSilence);
-
-        Label lblSilenceDesc = new Label(_("Threshold for continuous silence (seconds)"));
-        lblSilenceDesc.setSensitive(false);
-        bSilence.add(lblSilenceDesc);
-        grid.attach(bSilence, 1, row, 1, 1);
         row++;
 
         add(grid);
@@ -1264,8 +1248,27 @@ private:
 
         uint row = 0;
 
+        //Notify silence threshold
+        Label lblSilenceTitle = new Label(format("<b>%s</b>", _("Notify New Activity")));
+        lblSilenceTitle.setUseMarkup(true);
+        lblSilenceTitle.setHalign(Align.START);
+        lblSilenceTitle.setMarginTop(12);
+        grid.attach(lblSilenceTitle, 0, row, 3, 1);
+        row++;
+
+        grid.attach(createDescriptionLabel(_("A notification can be raised when new activity occurs after a specified period of silence.")),0,row,2,1);
+        row++;
+
+        Widget silenceUI = createSilenceUI();
+        silenceUI.setMarginTop(6);
+        silenceUI.setMarginBottom(6);
+        grid.attach(silenceUI, 0, row, 2, 1);
+        row++;
+
+        // Create shared advance UI Settings
         createAdvancedUI(grid, row, &getSettings);
-        //Profile Switching
+
+        // Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
         lblProfileSwitching.setHalign(Align.START);
@@ -1353,6 +1356,41 @@ private:
         this.add(grid);
     }
 
+    Widget createSilenceUI() {
+        Grid grid = new Grid();
+        grid.setColumnSpacing(12);
+        grid.setRowSpacing(6);
+
+        uint row = 0;
+
+        Label lblSilence = new Label(_("Enable by default"));
+        lblSilence.setHalign(Align.END);
+        grid.attach(lblSilence, 0, row, 1, 1);
+
+        CheckButton cbSilence = new CheckButton();
+        bh.bind(SETTINGS_PROFILE_NOTIFY_ENABLED_KEY, cbSilence, "active", GSettingsBindFlags.DEFAULT);
+        grid.attach(cbSilence, 1, row, 1, 1);
+        row++;
+
+        Label lblSilenceDesc = new Label(_("Threshold for continuous silence"));
+        lblSilenceDesc.setHalign(Align.END);
+        grid.attach(lblSilenceDesc, 0, row, 1, 1);
+
+        Box bSilence = new Box(Orientation.HORIZONTAL, 4);
+        SpinButton sbSilence = new SpinButton(0, 3600, 60);
+        bh.bind(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY, sbSilence, "value", GSettingsBindFlags.DEFAULT);
+        bSilence.add(sbSilence);
+
+        Label lblSilenceTime = new Label(_("(seconds)"));
+        lblSilenceTime.setSensitive(false);
+        bSilence.add(lblSilenceTime);
+
+        grid.attach(bSilence, 1, row, 1, 1);
+        row++;
+
+        return grid;
+    }
+
     void updateUI() {
         TreeIter selected = tvValues.getSelectedIter();
         btnDelete.setSensitive(selected !is null);
@@ -1373,7 +1411,7 @@ private:
     // Validate input, just checks something was entered at this point
     // and least one delimiter, either @ or :
     bool validateInput(string match) {
-        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED))        
+        if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED))
             return (match.length > 1 && (match.indexOf('@') >= 0 || match.indexOf(':') >= 0));
         else
             return (match.length > 1 && (match.indexOf('@') == 0 || match.indexOf(':') >= 0));
@@ -1406,4 +1444,3 @@ public:
         }
     }
 }
-
