@@ -413,7 +413,7 @@ public:
         super(tilix);
         setTitle(_("Preferences"));
         setTypeHint(WindowTypeHint.DIALOG);
-        setTransientFor(window);
+        //setTransientFor(window);
         setDestroyWithParent(true);
         setShowMenubar(false);
         gsSettings = new GSettings(SETTINGS_ID);
