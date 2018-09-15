@@ -39,7 +39,7 @@ immutable bool USE_FILE_LOGGING = false;
 immutable bool USE_COMMIT_SYNCHRONIZATION = false;
 
 /**
- * Compile tilix with support for VTE method vte_terminal_get_color_background_for_draw, 
+ * Compile tilix with support for VTE method vte_terminal_get_color_background_for_draw,
  * only needed until VTE 0.54 is released and GtkD is updated.
  */
 immutable bool COMPILE_VTE_BACKGROUND_COLOR = false;
@@ -89,6 +89,16 @@ enum GTK_ENABLE_ACCELS = "gtk-enable-accels";
 enum GTK_DECORATION_LAYOUT = "gtk_decoration_layout";
 enum GTK_SHELL_SHOWS_APP_MENU = "gtk-shell-shows-app-menu";
 enum GTK_DOUBLE_CLICK_TIME = "gtk-double-click-time";
+
+//Action Prefixes
+enum ACTION_PREFIX_WIN = "win";
+enum ACTION_PREFIX_APP = "app";
+enum ACTION_PREFIX_SESSION = "session";
+enum ACTION_PREFIX_TERMINAL = "terminal";
+enum ACTION_PREFIX_NAUTILUS = "nautilus";
+
+//Actions that need to be referenced globally
+enum ACTION_PROFILE_SELECT = "profile-select";
 
 //Config Folder
 enum APPLICATION_CONFIG_FOLDER = "tilix";

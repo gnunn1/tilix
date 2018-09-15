@@ -715,6 +715,7 @@ private:
     Revealer rFind;
     BindingHelper bh;
 
+    CellRendererAccel craShortcut;
     TreeStore tsShortcuts;
     TreeView tvShortcuts;
     TreeModelFilter filter;
@@ -726,6 +727,10 @@ private:
     enum COLUMN_NAME = 0;
     enum COLUMN_SHORTCUT = 1;
     enum COLUMN_ACTION_NAME = 2;
+    enum COLUMN_SHORTCUT_TYPE = 3;
+
+    enum SC_TYPE_ACTION = "action";
+    enum SC_TYPE_PROFILE = "profile";
 
     void createUI() {
         setMarginLeft(18);
@@ -743,7 +748,7 @@ private:
         add(rFind);
 
         //Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
-        tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING]);
+        tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING, GType.STRING]);
         loadShortcuts(tsShortcuts);
 
         filter = new TreeModelFilter(tsShortcuts, null);
@@ -761,9 +766,9 @@ private:
         column.setExpand(true);
         tvShortcuts.appendColumn(column);
 
-        CellRendererAccel craShortcut = new CellRendererAccel();
+        craShortcut = new CellRendererAccel();
         craShortcut.setProperty("editable", 1);
-        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.OTHER);
+        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.GTK);
         craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
             trace("Clearing shortcut");
             TreeIter iter = new TreeIter();
@@ -771,7 +776,7 @@ private:
             filter.convertIterToChildIter(iter, iter);
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), SHORTCUT_DISABLED);
+            updateShortcutSetting(iter, SHORTCUT_DISABLED);
         });
         craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint, CellRendererAccel) {
             string label = AccelGroup.acceleratorGetLabel(accelKey, accelMods);
@@ -804,13 +809,19 @@ private:
             if (iter is null) return;
             string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
             size_t length;
-            string defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
+            string defaultValue;
+            if (filter.getValueString(iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
+              defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
+            } else {
+              defaultValue = SHORTCUT_DISABLED;
+            }
             filter.convertIterToChildIter(iter, iter);
             if (defaultValue == SHORTCUT_DISABLED) {
                 tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
-                gsShortcuts.setString(action, defaultValue);
+                updateShortcutSetting(iter, SHORTCUT_DISABLED);
             } else if (checkAndPromptChangeShortcut(action, defaultValue)) {
-                gsShortcuts.setString(action, defaultValue);
+                //gsShortcuts.setString(action, defaultValue);
+                updateShortcutSetting(iter, defaultValue);
                 uint key;
                 ModifierType mods;
                 AccelGroup.acceleratorParse(defaultValue, key, mods);
@@ -834,6 +845,27 @@ private:
     }
 
     /**
+     * Update the shortcut setting, depending on type updates it profile or keyboard
+     * section of settings.
+     */
+    void updateShortcutSetting(TreeIter iter, string shortcut) {
+        if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
+            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), shortcut);
+        } else {
+            string uuid = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+            GSettings gsProfile = prfMgr.getProfileSettings(uuid);
+            if (gsProfile !is null) {
+                gsProfile.setString(SETTINGS_PROFILE_SHORTCUT_KEY, shortcut);
+            }
+            if (shortcut != SHORTCUT_DISABLED) {
+                tilix.addAccelerator(shortcut, getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new GVariant(uuid));
+            } else {
+                tilix.removeAccelerator(getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new GVariant(uuid));
+            }
+        }
+    }
+
+    /**
      * Called when user changes accelerator, will prompt if accelerator duplicates
      */
     void accelChanged(string label, string name, TreeIter iter) {
@@ -843,7 +875,8 @@ private:
             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
             tracef("Setting action %s to shortcut %s", action, label);
             //Note accelerator changed by app which is monitoring gsetting changes
-            gsShortcuts.setString(action, name);
+            updateShortcutSetting(iter, name);
+            //gsShortcuts.setString(action, name);
         }
     }
 
@@ -874,14 +907,16 @@ private:
                 if (currentActionName.startsWith("nautilus")) continue;
                 if (currentActionName.length > 0 && currentActionName != actionName) {
                     if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT) == accelLabel) {
-                        MessageDialog dlg = new MessageDialog(cast(Window) this.getToplevel(), DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
+                        trace("Checking toplevel");
+                        Window window = cast(Window) this.getToplevel();
+                        MessageDialog dlg = new MessageDialog(window, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
                         scope (exit) {
                             dlg.destroy();
                         }
                         string title = "<span weight='bold' size='larger'>" ~ _("Overwrite Existing Shortcut") ~ "</span>";
                         string msg = format(_("The shortcut %s is already assigned to %s.\nDisable the shortcut for the other action and assign here instead?"), accelLabel, tsShortcuts.getValueString(iter, COLUMN_NAME));
                         with (dlg) {
-                            setTransientFor(cast(Window) this.getToplevel());
+                            if (window !is null) setTransientFor(window);
                             setMarkup(title);
                             getMessageArea().setMarginLeft(0);
                             getMessageArea().setMarginRight(0);
@@ -892,7 +927,8 @@ private:
                         }
                         if (dlg.run() != ResponseType.CANCEL) {
                             tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
-                            gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
+                            updateShortcutSetting(iter, SHORTCUT_DISABLED);
+                            //gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
                             return true;
                         } else {
                             return false;
@@ -939,11 +975,11 @@ private:
             parser.parse();
             // While you could use sections to get prefixes, not all sections are there
             // and it's not inutituve from a localization perspective. Just add them manually
-            prefixes["win"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Window");
-            prefixes["app"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Application");
-            prefixes["terminal"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Terminal");
-            prefixes["session"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Session");
-            prefixes["nautilus"] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Nautilus");
+            prefixes[ACTION_PREFIX_WIN] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Window");
+            prefixes[ACTION_PREFIX_APP] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Application");
+            prefixes[ACTION_PREFIX_TERMINAL] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Terminal");
+            prefixes[ACTION_PREFIX_SESSION] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Session");
+            prefixes[ACTION_PREFIX_NAUTILUS] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Nautilus");
         } catch (XMLException e) {
             error("Failed to parse shortcuts.ui", e);
         }
@@ -985,6 +1021,26 @@ private:
     }
 
     void loadShortcuts(TreeStore ts) {
+        loadShortcutsFromSettings(ts);
+        loadShortcutsFromProfile(ts);
+    }
+
+    void loadShortcutsFromProfile(TreeStore ts) {
+        TreeIter currentIter = appendValues(ts, null, ["Profile"]);
+        string[] uuids = prfMgr.getProfileUUIDs();
+        foreach(uuid; uuids) {
+            GSettings gsProfile = prfMgr.getProfileSettings(uuid);
+            try {
+                string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+                string key = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
+                appendValues(ts, currentIter, [name, acceleratorNameToLabel(key), uuid, SC_TYPE_PROFILE]);
+            } finally {
+                gsProfile.destroy();
+            }
+        }
+    }
+
+    void loadShortcutsFromSettings(TreeStore ts) {
 
         int[2][string] gtkVersioned = getGTKVersionedShortcuts();
         int[2][string] vteVersioned = getVTEVersionedShortcuts();
@@ -997,15 +1053,17 @@ private:
         TreeIter currentIter;
         string currentPrefix;
         foreach (key; keys) {
+            // Check if shortcut supported in current GTK Version
             if (key in gtkVersioned) {
                 int[2] gtkVersion = gtkVersioned[key];
                 if (Version.checkVersion(gtkVersion[0], gtkVersion[1], 0).length > 0) continue;
             }
-
+            // Check if shortcut supported in current VTE Version
             if (key in vteVersioned) {
                 int[2] vteVersion = vteVersioned[key];
                 if (!checkVTEVersionNumber(vteVersion[0], vteVersion[1])) continue;
             }
+            // Check if shortcut supported by special features (i.e. custom patches) of VTE
             if (key in vteFeatured) {
                 if (!checkVTEFeature(vteFeatured[key])) continue;
             }
@@ -1023,7 +1081,7 @@ private:
                 label = labels[key];
             }
 
-            appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key]);
+            appendValues(ts, currentIter, [label, acceleratorNameToLabel(gsShortcuts.getString(key)), key, SC_TYPE_ACTION]);
         }
     }
 

@@ -514,19 +514,10 @@ private:
         Settings.getDefault.addOnNotify(&handleThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
         gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
-        trace("Monitoring shortcuts");
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
             string actionName = keyToDetailedActionName(key);
-            trace("Updating shortcut '" ~ actionName ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
-            string shortcut = gsShortcuts.getString(key);
-            if (shortcut == SHORTCUT_DISABLED) {
-                char** tmp = (new char*[1]).ptr;
-                tmp[0] = cast(char*) '\0';
-                gtk_application_set_accels_for_action(gtkApplication, Str.toStringz(actionName), tmp);
-                trace("Removing accelerator");
-            } else {
-                setAccelsForAction(actionName, [shortcut]);
-            }
+            //trace("Updating shortcut '" ~ actionName ~ "' to '" ~ gsShortcuts.getString(key) ~ "'");
+            setShortcut(actionName, gsShortcuts.getString(key));
         });
         gsGeneral = new GSettings(SETTINGS_ID);
         // Set this once globally because it affects more then current window (i.e. shortcuts)
@@ -541,6 +532,37 @@ private:
         bmMgr.load();
         applyPreferences();
         installAppMenu();
+        loadProfileShortcuts();
+    }
+
+    void setShortcut(string actionName, string shortcut) {
+        if (shortcut == SHORTCUT_DISABLED) {
+            char** tmp = (new char*[1]).ptr;
+            tmp[0] = cast(char*) '\0';
+            gtk_application_set_accels_for_action(gtkApplication, Str.toStringz(actionName), tmp);
+            trace("Removing accelerator");
+        } else {
+            setAccelsForAction(actionName, [shortcut]);
+        }
+    }
+
+    /**
+     * Load profile shortcuts
+     */
+    void loadProfileShortcuts() {
+        // Load profile shortcuts
+        string[] uuids = prfMgr.getProfileUUIDs();
+        foreach(uuid; uuids) {
+            GSettings gsProfile = prfMgr.getProfileSettings(uuid);
+            try {
+                string key = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
+                if (key != SHORTCUT_DISABLED) {
+                    addAccelerator(key, getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new GVariant(uuid));
+                }
+            } finally {
+                gsProfile.destroy();
+            }
+        }
     }
 
     void onAppShutdown(GApplication) {

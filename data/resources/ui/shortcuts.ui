@@ -629,5 +629,19 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="visible">1</property>
+        <property name="section-name">profile</property>
+        <property name="title" translatable="yes" context="shortcut window">Profile</property>
+        <property name="max-height">12</property>
+        <child>
+          <object class="GtkShortcutsGroup" id="profile">
+            <property name="visible">1</property>
+            <property name="title" translatable="yes" context="shortcut window">Profile</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>

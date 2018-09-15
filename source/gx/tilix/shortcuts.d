@@ -10,11 +10,13 @@ import std.path;
 
 import gio.Settings;
 
+import gobject.ObjectG;
 import gobject.Value;
 
 import gtkc.gobject;
 
 import gtk.Builder;
+import gtk.ShortcutsGroup;
 import gtk.ShortcutsShortcut;
 import gtk.ShortcutsWindow;
 
@@ -44,6 +46,28 @@ ShortcutsWindow getShortcutWindow() {
         } else {
             trace("Could not find shortcut for " ~ key);
         }
+    }
+
+    // Add Profile shortcuts to window
+    ShortcutsGroup sgProfile = cast(ShortcutsGroup) builder.getObject("profile");
+    if (sgProfile !is null) {
+        string[] uuids = prfMgr.getProfileUUIDs();
+        foreach (uuid; uuids) {
+            Settings gsProfile = prfMgr.getProfileSettings(uuid);
+            if (gsProfile !is null) {
+                string accelName = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
+                if (accelName == SHORTCUT_DISABLED) accelName.length = 0;
+                trace("Create ShortcutShortcut");
+                ShortcutsShortcut ss = cast(ShortcutsShortcut) new ObjectG(ShortcutsShortcut.getType(), ["title","accelerator"], [new Value(gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY)), new Value(accelName)]);
+                if (ss !is null) {
+                    sgProfile.add(ss);
+                } else {
+                    trace("Profile ShortcutShortcut is null");
+                }
+            }
+        }
+    } else {
+        trace("Didn't find profile ShortcutGroup");
     }
 
     return cast(ShortcutsWindow) builder.getObject("shortcuts-tilix");

@@ -11,7 +11,6 @@ enum ACTION_FIND_NEXT = "find-next";
 enum ACTION_LAYOUT = "layout";
 enum ACTION_CLOSE = "close";
 enum ACTION_MAXIMIZE = "maximize";
-enum ACTION_PROFILE_SELECT = "profile-select";
 enum ACTION_ENCODING_SELECT = "encoding-select";
 enum ACTION_PROFILE_PREFERENCE = "profile-preference";
 enum ACTION_ENCODING_PREFERENCE = "encoding-preference";
