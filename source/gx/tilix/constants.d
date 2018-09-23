@@ -100,6 +100,11 @@ enum ACTION_PREFIX_NAUTILUS = "nautilus";
 //Actions that need to be referenced globally
 enum ACTION_PROFILE_SELECT = "profile-select";
 
+enum ACTION_PREFERENCES = "preferences";
+enum ACTION_ABOUT = "about";
+enum ACTION_SHORTCUTS = "shortcuts";
+enum ACTION_NEW_WINDOW = "new-window";
+
 //Config Folder
 enum APPLICATION_CONFIG_FOLDER = "tilix";
 

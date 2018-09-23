@@ -207,52 +207,6 @@ private:
     // Save file dialog paths between invocations
     string[DialogPath] dialogPaths;
 
-    /**
-     * Forces the app menu in the decoration layouts so in environments without an app-menu
-     * it will be rendered by GTK as part of the window.
-     */
-    void forceAppMenu() {
-        Settings settings = getSettings();
-        if (settings !is null) {
-            Value value = new Value("");
-            settings.getProperty(GTK_DECORATION_LAYOUT, value);
-            string layout = value.getString();
-            tracef("Layout: %s", layout);
-            if (layout.indexOf("menu") < 0) {
-                size_t index = layout.indexOf(":");
-                if (index > 0) {
-                    layout = "menu," ~ layout;
-                } else if (index == 0) {
-                    layout = "menu" ~ layout;
-                } else {
-                    layout = "menu:" ~ layout;
-                }
-            }
-            tracef("Updating layout to %s", layout);
-            value.setString(layout);
-            settings.setProperty(GTK_DECORATION_LAYOUT, value);
-
-            string desktop;
-            try {
-                desktop = environment["XDG_CURRENT_DESKTOP"];
-            } catch (Exception e) {
-                //Just ignore it
-            }
-
-            // Unity specific workaround, force app window when using Headerbar and setting to display menus in titlebar in Unity is active
-            if (desktop.indexOf("Unity") >= 0 && !isCSDDisabled()) {
-                try {
-                    GSettings unity = new GSettings("com.canonical.Unity");
-                    if (unity !is null && unity.getBoolean("integrated-menus")) {
-                        settings.setProperty(GTK_SHELL_SHOWS_APP_MENU, new Value(false));
-                    }
-                } catch (GException e) {
-                    //Ignore
-                }
-            }
-        }
-    }
-
     bool isCSDDisabled() {
         return windowStyle > 0;
     }
@@ -717,11 +671,16 @@ private:
     Popover createPopover(Widget parent) {
         GMenu model = new GMenu();
 
+        GMenu mWindowSection = new GMenu();
+        mWindowSection.appendItem(new GMenuItem(_("New Window"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_NEW_WINDOW)));
+        model.appendSection(null, mWindowSection);
+
         GMenu mFileSection = new GMenu();
         mFileSection.appendItem(new GMenuItem(_("Open…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_OPEN)));
         mFileSection.appendItem(new GMenuItem(_("Save"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE)));
         mFileSection.appendItem(new GMenuItem(_("Save As…"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SAVE_AS)));
-        mFileSection.appendItem(new GMenuItem(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
+// Remove this since both tabs and sidebar have a close button already
+//        mFileSection.appendItem(new GMenuItem(_("Close Session"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_CLOSE)));
         model.appendSection(null, mFileSection);
 
         GMenu mSessionSection = new GMenu();
@@ -729,11 +688,13 @@ private:
         mSessionSection.appendItem(new GMenuItem(_("Synchronize Input"), getActionDetailedName(ACTION_PREFIX, ACTION_SESSION_SYNC_INPUT)));
         model.appendSection(null, mSessionSection);
 
-        if (isQuake()) {
-            GMenu mPrefSection = new GMenu();
-            mPrefSection.appendItem(new GMenuItem(_("Preferences"), getActionDetailedName("app", "preferences")));
-            model.appendSection(null, mPrefSection);
-        }
+        GMenu mPrefSection = new GMenu();
+        mPrefSection.appendItem(new GMenuItem(_("Preferences"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_PREFERENCES)));
+        mPrefSection.appendItem(new GMenuItem(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_SHORTCUTS)));
+        mPrefSection.append(_("About Tilix"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_ABOUT));
+
+
+        model.appendSection(null, mPrefSection);
 
         debug(GC) {
             GMenu mDebugSection = new GMenu();
@@ -1739,7 +1700,6 @@ public:
             if (windowStyle == 3) {
                 setDecorated(false);
             }
-            forceAppMenu();
         }
         setShowMenubar(false);
 

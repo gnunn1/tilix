@@ -92,17 +92,11 @@ class Tilix : Application {
 
 private:
 
-    enum ACTION_PREFIX = "app";
-
-    enum ACTION_NEW_WINDOW = "new-window";
     enum ACTION_NEW_SESSION = "new-session";
     enum ACTION_ACTIVATE_SESSION = "activate-session";
     enum ACTION_ACTIVATE_TERMINAL = "activate-terminal";
-    enum ACTION_PREFERENCES = "preferences";
-    enum ACTION_ABOUT = "about";
     enum ACTION_QUIT = "quit";
     enum ACTION_COMMAND = "command";
-    enum ACTION_SHORTCUTS = "shortcuts";
 
     enum THEME_AMBIANCE = "Ambiance";
 
@@ -177,7 +171,7 @@ private:
          * Action used to support notifications, when a notification it has this action associated with it
          * along with the sessionUUID
          */
-        registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction) {
+        registerAction(this, ACTION_PREFIX_APP, ACTION_ACTIVATE_SESSION, null, delegate(GVariant value, SimpleAction) {
             size_t l;
             string sessionUUID = value.getString(l);
             tracef("activate-session triggered for session %s", sessionUUID);
@@ -193,7 +187,7 @@ private:
          * Action used to support notifications, when a notification it has this action associated with it
          * along with the terminalUUID
          */
-        registerAction(this, ACTION_PREFIX, ACTION_ACTIVATE_TERMINAL, null, delegate(GVariant value, SimpleAction) {
+        registerAction(this, ACTION_PREFIX_APP, ACTION_ACTIVATE_TERMINAL, null, delegate(GVariant value, SimpleAction) {
             size_t l;
             string terminalUUID = value.getString(l);
             tracef("activate-terminal triggered for terminal %s", terminalUUID);
@@ -205,14 +199,14 @@ private:
             }
         }, new GVariantType("s"));
 
-        registerActionWithSettings(this, ACTION_PREFIX, ACTION_NEW_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewSession(); });
+        registerActionWithSettings(this, ACTION_PREFIX_APP, ACTION_NEW_SESSION, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewSession(); });
 
-        registerActionWithSettings(this, ACTION_PREFIX, ACTION_NEW_WINDOW, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewWindow(); });
+        registerActionWithSettings(this, ACTION_PREFIX_APP, ACTION_NEW_WINDOW, gsShortcuts, delegate(GVariant, SimpleAction) { onCreateNewWindow(); });
 
-        registerActionWithSettings(this, ACTION_PREFIX, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
+        registerActionWithSettings(this, ACTION_PREFIX_APP, ACTION_PREFERENCES, gsShortcuts, delegate(GVariant, SimpleAction) { onShowPreferences(); });
 
         if (Version.checkVersion(3, 19, 0).length == 0) {
-            registerActionWithSettings(this, ACTION_PREFIX, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) {
+            registerActionWithSettings(this, ACTION_PREFIX_APP, ACTION_SHORTCUTS, gsShortcuts, delegate(GVariant, SimpleAction) {
                 import gtk.ShortcutsWindow: ShortcutsWindow;
 
                 ShortcutsWindow window = getShortcutWindow();
@@ -223,25 +217,25 @@ private:
             });
         }
 
-        registerAction(this, ACTION_PREFIX, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
+        registerAction(this, ACTION_PREFIX_APP, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
-        registerAction(this, ACTION_PREFIX, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTilix(); });
+        registerAction(this, ACTION_PREFIX_APP, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTilix(); });
 
         Menu newSection = new Menu();
-        newSection.append(_("New Session"), getActionDetailedName(ACTION_PREFIX, ACTION_NEW_SESSION));
-        newSection.append(_("New Window"), getActionDetailedName(ACTION_PREFIX, ACTION_NEW_WINDOW));
+        newSection.append(_("New Session"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_NEW_SESSION));
+        newSection.append(_("New Window"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_NEW_WINDOW));
         appMenu.appendSection(null, newSection);
 
         Menu prefSection = new Menu();
-        prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX, ACTION_PREFERENCES));
+        prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_PREFERENCES));
         if (Version.checkVersion(3, 19, 0).length == 0) {
-            prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX, ACTION_SHORTCUTS));
+            prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_SHORTCUTS));
         }
         appMenu.appendSection(null, prefSection);
 
         Menu otherSection = new Menu();
-        otherSection.append(_("About"), getActionDetailedName(ACTION_PREFIX, ACTION_ABOUT));
-        otherSection.append(_("Quit"), getActionDetailedName(ACTION_PREFIX, ACTION_QUIT));
+        otherSection.append(_("About"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_ABOUT));
+        otherSection.append(_("Quit"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_QUIT));
         appMenu.appendSection(null, otherSection);
 
         this.setAppMenu(appMenu);
@@ -642,7 +636,7 @@ private:
             widget = widget.getParent();
         }
         //Check if the action belongs to the app
-        if (prefix == ACTION_PREFIX) {
+        if (prefix == ACTION_PREFIX_APP) {
             activateAction(actionName, null);
             return result;
         }
