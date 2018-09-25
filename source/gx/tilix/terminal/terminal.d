@@ -3534,7 +3534,8 @@ private:
                 default:
             }
 
-            PgLayout pgl = PgCairo.createLayout(cr);
+            //PgLayout pgl = PgCairo.createLayout(cr);
+            PgLayout pgl = new PgLayout(vte.getPangoContext());
             pgl.setFontDescription(badgeFont);
             pgl.setText(_cachedBadge);
             pgl.setWidth(rect.width * PANGO_SCALE);
