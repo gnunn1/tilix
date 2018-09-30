@@ -95,6 +95,7 @@ sources_dir = include_directories('source/')
 gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.3', method: 'dub')
 vted_dep = dependency('gtk-d:vte', version: '>=3.8.3', method: 'dub')
 xlib_dep = dependency('x11')
+libunwind_dep = dependency('libunwind')
 msgfmt = find_program('msgfmt')
 
 
@@ -107,7 +108,8 @@ executable('tilix',
     include_directories : sources_dir,
     dependencies : [gtkd_dep,
                     vted_dep,
-                    xlib_dep],
+                    xlib_dep,
+                    libunwind_dep],
     d_args: extra_args,
     link_args: d_link_args,
     install : true
