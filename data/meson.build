@@ -12,29 +12,28 @@ endforeach
 # install scalable symbolic icon
 install_data(
     'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(meson.project_name()),
-    install_dir: join_paths(get_option('datadir'), 'cons/hicolor/scalable/apps')
+    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps')
 )
 
 
 # Validate desktop file
 desktop_file_validate = find_program('desktop-file-validate', required:false)
-
 if desktop_file_validate.found()
   test (
     'Validate desktop file',
     desktop_file_validate,
-    args: join_paths(meson.current_build_dir (), meson.project_name() + '.desktop')
+    args: join_paths(meson.current_build_dir (), '@0@.desktop'.format(meson.project_name()))
   )
 endif
 
 # Install the desktop file
 i18n.merge_file(
-    output:  meson.project_name() + '.desktop',
-    input: 'pkg/desktop/' + meson.project_name() + '.desktop.in',
+    output: '@0@.desktop'.format(meson.project_name()),
+    input: 'pkg/desktop/@0@.desktop.in'.format(meson.project_name()),
     po_dir: join_paths(meson.source_root(), 'po'),
     type: 'desktop',
     install: true,
-    install_dir:  join_paths(get_option('datadir'), 'applications')
+    install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
 # Validate AppData file
@@ -43,17 +42,17 @@ if appstream_util.found()
   test (
     'Validate appdata file',
     appstream_util,
-    args: ['validate-relax', join_paths(meson.current_build_dir (), meson.project_name() + '.appdata.xml')]
+    args: ['validate-relax', join_paths(meson.current_build_dir (), '@0@.appdata.xml'.format(meson.project_name())]
   )
 endif
 
 # Install the AppData file
 i18n.merge_file(
-    output: meson.project_name() + '.appdata.xml',
-    input: 'appdata/' + meson.project_name() + '.appdata.xml.in',
+    output: '@0@.appdata.xml'.format(meson.project_name()),
+    input: 'appdata/@0@.appdata.xml.in'.format(meson.project_name()),
     po_dir: join_paths(meson.source_root(), 'po'),
     install: true,
-    install_dir:  join_paths(get_option('datadir'), 'metainfo')
+    install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 # Build resources
@@ -68,8 +67,8 @@ gresource = gnome.compile_resources(
 
 # Install GSchemas
 install_data(
-  'gsettings/' + meson.project_name() + '.gschema.xml',
-  install_dir : join_paths(get_option('datadir'), 'glib-2.0/schemas')
+  'gsettings/@0@.gschema.xml'.format(meson.project_name()),
+  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
 # Color schemes
@@ -101,6 +100,6 @@ install_data(
 
 # Copy D-Bus service descriptor
 install_data(
-    'dbus/' + meson.project_name() + '.service',
+    'dbus/@0@.service'.format(meson.project_name()),
     install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
 )
