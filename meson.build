@@ -11,10 +11,12 @@ if compiler.get_id() == 'gcc'
     error('Tilix can not be compiled with GDC at time, since the standard library version of all GDC versions is currently (2016) too old. Sorry.')
 endif
 
-if compiler.get_id() == 'llvm'
-  extra_args = ['-disable-linker-strip-dead']
+ if compiler.get_id() == 'llvm'
+  extra_args = ['-vcolumns','-w','-oq','-d-version=StdLoggerDisableTrace']
+  d_link_args = ['-disable-linker-strip-dead']
 else
   extra_args = []
+  d_link_args = []
 endif
 
 gnome = import('gnome')
@@ -89,6 +91,7 @@ source_root = meson.source_root()
 sources_dir = include_directories('source/')
 
 # Dependencies
+# Note relying on dub to fetch and build dependencies before running meson build is temporary due to a bug in Meson 0.48
 gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.3', method: 'dub')
 vted_dep = dependency('gtk-d:vte', version: '>=3.8.3', method: 'dub')
 xlib_dep = dependency('x11')
@@ -98,7 +101,6 @@ msgfmt = find_program('msgfmt')
 subdir('po')
 subdir('data')
 
-
 # Build & Test
 executable('tilix',
     [tilix_sources, gresource],
@@ -107,6 +109,7 @@ executable('tilix',
                     vted_dep,
                     xlib_dep],
     d_args: extra_args,
+    link_args: d_link_args,
     install : true
 )
 
