@@ -4,15 +4,15 @@ icon_sizes = ['16x16', '22x22', '24x24', '32x32', '48x48', '256x256', '512x512']
 # install bitmap icons
 foreach size : icon_sizes
     install_data(
-        'icons/hicolor/' + size + '/apps/' + meson.project_name() + '.png',
-        install_dir: 'share/icons/hicolor/' + size + '/apps/'
+        'icons/hicolor/@0@/apps/@1@.png'.format(size, meson.project_name()),
+        install_dir: join_paths(get_option('datadir'), 'icons/hicolor/' + size + '/apps')
     )
 endforeach
 
 # install scalable symbolic icon
 install_data(
     'icons/hicolor/scalable/apps/com.gexperts.Tilix-symbolic.svg',
-    install_dir: 'share/icons/hicolor/scalable/apps/'
+    install_dir: join_paths(get_option('datadir'), 'cons/hicolor/scalable/apps')
 )
 
 
@@ -34,7 +34,7 @@ i18n.merge_file(
     po_dir: join_paths(meson.source_root(), 'po'),
     type: 'desktop',
     install: true,
-    install_dir: 'share/applications'
+    install_dir:  join_paths(get_option('datadir'), 'applications')
 )
 
 # Validate AppData file
@@ -53,7 +53,7 @@ i18n.merge_file(
     input: 'appdata/' + meson.project_name() + '.appdata.xml.in',
     po_dir: join_paths(meson.source_root(), 'po'),
     install: true,
-    install_dir: 'share/metainfo'
+    install_dir:  join_paths(get_option('datadir'), 'metainfo')
 )
 
 # Build resources
@@ -63,13 +63,13 @@ gresource = gnome.compile_resources(
     gresource_bundle: true,
     install: true,
     source_dir: 'resources/',
-    install_dir: 'share/tilix/resources'
+    install_dir: join_paths(get_option('datadir'), 'tilix/resources')
 )
 
 # Install GSchemas
 install_data(
   'gsettings/' + meson.project_name() + '.gschema.xml',
-  install_dir : 'share/glib-2.0/schemas'
+  install_dir : join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
 # Color schemes
@@ -84,23 +84,23 @@ install_data(
         'schemes/solarized-light.json',
         'schemes/tango.json',
     ],
-    install_dir: 'share/tilix/schemes'
+    install_dir: join_paths(get_option('datadir'), 'tilix/schemes')
 )
 
 # Scripts
 install_data(
     'scripts/tilix_int.sh',
-    install_dir: 'share/tilix/scripts'
+    install_dir: join_paths(get_option('datadir'), 'tilix/scripts')
 )
 
 # Copying Nautilus extension
 install_data(
     'nautilus/open-tilix.py',
-    install_dir: 'share/nautilus-python/extensions/'
+    install_dir: join_paths(get_option('datadir'), 'nautilus-python/extensions')
 )
 
 # Copy D-Bus service descriptor
 install_data(
     'dbus/' + meson.project_name() + '.service',
-    install_dir: 'share/dbus-1/services/'
+    install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
 )
