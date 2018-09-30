@@ -4,37 +4,36 @@ icon_sizes = ['16x16', '22x22', '24x24', '32x32', '48x48', '256x256', '512x512']
 # install bitmap icons
 foreach size : icon_sizes
     install_data(
-        'icons/hicolor/' + size + '/apps/' + meson.project_name() + '.png',
-        install_dir: 'share/icons/hicolor/' + size + '/apps/'
+        'icons/hicolor/@0@/apps/@1@.png'.format(size, meson.project_name()),
+        install_dir: join_paths(get_option('datadir'), 'icons/hicolor/@0@/apps'.format(size))
     )
 endforeach
 
 # install scalable symbolic icon
 install_data(
-    'icons/hicolor/scalable/apps/com.gexperts.Tilix-symbolic.svg',
-    install_dir: 'share/icons/hicolor/scalable/apps/'
+    'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(meson.project_name()),
+    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps')
 )
 
 
 # Validate desktop file
 desktop_file_validate = find_program('desktop-file-validate', required:false)
-
 if desktop_file_validate.found()
   test (
     'Validate desktop file',
     desktop_file_validate,
-    args: join_paths(meson.current_build_dir (), meson.project_name() + '.desktop')
+    args: join_paths(meson.current_build_dir (), '@0@.desktop'.format(meson.project_name()))
   )
 endif
 
 # Install the desktop file
 i18n.merge_file(
-    output:  meson.project_name() + '.desktop',
-    input: 'pkg/desktop/' + meson.project_name() + '.desktop.in',
+    output: '@0@.desktop'.format(meson.project_name()),
+    input: 'pkg/desktop/@0@.desktop.in'.format(meson.project_name()),
     po_dir: join_paths(meson.source_root(), 'po'),
     type: 'desktop',
     install: true,
-    install_dir: 'share/applications'
+    install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
 # Validate AppData file
@@ -43,17 +42,17 @@ if appstream_util.found()
   test (
     'Validate appdata file',
     appstream_util,
-    args: ['validate-relax', join_paths(meson.current_build_dir (), meson.project_name() + '.appdata.xml')]
+    args: ['validate-relax', join_paths(meson.current_build_dir (), '@0@.appdata.xml'.format(meson.project_name())]
   )
 endif
 
 # Install the AppData file
 i18n.merge_file(
-    output: meson.project_name() + '.appdata.xml',
-    input: 'appdata/' + meson.project_name() + '.appdata.xml.in',
+    output: '@0@.appdata.xml'.format(meson.project_name()),
+    input: 'appdata/@0@.appdata.xml.in'.format(meson.project_name()),
     po_dir: join_paths(meson.source_root(), 'po'),
     install: true,
-    install_dir: 'share/metainfo'
+    install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 # Build resources
@@ -63,13 +62,13 @@ gresource = gnome.compile_resources(
     gresource_bundle: true,
     install: true,
     source_dir: 'resources/',
-    install_dir: 'share/tilix/resources'
+    install_dir: join_paths(get_option('datadir'), 'tilix/resources')
 )
 
 # Install GSchemas
 install_data(
-  'gsettings/' + meson.project_name() + '.gschema.xml',
-  install_dir : 'share/glib-2.0/schemas'
+  'gsettings/@0@.gschema.xml'.format(meson.project_name()),
+  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
 # Color schemes
@@ -84,23 +83,23 @@ install_data(
         'schemes/solarized-light.json',
         'schemes/tango.json',
     ],
-    install_dir: 'share/tilix/schemes'
+    install_dir: join_paths(get_option('datadir'), 'tilix/schemes')
 )
 
 # Scripts
 install_data(
     'scripts/tilix_int.sh',
-    install_dir: 'share/tilix/scripts'
+    install_dir: join_paths(get_option('datadir'), 'tilix/scripts')
 )
 
 # Copying Nautilus extension
 install_data(
     'nautilus/open-tilix.py',
-    install_dir: 'share/nautilus-python/extensions/'
+    install_dir: join_paths(get_option('datadir'), 'nautilus-python/extensions')
 )
 
 # Copy D-Bus service descriptor
 install_data(
-    'dbus/' + meson.project_name() + '.service',
-    install_dir: 'share/dbus-1/services/'
+    'dbus/@0@.service'.format(meson.project_name()),
+    install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
 )
