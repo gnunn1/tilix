@@ -92,6 +92,9 @@ sources_dir = include_directories('source/')
 
 # Dependencies
 # Note relying on dub to fetch and build dependencies before running meson build is temporary due to a bug in Meson 0.48
+# gtkd_dep = dependency('gtkd-3', version: '>= 3.8.3')
+# vted_dep = dependency('vted-3', version: '>= 3.8.3')
+
 gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.3', method: 'dub')
 vted_dep = dependency('gtk-d:vte', version: '>=3.8.3', method: 'dub')
 xlib_dep = dependency('x11')
