@@ -99,7 +99,12 @@ install_data(
 )
 
 # Copy D-Bus service descriptor
-install_data(
-    'dbus/@0@.service'.format(meson.project_name()),
-    install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
+conf = configuration_data()
+conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
+
+configure_file(
+  input: 'dbus/@0@.service.in'.format(meson.project_name()),
+  output: 'dbus/@0@.service'.format(meson.project_name()),
+  configuration: conf,
+  install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
 )
