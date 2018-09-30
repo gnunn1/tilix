@@ -12,8 +12,8 @@ if compiler.get_id() == 'gcc'
 endif
 
  if compiler.get_id() == 'llvm'
-  extra_args = ['-vcolumns','-w','-oq','-d-version=StdLoggerDisableTrace']
-  d_link_args = ['-disable-linker-strip-dead']
+  extra_args = ['-vcolumns','-d-version=StdLoggerDisableTrace']
+  d_link_args = []
 else
   extra_args = []
   d_link_args = []
