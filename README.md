@@ -80,7 +80,9 @@ dub build --build=release
 The application depends on various resources to function correctly, run `sudo ./install.sh` to build and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
 Note : `install.sh` will install Tilix to your `/usr` directory. If you are interested in installing Tilix to a custom location, you can specify the `PREFIX` as an argument to the `install.sh` script (e.g : `./install.sh $HOME/.local` will install Tilix into `$HOME/.local`). However, this requires you to add your `$PREFIX/share` directory to your `$XDG_DATA_DIRS` environment variable.
 
-Note there is also experimental support for autotools, please see the wiki page on [autotools](https://github.com/gnunn1/tilix/wiki/Building-with-Autotools) for more information.
+Note there is also support for meson, please see the wiki page on [meson](https://github.com/gnunn1/tilix/wiki/Building-with-Meson) for more information.
+
+Support for autotools will be deprecated in favor of meson, for information on using autotools please see the wiki page [here](https://github.com/gnunn1/tilix/wiki/Building-with-Autotools).
 
 #### Build Dependencies
 
