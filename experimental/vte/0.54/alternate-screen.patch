@@ -1,0 +1,119 @@
+diff --git a/src/vte/vteterminal.h b/src/vte/vteterminal.h
+index 89539cc4..080ed2e6 100644
+--- a/src/vte/vteterminal.h
++++ b/src/vte/vteterminal.h
+@@ -104,8 +104,10 @@ struct _VteTerminalClass {
+ 
+ 	void (*bell)(VteTerminal* terminal);
+ 
++        void (*terminal_screen_changed)(VteTerminal* terminal);
++
+         /* Padding for future expansion. */
+-        gpointer padding[16];
++        gpointer padding[15];
+ 
+         VteTerminalClassPrivate *priv;
+ };
+diff --git a/src/vtegtk.cc b/src/vtegtk.cc
+index 89e3d7a8..60384168 100644
+--- a/src/vtegtk.cc
++++ b/src/vtegtk.cc
+@@ -759,6 +759,8 @@ vte_terminal_class_init(VteTerminalClass *klass)
+ 
+         klass->bell = NULL;
+ 
++        klass->terminal_screen_changed = NULL;
++
+         /* GtkScrollable interface properties */
+         g_object_class_override_property (gobject_class, PROP_HADJUSTMENT, "hadjustment");
+         g_object_class_override_property (gobject_class, PROP_VADJUSTMENT, "vadjustment");
+@@ -1306,6 +1308,24 @@ vte_terminal_class_init(VteTerminalClass *klass)
+                              g_cclosure_marshal_VOID__VOID,
+                              G_TYPE_NONE, 0);
+ 
++        /**
++         * VteTerminal::screen-changed:
++         * @vteterminal: the object which received the signal
++         *
++         * This signal is emitted when the terminal screen changes between
++         * normal and alternate screen.
++         */
++        signals[SIGNAL_TERMINAL_SCREEN_CHANGED] =
++                g_signal_new(I_("terminal-screen-changed"),
++                             G_OBJECT_CLASS_TYPE(klass),
++                             G_SIGNAL_RUN_LAST,
++                             G_STRUCT_OFFSET(VteTerminalClass, terminal_screen_changed),
++                             NULL,
++                             NULL,
++                             g_cclosure_marshal_VOID__INT,
++                             G_TYPE_NONE, 1, G_TYPE_INT);
++
++
+         /**
+          * VteTerminal:allow-bold:
+          *
+diff --git a/src/vtegtk.hh b/src/vtegtk.hh
+index c49754ef..bb814370 100644
+--- a/src/vtegtk.hh
++++ b/src/vtegtk.hh
+@@ -52,6 +52,7 @@ enum {
+         SIGNAL_RESIZE_WINDOW,
+         SIGNAL_RESTORE_WINDOW,
+         SIGNAL_SELECTION_CHANGED,
++        SIGNAL_TERMINAL_SCREEN_CHANGED,
+         SIGNAL_TEXT_DELETED,
+         SIGNAL_TEXT_INSERTED,
+         SIGNAL_TEXT_MODIFIED,
+diff --git a/src/vteinternal.hh b/src/vteinternal.hh
+index 1652ca5f..3ba48d54 100644
+--- a/src/vteinternal.hh
++++ b/src/vteinternal.hh
+@@ -1347,6 +1347,8 @@ public:
+                                    vte::parser::StringTokeniser::const_iterator& token,
+                                    vte::parser::StringTokeniser::const_iterator const& endtoken) noexcept;
+ 
++        void emit_terminal_screen_changed(int screen);
++
+         /* Sequence handlers */
+         bool m_line_wrapped; // signals line wrapped from character insertion
+         // Note: inlining the handlers seems to worsen the performance, so we don't do that
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index 877cc571..4d4cf226 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -249,6 +249,15 @@ Terminal::emit_resize_window(guint columns,
+         g_signal_emit(m_terminal, signals[SIGNAL_RESIZE_WINDOW], 0, columns, rows);
+ }
+ 
++void
++Terminal::emit_terminal_screen_changed(int screen)
++{
++        _vte_debug_print(VTE_DEBUG_SIGNALS, "Emitting `terminal_screen_changed'.\n");
++        g_signal_emit(m_terminal, signals[SIGNAL_TERMINAL_SCREEN_CHANGED], 0, screen);
++}
++
++
++
+ /* Some common functions */
+ 
+ /* In Xterm, upon printing a character in the last column the cursor doesn't
+@@ -405,6 +414,9 @@ void
+ Terminal::switch_normal_screen()
+ {
+         switch_screen(&m_normal_screen);
++
++        /* Emit signal */
++        emit_terminal_screen_changed(0);
+ }
+ 
+ void
+@@ -437,6 +449,9 @@ void
+ Terminal::switch_alternate_screen()
+ {
+         switch_screen(&m_alternate_screen);
++
++        /* Emit signal */
++        emit_terminal_screen_changed(1);
+ }
+ 
+ void
