@@ -1,15 +1,9 @@
 
-icon_sizes = ['16x16', '22x22', '24x24', '32x32', '48x48', '256x256', '512x512']
-
-# install bitmap icons
-foreach size : icon_sizes
-    install_data(
-        'icons/hicolor/@0@/apps/@1@.png'.format(size, meson.project_name()),
-        install_dir: join_paths(get_option('datadir'), 'icons/hicolor/@0@/apps'.format(size))
-    )
-endforeach
-
-# install scalable symbolic icon
+# install the icons
+install_data(
+    'icons/hicolor/scalable/apps/@0@.svg'.format(meson.project_name()),
+    install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps')
+)
 install_data(
     'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(meson.project_name()),
     install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps')
