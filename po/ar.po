@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-21 19:31-0400\n"
-"PO-Revision-Date: 2018-10-20 14:22+0000\n"
+"PO-Revision-Date: 2018-10-21 17:22+0000\n"
 "Last-Translator: mohammadA <mohammadAbdulhadi1@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tilix/"
 "translations/ar/>\n"
@@ -57,19 +57,19 @@ msgstr "ميزات تِلِكس الخاصة"
 
 #: source/app.d:166
 msgid "Notifications enabled=%b"
-msgstr ""
+msgstr "تفعيل الإشعارات=%b"
 
 #: source/app.d:167
 msgid "Triggers enabled=%b"
-msgstr ""
+msgstr "تفعيل المُطلِقات=%b"
 
 #: source/app.d:168
 msgid "Badges enabled=%b"
-msgstr ""
+msgstr "تفعيل الشارات=%b"
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
-msgstr ""
+msgstr "معطل"
 
 #: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
 msgid "Do not show this again"
@@ -94,7 +94,7 @@ msgstr "أضف طرفية في الأسفل"
 
 #: source/gx/tilix/appwindow.d:418
 msgid "Find text in terminal"
-msgstr ""
+msgstr "ابحث عن نص في الطرفية"
 
 #: source/gx/tilix/appwindow.d:637
 msgid "Enter a new name for the session"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/advpaste.d:96
 msgid "Transform"
-msgstr ""
+msgstr "حوِّل"
 
 #: source/gx/tilix/terminal/advpaste.d:104
 msgid "Convert spaces to tabs"
@@ -286,6 +286,8 @@ msgid ""
 "Search '%s' is not a valid regex\n"
 "%s"
 msgstr ""
+"البحث '%s' ليس تعبيرًا نمطيًّا صالحًا\n"
+"%s"
 
 #: source/gx/tilix/terminal/terminal.d:352
 #: source/gx/tilix/terminal/terminal.d:1312
@@ -302,7 +304,7 @@ msgstr "كبّر"
 #: source/gx/tilix/terminal/terminal.d:405
 #: source/gx/tilix/terminal/terminal.d:695
 msgid "Disable input synchronization for this terminal"
-msgstr ""
+msgstr "عطّل مزامنة الدخل في هذه الطرفية"
 
 #: source/gx/tilix/terminal/terminal.d:414
 #: source/gx/tilix/terminal/terminal.d:832
@@ -311,7 +313,7 @@ msgstr "للقراءة فقط"
 
 #: source/gx/tilix/terminal/terminal.d:420
 msgid "New output"
-msgstr ""
+msgstr "خرج جديد"
 
 #: source/gx/tilix/terminal/terminal.d:426
 #: source/gx/tilix/prefeditor/profileeditor.d:446
@@ -514,18 +516,18 @@ msgid "Unknown"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:4028
-#, c-format
+#, c-format, fuzzy
 msgid "The child process exited normally with status %d"
-msgstr ""
+msgstr "خرجت العملية البنت خروجًا طبيعيًّا برمز حالة %d"
 
 #: source/gx/tilix/terminal/terminal.d:4029
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr ""
+msgstr "أُجهضت العملية البنت بالإشارة %d."
 
 #: source/gx/tilix/terminal/terminal.d:4030
 msgid "The child process was aborted."
-msgstr ""
+msgstr "أُجهضت العملية البنت."
 
 #: source/gx/tilix/terminal/terminal.d:4036
 msgid "Relaunch"
@@ -619,7 +621,7 @@ msgstr "احذف"
 
 #: source/gx/tilix/terminal/password.d:235
 msgid "Include return character with password"
-msgstr ""
+msgstr "ضمّن محرف الرجوع مع كلمة السر"
 
 #: source/gx/tilix/terminal/password.d:371
 msgid "Insert Password"
@@ -653,7 +655,7 @@ msgstr "أضف علامة"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:67
 msgid "Edit bookmark"
-msgstr ""
+msgstr "حرّر العلامة"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:72
 msgid "Delete bookmark"
@@ -661,7 +663,7 @@ msgstr "احذف العلامة"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:77
 msgid "Unselect bookmark"
-msgstr ""
+msgstr "ألغ اختيار العلامة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "General"
@@ -778,7 +780,7 @@ msgstr "خط سفلي"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:430
 msgid "Cursor blink mode"
-msgstr ""
+msgstr "وضع وميض المؤشر"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:433
 msgid "System"
@@ -808,11 +810,11 @@ msgstr "صوت"
 #: source/gx/tilix/prefeditor/profileeditor.d:449
 #: source/gx/tilix/closedialog.d:129 source/gx/tilix/bookmark/bmtreeview.d:70
 msgid "Icon"
-msgstr ""
+msgstr "أيقونة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Icon and sound"
-msgstr ""
+msgstr "أيقونة وصوت"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:455
 msgid "Notify new activity"
@@ -842,7 +844,7 @@ msgstr "صدّر"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:566
 msgid "Color palette"
-msgstr ""
+msgstr "لوحة الألوان"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:574
 #: source/gx/tilix/prefeditor/prefdialog.d:1299
@@ -905,7 +907,7 @@ msgstr "اختر لون العريض"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:717
 msgid "Select Badge Color"
-msgstr ""
+msgstr "اختر لون الشارة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:766
 msgid "Select Background Color"
@@ -1041,7 +1043,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1168
 msgid "Exit the terminal"
-msgstr ""
+msgstr "اخرج من الطرفية"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1168
 msgid "Restart the command"
@@ -1049,11 +1051,11 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1168
 msgid "Hold the terminal open"
-msgstr ""
+msgstr "أبق الطرفية مفتوحة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1208
 msgid "Badge position"
-msgstr ""
+msgstr "موضع الشارة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1212
 msgid "Northwest"
@@ -1076,12 +1078,17 @@ msgid "Automatic Profile Switching"
 msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1257
+#, fuzzy
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>username@hostname:directory</i> format. Either "
 "the hostname or directory can be omitted but the colon must be present. "
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
+"تُختار اللاحات تلقائيا بناءً على القيم المُدخلة هنا.\n"
+"تُدخل القيم باستعمال الصيغة <i>username@hostname:directory</i>.\n"
+"يمكن حذف username (اسم المستخدم) و hostname (اسم المضيف) لكن يجب كتابة "
+"النقطتان. المدخلات التي ليس فيها اسم مضيف ولا directory (دليل) غير مسموحة."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1259
 msgid ""
@@ -1099,7 +1106,7 @@ msgstr ""
 #: source/gx/tilix/prefeditor/advdialog.d:134
 #: source/gx/tilix/prefeditor/advdialog.d:313
 msgid "Add"
-msgstr ""
+msgstr "أضف"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1286
 msgid "Enter username@hostname:directory to match"
