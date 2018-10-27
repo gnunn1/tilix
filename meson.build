@@ -1,6 +1,8 @@
 project(
     'com.gexperts.Tilix', 'd',
-    version: '1.8.5'
+    version: '1.8.5',
+    license: 'MPL2',
+    meson_version: '>= 0.48.0'
 )
 
 compiler = meson.get_compiler('d')
@@ -100,7 +102,6 @@ vted_dep = dependency('gtk-d:vte', version: '>=3.8.3', method: 'dub')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
 msgfmt = find_program('msgfmt')
-
 
 subdir('po')
 subdir('data')
