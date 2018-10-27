@@ -671,19 +671,6 @@ public:
         updateUI(session, notifications, width, height);
     }
 
-    /**
-     * Hack to workaround GtkD bug
-     */
-    void release() {
-        import gobject.Signals;
-
-        foreach(long id; ebEvents) {
-            Signals.handlerDisconnect(eb, id);
-        }
-        Signals.handlerDisconnect(btnClose, closeButtonHandler);
-        if (pb !is null) pb.destroy();
-    }
-
     @property string sessionUUID() {
         return _sessionUUID;
     }
