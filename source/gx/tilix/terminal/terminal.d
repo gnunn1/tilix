@@ -3255,9 +3255,10 @@ private:
         }
         trace("*** Destroying dragImage");
         isRootWindow = false;
-        dragImage.destroy();
-        dragImage = null;
-
+        if (dragImage !is null) {
+            dragImage.destroy();
+            dragImage = null;
+        }
         // Under Wayland needed to fix cursor sticking due to
         // GtkD holding reference to GTK DragReference
         dc.destroy();
@@ -3268,7 +3269,13 @@ private:
      */
     bool onTitleDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
-        isRootWindow = false;
+        scope(exit) {
+            isRootWindow = false;
+            if (dragImage !is null) {
+                dragImage.destroy();
+                dragImage = null;
+            }
+        }
         if (dr == GtkDragResult.NO_TARGET) {
             //Only allow detach if whole heirarchy agrees (application, window, session)
             if (notifyIsActionAllowed(ActionType.DETACH_TERMINAL)) {
