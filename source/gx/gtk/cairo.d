@@ -205,9 +205,14 @@ Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int heigh
     Window window = widget.getWindow();
     Surface surface = window.createSimilarSurface(cairo_content_t.COLOR, pw, ph);
     Context cr = Context.create(surface);
+    scope(exit) {
+        surface.destroy();
+        cr.destroy();
+    }
     cr.scale(factor, factor);
     widget.draw(cr);
-    return getFromSurface(surface, 0, 0, pw, ph);
+    Pixbuf pb = getFromSurface(surface, 0, 0, pw, ph);
+    return pb;
 }
 
 class RenderWindow: OffscreenWindow {
