@@ -3236,6 +3236,11 @@ private:
     void onTitleDragBegin(DragContext dc, Widget widget) {
         trace("Title Drag begin");
         isRootWindow = false;
+        if (dragImage !is null) {
+            trace("*** Destroying the previous dragImage");
+            dragImage.destroy();
+            dragImage = null;
+        }
         static if (USE_PIXBUF_DND) {
             dragImage = getWidgetImage(this, 0.20);
             DragAndDrop.dragSetIconPixbuf(dc, dragImage, 0, 0);
