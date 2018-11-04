@@ -433,7 +433,11 @@ private:
      */
     void createWindowActions(GSettings gsShortcuts) {
         debug(GC) {
-            registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) { trace("Performing collection"); core.memory.GC.collect(); });
+            registerAction(this, "win", "gc", null, delegate(GVariant, SimpleAction) {
+                trace("Performing collection");
+                core.memory.GC.collect();
+                core.memory.GC.minimize();
+            });
         }
 
         //Create Switch to Session (0..9) actions
