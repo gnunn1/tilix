@@ -111,14 +111,14 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
                 uri = file_.get_uri().decode('utf-8')
                 item = Nautilus.MenuItem(name='NautilusPython::open_remote_item',
                                          label=_(u'Open Remote Tilix'),
-                                         tip=_(u'Open Remote Tilix In {}').format(uri))
+                                         tip=_(u'Open Remote Tilix in {}').format(uri))
                 item.connect('activate', self._menu_activate_cb, file_)
                 items.append(item)
 
             filename = file_.get_name().decode('utf-8')
             item = Nautilus.MenuItem(name='NautilusPython::open_file_item',
-                                     label=_(u'Open In Tilix'),
-                                     tip=_(u'Open Tilix In {}').format(filename))
+                                     label=_(u'Open in Local Tilix'),
+                                     tip=_(u'Open Tilix in {}').format(filename))
             item.connect('activate', self._menu_activate_cb, file_)
             items.append(item)
 
@@ -128,14 +128,23 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
         items = []
         if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
             item = Nautilus.MenuItem(name='NautilusPython::open_bg_remote_item',
-                                     label=_(u'Open Remote Tilix Here'),
-                                     tip=_(u'Open Remote Tilix In This Directory'))
+                                     label=_(u'Open in Remote Tilix'),
+                                     tip=_(u'Open Remote Tilix in this directory'))
             item.connect('activate', self._menu_activate_cb, file_)
             items.append(item)
 
-        item = Nautilus.MenuItem(name='NautilusPython::open_bg_file_item',
-                                 label=_(u'Open Tilix Here'),
-                                 tip=_(u'Open Tilix In This Directory'))
-        item.connect('activate', self._menu_background_activate_cb, file_)
-        items.append(item)
+            item = Nautilus.MenuItem(name='NautilusPython::open_bg_file_item',
+                                     label=_(u'Open in Local Tilix'),
+                                     tip=_(u'Open Local Tilix in this directory'))
+            item.connect('activate', self._menu_background_activate_cb, file_)
+            items.append(item)
+
+        else:
+
+            item = Nautilus.MenuItem(name='NautilusPython::open_bg_file_item',
+                                     label=_(u'Open in Tilix'),
+                                     tip=_(u'Open Tilix in this directory'))
+            item.connect('activate', self._menu_background_activate_cb, file_)
+            items.append(item)
+
         return items
