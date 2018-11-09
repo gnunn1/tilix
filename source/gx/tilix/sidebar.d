@@ -19,6 +19,8 @@ import gdk.Window: GdkWindow = Window;
 
 import gio.Settings : GSettings = Settings;
 
+import gobject.Signals;
+
 import gtk.Adjustment;
 import gtk.AspectFrame;
 import gtk.Box;
@@ -364,6 +366,12 @@ public:
             for (ulong i = sessions.length; i < rows.length; i++ ) {
                 SideBarRow row = rows[i];
                 lbSessions.remove(row);
+
+                // Releases sidebar reference so it can be GC'ed
+                row.release();
+
+                // Doesn't actually need the destrot but doesn't hurt
+                // and provides extra layer of safety
                 row.destroy();
             }
         } else {
@@ -463,7 +471,7 @@ private:
     EventBox evNotification;
     AspectFrame afNotification;
 
-    long[] ebEvents;
+    long[] ebEventHandlerId;
     long closeButtonHandler;
 
     bool isRootWindow = false;
@@ -547,16 +555,16 @@ private:
         TargetEntry[] targets = [new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, 0)];
         eb.dragSourceSet(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
         eb.dragDestSet(DestDefaults.ALL, targets, DragAction.MOVE);
-        ebEvents ~= eb.addOnDragDataGet(&onRowDragDataGet);
-        ebEvents ~= eb.addOnDragDataReceived(&onRowDragDataReceived);
-        ebEvents ~= eb.addOnDragBegin(&onRowDragBegin);
-        ebEvents ~= eb.addOnDragEnd(&onRowDragEnd);
-        ebEvents ~= eb.addOnDragFailed(&onRowDragFailed);
+        ebEventHandlerId ~= eb.addOnDragDataGet(&onRowDragDataGet);
+        ebEventHandlerId ~= eb.addOnDragDataReceived(&onRowDragDataReceived);
+        ebEventHandlerId ~= eb.addOnDragBegin(&onRowDragBegin);
+        ebEventHandlerId ~= eb.addOnDragEnd(&onRowDragEnd);
+        ebEventHandlerId ~= eb.addOnDragFailed(&onRowDragFailed);
 
         add(eb);
 
         closeButtonHandler = btnClose.addOnClicked(delegate(Button) {
-            sidebar.removeSession(_sessionUUID);
+            if (sidebar !is null) sidebar.removeSession(_sessionUUID);
         });
     }
 
@@ -664,6 +672,20 @@ public:
             import std.stdio: writeln;
             writeln("******** SideBarRow Destructor");
         }
+    }
+
+    /**
+     * Cleans up references so row can be GC'ed. There was an issue with
+     * with the row holding the sidebar reference preventing it from being
+     * garbage collected. We disconnect the event handlers that use that reference
+     * and then set the reference to null.
+     */
+    public void release() {
+        foreach(id; ebEventHandlerId) {
+            Signals.handlerDisconnect(eb, id);
+        }
+        Signals.handlerDisconnect(btnClose, closeButtonHandler);
+        this.sidebar = null;
     }
 
     public void update(Session session, SessionNotification[string] notifications, int width, int height) {
