@@ -594,6 +594,13 @@ private:
         isRootWindow = false;
         Image image = new Image(getWidgetImage(this, 1.00));
         image.show();
+
+        if (dragImage !is null) {
+            trace("*** Destroying the previous dragImage");
+            dragImage.destroy();
+            dragImage = null;
+        }
+
         dragImage = new Window(GtkWindowType.POPUP);
         dragImage.add(image);
         DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
