@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2018-07-21 19:52-0400\n"
-"PO-Revision-Date: 2018-08-30 21:14+0000\n"
+"PO-Revision-Date: 2018-11-15 22:08+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tilix/manpage/nl/>"
 "\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 #. type: TH
 #: ./data/man/tilix:3
@@ -296,7 +296,7 @@ msgstr "B<borderless> Toon geen vensterranden."
 #: ./data/man/tilix:76
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: ./data/man/tilix:79
@@ -307,80 +307,90 @@ msgid ""
 "not recommended and only intended for debugging purposes. Its use will "
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
+"Start nieuwe Tilix instanties in een nieuw proces. Standaard, en volgens de "
+"GTK+ versie 3 richtlijnen, werkt Tilix in een enkel proces wat alle vensters "
+"omvat. Deze optie forceert Tilix om bij het starten een nieuw proces aan te "
+"maken. Dit wordt afgeraden en is enkel bedoeld voor debugging-doeleinden. "
+"Het gebruik ervan zal Tilix-vensters weerhouden om met elkaar te "
+"communiceren."
 
 #. type: TP
 #: ./data/man/tilix:79
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=GEOMETRY>"
 
 #. type: Plain text
 #: ./data/man/tilix:82
 msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Stel de venstergrootte in; bijvoorbeeld: 80x24, of 80x24+200+200 "
+"(COLSxROWS+X+Y)."
 
 #. type: TP
 #: ./data/man/tilix:82
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: ./data/man/tilix:85
 msgid "Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
+"Open een venster in Quake-modus of schakel de zichtbaarheid van een bestaand "
+"Quake-modusvenster om."
 
 #. type: TP
 #: ./data/man/tilix:85
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: ./data/man/tilix:88
 msgid "Show the Tilix preferences dialog directly."
-msgstr ""
+msgstr "Toon de Tilix-voorkeursdialoog direct."
 
 #. type: TP
 #: ./data/man/tilix:88
 #, no-wrap
 msgid "B<--display=DISPLAY>"
-msgstr ""
+msgstr "B<--display=DISPLAY>"
 
 #. type: Plain text
 #: ./data/man/tilix:91
 msgid "Use the specified X display."
-msgstr ""
+msgstr "Maak gebruik van de opgegeven X-display."
 
 #. type: SH
 #: ./data/man/tilix:91
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "ZIE OOK"
 
 #. type: Plain text
 #: ./data/man/tilix:93
 msgid "None"
-msgstr ""
+msgstr "None"
 
 #. type: SH
 #: ./data/man/tilix:93
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "BUGS"
 
 #. type: Plain text
 #: ./data/man/tilix:95
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
-msgstr ""
+msgstr "Bekijk bugs op https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
 #: ./data/man/tilix:95
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTEUR"
 
 #. type: Plain text
 #: ./data/man/tilix:96
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Gerald Nunn en andere bijdragers."
