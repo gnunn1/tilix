@@ -3080,7 +3080,7 @@ private:
         MainContext ctx = MainContext.getThreadDefault();
         if (ctx is null) {
             // https://github.com/gtkd-developers/GtkD/issues/247
-            ctx = MainContext.defaulx();
+            ctx = MainContext.default_();
         }
 
         trace("captureHostToolboxCommand is waiting for status to be filled...");
