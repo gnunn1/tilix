@@ -105,6 +105,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             window.remove(widget);
             parent.add(widget);
             window.destroy();
+            window = null;
         }
     }
 }
@@ -229,6 +230,13 @@ public:
         super();
         addOnDamage(&onDamage);
         show();
+    }
+
+    debug(Destructors) {
+        ~this() {
+            import std.stdio: writeln;
+            writeln("******** RenderWindow Destructor");
+        }
     }
 
     @property bool canDraw() {

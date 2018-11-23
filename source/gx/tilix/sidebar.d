@@ -370,7 +370,7 @@ public:
                 // Releases sidebar reference so it can be GC'ed
                 row.release();
 
-                // Doesn't actually need the destrot but doesn't hurt
+                // Doesn't actually need the destroy but doesn't hurt
                 // and provides extra layer of safety
                 row.destroy();
             }
@@ -465,7 +465,6 @@ private:
     EventBox eb;
     Button btnClose;
     Image img;
-    Pixbuf pb;
     Label lblName;
     Label lblNCount;
     EventBox evNotification;
@@ -489,8 +488,11 @@ private:
     void createUI(Session session, SessionNotification[string] notifications, int width, int height) {
         Overlay overlay = new Overlay();
         setAllMargins(overlay, 2);
-        pb = getWidgetImage(session.drawable, 0.20, width, height);
+        Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
         img = new Image(pb);
+        scope(exit) {
+            pb.destroy();
+        }
         Frame imgframe = new Frame(img, null);
         imgframe.setShadowType(ShadowType.IN);
         overlay.add(imgframe);
@@ -569,8 +571,10 @@ private:
     }
 
     void updateUI(Session session, SessionNotification[string] notifications, int width, int height) {
-        if (pb !is null) pb.destroy();
-        pb = getWidgetImage(session.drawable, 0.20, width, height);
+        Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
+        scope(exit) {
+            pb.destroy();
+        }
         img.setFromPixbuf(pb);
         lblName.setText(session.displayName);
         if (session.uuid in notifications) {
