@@ -695,7 +695,7 @@ private:
         addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), null);
         addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix and dependant component versions"), null);
         addMainOption(CMD_PREFERENCES, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix preferences dialog directly"), null);
-        addMainOption(CMD_GROUP, 'g', GOptionFlags.NONE, GOptionArg.STRING, _("Group tilix instances into different processes (Experimental, not recommended"), null);
+        addMainOption(CMD_GROUP, 'g', GOptionFlags.NONE, GOptionArg.STRING, _("Group tilix instances into different processes (Experimental, not recommended)"), null);
 
         //Hidden options used to communicate with primary instance
         addMainOption(CMD_TERMINAL_UUID, '\0', GOptionFlags.HIDDEN, GOptionArg.STRING, _("Hidden argument to pass terminal UUID"), _("TERMINAL_UUID"));
