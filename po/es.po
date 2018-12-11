@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-21 19:31-0400\n"
-"PO-Revision-Date: 2017-09-02 01:48+0000\n"
-"Last-Translator: Jorge <jorge.munoz@openmailbox.org>\n"
+"PO-Revision-Date: 2018-12-13 08:09+0000\n"
+"Last-Translator: Xoán Sampaíño <xoansampainho@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tilix/"
 "translations/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: source/app.d:133
 #, c-format
@@ -49,7 +49,7 @@ msgstr "Versión de VTE: %s"
 #: source/app.d:164
 #, c-format
 msgid "GTK Version: %d.%d.%d"
-msgstr "Versión GTK: %d%d%d"
+msgstr "Versión de GTK: %d%d%d"
 
 #: source/app.d:165
 msgid "Tilix Special Features"
@@ -77,7 +77,7 @@ msgstr "No mostrar de nuevo"
 
 #: source/gx/tilix/appwindow.d:359
 msgid "Create a new session"
-msgstr "Crear nueva sesión"
+msgstr "Crear una sesión nueva"
 
 #: source/gx/tilix/appwindow.d:373
 msgid "View session sidebar"
@@ -143,7 +143,7 @@ msgstr "GC"
 #: source/gx/tilix/appwindow.d:1099
 #: source/gx/tilix/prefeditor/prefdialog.d:1105 source/gx/tilix/session.d:1209
 msgid "Default"
-msgstr "Por defecto"
+msgstr "Predeterminado"
 
 #: source/gx/tilix/appwindow.d:1207
 msgid "There are multiple sessions open, close anyway?"
@@ -163,7 +163,7 @@ msgstr "Todos los ficheros"
 #: source/gx/tilix/appwindow.d:1477
 #, c-format
 msgid "Filename '%s' does not exist"
-msgstr "El fichero '%s' no existe"
+msgstr "El fichero «%s» no existe"
 
 #: source/gx/tilix/appwindow.d:1507
 msgid "Load Session"
@@ -207,19 +207,20 @@ msgstr "Tilix"
 #: source/gx/tilix/appwindow.d:1675
 msgid "Quake mode is not supported under Wayland, running as normal window"
 msgstr ""
+"El modo Quake no es compatible con Wayland; se ejecutará como una ventana "
+"normal"
 
 #: source/gx/tilix/appwindow.d:1677
 msgid "Quake Mode Not Supported"
-msgstr ""
+msgstr "El modo Quake no está soportado"
 
 #: source/gx/tilix/appwindow.d:2087
-#, fuzzy
 msgid "Close session"
 msgstr "Cerrar sesión"
 
 #: source/gx/tilix/terminal/advpaste.d:33
 msgid "This command is asking for Administrative access to your computer"
-msgstr "Este comando está solicitando acceso administrativo en su ordenador"
+msgstr "Esta orden está solicitando acceso administrativo en su ordenador"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
@@ -227,7 +228,7 @@ msgstr "Copiar comandos de Internet puede ser peligroso. "
 
 #: source/gx/tilix/terminal/advpaste.d:35
 msgid "Be sure you understand what each part of this command does."
-msgstr "Asegúrese de entender qué hace cada parte de este comando."
+msgstr "Asegúrese de entender qué hace cada parte de esta orden."
 
 #: source/gx/tilix/terminal/advpaste.d:96
 msgid "Transform"
@@ -298,7 +299,7 @@ msgstr "Terminal"
 #: source/gx/tilix/terminal/terminal.d:1347
 #: source/gx/tilix/terminal/terminal.d:1844
 msgid "Maximize"
-msgstr "Maximinar"
+msgstr "Maximizar"
 
 #: source/gx/tilix/terminal/terminal.d:405
 #: source/gx/tilix/terminal/terminal.d:695
@@ -312,7 +313,7 @@ msgstr "Sólo lectura"
 
 #: source/gx/tilix/terminal/terminal.d:420
 msgid "New output"
-msgstr ""
+msgstr "Nueva salida"
 
 #: source/gx/tilix/terminal/terminal.d:426
 #: source/gx/tilix/prefeditor/profileeditor.d:446
@@ -361,7 +362,7 @@ msgstr "Añadir marcador..."
 
 #: source/gx/tilix/terminal/terminal.d:844
 msgid "Assistants"
-msgstr ""
+msgstr "Assistentes"
 
 #: source/gx/tilix/terminal/terminal.d:845
 #: source/gx/tilix/prefeditor/prefdialog.d:282
@@ -444,7 +445,7 @@ msgstr "Copiar"
 #: source/gx/tilix/terminal/terminal.d:1807
 #: source/gx/tilix/terminal/terminal.d:1821
 msgid "Copy as HTML"
-msgstr ""
+msgstr "Copiar como HTML"
 
 #: source/gx/tilix/terminal/terminal.d:1810
 #: source/gx/tilix/terminal/terminal.d:1832
@@ -711,7 +712,7 @@ msgstr "Apariencia del texto"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:262
 msgid "Terminal size"
-msgstr "Tamaño del terminal"
+msgstr "Tamaño de la terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:272
 msgid "columns"
@@ -722,48 +723,42 @@ msgid "rows"
 msgstr "filas"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:301
-#, fuzzy
 msgid "Cell spacing"
-msgstr "Tamaño del terminal"
+msgstr "Espaciado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:311
 msgid "width"
-msgstr ""
+msgstr "ancho"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:320
-#, fuzzy
 msgid "height"
-msgstr "Derecha"
+msgstr "alto"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Margin"
-msgstr ""
+msgstr "Margen"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:358
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Modo de parpadeo"
+msgstr "Modo de parpadeo del texto"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
 msgid "Focused"
-msgstr "Dar el foco a la ventana"
+msgstr "Con foco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
 msgid "Unfocused"
-msgstr "Difuminado sin el foco"
+msgstr "Sin foco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Always"
-msgstr ""
+msgstr "Siempre"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:380
-#, fuzzy
 msgid "Custom font"
 msgstr "Tipo de letra personalizado"
 
@@ -772,8 +767,9 @@ msgid "Choose A Terminal Font"
 msgstr "Elija un tipo de letra para la terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:402
+#, fuzzy
 msgid "Word-wise select chars"
-msgstr ""
+msgstr "Seleccionar caracteres por palabra"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:411
 #: source/gx/tilix/prefeditor/profileeditor.d:419
@@ -794,9 +790,8 @@ msgid "Underline"
 msgstr "Subrayado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:430
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Modo de parpadeo"
+msgstr "Modo de parpadeo del cursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:433
 msgid "System"
@@ -811,9 +806,8 @@ msgid "Off"
 msgstr "Desactivado"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:438
-#, fuzzy
 msgid "Notification"
-msgstr "Enviar notificación"
+msgstr "Notificación"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
 #: source/gx/tilix/prefeditor/prefdialog.d:1092
@@ -830,7 +824,6 @@ msgid "Icon"
 msgstr "Icono"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
-#, fuzzy
 msgid "Icon and sound"
 msgstr "Icono y sonido"
 
@@ -875,7 +868,7 @@ msgstr "Usar los colores del tema para el primer plano/fondo"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:598
 msgid "Show bold text in bright colors"
-msgstr ""
+msgstr "Mostrar el texto en negrita en colores brillantes"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:610
 msgid "Transparency"
@@ -995,7 +988,7 @@ msgstr "Desplazar en la salida"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1050
 msgid "Scroll on keystroke"
-msgstr "Desplazar al pulsar letras"
+msgstr "Desplazar al pulsar una tecla"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1054
 msgid "Limit scrollback to:"
@@ -1237,7 +1230,7 @@ msgstr "Perfil: %s"
 #: source/gx/tilix/prefeditor/prefdialog.d:365
 #, c-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr ""
+msgstr "¿Realmente desea borrar «%s»?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:556
 msgid "Clone"
@@ -1321,9 +1314,8 @@ msgstr "Pequeño"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1097
 #: source/gx/tilix/prefeditor/prefdialog.d:1291
-#, fuzzy
 msgid "Tab position"
-msgstr "Posición de la tarjeta"
+msgstr "Posición de la pestaña"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1098
 #: source/gx/tilix/prefeditor/prefdialog.d:1285
@@ -1340,12 +1332,12 @@ msgstr "Derecha"
 #: source/gx/tilix/prefeditor/prefdialog.d:1098
 #: source/gx/tilix/prefeditor/prefdialog.d:1292
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1098
 #: source/gx/tilix/prefeditor/prefdialog.d:1292
 msgid "Bottom"
-msgstr ""
+msgstr "Abajo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1104
 msgid "Theme variant"
@@ -1423,10 +1415,9 @@ msgstr ""
 "aplicación)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1220
-#, fuzzy
 msgid "Use tabs instead of sidebar (Application restart required)"
 msgstr ""
-"Utilizar barras de desplazamiento superpuestas (se necesita reiniciar la "
+"Utilizar pestañas en lugar de barra lateral (se necesita reiniciar la "
 "aplicación)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1252
@@ -1458,13 +1449,12 @@ msgid "Delay hiding window by (ms)"
 msgstr "Retrasar la ocultación de la ventana en (ms)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1336
-#, fuzzy
 msgid "Hide the toolbar of the window"
-msgstr "Ocultar el título de la ventana"
+msgstr "Ocultar la barra de herramientas"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
 msgid "Keep window always on top"
-msgstr ""
+msgstr "Mantener la ventana siempre encima"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1356
 msgid "Display terminal on active monitor"
@@ -1568,7 +1558,6 @@ msgid "Automatically copy text to clipboard when selecting"
 msgstr "Copiar texto automáticamente al portapapeles al seleccionar"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
-#, fuzzy
 msgid "Session"
 msgstr "Sesión"
 
@@ -1592,16 +1581,15 @@ msgstr "Ignora mayús./minús."
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
-msgstr ""
+msgstr "Mover hacia arriba"
 
 #: source/gx/tilix/prefeditor/advdialog.d:162
-#, fuzzy
 msgid "Move down"
-msgstr "Bajar página"
+msgstr "Mover hacia abajo"
 
 #: source/gx/tilix/prefeditor/advdialog.d:192
 msgid "Edit Custom Links"
-msgstr "Editar links personalizados"
+msgstr "Editar enlaces personalizados"
 
 #: source/gx/tilix/prefeditor/advdialog.d:299
 msgid "Parameter"
@@ -1678,7 +1666,8 @@ msgstr ""
 "Carlos Duque Guasch\n"
 "Cristian Ferreyra\n"
 "Eduardo Bellido Bellido\n"
-"Luis García Sevillano"
+"Luis García Sevillano\n"
+"Xoán Sampaíño"
 
 #: source/gx/tilix/application.d:309
 msgid "Credits"
@@ -1885,19 +1874,16 @@ msgid "Rows"
 msgstr "Filas"
 
 #: source/gx/tilix/constants.d:147
-#, fuzzy
 msgid "Process"
-msgstr "EjecutarProceso"
+msgstr "Proceso"
 
 #: source/gx/tilix/constants.d:185
-#, fuzzy
 msgid "Terminal count"
-msgstr "Terminal"
+msgstr "Contador de terminal"
 
 #: source/gx/tilix/constants.d:186
-#, fuzzy
 msgid "Terminal number"
-msgstr "Campana de la terminal"
+msgstr "Número de terminal"
 
 #: source/gx/tilix/constants.d:187
 msgid "Active terminal title"
@@ -1916,9 +1902,8 @@ msgid "Session number"
 msgstr "Número de sesión"
 
 #: source/gx/tilix/constants.d:207
-#, fuzzy
 msgid "Session count"
-msgstr "Cargar sesión"
+msgstr "Contador de sesión"
 
 #: source/gx/tilix/cmdparams.d:117 source/gx/tilix/cmdparams.d:121
 #, c-format
@@ -1936,7 +1921,7 @@ msgid ""
 "command option, please choose one or the other"
 msgstr ""
 "No puede cargar una sesión y establecer la opción perfil/directorio de "
-"trabajo/ejecutar un comando, por favor, seleccione uno u otro"
+"trabajo/ejecutar una orden, por favor, seleccione uno u otro"
 
 #: source/gx/tilix/cmdparams.d:190
 msgid "You can only use the action parameter within Tilix"
@@ -2185,9 +2170,8 @@ msgid "Open Remote Tilix"
 msgstr "Abrir Tilix remoto"
 
 #: data/nautilus/open-tilix.py:114
-#, fuzzy
 msgid "Open Remote Tilix In {}"
-msgstr "Abrir Tilix remoto en %s"
+msgstr "Abrir Tilix remoto en {}"
 
 #: data/nautilus/open-tilix.py:120
 msgid "Open In Tilix"
@@ -2371,10 +2355,9 @@ msgid "Add terminal down"
 msgstr "Añadir terminal abajo"
 
 #: data/resources/ui/shortcuts.ui:199
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Add terminal automatically"
-msgstr "Añadir terminal abajo"
+msgstr "Añadir terminal automáticamente"
 
 #: data/resources/ui/shortcuts.ui:207
 msgctxt "shortcut window"
@@ -2534,7 +2517,7 @@ msgstr "Copiar"
 #: data/resources/ui/shortcuts.ui:405
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Copiar como HTML"
 
 #: data/resources/ui/shortcuts.ui:411
 msgctxt "shortcut window"
@@ -2692,10 +2675,9 @@ msgid "Open file browser"
 msgstr "Abrir gestor de archivos"
 
 #: data/resources/ui/shortcuts.ui:603
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Toggle margin"
-msgstr "Cambiar a sólo lectura"
+msgstr "Alternar margen"
 
 #: data/resources/ui/shortcuts.ui:614
 msgctxt "shortcut window"
@@ -2759,8 +2741,8 @@ msgid ""
 "Input can be synchronized between terminals so commands typed in one "
 "terminal are replicated to the others"
 msgstr ""
-"La entrada puede ser sincronizada entre terminales haciendo que los comandos "
-"introducidos en una se repliquen en las otras"
+"La entrada puede ser sincronizada entre terminales haciendo que las órdenes "
+"introducidas en una se repliquen en las otras"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
