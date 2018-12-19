@@ -4330,6 +4330,7 @@ public:
         Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
         lblCmd.setUseMarkup(true);
         lblCmd.setHalign(Align.START);
+        lblCmd.setEllipsize(PangoEllipsizeMode.END);
 
         if (count(cmd,"\n") > 6) {
             ScrolledWindow sw = new ScrolledWindow();
