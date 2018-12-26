@@ -1,22 +1,21 @@
 id: com.gexperts.Tilix
 branch: master
 runtime: org.gnome.Platform
-runtime-version: 3.28
+runtime-version: '3.30'
 sdk: org.gnome.Sdk
 command: tilix
-tags: ['Terminal', 'Tile']
 finish-args:
-  - '--share=ipc'
-  - '--socket=x11'
-  - '--socket=wayland'
-  - '--filesystem=xdg-run/dconf'
-  - '--filesystem=~/.config/dconf:ro'
-  - '--talk-name=ca.desrt.dconf'
-  - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
-  - '--own-name=com.gexperts.Tilix'
-  - '--talk-name=org.freedesktop.Flatpak'
-  - '--talk-name=org.freedesktop.secrets'
-  - '--device=all'
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --filesystem=xdg-run/dconf
+  - --filesystem=~/.config/dconf:ro
+  - --talk-name=ca.desrt.dconf
+  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+  - --own-name=com.gexperts.Tilix
+  - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.freedesktop.secrets
+  - --device=all
 cleanup:
   # - '/bin/ldc*'
   # - '/bin/ldmd2'
@@ -139,11 +138,7 @@ modules:
       - type: file
         path: tilix-flatpak-toolbox.c
   - name: tilix
-    buildsystem: autotools
-    config-opts:
-      - 'DCFLAGS=-g'
-    post-install:
-      - 'glib-compile-schemas /app/share/glib-2.0/schemas'
+    buildsystem: meson
     sources:
-      - type: dir
-        path: ../..
+      - type: git
+        url: https://github.com/gnunn1/tilix.git
