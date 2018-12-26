@@ -477,9 +477,22 @@ public:
                 if (matchDirectory.startsWith("~")) {
                     matchDirectory = expandTilde(matchDirectory);
                 }
+
+                static bool isDirParentOf(in string testDir, in string parent) {
+                    immutable testDirSplit = testDir.pathSplitter().array;
+                    immutable parentSplit = parent.pathSplitter().array;
+                    if (parentSplit.length > testDirSplit.length)
+                        return false;
+                    foreach (i ; 0 .. parentSplit.length) {
+                        if (testDirSplit[i] != parentSplit[i])
+                            return false;
+                    }
+                    return true;
+                }
+
                 if ((matchUsername.length == 0 || matchUsername == username) &&
                    (matchHostname.length == 0 || matchHostname == hostname) &&
-                   (matchDirectory.length == 0 || directory.startsWith(matchDirectory))) {
+                   (matchDirectory.length == 0 || isDirParentOf(directory, matchDirectory))) {
                     return uuid;
                 }
             }

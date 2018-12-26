@@ -694,7 +694,7 @@ private:
 
         GMenu mPrefSection = new GMenu();
         mPrefSection.appendItem(new GMenuItem(_("Preferences"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_PREFERENCES)));
-        mPrefSection.appendItem(new GMenuItem(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_SHORTCUTS)));
+        mPrefSection.appendItem(new GMenuItem(_("Keyboard Shortcuts"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_SHORTCUTS)));
         mPrefSection.append(_("About Tilix"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_ABOUT));
 
 
