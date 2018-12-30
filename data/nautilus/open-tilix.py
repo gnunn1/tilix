@@ -25,6 +25,9 @@ REMOTE_URI_SCHEME = ['ftp', 'sftp']
 textdomain("tilix")
 _ = gettext
 
+def _checkdecode(s):
+    """Decode string assuming utf encoding if it's bytes, else return unmodified"""
+    return s.decode('utf-8') if isinstance(s, bytes) else s
 
 def open_terminal_in_file(filename):
     if filename:
@@ -102,20 +105,18 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
             return
         items = []
         file_ = files[0]
-        print("Handling file: ", file_.get_uri())
-        print("file scheme: ", file_.get_uri_scheme())
 
         if file_.is_directory():
 
             if file_.get_uri_scheme() in REMOTE_URI_SCHEME:
-                uri = file_.get_uri().decode('utf-8')
+                uri = _checkdecode(file_.get_uri())
                 item = Nautilus.MenuItem(name='NautilusPython::open_remote_item',
                                          label=_(u'Open Remote Tilix'),
                                          tip=_(u'Open Remote Tilix In {}').format(uri))
                 item.connect('activate', self._menu_activate_cb, file_)
                 items.append(item)
 
-            filename = file_.get_name().decode('utf-8')
+            filename = _checkdecode(file_.get_name())
             item = Nautilus.MenuItem(name='NautilusPython::open_file_item',
                                      label=_(u'Open In Tilix'),
                                      tip=_(u'Open Tilix In {}').format(filename))
