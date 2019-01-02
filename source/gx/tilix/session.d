@@ -1019,7 +1019,12 @@ private:
         cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
-        ImageSurface isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
+        import cairo.Surface: Surface;
+        Surface isChildSurface = cr.getTarget().createSimilar(cairo_content_t.COLOR_ALPHA, child.getAllocatedWidth(), child.getAllocatedHeight());
+        if (isChildSurface is null) {
+            trace("****** ImageSurface is null");
+            isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
+        }
         Context crChild = Context.create(isChildSurface);
         scope (exit) {
             crChild.destroy();
