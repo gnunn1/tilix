@@ -355,7 +355,7 @@ public:
         SideBarRow[] rows = gx.gtk.util.getChildren!SideBarRow(lbSessions, false);
 
         ulong maxSessions = min(rows.length, sessions.length);
-        for (ulong i; i < maxSessions; i++) {
+        for (size_t i; i < maxSessions; i++) {
             rows[i].updateUI(sessions[i], notifications, width, height);
             if (sessions[i].uuid == currentSessionUUID) {
                 lbSessions.selectRow(rows[i]);
@@ -363,7 +363,7 @@ public:
         }
 
         if (rows.length > sessions.length) {
-            for (ulong i = sessions.length; i < rows.length; i++ ) {
+            for (size_t i = sessions.length; i < rows.length; i++ ) {
                 SideBarRow row = rows[i];
                 lbSessions.remove(row);
 
@@ -375,7 +375,7 @@ public:
                 row.destroy();
             }
         } else {
-            for (ulong i = rows.length; i < sessions.length; i++) {
+            for (size_t i = rows.length; i < sessions.length; i++) {
                 SideBarRow row = new SideBarRow(this, sessions[i], notifications, width, height);
                 row.sessionIndex = i + 1;
                 lbSessions.add(row);
@@ -470,8 +470,8 @@ private:
     EventBox evNotification;
     AspectFrame afNotification;
 
-    long[] ebEventHandlerId;
-    long closeButtonHandler;
+    size_t[] ebEventHandlerId;
+    size_t closeButtonHandler;
 
     bool isRootWindow = false;
 
