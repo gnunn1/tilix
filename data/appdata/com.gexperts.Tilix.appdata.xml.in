@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2016 Matthias Clasen -->
-<component type="desktop">
-  <id>com.gexperts.Tilix.desktop</id>
+<component type="desktop-application">
+  <id>com.gexperts.Tilix</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MPL-2.0</project_license>
 
@@ -32,13 +32,21 @@
   </description>
 
   <screenshots>
-​   <screenshot type="default">https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png</screenshot>
+    <screenshot type="default">https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png</screenshot>
     <screenshot>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-2.png</screenshot>
     <screenshot>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-3.png</screenshot>
   </screenshots>
 
+  <releases>
+    <release version="1.8.5" date="2018-08-27">
+      <description>
+        <p>This release is just to fix a bug that prevents the tilix preferences from working on GTK releases earlier then 3.22, no other changes have been made.</p>
+      </description>
+    </release>
+    <release version="1.8.3" date="2018-08-19"/>
+  </releases>
+  
   <kudos>
-    <kudo>AppMenu</kudo>
     <kudo>HiDpiIcon</kudo>
     <kudo>ModernToolkit</kudo>
     <kudo>Notifications</kudo>
@@ -51,7 +59,8 @@
   <url type="translate">https://hosted.weblate.org/projects/tilix/translations/</url>
 
   <translation type="gettext">tilix</translation>
-
+  <launchable type="desktop-id">com.gexperts.Tilix.desktop</launchable>
+  <developer_name>Gerald Nunn</developer_name>
   <provides>
     <binary>tilix</binary>
   </provides>
