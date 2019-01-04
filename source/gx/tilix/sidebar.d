@@ -470,8 +470,8 @@ private:
     EventBox evNotification;
     AspectFrame afNotification;
 
-    size_t[] ebEventHandlerId;
-    size_t closeButtonHandler;
+    gulong[] ebEventHandlerId;
+    gulong closeButtonHandler;
 
     bool isRootWindow = false;
 
