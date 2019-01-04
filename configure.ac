@@ -40,7 +40,7 @@ case $(basename $DC) in
 esac
 
 # Checks for libraries.
-GTKDVER=3.8.3
+GTKDVER=3.8.4
 # Use pkg-config to look for gtkd. Tries to find a compiler specific suffix, then falls back to suffix-less
 PKG_CHECK_MODULES([GTKD], [gtkd-3$DC_SUFFIX >= $GTKDVER vted-3$DC_SUFFIX >= $GTKDVER],,
 				  [PKG_CHECK_MODULES([GTKD], [gtkd-3 >= $GTKDVER vted-3 >= $GTKDVER])])
