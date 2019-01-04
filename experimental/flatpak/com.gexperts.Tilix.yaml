@@ -45,6 +45,8 @@ modules:
         sha256: 91a0e22e5387ca4467b5bcb18edf1c51b930262fd466d5fda396dd9d26719100 
   - name: ncurses
     buildsystem: autotools
+    config-opts:
+      - '--with-shared'
     sources:
       - type: archive
         url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.1.tar.gz
@@ -59,8 +61,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://thrysoee.dk/editline/libedit-20180525-3.1.tar.gz
-        sha256: c41bea8fd140fb57ba67a98ec1d8ae0b8ffa82f4aba9c35a87e5a9499e653116
+        url: https://thrysoee.dk/editline/libedit-20181209-3.1.tar.gz
+        sha256: 2811d70c0b000f2ca91b7cb1a37203134441743c4fcc9c37b0b687f328611064
   - name: ldc-0.17
     buildsystem: cmake-ninja
     config-opts:
