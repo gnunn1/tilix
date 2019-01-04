@@ -37,6 +37,18 @@ build-options:
   env:
     PERLLIB: '/app/lib'
 modules:
+  - name: termcap
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
+        sha256: 91a0e22e5387ca4467b5bcb18edf1c51b930262fd466d5fda396dd9d26719100 
+  - name: ncurses
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.1.tar.gz
+        sha256: aa057eeeb4a14d470101eff4597d5833dcef5965331be3528c08d99cebaa0d17
   - name: libconfig
     buildsystem: autotools
     sources:
