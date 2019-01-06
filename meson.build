@@ -94,11 +94,11 @@ sources_dir = include_directories('source/')
 
 # Dependencies
 # Note relying on dub to fetch and build dependencies before running meson build is temporary due to a bug in Meson 0.48
-# gtkd_dep = dependency('gtkd-3', version: '>= 3.8.4')
-# vted_dep = dependency('vted-3', version: '>= 3.8.4')
+# gtkd_dep = dependency('gtkd-3', version: '>= 3.8.5')
+# vted_dep = dependency('vted-3', version: '>= 3.8.5')
 
-gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.4', method: 'dub')
-vted_dep = dependency('gtk-d:vte', version: '>=3.8.4', method: 'dub')
+gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.5', method: 'dub')
+vted_dep = dependency('gtk-d:vte', version: '>=3.8.5', method: 'dub')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
 msgfmt = find_program('msgfmt')
