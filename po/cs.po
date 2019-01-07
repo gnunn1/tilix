@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2018-05-22 05:20+0000\n"
+"PO-Revision-Date: 2019-01-08 15:07+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tilix/translations/"
 "cs/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -137,14 +137,12 @@ msgid "Preferences"
 msgstr "Předvolby"
 
 #: source/gx/tilix/appwindow.d:697
-#, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
 #: source/gx/tilix/appwindow.d:698
-#, fuzzy
 msgid "About Tilix"
-msgstr "Tilix"
+msgstr "O aplikaci Tilix"
 
 #: source/gx/tilix/appwindow.d:705
 msgid "GC"
@@ -224,9 +222,8 @@ msgid "Quake Mode Not Supported"
 msgstr "Quake režim není podporován"
 
 #: source/gx/tilix/appwindow.d:2113
-#, fuzzy
 msgid "New output displayed"
-msgstr "Nový výstup"
+msgstr "Nový výstup zobrazen"
 
 #: source/gx/tilix/appwindow.d:2121
 msgid "Close session"
@@ -438,9 +435,8 @@ msgid "Terminal Activity"
 msgstr "Aktivita terminálu"
 
 #: source/gx/tilix/terminal/terminal.d:1324
-#, fuzzy
 msgid "Not Enabled"
-msgstr "Zapnuto"
+msgstr "Nezapnuto"
 
 #: source/gx/tilix/terminal/terminal.d:1345
 #: source/gx/tilix/terminal/terminal.d:1848
@@ -486,7 +482,7 @@ msgstr "Synchronizovat vstup"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Soubor „%s“ se nedaří se zkontrolovat kvůli chybě „%s“"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -682,7 +678,7 @@ msgstr "Upravit heslo"
 
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
-msgstr ""
+msgstr "Monitorování procesů není zapnuto, toto by nemělo nikdy být voláno"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -1101,12 +1097,10 @@ msgid "Southeast"
 msgstr "Jihovýchod"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1214
-#, fuzzy
 msgid "Choose A Badge Font"
-msgstr "Vyberte písmo terminálu"
+msgstr "Vyberte písmo jmenovky"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
-#, fuzzy
 msgid "Notify New Activity"
 msgstr "Oznamovat novou aktivitu"
 
@@ -1115,6 +1109,8 @@ msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Když nastane nová aktivita, je možné po zadaném období nerušení zobrazit "
+"oznámení."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1179,18 +1175,16 @@ msgid "Edit Match"
 msgstr "Upravit shodu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1366
-#, fuzzy
 msgid "Enable by default"
-msgstr "Nastavit výchozí"
+msgstr "Zapnout ve výchozím stavu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1375
-#, fuzzy
 msgid "Threshold for continuous silence"
-msgstr "Práh pro souvislé ticho (sekundy)"
+msgstr "Práh pro nepřerušované nerušení (sekundy)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "(sekund)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1473,9 +1467,8 @@ msgid "Alignment"
 msgstr "Zarovnání"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
 msgid "Window position"
-msgstr "Umístění jmenovky"
+msgstr "Umístění okna"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1374
 msgid "Show terminal on all workspaces"
@@ -1507,12 +1500,11 @@ msgstr "Zobrazit na konkrétním monitoru"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "Hlavní monitor"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
-#, fuzzy
 msgid "Monitor "
-msgstr "Sledovat aktivitu"
+msgstr "Monitor "
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1496
 msgid "Behavior"
@@ -1809,11 +1801,11 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Zobrazit přímo dialog s předvolbami pro Tilix"
 
 #: source/gx/tilix/application.d:698
-#, fuzzy
 msgid ""
 "Group tilix instances into different processes (Experimental, not "
 "recommended)"
-msgstr "Spouštět další instanci jako nový proces (nedoporučováno)"
+msgstr ""
+"Seskupovat instanci tilix do různých procesů (experimentální, nedoporučováno)"
 
 #: source/gx/tilix/application.d:701
 msgid "Hidden argument to pass terminal UUID"
@@ -1827,7 +1819,7 @@ msgstr "UUID_TERMINÁLU"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "Identif. aplikace %s není platný"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1919,17 +1911,16 @@ msgid "Process"
 msgstr "Proces"
 
 #: source/gx/tilix/constants.d:161
-#, fuzzy
 msgid "Status.Read-Only"
-msgstr "Jen pro čtení"
+msgstr "Stav.Jen pro čtení"
 
 #: source/gx/tilix/constants.d:162
 msgid "Status.Silence"
-msgstr ""
+msgstr "Stav.Nerušit"
 
 #: source/gx/tilix/constants.d:163
 msgid "Status.Input-Sync"
-msgstr ""
+msgstr "Stav.Synchronizace vstupu"
 
 #: source/gx/tilix/constants.d:178
 msgid "Terminal count"
@@ -2747,7 +2738,6 @@ msgid "Open in Tilix"
 msgstr "Otevřít v Tilix"
 
 #: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
 msgstr "Profil"
@@ -2842,10 +2832,12 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"Několik nových funkcí a oprav chyb, konkrétní informace o tomto vydání viz "
+"https://gnunn1.github.io/tilix-web/"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "Nové okno přebírá adresář a profil aktivního terminálu"
