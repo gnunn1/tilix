@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2018-05-23 15:29+0000\n"
-"Last-Translator: Davi da Silva Böger <dsboger@gmail.com>\n"
+"PO-Revision-Date: 2019-01-11 02:07+0000\n"
+"Last-Translator: João Paulo Pulga <joaopaulo1339@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -23,7 +23,7 @@ msgstr ""
 
 #: source/app.d:156
 msgid "Unexpected exception occurred"
-msgstr "Ocorreu uma exceção inesperada"
+msgstr "Uma exceção inesperada ocorreu"
 
 #: source/app.d:157
 msgid "Error: "
@@ -135,14 +135,12 @@ msgid "Preferences"
 msgstr "Preferências"
 
 #: source/gx/tilix/appwindow.d:697
-#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Atalhos do teclado"
+msgstr "Atalhos de teclado"
 
 #: source/gx/tilix/appwindow.d:698
-#, fuzzy
 msgid "About Tilix"
-msgstr "Tilix"
+msgstr "Sobre"
 
 #: source/gx/tilix/appwindow.d:705
 msgid "GC"
@@ -221,9 +219,8 @@ msgid "Quake Mode Not Supported"
 msgstr "Modo Quake não suportado"
 
 #: source/gx/tilix/appwindow.d:2113
-#, fuzzy
 msgid "New output displayed"
-msgstr "Nova saída"
+msgstr "Nova janela de saída"
 
 #: source/gx/tilix/appwindow.d:2121
 msgid "Close session"
@@ -442,9 +439,8 @@ msgid "Terminal Activity"
 msgstr "Atividade no terminal"
 
 #: source/gx/tilix/terminal/terminal.d:1324
-#, fuzzy
 msgid "Not Enabled"
-msgstr "Habilitado"
+msgstr "Não habilitado"
 
 #: source/gx/tilix/terminal/terminal.d:1345
 #: source/gx/tilix/terminal/terminal.d:1848
@@ -490,7 +486,7 @@ msgstr "Sincronizar entrada"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Não foi possível verificar o arquivo '%s' devido ao erro '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -688,6 +684,7 @@ msgstr "Editar senha"
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
+"O monitoramento de processo não está habilitado, isso nunca deve ser chamado"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -1107,20 +1104,20 @@ msgid "Southeast"
 msgstr "Sudeste"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1214
-#, fuzzy
 msgid "Choose A Badge Font"
 msgstr "Escolher fonte do terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
-#, fuzzy
 msgid "Notify New Activity"
-msgstr "Notificar em nova atividade"
+msgstr "Notificar nova atividade"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1259
 msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Uma notificação pode ser enviada quando uma nova atividade ocorre após um "
+"certo tempo de inatividade."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1185,18 +1182,16 @@ msgid "Edit Match"
 msgstr "Editar padrão de correspondência"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1366
-#, fuzzy
 msgid "Enable by default"
-msgstr "Restaurar atalho padrão"
+msgstr "Padrão"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1375
-#, fuzzy
 msgid "Threshold for continuous silence"
 msgstr "Tempo mínimo considerado como silêncio (segundos)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "(segundos)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1351,7 +1346,7 @@ msgstr "Necessário reiniciar janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1150
 msgid "Terminal title style"
-msgstr "Estilo do título do terminal"
+msgstr "Estilo da barra de titulo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1151
 msgid "Small"
@@ -1433,7 +1428,7 @@ msgstr "Estender"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1221
 msgid "Default session name"
-msgstr "Nome de sessão padrão"
+msgstr "Nome padrão da sessão"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1236
 msgid "Application title"
@@ -1480,9 +1475,8 @@ msgid "Alignment"
 msgstr "Alinhamento"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
 msgid "Window position"
-msgstr "Posição do distintivo"
+msgstr "Posição da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1374
 msgid "Show terminal on all workspaces"
@@ -1514,12 +1508,11 @@ msgstr "Exibir terminal no monitor"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "Monitor Primário"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
-#, fuzzy
 msgid "Monitor "
-msgstr "Monitorar silêncio"
+msgstr "Monitor "
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1496
 msgid "Behavior"
@@ -1707,7 +1700,8 @@ msgid "translator-credits"
 msgstr ""
 "Daniel Miranda\n"
 "Davi da Silva Böger\n"
-"Fábio Nogueira"
+"Fábio Nogueira\n"
+"João Paulo Pulga"
 
 #: source/gx/tilix/application.d:303
 msgid "Credits"
@@ -1819,7 +1813,6 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Mostrar o diálogo de preferências do Tilix diretamente"
 
 #: source/gx/tilix/application.d:698
-#, fuzzy
 msgid ""
 "Group tilix instances into different processes (Experimental, not "
 "recommended)"
@@ -1836,7 +1829,7 @@ msgstr "UUID_DO_TERMINAL"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "O id de aplicativo '%s' não é valido"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1929,17 +1922,16 @@ msgid "Process"
 msgstr "Processo"
 
 #: source/gx/tilix/constants.d:161
-#, fuzzy
 msgid "Status.Read-Only"
 msgstr "Somente leitura"
 
 #: source/gx/tilix/constants.d:162
 msgid "Status.Silence"
-msgstr ""
+msgstr "Status.Silencio"
 
 #: source/gx/tilix/constants.d:163
 msgid "Status.Input-Sync"
-msgstr ""
+msgstr "Status.Sincronizar-Input"
 
 #: source/gx/tilix/constants.d:178
 msgid "Terminal count"
@@ -2774,7 +2766,6 @@ msgid "Open in Tilix"
 msgstr "Abrir no Tilix"
 
 #: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
 msgstr "Perfil"
@@ -2873,10 +2864,12 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"Novos recursos e correções de bugs, para informações detalhadas sobre essa "
+"versão, veja: https://gnunn1.github.io/tilix-web/."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "Nova janela usa diretório e perfil do terminal ativo"
