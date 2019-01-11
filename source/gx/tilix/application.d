@@ -237,8 +237,6 @@ private:
         otherSection.append(_("About"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_ABOUT));
         otherSection.append(_("Quit"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_QUIT));
         appMenu.appendSection(null, otherSection);
-
-        this.setAppMenu(appMenu);
     }
 
     void onCreateNewSession() {
