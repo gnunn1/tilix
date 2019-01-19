@@ -159,14 +159,11 @@ private:
     }
 
     /**
-     * Installs the application menu. This is the menu that drops down in gnome-shell when you click the application
-     * name next to Activities.
+     * Registers the primary menu actions. 
      *
 	 * This code adapted from grestful (https://github.com/Gert-dev/grestful)
      */
-    void installAppMenu() {
-        Menu appMenu = new Menu();
-
+    void setupPrimaryMenuActions() {
         /**
          * Action used to support notifications, when a notification it has this action associated with it
          * along with the sessionUUID
@@ -220,23 +217,6 @@ private:
         registerAction(this, ACTION_PREFIX_APP, ACTION_ABOUT, null, delegate(GVariant, SimpleAction) { onShowAboutDialog(); });
 
         registerAction(this, ACTION_PREFIX_APP, ACTION_QUIT, null, delegate(GVariant, SimpleAction) { quitTilix(); });
-
-        Menu newSection = new Menu();
-        newSection.append(_("New Session"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_NEW_SESSION));
-        newSection.append(_("New Window"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_NEW_WINDOW));
-        appMenu.appendSection(null, newSection);
-
-        Menu prefSection = new Menu();
-        prefSection.append(_("Preferences"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_PREFERENCES));
-        if (Version.checkVersion(3, 19, 0).length == 0) {
-            prefSection.append(_("Shortcuts"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_SHORTCUTS));
-        }
-        appMenu.appendSection(null, prefSection);
-
-        Menu otherSection = new Menu();
-        otherSection.append(_("About"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_ABOUT));
-        otherSection.append(_("Quit"), getActionDetailedName(ACTION_PREFIX_APP, ACTION_QUIT));
-        appMenu.appendSection(null, otherSection);
     }
 
     void onCreateNewSession() {
@@ -523,7 +503,7 @@ private:
         initBookmarkManager();
         bmMgr.load();
         applyPreferences();
-        installAppMenu();
+        setupPrimaryMenuActions();
         loadProfileShortcuts();
     }
 
