@@ -2075,6 +2075,8 @@ private:
     Label lblNotifications;
 	Session session;
     Image imgNewOutput;
+    EventBox lblBox;
+    Entry lblEditBox;
 
 	void closeClicked(Button button) {
 		onCloseClicked.emit(session);
@@ -2106,7 +2108,36 @@ public:
         lblText.setEllipsize(PangoEllipsizeMode.START);
 		lblText.setWidthChars(10);
         updatePositionType(position);
-		add(lblText);
+
+        // when done editing the Entry, hide the Entry and show the lblBox again
+        lblEditBox = new Entry();
+        lblEditBox.setHexpand(true);
+        lblEditBox.addOnFocusOut(delegate(Event event, Widget w) {
+            string text = lblEditBox.getText().strip();
+            if (text.length == 0)
+                return GDK_EVENT_PROPAGATE;
+
+            session.name(text);
+            lblBox.show();
+            lblEditBox.hide();
+            return GDK_EVENT_PROPAGATE;
+        });
+        add(lblEditBox);
+
+        // double clicking the EventBox will hide the EventBox and show the lblEditBox
+        lblBox = new EventBox();
+        lblBox.add(lblText);
+        lblBox.addOnButtonPress(delegate(Event event, Widget w) {
+            if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+                lblBox.hide();
+                lblEditBox.setText(session.name());
+                lblEditBox.show();
+                return true;
+            }
+            return false;
+        });
+
+        add(lblBox);
 
         imgNewOutput = new Image("view-list-symbolic", IconSize.MENU);
         imgNewOutput.setNoShowAll(true);
@@ -2122,10 +2153,11 @@ public:
 
 		button.addOnClicked(&closeClicked);
 
-		add(button);
+        add(button);
 
-		showAll();
-	}
+        showAll();
+        lblEditBox.hide();
+    }
 
     void clear() {
         session = null;
