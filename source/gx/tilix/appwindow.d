@@ -2077,6 +2077,10 @@ private:
     Image imgNewOutput;
     EventBox lblBox;
     Entry lblEditBox;
+    Stack stTitle;
+
+    enum PAGE_LABEL = "label";
+    enum PAGE_EDIT = "edit";
 
 	void closeClicked(Button button) {
 		onCloseClicked.emit(session);
@@ -2104,10 +2108,27 @@ public:
 
         add(afNotifications);
 
+        stTitle = new Stack();
+
 		lblText = new Label(text);
         lblText.setEllipsize(PangoEllipsizeMode.START);
 		lblText.setWidthChars(10);
         updatePositionType(position);
+
+
+        // double clicking the EventBox will hide the EventBox and show the lblEditBox
+        lblBox = new EventBox();
+        lblBox.add(lblText);
+        lblBox.addOnButtonPress(delegate(Event event, Widget w) {
+            if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+                lblEditBox.setText(session.name());
+                stTitle.setVisibleChildName(PAGE_EDIT);
+                lblEditBox.grabFocus();
+                return true;
+            }
+            return false;
+        });
+        stTitle.addNamed(lblBox, PAGE_LABEL);
 
         // when done editing the Entry, hide the Entry and show the lblBox again
         lblEditBox = new Entry();
@@ -2118,26 +2139,32 @@ public:
                 return GDK_EVENT_PROPAGATE;
 
             session.name(text);
-            lblBox.show();
-            lblEditBox.hide();
+            stTitle.setVisibleChildName(PAGE_LABEL);
             return GDK_EVENT_PROPAGATE;
         });
-        add(lblEditBox);
-
-        // double clicking the EventBox will hide the EventBox and show the lblEditBox
-        lblBox = new EventBox();
-        lblBox.add(lblText);
-        lblBox.addOnButtonPress(delegate(Event event, Widget w) {
-            if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
-                lblBox.hide();
-                lblEditBox.setText(session.name());
-                lblEditBox.show();
-                return true;
+        lblEditBox.addOnKeyPress(delegate (Event event, Widget widget) {
+            uint keyval;
+            if (event.getKeyval(keyval)) {
+                switch (keyval) {
+                    case GdkKeysyms.GDK_Escape:
+                        stTitle.setVisibleChildName(PAGE_LABEL);
+                        return true;
+                    case GdkKeysyms.GDK_Return:
+                        session.name(text);
+                        stTitle.setVisibleChildName(PAGE_LABEL);
+                        return true;
+                    default:
+                }
             }
             return false;
         });
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            stTitle.addNamed(createTitleEditHelper(lblEditBox, TitleEditScope.SESSION), PAGE_EDIT);
+        } else {
+            stTitle.addNamed(lblEditBox, PAGE_EDIT);
+        }
 
-        add(lblBox);
+        add(stTitle);
 
         imgNewOutput = new Image("view-list-symbolic", IconSize.MENU);
         imgNewOutput.setNoShowAll(true);
@@ -2155,8 +2182,8 @@ public:
 
         add(button);
 
+        stTitle.setVisibleChildName(PAGE_LABEL);
         showAll();
-        lblEditBox.hide();
     }
 
     void clear() {
