@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2018-05-31 05:30+0000\n"
+"PO-Revision-Date: 2019-02-01 12:10+0000\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/tilix/"
 "translations/sr/>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -138,14 +138,12 @@ msgid "Preferences"
 msgstr "Поставке"
 
 #: source/gx/tilix/appwindow.d:697
-#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Пречице"
+msgstr "Пречице на тастатури"
 
 #: source/gx/tilix/appwindow.d:698
-#, fuzzy
 msgid "About Tilix"
-msgstr "Тајликс"
+msgstr "О Тајликсу"
 
 #: source/gx/tilix/appwindow.d:705
 msgid "GC"
@@ -225,9 +223,8 @@ msgid "Quake Mode Not Supported"
 msgstr "Режим потреса није подржан"
 
 #: source/gx/tilix/appwindow.d:2113
-#, fuzzy
 msgid "New output displayed"
-msgstr "Нови излаз"
+msgstr "Нови излаз је приказан"
 
 #: source/gx/tilix/appwindow.d:2121
 msgid "Close session"
@@ -439,9 +436,8 @@ msgid "Terminal Activity"
 msgstr "Активност терминала"
 
 #: source/gx/tilix/terminal/terminal.d:1324
-#, fuzzy
 msgid "Not Enabled"
-msgstr "Омогућено"
+msgstr "Није омогућено"
 
 #: source/gx/tilix/terminal/terminal.d:1345
 #: source/gx/tilix/terminal/terminal.d:1848
@@ -487,7 +483,7 @@ msgstr "Усклади унос"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Нисам могао да проверим датотеку „%s“ због грешке „%s“"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -684,6 +680,7 @@ msgstr "Уреди лозинку"
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
+"Надгледање процеса није омогућено, ово никада не би требало бити позвано"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -1102,12 +1099,10 @@ msgid "Southeast"
 msgstr "Југоисточно"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1214
-#, fuzzy
 msgid "Choose A Badge Font"
-msgstr "Изабери фонт терминала"
+msgstr "Изабери фонт беџа"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
-#, fuzzy
 msgid "Notify New Activity"
 msgstr "Обавести при новој активности"
 
@@ -1116,6 +1111,8 @@ msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Обавештење може бити послато када се догоди нова активност након наведеног "
+"периода тишине."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1180,18 +1177,16 @@ msgid "Edit Match"
 msgstr "Уреди подударање"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1366
-#, fuzzy
 msgid "Enable by default"
-msgstr "Подеси подразумевано"
+msgstr "Подразумевано омогући"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1375
-#, fuzzy
 msgid "Threshold for continuous silence"
-msgstr "Граница за трајну тишину (секунде)"
+msgstr "Граница за трајну тишину"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "(секунди)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1475,9 +1470,8 @@ msgid "Alignment"
 msgstr "Поравнање"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
 msgid "Window position"
-msgstr "Положај беџа"
+msgstr "Положај прозора"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1374
 msgid "Show terminal on all workspaces"
@@ -1509,12 +1503,11 @@ msgstr "Прикажи на одређеном монитору"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "Примарни екран"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
-#, fuzzy
 msgid "Monitor "
-msgstr "Утишај монитор"
+msgstr "Екран "
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1496
 msgid "Behavior"
@@ -1809,11 +1802,12 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Прикажи прозорче поставки Тајликса директно"
 
 #: source/gx/tilix/application.d:698
-#, fuzzy
 msgid ""
 "Group tilix instances into different processes (Experimental, not "
 "recommended)"
-msgstr "Покрени додатни примерак као нови процес (није препоручљиво)"
+msgstr ""
+"Групиши тајликс примерке програма у другачије процесе (у пробној фази, није "
+"препоручљиво)"
 
 #: source/gx/tilix/application.d:701
 msgid "Hidden argument to pass terminal UUID"
@@ -1826,7 +1820,7 @@ msgstr "УУИД_ТЕРМИНАЛА"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "ИБ програма „%s“ није исправан"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1918,17 +1912,16 @@ msgid "Process"
 msgstr "Процес"
 
 #: source/gx/tilix/constants.d:161
-#, fuzzy
 msgid "Status.Read-Only"
-msgstr "Само за читање"
+msgstr "Стање.Само-за-читање"
 
 #: source/gx/tilix/constants.d:162
 msgid "Status.Silence"
-msgstr ""
+msgstr "Стање.Тишина"
 
 #: source/gx/tilix/constants.d:163
 msgid "Status.Input-Sync"
-msgstr ""
+msgstr "Стање.Усклађивање-уноса"
 
 #: source/gx/tilix/constants.d:178
 msgid "Terminal count"
@@ -2746,7 +2739,6 @@ msgid "Open in Tilix"
 msgstr "Отвори у Тајликсу"
 
 #: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
 msgstr "Профил"
@@ -2848,10 +2840,12 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"Неке нове могућности и исправке грешака, погледајте страницу "
+"https://gnunn1.github.io/tilix-web/ за детаљније податке о овом новом издању."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Џералд Нан (Gerald Nunn)"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "Нови прозор наслеђује фасциклу и профил из активног терминала"
