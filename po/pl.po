@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: Polish (Tilix)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2018-08-29 16:41+0000\n"
-"Last-Translator: Łukasz Wyszyński <darzki@gmail.com>\n"
+"PO-Revision-Date: 2019-02-03 09:10+0000\n"
+"Last-Translator: Piotr Sokół <psokol.l10n@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tilix/"
 "translations/pl/>\n"
 "Language: pl\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -217,6 +217,7 @@ msgstr "Tilix"
 #: source/gx/tilix/appwindow.d:1700
 msgid "Quake mode is not supported under Wayland, running as normal window"
 msgstr ""
+"Tryb Quake nie jest obsługiwany przez Wayland. Uruchamianie w zwykłym oknie."
 
 #: source/gx/tilix/appwindow.d:1702
 msgid "Quake Mode Not Supported"
@@ -488,7 +489,7 @@ msgstr "Synchronizowanie wprowadzania"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Nie można sprawdzić pliku „%s” z powodu błędu „%s”"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -1206,7 +1207,7 @@ msgstr "Próg stanu ciągłej bezczynności (sekundy)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "s"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1845,7 +1846,7 @@ msgstr "UUID_TERMINALA"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "Identyfikator programu %s jest nieprawidłowy"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -2766,7 +2767,6 @@ msgid "Open in Tilix"
 msgstr "Otwarcie w Tilix"
 
 #: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
 msgstr "Profil"
@@ -2778,7 +2778,7 @@ msgstr ""
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr "powłoka;terminal;polecenie;wiersz poleceń;cmd;"
+msgstr "powłoka;terminal;polecenie;wiersz poleceń;cmd;konsola;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 msgid "com.gexperts.Tilix"
@@ -2867,7 +2867,7 @@ msgstr ""
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "Dziedziczenie katalogu i profilu nowych okien po aktywnym terminalu"
