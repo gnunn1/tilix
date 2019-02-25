@@ -23,10 +23,9 @@ endif
 
 gnome = import('gnome')
 i18n = import('i18n')
-constants_conf = configuration_data()
-constants_conf.set('VERSION', meson.project_version())
 
 tilix_sources = [
+
     'source/secretc/secrettypes.d',
     'source/secretc/secret.d',
     'source/app.d',
@@ -78,6 +77,7 @@ tilix_sources = [
     'source/gx/tilix/application.d',
     'source/gx/tilix/shortcuts.d',
     'source/gx/tilix/colorschemes.d',
+    'source/gx/tilix/constants.d',
     'source/gx/tilix/session.d',
     'source/gx/tilix/common.d',
     'source/gx/tilix/cmdparams.d',
@@ -87,12 +87,7 @@ tilix_sources = [
     'source/gx/tilix/bookmark/bmchooser.d',
     'source/gx/tilix/bookmark/bmeditor.d',
     'source/gx/tilix/bookmark/bmtreeview.d',
-    'source/gx/i18n/l10n.d',
-    configure_file(
-        input: 'source/gx/tilix/constants.d.in',
-        output: '@BASENAME@',
-        configuration: constants_conf
-    )
+    'source/gx/i18n/l10n.d'
 ]
 
 source_root = meson.source_root()
