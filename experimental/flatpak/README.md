@@ -7,8 +7,8 @@ The first step to building the Tilix Flatpak Bundle is to install the flatpak fr
 Once that is done you will need to install the Gnome runtimes, this can be done by following the instructions on the [Flatpak wiki](http://docs.flatpak.org/en/latest/getting-setup.html). The specific steps you need are as follows:
 )
 ```
-flatpak install flathub org.gnome.Sdk 3.28
-flatpak install flathub org.gnome.Platform 3.28
+flatpak install flathub org.gnome.Sdk//3.30
+flatpak install flathub org.gnome.Platform//3.30
 ```
 With all the dependencies in place, you can now build the bundle:
 
