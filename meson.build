@@ -1,8 +1,8 @@
 project(
     'com.gexperts.Tilix', 'd',
-    version: '1.8.5',
+    version: '1.8.9',
     license: 'MPL2',
-    meson_version: '>= 0.48.0'
+    meson_version: '>= 0.49.0'
 )
 
 compiler = meson.get_compiler('d')
@@ -23,6 +23,8 @@ endif
 
 gnome = import('gnome')
 i18n = import('i18n')
+constants_conf = configuration_data()
+constants_conf.set('VERSION', meson.project_version())
 
 tilix_sources = [
     'source/secretc/secrettypes.d',
@@ -77,7 +79,6 @@ tilix_sources = [
     'source/gx/tilix/shortcuts.d',
     'source/gx/tilix/colorschemes.d',
     'source/gx/tilix/session.d',
-    'source/gx/tilix/constants.d',
     'source/gx/tilix/common.d',
     'source/gx/tilix/cmdparams.d',
     'source/gx/tilix/encoding.d',
@@ -86,22 +87,22 @@ tilix_sources = [
     'source/gx/tilix/bookmark/bmchooser.d',
     'source/gx/tilix/bookmark/bmeditor.d',
     'source/gx/tilix/bookmark/bmtreeview.d',
-    'source/gx/i18n/l10n.d'
+    'source/gx/i18n/l10n.d',
+    configure_file(
+        input: 'source/gx/tilix/constants.d.in',
+        output: '@BASENAME@',
+        configuration: constants_conf
+    )
 ]
 
 source_root = meson.source_root()
 sources_dir = include_directories('source/')
 
 # Dependencies
-# Note relying on dub to fetch and build dependencies before running meson build is temporary due to a bug in Meson 0.48
-# gtkd_dep = dependency('gtkd-3', version: '>= 3.8.5')
-# vted_dep = dependency('vted-3', version: '>= 3.8.5')
-
-gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.5', method: 'dub')
-vted_dep = dependency('gtk-d:vte', version: '>=3.8.5', method: 'dub')
+gtkd_dep = dependency('gtkd-3', version: '>=3.8.5')
+vted_dep = dependency('vted-3', version: '>=3.8.5')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
-msgfmt = find_program('msgfmt')
 
 subdir('po')
 subdir('data')
