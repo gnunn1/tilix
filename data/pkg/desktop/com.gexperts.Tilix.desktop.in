@@ -10,7 +10,7 @@ StartupNotify=true
 Categories=System;TerminalEmulator;X-GNOME-Utilities;
 Icon=com.gexperts.Tilix
 DBusActivatable=true
-Actions=new-window;new-session;
+Actions=new-window;new-session;preferences;
 
 [Desktop Action new-window]
 Name=New Window
@@ -19,3 +19,7 @@ Exec=tilix --action=app-new-window
 [Desktop Action new-session]
 Name=New Session
 Exec=tilix --action=app-new-session
+
+[Desktop Action preferences]
+Name=Preferences
+Exec=tilix --preferences
