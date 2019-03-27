@@ -576,6 +576,8 @@ private:
             pb.destroy();
         }
         img.setFromPixbuf(pb);
+        // Fix #1637
+        _sessionUUID = session.uuid;
         lblName.setText(session.displayName);
         if (session.uuid in notifications) {
             SessionNotification sn = notifications[session.uuid];
