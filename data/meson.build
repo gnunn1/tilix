@@ -2,11 +2,11 @@
 # install the icons
 install_data(
     'icons/hicolor/scalable/apps/@0@.svg'.format(meson.project_name()),
-    install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable' / 'apps'
+    install_dir: iconsdir / 'scalable' / 'apps'
 )
 install_data(
     'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(meson.project_name()),
-    install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'symbolic' / 'apps'
+    install_dir: iconsdir / 'symbolic' / 'apps'
 )
 
 # Install the desktop file
@@ -17,7 +17,7 @@ desktop_file = i18n.merge_file(
     po_dir: meson.source_root() / 'po',
     type: 'desktop',
     install: true,
-    install_dir: get_option('datadir') / 'applications'
+    install_dir: appdir
 )
 
 # Validate desktop file
@@ -37,7 +37,7 @@ appdata_file = i18n.merge_file(
     input: 'appdata/@0@.appdata.xml.in'.format(meson.project_name()),
     po_dir: meson.source_root() / 'po',
     install: true,
-    install_dir: get_option('datadir') / 'metainfo'
+    install_dir: datadir / 'metainfo'
 )
 
 # Validate AppData file
@@ -57,13 +57,13 @@ gresource = gnome.compile_resources(
     gresource_bundle: true,
     install: true,
     source_dir: 'resources/',
-    install_dir: get_option('datadir') / 'tilix' / 'resources'
+    install_dir: pkgdatadir / 'resources'
 )
 
 # Install GSchemas
 install_data(
   'gsettings/@0@.gschema.xml'.format(meson.project_name()),
-  install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
+  install_dir: schemadir
 )
 
 # Color schemes
@@ -78,28 +78,28 @@ install_data(
         'schemes/solarized-light.json',
         'schemes/tango.json',
     ],
-    install_dir: get_option('datadir') / 'tilix' / 'schemes'
+    install_dir: pkgdatadir / 'schemes'
 )
 
 # Scripts
 install_data(
     'scripts/tilix_int.sh',
-    install_dir: get_option('datadir') / 'tilix' / 'scripts'
+    install_dir: pkgdatadir / 'scripts'
 )
 
 # Copying Nautilus extension
 install_data(
     'nautilus/open-tilix.py',
-    install_dir: get_option('datadir') / 'nautilus-python' / 'extensions'
+    install_dir: datadir / 'nautilus-python' / 'extensions'
 )
 
 # Copy D-Bus service descriptor
 conf = configuration_data()
-conf.set('bindir', get_option('prefix') / get_option('bindir'))
+conf.set('bindir', bindir)
 
 configure_file(
   input: 'dbus/@0@.service.in'.format(meson.project_name()),
   output: '@BASENAME@',
   configuration: conf,
-  install_dir: get_option('datadir') / 'dbus-1' / 'services'
+  install_dir: datadir / 'dbus-1' / 'services'
 )
