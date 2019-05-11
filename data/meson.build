@@ -1,4 +1,3 @@
-
 # install the icons
 install_data(
     'icons/hicolor/scalable/apps/@0@.svg'.format(meson.project_name()),
@@ -96,9 +95,4 @@ install_data(
 conf = configuration_data()
 conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
 
-configure_file(
-  input: 'dbus/@0@.service.in'.format(meson.project_name()),
-  output: 'dbus/@0@.service'.format(meson.project_name()),
-  configuration: conf,
-  install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
-)
+subdir('dbus')
