@@ -24,6 +24,14 @@ endif
 gnome = import('gnome')
 i18n = import('i18n')
 
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+datadir = prefix / get_option('datadir')
+pkgdatadir = datadir / 'tilix' # TODO: this probably should be meson.project_name() eventually
+schemadir = datadir / 'glib-2.0' / 'schemas'
+iconsdir = datadir / 'icons' / 'hicolor'
+appdir = datadir / 'applications'
+
 tilix_sources = [
     'source/gx/gtk/actions.d',
     'source/gx/gtk/cairo.d',
