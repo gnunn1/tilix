@@ -1,6 +1,6 @@
 project(
     'com.gexperts.Tilix', 'd',
-    version: '1.8.9',
+    version: '1.9.3',
     license: 'MPL2',
     default_options: 'buildtype=debugoptimized',
     meson_version: '>= 0.50.0'
