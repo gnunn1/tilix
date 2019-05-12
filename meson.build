@@ -2,7 +2,8 @@ project(
     'com.gexperts.Tilix', 'd',
     version: '1.8.9',
     license: 'MPL2',
-    meson_version: '>= 0.49.0'
+    default_options: 'buildtype=debugoptimized',
+    meson_version: '>= 0.50.0'
 )
 
 compiler = meson.get_compiler('d')
