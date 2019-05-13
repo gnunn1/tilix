@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
-# Set PREFIX.
-if [ -z  "${1+x}" ]; then
-    if ! [ -z "${PREFIX+x}" ]; then
-        PREFIX=/usr
+# Determine PREFIX.
+if [ -z "$1" ]; then
+    if [ -n "$PREFIX" ]; then
+        PREFIX='/usr'
     fi
 else
-    PREFIX=${1}
+    PREFIX="$1"
 fi
 export PREFIX
 
@@ -43,34 +43,33 @@ for COMMAND in $COMMANDS; do
     i=$(( $i + 1 ))
 done
 
-echo "Installing to prefix ${PREFIX}"
+echo "Installing to prefix $PREFIX"
 
 # Copy and compile schema
 echo "Copying and compiling schema..."
-install -d ${PREFIX}/share/glib-2.0/schemas
-install -m 644 data/gsettings/com.gexperts.Tilix.gschema.xml ${PREFIX}/share/glib-2.0/schemas/
-glib-compile-schemas ${PREFIX}/share/glib-2.0/schemas/
+install -Dm 644 data/gsettings/com.gexperts.Tilix.gschema.xml "$PREFIX/share/glib-2.0/schemas/"
+glib-compile-schemas $PREFIX/share/glib-2.0/schemas/
 
-export TILIX_SHARE=${PREFIX}/share/tilix
+export TILIX_SHARE="$PREFIX/share/tilix"
 
-install -d ${TILIX_SHARE}/resources ${TILIX_SHARE}/schemes ${TILIX_SHARE}/scripts
+install -D "$TILIX_SHARE/resources" "$TILIX_SHARE/schemes" "$TILIX_SHARE/scripts"
 
 # Copy and compile icons
 cd data/resources
 
 echo "Building and copy resources..."
 glib-compile-resources tilix.gresource.xml
-install -m 644 tilix.gresource ${TILIX_SHARE}/resources/
+install -Dm 644 tilix.gresource "$TILIX_SHARE/resources/"
 
 cd ../..
 
 # Copy shell integration script
 echo "Copying scripts..."
-install -m 755 data/scripts/* ${TILIX_SHARE}/scripts/
+install -Dm 755 data/scripts/* "$TILIX_SHARE/scripts/"
 
 # Copy color schemes
 echo "Copying color schemes..."
-install -m 644 data/schemes/* ${TILIX_SHARE}/schemes/
+install -Dm 644 data/schemes/* "$TILIX_SHARE/schemes/"
 
 # Create/Update LINGUAS file
 find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
@@ -79,11 +78,10 @@ find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
 echo "Copying and installing localization files"
 for f in po/*.po; do
     echo "Processing $f"
-    LOCALE=$(basename "$f" .po)
-    msgfmt $f -o "${LOCALE}.mo"
-    install -d ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES
-    install -m 644 "${LOCALE}.mo" ${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/tilix.mo
-    rm -f "${LOCALE}.mo"
+    LOCALE="$(basename "$f" .po)"
+    msgfmt $f -o "$LOCALE.mo"
+    install -Dm 644 "$LOCALE.mo" "$PREFIX/share/locale/$LOCALE/LC_MESSAGES/tilix.mo"
+    rm -f "$LOCALE.mo"
 done
 
 # Generate desktop file
@@ -104,33 +102,28 @@ fi
 
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
-install -d ${PREFIX}/share/nautilus-python/extensions/
-install -m 644 data/nautilus/open-tilix.py ${PREFIX}/share/nautilus-python/extensions/
+install -Dm 644 data/nautilus/open-tilix.py "$PREFIX/share/nautilus-python/extensions/"
 
 # Copy D-Bus service descriptor
-install -d ${PREFIX}/share/dbus-1/services
-install -m 644 data/dbus/com.gexperts.Tilix.service ${PREFIX}/share/dbus-1/services/
+install -Dm 644 data/dbus/com.gexperts.Tilix.service "$PREFIX/share/dbus-1/services/"
 
 # Copy man page
-. "$(dirname $(realpath ${0}))/data/scripts/install-man-pages.sh"
+. "$(dirname "$(realpath "$0")")/data/scripts/install-man-pages.sh"
 
 # Copy Icons
 cd data/icons/hicolor
 
 find . -type f | while read f; do
-    install -d "${PREFIX}/share/icons/hicolor/$(dirname "$f")"
-    install -m 644 "$f" "${PREFIX}/share/icons/hicolor/${f}"
+    install -Dm 644 "$f" "$PREFIX/share/icons/hicolor/$f"
 done
 
 cd ../../..
 
 # Copy executable, desktop and appdata file
-install -d ${PREFIX}/bin
-install -m 755 tilix ${PREFIX}/bin/
+install -Dm 755 tilix "$PREFIX/bin/"
 
-install -d ${PREFIX}/share/applications ${PREFIX}/share/metainfo/
-install -m 644 data/pkg/desktop/com.gexperts.Tilix.desktop ${PREFIX}/share/applications/
-install -m 644 data/appdata/com.gexperts.Tilix.appdata.xml ${PREFIX}/share/metainfo/
+install -Dm 644 data/pkg/desktop/com.gexperts.Tilix.desktop "$PREFIX/share/applications/"
+install -Dm 644 data/appdata/com.gexperts.Tilix.appdata.xml "$PREFIX/share/metainfo/"
 
 # Update icon cache if Prefix is /usr
 if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
@@ -138,5 +131,5 @@ if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
     xdg-desktop-menu forceupdate --mode system
 
     echo "Updating icon cache"
-    gtk-update-icon-cache -f ${PREFIX}/share/icons/hicolor/
+    gtk-update-icon-cache -f "$PREFIX/share/icons/hicolor/"
 fi
