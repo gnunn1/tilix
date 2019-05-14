@@ -78,7 +78,7 @@ find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
 echo "Copying and installing localization files"
 for f in po/*.po; do
     echo "Processing $f"
-    LOCALE="$(basename "$f" .po)"
+    LOCALE=$(basename "$f" .po)
     msgfmt $f -o "$LOCALE.mo"
     install -Dm 644 "$LOCALE.mo" "$PREFIX/share/locale/$LOCALE/LC_MESSAGES/tilix.mo"
     rm -f "$LOCALE.mo"
@@ -108,7 +108,7 @@ install -Dm 644 data/nautilus/open-tilix.py "$PREFIX/share/nautilus-python/exten
 install -Dm 644 data/dbus/com.gexperts.Tilix.service "$PREFIX/share/dbus-1/services/"
 
 # Copy man page
-. "$(dirname "$(realpath "$0")")/data/scripts/install-man-pages.sh"
+. $(dirname $(realpath "$0"))/data/scripts/install-man-pages.sh
 
 # Copy Icons
 cd data/icons/hicolor
