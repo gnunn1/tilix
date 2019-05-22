@@ -1,8 +1,9 @@
 project(
     'com.gexperts.Tilix', 'd',
-    version: '1.8.5',
+    version: '1.9.3',
     license: 'MPL2',
-    meson_version: '>= 0.48.0'
+    default_options: 'buildtype=debugoptimized',
+    meson_version: '>= 0.50.0'
 )
 
 compiler = meson.get_compiler('d')
@@ -24,84 +25,87 @@ endif
 gnome = import('gnome')
 i18n = import('i18n')
 
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+datadir = prefix / get_option('datadir')
+pkgdatadir = datadir / 'tilix' # TODO: this probably should be meson.project_name() eventually
+schemadir = datadir / 'glib-2.0' / 'schemas'
+iconsdir = datadir / 'icons' / 'hicolor'
+appdir = datadir / 'applications'
+
 tilix_sources = [
-    'source/secretc/secrettypes.d',
-    'source/secretc/secret.d',
-    'source/app.d',
-    'source/x11/X.d',
-    'source/x11/Xlib.d',
-    'source/secret/SchemaAttribute.d',
-    'source/secret/Item.d',
-    'source/secret/Schema.d',
-    'source/secret/Service.d',
-    'source/secret/Prompt.d',
-    'source/secret/Collection.d',
-    'source/secret/Secret.d',
-    'source/secret/Value.d',
-    'source/gx/util/array.d',
-    'source/gx/util/path.d',
-    'source/gx/util/string.d',
+    'source/gx/gtk/actions.d',
     'source/gx/gtk/cairo.d',
     'source/gx/gtk/clipboard.d',
-    'source/gx/gtk/x11.d',
-    'source/gx/gtk/resource.d',
-    'source/gx/gtk/vte.d',
-    'source/gx/gtk/actions.d',
-    'source/gx/gtk/threads.d',
-    'source/gx/gtk/dialog.d',
-    'source/gx/gtk/settings.d',
-    'source/gx/gtk/util.d',
     'source/gx/gtk/color.d',
-    'source/gx/tilix/appwindow.d',
-    'source/gx/tilix/terminal/advpaste.d',
-    'source/gx/tilix/terminal/search.d',
-    'source/gx/tilix/terminal/regex.d',
-    'source/gx/tilix/terminal/actions.d',
-    'source/gx/tilix/terminal/activeprocess.d',
-    'source/gx/tilix/terminal/terminal.d',
-    'source/gx/tilix/terminal/layout.d',
-    'source/gx/tilix/terminal/password.d',
-    'source/gx/tilix/terminal/util.d',
-    'source/gx/tilix/terminal/exvte.d',
-    'source/gx/tilix/terminal/monitor.d',
-    'source/gx/tilix/sidebar.d',
-    'source/gx/tilix/customtitle.d',
-    'source/gx/tilix/prefeditor/bookmarkeditor.d',
-    'source/gx/tilix/prefeditor/profileeditor.d',
-    'source/gx/tilix/prefeditor/common.d',
-    'source/gx/tilix/prefeditor/prefdialog.d',
-    'source/gx/tilix/prefeditor/titleeditor.d',
-    'source/gx/tilix/prefeditor/advdialog.d',
-    'source/gx/tilix/preferences.d',
-    'source/gx/tilix/application.d',
-    'source/gx/tilix/shortcuts.d',
-    'source/gx/tilix/colorschemes.d',
-    'source/gx/tilix/session.d',
-    'source/gx/tilix/constants.d',
-    'source/gx/tilix/common.d',
-    'source/gx/tilix/cmdparams.d',
-    'source/gx/tilix/encoding.d',
-    'source/gx/tilix/closedialog.d',
-    'source/gx/tilix/bookmark/manager.d',
+    'source/gx/gtk/dialog.d',
+    'source/gx/gtk/resource.d',
+    'source/gx/gtk/settings.d',
+    'source/gx/gtk/threads.d',
+    'source/gx/gtk/util.d',
+    'source/gx/gtk/vte.d',
+    'source/gx/gtk/x11.d',
+    'source/gx/i18n/l10n.d',
     'source/gx/tilix/bookmark/bmchooser.d',
     'source/gx/tilix/bookmark/bmeditor.d',
     'source/gx/tilix/bookmark/bmtreeview.d',
-    'source/gx/i18n/l10n.d'
+    'source/gx/tilix/bookmark/manager.d',
+    'source/gx/tilix/prefeditor/advdialog.d',
+    'source/gx/tilix/prefeditor/bookmarkeditor.d',
+    'source/gx/tilix/prefeditor/common.d',
+    'source/gx/tilix/prefeditor/prefdialog.d',
+    'source/gx/tilix/prefeditor/profileeditor.d',
+    'source/gx/tilix/prefeditor/titleeditor.d',
+    'source/gx/tilix/terminal/actions.d',
+    'source/gx/tilix/terminal/activeprocess.d',
+    'source/gx/tilix/terminal/advpaste.d',
+    'source/gx/tilix/terminal/exvte.d',
+    'source/gx/tilix/terminal/layout.d',
+    'source/gx/tilix/terminal/monitor.d',
+    'source/gx/tilix/terminal/password.d',
+    'source/gx/tilix/terminal/regex.d',
+    'source/gx/tilix/terminal/search.d',
+    'source/gx/tilix/terminal/terminal.d',
+    'source/gx/tilix/terminal/util.d',
+    'source/gx/tilix/application.d',
+    'source/gx/tilix/appwindow.d',
+    'source/gx/tilix/closedialog.d',
+    'source/gx/tilix/cmdparams.d',
+    'source/gx/tilix/colorschemes.d',
+    'source/gx/tilix/common.d',
+    'source/gx/tilix/constants.d',
+    'source/gx/tilix/customtitle.d',
+    'source/gx/tilix/encoding.d',
+    'source/gx/tilix/preferences.d',
+    'source/gx/tilix/session.d',
+    'source/gx/tilix/shortcuts.d',
+    'source/gx/tilix/sidebar.d',
+    'source/gx/util/array.d',
+    'source/gx/util/path.d',
+    'source/gx/util/string.d',
+    'source/secret/Collection.d',
+    'source/secret/Item.d',
+    'source/secret/Prompt.d',
+    'source/secret/Schema.d',
+    'source/secret/SchemaAttribute.d',
+    'source/secret/Secret.d',
+    'source/secret/Service.d',
+    'source/secret/Value.d',
+    'source/secretc/secret.d',
+    'source/secretc/secrettypes.d',
+    'source/x11/X.d',
+    'source/x11/Xlib.d',
+    'source/app.d'
 ]
 
 source_root = meson.source_root()
 sources_dir = include_directories('source/')
 
 # Dependencies
-# Note relying on dub to fetch and build dependencies before running meson build is temporary due to a bug in Meson 0.48
-# gtkd_dep = dependency('gtkd-3', version: '>= 3.8.5')
-# vted_dep = dependency('vted-3', version: '>= 3.8.5')
-
-gtkd_dep = dependency('gtk-d:gtkd', version: '>=3.8.5', method: 'dub')
-vted_dep = dependency('gtk-d:vte', version: '>=3.8.5', method: 'dub')
+gtkd_dep = dependency('gtkd-3', version: '>=3.8.5')
+vted_dep = dependency('vted-3', version: '>=3.8.5')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
-msgfmt = find_program('msgfmt')
 
 subdir('po')
 subdir('data')
