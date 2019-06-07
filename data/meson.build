@@ -1,4 +1,3 @@
-
 # install the icons
 install_data(
     'icons/hicolor/scalable/apps/@0@.svg'.format(meson.project_name()),
