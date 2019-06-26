@@ -2010,7 +2010,7 @@ private:
 
                 if (filename.length != 0 && hostname.length !=0 && hostname != "localhost" && hostname != gst.localHostname()) {
                     showErrorDialog(cast(Window)getToplevel(),
-                                    format(_("Remote file URIs are not supported with hyperlinks.\nUri was '%s'"), uri),
+                                    format(_("Remote file URIs are not supported with hyperlinks.\nURI was '%s'"), uri),
                                     _("Remote File URI Unsupported"));
                     return;
                 }
