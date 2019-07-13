@@ -1581,7 +1581,7 @@ private:
                         fcd.hide();
                         removeRecentSessionFile(fcd.getFilename());
                         error(e);
-                        showErrorDialog(this, _("Could not load session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Loading Session"));
+                        showErrorDialog(this, _("Could not save session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Saving Session"));
                     }
                 }
                 fcd.hide();
@@ -1592,6 +1592,16 @@ private:
                 fcd = null;
             });
             fcd.present();
+        }
+        else {
+            try {
+                string json = session.serialize().toPrettyString();
+                write(session.filename, json);
+            }
+            catch (Exception e) {
+                error(e);
+                showErrorDialog(this, _("Could not save session due to unexpected error.") ~ "\n" ~ e.msg, _("Error Saving Session"));
+            }
         }
     }
 
