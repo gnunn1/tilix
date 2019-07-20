@@ -13,6 +13,7 @@ Tilix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the fo
 * Layout terminals in any fashion by splitting them horizontally or vertically
 * Terminals can be re-arranged using drag and drop both within and between windows
 * Terminals can be detached into a new window via drag and drop
+* Tabs or sidebar list current sessions
 * Input can be synchronized between terminals so commands typed in one terminal are replicated to the others
 * The grouping of terminals can be saved and loaded from disk
 * Terminals support custom titles
