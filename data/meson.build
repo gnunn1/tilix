@@ -19,6 +19,9 @@ desktop_file = i18n.merge_file(
     install_dir: appdir
 )
 
+# Install manual page
+install_man(['man/tilix.1'])
+
 # Validate desktop file
 desktop_file_validate = find_program('desktop-file-validate', required:false)
 if desktop_file_validate.found()
