@@ -10,12 +10,8 @@ compiler = meson.get_compiler('d')
 
 message('Using compiler ' + compiler.get_id())
 
-if compiler.get_id() == 'gcc'
-    error('Tilix can not be compiled with GDC at time, since the standard library version of all GDC versions is currently (2016) too old. Sorry.')
-endif
-
- if compiler.get_id() == 'llvm'
-  extra_args = ['-vcolumns','-d-version=StdLoggerDisableTrace']
+if compiler.get_id() == 'llvm'
+  extra_args = ['-vcolumns']
   d_link_args = []
 else
   extra_args = []
@@ -119,6 +115,7 @@ executable('tilix',
                     xlib_dep,
                     libunwind_dep],
     d_args: extra_args,
+    d_module_versions: ['StdLoggerDisableTrace'],
     link_args: d_link_args,
     install : true
 )
