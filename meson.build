@@ -102,6 +102,7 @@ gtkd_dep = dependency('gtkd-3', version: '>=3.8.5')
 vted_dep = dependency('vted-3', version: '>=3.8.5')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
+libsecret_dep = dependency('libsecret-1', required: false)
 
 subdir('po')
 subdir('data')
@@ -113,7 +114,8 @@ executable('tilix',
     dependencies : [gtkd_dep,
                     vted_dep,
                     xlib_dep,
-                    libunwind_dep],
+                    libunwind_dep,
+                    libsecret_dep],
     d_args: extra_args,
     d_module_versions: ['StdLoggerDisableTrace'],
     link_args: d_link_args,
