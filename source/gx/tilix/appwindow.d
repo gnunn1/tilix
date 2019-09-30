@@ -1640,7 +1640,7 @@ private:
     void removeRecentSessionFile(string path, bool save = true) {
         string[] temp;
 
-        foreach (int i, string aPath; recentSessionFiles) {
+        foreach (string aPath; recentSessionFiles) {
             if (aPath != path) {
                 temp ~= aPath;
             }
