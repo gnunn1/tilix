@@ -2906,8 +2906,8 @@ private:
         if (workingDir.length == 0) workingDir = Util.getHomeDir();
 
         GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
-        foreach(uint i, fd; handles) {
-            fdBuilder.addValue(new GVariant(new GVariant(i), new GVariant(g_variant_new_handle(fd), true)));
+        foreach(i, fd; handles) {
+            fdBuilder.addValue(new GVariant(new GVariant(to!uint(i)), new GVariant(g_variant_new_handle(fd), true)));
         }
         GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
         foreach(env; envv) {

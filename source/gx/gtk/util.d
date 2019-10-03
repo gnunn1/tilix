@@ -152,8 +152,8 @@ Box createBox(Orientation orientation, int spacing,  Widget[] children) {
  */
 int getChildIndex(Container container, Widget child) {
     Widget[] children = container.getChildren().toArray!Widget();
-    foreach(int i, c; children) {
-        if (c.getWidgetStruct() == child.getWidgetStruct()) return i;
+    foreach(i, c; children) {
+        if (c.getWidgetStruct() == child.getWidgetStruct()) return to!int(i);
     }
     return -1;
 }
