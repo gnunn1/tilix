@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2019-01-11 02:07+0000\n"
-"Last-Translator: Xoán Sampaíño <xoansampainho@gmail.com>\n"
+"PO-Revision-Date: 2019-10-12 14:52+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tilix/"
 "translations/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -201,7 +201,7 @@ msgstr "No se pudo cargar la sesión debido a un error inesperado."
 
 #: source/gx/tilix/appwindow.d:1526 source/gx/tilix/appwindow.d:1584
 msgid "Error Loading Session"
-msgstr "Error cargando la sesión"
+msgstr "Error al cargar la sesión"
 
 #: source/gx/tilix/appwindow.d:1549
 msgid "Save Session"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: source/gx/tilix/appwindow.d:1702
 msgid "Quake Mode Not Supported"
-msgstr "El modo Quake no está soportado"
+msgstr "No se admite el modo Quake"
 
 #: source/gx/tilix/appwindow.d:2113
 msgid "New output displayed"
@@ -237,7 +237,7 @@ msgstr "Esta orden está solicitando acceso administrativo en su ordenador"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
-msgstr "Copiar comandos de Internet puede ser peligroso. "
+msgstr "Copiar órdenes de Internet puede ser peligroso. "
 
 #: source/gx/tilix/terminal/advpaste.d:35
 msgid "Be sure you understand what each part of this command does."
@@ -420,7 +420,7 @@ msgstr "Opciones de diseño…"
 
 #: source/gx/tilix/terminal/terminal.d:862
 msgid "Monitor Silence"
-msgstr "Monitorear la inactividad"
+msgstr "Supervisar inactividad"
 
 #: source/gx/tilix/terminal/terminal.d:865
 msgid "Other"
@@ -486,7 +486,7 @@ msgstr "Sincronizar entrada"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "No se puede comprobar el archivo «%s» a causa del error «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -657,7 +657,7 @@ msgstr "Eliminar"
 
 #: source/gx/tilix/terminal/password.d:235
 msgid "Include return character with password"
-msgstr "Incluir caracter de retorno en la contraseña"
+msgstr "Incluir carácter de retorno en la contraseña"
 
 #: source/gx/tilix/terminal/password.d:371
 msgid "Insert Password"
@@ -688,6 +688,8 @@ msgstr "Editar contraseña"
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
+"La supervisión de procesos no está activada; en ningún momento debería "
+"invocarse esto"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -1110,15 +1112,16 @@ msgid "Choose A Badge Font"
 msgstr "Elija un tipo de letra para la tarjeta"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
-#, fuzzy
 msgid "Notify New Activity"
-msgstr "Notificar nuevas actividades"
+msgstr "Notificar actividad nueva"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1259
 msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Puede mostrarse una notificación cuando se produzca una actividad nueva "
+"después de un período de silencio especificado."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1190,13 +1193,12 @@ msgid "Edit Match"
 msgstr "Editar coincidencia"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1366
-#, fuzzy
 msgid "Enable by default"
-msgstr "Predeterminar"
+msgstr "Activar de manera predeterminada"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1375
 msgid "Threshold for continuous silence"
-msgstr "Límite para silencio continuo"
+msgstr "Umbral para inactividad continua"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
@@ -1280,7 +1282,7 @@ msgstr "Perfil: %s"
 #: source/gx/tilix/prefeditor/prefdialog.d:366
 #, c-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr "¿Realmente desea borrar «%s»?"
+msgstr "¿Confirma que quiere eliminar «%s»?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:557
 msgid "Clone"
@@ -1525,7 +1527,6 @@ msgid "Primary Monitor"
 msgstr "Monitor principal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
-#, fuzzy
 msgid "Monitor "
 msgstr "Monitor "
 
@@ -1788,12 +1789,12 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
-"Sobreescribe el estilo preferido de ventanas a usar, uno de: normal, csd "
-"deshabilitado, csd deshabilitado barra de herramientas escondida, sin bordes"
+"Fuerza el estilo de ventana preferido, uno de los siguientes: normal,disable-"
+"csd,disable-csd-hide-toolbar,borderless"
 
 #: source/gx/tilix/application.d:690
 msgid "WINDOW_STYLE"
-msgstr "Estilo_de_Ventana"
+msgstr "ESTILO_VENTANA"
 
 #: source/gx/tilix/application.d:691
 msgid "Full-screen the terminal window"
@@ -1852,7 +1853,7 @@ msgstr "UUID-DE-LA-TERMINAL"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "El identificador de aplicación %s no es válido"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1945,21 +1946,20 @@ msgid "Process"
 msgstr "Proceso"
 
 #: source/gx/tilix/constants.d:161
-#, fuzzy
 msgid "Status.Read-Only"
-msgstr "Sólo lectura"
+msgstr "Status.Read-Only"
 
 #: source/gx/tilix/constants.d:162
 msgid "Status.Silence"
-msgstr ""
+msgstr "Status.Silence"
 
 #: source/gx/tilix/constants.d:163
 msgid "Status.Input-Sync"
-msgstr ""
+msgstr "Status.Input-Sync"
 
 #: source/gx/tilix/constants.d:178
 msgid "Terminal count"
-msgstr "Contador de terminal"
+msgstr "Recuento de terminales"
 
 #: source/gx/tilix/constants.d:179
 msgid "Terminal number"
@@ -2011,8 +2011,8 @@ msgstr "Puede utilizar el parámetro acción solo dentro de Tilix"
 msgid ""
 "You cannot use the quake mode with maximize, minimize or geometry parameters"
 msgstr ""
-"No se puede utilizar el modo Quake con los parámetros maximizar, minimizar o "
-"geometria"
+"No se puede utilizar el modo Quake con los parámetros de maximización, "
+"minimización o geométricos"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -2122,7 +2122,7 @@ msgstr "Croata"
 
 #: source/gx/tilix/encoding.d:60
 msgid "Hindi"
-msgstr "HIndú"
+msgstr "Hindi"
 
 #: source/gx/tilix/encoding.d:61
 msgid "Persian"
@@ -2130,11 +2130,11 @@ msgstr "Persa"
 
 #: source/gx/tilix/encoding.d:63
 msgid "Gujarati"
-msgstr "Gujarati"
+msgstr "Guyaratí"
 
 #: source/gx/tilix/encoding.d:64
 msgid "Gurmukhi"
-msgstr "Gurmukhi"
+msgstr "Gurmuji"
 
 #: source/gx/tilix/encoding.d:66
 msgid "Icelandic"
@@ -2328,16 +2328,14 @@ msgid "Switch to previous session"
 msgstr "Cambiar a la sesión anterior"
 
 #: data/resources/ui/shortcuts.ui:73
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to next session"
-msgstr "Cambiar a la sesión siguiente"
+msgstr "Reordenar a la sesión siguiente"
 
 #: data/resources/ui/shortcuts.ui:79
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to previous session"
-msgstr "Cambiar a la sesión anterior"
+msgstr "Reordenar a la sesión anterior"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
@@ -2667,12 +2665,12 @@ msgstr "Bajar página"
 #: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Previous prompt"
-msgstr ""
+msgstr "Indicador anterior"
 
 #: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Next prompt"
-msgstr ""
+msgstr "Indicador siguiente"
 
 #: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
@@ -2785,7 +2783,7 @@ msgstr "Una terminal divisible para Gnome"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr "shell;prompt;command;commandline;cmd;"
+msgstr "intérprete;shell;indicador;prompt;orden;línea de órdenes;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 msgid "com.gexperts.Tilix"
@@ -2835,7 +2833,7 @@ msgstr "La agrupación de terminales se puede guardar y cargar desde el disco"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid "Terminals support custom titles"
-msgstr "Las terminales soportan títulos personalizados"
+msgstr "Las terminales admiten títulos personalizados"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
 msgid ""
@@ -2851,7 +2849,7 @@ msgstr "Fondo transparente"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid "Supports notifications when processes are completed out of view"
-msgstr "Soporte de notificaciones para procesos finalizados fuera de la vista"
+msgstr "Permite notificaciones cuando los procesos finalizan fuera de la vista"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
 msgid ""
@@ -2873,10 +2871,13 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"Algunas funcionalidades nuevas y correcciones de defectos; consulte "
+"https://gnunn1.github.io/tilix-web/ para obtener información concreta sobre "
+"esta versión."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr ""
