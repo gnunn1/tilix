@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2019-08-21 14:23+0000\n"
-"Last-Translator: Vitalii Hladiienko <checkedshorts@gmail.com>\n"
+"PO-Revision-Date: 2019-10-31 21:03+0000\n"
+"Last-Translator: Grigorii Horos <horosgrisa@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tilix/"
 "translations/uk/>\n"
 "Language: uk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.10-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -139,12 +139,12 @@ msgstr "Параметри"
 #: source/gx/tilix/appwindow.d:697
 #, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Скорочення"
+msgstr "Клавіатурні скорочення"
 
 #: source/gx/tilix/appwindow.d:698
 #, fuzzy
 msgid "About Tilix"
-msgstr "Tilix"
+msgstr "Про Tilix"
 
 #: source/gx/tilix/appwindow.d:705
 msgid "GC"
@@ -216,16 +216,15 @@ msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:1700
 msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr ""
+msgstr "Режим Quake не підтримується Wayland, застосовано звичайний режим"
 
 #: source/gx/tilix/appwindow.d:1702
 msgid "Quake Mode Not Supported"
 msgstr "Режим Quake не підтримується"
 
 #: source/gx/tilix/appwindow.d:2113
-#, fuzzy
 msgid "New output displayed"
-msgstr "Новий вивід"
+msgstr "Новий вивід відображений"
 
 #: source/gx/tilix/appwindow.d:2121
 msgid "Close session"
@@ -386,7 +385,7 @@ msgstr "Профілі"
 
 #: source/gx/tilix/terminal/terminal.d:847
 msgid "Show File Browser..."
-msgstr "Показати в переглядачі файлів"
+msgstr "Показати в переглядачі файлів..."
 
 #: source/gx/tilix/terminal/terminal.d:851
 msgid "Save Output…"
@@ -436,9 +435,8 @@ msgid "Terminal Activity"
 msgstr "Активність терминалу"
 
 #: source/gx/tilix/terminal/terminal.d:1324
-#, fuzzy
 msgid "Not Enabled"
-msgstr "Увімкнено"
+msgstr "Не ввімкнено"
 
 #: source/gx/tilix/terminal/terminal.d:1345
 #: source/gx/tilix/terminal/terminal.d:1848
@@ -484,7 +482,7 @@ msgstr "Синхронізувати введення"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Не вдається перевірити файл «%s» через помилку «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -492,10 +490,12 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"URI віддалених файлів не підтримуються гіперпосиланнями.\n"
+"URI був '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2014
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "URI віддаленого файлу не підтримується"
 
 #: source/gx/tilix/terminal/terminal.d:2046
 #: source/gx/tilix/terminal/terminal.d:2621
@@ -511,11 +511,11 @@ msgstr "Помилка регулярного виразу"
 #: source/gx/tilix/terminal/terminal.d:2060
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "Не вдалося відкрити відповідність «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:2061
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Помилка відкриття відповідності"
 
 #: source/gx/tilix/terminal/terminal.d:2571
 #, c-format
@@ -680,7 +680,7 @@ msgstr "Редагувати пароль"
 
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
-msgstr ""
+msgstr "Моніторинг процесів не ввімкнено, це не повинно було бути викликаним"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -746,45 +746,40 @@ msgid "rows"
 msgstr "рядки"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:301
-#, fuzzy
 msgid "Cell spacing"
-msgstr "Розмір терміналу"
+msgstr "Відстань між рядками"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:311
 msgid "width"
-msgstr ""
+msgstr "ширина"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:320
-#, fuzzy
 msgid "height"
-msgstr "Праворуч"
+msgstr "висота"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Margin"
-msgstr ""
+msgstr "Відступ"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:358
-#, fuzzy
 msgid "Text blink mode"
-msgstr "Режим блимання"
+msgstr "Режим блимання тексту"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Never"
-msgstr ""
+msgstr "Ніколи"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
 msgid "Focused"
-msgstr "Сфокусувати вікно"
+msgstr "Коли в фокусі"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
 msgid "Unfocused"
-msgstr "Несфокусоване затемнювання"
+msgstr "Коли не в фокусі"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Always"
-msgstr ""
+msgstr "Завжди"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:380
 #: source/gx/tilix/prefeditor/profileeditor.d:1202
@@ -798,7 +793,7 @@ msgstr "Виберіть шрифт терміналу"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:402
 msgid "Word-wise select chars"
-msgstr ""
+msgstr "Виділювані символи в слові"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:411
 #: source/gx/tilix/prefeditor/profileeditor.d:419
@@ -819,9 +814,8 @@ msgid "Underline"
 msgstr "Підкреслення"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:430
-#, fuzzy
 msgid "Cursor blink mode"
-msgstr "Режим блимання"
+msgstr "Режим блимання курсору"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:433
 msgid "System"
@@ -836,7 +830,6 @@ msgid "Off"
 msgstr "Вимкнено"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:438
-#, fuzzy
 msgid "Notification"
 msgstr "Надіслати сповіщення"
 
@@ -855,7 +848,6 @@ msgid "Icon"
 msgstr "Піктограма"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
-#, fuzzy
 msgid "Icon and sound"
 msgstr "Піктограма та звук"
 
@@ -892,7 +884,7 @@ msgstr "Використовувати кольори для тексту й т�
 
 #: source/gx/tilix/prefeditor/profileeditor.d:582
 msgid "Show bold text in bright colors"
-msgstr ""
+msgstr "Показувати напівжирний текст яскравим кольором"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:594
 msgid "Transparency"
@@ -1122,6 +1114,8 @@ msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Повідомлення може бути показано, коли нова діяльність відбудеться після "
+"визначеного періоду мовчання."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1197,7 +1191,7 @@ msgstr "Граничне значення  безперервної бездія
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "(секунд)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1276,7 +1270,7 @@ msgstr "Профілі: %s"
 #: source/gx/tilix/prefeditor/prefdialog.d:366
 #, c-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити «%s»?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:557
 msgid "Clone"
@@ -1380,13 +1374,13 @@ msgstr "Праворуч"
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
 #: source/gx/tilix/prefeditor/prefdialog.d:1358
 msgid "Top"
-msgstr ""
+msgstr "Зверху"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1157
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
 #: source/gx/tilix/prefeditor/prefdialog.d:1358
 msgid "Bottom"
-msgstr ""
+msgstr "Знизу"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1163
 msgid "Theme variant"
@@ -1460,10 +1454,13 @@ msgstr "Показувати назву терміналу, навіть якщ�
 #: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr ""
+"Використовувати накладну смугу прокручування (потрібен перезапуск програми)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1279
 msgid "Use tabs instead of sidebar (Application restart required)"
 msgstr ""
+"Використовувати вкладки замість бокової панелі (потрібно перезапустити "
+"програму)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1311
 msgid "Size"
@@ -1505,7 +1502,7 @@ msgstr "Приховати заголовок вікна"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1418
 msgid "Keep window always on top"
-msgstr ""
+msgstr "Тримати вікно завжди поверх інших"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1423
 msgid "Display terminal on active monitor"
@@ -1517,7 +1514,7 @@ msgstr "Показувати на певному екрані"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "Основний монітор"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
 #, fuzzy
@@ -1629,7 +1626,7 @@ msgstr "Без урахування регістру"
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
-msgstr ""
+msgstr "Підняти догори"
 
 #: source/gx/tilix/prefeditor/advdialog.d:162
 #, fuzzy
@@ -1781,7 +1778,7 @@ msgstr ""
 
 #: source/gx/tilix/application.d:690
 msgid "WINDOW_STYLE"
-msgstr ""
+msgstr "WINDOW_STYLE"
 
 #: source/gx/tilix/application.d:691
 msgid "Full-screen the terminal window"
@@ -1838,7 +1835,7 @@ msgstr "TERMINAL_UUID"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "Ідентифікатор програми «%s» недійсний"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -2589,7 +2586,7 @@ msgstr "Скопіювати"
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Скопіювати як HTML"
 
 #: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
