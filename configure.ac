@@ -20,7 +20,12 @@ AC_SUBST([DCFLAGS])
 AC_PROG_INSTALL
 # Look for D compiler. Use dmd-compatible wrapper for ldc and gdc.
 # NOTE: Tilix cannot be compiled with gdc currently.
-AC_PATH_PROGS([DC], [ldmd ldmd2 dmd gdmd], NOT_FOUND)
+if test -z ${DC}; then
+	AC_PATH_PROGS([DC], [ldmd ldmd2 dmd gdmd], NOT_FOUND)
+else
+	AC_PATH_PROG([DC], ${DC}, NOT_FOUND)
+fi
+
 AC_PATH_PROG([GLIB_COMPILE_RES], [glib-compile-resources])
 PKG_PROG_PKG_CONFIG
 AM_GNU_GETTEXT([external])
