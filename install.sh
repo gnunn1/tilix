@@ -2,7 +2,7 @@
 
 # Determine PREFIX.
 if [ -z "$1" ]; then
-    if [ -n "$PREFIX" ]; then
+    if [ -z "$PREFIX" ]; then
         PREFIX='/usr'
     fi
 else
