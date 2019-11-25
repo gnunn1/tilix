@@ -575,6 +575,7 @@ private:
 
 
         registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_UNSELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.unselectAll(); });
 
         //Link Actions, no shortcuts, context menu only
         registerAction(group, ACTION_PREFIX, ACTION_COPY_LINK, null, delegate(GVariant, SimpleAction) {

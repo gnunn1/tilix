@@ -25,6 +25,7 @@ enum ACTION_ADVANCED_PASTE = "advanced-paste";
 enum ACTION_COPY_LINK = "copy-link";
 enum ACTION_OPEN_LINK = "open-link";
 enum ACTION_SELECT_ALL = "select-all";
+enum ACTION_UNSELECT_ALL = "unselect-all";
 enum ACTION_ZOOM_IN = "zoom-in";
 enum ACTION_ZOOM_OUT = "zoom-out";
 enum ACTION_ZOOM_NORMAL = "zoom-normal";
