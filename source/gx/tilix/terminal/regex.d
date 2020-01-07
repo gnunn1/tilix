@@ -231,7 +231,7 @@ VRegex compileVRegex(TerminalRegex regex) {
     return VRegex.newMatch(regex.pattern, -1, flags);
 }
 
-static this() {
+shared static this() {
     import std.exception : assumeUnique;
 
     if (checkVTEVersion(VTE_VERSION_REGEX)) {
