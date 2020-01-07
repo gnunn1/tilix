@@ -12,6 +12,15 @@ import std.json;
 import std.path;
 import std.uuid;
 
+static if (__VERSION__ >= 2082L)
+{
+    alias jsonTrue = JSONType.true_;
+}
+else
+{
+    alias jsonTrue = JSON_TYPE.TRUE;
+}
+
 import gdk.RGBA;
 
 import glib.Util;
@@ -123,7 +132,7 @@ class ColorScheme {
             }
         }
         if (useBadgeColor) {
-            if (!equal(scheme.badgeColor, this.badgeColor)) return false; 
+            if (!equal(scheme.badgeColor, this.badgeColor)) return false;
         }
         if (useBoldColor) {
             if (!equal(scheme.boldColor, this.boldColor)) return false;
@@ -210,7 +219,7 @@ private ColorScheme loadScheme(string fileName) {
     if (SCHEME_KEY_COMMENT in root) {
         cs.comment = root[SCHEME_KEY_COMMENT].str();
     }
-    cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSON_TYPE.TRUE ? true : false;
+    cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == jsonTrue;
     if (SCHEME_KEY_FOREGROUND in root) {
         parseColor(cs.foreground, root[SCHEME_KEY_FOREGROUND].str());
     }
@@ -218,16 +227,16 @@ private ColorScheme loadScheme(string fileName) {
         parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
     }
     if (SCHEME_KEY_USE_HIGHLIGHT_COLOR in root) {
-        cs.useHighlightColor = root[SCHEME_KEY_USE_HIGHLIGHT_COLOR].type == JSON_TYPE.TRUE ? true : false;
+        cs.useHighlightColor = root[SCHEME_KEY_USE_HIGHLIGHT_COLOR].type == jsonTrue;
     }
     if (SCHEME_KEY_USE_CURSOR_COLOR in root) {
-        cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == JSON_TYPE.TRUE ? true : false;
+        cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == jsonTrue;
     }
     if (SCHEME_KEY_USE_BADGE_COLOR in root) {
-        cs.useBadgeColor = root[SCHEME_KEY_USE_BADGE_COLOR].type == JSON_TYPE.TRUE ? true : false;
+        cs.useBadgeColor = root[SCHEME_KEY_USE_BADGE_COLOR].type == jsonTrue;
     }
     if (SCHEME_KEY_USE_BOLD_COLOR in root) {
-        cs.useBoldColor = root[SCHEME_KEY_USE_BOLD_COLOR].type == JSON_TYPE.TRUE ? true : false;
+        cs.useBoldColor = root[SCHEME_KEY_USE_BOLD_COLOR].type == jsonTrue;
     }
     if (SCHEME_KEY_HIGHLIGHT_FG in root) {
         parseColor(cs.highlightFG, root[SCHEME_KEY_HIGHLIGHT_FG].str());

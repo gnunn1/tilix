@@ -152,14 +152,14 @@ Box createBox(Orientation orientation, int spacing,  Widget[] children) {
  */
 int getChildIndex(Container container, Widget child) {
     Widget[] children = container.getChildren().toArray!Widget();
-    foreach(int i, c; children) {
-        if (c.getWidgetStruct() == child.getWidgetStruct()) return i;
+    foreach(i, c; children) {
+        if (c.getWidgetStruct() == child.getWidgetStruct()) return cast(int) i;
     }
     return -1;
 }
 
 /**
- * Walks up the parent chain until it finds the parent of the 
+ * Walks up the parent chain until it finds the parent of the
  * requested type.
  */
 T findParent(T) (Widget widget) {
@@ -354,7 +354,7 @@ template TComboBox(T) {
     ComboBox createComboBox(const string[] names, T[] values) {
         assert(names.length == values.length);
         trace(typeof(values).stringof);
-        
+
         GType valueType = GType.STRING;
         if (is(typeof(values) == int[])) valueType = GType.INT;
         else if (is(typeof(values) == uint[])) valueType = GType.INT;
