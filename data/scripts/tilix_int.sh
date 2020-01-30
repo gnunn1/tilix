@@ -43,7 +43,9 @@ __tilix_urlencode() (
 )
 
 __tilix_osc7() (
+  local previous_exit_status=$?
   printf "\033]7;file://%s%s\007" "${HOSTNAME:-}" "$(__tilix_urlencode "${PWD}")"
+  return $previous_exit_status
 )
 
 if [[ $PROMPT_COMMAND != *"__vte_prompt_command"* ]]
