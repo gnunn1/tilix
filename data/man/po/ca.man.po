@@ -7,65 +7,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-04-13 23:11+0000\n"
+"Last-Translator: Carles Sadurní <sadurbnd@gmail.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/tilix/manpage/ca/"
+">\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "TILIX"
-msgstr ""
+msgstr "TILIX"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "26 December 2016"
-msgstr ""
+msgstr "26 de desembre de 2016"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "1.4.0"
-msgstr ""
+msgstr "1.4.0"
 
 #. type: TH
 #: ./data/man/tilix:3
 #, no-wrap
 msgid "Tilix Commands"
-msgstr ""
+msgstr "Ordres de Tilix"
 
 #. type: SH
 #: ./data/man/tilix:4
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 #. type: Plain text
 #: ./data/man/tilix:6
 msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
-msgstr ""
+msgstr "B<tilix> - Emulador GTK3 de terminals en mosaic per a GNOME"
 
 #. type: SH
 #: ./data/man/tilix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SINOPSI"
 
 #. type: Plain text
 #: ./data/man/tilix:9
 msgid "B<tilix> [I<options>]"
-msgstr ""
+msgstr "B<tilix> [I<opcions>]"
 
 #. type: SH
 #: ./data/man/tilix:9
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPCIÓ"
 
 #. type: Plain text
 #: ./data/man/tilix:11
@@ -73,56 +76,59 @@ msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "GNOME Human Interface Guidelines."
 msgstr ""
+"B<tilix> és un emulador GTK3 de terminal en mosaic dissenyat per a complir "
+"les Directrius d'Interfície Humana."
 
 #. type: SH
 #: ./data/man/tilix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPCIONS"
 
 #. type: Plain text
 #: ./data/man/tilix:13
 msgid "The B<tilix> application accepts the following command line parameters:"
-msgstr ""
+msgstr "L'aplicació B<tilix> accepta les següents paràmetres:"
 
 #. type: TP
 #: ./data/man/tilix:13
 #, no-wrap
 msgid "B<-h --help>"
-msgstr ""
+msgstr "B<-h --help>"
 
 #. type: Plain text
 #: ./data/man/tilix:16
 msgid "Show help options."
-msgstr ""
+msgstr "Mostra les opcions d'ajuda."
 
 #. type: TP
 #: ./data/man/tilix:16
 #, no-wrap
 msgid "B<-v --version>"
-msgstr ""
+msgstr "B<-v --version>"
 
 #. type: Plain text
 #: ./data/man/tilix:19
 msgid "Show the version of Tilix as well as the versions of dependent components."
 msgstr ""
+"Mostra la versió de Tilix a més de les versions del components dependents."
 
 #. type: TP
 #: ./data/man/tilix:19
 #, no-wrap
 msgid "B<-w --working-directory=DIRECTORY>"
-msgstr ""
+msgstr "B<-w --working-directory=DIRECTORI>"
 
 #. type: Plain text
 #: ./data/man/tilix:22
 msgid "Set the working directory of the terminal."
-msgstr ""
+msgstr "Especifica el directori de treball del terminal."
 
 #. type: TP
 #: ./data/man/tilix:22
 #, no-wrap
 msgid "B<-p --profile=PROFILE_NAME>"
-msgstr ""
+msgstr "B<-p --profile=NOM_DEL_PERFIL>"
 
 #. type: Plain text
 #: ./data/man/tilix:25
@@ -130,23 +136,25 @@ msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
 "it matches none of those, the default profile will be used."
 msgstr ""
+"Establiu el perfil inicial amb el nom d'un dels perfils existents. Si no "
+"coincideix amb cap dels perfils, es farà servir el perfil per defecte."
 
 #. type: TP
 #: ./data/man/tilix:25
 #, no-wrap
 msgid "B<-t --title=TITLE>"
-msgstr ""
+msgstr "B<-t --title=TÍTOL>"
 
 #. type: Plain text
 #: ./data/man/tilix:28
 msgid "Set the title of the new terminal."
-msgstr ""
+msgstr "Estableix el títol del nou terminal."
 
 #. type: TP
 #: ./data/man/tilix:28
 #, no-wrap
 msgid "B<-s --session=SESSION_NAME>"
-msgstr ""
+msgstr "B<-s --session=NOM_DE_LA_SESSIÓ>"
 
 #. type: Plain text
 #: ./data/man/tilix:31
@@ -155,43 +163,46 @@ msgid ""
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
+"Especifica una sessió desada per a recarregar-ne la disposició i les opcions "
+"corresponents. Això no restaurarà el terminal al moment anterior, se'n "
+"crearan de nou."
 
 #. type: TP
 #: ./data/man/tilix:31
 #, no-wrap
 msgid "B<-a --action=ACTION_NAME>"
-msgstr ""
+msgstr "B<-a --action=ACTION_NAME>"
 
 #. type: Plain text
 #: ./data/man/tilix:34
 msgid "Perform one of the following actions in the current Tilix instance:"
-msgstr ""
+msgstr "Executa una de les accions següents en la instància actual de Tilix:"
 
 #. type: Plain text
 #: ./data/man/tilix:37
 msgid "B<session-add-right> Add a new terminal rightwards of the current one."
-msgstr ""
+msgstr "B<session-add-right> Afegeix un nou terminal a la dreta de l'actual."
 
 #. type: Plain text
 #: ./data/man/tilix:40
 msgid "B<session-add-down> Add a new terminal below the current terminal."
-msgstr ""
+msgstr "B<session-add-down> Afegeix un nou terminal sota l'actual."
 
 #. type: Plain text
 #: ./data/man/tilix:43
 msgid "B<app-new-session> Create a new Tilix session within the current window."
-msgstr ""
+msgstr "B<app-new-session> Crea una sessió nova de Tilix en la finestra actual."
 
 #. type: Plain text
 #: ./data/man/tilix:46
 msgid "B<app-new-window> Create a new Tilix window."
-msgstr ""
+msgstr "B<app-new-window> Crea una versió nova de Tilix."
 
 #. type: TP
 #: ./data/man/tilix:46
 #, no-wrap
 msgid "B<-e --command=COMMAND>"
-msgstr ""
+msgstr "B<-e --command=ORDRE>"
 
 #. type: Plain text
 #: ./data/man/tilix:49
@@ -199,87 +210,93 @@ msgid ""
 "Execute all text after this parameter as a command, thus this parameter must "
 "be the last parameter."
 msgstr ""
+"Executa tot el text després d'aquest paràmetre com a ordre, per tant aquest "
+"paràmetre ha de ser l'últim paràmetre."
 
 #. type: TP
 #: ./data/man/tilix:49
 #, no-wrap
 msgid "B<--maximize>"
-msgstr ""
+msgstr "B<--maximize>"
 
 #. type: Plain text
 #: ./data/man/tilix:52
 msgid "Maximize the terminal window."
-msgstr ""
+msgstr "Maximitza la finestra del terminal."
 
 #. type: TP
 #: ./data/man/tilix:52
 #, no-wrap
 msgid "B<--minimize>"
-msgstr ""
+msgstr "B<--minimize>"
 
 #. type: Plain text
 #: ./data/man/tilix:55
 msgid "Minimize the terminal window."
-msgstr ""
+msgstr "Minimitza la finestra del terminal."
 
 #. type: TP
 #: ./data/man/tilix:55
 #, no-wrap
 msgid "B<--full-screen>"
-msgstr ""
+msgstr "B<--full-screen>"
 
 #. type: Plain text
 #: ./data/man/tilix:58
 msgid "Full-screen the terminal window."
-msgstr ""
+msgstr "Posa la finestra del terminal en pantalla completa."
 
 #. type: TP
 #: ./data/man/tilix:58
 #, no-wrap
 msgid "B<--focus-window>"
-msgstr ""
+msgstr "B<--focus-window>"
 
 #. type: Plain text
 #: ./data/man/tilix:61
 msgid "Focus the existing window."
-msgstr ""
+msgstr "Enfoca la finestra existent."
 
 #. type: TP
 #: ./data/man/tilix:61
 #, no-wrap
 msgid "B<--window-style=WINDOW_STYLE>"
-msgstr ""
+msgstr "B<--window-style=STIL_DE_LA_FINESTRA>"
 
 #. type: Plain text
 #: ./data/man/tilix:64
 msgid "Override the preferred window style, the following styles are supported:"
 msgstr ""
+"Sobreescriu l'estil preferit de la finestra, s'hi admeten els estils "
+"següents:"
 
 #. type: Plain text
 #: ./data/man/tilix:67
 msgid "B<normal> Normal window look."
-msgstr ""
+msgstr "B<normal> Aspecte de finestra normal."
 
 #. type: Plain text
 #: ./data/man/tilix:70
 msgid "B<disable-csd> Do not show client side decorations."
-msgstr ""
+msgstr "B<disable-csd> No mostres les decoracions del client."
 
 #. type: Plain text
 #: ./data/man/tilix:73
 msgid "B<disable-csd-hide-toolbar> Do not show client side decorations and toolbar."
 msgstr ""
+"B<disable-csd-hide-toolbar> No mostres les decoracions del client ni la "
+"barra d'eines."
 
 #. type: Plain text
 #: ./data/man/tilix:76
 msgid "B<borderless> Do not show window borders."
-msgstr ""
+msgstr "B<borderless> No mostres les vores de la finestra."
 
 #. type: TP
 #: ./data/man/tilix:76
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: ./data/man/tilix:79
@@ -290,80 +307,90 @@ msgid ""
 "not recommended and only intended for debugging purposes. Its use will "
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
+"Inicia una altra instància de Tilix com a nou procés. Per defecte i d'acord "
+"amb les directrius de la versió 3 de GTK+, Tilix manté un sol procés al qual "
+"pertanyen totes les finestres. Aquesta opció força Tilix a iniciar com a "
+"procés separat. Això no és recomanable i només s'ha pensat per a depurar. El "
+"seu ús impedeix que les diferents finestres de Tilix es comuniquen entre "
+"elles."
 
 #. type: TP
 #: ./data/man/tilix:79
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=GEOMETRIA>"
 
 #. type: Plain text
 #: ./data/man/tilix:82
 msgid "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Estableix la mida de la finestra; per exemple: 80x24 o 80x24+200+200 "
+"(COLSxFILS+X+Y)."
 
 #. type: TP
 #: ./data/man/tilix:82
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: ./data/man/tilix:85
 msgid "Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
+"Obre una finestra en mode Quake o commuta la visibilitat de la finestra "
+"existent en mode Quake."
 
 #. type: TP
 #: ./data/man/tilix:85
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: ./data/man/tilix:88
 msgid "Show the Tilix preferences dialog directly."
-msgstr ""
+msgstr "Mostra directament el diàleg de preferències de Tilix."
 
 #. type: TP
 #: ./data/man/tilix:88
 #, no-wrap
 msgid "B<--display=DISPLAY>"
-msgstr ""
+msgstr "B<--display=PANTALLA>"
 
 #. type: Plain text
 #: ./data/man/tilix:91
 msgid "Use the specified X display."
-msgstr ""
+msgstr "Usa la pantalla X especificada."
 
 #. type: SH
 #: ./data/man/tilix:91
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VEGEU TAMBÉ"
 
 #. type: Plain text
 #: ./data/man/tilix:93
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #. type: SH
 #: ./data/man/tilix:93
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "ERRORS"
 
 #. type: Plain text
 #: ./data/man/tilix:95
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
-msgstr ""
+msgstr "Vegeu els errors a https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
 #: ./data/man/tilix:95
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTOR"
 
 #. type: Plain text
 #: ./data/man/tilix:96
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Gerald Nunn i altres col·laboradors."
