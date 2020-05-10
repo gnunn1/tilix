@@ -11,7 +11,7 @@ fi
 export PREFIX
 
 echo "Installing man pages"
-install -Dm 644 'data/man/tilix' "$PREFIX/share/man/man1/tilix.1"
+install -Dm 644 'data/man/tilix.1' "$PREFIX/share/man/man1/tilix.1"
 gzip -f "$PREFIX/share/man/man1/tilix.1"
 
 if type po4a-translate >/dev/null 2>&1; then
