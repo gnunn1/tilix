@@ -49,7 +49,7 @@ echo "Installing to prefix $PREFIX"
 
 # Copy and compile schema
 echo "Copying and compiling schema..."
-install -Dm 644 data/gsettings/com.gexperts.Tilix.gschema.xml "$PREFIX/share/glib-2.0/schemas/"
+install -Dm 644 data/gsettings/com.gexperts.Tilix.gschema.xml -t "$PREFIX/share/glib-2.0/schemas/"
 glib-compile-schemas $PREFIX/share/glib-2.0/schemas/
 
 export TILIX_SHARE="$PREFIX/share/tilix"
@@ -61,17 +61,17 @@ cd data/resources
 
 echo "Building and copy resources..."
 glib-compile-resources tilix.gresource.xml
-install -Dm 644 tilix.gresource "$TILIX_SHARE/resources/"
+install -Dm 644 tilix.gresource -t "$TILIX_SHARE/resources/"
 
 cd ../..
 
 # Copy shell integration script
 echo "Copying scripts..."
-install -Dm 755 data/scripts/* "$TILIX_SHARE/scripts/"
+install -Dm 755 data/scripts/* -t "$TILIX_SHARE/scripts/"
 
 # Copy color schemes
 echo "Copying color schemes..."
-install -Dm 644 data/schemes/* "$TILIX_SHARE/schemes/"
+install -Dm 644 data/schemes/* -t "$TILIX_SHARE/schemes/"
 
 # Create/Update LINGUAS file
 find po -name "*\.po" -printf "%f\\n" | sed "s/\.po//g" | sort > po/LINGUAS
@@ -104,10 +104,10 @@ fi
 
 # Copying Nautilus extension
 echo "Copying Nautilus extension"
-install -Dm 644 data/nautilus/open-tilix.py "$PREFIX/share/nautilus-python/extensions/"
+install -Dm 644 data/nautilus/open-tilix.py -t "$PREFIX/share/nautilus-python/extensions/"
 
 # Copy D-Bus service descriptor
-install -Dm 644 data/dbus/com.gexperts.Tilix.service "$PREFIX/share/dbus-1/services/"
+install -Dm 644 data/dbus/com.gexperts.Tilix.service -t "$PREFIX/share/dbus-1/services/"
 
 # Copy man page
 . $(dirname $(realpath "$0"))/data/scripts/install-man-pages.sh
@@ -122,10 +122,10 @@ done
 cd ../../..
 
 # Copy executable, desktop and appdata file
-install -Dm 755 tilix "$PREFIX/bin/"
+install -Dm 755 tilix -t "$PREFIX/bin/"
 
-install -Dm 644 data/pkg/desktop/com.gexperts.Tilix.desktop "$PREFIX/share/applications/"
-install -Dm 644 data/appdata/com.gexperts.Tilix.appdata.xml "$PREFIX/share/metainfo/"
+install -Dm 644 data/pkg/desktop/com.gexperts.Tilix.desktop -t "$PREFIX/share/applications/"
+install -Dm 644 data/appdata/com.gexperts.Tilix.appdata.xml -t "$PREFIX/share/metainfo/"
 
 # Update icon cache if Prefix is /usr
 if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
