@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# exit on first error
+set -o errexit
 
 # Determine PREFIX.
 if [ -z "$1" ]; then
