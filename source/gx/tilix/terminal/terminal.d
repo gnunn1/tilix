@@ -1463,6 +1463,12 @@ private:
     void paste(GdkAtom source) {
 
         string pasteText = Clipboard.get(source).waitForText();
+        
+        bool stripTrailingWhitespace = gsSettings.getBoolean(SETTINGS_STRIP_TRAILING_WHITESPACE);
+        if (stripTrailingWhitespace) {
+            pasteText = pasteText.stripRight();
+        }
+
         if (pasteText.length == 0) return;
 
         // Don't check for unsafe paste if doing sync input, original paste checked it
@@ -1478,14 +1484,18 @@ private:
                     return;
             }
         }
+        
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
             pasteText = pasteText[1 .. $];
+            vte.feedChild(pasteText);
+        } else if (stripTrailingWhitespace) {
             vte.feedChild(pasteText);
         } else if (source == GDK_SELECTION_CLIPBOARD) {
             vte.pasteClipboard();
         } else {
             vte.pastePrimary();
         }
+
         if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
             scrollToBottom();
         }
