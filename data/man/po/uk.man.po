@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2017-08-05 18:07+0000\n"
-"Last-Translator: Olexandr <me.olexandr.kovalchuk@gmail.com>\n"
+"PO-Revision-Date: 2020-06-26 17:41+0000\n"
+"Last-Translator: Ivan Banha <banha.ivan@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tilix/manpage/"
 "uk/>\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.16-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #. type: TH
 #: data/man/tilix:3
@@ -53,23 +53,24 @@ msgstr "НАЗВА"
 #: data/man/tilix:6
 msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
 msgstr ""
+"B<tilix> - Тайлінговий емулятор терміналу для GNOME, що використовує GTK3"
 
 #. type: SH
 #: data/man/tilix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "СИНОПСИС"
 
 #. type: Plain text
 #: data/man/tilix:9
 msgid "B<tilix> [I<options>]"
-msgstr ""
+msgstr "B<tilix> [I<опції>]"
 
 #. type: SH
 #: data/man/tilix:9
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "ОПИС"
 
 #. type: Plain text
 #: data/man/tilix:11
@@ -77,57 +78,60 @@ msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "GNOME Human Interface Guidelines."
 msgstr ""
+"B<tilix> це прогресивний тайлінговий емулятор терміналу, що використовує "
+"GTK3 та спроєктований з урахуванням принципів GNOME Human Interface "
+"Guidelines."
 
 #. type: SH
 #: data/man/tilix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "ВАРІАНТИ"
 
 #. type: Plain text
 #: data/man/tilix:13
 msgid "The B<tilix> application accepts the following command line parameters:"
-msgstr ""
+msgstr "B<tilix> приймає наступні параметри командного рядка:"
 
 #. type: TP
 #: data/man/tilix:13
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "B<-h --help>"
-msgstr ""
+msgstr "B<-h --help>"
 
 #. type: Plain text
 #: data/man/tilix:16
 msgid "Show help options."
-msgstr ""
+msgstr "Показати довідку."
 
 #. type: TP
 #: data/man/tilix:16
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "B<-v --version>"
-msgstr ""
+msgstr "B<-v --version>"
 
 #. type: Plain text
 #: data/man/tilix:19
 msgid ""
 "Show the version of Tilix as well as the versions of dependent components."
-msgstr ""
+msgstr "Показати версію Tilix разом з версіями залежних компонентів."
 
 #. type: TP
 #: data/man/tilix:19
 #, no-wrap
 msgid "B<-w --working-directory=DIRECTORY>"
-msgstr ""
+msgstr "B<-w --working-directory=ТЕКА>"
 
 #. type: Plain text
 #: data/man/tilix:22
 msgid "Set the working directory of the terminal."
-msgstr ""
+msgstr "Вказати робочу теку термінала."
 
 #. type: TP
 #: data/man/tilix:22
 #, no-wrap
 msgid "B<-p --profile=PROFILE_NAME>"
-msgstr ""
+msgstr "B<-p --profile=НАЗВА_ПРОФІЛЮ>"
 
 #. type: Plain text
 #: data/man/tilix:25
@@ -135,23 +139,26 @@ msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
 "it matches none of those, the default profile will be used."
 msgstr ""
+"Вказати стартовий профіль, використовуючи назву одного з наявних профілів. "
+"Якщо профіль не збігатися з жодним з них, буде використаний профіль за "
+"замовчуванням."
 
 #. type: TP
 #: data/man/tilix:25
 #, no-wrap
 msgid "B<-t --title=TITLE>"
-msgstr ""
+msgstr "B<-t --title=ЗАГОЛОВОК>"
 
 #. type: Plain text
 #: data/man/tilix:28
 msgid "Set the title of the new terminal."
-msgstr ""
+msgstr "Вказати заголовок нового термінала."
 
 #. type: TP
 #: data/man/tilix:28
 #, no-wrap
 msgid "B<-s --session=SESSION_NAME>"
-msgstr ""
+msgstr "B<-s --session=НАЗВА_СЕАНСУ>"
 
 #. type: Plain text
 #: data/man/tilix:31
@@ -160,17 +167,20 @@ msgid ""
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
+"Вказати попередньо збережений сеанс щоб відновити розташування терміналів та "
+"їх параметрів. Ця операція не відновить стан терміналу, при якому він був "
+"зупинений - скоріше будуть створені нові термінали."
 
 #. type: TP
 #: data/man/tilix:31
 #, no-wrap
 msgid "B<-a --action=ACTION_NAME>"
-msgstr ""
+msgstr "B<-a --action=НАЗВА_ДІЇ>"
 
 #. type: Plain text
 #: data/man/tilix:34
 msgid "Perform one of the following actions in the current Tilix instance:"
-msgstr ""
+msgstr "Виконати одну з наступних дій в поточному екземплярі Tilix:"
 
 #. type: Plain text
 #: data/man/tilix:37
