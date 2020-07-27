@@ -79,6 +79,7 @@ install_data(
         'schemes/solarized-dark.json',
         'schemes/solarized-light.json',
         'schemes/tango.json',
+        'schemes/yaru.json',
     ],
     install_dir: pkgdatadir / 'schemes'
 )
