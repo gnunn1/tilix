@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2017-10-15 16:46+0000\n"
-"Last-Translator: Nuno Dio <nunossdionisio@gmail.com>\n"
+"PO-Revision-Date: 2020-08-11 16:32+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -216,11 +216,11 @@ msgstr "Tilix"
 
 #: source/gx/tilix/appwindow.d:1700
 msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr ""
+msgstr "Modo Quake não é suportado no Wayland, a executar numa janela normal"
 
 #: source/gx/tilix/appwindow.d:1702
 msgid "Quake Mode Not Supported"
-msgstr ""
+msgstr "Modo Quake não é suportado"
 
 #: source/gx/tilix/appwindow.d:2113
 #, fuzzy
@@ -474,7 +474,7 @@ msgstr "Copiar"
 #: source/gx/tilix/terminal/terminal.d:1811
 #: source/gx/tilix/terminal/terminal.d:1825
 msgid "Copy as HTML"
-msgstr ""
+msgstr "Copiar como HTML"
 
 #: source/gx/tilix/terminal/terminal.d:1814
 #: source/gx/tilix/terminal/terminal.d:1836
@@ -493,7 +493,7 @@ msgstr "Sincronizar entrada"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "Não foi possível verificar o ficheiro '%s' devido ao erro '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -501,6 +501,8 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"O ficheiro remoto URIs não é suportado com hyperligações.\n"
+"A uri foi '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2014
 msgid "Remote File URI Unsupported"
@@ -510,7 +512,7 @@ msgstr "URI do ficheiro remoto não suportado"
 #: source/gx/tilix/terminal/terminal.d:2621
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
+msgstr "Expressão regular de link personalizado '%s' tem um erro, a ignorar"
 
 #: source/gx/tilix/terminal/terminal.d:2047
 msgid "Regular Expression Error"
@@ -519,11 +521,11 @@ msgstr "Erro na expressão regular"
 #: source/gx/tilix/terminal/terminal.d:2060
 #, c-format
 msgid "Could not open match '%s'"
-msgstr ""
+msgstr "Não foi possível abrir correspondência '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2061
 msgid "Error Opening Match"
-msgstr ""
+msgstr "Erro ao abrir correspondência"
 
 #: source/gx/tilix/terminal/terminal.d:2571
 #, fuzzy, c-format
@@ -699,6 +701,7 @@ msgstr "Editar palavra-passe"
 #: source/gx/tilix/terminal/monitor.d:112
 msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
+"O monitoramento de processo não está ativado, isso nunca deve ser chamado"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -714,7 +717,7 @@ msgstr "Apagar favorito"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:77
 msgid "Unselect bookmark"
-msgstr ""
+msgstr "Desfazer seleção de favorito"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "General"
@@ -770,7 +773,7 @@ msgstr "Tamanho do terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:311
 msgid "width"
-msgstr ""
+msgstr "largura"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:320
 #, fuzzy
@@ -779,7 +782,7 @@ msgstr "Direita"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:347
 msgid "Margin"
-msgstr ""
+msgstr "Margem"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:358
 #, fuzzy
@@ -788,7 +791,7 @@ msgstr "Piscar"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 #, fuzzy
@@ -802,7 +805,7 @@ msgstr "Escurecer quando fora de foco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:361
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:380
 #: source/gx/tilix/prefeditor/profileeditor.d:1202
@@ -816,7 +819,7 @@ msgstr "Escolher fonte do terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:402
 msgid "Word-wise select chars"
-msgstr ""
+msgstr "Delimitadores de seleção por palavra"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:411
 #: source/gx/tilix/prefeditor/profileeditor.d:419
@@ -910,7 +913,7 @@ msgstr "Utilizar cores de sistema para texto/fundo"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:582
 msgid "Show bold text in bright colors"
-msgstr ""
+msgstr "Mostrar texto em negrito com cores brilhantes"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:594
 msgid "Transparency"
@@ -1134,13 +1137,15 @@ msgstr "Escolher fonte do terminal"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
 msgid "Notify New Activity"
-msgstr ""
+msgstr "Notificar uma nova atividade"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1259
 msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
+"Uma notificação pode ser enviada quando uma nova atividade ocorre após um "
+"certo tempo de inatividade."
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1272
 msgid "Automatic Profile Switching"
@@ -1211,11 +1216,11 @@ msgstr "Padrão"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1375
 msgid "Threshold for continuous silence"
-msgstr ""
+msgstr "Limiar considerado como silêncio"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1384
 msgid "(seconds)"
-msgstr ""
+msgstr "(segundos)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
@@ -1296,7 +1301,7 @@ msgstr "Perfil: %s"
 #: source/gx/tilix/prefeditor/prefdialog.d:366
 #, c-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr ""
+msgstr "Tem certeza de que deseja apagar '%s'?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:557
 msgid "Clone"
@@ -1408,7 +1413,7 @@ msgstr "Topo"
 #: source/gx/tilix/prefeditor/prefdialog.d:1351
 #: source/gx/tilix/prefeditor/prefdialog.d:1358
 msgid "Bottom"
-msgstr ""
+msgstr "Base"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1163
 msgid "Theme variant"
@@ -1481,7 +1486,7 @@ msgstr "Mostrar o título do terminal mesmo que seja o único"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
+msgstr "Usar barras de rolagem sobrepostas (necessário de reiniciar aplicação)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1279
 msgid "Use tabs instead of sidebar (Application restart required)"
@@ -1527,7 +1532,7 @@ msgstr "Ocultar a barra de título da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1418
 msgid "Keep window always on top"
-msgstr ""
+msgstr "Manter janela sempre no topo"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1423
 msgid "Display terminal on active monitor"
@@ -1539,7 +1544,7 @@ msgstr "Mostrar o terminal no monitor"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "Monitor Primário"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
 #, fuzzy
@@ -1572,7 +1577,7 @@ msgstr "Aumentar ou diminuir zoom usando <Control> e rolagem do mouse"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1527
 msgid "Require the <Control> modifier to edit title on click"
-msgstr ""
+msgstr "Requerer <Ctrl> + clique para editar o título da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1532
 msgid "Close window when last session is closed"
@@ -1653,11 +1658,11 @@ msgstr "Não diferenciar maiúsculas e minúsculas"
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
-msgstr ""
+msgstr "Mover acima"
 
 #: source/gx/tilix/prefeditor/advdialog.d:162
 msgid "Move down"
-msgstr ""
+msgstr "Mover abaixo"
 
 #: source/gx/tilix/prefeditor/advdialog.d:192
 msgid "Edit Custom Links"
@@ -1800,6 +1805,8 @@ msgid ""
 "Override the preferred window style to use, one of: normal,disable-csd,"
 "disable-csd-hide-toolbar,borderless"
 msgstr ""
+"Substituir o estilo de janela preferido, valores possíveis : normal, disable-"
+"csd, disable-csd-hide-toolbar, borderless"
 
 #: source/gx/tilix/application.d:690
 #, fuzzy
@@ -1863,7 +1870,7 @@ msgstr "UUID_DO_TERMINAL"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "O id de aplicação '%s' não é valido"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1969,11 +1976,11 @@ msgstr "Somente leitura"
 
 #: source/gx/tilix/constants.d:162
 msgid "Status.Silence"
-msgstr ""
+msgstr "Status.Silence"
 
 #: source/gx/tilix/constants.d:163
 msgid "Status.Input-Sync"
-msgstr ""
+msgstr "Status.Input-Sync"
 
 #: source/gx/tilix/constants.d:178
 #, fuzzy
@@ -2653,7 +2660,7 @@ msgstr "Copiar"
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr ""
+msgstr "Copiar como HTML"
 
 #: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
@@ -2663,7 +2670,7 @@ msgstr "Colar"
 #: data/resources/ui/shortcuts.ui:419
 msgctxt "shortcut window"
 msgid "Paste selection"
-msgstr ""
+msgstr "Colar seleção"
 
 #: data/resources/ui/shortcuts.ui:425
 msgctxt "shortcut window"
@@ -2715,22 +2722,22 @@ msgstr "Rolagem"
 #: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Page up"
-msgstr ""
+msgstr "Rolar uma página para cima"
 
 #: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Page down"
-msgstr ""
+msgstr "Rolar uma página para baixo"
 
 #: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Previous prompt"
-msgstr ""
+msgstr "Prompt anterior"
 
 #: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Next prompt"
-msgstr ""
+msgstr "Próximo prompt"
 
 #: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
@@ -2853,7 +2860,7 @@ msgstr "Um terminal em mosaico para o GNOME"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr ""
+msgstr "shell;prompt;comando;linha de comando;cmd;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 #, fuzzy
@@ -2944,10 +2951,12 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"Novos recursos e correções de bugs, para informações detalhadas sobre este "
+"lançamento, veja: https://gnunn1.github.io/tilix-web/."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #, fuzzy
 #~ msgid "New window inherits directory and profile from active terminal"
