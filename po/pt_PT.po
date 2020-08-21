@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2020-08-11 16:32+0000\n"
+"PO-Revision-Date: 2020-08-22 20:36+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_PT/>\n"
@@ -15,13 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 
 #: source/app.d:139
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"A sua versão do GTK é muito antiga, você precisa pelo menos do GTK %d.%d.%d!"
+msgstr "A sua versão do GTK é muito antiga, precisa pelo menos do GTK %d.%d.%d!"
 
 #: source/app.d:156
 msgid "Unexpected exception occurred"
@@ -116,11 +115,11 @@ msgstr "Abrir…"
 #: source/gx/tilix/terminal/terminal.d:3673
 #: source/gx/tilix/prefeditor/profileeditor.d:952
 msgid "Save"
-msgstr "Salvar"
+msgstr "Gravar"
 
 #: source/gx/tilix/appwindow.d:685
 msgid "Save As…"
-msgstr "Salvar como…"
+msgstr "Gravar como…"
 
 #: source/gx/tilix/appwindow.d:691
 msgid "Name…"
@@ -153,7 +152,7 @@ msgstr "GC"
 #: source/gx/tilix/appwindow.d:1082
 #: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
 msgid "Default"
-msgstr "Padrão"
+msgstr "Predefinição"
 
 #: source/gx/tilix/appwindow.d:1191
 msgid "There are multiple sessions open, close anyway?"
@@ -162,18 +161,18 @@ msgstr "Múltiplas sessões estão em uso. Fechar mesmo assim?"
 #: source/gx/tilix/appwindow.d:1455
 #: source/gx/tilix/prefeditor/profileeditor.d:965
 msgid "All JSON Files"
-msgstr "Todos os arquivos JSON"
+msgstr "Todos os ficheiros JSON"
 
 #: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3683
 #: source/gx/tilix/prefeditor/profileeditor.d:969
 #: source/gx/tilix/prefeditor/prefdialog.d:1182
 msgid "All Files"
-msgstr "Todos os arquivos"
+msgstr "Todos os ficheiros"
 
 #: source/gx/tilix/appwindow.d:1468
 #, c-format
 msgid "Filename '%s' does not exist"
-msgstr "O arquivo '%s' não existe"
+msgstr "O ficheiro '%s' não existe"
 
 #: source/gx/tilix/appwindow.d:1500
 msgid "Load Session"
@@ -206,7 +205,7 @@ msgstr "Erro ao carregar sessão"
 
 #: source/gx/tilix/appwindow.d:1549
 msgid "Save Session"
-msgstr "Salvar sessão"
+msgstr "Gravar sessão"
 
 #: source/gx/tilix/appwindow.d:1671 source/gx/tilix/application.d:342
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -326,7 +325,7 @@ msgstr "Maximizar"
 #: source/gx/tilix/terminal/terminal.d:401
 #: source/gx/tilix/terminal/terminal.d:691
 msgid "Disable input synchronization for this terminal"
-msgstr "Desabilitar sincronização de entrada neste terminal"
+msgstr "Desativar sincronização de entrada neste terminal"
 
 #: source/gx/tilix/terminal/terminal.d:410
 #: source/gx/tilix/terminal/terminal.d:828
@@ -353,15 +352,15 @@ msgstr "Editar Codificações"
 
 #: source/gx/tilix/terminal/terminal.d:693
 msgid "Enable input synchronization for this terminal"
-msgstr "Habilitar sincronização de entrada neste terminal"
+msgstr "Ativar sincronização de entrada neste terminal"
 
 #: source/gx/tilix/terminal/terminal.d:728
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr ""
-"A biblioteca %s não pôde ser carregada, a funcionalidade de senha ficará "
-"indisponível."
+"A biblioteca %s não pôde ser carregada, a funcionalidade de palavra-passe "
+"ficará indisponível."
 
 #: source/gx/tilix/terminal/terminal.d:728
 msgid "Library Not Loaded"
@@ -398,7 +397,7 @@ msgstr "Abrir gestor de ficheiros..."
 
 #: source/gx/tilix/terminal/terminal.d:851
 msgid "Save Output…"
-msgstr "Salvar saída…"
+msgstr "Gravar saída…"
 
 #: source/gx/tilix/terminal/terminal.d:852
 #: source/gx/tilix/prefeditor/profileeditor.d:289
@@ -512,7 +511,7 @@ msgstr "URI do ficheiro remoto não suportado"
 #: source/gx/tilix/terminal/terminal.d:2621
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Expressão regular de link personalizado '%s' tem um erro, a ignorar"
+msgstr "Expressão regular de ligaçaõ personalizada '%s' tem um erro, a ignorar"
 
 #: source/gx/tilix/terminal/terminal.d:2047
 msgid "Regular Expression Error"
@@ -543,7 +542,7 @@ msgstr "Ocorreu um erro inesperado: %s"
 
 #: source/gx/tilix/terminal/terminal.d:3670
 msgid "Save Terminal Output"
-msgstr "Salvar saída do terminal"
+msgstr "Gravar saída do terminal"
 
 #: source/gx/tilix/terminal/terminal.d:3679
 msgid "All Text Files"
@@ -630,7 +629,7 @@ msgid ""
 msgstr ""
 "Ativo: mudanças nessas opções são aplicadas imediatamente.\n"
 "Ao carregar sessão: mudanças nessas opções são aplicadas ao carregar um "
-"arquivo de sessão."
+"ficheiro de sessão."
 
 #: source/gx/tilix/terminal/password.d:137
 #: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
@@ -1159,7 +1158,7 @@ msgid ""
 "Entries with neither hostname or directory are not permitted."
 msgstr ""
 "Perfis são selecionados automaticamente com base nas entradas criadas aqui.\n"
-"Entradas usam o formato <i>usuário@nome-do-host:diretório</i>. O nome de "
+"Entradas usam o formato <i>utilizador@nome-do-host:diretório</i>. O nome de "
 "host ou diretório podem ser omitidos, mas não ambos, e o caractere dois "
 "pontos precisa ser mantido."
 
@@ -1187,27 +1186,27 @@ msgstr "Adicionar"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1310
 msgid "Enter username@hostname:directory to match"
-msgstr "Digite um padrão no formato usuário@nome-do-host:diretório"
+msgstr "Digite utilizador@nome-do-host:diretório para corresponder"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1312
 msgid "Enter hostname:directory to match"
-msgstr "Digite um padrão de nome do host:diretório"
+msgstr "Digite o nome do host:diretório para corresponder"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1314
 msgid "Add New Match"
-msgstr "Adicionar novo padrão de correspondência"
+msgstr "Adicionar correspondência"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1331
 msgid "Edit username@hostname:directory to match"
-msgstr "Editar padrão no formato usuário@nome-do-host:diretório"
+msgstr "Editar utilizador@nome-do-host:diretório para corresponder"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1333
 msgid "Edit hostname:directory to match"
-msgstr "Editar padrão de nome do host:diretório"
+msgstr "Editar nome do host:diretório para corresponder"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1335
 msgid "Edit Match"
-msgstr "Editar padrão de correspondência"
+msgstr "Editar correspondência"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1366
 #, fuzzy
@@ -1224,15 +1223,15 @@ msgstr "(segundos)"
 
 #: source/gx/tilix/prefeditor/common.d:37
 msgid "Custom Links"
-msgstr "Links personalizados"
+msgstr "Ligações personalizados"
 
 #: source/gx/tilix/prefeditor/common.d:43
 msgid ""
 "A list of user defined links that can be clicked on in the terminal based on "
 "regular expression definitions."
 msgstr ""
-"Uma lista de links definidos pelo usuário que podem ser clicados no terminal "
-"com base em definições de expressões regulares."
+"Uma lista de ligações definidas pelo utilizador que podem ser clicados no "
+"terminal com base em definições de expressões regulares."
 
 #: source/gx/tilix/prefeditor/common.d:67
 msgid "Triggers"
@@ -1437,7 +1436,7 @@ msgstr "Selecionar imagem"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1175
 msgid "All Image Files"
-msgstr "Todos os arquivos de imagem"
+msgstr "Todos os ficheiross de imagem"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1196
 msgid "Reset background image"
@@ -1462,7 +1461,7 @@ msgstr "Estender"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1221
 msgid "Default session name"
-msgstr "Nome da sessão padrão"
+msgstr "Nome da sessão predefinido"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1236
 msgid "Application title"
@@ -1561,19 +1560,19 @@ msgstr "Alertar ao criar uma nova sessão"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1507
 msgid "Focus a terminal when the mouse moves over it"
-msgstr "Ativar terminal quando o cursor é colocado sobre ele"
+msgstr "Ativar terminal quando o rato é posto sobre ele"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1512
 msgid "Autohide the mouse pointer when typing"
-msgstr "Ocultar automaticamente o ponteiro ao digitar"
+msgstr "Ocultar o ponteiro do rato automaticamente ao digitar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1517
 msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Fechar terminal com clique do meio no título"
+msgstr "Fechar terminal com clique do meio no rato no título"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1522
 msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Aumentar ou diminuir zoom usando <Control> e rolagem do mouse"
+msgstr "Aumentar ou diminuir zoom usando <Control> e rolagem do rato"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1527
 msgid "Require the <Control> modifier to edit title on click"
@@ -1666,7 +1665,7 @@ msgstr "Mover abaixo"
 
 #: source/gx/tilix/prefeditor/advdialog.d:192
 msgid "Edit Custom Links"
-msgstr "Editar links personalizados"
+msgstr "Editar ligações personalizados"
 
 #: source/gx/tilix/prefeditor/advdialog.d:299
 msgid "Parameter"
@@ -1674,7 +1673,7 @@ msgstr "Parâmetro"
 
 #: source/gx/tilix/prefeditor/advdialog.d:337
 msgid "Limit number of lines for trigger processing to:"
-msgstr "Limitar número de linhas processadas para detectar acionadores a:"
+msgstr "Limitar quantidade de linhas para detectar acionadores a:"
 
 #: source/gx/tilix/prefeditor/advdialog.d:362
 msgid "Edit Triggers"
@@ -1815,7 +1814,7 @@ msgstr "ESTILO_DA_JANELA"
 
 #: source/gx/tilix/application.d:691
 msgid "Full-screen the terminal window"
-msgstr "Alternar a janela do terminal para tela cheia"
+msgstr "Alternar a janela do terminal para ecrã cheio"
 
 #: source/gx/tilix/application.d:692
 msgid "Focus the existing window"
@@ -1880,7 +1879,7 @@ msgid ""
 msgstr ""
 "Parece haver um problema com a configuração do terminal.\n"
 "O problema não é grave, mas corrigi-lo irá melhorar a sua experiência.\n"
-"Clique no link a seguir para mais informações:"
+"Clique na ligação a seguir para mais informações:"
 
 #: source/gx/tilix/application.d:877
 msgid "Configuration Issue Detected"
@@ -1893,7 +1892,7 @@ msgstr "Não exibir esta mensagem novamente"
 #: source/gx/tilix/colorschemes.d:189
 #, c-format
 msgid "File %s is not a color scheme compliant JSON file"
-msgstr "O arquivo %s não é um arquivo JSON compatível com o esquema de cores"
+msgstr "O ficheiro %s não é um ficheiro JSON compatível com o esquema de cores"
 
 #: source/gx/tilix/colorschemes.d:252
 msgid "Color scheme palette requires 16 colors"
@@ -1918,8 +1917,8 @@ msgid ""
 "obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
 "Este Código Fonte está sujeito aos termos da Licença Pública Mozilla (MPL), "
-"v. 2.0. Se uma cópia da MPL não foi distribuída com este arquivo, você pode "
-"obtê-la em http://mozilla.org/MPL/2.0/."
+"v. 2.0. Se uma cópia da MPL não foi distribuída com este ficheiro, pode obtê-"
+"la em http://mozilla.org/MPL/2.0/."
 
 #: source/gx/tilix/constants.d:78
 #, fuzzy
@@ -2032,8 +2031,8 @@ msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
-"Você não pode carregar uma sessão e definir perfil/diretório de trabalho/"
-"comando a ser executado ao mesmo tempo. Por favor escolha entre um e outro"
+"Não pode carregar uma sessão e definir perfil/diretório de trabalho/comando "
+"a ser executado ao mesmo tempo. Por favor escolha entre um e outro"
 
 #: source/gx/tilix/cmdparams.d:193
 #, fuzzy
@@ -2367,7 +2366,7 @@ msgstr "Janela"
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Toggle fullscreen mode"
-msgstr "Alternar para o modo tela cheia"
+msgstr "Alternar para o modo ecrã cheio"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
@@ -2454,7 +2453,7 @@ msgstr "Sessão"
 #: data/resources/ui/shortcuts.ui:155
 msgctxt "shortcut window"
 msgid "File"
-msgstr "Arquivo"
+msgstr "Ficheiro"
 
 #: data/resources/ui/shortcuts.ui:159
 msgctxt "shortcut window"
@@ -2464,12 +2463,12 @@ msgstr "Encerrar a sessão atual"
 #: data/resources/ui/shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Save the current session"
-msgstr "Salvar a sessão atual"
+msgstr "Gravar a sessão atual"
 
 #: data/resources/ui/shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Save the current session with new filename"
-msgstr "Salvar a sessão atual com um novo nome de arquivo"
+msgstr "Gravar a sessão atual com um novo nome de ficheiro"
 
 #: data/resources/ui/shortcuts.ui:177
 msgctxt "shortcut window"
@@ -2700,7 +2699,7 @@ msgstr "Diminuir zoom"
 #: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Zoom normal size"
-msgstr "Restaurar zoom padrão"
+msgstr "Restaurar zoom normal"
 
 #: data/resources/ui/shortcuts.ui:463
 msgctxt "shortcut window"
@@ -2742,7 +2741,7 @@ msgstr "Próximo prompt"
 #: data/resources/ui/shortcuts.ui:509
 msgctxt "shortcut window"
 msgid "Save terminal contents"
-msgstr "Salvar o conteúdo do terminal"
+msgstr "Gravar o conteúdo do terminal"
 
 #: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
@@ -2787,7 +2786,7 @@ msgstr "Inserir o número do terminal"
 #: data/resources/ui/shortcuts.ui:563
 msgctxt "shortcut window"
 msgid "Insert password"
-msgstr "Inserir senha"
+msgstr "Inserir palavra-passe"
 
 #: data/resources/ui/shortcuts.ui:569
 #, fuzzy
@@ -2892,7 +2891,7 @@ msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
 msgstr ""
-"Reorganizar terminais arrastando e soltando em uma mesma janela, ou entre "
+"Reorganizar terminais arrastando e soltando numa mesma janela, ou entre "
 "janelas diferentes"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:19
@@ -2905,11 +2904,11 @@ msgid ""
 "terminal are replicated to the others"
 msgstr ""
 "Sincronizar a entrada entre diferentes terminais, replicando comandos "
-"digitados em um terminal para outros"
+"digitados num terminal para outros"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
 msgid "The grouping of terminals can be saved and loaded from disk"
-msgstr "Carregar e salvar grupos de terminais de/para o disco"
+msgstr "Carregar e gravar grupos de terminais de/para o disco"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid "Terminals support custom titles"
@@ -2921,7 +2920,7 @@ msgid ""
 "simply creating a new file"
 msgstr ""
 "Criar e armazenar novos esquemas de cores personalizados apenas manipulando "
-"arquivos"
+"ficheiros"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Transparent background"
@@ -2938,8 +2937,8 @@ msgid ""
 "decorations, though it can be disabled if necessary."
 msgstr ""
 "A aplicação utiliza o GTK 3, observando as diretrizes de interface de "
-"usuário do GNOME (GNOME HIG). Portanto, decorações de janela internas são "
-"utilizadas, mas podem ser desabilitadas se necessário."
+"utilizador do GNOME (GNOME HIG). Portanto, decorações de janela internas são "
+"utilizadas, mas podem ser desativadas se necessário."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 #, fuzzy
