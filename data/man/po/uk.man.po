@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2020-09-09 01:36+0000\n"
+"PO-Revision-Date: 2020-09-13 02:36+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tilix/manpage/"
 "uk/>\n"
@@ -53,18 +53,19 @@ msgstr "НАЗВА"
 #: data/man/tilix:6
 msgid "B<tilix> - Tiling GTK3 terminal emulator for GNOME"
 msgstr ""
-"B<tilix> - Тайлінговий емулятор терміналу для GNOME, що використовує GTK3"
+"B<tilix> - Плитковий емулятор терміналу для GNOME, створений за допомогою "
+"GTK3"
 
 #. type: SH
 #: data/man/tilix:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr "СИНОПСИС"
+msgstr "КОРОТКИЙ ОГЛЯД"
 
 #. type: Plain text
 #: data/man/tilix:9
 msgid "B<tilix> [I<options>]"
-msgstr "B<tilix> [I<опції>]"
+msgstr "B<tilix> [I<параметри>]"
 
 #. type: SH
 #: data/man/tilix:9
@@ -78,20 +79,19 @@ msgid ""
 "B<tilix> is an advanced GTK3 tiling terminal emulator designed to adhere to "
 "GNOME Human Interface Guidelines."
 msgstr ""
-"B<tilix> це прогресивний тайлінговий емулятор терміналу, що використовує "
-"GTK3 та спроєктований з урахуванням принципів GNOME Human Interface "
-"Guidelines."
+"B<tilix> це прогресивний плитковий емулятор терміналу, що використовує GTK3 "
+"та спроєктований з урахуванням принципів GNOME Human Interface Guidelines."
 
 #. type: SH
 #: data/man/tilix:11
 #, no-wrap
 msgid "OPTIONS"
-msgstr "ВАРІАНТИ"
+msgstr "ПАРАМЕТРИ"
 
 #. type: Plain text
 #: data/man/tilix:13
 msgid "The B<tilix> application accepts the following command line parameters:"
-msgstr "B<tilix> приймає наступні параметри командного рядка:"
+msgstr "B<tilix> приймає такі параметри командного рядка:"
 
 #. type: TP
 #: data/man/tilix:13
@@ -139,9 +139,8 @@ msgid ""
 "Set the starting profile using the name of one of the existing profiles. If "
 "it matches none of those, the default profile will be used."
 msgstr ""
-"Вказати стартовий профіль, використовуючи назву одного з наявних профілів. "
-"Якщо профіль не збігатися з жодним з них, буде використаний профіль за "
-"замовчуванням."
+"Встановити стартовим профілем назву одного з наявних профілів. Якщо профіль "
+"не збігається з жодним з них, буде застосовано типовий профіль."
 
 #. type: TP
 #: data/man/tilix:25
@@ -167,9 +166,9 @@ msgid ""
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
-"Вказати попередньо збережений сеанс щоб відновити розташування терміналів та "
-"їх параметрів. Ця операція не відновить стан терміналу, при якому він був "
-"зупинений - скоріше будуть створені нові термінали."
+"Вказати попередньо збережений сеанс, щоб відновити розташування терміналів "
+"та їх параметрів. Ця операція не відновить стан терміналу, за якого його "
+"було зупинено - скоріше буде створено нові термінали."
 
 #. type: TP
 #: data/man/tilix:31
@@ -185,29 +184,29 @@ msgstr "Виконати одну з цих дій в поточному екз�
 #. type: Plain text
 #: data/man/tilix:37
 msgid "B<session-add-right> Add a new terminal rightwards of the current one."
-msgstr ""
+msgstr "B<session-add-right> Додати новий термінал праворуч від поточного."
 
 #. type: Plain text
 #: data/man/tilix:40
 msgid "B<session-add-down> Add a new terminal below the current terminal."
-msgstr ""
+msgstr "B<session-add-down> Додати новий термінал під поточним терміналом."
 
 #. type: Plain text
 #: data/man/tilix:43
 msgid ""
 "B<app-new-session> Create a new Tilix session within the current window."
-msgstr ""
+msgstr "B<app-new-session> Створити новий сеанс Tilix у поточному вікні."
 
 #. type: Plain text
 #: data/man/tilix:46
 msgid "B<app-new-window> Create a new Tilix window."
-msgstr ""
+msgstr "B<app-new-window> Створити нове вікно Tilix."
 
 #. type: TP
 #: data/man/tilix:46
 #, no-wrap
 msgid "B<-e --command=COMMAND>"
-msgstr ""
+msgstr "B<-e --command=КОМАНДА>"
 
 #. type: Plain text
 #: data/man/tilix:49
@@ -215,89 +214,93 @@ msgid ""
 "Execute all text after this parameter as a command, thus this parameter must "
 "be the last parameter."
 msgstr ""
+"Виконати весь текст після цього параметра як команду, таким чином, цей "
+"параметр має бути останнім параметром."
 
 #. type: TP
 #: data/man/tilix:49
 #, no-wrap
 msgid "B<--maximize>"
-msgstr ""
+msgstr "B<--maximize>"
 
 #. type: Plain text
 #: data/man/tilix:52
 msgid "Maximize the terminal window."
-msgstr ""
+msgstr "Розгорнути вікно термінала."
 
 #. type: TP
 #: data/man/tilix:52
 #, no-wrap
 msgid "B<--minimize>"
-msgstr ""
+msgstr "B<--minimize>"
 
 #. type: Plain text
 #: data/man/tilix:55
 msgid "Minimize the terminal window."
-msgstr ""
+msgstr "Згорнути вікно термінала."
 
 #. type: TP
 #: data/man/tilix:55
 #, no-wrap
 msgid "B<--full-screen>"
-msgstr ""
+msgstr "B<--full-screen>"
 
 #. type: Plain text
 #: data/man/tilix:58
 msgid "Full-screen the terminal window."
-msgstr ""
+msgstr "Повноекранне вікно термінала."
 
 #. type: TP
 #: data/man/tilix:58
 #, no-wrap
 msgid "B<--focus-window>"
-msgstr ""
+msgstr "B<--focus-window>"
 
 #. type: Plain text
 #: data/man/tilix:61
 msgid "Focus the existing window."
-msgstr ""
+msgstr "Сфокусувати наявне вікно."
 
 #. type: TP
 #: data/man/tilix:61
 #, no-wrap
 msgid "B<--window-style=WINDOW_STYLE>"
-msgstr ""
+msgstr "B<--window-style=СТИЛЬ_ВІКНА>"
 
 #. type: Plain text
 #: data/man/tilix:64
 msgid ""
 "Override the preferred window style, the following styles are supported:"
-msgstr ""
+msgstr "Змінити основний стиль вікна, підтримуються такі стилі:"
 
 #. type: Plain text
 #: data/man/tilix:67
 msgid "B<normal> Normal window look."
-msgstr ""
+msgstr "B<normal> Звичайний вигляд вікна."
 
 #. type: Plain text
 #: data/man/tilix:70
 msgid "B<disable-csd> Do not show client side decorations."
-msgstr ""
+msgstr "B<disable-csd> Не показувати обрамлення на стороні клієнта."
 
 #. type: Plain text
 #: data/man/tilix:73
 msgid ""
 "B<disable-csd-hide-toolbar> Do not show client side decorations and toolbar."
 msgstr ""
+"B<disable-csd-hide-toolbar> Не показувати обрамлення та панель інструментів "
+"клієнта."
 
 #. type: Plain text
 #: data/man/tilix:76
 msgid "B<borderless> Do not show window borders."
-msgstr ""
+msgstr "B<borderless> Не показувати межі вікон."
 
 #. type: TP
 #: data/man/tilix:76
 #, no-wrap
 msgid "B<--new-process>"
-msgstr ""
+msgstr "B<--new-process>"
 
 #. type: Plain text
 #: data/man/tilix:79
@@ -308,58 +311,66 @@ msgid ""
 "not recommended and only intended for debugging purposes. Its use will "
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
+"Запускати додатковий екземпляр Tilix як новий процес. Типово і відповідно до "
+"рекомендацій GTK+ версії 3, Tilix підтримує єдиний процес, до якого належать "
+"усі вікна. Цей параметр змушує Tilix запускатися окремим процесом. Це не "
+"рекомендовано і призначено лише для зневадження. Його використання запобігає "
+"взаємодії різних вікон Tilix між собою."
 
 #. type: TP
 #: data/man/tilix:79
 #, no-wrap
 msgid "B<--geometry=GEOMETRY>"
-msgstr ""
+msgstr "B<--geometry=ГЕОМЕТРІЯ>"
 
 #. type: Plain text
 #: data/man/tilix:82
 msgid ""
 "Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)."
 msgstr ""
+"Вказати розмір вікна, наприклад: 80x24 або 80x24+200+200 (СТОВПЦІxРЯДКИ+X+Y)."
 
 #. type: TP
 #: data/man/tilix:82
 #, no-wrap
 msgid "B<-q --quake>"
-msgstr ""
+msgstr "B<-q --quake>"
 
 #. type: Plain text
 #: data/man/tilix:85
 msgid ""
 "Open a window in Quake mode or toggle existing Quake mode window visibility."
 msgstr ""
+"Відкрити вікно в режимі Quake або перемкнути видимість наявного вікна в "
+"режимі Quake."
 
 #. type: TP
 #: data/man/tilix:85
 #, no-wrap
 msgid "B<--preferences>"
-msgstr ""
+msgstr "B<--preferences>"
 
 #. type: Plain text
 #: data/man/tilix:88
 msgid "Show the Tilix preferences dialog directly."
-msgstr ""
+msgstr "Показати діалогове вікно параметрів Tilix безпосередньо."
 
 #. type: TP
 #: data/man/tilix:88
 #, no-wrap
 msgid "B<--display=DISPLAY>"
-msgstr ""
+msgstr "B<--display=ДИСПЛЕЙ>"
 
 #. type: Plain text
 #: data/man/tilix:91
 msgid "Use the specified X display."
-msgstr ""
+msgstr "Використовувати вказаний X дисплей."
 
 #. type: SH
 #: data/man/tilix:91
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
 
 #. type: Plain text
 #: data/man/tilix:93
@@ -370,20 +381,20 @@ msgstr "Немає"
 #: data/man/tilix:93
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "ВАДИ"
 
 #. type: Plain text
 #: data/man/tilix:95
 msgid "See bugs at https://github.com/gnunn1/tilix/issues"
-msgstr ""
+msgstr "Перегляньте вади на https://github.com/gnunn1/tilix/issues"
 
 #. type: SH
 #: data/man/tilix:95
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "АВТОР"
 
 #. type: Plain text
 #: data/man/tilix:96
 msgid "Gerald Nunn and other contributors."
-msgstr ""
+msgstr "Gerald Nunn та інші помічники."
