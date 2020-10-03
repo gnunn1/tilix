@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2018-12-16 10:09+0000\n"
-"Last-Translator: mohammadA <mohammadAbdulhadi1@gmail.com>\n"
+"PO-Revision-Date: 2020-10-05 12:12+0000\n"
+"Last-Translator: Amine L'ch <aminelch95@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tilix/"
 "translations/ar/>\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -138,14 +138,12 @@ msgid "Preferences"
 msgstr "التفضيلات"
 
 #: source/gx/tilix/appwindow.d:697
-#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "الاختصارات"
+msgstr "اختصارات لوحة المفاتيح"
 
 #: source/gx/tilix/appwindow.d:698
-#, fuzzy
 msgid "About Tilix"
-msgstr "تِلِكس"
+msgstr "حول تِلِكس"
 
 #: source/gx/tilix/appwindow.d:705
 #, fuzzy
@@ -440,9 +438,8 @@ msgid "Terminal Activity"
 msgstr "نشاط طرفية"
 
 #: source/gx/tilix/terminal/terminal.d:1324
-#, fuzzy
 msgid "Not Enabled"
-msgstr "مفعّل"
+msgstr "غيرمفعّل"
 
 #: source/gx/tilix/terminal/terminal.d:1345
 #: source/gx/tilix/terminal/terminal.d:1848
@@ -488,7 +485,7 @@ msgstr "زامن الدخل"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "تعذر التحقق من الملف'%s' بسبب الخطأ'%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -496,10 +493,12 @@ msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "Uri was '%s'"
 msgstr ""
+"عناوين URI للملفات البعيدة غير مدعومة بالارتباطات التشعبية.\n"
+"Uri كان '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2014
 msgid "Remote File URI Unsupported"
-msgstr ""
+msgstr "عنوان URI للملف البعيد غير مدعوم"
 
 #: source/gx/tilix/terminal/terminal.d:2046
 #: source/gx/tilix/terminal/terminal.d:2621
@@ -2711,7 +2710,7 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:593
 msgctxt "shortcut window"
 msgid "Override input synchronization"
-msgstr ""
+msgstr "تجاوز مزامنة الإدخال"
 
 #: data/resources/ui/shortcuts.ui:599
 msgctxt "shortcut window"
@@ -2822,6 +2821,9 @@ msgid ""
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
+"تمت كتابة التطبيق باستخدام GTK 3 وبُذل جهد للتوافق مع إرشادات واجهة GNOME "
+"البشرية (HIG). نتيجة لذلك ، تستخدم الزخارف من جانب العميل ، على الرغم من "
+"إمكانية تعطيلها إذا لزم الأمر."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
 msgid "Tilix has been tested with GNOME and with Unity."
@@ -2832,6 +2834,8 @@ msgid ""
 "Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
 "web/ for specific information about this release."
 msgstr ""
+"بعض الميزات الجديدة وإصلاحات الأخطاء ، يرجى الاطلاع على https://gnunn1.github"
+".io/tilix-web/ للحصول على معلومات محددة حول هذا الإصدار."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
 msgid "Gerald Nunn"
