@@ -99,6 +99,8 @@ enum SETTINGS_SEARCH_DEFAULT_MATCH_ENTIRE_WORD = "search-default-match-entire-wo
 enum SETTINGS_SEARCH_DEFAULT_MATCH_AS_REGEX = "search-default-match-as-regex";
 enum SETTINGS_SEARCH_DEFAULT_WRAP_AROUND = "search-default-wrap-around";
 
+enum SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH = "always-use-regex-in-search";
+
 enum SETTINGS_BACKGROUND_IMAGE_KEY = "background-image";
 enum SETTINGS_BACKGROUND_IMAGE_SCALE_KEY = "background-image-scale";
 enum SETTINGS_BACKGROUND_IMAGE_MODE_KEY = "background-image-mode";

@@ -1528,6 +1528,11 @@ private:
         bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", GSettingsBindFlags.DEFAULT);
         add(cbControlClickTitle);
 
+        //always use regex when searching
+        CheckButton cbAlwaysUseRegex = new CheckButton(_("Always use regex in search dialog"));
+        bh.bind(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH, cbAlwaysUseRegex, "active", GSettingsBindFlags.DEFAULT);
+        add(cbAlwaysUseRegex);
+
         //Closing of last session closes window
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
