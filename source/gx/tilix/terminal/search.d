@@ -206,7 +206,10 @@ private:
             }
             return;
         }
-        if (!matchAsRegex)
+
+        GSettings gsSettings = new GSettings(SETTINGS_ID);
+        bool alwaysUseRegex = gsSettings.getBoolean(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH);
+        if (!matchAsRegex && !alwaysUseRegex)
             text = GRegex.escapeString(text);
         if (entireWordOnly)
             text = format("\\b%s\\b", text);
