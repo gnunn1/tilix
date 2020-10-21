@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2020-06-30 01:41+0000\n"
-"Last-Translator: Matias Bella <matias.bella@hotmail.com>\n"
+"PO-Revision-Date: 2020-10-22 13:26+0000\n"
+"Last-Translator: Vibo Lavida <vibo@firemail.cc>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tilix/manpage/es/"
 ">\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.1\n"
 
 #. type: TH
 #: data/man/tilix:3
@@ -158,23 +158,14 @@ msgstr "B<-s --session=NOMBRE_DE_SESION>"
 
 #. type: Plain text
 #: data/man/tilix:31
-#, fuzzy
-#| msgid ""
-#| "Open the specified session file which has been previously saved. Session "
-#| "files are saved from within Tilix, they store the complete layout of the "
-#| "session enabling the user to re-load it when required. Note that only the "
-#| "layout and layout options are saved, this will not restore the terminal "
-#| "to where it was left off, rather new terminals are created."
 msgid ""
 "Specify a previously saved session to re-load the layout and layout options "
 "from. This will not restore the terminal to where it was left off, rather "
 "new terminals are created."
 msgstr ""
-"Abre el archivo de sesión que ha sido guardado anteriormente. Las sesiones "
-"se guardan desde Tilix, guardan el diseño de la sesión permitiendo al "
-"usuario volver a cargarlo cuando sea necesario. Ten en cuenta que solo el "
-"diseño y las opciones de diseño se guardan, esto no restaurará la terminal "
-"donde se dejó, sino que especifica el diseño de las nuevas terminales."
+"Especifique una sesión guardada previamente para volver a cargar el diseño y "
+"las opciones de diseño. Esto no restaurará el terminal a donde se dejó, sino "
+"que se crearán nuevos terminales."
 
 #. type: TP
 #: data/man/tilix:31
@@ -184,25 +175,14 @@ msgstr "B<-a --action=NOMBRE_DE_ACCION>"
 
 #. type: Plain text
 #: data/man/tilix:34
-#, fuzzy
-#| msgid ""
-#| "Perform an action in the current Tilix instance, the following actions "
-#| "are supported:"
 msgid "Perform one of the following actions in the current Tilix instance:"
 msgstr ""
-"Ejecuta una acción en la actual instancia de Tilix; soportando las "
-"siguientes acciones:"
+"Lleva a cabo una de las siguientes acciones en la instancia de Tilix actual:"
 
 #. type: Plain text
 #: data/man/tilix:37
-#, fuzzy
-#| msgid ""
-#| "B<session-add-right> Adds a new terminal to the right of the current "
-#| "terminal."
 msgid "B<session-add-right> Add a new terminal rightwards of the current one."
-msgstr ""
-"B<session-add-right> Añade una nueva terminal a la derecha de la terminal "
-"actual."
+msgstr "B<session-add-right> Añade un nuevo terminal a la derecha del actual."
 
 #. type: Plain text
 #: data/man/tilix:40
@@ -297,15 +277,10 @@ msgstr "B<--window-style=ESTILO_VENTANA>"
 
 #. type: Plain text
 #: data/man/tilix:64
-#, fuzzy
-#| msgid ""
-#| "Perform an action in the current Tilix instance, the following actions "
-#| "are supported:"
 msgid ""
 "Override the preferred window style, the following styles are supported:"
 msgstr ""
-"Ejecuta una acción en la actual instancia de Tilix; soportando las "
-"siguientes acciones:"
+"Sustituye el estilo de ventana preferido, se admiten los siguientes estilos:"
 
 #. type: Plain text
 #: data/man/tilix:67
@@ -338,14 +313,6 @@ msgstr "B<--new-process>"
 
 #. type: Plain text
 #: data/man/tilix:79
-#, fuzzy
-#| msgid ""
-#| "Start an additional Tilix instance as a new process. By default and as "
-#| "per GTK+ 3 guidelines, Tilix maintains a single process that all windows "
-#| "belong to. This option forces Tilix to start as a separate process. This "
-#| "is not recommended and is intended for debugging purposes only, using "
-#| "this option will prevent different Tilix windows from communicating with "
-#| "each other."
 msgid ""
 "Start an additional Tilix instance as a new process. By default and as per "
 "GTK+ version 3 guidelines, Tilix maintains a single process that all windows "
@@ -354,11 +321,11 @@ msgid ""
 "prevent different Tilix windows from communicating with each other."
 msgstr ""
 "Inicia una nueva instancia de Tilix como nuevo proceso. Por defecto y según "
-"dictan las líneas de GTK+ 3, Tilix mantiene un único proceso al cual "
+"dictan las líneas de GTK+ versión 3, Tilix mantiene un único proceso al cual "
 "pertenecen todas las ventanas. Esta opción obliga a Tilix a iniciarse como "
 "un proceso aparte. Esto no se recomienda y su intención es únicamente para "
-"propósitos de depuración. Usando esta opción evitará que diferentes ventanas "
-"de Tilix se comuniquen entre ellas."
+"propósitos de depuración. Su uso evitará que diferentes ventanas de Tilix se "
+"comuniquen entre ellas."
 
 #. type: TP
 #: data/man/tilix:79
