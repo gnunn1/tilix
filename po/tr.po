@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2020-08-08 19:32+0000\n"
+"PO-Revision-Date: 2020-11-30 19:29+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tilix/"
 "translations/tr/>\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: source/app.d:139
 #, c-format
 msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "GTK sürümün çok eski, en azından GTK %d.%d.%d. lazım!"
+msgstr "GTK sürümünüz çok eski, en azından GTK %d.%d.%d gerekiyor!"
 
 #: source/app.d:156
 msgid "Unexpected exception occurred"
-msgstr "Kuraldışı bir durum oluştu"
+msgstr "Beklenmeyen bir istisna oluştu"
 
 #: source/app.d:157
 msgid "Error: "
@@ -33,7 +33,7 @@ msgstr "Hata: "
 
 #: source/app.d:167
 msgid "Versions"
-msgstr "Sürüm"
+msgstr "Sürümler"
 
 #: source/app.d:168
 #, c-format
@@ -52,11 +52,11 @@ msgstr "GTK Sürümü: %d.%d.%d"
 
 #: source/app.d:171
 msgid "Tilix Special Features"
-msgstr "Tilix Özel İşlevler"
+msgstr "Tilix'e Özel Özellikler"
 
 #: source/app.d:172
 msgid "Notifications enabled=%b"
-msgstr "Bildirimleri etkinleştir=%b"
+msgstr "Bildirimler etkinleştirildi=%b"
 
 #: source/app.d:173
 msgid "Triggers enabled=%b"
@@ -64,11 +64,11 @@ msgstr "Tetikleyiciler etkinleştirildi=%b"
 
 #: source/app.d:174
 msgid "Badges enabled=%b"
-msgstr "Etkin rozetler=%b"
+msgstr "Rozetler etkinleştirildi=%b"
 
 #: source/gx/gtk/actions.d:25
 msgid "disabled"
-msgstr "etkisiz"
+msgstr "devre dışı"
 
 #: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
 msgid "Do not show this again"
@@ -76,11 +76,11 @@ msgstr "Bunu tekrar gösterme"
 
 #: source/gx/tilix/appwindow.d:320
 msgid "Create a new session"
-msgstr "Yeni oturum aç"
+msgstr "Yeni bir oturum oluştur"
 
 #: source/gx/tilix/appwindow.d:334
 msgid "View session sidebar"
-msgstr "Oturum kenar çubuğunü göster"
+msgstr "Oturum kenar çubuğunu göster"
 
 #: source/gx/tilix/appwindow.d:369
 msgid "Add terminal right"
@@ -96,7 +96,7 @@ msgstr "Uçbirimde metin bul"
 
 #: source/gx/tilix/appwindow.d:602
 msgid "Enter a new name for the session"
-msgstr "Oturum için yeni bir ad gir"
+msgstr "Oturum için yeni bir ad girin"
 
 #: source/gx/tilix/appwindow.d:604
 msgid "Change Session Name"
@@ -899,7 +899,7 @@ msgstr "Metin"
 #: source/gx/tilix/prefeditor/profileeditor.d:657
 #: source/gx/tilix/prefeditor/profileeditor.d:761
 msgid "Background"
-msgstr "Arkaplan"
+msgstr "Arka plan"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:668
 msgid "Select Cursor Foreground Color"
@@ -907,7 +907,7 @@ msgstr "İmleç önplan rengini seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:670
 msgid "Select Cursor Background Color"
-msgstr "İmleç arkaplan rengini seç"
+msgstr "İmleç Arka Plan Rengini Seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:675
 msgid "Highlight"
@@ -919,7 +919,7 @@ msgstr "Önplan vurgulama rengini seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:682
 msgid "Select Highlight Background Color"
-msgstr "Arkaplan vurgulama rengini seç"
+msgstr "Vurgulama Arka Plan Rengini Seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:687
 msgid "Bold"
@@ -935,7 +935,7 @@ msgstr "Rozet Rengini Seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:750
 msgid "Select Background Color"
-msgstr "Arkaplan rengini seç"
+msgstr "Arka Plan Rengini Seç"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:766
 #: source/gx/tilix/prefeditor/profileeditor.d:782
@@ -1268,7 +1268,7 @@ msgstr "'%s''i silmek istediğinize emin misiniz?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:557
 msgid "Clone"
-msgstr "Klon"
+msgstr "Klonla"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:561
 msgid "Use for new terminals"
@@ -1276,7 +1276,7 @@ msgstr "Yeni terminaller için kullan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:637
 msgid "Encodings showing in menu:"
-msgstr "Menü de gösterilen Kodlamalar:"
+msgstr "Menüde gösterilen kodlamalar:"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:679
 msgid "Enabled"
@@ -1309,12 +1309,12 @@ msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
-"%s kısayolu %s'e tayin edilmiş.\n"
-"Önceki kısayolu iptal edip buraya tayin et?"
+"%s kısayolu zaten %s'e atanmış.\n"
+"Diğer eylemin kısayolu devre dışı bırakılsın ve buraya atansın mı?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
 msgid "Window style"
-msgstr "Pencere stili"
+msgstr "Pencere tarzı"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1137
 #: source/gx/tilix/prefeditor/prefdialog.d:1151
@@ -1323,7 +1323,7 @@ msgstr "Normal"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1137
 msgid "Disable CSD"
-msgstr "CSD'yi etkisiz kıl"
+msgstr "CSD'yi devre dışı bırak"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1137
 msgid "Disable CSD, hide toolbar"
@@ -1376,7 +1376,7 @@ msgstr "Alt"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1163
 msgid "Theme variant"
-msgstr "Tema variyasyonu"
+msgstr "Tema çeşidi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1164
 msgid "Light"
@@ -1388,11 +1388,11 @@ msgstr "Koyu"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1170
 msgid "Background image"
-msgstr "Arkaplan resmi"
+msgstr "Arka plan resmi"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1172
 msgid "Select Image"
-msgstr "Resim seç"
+msgstr "Resim Seç"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1175
 msgid "All Image Files"
@@ -1400,7 +1400,7 @@ msgstr "Bütün Resim Dosyaları"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1196
 msgid "Reset background image"
-msgstr "Arkaplan resmini sıfırla"
+msgstr "Arka plan resmini sıfırla"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1202
 msgid "Scale"
@@ -1429,7 +1429,7 @@ msgstr "Uygulama başlığı"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1254
 msgid "Enable transparency, requires re-start"
-msgstr "Şefaflık etkinleştir, yeniden başlatma gerektirir"
+msgstr "Şeffaflığı etkinleştir, yeniden başlatma gerektirir"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1260
 msgid "Use a wide handle for splitters"
@@ -1446,11 +1446,12 @@ msgstr "Tek terminal olsa bile terminal başlığını göster"
 #: source/gx/tilix/prefeditor/prefdialog.d:1274
 msgid "Use overlay scrollbars (Application restart required)"
 msgstr ""
-"Bindirme kaydırma çubukları kullan (Uygulama yeniden başlatma gerekiyor)"
+"Bindirme kaydırma çubukları kullan (Uygulamayı yeniden başlatmak gerekir)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1279
 msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr "Kenar çubuğu yerine sekmeler kullan (Yeniden başlatma gerekir)"
+msgstr ""
+"Kenar çubuğu yerine sekmeler kullan (Uygulamayı yeniden başlatmak gerekir)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1311
 msgid "Size"
@@ -1482,7 +1483,7 @@ msgstr "Odak kaybolduğunda pencereyi gizle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1390
 msgid "Delay hiding window by (ms)"
-msgstr "Pencere gizlemeyi (ms) geciktir"
+msgstr "Pencere gizlemeyi geciktir (ms cinsinden)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Hide the toolbar of the window"
@@ -1494,11 +1495,11 @@ msgstr "Pencereyi her zaman üstte tut"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1423
 msgid "Display terminal on active monitor"
-msgstr "Etkin monitörde terminali göster"
+msgstr "Etkin ekranda terminali göster"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1430
 msgid "Display on specific monitor"
-msgstr "Belirli monitörde göster"
+msgstr "Belirli ekranda göster"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
@@ -1535,11 +1536,12 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1527
 msgid "Require the <Control> modifier to edit title on click"
-msgstr "Başlığı tıklayınca düzenlemek için <Control> değiştiricisi gerekli kıl"
+msgstr ""
+"Başlığı tıklayınca düzenlemek için <Control> değiştiricisini gerekli kıl"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1532
 msgid "Close window when last session is closed"
-msgstr "Son oturum kapatıldığında pencereyi Kapat"
+msgstr "Son oturum kapatıldığında pencereyi kapat"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1537
 msgid "Save and restore window state"
@@ -1547,11 +1549,11 @@ msgstr "Pencere durumunu kaydet ve geri yükle"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1543
 msgid "Send desktop notification on process complete"
-msgstr "Masaüstüne işlem bitince haber ver"
+msgstr "İşlem tamamlandığında masaüstü bildirimi gönder"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1551
 msgid "On new instance"
-msgstr "Yeni Örnekte"
+msgstr "Yeni örnekte"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1554
 #: source/gx/tilix/application.d:225 source/gx/tilix/session.d:1606
@@ -1577,11 +1579,11 @@ msgstr "Her zaman gelişmiş yapıştır iletişim kutusunu kullan"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1571
 msgid "Warn when attempting unsafe paste"
-msgstr "Emminyetsiz yapıştırmada beni uyar"
+msgstr "Güvenli olmayan yapıştırmada uyar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1576
 msgid "Strip first character of paste if comment or variable declaration"
-msgstr "Açıklama (comment) veya değişken yapıştırken ilk harfi a"
+msgstr "Yorum veya değişken tanımlama ise yapıştırmanın ilk karakterini çıkar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
 msgid "Automatically copy text to clipboard when selecting"
@@ -1603,7 +1605,7 @@ msgstr "Yardım"
 #: source/gx/tilix/prefeditor/advdialog.d:94
 #: source/gx/tilix/prefeditor/advdialog.d:261
 msgid "Regex"
-msgstr "Regex"
+msgstr "Düzenli ifade"
 
 #: source/gx/tilix/prefeditor/advdialog.d:118
 msgid "Case Insensitive"
@@ -2705,7 +2707,7 @@ msgstr "Yer imi ekle"
 #: data/resources/ui/shortcuts.ui:581
 msgctxt "shortcut window"
 msgid "Cycle title style"
-msgstr "Başlık stilini döndür"
+msgstr "Başlık tarzını döndür"
 
 #: data/resources/ui/shortcuts.ui:587
 msgctxt "shortcut window"
@@ -2753,7 +2755,7 @@ msgstr "Gnome için döşeyen bir terminal"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
 msgid "shell;prompt;command;commandline;cmd;"
-msgstr "shell;prompt;command;commandline;cmd;"
+msgstr "shell;prompt;command;commandline;cmd;kabuk;istem;komut;komutsatırı;"
 
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
 msgid "com.gexperts.Tilix"
@@ -2814,7 +2816,7 @@ msgstr ""
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Transparent background"
-msgstr "Şeffaf arkaplan"
+msgstr "Şeffaf arka plan"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid "Supports notifications when processes are completed out of view"
