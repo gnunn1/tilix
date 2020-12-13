@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 18:49-0500\n"
-"PO-Revision-Date: 2019-08-01 05:11+0000\n"
+"PO-Revision-Date: 2020-12-14 15:29+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tilix/"
 "translations/ja/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -52,11 +52,11 @@ msgstr "GTK バージョン: %d.%d.%d"
 
 #: source/app.d:171
 msgid "Tilix Special Features"
-msgstr "Tilixの特徴"
+msgstr "Tilix の特徴"
 
 #: source/app.d:172
 msgid "Notifications enabled=%b"
-msgstr "通知を有効にする"
+msgstr ""
 
 #: source/app.d:173
 msgid "Triggers enabled=%b"
@@ -100,7 +100,7 @@ msgstr "セッションの新しい名前を入力してください"
 
 #: source/gx/tilix/appwindow.d:604
 msgid "Change Session Name"
-msgstr "セッションの名前を変える"
+msgstr "セッション名を変更"
 
 #: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
 #: source/gx/tilix/application.d:226
@@ -155,12 +155,12 @@ msgstr "デフォルト"
 
 #: source/gx/tilix/appwindow.d:1191
 msgid "There are multiple sessions open, close anyway?"
-msgstr "複数のセッションを開いています、すべて閉じますか?"
+msgstr "複数のセッションを開いています。強制的に閉じますか？"
 
 #: source/gx/tilix/appwindow.d:1455
 #: source/gx/tilix/prefeditor/profileeditor.d:965
 msgid "All JSON Files"
-msgstr "すべてのJSONファイル"
+msgstr "すべての JSON ファイル"
 
 #: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3683
 #: source/gx/tilix/prefeditor/profileeditor.d:969
@@ -234,11 +234,11 @@ msgstr "このコマンドは管理者権限を要求しています"
 
 #: source/gx/tilix/terminal/advpaste.d:34
 msgid "Copying commands from the internet can be dangerous. "
-msgstr ""
+msgstr "インターネットからコマンドをコピーすると危険な場合があります。 "
 
 #: source/gx/tilix/terminal/advpaste.d:35
 msgid "Be sure you understand what each part of this command does."
-msgstr ""
+msgstr "このコマンドの各部分が実行する動作を、必ず理解するようにしてください。"
 
 #: source/gx/tilix/terminal/advpaste.d:96
 msgid "Transform"
@@ -246,7 +246,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/advpaste.d:104
 msgid "Convert spaces to tabs"
-msgstr ""
+msgstr "スペースをタブに変換"
 
 #: source/gx/tilix/terminal/advpaste.d:115
 msgid "Convert CRLF and CR to LF"
@@ -254,7 +254,7 @@ msgstr "CRLF と CR を LF に変換"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 msgid "Advanced Paste"
-msgstr ""
+msgstr "高度な貼り付け"
 
 #: source/gx/tilix/terminal/advpaste.d:137
 #: source/gx/tilix/terminal/terminal.d:1813
@@ -280,11 +280,11 @@ msgstr ""
 
 #: source/gx/tilix/terminal/search.d:192
 msgid "Match entire word only"
-msgstr ""
+msgstr "完全一致"
 
 #: source/gx/tilix/terminal/search.d:193
 msgid "Match as regular expression"
-msgstr ""
+msgstr "正規表現による一致"
 
 #: source/gx/tilix/terminal/search.d:194
 #, fuzzy
@@ -320,7 +320,7 @@ msgstr "最大化"
 #: source/gx/tilix/terminal/terminal.d:401
 #: source/gx/tilix/terminal/terminal.d:691
 msgid "Disable input synchronization for this terminal"
-msgstr ""
+msgstr "このターミナルの入力同期を無効にする"
 
 #: source/gx/tilix/terminal/terminal.d:410
 #: source/gx/tilix/terminal/terminal.d:828
@@ -334,7 +334,7 @@ msgstr ""
 #: source/gx/tilix/terminal/terminal.d:422
 #: source/gx/tilix/prefeditor/profileeditor.d:446
 msgid "Terminal bell"
-msgstr ""
+msgstr "ターミナルの通知音"
 
 #: source/gx/tilix/terminal/terminal.d:467
 msgid "Edit Profile"
@@ -346,17 +346,17 @@ msgstr "エンコーディングを編集"
 
 #: source/gx/tilix/terminal/terminal.d:693
 msgid "Enable input synchronization for this terminal"
-msgstr ""
+msgstr "このターミナルの入力同期を有効にする"
 
 #: source/gx/tilix/terminal/terminal.d:728
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
+msgstr "ライブラリ %s を読み込めませんでした。パスワード機能は使用できません。"
 
 #: source/gx/tilix/terminal/terminal.d:728
 msgid "Library Not Loaded"
-msgstr ""
+msgstr "ライブラリを読み込めません"
 
 #: source/gx/tilix/terminal/terminal.d:827
 msgid "Find…"
@@ -399,7 +399,7 @@ msgstr "リセット"
 
 #: source/gx/tilix/terminal/terminal.d:853
 msgid "Reset and Clear"
-msgstr ""
+msgstr "リセットして消去"
 
 #: source/gx/tilix/terminal/terminal.d:857
 #: source/gx/tilix/prefeditor/profileeditor.d:1091
@@ -431,9 +431,8 @@ msgid "Add Down"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:988
-#, fuzzy
 msgid "Terminal Activity"
-msgstr "ターミナルのタイトル"
+msgstr "ターミナルのアクティビティ"
 
 #: source/gx/tilix/terminal/terminal.d:1324
 msgid "Not Enabled"
@@ -483,7 +482,7 @@ msgstr "入力を同期"
 #: source/gx/tilix/terminal/terminal.d:2006
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
+msgstr "エラー '%2$s' のため、ファイル '%1$s' を確認できませんでした"
 
 #: source/gx/tilix/terminal/terminal.d:2013
 #, c-format
@@ -522,16 +521,16 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:2778
 msgid "Unexpected error occurred, no additional information available"
-msgstr ""
+msgstr "予期しないエラーが発生しました。追加情報はありません"
 
 #: source/gx/tilix/terminal/terminal.d:2788
 #, c-format
 msgid "Unexpected error occurred: %s"
-msgstr ""
+msgstr "予期しないエラーが発生しました: %s"
 
 #: source/gx/tilix/terminal/terminal.d:3670
 msgid "Save Terminal Output"
-msgstr ""
+msgstr "ターミナルの出力を保存"
 
 #: source/gx/tilix/terminal/terminal.d:3679
 msgid "All Text Files"
@@ -544,16 +543,16 @@ msgstr "不明"
 #: source/gx/tilix/terminal/terminal.d:4273
 #, c-format
 msgid "The child process exited normally with status %d"
-msgstr ""
+msgstr "子プロセスはステータス %d で正常に終了しました"
 
 #: source/gx/tilix/terminal/terminal.d:4274
 #, c-format
 msgid "The child process was aborted by signal %d."
-msgstr ""
+msgstr "子プロセスはシグナル %d で中断されました。"
 
 #: source/gx/tilix/terminal/terminal.d:4275
 msgid "The child process was aborted."
-msgstr ""
+msgstr "子プロセスは中断されました。"
 
 #: source/gx/tilix/terminal/terminal.d:4281
 msgid "Relaunch"
@@ -1079,7 +1078,7 @@ msgstr "コマンドを再起動"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1152
 msgid "Hold the terminal open"
-msgstr ""
+msgstr "ターミナルを開いたままにする"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1192
 msgid "Badge position"
@@ -1107,7 +1106,7 @@ msgstr "右下"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1214
 msgid "Choose A Badge Font"
-msgstr ""
+msgstr "バッジのフォントを選択"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1252
 msgid "Notify New Activity"
@@ -1267,7 +1266,7 @@ msgstr "複製"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:561
 msgid "Use for new terminals"
-msgstr ""
+msgstr "新しいターミナルで使う"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:637
 msgid "Encodings showing in menu:"
@@ -1332,7 +1331,7 @@ msgstr "ウィンドウの再起動が必要です"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1150
 msgid "Terminal title style"
-msgstr ""
+msgstr "ターミナルタイトルのスタイル"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1151
 msgid "Small"
@@ -1470,35 +1469,35 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1386
 msgid "Hide window when focus is lost"
-msgstr ""
+msgstr "フォーカスが外れた場合にウィンドウを非表示"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1390
 msgid "Delay hiding window by (ms)"
-msgstr ""
+msgstr "ウィンドウを非表示にする時間 (ミリ秒)"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1403
 msgid "Hide the toolbar of the window"
-msgstr ""
+msgstr "ウィンドウのツールバーを隠す"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1418
 msgid "Keep window always on top"
-msgstr ""
+msgstr "ウィンドウを常に手前に表示"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1423
 msgid "Display terminal on active monitor"
-msgstr ""
+msgstr "使用中のモニターにターミナルを表示"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1430
 msgid "Display on specific monitor"
-msgstr ""
+msgstr "指定したモニターに表示"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1433
 msgid "Primary Monitor"
-msgstr ""
+msgstr "プライマリーモニター"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1436
 msgid "Monitor "
-msgstr ""
+msgstr "モニター "
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1496
 msgid "Behavior"
@@ -1510,11 +1509,11 @@ msgstr "新しいセッションの開始時に確認"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1507
 msgid "Focus a terminal when the mouse moves over it"
-msgstr ""
+msgstr "マウスオーバーしたらターミナルにフォーカスする"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1512
 msgid "Autohide the mouse pointer when typing"
-msgstr "タイプ中はマウスポインターを自動的に隠す"
+msgstr "入力中はマウスポインターを自動的に隠す"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1517
 msgid "Close terminal by clicking middle mouse button on title"
@@ -1522,11 +1521,11 @@ msgstr "タイトルをマウスで中クリックしたらターミナルを閉
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1522
 msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "<コントロール> キーとホイールのスクロールでターミナルを拡大"
+msgstr "コントロールキーとホイールのスクロールでターミナルを拡大"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1527
 msgid "Require the <Control> modifier to edit title on click"
-msgstr ""
+msgstr "コントロールキーを押しながらクリックした場合のみタイトルを編集できるようにする"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1532
 msgid "Close window when last session is closed"
@@ -1568,7 +1567,7 @@ msgstr "高度な貼り付けダイアログを常に使う"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1571
 msgid "Warn when attempting unsafe paste"
-msgstr ""
+msgstr "安全ではない貼り付けを警告"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1576
 msgid "Strip first character of paste if comment or variable declaration"
@@ -1594,11 +1593,11 @@ msgstr "ヘルプ"
 #: source/gx/tilix/prefeditor/advdialog.d:94
 #: source/gx/tilix/prefeditor/advdialog.d:261
 msgid "Regex"
-msgstr ""
+msgstr "正規表現"
 
 #: source/gx/tilix/prefeditor/advdialog.d:118
 msgid "Case Insensitive"
-msgstr ""
+msgstr "大文字・小文字を区別"
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
@@ -1804,7 +1803,7 @@ msgstr "TERMINAL_UUID"
 #: source/gx/tilix/application.d:718
 #, c-format
 msgid "The application ID %s is not valid"
-msgstr ""
+msgstr "アプリケーション ID %s は有効ではありません"
 
 #: source/gx/tilix/application.d:876
 msgid ""
@@ -1812,6 +1811,9 @@ msgid ""
 "This issue is not serious, but correcting it will improve your experience.\n"
 "Click the link below for more information:"
 msgstr ""
+"ターミナルの設定に問題がある可能性があります。\n"
+"これは深刻な問題ではありませんが、問題を修正することでエクスペリエンスが向上します。\n"
+"詳細は、以下のリンクをクリックしてください。"
 
 #: source/gx/tilix/application.d:877
 msgid "Configuration Issue Detected"
@@ -1840,7 +1842,7 @@ msgstr ""
 
 #: source/gx/tilix/constants.d:72
 msgid "A VTE based terminal emulator for Linux"
-msgstr ""
+msgstr "VTE ベースの Linux 向けターミナルエミュレーター"
 
 #: source/gx/tilix/constants.d:73
 msgid ""
@@ -1851,15 +1853,15 @@ msgstr ""
 
 #: source/gx/tilix/constants.d:78
 msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr ""
+msgstr "GTK VTE ウィジェットチーム: 彼らの貢献があってこそ Tilix は実現しました"
 
 #: source/gx/tilix/constants.d:79
 msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr ""
+msgstr "GtkD: 優秀な GTK ラッパーを提供していただきました"
 
 #: source/gx/tilix/constants.d:80
 msgid "Dlang.org for such an excellent language, D"
-msgstr ""
+msgstr "Dlang.org: 優れた言語、D 言語の開発元"
 
 #: source/gx/tilix/constants.d:153
 msgid "Icon title"
@@ -2125,20 +2127,20 @@ msgstr ""
 
 #: source/gx/tilix/bookmark/manager.d:615
 msgid "Could not load bookmarks due to unexpected error"
-msgstr ""
+msgstr "予期しないエラーにより、ブックマークを読み込めませんでした"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Folder"
-msgstr ""
+msgstr "フォルダ"
 
 #: source/gx/tilix/bookmark/manager.d:687
 #: source/gx/tilix/bookmark/bmeditor.d:292
 msgid "Path"
-msgstr ""
+msgstr "パス"
 
 #: source/gx/tilix/bookmark/manager.d:687
 msgid "Remote"
-msgstr ""
+msgstr "リモート"
 
 #: source/gx/tilix/bookmark/bmchooser.d:79
 msgid "Include return character with bookmark"
@@ -2147,19 +2149,19 @@ msgstr ""
 #: source/gx/tilix/bookmark/bmchooser.d:126
 #: source/gx/tilix/bookmark/bmeditor.d:68
 msgid "Select Folder"
-msgstr "フォルダーを選択"
+msgstr "フォルダを選択"
 
 #: source/gx/tilix/bookmark/bmchooser.d:126
 msgid "Select Bookmark"
-msgstr ""
+msgstr "ブックマークを選択"
 
 #: source/gx/tilix/bookmark/bmeditor.d:74
 msgid "Select folder"
-msgstr ""
+msgstr "フォルダを選択"
 
 #: source/gx/tilix/bookmark/bmeditor.d:86
 msgid "Clear folder"
-msgstr ""
+msgstr "フォルダを消去"
 
 #: source/gx/tilix/bookmark/bmeditor.d:150
 msgid "Add Bookmark"
@@ -2171,7 +2173,7 @@ msgstr "ブックマークを編集"
 
 #: source/gx/tilix/bookmark/bmeditor.d:294
 msgid "Select Path"
-msgstr ""
+msgstr "パスを選択"
 
 #: source/gx/tilix/bookmark/bmeditor.d:382
 msgid "Protocol"
@@ -2244,7 +2246,7 @@ msgstr "設定を開く"
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "View configured shortcuts"
-msgstr ""
+msgstr "設定されたショートカットを表示"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
