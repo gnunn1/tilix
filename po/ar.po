@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-06 18:49-0500\n"
+"POT-Creation-Date: 2021-01-19 00:13+0100\n"
 "PO-Revision-Date: 2020-10-05 12:12+0000\n"
 "Last-Translator: Amine L'ch <aminelch95@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tilix/"
@@ -19,61 +19,140 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Weblate 4.3-dev\n"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "نسخة GTK التي عندك قديمة جدًّا، تحتاج إلى GTK %d.%d.%d أو أعلى!"
+#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
+#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
+#: source/gx/tilix/encoding.d:78
+msgid "Western"
+msgstr "غربي"
 
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "حصل استثناء غير متوقع"
+#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
+#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
+msgid "Central European"
+msgstr ""
 
-#: source/app.d:157
-msgid "Error: "
-msgstr "خطأ: "
+#: source/gx/tilix/encoding.d:20
+msgid "South European"
+msgstr ""
 
-#: source/app.d:167
-msgid "Versions"
-msgstr "النسخ"
+#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
+#: source/gx/tilix/encoding.d:83
+msgid "Baltic"
+msgstr "بلطيقي"
 
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "نسخة تلكس: %s"
+#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
+#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
+#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
+msgid "Cyrillic"
+msgstr "سيريلي"
 
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "نسخة VTE: %s"
+#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
+#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
+msgid "Arabic"
+msgstr "عربي"
 
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "نسخة GTK: %d.%d.%d"
+#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
+#: source/gx/tilix/encoding.d:79
+msgid "Greek"
+msgstr "يوناني"
 
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "ميزات تِلِكس الخاصة"
+#: source/gx/tilix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr ""
 
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "تفعيل الإشعارات=%b"
+#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
+#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
+msgid "Hebrew"
+msgstr "عبري"
 
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "تفعيل المُطلِقات=%b"
+#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
+#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
+msgid "Turkish"
+msgstr "تركي"
 
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "تفعيل الشارات=%b"
+#: source/gx/tilix/encoding.d:28
+msgid "Nordic"
+msgstr ""
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "معطل"
+#: source/gx/tilix/encoding.d:30
+msgid "Celtic"
+msgstr ""
 
-#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
-msgid "Do not show this again"
-msgstr "لا تُظهر هذا مرة أخرى"
+#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
+msgid "Romanian"
+msgstr "روماني"
+
+#: source/gx/tilix/encoding.d:33
+msgid "Unicode"
+msgstr "يونيكود"
+
+#: source/gx/tilix/encoding.d:34
+msgid "Armenian"
+msgstr "أرميني"
+
+#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
+#: source/gx/tilix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "صيني تقليدي"
+
+#: source/gx/tilix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "سيريلي/روسي"
+
+#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
+#: source/gx/tilix/encoding.d:71
+msgid "Japanese"
+msgstr "ياباني"
+
+#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
+#: source/gx/tilix/encoding.d:74
+msgid "Korean"
+msgstr "كوري"
+
+#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
+#: source/gx/tilix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "صيني مبسط"
+
+#: source/gx/tilix/encoding.d:44
+msgid "Georgian"
+msgstr "جورجي"
+
+#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "سيريلي/أوكراني"
+
+#: source/gx/tilix/encoding.d:58
+msgid "Croatian"
+msgstr "كرواتي"
+
+#: source/gx/tilix/encoding.d:60
+msgid "Hindi"
+msgstr "هندي"
+
+#: source/gx/tilix/encoding.d:61
+msgid "Persian"
+msgstr "فارسي"
+
+#: source/gx/tilix/encoding.d:63
+msgid "Gujarati"
+msgstr "غوجاراتي"
+
+#: source/gx/tilix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "غورموخي"
+
+#: source/gx/tilix/encoding.d:66
+msgid "Icelandic"
+msgstr "أيسلندي"
+
+#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
+#: source/gx/tilix/encoding.d:84
+msgid "Vietnamese"
+msgstr "فيتنامي"
+
+#: source/gx/tilix/encoding.d:73
+msgid "Thai"
+msgstr "تايلندي"
 
 #: source/gx/tilix/appwindow.d:320
 msgid "Create a new session"
@@ -104,7 +183,6 @@ msgid "Change Session Name"
 msgstr "غيّر اسم الجلسة"
 
 #: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: source/gx/tilix/application.d:226
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "نافذة جديدة"
@@ -114,7 +192,7 @@ msgid "Open…"
 msgstr "افتح…"
 
 #: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3673
+#: source/gx/tilix/terminal/terminal.d:3674
 #: source/gx/tilix/prefeditor/profileeditor.d:952
 msgid "Save"
 msgstr "احفظ"
@@ -133,7 +211,7 @@ msgstr "زامن الدخل"
 
 #: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
 #: source/gx/tilix/prefeditor/prefdialog.d:414
-#: source/gx/tilix/application.d:230
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
 msgid "Preferences"
 msgstr "التفضيلات"
 
@@ -150,8 +228,8 @@ msgstr "حول تِلِكس"
 msgid "GC"
 msgstr "جامع القمامة"
 
-#: source/gx/tilix/appwindow.d:1082
-#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+#: source/gx/tilix/appwindow.d:1082 source/gx/tilix/session.d:1222
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
 msgid "Default"
 msgstr "المبدئي"
 
@@ -164,9 +242,9 @@ msgstr "توجد أكثر من جلسة مفتوحة، أتريد إغلاقها
 msgid "All JSON Files"
 msgstr "كل ملفات JSON"
 
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3683
-#: source/gx/tilix/prefeditor/profileeditor.d:969
+#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3684
 #: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:969
 msgid "All Files"
 msgstr "كل الملفات"
 
@@ -184,23 +262,23 @@ msgid "Open"
 msgstr "افتح"
 
 #: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3674
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3673
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/bookmark/bmchooser.d:127
 #: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:952
 msgid "Cancel"
 msgstr "ألغ"
 
-#: source/gx/tilix/appwindow.d:1526 source/gx/tilix/appwindow.d:1584
+#: source/gx/tilix/appwindow.d:1526
 msgid "Could not load session due to unexpected error."
 msgstr "تعذّر تحميل الجلسة بسبب خطأ غير متوقع."
 
-#: source/gx/tilix/appwindow.d:1526 source/gx/tilix/appwindow.d:1584
+#: source/gx/tilix/appwindow.d:1526
 msgid "Error Loading Session"
 msgstr "خطأ في تحميل الجلسة"
 
@@ -208,63 +286,145 @@ msgstr "خطأ في تحميل الجلسة"
 msgid "Save Session"
 msgstr "احفظ الجلسة"
 
-#: source/gx/tilix/appwindow.d:1671 source/gx/tilix/application.d:342
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "تعذّر تحميل الجلسة بسبب خطأ غير متوقع."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "خطأ في تحميل الجلسة"
+
+#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
 msgstr "تِلِكس"
 
-#: source/gx/tilix/appwindow.d:1700
+#: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
 msgstr "الوضع العاجل غير مدعوم في ويلاند، سأشغل نافذة عادية"
 
-#: source/gx/tilix/appwindow.d:1702
+#: source/gx/tilix/appwindow.d:1712
 msgid "Quake Mode Not Supported"
 msgstr "الوضع العاجل غير مدعوم"
 
-#: source/gx/tilix/appwindow.d:2113
+#: source/gx/tilix/appwindow.d:2181
 #, fuzzy
 msgid "New output displayed"
 msgstr "خرج جديد"
 
-#: source/gx/tilix/appwindow.d:2121
+#: source/gx/tilix/appwindow.d:2189
 msgid "Close session"
 msgstr "أغلق الجلسة"
 
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "يطلب هذا الأمر نفاذًا إداريا إلى حاسوبك"
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, fuzzy, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "تجاهل لعدم كون '%s' مجلدًا"
 
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "نسخ الأوامر من الشابكة قد يكون خطرًا. "
+#: source/gx/tilix/cmdparams.d:152
+#, fuzzy, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "النص الموضعي '%s' غير صالح ويتعذَّر تحليله"
 
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "تأكد أن تفهم ما يفعله كل جزء من هذا الأمر."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "حوِّل"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "حوّل المسافات إلى أشرطة"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "حوّل CRLF و CR إلى LF"
-
-#: source/gx/tilix/terminal/advpaste.d:137
+#: source/gx/tilix/cmdparams.d:186
 #, fuzzy
-msgid "Advanced Paste"
-msgstr "لصق متقدم"
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"لا يمكن تحميل جلسة وتعيين لاحة أو دليل عمل أو تنفيذ خيار أمر، اختر الأولى أو "
+"الباقية"
 
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1813
-#: source/gx/tilix/terminal/terminal.d:1831
-msgid "Paste"
-msgstr "ألصق"
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "يمكن استعمال معامل الفعل مع تِلِكس فقط"
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr "لا يمكن استعمال الوضع العاجل مع معامل التكبير أو التصغير أو الموضع"
+
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "تعذَّر إيجاد النافذة المُفلتة"
+
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "تعذَّر إيجاد جلسة النافذة المُفلتة"
+
+#: source/gx/tilix/session.d:1572 source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+#: source/gx/tilix/bookmark/bmeditor.d:231
+msgid "Name"
+msgstr "الاسم"
+
+#: source/gx/tilix/session.d:1583 source/gx/tilix/prefeditor/prefdialog.d:176
+msgid "Profile"
+msgstr "اللاحة"
+
+#: source/gx/tilix/session.d:1606 source/gx/tilix/prefeditor/prefdialog.d:1554
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+msgid "New Session"
+msgstr "جلسة جديدة"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1850
+msgid "Close"
+msgstr "أغلق"
+
+#: source/gx/tilix/preferences.d:251
+msgid "UpdateState"
+msgstr "UpdateState"
+
+#: source/gx/tilix/preferences.d:252
+msgid "ExecuteCommand"
+msgstr "ExecuteCommand"
+
+#: source/gx/tilix/preferences.d:253
+msgid "SendNotification"
+msgstr "SendNotification"
+
+#: source/gx/tilix/preferences.d:254
+msgid "UpdateTitle"
+msgstr "UpdateTitle"
+
+#: source/gx/tilix/preferences.d:255
+msgid "PlayBell"
+msgstr "PlayBell"
+
+#: source/gx/tilix/preferences.d:256
+msgid "SendText"
+msgstr "SendText"
+
+#: source/gx/tilix/preferences.d:257
+msgid "InsertPassword"
+msgstr "InsertPassword"
+
+#: source/gx/tilix/preferences.d:258
+msgid "UpdateBadge"
+msgstr "UpdateBadge"
+
+#: source/gx/tilix/preferences.d:259
+msgid "RunProcess"
+msgstr "RunProcess"
+
+#: source/gx/tilix/preferences.d:369
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (نسخة)"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr ""
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "مخطط لوحة الألوان يتطلَّب 16 لونًا"
 
 #: source/gx/tilix/terminal/search.d:125
 msgid "Search Options"
@@ -304,29 +464,24 @@ msgstr ""
 "%s"
 
 #: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1308
+#: source/gx/tilix/terminal/terminal.d:1309
 #: source/gx/tilix/prefeditor/titleeditor.d:105
 msgid "Terminal"
 msgstr "الطرفية"
 
-#: source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1849 source/gx/tilix/sidebar.d:546
-msgid "Close"
-msgstr "أغلق"
-
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1348
-#: source/gx/tilix/terminal/terminal.d:1848
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1849
 msgid "Maximize"
 msgstr "كبّر"
 
 #: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:691
+#: source/gx/tilix/terminal/terminal.d:692
 msgid "Disable input synchronization for this terminal"
 msgstr "عطّل مزامنة الدخل في هذه الطرفية"
 
 #: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:828
+#: source/gx/tilix/terminal/terminal.d:829
 msgid "Read-Only"
 msgstr "للقراءة فقط"
 
@@ -347,283 +502,239 @@ msgstr "حرّر اللاحة"
 msgid "Edit Encodings"
 msgstr "حرّر الترميزات"
 
-#: source/gx/tilix/terminal/terminal.d:693
+#: source/gx/tilix/terminal/terminal.d:694
 msgid "Enable input synchronization for this terminal"
 msgstr "فعّل مزامنة الدخل لهذه الطرفيّة"
 
-#: source/gx/tilix/terminal/terminal.d:728
+#: source/gx/tilix/terminal/terminal.d:729
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr "تعذّر تحميل المكتبة %s، وظيفة كلمات المرور غير متاحة."
 
-#: source/gx/tilix/terminal/terminal.d:728
+#: source/gx/tilix/terminal/terminal.d:729
 msgid "Library Not Loaded"
 msgstr "مكتبة لم تُحمّل"
 
-#: source/gx/tilix/terminal/terminal.d:827
+#: source/gx/tilix/terminal/terminal.d:828
 msgid "Find…"
 msgstr "ابحث…"
 
-#: source/gx/tilix/terminal/terminal.d:834
+#: source/gx/tilix/terminal/terminal.d:835
 msgid "Password..."
 msgstr "كلمة سر…"
 
-#: source/gx/tilix/terminal/terminal.d:835
+#: source/gx/tilix/terminal/terminal.d:836
 msgid "Bookmark..."
 msgstr "علامة…"
 
-#: source/gx/tilix/terminal/terminal.d:836
+#: source/gx/tilix/terminal/terminal.d:837
 msgid "Add Bookmark..."
 msgstr "أضف علامة…"
 
-#: source/gx/tilix/terminal/terminal.d:840
+#: source/gx/tilix/terminal/terminal.d:841
 msgid "Assistants"
 msgstr "المعاونات"
 
-#: source/gx/tilix/terminal/terminal.d:841
+#: source/gx/tilix/terminal/terminal.d:842
 #: source/gx/tilix/prefeditor/prefdialog.d:283
 msgid "Profiles"
 msgstr "اللاحات"
 
-#: source/gx/tilix/terminal/terminal.d:847
+#: source/gx/tilix/terminal/terminal.d:848
 msgid "Show File Browser..."
 msgstr "أظهر متصفح الملفات…"
 
-#: source/gx/tilix/terminal/terminal.d:851
+#: source/gx/tilix/terminal/terminal.d:852
 msgid "Save Output…"
 msgstr "احفظ الخرج…"
 
-#: source/gx/tilix/terminal/terminal.d:852
+#: source/gx/tilix/terminal/terminal.d:853
 #: source/gx/tilix/prefeditor/profileeditor.d:289
 #: source/gx/tilix/prefeditor/profileeditor.d:328
 msgid "Reset"
 msgstr "صفّر"
 
-#: source/gx/tilix/terminal/terminal.d:853
+#: source/gx/tilix/terminal/terminal.d:854
 msgid "Reset and Clear"
 msgstr "صفّر وامح"
 
-#: source/gx/tilix/terminal/terminal.d:857
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/terminal/terminal.d:858
 #: source/gx/tilix/prefeditor/prefdialog.d:166
 #: source/gx/tilix/prefeditor/prefdialog.d:167
 #: source/gx/tilix/prefeditor/prefdialog.d:463
 #: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1091
 msgid "Encoding"
 msgstr "الترميزات"
 
-#: source/gx/tilix/terminal/terminal.d:858
+#: source/gx/tilix/terminal/terminal.d:859
 msgid "Layout Options…"
 msgstr "خيارات التخطيط…"
 
-#: source/gx/tilix/terminal/terminal.d:862
+#: source/gx/tilix/terminal/terminal.d:863
 msgid "Monitor Silence"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:865
+#: source/gx/tilix/terminal/terminal.d:866
 msgid "Other"
 msgstr "أخرى"
 
-#: source/gx/tilix/terminal/terminal.d:874
+#: source/gx/tilix/terminal/terminal.d:875
 msgid "Add Right"
 msgstr "أضف إلى اليمين"
 
-#: source/gx/tilix/terminal/terminal.d:878
+#: source/gx/tilix/terminal/terminal.d:879
 msgid "Add Down"
 msgstr "أضف إلى الأسفل"
 
-#: source/gx/tilix/terminal/terminal.d:988
+#: source/gx/tilix/terminal/terminal.d:989
 msgid "Terminal Activity"
 msgstr "نشاط طرفية"
 
-#: source/gx/tilix/terminal/terminal.d:1324
+#: source/gx/tilix/terminal/terminal.d:1325
 msgid "Not Enabled"
 msgstr "غيرمفعّل"
 
-#: source/gx/tilix/terminal/terminal.d:1345
-#: source/gx/tilix/terminal/terminal.d:1848
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1849
 msgid "Restore"
 msgstr "استعد"
 
-#: source/gx/tilix/terminal/terminal.d:1697
+#: source/gx/tilix/terminal/terminal.d:1698
 msgid "Tilix Custom Notification"
 msgstr "تنبيه تِلِكس مخصص"
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1799
 msgid "Open Link"
 msgstr "افتح الرابط"
 
-#: source/gx/tilix/terminal/terminal.d:1799
+#: source/gx/tilix/terminal/terminal.d:1800
 msgid "Copy Link Address"
 msgstr "انسخ عنوان الرابط"
 
-#: source/gx/tilix/terminal/terminal.d:1809
-#: source/gx/tilix/terminal/terminal.d:1819
+#: source/gx/tilix/terminal/terminal.d:1810
+#: source/gx/tilix/terminal/terminal.d:1820
 msgid "Copy"
 msgstr "انسخ"
 
-#: source/gx/tilix/terminal/terminal.d:1811
-#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1812
+#: source/gx/tilix/terminal/terminal.d:1826
 msgid "Copy as HTML"
 msgstr "انسخ بصيغة HTML"
 
 #: source/gx/tilix/terminal/terminal.d:1814
-#: source/gx/tilix/terminal/terminal.d:1836
+#: source/gx/tilix/terminal/terminal.d:1832
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "ألصق"
+
+#: source/gx/tilix/terminal/terminal.d:1815
+#: source/gx/tilix/terminal/terminal.d:1837
 msgid "Select All"
 msgstr "اختر الكل"
 
-#: source/gx/tilix/terminal/terminal.d:1839
+#: source/gx/tilix/terminal/terminal.d:1840
 #: source/gx/tilix/prefeditor/prefdialog.d:1560
 msgid "Clipboard"
 msgstr "الحافظة"
 
-#: source/gx/tilix/terminal/terminal.d:1853
+#: source/gx/tilix/terminal/terminal.d:1854
 msgid "Synchronize input"
 msgstr "زامن الدخل"
 
-#: source/gx/tilix/terminal/terminal.d:2006
+#: source/gx/tilix/terminal/terminal.d:2007
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
 msgstr "تعذر التحقق من الملف'%s' بسبب الخطأ'%s'"
 
-#: source/gx/tilix/terminal/terminal.d:2013
-#, c-format
+#: source/gx/tilix/terminal/terminal.d:2014
+#, fuzzy, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
-"Uri was '%s'"
+"URI was '%s'"
 msgstr ""
 "عناوين URI للملفات البعيدة غير مدعومة بالارتباطات التشعبية.\n"
 "Uri كان '%s'"
 
-#: source/gx/tilix/terminal/terminal.d:2014
+#: source/gx/tilix/terminal/terminal.d:2015
 msgid "Remote File URI Unsupported"
 msgstr "عنوان URI للملف البعيد غير مدعوم"
 
-#: source/gx/tilix/terminal/terminal.d:2046
-#: source/gx/tilix/terminal/terminal.d:2621
+#: source/gx/tilix/terminal/terminal.d:2047
+#: source/gx/tilix/terminal/terminal.d:2622
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2047
+#: source/gx/tilix/terminal/terminal.d:2048
 msgid "Regular Expression Error"
 msgstr "خطأ في التعبير النمطي"
 
-#: source/gx/tilix/terminal/terminal.d:2060
+#: source/gx/tilix/terminal/terminal.d:2061
 #, c-format
 msgid "Could not open match '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2061
+#: source/gx/tilix/terminal/terminal.d:2062
 msgid "Error Opening Match"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2571
+#: source/gx/tilix/terminal/terminal.d:2572
 #, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "حصل خطأ غير متوقع عند إضافة التعبير النمطي: %s"
 
-#: source/gx/tilix/terminal/terminal.d:2778
+#: source/gx/tilix/terminal/terminal.d:2779
 msgid "Unexpected error occurred, no additional information available"
 msgstr "حصل خطأ غير متوقع، ولا توجد معلومات إضافية متاحة"
 
-#: source/gx/tilix/terminal/terminal.d:2788
+#: source/gx/tilix/terminal/terminal.d:2789
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "حصل خطأ غير متوقع: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3670
+#: source/gx/tilix/terminal/terminal.d:3671
 msgid "Save Terminal Output"
 msgstr "احفظ خرج الطرفية"
 
-#: source/gx/tilix/terminal/terminal.d:3679
+#: source/gx/tilix/terminal/terminal.d:3680
 msgid "All Text Files"
 msgstr "كل الملفات النصية"
 
-#: source/gx/tilix/terminal/terminal.d:4009
+#: source/gx/tilix/terminal/terminal.d:4010
 msgid "Unknown"
 msgstr "مجهول"
 
-#: source/gx/tilix/terminal/terminal.d:4273
+#: source/gx/tilix/terminal/terminal.d:4274
 #, fuzzy, c-format
 msgid "The child process exited normally with status %d"
 msgstr "خرجت العملية البنت خروجًا طبيعيًّا برمز حالة %d"
 
-#: source/gx/tilix/terminal/terminal.d:4274
+#: source/gx/tilix/terminal/terminal.d:4275
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "أُجهضت العملية البنت بالإشارة %d."
 
-#: source/gx/tilix/terminal/terminal.d:4275
+#: source/gx/tilix/terminal/terminal.d:4276
 msgid "The child process was aborted."
 msgstr "أُجهضت العملية البنت."
 
-#: source/gx/tilix/terminal/terminal.d:4281
+#: source/gx/tilix/terminal/terminal.d:4282
 msgid "Relaunch"
 msgstr "أعد الإطلاق"
 
-#: source/gx/tilix/terminal/terminal.d:4348
+#: source/gx/tilix/terminal/terminal.d:4349
 msgid "Don't Paste"
 msgstr "لا تلصق"
 
-#: source/gx/tilix/terminal/terminal.d:4349
+#: source/gx/tilix/terminal/terminal.d:4350
 msgid "Paste Anyway"
 msgstr "ألصق على أي حال"
 
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "خيارات التخطيط"
-
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmchooser.d:127
-#: source/gx/tilix/bookmark/bmeditor.d:151
-msgid "OK"
-msgstr "حسنًا"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "النشطة"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
-#: source/gx/tilix/closedialog.d:123
-msgid "Title"
-msgstr "العنوان"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1178
-msgid "Badge"
-msgstr "الشارة"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "تحميل الجلسة"
-
-#: source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-msgid "Command"
-msgstr "أمر"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
-"الخيارات النشطة تطبق فورًا. خيارات تحميل الجلسة تطبّق فقط عند تحميل ملف جلسة."
-
-#: source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
-#: source/gx/tilix/bookmark/bmeditor.d:231
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-msgid "Name"
-msgstr "الاسم"
 
 #: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
 msgid "ID"
@@ -634,17 +745,17 @@ msgid "New"
 msgstr "جديد"
 
 #: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/profileeditor.d:1324
+#: source/gx/tilix/prefeditor/profileeditor.d:1325
 #: source/gx/tilix/prefeditor/common.d:46
 #: source/gx/tilix/prefeditor/common.d:77
 msgid "Edit"
 msgstr "حرّر"
 
 #: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/profileeditor.d:1343
 #: source/gx/tilix/prefeditor/prefdialog.d:556
 #: source/gx/tilix/prefeditor/advdialog.d:141
 #: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/profileeditor.d:1344
 msgid "Delete"
 msgstr "احذف"
 
@@ -670,6 +781,12 @@ msgstr "كلمة السر"
 msgid "Confirm Password"
 msgstr "أعد كلمة السر"
 
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
+msgid "OK"
+msgstr "حسنًا"
+
 #: source/gx/tilix/terminal/password.d:499
 msgid "Add Password"
 msgstr "أضف كلمة السر"
@@ -678,9 +795,822 @@ msgstr "أضف كلمة السر"
 msgid "Edit Password"
 msgstr "حرّر كلمة السر"
 
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "خيارات التخطيط"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "النشطة"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
+#: source/gx/tilix/closedialog.d:123
+msgid "Title"
+msgstr "العنوان"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
+msgid "Badge"
+msgstr "الشارة"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "تحميل الجلسة"
+
+#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1140
+msgid "Command"
+msgstr "أمر"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
 msgstr ""
+"الخيارات النشطة تطبق فورًا. خيارات تحميل الجلسة تطبّق فقط عند تحميل ملف جلسة."
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "يطلب هذا الأمر نفاذًا إداريا إلى حاسوبك"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "نسخ الأوامر من الشابكة قد يكون خطرًا. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "تأكد أن تفهم ما يفعله كل جزء من هذا الأمر."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "حوِّل"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "حوّل المسافات إلى أشرطة"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "حوّل CRLF و CR إلى LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+#, fuzzy
+msgid "Advanced Paste"
+msgstr "لصق متقدم"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "محاكي طرفية مبني على VTE لنظام لينكس"
+
+#: source/gx/tilix/constants.d:73
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+"هذه الشفرة المصدريَّة تنطبق عليها بنود رخصة موزيلا العامة النسخة الثانية. إذا "
+"لم تُوزع نسخة من الرخصة مع هذا الملف، يمكن الحصول على واحدة من http://mozilla."
+"org/MPL/2.0/."
+
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr "فريق ودجة GTK VTE، لم يكن إنجاز تِلِكس ممكنًا من غير جهودهم"
+
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD لتوفيرهم غلافًا ممتازًا لمكتبة GTK"
+
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org على لغة البرمجة الممتازة: لغة دي"
+
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "عنوان الأيقونة"
+
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "الدليل"
+
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "اسم المضيف"
+
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "الأعمدة"
+
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "الصفوف"
+
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "العمليَّة"
+
+#: source/gx/tilix/constants.d:161
+#, fuzzy
+msgid "Status.Read-Only"
+msgstr "للقراءة فقط"
+
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr ""
+
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr ""
+
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "عدد الطرفيَّات"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "رقم الطرفية"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "عنوان الطرفية النشطة"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "اسم التطبيق"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "اسم الجلسة"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "رقم الجلسة"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "عدد الجلسات"
+
+#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/prefeditor/profileeditor.d:449
+msgid "Icon"
+msgstr "أيقونة"
+
+#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Folder"
+msgstr "اختر مجلّدًا"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "اختر مجلدًا"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "امح المجلد"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "أضف علامة"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "حرّر العلامة"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "مسار"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "اختر مسارًا"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "الميفاق"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "المضيف"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "المستخدم"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "المعاملات"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr ""
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "الجذر"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "تعذّر تحميل العلامات بسبب خطأ غير متوقّع"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "مجلّد"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "بعيد"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "ضمِّن محرف الرجوع مع العلامة"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "اختر علامة"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr "Muhammad Abdulhadi"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "إشادات"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "عيِّن دليل العمل للطرفية"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "DIRECTORY"
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "عيّن لاحة البدء"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr "PROFILE_NAME"
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "عيّن عنوان الطرفية الجديدة"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "TITLE"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "افتح الجلسة المحددة"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "SESSION_NAME"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr ""
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "ACTION_NAME"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "نفِّذ المعامل كأمر"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "COMMAND"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "كبّر نافذة الطرفية"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "صغّر نافذة الطرفية"
+
+#: source/gx/tilix/application.d:668
+msgid ""
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
+"افرض شكل النافذة المُفضَّل، واحد من: normal,disable-csd,disable-csd-hide-"
+"toolbar,borderless"
+
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "WINDOW_STYLE"
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "املأ الشاشة بنافذة الطرفيَّة"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "ركّز على النافذة الموجودة"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "ابدأ نسخة إضافية في عملية جديدة (غير مستحب)"
+
+#: source/gx/tilix/application.d:672
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr "عيِّن حجم النافذة؛ مثال: 80x24 أو 80x24+200+200 (الأعمدة+الصفوف+س+ص)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr "GEOMETRY"
+
+#: source/gx/tilix/application.d:673
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr "افتح نافذة في الوضع العاجل أو بدِّل ظهور نافذة الوضع العاجل الموجودة"
+
+#: source/gx/tilix/application.d:674
+msgid "Show the Tilix and dependant component versions"
+msgstr "أظهر نسخة تِلِكس والمكونات المعتمدة"
+
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "أظهر نافذة تفضيلات تِلِكس مباشرة"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid ""
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr "ابدأ نسخة إضافية في عملية جديدة (غير مستحب)"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid "GROUP_NAME"
+msgstr "PROFILE_NAME"
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr ""
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr ""
+
+#: source/gx/tilix/application.d:854
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"يظهر أنه في ضبط الطرفية مشكلة.\n"
+"هذه المشكلة ليست كبيرة، لكن حلها سيحسّن تجربتك.\n"
+"اضغط على الرابط في الأسفل لمزيد من المعلومات:"
+
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "اكتشاف مشكلة في الضبط"
+
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "لا تظهر هذه الرسالة مرة أخرى"
+
+#: source/gx/tilix/closedialog.d:143 source/gx/gtk/dialog.d:89
+msgid "Do not show this again"
+msgstr "لا تُظهر هذا مرة أخرى"
+
+#: source/gx/tilix/closedialog.d:170
+#, c-format
+msgid "Window (%s)"
+msgstr "النافذة (%s)"
+
+#: source/gx/tilix/closedialog.d:173
+#, c-format
+msgid "Session (%s)"
+msgstr "الجلسة (%s)"
+
+#: source/gx/tilix/closedialog.d:189
+msgid "Close Application"
+msgstr "أغلق التطبيق"
+
+#: source/gx/tilix/closedialog.d:191
+msgid "Close Window"
+msgstr "أغلق النافذة"
+
+#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
+msgid "Close Session"
+msgstr "أغلق الجلسة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:123
+msgid "Tilix Preferences"
+msgstr "تفضيلات تِلِكس"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:140
+#: source/gx/tilix/prefeditor/prefdialog.d:141
+#: source/gx/tilix/prefeditor/prefdialog.d:219
+msgid "Global"
+msgstr "عام"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:144
+#: source/gx/tilix/prefeditor/prefdialog.d:145
+msgid "Appearance"
+msgstr "المظهر"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:150
+#: source/gx/tilix/prefeditor/prefdialog.d:151
+msgid "Quake"
+msgstr "الوضع العاجل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:155
+#: source/gx/tilix/prefeditor/prefdialog.d:156
+msgid "Bookmarks"
+msgstr "العلامات"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:162
+#: source/gx/tilix/prefeditor/prefdialog.d:163
+#: source/gx/tilix/prefeditor/prefdialog.d:299
+msgid "Shortcuts"
+msgstr "الاختصارات"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:170
+#: source/gx/tilix/prefeditor/prefdialog.d:171
+#: source/gx/tilix/prefeditor/profileeditor.d:105
+#: source/gx/tilix/prefeditor/profileeditor.d:577
+msgid "Advanced"
+msgstr "متقدم"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:189
+msgid "Add profile"
+msgstr "أضف لاحة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:194
+msgid "Delete profile"
+msgstr "احذف اللاحة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:312
+#: source/gx/tilix/prefeditor/prefdialog.d:320
+#, c-format
+msgid "Profile: %s"
+msgstr "اللاحة: %s"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:366
+#, c-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "هل أنت واثق أنك تريد حذف '%s'؟"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:557
+msgid "Clone"
+msgstr "استنسخ"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:561
+msgid "Use for new terminals"
+msgstr "استخدم للطرفيات الجديدة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:637
+msgid "Encodings showing in menu:"
+msgstr "الترميزات الظاهرة في القائمة:"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:679
+msgid "Enabled"
+msgstr "مفعّل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:765
+#: source/gx/tilix/prefeditor/advdialog.d:287
+msgid "Action"
+msgstr "الفعل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:789
+msgid "Shortcut Key"
+msgstr "مفتاح الاختصار"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:801
+msgid "Enable shortcuts"
+msgstr "فعّل الاختصارات"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:805
+msgid "Set default"
+msgstr "عيّن المبدئي"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:916
+msgid "Overwrite Existing Shortcut"
+msgstr "طمس اختصار موجود"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:917
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"عُيِّن الاختصار %s للفعل «%s».\n"
+"أتريد تعطيل اختصار الفعل الآخر وتعيينه هنا؟"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1135
+msgid "Window style"
+msgstr "شكل النافذة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Normal"
+msgstr "عادي"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD, hide toolbar"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Borderless"
+msgstr "دون حدود"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1141
+msgid "Window restart required"
+msgstr "إعادة بدء النافذة مطلوب"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1150
+msgid "Terminal title style"
+msgstr "شكل عنوان الطرفية"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Small"
+msgstr "صغير"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+#: source/gx/tilix/prefeditor/profileeditor.d:449
+msgid "None"
+msgstr "عدم"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1156
+#: source/gx/tilix/prefeditor/prefdialog.d:1350
+msgid "Tab position"
+msgstr "موضع اللسان"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Left"
+msgstr "يسار"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Right"
+msgstr "يمين"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Top"
+msgstr "فوق"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Bottom"
+msgstr "تحت"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1163
+msgid "Theme variant"
+msgstr "تنويعة السمة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Light"
+msgstr "فاتح"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Dark"
+msgstr "غامق"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1170
+msgid "Background image"
+msgstr "صورة الخلفية"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1172
+msgid "Select Image"
+msgstr "اختر صورة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1175
+msgid "All Image Files"
+msgstr "كل ملفات الصور"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1196
+msgid "Reset background image"
+msgstr "صفِّر صورة الخلفية"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Scale"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Tile"
+msgstr "مكرَّرة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+msgid "Center"
+msgstr "موسَّطة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Stretch"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1221
+msgid "Default session name"
+msgstr "اسم الجلسة المبدئي"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1236
+msgid "Application title"
+msgstr "عنوان التطبيق"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
+msgid "Enable transparency, requires re-start"
+msgstr "فعّل الشفافية، يحتاج إعادة تشغيل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
+msgid "Use a wide handle for splitters"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1265
+msgid "Place the sidebar on the right"
+msgstr "ضع الشريط الجانبي في اليمين"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1269
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "أظهر عنوان الطرفية حتى لو كانت هي الطرفية الوحيدة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
+msgid "Use overlay scrollbars (Application restart required)"
+msgstr "استعمل أشرطة التمرير المركبة (إعادة تشغيل التطبيق مطلوبة)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1279
+msgid "Use tabs instead of sidebar (Application restart required)"
+msgstr "استعمل الأشرطة بدل المسافات (إعادة تشغيل التطبيق مطلوبة)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1311
+msgid "Size"
+msgstr "الحجم"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1322
+msgid "Height percent"
+msgstr "نسبة الطول"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1333
+msgid "Width percent"
+msgstr "نسبة العرض"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1343
+msgid "Alignment"
+msgstr "المحاذاة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1357
+#, fuzzy
+msgid "Window position"
+msgstr "موضع الشارة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:558
+msgid "Options"
+msgstr "خيارات"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1374
+msgid "Show terminal on all workspaces"
+msgstr "أظهر الطرفية في كل مساحات العمل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1386
+msgid "Hide window when focus is lost"
+msgstr "أخف النافذة إذا ذهب التركيز عنها"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1390
+msgid "Delay hiding window by (ms)"
+msgstr "انتظر قبل إخفاء النافذة (بالملِّي ثانية)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1403
+msgid "Hide the toolbar of the window"
+msgstr "أخف شريط أدوات النافذة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1418
+msgid "Keep window always on top"
+msgstr "أبق النافذة دائمًا فوق غيرها"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1423
+msgid "Display terminal on active monitor"
+msgstr "اعرض الطرفية في الشاشة النشطة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1430
+msgid "Display on specific monitor"
+msgstr "اعرض على شاشة محدّدة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1433
+msgid "Primary Monitor"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1436
+msgid "Monitor "
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1496
+msgid "Behavior"
+msgstr "السلوك"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1502
+msgid "Prompt when creating a new session"
+msgstr "اسأل عند إنشاء جلسة جديدة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1507
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "ركّز على طرفية حين يمر مؤشر الفأرة فوقها"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1512
+msgid "Autohide the mouse pointer when typing"
+msgstr "أخف مؤشر الفأرة تلقائيا عند الكتابة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1517
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "أغلق الطرفية عند الضغط على عنوانها بزر الفأرة الأخرى"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1522
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "قرِّب الطرفية باستعمال مفتاح <Control> وعجلة الفأرة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1527
+msgid "Require the <Control> modifier to edit title on click"
+msgstr "يجب ضغط مفتاح <Control> عند الضغط على العنوان لتحريره"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1532
+msgid "Close window when last session is closed"
+msgstr "أغلق النافذة إذا أغلقت آخر جلسة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1537
+msgid "Save and restore window state"
+msgstr "احفظ حالة النافذة واستعدها"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1543
+msgid "Send desktop notification on process complete"
+msgstr "أرسل إشعارًا إلى سطح المكتب عند اكتمال العمليَّة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1551
+msgid "On new instance"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Right"
+msgstr "اقسم إلى اليمين"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Down"
+msgstr "اقسم إلى الأسفل"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Focus Window"
+msgstr "ركّز على النافذة"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1566
+msgid "Always use advanced paste dialog"
+msgstr "استعمل نافذة اللصق المتقدمة دائمًا"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1571
+msgid "Warn when attempting unsafe paste"
+msgstr "حذّر عند محاولة اللصق غير الآمن"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1576
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "انزع أول محرف من اللصق إذا كان تعليقًا أو إعلانًا عن متغير"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "انسخ النص تلقائيا عند اختياره"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:110
+msgid "Session"
+msgstr "الجلسة"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:116
+msgid "Window"
+msgstr "النافذة"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:126
+#: source/gx/tilix/prefeditor/titleeditor.d:127
+msgid "Help"
+msgstr "مساعدة"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -698,6 +1628,50 @@ msgstr "احذف العلامة"
 msgid "Unselect bookmark"
 msgstr "ألغ اختيار العلامة"
 
+#: source/gx/tilix/prefeditor/advdialog.d:94
+#: source/gx/tilix/prefeditor/advdialog.d:261
+msgid "Regex"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:118
+msgid "Case Insensitive"
+msgstr "تجاهل حالة الحروف"
+
+#: source/gx/tilix/prefeditor/advdialog.d:134
+#: source/gx/tilix/prefeditor/advdialog.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:1307
+msgid "Add"
+msgstr "أضف"
+
+#: source/gx/tilix/prefeditor/advdialog.d:151
+msgid "Move up"
+msgstr "أنقل إلى أعلى"
+
+#: source/gx/tilix/prefeditor/advdialog.d:162
+msgid "Move down"
+msgstr "أنقل إلى أسفل"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+msgid "Edit Custom Links"
+msgstr "تحرير الروابط الخاصة"
+
+#: source/gx/tilix/prefeditor/advdialog.d:299
+msgid "Parameter"
+msgstr "المعامل"
+
+#: source/gx/tilix/prefeditor/advdialog.d:337
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Edit Triggers"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:405
+#, c-format
+msgid "Row %d: "
+msgstr "الصف %d: "
+
 #: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "General"
 msgstr "عام"
@@ -713,13 +1687,6 @@ msgstr "التمرير"
 #: source/gx/tilix/prefeditor/profileeditor.d:101
 msgid "Compatibility"
 msgstr "التوافق"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:577
-#: source/gx/tilix/prefeditor/prefdialog.d:170
-#: source/gx/tilix/prefeditor/prefdialog.d:171
-msgid "Advanced"
-msgstr "متقدم"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:217
 msgid "Profile name"
@@ -782,7 +1749,7 @@ msgid "Always"
 msgstr "دائمًا"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:380
-#: source/gx/tilix/prefeditor/profileeditor.d:1202
+#: source/gx/tilix/prefeditor/profileeditor.d:1203
 msgid "Custom font"
 msgstr "خط مخصص"
 
@@ -833,18 +1800,8 @@ msgid "Notification"
 msgstr "الإشعار"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "None"
-msgstr "عدم"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Sound"
 msgstr "صوت"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/closedialog.d:129 source/gx/tilix/bookmark/bmtreeview.d:70
-msgid "Icon"
-msgstr "أيقونة"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Icon and sound"
@@ -871,11 +1828,6 @@ msgstr "صدّر"
 #: source/gx/tilix/prefeditor/profileeditor.d:550
 msgid "Color palette"
 msgstr "لوحة الألوان"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:558
-#: source/gx/tilix/prefeditor/prefdialog.d:1366
-msgid "Options"
-msgstr "خيارات"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:572
 msgid "Use theme colors for foreground/background"
@@ -1064,63 +2016,63 @@ msgstr "نفذ الأمر كصدفة دخول"
 msgid "Run a custom command instead of my shell"
 msgstr "شغّل أمرًا مخصَّصًا بدلًا من صدفتي"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1150
+#: source/gx/tilix/prefeditor/profileeditor.d:1151
 msgid "When command exits"
 msgstr "عندما يخرج الأمر"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Exit the terminal"
 msgstr "اخرج من الطرفية"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Restart the command"
 msgstr "أعد تشغيل الأمر"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Hold the terminal open"
 msgstr "أبق الطرفية مفتوحة"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1192
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
 msgid "Badge position"
 msgstr "موضع الشارة"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Northwest"
 msgstr "فوق يسار"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Northeast"
 msgstr "فوق يمين"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Southwest"
 msgstr "تحت يسار"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Southeast"
 msgstr "تحت يمين"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1214
+#: source/gx/tilix/prefeditor/profileeditor.d:1215
 #, fuzzy
 msgid "Choose A Badge Font"
 msgstr "اختر خط طرفية"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1252
+#: source/gx/tilix/prefeditor/profileeditor.d:1253
 #, fuzzy
 msgid "Notify New Activity"
 msgstr "أشعِر بالنشاط الجديد-"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1259
+#: source/gx/tilix/prefeditor/profileeditor.d:1260
 msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1272
+#: source/gx/tilix/prefeditor/profileeditor.d:1273
 msgid "Automatic Profile Switching"
 msgstr "تبديل اللاحات الآلي"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1281
+#: source/gx/tilix/prefeditor/profileeditor.d:1282
 #, fuzzy
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
@@ -1133,7 +2085,7 @@ msgstr ""
 "يمكن حذف username (اسم المستخدم) و hostname (اسم المضيف) لكن يجب كتابة "
 "النقطتان. المدخلات التي ليس فيها اسم مضيف ولا directory (دليل) غير مسموحة."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1283
+#: source/gx/tilix/prefeditor/profileeditor.d:1284
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>hostname:directory</i> format. Either the "
@@ -1145,50 +2097,44 @@ msgstr ""
 "الدليل لكن النقطتين يجب أن تكونا موجودتين. المدخلات التي لا تحوي اسم مضيف "
 "ولا دليل غير مسموحٍ بها."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1295
+#: source/gx/tilix/prefeditor/profileeditor.d:1296
 msgid "Match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1306
-#: source/gx/tilix/prefeditor/advdialog.d:134
-#: source/gx/tilix/prefeditor/advdialog.d:313
-msgid "Add"
-msgstr "أضف"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1310
+#: source/gx/tilix/prefeditor/profileeditor.d:1311
 msgid "Enter username@hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1312
+#: source/gx/tilix/prefeditor/profileeditor.d:1313
 msgid "Enter hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1314
+#: source/gx/tilix/prefeditor/profileeditor.d:1315
 msgid "Add New Match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1331
+#: source/gx/tilix/prefeditor/profileeditor.d:1332
 msgid "Edit username@hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1333
+#: source/gx/tilix/prefeditor/profileeditor.d:1334
 msgid "Edit hostname:directory to match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1335
+#: source/gx/tilix/prefeditor/profileeditor.d:1336
 msgid "Edit Match"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:1367
 #, fuzzy
 msgid "Enable by default"
 msgstr "عيّن المبدئي"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1375
+#: source/gx/tilix/prefeditor/profileeditor.d:1376
 msgid "Threshold for continuous silence"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1384
+#: source/gx/tilix/prefeditor/profileeditor.d:1385
 msgid "(seconds)"
 msgstr ""
 
@@ -1214,1000 +2160,57 @@ msgid ""
 "in the terminal. When a match is detected the configured action is executed."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:123
-msgid "Tilix Preferences"
-msgstr "تفضيلات تِلِكس"
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "معطل"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:140
-#: source/gx/tilix/prefeditor/prefdialog.d:141
-#: source/gx/tilix/prefeditor/prefdialog.d:219
-msgid "Global"
-msgstr "عام"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:144
-#: source/gx/tilix/prefeditor/prefdialog.d:145
-msgid "Appearance"
-msgstr "المظهر"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:150
-#: source/gx/tilix/prefeditor/prefdialog.d:151
-msgid "Quake"
-msgstr "الوضع العاجل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:155
-#: source/gx/tilix/prefeditor/prefdialog.d:156
-msgid "Bookmarks"
-msgstr "العلامات"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:162
-#: source/gx/tilix/prefeditor/prefdialog.d:163
-#: source/gx/tilix/prefeditor/prefdialog.d:299
-#: source/gx/tilix/application.d:232
-msgid "Shortcuts"
-msgstr "الاختصارات"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
-msgid "Profile"
-msgstr "اللاحة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:189
-msgid "Add profile"
-msgstr "أضف لاحة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:194
-msgid "Delete profile"
-msgstr "احذف اللاحة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:312
-#: source/gx/tilix/prefeditor/prefdialog.d:320
+#: source/app.d:139
 #, c-format
-msgid "Profile: %s"
-msgstr "اللاحة: %s"
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "نسخة GTK التي عندك قديمة جدًّا، تحتاج إلى GTK %d.%d.%d أو أعلى!"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:366
+#: source/app.d:156
+msgid "Unexpected exception occurred"
+msgstr "حصل استثناء غير متوقع"
+
+#: source/app.d:157
+msgid "Error: "
+msgstr "خطأ: "
+
+#: source/app.d:167
+msgid "Versions"
+msgstr "النسخ"
+
+#: source/app.d:168
 #, c-format
-msgid "Are you sure you want to delete '%s'?"
-msgstr "هل أنت واثق أنك تريد حذف '%s'؟"
+msgid "Tilix version: %s"
+msgstr "نسخة تلكس: %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:557
-msgid "Clone"
-msgstr "استنسخ"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:561
-msgid "Use for new terminals"
-msgstr "استخدم للطرفيات الجديدة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:637
-msgid "Encodings showing in menu:"
-msgstr "الترميزات الظاهرة في القائمة:"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:679
-msgid "Enabled"
-msgstr "مفعّل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:765
-#: source/gx/tilix/prefeditor/advdialog.d:287
-msgid "Action"
-msgstr "الفعل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:789
-msgid "Shortcut Key"
-msgstr "مفتاح الاختصار"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:801
-msgid "Enable shortcuts"
-msgstr "فعّل الاختصارات"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:805
-msgid "Set default"
-msgstr "عيّن المبدئي"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:916
-msgid "Overwrite Existing Shortcut"
-msgstr "طمس اختصار موجود"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:917
+#: source/app.d:169
 #, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"عُيِّن الاختصار %s للفعل «%s».\n"
-"أتريد تعطيل اختصار الفعل الآخر وتعيينه هنا؟"
+msgid "VTE version: %s"
+msgstr "نسخة VTE: %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-msgid "Window style"
-msgstr "شكل النافذة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Normal"
-msgstr "عادي"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD, hide toolbar"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Borderless"
-msgstr "دون حدود"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1141
-msgid "Window restart required"
-msgstr "إعادة بدء النافذة مطلوب"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1150
-msgid "Terminal title style"
-msgstr "شكل عنوان الطرفية"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Small"
-msgstr "صغير"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1156
-#: source/gx/tilix/prefeditor/prefdialog.d:1350
-msgid "Tab position"
-msgstr "موضع اللسان"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Left"
-msgstr "يسار"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Right"
-msgstr "يمين"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Top"
-msgstr "فوق"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Bottom"
-msgstr "تحت"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1163
-msgid "Theme variant"
-msgstr "تنويعة السمة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Light"
-msgstr "فاتح"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Dark"
-msgstr "غامق"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1170
-msgid "Background image"
-msgstr "صورة الخلفية"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1172
-msgid "Select Image"
-msgstr "اختر صورة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
-msgid "All Image Files"
-msgstr "كل ملفات الصور"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1196
-msgid "Reset background image"
-msgstr "صفِّر صورة الخلفية"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Scale"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Tile"
-msgstr "مكرَّرة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-msgid "Center"
-msgstr "موسَّطة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Stretch"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1221
-msgid "Default session name"
-msgstr "اسم الجلسة المبدئي"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1236
-msgid "Application title"
-msgstr "عنوان التطبيق"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1254
-msgid "Enable transparency, requires re-start"
-msgstr "فعّل الشفافية، يحتاج إعادة تشغيل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
-msgid "Use a wide handle for splitters"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1265
-msgid "Place the sidebar on the right"
-msgstr "ضع الشريط الجانبي في اليمين"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "أظهر عنوان الطرفية حتى لو كانت هي الطرفية الوحيدة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
-msgid "Use overlay scrollbars (Application restart required)"
-msgstr "استعمل أشرطة التمرير المركبة (إعادة تشغيل التطبيق مطلوبة)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1279
-msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr "استعمل الأشرطة بدل المسافات (إعادة تشغيل التطبيق مطلوبة)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1311
-msgid "Size"
-msgstr "الحجم"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1322
-msgid "Height percent"
-msgstr "نسبة الطول"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1333
-msgid "Width percent"
-msgstr "نسبة العرض"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1343
-msgid "Alignment"
-msgstr "المحاذاة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
-msgid "Window position"
-msgstr "موضع الشارة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1374
-msgid "Show terminal on all workspaces"
-msgstr "أظهر الطرفية في كل مساحات العمل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1386
-msgid "Hide window when focus is lost"
-msgstr "أخف النافذة إذا ذهب التركيز عنها"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1390
-msgid "Delay hiding window by (ms)"
-msgstr "انتظر قبل إخفاء النافذة (بالملِّي ثانية)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1403
-msgid "Hide the toolbar of the window"
-msgstr "أخف شريط أدوات النافذة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1418
-msgid "Keep window always on top"
-msgstr "أبق النافذة دائمًا فوق غيرها"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1423
-msgid "Display terminal on active monitor"
-msgstr "اعرض الطرفية في الشاشة النشطة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1430
-msgid "Display on specific monitor"
-msgstr "اعرض على شاشة محدّدة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1433
-msgid "Primary Monitor"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1436
-msgid "Monitor "
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1496
-msgid "Behavior"
-msgstr "السلوك"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1502
-msgid "Prompt when creating a new session"
-msgstr "اسأل عند إنشاء جلسة جديدة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1507
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "ركّز على طرفية حين يمر مؤشر الفأرة فوقها"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1512
-msgid "Autohide the mouse pointer when typing"
-msgstr "أخف مؤشر الفأرة تلقائيا عند الكتابة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1517
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "أغلق الطرفية عند الضغط على عنوانها بزر الفأرة الأخرى"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1522
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "قرِّب الطرفية باستعمال مفتاح <Control> وعجلة الفأرة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1527
-msgid "Require the <Control> modifier to edit title on click"
-msgstr "يجب ضغط مفتاح <Control> عند الضغط على العنوان لتحريره"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1532
-msgid "Close window when last session is closed"
-msgstr "أغلق النافذة إذا أغلقت آخر جلسة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1537
-msgid "Save and restore window state"
-msgstr "احفظ حالة النافذة واستعدها"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1543
-msgid "Send desktop notification on process complete"
-msgstr "أرسل إشعارًا إلى سطح المكتب عند اكتمال العمليَّة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1551
-msgid "On new instance"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-#: source/gx/tilix/application.d:225 source/gx/tilix/session.d:1606
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "جلسة جديدة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Right"
-msgstr "اقسم إلى اليمين"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Down"
-msgstr "اقسم إلى الأسفل"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Focus Window"
-msgstr "ركّز على النافذة"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1566
-msgid "Always use advanced paste dialog"
-msgstr "استعمل نافذة اللصق المتقدمة دائمًا"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1571
-msgid "Warn when attempting unsafe paste"
-msgstr "حذّر عند محاولة اللصق غير الآمن"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1576
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "انزع أول محرف من اللصق إذا كان تعليقًا أو إعلانًا عن متغير"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1581
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "انسخ النص تلقائيا عند اختياره"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:110
-msgid "Session"
-msgstr "الجلسة"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:116
-msgid "Window"
-msgstr "النافذة"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:126
-#: source/gx/tilix/prefeditor/titleeditor.d:127
-msgid "Help"
-msgstr "مساعدة"
-
-#: source/gx/tilix/prefeditor/advdialog.d:94
-#: source/gx/tilix/prefeditor/advdialog.d:261
-msgid "Regex"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:118
-msgid "Case Insensitive"
-msgstr "تجاهل حالة الحروف"
-
-#: source/gx/tilix/prefeditor/advdialog.d:151
-msgid "Move up"
-msgstr "أنقل إلى أعلى"
-
-#: source/gx/tilix/prefeditor/advdialog.d:162
-msgid "Move down"
-msgstr "أنقل إلى أسفل"
-
-#: source/gx/tilix/prefeditor/advdialog.d:192
-msgid "Edit Custom Links"
-msgstr "تحرير الروابط الخاصة"
-
-#: source/gx/tilix/prefeditor/advdialog.d:299
-msgid "Parameter"
-msgstr "المعامل"
-
-#: source/gx/tilix/prefeditor/advdialog.d:337
-msgid "Limit number of lines for trigger processing to:"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Edit Triggers"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:405
+#: source/app.d:170
 #, c-format
-msgid "Row %d: "
-msgstr "الصف %d: "
-
-#: source/gx/tilix/preferences.d:251
-msgid "UpdateState"
-msgstr "UpdateState"
-
-#: source/gx/tilix/preferences.d:252
-msgid "ExecuteCommand"
-msgstr "ExecuteCommand"
-
-#: source/gx/tilix/preferences.d:253
-msgid "SendNotification"
-msgstr "SendNotification"
-
-#: source/gx/tilix/preferences.d:254
-msgid "UpdateTitle"
-msgstr "UpdateTitle"
-
-#: source/gx/tilix/preferences.d:255
-msgid "PlayBell"
-msgstr "PlayBell"
-
-#: source/gx/tilix/preferences.d:256
-msgid "SendText"
-msgstr "SendText"
-
-#: source/gx/tilix/preferences.d:257
-msgid "InsertPassword"
-msgstr "InsertPassword"
-
-#: source/gx/tilix/preferences.d:258
-msgid "UpdateBadge"
-msgstr "UpdateBadge"
-
-#: source/gx/tilix/preferences.d:259
-msgid "RunProcess"
-msgstr "RunProcess"
-
-#: source/gx/tilix/preferences.d:369
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (نسخة)"
-
-#: source/gx/tilix/application.d:237
-msgid "About"
-msgstr "عن"
-
-#: source/gx/tilix/application.d:238
-msgid "Quit"
-msgstr "غادر"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:294
-msgid "translator-credits"
-msgstr "Muhammad Abdulhadi"
-
-#: source/gx/tilix/application.d:303
-msgid "Credits"
-msgstr "إشادات"
-
-#: source/gx/tilix/application.d:680
-msgid "Set the working directory of the terminal"
-msgstr "عيِّن دليل العمل للطرفية"
-
-#: source/gx/tilix/application.d:680
-msgid "DIRECTORY"
-msgstr "DIRECTORY"
-
-#: source/gx/tilix/application.d:681
-msgid "Set the starting profile"
-msgstr "عيّن لاحة البدء"
-
-#: source/gx/tilix/application.d:681
-msgid "PROFILE_NAME"
-msgstr "PROFILE_NAME"
-
-#: source/gx/tilix/application.d:682
-msgid "Set the title of the new terminal"
-msgstr "عيّن عنوان الطرفية الجديدة"
-
-#: source/gx/tilix/application.d:682
-msgid "TITLE"
-msgstr "TITLE"
-
-#: source/gx/tilix/application.d:683
-msgid "Open the specified session"
-msgstr "افتح الجلسة المحددة"
-
-#: source/gx/tilix/application.d:683
-msgid "SESSION_NAME"
-msgstr "SESSION_NAME"
-
-#: source/gx/tilix/application.d:685
-msgid "Send an action to current Tilix instance"
-msgstr ""
-
-#: source/gx/tilix/application.d:685
-msgid "ACTION_NAME"
-msgstr "ACTION_NAME"
-
-#: source/gx/tilix/application.d:687
-msgid "Execute the parameter as a command"
-msgstr "نفِّذ المعامل كأمر"
-
-#: source/gx/tilix/application.d:687
-msgid "COMMAND"
-msgstr "COMMAND"
-
-#: source/gx/tilix/application.d:688
-msgid "Maximize the terminal window"
-msgstr "كبّر نافذة الطرفية"
-
-#: source/gx/tilix/application.d:689
-msgid "Minimize the terminal window"
-msgstr "صغّر نافذة الطرفية"
-
-#: source/gx/tilix/application.d:690
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-"افرض شكل النافذة المُفضَّل، واحد من: normal,disable-csd,disable-csd-hide-"
-"toolbar,borderless"
-
-#: source/gx/tilix/application.d:690
-msgid "WINDOW_STYLE"
-msgstr "WINDOW_STYLE"
-
-#: source/gx/tilix/application.d:691
-msgid "Full-screen the terminal window"
-msgstr "املأ الشاشة بنافذة الطرفيَّة"
-
-#: source/gx/tilix/application.d:692
-msgid "Focus the existing window"
-msgstr "ركّز على النافذة الموجودة"
-
-#: source/gx/tilix/application.d:693
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "ابدأ نسخة إضافية في عملية جديدة (غير مستحب)"
-
-#: source/gx/tilix/application.d:694
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr "عيِّن حجم النافذة؛ مثال: 80x24 أو 80x24+200+200 (الأعمدة+الصفوف+س+ص)"
-
-#: source/gx/tilix/application.d:694
-msgid "GEOMETRY"
-msgstr "GEOMETRY"
-
-#: source/gx/tilix/application.d:695
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr "افتح نافذة في الوضع العاجل أو بدِّل ظهور نافذة الوضع العاجل الموجودة"
-
-#: source/gx/tilix/application.d:696
-msgid "Show the Tilix and dependant component versions"
-msgstr "أظهر نسخة تِلِكس والمكونات المعتمدة"
-
-#: source/gx/tilix/application.d:697
-msgid "Show the Tilix preferences dialog directly"
-msgstr "أظهر نافذة تفضيلات تِلِكس مباشرة"
-
-#: source/gx/tilix/application.d:698
-#, fuzzy
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr "ابدأ نسخة إضافية في عملية جديدة (غير مستحب)"
-
-#: source/gx/tilix/application.d:701
-msgid "Hidden argument to pass terminal UUID"
-msgstr ""
-
-#: source/gx/tilix/application.d:701
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/tilix/application.d:718
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr ""
-
-#: source/gx/tilix/application.d:876
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"يظهر أنه في ضبط الطرفية مشكلة.\n"
-"هذه المشكلة ليست كبيرة، لكن حلها سيحسّن تجربتك.\n"
-"اضغط على الرابط في الأسفل لمزيد من المعلومات:"
-
-#: source/gx/tilix/application.d:877
-msgid "Configuration Issue Detected"
-msgstr "اكتشاف مشكلة في الضبط"
-
-#: source/gx/tilix/application.d:889
-msgid "Do not show this message again"
-msgstr "لا تظهر هذه الرسالة مرة أخرى"
-
-#: source/gx/tilix/colorschemes.d:189
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr ""
-
-#: source/gx/tilix/colorschemes.d:252
-msgid "Color scheme palette requires 16 colors"
-msgstr "مخطط لوحة الألوان يتطلَّب 16 لونًا"
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "تعذَّر إيجاد النافذة المُفلتة"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "تعذَّر إيجاد جلسة النافذة المُفلتة"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "محاكي طرفية مبني على VTE لنظام لينكس"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"هذه الشفرة المصدريَّة تنطبق عليها بنود رخصة موزيلا العامة النسخة الثانية. إذا "
-"لم تُوزع نسخة من الرخصة مع هذا الملف، يمكن الحصول على واحدة من http://mozilla."
-"org/MPL/2.0/."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "فريق ودجة GTK VTE، لم يكن إنجاز تِلِكس ممكنًا من غير جهودهم"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD لتوفيرهم غلافًا ممتازًا لمكتبة GTK"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org على لغة البرمجة الممتازة: لغة دي"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "عنوان الأيقونة"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "الدليل"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "اسم المضيف"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "اسم المستخدم"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "الأعمدة"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "الصفوف"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "العمليَّة"
-
-#: source/gx/tilix/constants.d:161
-#, fuzzy
-msgid "Status.Read-Only"
-msgstr "للقراءة فقط"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr ""
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr ""
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "عدد الطرفيَّات"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "رقم الطرفية"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "عنوان الطرفية النشطة"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "اسم التطبيق"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "اسم الجلسة"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "رقم الجلسة"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "عدد الجلسات"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, fuzzy, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "تجاهل لعدم كون '%s' مجلدًا"
-
-#: source/gx/tilix/cmdparams.d:152
-#, fuzzy, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "النص الموضعي '%s' غير صالح ويتعذَّر تحليله"
-
-#: source/gx/tilix/cmdparams.d:186
-#, fuzzy
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"لا يمكن تحميل جلسة وتعيين لاحة أو دليل عمل أو تنفيذ خيار أمر، اختر الأولى أو "
-"الباقية"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "يمكن استعمال معامل الفعل مع تِلِكس فقط"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr "لا يمكن استعمال الوضع العاجل مع معامل التكبير أو التصغير أو الموضع"
-
-#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
-#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
-#: source/gx/tilix/encoding.d:78
-msgid "Western"
-msgstr "غربي"
-
-#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
-#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
-msgid "Central European"
-msgstr ""
-
-#: source/gx/tilix/encoding.d:20
-msgid "South European"
-msgstr ""
-
-#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
-#: source/gx/tilix/encoding.d:83
-msgid "Baltic"
-msgstr "بلطيقي"
-
-#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
-#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
-#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
-msgid "Cyrillic"
-msgstr "سيريلي"
-
-#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
-#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
-msgid "Arabic"
-msgstr "عربي"
-
-#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
-#: source/gx/tilix/encoding.d:79
-msgid "Greek"
-msgstr "يوناني"
-
-#: source/gx/tilix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr ""
-
-#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
-#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
-msgid "Hebrew"
-msgstr "عبري"
-
-#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
-#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
-msgid "Turkish"
-msgstr "تركي"
-
-#: source/gx/tilix/encoding.d:28
-msgid "Nordic"
-msgstr ""
-
-#: source/gx/tilix/encoding.d:30
-msgid "Celtic"
-msgstr ""
-
-#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
-msgid "Romanian"
-msgstr "روماني"
-
-#: source/gx/tilix/encoding.d:33
-msgid "Unicode"
-msgstr "يونيكود"
-
-#: source/gx/tilix/encoding.d:34
-msgid "Armenian"
-msgstr "أرميني"
-
-#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
-#: source/gx/tilix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "صيني تقليدي"
-
-#: source/gx/tilix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "سيريلي/روسي"
-
-#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
-#: source/gx/tilix/encoding.d:71
-msgid "Japanese"
-msgstr "ياباني"
-
-#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
-#: source/gx/tilix/encoding.d:74
-msgid "Korean"
-msgstr "كوري"
-
-#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
-#: source/gx/tilix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "صيني مبسط"
-
-#: source/gx/tilix/encoding.d:44
-msgid "Georgian"
-msgstr "جورجي"
-
-#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "سيريلي/أوكراني"
-
-#: source/gx/tilix/encoding.d:58
-msgid "Croatian"
-msgstr "كرواتي"
-
-#: source/gx/tilix/encoding.d:60
-msgid "Hindi"
-msgstr "هندي"
-
-#: source/gx/tilix/encoding.d:61
-msgid "Persian"
-msgstr "فارسي"
-
-#: source/gx/tilix/encoding.d:63
-msgid "Gujarati"
-msgstr "غوجاراتي"
-
-#: source/gx/tilix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "غورموخي"
-
-#: source/gx/tilix/encoding.d:66
-msgid "Icelandic"
-msgstr "أيسلندي"
-
-#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
-#: source/gx/tilix/encoding.d:84
-msgid "Vietnamese"
-msgstr "فيتنامي"
-
-#: source/gx/tilix/encoding.d:73
-msgid "Thai"
-msgstr "تايلندي"
-
-#: source/gx/tilix/closedialog.d:170
-#, c-format
-msgid "Window (%s)"
-msgstr "النافذة (%s)"
-
-#: source/gx/tilix/closedialog.d:173
-#, c-format
-msgid "Session (%s)"
-msgstr "الجلسة (%s)"
-
-#: source/gx/tilix/closedialog.d:189
-msgid "Close Application"
-msgstr "أغلق التطبيق"
-
-#: source/gx/tilix/closedialog.d:191
-msgid "Close Window"
-msgstr "أغلق النافذة"
-
-#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
-msgid "Close Session"
-msgstr "أغلق الجلسة"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr ""
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "الجذر"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "تعذّر تحميل العلامات بسبب خطأ غير متوقّع"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "مجلّد"
-
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/bookmark/bmeditor.d:292
-msgid "Path"
-msgstr "مسار"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "بعيد"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "ضمِّن محرف الرجوع مع العلامة"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-#: source/gx/tilix/bookmark/bmeditor.d:68
-msgid "Select Folder"
-msgstr "اختر مجلّدًا"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "اختر علامة"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "اختر مجلدًا"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "امح المجلد"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "أضف علامة"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "حرّر العلامة"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "اختر مسارًا"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "الميفاق"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "المضيف"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "المستخدم"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "المعاملات"
+msgid "GTK Version: %d.%d.%d"
+msgstr "نسخة GTK: %d.%d.%d"
+
+#: source/app.d:171
+msgid "Tilix Special Features"
+msgstr "ميزات تِلِكس الخاصة"
+
+#: source/app.d:172
+msgid "Notifications enabled=%b"
+msgstr "تفعيل الإشعارات=%b"
+
+#: source/app.d:173
+msgid "Triggers enabled=%b"
+msgstr "تفعيل المُطلِقات=%b"
+
+#: source/app.d:174
+msgid "Badges enabled=%b"
+msgstr "تفعيل الشارات=%b"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"
@@ -2426,7 +2429,7 @@ msgctxt "shortcut window"
 msgid "Resize the terminal right"
 msgstr "أنقل الفاصل بين الطرفيتين إلى اليمين"
 
-#: data/resources/ui/shortcuts.ui:239 data/resources/ui/shortcuts.ui:505
+#: data/resources/ui/shortcuts.ui:239 data/resources/ui/shortcuts.ui:511
 msgctxt "shortcut window"
 msgid "Other"
 msgstr "أخرى"
@@ -2582,163 +2585,169 @@ msgctxt "shortcut window"
 msgid "Select all"
 msgstr "اختر الكل"
 
-#: data/resources/ui/shortcuts.ui:439
+#: data/resources/ui/shortcuts.ui:437
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Unselect all"
+msgstr "اختر الكل"
+
+#: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "قرّب"
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "قرّب"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "بعّد"
 
-#: data/resources/ui/shortcuts.ui:455
+#: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "حجم التقريب العادي"
 
-#: data/resources/ui/shortcuts.ui:463
+#: data/resources/ui/shortcuts.ui:469
 msgctxt "shortcut window"
 msgid "Navigation"
 msgstr "التنقل"
 
-#: data/resources/ui/shortcuts.ui:467
+#: data/resources/ui/shortcuts.ui:473
 msgctxt "shortcut window"
 msgid "Scroll up"
 msgstr "مرِّر إلى أعلى"
 
-#: data/resources/ui/shortcuts.ui:473
+#: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Scroll down"
 msgstr "مرِّر إلى أسفل"
 
-#: data/resources/ui/shortcuts.ui:479
+#: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Page up"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:485
+#: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Page down"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:491
+#: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Previous prompt"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:497
+#: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"
 msgid "Next prompt"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:509
+#: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "احفظ محتوى الطرفية"
 
-#: data/resources/ui/shortcuts.ui:515
+#: data/resources/ui/shortcuts.ui:521
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "أغلق الطرفية"
 
-#: data/resources/ui/shortcuts.ui:521
+#: data/resources/ui/shortcuts.ui:527
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "كبّر الطرفية"
 
-#: data/resources/ui/shortcuts.ui:527
+#: data/resources/ui/shortcuts.ui:533
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "تفضيلات اللاحة الحالية"
 
-#: data/resources/ui/shortcuts.ui:533
+#: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "صفّر الطرفية"
 
-#: data/resources/ui/shortcuts.ui:539
+#: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr "صفّر الطرفية وامحها"
 
-#: data/resources/ui/shortcuts.ui:545
+#: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr "بدِّل وضع القراءة فقط"
 
-#: data/resources/ui/shortcuts.ui:551
+#: data/resources/ui/shortcuts.ui:557
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "خيارات التخطيط"
 
-#: data/resources/ui/shortcuts.ui:557
+#: data/resources/ui/shortcuts.ui:563
 msgctxt "shortcut window"
 msgid "Insert terminal number"
 msgstr "أدرج رقم الطرفية"
 
-#: data/resources/ui/shortcuts.ui:563
+#: data/resources/ui/shortcuts.ui:569
 msgctxt "shortcut window"
 msgid "Insert password"
 msgstr "أدخل كلمة سر"
 
-#: data/resources/ui/shortcuts.ui:569
+#: data/resources/ui/shortcuts.ui:575
 msgctxt "shortcut window"
 msgid "Select bookmark"
 msgstr "اختر علامة"
 
-#: data/resources/ui/shortcuts.ui:575
+#: data/resources/ui/shortcuts.ui:581
 msgctxt "shortcut window"
 msgid "Add bookmark"
 msgstr "أضف علامة"
 
-#: data/resources/ui/shortcuts.ui:581
+#: data/resources/ui/shortcuts.ui:587
 msgctxt "shortcut window"
 msgid "Cycle title style"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:587
+#: data/resources/ui/shortcuts.ui:593
 msgctxt "shortcut window"
 msgid "Monitor silence"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:593
+#: data/resources/ui/shortcuts.ui:599
 msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "تجاوز مزامنة الإدخال"
 
-#: data/resources/ui/shortcuts.ui:599
+#: data/resources/ui/shortcuts.ui:605
 msgctxt "shortcut window"
 msgid "Open file browser"
 msgstr "افتح متصفح الملفات"
 
-#: data/resources/ui/shortcuts.ui:605
+#: data/resources/ui/shortcuts.ui:611
 msgctxt "shortcut window"
 msgid "Toggle margin"
 msgstr "بدّل الهامش"
 
-#: data/resources/ui/shortcuts.ui:616
+#: data/resources/ui/shortcuts.ui:622
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr "نوتيلاس"
 
-#: data/resources/ui/shortcuts.ui:621
+#: data/resources/ui/shortcuts.ui:627
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "افتح"
 
-#: data/resources/ui/shortcuts.ui:625
+#: data/resources/ui/shortcuts.ui:631
 msgctxt "shortcut window"
 msgid "Open in Tilix"
 msgstr "افتح في تِلِكس"
 
-#: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
+#: data/resources/ui/shortcuts.ui:642 data/resources/ui/shortcuts.ui:647
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
@@ -2752,38 +2761,34 @@ msgstr ""
 msgid "shell;prompt;command;commandline;cmd;"
 msgstr "shell;prompt;command;commandline;cmd;"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
-msgid "com.gexperts.Tilix"
-msgstr "com.gexperts.Tilix"
-
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
 msgid "A tiling terminal for GNOME"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:12
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
 msgid "Tilix is a tiling terminal emulator."
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:15
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
 msgid "It lets you:"
 msgstr "إنه يدعك قادرًا على:"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid ""
 "Layout terminals in any fashion by splitting them horizontally or vertically"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:18
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
 msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
 msgstr "ترتيب الطرفيات باستعمال السحب والإفلات داخل النافذة أو بين النوافذ"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:19
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Terminals can be detached into a new window via drag and drop"
 msgstr "نزع الطرفية إلى نافذة جديدة بالسحب والإفلات"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid ""
 "Input can be synchronized between terminals so commands typed in one "
 "terminal are replicated to the others"
@@ -2791,15 +2796,15 @@ msgstr ""
 "إمكانيَّة مزامنة الدخل بين الطرفيَّات بحيث أن الأمر الذي يُكتب في طرفية يُكرر في "
 "باقي الطرفيّات"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:26
 msgid "The grouping of terminals can be saved and loaded from disk"
 msgstr "حفظ تجميعة الطرفيَّات وتحميلها من القرص"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
 msgid "Terminals support custom titles"
 msgstr "تدعم الطرفيات عناوين مخصصة"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:28
 msgid ""
 "Color schemes are stored in files and custom color schemes can be created by "
 "simply creating a new file"
@@ -2807,15 +2812,15 @@ msgstr ""
 "تخزين مخططات الألوان في ملفات وإنشاء مخطَّطات ألوان مخصَّصة ببساطة بإنشاء ملف "
 "جديد"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:29
 msgid "Transparent background"
 msgstr "خلفية شفافة"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:30
 msgid "Supports notifications when processes are completed out of view"
 msgstr "يدعم التنبيهات عندما تكتمل العمليات بعيدًا عن مرآك"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:32
 msgid ""
 "The application was written using GTK 3 and an effort was made to conform to "
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
@@ -2825,21 +2830,43 @@ msgstr ""
 "البشرية (HIG). نتيجة لذلك ، تستخدم الزخارف من جانب العميل ، على الرغم من "
 "إمكانية تعطيلها إذا لزم الأمر."
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:36
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "اختبر تِلِكس في سطح المكتب غنوم وفي يونتي."
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:43
-msgid ""
-"Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
-"web/ for specific information about this release."
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
+msgid "remove app menu for gnome 3.32, update icon, minor fixes"
 msgstr ""
-"بعض الميزات الجديدة وإصلاحات الأخطاء ، يرجى الاطلاع على https://gnunn1.github"
-".io/tilix-web/ للحصول على معلومات محددة حول هذا الإصدار."
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
+msgid ""
+"Small release to update localizations and update to GtkD 3.8.5 to fix "
+"library name in GtkD."
+msgstr ""
+
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
+msgid "Some new features and bug fixes."
+msgstr ""
+
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
 msgid "Gerald Nunn"
 msgstr ""
+
+#~ msgid "About"
+#~ msgstr "عن"
+
+#~ msgid "Quit"
+#~ msgstr "غادر"
+
+#~ msgid "com.gexperts.Tilix"
+#~ msgstr "com.gexperts.Tilix"
+
+#~ msgid ""
+#~ "Some new features and bug fixes, please see https://gnunn1.github.io/"
+#~ "tilix-web/ for specific information about this release."
+#~ msgstr ""
+#~ "بعض الميزات الجديدة وإصلاحات الأخطاء ، يرجى الاطلاع على https://gnunn1."
+#~ "github.io/tilix-web/ للحصول على معلومات محددة حول هذا الإصدار."
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "ترث النافذة الجديدة الدليل واللاحة من الطرفيَّة النشطة"

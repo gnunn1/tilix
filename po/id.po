@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-06 18:49-0500\n"
+"POT-Creation-Date: 2021-01-19 00:13+0100\n"
 "PO-Revision-Date: 2018-04-06 05:36+0000\n"
 "Last-Translator: se7entime <se7entime@protonmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/tilix/"
@@ -18,61 +18,140 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.20\n"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Versi GTK Anda sudah terlalu tua, Anda perlu setidaknya GTK %d.%d.%d!"
+#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
+#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
+#: source/gx/tilix/encoding.d:78
+msgid "Western"
+msgstr "Barat"
 
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "Terjadi eksepsi yang tak diharapkan"
+#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
+#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
+msgid "Central European"
+msgstr "Eropa Tengah"
 
-#: source/app.d:157
-msgid "Error: "
-msgstr "Galat: "
+#: source/gx/tilix/encoding.d:20
+msgid "South European"
+msgstr "Eropa Selatan"
 
-#: source/app.d:167
-msgid "Versions"
-msgstr "Versi"
+#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
+#: source/gx/tilix/encoding.d:83
+msgid "Baltic"
+msgstr "Baltik"
 
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Tilix versi: %s"
+#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
+#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
+#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
+msgid "Cyrillic"
+msgstr "Sirilik"
 
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE versi: %s"
+#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
+#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
+msgid "Arabic"
+msgstr "Arab"
 
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK versi: %d.%d.%d"
+#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
+#: source/gx/tilix/encoding.d:79
+msgid "Greek"
+msgstr "Yunani"
 
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Fitur-fitur Khusus Tilix"
+#: source/gx/tilix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "Visual Ibrani"
 
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "Pemberitahuan diaktifkan=%b"
+#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
+#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
+msgid "Hebrew"
+msgstr "Ibrani"
 
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "Memicu diaktifkan=%b"
+#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
+#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
+msgid "Turkish"
+msgstr "Turki"
 
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "Lencana diaktifkan=%b"
+#: source/gx/tilix/encoding.d:28
+msgid "Nordic"
+msgstr "Nordik"
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "dinonaktifkan"
+#: source/gx/tilix/encoding.d:30
+msgid "Celtic"
+msgstr "Seltik"
 
-#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
-msgid "Do not show this again"
-msgstr "Jangan tampilkan ini lagi"
+#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
+msgid "Romanian"
+msgstr "Rumania"
+
+#: source/gx/tilix/encoding.d:33
+msgid "Unicode"
+msgstr "Unikode"
+
+#: source/gx/tilix/encoding.d:34
+msgid "Armenian"
+msgstr "Armenia"
+
+#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
+#: source/gx/tilix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "Cina Tradisional"
+
+#: source/gx/tilix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "Sirilik/Rusia"
+
+#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
+#: source/gx/tilix/encoding.d:71
+msgid "Japanese"
+msgstr "Jepang"
+
+#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
+#: source/gx/tilix/encoding.d:74
+msgid "Korean"
+msgstr "Korea"
+
+#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
+#: source/gx/tilix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "Cina Sederhana"
+
+#: source/gx/tilix/encoding.d:44
+msgid "Georgian"
+msgstr "Georgia"
+
+#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "Sirilik/Ukraina"
+
+#: source/gx/tilix/encoding.d:58
+msgid "Croatian"
+msgstr "Kroasia"
+
+#: source/gx/tilix/encoding.d:60
+msgid "Hindi"
+msgstr "Hindi"
+
+#: source/gx/tilix/encoding.d:61
+msgid "Persian"
+msgstr "Persia"
+
+#: source/gx/tilix/encoding.d:63
+msgid "Gujarati"
+msgstr "Gujurati"
+
+#: source/gx/tilix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "Gurmukh"
+
+#: source/gx/tilix/encoding.d:66
+msgid "Icelandic"
+msgstr "Islandia"
+
+#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
+#: source/gx/tilix/encoding.d:84
+msgid "Vietnamese"
+msgstr "Vietnam"
+
+#: source/gx/tilix/encoding.d:73
+msgid "Thai"
+msgstr "Thailand"
 
 #: source/gx/tilix/appwindow.d:320
 msgid "Create a new session"
@@ -103,7 +182,6 @@ msgid "Change Session Name"
 msgstr "Ubah Nama Sesi"
 
 #: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: source/gx/tilix/application.d:226
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
 msgid "New Window"
 msgstr "Jendela Baru"
@@ -113,7 +191,7 @@ msgid "Open…"
 msgstr "Buka…"
 
 #: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3673
+#: source/gx/tilix/terminal/terminal.d:3674
 #: source/gx/tilix/prefeditor/profileeditor.d:952
 msgid "Save"
 msgstr "Simpan"
@@ -132,7 +210,7 @@ msgstr "Sinkronisasi Masukan"
 
 #: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
 #: source/gx/tilix/prefeditor/prefdialog.d:414
-#: source/gx/tilix/application.d:230
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -150,8 +228,8 @@ msgstr "Tilix"
 msgid "GC"
 msgstr "GC"
 
-#: source/gx/tilix/appwindow.d:1082
-#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+#: source/gx/tilix/appwindow.d:1082 source/gx/tilix/session.d:1222
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
 msgid "Default"
 msgstr "Bawaan"
 
@@ -164,9 +242,9 @@ msgstr "Ada beberapa sesi terbuka, tutup saja?"
 msgid "All JSON Files"
 msgstr "Semua Berkas JSON"
 
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3683
-#: source/gx/tilix/prefeditor/profileeditor.d:969
+#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3684
 #: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:969
 msgid "All Files"
 msgstr "Semua Berkas"
 
@@ -184,23 +262,23 @@ msgid "Open"
 msgstr "Buka"
 
 #: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3674
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
 #: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:3673
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/bookmark/bmchooser.d:127
 #: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:952
 msgid "Cancel"
 msgstr "Batal"
 
-#: source/gx/tilix/appwindow.d:1526 source/gx/tilix/appwindow.d:1584
+#: source/gx/tilix/appwindow.d:1526
 msgid "Could not load session due to unexpected error."
 msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
 
-#: source/gx/tilix/appwindow.d:1526 source/gx/tilix/appwindow.d:1584
+#: source/gx/tilix/appwindow.d:1526
 msgid "Error Loading Session"
 msgstr "Galat Memuat Sesi"
 
@@ -208,64 +286,146 @@ msgstr "Galat Memuat Sesi"
 msgid "Save Session"
 msgstr "Simpan Sesi"
 
-#: source/gx/tilix/appwindow.d:1671 source/gx/tilix/application.d:342
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "Tidak dapat memuat sesi dikarenakan galat tak terduga."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "Galat Memuat Sesi"
+
+#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
 msgid "Tilix"
 msgstr "Tilix"
 
-#: source/gx/tilix/appwindow.d:1700
+#: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
 msgstr ""
 
-#: source/gx/tilix/appwindow.d:1702
+#: source/gx/tilix/appwindow.d:1712
 msgid "Quake Mode Not Supported"
 msgstr ""
 
-#: source/gx/tilix/appwindow.d:2113
+#: source/gx/tilix/appwindow.d:2181
 #, fuzzy
 msgid "New output displayed"
 msgstr "Keluaran baru"
 
-#: source/gx/tilix/appwindow.d:2121
+#: source/gx/tilix/appwindow.d:2189
 msgid "Close session"
 msgstr "Tutup sesi"
 
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Perintah ini meminta akses Administratif ke komputer Anda"
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "Biarkan sebagai '%s' adalah bukan sebuah direktori"
 
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "String geometri '%s' tidak valid dan tidak dapat diurai"
 
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
+#: source/gx/tilix/cmdparams.d:186
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
 msgstr ""
-"Pastikan Anda mengerti apa yang dilakukan oleh setiap bagian dari perintah "
-"ini."
+"Kamu tidak dapat memuat sesi dan mengatur profil/direktori kerja/menjalankan "
+"opsi perintah, harap pilih satu atau yg lainnya"
 
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Transformasikan"
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "Kamu hanya dapat menggunakan parameter aksi di Tilix"
 
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Konversikan spasi ke tab-tab"
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+"Kamu tidak dapat menggunakan mode quake dengan perbesar, perkecil atau "
+"parameter geometri"
 
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "Konversikan CRLF dan CR ke LF"
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "Tidak dapat mendeteksi terminal terjatuh"
 
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Tempel Tingkat Lanjut"
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "Tidak dapat mendeteksi sesi untuk terminal terjatuh"
 
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/terminal/terminal.d:1813
-#: source/gx/tilix/terminal/terminal.d:1831
-msgid "Paste"
-msgstr "Tempel"
+#: source/gx/tilix/session.d:1572 source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+#: source/gx/tilix/bookmark/bmeditor.d:231
+msgid "Name"
+msgstr "Nama"
+
+#: source/gx/tilix/session.d:1583 source/gx/tilix/prefeditor/prefdialog.d:176
+msgid "Profile"
+msgstr "Profil"
+
+#: source/gx/tilix/session.d:1606 source/gx/tilix/prefeditor/prefdialog.d:1554
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+msgid "New Session"
+msgstr "Sesi Baru"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1850
+msgid "Close"
+msgstr "Tutup"
+
+#: source/gx/tilix/preferences.d:251
+msgid "UpdateState"
+msgstr "PembaruanKondisi"
+
+#: source/gx/tilix/preferences.d:252
+msgid "ExecuteCommand"
+msgstr "PerintahEksekusi"
+
+#: source/gx/tilix/preferences.d:253
+msgid "SendNotification"
+msgstr "KirimNotifikasi"
+
+#: source/gx/tilix/preferences.d:254
+msgid "UpdateTitle"
+msgstr "PerbaruiJudul"
+
+#: source/gx/tilix/preferences.d:255
+msgid "PlayBell"
+msgstr "PutarSuara"
+
+#: source/gx/tilix/preferences.d:256
+msgid "SendText"
+msgstr "KirimTeks"
+
+#: source/gx/tilix/preferences.d:257
+msgid "InsertPassword"
+msgstr "MasukkanSandi"
+
+#: source/gx/tilix/preferences.d:258
+msgid "UpdateBadge"
+msgstr "PerbaruiLencana"
+
+#: source/gx/tilix/preferences.d:259
+msgid "RunProcess"
+msgstr "JalankanProses"
+
+#: source/gx/tilix/preferences.d:369
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (Salinan)"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Berkas %s bukan sebuah berkas JSON yg sesuai untuk skema warna"
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "Palet skema warna butuh 16 warna"
 
 #: source/gx/tilix/terminal/search.d:125
 msgid "Search Options"
@@ -305,29 +465,24 @@ msgstr ""
 "%s"
 
 #: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1308
+#: source/gx/tilix/terminal/terminal.d:1309
 #: source/gx/tilix/prefeditor/titleeditor.d:105
 msgid "Terminal"
 msgstr "Terminal"
 
-#: source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1849 source/gx/tilix/sidebar.d:546
-msgid "Close"
-msgstr "Tutup"
-
 #: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1348
-#: source/gx/tilix/terminal/terminal.d:1848
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1849
 msgid "Maximize"
 msgstr "Maksimalkan"
 
 #: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:691
+#: source/gx/tilix/terminal/terminal.d:692
 msgid "Disable input synchronization for this terminal"
 msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
 
 #: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:828
+#: source/gx/tilix/terminal/terminal.d:829
 msgid "Read-Only"
 msgstr "Hanya-Baca"
 
@@ -348,285 +503,240 @@ msgstr "Sunting Profil"
 msgid "Edit Encodings"
 msgstr "Sunting Pengkodean"
 
-#: source/gx/tilix/terminal/terminal.d:693
+#: source/gx/tilix/terminal/terminal.d:694
 msgid "Enable input synchronization for this terminal"
 msgstr "Fungsikan sinkronisasi masukan untuk terminal ini"
 
-#: source/gx/tilix/terminal/terminal.d:728
+#: source/gx/tilix/terminal/terminal.d:729
 #, c-format
 msgid ""
 "The library %s could not be loaded, password functionality is unavailable."
 msgstr "Pustaka %s tidak dapat dimuat, fungsi kata sandi tidak tersedia."
 
-#: source/gx/tilix/terminal/terminal.d:728
+#: source/gx/tilix/terminal/terminal.d:729
 msgid "Library Not Loaded"
 msgstr "Pustaka Tidak Dimuat"
 
-#: source/gx/tilix/terminal/terminal.d:827
+#: source/gx/tilix/terminal/terminal.d:828
 msgid "Find…"
 msgstr "Cari…"
 
-#: source/gx/tilix/terminal/terminal.d:834
+#: source/gx/tilix/terminal/terminal.d:835
 msgid "Password..."
 msgstr "Kata Sandi..."
 
-#: source/gx/tilix/terminal/terminal.d:835
+#: source/gx/tilix/terminal/terminal.d:836
 msgid "Bookmark..."
 msgstr "Markah..."
 
-#: source/gx/tilix/terminal/terminal.d:836
+#: source/gx/tilix/terminal/terminal.d:837
 msgid "Add Bookmark..."
 msgstr "Tambah Markah..."
 
-#: source/gx/tilix/terminal/terminal.d:840
+#: source/gx/tilix/terminal/terminal.d:841
 msgid "Assistants"
 msgstr "Asisten"
 
-#: source/gx/tilix/terminal/terminal.d:841
+#: source/gx/tilix/terminal/terminal.d:842
 #: source/gx/tilix/prefeditor/prefdialog.d:283
 msgid "Profiles"
 msgstr "Profil"
 
-#: source/gx/tilix/terminal/terminal.d:847
+#: source/gx/tilix/terminal/terminal.d:848
 msgid "Show File Browser..."
 msgstr "Tampilkan Peramban Berkas..."
 
-#: source/gx/tilix/terminal/terminal.d:851
+#: source/gx/tilix/terminal/terminal.d:852
 msgid "Save Output…"
 msgstr "Simpan Keluaran…"
 
-#: source/gx/tilix/terminal/terminal.d:852
+#: source/gx/tilix/terminal/terminal.d:853
 #: source/gx/tilix/prefeditor/profileeditor.d:289
 #: source/gx/tilix/prefeditor/profileeditor.d:328
 msgid "Reset"
 msgstr "Setel Ulang"
 
-#: source/gx/tilix/terminal/terminal.d:853
+#: source/gx/tilix/terminal/terminal.d:854
 msgid "Reset and Clear"
 msgstr "Atur Ulang dan Bersihkan"
 
-#: source/gx/tilix/terminal/terminal.d:857
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
+#: source/gx/tilix/terminal/terminal.d:858
 #: source/gx/tilix/prefeditor/prefdialog.d:166
 #: source/gx/tilix/prefeditor/prefdialog.d:167
 #: source/gx/tilix/prefeditor/prefdialog.d:463
 #: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1091
 msgid "Encoding"
 msgstr "Enkoding"
 
-#: source/gx/tilix/terminal/terminal.d:858
+#: source/gx/tilix/terminal/terminal.d:859
 msgid "Layout Options…"
 msgstr "Opsi Tata Letak…"
 
-#: source/gx/tilix/terminal/terminal.d:862
+#: source/gx/tilix/terminal/terminal.d:863
 msgid "Monitor Silence"
 msgstr "Pantau Keadaan Diam"
 
-#: source/gx/tilix/terminal/terminal.d:865
+#: source/gx/tilix/terminal/terminal.d:866
 msgid "Other"
 msgstr "Lainnya"
 
-#: source/gx/tilix/terminal/terminal.d:874
+#: source/gx/tilix/terminal/terminal.d:875
 msgid "Add Right"
 msgstr "Tambah Di Kanan"
 
-#: source/gx/tilix/terminal/terminal.d:878
+#: source/gx/tilix/terminal/terminal.d:879
 msgid "Add Down"
 msgstr "Tambah Di Bawah"
 
-#: source/gx/tilix/terminal/terminal.d:988
+#: source/gx/tilix/terminal/terminal.d:989
 msgid "Terminal Activity"
 msgstr "Aktivitas Terminal"
 
-#: source/gx/tilix/terminal/terminal.d:1324
+#: source/gx/tilix/terminal/terminal.d:1325
 #, fuzzy
 msgid "Not Enabled"
 msgstr "Difungsikan"
 
-#: source/gx/tilix/terminal/terminal.d:1345
-#: source/gx/tilix/terminal/terminal.d:1848
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1849
 msgid "Restore"
 msgstr "Pulihkan"
 
-#: source/gx/tilix/terminal/terminal.d:1697
+#: source/gx/tilix/terminal/terminal.d:1698
 msgid "Tilix Custom Notification"
 msgstr "Pemberitahuan Ubahan Tilix"
 
-#: source/gx/tilix/terminal/terminal.d:1798
+#: source/gx/tilix/terminal/terminal.d:1799
 msgid "Open Link"
 msgstr "Buka Tautan"
 
-#: source/gx/tilix/terminal/terminal.d:1799
+#: source/gx/tilix/terminal/terminal.d:1800
 msgid "Copy Link Address"
 msgstr "Salin Alamat Tautan"
 
-#: source/gx/tilix/terminal/terminal.d:1809
-#: source/gx/tilix/terminal/terminal.d:1819
+#: source/gx/tilix/terminal/terminal.d:1810
+#: source/gx/tilix/terminal/terminal.d:1820
 msgid "Copy"
 msgstr "Salin"
 
-#: source/gx/tilix/terminal/terminal.d:1811
-#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1812
+#: source/gx/tilix/terminal/terminal.d:1826
 msgid "Copy as HTML"
 msgstr "Salin sebagai HTML"
 
 #: source/gx/tilix/terminal/terminal.d:1814
-#: source/gx/tilix/terminal/terminal.d:1836
+#: source/gx/tilix/terminal/terminal.d:1832
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "Tempel"
+
+#: source/gx/tilix/terminal/terminal.d:1815
+#: source/gx/tilix/terminal/terminal.d:1837
 msgid "Select All"
 msgstr "Pilih Semua"
 
-#: source/gx/tilix/terminal/terminal.d:1839
+#: source/gx/tilix/terminal/terminal.d:1840
 #: source/gx/tilix/prefeditor/prefdialog.d:1560
 msgid "Clipboard"
 msgstr "Papan Klip"
 
-#: source/gx/tilix/terminal/terminal.d:1853
+#: source/gx/tilix/terminal/terminal.d:1854
 msgid "Synchronize input"
 msgstr "Sinkronisasi masukan"
 
-#: source/gx/tilix/terminal/terminal.d:2006
+#: source/gx/tilix/terminal/terminal.d:2007
 #, c-format
 msgid "Could not check file '%s' due to error '%s'"
 msgstr ""
 
-#: source/gx/tilix/terminal/terminal.d:2013
-#, c-format
+#: source/gx/tilix/terminal/terminal.d:2014
+#, fuzzy, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
-"Uri was '%s'"
+"URI was '%s'"
 msgstr ""
 "URI berkas remote tidak didukung dengan hyperlink.\n"
 "Uri adalah '%s'"
 
-#: source/gx/tilix/terminal/terminal.d:2014
+#: source/gx/tilix/terminal/terminal.d:2015
 msgid "Remote File URI Unsupported"
 msgstr "URI Berkas Jarak Jauh Tidak Didukung"
 
-#: source/gx/tilix/terminal/terminal.d:2046
-#: source/gx/tilix/terminal/terminal.d:2621
+#: source/gx/tilix/terminal/terminal.d:2047
+#: source/gx/tilix/terminal/terminal.d:2622
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr "Regex tautan ubahan '%s' memiliki kesalahan, mengabaikan"
 
-#: source/gx/tilix/terminal/terminal.d:2047
+#: source/gx/tilix/terminal/terminal.d:2048
 msgid "Regular Expression Error"
 msgstr "Galat Ekspresi Reguler"
 
-#: source/gx/tilix/terminal/terminal.d:2060
+#: source/gx/tilix/terminal/terminal.d:2061
 #, c-format
 msgid "Could not open match '%s'"
 msgstr "Tidak dapat membuka yang cocok '%s'"
 
-#: source/gx/tilix/terminal/terminal.d:2061
+#: source/gx/tilix/terminal/terminal.d:2062
 msgid "Error Opening Match"
 msgstr "Galat Membuka Yang Cocok"
 
-#: source/gx/tilix/terminal/terminal.d:2571
+#: source/gx/tilix/terminal/terminal.d:2572
 #, c-format
 msgid "Unexpected error occurred when adding link regex: %s"
 msgstr "Terjadi galat saat menambahkan regex tautan: %s"
 
-#: source/gx/tilix/terminal/terminal.d:2778
+#: source/gx/tilix/terminal/terminal.d:2779
 msgid "Unexpected error occurred, no additional information available"
 msgstr "Terjadi galat tak terduga, tidak ada informasi tambahan yang tersedia"
 
-#: source/gx/tilix/terminal/terminal.d:2788
+#: source/gx/tilix/terminal/terminal.d:2789
 #, c-format
 msgid "Unexpected error occurred: %s"
 msgstr "Terjadi galat tak terduga: %s"
 
-#: source/gx/tilix/terminal/terminal.d:3670
+#: source/gx/tilix/terminal/terminal.d:3671
 msgid "Save Terminal Output"
 msgstr "Simpan Keluaran Terminal"
 
-#: source/gx/tilix/terminal/terminal.d:3679
+#: source/gx/tilix/terminal/terminal.d:3680
 msgid "All Text Files"
 msgstr "Semua Berkas Teks"
 
-#: source/gx/tilix/terminal/terminal.d:4009
+#: source/gx/tilix/terminal/terminal.d:4010
 msgid "Unknown"
 msgstr "Tak Dikenal"
 
-#: source/gx/tilix/terminal/terminal.d:4273
+#: source/gx/tilix/terminal/terminal.d:4274
 #, c-format
 msgid "The child process exited normally with status %d"
 msgstr "Proses anak keluar secara normal dengan status %d"
 
-#: source/gx/tilix/terminal/terminal.d:4274
+#: source/gx/tilix/terminal/terminal.d:4275
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "Proses anak digugurkan oleh sinyal %d."
 
-#: source/gx/tilix/terminal/terminal.d:4275
+#: source/gx/tilix/terminal/terminal.d:4276
 msgid "The child process was aborted."
 msgstr "Proses anak digugurkan."
 
-#: source/gx/tilix/terminal/terminal.d:4281
+#: source/gx/tilix/terminal/terminal.d:4282
 msgid "Relaunch"
 msgstr "Luncurkan ulang"
 
-#: source/gx/tilix/terminal/terminal.d:4348
+#: source/gx/tilix/terminal/terminal.d:4349
 msgid "Don't Paste"
 msgstr "Jangan Tempel"
 
-#: source/gx/tilix/terminal/terminal.d:4349
+#: source/gx/tilix/terminal/terminal.d:4350
 msgid "Paste Anyway"
 msgstr "Tempel Saja"
 
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "Opsi Tata Letak"
-
-#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:493
-#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmchooser.d:127
-#: source/gx/tilix/bookmark/bmeditor.d:151
-msgid "OK"
-msgstr "Ok"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "Aktif"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
-#: source/gx/tilix/closedialog.d:123
-msgid "Title"
-msgstr "Judul"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1178
-msgid "Badge"
-msgstr "Lencana"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "Muat Sesi"
-
-#: source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-msgid "Command"
-msgstr "Perintah"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
 msgstr ""
-"Opsi aktif selalu berefek dan berlaku seketika.\n"
-"Opsi Muatan Sesi hanya berlaku ketika memuat suatu berkas sesi."
-
-#: source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
-#: source/gx/tilix/bookmark/bmeditor.d:231
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-msgid "Name"
-msgstr "Nama"
 
 #: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
 msgid "ID"
@@ -637,17 +747,17 @@ msgid "New"
 msgstr "Baru"
 
 #: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/profileeditor.d:1324
+#: source/gx/tilix/prefeditor/profileeditor.d:1325
 #: source/gx/tilix/prefeditor/common.d:46
 #: source/gx/tilix/prefeditor/common.d:77
 msgid "Edit"
 msgstr "Sunting"
 
 #: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/profileeditor.d:1343
 #: source/gx/tilix/prefeditor/prefdialog.d:556
 #: source/gx/tilix/prefeditor/advdialog.d:141
 #: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/profileeditor.d:1344
 msgid "Delete"
 msgstr "Hapus"
 
@@ -673,6 +783,12 @@ msgstr "Kata Sandi"
 msgid "Confirm Password"
 msgstr "Konfirmasi Kata Sandi"
 
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
+msgid "OK"
+msgstr "Ok"
+
 #: source/gx/tilix/terminal/password.d:499
 msgid "Add Password"
 msgstr "Tambah Kata Sandi"
@@ -681,9 +797,834 @@ msgstr "Tambah Kata Sandi"
 msgid "Edit Password"
 msgstr "Sunting Kata Sandi"
 
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "Opsi Tata Letak"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "Aktif"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
+#: source/gx/tilix/closedialog.d:123
+msgid "Title"
+msgstr "Judul"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
+msgid "Badge"
+msgstr "Lencana"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "Muat Sesi"
+
+#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1140
+msgid "Command"
+msgstr "Perintah"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
 msgstr ""
+"Opsi aktif selalu berefek dan berlaku seketika.\n"
+"Opsi Muatan Sesi hanya berlaku ketika memuat suatu berkas sesi."
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Perintah ini meminta akses Administratif ke komputer Anda"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Menyalin perintah dari internet bisa jadi berbahaya. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr ""
+"Pastikan Anda mengerti apa yang dilakukan oleh setiap bagian dari perintah "
+"ini."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Transformasikan"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Konversikan spasi ke tab-tab"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "Konversikan CRLF dan CR ke LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Tempel Tingkat Lanjut"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "Emulator terminal berbasis VTE untuk Linux"
+
+#: source/gx/tilix/constants.d:73
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+"Bentuk Kode Sumber ini adalah subjek dari istilah Mozilla Public License, v. "
+"2.0. Jika salinan dari MPL tidak disediakan oleh berkas ini, Kamu bisa "
+"mendapatkannya di http://mozilla.org/MPL/2.0/."
+
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr "Tim widget GTK VTE, Tilix tidak akan ada tanpa kerja mereka"
+
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD untuk menyediakan wrapper GTK yang mengagumkan"
+
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org untuk bahasa yang mengagumkan, D"
+
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "Judul ikon"
+
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "Direktori"
+
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "Nama Host"
+
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "Nama Pengguna"
+
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "Kolom"
+
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "Baris"
+
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "Memproses"
+
+#: source/gx/tilix/constants.d:161
+#, fuzzy
+msgid "Status.Read-Only"
+msgstr "Hanya-Baca"
+
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr ""
+
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr ""
+
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "Cacah terminal"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "Nomor terminal"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "Judul terminal aktif"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "Nama aplikasi"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "Nama sesi"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "Nomor sesi"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "Cacah sesi"
+
+#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/prefeditor/profileeditor.d:449
+msgid "Icon"
+msgstr "Ikon"
+
+#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Folder"
+msgstr "Pilih Folder"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Pilih folder"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Bersihkan folder"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "Tambah Markah"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "Sunting Markah"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "Path"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "Pilih Path"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "Protokol"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "Host"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "Pengguna"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "Parameter"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "Galat deseialisasi markah"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "Akar"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Tidak dapat memuat markah karena galat yang tak terduga"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "Folder"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "Remote"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "Masukkan karakter enter dengan markah"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "Pilih Bookmark"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr ""
+"Aan\n"
+"Arrizal Amin\n"
+"Mohamad Hasan Al Banna\n"
+"Andika Triwidada <andika@gmail.com>, 2018."
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "Kredit"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "Atur direktori kerja terminal"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "DIREKTORI"
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "Atur profil awalan"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr "NAMA_PROFIL"
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "Atur judul terminal baru"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "JUDUL"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "Buka sesi spesifik"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "NAMA_SESI"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "Kirim aksi ke Terminix saat ini"
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "NAMA_AKSI"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "Jalankan parameter sebagai perintah"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "PERINTAH"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "Maksimalkan jendela terminal"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "Kecilkan jendela terminal"
+
+#: source/gx/tilix/application.d:668
+msgid ""
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
+"Timpa gaya jendela terpilih untuk gunakan, salah satu: normal, disable-csd, "
+"disable-csd-hide-toolbar, borderless"
+
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "GAYA_JENDELA"
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "Layar-penuh jendela terminal"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "Fokus jendela yang ada"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Mulai instansi tambahan sebagai proses baru (Tidak Direkomendasikan)"
+
+#: source/gx/tilix/application.d:672
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Atur ukuran jendela; sebagai contoh: 80x24, atau 80x24+200+200 (KOLOMxBARIS+X"
+"+Y)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr "GEOMETRI"
+
+#: source/gx/tilix/application.d:673
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Buka jendela dimode quake atau alihkan penglihatan jendela mode quake yang "
+"ada"
+
+#: source/gx/tilix/application.d:674
+msgid "Show the Tilix and dependant component versions"
+msgstr "Tampilkan Tilix dan versi komponen yg dibutuhkan"
+
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "Tampilkan kotak preferensi Tilix langsung"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid ""
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr "Mulai instansi tambahan sebagai proses baru (Tidak Direkomendasikan)"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid "GROUP_NAME"
+msgstr "NAMA_PROFIL"
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Sembunyikan argumentasi untuk melewati UUID terminal"
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr "UUID_TERMINAL"
+
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr ""
+
+#: source/gx/tilix/application.d:854
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Sepertinya ada isu dengan konfigurasi terminal.\n"
+"Isu ini tidak serius, tapi memperbaikinya akan memperbagus pengalaman anda.\n"
+"Klik tautan dibawah untuk info selanjutnya:"
+
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "Isu Konfigurasi Terdeteksi"
+
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "Jangan tampilkan pesan ini lagi"
+
+#: source/gx/tilix/closedialog.d:143 source/gx/gtk/dialog.d:89
+msgid "Do not show this again"
+msgstr "Jangan tampilkan ini lagi"
+
+#: source/gx/tilix/closedialog.d:170
+#, c-format
+msgid "Window (%s)"
+msgstr "Jendela (%s)"
+
+#: source/gx/tilix/closedialog.d:173
+#, c-format
+msgid "Session (%s)"
+msgstr "Sesi (%s)"
+
+#: source/gx/tilix/closedialog.d:189
+msgid "Close Application"
+msgstr "Tutup Aplikasi"
+
+#: source/gx/tilix/closedialog.d:191
+msgid "Close Window"
+msgstr "Tutup Jendela"
+
+#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
+msgid "Close Session"
+msgstr "Tutup Sesi"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:123
+msgid "Tilix Preferences"
+msgstr "Preferensi Tilix"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:140
+#: source/gx/tilix/prefeditor/prefdialog.d:141
+#: source/gx/tilix/prefeditor/prefdialog.d:219
+msgid "Global"
+msgstr "Global"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:144
+#: source/gx/tilix/prefeditor/prefdialog.d:145
+msgid "Appearance"
+msgstr "Tampilan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:150
+#: source/gx/tilix/prefeditor/prefdialog.d:151
+msgid "Quake"
+msgstr "Quake"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:155
+#: source/gx/tilix/prefeditor/prefdialog.d:156
+msgid "Bookmarks"
+msgstr "Markah"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:162
+#: source/gx/tilix/prefeditor/prefdialog.d:163
+#: source/gx/tilix/prefeditor/prefdialog.d:299
+msgid "Shortcuts"
+msgstr "Pintasan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:170
+#: source/gx/tilix/prefeditor/prefdialog.d:171
+#: source/gx/tilix/prefeditor/profileeditor.d:105
+#: source/gx/tilix/prefeditor/profileeditor.d:577
+msgid "Advanced"
+msgstr "Tingkat Lanjut"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:189
+msgid "Add profile"
+msgstr "Tambah profil"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:194
+msgid "Delete profile"
+msgstr "Hapus profil"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:312
+#: source/gx/tilix/prefeditor/prefdialog.d:320
+#, c-format
+msgid "Profile: %s"
+msgstr "Profil: %s"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:366
+#, c-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:557
+msgid "Clone"
+msgstr "Klon"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:561
+msgid "Use for new terminals"
+msgstr "Gunakan untuk terminal baru"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:637
+msgid "Encodings showing in menu:"
+msgstr "Pengkodean yang ditampilkan di menu:"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:679
+msgid "Enabled"
+msgstr "Difungsikan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:765
+#: source/gx/tilix/prefeditor/advdialog.d:287
+msgid "Action"
+msgstr "Aksi"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:789
+msgid "Shortcut Key"
+msgstr "Tombol Pintas"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:801
+msgid "Enable shortcuts"
+msgstr "Aktifkan pintasan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:805
+msgid "Set default"
+msgstr "Jadikan baku"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:916
+msgid "Overwrite Existing Shortcut"
+msgstr "Timpa Pintasan yang Ada"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:917
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"Pintasan %s sudah ditetapkan ke %s.\n"
+"Nonaktifkan pintasan untuk tindakan lainnya dan tetapkan di sini?"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1135
+msgid "Window style"
+msgstr "Gaya jendela"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Normal"
+msgstr "Normal"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD"
+msgstr "Nonaktifkan CSD"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD, hide toolbar"
+msgstr "Nonaktifkan CSD, sembunyikan bilah alat"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Borderless"
+msgstr "Tanpa perbatasan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1141
+msgid "Window restart required"
+msgstr "Perlu menjalankan ulang jendela"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1150
+msgid "Terminal title style"
+msgstr "Gaya judul terminal"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Small"
+msgstr "Kecil"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+#: source/gx/tilix/prefeditor/profileeditor.d:449
+msgid "None"
+msgstr "Nihil"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1156
+#: source/gx/tilix/prefeditor/prefdialog.d:1350
+msgid "Tab position"
+msgstr "Posisi tab"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Left"
+msgstr "Kiri"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Right"
+msgstr "Kanan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Top"
+msgstr "Atas"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Bottom"
+msgstr "Dasar"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1163
+msgid "Theme variant"
+msgstr "Varian tema"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Light"
+msgstr "Terang"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Dark"
+msgstr "Gelap"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1170
+msgid "Background image"
+msgstr "Gambar latar belakang"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1172
+msgid "Select Image"
+msgstr "Pilih Gambar"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1175
+msgid "All Image Files"
+msgstr "Semua Berkas Citra"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1196
+msgid "Reset background image"
+msgstr "Reset gambar latar belakang"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Scale"
+msgstr "Skala"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Tile"
+msgstr "Ubin"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+msgid "Center"
+msgstr "Tengah"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Stretch"
+msgstr "Regangkan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1221
+msgid "Default session name"
+msgstr "Nama sesi bawaan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1236
+msgid "Application title"
+msgstr "Judul aplikasi"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
+msgid "Enable transparency, requires re-start"
+msgstr "Aktifkan transparansi, butuh mulai-ulang"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
+msgid "Use a wide handle for splitters"
+msgstr "Gunakan pegangan lebar untuk pemisah"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1265
+msgid "Place the sidebar on the right"
+msgstr "Tempatkan bilah sisi di kanan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1269
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Tampilkan judul terminal bahkan jika itu terminal satu-satunya"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
+msgid "Use overlay scrollbars (Application restart required)"
+msgstr "Gunakan lapisan batang gulir (Butuh mulai-ulang aplikasi)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1279
+msgid "Use tabs instead of sidebar (Application restart required)"
+msgstr "Gunakan tab sebagai ganti bilah sisi (Butuh mulai-ulang aplikasi)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1311
+msgid "Size"
+msgstr "Ukuran"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1322
+msgid "Height percent"
+msgstr "Persen tinggi"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1333
+msgid "Width percent"
+msgstr "Persen lebar"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1343
+msgid "Alignment"
+msgstr "Perataan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1357
+#, fuzzy
+msgid "Window position"
+msgstr "Posisi lencana"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:558
+msgid "Options"
+msgstr "Opsi"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1374
+msgid "Show terminal on all workspaces"
+msgstr "Tampilkan terminal di semua ruang kerja"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1386
+msgid "Hide window when focus is lost"
+msgstr "Sembunyikan jendela ketika fokus hilang"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1390
+msgid "Delay hiding window by (ms)"
+msgstr "Penundaan menyembunyikan jendela (ms)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1403
+#, fuzzy
+msgid "Hide the toolbar of the window"
+msgstr "Sembunyikan bilah judul jendela"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1418
+msgid "Keep window always on top"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1423
+msgid "Display terminal on active monitor"
+msgstr "Tampilan terminal pada monitor aktif"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1430
+msgid "Display on specific monitor"
+msgstr "Tampilkan pada monitor tertentu"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1433
+msgid "Primary Monitor"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1436
+#, fuzzy
+msgid "Monitor "
+msgstr "Pantau Keadaan Diam"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1496
+msgid "Behavior"
+msgstr "Perilaku"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1502
+msgid "Prompt when creating a new session"
+msgstr "Tampilkan dialog ketika buat sesi baru"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1507
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Fokus terminal ketika tetikus bergerak di atasnya"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1512
+msgid "Autohide the mouse pointer when typing"
+msgstr "Penunjuk tetikus otomatis-hilang ketika mengetik"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1517
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "Tutup terminal dengan mengklik tombol tengah tetikus pada judul"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1522
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "Zum terminal menggunakan <Control> dan roda gulir"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1527
+msgid "Require the <Control> modifier to edit title on click"
+msgstr "Memerlukan pengubah <Control> untuk menyunting judul pada klik"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1532
+msgid "Close window when last session is closed"
+msgstr "Tutup jendela ketika sesi terakhir ditutup"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1537
+msgid "Save and restore window state"
+msgstr "Simpan dan pulihkan keadaan jendela"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1543
+msgid "Send desktop notification on process complete"
+msgstr "Kirim pemberitahuan desktop saat proses berakhir"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1551
+msgid "On new instance"
+msgstr "Pada instansi baru"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Right"
+msgstr "Pisah Kanan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Down"
+msgstr "Pisah Bawah"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Focus Window"
+msgstr "Fokus Jendela"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1566
+msgid "Always use advanced paste dialog"
+msgstr "Selalu gunakan dialog paste lanjutan"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1571
+msgid "Warn when attempting unsafe paste"
+msgstr "Beri peringatan ketika ada tempel yg tidak aman"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1576
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "Hapus karakter pertama dari tempelan jika komentar/deklarasi variabel"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Otomatis salin teks ke papan klip ketika memilih"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:110
+msgid "Session"
+msgstr "Sesi"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:116
+msgid "Window"
+msgstr "Jendela"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:126
+#: source/gx/tilix/prefeditor/titleeditor.d:127
+msgid "Help"
+msgstr "Bantuan"
 
 #: source/gx/tilix/prefeditor/bookmarkeditor.d:62
 msgid "Add bookmark"
@@ -701,6 +1642,51 @@ msgstr "Hapus markah"
 msgid "Unselect bookmark"
 msgstr "Tidak jadi pilih markah"
 
+#: source/gx/tilix/prefeditor/advdialog.d:94
+#: source/gx/tilix/prefeditor/advdialog.d:261
+msgid "Regex"
+msgstr "Regex"
+
+#: source/gx/tilix/prefeditor/advdialog.d:118
+msgid "Case Insensitive"
+msgstr "Besar Kecil Tidak Masalah"
+
+#: source/gx/tilix/prefeditor/advdialog.d:134
+#: source/gx/tilix/prefeditor/advdialog.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:1307
+msgid "Add"
+msgstr "Tambah"
+
+#: source/gx/tilix/prefeditor/advdialog.d:151
+msgid "Move up"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:162
+#, fuzzy
+msgid "Move down"
+msgstr "Halaman bawah"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+msgid "Edit Custom Links"
+msgstr "Sunting Tautan Kustom"
+
+#: source/gx/tilix/prefeditor/advdialog.d:299
+msgid "Parameter"
+msgstr "Parameter"
+
+#: source/gx/tilix/prefeditor/advdialog.d:337
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Batasi jumlah baris untuk memicu proses ke:"
+
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Edit Triggers"
+msgstr "Sunting Pemicu"
+
+#: source/gx/tilix/prefeditor/advdialog.d:405
+#, c-format
+msgid "Row %d: "
+msgstr "Baris %d: "
+
 #: source/gx/tilix/prefeditor/profileeditor.d:97
 msgid "General"
 msgstr "Umum"
@@ -716,13 +1702,6 @@ msgstr "Gulung Layar"
 #: source/gx/tilix/prefeditor/profileeditor.d:101
 msgid "Compatibility"
 msgstr "Kompatibilitas"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:577
-#: source/gx/tilix/prefeditor/prefdialog.d:170
-#: source/gx/tilix/prefeditor/prefdialog.d:171
-msgid "Advanced"
-msgstr "Tingkat Lanjut"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:217
 msgid "Profile name"
@@ -786,7 +1765,7 @@ msgid "Always"
 msgstr "Selalu"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:380
-#: source/gx/tilix/prefeditor/profileeditor.d:1202
+#: source/gx/tilix/prefeditor/profileeditor.d:1203
 #, fuzzy
 msgid "Custom font"
 msgstr "Fonta ubahan"
@@ -840,18 +1819,8 @@ msgid "Notification"
 msgstr "KirimNotifikasi"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "None"
-msgstr "Nihil"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
 msgid "Sound"
 msgstr "Suara"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/closedialog.d:129 source/gx/tilix/bookmark/bmtreeview.d:70
-msgid "Icon"
-msgstr "Ikon"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:449
 #, fuzzy
@@ -879,11 +1848,6 @@ msgstr "Ekspor"
 #: source/gx/tilix/prefeditor/profileeditor.d:550
 msgid "Color palette"
 msgstr "Palet warna"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:558
-#: source/gx/tilix/prefeditor/prefdialog.d:1366
-msgid "Options"
-msgstr "Opsi"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:572
 msgid "Use theme colors for foreground/background"
@@ -1070,63 +2034,63 @@ msgstr "Jalankan perintah sebagai suatu shell login"
 msgid "Run a custom command instead of my shell"
 msgstr "Jalankan perintah ubahan dan bukan shell saya"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1150
+#: source/gx/tilix/prefeditor/profileeditor.d:1151
 msgid "When command exits"
 msgstr "Ketika perintah keluar"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Exit the terminal"
 msgstr "Keluar dari terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Restart the command"
 msgstr "Menjalankan ulang perintah"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1152
+#: source/gx/tilix/prefeditor/profileeditor.d:1153
 msgid "Hold the terminal open"
 msgstr "Pertahankan terminal tetap terbuka"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1192
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
 msgid "Badge position"
 msgstr "Posisi lencana"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Northwest"
 msgstr "Barat Laut"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Northeast"
 msgstr "Timur Laut"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Southwest"
 msgstr "Barat Daya"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1196
+#: source/gx/tilix/prefeditor/profileeditor.d:1197
 msgid "Southeast"
 msgstr "Tenggara"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1214
+#: source/gx/tilix/prefeditor/profileeditor.d:1215
 #, fuzzy
 msgid "Choose A Badge Font"
 msgstr "Pilih Fonta Terminal"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1252
+#: source/gx/tilix/prefeditor/profileeditor.d:1253
 #, fuzzy
 msgid "Notify New Activity"
 msgstr "Beritahu aktivitas baru"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1259
+#: source/gx/tilix/prefeditor/profileeditor.d:1260
 msgid ""
 "A notification can be raised when new activity occurs after a specified "
 "period of silence."
 msgstr ""
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1272
+#: source/gx/tilix/prefeditor/profileeditor.d:1273
 msgid "Automatic Profile Switching"
 msgstr "Beralih Profil Otomatis"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1281
+#: source/gx/tilix/prefeditor/profileeditor.d:1282
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>username@hostname:directory</i> format. Either "
@@ -1139,7 +2103,7 @@ msgstr ""
 "Nama host atau direktori bisa dihilangkan tapi titik dua harus ada. Entri "
 "tanpa nama host dan tanpa direktori tidak diizinkan."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1283
+#: source/gx/tilix/prefeditor/profileeditor.d:1284
 msgid ""
 "Profiles are automatically selected based on the values entered here.\n"
 "Values are entered using a <i>hostname:directory</i> format. Either the "
@@ -1152,51 +2116,45 @@ msgstr ""
 "Baik nama host atau direktori dapat diabaikan tapi titik dua harus hadir. "
 "Entri tanpa nama host dan tanpa direktori tidak diizinkan."
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1295
+#: source/gx/tilix/prefeditor/profileeditor.d:1296
 msgid "Match"
 msgstr "Cocok"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1306
-#: source/gx/tilix/prefeditor/advdialog.d:134
-#: source/gx/tilix/prefeditor/advdialog.d:313
-msgid "Add"
-msgstr "Tambah"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1310
+#: source/gx/tilix/prefeditor/profileeditor.d:1311
 msgid "Enter username@hostname:directory to match"
 msgstr "Masukkan namapengguna@namahost:direktori untuk dicocokkan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1312
+#: source/gx/tilix/prefeditor/profileeditor.d:1313
 msgid "Enter hostname:directory to match"
 msgstr "Masukkan namahost:direktori untuk dicocokkan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1314
+#: source/gx/tilix/prefeditor/profileeditor.d:1315
 msgid "Add New Match"
 msgstr "Tambahkan Pencocokan Baru"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1331
+#: source/gx/tilix/prefeditor/profileeditor.d:1332
 msgid "Edit username@hostname:directory to match"
 msgstr "Sunting namapengguna@namahost:direktori untuk dicocokkan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1333
+#: source/gx/tilix/prefeditor/profileeditor.d:1334
 msgid "Edit hostname:directory to match"
 msgstr "Sunting namahost:direktori untuk dicocokkan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1335
+#: source/gx/tilix/prefeditor/profileeditor.d:1336
 msgid "Edit Match"
 msgstr "Sunting Pencocokan"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:1367
 #, fuzzy
 msgid "Enable by default"
 msgstr "Jadikan baku"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1375
+#: source/gx/tilix/prefeditor/profileeditor.d:1376
 #, fuzzy
 msgid "Threshold for continuous silence"
 msgstr "Batas untuk diam terus-menerus (detik)"
 
-#: source/gx/tilix/prefeditor/profileeditor.d:1384
+#: source/gx/tilix/prefeditor/profileeditor.d:1385
 msgid "(seconds)"
 msgstr ""
 
@@ -1225,1012 +2183,57 @@ msgstr ""
 "di terminal. Ketika kecocokan terdeteksi maka aksi yang dikonfigurasi "
 "dieksekusi."
 
-#: source/gx/tilix/prefeditor/prefdialog.d:123
-msgid "Tilix Preferences"
-msgstr "Preferensi Tilix"
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "dinonaktifkan"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:140
-#: source/gx/tilix/prefeditor/prefdialog.d:141
-#: source/gx/tilix/prefeditor/prefdialog.d:219
-msgid "Global"
-msgstr "Global"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:144
-#: source/gx/tilix/prefeditor/prefdialog.d:145
-msgid "Appearance"
-msgstr "Tampilan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:150
-#: source/gx/tilix/prefeditor/prefdialog.d:151
-msgid "Quake"
-msgstr "Quake"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:155
-#: source/gx/tilix/prefeditor/prefdialog.d:156
-msgid "Bookmarks"
-msgstr "Markah"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:162
-#: source/gx/tilix/prefeditor/prefdialog.d:163
-#: source/gx/tilix/prefeditor/prefdialog.d:299
-#: source/gx/tilix/application.d:232
-msgid "Shortcuts"
-msgstr "Pintasan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
-msgid "Profile"
-msgstr "Profil"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:189
-msgid "Add profile"
-msgstr "Tambah profil"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:194
-msgid "Delete profile"
-msgstr "Hapus profil"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:312
-#: source/gx/tilix/prefeditor/prefdialog.d:320
+#: source/app.d:139
 #, c-format
-msgid "Profile: %s"
-msgstr "Profil: %s"
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Versi GTK Anda sudah terlalu tua, Anda perlu setidaknya GTK %d.%d.%d!"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:366
+#: source/app.d:156
+msgid "Unexpected exception occurred"
+msgstr "Terjadi eksepsi yang tak diharapkan"
+
+#: source/app.d:157
+msgid "Error: "
+msgstr "Galat: "
+
+#: source/app.d:167
+msgid "Versions"
+msgstr "Versi"
+
+#: source/app.d:168
 #, c-format
-msgid "Are you sure you want to delete '%s'?"
-msgstr ""
+msgid "Tilix version: %s"
+msgstr "Tilix versi: %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:557
-msgid "Clone"
-msgstr "Klon"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:561
-msgid "Use for new terminals"
-msgstr "Gunakan untuk terminal baru"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:637
-msgid "Encodings showing in menu:"
-msgstr "Pengkodean yang ditampilkan di menu:"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:679
-msgid "Enabled"
-msgstr "Difungsikan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:765
-#: source/gx/tilix/prefeditor/advdialog.d:287
-msgid "Action"
-msgstr "Aksi"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:789
-msgid "Shortcut Key"
-msgstr "Tombol Pintas"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:801
-msgid "Enable shortcuts"
-msgstr "Aktifkan pintasan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:805
-msgid "Set default"
-msgstr "Jadikan baku"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:916
-msgid "Overwrite Existing Shortcut"
-msgstr "Timpa Pintasan yang Ada"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:917
+#: source/app.d:169
 #, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"Pintasan %s sudah ditetapkan ke %s.\n"
-"Nonaktifkan pintasan untuk tindakan lainnya dan tetapkan di sini?"
+msgid "VTE version: %s"
+msgstr "VTE versi: %s"
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-msgid "Window style"
-msgstr "Gaya jendela"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Normal"
-msgstr "Normal"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD"
-msgstr "Nonaktifkan CSD"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD, hide toolbar"
-msgstr "Nonaktifkan CSD, sembunyikan bilah alat"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Borderless"
-msgstr "Tanpa perbatasan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1141
-msgid "Window restart required"
-msgstr "Perlu menjalankan ulang jendela"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1150
-msgid "Terminal title style"
-msgstr "Gaya judul terminal"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Small"
-msgstr "Kecil"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1156
-#: source/gx/tilix/prefeditor/prefdialog.d:1350
-msgid "Tab position"
-msgstr "Posisi tab"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Left"
-msgstr "Kiri"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Right"
-msgstr "Kanan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Top"
-msgstr "Atas"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Bottom"
-msgstr "Dasar"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1163
-msgid "Theme variant"
-msgstr "Varian tema"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Light"
-msgstr "Terang"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Dark"
-msgstr "Gelap"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1170
-msgid "Background image"
-msgstr "Gambar latar belakang"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1172
-msgid "Select Image"
-msgstr "Pilih Gambar"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
-msgid "All Image Files"
-msgstr "Semua Berkas Citra"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1196
-msgid "Reset background image"
-msgstr "Reset gambar latar belakang"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Scale"
-msgstr "Skala"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Tile"
-msgstr "Ubin"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-msgid "Center"
-msgstr "Tengah"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Stretch"
-msgstr "Regangkan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1221
-msgid "Default session name"
-msgstr "Nama sesi bawaan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1236
-msgid "Application title"
-msgstr "Judul aplikasi"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1254
-msgid "Enable transparency, requires re-start"
-msgstr "Aktifkan transparansi, butuh mulai-ulang"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
-msgid "Use a wide handle for splitters"
-msgstr "Gunakan pegangan lebar untuk pemisah"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1265
-msgid "Place the sidebar on the right"
-msgstr "Tempatkan bilah sisi di kanan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Tampilkan judul terminal bahkan jika itu terminal satu-satunya"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
-msgid "Use overlay scrollbars (Application restart required)"
-msgstr "Gunakan lapisan batang gulir (Butuh mulai-ulang aplikasi)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1279
-msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr "Gunakan tab sebagai ganti bilah sisi (Butuh mulai-ulang aplikasi)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1311
-msgid "Size"
-msgstr "Ukuran"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1322
-msgid "Height percent"
-msgstr "Persen tinggi"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1333
-msgid "Width percent"
-msgstr "Persen lebar"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1343
-msgid "Alignment"
-msgstr "Perataan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
-msgid "Window position"
-msgstr "Posisi lencana"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1374
-msgid "Show terminal on all workspaces"
-msgstr "Tampilkan terminal di semua ruang kerja"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1386
-msgid "Hide window when focus is lost"
-msgstr "Sembunyikan jendela ketika fokus hilang"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1390
-msgid "Delay hiding window by (ms)"
-msgstr "Penundaan menyembunyikan jendela (ms)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1403
-#, fuzzy
-msgid "Hide the toolbar of the window"
-msgstr "Sembunyikan bilah judul jendela"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1418
-msgid "Keep window always on top"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1423
-msgid "Display terminal on active monitor"
-msgstr "Tampilan terminal pada monitor aktif"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1430
-msgid "Display on specific monitor"
-msgstr "Tampilkan pada monitor tertentu"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1433
-msgid "Primary Monitor"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1436
-#, fuzzy
-msgid "Monitor "
-msgstr "Pantau Keadaan Diam"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1496
-msgid "Behavior"
-msgstr "Perilaku"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1502
-msgid "Prompt when creating a new session"
-msgstr "Tampilkan dialog ketika buat sesi baru"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1507
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Fokus terminal ketika tetikus bergerak di atasnya"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1512
-msgid "Autohide the mouse pointer when typing"
-msgstr "Penunjuk tetikus otomatis-hilang ketika mengetik"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1517
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Tutup terminal dengan mengklik tombol tengah tetikus pada judul"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1522
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Zum terminal menggunakan <Control> dan roda gulir"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1527
-msgid "Require the <Control> modifier to edit title on click"
-msgstr "Memerlukan pengubah <Control> untuk menyunting judul pada klik"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1532
-msgid "Close window when last session is closed"
-msgstr "Tutup jendela ketika sesi terakhir ditutup"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1537
-msgid "Save and restore window state"
-msgstr "Simpan dan pulihkan keadaan jendela"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1543
-msgid "Send desktop notification on process complete"
-msgstr "Kirim pemberitahuan desktop saat proses berakhir"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1551
-msgid "On new instance"
-msgstr "Pada instansi baru"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-#: source/gx/tilix/application.d:225 source/gx/tilix/session.d:1606
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "Sesi Baru"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Right"
-msgstr "Pisah Kanan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Down"
-msgstr "Pisah Bawah"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Focus Window"
-msgstr "Fokus Jendela"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1566
-msgid "Always use advanced paste dialog"
-msgstr "Selalu gunakan dialog paste lanjutan"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1571
-msgid "Warn when attempting unsafe paste"
-msgstr "Beri peringatan ketika ada tempel yg tidak aman"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1576
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "Hapus karakter pertama dari tempelan jika komentar/deklarasi variabel"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1581
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Otomatis salin teks ke papan klip ketika memilih"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:110
-msgid "Session"
-msgstr "Sesi"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:116
-msgid "Window"
-msgstr "Jendela"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:126
-#: source/gx/tilix/prefeditor/titleeditor.d:127
-msgid "Help"
-msgstr "Bantuan"
-
-#: source/gx/tilix/prefeditor/advdialog.d:94
-#: source/gx/tilix/prefeditor/advdialog.d:261
-msgid "Regex"
-msgstr "Regex"
-
-#: source/gx/tilix/prefeditor/advdialog.d:118
-msgid "Case Insensitive"
-msgstr "Besar Kecil Tidak Masalah"
-
-#: source/gx/tilix/prefeditor/advdialog.d:151
-msgid "Move up"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:162
-#, fuzzy
-msgid "Move down"
-msgstr "Halaman bawah"
-
-#: source/gx/tilix/prefeditor/advdialog.d:192
-msgid "Edit Custom Links"
-msgstr "Sunting Tautan Kustom"
-
-#: source/gx/tilix/prefeditor/advdialog.d:299
-msgid "Parameter"
-msgstr "Parameter"
-
-#: source/gx/tilix/prefeditor/advdialog.d:337
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Batasi jumlah baris untuk memicu proses ke:"
-
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Edit Triggers"
-msgstr "Sunting Pemicu"
-
-#: source/gx/tilix/prefeditor/advdialog.d:405
+#: source/app.d:170
 #, c-format
-msgid "Row %d: "
-msgstr "Baris %d: "
-
-#: source/gx/tilix/preferences.d:251
-msgid "UpdateState"
-msgstr "PembaruanKondisi"
-
-#: source/gx/tilix/preferences.d:252
-msgid "ExecuteCommand"
-msgstr "PerintahEksekusi"
-
-#: source/gx/tilix/preferences.d:253
-msgid "SendNotification"
-msgstr "KirimNotifikasi"
-
-#: source/gx/tilix/preferences.d:254
-msgid "UpdateTitle"
-msgstr "PerbaruiJudul"
-
-#: source/gx/tilix/preferences.d:255
-msgid "PlayBell"
-msgstr "PutarSuara"
-
-#: source/gx/tilix/preferences.d:256
-msgid "SendText"
-msgstr "KirimTeks"
-
-#: source/gx/tilix/preferences.d:257
-msgid "InsertPassword"
-msgstr "MasukkanSandi"
-
-#: source/gx/tilix/preferences.d:258
-msgid "UpdateBadge"
-msgstr "PerbaruiLencana"
-
-#: source/gx/tilix/preferences.d:259
-msgid "RunProcess"
-msgstr "JalankanProses"
-
-#: source/gx/tilix/preferences.d:369
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (Salinan)"
-
-#: source/gx/tilix/application.d:237
-msgid "About"
-msgstr "Tentang"
-
-#: source/gx/tilix/application.d:238
-msgid "Quit"
-msgstr "Keluar"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:294
-msgid "translator-credits"
-msgstr ""
-"Aan\n"
-"Arrizal Amin\n"
-"Mohamad Hasan Al Banna\n"
-"Andika Triwidada <andika@gmail.com>, 2018."
-
-#: source/gx/tilix/application.d:303
-msgid "Credits"
-msgstr "Kredit"
-
-#: source/gx/tilix/application.d:680
-msgid "Set the working directory of the terminal"
-msgstr "Atur direktori kerja terminal"
-
-#: source/gx/tilix/application.d:680
-msgid "DIRECTORY"
-msgstr "DIREKTORI"
-
-#: source/gx/tilix/application.d:681
-msgid "Set the starting profile"
-msgstr "Atur profil awalan"
-
-#: source/gx/tilix/application.d:681
-msgid "PROFILE_NAME"
-msgstr "NAMA_PROFIL"
-
-#: source/gx/tilix/application.d:682
-msgid "Set the title of the new terminal"
-msgstr "Atur judul terminal baru"
-
-#: source/gx/tilix/application.d:682
-msgid "TITLE"
-msgstr "JUDUL"
-
-#: source/gx/tilix/application.d:683
-msgid "Open the specified session"
-msgstr "Buka sesi spesifik"
-
-#: source/gx/tilix/application.d:683
-msgid "SESSION_NAME"
-msgstr "NAMA_SESI"
-
-#: source/gx/tilix/application.d:685
-msgid "Send an action to current Tilix instance"
-msgstr "Kirim aksi ke Terminix saat ini"
-
-#: source/gx/tilix/application.d:685
-msgid "ACTION_NAME"
-msgstr "NAMA_AKSI"
-
-#: source/gx/tilix/application.d:687
-msgid "Execute the parameter as a command"
-msgstr "Jalankan parameter sebagai perintah"
-
-#: source/gx/tilix/application.d:687
-msgid "COMMAND"
-msgstr "PERINTAH"
-
-#: source/gx/tilix/application.d:688
-msgid "Maximize the terminal window"
-msgstr "Maksimalkan jendela terminal"
-
-#: source/gx/tilix/application.d:689
-msgid "Minimize the terminal window"
-msgstr "Kecilkan jendela terminal"
-
-#: source/gx/tilix/application.d:690
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-"Timpa gaya jendela terpilih untuk gunakan, salah satu: normal, disable-csd, "
-"disable-csd-hide-toolbar, borderless"
-
-#: source/gx/tilix/application.d:690
-msgid "WINDOW_STYLE"
-msgstr "GAYA_JENDELA"
-
-#: source/gx/tilix/application.d:691
-msgid "Full-screen the terminal window"
-msgstr "Layar-penuh jendela terminal"
-
-#: source/gx/tilix/application.d:692
-msgid "Focus the existing window"
-msgstr "Fokus jendela yang ada"
-
-#: source/gx/tilix/application.d:693
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Mulai instansi tambahan sebagai proses baru (Tidak Direkomendasikan)"
-
-#: source/gx/tilix/application.d:694
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Atur ukuran jendela; sebagai contoh: 80x24, atau 80x24+200+200 (KOLOMxBARIS+X"
-"+Y)"
-
-#: source/gx/tilix/application.d:694
-msgid "GEOMETRY"
-msgstr "GEOMETRI"
-
-#: source/gx/tilix/application.d:695
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Buka jendela dimode quake atau alihkan penglihatan jendela mode quake yang "
-"ada"
-
-#: source/gx/tilix/application.d:696
-msgid "Show the Tilix and dependant component versions"
-msgstr "Tampilkan Tilix dan versi komponen yg dibutuhkan"
-
-#: source/gx/tilix/application.d:697
-msgid "Show the Tilix preferences dialog directly"
-msgstr "Tampilkan kotak preferensi Tilix langsung"
-
-#: source/gx/tilix/application.d:698
-#, fuzzy
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr "Mulai instansi tambahan sebagai proses baru (Tidak Direkomendasikan)"
-
-#: source/gx/tilix/application.d:701
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Sembunyikan argumentasi untuk melewati UUID terminal"
-
-#: source/gx/tilix/application.d:701
-msgid "TERMINAL_UUID"
-msgstr "UUID_TERMINAL"
-
-#: source/gx/tilix/application.d:718
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr ""
-
-#: source/gx/tilix/application.d:876
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Sepertinya ada isu dengan konfigurasi terminal.\n"
-"Isu ini tidak serius, tapi memperbaikinya akan memperbagus pengalaman anda.\n"
-"Klik tautan dibawah untuk info selanjutnya:"
-
-#: source/gx/tilix/application.d:877
-msgid "Configuration Issue Detected"
-msgstr "Isu Konfigurasi Terdeteksi"
-
-#: source/gx/tilix/application.d:889
-msgid "Do not show this message again"
-msgstr "Jangan tampilkan pesan ini lagi"
-
-#: source/gx/tilix/colorschemes.d:189
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Berkas %s bukan sebuah berkas JSON yg sesuai untuk skema warna"
-
-#: source/gx/tilix/colorschemes.d:252
-msgid "Color scheme palette requires 16 colors"
-msgstr "Palet skema warna butuh 16 warna"
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "Tidak dapat mendeteksi terminal terjatuh"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "Tidak dapat mendeteksi sesi untuk terminal terjatuh"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "Emulator terminal berbasis VTE untuk Linux"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"Bentuk Kode Sumber ini adalah subjek dari istilah Mozilla Public License, v. "
-"2.0. Jika salinan dari MPL tidak disediakan oleh berkas ini, Kamu bisa "
-"mendapatkannya di http://mozilla.org/MPL/2.0/."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "Tim widget GTK VTE, Tilix tidak akan ada tanpa kerja mereka"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD untuk menyediakan wrapper GTK yang mengagumkan"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org untuk bahasa yang mengagumkan, D"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "Judul ikon"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "Direktori"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "Nama Host"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "Nama Pengguna"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "Kolom"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "Baris"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "Memproses"
-
-#: source/gx/tilix/constants.d:161
-#, fuzzy
-msgid "Status.Read-Only"
-msgstr "Hanya-Baca"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr ""
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr ""
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "Cacah terminal"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "Nomor terminal"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "Judul terminal aktif"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "Nama aplikasi"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "Nama sesi"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "Nomor sesi"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "Cacah sesi"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "Biarkan sebagai '%s' adalah bukan sebuah direktori"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "String geometri '%s' tidak valid dan tidak dapat diurai"
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"Kamu tidak dapat memuat sesi dan mengatur profil/direktori kerja/menjalankan "
-"opsi perintah, harap pilih satu atau yg lainnya"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "Kamu hanya dapat menggunakan parameter aksi di Tilix"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-"Kamu tidak dapat menggunakan mode quake dengan perbesar, perkecil atau "
-"parameter geometri"
-
-#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
-#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
-#: source/gx/tilix/encoding.d:78
-msgid "Western"
-msgstr "Barat"
-
-#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
-#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
-msgid "Central European"
-msgstr "Eropa Tengah"
-
-#: source/gx/tilix/encoding.d:20
-msgid "South European"
-msgstr "Eropa Selatan"
-
-#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
-#: source/gx/tilix/encoding.d:83
-msgid "Baltic"
-msgstr "Baltik"
-
-#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
-#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
-#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
-msgid "Cyrillic"
-msgstr "Sirilik"
-
-#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
-#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
-msgid "Arabic"
-msgstr "Arab"
-
-#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
-#: source/gx/tilix/encoding.d:79
-msgid "Greek"
-msgstr "Yunani"
-
-#: source/gx/tilix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "Visual Ibrani"
-
-#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
-#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
-msgid "Hebrew"
-msgstr "Ibrani"
-
-#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
-#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
-msgid "Turkish"
-msgstr "Turki"
-
-#: source/gx/tilix/encoding.d:28
-msgid "Nordic"
-msgstr "Nordik"
-
-#: source/gx/tilix/encoding.d:30
-msgid "Celtic"
-msgstr "Seltik"
-
-#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
-msgid "Romanian"
-msgstr "Rumania"
-
-#: source/gx/tilix/encoding.d:33
-msgid "Unicode"
-msgstr "Unikode"
-
-#: source/gx/tilix/encoding.d:34
-msgid "Armenian"
-msgstr "Armenia"
-
-#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
-#: source/gx/tilix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "Cina Tradisional"
-
-#: source/gx/tilix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "Sirilik/Rusia"
-
-#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
-#: source/gx/tilix/encoding.d:71
-msgid "Japanese"
-msgstr "Jepang"
-
-#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
-#: source/gx/tilix/encoding.d:74
-msgid "Korean"
-msgstr "Korea"
-
-#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
-#: source/gx/tilix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "Cina Sederhana"
-
-#: source/gx/tilix/encoding.d:44
-msgid "Georgian"
-msgstr "Georgia"
-
-#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "Sirilik/Ukraina"
-
-#: source/gx/tilix/encoding.d:58
-msgid "Croatian"
-msgstr "Kroasia"
-
-#: source/gx/tilix/encoding.d:60
-msgid "Hindi"
-msgstr "Hindi"
-
-#: source/gx/tilix/encoding.d:61
-msgid "Persian"
-msgstr "Persia"
-
-#: source/gx/tilix/encoding.d:63
-msgid "Gujarati"
-msgstr "Gujurati"
-
-#: source/gx/tilix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "Gurmukh"
-
-#: source/gx/tilix/encoding.d:66
-msgid "Icelandic"
-msgstr "Islandia"
-
-#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
-#: source/gx/tilix/encoding.d:84
-msgid "Vietnamese"
-msgstr "Vietnam"
-
-#: source/gx/tilix/encoding.d:73
-msgid "Thai"
-msgstr "Thailand"
-
-#: source/gx/tilix/closedialog.d:170
-#, c-format
-msgid "Window (%s)"
-msgstr "Jendela (%s)"
-
-#: source/gx/tilix/closedialog.d:173
-#, c-format
-msgid "Session (%s)"
-msgstr "Sesi (%s)"
-
-#: source/gx/tilix/closedialog.d:189
-msgid "Close Application"
-msgstr "Tutup Aplikasi"
-
-#: source/gx/tilix/closedialog.d:191
-msgid "Close Window"
-msgstr "Tutup Jendela"
-
-#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
-msgid "Close Session"
-msgstr "Tutup Sesi"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "Galat deseialisasi markah"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "Akar"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Tidak dapat memuat markah karena galat yang tak terduga"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "Folder"
-
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/bookmark/bmeditor.d:292
-msgid "Path"
-msgstr "Path"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "Remote"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "Masukkan karakter enter dengan markah"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-#: source/gx/tilix/bookmark/bmeditor.d:68
-msgid "Select Folder"
-msgstr "Pilih Folder"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "Pilih Bookmark"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Pilih folder"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Bersihkan folder"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "Tambah Markah"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "Sunting Markah"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "Pilih Path"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "Protokol"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "Host"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "Pengguna"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "Parameter"
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK versi: %d.%d.%d"
+
+#: source/app.d:171
+msgid "Tilix Special Features"
+msgstr "Fitur-fitur Khusus Tilix"
+
+#: source/app.d:172
+msgid "Notifications enabled=%b"
+msgstr "Pemberitahuan diaktifkan=%b"
+
+#: source/app.d:173
+msgid "Triggers enabled=%b"
+msgstr "Memicu diaktifkan=%b"
+
+#: source/app.d:174
+msgid "Badges enabled=%b"
+msgstr "Lencana diaktifkan=%b"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"
@@ -2450,7 +2453,7 @@ msgctxt "shortcut window"
 msgid "Resize the terminal right"
 msgstr "Ubah ukuran terminal ke kanan"
 
-#: data/resources/ui/shortcuts.ui:239 data/resources/ui/shortcuts.ui:505
+#: data/resources/ui/shortcuts.ui:239 data/resources/ui/shortcuts.ui:511
 msgctxt "shortcut window"
 msgid "Other"
 msgstr "Lainnya"
@@ -2605,166 +2608,172 @@ msgctxt "shortcut window"
 msgid "Select all"
 msgstr "Pilih semua"
 
-#: data/resources/ui/shortcuts.ui:439
+#: data/resources/ui/shortcuts.ui:437
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Unselect all"
+msgstr "Pilih semua"
+
+#: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Pembesaran"
 
-#: data/resources/ui/shortcuts.ui:443
+#: data/resources/ui/shortcuts.ui:449
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Memperbesar"
 
-#: data/resources/ui/shortcuts.ui:449
+#: data/resources/ui/shortcuts.ui:455
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Zum keluar"
 
-#: data/resources/ui/shortcuts.ui:455
+#: data/resources/ui/shortcuts.ui:461
 msgctxt "shortcut window"
 msgid "Zoom normal size"
 msgstr "Perbesar ukuran normal"
 
-#: data/resources/ui/shortcuts.ui:463
+#: data/resources/ui/shortcuts.ui:469
 msgctxt "shortcut window"
 msgid "Navigation"
 msgstr "Navigasi"
 
-#: data/resources/ui/shortcuts.ui:467
+#: data/resources/ui/shortcuts.ui:473
 msgctxt "shortcut window"
 msgid "Scroll up"
 msgstr "Gulir keatas"
 
-#: data/resources/ui/shortcuts.ui:473
+#: data/resources/ui/shortcuts.ui:479
 msgctxt "shortcut window"
 msgid "Scroll down"
 msgstr "Gulir kebawah"
 
-#: data/resources/ui/shortcuts.ui:479
+#: data/resources/ui/shortcuts.ui:485
 msgctxt "shortcut window"
 msgid "Page up"
 msgstr "PageUp"
 
-#: data/resources/ui/shortcuts.ui:485
+#: data/resources/ui/shortcuts.ui:491
 msgctxt "shortcut window"
 msgid "Page down"
 msgstr "Halaman bawah"
 
-#: data/resources/ui/shortcuts.ui:491
+#: data/resources/ui/shortcuts.ui:497
 msgctxt "shortcut window"
 msgid "Previous prompt"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:497
+#: data/resources/ui/shortcuts.ui:503
 msgctxt "shortcut window"
 msgid "Next prompt"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:509
+#: data/resources/ui/shortcuts.ui:515
 msgctxt "shortcut window"
 msgid "Save terminal contents"
 msgstr "Simpan isi terminal"
 
-#: data/resources/ui/shortcuts.ui:515
+#: data/resources/ui/shortcuts.ui:521
 msgctxt "shortcut window"
 msgid "Close terminal"
 msgstr "Tutup terminal"
 
-#: data/resources/ui/shortcuts.ui:521
+#: data/resources/ui/shortcuts.ui:527
 msgctxt "shortcut window"
 msgid "Maximize terminal"
 msgstr "Perbesar terminal"
 
-#: data/resources/ui/shortcuts.ui:527
+#: data/resources/ui/shortcuts.ui:533
 msgctxt "shortcut window"
 msgid "Current profile preferences"
 msgstr "Preferensi profil saat ini"
 
-#: data/resources/ui/shortcuts.ui:533
+#: data/resources/ui/shortcuts.ui:539
 msgctxt "shortcut window"
 msgid "Reset the terminal"
 msgstr "Reset terminal"
 
-#: data/resources/ui/shortcuts.ui:539
+#: data/resources/ui/shortcuts.ui:545
 msgctxt "shortcut window"
 msgid "Reset and clear the terminal"
 msgstr "Reset dan bersihkan terminal"
 
-#: data/resources/ui/shortcuts.ui:545
+#: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Toggle read only"
 msgstr "Alihkan hanya baca"
 
-#: data/resources/ui/shortcuts.ui:551
+#: data/resources/ui/shortcuts.ui:557
 msgctxt "shortcut window"
 msgid "Layout options"
 msgstr "Opsi tata letak"
 
-#: data/resources/ui/shortcuts.ui:557
+#: data/resources/ui/shortcuts.ui:563
 msgctxt "shortcut window"
 msgid "Insert terminal number"
 msgstr "Masukkan nomor terminal"
 
-#: data/resources/ui/shortcuts.ui:563
+#: data/resources/ui/shortcuts.ui:569
 msgctxt "shortcut window"
 msgid "Insert password"
 msgstr "Masukkan sandi"
 
-#: data/resources/ui/shortcuts.ui:569
+#: data/resources/ui/shortcuts.ui:575
 msgctxt "shortcut window"
 msgid "Select bookmark"
 msgstr "Pilih markah"
 
-#: data/resources/ui/shortcuts.ui:575
+#: data/resources/ui/shortcuts.ui:581
 msgctxt "shortcut window"
 msgid "Add bookmark"
 msgstr "Tambah markah"
 
-#: data/resources/ui/shortcuts.ui:581
+#: data/resources/ui/shortcuts.ui:587
 msgctxt "shortcut window"
 msgid "Cycle title style"
 msgstr "Ganti gaya judul"
 
-#: data/resources/ui/shortcuts.ui:587
+#: data/resources/ui/shortcuts.ui:593
 msgctxt "shortcut window"
 msgid "Monitor silence"
 msgstr ""
 
-#: data/resources/ui/shortcuts.ui:593
+#: data/resources/ui/shortcuts.ui:599
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Override input synchronization"
 msgstr "Nonfungsikan sinkronisasi masukan untuk terminal ini"
 
-#: data/resources/ui/shortcuts.ui:599
+#: data/resources/ui/shortcuts.ui:605
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open file browser"
 msgstr "Preferensi"
 
-#: data/resources/ui/shortcuts.ui:605
+#: data/resources/ui/shortcuts.ui:611
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Toggle margin"
 msgstr "Alihkan hanya baca"
 
-#: data/resources/ui/shortcuts.ui:616
+#: data/resources/ui/shortcuts.ui:622
 msgctxt "shortcut window"
 msgid "Nautilus"
 msgstr "Nautilus"
 
-#: data/resources/ui/shortcuts.ui:621
+#: data/resources/ui/shortcuts.ui:627
 msgctxt "shortcut window"
 msgid "Open"
 msgstr "Buka"
 
-#: data/resources/ui/shortcuts.ui:625
+#: data/resources/ui/shortcuts.ui:631
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Open in Tilix"
 msgstr "Terminix"
 
-#: data/resources/ui/shortcuts.ui:636 data/resources/ui/shortcuts.ui:641
+#: data/resources/ui/shortcuts.ui:642 data/resources/ui/shortcuts.ui:647
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Profile"
@@ -2778,86 +2787,99 @@ msgstr ""
 msgid "shell;prompt;command;commandline;cmd;"
 msgstr "shell;prompt;perintah;baris perintah;cmd;"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:12
-msgid "com.gexperts.Tilix"
-msgstr "com.gexperts.Tilix"
-
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
 msgid "A tiling terminal for GNOME"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:12
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
 msgid "Tilix is a tiling terminal emulator."
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:15
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
 msgid "It lets you:"
 msgstr "Ini memungkinkan Anda:"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
 msgid ""
 "Layout terminals in any fashion by splitting them horizontally or vertically"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:18
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
 msgid ""
 "Terminals can be re-arranged using drag and drop both within and between "
 "windows"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:19
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
 msgid "Terminals can be detached into a new window via drag and drop"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
 msgid ""
 "Input can be synchronized between terminals so commands typed in one "
 "terminal are replicated to the others"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:21
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:26
 msgid "The grouping of terminals can be saved and loaded from disk"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
 #, fuzzy
 msgid "Terminals support custom titles"
 msgstr "Terminal"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:28
 msgid ""
 "Color schemes are stored in files and custom color schemes can be created by "
 "simply creating a new file"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:29
 msgid "Transparent background"
 msgstr "Latar belakang transparan"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:30
 msgid "Supports notifications when processes are completed out of view"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:32
 msgid ""
 "The application was written using GTK 3 and an effort was made to conform to "
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:31
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:36
 msgid "Tilix has been tested with GNOME and with Unity."
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:43
-msgid ""
-"Some new features and bug fixes, please see https://gnunn1.github.io/tilix-"
-"web/ for specific information about this release."
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
+msgid "remove app menu for gnome 3.32, update icon, minor fixes"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:62
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
+msgid ""
+"Small release to update localizations and update to GtkD 3.8.5 to fix "
+"library name in GtkD."
+msgstr ""
+
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
+msgid "Some new features and bug fixes."
+msgstr ""
+
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
 msgid "Gerald Nunn"
 msgstr ""
+
+#~ msgid "About"
+#~ msgstr "Tentang"
+
+#~ msgid "Quit"
+#~ msgstr "Keluar"
+
+#~ msgid "com.gexperts.Tilix"
+#~ msgstr "com.gexperts.Tilix"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr "Jendela baru mewarisi direktori dan profil dari terminal aktif"
