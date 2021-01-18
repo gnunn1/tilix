@@ -1,8 +1,7 @@
 project(
     'Tilix', 'd',
-    version: '1.9.3',
-    license: 'MPL2',
-    default_options: 'buildtype=debugoptimized',
+    version: '1.9.4',
+    license: 'MPL-2.0',
     meson_version: '>= 0.50.0'
 )
 
