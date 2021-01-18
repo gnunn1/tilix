@@ -8,6 +8,11 @@
   <name>Tilix</name>
   <summary>A tiling terminal for GNOME</summary>
 
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </recommends>
+
   <description>
     <p>
       Tilix is a tiling terminal emulator.
@@ -32,9 +37,15 @@
   </description>
 
   <screenshots>
-    <screenshot type="default">https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png</screenshot>
-    <screenshot>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-2.png</screenshot>
-    <screenshot>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-3.png</screenshot>
+    <screenshot type="default">
+        <image>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png</image>
+    </screenshot>
+    <screenshot>
+        <image>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-2.png</image>
+    </screenshot>
+    <screenshot>
+        <image>https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-3.png</image>
+    </screenshot>
   </screenshots>
 
   <releases>
@@ -50,16 +61,11 @@
     </release>
     <release version="1.8.7" date="2019-01-03">
       <description>
-        <p>Some new features and bug fixes, please see https://gnunn1.github.io/tilix-web/ for specific information about this release.</p>
+        <p>Some new features and bug fixes.</p>
       </description>
+      <url>https://gnunn1.github.io/tilix-web/</url>
     </release>
   </releases>
-
-  <kudos>
-    <kudo>HiDpiIcon</kudo>
-    <kudo>ModernToolkit</kudo>
-    <kudo>Notifications</kudo>
-  </kudos>
 
   <url type="homepage">https://gnunn1.github.io/tilix-web/</url>
   <url type="help">https://gnunn1.github.io/tilix-web/manual/</url>
@@ -70,6 +76,7 @@
   <translation type="gettext">tilix</translation>
   <launchable type="desktop-id">com.gexperts.Tilix.desktop</launchable>
   <developer_name>Gerald Nunn</developer_name>
+
   <provides>
     <binary>tilix</binary>
   </provides>

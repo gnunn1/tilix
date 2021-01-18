@@ -32,8 +32,8 @@ if desktop_file_validate.found()
   )
 endif
 
-# Install the AppData file
-appdata_file = i18n.merge_file(
+# Install the MetaInfo file
+metainfo_file = i18n.merge_file(
     '@0@.appdata.xml'.format(meson.project_name()),
     output: '@BASENAME@',
     input: 'appdata/@0@.appdata.xml.in'.format(meson.project_name()),
@@ -43,12 +43,12 @@ appdata_file = i18n.merge_file(
 )
 
 # Validate AppData file
-appstream_util = find_program('appstream-util', required:false)
-if appstream_util.found()
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
   test (
-    'Validate appdata file',
-    appstream_util,
-    args: ['validate-relax', '--nonet', appdata_file.full_path()]
+    'Validate metainfo file',
+    appstreamcli,
+    args: ['validate', '--nonet', metainfo_file.full_path()]
   )
 endif
 
