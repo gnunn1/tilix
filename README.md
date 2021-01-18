@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gnunn1/tilix.svg?branch=master)](https://travis-ci.org/gnunn1/tilix)
+![Build Status](https://github.com/gnunn1/tilix/workflows/Build%20Test/badge.svg)
 [![Translation status](https://hosted.weblate.org/widgets/tilix/-/svg-badge.svg)](https://hosted.weblate.org/engage/tilix/?utm_source=widget)
 # Tilix
 A tiling terminal emulator for Linux using GTK+ 3. The Tilix web site for users is available at [https://gnunn1.github.io/tilix-web](https://gnunn1.github.io/tilix-web).

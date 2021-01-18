@@ -1,0 +1,79 @@
+name: Build Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build-dub-ubuntu:
+    name: Dub
+    runs-on: ubuntu-20.04
+    strategy:
+        matrix:
+          dc: [dmd-latest, ldc-latest]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get install -yq \
+                dh-dlang \
+                libatk1.0-dev \
+                libcairo2-dev \
+                libglib2.0-dev \
+                libgtk-3-dev \
+                libpango1.0-dev \
+                librsvg2-dev \
+                libsecret-1-dev \
+                libunwind-dev \
+                libgtksourceview-3.0-dev \
+                libpeas-dev \
+                libvte-2.91-dev
+
+    - name: Install D compiler
+      uses: dlang-community/setup-dlang@v1
+      with:
+        compiler: ${{ matrix.dc }}
+
+    - name: Build
+      run: dub build --compiler=$DC
+
+    - name: Test
+      run: dub test --compiler=$DC
+
+
+  build-debian-testing:
+    name: Debian Testing
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: cd .github/ci/ && docker build -t tilix -f ./Dockerfile-debian-testing .
+
+    - name: Build
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-build.sh
+
+    - name: Test
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-tests.sh
+
+
+  build-ubuntu:
+    name: Ubuntu LTS
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: sudo ./.github/ci/install-deps-deb.sh
+
+    - name: Build
+      run: CC=gcc CXX=g++ ./.github/ci/run-build.sh
+
+    - name: Test
+      run: CC=gcc CXX=g++ ./.github/ci/run-tests.sh
