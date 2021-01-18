@@ -12,22 +12,12 @@ import std.json;
 import std.path;
 import std.uuid;
 
-static if (__VERSION__ >= 2082L)
-{
-    alias jsonTrue = JSONType.true_;
-}
-else
-{
-    alias jsonTrue = JSON_TYPE.TRUE;
-}
-
 import gdk.RGBA;
 
 import glib.Util;
 
 import gx.gtk.color;
 import gx.gtk.util;
-;
 import gx.i18n.l10n;
 import gx.tilix.constants;
 
@@ -219,7 +209,7 @@ private ColorScheme loadScheme(string fileName) {
     if (SCHEME_KEY_COMMENT in root) {
         cs.comment = root[SCHEME_KEY_COMMENT].str();
     }
-    cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == jsonTrue;
+    cs.useThemeColors = root[SCHEME_KEY_USE_THEME_COLORS].type == JSONType.true_;
     if (SCHEME_KEY_FOREGROUND in root) {
         parseColor(cs.foreground, root[SCHEME_KEY_FOREGROUND].str());
     }
@@ -227,16 +217,16 @@ private ColorScheme loadScheme(string fileName) {
         parseColor(cs.background, root[SCHEME_KEY_BACKGROUND].str());
     }
     if (SCHEME_KEY_USE_HIGHLIGHT_COLOR in root) {
-        cs.useHighlightColor = root[SCHEME_KEY_USE_HIGHLIGHT_COLOR].type == jsonTrue;
+        cs.useHighlightColor = root[SCHEME_KEY_USE_HIGHLIGHT_COLOR].type == JSONType.true_;
     }
     if (SCHEME_KEY_USE_CURSOR_COLOR in root) {
-        cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == jsonTrue;
+        cs.useCursorColor = root[SCHEME_KEY_USE_CURSOR_COLOR].type == JSONType.true_;
     }
     if (SCHEME_KEY_USE_BADGE_COLOR in root) {
-        cs.useBadgeColor = root[SCHEME_KEY_USE_BADGE_COLOR].type == jsonTrue;
+        cs.useBadgeColor = root[SCHEME_KEY_USE_BADGE_COLOR].type == JSONType.true_;
     }
     if (SCHEME_KEY_USE_BOLD_COLOR in root) {
-        cs.useBoldColor = root[SCHEME_KEY_USE_BOLD_COLOR].type == jsonTrue;
+        cs.useBoldColor = root[SCHEME_KEY_USE_BOLD_COLOR].type == JSONType.true_;
     }
     if (SCHEME_KEY_HIGHLIGHT_FG in root) {
         parseColor(cs.highlightFG, root[SCHEME_KEY_HIGHLIGHT_FG].str());

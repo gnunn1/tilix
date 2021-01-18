@@ -14,17 +14,6 @@ import std.json;
 import std.string;
 import std.uuid;
 
-static if (__VERSION__ >= 2082L)
-{
-    alias jsonTrue = JSONType.true_;
-    alias jsonFloat = JSONType.float_;
-}
-else
-{
-    alias jsonTrue = JSON_TYPE.TRUE;
-    alias jsonFloat = JSON_TYPE.FLOAT;
-}
-
 import cairo.Context;
 import cairo.ImageSurface;
 
@@ -923,7 +912,7 @@ private:
         Terminal terminal = createTerminal(profileUUID, uuid);
         terminal.deserialize(value);
         terminal.initTerminal(value[NODE_DIRECTORY].str(), false);
-        if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == jsonTrue) {
+        if (NODE_MAXIMIZED in value && value[NODE_MAXIMIZED].type == JSONType.true_) {
             maximizedUUID = terminal.uuid;
         }
         return terminal;
@@ -945,7 +934,7 @@ private:
         // Fix for issue #49
         JSONValue position = value[NODE_SCALED_POSITION];
         double percent;
-        if (position.type == jsonFloat) {
+        if (position.type == JSONType.float_) {
             percent = value[NODE_SCALED_POSITION].floating();
         } else {
             percent = to!double(value[NODE_SCALED_POSITION].integer) / 100.0;
@@ -969,7 +958,7 @@ private:
         maximizedUUID.length = 0;
         _name = value[NODE_NAME].str();
         if (NODE_SYNCHRONIZED_INPUT in value) {
-            _synchronizeInput = value[NODE_SYNCHRONIZED_INPUT].type == jsonTrue;
+            _synchronizeInput = value[NODE_SYNCHRONIZED_INPUT].type == JSONType.true_;
         }
         if (NODE_UUID in value) {
             _sessionUUID = value[NODE_UUID].str();

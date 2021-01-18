@@ -31,17 +31,6 @@ import std.traits;
 import std.typecons;
 import std.uuid;
 
-static if (__VERSION__ >= 2082L)
-{
-    alias jsonFalse = JSONType.false_;
-    alias jsonTrue = JSONType.true_;
-}
-else
-{
-    alias jsonFalse = JSON_TYPE.FALSE;
-    alias jsonTrue = JSON_TYPE.TRUE;
-}
-
 import cairo.Context;
 
 import gdk.Atom;
@@ -4113,12 +4102,12 @@ public:
             _overrideCommand = value[NODE_OVERRIDE_CMD].str();
         }
         if (NODE_READONLY in value) {
-            vte.setInputEnabled(value[NODE_READONLY].type == jsonFalse);
+            vte.setInputEnabled(value[NODE_READONLY].type == JSONType.false_);
             SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_READ_ONLY);
             action.setState(new GVariant(!vte.getInputEnabled()));
         }
         if (NODE_SYNCHRONIZED_INPUT in value) {
-            _synchronizeInputOverride = (value[NODE_SYNCHRONIZED_INPUT].type == jsonTrue);
+            _synchronizeInputOverride = (value[NODE_SYNCHRONIZED_INPUT].type == JSONType.true_);
             SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SYNC_INPUT_OVERRIDE);
             action.setState(new GVariant(_synchronizeInputOverride));
         }
