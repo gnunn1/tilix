@@ -2,12 +2,10 @@ project(
     'Tilix', 'd',
     version: '1.9.4',
     license: 'MPL-2.0',
-    meson_version: '>= 0.50.0'
+    meson_version: '>= 0.52'
 )
 
 compiler = meson.get_compiler('d')
-message('Using compiler ' + compiler.get_id())
-
 if compiler.get_id() == 'llvm'
   extra_args = ['-vcolumns']
   d_link_args = []
@@ -123,15 +121,14 @@ executable('tilix',
     install : true
 )
 
-# FIXME: Unittests are currently broken
-#tilix_test_exe = executable('tilix_test',
-#    [tilix_sources],
-#    include_directories : [sources_dir],
-#    dependencies : [gtkd_dep,
-#                    vted_dep,
-#                    xlib_dep],
-#    d_args: compiler.unittest_args()
-#)
-#test('tilix_test', tilix_test_exe)
+tilix_test_exe = executable('tilix_test',
+    [tilix_sources],
+    include_directories : [sources_dir],
+    dependencies : [gtkd_dep,
+                    vted_dep,
+                    xlib_dep],
+    d_args: compiler.unittest_args()
+)
+test('tilix_test', tilix_test_exe)
 
 meson.add_install_script('meson_post_install.py')
