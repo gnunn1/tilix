@@ -1,7 +1,19 @@
+root = true
+
 [*]
 max_line_length = 170
 indent_style = space
+end_of_line = lf
 trim_trailing_whitespace = true
+charset = utf-8
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[*.xml]
+indent_style = space
+indent_size = 2
 
 [*.d]
 # allman, otbs or stroustrup - see https://en.wikipedia.org/wiki/Indent_style
