@@ -1,5 +1,5 @@
 project(
-    'com.gexperts.Tilix', 'd',
+    'Tilix', 'd',
     version: '1.9.3',
     license: 'MPL2',
     default_options: 'buildtype=debugoptimized',
@@ -7,7 +7,6 @@ project(
 )
 
 compiler = meson.get_compiler('d')
-
 message('Using compiler ' + compiler.get_id())
 
 if compiler.get_id() == 'llvm'
@@ -18,13 +17,16 @@ else
   d_link_args = []
 endif
 
+project_id = 'com.gexperts.Tilix'
+project_name = meson.project_name()
+
 gnome = import('gnome')
 i18n = import('i18n')
 
 prefix = get_option('prefix')
 bindir = prefix / get_option('bindir')
 datadir = prefix / get_option('datadir')
-pkgdatadir = datadir / 'tilix' # TODO: this probably should be meson.project_name() eventually
+pkgdatadir = datadir / project_name.to_lower()
 schemadir = datadir / 'glib-2.0' / 'schemas'
 iconsdir = datadir / 'icons' / 'hicolor'
 appdir = datadir / 'applications'

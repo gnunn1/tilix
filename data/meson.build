@@ -1,18 +1,19 @@
+
 # install the icons
 install_data(
-    'icons/hicolor/scalable/apps/@0@.svg'.format(meson.project_name()),
+    'icons/hicolor/scalable/apps/@0@.svg'.format(project_id),
     install_dir: iconsdir / 'scalable' / 'apps'
 )
 install_data(
-    'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(meson.project_name()),
+    'icons/hicolor/scalable/apps/@0@-symbolic.svg'.format(project_id),
     install_dir: iconsdir / 'symbolic' / 'apps'
 )
 
 # Install the desktop file
 desktop_file = i18n.merge_file(
-    '@0@.desktop'.format(meson.project_name()),
+    '@0@.desktop'.format(project_id),
     output: '@BASENAME@',
-    input: 'pkg/desktop/@0@.desktop.in'.format(meson.project_name()),
+    input: 'pkg/desktop/@0@.desktop.in'.format(project_id),
     po_dir: meson.source_root() / 'po',
     type: 'desktop',
     install: true,
@@ -34,9 +35,9 @@ endif
 
 # Install the MetaInfo file
 metainfo_file = i18n.merge_file(
-    '@0@.appdata.xml'.format(meson.project_name()),
+    '@0@.appdata.xml'.format(project_id),
     output: '@BASENAME@',
-    input: 'appdata/@0@.appdata.xml.in'.format(meson.project_name()),
+    input: 'appdata/@0@.appdata.xml.in'.format(project_id),
     po_dir: meson.source_root() / 'po',
     install: true,
     install_dir: datadir / 'metainfo'
@@ -64,7 +65,7 @@ gresource = gnome.compile_resources(
 
 # Install GSchemas
 install_data(
-  'gsettings/@0@.gschema.xml'.format(meson.project_name()),
+  'gsettings/@0@.gschema.xml'.format(project_id),
   install_dir: schemadir
 )
 
@@ -101,7 +102,7 @@ conf = configuration_data()
 conf.set('bindir', bindir)
 
 configure_file(
-  input: 'dbus/@0@.service.in'.format(meson.project_name()),
+  input: 'dbus/@0@.service.in'.format(project_id),
   output: '@BASENAME@',
   configuration: conf,
   install_dir: datadir / 'dbus-1' / 'services'
