@@ -7,10 +7,10 @@ project(
 
 compiler = meson.get_compiler('d')
 if compiler.get_id() == 'llvm'
-  extra_args = ['-vcolumns']
+  d_extra_args = ['-vcolumns']
   d_link_args = []
 else
-  extra_args = []
+  d_extra_args = []
   d_link_args = []
 endif
 
@@ -115,7 +115,7 @@ executable('tilix',
                     xlib_dep,
                     libunwind_dep,
                     libsecret_dep],
-    d_args: extra_args,
+    d_args: d_extra_args,
     d_module_versions: ['StdLoggerDisableTrace'],
     link_args: d_link_args,
     install : true
@@ -127,7 +127,9 @@ tilix_test_exe = executable('tilix_test',
     dependencies : [gtkd_dep,
                     vted_dep,
                     xlib_dep],
-    d_args: compiler.unittest_args()
+    d_args: d_extra_args,
+    link_args: d_link_args,
+    d_unittest: true
 )
 test('tilix_test', tilix_test_exe)
 
