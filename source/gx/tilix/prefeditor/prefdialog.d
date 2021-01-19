@@ -1578,7 +1578,7 @@ private:
         add(cbStrip);
 
         //Strip trailing whitespace on paste
-        CheckButton cbStripTrailing = new CheckButton(_("Strip trailing whitespace"));
+        CheckButton cbStripTrailing = new CheckButton(_("Strip trailing whitespaces and linebreak characters on paste"));
         bh.bind(SETTINGS_STRIP_TRAILING_WHITESPACE, cbStripTrailing, "active", GSettingsBindFlags.DEFAULT);
         add(cbStripTrailing);
 
