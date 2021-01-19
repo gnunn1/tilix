@@ -61,7 +61,7 @@ Tilix requires the following libraries to be installed in order to run:
 * [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required for Nautilus integration)
 
 ### Optional Fonts
-In the screeshots you'll notice I use powerline shell, in order to ensure this works correctly, you'll need to ensure the fonts are installed and Tilix is aware of your desired font:
+In many of the screenshots, the `powerline` statusline shell plugin is used, in order to ensure this works correctly, you'll need to ensure the fonts are installed and Tilix is aware of your desired font:
 
 ```
 git clone https://github.com/powerline/fonts.git && cd fonts && sh ./install.sh
