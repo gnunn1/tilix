@@ -108,7 +108,7 @@ private:
             if (visible) {
                 TreeIter parent = iter;
                 Value value = new Value();
-                // Walk up the parent heirarchy and set it's visibility to true
+                // Walk up the parent hierarchy and set it's visibility to true
                 while (ts.iterParent(parent, parent)) {
                     // has parent visibility already been set?
                     value = ts.getValue(parent, Columns.FILTER, value);
@@ -219,7 +219,7 @@ private:
 
             }
         } catch (Exception e) {
-            error("Could not perform operation, error occured");
+            error("Could not perform operation, error occurred");
             error(e);
             return;
         }

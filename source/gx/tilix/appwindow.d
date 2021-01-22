@@ -157,7 +157,7 @@ private:
     ToggleButton tbSideBar;
     ToggleButton tbFind;
     CustomTitle cTitle;
-    // Put windows in seperate groups
+    // Put windows in separate groups
     WindowGroup group;
 
     SimpleActionGroup sessionActions;

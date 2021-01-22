@@ -33,7 +33,7 @@ enum MonitorEventType {
 /**
  * Class that monitors processes to see if new child processes have been
  * started or finished and raises an event if detected. This class uses
- * a seperate thread to monitor the processes and a timeoutDelegate to
+ * a separate thread to monitor the processes and a timeoutDelegate to
  * trigger the actual events to the terminals.
  */
 class ProcessMonitor {

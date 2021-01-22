@@ -455,7 +455,7 @@ public:
 }
 
 /**
- * Bookmark that represents an arbritary executable command.
+ * Bookmark that represents an arbitrary executable command.
  */
 class CommandBookmark: AbstractBookmark {
 private:
