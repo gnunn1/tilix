@@ -219,7 +219,7 @@ private:
 
         /**
          * Find the root pane of the same orientation
-         * by walking up the parent-child heirarchy
+         * by walking up the parent-child hierarchy
          */
         Paned getRootPaned() {
             Paned result = paned;
@@ -429,8 +429,8 @@ private:
      * this method is used both when moving and closing terminals.
      *
      * This is a bit convoluted since we are using Box as a shim to
-     * preserve spacing. Every child widget is embeded in a Box which
-     * is then embeded in a Paned. So an example heirarchy would be as follows:
+     * preserve spacing. Every child widget is embedded in a Box which
+     * is then embedded in a Paned. So an example hierarchy would be as follows:
      *
      * Session (Box) -> Paned -> Box -> Terminal
      *                        -> Box -> Paned -> Box -> Terminal
@@ -1756,7 +1756,7 @@ struct MaximizedInfo {
 /**
  * The PanedModel is a binary tree used to calculate sizing model for redistributing GTKPaned used
  * in a session evenly. Since GTKPaned only supports two children, the session creates a nested
- * heirarchy of GTKPaned widgets embedded within each other. Each child of the Paned (child1/child2) can
+ * hierarchy of GTKPaned widgets embedded within each other. Each child of the Paned (child1/child2) can
  * be either a Paned or a Terminal.
  *
  * In the model if a child is a terminal it is simply represented as a null. Once we have the model,

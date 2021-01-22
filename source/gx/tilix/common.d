@@ -125,7 +125,7 @@ unittest {
 
 /***********************************************************
  * Block handles common code for allowing actions to be
- * passed up the widget heirarchy to determine if the action
+ * passed up the widget hierarchy to determine if the action
  * is allowed.
  * Right now the only action supported is detaching a terminal
  * from the session into a new window.
@@ -163,7 +163,7 @@ private:
 public:
 
     /**
-    * Certain actions to be percolated up the widget heirarchy with
+    * Certain actions to be percolated up the widget hierarchy with
     * every level having to sign off on the action before it can be
     * performed. This delegate is for that purpose.
     */

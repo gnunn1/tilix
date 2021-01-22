@@ -960,7 +960,7 @@ private:
             // First if overrideCommand is set don't show the warning since no shell is running
             // Also check that the terminal has been initialized
             // Finally check that the VTE cursor position is greater then 0,0, this is a fix for #425. Not sure why
-            // but passing command paremeters causes contentschanged signal to fire twice even though there is no change in content.
+            // but passing command parameters causes contentschanged signal to fire twice even though there is no change in content.
             if (terminalInitialized && tilix.testVTEConfig() && gst.currentLocalDirectory.length == 0 && _overrideCommand.length == 0) {
                 glong cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
@@ -1025,7 +1025,7 @@ private:
         vteHandlers ~= vte.addOnKeyRelease(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
-            // If copy is assiged to control-c, check if VTE has selection and then
+            // If copy is assigned to control-c, check if VTE has selection and then
             // copy otherwise pass it on to VTE as interrupt
             uint keyval;
             event.getKeyval(keyval);
@@ -1232,7 +1232,7 @@ private:
         string uuid = prfMgr.findProfileForState(gst.currentUsername, gst.currentHostname, gst.currentDirectory);
         if (uuid.length > 0) {
             tracef("Automatically switching profile to %s", uuid);
-            // If defaultProfileUUID is not alredy set, update it with last profile
+            // If defaultProfileUUID is not already set, update it with last profile
             if (_defaultProfileUUID.length == 0) {
                 _defaultProfileUUID = _activeProfileUUID;
             }
@@ -1664,7 +1664,7 @@ private:
 
     /**
      * Based on the action processes the appropriate trigger. Groups
-     * contains a list of regex macthing groups with the first one
+     * contains a list of regex matching groups with the first one
      * being the complete match, similar idea to args in command line
      */
     void processTrigger(TerminalTrigger trigger, string[] groups) {
@@ -2078,7 +2078,7 @@ private:
     /**
      * returns true if any widget in the "terminal" has focus,
      * this includes both the vte and the search entry. This is
-     * used to determine if the title should be dislayed normally
+     * used to determine if the title should be displayed normally
      * or grayed out.
      */
     bool isTerminalWidgetFocused() {
@@ -2762,7 +2762,7 @@ private:
 
             /*
             // To make this work the terminal has to be added to the widget
-            // heirarchy in order to get the XID first. This was done by breaking
+            // hierarchy in order to get the XID first. This was done by breaking
             // the session into create and init methods that the application window
             // could call independently. However this also ended up causing issues
             // with the VTE cursor not showing as focused.
@@ -3293,7 +3293,7 @@ private:
             }
         }
         if (dr == GtkDragResult.NO_TARGET) {
-            //Only allow detach if whole heirarchy agrees (application, window, session)
+            //Only allow detach if whole hierarchy agrees (application, window, session)
             if (notifyIsActionAllowed(ActionType.DETACH_TERMINAL)) {
                 if (detachTerminalOnDrop(dc)) return true;
             }
@@ -3931,7 +3931,7 @@ public:
                 kill(gpid, SIGHUP);
             }
             catch (ProcessException pe) {
-                error("Error when stoping terminal child process:\n\t" ~ pe.msg);
+                error("Error when stopping terminal child process:\n\t" ~ pe.msg);
             }
         }
     }

@@ -671,7 +671,7 @@ private:
         addMainOption(CMD_NEW_PROCESS, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Start additional instance as new process (Not Recommended)"), null);
         addMainOption(CMD_GEOMETRY, '\0', GOptionFlags.NONE, GOptionArg.STRING, _("Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"), _("GEOMETRY"));
         addMainOption(CMD_QUAKE, 'q', GOptionFlags.NONE, GOptionArg.NONE, _("Opens a window in quake mode or toggles existing quake mode window visibility"), null);
-        addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix and dependant component versions"), null);
+        addMainOption(CMD_VERSION, 'v', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix and dependent component versions"), null);
         addMainOption(CMD_PREFERENCES, '\0', GOptionFlags.NONE, GOptionArg.NONE, _("Show the Tilix preferences dialog directly"), null);
         addMainOption(CMD_GROUP, 'g', GOptionFlags.NONE, GOptionArg.STRING, _("Group tilix instances into different processes (Experimental, not recommended)"), _("GROUP_NAME"));
 
@@ -813,7 +813,7 @@ public:
      * override and referenced via the application object which is global.
      *
      * Originally I was passing command line parameters to the terminal
-     * via the heirarchy App > AppWindow > Session > Terminal but this
+     * via the hierarchy App > AppWindow > Session > Terminal but this
      * is unwiedly. It's also not feasible when supporting using the
      * command line to create terminals in the current instance since
      * that uses actions. GIO Actions don't have a way to pass arbrirtary
