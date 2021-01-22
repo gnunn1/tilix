@@ -19,6 +19,7 @@ jobs:
 
     - name: Install System Dependencies
       run: |
+        sudo apt-get update -qq
         sudo apt-get install -yq \
                 dh-dlang \
                 libatk1.0-dev \
