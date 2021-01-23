@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
@@ -84,6 +84,8 @@ import gtk.Version;
 import gtk.Widget;
 import gtk.Window;
 import gtk.WindowGroup;
+
+import gtkc.glib;
 
 import vte.Pty;
 import vte.Terminal;
@@ -206,6 +208,8 @@ private:
 
     // Save file dialog paths between invocations
     string[DialogPath] dialogPaths;
+
+    uint timeoutID;
 
     bool isCSDDisabled() {
         return windowStyle > 0;
@@ -1653,6 +1657,13 @@ private:
         }
     }
 
+    void removeTimeout() {
+        if (timeoutID > 0) {
+            g_source_remove(timeoutID);
+            timeoutID = 0;
+        }
+    }
+
     void setWindowStyle() {
         windowStyle = gsSettings.getEnum(SETTINGS_WINDOW_STYLE_KEY);
         if (tilix.getGlobalOverrides().windowStyle.length > 0) {
@@ -1757,8 +1768,11 @@ public:
                         }
                     }
                 }
-                trace("Focus lost, hiding quake window");
-                threadsAddTimeoutDelegate(gsSettings.getInt(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY), delegate() {
+
+                trace("Focus lost, waiting to hide quake window");
+                // store a reference to this timeout so that it may be canceled if we regain focus
+                timeoutID = threadsAddTimeoutDelegate(gsSettings.getInt(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY), delegate() {
+                    trace("Focus lost and timeout reached, hiding quake window");
                     if (isVisible()) {
                         this.hide();
                     }
@@ -1768,6 +1782,9 @@ public:
             return false;
         }, ConnectFlags.AFTER);
         addOnFocusIn(delegate(Event e, Widget widget) {
+            // if we're restoring focus to quake window, we want to keep it open
+            removeTimeout();
+
             tilix.withdrawNotification(uuid);
             if (getCurrentSession() !is null) {
                 getCurrentSession().withdrawNotification();
