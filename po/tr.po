@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 00:13+0100\n"
+"POT-Creation-Date: 2021-01-26 00:03+0100\n"
 "PO-Revision-Date: 2020-11-30 19:29+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tilix/"
@@ -17,6 +17,919 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.4-dev\n"
+
+#: source/app.d:139
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "GTK sürümünüz çok eski, en azından GTK %d.%d.%d gerekiyor!"
+
+#: source/app.d:156
+msgid "Unexpected exception occurred"
+msgstr "Beklenmeyen bir istisna oluştu"
+
+#: source/app.d:157
+msgid "Error: "
+msgstr "Hata: "
+
+#: source/app.d:167
+msgid "Versions"
+msgstr "Sürümler"
+
+#: source/app.d:168
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Tilix sürümü: %s"
+
+#: source/app.d:169
+#, c-format
+msgid "VTE version: %s"
+msgstr "VTE sürümü: %s"
+
+#: source/app.d:170
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK Sürümü: %d.%d.%d"
+
+#: source/app.d:171
+msgid "Tilix Special Features"
+msgstr "Tilix'e Özel Özellikler"
+
+#: source/app.d:172
+msgid "Notifications enabled=%b"
+msgstr "Bildirimler etkinleştirildi=%b"
+
+#: source/app.d:173
+msgid "Triggers enabled=%b"
+msgstr "Tetikleyiciler etkinleştirildi=%b"
+
+#: source/app.d:174
+msgid "Badges enabled=%b"
+msgstr "Rozetler etkinleştirildi=%b"
+
+#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "Bunu tekrar gösterme"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "devre dışı"
+
+#: source/gx/tilix/appwindow.d:320
+msgid "Create a new session"
+msgstr "Yeni bir oturum oluştur"
+
+#: source/gx/tilix/appwindow.d:334
+msgid "View session sidebar"
+msgstr "Oturum kenar çubuğunu göster"
+
+#: source/gx/tilix/appwindow.d:369
+msgid "Add terminal right"
+msgstr "Sağa terminal ekle"
+
+#: source/gx/tilix/appwindow.d:373
+msgid "Add terminal down"
+msgstr "Aşağı terminal ekle"
+
+#: source/gx/tilix/appwindow.d:379
+msgid "Find text in terminal"
+msgstr "Uçbirimde metin bul"
+
+#: source/gx/tilix/appwindow.d:602
+msgid "Enter a new name for the session"
+msgstr "Oturum için yeni bir ad girin"
+
+#: source/gx/tilix/appwindow.d:604
+msgid "Change Session Name"
+msgstr "Oturum Adını Değiştir"
+
+#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
+msgid "New Window"
+msgstr "Yeni Pencere"
+
+#: source/gx/tilix/appwindow.d:683
+msgid "Open…"
+msgstr "Aç…"
+
+#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+msgid "Save"
+msgstr "Kaydet"
+
+#: source/gx/tilix/appwindow.d:685
+msgid "Save As…"
+msgstr "Yeni Adla Kaydet…"
+
+#: source/gx/tilix/appwindow.d:691
+msgid "Name…"
+msgstr "Ad…"
+
+#: source/gx/tilix/appwindow.d:692
+msgid "Synchronize Input"
+msgstr "Giriş Eşitle"
+
+#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
+#: source/gx/tilix/prefeditor/prefdialog.d:414
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: source/gx/tilix/appwindow.d:697
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: source/gx/tilix/appwindow.d:698
+msgid "About Tilix"
+msgstr "Tilix Hakkında"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/tilix/appwindow.d:1082
+#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: source/gx/tilix/appwindow.d:1191
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Birden çok açık oturum var, yine de kapatılsın mı?"
+
+#: source/gx/tilix/appwindow.d:1455
+#: source/gx/tilix/prefeditor/profileeditor.d:965
+msgid "All JSON Files"
+msgstr "Bütün JSON Dosyaları"
+
+#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3694
+#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:969
+msgid "All Files"
+msgstr "Bütün Dosyalar"
+
+#: source/gx/tilix/appwindow.d:1468
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Dosya adı '%s' yok"
+
+#: source/gx/tilix/appwindow.d:1500
+msgid "Load Session"
+msgstr "Oturum Yükle"
+
+#: source/gx/tilix/appwindow.d:1503
+msgid "Open"
+msgstr "Aç"
+
+#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+#: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "Cancel"
+msgstr "İptal"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Could not load session due to unexpected error."
+msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Error Loading Session"
+msgstr "Oturum Yükeleme Hatası"
+
+#: source/gx/tilix/appwindow.d:1549
+msgid "Save Session"
+msgstr "Oturumu Kaydet"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "Oturum Yükeleme Hatası"
+
+#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+msgid "Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:1710
+msgid "Quake mode is not supported under Wayland, running as normal window"
+msgstr ""
+"Quake modu Wayland altında desteklenmiyor, normal pencere olarak "
+"çalıştırılıyor"
+
+#: source/gx/tilix/appwindow.d:1712
+msgid "Quake Mode Not Supported"
+msgstr "Quake Modu Desteklenmiyor"
+
+#: source/gx/tilix/appwindow.d:2181
+msgid "New output displayed"
+msgstr "Yeni çıkış görüntülendi"
+
+#: source/gx/tilix/appwindow.d:2189
+msgid "Close session"
+msgstr "Oturumu kapat"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr ""
+"Giray Devlet\n"
+"Mahmutcan İlhandağ\n"
+"Tolga Golelcin\n"
+"Oğuz Ersen"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "Teşekkürler"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "Terminalin çalışma dizinini ayarla"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "DIZIN"
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "Başlangıç profili seç"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr "PROFILE_NAME"
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "Yeni terminalin başlığını ayarla"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "BAŞLIK"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "Belirtilmiş oturumu seç"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "SESSION_NAME"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "Geçerli Tilix örneğine bir eylem gönder"
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "ACTION_NAME"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "Parametreyi bir komut olarak yürütür"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "KOMUT"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "Terminal penceresini kaplat"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "Terminal penceresini küçült"
+
+#: source/gx/tilix/application.d:668
+msgid ""
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
+"Yeğlenen kullanılacak pencere tarzını geçersiz kıl: normal, disable-csd, "
+"disable-csd-hide-toolbar, borderless"
+
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "WINDOW_STYLE"
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "Terminal pençeresini tam ekran yap"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "Var olan pencereye odakla"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Ek örnekleri yeni işlem olarak başlat (Önerilmez)"
+
+#: source/gx/tilix/application.d:672
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Pencere boyutunu ayarla; Örneğin: 80x24 veya 80x24+200+200 (SÜTUNxSATIR+X+Y)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr "GEOMETRİ"
+
+#: source/gx/tilix/application.d:673
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Quake modunda bir pencere açar veya varolan deprem modu penceresinin "
+"görünürlüğünü açar/kapar"
+
+#: source/gx/tilix/application.d:674
+#, fuzzy
+msgid "Show the Tilix and dependent component versions"
+msgstr "Tilix ve bağımlı bileşenlerin sürümlerini göster"
+
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "Tilix tercihleri iletişim kutusunu doğrudan göster"
+
+#: source/gx/tilix/application.d:676
+msgid ""
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr "Grup tilix örneklerini farklı işlemlere ayır (Deneysel, önerilmez)"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid "GROUP_NAME"
+msgstr "PROFILE_NAME"
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Terminal UUIDsine yollanacak gizli değişken"
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr "Uygulama kimliği %s geçersiz"
+
+#: source/gx/tilix/application.d:854
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Terminal ayarlarında bir sorun varmış gibi gözüküyor.\n"
+"Sorun ciddi olmamakla birlikte, bunu düzeltmek deneyiminizi "
+"iyileştirecektir.\n"
+"Daha fazla bilgi için aşağıdaki bilgiye klikleyin:"
+
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "Ayar sorunu tespit edildi"
+
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "Bu mesjaı tekrar gösterme"
+
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "'%s' dizin olmadığı için önemsemiyorum"
+
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "Geometri dizgisi '%s' geçersiz ve ayrıştırılamadı"
+
+#: source/gx/tilix/cmdparams.d:186
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"Bir oturum yükleyip, bir profil/çalışma dizini/komut yürütme seçeneği "
+"ayarlayamazsınız, lütfen birini yada diğerini seçin"
+
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "Eylem parametresi yalnızca Tilix içinde kullanabilirsiniz"
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+"Quake modunu kaplatma, küçültme veya geometri parametreleri ile "
+"kullanamazsınız"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1860
+msgid "Close"
+msgstr "Kapa"
+
+#: source/gx/tilix/terminal/terminal.d:348
+#: source/gx/tilix/terminal/terminal.d:1309
+#: source/gx/tilix/prefeditor/titleeditor.d:105
+msgid "Terminal"
+msgstr "Terminal"
+
+#: source/gx/tilix/terminal/terminal.d:391
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Maximize"
+msgstr "Kapla"
+
+#: source/gx/tilix/terminal/terminal.d:401
+#: source/gx/tilix/terminal/terminal.d:692
+msgid "Disable input synchronization for this terminal"
+msgstr "Giriş eşitlemesini bu terminal için kapat"
+
+#: source/gx/tilix/terminal/terminal.d:410
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Read-Only"
+msgstr "Salt-Okunur"
+
+#: source/gx/tilix/terminal/terminal.d:416
+msgid "New output"
+msgstr "Yeni çıkış"
+
+#: source/gx/tilix/terminal/terminal.d:422
+#: source/gx/tilix/prefeditor/profileeditor.d:446
+msgid "Terminal bell"
+msgstr "Terminal çanı"
+
+#: source/gx/tilix/terminal/terminal.d:467
+msgid "Edit Profile"
+msgstr "Profili Düzenle"
+
+#: source/gx/tilix/terminal/terminal.d:485
+msgid "Edit Encodings"
+msgstr "Kodlamaları Düzenle"
+
+#: source/gx/tilix/terminal/terminal.d:694
+msgid "Enable input synchronization for this terminal"
+msgstr "Giriş eşitlemesini bu terminal için aç"
+
+#: source/gx/tilix/terminal/terminal.d:729
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr "%s kütüphanesi yüklenemiyor, parola işlevi mevcut değil."
+
+#: source/gx/tilix/terminal/terminal.d:729
+msgid "Library Not Loaded"
+msgstr "Kütüphane Yüklü Değil"
+
+#: source/gx/tilix/terminal/terminal.d:828
+msgid "Find…"
+msgstr "Bul…"
+
+#: source/gx/tilix/terminal/terminal.d:835
+msgid "Password..."
+msgstr "Parola..."
+
+#: source/gx/tilix/terminal/terminal.d:836
+msgid "Bookmark..."
+msgstr "Yer işareti..."
+
+#: source/gx/tilix/terminal/terminal.d:837
+msgid "Add Bookmark..."
+msgstr "Yer İmi Ekle..."
+
+#: source/gx/tilix/terminal/terminal.d:841
+msgid "Assistants"
+msgstr "Yardımcılar"
+
+#: source/gx/tilix/terminal/terminal.d:842
+#: source/gx/tilix/prefeditor/prefdialog.d:283
+msgid "Profiles"
+msgstr "Profiller"
+
+#: source/gx/tilix/terminal/terminal.d:848
+msgid "Show File Browser..."
+msgstr "Dosya Tarayıcısını Göster..."
+
+#: source/gx/tilix/terminal/terminal.d:852
+msgid "Save Output…"
+msgstr "Çıkışı Kaydet…"
+
+#: source/gx/tilix/terminal/terminal.d:853
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+#: source/gx/tilix/prefeditor/profileeditor.d:328
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: source/gx/tilix/terminal/terminal.d:854
+msgid "Reset and Clear"
+msgstr "Sıfırla ve Temizle"
+
+#: source/gx/tilix/terminal/terminal.d:858
+#: source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/prefeditor/prefdialog.d:167
+#: source/gx/tilix/prefeditor/prefdialog.d:463
+#: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1091
+msgid "Encoding"
+msgstr "Kodlama"
+
+#: source/gx/tilix/terminal/terminal.d:859
+msgid "Layout Options…"
+msgstr "Yerleşim Seçenekleri…"
+
+#: source/gx/tilix/terminal/terminal.d:863
+msgid "Monitor Silence"
+msgstr "Sessizliği Gözle"
+
+#: source/gx/tilix/terminal/terminal.d:866
+msgid "Other"
+msgstr "Diğer"
+
+#: source/gx/tilix/terminal/terminal.d:875
+msgid "Add Right"
+msgstr "Sağa Ekle"
+
+#: source/gx/tilix/terminal/terminal.d:879
+msgid "Add Down"
+msgstr "Aşağı Ekle"
+
+#: source/gx/tilix/terminal/terminal.d:989
+msgid "Terminal Activity"
+msgstr "Terminal Etkinliği"
+
+#: source/gx/tilix/terminal/terminal.d:1325
+msgid "Not Enabled"
+msgstr "Etkin Değil"
+
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Restore"
+msgstr "Geri al"
+
+#: source/gx/tilix/terminal/terminal.d:1708
+msgid "Tilix Custom Notification"
+msgstr "Tilix Özel Bildirim"
+
+#: source/gx/tilix/terminal/terminal.d:1809
+msgid "Open Link"
+msgstr "Link'i Aç"
+
+#: source/gx/tilix/terminal/terminal.d:1810
+msgid "Copy Link Address"
+msgstr "Link Adresini Kopyala"
+
+#: source/gx/tilix/terminal/terminal.d:1820
+#: source/gx/tilix/terminal/terminal.d:1830
+msgid "Copy"
+msgstr "Kopyala"
+
+#: source/gx/tilix/terminal/terminal.d:1822
+#: source/gx/tilix/terminal/terminal.d:1836
+msgid "Copy as HTML"
+msgstr "HTML olarak kopyala"
+
+#: source/gx/tilix/terminal/terminal.d:1824
+#: source/gx/tilix/terminal/terminal.d:1842
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1847
+msgid "Select All"
+msgstr "Hepsini Seç"
+
+#: source/gx/tilix/terminal/terminal.d:1850
+#: source/gx/tilix/prefeditor/prefdialog.d:1560
+msgid "Clipboard"
+msgstr "Pano"
+
+#: source/gx/tilix/terminal/terminal.d:1864
+msgid "Synchronize input"
+msgstr "Giriş eşitle"
+
+#: source/gx/tilix/terminal/terminal.d:2017
+#, c-format
+msgid "Could not check file '%s' due to error '%s'"
+msgstr "'%s' dosyası hata sebebiyle kontrol edilemedi '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2024
+#, fuzzy, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"URI was '%s'"
+msgstr ""
+"Uzak dosya URI'ları ile köprüler desteklenmez.\n"
+"URI '%s' idi"
+
+#: source/gx/tilix/terminal/terminal.d:2025
+msgid "Remote File URI Unsupported"
+msgstr "Uzak Dosya URI Desteklenmiyor"
+
+#: source/gx/tilix/terminal/terminal.d:2057
+#: source/gx/tilix/terminal/terminal.d:2632
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "Özel bağlantı '%s' regex'inin bir hatası var, yok sayılıyor"
+
+#: source/gx/tilix/terminal/terminal.d:2058
+msgid "Regular Expression Error"
+msgstr "Düzenli İfade Hatası"
+
+#: source/gx/tilix/terminal/terminal.d:2071
+#, c-format
+msgid "Could not open match '%s'"
+msgstr "'%s' eşleşmesi açılamıyor"
+
+#: source/gx/tilix/terminal/terminal.d:2072
+msgid "Error Opening Match"
+msgstr "Eşleşme Açmada Hata"
+
+#: source/gx/tilix/terminal/terminal.d:2582
+#, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr "Bağlantı regex'i eklerken beklenmeyen hata oluştu: %s"
+
+#: source/gx/tilix/terminal/terminal.d:2789
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Beklenmeyen bir hata oluştu, daha fazla bilgi mevcut değil"
+
+#: source/gx/tilix/terminal/terminal.d:2799
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Beklenmeyen hata oluştu: %s"
+
+#: source/gx/tilix/terminal/terminal.d:3681
+msgid "Save Terminal Output"
+msgstr "Terminal Çıkışını Kaydet"
+
+#: source/gx/tilix/terminal/terminal.d:3690
+msgid "All Text Files"
+msgstr "Bütün Metin Dosyaları"
+
+#: source/gx/tilix/terminal/terminal.d:4020
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: source/gx/tilix/terminal/terminal.d:4284
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Alt işlem beklenmedik bir şekilde kapandı: %d"
+
+#: source/gx/tilix/terminal/terminal.d:4285
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Alt işlem sinyal %d ile durduruldu."
+
+#: source/gx/tilix/terminal/terminal.d:4286
+msgid "The child process was aborted."
+msgstr "Alt işlem durduruldu."
+
+#: source/gx/tilix/terminal/terminal.d:4292
+msgid "Relaunch"
+msgstr "Tekrar başlat"
+
+#: source/gx/tilix/terminal/terminal.d:4359
+msgid "Don't Paste"
+msgstr "Yapıştırma"
+
+#: source/gx/tilix/terminal/terminal.d:4360
+msgid "Paste Anyway"
+msgstr "Yinede Yapıştır"
+
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+#: source/gx/tilix/bookmark/bmeditor.d:231
+msgid "Name"
+msgstr "Ad"
+
+#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
+msgid "ID"
+msgstr "Kimlik"
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "Yeni"
+
+#: source/gx/tilix/terminal/password.d:184
+#: source/gx/tilix/prefeditor/common.d:46
+#: source/gx/tilix/prefeditor/common.d:77
+#: source/gx/tilix/prefeditor/profileeditor.d:1325
+msgid "Edit"
+msgstr "Düzenle"
+
+#: source/gx/tilix/terminal/password.d:213
+#: source/gx/tilix/prefeditor/prefdialog.d:556
+#: source/gx/tilix/prefeditor/advdialog.d:141
+#: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/profileeditor.d:1344
+msgid "Delete"
+msgstr "Sil"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr "Parolada dönüş karakterini içer"
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "Şifre Ekle"
+
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Apply"
+msgstr "Uygula"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "Şifre"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "Şifreyi Onayla"
+
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "OK"
+msgstr "Tamam"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "Şifre Ekle"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "Şifreyi Düzenle"
+
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
+msgstr "İşlem izleme etkin değil, bu asla çağrılmamalıdır"
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "Arama Seçenekleri"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "Sonrakini bul"
+
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "Öncekini bul"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "Büyük - Küçük Harf Duyarlı"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "Bütün kelimle bul"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "Regular Expression olarak bul"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "Başa sar"
+
+#: source/gx/tilix/terminal/search.d:235
+#, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr ""
+"'%s' araması geçerli bir regex değil\n"
+"%s"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "Düzenleme Ayaları"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "Etkin"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/closedialog.d:123
+#: source/gx/tilix/constants.d:152
+msgid "Title"
+msgstr "Başlık"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
+msgid "Badge"
+msgstr "Rozet"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "Oturum Yükle"
+
+#: source/gx/tilix/terminal/layout.d:89
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1140
+#: source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Command"
+msgstr "Komut"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Etkin ayalar her zaman etkin olup hemen gerçerli kılınır.\n"
+"Oturum Yükleme ayaları sadece oturum dosyası yüklenince etkin olur."
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Bu komut bilgisayara yönetici erişimi istemekte"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "İnternetden komut kopyalamak tehlike arz edebilir "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Komutun her bölümünün ne yaptığını anladığından emmin ol."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Dönüştür"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Boşlukları sekmelere dönüştür"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "CRLF ve CR'yi LF'ye dönüştür"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Gelişmiş Yapıştır"
+
+#: source/gx/tilix/preferences.d:252
+msgid "UpdateState"
+msgstr "DurumuGüncelle"
+
+#: source/gx/tilix/preferences.d:253
+msgid "ExecuteCommand"
+msgstr "KomutYürüt"
+
+#: source/gx/tilix/preferences.d:254
+msgid "SendNotification"
+msgstr "BildirimGönder"
+
+#: source/gx/tilix/preferences.d:255
+msgid "UpdateTitle"
+msgstr "BaşlığıGüncelle"
+
+#: source/gx/tilix/preferences.d:256
+msgid "PlayBell"
+msgstr "ZilÇal"
+
+#: source/gx/tilix/preferences.d:257
+msgid "SendText"
+msgstr "MetinGönder"
+
+#: source/gx/tilix/preferences.d:258
+msgid "InsertPassword"
+msgstr "ParolaEkle"
+
+#: source/gx/tilix/preferences.d:259
+msgid "UpdateBadge"
+msgstr "RozetiGüncelle"
+
+#: source/gx/tilix/preferences.d:260
+msgid "RunProcess"
+msgstr "İşlemÇalıştır"
+
+#: source/gx/tilix/preferences.d:370
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (Kopya)"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "%s uygun bir renk planı JSON dosyası değil"
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "Renk planı paleti 16 renk gerektirmektedir"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -153,1055 +1066,11 @@ msgstr "Vietnamca"
 msgid "Thai"
 msgstr "Tayca"
 
-#: source/gx/tilix/appwindow.d:320
-msgid "Create a new session"
-msgstr "Yeni bir oturum oluştur"
-
-#: source/gx/tilix/appwindow.d:334
-msgid "View session sidebar"
-msgstr "Oturum kenar çubuğunu göster"
-
-#: source/gx/tilix/appwindow.d:369
-msgid "Add terminal right"
-msgstr "Sağa terminal ekle"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "Add terminal down"
-msgstr "Aşağı terminal ekle"
-
-#: source/gx/tilix/appwindow.d:379
-msgid "Find text in terminal"
-msgstr "Uçbirimde metin bul"
-
-#: source/gx/tilix/appwindow.d:602
-msgid "Enter a new name for the session"
-msgstr "Oturum için yeni bir ad girin"
-
-#: source/gx/tilix/appwindow.d:604
-msgid "Change Session Name"
-msgstr "Oturum Adını Değiştir"
-
-#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
-msgid "New Window"
-msgstr "Yeni Pencere"
-
-#: source/gx/tilix/appwindow.d:683
-msgid "Open…"
-msgstr "Aç…"
-
-#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Save"
-msgstr "Kaydet"
-
-#: source/gx/tilix/appwindow.d:685
-msgid "Save As…"
-msgstr "Yeni Adla Kaydet…"
-
-#: source/gx/tilix/appwindow.d:691
-msgid "Name…"
-msgstr "Ad…"
-
-#: source/gx/tilix/appwindow.d:692
-msgid "Synchronize Input"
-msgstr "Giriş Eşitle"
-
-#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
-#: source/gx/tilix/prefeditor/prefdialog.d:414
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
-msgid "Preferences"
-msgstr "Tercihler"
-
-#: source/gx/tilix/appwindow.d:697
-msgid "Keyboard Shortcuts"
-msgstr "Klavye Kısayolları"
-
-#: source/gx/tilix/appwindow.d:698
-msgid "About Tilix"
-msgstr "Tilix Hakkında"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/tilix/appwindow.d:1082 source/gx/tilix/session.d:1222
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Default"
-msgstr "Öntanımlı"
-
-#: source/gx/tilix/appwindow.d:1191
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Birden çok açık oturum var, yine de kapatılsın mı?"
-
-#: source/gx/tilix/appwindow.d:1455
-#: source/gx/tilix/prefeditor/profileeditor.d:965
-msgid "All JSON Files"
-msgstr "Bütün JSON Dosyaları"
-
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
-#: source/gx/tilix/prefeditor/profileeditor.d:969
-msgid "All Files"
-msgstr "Bütün Dosyalar"
-
-#: source/gx/tilix/appwindow.d:1468
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Dosya adı '%s' yok"
-
-#: source/gx/tilix/appwindow.d:1500
-msgid "Load Session"
-msgstr "Oturum Yükle"
-
-#: source/gx/tilix/appwindow.d:1503
-msgid "Open"
-msgstr "Aç"
-
-#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Cancel"
-msgstr "İptal"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Could not load session due to unexpected error."
-msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Error Loading Session"
-msgstr "Oturum Yükeleme Hatası"
-
-#: source/gx/tilix/appwindow.d:1549
-msgid "Save Session"
-msgstr "Oturumu Kaydet"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Could not save session due to unexpected error."
-msgstr "Beklenmeyen bir hatadan dolayı oturum yüklenemedi."
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Error Saving Session"
-msgstr "Oturum Yükeleme Hatası"
-
-#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
-msgid "Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:1710
-msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr ""
-"Quake modu Wayland altında desteklenmiyor, normal pencere olarak "
-"çalıştırılıyor"
-
-#: source/gx/tilix/appwindow.d:1712
-msgid "Quake Mode Not Supported"
-msgstr "Quake Modu Desteklenmiyor"
-
-#: source/gx/tilix/appwindow.d:2181
-msgid "New output displayed"
-msgstr "Yeni çıkış görüntülendi"
-
-#: source/gx/tilix/appwindow.d:2189
-msgid "Close session"
-msgstr "Oturumu kapat"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "'%s' dizin olmadığı için önemsemiyorum"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "Geometri dizgisi '%s' geçersiz ve ayrıştırılamadı"
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"Bir oturum yükleyip, bir profil/çalışma dizini/komut yürütme seçeneği "
-"ayarlayamazsınız, lütfen birini yada diğerini seçin"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "Eylem parametresi yalnızca Tilix içinde kullanabilirsiniz"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-"Quake modunu kaplatma, küçültme veya geometri parametreleri ile "
-"kullanamazsınız"
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "Bırakılan terminalin konumu tespi edilemedi"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "Bırakılan terminal için oturum bulunamadı"
-
-#: source/gx/tilix/session.d:1572 source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-#: source/gx/tilix/bookmark/bmeditor.d:231
-msgid "Name"
-msgstr "Ad"
-
-#: source/gx/tilix/session.d:1583 source/gx/tilix/prefeditor/prefdialog.d:176
-msgid "Profile"
-msgstr "Profil"
-
-#: source/gx/tilix/session.d:1606 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "Yeni Oturum"
-
-#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1850
-msgid "Close"
-msgstr "Kapa"
-
-#: source/gx/tilix/preferences.d:251
-msgid "UpdateState"
-msgstr "DurumuGüncelle"
-
-#: source/gx/tilix/preferences.d:252
-msgid "ExecuteCommand"
-msgstr "KomutYürüt"
-
-#: source/gx/tilix/preferences.d:253
-msgid "SendNotification"
-msgstr "BildirimGönder"
-
-#: source/gx/tilix/preferences.d:254
-msgid "UpdateTitle"
-msgstr "BaşlığıGüncelle"
-
-#: source/gx/tilix/preferences.d:255
-msgid "PlayBell"
-msgstr "ZilÇal"
-
-#: source/gx/tilix/preferences.d:256
-msgid "SendText"
-msgstr "MetinGönder"
-
-#: source/gx/tilix/preferences.d:257
-msgid "InsertPassword"
-msgstr "ParolaEkle"
-
-#: source/gx/tilix/preferences.d:258
-msgid "UpdateBadge"
-msgstr "RozetiGüncelle"
-
-#: source/gx/tilix/preferences.d:259
-msgid "RunProcess"
-msgstr "İşlemÇalıştır"
-
-#: source/gx/tilix/preferences.d:369
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (Kopya)"
-
-#: source/gx/tilix/colorschemes.d:188
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "%s uygun bir renk planı JSON dosyası değil"
-
-#: source/gx/tilix/colorschemes.d:251
-msgid "Color scheme palette requires 16 colors"
-msgstr "Renk planı paleti 16 renk gerektirmektedir"
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "Arama Seçenekleri"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "Sonrakini bul"
-
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "Öncekini bul"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "Büyük - Küçük Harf Duyarlı"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "Bütün kelimle bul"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "Regular Expression olarak bul"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "Başa sar"
-
-#: source/gx/tilix/terminal/search.d:235
-#, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr ""
-"'%s' araması geçerli bir regex değil\n"
-"%s"
-
-#: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1309
-#: source/gx/tilix/prefeditor/titleeditor.d:105
-msgid "Terminal"
-msgstr "Terminal"
-
-#: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1349
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Maximize"
-msgstr "Kapla"
-
-#: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:692
-msgid "Disable input synchronization for this terminal"
-msgstr "Giriş eşitlemesini bu terminal için kapat"
-
-#: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:829
-msgid "Read-Only"
-msgstr "Salt-Okunur"
-
-#: source/gx/tilix/terminal/terminal.d:416
-msgid "New output"
-msgstr "Yeni çıkış"
-
-#: source/gx/tilix/terminal/terminal.d:422
-#: source/gx/tilix/prefeditor/profileeditor.d:446
-msgid "Terminal bell"
-msgstr "Terminal çanı"
-
-#: source/gx/tilix/terminal/terminal.d:467
-msgid "Edit Profile"
-msgstr "Profili Düzenle"
-
-#: source/gx/tilix/terminal/terminal.d:485
-msgid "Edit Encodings"
-msgstr "Kodlamaları Düzenle"
-
-#: source/gx/tilix/terminal/terminal.d:694
-msgid "Enable input synchronization for this terminal"
-msgstr "Giriş eşitlemesini bu terminal için aç"
-
-#: source/gx/tilix/terminal/terminal.d:729
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr "%s kütüphanesi yüklenemiyor, parola işlevi mevcut değil."
-
-#: source/gx/tilix/terminal/terminal.d:729
-msgid "Library Not Loaded"
-msgstr "Kütüphane Yüklü Değil"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Find…"
-msgstr "Bul…"
-
-#: source/gx/tilix/terminal/terminal.d:835
-msgid "Password..."
-msgstr "Parola..."
-
-#: source/gx/tilix/terminal/terminal.d:836
-msgid "Bookmark..."
-msgstr "Yer işareti..."
-
-#: source/gx/tilix/terminal/terminal.d:837
-msgid "Add Bookmark..."
-msgstr "Yer İmi Ekle..."
-
-#: source/gx/tilix/terminal/terminal.d:841
-msgid "Assistants"
-msgstr "Yardımcılar"
-
-#: source/gx/tilix/terminal/terminal.d:842
-#: source/gx/tilix/prefeditor/prefdialog.d:283
-msgid "Profiles"
-msgstr "Profiller"
-
-#: source/gx/tilix/terminal/terminal.d:848
-msgid "Show File Browser..."
-msgstr "Dosya Tarayıcısını Göster..."
-
-#: source/gx/tilix/terminal/terminal.d:852
-msgid "Save Output…"
-msgstr "Çıkışı Kaydet…"
-
-#: source/gx/tilix/terminal/terminal.d:853
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/prefeditor/profileeditor.d:328
-msgid "Reset"
-msgstr "Sıfırla"
-
-#: source/gx/tilix/terminal/terminal.d:854
-msgid "Reset and Clear"
-msgstr "Sıfırla ve Temizle"
-
-#: source/gx/tilix/terminal/terminal.d:858
-#: source/gx/tilix/prefeditor/prefdialog.d:166
-#: source/gx/tilix/prefeditor/prefdialog.d:167
-#: source/gx/tilix/prefeditor/prefdialog.d:463
-#: source/gx/tilix/prefeditor/prefdialog.d:681
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
-msgid "Encoding"
-msgstr "Kodlama"
-
-#: source/gx/tilix/terminal/terminal.d:859
-msgid "Layout Options…"
-msgstr "Yerleşim Seçenekleri…"
-
-#: source/gx/tilix/terminal/terminal.d:863
-msgid "Monitor Silence"
-msgstr "Sessizliği Gözle"
-
-#: source/gx/tilix/terminal/terminal.d:866
-msgid "Other"
-msgstr "Diğer"
-
-#: source/gx/tilix/terminal/terminal.d:875
-msgid "Add Right"
-msgstr "Sağa Ekle"
-
-#: source/gx/tilix/terminal/terminal.d:879
-msgid "Add Down"
-msgstr "Aşağı Ekle"
-
-#: source/gx/tilix/terminal/terminal.d:989
-msgid "Terminal Activity"
-msgstr "Terminal Etkinliği"
-
-#: source/gx/tilix/terminal/terminal.d:1325
-msgid "Not Enabled"
-msgstr "Etkin Değil"
-
-#: source/gx/tilix/terminal/terminal.d:1346
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Restore"
-msgstr "Geri al"
-
-#: source/gx/tilix/terminal/terminal.d:1698
-msgid "Tilix Custom Notification"
-msgstr "Tilix Özel Bildirim"
-
-#: source/gx/tilix/terminal/terminal.d:1799
-msgid "Open Link"
-msgstr "Link'i Aç"
-
-#: source/gx/tilix/terminal/terminal.d:1800
-msgid "Copy Link Address"
-msgstr "Link Adresini Kopyala"
-
-#: source/gx/tilix/terminal/terminal.d:1810
-#: source/gx/tilix/terminal/terminal.d:1820
-msgid "Copy"
-msgstr "Kopyala"
-
-#: source/gx/tilix/terminal/terminal.d:1812
-#: source/gx/tilix/terminal/terminal.d:1826
-msgid "Copy as HTML"
-msgstr "HTML olarak kopyala"
-
-#: source/gx/tilix/terminal/terminal.d:1814
-#: source/gx/tilix/terminal/terminal.d:1832
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Yapıştır"
-
-#: source/gx/tilix/terminal/terminal.d:1815
-#: source/gx/tilix/terminal/terminal.d:1837
-msgid "Select All"
-msgstr "Hepsini Seç"
-
-#: source/gx/tilix/terminal/terminal.d:1840
-#: source/gx/tilix/prefeditor/prefdialog.d:1560
-msgid "Clipboard"
-msgstr "Pano"
-
-#: source/gx/tilix/terminal/terminal.d:1854
-msgid "Synchronize input"
-msgstr "Giriş eşitle"
-
-#: source/gx/tilix/terminal/terminal.d:2007
-#, c-format
-msgid "Could not check file '%s' due to error '%s'"
-msgstr "'%s' dosyası hata sebebiyle kontrol edilemedi '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2014
-#, fuzzy, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"URI was '%s'"
-msgstr ""
-"Uzak dosya URI'ları ile köprüler desteklenmez.\n"
-"URI '%s' idi"
-
-#: source/gx/tilix/terminal/terminal.d:2015
-msgid "Remote File URI Unsupported"
-msgstr "Uzak Dosya URI Desteklenmiyor"
-
-#: source/gx/tilix/terminal/terminal.d:2047
-#: source/gx/tilix/terminal/terminal.d:2622
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Özel bağlantı '%s' regex'inin bir hatası var, yok sayılıyor"
-
-#: source/gx/tilix/terminal/terminal.d:2048
-msgid "Regular Expression Error"
-msgstr "Düzenli İfade Hatası"
-
-#: source/gx/tilix/terminal/terminal.d:2061
-#, c-format
-msgid "Could not open match '%s'"
-msgstr "'%s' eşleşmesi açılamıyor"
-
-#: source/gx/tilix/terminal/terminal.d:2062
-msgid "Error Opening Match"
-msgstr "Eşleşme Açmada Hata"
-
-#: source/gx/tilix/terminal/terminal.d:2572
-#, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "Bağlantı regex'i eklerken beklenmeyen hata oluştu: %s"
-
-#: source/gx/tilix/terminal/terminal.d:2779
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Beklenmeyen bir hata oluştu, daha fazla bilgi mevcut değil"
-
-#: source/gx/tilix/terminal/terminal.d:2789
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Beklenmeyen hata oluştu: %s"
-
-#: source/gx/tilix/terminal/terminal.d:3671
-msgid "Save Terminal Output"
-msgstr "Terminal Çıkışını Kaydet"
-
-#: source/gx/tilix/terminal/terminal.d:3680
-msgid "All Text Files"
-msgstr "Bütün Metin Dosyaları"
-
-#: source/gx/tilix/terminal/terminal.d:4010
-msgid "Unknown"
-msgstr "Bilinmeyen"
-
-#: source/gx/tilix/terminal/terminal.d:4274
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Alt işlem beklenmedik bir şekilde kapandı: %d"
-
-#: source/gx/tilix/terminal/terminal.d:4275
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Alt işlem sinyal %d ile durduruldu."
-
-#: source/gx/tilix/terminal/terminal.d:4276
-msgid "The child process was aborted."
-msgstr "Alt işlem durduruldu."
-
-#: source/gx/tilix/terminal/terminal.d:4282
-msgid "Relaunch"
-msgstr "Tekrar başlat"
-
-#: source/gx/tilix/terminal/terminal.d:4349
-msgid "Don't Paste"
-msgstr "Yapıştırma"
-
-#: source/gx/tilix/terminal/terminal.d:4350
-msgid "Paste Anyway"
-msgstr "Yinede Yapıştır"
-
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
-msgstr "İşlem izleme etkin değil, bu asla çağrılmamalıdır"
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
-msgid "ID"
-msgstr "Kimlik"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "Yeni"
-
-#: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/profileeditor.d:1325
-#: source/gx/tilix/prefeditor/common.d:46
-#: source/gx/tilix/prefeditor/common.d:77
-msgid "Edit"
-msgstr "Düzenle"
-
-#: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/prefdialog.d:556
-#: source/gx/tilix/prefeditor/advdialog.d:141
-#: source/gx/tilix/prefeditor/advdialog.d:319
-#: source/gx/tilix/prefeditor/profileeditor.d:1344
-msgid "Delete"
-msgstr "Sil"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr "Parolada dönüş karakterini içer"
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "Şifre Ekle"
-
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Apply"
-msgstr "Uygula"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "Şifre"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "Şifreyi Onayla"
-
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-msgid "OK"
-msgstr "Tamam"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "Şifre Ekle"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "Şifreyi Düzenle"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "Düzenleme Ayaları"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "Etkin"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
-#: source/gx/tilix/closedialog.d:123
-msgid "Title"
-msgstr "Başlık"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1179
-msgid "Badge"
-msgstr "Rozet"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "Oturum Yükle"
-
-#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-msgid "Command"
-msgstr "Komut"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Etkin ayalar her zaman etkin olup hemen gerçerli kılınır.\n"
-"Oturum Yükleme ayaları sadece oturum dosyası yüklenince etkin olur."
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Bu komut bilgisayara yönetici erişimi istemekte"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "İnternetden komut kopyalamak tehlike arz edebilir "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Komutun her bölümünün ne yaptığını anladığından emmin ol."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Dönüştür"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Boşlukları sekmelere dönüştür"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "CRLF ve CR'yi LF'ye dönüştür"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Gelişmiş Yapıştır"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "Linux için VTE tabanlı terminal emülatörü"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"Bu Kaynak Kodu Formu Mozilla Public License v. 2.0 koşullarına tabidir. "
-"MPL'in bir kopyası bu dosyayla birlikte olmadığı takdirde http://mozilla.org/"
-"MPL/2.0/ adresinden edinilebilir."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr ""
-"GTK VTE widget takımı, Tilix, onların çalışmaları olmadan mümkün olmayacaktı"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD'e böyle mükemmel bir GTK sarıcı sağladıkları için"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org'a böyle harika bir dil için"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "Simge başlığı"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "Dizin"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "Makina adı"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "Kullanıcı adı"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "Sütunlar"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "Satırlar"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "İşlem"
-
-#: source/gx/tilix/constants.d:161
-msgid "Status.Read-Only"
-msgstr "Durum.Salt-Okunur"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr "Durum.Sessiz"
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr "Durum.Girdi-Eşleştirme"
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "Terminal sayısı"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "Terminal numarası"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "Etkin terminal başlığı"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "Uygulama adı"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "Oturum adı"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "Oturum numarası"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "Oturum sayısı"
-
-#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/closedialog.d:129
 #: source/gx/tilix/prefeditor/profileeditor.d:449
+#: source/gx/tilix/bookmark/bmtreeview.d:70
 msgid "Icon"
 msgstr "Simge"
-
-#: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Folder"
-msgstr "Klasör Seç"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Klasör seç"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Klasörü temizle"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "Yer İmi Ekle"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "Yer İmini Düzenle"
-
-#: source/gx/tilix/bookmark/bmeditor.d:292
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Path"
-msgstr "Konum"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "Konum Seç"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "Protokol"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "Bilgisayar"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "Kullanıcı"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "Parametreler"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "Yer imi ayıklamada hata"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "Kök"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Yer imleri beklenmeyen bir hatadan dolayı yüklenemedi"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "Klasör"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "Uzak"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "Yer imi ile dönüş karakterini içer"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "Yer İmi Seç"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:272
-msgid "translator-credits"
-msgstr ""
-"Giray Devlet\n"
-"Mahmutcan İlhandağ\n"
-"Tolga Golelcin\n"
-"Oğuz Ersen"
-
-#: source/gx/tilix/application.d:281
-msgid "Credits"
-msgstr "Teşekkürler"
-
-#: source/gx/tilix/application.d:658
-msgid "Set the working directory of the terminal"
-msgstr "Terminalin çalışma dizinini ayarla"
-
-#: source/gx/tilix/application.d:658
-msgid "DIRECTORY"
-msgstr "DIZIN"
-
-#: source/gx/tilix/application.d:659
-msgid "Set the starting profile"
-msgstr "Başlangıç profili seç"
-
-#: source/gx/tilix/application.d:659
-msgid "PROFILE_NAME"
-msgstr "PROFILE_NAME"
-
-#: source/gx/tilix/application.d:660
-msgid "Set the title of the new terminal"
-msgstr "Yeni terminalin başlığını ayarla"
-
-#: source/gx/tilix/application.d:660
-msgid "TITLE"
-msgstr "BAŞLIK"
-
-#: source/gx/tilix/application.d:661
-msgid "Open the specified session"
-msgstr "Belirtilmiş oturumu seç"
-
-#: source/gx/tilix/application.d:661
-msgid "SESSION_NAME"
-msgstr "SESSION_NAME"
-
-#: source/gx/tilix/application.d:663
-msgid "Send an action to current Tilix instance"
-msgstr "Geçerli Tilix örneğine bir eylem gönder"
-
-#: source/gx/tilix/application.d:663
-msgid "ACTION_NAME"
-msgstr "ACTION_NAME"
-
-#: source/gx/tilix/application.d:665
-msgid "Execute the parameter as a command"
-msgstr "Parametreyi bir komut olarak yürütür"
-
-#: source/gx/tilix/application.d:665
-msgid "COMMAND"
-msgstr "KOMUT"
-
-#: source/gx/tilix/application.d:666
-msgid "Maximize the terminal window"
-msgstr "Terminal penceresini kaplat"
-
-#: source/gx/tilix/application.d:667
-msgid "Minimize the terminal window"
-msgstr "Terminal penceresini küçült"
-
-#: source/gx/tilix/application.d:668
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-"Yeğlenen kullanılacak pencere tarzını geçersiz kıl: normal, disable-csd, "
-"disable-csd-hide-toolbar, borderless"
-
-#: source/gx/tilix/application.d:668
-msgid "WINDOW_STYLE"
-msgstr "WINDOW_STYLE"
-
-#: source/gx/tilix/application.d:669
-msgid "Full-screen the terminal window"
-msgstr "Terminal pençeresini tam ekran yap"
-
-#: source/gx/tilix/application.d:670
-msgid "Focus the existing window"
-msgstr "Var olan pencereye odakla"
-
-#: source/gx/tilix/application.d:671
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Ek örnekleri yeni işlem olarak başlat (Önerilmez)"
-
-#: source/gx/tilix/application.d:672
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Pencere boyutunu ayarla; Örneğin: 80x24 veya 80x24+200+200 (SÜTUNxSATIR+X+Y)"
-
-#: source/gx/tilix/application.d:672
-msgid "GEOMETRY"
-msgstr "GEOMETRİ"
-
-#: source/gx/tilix/application.d:673
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Quake modunda bir pencere açar veya varolan deprem modu penceresinin "
-"görünürlüğünü açar/kapar"
-
-#: source/gx/tilix/application.d:674
-msgid "Show the Tilix and dependant component versions"
-msgstr "Tilix ve bağımlı bileşenlerin sürümlerini göster"
-
-#: source/gx/tilix/application.d:675
-msgid "Show the Tilix preferences dialog directly"
-msgstr "Tilix tercihleri iletişim kutusunu doğrudan göster"
-
-#: source/gx/tilix/application.d:676
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr "Grup tilix örneklerini farklı işlemlere ayır (Deneysel, önerilmez)"
-
-#: source/gx/tilix/application.d:676
-#, fuzzy
-msgid "GROUP_NAME"
-msgstr "PROFILE_NAME"
-
-#: source/gx/tilix/application.d:679
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Terminal UUIDsine yollanacak gizli değişken"
-
-#: source/gx/tilix/application.d:679
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/tilix/application.d:696
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr "Uygulama kimliği %s geçersiz"
-
-#: source/gx/tilix/application.d:854
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Terminal ayarlarında bir sorun varmış gibi gözüküyor.\n"
-"Sorun ciddi olmamakla birlikte, bunu düzeltmek deneyiminizi "
-"iyileştirecektir.\n"
-"Daha fazla bilgi için aşağıdaki bilgiye klikleyin:"
-
-#: source/gx/tilix/application.d:855
-msgid "Configuration Issue Detected"
-msgstr "Ayar sorunu tespit edildi"
-
-#: source/gx/tilix/application.d:867
-msgid "Do not show this message again"
-msgstr "Bu mesjaı tekrar gösterme"
-
-#: source/gx/tilix/closedialog.d:143 source/gx/gtk/dialog.d:89
-msgid "Do not show this again"
-msgstr "Bunu tekrar gösterme"
 
 #: source/gx/tilix/closedialog.d:170
 #, c-format
@@ -1224,6 +1093,22 @@ msgstr "Pencereyi Kapat"
 #: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
 msgid "Close Session"
 msgstr "Oturumu Kapat"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Yer imi Ekle"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Yer imini düzenle"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Yer imini sil"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Yer imi seçimini kaldır"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:123
 msgid "Tilix Preferences"
@@ -1262,6 +1147,10 @@ msgstr "Kısa yollar"
 #: source/gx/tilix/prefeditor/profileeditor.d:577
 msgid "Advanced"
 msgstr "Gelişmiş"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
+msgid "Profile"
+msgstr "Profil"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:189
 msgid "Add profile"
@@ -1581,6 +1470,11 @@ msgstr "İşlem tamamlandığında masaüstü bildirimi gönder"
 msgid "On new instance"
 msgstr "Yeni örnekte"
 
+#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+msgid "New Session"
+msgstr "Yeni Oturum"
+
 #: source/gx/tilix/prefeditor/prefdialog.d:1554
 msgid "Split Right"
 msgstr "Sağa doğru böl"
@@ -1606,8 +1500,36 @@ msgid "Strip first character of paste if comment or variable declaration"
 msgstr "Yorum veya değişken tanımlama ise yapıştırmanın ilk karakterini çıkar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Strip trailing whitespaces and linebreak characters on paste"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Seçerken metni panoya kendiliğinden kopyala"
+
+#: source/gx/tilix/prefeditor/common.d:37
+msgid "Custom Links"
+msgstr "Özel Bağlantılar"
+
+#: source/gx/tilix/prefeditor/common.d:43
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"Düzenli ifade tanımlarını temel alan terminalden tıklanabilen kullanıcı "
+"tanımlı bağlantıların listesi."
+
+#: source/gx/tilix/prefeditor/common.d:67
+msgid "Triggers"
+msgstr "Tetikleyiciler"
+
+#: source/gx/tilix/prefeditor/common.d:74
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Tetikleyiciler çıkış metnine karşı terminali denetleyen düzenli ifadelerdir. "
+"Bir eşleşme algılandığında yapılandırılmış eylem yürütülür."
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
 msgid "Session"
@@ -1621,22 +1543,6 @@ msgstr "Pencere"
 #: source/gx/tilix/prefeditor/titleeditor.d:127
 msgid "Help"
 msgstr "Yardım"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Yer imi Ekle"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Yer imini düzenle"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Yer imini sil"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Yer imi seçimini kaldır"
 
 #: source/gx/tilix/prefeditor/advdialog.d:94
 #: source/gx/tilix/prefeditor/advdialog.d:261
@@ -2144,81 +2050,182 @@ msgstr "Sürekli sessizlik için eşik"
 msgid "(seconds)"
 msgstr "(saniye)"
 
-#: source/gx/tilix/prefeditor/common.d:37
-msgid "Custom Links"
-msgstr "Özel Bağlantılar"
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "Bırakılan terminalin konumu tespi edilemedi"
 
-#: source/gx/tilix/prefeditor/common.d:43
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "Bırakılan terminal için oturum bulunamadı"
+
+#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Folder"
+msgstr "Klasör Seç"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Klasör seç"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Klasörü temizle"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "Yer İmi Ekle"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "Yer İmini Düzenle"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "Konum"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "Konum Seç"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "Protokol"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "Bilgisayar"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "Kullanıcı"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "Parametreler"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "Yer imi ile dönüş karakterini içer"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "Yer İmi Seç"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "Yer imi ayıklamada hata"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "Kök"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Yer imleri beklenmeyen bir hatadan dolayı yüklenemedi"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "Klasör"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "Uzak"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "Linux için VTE tabanlı terminal emülatörü"
+
+#: source/gx/tilix/constants.d:73
 msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
-"Düzenli ifade tanımlarını temel alan terminalden tıklanabilen kullanıcı "
-"tanımlı bağlantıların listesi."
+"Bu Kaynak Kodu Formu Mozilla Public License v. 2.0 koşullarına tabidir. "
+"MPL'in bir kopyası bu dosyayla birlikte olmadığı takdirde http://mozilla.org/"
+"MPL/2.0/ adresinden edinilebilir."
 
-#: source/gx/tilix/prefeditor/common.d:67
-msgid "Triggers"
-msgstr "Tetikleyiciler"
-
-#: source/gx/tilix/prefeditor/common.d:74
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
 msgstr ""
-"Tetikleyiciler çıkış metnine karşı terminali denetleyen düzenli ifadelerdir. "
-"Bir eşleşme algılandığında yapılandırılmış eylem yürütülür."
+"GTK VTE widget takımı, Tilix, onların çalışmaları olmadan mümkün olmayacaktı"
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "devre dışı"
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD'e böyle mükemmel bir GTK sarıcı sağladıkları için"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "GTK sürümünüz çok eski, en azından GTK %d.%d.%d gerekiyor!"
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org'a böyle harika bir dil için"
 
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "Beklenmeyen bir istisna oluştu"
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "Simge başlığı"
 
-#: source/app.d:157
-msgid "Error: "
-msgstr "Hata: "
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "Dizin"
 
-#: source/app.d:167
-msgid "Versions"
-msgstr "Sürümler"
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "Makina adı"
 
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Tilix sürümü: %s"
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "Kullanıcı adı"
 
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE sürümü: %s"
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "Sütunlar"
 
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK Sürümü: %d.%d.%d"
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "Satırlar"
 
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Tilix'e Özel Özellikler"
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "İşlem"
 
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "Bildirimler etkinleştirildi=%b"
+#: source/gx/tilix/constants.d:161
+msgid "Status.Read-Only"
+msgstr "Durum.Salt-Okunur"
 
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "Tetikleyiciler etkinleştirildi=%b"
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr "Durum.Sessiz"
 
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "Rozetler etkinleştirildi=%b"
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr "Durum.Girdi-Eşleştirme"
+
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "Terminal sayısı"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "Terminal numarası"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "Etkin terminal başlığı"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "Uygulama adı"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "Oturum adı"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "Oturum numarası"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "Oturum sayısı"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"

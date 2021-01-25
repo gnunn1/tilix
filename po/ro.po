@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 00:13+0100\n"
+"POT-Creation-Date: 2021-01-26 00:03+0100\n"
 "PO-Revision-Date: 2020-04-03 03:09+0000\n"
 "Last-Translator: Andrei Pavel <andreicristianpavel@gmail.com>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/tilix/"
@@ -18,6 +18,924 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 "X-Generator: Weblate 4.0-dev\n"
+
+#: source/app.d:139
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr ""
+"Versiunea ta de GTK este prea veche, ai nevoie de GTK %d.%d.%d sau mai nou!"
+
+#: source/app.d:156
+msgid "Unexpected exception occurred"
+msgstr "O excepție neașteaptă a avut loc"
+
+#: source/app.d:157
+msgid "Error: "
+msgstr "Eroare: "
+
+#: source/app.d:167
+msgid "Versions"
+msgstr "Versiuni"
+
+#: source/app.d:168
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Versiunea Tilix: %s"
+
+#: source/app.d:169
+#, c-format
+msgid "VTE version: %s"
+msgstr "Versiunea VTE: %s"
+
+#: source/app.d:170
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "Versiunea GTK: %d.%d.%d"
+
+#: source/app.d:171
+msgid "Tilix Special Features"
+msgstr "Funcționalități Speciale Tilix"
+
+#: source/app.d:172
+msgid "Notifications enabled=%b"
+msgstr "Notificări activate=%b"
+
+#: source/app.d:173
+msgid "Triggers enabled=%b"
+msgstr "Mecanisme de declanșare activate=%b"
+
+#: source/app.d:174
+msgid "Badges enabled=%b"
+msgstr "Insigne activate=%b"
+
+#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "Nu mai afișa de acum încolo"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "dezactivat"
+
+#: source/gx/tilix/appwindow.d:320
+msgid "Create a new session"
+msgstr "Creează o nouă sesiune"
+
+#: source/gx/tilix/appwindow.d:334
+msgid "View session sidebar"
+msgstr "Afișează bara laterală a sesiunii"
+
+#: source/gx/tilix/appwindow.d:369
+msgid "Add terminal right"
+msgstr "Adaugă un terminal la dreapta"
+
+#: source/gx/tilix/appwindow.d:373
+msgid "Add terminal down"
+msgstr "Adaugă un terminal dedesubt"
+
+#: source/gx/tilix/appwindow.d:379
+msgid "Find text in terminal"
+msgstr "Caută text în terminal"
+
+#: source/gx/tilix/appwindow.d:602
+msgid "Enter a new name for the session"
+msgstr "Pune un nume nou sesiunii"
+
+#: source/gx/tilix/appwindow.d:604
+msgid "Change Session Name"
+msgstr "Schimbă Numele Sesiunii"
+
+#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
+msgid "New Window"
+msgstr "Fereastră Nouă"
+
+#: source/gx/tilix/appwindow.d:683
+msgid "Open…"
+msgstr "Deschide…"
+
+#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+msgid "Save"
+msgstr "Salvează"
+
+#: source/gx/tilix/appwindow.d:685
+msgid "Save As…"
+msgstr "Salvează Ca…"
+
+#: source/gx/tilix/appwindow.d:691
+msgid "Name…"
+msgstr "Nume…"
+
+#: source/gx/tilix/appwindow.d:692
+msgid "Synchronize Input"
+msgstr "Sincronizează textul introdus"
+
+#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
+#: source/gx/tilix/prefeditor/prefdialog.d:414
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: source/gx/tilix/appwindow.d:697
+msgid "Keyboard Shortcuts"
+msgstr "Prescurtări din Tastatură"
+
+#: source/gx/tilix/appwindow.d:698
+msgid "About Tilix"
+msgstr "Despre Tilix"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/tilix/appwindow.d:1082
+#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+msgid "Default"
+msgstr "Implicit"
+
+#: source/gx/tilix/appwindow.d:1191
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Există sesiuni multiple deschise, închide pe toate?"
+
+#: source/gx/tilix/appwindow.d:1455
+#: source/gx/tilix/prefeditor/profileeditor.d:965
+msgid "All JSON Files"
+msgstr "Toate Fișierele JSON"
+
+#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3694
+#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:969
+msgid "All Files"
+msgstr "Toate Fișierele"
+
+#: source/gx/tilix/appwindow.d:1468
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Numele de fișier '%s' nu există"
+
+#: source/gx/tilix/appwindow.d:1500
+msgid "Load Session"
+msgstr "Încarcă Sesiunea"
+
+#: source/gx/tilix/appwindow.d:1503
+msgid "Open"
+msgstr "Deschide"
+
+#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+#: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "Cancel"
+msgstr "Renunță"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Could not load session due to unexpected error."
+msgstr "Nu s-a putut încărca sesiunea din cauza unei erori neașteptate."
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Error Loading Session"
+msgstr "Eroare în timp ce încărcam sesiunea"
+
+#: source/gx/tilix/appwindow.d:1549
+msgid "Save Session"
+msgstr "Salvează Sesiunea"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "Nu s-a putut încărca sesiunea din cauza unei erori neașteptate."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "Eroare în timp ce încărcam sesiunea"
+
+#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+msgid "Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:1710
+msgid "Quake mode is not supported under Wayland, running as normal window"
+msgstr ""
+"Modul Quake nu este suportat în Wayland, va rula ca o fereastră normală"
+
+#: source/gx/tilix/appwindow.d:1712
+msgid "Quake Mode Not Supported"
+msgstr "Modul Quake nu este suportat"
+
+#: source/gx/tilix/appwindow.d:2181
+msgid "New output displayed"
+msgstr "Afișare nouă"
+
+#: source/gx/tilix/appwindow.d:2189
+msgid "Close session"
+msgstr "Închide sesiunea"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr "Andrei Pavel <andrei.pavel@cti.pub.ro>"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "Generic"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "Setează directorul de muncă al terminalului"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "DIRECTOR"
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "Setează profilul de început"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr "NUME_PROFIL"
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "Setează titlul unui terminal nou"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "TITLU"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "Deschide sesiunea specificată"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "NUME_SESIUNE"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "Trimite o acțiune către instanța curentă de Tilix"
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "NUME_ACȚIUNE"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "Execută parametrul ca o comandă"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "COMANDĂ"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "Maximizează fereastra de terminal"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "Minimizează fereastra de terminal"
+
+#: source/gx/tilix/application.d:668
+msgid ""
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
+"Suprascrie stilul preferat al ferestrei, unul dintre: normal, disable-csd, "
+"disable-csd-hide-toolbar, borderless"
+
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "STIL_FEREASTRĂ"
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "Afișează terminalul pe tot ecranul"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "Ațintește fereastra existentă"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "Pornește o nouă instanță printr-un nou proces (Nerecomandat)"
+
+#: source/gx/tilix/application.d:672
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+"Stabilește dimensiunea ferestrei; spre exemplu: 80x24, sau 80x24+200+200 "
+"(COLOANExRÂNDURI+X+Y)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr "GEOMETRIE"
+
+#: source/gx/tilix/application.d:673
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+"Deschide o fereastră în modul Quake sau comută vizibilitatea modului Quake "
+"în ferestrele existente"
+
+#: source/gx/tilix/application.d:674
+#, fuzzy
+msgid "Show the Tilix and dependent component versions"
+msgstr "Afișează versiunea lui Tilix și versiunile componentelor dependente"
+
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "Afișează direct dialogul preferințelor Tilix"
+
+#: source/gx/tilix/application.d:676
+msgid ""
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr ""
+"Grupează instanțele Tilix în diferite procese (experimental, nerecomandat)"
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid "GROUP_NAME"
+msgstr "NUME_PROFIL"
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Argument ascuns pentru a pasa UUID-ul terminalului"
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr "TERMINAL_UUID"
+
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr "ID-ul aplicației %s nu este valid"
+
+#: source/gx/tilix/application.d:854
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"Pare să fie o problemă cu configurația terminalului.\n"
+"Problema nu este serioasă, dar corectarea ei vă va îmbunătăți experiența.\n"
+"Apasă pe legătura de mai jos pentru mai multă informație:"
+
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "Problemă de Configurare Detectată"
+
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "Nu mai arăta mesajul ăsta"
+
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "Se ignoră '%s' deoarece nu e director"
+
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "Geometria '%s' este invalidă și nu poate fi procesată"
+
+#: source/gx/tilix/cmdparams.d:186
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"Nu poți încărca o sesiune și să stabilești un profil, să stabilești un "
+"director de lucru sau să execuți o opțiune de comandă, te rog alege ori una "
+"ori alta"
+
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "Poți folosi parametrul de acțiune doar în cadrul Tilix"
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+"Nu poți folosi modul quake cu parametrii de maximizare, de minimizare sau de "
+"geometrie"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1860
+msgid "Close"
+msgstr "Închide"
+
+#: source/gx/tilix/terminal/terminal.d:348
+#: source/gx/tilix/terminal/terminal.d:1309
+#: source/gx/tilix/prefeditor/titleeditor.d:105
+msgid "Terminal"
+msgstr "Terminalul"
+
+#: source/gx/tilix/terminal/terminal.d:391
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Maximize"
+msgstr "Maximizează"
+
+#: source/gx/tilix/terminal/terminal.d:401
+#: source/gx/tilix/terminal/terminal.d:692
+msgid "Disable input synchronization for this terminal"
+msgstr "Dezactivează sincronizarea scrisului introdus pentru acest terminal"
+
+#: source/gx/tilix/terminal/terminal.d:410
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Read-Only"
+msgstr "Imuabil"
+
+#: source/gx/tilix/terminal/terminal.d:416
+msgid "New output"
+msgstr "Scris introdus nou"
+
+#: source/gx/tilix/terminal/terminal.d:422
+#: source/gx/tilix/prefeditor/profileeditor.d:446
+msgid "Terminal bell"
+msgstr "Clopoțel"
+
+#: source/gx/tilix/terminal/terminal.d:467
+msgid "Edit Profile"
+msgstr "Modifică Profil"
+
+#: source/gx/tilix/terminal/terminal.d:485
+msgid "Edit Encodings"
+msgstr "Modifică Codificări"
+
+#: source/gx/tilix/terminal/terminal.d:694
+msgid "Enable input synchronization for this terminal"
+msgstr "Activează sincronizări de scris introdus pentru acest terminal"
+
+#: source/gx/tilix/terminal/terminal.d:729
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Biblioteca %s nu a putut fi încărcată, funcționalitatea de parolă nu este "
+"disponibilă."
+
+#: source/gx/tilix/terminal/terminal.d:729
+msgid "Library Not Loaded"
+msgstr "Bibliotecă Neîncărcată"
+
+#: source/gx/tilix/terminal/terminal.d:828
+msgid "Find…"
+msgstr "Caută…"
+
+#: source/gx/tilix/terminal/terminal.d:835
+msgid "Password..."
+msgstr "Parolă..."
+
+#: source/gx/tilix/terminal/terminal.d:836
+msgid "Bookmark..."
+msgstr "Semn de carte..."
+
+#: source/gx/tilix/terminal/terminal.d:837
+msgid "Add Bookmark..."
+msgstr "Adaugă Semn de Carte..."
+
+#: source/gx/tilix/terminal/terminal.d:841
+msgid "Assistants"
+msgstr "Asistenți"
+
+#: source/gx/tilix/terminal/terminal.d:842
+#: source/gx/tilix/prefeditor/prefdialog.d:283
+msgid "Profiles"
+msgstr "Profiluri"
+
+#: source/gx/tilix/terminal/terminal.d:848
+msgid "Show File Browser..."
+msgstr "Afișează Navigatorul de Fișiere..."
+
+#: source/gx/tilix/terminal/terminal.d:852
+msgid "Save Output…"
+msgstr "Salvează Scrisul Produs…"
+
+#: source/gx/tilix/terminal/terminal.d:853
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+#: source/gx/tilix/prefeditor/profileeditor.d:328
+msgid "Reset"
+msgstr "Restabilește"
+
+#: source/gx/tilix/terminal/terminal.d:854
+msgid "Reset and Clear"
+msgstr "Restabilește și Eliberează"
+
+#: source/gx/tilix/terminal/terminal.d:858
+#: source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/prefeditor/prefdialog.d:167
+#: source/gx/tilix/prefeditor/prefdialog.d:463
+#: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1091
+msgid "Encoding"
+msgstr "Codificare"
+
+#: source/gx/tilix/terminal/terminal.d:859
+msgid "Layout Options…"
+msgstr "Opțiuni de Amplasare…"
+
+#: source/gx/tilix/terminal/terminal.d:863
+msgid "Monitor Silence"
+msgstr "Monitorizează Liniștea"
+
+#: source/gx/tilix/terminal/terminal.d:866
+msgid "Other"
+msgstr "Altele"
+
+#: source/gx/tilix/terminal/terminal.d:875
+msgid "Add Right"
+msgstr "Adaugă la Dreapta"
+
+#: source/gx/tilix/terminal/terminal.d:879
+msgid "Add Down"
+msgstr "Adaugă Dedesubt"
+
+#: source/gx/tilix/terminal/terminal.d:989
+msgid "Terminal Activity"
+msgstr "Activitate Terminal"
+
+#: source/gx/tilix/terminal/terminal.d:1325
+msgid "Not Enabled"
+msgstr "Neactivat"
+
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Restore"
+msgstr "Restabilește"
+
+#: source/gx/tilix/terminal/terminal.d:1708
+msgid "Tilix Custom Notification"
+msgstr "Notificare personalizată"
+
+#: source/gx/tilix/terminal/terminal.d:1809
+msgid "Open Link"
+msgstr "Deschide Legătură"
+
+#: source/gx/tilix/terminal/terminal.d:1810
+msgid "Copy Link Address"
+msgstr "Copiază Adresa de Legătură"
+
+#: source/gx/tilix/terminal/terminal.d:1820
+#: source/gx/tilix/terminal/terminal.d:1830
+msgid "Copy"
+msgstr "Copiază"
+
+#: source/gx/tilix/terminal/terminal.d:1822
+#: source/gx/tilix/terminal/terminal.d:1836
+msgid "Copy as HTML"
+msgstr "Copiază ca HTML"
+
+#: source/gx/tilix/terminal/terminal.d:1824
+#: source/gx/tilix/terminal/terminal.d:1842
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "Lipire"
+
+#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1847
+msgid "Select All"
+msgstr "Selecționează Tot"
+
+#: source/gx/tilix/terminal/terminal.d:1850
+#: source/gx/tilix/prefeditor/prefdialog.d:1560
+msgid "Clipboard"
+msgstr "Clipboard"
+
+#: source/gx/tilix/terminal/terminal.d:1864
+msgid "Synchronize input"
+msgstr "Sincronizează Scrisul Introdus"
+
+#: source/gx/tilix/terminal/terminal.d:2017
+#, c-format
+msgid "Could not check file '%s' due to error '%s'"
+msgstr "Nu s-a putut verifica fișierul '%s' din cauza erorii '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2024
+#, fuzzy, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"URI was '%s'"
+msgstr ""
+"Fișierele la distanță nu sunt suportate cu hiperlegături\n"
+"Legătura era '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2025
+msgid "Remote File URI Unsupported"
+msgstr "Fișier la Distanță Nesuportat"
+
+#: source/gx/tilix/terminal/terminal.d:2057
+#: source/gx/tilix/terminal/terminal.d:2632
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "Expresia regulată personalizată '%s' are o eroare, se ignoră"
+
+#: source/gx/tilix/terminal/terminal.d:2058
+msgid "Regular Expression Error"
+msgstr "Eroare de Expresie Regulată"
+
+#: source/gx/tilix/terminal/terminal.d:2071
+#, c-format
+msgid "Could not open match '%s'"
+msgstr "Nu s-a putut deschide '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2072
+msgid "Error Opening Match"
+msgstr "Eroare de Deschidere"
+
+#: source/gx/tilix/terminal/terminal.d:2582
+#, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr ""
+"Eroare neașteptată apărută în urma adăugării expresiei regulate pentru "
+"legături: %s"
+
+#: source/gx/tilix/terminal/terminal.d:2789
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Eroare neașteptată apărută, nu sunt disponibile alte informații"
+
+#: source/gx/tilix/terminal/terminal.d:2799
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Eroare neașteptată apărută: %s"
+
+#: source/gx/tilix/terminal/terminal.d:3681
+msgid "Save Terminal Output"
+msgstr "Salvează Scrisul Produs în Terminal"
+
+#: source/gx/tilix/terminal/terminal.d:3690
+msgid "All Text Files"
+msgstr "Toate Fișierele Text"
+
+#: source/gx/tilix/terminal/terminal.d:4020
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: source/gx/tilix/terminal/terminal.d:4284
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Procesul copil a ieșit normal cu statutul %d"
+
+#: source/gx/tilix/terminal/terminal.d:4285
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Procesul copil a fost încetat de către semnalul %d."
+
+#: source/gx/tilix/terminal/terminal.d:4286
+msgid "The child process was aborted."
+msgstr "Procesul copil a fost încetat."
+
+#: source/gx/tilix/terminal/terminal.d:4292
+msgid "Relaunch"
+msgstr "Relansare"
+
+#: source/gx/tilix/terminal/terminal.d:4359
+msgid "Don't Paste"
+msgstr "Nu Lipi"
+
+#: source/gx/tilix/terminal/terminal.d:4360
+msgid "Paste Anyway"
+msgstr "Lipește Oricum"
+
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+#: source/gx/tilix/bookmark/bmeditor.d:231
+msgid "Name"
+msgstr "Nume"
+
+#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "Nou"
+
+#: source/gx/tilix/terminal/password.d:184
+#: source/gx/tilix/prefeditor/common.d:46
+#: source/gx/tilix/prefeditor/common.d:77
+#: source/gx/tilix/prefeditor/profileeditor.d:1325
+msgid "Edit"
+msgstr "Modifică"
+
+#: source/gx/tilix/terminal/password.d:213
+#: source/gx/tilix/prefeditor/prefdialog.d:556
+#: source/gx/tilix/prefeditor/advdialog.d:141
+#: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/profileeditor.d:1344
+msgid "Delete"
+msgstr "Șterge"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr "Include un caracter de linie nouă cu parola"
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "Introduce Parola"
+
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Apply"
+msgstr "Aplică"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "Parola"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "Confirmă Parola"
+
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "OK"
+msgstr "Acceptă"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "Adaugă Parola"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "Modifică Parola"
+
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
+msgstr ""
+"Monitorizarea de procese nu este activată, asta ar trebui să nu fie apelată "
+"vreodată"
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "Opțiuni de Căutare"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "Găsește următorul"
+
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "Găseșțe anteriorul"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "Potrivire cu majuscule"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "Potrivire doar cu cuvânt întreg"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "Potrivire cu expresii regulate"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "Înfășurare text"
+
+#: source/gx/tilix/terminal/search.d:235
+#, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr ""
+"Căutarea '%s' nu este o expresie regulată validă\n"
+"%s"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "Opțiuni de Amplasare"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "Activ"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/closedialog.d:123
+#: source/gx/tilix/constants.d:152
+msgid "Title"
+msgstr "Titlu"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
+msgid "Badge"
+msgstr "Insignă"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "Încărcare de Sesiune"
+
+#: source/gx/tilix/terminal/layout.d:89
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1140
+#: source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Command"
+msgstr "Comandă"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Opțiunile active sunt întotdeauna în efect și sunt aplicate imediat.\n"
+"Opțiunile de Încărcare de Sesiune se aplică numai la încărcarea unui fișier "
+"de sesiune."
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Comanda necesită acces administrativ"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Copierea comenzilor de pe internet poate fi periculoasă. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Asigură-te că înțelegi ce face fiecare parte a acestei comenzi."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Transformă"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Transformă spații în taburi"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "Transformă CRLF și CR în LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Lipire Avansată"
+
+#: source/gx/tilix/preferences.d:252
+msgid "UpdateState"
+msgstr "StareDeActualizare"
+
+#: source/gx/tilix/preferences.d:253
+msgid "ExecuteCommand"
+msgstr "ExecutăComanda"
+
+#: source/gx/tilix/preferences.d:254
+msgid "SendNotification"
+msgstr "TrimiteNotificare"
+
+#: source/gx/tilix/preferences.d:255
+msgid "UpdateTitle"
+msgstr "ActualizeazăTitlu"
+
+#: source/gx/tilix/preferences.d:256
+msgid "PlayBell"
+msgstr "RedăClopoțelul"
+
+#: source/gx/tilix/preferences.d:257
+msgid "SendText"
+msgstr "TrimiteText"
+
+#: source/gx/tilix/preferences.d:258
+msgid "InsertPassword"
+msgstr "IntroduceParolă"
+
+#: source/gx/tilix/preferences.d:259
+msgid "UpdateBadge"
+msgstr "ActualizeazăInsigna"
+
+#: source/gx/tilix/preferences.d:260
+msgid "RunProcess"
+msgstr "ExecutăProces"
+
+#: source/gx/tilix/preferences.d:370
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (Copiere)"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Fișierul %s nu este un fișier JSON conform cu o schemă de culoare"
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "Paleta schemei de culoare necesită 16 culori"
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -154,1058 +1072,11 @@ msgstr "Vietnameză"
 msgid "Thai"
 msgstr "Thailandeză"
 
-#: source/gx/tilix/appwindow.d:320
-msgid "Create a new session"
-msgstr "Creează o nouă sesiune"
-
-#: source/gx/tilix/appwindow.d:334
-msgid "View session sidebar"
-msgstr "Afișează bara laterală a sesiunii"
-
-#: source/gx/tilix/appwindow.d:369
-msgid "Add terminal right"
-msgstr "Adaugă un terminal la dreapta"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "Add terminal down"
-msgstr "Adaugă un terminal dedesubt"
-
-#: source/gx/tilix/appwindow.d:379
-msgid "Find text in terminal"
-msgstr "Caută text în terminal"
-
-#: source/gx/tilix/appwindow.d:602
-msgid "Enter a new name for the session"
-msgstr "Pune un nume nou sesiunii"
-
-#: source/gx/tilix/appwindow.d:604
-msgid "Change Session Name"
-msgstr "Schimbă Numele Sesiunii"
-
-#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
-msgid "New Window"
-msgstr "Fereastră Nouă"
-
-#: source/gx/tilix/appwindow.d:683
-msgid "Open…"
-msgstr "Deschide…"
-
-#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Save"
-msgstr "Salvează"
-
-#: source/gx/tilix/appwindow.d:685
-msgid "Save As…"
-msgstr "Salvează Ca…"
-
-#: source/gx/tilix/appwindow.d:691
-msgid "Name…"
-msgstr "Nume…"
-
-#: source/gx/tilix/appwindow.d:692
-msgid "Synchronize Input"
-msgstr "Sincronizează textul introdus"
-
-#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
-#: source/gx/tilix/prefeditor/prefdialog.d:414
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
-msgid "Preferences"
-msgstr "Preferințe"
-
-#: source/gx/tilix/appwindow.d:697
-msgid "Keyboard Shortcuts"
-msgstr "Prescurtări din Tastatură"
-
-#: source/gx/tilix/appwindow.d:698
-msgid "About Tilix"
-msgstr "Despre Tilix"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/tilix/appwindow.d:1082 source/gx/tilix/session.d:1222
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Default"
-msgstr "Implicit"
-
-#: source/gx/tilix/appwindow.d:1191
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Există sesiuni multiple deschise, închide pe toate?"
-
-#: source/gx/tilix/appwindow.d:1455
-#: source/gx/tilix/prefeditor/profileeditor.d:965
-msgid "All JSON Files"
-msgstr "Toate Fișierele JSON"
-
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
-#: source/gx/tilix/prefeditor/profileeditor.d:969
-msgid "All Files"
-msgstr "Toate Fișierele"
-
-#: source/gx/tilix/appwindow.d:1468
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Numele de fișier '%s' nu există"
-
-#: source/gx/tilix/appwindow.d:1500
-msgid "Load Session"
-msgstr "Încarcă Sesiunea"
-
-#: source/gx/tilix/appwindow.d:1503
-msgid "Open"
-msgstr "Deschide"
-
-#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Cancel"
-msgstr "Renunță"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Could not load session due to unexpected error."
-msgstr "Nu s-a putut încărca sesiunea din cauza unei erori neașteptate."
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Error Loading Session"
-msgstr "Eroare în timp ce încărcam sesiunea"
-
-#: source/gx/tilix/appwindow.d:1549
-msgid "Save Session"
-msgstr "Salvează Sesiunea"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Could not save session due to unexpected error."
-msgstr "Nu s-a putut încărca sesiunea din cauza unei erori neașteptate."
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Error Saving Session"
-msgstr "Eroare în timp ce încărcam sesiunea"
-
-#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
-msgid "Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:1710
-msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr ""
-"Modul Quake nu este suportat în Wayland, va rula ca o fereastră normală"
-
-#: source/gx/tilix/appwindow.d:1712
-msgid "Quake Mode Not Supported"
-msgstr "Modul Quake nu este suportat"
-
-#: source/gx/tilix/appwindow.d:2181
-msgid "New output displayed"
-msgstr "Afișare nouă"
-
-#: source/gx/tilix/appwindow.d:2189
-msgid "Close session"
-msgstr "Închide sesiunea"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "Se ignoră '%s' deoarece nu e director"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "Geometria '%s' este invalidă și nu poate fi procesată"
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"Nu poți încărca o sesiune și să stabilești un profil, să stabilești un "
-"director de lucru sau să execuți o opțiune de comandă, te rog alege ori una "
-"ori alta"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "Poți folosi parametrul de acțiune doar în cadrul Tilix"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-"Nu poți folosi modul quake cu parametrii de maximizare, de minimizare sau de "
-"geometrie"
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "Nu s-a putut localiza terminalul picat"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "Nu s-a putut localiza sesiunea pentru terminalul picat"
-
-#: source/gx/tilix/session.d:1572 source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-#: source/gx/tilix/bookmark/bmeditor.d:231
-msgid "Name"
-msgstr "Nume"
-
-#: source/gx/tilix/session.d:1583 source/gx/tilix/prefeditor/prefdialog.d:176
-msgid "Profile"
-msgstr "Profil"
-
-#: source/gx/tilix/session.d:1606 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "Nouă Sesiune"
-
-#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1850
-msgid "Close"
-msgstr "Închide"
-
-#: source/gx/tilix/preferences.d:251
-msgid "UpdateState"
-msgstr "StareDeActualizare"
-
-#: source/gx/tilix/preferences.d:252
-msgid "ExecuteCommand"
-msgstr "ExecutăComanda"
-
-#: source/gx/tilix/preferences.d:253
-msgid "SendNotification"
-msgstr "TrimiteNotificare"
-
-#: source/gx/tilix/preferences.d:254
-msgid "UpdateTitle"
-msgstr "ActualizeazăTitlu"
-
-#: source/gx/tilix/preferences.d:255
-msgid "PlayBell"
-msgstr "RedăClopoțelul"
-
-#: source/gx/tilix/preferences.d:256
-msgid "SendText"
-msgstr "TrimiteText"
-
-#: source/gx/tilix/preferences.d:257
-msgid "InsertPassword"
-msgstr "IntroduceParolă"
-
-#: source/gx/tilix/preferences.d:258
-msgid "UpdateBadge"
-msgstr "ActualizeazăInsigna"
-
-#: source/gx/tilix/preferences.d:259
-msgid "RunProcess"
-msgstr "ExecutăProces"
-
-#: source/gx/tilix/preferences.d:369
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (Copiere)"
-
-#: source/gx/tilix/colorschemes.d:188
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Fișierul %s nu este un fișier JSON conform cu o schemă de culoare"
-
-#: source/gx/tilix/colorschemes.d:251
-msgid "Color scheme palette requires 16 colors"
-msgstr "Paleta schemei de culoare necesită 16 culori"
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "Opțiuni de Căutare"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "Găsește următorul"
-
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "Găseșțe anteriorul"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "Potrivire cu majuscule"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "Potrivire doar cu cuvânt întreg"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "Potrivire cu expresii regulate"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "Înfășurare text"
-
-#: source/gx/tilix/terminal/search.d:235
-#, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr ""
-"Căutarea '%s' nu este o expresie regulată validă\n"
-"%s"
-
-#: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1309
-#: source/gx/tilix/prefeditor/titleeditor.d:105
-msgid "Terminal"
-msgstr "Terminalul"
-
-#: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1349
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Maximize"
-msgstr "Maximizează"
-
-#: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:692
-msgid "Disable input synchronization for this terminal"
-msgstr "Dezactivează sincronizarea scrisului introdus pentru acest terminal"
-
-#: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:829
-msgid "Read-Only"
-msgstr "Imuabil"
-
-#: source/gx/tilix/terminal/terminal.d:416
-msgid "New output"
-msgstr "Scris introdus nou"
-
-#: source/gx/tilix/terminal/terminal.d:422
-#: source/gx/tilix/prefeditor/profileeditor.d:446
-msgid "Terminal bell"
-msgstr "Clopoțel"
-
-#: source/gx/tilix/terminal/terminal.d:467
-msgid "Edit Profile"
-msgstr "Modifică Profil"
-
-#: source/gx/tilix/terminal/terminal.d:485
-msgid "Edit Encodings"
-msgstr "Modifică Codificări"
-
-#: source/gx/tilix/terminal/terminal.d:694
-msgid "Enable input synchronization for this terminal"
-msgstr "Activează sincronizări de scris introdus pentru acest terminal"
-
-#: source/gx/tilix/terminal/terminal.d:729
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Biblioteca %s nu a putut fi încărcată, funcționalitatea de parolă nu este "
-"disponibilă."
-
-#: source/gx/tilix/terminal/terminal.d:729
-msgid "Library Not Loaded"
-msgstr "Bibliotecă Neîncărcată"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Find…"
-msgstr "Caută…"
-
-#: source/gx/tilix/terminal/terminal.d:835
-msgid "Password..."
-msgstr "Parolă..."
-
-#: source/gx/tilix/terminal/terminal.d:836
-msgid "Bookmark..."
-msgstr "Semn de carte..."
-
-#: source/gx/tilix/terminal/terminal.d:837
-msgid "Add Bookmark..."
-msgstr "Adaugă Semn de Carte..."
-
-#: source/gx/tilix/terminal/terminal.d:841
-msgid "Assistants"
-msgstr "Asistenți"
-
-#: source/gx/tilix/terminal/terminal.d:842
-#: source/gx/tilix/prefeditor/prefdialog.d:283
-msgid "Profiles"
-msgstr "Profiluri"
-
-#: source/gx/tilix/terminal/terminal.d:848
-msgid "Show File Browser..."
-msgstr "Afișează Navigatorul de Fișiere..."
-
-#: source/gx/tilix/terminal/terminal.d:852
-msgid "Save Output…"
-msgstr "Salvează Scrisul Produs…"
-
-#: source/gx/tilix/terminal/terminal.d:853
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/prefeditor/profileeditor.d:328
-msgid "Reset"
-msgstr "Restabilește"
-
-#: source/gx/tilix/terminal/terminal.d:854
-msgid "Reset and Clear"
-msgstr "Restabilește și Eliberează"
-
-#: source/gx/tilix/terminal/terminal.d:858
-#: source/gx/tilix/prefeditor/prefdialog.d:166
-#: source/gx/tilix/prefeditor/prefdialog.d:167
-#: source/gx/tilix/prefeditor/prefdialog.d:463
-#: source/gx/tilix/prefeditor/prefdialog.d:681
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
-msgid "Encoding"
-msgstr "Codificare"
-
-#: source/gx/tilix/terminal/terminal.d:859
-msgid "Layout Options…"
-msgstr "Opțiuni de Amplasare…"
-
-#: source/gx/tilix/terminal/terminal.d:863
-msgid "Monitor Silence"
-msgstr "Monitorizează Liniștea"
-
-#: source/gx/tilix/terminal/terminal.d:866
-msgid "Other"
-msgstr "Altele"
-
-#: source/gx/tilix/terminal/terminal.d:875
-msgid "Add Right"
-msgstr "Adaugă la Dreapta"
-
-#: source/gx/tilix/terminal/terminal.d:879
-msgid "Add Down"
-msgstr "Adaugă Dedesubt"
-
-#: source/gx/tilix/terminal/terminal.d:989
-msgid "Terminal Activity"
-msgstr "Activitate Terminal"
-
-#: source/gx/tilix/terminal/terminal.d:1325
-msgid "Not Enabled"
-msgstr "Neactivat"
-
-#: source/gx/tilix/terminal/terminal.d:1346
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Restore"
-msgstr "Restabilește"
-
-#: source/gx/tilix/terminal/terminal.d:1698
-msgid "Tilix Custom Notification"
-msgstr "Notificare personalizată"
-
-#: source/gx/tilix/terminal/terminal.d:1799
-msgid "Open Link"
-msgstr "Deschide Legătură"
-
-#: source/gx/tilix/terminal/terminal.d:1800
-msgid "Copy Link Address"
-msgstr "Copiază Adresa de Legătură"
-
-#: source/gx/tilix/terminal/terminal.d:1810
-#: source/gx/tilix/terminal/terminal.d:1820
-msgid "Copy"
-msgstr "Copiază"
-
-#: source/gx/tilix/terminal/terminal.d:1812
-#: source/gx/tilix/terminal/terminal.d:1826
-msgid "Copy as HTML"
-msgstr "Copiază ca HTML"
-
-#: source/gx/tilix/terminal/terminal.d:1814
-#: source/gx/tilix/terminal/terminal.d:1832
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Lipire"
-
-#: source/gx/tilix/terminal/terminal.d:1815
-#: source/gx/tilix/terminal/terminal.d:1837
-msgid "Select All"
-msgstr "Selecționează Tot"
-
-#: source/gx/tilix/terminal/terminal.d:1840
-#: source/gx/tilix/prefeditor/prefdialog.d:1560
-msgid "Clipboard"
-msgstr "Clipboard"
-
-#: source/gx/tilix/terminal/terminal.d:1854
-msgid "Synchronize input"
-msgstr "Sincronizează Scrisul Introdus"
-
-#: source/gx/tilix/terminal/terminal.d:2007
-#, c-format
-msgid "Could not check file '%s' due to error '%s'"
-msgstr "Nu s-a putut verifica fișierul '%s' din cauza erorii '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2014
-#, fuzzy, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"URI was '%s'"
-msgstr ""
-"Fișierele la distanță nu sunt suportate cu hiperlegături\n"
-"Legătura era '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2015
-msgid "Remote File URI Unsupported"
-msgstr "Fișier la Distanță Nesuportat"
-
-#: source/gx/tilix/terminal/terminal.d:2047
-#: source/gx/tilix/terminal/terminal.d:2622
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "Expresia regulată personalizată '%s' are o eroare, se ignoră"
-
-#: source/gx/tilix/terminal/terminal.d:2048
-msgid "Regular Expression Error"
-msgstr "Eroare de Expresie Regulată"
-
-#: source/gx/tilix/terminal/terminal.d:2061
-#, c-format
-msgid "Could not open match '%s'"
-msgstr "Nu s-a putut deschide '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2062
-msgid "Error Opening Match"
-msgstr "Eroare de Deschidere"
-
-#: source/gx/tilix/terminal/terminal.d:2572
-#, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr ""
-"Eroare neașteptată apărută în urma adăugării expresiei regulate pentru "
-"legături: %s"
-
-#: source/gx/tilix/terminal/terminal.d:2779
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Eroare neașteptată apărută, nu sunt disponibile alte informații"
-
-#: source/gx/tilix/terminal/terminal.d:2789
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Eroare neașteptată apărută: %s"
-
-#: source/gx/tilix/terminal/terminal.d:3671
-msgid "Save Terminal Output"
-msgstr "Salvează Scrisul Produs în Terminal"
-
-#: source/gx/tilix/terminal/terminal.d:3680
-msgid "All Text Files"
-msgstr "Toate Fișierele Text"
-
-#: source/gx/tilix/terminal/terminal.d:4010
-msgid "Unknown"
-msgstr "Necunoscut"
-
-#: source/gx/tilix/terminal/terminal.d:4274
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Procesul copil a ieșit normal cu statutul %d"
-
-#: source/gx/tilix/terminal/terminal.d:4275
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Procesul copil a fost încetat de către semnalul %d."
-
-#: source/gx/tilix/terminal/terminal.d:4276
-msgid "The child process was aborted."
-msgstr "Procesul copil a fost încetat."
-
-#: source/gx/tilix/terminal/terminal.d:4282
-msgid "Relaunch"
-msgstr "Relansare"
-
-#: source/gx/tilix/terminal/terminal.d:4349
-msgid "Don't Paste"
-msgstr "Nu Lipi"
-
-#: source/gx/tilix/terminal/terminal.d:4350
-msgid "Paste Anyway"
-msgstr "Lipește Oricum"
-
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
-msgstr ""
-"Monitorizarea de procese nu este activată, asta ar trebui să nu fie apelată "
-"vreodată"
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "Nou"
-
-#: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/profileeditor.d:1325
-#: source/gx/tilix/prefeditor/common.d:46
-#: source/gx/tilix/prefeditor/common.d:77
-msgid "Edit"
-msgstr "Modifică"
-
-#: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/prefdialog.d:556
-#: source/gx/tilix/prefeditor/advdialog.d:141
-#: source/gx/tilix/prefeditor/advdialog.d:319
-#: source/gx/tilix/prefeditor/profileeditor.d:1344
-msgid "Delete"
-msgstr "Șterge"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr "Include un caracter de linie nouă cu parola"
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "Introduce Parola"
-
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Apply"
-msgstr "Aplică"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "Parola"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "Confirmă Parola"
-
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-msgid "OK"
-msgstr "Acceptă"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "Adaugă Parola"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "Modifică Parola"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "Opțiuni de Amplasare"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "Activ"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
-#: source/gx/tilix/closedialog.d:123
-msgid "Title"
-msgstr "Titlu"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1179
-msgid "Badge"
-msgstr "Insignă"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "Încărcare de Sesiune"
-
-#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-msgid "Command"
-msgstr "Comandă"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Opțiunile active sunt întotdeauna în efect și sunt aplicate imediat.\n"
-"Opțiunile de Încărcare de Sesiune se aplică numai la încărcarea unui fișier "
-"de sesiune."
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Comanda necesită acces administrativ"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Copierea comenzilor de pe internet poate fi periculoasă. "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Asigură-te că înțelegi ce face fiecare parte a acestei comenzi."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Transformă"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Transformă spații în taburi"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "Transformă CRLF și CR în LF"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Lipire Avansată"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "Un emulator terminal bazat pe VTE pentru Linux"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"Această Formă a Codului Sursă este supusă termenilor din Mozilla Public "
-"License, v 2.0. Dacă o copie MPL nu a fost distribuită cu acest fișier, poți "
-"obține una la http://mozilla.org/MPL/2.0/."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "Echipa de widgets GTK VTE, Tilix nu ar fi posibil fără munca lor"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD pentru un wrapper GTK excelent"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org pentru un limbaj excelent, D"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "Titlul iconiței"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "Director"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "Domeniu"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "Utilizator"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "Coloane"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "Rânduri"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "Proces"
-
-#: source/gx/tilix/constants.d:161
-msgid "Status.Read-Only"
-msgstr "Statut.Read-Only"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr "Statut.Liniște"
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr "Statut.Sincronizare-Scris-Introdus"
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "Număr de terminale"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "Numărul terminalului"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "Titlu activ de terminal"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "Nume de aplicație"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "Nume de sesiune"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "Număr de sesiune"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "Număr de sesiuni"
-
-#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/closedialog.d:129
 #: source/gx/tilix/prefeditor/profileeditor.d:449
+#: source/gx/tilix/bookmark/bmtreeview.d:70
 msgid "Icon"
 msgstr "Iconiță"
-
-#: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Folder"
-msgstr "Alege Director"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Alege Director"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Goleșțe directorul"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "Adaugă Semnul de Carte"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "Modifică Semnul de Carte"
-
-#: source/gx/tilix/bookmark/bmeditor.d:292
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Path"
-msgstr "Cale"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "Alege Calea"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "Protocol"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "Gazdă"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "Utilizator"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "Parametrii"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "Eroare în deserializarea semnului de carte"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "Rădăcină"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Nu se pot încărca semne de carte din cauza erorilor neașteptate"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "Director"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "La Distanță"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "Include caracter de linie nouă cu semnul de carte"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "Alege Semn de Carte"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:272
-msgid "translator-credits"
-msgstr "Andrei Pavel <andrei.pavel@cti.pub.ro>"
-
-#: source/gx/tilix/application.d:281
-msgid "Credits"
-msgstr "Generic"
-
-#: source/gx/tilix/application.d:658
-msgid "Set the working directory of the terminal"
-msgstr "Setează directorul de muncă al terminalului"
-
-#: source/gx/tilix/application.d:658
-msgid "DIRECTORY"
-msgstr "DIRECTOR"
-
-#: source/gx/tilix/application.d:659
-msgid "Set the starting profile"
-msgstr "Setează profilul de început"
-
-#: source/gx/tilix/application.d:659
-msgid "PROFILE_NAME"
-msgstr "NUME_PROFIL"
-
-#: source/gx/tilix/application.d:660
-msgid "Set the title of the new terminal"
-msgstr "Setează titlul unui terminal nou"
-
-#: source/gx/tilix/application.d:660
-msgid "TITLE"
-msgstr "TITLU"
-
-#: source/gx/tilix/application.d:661
-msgid "Open the specified session"
-msgstr "Deschide sesiunea specificată"
-
-#: source/gx/tilix/application.d:661
-msgid "SESSION_NAME"
-msgstr "NUME_SESIUNE"
-
-#: source/gx/tilix/application.d:663
-msgid "Send an action to current Tilix instance"
-msgstr "Trimite o acțiune către instanța curentă de Tilix"
-
-#: source/gx/tilix/application.d:663
-msgid "ACTION_NAME"
-msgstr "NUME_ACȚIUNE"
-
-#: source/gx/tilix/application.d:665
-msgid "Execute the parameter as a command"
-msgstr "Execută parametrul ca o comandă"
-
-#: source/gx/tilix/application.d:665
-msgid "COMMAND"
-msgstr "COMANDĂ"
-
-#: source/gx/tilix/application.d:666
-msgid "Maximize the terminal window"
-msgstr "Maximizează fereastra de terminal"
-
-#: source/gx/tilix/application.d:667
-msgid "Minimize the terminal window"
-msgstr "Minimizează fereastra de terminal"
-
-#: source/gx/tilix/application.d:668
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-"Suprascrie stilul preferat al ferestrei, unul dintre: normal, disable-csd, "
-"disable-csd-hide-toolbar, borderless"
-
-#: source/gx/tilix/application.d:668
-msgid "WINDOW_STYLE"
-msgstr "STIL_FEREASTRĂ"
-
-#: source/gx/tilix/application.d:669
-msgid "Full-screen the terminal window"
-msgstr "Afișează terminalul pe tot ecranul"
-
-#: source/gx/tilix/application.d:670
-msgid "Focus the existing window"
-msgstr "Ațintește fereastra existentă"
-
-#: source/gx/tilix/application.d:671
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "Pornește o nouă instanță printr-un nou proces (Nerecomandat)"
-
-#: source/gx/tilix/application.d:672
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-"Stabilește dimensiunea ferestrei; spre exemplu: 80x24, sau 80x24+200+200 "
-"(COLOANExRÂNDURI+X+Y)"
-
-#: source/gx/tilix/application.d:672
-msgid "GEOMETRY"
-msgstr "GEOMETRIE"
-
-#: source/gx/tilix/application.d:673
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"Deschide o fereastră în modul Quake sau comută vizibilitatea modului Quake "
-"în ferestrele existente"
-
-#: source/gx/tilix/application.d:674
-msgid "Show the Tilix and dependant component versions"
-msgstr "Afișează versiunea lui Tilix și versiunile componentelor dependente"
-
-#: source/gx/tilix/application.d:675
-msgid "Show the Tilix preferences dialog directly"
-msgstr "Afișează direct dialogul preferințelor Tilix"
-
-#: source/gx/tilix/application.d:676
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr ""
-"Grupează instanțele Tilix în diferite procese (experimental, nerecomandat)"
-
-#: source/gx/tilix/application.d:676
-#, fuzzy
-msgid "GROUP_NAME"
-msgstr "NUME_PROFIL"
-
-#: source/gx/tilix/application.d:679
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Argument ascuns pentru a pasa UUID-ul terminalului"
-
-#: source/gx/tilix/application.d:679
-msgid "TERMINAL_UUID"
-msgstr "TERMINAL_UUID"
-
-#: source/gx/tilix/application.d:696
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr "ID-ul aplicației %s nu este valid"
-
-#: source/gx/tilix/application.d:854
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Pare să fie o problemă cu configurația terminalului.\n"
-"Problema nu este serioasă, dar corectarea ei vă va îmbunătăți experiența.\n"
-"Apasă pe legătura de mai jos pentru mai multă informație:"
-
-#: source/gx/tilix/application.d:855
-msgid "Configuration Issue Detected"
-msgstr "Problemă de Configurare Detectată"
-
-#: source/gx/tilix/application.d:867
-msgid "Do not show this message again"
-msgstr "Nu mai arăta mesajul ăsta"
-
-#: source/gx/tilix/closedialog.d:143 source/gx/gtk/dialog.d:89
-msgid "Do not show this again"
-msgstr "Nu mai afișa de acum încolo"
 
 #: source/gx/tilix/closedialog.d:170
 #, c-format
@@ -1228,6 +1099,22 @@ msgstr "Închide Fereastra"
 #: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
 msgid "Close Session"
 msgstr "Închide Sesiunea"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Adaugă semn de carte"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Modifică semn de carte"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Șterge semn de carte"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Deselecționează semn de carte"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:123
 msgid "Tilix Preferences"
@@ -1266,6 +1153,10 @@ msgstr "Scurtături"
 #: source/gx/tilix/prefeditor/profileeditor.d:577
 msgid "Advanced"
 msgstr "Avansat"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
+msgid "Profile"
+msgstr "Profil"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:189
 msgid "Add profile"
@@ -1582,6 +1473,11 @@ msgstr "Trimite notificare la terminarea procesului"
 msgid "On new instance"
 msgstr "După o nouă instanță"
 
+#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+msgid "New Session"
+msgstr "Nouă Sesiune"
+
 #: source/gx/tilix/prefeditor/prefdialog.d:1554
 msgid "Split Right"
 msgstr "Împarte la Dreapta"
@@ -1609,8 +1505,36 @@ msgstr ""
 "variabilă"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Strip trailing whitespaces and linebreak characters on paste"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
 msgstr "Copiază automat textul în clipboard după selectare"
+
+#: source/gx/tilix/prefeditor/common.d:37
+msgid "Custom Links"
+msgstr "Legături Personalizate"
+
+#: source/gx/tilix/prefeditor/common.d:43
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"O listă de legături definite de utilizator care pot fi apăsate în terminal "
+"bazat pe definiții de expresii regulate."
+
+#: source/gx/tilix/prefeditor/common.d:67
+msgid "Triggers"
+msgstr "Declanșatori"
+
+#: source/gx/tilix/prefeditor/common.d:74
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Declanșatorii sunt expresii regulate folosite pentru a găsi text produs în "
+"terminal. Când are loc o găsire, acțiunea configurată se execută."
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
 msgid "Session"
@@ -1624,22 +1548,6 @@ msgstr "Fereastră"
 #: source/gx/tilix/prefeditor/titleeditor.d:127
 msgid "Help"
 msgstr "Ajutor"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Adaugă semn de carte"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Modifică semn de carte"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Șterge semn de carte"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Deselecționează semn de carte"
 
 #: source/gx/tilix/prefeditor/advdialog.d:94
 #: source/gx/tilix/prefeditor/advdialog.d:261
@@ -2148,82 +2056,181 @@ msgstr "Prag pentru linișțe continuă"
 msgid "(seconds)"
 msgstr "(secunde)"
 
-#: source/gx/tilix/prefeditor/common.d:37
-msgid "Custom Links"
-msgstr "Legături Personalizate"
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "Nu s-a putut localiza terminalul picat"
 
-#: source/gx/tilix/prefeditor/common.d:43
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "Nu s-a putut localiza sesiunea pentru terminalul picat"
+
+#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Folder"
+msgstr "Alege Director"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Alege Director"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Goleșțe directorul"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "Adaugă Semnul de Carte"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "Modifică Semnul de Carte"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "Cale"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "Alege Calea"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "Protocol"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "Gazdă"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "Utilizator"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "Parametrii"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "Include caracter de linie nouă cu semnul de carte"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "Alege Semn de Carte"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "Eroare în deserializarea semnului de carte"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "Rădăcină"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Nu se pot încărca semne de carte din cauza erorilor neașteptate"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "Director"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "La Distanță"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "Un emulator terminal bazat pe VTE pentru Linux"
+
+#: source/gx/tilix/constants.d:73
 msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
 msgstr ""
-"O listă de legături definite de utilizator care pot fi apăsate în terminal "
-"bazat pe definiții de expresii regulate."
+"Această Formă a Codului Sursă este supusă termenilor din Mozilla Public "
+"License, v 2.0. Dacă o copie MPL nu a fost distribuită cu acest fișier, poți "
+"obține una la http://mozilla.org/MPL/2.0/."
 
-#: source/gx/tilix/prefeditor/common.d:67
-msgid "Triggers"
-msgstr "Declanșatori"
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr "Echipa de widgets GTK VTE, Tilix nu ar fi posibil fără munca lor"
 
-#: source/gx/tilix/prefeditor/common.d:74
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"Declanșatorii sunt expresii regulate folosite pentru a găsi text produs în "
-"terminal. Când are loc o găsire, acțiunea configurată se execută."
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD pentru un wrapper GTK excelent"
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "dezactivat"
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org pentru un limbaj excelent, D"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"Versiunea ta de GTK este prea veche, ai nevoie de GTK %d.%d.%d sau mai nou!"
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "Titlul iconiței"
 
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "O excepție neașteaptă a avut loc"
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "Director"
 
-#: source/app.d:157
-msgid "Error: "
-msgstr "Eroare: "
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "Domeniu"
 
-#: source/app.d:167
-msgid "Versions"
-msgstr "Versiuni"
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "Utilizator"
 
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Versiunea Tilix: %s"
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "Coloane"
 
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "Versiunea VTE: %s"
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "Rânduri"
 
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "Versiunea GTK: %d.%d.%d"
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "Proces"
 
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Funcționalități Speciale Tilix"
+#: source/gx/tilix/constants.d:161
+msgid "Status.Read-Only"
+msgstr "Statut.Read-Only"
 
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "Notificări activate=%b"
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr "Statut.Liniște"
 
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "Mecanisme de declanșare activate=%b"
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr "Statut.Sincronizare-Scris-Introdus"
 
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "Insigne activate=%b"
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "Număr de terminale"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "Numărul terminalului"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "Titlu activ de terminal"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "Nume de aplicație"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "Nume de sesiune"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "Număr de sesiune"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "Număr de sesiuni"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"

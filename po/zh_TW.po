@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix 20160222\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 00:13+0100\n"
+"POT-Creation-Date: 2021-01-26 00:03+0100\n"
 "PO-Revision-Date: 2020-08-20 09:36+0000\n"
 "Last-Translator: marklin0913da248e4cdada422a <marklin0913@protonmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -16,6 +16,913 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.2.1-dev\n"
+
+#: source/app.d:139
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "你的 GTK 版本過舊，至少需要 GTK %d.%d.%d！"
+
+#: source/app.d:156
+msgid "Unexpected exception occurred"
+msgstr "發生未逾期的錯誤"
+
+#: source/app.d:157
+msgid "Error: "
+msgstr "錯誤： "
+
+#: source/app.d:167
+msgid "Versions"
+msgstr "版本"
+
+#: source/app.d:168
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Tilix 版本：%s"
+
+#: source/app.d:169
+#, c-format
+msgid "VTE version: %s"
+msgstr "VTE 版本： %s"
+
+#: source/app.d:170
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK 版本：%d.%d.%d"
+
+#: source/app.d:171
+msgid "Tilix Special Features"
+msgstr "Tilix 特殊功能"
+
+#: source/app.d:172
+msgid "Notifications enabled=%b"
+msgstr "啟用通知 = %b"
+
+#: source/app.d:173
+msgid "Triggers enabled=%b"
+msgstr "啟用觸發器 = %b"
+
+#: source/app.d:174
+msgid "Badges enabled=%b"
+msgstr "啟用徽章 = %b"
+
+#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "不再顯示該資訊"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "已禁用"
+
+#: source/gx/tilix/appwindow.d:320
+msgid "Create a new session"
+msgstr "建立會話"
+
+#: source/gx/tilix/appwindow.d:334
+msgid "View session sidebar"
+msgstr "顯示會話側邊列"
+
+#: source/gx/tilix/appwindow.d:369
+msgid "Add terminal right"
+msgstr "新增右側終端"
+
+#: source/gx/tilix/appwindow.d:373
+msgid "Add terminal down"
+msgstr "新增下方終端"
+
+#: source/gx/tilix/appwindow.d:379
+msgid "Find text in terminal"
+msgstr "在終端中尋找文字"
+
+#: source/gx/tilix/appwindow.d:602
+msgid "Enter a new name for the session"
+msgstr "為會話新建名稱"
+
+#: source/gx/tilix/appwindow.d:604
+msgid "Change Session Name"
+msgstr "更改會話名稱"
+
+#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
+msgid "New Window"
+msgstr "新建視窗"
+
+#: source/gx/tilix/appwindow.d:683
+msgid "Open…"
+msgstr "開啟…"
+
+#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+msgid "Save"
+msgstr "儲存"
+
+#: source/gx/tilix/appwindow.d:685
+msgid "Save As…"
+msgstr "另存為…"
+
+#: source/gx/tilix/appwindow.d:691
+msgid "Name…"
+msgstr "名稱…"
+
+#: source/gx/tilix/appwindow.d:692
+msgid "Synchronize Input"
+msgstr "同步輸入"
+
+#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
+#: source/gx/tilix/prefeditor/prefdialog.d:414
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
+msgid "Preferences"
+msgstr "偏好"
+
+#: source/gx/tilix/appwindow.d:697
+#, fuzzy
+msgid "Keyboard Shortcuts"
+msgstr "快捷鍵"
+
+#: source/gx/tilix/appwindow.d:698
+#, fuzzy
+msgid "About Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/tilix/appwindow.d:1082
+#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+msgid "Default"
+msgstr "預設"
+
+#: source/gx/tilix/appwindow.d:1191
+msgid "There are multiple sessions open, close anyway?"
+msgstr "存在多個開啟的會話，依然要關閉嗎？"
+
+#: source/gx/tilix/appwindow.d:1455
+#: source/gx/tilix/prefeditor/profileeditor.d:965
+msgid "All JSON Files"
+msgstr "所有 JSON 檔案"
+
+#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3694
+#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:969
+msgid "All Files"
+msgstr "所有檔案"
+
+#: source/gx/tilix/appwindow.d:1468
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "檔名「%s」不存在"
+
+#: source/gx/tilix/appwindow.d:1500
+msgid "Load Session"
+msgstr "載入會話"
+
+#: source/gx/tilix/appwindow.d:1503
+msgid "Open"
+msgstr "開啟"
+
+#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/terminal/terminal.d:3684
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:952
+#: source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "Cancel"
+msgstr "取消"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Could not load session due to unexpected error."
+msgstr "發生未知錯誤，無法載入會話。"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Error Loading Session"
+msgstr "載入會話時發生錯誤"
+
+#: source/gx/tilix/appwindow.d:1549
+msgid "Save Session"
+msgstr "儲存會話"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "發生未知錯誤，無法載入會話。"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "載入會話時發生錯誤"
+
+#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
+#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+msgid "Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:1710
+msgid "Quake mode is not supported under Wayland, running as normal window"
+msgstr "Quake 模式不支援在 Wayland 下使用，將作為普通視窗運行"
+
+#: source/gx/tilix/appwindow.d:1712
+msgid "Quake Mode Not Supported"
+msgstr "不支援 Quake 模式"
+
+#: source/gx/tilix/appwindow.d:2181
+msgid "New output displayed"
+msgstr ""
+
+#: source/gx/tilix/appwindow.d:2189
+msgid "Close session"
+msgstr "關閉會話"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr "Mingcong Bai"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr ""
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "設定終端的工作目錄"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr ""
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "設定啟動配置檔"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr ""
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "設定新終端標題"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "標題"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "開啟指定的會話"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "會話名稱"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "將操作發送到當前 Tilix 實例"
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "動作名稱"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "將參數作為指令執行"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "指令"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "最大化終端視窗"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "最小化終端視窗"
+
+#: source/gx/tilix/application.d:668
+msgid ""
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
+
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "視窗樣式"
+
+#: source/gx/tilix/application.d:669
+#, fuzzy
+msgid "Full-screen the terminal window"
+msgstr "保持終端開啟"
+
+#: source/gx/tilix/application.d:670
+#, fuzzy
+msgid "Focus the existing window"
+msgstr "保持終端開啟"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr ""
+
+#: source/gx/tilix/application.d:672
+msgid ""
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr ""
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr ""
+
+#: source/gx/tilix/application.d:673
+msgid ""
+"Opens a window in quake mode or toggles existing quake mode window visibility"
+msgstr ""
+
+#: source/gx/tilix/application.d:674
+msgid "Show the Tilix and dependent component versions"
+msgstr ""
+
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr ""
+
+#: source/gx/tilix/application.d:676
+msgid ""
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr ""
+
+#: source/gx/tilix/application.d:676
+msgid "GROUP_NAME"
+msgstr ""
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr ""
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr ""
+
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr ""
+
+#: source/gx/tilix/application.d:854
+msgid ""
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
+msgstr ""
+"終端配置似乎存在問題。這並不是嚴重問題，但是更正這些問題將改善你的使用體驗。"
+"點選如下連結以獲取更多資訊："
+
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "檢測到配置問題"
+
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "不再顯示該資訊"
+
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "因為 \"%s\" 不是目錄，所以被忽略"
+
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr ""
+
+#: source/gx/tilix/cmdparams.d:186
+msgid ""
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr ""
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1860
+msgid "Close"
+msgstr "關閉"
+
+#: source/gx/tilix/terminal/terminal.d:348
+#: source/gx/tilix/terminal/terminal.d:1309
+#: source/gx/tilix/prefeditor/titleeditor.d:105
+msgid "Terminal"
+msgstr "終端"
+
+#: source/gx/tilix/terminal/terminal.d:391
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Maximize"
+msgstr "最大化"
+
+#: source/gx/tilix/terminal/terminal.d:401
+#: source/gx/tilix/terminal/terminal.d:692
+msgid "Disable input synchronization for this terminal"
+msgstr "在此終端禁用同步輸入"
+
+#: source/gx/tilix/terminal/terminal.d:410
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Read-Only"
+msgstr "只讀"
+
+#: source/gx/tilix/terminal/terminal.d:416
+msgid "New output"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:422
+#: source/gx/tilix/prefeditor/profileeditor.d:446
+#, fuzzy
+msgid "Terminal bell"
+msgstr "終端響鈴"
+
+#: source/gx/tilix/terminal/terminal.d:467
+msgid "Edit Profile"
+msgstr "編輯配置檔"
+
+#: source/gx/tilix/terminal/terminal.d:485
+msgid "Edit Encodings"
+msgstr "編輯編碼"
+
+#: source/gx/tilix/terminal/terminal.d:694
+msgid "Enable input synchronization for this terminal"
+msgstr "在此終端啟用同步輸入"
+
+#: source/gx/tilix/terminal/terminal.d:729
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr "無法載入函式庫：%s， 密碼功能不可用。"
+
+#: source/gx/tilix/terminal/terminal.d:729
+msgid "Library Not Loaded"
+msgstr "函式庫未載入"
+
+#: source/gx/tilix/terminal/terminal.d:828
+msgid "Find…"
+msgstr "搜尋…"
+
+#: source/gx/tilix/terminal/terminal.d:835
+msgid "Password..."
+msgstr "密碼..."
+
+#: source/gx/tilix/terminal/terminal.d:836
+msgid "Bookmark..."
+msgstr "書簽..."
+
+#: source/gx/tilix/terminal/terminal.d:837
+msgid "Add Bookmark..."
+msgstr "新增書簽..."
+
+#: source/gx/tilix/terminal/terminal.d:841
+msgid "Assistants"
+msgstr "助理"
+
+#: source/gx/tilix/terminal/terminal.d:842
+#: source/gx/tilix/prefeditor/prefdialog.d:283
+msgid "Profiles"
+msgstr "配置方案"
+
+#: source/gx/tilix/terminal/terminal.d:848
+msgid "Show File Browser..."
+msgstr "顯示檔案瀏覽器..."
+
+#: source/gx/tilix/terminal/terminal.d:852
+msgid "Save Output…"
+msgstr "儲存輸出…"
+
+#: source/gx/tilix/terminal/terminal.d:853
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+#: source/gx/tilix/prefeditor/profileeditor.d:328
+msgid "Reset"
+msgstr "重置"
+
+#: source/gx/tilix/terminal/terminal.d:854
+msgid "Reset and Clear"
+msgstr "重置並清除"
+
+#: source/gx/tilix/terminal/terminal.d:858
+#: source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/prefeditor/prefdialog.d:167
+#: source/gx/tilix/prefeditor/prefdialog.d:463
+#: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1091
+msgid "Encoding"
+msgstr "編碼"
+
+#: source/gx/tilix/terminal/terminal.d:859
+msgid "Layout Options…"
+msgstr "佈局選項…"
+
+#: source/gx/tilix/terminal/terminal.d:863
+msgid "Monitor Silence"
+msgstr "顯示器靜音"
+
+#: source/gx/tilix/terminal/terminal.d:866
+msgid "Other"
+msgstr "其他"
+
+#: source/gx/tilix/terminal/terminal.d:875
+msgid "Add Right"
+msgstr "向右分割"
+
+#: source/gx/tilix/terminal/terminal.d:879
+msgid "Add Down"
+msgstr "向下分割"
+
+#: source/gx/tilix/terminal/terminal.d:989
+#, fuzzy
+msgid "Terminal Activity"
+msgstr "終端活動"
+
+#: source/gx/tilix/terminal/terminal.d:1325
+#, fuzzy
+msgid "Not Enabled"
+msgstr "已啟用"
+
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Restore"
+msgstr "還原"
+
+#: source/gx/tilix/terminal/terminal.d:1708
+msgid "Tilix Custom Notification"
+msgstr "Tilix 自訂通知"
+
+#: source/gx/tilix/terminal/terminal.d:1809
+msgid "Open Link"
+msgstr "開啟連結"
+
+#: source/gx/tilix/terminal/terminal.d:1810
+msgid "Copy Link Address"
+msgstr "複製連結網址"
+
+#: source/gx/tilix/terminal/terminal.d:1820
+#: source/gx/tilix/terminal/terminal.d:1830
+msgid "Copy"
+msgstr "複製"
+
+#: source/gx/tilix/terminal/terminal.d:1822
+#: source/gx/tilix/terminal/terminal.d:1836
+msgid "Copy as HTML"
+msgstr "複製為 HTML"
+
+#: source/gx/tilix/terminal/terminal.d:1824
+#: source/gx/tilix/terminal/terminal.d:1842
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Paste"
+msgstr "貼上"
+
+#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1847
+msgid "Select All"
+msgstr "全選"
+
+#: source/gx/tilix/terminal/terminal.d:1850
+#: source/gx/tilix/prefeditor/prefdialog.d:1560
+msgid "Clipboard"
+msgstr "剪貼簿"
+
+#: source/gx/tilix/terminal/terminal.d:1864
+msgid "Synchronize input"
+msgstr "同步輸入"
+
+#: source/gx/tilix/terminal/terminal.d:2017
+#, c-format
+msgid "Could not check file '%s' due to error '%s'"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2024
+#, fuzzy, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"URI was '%s'"
+msgstr ""
+"不支援遠端文件 URIs 超連結.\n"
+"Uri 為 '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2025
+msgid "Remote File URI Unsupported"
+msgstr "遠端文件 URI 不支援"
+
+#: source/gx/tilix/terminal/terminal.d:2057
+#: source/gx/tilix/terminal/terminal.d:2632
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr "自訂連結正則表達式 '%s' 有錯誤，已忽略"
+
+#: source/gx/tilix/terminal/terminal.d:2058
+msgid "Regular Expression Error"
+msgstr "正則表達式錯誤"
+
+#: source/gx/tilix/terminal/terminal.d:2071
+#, c-format
+msgid "Could not open match '%s'"
+msgstr "無法開啟匹配項目 \"%s\""
+
+#: source/gx/tilix/terminal/terminal.d:2072
+msgid "Error Opening Match"
+msgstr "開啟匹配項目錯誤"
+
+#: source/gx/tilix/terminal/terminal.d:2582
+#, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr "新增連結正則表達式 \"%s\" 時，發生未預期的錯誤"
+
+#: source/gx/tilix/terminal/terminal.d:2789
+msgid "Unexpected error occurred, no additional information available"
+msgstr "發生未預期的錯誤，沒有其他可用資訊"
+
+#: source/gx/tilix/terminal/terminal.d:2799
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "未預期的錯誤發生：%s"
+
+#: source/gx/tilix/terminal/terminal.d:3681
+msgid "Save Terminal Output"
+msgstr "儲存終端輸出"
+
+#: source/gx/tilix/terminal/terminal.d:3690
+msgid "All Text Files"
+msgstr "所有文字檔案"
+
+#: source/gx/tilix/terminal/terminal.d:4020
+msgid "Unknown"
+msgstr "未知"
+
+#: source/gx/tilix/terminal/terminal.d:4284
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "子程序以 %d 狀態正常退出"
+
+#: source/gx/tilix/terminal/terminal.d:4285
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "子程序被訊號 %d 終止。"
+
+#: source/gx/tilix/terminal/terminal.d:4286
+msgid "The child process was aborted."
+msgstr "子程序被終止。"
+
+#: source/gx/tilix/terminal/terminal.d:4292
+msgid "Relaunch"
+msgstr "重新啟動"
+
+#: source/gx/tilix/terminal/terminal.d:4359
+msgid "Don't Paste"
+msgstr "不要貼上"
+
+#: source/gx/tilix/terminal/terminal.d:4360
+msgid "Paste Anyway"
+msgstr "無論如何都要貼上"
+
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
+#: source/gx/tilix/bookmark/bmtreeview.d:73
+#: source/gx/tilix/bookmark/bmeditor.d:231
+msgid "Name"
+msgstr "名稱"
+
+#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "新建"
+
+#: source/gx/tilix/terminal/password.d:184
+#: source/gx/tilix/prefeditor/common.d:46
+#: source/gx/tilix/prefeditor/common.d:77
+#: source/gx/tilix/prefeditor/profileeditor.d:1325
+msgid "Edit"
+msgstr "編輯"
+
+#: source/gx/tilix/terminal/password.d:213
+#: source/gx/tilix/prefeditor/prefdialog.d:556
+#: source/gx/tilix/prefeditor/advdialog.d:141
+#: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/profileeditor.d:1344
+msgid "Delete"
+msgstr "刪除"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr ""
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "插入密碼"
+
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Apply"
+msgstr "套用"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "密碼"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "確認密碼"
+
+#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmeditor.d:151
+#: source/gx/tilix/bookmark/bmchooser.d:127
+msgid "OK"
+msgstr "確認"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "新增密碼"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "編輯密碼"
+
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
+msgstr ""
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "搜尋選項"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "尋找下一個"
+
+# ***********************************************
+# Keyboard shortcuts to the end, these are shown
+# in the Shortcut preferences and in the future
+# the shortcut overview if available in Gnome 3.20
+# ***********************************************
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "尋找上一個"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "區分大小寫"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "只匹配整個單詞"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "使用正規表示式匹配"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "折列"
+
+#: source/gx/tilix/terminal/search.d:235
+#, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr ""
+"\"%s\" 不是個正確的正則表達式\n"
+"%s"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "佈局選項"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "啟用"
+
+#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/closedialog.d:123
+#: source/gx/tilix/constants.d:152
+msgid "Title"
+msgstr "標題"
+
+#: source/gx/tilix/terminal/layout.d:68
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+#: source/gx/tilix/prefeditor/profileeditor.d:1179
+msgid "Badge"
+msgstr "徽章"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "載入會話"
+
+#: source/gx/tilix/terminal/layout.d:89
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1140
+#: source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Command"
+msgstr "指令"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "這個指令正在請求電腦的管理員權限"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "從網路上複製指令有一定的危險 "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "你應該要了解指令每個部分的作用。"
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "轉換"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "轉換空格為 Tab"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "轉換 CRLF 和 CR 為 LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "進階貼上"
+
+#: source/gx/tilix/preferences.d:252
+msgid "UpdateState"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:253
+#, fuzzy
+msgid "ExecuteCommand"
+msgstr "指令"
+
+#: source/gx/tilix/preferences.d:254
+msgid "SendNotification"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:255
+#, fuzzy
+msgid "UpdateTitle"
+msgstr "標題"
+
+#: source/gx/tilix/preferences.d:256
+msgid "PlayBell"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:257
+msgid "SendText"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:258
+msgid "InsertPassword"
+msgstr "插入密碼"
+
+#: source/gx/tilix/preferences.d:259
+#, fuzzy
+msgid "UpdateBadge"
+msgstr "標題"
+
+#: source/gx/tilix/preferences.d:260
+msgid "RunProcess"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:370
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (複製)"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr ""
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr ""
 
 #: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
 #: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
@@ -156,1051 +1063,11 @@ msgstr "越南語"
 msgid "Thai"
 msgstr "泰語"
 
-#: source/gx/tilix/appwindow.d:320
-msgid "Create a new session"
-msgstr "建立會話"
-
-#: source/gx/tilix/appwindow.d:334
-msgid "View session sidebar"
-msgstr "顯示會話側邊列"
-
-#: source/gx/tilix/appwindow.d:369
-msgid "Add terminal right"
-msgstr "新增右側終端"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "Add terminal down"
-msgstr "新增下方終端"
-
-#: source/gx/tilix/appwindow.d:379
-msgid "Find text in terminal"
-msgstr "在終端中尋找文字"
-
-#: source/gx/tilix/appwindow.d:602
-msgid "Enter a new name for the session"
-msgstr "為會話新建名稱"
-
-#: source/gx/tilix/appwindow.d:604
-msgid "Change Session Name"
-msgstr "更改會話名稱"
-
-#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
-msgid "New Window"
-msgstr "新建視窗"
-
-#: source/gx/tilix/appwindow.d:683
-msgid "Open…"
-msgstr "開啟…"
-
-#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Save"
-msgstr "儲存"
-
-#: source/gx/tilix/appwindow.d:685
-msgid "Save As…"
-msgstr "另存為…"
-
-#: source/gx/tilix/appwindow.d:691
-msgid "Name…"
-msgstr "名稱…"
-
-#: source/gx/tilix/appwindow.d:692
-msgid "Synchronize Input"
-msgstr "同步輸入"
-
-#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
-#: source/gx/tilix/prefeditor/prefdialog.d:414
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
-msgid "Preferences"
-msgstr "偏好"
-
-#: source/gx/tilix/appwindow.d:697
-#, fuzzy
-msgid "Keyboard Shortcuts"
-msgstr "快捷鍵"
-
-#: source/gx/tilix/appwindow.d:698
-#, fuzzy
-msgid "About Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/tilix/appwindow.d:1082 source/gx/tilix/session.d:1222
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Default"
-msgstr "預設"
-
-#: source/gx/tilix/appwindow.d:1191
-msgid "There are multiple sessions open, close anyway?"
-msgstr "存在多個開啟的會話，依然要關閉嗎？"
-
-#: source/gx/tilix/appwindow.d:1455
-#: source/gx/tilix/prefeditor/profileeditor.d:965
-msgid "All JSON Files"
-msgstr "所有 JSON 檔案"
-
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
-#: source/gx/tilix/prefeditor/profileeditor.d:969
-msgid "All Files"
-msgstr "所有檔案"
-
-#: source/gx/tilix/appwindow.d:1468
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "檔名「%s」不存在"
-
-#: source/gx/tilix/appwindow.d:1500
-msgid "Load Session"
-msgstr "載入會話"
-
-#: source/gx/tilix/appwindow.d:1503
-msgid "Open"
-msgstr "開啟"
-
-#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3674
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/advpaste.d:137
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Cancel"
-msgstr "取消"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Could not load session due to unexpected error."
-msgstr "發生未知錯誤，無法載入會話。"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Error Loading Session"
-msgstr "載入會話時發生錯誤"
-
-#: source/gx/tilix/appwindow.d:1549
-msgid "Save Session"
-msgstr "儲存會話"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Could not save session due to unexpected error."
-msgstr "發生未知錯誤，無法載入會話。"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Error Saving Session"
-msgstr "載入會話時發生錯誤"
-
-#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
-msgid "Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:1710
-msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr "Quake 模式不支援在 Wayland 下使用，將作為普通視窗運行"
-
-#: source/gx/tilix/appwindow.d:1712
-msgid "Quake Mode Not Supported"
-msgstr "不支援 Quake 模式"
-
-#: source/gx/tilix/appwindow.d:2181
-msgid "New output displayed"
-msgstr ""
-
-#: source/gx/tilix/appwindow.d:2189
-msgid "Close session"
-msgstr "關閉會話"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "因為 \"%s\" 不是目錄，所以被忽略"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr ""
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "無法定位放置的終端"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "無法定位放置的終端的會話"
-
-#: source/gx/tilix/session.d:1572 source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-#: source/gx/tilix/bookmark/bmeditor.d:231
-msgid "Name"
-msgstr "名稱"
-
-#: source/gx/tilix/session.d:1583 source/gx/tilix/prefeditor/prefdialog.d:176
-msgid "Profile"
-msgstr "配置方案"
-
-#: source/gx/tilix/session.d:1606 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "新建會話"
-
-#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1850
-msgid "Close"
-msgstr "關閉"
-
-#: source/gx/tilix/preferences.d:251
-msgid "UpdateState"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:252
-#, fuzzy
-msgid "ExecuteCommand"
-msgstr "指令"
-
-#: source/gx/tilix/preferences.d:253
-msgid "SendNotification"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:254
-#, fuzzy
-msgid "UpdateTitle"
-msgstr "標題"
-
-#: source/gx/tilix/preferences.d:255
-msgid "PlayBell"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:256
-msgid "SendText"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:257
-msgid "InsertPassword"
-msgstr "插入密碼"
-
-#: source/gx/tilix/preferences.d:258
-#, fuzzy
-msgid "UpdateBadge"
-msgstr "標題"
-
-#: source/gx/tilix/preferences.d:259
-msgid "RunProcess"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:369
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (複製)"
-
-#: source/gx/tilix/colorschemes.d:188
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr ""
-
-#: source/gx/tilix/colorschemes.d:251
-msgid "Color scheme palette requires 16 colors"
-msgstr ""
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "搜尋選項"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "尋找下一個"
-
-# ***********************************************
-# Keyboard shortcuts to the end, these are shown
-# in the Shortcut preferences and in the future
-# the shortcut overview if available in Gnome 3.20
-# ***********************************************
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "尋找上一個"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "區分大小寫"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "只匹配整個單詞"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "使用正規表示式匹配"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "折列"
-
-#: source/gx/tilix/terminal/search.d:235
-#, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr ""
-"\"%s\" 不是個正確的正則表達式\n"
-"%s"
-
-#: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1309
-#: source/gx/tilix/prefeditor/titleeditor.d:105
-msgid "Terminal"
-msgstr "終端"
-
-#: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1349
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Maximize"
-msgstr "最大化"
-
-#: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:692
-msgid "Disable input synchronization for this terminal"
-msgstr "在此終端禁用同步輸入"
-
-#: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:829
-msgid "Read-Only"
-msgstr "只讀"
-
-#: source/gx/tilix/terminal/terminal.d:416
-msgid "New output"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:422
-#: source/gx/tilix/prefeditor/profileeditor.d:446
-#, fuzzy
-msgid "Terminal bell"
-msgstr "終端響鈴"
-
-#: source/gx/tilix/terminal/terminal.d:467
-msgid "Edit Profile"
-msgstr "編輯配置檔"
-
-#: source/gx/tilix/terminal/terminal.d:485
-msgid "Edit Encodings"
-msgstr "編輯編碼"
-
-#: source/gx/tilix/terminal/terminal.d:694
-msgid "Enable input synchronization for this terminal"
-msgstr "在此終端啟用同步輸入"
-
-#: source/gx/tilix/terminal/terminal.d:729
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr "無法載入函式庫：%s， 密碼功能不可用。"
-
-#: source/gx/tilix/terminal/terminal.d:729
-msgid "Library Not Loaded"
-msgstr "函式庫未載入"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Find…"
-msgstr "搜尋…"
-
-#: source/gx/tilix/terminal/terminal.d:835
-msgid "Password..."
-msgstr "密碼..."
-
-#: source/gx/tilix/terminal/terminal.d:836
-msgid "Bookmark..."
-msgstr "書簽..."
-
-#: source/gx/tilix/terminal/terminal.d:837
-msgid "Add Bookmark..."
-msgstr "新增書簽..."
-
-#: source/gx/tilix/terminal/terminal.d:841
-msgid "Assistants"
-msgstr "助理"
-
-#: source/gx/tilix/terminal/terminal.d:842
-#: source/gx/tilix/prefeditor/prefdialog.d:283
-msgid "Profiles"
-msgstr "配置方案"
-
-#: source/gx/tilix/terminal/terminal.d:848
-msgid "Show File Browser..."
-msgstr "顯示檔案瀏覽器..."
-
-#: source/gx/tilix/terminal/terminal.d:852
-msgid "Save Output…"
-msgstr "儲存輸出…"
-
-#: source/gx/tilix/terminal/terminal.d:853
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/prefeditor/profileeditor.d:328
-msgid "Reset"
-msgstr "重置"
-
-#: source/gx/tilix/terminal/terminal.d:854
-msgid "Reset and Clear"
-msgstr "重置並清除"
-
-#: source/gx/tilix/terminal/terminal.d:858
-#: source/gx/tilix/prefeditor/prefdialog.d:166
-#: source/gx/tilix/prefeditor/prefdialog.d:167
-#: source/gx/tilix/prefeditor/prefdialog.d:463
-#: source/gx/tilix/prefeditor/prefdialog.d:681
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
-msgid "Encoding"
-msgstr "編碼"
-
-#: source/gx/tilix/terminal/terminal.d:859
-msgid "Layout Options…"
-msgstr "佈局選項…"
-
-#: source/gx/tilix/terminal/terminal.d:863
-msgid "Monitor Silence"
-msgstr "顯示器靜音"
-
-#: source/gx/tilix/terminal/terminal.d:866
-msgid "Other"
-msgstr "其他"
-
-#: source/gx/tilix/terminal/terminal.d:875
-msgid "Add Right"
-msgstr "向右分割"
-
-#: source/gx/tilix/terminal/terminal.d:879
-msgid "Add Down"
-msgstr "向下分割"
-
-#: source/gx/tilix/terminal/terminal.d:989
-#, fuzzy
-msgid "Terminal Activity"
-msgstr "終端活動"
-
-#: source/gx/tilix/terminal/terminal.d:1325
-#, fuzzy
-msgid "Not Enabled"
-msgstr "已啟用"
-
-#: source/gx/tilix/terminal/terminal.d:1346
-#: source/gx/tilix/terminal/terminal.d:1849
-msgid "Restore"
-msgstr "還原"
-
-#: source/gx/tilix/terminal/terminal.d:1698
-msgid "Tilix Custom Notification"
-msgstr "Tilix 自訂通知"
-
-#: source/gx/tilix/terminal/terminal.d:1799
-msgid "Open Link"
-msgstr "開啟連結"
-
-#: source/gx/tilix/terminal/terminal.d:1800
-msgid "Copy Link Address"
-msgstr "複製連結網址"
-
-#: source/gx/tilix/terminal/terminal.d:1810
-#: source/gx/tilix/terminal/terminal.d:1820
-msgid "Copy"
-msgstr "複製"
-
-#: source/gx/tilix/terminal/terminal.d:1812
-#: source/gx/tilix/terminal/terminal.d:1826
-msgid "Copy as HTML"
-msgstr "複製為 HTML"
-
-#: source/gx/tilix/terminal/terminal.d:1814
-#: source/gx/tilix/terminal/terminal.d:1832
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "貼上"
-
-#: source/gx/tilix/terminal/terminal.d:1815
-#: source/gx/tilix/terminal/terminal.d:1837
-msgid "Select All"
-msgstr "全選"
-
-#: source/gx/tilix/terminal/terminal.d:1840
-#: source/gx/tilix/prefeditor/prefdialog.d:1560
-msgid "Clipboard"
-msgstr "剪貼簿"
-
-#: source/gx/tilix/terminal/terminal.d:1854
-msgid "Synchronize input"
-msgstr "同步輸入"
-
-#: source/gx/tilix/terminal/terminal.d:2007
-#, c-format
-msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2014
-#, fuzzy, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"URI was '%s'"
-msgstr ""
-"不支援遠端文件 URIs 超連結.\n"
-"Uri 為 '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2015
-msgid "Remote File URI Unsupported"
-msgstr "遠端文件 URI 不支援"
-
-#: source/gx/tilix/terminal/terminal.d:2047
-#: source/gx/tilix/terminal/terminal.d:2622
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr "自訂連結正則表達式 '%s' 有錯誤，已忽略"
-
-#: source/gx/tilix/terminal/terminal.d:2048
-msgid "Regular Expression Error"
-msgstr "正則表達式錯誤"
-
-#: source/gx/tilix/terminal/terminal.d:2061
-#, c-format
-msgid "Could not open match '%s'"
-msgstr "無法開啟匹配項目 \"%s\""
-
-#: source/gx/tilix/terminal/terminal.d:2062
-msgid "Error Opening Match"
-msgstr "開啟匹配項目錯誤"
-
-#: source/gx/tilix/terminal/terminal.d:2572
-#, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "新增連結正則表達式 \"%s\" 時，發生未預期的錯誤"
-
-#: source/gx/tilix/terminal/terminal.d:2779
-msgid "Unexpected error occurred, no additional information available"
-msgstr "發生未預期的錯誤，沒有其他可用資訊"
-
-#: source/gx/tilix/terminal/terminal.d:2789
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "未預期的錯誤發生：%s"
-
-#: source/gx/tilix/terminal/terminal.d:3671
-msgid "Save Terminal Output"
-msgstr "儲存終端輸出"
-
-#: source/gx/tilix/terminal/terminal.d:3680
-msgid "All Text Files"
-msgstr "所有文字檔案"
-
-#: source/gx/tilix/terminal/terminal.d:4010
-msgid "Unknown"
-msgstr "未知"
-
-#: source/gx/tilix/terminal/terminal.d:4274
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "子程序以 %d 狀態正常退出"
-
-#: source/gx/tilix/terminal/terminal.d:4275
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "子程序被訊號 %d 終止。"
-
-#: source/gx/tilix/terminal/terminal.d:4276
-msgid "The child process was aborted."
-msgstr "子程序被終止。"
-
-#: source/gx/tilix/terminal/terminal.d:4282
-msgid "Relaunch"
-msgstr "重新啟動"
-
-#: source/gx/tilix/terminal/terminal.d:4349
-msgid "Don't Paste"
-msgstr "不要貼上"
-
-#: source/gx/tilix/terminal/terminal.d:4350
-msgid "Paste Anyway"
-msgstr "無論如何都要貼上"
-
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
-msgstr ""
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "新建"
-
-#: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/profileeditor.d:1325
-#: source/gx/tilix/prefeditor/common.d:46
-#: source/gx/tilix/prefeditor/common.d:77
-msgid "Edit"
-msgstr "編輯"
-
-#: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/prefdialog.d:556
-#: source/gx/tilix/prefeditor/advdialog.d:141
-#: source/gx/tilix/prefeditor/advdialog.d:319
-#: source/gx/tilix/prefeditor/profileeditor.d:1344
-msgid "Delete"
-msgstr "刪除"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr ""
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "插入密碼"
-
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Apply"
-msgstr "套用"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "密碼"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "確認密碼"
-
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127 source/gx/tilix/closedialog.d:202
-msgid "OK"
-msgstr "確認"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "新增密碼"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "編輯密碼"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "佈局選項"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "啟用"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/constants.d:152
-#: source/gx/tilix/closedialog.d:123
-msgid "Title"
-msgstr "標題"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1179
-msgid "Badge"
-msgstr "徽章"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "載入會話"
-
-#: source/gx/tilix/terminal/layout.d:89 source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-#: source/gx/tilix/bookmark/manager.d:687
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-msgid "Command"
-msgstr "指令"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "這個指令正在請求電腦的管理員權限"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "從網路上複製指令有一定的危險 "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "你應該要了解指令每個部分的作用。"
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "轉換"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "轉換空格為 Tab"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "轉換 CRLF 和 CR 為 LF"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "進階貼上"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr ""
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr ""
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr ""
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr ""
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "圖示標題"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "目錄"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "主機名"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "用戶名"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "欄"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "列"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "程序"
-
-#: source/gx/tilix/constants.d:161
-#, fuzzy
-msgid "Status.Read-Only"
-msgstr "只讀"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr ""
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr ""
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "終端數量"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "終端編號"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "活動中終端標題"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "應用程式名稱"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "會話名稱"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "會話編號"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "會話數量"
-
-#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/closedialog.d:129
 #: source/gx/tilix/prefeditor/profileeditor.d:449
+#: source/gx/tilix/bookmark/bmtreeview.d:70
 msgid "Icon"
 msgstr "圖標"
-
-#: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:126
-#, fuzzy
-msgid "Select Folder"
-msgstr "選擇資料夾"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-#, fuzzy
-msgid "Select folder"
-msgstr "選擇資料夾"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "清除資料夾"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "新增書簽"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "編輯書簽"
-
-#: source/gx/tilix/bookmark/bmeditor.d:292
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Path"
-msgstr "路徑"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-#, fuzzy
-msgid "Select Path"
-msgstr "選擇路徑"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "協定"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "主機"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "使用者"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "參數"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "反序列化書簽時出錯"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr ""
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "發生未知錯誤，無法載入書簽"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "資料夾"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "遠端"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr ""
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-#, fuzzy
-msgid "Select Bookmark"
-msgstr "選擇書簽"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:272
-msgid "translator-credits"
-msgstr "Mingcong Bai"
-
-#: source/gx/tilix/application.d:281
-msgid "Credits"
-msgstr ""
-
-#: source/gx/tilix/application.d:658
-msgid "Set the working directory of the terminal"
-msgstr "設定終端的工作目錄"
-
-#: source/gx/tilix/application.d:658
-msgid "DIRECTORY"
-msgstr ""
-
-#: source/gx/tilix/application.d:659
-msgid "Set the starting profile"
-msgstr "設定啟動配置檔"
-
-#: source/gx/tilix/application.d:659
-msgid "PROFILE_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:660
-msgid "Set the title of the new terminal"
-msgstr "設定新終端標題"
-
-#: source/gx/tilix/application.d:660
-msgid "TITLE"
-msgstr "標題"
-
-#: source/gx/tilix/application.d:661
-msgid "Open the specified session"
-msgstr "開啟指定的會話"
-
-#: source/gx/tilix/application.d:661
-msgid "SESSION_NAME"
-msgstr "會話名稱"
-
-#: source/gx/tilix/application.d:663
-msgid "Send an action to current Tilix instance"
-msgstr "將操作發送到當前 Tilix 實例"
-
-#: source/gx/tilix/application.d:663
-msgid "ACTION_NAME"
-msgstr "動作名稱"
-
-#: source/gx/tilix/application.d:665
-msgid "Execute the parameter as a command"
-msgstr "將參數作為指令執行"
-
-#: source/gx/tilix/application.d:665
-msgid "COMMAND"
-msgstr "指令"
-
-#: source/gx/tilix/application.d:666
-msgid "Maximize the terminal window"
-msgstr "最大化終端視窗"
-
-#: source/gx/tilix/application.d:667
-msgid "Minimize the terminal window"
-msgstr "最小化終端視窗"
-
-#: source/gx/tilix/application.d:668
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-
-#: source/gx/tilix/application.d:668
-msgid "WINDOW_STYLE"
-msgstr "視窗樣式"
-
-#: source/gx/tilix/application.d:669
-#, fuzzy
-msgid "Full-screen the terminal window"
-msgstr "保持終端開啟"
-
-#: source/gx/tilix/application.d:670
-#, fuzzy
-msgid "Focus the existing window"
-msgstr "保持終端開啟"
-
-#: source/gx/tilix/application.d:671
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr ""
-
-#: source/gx/tilix/application.d:672
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr ""
-
-#: source/gx/tilix/application.d:672
-msgid "GEOMETRY"
-msgstr ""
-
-#: source/gx/tilix/application.d:673
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-
-#: source/gx/tilix/application.d:674
-msgid "Show the Tilix and dependant component versions"
-msgstr ""
-
-#: source/gx/tilix/application.d:675
-msgid "Show the Tilix preferences dialog directly"
-msgstr ""
-
-#: source/gx/tilix/application.d:676
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr ""
-
-#: source/gx/tilix/application.d:676
-msgid "GROUP_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:679
-msgid "Hidden argument to pass terminal UUID"
-msgstr ""
-
-#: source/gx/tilix/application.d:679
-msgid "TERMINAL_UUID"
-msgstr ""
-
-#: source/gx/tilix/application.d:696
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr ""
-
-#: source/gx/tilix/application.d:854
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"終端配置似乎存在問題。這並不是嚴重問題，但是更正這些問題將改善你的使用體驗。"
-"點選如下連結以獲取更多資訊："
-
-#: source/gx/tilix/application.d:855
-msgid "Configuration Issue Detected"
-msgstr "檢測到配置問題"
-
-#: source/gx/tilix/application.d:867
-msgid "Do not show this message again"
-msgstr "不再顯示該資訊"
-
-#: source/gx/tilix/closedialog.d:143 source/gx/gtk/dialog.d:89
-msgid "Do not show this again"
-msgstr "不再顯示該資訊"
 
 #: source/gx/tilix/closedialog.d:170
 #, c-format
@@ -1223,6 +1090,22 @@ msgstr "關閉視窗"
 #: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
 msgid "Close Session"
 msgstr "關閉會話"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "新增書簽"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "編輯書簽"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "刪除書簽"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "取消選取書簽"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:123
 #, fuzzy
@@ -1262,6 +1145,10 @@ msgstr "快捷鍵"
 #: source/gx/tilix/prefeditor/profileeditor.d:577
 msgid "Advanced"
 msgstr "進階"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
+msgid "Profile"
+msgstr "配置方案"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:189
 #, fuzzy
@@ -1588,6 +1475,11 @@ msgstr "程序完成時傳送桌面通知"
 msgid "On new instance"
 msgstr ""
 
+#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+msgid "New Session"
+msgstr "新建會話"
+
 #: source/gx/tilix/prefeditor/prefdialog.d:1554
 msgid "Split Right"
 msgstr "向右分割"
@@ -1614,7 +1506,31 @@ msgid "Strip first character of paste if comment or variable declaration"
 msgstr "如果貼上內容為註釋或變數聲明則切除第一個字元"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Strip trailing whitespaces and linebreak characters on paste"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/common.d:37
+msgid "Custom Links"
+msgstr "自訂連結"
+
+#: source/gx/tilix/prefeditor/common.d:43
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+
+#: source/gx/tilix/prefeditor/common.d:67
+msgid "Triggers"
+msgstr "觸發器"
+
+#: source/gx/tilix/prefeditor/common.d:74
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
 msgstr ""
 
 #: source/gx/tilix/prefeditor/titleeditor.d:110
@@ -1630,22 +1546,6 @@ msgstr "視窗"
 #: source/gx/tilix/prefeditor/titleeditor.d:127
 msgid "Help"
 msgstr "幫助"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "新增書簽"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "編輯書簽"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "刪除書簽"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "取消選取書簽"
 
 #: source/gx/tilix/prefeditor/advdialog.d:94
 #: source/gx/tilix/prefeditor/advdialog.d:261
@@ -2155,77 +2055,183 @@ msgstr "連續沉默門檻值 (秒)"
 msgid "(seconds)"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/common.d:37
-msgid "Custom Links"
-msgstr "自訂連結"
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "無法定位放置的終端"
 
-#: source/gx/tilix/prefeditor/common.d:43
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "無法定位放置的終端的會話"
+
+#: source/gx/tilix/bookmark/bmeditor.d:68
+#: source/gx/tilix/bookmark/bmchooser.d:126
+#, fuzzy
+msgid "Select Folder"
+msgstr "選擇資料夾"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+#, fuzzy
+msgid "Select folder"
+msgstr "選擇資料夾"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "清除資料夾"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "新增書簽"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "編輯書簽"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "路徑"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+#, fuzzy
+msgid "Select Path"
+msgstr "選擇路徑"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "協定"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "主機"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "使用者"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "參數"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/common.d:67
-msgid "Triggers"
-msgstr "觸發器"
+#: source/gx/tilix/bookmark/bmchooser.d:126
+#, fuzzy
+msgid "Select Bookmark"
+msgstr "選擇書簽"
 
-#: source/gx/tilix/prefeditor/common.d:74
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "反序列化書簽時出錯"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
 msgstr ""
 
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "已禁用"
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "發生未知錯誤，無法載入書簽"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "你的 GTK 版本過舊，至少需要 GTK %d.%d.%d！"
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "資料夾"
 
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "發生未逾期的錯誤"
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "遠端"
 
-#: source/app.d:157
-msgid "Error: "
-msgstr "錯誤： "
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr ""
 
-#: source/app.d:167
-msgid "Versions"
-msgstr "版本"
+#: source/gx/tilix/constants.d:73
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
 
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Tilix 版本：%s"
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr ""
 
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE 版本： %s"
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr ""
 
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK 版本：%d.%d.%d"
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr ""
 
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Tilix 特殊功能"
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "圖示標題"
 
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "啟用通知 = %b"
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "目錄"
 
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "啟用觸發器 = %b"
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "主機名"
 
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "啟用徽章 = %b"
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "用戶名"
+
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "欄"
+
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "列"
+
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "程序"
+
+#: source/gx/tilix/constants.d:161
+#, fuzzy
+msgid "Status.Read-Only"
+msgstr "只讀"
+
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr ""
+
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr ""
+
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "終端數量"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "終端編號"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "活動中終端標題"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "應用程式名稱"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "會話名稱"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "會話編號"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "會話數量"
 
 # ******************
 # Nautilus extension
