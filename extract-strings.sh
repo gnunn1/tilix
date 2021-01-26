@@ -48,7 +48,7 @@ xgettext \
   --package-name=$DOMAIN \
   --directory=$BASEDIR \
   --foreign-user \
-  --language=appdata \
+  --language=metainfo \
   ${BASEDIR}/data/appdata/com.gexperts.Tilix.appdata.xml.in
 
 # Merge the messages with existing po files
@@ -58,6 +58,14 @@ do
   echo -n $file
   msgmerge --update $file $OUTPUT_FILE
 done
+
+echo "Updating LINGUAS file..."
+find ${BASEDIR}/po \
+        -type f \
+        -iname "*.po" \
+        -printf '%f\n' \
+        | grep -oP '.*(?=[.])' | sort \
+        > ${BASEDIR}/po/LINGUAS
 
 # Update manpage translations
 echo "Updating manpage translations..."
