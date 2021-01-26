@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-26 00:03+0100\n"
-"PO-Revision-Date: 2020-10-14 01:26+0000\n"
+"PO-Revision-Date: 2021-01-26 18:46+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tilix/"
 "translations/uk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -206,14 +206,12 @@ msgid "Save Session"
 msgstr "Зберегти сеанс"
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "Неможливо завантажити сеанс через неочікувану помилку."
+msgstr "Неможливо зберегти сеанс через неочікувану помилку."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Помилка завантаження сеансу"
+msgstr "Помилка збереження сеансу"
 
 #: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -347,9 +345,8 @@ msgstr ""
 "обвального режиму"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
-msgstr "Показати версії Tilix і пов'язаних складників"
+msgstr "Показати версії Tilix і залежних складників"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix preferences dialog directly"
@@ -364,9 +361,8 @@ msgstr ""
 "рекомендується)"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "НАЗВА_ПРОФІЛЮ"
+msgstr "НАЗВА_ГРУПИ"
 
 #: source/gx/tilix/application.d:679
 msgid "Hidden argument to pass terminal UUID"
@@ -620,7 +616,7 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Не вдається перевірити файл '%s' через помилку '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
@@ -1503,7 +1499,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
 msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
+msgstr "Видаляти кінцеві пробіли та символи розриву рядків під час вставлення"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
@@ -2601,10 +2597,9 @@ msgid "Select all"
 msgstr "Вибрати все"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Вибрати все"
+msgstr "Зняти всі виділення"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -2852,16 +2847,20 @@ msgstr "Tilix випробувано з GNOME і Unity."
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
 msgid "remove app menu for gnome 3.32, update icon, minor fixes"
 msgstr ""
+"вилучено меню програми для gnome 3.32, піктограму оновлення, незначні "
+"виправлення"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
 msgid ""
 "Small release to update localizations and update to GtkD 3.8.5 to fix "
 "library name in GtkD."
 msgstr ""
+"Невеликий випуск для оновлення локалізацій та оновлення до GtkD 3.8.5 для "
+"виправлення назви бібліотеки в GtkD."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
 msgid "Some new features and bug fixes."
-msgstr ""
+msgstr "Деякі нові функції та виправлення помилок."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
 msgid "Gerald Nunn"
