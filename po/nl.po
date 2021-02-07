@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-26 00:03+0100\n"
-"PO-Revision-Date: 2019-01-08 15:07+0000\n"
+"PO-Revision-Date: 2021-02-08 11:50+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tilix/translations/"
 "nl/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: source/app.d:139
 #, c-format
@@ -210,16 +210,14 @@ msgid "Save Session"
 msgstr "Sessie opslaan"
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Could not save session due to unexpected error."
 msgstr ""
 "De sessie kan niet worden geladen omdat er een onverwachte fout is "
 "opgetreden."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Er is een fout opgetreden tijdens het laden van de sessie"
+msgstr "Fout tijdens opslaan van sessie"
 
 #: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -352,9 +350,8 @@ msgstr ""
 "venster"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
-msgstr "Tilix-versie en vereiste componenten-versies tonen"
+msgstr "Tilix-versie en vereiste onderdeelversies tonen"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix preferences dialog directly"
@@ -369,9 +366,8 @@ msgstr ""
 "niet aanbevolen)"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "PROFIEL_NAAM"
+msgstr "GROEPS_NAAM"
 
 #: source/gx/tilix/application.d:679
 msgid "Hidden argument to pass terminal UUID"
@@ -600,7 +596,7 @@ msgstr "Kopiëren"
 #: source/gx/tilix/terminal/terminal.d:1822
 #: source/gx/tilix/terminal/terminal.d:1836
 msgid "Copy as HTML"
-msgstr "Kopiëren als HTML"
+msgstr "Kopiëren als html"
 
 #: source/gx/tilix/terminal/terminal.d:1824
 #: source/gx/tilix/terminal/terminal.d:1842
@@ -628,17 +624,17 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Kan het bestand '%s' niet controleren wegens fout '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
 msgstr ""
-"BestandsURI's op afstand worden niet ondersteund met hyperlinks.\n"
-"URI is '%s'"
+"Bestandsuri's op afstand worden niet ondersteund met hyperlinks.\n"
+"De uri is '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2025
 msgid "Remote File URI Unsupported"
-msgstr "BestandsURI op afstand niet ondersteund"
+msgstr "Bestandsuri op afstand niet ondersteund"
 
 #: source/gx/tilix/terminal/terminal.d:2057
 #: source/gx/tilix/terminal/terminal.d:2632
@@ -1510,7 +1506,7 @@ msgstr "Eerste teken weglaten bij plakken van een comment of variabel"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
 msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
+msgstr "Witruimtes op einden en regelafbreektekens wissen na plakken"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
@@ -2594,7 +2590,7 @@ msgstr "Kopiëren"
 #: data/resources/ui/shortcuts.ui:407
 msgctxt "shortcut window"
 msgid "Copy As HTML"
-msgstr "Kopiëren als HTML"
+msgstr "Kopiëren als html"
 
 #: data/resources/ui/shortcuts.ui:413
 msgctxt "shortcut window"
@@ -2617,10 +2613,9 @@ msgid "Select all"
 msgstr "Alles selecteren"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Alles selecteren"
+msgstr "Niets selecteren"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -2876,16 +2871,20 @@ msgstr "Tilix is getest onder GNOME en Unity."
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
 msgid "remove app menu for gnome 3.32, update icon, minor fixes"
 msgstr ""
+"toepassingsmenu verwijderd op gnome 3.32, pictogram bijgewerkt, kleine "
+"fouten opgelost"
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
 msgid ""
 "Small release to update localizations and update to GtkD 3.8.5 to fix "
 "library name in GtkD."
 msgstr ""
+"Een kleine uitgave om de vertalingen en GtkD bij te werken (GtkD 3.8.5) om "
+"een bibliotheeknaam te repareren."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
 msgid "Some new features and bug fixes."
-msgstr ""
+msgstr "Enkele nieuwe functies en foutoplossingen."
 
 #: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
 msgid "Gerald Nunn"
