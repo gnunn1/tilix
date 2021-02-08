@@ -199,11 +199,7 @@ private:
     void setTerminalSearchCriteria() {
         string text = seSearch.getText();
         if (text.length == 0) {
-            if (checkVTEVersion(VTE_VERSION_REGEX)) {
-                vte.searchSetRegex(null, 0);
-            } else {
-                vte.searchSetGregex(null, cast(GRegexMatchFlags) 0);
-            }
+            vte.searchSetRegex(null, 0);
             return;
         }
         if (!matchAsRegex)
@@ -212,24 +208,12 @@ private:
             text = format("\\b%s\\b", text);
 
         try {
-            if (checkVTEVersion(VTE_VERSION_REGEX)) {
-                uint flags = PCRE2Flags.UTF | PCRE2Flags.MULTILINE | PCRE2Flags.NO_UTF_CHECK;
-                if (!matchCase) {
-                    flags |= PCRE2Flags.CASELESS;
-                }
-                trace("Setting VTE.Regex for pattern %s", text);
-                vte.searchSetRegex(VRegex.newSearch(text, -1, flags), 0);
-            } else {
-                GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE;
-                if (!matchCase) {
-                    flags |= GRegexCompileFlags.CASELESS;
-                    trace("Set caseless flag");
-                }
-                if (text.length > 0) {
-                    GRegex regex = new GRegex(text, flags, cast(GRegexMatchFlags) 0);
-                    vte.searchSetGregex(regex, cast(GRegexMatchFlags) 0);
-                }
+            uint flags = PCRE2Flags.UTF | PCRE2Flags.MULTILINE | PCRE2Flags.NO_UTF_CHECK;
+            if (!matchCase) {
+                flags |= PCRE2Flags.CASELESS;
             }
+            trace("Setting VTE.Regex for pattern %s", text);
+            vte.searchSetRegex(VRegex.newSearch(text, -1, flags), 0);
             seSearch.getStyleContext().removeClass("error");
         } catch (GException ge) {
             string message = format(_("Search '%s' is not a valid regex\n%s"), text, ge.msg);

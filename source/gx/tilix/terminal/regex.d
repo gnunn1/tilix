@@ -210,15 +210,12 @@ immutable TerminalRegex[] URL_REGEX_PATTERNS = [
     TerminalRegex(REGEX_NEWS_MAN, TerminalURLFlavor.AS_IS, true)
 ];
 
-immutable GRegex[URL_REGEX_PATTERNS.length] compiledGRegex;
 immutable VRegex[URL_REGEX_PATTERNS.length] compiledVRegex;
 
 GRegex compileGRegex(TerminalRegex regex) {
     if (regex.pattern.length == 0) return null;
     GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-    if (checkVTEVersion(VTE_VERSION_REGEX_MULTILINE)) {
-        flags = flags | GRegexCompileFlags.MULTILINE;
-    }
+    flags = flags | GRegexCompileFlags.MULTILINE;
     return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
 }
 
@@ -234,19 +231,11 @@ VRegex compileVRegex(TerminalRegex regex) {
 shared static this() {
     import std.exception : assumeUnique;
 
-    if (checkVTEVersion(VTE_VERSION_REGEX)) {
-        VRegex[URL_REGEX_PATTERNS.length] tempRegex;
-        foreach (i, regex; URL_REGEX_PATTERNS) {
+    VRegex[URL_REGEX_PATTERNS.length] tempRegex;
+    foreach (i, regex; URL_REGEX_PATTERNS) {
             tempRegex[i] = compileVRegex(regex);
-        }
-        compiledVRegex = assumeUnique(tempRegex);
-    } else {
-        GRegex[URL_REGEX_PATTERNS.length] tempRegex;
-        foreach (i, regex; URL_REGEX_PATTERNS) {
-            tempRegex[i] = compileGRegex(regex);
-        }
-        compiledGRegex = assumeUnique(tempRegex);
     }
+    compiledVRegex = assumeUnique(tempRegex);
 }
 
 unittest {

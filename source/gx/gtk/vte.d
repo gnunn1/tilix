@@ -15,16 +15,13 @@ import vte.Terminal;
 import vte.Version;
 
 // Constants used to version VTE features
+int[2] VTE_VERSION_MINIMAL = [0, 46];
 int[2] VTE_VERSION_COPY_AS_HTML = [0, 49];
 int[2] VTE_VERSION_HYPERLINK = [0, 49];
-int[2] VTE_VERSION_REGEX = [0, 46];
-int[2] VTE_VERSION_REGEX_MULTILINE = [0, 44];
 int[2] VTE_VERSION_BACKGROUND_OPERATOR = [0, 51];
-int[2] VTE_VERSION_CURSOR_COLOR = [0, 44];
 int[2] VTE_VERSION_TEXT_BLINK_MODE = [0, 51];
 int[2] VTE_VERSION_BOLD_IS_BRIGHT = [0, 51];
 int[2] VTE_VERSION_CELL_SCALE = [0, 51];
-int[2] VTE_VERSION_WORD_WISE_SELECT_CHARS = [0, 44];
 int[2] VTE_VERSION_BACKGROUND_GET_COLOR = [0, 53];
 
 /**
@@ -148,7 +145,7 @@ bool isVTEBackgroundDrawEnabled() {
 private:
 
 uint vteMajorVersion = 0;
-uint vteMinorVersion = 42;
+uint vteMinorVersion = 46;
 
 bool featuresInitialized = false;
 bool[TerminalFeature] terminalFeatures;
@@ -160,22 +157,26 @@ static this() {
         vteMinorVersion = Version.getMinorVersion();
     }
     catch (Error e) {
-        //Ignore, means VTE doesn't support version API, default to 42
+        //Ignore, means VTE doesn't support version API, default to 46
     }
 }
 
 @system
 unittest {
     vteMajorVersion = 0;
-    vteMinorVersion = 42;
-    
-    assert(!checkVTEVersionNumber(0, 50));    
+    vteMinorVersion = 46;
+
+    assert(!checkVTEVersionNumber(0, 50));
+    assert(checkVTEVersionNumber(0, 46));
     assert(checkVTEVersionNumber(0, 42));
-    assert(checkVTEVersionNumber(0, 41));
 
     vteMajorVersion = 1;
     vteMinorVersion = 0;
-    assert(checkVTEVersionNumber(1, 0));    
-    assert(!checkVTEVersionNumber(1, 1));    
-    assert(checkVTEVersionNumber(0, 9));    
+    assert(checkVTEVersionNumber(1, 0));
+    assert(!checkVTEVersionNumber(1, 1));
+    assert(checkVTEVersionNumber(0, 9));
+
+    vteMajorVersion = Version.getMajorVersion();
+    vteMinorVersion = Version.getMinorVersion();
+    assert(checkVTEVersion(VTE_VERSION_MINIMAL));
 }

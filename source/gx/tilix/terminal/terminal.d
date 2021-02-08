@@ -1463,7 +1463,7 @@ private:
     void paste(GdkAtom source) {
 
         string pasteText = Clipboard.get(source).waitForText();
-        
+
         bool stripTrailingWhitespace = gsSettings.getBoolean(SETTINGS_STRIP_TRAILING_WHITESPACE);
         if (stripTrailingWhitespace) {
             pasteText = pasteText.stripRight();
@@ -1484,7 +1484,7 @@ private:
                     return;
             }
         }
-        
+
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
             pasteText = pasteText[1 .. $];
             vte.feedChild(pasteText);
@@ -2305,14 +2305,10 @@ private:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY)) {
                 vteCursorFG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY));
                 vteCursorBG.parse(gsProfile.getString(SETTINGS_PROFILE_CURSOR_BG_COLOR_KEY));
-                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
-                    vte.setColorCursorForeground(vteCursorFG);
-                }
+                vte.setColorCursorForeground(vteCursorFG);
                 vte.setColorCursor(vteCursorBG);
             } else {
-                if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
-                    vte.setColorCursorForeground(null);
-                }
+                vte.setColorCursorForeground(null);
                 vte.setColorCursor(null);
             }
             break;
@@ -2433,7 +2429,7 @@ private:
             silenceThreshold = gsProfile.getInt(SETTINGS_PROFILE_NOTIFY_SILENCE_THRESHOLD_KEY);
             break;
         case SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY:
-            if (vte !is null && checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS))
+            if (vte !is null)
                 vte.setWordCharExceptions(gsProfile.getString(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY));
             break;
         case SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY:
@@ -2565,18 +2561,10 @@ private:
         loadCustomRegex();
         //URL Regex Experessions
         try {
-            if (checkVTEVersion(VTE_VERSION_REGEX)) {
-                foreach (i, regex; compiledVRegex) {
-                    int id = vte.matchAddRegex(cast(VRegex) regex, 0);
-                    regexTag[id] = URL_REGEX_PATTERNS[i];
-                    vte.matchSetCursorType(id, CursorType.HAND2);
-                }
-            } else {
-                foreach (i, regex; compiledGRegex) {
-                    int id = vte.matchAddGregex(cast(GRegex) regex, cast(GRegexMatchFlags) 0);
-                    regexTag[id] = URL_REGEX_PATTERNS[i];
-                    vte.matchSetCursorType(id, CursorType.HAND2);
-                }
+            foreach (i, regex; compiledVRegex) {
+                int id = vte.matchAddRegex(cast(VRegex) regex, 0);
+                regexTag[id] = URL_REGEX_PATTERNS[i];
+                vte.matchSetCursorType(id, CursorType.HAND2);
             }
         } catch (GException e) {
             errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
@@ -2611,22 +2599,12 @@ private:
                 }
                 TerminalRegex regex = TerminalRegex(value[0], TerminalURLFlavor.CUSTOM, caseInsensitive, value[1]);
                 try {
-                    if (checkVTEVersion(VTE_VERSION_REGEX)) {
-                        VRegex compiledRegex = compileVRegex(regex);
-                        if (compiledRegex !is null) {
-                            int id = vte.matchAddRegex(compiledRegex, 0);
-                            regexTag[id] = regex;
-                            vte.matchSetCursorType(id, CursorType.HAND2);
-                            tracef("Added regex: %s with tag %d",value[0], id);
-                        }
-                    } else {
-                        GRegex compiledRegex = compileGRegex(regex);
-                        if (compiledRegex !is null) {
-                            int id = vte.matchAddGregex(compiledRegex, cast(GRegexMatchFlags) 0);
-                            regexTag[id] = regex;
-                            vte.matchSetCursorType(id, CursorType.HAND2);
-                            tracef("Added regex: %s with tag %d",value[0], id);
-                        }
+                    VRegex compiledRegex = compileVRegex(regex);
+                    if (compiledRegex !is null) {
+                        int id = vte.matchAddRegex(compiledRegex, 0);
+                        regexTag[id] = regex;
+                        vte.matchSetCursorType(id, CursorType.HAND2);
+                        tracef("Added regex: %s with tag %d",value[0], id);
                     }
                 } catch (GException ge) {
                     error(format(_("Custom link regex '%s' has an error, ignoring"), regex));

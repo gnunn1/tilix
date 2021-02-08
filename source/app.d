@@ -20,6 +20,7 @@ import gtk.MessageDialog;
 
 import gx.i18n.l10n;
 import gx.gtk.util;
+import gx.gtk.vte;
 
 import gx.tilix.application;
 import gx.tilix.cmdparams;
@@ -137,7 +138,16 @@ int main(string[] args) {
     if (gtkError !is null) {
         MessageDialog dialog = new MessageDialog(null, DialogFlags.MODAL, MessageType.ERROR, ButtonsType.OK,
                 format(_("Your GTK version is too old, you need at least GTK %d.%d.%d!"), GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH), null);
+        dialog.setDefaultResponse(ResponseType.OK);
 
+        dialog.run();
+        return 1;
+    }
+
+    // check minimum VTE version
+    if (!checkVTEVersion(VTE_VERSION_MINIMAL)) {
+        MessageDialog dialog = new MessageDialog(null, DialogFlags.MODAL, MessageType.ERROR, ButtonsType.OK,
+                format(_("Your VTE version is too old, you need at least VTE %d.%d!"), VTE_VERSION_MINIMAL[0], VTE_VERSION_MINIMAL[1]), null);
         dialog.setDefaultResponse(ResponseType.OK);
 
         dialog.run();

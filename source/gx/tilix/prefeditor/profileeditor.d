@@ -398,15 +398,13 @@ protected:
         row++;
 
         //Select-by-word-chars
-        if (checkVTEVersion(VTE_VERSION_WORD_WISE_SELECT_CHARS)) {
-            Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
-            lblSelectByWordChars.setHalign(Align.END);
-            grid.attach(lblSelectByWordChars, 0, row, 1, 1);
-            Entry eSelectByWordChars = new Entry();
-            bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
-            grid.attach(eSelectByWordChars, 1, row, 1, 1);
-            row++;
-        }
+        Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
+        lblSelectByWordChars.setHalign(Align.END);
+        grid.attach(lblSelectByWordChars, 0, row, 1, 1);
+        Entry eSelectByWordChars = new Entry();
+        bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
+        grid.attach(eSelectByWordChars, 1, row, 1, 1);
+        row++;
 
         Label lblCursorTitle = new Label(format("<b>%s</b>", _("Cursor")));
         lblCursorTitle.setUseMarkup(true);
@@ -661,9 +659,7 @@ private:
         cbUseCursorColor = new CheckButton(_("Cursor"));
         cbUseCursorColor.addOnToggled(delegate(ToggleButton) { setCustomScheme(); });
         bh.bind(SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY, cbUseCursorColor, "active", GSettingsBindFlags.DEFAULT);
-        if (checkVTEVersion(VTE_VERSION_CURSOR_COLOR)) {
-            gColors.attach(cbUseCursorColor, 0, row, 1, 1);
-        }
+        gColors.attach(cbUseCursorColor, 0, row, 1, 1);
 
         cbCursorFG = createColorButton(SETTINGS_PROFILE_CURSOR_FG_COLOR_KEY, _("Select Cursor Foreground Color"), SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY);
         gColors.attach(cbCursorFG, 1, row, 1, 1);
