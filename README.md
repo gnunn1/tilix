@@ -27,7 +27,24 @@ Tilix is a tiling terminal emulator which uses the VTE GTK+ 3 widget with the fo
 * Experimental trigger support (Requires patched VTE, see [wiki](https://github.com/gnunn1/tilix/wiki/Automatic-(Triggered)-Profile-Switching))
 * Experimental badge support (Requires patched VTE, see [wiki](https://github.com/gnunn1/tilix/wiki/Badges))
 
-The application was written using GTK 3 and an effort was made to conform to GNOME Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar) though it can be disabled if necessary. Other than GNOME, only Unity has been tested officially though users have had success with other desktop environments.
+The application was written using GTK 3 and an effort was made to conform to GNOME Human Interface Guidelines (HIG). As a result, it does use CSD (i.e. the GTK HeaderBar)
+though it can be disabled if necessary. Other than GNOME, only Unity has been tested officially though users have had success with other desktop environments.
+
+### Dependencies
+
+Tilix requires the following libraries to be installed in order to run:
+* GTK 3.18 or later (Tilix 1.8.3 or later, earlier versions supported GTK 3.14)
+* GTK VTE 0.46 or later
+* dconf
+* GSettings
+* [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required for Nautilus integration)
+
+### Maintainers Wanted
+
+This project is looking for maintainers!
+At the moment, only very minimal maintenance is done, no new features will be implemented and pull-requests may be reviewed very slowly.
+
+If you are interesting in giving Tilix some :heart:, [please chime in](https://github.com/gnunn1/tilix/issues/1700)!
 
 ### Migrating Settings From Terminix
 
@@ -39,7 +56,8 @@ dconf load /com/gexperts/Tilix/ < terminix.dconf
 ```
 This will export your settings from the Terminix key in dconf and re-import them into the Tilix key.
 
-Note that this will work even after you have uninstalled the Terminix schema, since the user customized settings are available even after the schema got removed, and the default settings are identical between the two and thus do not matter.
+Note that this will work even after you have uninstalled the Terminix schema, since the user customized settings are available even after the schema got removed, and the
+default settings are identical between the two and thus do not matter.
 
 Once you have imported the settings and everything is ok you can clear the old Terminix settings with:
 ```
@@ -51,34 +69,27 @@ Finally to copy the bookmarks and custom themes just do:
 mv ~/.config/terminix ~/.config/tilix
 ```
 
-### Dependencies
-
-Tilix requires the following libraries to be installed in order to run:
-* GTK 3.18 or later (Tilix 1.8.3 or later, earlier versions supported GTK 3.14)
-* GTK VTE 0.42 or later
-* dconf
-* GSettings
-* [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required for Nautilus integration)
-
 ### Optional Fonts
-In many of the screenshots, the `powerline` statusline shell plugin is used, in order to ensure this works correctly, you'll need to ensure the fonts are installed and Tilix is aware of your desired font:
-
-```
-git clone https://github.com/powerline/fonts.git && cd fonts && sh ./install.sh
-```
-After that ensure that **Preferences -> Default -> Custom Font**, search for powerline in the drop down, and choose. Sessions are updated automatically.
+In some of the screenshots, the `powerline` statusline shell plugin is used. In order to ensure it works well, you may need to install its [fonts](https://github.com/powerline/fonts)
+and ensure Tilix is aware of them. They can be installed via `sudo apt install fonts-powerline` on Debian/Ubuntu and `sudo dnf install powerline-fonts` on Fedora/RedHat-based
+Linux distributions.
+After installing the fonts, select the "Powerline Symbols" font in Tilix via **Preferences -> Default -> Custom Font**. Sessions are updated automatically.
 
 ### Support
 
-If you are having issues with Tilix, feel free to open issues here in github as necessary. Developers and users can  also be found on IRC on the [freenode](https://freenode.net) network in the #tilix room.
+If you are having issues with Tilix, feel free to open issues here in github as necessary. Developers and users can  also be found on IRC on the
+[freenode](https://freenode.net) network in the #tilix room.
 
 ### Localization
 
-Tilix is localized using Weblate, please visit the Weblate hosted [Tilix translations site](https://hosted.weblate.org/projects/tilix/translations) in order to assist with translations, please do not submit direct pull requests to this repository for translations.
+Tilix is localized using Weblate, please visit the Weblate hosted [Tilix translations site](https://hosted.weblate.org/projects/tilix/translations) in order to assist
+with translations, please do not submit direct pull requests to this repository for translations.
 
 ### Building
 
-Tilix is written in [D](https://dlang.org/) and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies, thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (compiler and Phobos) along with dub itself. Note that D supports three [compilers](https://wiki.dlang.org/Compilers) (DMD, GDC and LDC) but Tilix only supports DMD and LDC.
+Tilix is written in [D](https://dlang.org/) and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies,
+thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (compiler and Phobos) along with dub itself.
+Note that D supports three [compilers](https://wiki.dlang.org/Compilers) (DMD, GDC and LDC) but Tilix only supports DMD and LDC.
 
 Once you have those installed, compiling the application is a one line command as follows:
 
@@ -86,8 +97,11 @@ Once you have those installed, compiling the application is a one line command a
 dub build --build=release
 ```
 
-The application depends on various resources to function correctly, run `sudo ./install.sh` to build and copy all of the resources to the correct locations. Note this has only been tested on Arch Linux, use with caution.
-Note : `install.sh` will install Tilix to your `/usr` directory. If you are interested in installing Tilix to a custom location, you can specify the `PREFIX` as an argument to the `install.sh` script (e.g : `./install.sh $HOME/.local` will install Tilix into `$HOME/.local`). However, this requires you to add your `$PREFIX/share` directory to your `$XDG_DATA_DIRS` environment variable.
+The application depends on various resources to function correctly, run `sudo ./install.sh` to build and copy all of the resources to the correct locations. Note this
+has only been tested on Arch Linux, use with caution.
+Note : `install.sh` will install Tilix to your `/usr` directory. If you are interested in installing Tilix to a custom location, you can specify the `PREFIX` as an
+argument to the `install.sh` script (e.g : `./install.sh $HOME/.local` will install Tilix into `$HOME/.local`). However, this requires you to add your `$PREFIX/share`
+directory to your `$XDG_DATA_DIRS` environment variable.
 
 Note there is also support for meson, please see the wiki page on [meson](https://github.com/gnunn1/tilix/wiki/Building-with-Meson) for more information.
 
@@ -105,7 +119,8 @@ Tilix is available as [packages](https://gnunn1.github.io/tilix-web/#packages) f
 
 #### Uninstall Tilix
 
-This method only applies if you installed Tilix manually using the install instructions. If you installed Tilix from a distribution package then use your package manager to remove tilix, do not use these instructions.
+This method only applies if you installed Tilix manually using the install instructions. If you installed Tilix from a distribution package then use your package manager
+to remove tilix, do not use these instructions.
 
 Download the uninstall.sh script from this repository and then open a terminal (not Tilix!) in the directory where you saved it. First set the executable flag on the script:
 
