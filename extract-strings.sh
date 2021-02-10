@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 DOMAIN=tilix
 BASEDIR=$(dirname $0)
 OUTPUT_FILE=${BASEDIR}/po/${DOMAIN}.pot
@@ -41,6 +43,10 @@ xgettext \
   --language=Desktop \
   ${BASEDIR}/data/pkg/desktop/com.gexperts.Tilix.desktop.in
 
+TMP_METAINFO_FILE=${BASEDIR}/data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in
+appstreamcli news-to-metainfo ${BASEDIR}/NEWS \
+  ${BASEDIR}/data/metainfo/com.gexperts.Tilix.appdata.xml.in \
+  ${TMP_METAINFO_FILE}
 xgettext \
   --join-existing \
   --output $OUTPUT_FILE \
@@ -48,15 +54,16 @@ xgettext \
   --package-name=$DOMAIN \
   --directory=$BASEDIR \
   --foreign-user \
-  --language=metainfo \
-  ${BASEDIR}/data/appdata/com.gexperts.Tilix.appdata.xml.in
+  --language=appdata \
+  ${TMP_METAINFO_FILE}
+rm -f ${TMP_METAINFO_FILE}
 
 # Merge the messages with existing po files
 echo "Merging with existing translations... "
 for file in ${BASEDIR}/po/*.po
 do
   echo -n $file
-  msgmerge --update $file $OUTPUT_FILE
+  msgmerge -F --update $file $OUTPUT_FILE
 done
 
 echo "Updating LINGUAS file..."
