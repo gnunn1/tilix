@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-26 00:03+0100\n"
+"POT-Creation-Date: 2021-02-10 20:32+0100\n"
 "PO-Revision-Date: 2019-10-31 21:03+0000\n"
 "Last-Translator: Grigorii Horos <horosgrisa@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tilix/"
@@ -21,2223 +21,218 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.10-dev\n"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr "Ваша версия GTK устарела, вам нужна как минимум GTK %d.%d.%d!"
-
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "Произошло неожиданное исключение"
-
-#: source/app.d:157
-msgid "Error: "
-msgstr "Ошибка: "
-
-#: source/app.d:167
-msgid "Versions"
-msgstr "Версии"
-
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Версия Tilix: %s"
-
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "Версия VTE: %s"
-
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "Версия GTK: %d.%d.%d"
-
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Особые возможности Tilix"
-
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "Уведомления включены=%b"
-
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "Триггеры включены=%b"
-
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "Значки включены=%b"
-
-#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
-msgid "Do not show this again"
-msgstr "Не показывать это снова"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "выключен"
-
-#: source/gx/tilix/appwindow.d:320
-msgid "Create a new session"
-msgstr "Создать новый сеанс"
-
-#: source/gx/tilix/appwindow.d:334
-msgid "View session sidebar"
-msgstr "Показать боковую панель сеансов"
-
-#: source/gx/tilix/appwindow.d:369
-msgid "Add terminal right"
-msgstr "Добавить терминал справа"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "Add terminal down"
-msgstr "Добавить терминал вниз"
-
-#: source/gx/tilix/appwindow.d:379
-msgid "Find text in terminal"
-msgstr "Найти текст в терминале"
-
-#: source/gx/tilix/appwindow.d:602
-msgid "Enter a new name for the session"
-msgstr "Введите новое имя сеанса"
-
-#: source/gx/tilix/appwindow.d:604
-msgid "Change Session Name"
-msgstr "Смена названия сеанса"
-
-#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
-msgid "New Window"
-msgstr "Новое окно"
-
-#: source/gx/tilix/appwindow.d:683
-msgid "Open…"
-msgstr "Открыть…"
-
-#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Save"
-msgstr "Сохранить"
-
-#: source/gx/tilix/appwindow.d:685
-msgid "Save As…"
-msgstr "Сохранить как…"
-
-#: source/gx/tilix/appwindow.d:691
-msgid "Name…"
-msgstr "Имя…"
-
-#: source/gx/tilix/appwindow.d:692
-msgid "Synchronize Input"
-msgstr "Синхронизировать ввод"
-
-#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
-#: source/gx/tilix/prefeditor/prefdialog.d:414
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
-msgid "Preferences"
-msgstr "Параметры"
-
-#: source/gx/tilix/appwindow.d:697
-msgid "Keyboard Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: source/gx/tilix/appwindow.d:698
-msgid "About Tilix"
-msgstr "О Tilix"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "GC"
-msgstr "Сборщик мусора (GC)"
-
-#: source/gx/tilix/appwindow.d:1082
-#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
-msgid "Default"
-msgstr "По умолчанию"
-
-#: source/gx/tilix/appwindow.d:1191
-msgid "There are multiple sessions open, close anyway?"
-msgstr "Открыто несколько сессий. Всё равно закрыть?"
-
-#: source/gx/tilix/appwindow.d:1455
-#: source/gx/tilix/prefeditor/profileeditor.d:965
-msgid "All JSON Files"
-msgstr "Все JSON файлы"
-
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3694
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
-#: source/gx/tilix/prefeditor/profileeditor.d:969
-msgid "All Files"
-msgstr "Все файлы"
-
-#: source/gx/tilix/appwindow.d:1468
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "Имя файла '%s' не существует"
-
-#: source/gx/tilix/appwindow.d:1500
-msgid "Load Session"
-msgstr "Загрузить сеанс"
-
-#: source/gx/tilix/appwindow.d:1503
-msgid "Open"
-msgstr "Открыть"
-
-#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "Cancel"
-msgstr "Отменить"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Could not load session due to unexpected error."
-msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Error Loading Session"
-msgstr "Ошибка загрузки сеанса"
-
-#: source/gx/tilix/appwindow.d:1549
-msgid "Save Session"
-msgstr "Сохранить сеанс"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Could not save session due to unexpected error."
-msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Error Saving Session"
-msgstr "Ошибка загрузки сеанса"
-
-#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+#: source/gx/tilix/application.d:320 source/gx/tilix/appwindow.d:1681
 msgid "Tilix"
 msgstr "Tilix"
 
-#: source/gx/tilix/appwindow.d:1710
-msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr "Выпадающий режим не поддерживается в Wayland, открываем обычное окно"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:5
+msgid "A tiling terminal for GNOME"
+msgstr "Тайлинговый терминал для GNOME"
 
-#: source/gx/tilix/appwindow.d:1712
-msgid "Quake Mode Not Supported"
-msgstr "Выпадающий режим не поддерживается"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:8
+msgid "Gerald Nunn"
+msgstr "Gerald Nunn"
 
-#: source/gx/tilix/appwindow.d:2181
-msgid "New output displayed"
-msgstr "Отображён новый вывод"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:10
+msgid "Tilix is a tiling terminal emulator."
+msgstr "Tilix является тайлинговым эмулятором терминала."
 
-#: source/gx/tilix/appwindow.d:2189
-msgid "Close session"
-msgstr "Закрыть сеанс"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:13
+msgid "It lets you:"
+msgstr "Это позволяет:"
 
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:272
-msgid "translator-credits"
-msgstr ""
-"Grigorii Horos\n"
-"Igor Zakharov\n"
-"Igor Dyatlov\n"
-"Ivan Ivanov\n"
-"Tigro"
-
-#: source/gx/tilix/application.d:281
-msgid "Credits"
-msgstr "Признательности"
-
-#: source/gx/tilix/application.d:658
-msgid "Set the working directory of the terminal"
-msgstr "Задать рабочий каталог терминала"
-
-#: source/gx/tilix/application.d:658
-msgid "DIRECTORY"
-msgstr "КАТАЛОГ"
-
-#: source/gx/tilix/application.d:659
-msgid "Set the starting profile"
-msgstr "Задать стартовый профиль"
-
-#: source/gx/tilix/application.d:659
-msgid "PROFILE_NAME"
-msgstr "ИМЯ-ПРОФИЛЯ"
-
-#: source/gx/tilix/application.d:660
-msgid "Set the title of the new terminal"
-msgstr "Задать название нового терминала"
-
-#: source/gx/tilix/application.d:660
-msgid "TITLE"
-msgstr "ЗАГОЛОВОК"
-
-#: source/gx/tilix/application.d:661
-msgid "Open the specified session"
-msgstr "Открыть указанную сессию"
-
-#: source/gx/tilix/application.d:661
-msgid "SESSION_NAME"
-msgstr "ИМЯ-СЕАНСА"
-
-#: source/gx/tilix/application.d:663
-msgid "Send an action to current Tilix instance"
-msgstr "Отправить действие в текущий экземпляр Tilix"
-
-#: source/gx/tilix/application.d:663
-msgid "ACTION_NAME"
-msgstr "ИМЯ-ДЕЙСТВИЯ"
-
-#: source/gx/tilix/application.d:665
-msgid "Execute the parameter as a command"
-msgstr "Выполнить параметр как команду"
-
-#: source/gx/tilix/application.d:665
-msgid "COMMAND"
-msgstr "КОМАНДА"
-
-#: source/gx/tilix/application.d:666
-msgid "Maximize the terminal window"
-msgstr "Развернуть окно терминала"
-
-#: source/gx/tilix/application.d:667
-msgid "Minimize the terminal window"
-msgstr "Свернуть окно терминала"
-
-#: source/gx/tilix/application.d:668
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:15
 msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
+"Layout terminals in any fashion by splitting them horizontally or vertically"
 msgstr ""
-"Переопределить предпочтительный стиль окна, один из: нормальный,отключить-"
-"csd,отключить-csd-спрятать-тулбар,без-границ-окна"
+"Компоновать терминалы можно любым способом, путем разделения их по "
+"горизонтали или по вертикали"
 
-#: source/gx/tilix/application.d:668
-msgid "WINDOW_STYLE"
-msgstr "WINDOW_STYLE"
-
-#: source/gx/tilix/application.d:669
-msgid "Full-screen the terminal window"
-msgstr "Полноэкранный режим окна терминала"
-
-#: source/gx/tilix/application.d:670
-msgid "Focus the existing window"
-msgstr "Сделать активным существующее окно"
-
-#: source/gx/tilix/application.d:671
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr ""
-"Запустить дополнительный экземпляр в качестве нового процесса (не "
-"рекомендуется)"
-
-#: source/gx/tilix/application.d:672
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:16
 msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+"Terminals can be re-arranged using drag and drop both within and between "
+"windows"
 msgstr ""
-"Установить размер окна; например: 80x24 или 80x24+200+200 (COLSxROWS+X+Y)"
+"Терминалы могут быть перестроены с помощью перетаскивания как внутри, так и "
+"между окнами"
 
-#: source/gx/tilix/application.d:672
-msgid "GEOMETRY"
-msgstr "ГЕОМЕТРИЯ"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:17
+msgid "Terminals can be detached into a new window via drag and drop"
+msgstr "Терминалы могут быть отделены в новое окно с помощью перетаскивания"
 
-#: source/gx/tilix/application.d:673
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:18
 msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
+"Input can be synchronized between terminals so commands typed in one "
+"terminal are replicated to the others"
 msgstr ""
-"Открывает новое или показывает/скрывает существующее окно в выпадающем режиме"
+"Ввод может быть синхронизирован между терминалами, поэтому команды набранные "
+"в одном терминале, повторяются на другие"
 
-#: source/gx/tilix/application.d:674
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:19
+msgid "The grouping of terminals can be saved and loaded from disk"
+msgstr "Группировка терминалов может быть сохранена и загружена с диска"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:20
+msgid "Terminals support custom titles"
+msgstr "Терминалы поддерживают пользовательские названия"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:21
+msgid ""
+"Color schemes are stored in files and custom color schemes can be created by "
+"simply creating a new file"
+msgstr ""
+"Цветовые схемы сохраняются в файлах и пользовательские цветовые схемы могут "
+"быть созданы путем простого создания нового файла"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:22
+msgid "Transparent background"
+msgstr "Прозрачный фон"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:23
+msgid "Supports notifications when processes are completed out of view"
+msgstr "Поддержка уведомлений, когда процессы завершаются вне поля зрения"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:25
+msgid ""
+"The application was written using GTK 3 and an effort was made to conform to "
+"GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
+"decorations, though it can be disabled if necessary."
+msgstr ""
+"Приложение было написано с использованием GTK 3 и были предприняты усилия, "
+"чтобы они соответствовали GNOME Human Interface Guidelines (HIG). В "
+"результате, оно используется на стороне клиента-украшения, хотя оно может "
+"быть отключено, если это необходимо."
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:29
+msgid "Tilix has been tested with GNOME and with Unity."
+msgstr "Tilix был протестирован с GNOME и Unity."
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:52
+msgid ""
+"Tilix is looking for maintainers! At the moment, only very minimal "
+"maintenance is done, no new features will be implemented and pull-requests "
+"may be reviewed very slowly."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:53
+msgid "If you are interested in helping Tilix, please chime in!"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:54
+msgid "This release adds the following features:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:56
+msgid "Actually install Yaru color scheme"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:57
+msgid "Give every tab the ${title}"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:58
+msgid "Add option to strip trailing whitespace on paste"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
+msgid "This release fixes the following bugs:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 #, fuzzy
-msgid "Show the Tilix and dependent component versions"
-msgstr "Показать версии Tilix и компонентов"
+msgid "Fix saving of already saved session"
+msgstr "Открыть сохранённую сессию"
 
-#: source/gx/tilix/application.d:675
-msgid "Show the Tilix preferences dialog directly"
-msgstr "Показать только диалог настроек Tilix"
-
-#: source/gx/tilix/application.d:676
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
+msgid "Add shortcut to \"Unselect all\""
 msgstr ""
-"Группировать экземпляры tilix в разные процессы (экспериментальный, не "
-"рекомендуется)"
 
-#: source/gx/tilix/application.d:676
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
+msgid "Many Meson buildsystem fixes"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:65
+msgid "Avoid missing the previous command exit code when encoding URLs"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
+msgid "Resolve some D deprecation messages"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:67
+msgid "Mention powerline/fonts in README"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
+msgid "Avoid calling `values()` on a shared object"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
+msgid "Update metainfo data"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
+msgid "Drop compat code for older D frontend versions"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
+msgid "Bump minimum VTE version to 0.46"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
+msgid "Remove deprecated Autotools support"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
+msgid "Add release notes, NEWS file, automatic metainfo update"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
+msgid "Update to GtkD 3.9.0"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:76
+msgid "This release updates translations."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:81
+msgid "This release fixes the following bug:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:83
+msgid ""
+"Fixes a problem with the session sidebar getting out of sync after having "
+"deleted a session. See issues #1680, #1637 and #1699."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:91
+msgid "Remove app menu for gnome 3.32"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
 #, fuzzy
-msgid "GROUP_NAME"
-msgstr "ИМЯ-ПРОФИЛЯ"
-
-#: source/gx/tilix/application.d:679
-msgid "Hidden argument to pass terminal UUID"
-msgstr "Скрытый аргумент для передачи UUID терминала"
-
-#: source/gx/tilix/application.d:679
-msgid "TERMINAL_UUID"
-msgstr "UUID-ТЕРМИНАЛА"
-
-#: source/gx/tilix/application.d:696
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr "ID приложения %s недействителен"
-
-#: source/gx/tilix/application.d:854
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"Похоже, есть проблема с конфигурацией терминала.\n"
-"Эта проблема не является серьёзной, но её исправление улучшит эксплуатацию "
-"приложения.\n"
-"Нажмите на ссылку ниже для получения дополнительной информации:"
-
-#: source/gx/tilix/application.d:855
-msgid "Configuration Issue Detected"
-msgstr "Найдена ошибка конфигурации"
-
-#: source/gx/tilix/application.d:867
-msgid "Do not show this message again"
-msgstr "Больше не показывать это сообщение"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "Игнорируем, так как \"%s\" не является каталогом"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr "Строка геометрии \"%s\" неправильна и не может быть распознана"
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"Вы не можете загрузить сессию и установить profile/working directory/execute "
-"command параметры, пожалуйста, выберите что-то одно"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "Вы можете использовать параметр action только внутри Tilix"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr ""
-"Вы не можете использовать выпадающий режим с параметрами развернуть, "
-"свернуть или геометрия"
-
-#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1860
-msgid "Close"
-msgstr "Закрыть"
-
-#: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1309
-#: source/gx/tilix/prefeditor/titleeditor.d:105
-msgid "Terminal"
-msgstr "Терминал"
-
-#: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1349
-#: source/gx/tilix/terminal/terminal.d:1859
-msgid "Maximize"
-msgstr "Развернуть"
-
-#: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:692
-msgid "Disable input synchronization for this terminal"
-msgstr "Выключить синхронизацию ввода для этого терминала"
-
-#: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:829
-msgid "Read-Only"
-msgstr "Только чтение"
-
-#: source/gx/tilix/terminal/terminal.d:416
-msgid "New output"
-msgstr "Новый вывод"
-
-#: source/gx/tilix/terminal/terminal.d:422
-#: source/gx/tilix/prefeditor/profileeditor.d:446
-msgid "Terminal bell"
-msgstr "Подавать гудок"
-
-#: source/gx/tilix/terminal/terminal.d:467
-msgid "Edit Profile"
-msgstr "Редактировать профиль"
-
-#: source/gx/tilix/terminal/terminal.d:485
-msgid "Edit Encodings"
-msgstr "Редактировать кодировки"
-
-#: source/gx/tilix/terminal/terminal.d:694
-msgid "Enable input synchronization for this terminal"
-msgstr "Включить синхронизацию ввода для этого терминала"
-
-#: source/gx/tilix/terminal/terminal.d:729
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"Невозможно загрузить библиотеку %s, функциональность паролей недоступна."
-
-#: source/gx/tilix/terminal/terminal.d:729
-msgid "Library Not Loaded"
-msgstr "Библиотека не загружена"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Find…"
-msgstr "Найти…"
-
-#: source/gx/tilix/terminal/terminal.d:835
-msgid "Password..."
-msgstr "Пароль..."
-
-#: source/gx/tilix/terminal/terminal.d:836
-msgid "Bookmark..."
-msgstr "Закладка..."
-
-#: source/gx/tilix/terminal/terminal.d:837
-msgid "Add Bookmark..."
-msgstr "Добавить закладку..."
-
-#: source/gx/tilix/terminal/terminal.d:841
-msgid "Assistants"
-msgstr "Помощники"
-
-#: source/gx/tilix/terminal/terminal.d:842
-#: source/gx/tilix/prefeditor/prefdialog.d:283
-msgid "Profiles"
-msgstr "Профили"
-
-#: source/gx/tilix/terminal/terminal.d:848
-msgid "Show File Browser..."
-msgstr "Показать браузер файлов..."
-
-#: source/gx/tilix/terminal/terminal.d:852
-msgid "Save Output…"
-msgstr "Сохранить содержимое…"
-
-#: source/gx/tilix/terminal/terminal.d:853
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/prefeditor/profileeditor.d:328
-msgid "Reset"
-msgstr "Сброс"
-
-#: source/gx/tilix/terminal/terminal.d:854
-msgid "Reset and Clear"
-msgstr "Сброс и очистка"
-
-#: source/gx/tilix/terminal/terminal.d:858
-#: source/gx/tilix/prefeditor/prefdialog.d:166
-#: source/gx/tilix/prefeditor/prefdialog.d:167
-#: source/gx/tilix/prefeditor/prefdialog.d:463
-#: source/gx/tilix/prefeditor/prefdialog.d:681
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
-msgid "Encoding"
-msgstr "Кодировка"
-
-#: source/gx/tilix/terminal/terminal.d:859
-msgid "Layout Options…"
-msgstr "Параметры оформления…"
-
-#: source/gx/tilix/terminal/terminal.d:863
-msgid "Monitor Silence"
-msgstr "Монитор неактивности"
-
-#: source/gx/tilix/terminal/terminal.d:866
-msgid "Other"
-msgstr "Другое"
-
-#: source/gx/tilix/terminal/terminal.d:875
-msgid "Add Right"
-msgstr "Добавить справа"
-
-#: source/gx/tilix/terminal/terminal.d:879
-msgid "Add Down"
-msgstr "Добавить снизу"
-
-#: source/gx/tilix/terminal/terminal.d:989
-msgid "Terminal Activity"
-msgstr "Активность терминала"
-
-#: source/gx/tilix/terminal/terminal.d:1325
-msgid "Not Enabled"
-msgstr "Не включено"
-
-#: source/gx/tilix/terminal/terminal.d:1346
-#: source/gx/tilix/terminal/terminal.d:1859
-msgid "Restore"
-msgstr "Восстановить"
-
-#: source/gx/tilix/terminal/terminal.d:1708
-msgid "Tilix Custom Notification"
-msgstr "Пользовательские нотификации Tilix"
-
-#: source/gx/tilix/terminal/terminal.d:1809
-msgid "Open Link"
-msgstr "Открыть ссылку"
-
-#: source/gx/tilix/terminal/terminal.d:1810
-msgid "Copy Link Address"
-msgstr "Копировать адрес ссылки"
-
-#: source/gx/tilix/terminal/terminal.d:1820
-#: source/gx/tilix/terminal/terminal.d:1830
-msgid "Copy"
-msgstr "Копировать"
-
-#: source/gx/tilix/terminal/terminal.d:1822
-#: source/gx/tilix/terminal/terminal.d:1836
-msgid "Copy as HTML"
-msgstr "Копировать как HTML"
-
-#: source/gx/tilix/terminal/terminal.d:1824
-#: source/gx/tilix/terminal/terminal.d:1842
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "Вставить"
-
-#: source/gx/tilix/terminal/terminal.d:1825
-#: source/gx/tilix/terminal/terminal.d:1847
-msgid "Select All"
-msgstr "Выбрать всё"
-
-#: source/gx/tilix/terminal/terminal.d:1850
-#: source/gx/tilix/prefeditor/prefdialog.d:1560
-msgid "Clipboard"
-msgstr "Буфер обмена"
-
-#: source/gx/tilix/terminal/terminal.d:1864
-msgid "Synchronize input"
-msgstr "Синхронизировать ввод"
-
-#: source/gx/tilix/terminal/terminal.d:2017
-#, c-format
-msgid "Could not check file '%s' due to error '%s'"
-msgstr "Не удалось проверить файл '%s' из-за ошибки '%s'"
-
-#: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"URI was '%s'"
-msgstr ""
-"Удалённые файловые URI не поддерживаются гиперссылками.\n"
-"URI: \"%s\""
-
-#: source/gx/tilix/terminal/terminal.d:2025
-msgid "Remote File URI Unsupported"
-msgstr "Удалённые файловые URI не поддерживаются"
-
-#: source/gx/tilix/terminal/terminal.d:2057
-#: source/gx/tilix/terminal/terminal.d:2632
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
-"Пользовательское регулярное выражение \"%s\" содержит ошибку, игнорируем"
-
-#: source/gx/tilix/terminal/terminal.d:2058
-msgid "Regular Expression Error"
-msgstr "Ошибка регулярного выражения"
-
-#: source/gx/tilix/terminal/terminal.d:2071
-#, c-format
-msgid "Could not open match '%s'"
-msgstr "Не удалось открыть совпадение \"%s\""
-
-#: source/gx/tilix/terminal/terminal.d:2072
-msgid "Error Opening Match"
-msgstr "Ошибка открытия совпадения"
-
-#: source/gx/tilix/terminal/terminal.d:2582
-#, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr ""
-"Произошла неожиданная ошибка при добавлении регулярного выражения ссылки: %s"
-
-#: source/gx/tilix/terminal/terminal.d:2789
-msgid "Unexpected error occurred, no additional information available"
-msgstr "Произошла неожиданная ошибка, дополнительная информация отсутствует"
-
-#: source/gx/tilix/terminal/terminal.d:2799
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "Произошла неожиданная ошибка: %s"
-
-#: source/gx/tilix/terminal/terminal.d:3681
-msgid "Save Terminal Output"
-msgstr "Сохранить содержимое терминала"
-
-#: source/gx/tilix/terminal/terminal.d:3690
-msgid "All Text Files"
-msgstr "Все текстовые файлы"
-
-#: source/gx/tilix/terminal/terminal.d:4020
-msgid "Unknown"
-msgstr "Неизвестно"
-
-#: source/gx/tilix/terminal/terminal.d:4284
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "Дочерний процесс завершился нормально со статусом %d"
-
-#: source/gx/tilix/terminal/terminal.d:4285
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "Дочерний процесс был прерван сигналом %d."
-
-#: source/gx/tilix/terminal/terminal.d:4286
-msgid "The child process was aborted."
-msgstr "Дочерний процесс был прерван."
-
-#: source/gx/tilix/terminal/terminal.d:4292
-msgid "Relaunch"
-msgstr "Перезапустить"
-
-#: source/gx/tilix/terminal/terminal.d:4359
-msgid "Don't Paste"
-msgstr "Не вставлять"
-
-#: source/gx/tilix/terminal/terminal.d:4360
-msgid "Paste Anyway"
-msgstr "Все равно вставить"
-
-#: source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-#: source/gx/tilix/bookmark/bmeditor.d:231
-msgid "Name"
-msgstr "Имя"
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "Новый"
-
-#: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/common.d:46
-#: source/gx/tilix/prefeditor/common.d:77
-#: source/gx/tilix/prefeditor/profileeditor.d:1325
-msgid "Edit"
-msgstr "Изменить"
-
-#: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/prefdialog.d:556
-#: source/gx/tilix/prefeditor/advdialog.d:141
-#: source/gx/tilix/prefeditor/advdialog.d:319
-#: source/gx/tilix/prefeditor/profileeditor.d:1344
-msgid "Delete"
-msgstr "Удалить"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr "Вставить символы перевода строки с паролем"
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "Вставить пароль"
-
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Apply"
-msgstr "Применить"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "Пароль"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "Подтвердить пароль"
-
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "OK"
-msgstr "Хорошо"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "Добавить пароль"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "Изменить пароль"
-
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
-msgstr "Мониторинг процесса не включен, это не должно быть вызвано"
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "Параметры поиска"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "Найти следующее"
-
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "Найти предыдущее"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "Учитывать регистр"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "Только полные слова"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "По регулярному выражению"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "Автоматически переходить к началу"
-
-#: source/gx/tilix/terminal/search.d:235
-#, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr ""
-"Выражение \"%s\" не является допустимым регулярным выражением\n"
-"%s"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "Параметры оформления"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "Активный"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/closedialog.d:123
-#: source/gx/tilix/constants.d:152
-msgid "Title"
-msgstr "Заголовок"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1179
-msgid "Badge"
-msgstr "Знак"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "Загрузка сеанса"
-
-#: source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-#: source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Command"
-msgstr "Команда"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"Активные варианты всегда являются действующими и вступают в силу "
-"немедленно.\n"
-"Опции загрузки сеанса применяются только при загрузке файла сеанса."
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "Эта команда запрашивает административный доступ к вашему компьютеру"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "Копирование команд из интернета может быть опасным. "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "Убедитесь, что вы понимаете, что делает каждая часть этой команды."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "Преображение"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "Преобразование пробелов в табы"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "Преобразование CRLF и CR в LF"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "Расширенная вставка"
-
-#: source/gx/tilix/preferences.d:252
-msgid "UpdateState"
-msgstr "Обновить состояние"
-
-#: source/gx/tilix/preferences.d:253
-msgid "ExecuteCommand"
-msgstr "Выполнить команду"
-
-#: source/gx/tilix/preferences.d:254
-msgid "SendNotification"
-msgstr "Отправить уведомление"
-
-#: source/gx/tilix/preferences.d:255
-msgid "UpdateTitle"
+msgid "Update icon"
 msgstr "Обновить заголовок"
 
-#: source/gx/tilix/preferences.d:256
-msgid "PlayBell"
-msgstr "Проиграть звук"
-
-#: source/gx/tilix/preferences.d:257
-msgid "SendText"
-msgstr "Отправить текст"
-
-#: source/gx/tilix/preferences.d:258
-msgid "InsertPassword"
-msgstr "Вставить пароль"
-
-#: source/gx/tilix/preferences.d:259
-msgid "UpdateBadge"
-msgstr "Обновить значок"
-
-#: source/gx/tilix/preferences.d:260
-msgid "RunProcess"
-msgstr "Запустить процесс"
-
-#: source/gx/tilix/preferences.d:370
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (Скопировать)"
-
-#: source/gx/tilix/colorschemes.d:188
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "Файл %s не является цветовой схемой, совместимой с файлом формата JSON"
-
-#: source/gx/tilix/colorschemes.d:251
-msgid "Color scheme palette requires 16 colors"
-msgstr "Палитра цветовой схемы требует 16 цветов"
-
-#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
-#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
-#: source/gx/tilix/encoding.d:78
-msgid "Western"
-msgstr "Западная"
-
-#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
-#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
-msgid "Central European"
-msgstr "Центральноевропейская"
-
-#: source/gx/tilix/encoding.d:20
-msgid "South European"
-msgstr "Южноевропейская"
-
-#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
-#: source/gx/tilix/encoding.d:83
-msgid "Baltic"
-msgstr "Балтийская"
-
-#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
-#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
-#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
-msgid "Cyrillic"
-msgstr "Кириллица"
-
-#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
-#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
-msgid "Arabic"
-msgstr "Арабская"
-
-#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
-#: source/gx/tilix/encoding.d:79
-msgid "Greek"
-msgstr "Греческая"
-
-#: source/gx/tilix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "Еврейская отображаемая"
-
-#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
-#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
-msgid "Hebrew"
-msgstr "Еврейская"
-
-#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
-#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
-msgid "Turkish"
-msgstr "Турецкая"
-
-#: source/gx/tilix/encoding.d:28
-msgid "Nordic"
-msgstr "Скандинавская"
-
-#: source/gx/tilix/encoding.d:30
-msgid "Celtic"
-msgstr "Кельтская"
-
-#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
-msgid "Romanian"
-msgstr "Румынская"
-
-#: source/gx/tilix/encoding.d:33
-msgid "Unicode"
-msgstr "Юникод"
-
-#: source/gx/tilix/encoding.d:34
-msgid "Armenian"
-msgstr "Армянская"
-
-#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
-#: source/gx/tilix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "Китайская традиционная"
-
-#: source/gx/tilix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "Кириллица/Русская"
-
-#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
-#: source/gx/tilix/encoding.d:71
-msgid "Japanese"
-msgstr "Японская"
-
-#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
-#: source/gx/tilix/encoding.d:74
-msgid "Korean"
-msgstr "Корейская"
-
-#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
-#: source/gx/tilix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "Китайская упрощённая"
-
-#: source/gx/tilix/encoding.d:44
-msgid "Georgian"
-msgstr "Грузинская"
-
-#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "Кириллица/Украинская"
-
-#: source/gx/tilix/encoding.d:58
-msgid "Croatian"
-msgstr "Хорватская"
-
-#: source/gx/tilix/encoding.d:60
-msgid "Hindi"
-msgstr "Хинди"
-
-#: source/gx/tilix/encoding.d:61
-msgid "Persian"
-msgstr "Персидская"
-
-#: source/gx/tilix/encoding.d:63
-msgid "Gujarati"
-msgstr "Гуджарати"
-
-#: source/gx/tilix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "Гурмухи"
-
-#: source/gx/tilix/encoding.d:66
-msgid "Icelandic"
-msgstr "Исландская"
-
-#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
-#: source/gx/tilix/encoding.d:84
-msgid "Vietnamese"
-msgstr "Вьетнамская"
-
-#: source/gx/tilix/encoding.d:73
-msgid "Thai"
-msgstr "Тайская"
-
-#: source/gx/tilix/closedialog.d:129
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/bookmark/bmtreeview.d:70
-msgid "Icon"
-msgstr "Значок"
-
-#: source/gx/tilix/closedialog.d:170
-#, c-format
-msgid "Window (%s)"
-msgstr "Окно (%s)"
-
-#: source/gx/tilix/closedialog.d:173
-#, c-format
-msgid "Session (%s)"
-msgstr "Сеанс (%s)"
-
-#: source/gx/tilix/closedialog.d:189
-msgid "Close Application"
-msgstr "Закрыть приложение"
-
-#: source/gx/tilix/closedialog.d:191
-msgid "Close Window"
-msgstr "Закрыть окно"
-
-#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
-msgid "Close Session"
-msgstr "Завершить сеанс"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "Добавить закладку"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "Редактировать закладку"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "Удалить закладку"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "Снять отметку с закладки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:123
-msgid "Tilix Preferences"
-msgstr "Параметры Tilix"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:140
-#: source/gx/tilix/prefeditor/prefdialog.d:141
-#: source/gx/tilix/prefeditor/prefdialog.d:219
-msgid "Global"
-msgstr "Основные"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:144
-#: source/gx/tilix/prefeditor/prefdialog.d:145
-msgid "Appearance"
-msgstr "Оформление"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:150
-#: source/gx/tilix/prefeditor/prefdialog.d:151
-msgid "Quake"
-msgstr "Выпадающий режим"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:155
-#: source/gx/tilix/prefeditor/prefdialog.d:156
-msgid "Bookmarks"
-msgstr "Закладки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:162
-#: source/gx/tilix/prefeditor/prefdialog.d:163
-#: source/gx/tilix/prefeditor/prefdialog.d:299
-msgid "Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:170
-#: source/gx/tilix/prefeditor/prefdialog.d:171
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:577
-msgid "Advanced"
-msgstr "Расширенные"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
-msgid "Profile"
-msgstr "Профиль"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:189
-msgid "Add profile"
-msgstr "Добавить профиль"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:194
-msgid "Delete profile"
-msgstr "Удалить профиль"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:312
-#: source/gx/tilix/prefeditor/prefdialog.d:320
-#, c-format
-msgid "Profile: %s"
-msgstr "Профиль: %s"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:366
-#, c-format
-msgid "Are you sure you want to delete '%s'?"
-msgstr "Вы уверены, что хотите удалить «%s»?"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:557
-msgid "Clone"
-msgstr "Клонировать"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:561
-msgid "Use for new terminals"
-msgstr "Использовать для новых терминалов"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:637
-msgid "Encodings showing in menu:"
-msgstr "Кодировки, доступные в меню:"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:679
-msgid "Enabled"
-msgstr "Включено"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:765
-#: source/gx/tilix/prefeditor/advdialog.d:287
-msgid "Action"
-msgstr "Действие"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:789
-msgid "Shortcut Key"
-msgstr "Комбинация клавиш"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:801
-msgid "Enable shortcuts"
-msgstr "Включить комбинации клавиш"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:805
-msgid "Set default"
-msgstr "Установить по умолчанию"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:916
-msgid "Overwrite Existing Shortcut"
-msgstr "Перепись существующей комбинации клавиш"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:917
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"Комбинация клавиш %s уже назначена для %s.\n"
-"Отключить комбинацию клавиш для других действий и назначить здесь вместо "
-"этого?"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-msgid "Window style"
-msgstr "Стиль окна"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Normal"
-msgstr "Обычный"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD"
-msgstr "Отключить CSD"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD, hide toolbar"
-msgstr "Отключить CSD, спрятать панель инструментов"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Borderless"
-msgstr "Не показывать границы"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1141
-msgid "Window restart required"
-msgstr "Требуется перезапуск окна"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1150
-msgid "Terminal title style"
-msgstr "Стиль заголовока терминала"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Small"
-msgstr "Мелкий"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-msgid "None"
-msgstr "Отсутствует"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1156
-#: source/gx/tilix/prefeditor/prefdialog.d:1350
-msgid "Tab position"
-msgstr "Расположение вкладок"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Left"
-msgstr "Слева"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Right"
-msgstr "Справа"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Top"
-msgstr "Сверху"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Bottom"
-msgstr "Снизу"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1163
-msgid "Theme variant"
-msgstr "Вариант темы"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Light"
-msgstr "Светлый"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Dark"
-msgstr "Тёмный"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1170
-msgid "Background image"
-msgstr "Фоновое изображение"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1172
-msgid "Select Image"
-msgstr "Выбор изображения"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
-msgid "All Image Files"
-msgstr "Все файлы изображений"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1196
-msgid "Reset background image"
-msgstr "Сброс фонового изображения"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Scale"
-msgstr "Маштабировать"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Tile"
-msgstr "Повторять"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-msgid "Center"
-msgstr "По центру"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Stretch"
-msgstr "Растянуть"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1221
-msgid "Default session name"
-msgstr "Имя сессии по умолчанию"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1236
-msgid "Application title"
-msgstr "Заголовок приложения"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1254
-msgid "Enable transparency, requires re-start"
-msgstr "Включение прозрачности требует перезагрузки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
-msgid "Use a wide handle for splitters"
-msgstr "Использовать широкие отступы"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1265
-msgid "Place the sidebar on the right"
-msgstr "Разместить боковую панель справа"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "Показывать название терминала, даже если это единственный терминал"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
-msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
-"Использовать оверлейную полосу прокрутки (требуется перезапуск приложения)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1279
-msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr ""
-"Использовать вкладки вместо боковой панели (требуется перезапуск приложения)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1311
-msgid "Size"
-msgstr "Размер"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1322
-msgid "Height percent"
-msgstr "Высота в процентах"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1333
-msgid "Width percent"
-msgstr "Ширина в процентах"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1343
-msgid "Alignment"
-msgstr "Выравнивание"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1357
-msgid "Window position"
-msgstr "Положение окна"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1366
-#: source/gx/tilix/prefeditor/profileeditor.d:558
-msgid "Options"
-msgstr "Настройки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1374
-msgid "Show terminal on all workspaces"
-msgstr "Показывать терминал на всех рабочих пространствах"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1386
-msgid "Hide window when focus is lost"
-msgstr "Прятать окно при потере фокуса"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1390
-msgid "Delay hiding window by (ms)"
-msgstr "Задерживать убирание окна на (мс)"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1403
-msgid "Hide the toolbar of the window"
-msgstr "Прятать панель инструментов окна"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1418
-msgid "Keep window always on top"
-msgstr "Держать окно поверх других"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1423
-msgid "Display terminal on active monitor"
-msgstr "Отображать терминал на активном мониторе"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1430
-msgid "Display on specific monitor"
-msgstr "Отображать на указанном мониторе"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1433
-msgid "Primary Monitor"
-msgstr "Основной монитор"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1436
-msgid "Monitor "
-msgstr "Монитор "
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1496
-msgid "Behavior"
-msgstr "Поведение"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1502
-msgid "Prompt when creating a new session"
-msgstr "Подсказка при создании нового сеанса"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1507
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "Фокусировать терминал, когда мышь над ним"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1512
-msgid "Autohide the mouse pointer when typing"
-msgstr "Скрывать указатель мыши при наборе"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1517
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "Закрывать терминал нажатием средней кнопки мыши по заголовку"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1522
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "Изменять масштаб с помощью <Control> и колёсика прокрутки мыши"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1527
-msgid "Require the <Control> modifier to edit title on click"
-msgstr ""
-"Требовать нажатия <Control> для редактирования заголовка с помощью щелчка "
-"мыши"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1532
-msgid "Close window when last session is closed"
-msgstr "Закрыть окно, когда последняя сессия закрыта"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1537
-msgid "Save and restore window state"
-msgstr "Загрузка и сохранение состояния окна"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1543
-msgid "Send desktop notification on process complete"
-msgstr "Посылать извещение при окончании процесса"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1551
-msgid "On new instance"
-msgstr "Открывать новые терминалы"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "Новый сеанс"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Right"
-msgstr "Разделить справа"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Down"
-msgstr "Разделить снизу"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Focus Window"
-msgstr "Показать текущее окно"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1566
-msgid "Always use advanced paste dialog"
-msgstr "Всегда использовать расширенный диалог вставки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1571
-msgid "Warn when attempting unsafe paste"
-msgstr "Предупреждать при попытке небезопасной вставки"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1576
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr ""
-"Обрезать первый символ вставки, если это комментарий или определение "
-"переменной"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1581
-msgid "Strip trailing whitespaces and linebreak characters on paste"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:93
+msgid "Minor fixes"
 msgstr ""
 
-#: source/gx/tilix/prefeditor/prefdialog.d:1586
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "Автоматически копировать текст в буфер обмена при выделении"
-
-#: source/gx/tilix/prefeditor/common.d:37
-msgid "Custom Links"
-msgstr "Пользовательские ссылки"
-
-#: source/gx/tilix/prefeditor/common.d:43
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
+msgid "Small release to update localizations"
 msgstr ""
-"Список определённых пользователем ссылок на основе регулярных выражений, "
-"которые можно нажать в терминале."
 
-#: source/gx/tilix/prefeditor/common.d:67
-msgid "Triggers"
-msgstr "Триггеры"
-
-#: source/gx/tilix/prefeditor/common.d:74
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
+msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
 msgstr ""
-"Триггеры - это регулярные выражения, с которыми сравнивается текст в "
-"терминале. Как только найдётся совпадение, будет выполнено настроенное "
-"действие."
 
-#: source/gx/tilix/prefeditor/titleeditor.d:110
-msgid "Session"
-msgstr "Сеанс"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:116
-msgid "Window"
-msgstr "Окно"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:126
-#: source/gx/tilix/prefeditor/titleeditor.d:127
-msgid "Help"
-msgstr "Помощь"
-
-#: source/gx/tilix/prefeditor/advdialog.d:94
-#: source/gx/tilix/prefeditor/advdialog.d:261
-msgid "Regex"
-msgstr "Регулярное выражение"
-
-#: source/gx/tilix/prefeditor/advdialog.d:118
-msgid "Case Insensitive"
-msgstr "Регистронезависимый"
-
-#: source/gx/tilix/prefeditor/advdialog.d:134
-#: source/gx/tilix/prefeditor/advdialog.d:313
-#: source/gx/tilix/prefeditor/profileeditor.d:1307
-msgid "Add"
-msgstr "Добавить"
-
-#: source/gx/tilix/prefeditor/advdialog.d:151
-msgid "Move up"
-msgstr "Передвинуть вверх"
-
-#: source/gx/tilix/prefeditor/advdialog.d:162
-msgid "Move down"
-msgstr "Передвинуть вниз"
-
-#: source/gx/tilix/prefeditor/advdialog.d:192
-msgid "Edit Custom Links"
-msgstr "Редактировать пользовательские ссылки"
-
-#: source/gx/tilix/prefeditor/advdialog.d:299
-msgid "Parameter"
-msgstr "Параметр"
-
-#: source/gx/tilix/prefeditor/advdialog.d:337
-msgid "Limit number of lines for trigger processing to:"
-msgstr "Ограничить количество строк для обработки запуска до:"
-
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Edit Triggers"
-msgstr "Редактировать триггеры"
-
-#: source/gx/tilix/prefeditor/advdialog.d:405
-#, c-format
-msgid "Row %d: "
-msgstr "Строка %d: "
-
-#: source/gx/tilix/prefeditor/profileeditor.d:97
-msgid "General"
-msgstr "Общие"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:99
-msgid "Color"
-msgstr "Цвета"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:100
-msgid "Scrolling"
-msgstr "Прокрутка"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:101
-msgid "Compatibility"
-msgstr "Совместимость"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:217
-msgid "Profile name"
-msgstr "Имя профиля"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:241
-msgid "Terminal title"
-msgstr "Заголовок терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:254
-msgid "Text Appearance"
-msgstr "Оформление текста"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:262
-msgid "Terminal size"
-msgstr "Размер терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:272
-msgid "columns"
-msgstr "столбцов"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:281
-msgid "rows"
-msgstr "строк"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:301
-msgid "Cell spacing"
-msgstr "Расстояние между ячейками"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:311
-msgid "width"
-msgstr "ширина"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:320
-msgid "height"
-msgstr "высота"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:347
-msgid "Margin"
-msgstr "Отступ"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:358
-msgid "Text blink mode"
-msgstr "Режим мерцания текста"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Never"
-msgstr "Никогда"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Focused"
-msgstr "Когда в фокусе"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Unfocused"
-msgstr "Когда не в фокусе"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Always"
-msgstr "Всегда"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:380
-#: source/gx/tilix/prefeditor/profileeditor.d:1203
-msgid "Custom font"
-msgstr "Пользовательский шрифт"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:392
-msgid "Choose A Terminal Font"
-msgstr "Выбрать шрифт терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:402
-msgid "Word-wise select chars"
-msgstr "Выделяемые символы в слове"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:411
-#: source/gx/tilix/prefeditor/profileeditor.d:419
-#: source/gx/tilix/prefeditor/profileeditor.d:661
-msgid "Cursor"
-msgstr "Курсор"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "Block"
-msgstr "Блок"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "IBeam"
-msgstr "I-образный"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "Underline"
-msgstr "Подчёркивание"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:430
-msgid "Cursor blink mode"
-msgstr "Режим мерцания курсора"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "System"
-msgstr "Система"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "On"
-msgstr "Вкл"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "Off"
-msgstr "Выкл"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:438
-msgid "Notification"
-msgstr "Уведомление"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-msgid "Sound"
-msgstr "Звук"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-msgid "Icon and sound"
-msgstr "Значок и звук"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:467
-#, c-format
-msgid "ID: %s"
-msgstr "Идентификатор: %s"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:515
-msgid "Color scheme"
-msgstr "Цветовая схема"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:525
-#: source/gx/tilix/prefeditor/profileeditor.d:992
-msgid "Custom"
-msgstr "Пользовательская"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:538
-msgid "Export"
-msgstr "Экспорт"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:550
-msgid "Color palette"
-msgstr "Цветовая палитра"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:572
-msgid "Use theme colors for foreground/background"
-msgstr "Использовать цвета темы для основного и фонового цветов"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:582
-msgid "Show bold text in bright colors"
-msgstr "Показывать полужирный текст ярким цветом"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:594
-msgid "Transparency"
-msgstr "Прозрачность"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:608
-msgid "Unfocused dim"
-msgstr "Фокусировка неактивного состояния"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:656
-msgid "Text"
-msgstr "Текст"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:657
-#: source/gx/tilix/prefeditor/profileeditor.d:761
-msgid "Background"
-msgstr "Фон"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:668
-msgid "Select Cursor Foreground Color"
-msgstr "Выбрать основной цвет курсора терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:670
-msgid "Select Cursor Background Color"
-msgstr "Выбрать цвет фона курсора терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:675
-msgid "Highlight"
-msgstr "Подсветка"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:680
-msgid "Select Highlight Foreground Color"
-msgstr "Выбрать основной цвет подсветки терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:682
-msgid "Select Highlight Background Color"
-msgstr "Выбрать цвет фона подсветки терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:687
-msgid "Bold"
-msgstr "Полужирный"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:692
-msgid "Select Bold Color"
-msgstr "Выбрать цвет полужирного текста"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:701
-msgid "Select Badge Color"
-msgstr "Выбрать цвет значка"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:750
-msgid "Select Background Color"
-msgstr "Выбрать цвет фона"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:766
-#: source/gx/tilix/prefeditor/profileeditor.d:782
-msgid "Select Foreground Color"
-msgstr "Выбрать основной цвет"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:781
-msgid "Foreground"
-msgstr "Передний план"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Black"
-msgstr "Чёрный"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Red"
-msgstr "Красный"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Green"
-msgstr "Зелёный"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Orange"
-msgstr "Оранжевый"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Blue"
-msgstr "Синий"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Purple"
-msgstr "Фиолетовый"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Turquoise"
-msgstr "Бирюзовый"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Grey"
-msgstr "Серый"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:791
-#, c-format
-msgid "Select %s Color"
-msgstr "Выбрать %s цвет"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:798
-#, c-format
-msgid "Select %s Light Color"
-msgstr "Выбрать светло-%s цвет"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:949
-msgid "Export Color Scheme"
-msgstr "Экспорт цветовой схемы"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1026
-msgid "Show scrollbar"
-msgstr "Показать полосу прокрутки"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1030
-msgid "Scroll on output"
-msgstr "Прокручивать при выводе"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1034
-msgid "Scroll on keystroke"
-msgstr "Прокручивать при нажатии клавиши"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1038
-msgid "Limit scrollback to:"
-msgstr "Ограничить прокрутку:"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1073
-msgid "Backspace key generates"
-msgstr "Клавиша «Backspace» генерирует"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Automatic"
-msgstr "Автоматически"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Escape sequence"
-msgstr "Управляющая последовательность"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1082
-msgid "Delete key generates"
-msgstr "Клавиша «Delete» генерирует"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1106
-msgid "Ambiguous-width characters"
-msgstr "Символы неоднозначной ширины"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1109
-msgid "Narrow"
-msgstr "Узкие"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1109
-msgid "Wide"
-msgstr "Широкие"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1130
-msgid "Run command as a login shell"
-msgstr "Запускать команду как оболочку входа"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1134
-msgid "Run a custom command instead of my shell"
-msgstr "Запускать другую команду вместо моей оболочки"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1151
-msgid "When command exits"
-msgstr "При завершении команды"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Exit the terminal"
-msgstr "Выйти из терминала"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Restart the command"
-msgstr "Перезапустить команду"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Hold the terminal open"
-msgstr "Держать терминал открытым"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1193
-msgid "Badge position"
-msgstr "Позиция знака"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Northwest"
-msgstr "Северо-запад"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Northeast"
-msgstr "Северо-восток"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Southwest"
-msgstr "Юго-запад"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Southeast"
-msgstr "Юго-восток"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1215
-msgid "Choose A Badge Font"
-msgstr "Выберите шрифт значка"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1253
-msgid "Notify New Activity"
-msgstr "Оповещать об активности"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1260
-msgid ""
-"A notification can be raised when new activity occurs after a specified "
-"period of silence."
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:108
+msgid "Some new features and bug fixes."
 msgstr ""
-"Уведомление может быть показано, когда случается новая активность после "
-"определённого периода молчания."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1273
-msgid "Automatic Profile Switching"
-msgstr "Автоматическое переключение профиля"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1282
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"Профили автоматически выбираются на основании значений, введённых здесь.\n"
-"Значения вводятся в формате <i>hostname:directory</i>. Либо имя хоста, либо "
-"каталог могут быть пропущены, но знак двоеточия должен присутствовать. "
-"Записи без имени хоста и каталога не допускаются."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1284
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"Профили автоматически выбираются на основании значений, введённых здесь.\n"
-"Значения вводятся в формате <i>hostname:directory</i>. Либо имя хоста, либо "
-"каталог могут быть пропущены, но знак двоеточия должен присутствовать. "
-"Записи без имени хоста и каталога не допускаются."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1296
-msgid "Match"
-msgstr "Совпадения"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1311
-msgid "Enter username@hostname:directory to match"
-msgstr "Введите пользователь@хост:каталог для совпадения"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1313
-msgid "Enter hostname:directory to match"
-msgstr "Введите хост:каталог для сопоставления"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1315
-msgid "Add New Match"
-msgstr "Добавить новое совпадение"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1332
-msgid "Edit username@hostname:directory to match"
-msgstr "Редактировать пользователь@хост:каталог для совпадения"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1334
-msgid "Edit hostname:directory to match"
-msgstr "Редактировать хост:каталог для совпадения"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1336
-msgid "Edit Match"
-msgstr "Редактировать совпадение"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1367
-msgid "Enable by default"
-msgstr "Включить по умолчанию"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1376
-msgid "Threshold for continuous silence"
-msgstr "Время непрерывного бездействия"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1385
-msgid "(seconds)"
-msgstr "(секунд)"
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "Не удалось обнаружить потерянный терминал"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "Не удалось найти потерянный сеанс для терминала"
-
-#: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Folder"
-msgstr "Выбрать папку"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-msgid "Select folder"
-msgstr "Выбрать папку"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "Очистить папку"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "Добавить закладку"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "Редактировать закладку"
-
-#: source/gx/tilix/bookmark/bmeditor.d:292
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Path"
-msgstr "Путь"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "Выбрать путь"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "Протокол"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "Хост"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "Пользователь"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "Параметры"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "Добавить символ возврата с закладкой"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "Выбрать закладку"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "Ошибка десериализации закладки"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "Корень"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "Не удалось загрузить закладки из-за неожиданной ошибки"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "Папка"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "Удалённый"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "Эмулятор терминала для Linux, основанный на VTE"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"Эта форма исходного кода принадлежит условиям Mozilla Public License, v. "
-"2.0. Если копия MPL не была распределена с этим файлом, Вы можете получить "
-"ее по этому адресу http://mozilla.org/MPL/2.0/."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "Tilix не был бы возможен без работы команды виджета GTK VTE"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD за предоставление такой превосходной оболочки GTK"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org за такой превосходный язык как D"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "Заголовок значка"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "Каталог"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "Имя хоста"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "Столбцы"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "Строки"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr "Процесс"
-
-#: source/gx/tilix/constants.d:161
-msgid "Status.Read-Only"
-msgstr "Статус. Только для чтения"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr "Статус. Тишина"
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr "Статус. Синхронизация ввода"
-
-#: source/gx/tilix/constants.d:178
-msgid "Terminal count"
-msgstr "Количество терминалов"
-
-#: source/gx/tilix/constants.d:179
-msgid "Terminal number"
-msgstr "Номер терминала"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "Заголовок активного терминала"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "Название приложения"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "Название сеанса"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "Номер сеанса"
-
-#: source/gx/tilix/constants.d:200
-msgid "Session count"
-msgstr "Количество сеансов"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"
@@ -2270,6 +265,30 @@ msgstr "Открыть Tilix здесь"
 #: data/nautilus/open-tilix.py:139
 msgid "Open Tilix In This Directory"
 msgstr "Открыть Tilix в этом каталоге"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
+msgid "A tiling terminal for Gnome"
+msgstr "Тайлинговый терминал для Gnome"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
+msgid "shell;prompt;command;commandline;cmd;"
+msgstr "shell;prompt;command;commandline;cmd;"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
+#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "New Window"
+msgstr "Новое окно"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
+msgid "New Session"
+msgstr "Новый сеанс"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
+#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
+#: source/gx/tilix/prefeditor/prefdialog.d:414
+msgid "Preferences"
+msgstr "Параметры"
 
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
@@ -2777,118 +796,2246 @@ msgctxt "shortcut window"
 msgid "Profile"
 msgstr "Профиль"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
-msgid "A tiling terminal for Gnome"
-msgstr "Тайлинговый терминал для Gnome"
+#: source/app.d:140
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr "Ваша версия GTK устарела, вам нужна как минимум GTK %d.%d.%d!"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
-msgid "shell;prompt;command;commandline;cmd;"
-msgstr "shell;prompt;command;commandline;cmd;"
+#: source/app.d:150
+#, fuzzy, c-format
+msgid "Your VTE version is too old, you need at least VTE %d.%d!"
+msgstr "Ваша версия GTK устарела, вам нужна как минимум GTK %d.%d.%d!"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
-msgid "A tiling terminal for GNOME"
-msgstr "Тайлинговый терминал для GNOME"
+#: source/app.d:166
+msgid "Unexpected exception occurred"
+msgstr "Произошло неожиданное исключение"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
-msgid "Tilix is a tiling terminal emulator."
-msgstr "Tilix является тайлинговым эмулятором терминала."
+#: source/app.d:167
+msgid "Error: "
+msgstr "Ошибка: "
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
-msgid "It lets you:"
-msgstr "Это позволяет:"
+#: source/app.d:177
+msgid "Versions"
+msgstr "Версии"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
+#: source/app.d:178
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Версия Tilix: %s"
+
+#: source/app.d:179
+#, c-format
+msgid "VTE version: %s"
+msgstr "Версия VTE: %s"
+
+#: source/app.d:180
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "Версия GTK: %d.%d.%d"
+
+#: source/app.d:181
+msgid "Tilix Special Features"
+msgstr "Особые возможности Tilix"
+
+#: source/app.d:182
+msgid "Notifications enabled=%b"
+msgstr "Уведомления включены=%b"
+
+#: source/app.d:183
+msgid "Triggers enabled=%b"
+msgstr "Триггеры включены=%b"
+
+#: source/app.d:184
+msgid "Badges enabled=%b"
+msgstr "Значки включены=%b"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "выключен"
+
+#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "Не показывать это снова"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr ""
+"Grigorii Horos\n"
+"Igor Zakharov\n"
+"Igor Dyatlov\n"
+"Ivan Ivanov\n"
+"Tigro"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "Признательности"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "КАТАЛОГ"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "Задать рабочий каталог терминала"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
+msgstr "ИМЯ-ПРОФИЛЯ"
+
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "Задать стартовый профиль"
+
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "Задать название нового терминала"
+
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr "ЗАГОЛОВОК"
+
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "Открыть указанную сессию"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr "ИМЯ-СЕАНСА"
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr "ИМЯ-ДЕЙСТВИЯ"
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "Отправить действие в текущий экземпляр Tilix"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr "КОМАНДА"
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "Выполнить параметр как команду"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "Развернуть окно терминала"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "Свернуть окно терминала"
+
+#: source/gx/tilix/application.d:668
 msgid ""
-"Layout terminals in any fashion by splitting them horizontally or vertically"
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
 msgstr ""
-"Компоновать терминалы можно любым способом, путем разделения их по "
-"горизонтали или по вертикали"
+"Переопределить предпочтительный стиль окна, один из: нормальный,отключить-"
+"csd,отключить-csd-спрятать-тулбар,без-границ-окна"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr "WINDOW_STYLE"
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "Полноэкранный режим окна терминала"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "Сделать активным существующее окно"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr ""
+"Запустить дополнительный экземпляр в качестве нового процесса (не "
+"рекомендуется)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr "ГЕОМЕТРИЯ"
+
+#: source/gx/tilix/application.d:672
 msgid ""
-"Terminals can be re-arranged using drag and drop both within and between "
-"windows"
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
 msgstr ""
-"Терминалы могут быть перестроены с помощью перетаскивания как внутри, так и "
-"между окнами"
+"Установить размер окна; например: 80x24 или 80x24+200+200 (COLSxROWS+X+Y)"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
-msgid "Terminals can be detached into a new window via drag and drop"
-msgstr "Терминалы могут быть отделены в новое окно с помощью перетаскивания"
-
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
+#: source/gx/tilix/application.d:673
 msgid ""
-"Input can be synchronized between terminals so commands typed in one "
-"terminal are replicated to the others"
+"Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
-"Ввод может быть синхронизирован между терминалами, поэтому команды набранные "
-"в одном терминале, повторяются на другие"
+"Открывает новое или показывает/скрывает существующее окно в выпадающем режиме"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:26
-msgid "The grouping of terminals can be saved and loaded from disk"
-msgstr "Группировка терминалов может быть сохранена и загружена с диска"
+#: source/gx/tilix/application.d:674
+#, fuzzy
+msgid "Show the Tilix and dependent component versions"
+msgstr "Показать версии Tilix и компонентов"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
-msgid "Terminals support custom titles"
-msgstr "Терминалы поддерживают пользовательские названия"
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "Показать только диалог настроек Tilix"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:28
+#: source/gx/tilix/application.d:676
+#, fuzzy
+msgid "GROUP_NAME"
+msgstr "ИМЯ-ПРОФИЛЯ"
+
+#: source/gx/tilix/application.d:676
 msgid ""
-"Color schemes are stored in files and custom color schemes can be created by "
-"simply creating a new file"
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
 msgstr ""
-"Цветовые схемы сохраняются в файлах и пользовательские цветовые схемы могут "
-"быть созданы путем простого создания нового файла"
+"Группировать экземпляры tilix в разные процессы (экспериментальный, не "
+"рекомендуется)"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:29
-msgid "Transparent background"
-msgstr "Прозрачный фон"
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr "Скрытый аргумент для передачи UUID терминала"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:30
-msgid "Supports notifications when processes are completed out of view"
-msgstr "Поддержка уведомлений, когда процессы завершаются вне поля зрения"
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
+msgstr "UUID-ТЕРМИНАЛА"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:32
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr "ID приложения %s недействителен"
+
+#: source/gx/tilix/application.d:854
 msgid ""
-"The application was written using GTK 3 and an effort was made to conform to "
-"GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
-"decorations, though it can be disabled if necessary."
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
 msgstr ""
-"Приложение было написано с использованием GTK 3 и были предприняты усилия, "
-"чтобы они соответствовали GNOME Human Interface Guidelines (HIG). В "
-"результате, оно используется на стороне клиента-украшения, хотя оно может "
-"быть отключено, если это необходимо."
+"Похоже, есть проблема с конфигурацией терминала.\n"
+"Эта проблема не является серьёзной, но её исправление улучшит эксплуатацию "
+"приложения.\n"
+"Нажмите на ссылку ниже для получения дополнительной информации:"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:36
-msgid "Tilix has been tested with GNOME and with Unity."
-msgstr "Tilix был протестирован с GNOME и Unity."
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "Найдена ошибка конфигурации"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
-msgid "remove app menu for gnome 3.32, update icon, minor fixes"
-msgstr ""
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "Больше не показывать это сообщение"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
+#: source/gx/tilix/appwindow.d:320
+msgid "Create a new session"
+msgstr "Создать новый сеанс"
+
+#: source/gx/tilix/appwindow.d:334
+msgid "View session sidebar"
+msgstr "Показать боковую панель сеансов"
+
+#: source/gx/tilix/appwindow.d:369
+msgid "Add terminal right"
+msgstr "Добавить терминал справа"
+
+#: source/gx/tilix/appwindow.d:373
+msgid "Add terminal down"
+msgstr "Добавить терминал вниз"
+
+#: source/gx/tilix/appwindow.d:379
+msgid "Find text in terminal"
+msgstr "Найти текст в терминале"
+
+#: source/gx/tilix/appwindow.d:602
+msgid "Enter a new name for the session"
+msgstr "Введите новое имя сеанса"
+
+#: source/gx/tilix/appwindow.d:604
+msgid "Change Session Name"
+msgstr "Смена названия сеанса"
+
+#: source/gx/tilix/appwindow.d:683
+msgid "Open…"
+msgstr "Открыть…"
+
+#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/prefeditor/profileeditor.d:948
+#: source/gx/tilix/terminal/terminal.d:3662
+msgid "Save"
+msgstr "Сохранить"
+
+#: source/gx/tilix/appwindow.d:685
+msgid "Save As…"
+msgstr "Сохранить как…"
+
+#: source/gx/tilix/appwindow.d:691
+msgid "Name…"
+msgstr "Имя…"
+
+#: source/gx/tilix/appwindow.d:692
+msgid "Synchronize Input"
+msgstr "Синхронизировать ввод"
+
+#: source/gx/tilix/appwindow.d:697
+msgid "Keyboard Shortcuts"
+msgstr "Комбинации клавиш"
+
+#: source/gx/tilix/appwindow.d:698
+msgid "About Tilix"
+msgstr "О Tilix"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "GC"
+msgstr "Сборщик мусора (GC)"
+
+#: source/gx/tilix/appwindow.d:1082
+#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+msgid "Default"
+msgstr "По умолчанию"
+
+#: source/gx/tilix/appwindow.d:1191
+msgid "There are multiple sessions open, close anyway?"
+msgstr "Открыто несколько сессий. Всё равно закрыть?"
+
+#: source/gx/tilix/appwindow.d:1455
+#: source/gx/tilix/prefeditor/profileeditor.d:961
+msgid "All JSON Files"
+msgstr "Все JSON файлы"
+
+#: source/gx/tilix/appwindow.d:1459
+#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:965
+#: source/gx/tilix/terminal/terminal.d:3672
+msgid "All Files"
+msgstr "Все файлы"
+
+#: source/gx/tilix/appwindow.d:1468
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "Имя файла '%s' не существует"
+
+#: source/gx/tilix/appwindow.d:1500
+msgid "Load Session"
+msgstr "Загрузить сеанс"
+
+#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:151 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:948
+#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493
+#: source/gx/tilix/terminal/terminal.d:3662
+msgid "Cancel"
+msgstr "Отменить"
+
+#: source/gx/tilix/appwindow.d:1503
+msgid "Open"
+msgstr "Открыть"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Could not load session due to unexpected error."
+msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Error Loading Session"
+msgstr "Ошибка загрузки сеанса"
+
+#: source/gx/tilix/appwindow.d:1549
+msgid "Save Session"
+msgstr "Сохранить сеанс"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "Не удалось загрузить сеанс из-за неожиданной ошибки."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "Ошибка загрузки сеанса"
+
+#: source/gx/tilix/appwindow.d:1710
+msgid "Quake mode is not supported under Wayland, running as normal window"
+msgstr "Выпадающий режим не поддерживается в Wayland, открываем обычное окно"
+
+#: source/gx/tilix/appwindow.d:1712
+msgid "Quake Mode Not Supported"
+msgstr "Выпадающий режим не поддерживается"
+
+#: source/gx/tilix/appwindow.d:2181
+msgid "New output displayed"
+msgstr "Отображён новый вывод"
+
+#: source/gx/tilix/appwindow.d:2189
+msgid "Close session"
+msgstr "Закрыть сеанс"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "Добавить символ возврата с закладкой"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "Выбрать закладку"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+#: source/gx/tilix/bookmark/bmeditor.d:68
+msgid "Select Folder"
+msgstr "Выбрать папку"
+
+#: source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:151 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:493
+msgid "OK"
+msgstr "Хорошо"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+msgid "Select folder"
+msgstr "Выбрать папку"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "Очистить папку"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "Добавить закладку"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "Редактировать закладку"
+
+#: source/gx/tilix/bookmark/bmeditor.d:231
+#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1572
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431
+msgid "Name"
+msgstr "Имя"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "Путь"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "Выбрать путь"
+
+#: source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1136
+#: source/gx/tilix/terminal/layout.d:89
+msgid "Command"
+msgstr "Команда"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "Протокол"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "Хост"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "Пользователь"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "Параметры"
+
+#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "Icon"
+msgstr "Значок"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "Ошибка десериализации закладки"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "Корень"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "Не удалось загрузить закладки из-за неожиданной ошибки"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "Папка"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "Удалённый"
+
+#: source/gx/tilix/closedialog.d:123 source/gx/tilix/constants.d:152
+#: source/gx/tilix/terminal/layout.d:54
+msgid "Title"
+msgstr "Заголовок"
+
+#: source/gx/tilix/closedialog.d:170
+#, c-format
+msgid "Window (%s)"
+msgstr "Окно (%s)"
+
+#: source/gx/tilix/closedialog.d:173
+#, c-format
+msgid "Session (%s)"
+msgstr "Сеанс (%s)"
+
+#: source/gx/tilix/closedialog.d:189
+msgid "Close Application"
+msgstr "Закрыть приложение"
+
+#: source/gx/tilix/closedialog.d:191
+msgid "Close Window"
+msgstr "Закрыть окно"
+
+#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
+msgid "Close Session"
+msgstr "Завершить сеанс"
+
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "Игнорируем, так как \"%s\" не является каталогом"
+
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
+msgstr "Строка геометрии \"%s\" неправильна и не может быть распознана"
+
+#: source/gx/tilix/cmdparams.d:186
 msgid ""
-"Small release to update localizations and update to GtkD 3.8.5 to fix "
-"library name in GtkD."
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"Вы не можете загрузить сессию и установить profile/working directory/execute "
+"command параметры, пожалуйста, выберите что-то одно"
+
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "Вы можете использовать параметр action только внутри Tilix"
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr ""
+"Вы не можете использовать выпадающий режим с параметрами развернуть, "
+"свернуть или геометрия"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "Файл %s не является цветовой схемой, совместимой с файлом формата JSON"
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "Палитра цветовой схемы требует 16 цветов"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "Эмулятор терминала для Linux, основанный на VTE"
+
+#: source/gx/tilix/constants.d:73
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+"Эта форма исходного кода принадлежит условиям Mozilla Public License, v. "
+"2.0. Если копия MPL не была распределена с этим файлом, Вы можете получить "
+"ее по этому адресу http://mozilla.org/MPL/2.0/."
+
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr "Tilix не был бы возможен без работы команды виджета GTK VTE"
+
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD за предоставление такой превосходной оболочки GTK"
+
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org за такой превосходный язык как D"
+
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "Заголовок значка"
+
+#: source/gx/tilix/constants.d:154 source/gx/tilix/terminal/password.d:140
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "Каталог"
+
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "Имя хоста"
+
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "Столбцы"
+
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "Строки"
+
+#: source/gx/tilix/constants.d:160
+msgid "Process"
+msgstr "Процесс"
+
+#: source/gx/tilix/constants.d:161
+msgid "Status.Read-Only"
+msgstr "Статус. Только для чтения"
+
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
+msgstr "Статус. Тишина"
+
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
+msgstr "Статус. Синхронизация ввода"
+
+#: source/gx/tilix/constants.d:178
+msgid "Terminal count"
+msgstr "Количество терминалов"
+
+#: source/gx/tilix/constants.d:179
+msgid "Terminal number"
+msgstr "Номер терминала"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "Заголовок активного терминала"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "Название приложения"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "Название сеанса"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "Номер сеанса"
+
+#: source/gx/tilix/constants.d:200
+msgid "Session count"
+msgstr "Количество сеансов"
+
+#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
+#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
+#: source/gx/tilix/encoding.d:78
+msgid "Western"
+msgstr "Западная"
+
+#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
+#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
+msgid "Central European"
+msgstr "Центральноевропейская"
+
+#: source/gx/tilix/encoding.d:20
+msgid "South European"
+msgstr "Южноевропейская"
+
+#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
+#: source/gx/tilix/encoding.d:83
+msgid "Baltic"
+msgstr "Балтийская"
+
+#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
+#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
+#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
+msgid "Cyrillic"
+msgstr "Кириллица"
+
+#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
+#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
+msgid "Arabic"
+msgstr "Арабская"
+
+#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
+#: source/gx/tilix/encoding.d:79
+msgid "Greek"
+msgstr "Греческая"
+
+#: source/gx/tilix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "Еврейская отображаемая"
+
+#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
+#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
+msgid "Hebrew"
+msgstr "Еврейская"
+
+#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
+#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
+msgid "Turkish"
+msgstr "Турецкая"
+
+#: source/gx/tilix/encoding.d:28
+msgid "Nordic"
+msgstr "Скандинавская"
+
+#: source/gx/tilix/encoding.d:30
+msgid "Celtic"
+msgstr "Кельтская"
+
+#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
+msgid "Romanian"
+msgstr "Румынская"
+
+#: source/gx/tilix/encoding.d:33
+msgid "Unicode"
+msgstr "Юникод"
+
+#: source/gx/tilix/encoding.d:34
+msgid "Armenian"
+msgstr "Армянская"
+
+#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
+#: source/gx/tilix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "Китайская традиционная"
+
+#: source/gx/tilix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "Кириллица/Русская"
+
+#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
+#: source/gx/tilix/encoding.d:71
+msgid "Japanese"
+msgstr "Японская"
+
+#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
+#: source/gx/tilix/encoding.d:74
+msgid "Korean"
+msgstr "Корейская"
+
+#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
+#: source/gx/tilix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "Китайская упрощённая"
+
+#: source/gx/tilix/encoding.d:44
+msgid "Georgian"
+msgstr "Грузинская"
+
+#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "Кириллица/Украинская"
+
+#: source/gx/tilix/encoding.d:58
+msgid "Croatian"
+msgstr "Хорватская"
+
+#: source/gx/tilix/encoding.d:60
+msgid "Hindi"
+msgstr "Хинди"
+
+#: source/gx/tilix/encoding.d:61
+msgid "Persian"
+msgstr "Персидская"
+
+#: source/gx/tilix/encoding.d:63
+msgid "Gujarati"
+msgstr "Гуджарати"
+
+#: source/gx/tilix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "Гурмухи"
+
+#: source/gx/tilix/encoding.d:66
+msgid "Icelandic"
+msgstr "Исландская"
+
+#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
+#: source/gx/tilix/encoding.d:84
+msgid "Vietnamese"
+msgstr "Вьетнамская"
+
+#: source/gx/tilix/encoding.d:73
+msgid "Thai"
+msgstr "Тайская"
+
+#: source/gx/tilix/prefeditor/advdialog.d:94
+#: source/gx/tilix/prefeditor/advdialog.d:261
+msgid "Regex"
+msgstr "Регулярное выражение"
+
+#: source/gx/tilix/prefeditor/advdialog.d:118
+msgid "Case Insensitive"
+msgstr "Регистронезависимый"
+
+#: source/gx/tilix/prefeditor/advdialog.d:134
+#: source/gx/tilix/prefeditor/advdialog.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:1303
+msgid "Add"
+msgstr "Добавить"
+
+#: source/gx/tilix/prefeditor/advdialog.d:141
+#: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/prefdialog.d:556
+#: source/gx/tilix/prefeditor/profileeditor.d:1340
+#: source/gx/tilix/terminal/password.d:213
+msgid "Delete"
+msgstr "Удалить"
+
+#: source/gx/tilix/prefeditor/advdialog.d:151
+msgid "Move up"
+msgstr "Передвинуть вверх"
+
+#: source/gx/tilix/prefeditor/advdialog.d:162
+msgid "Move down"
+msgstr "Передвинуть вниз"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/terminal/password.d:371
+msgid "Apply"
+msgstr "Применить"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+msgid "Edit Custom Links"
+msgstr "Редактировать пользовательские ссылки"
+
+#: source/gx/tilix/prefeditor/advdialog.d:287
+#: source/gx/tilix/prefeditor/prefdialog.d:765
+msgid "Action"
+msgstr "Действие"
+
+#: source/gx/tilix/prefeditor/advdialog.d:299
+msgid "Parameter"
+msgstr "Параметр"
+
+#: source/gx/tilix/prefeditor/advdialog.d:337
+msgid "Limit number of lines for trigger processing to:"
+msgstr "Ограничить количество строк для обработки запуска до:"
+
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Edit Triggers"
+msgstr "Редактировать триггеры"
+
+#: source/gx/tilix/prefeditor/advdialog.d:405
+#, c-format
+msgid "Row %d: "
+msgstr "Строка %d: "
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "Добавить закладку"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "Редактировать закладку"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "Удалить закладку"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "Снять отметку с закладки"
+
+#: source/gx/tilix/prefeditor/common.d:37
+msgid "Custom Links"
+msgstr "Пользовательские ссылки"
+
+#: source/gx/tilix/prefeditor/common.d:43
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"Список определённых пользователем ссылок на основе регулярных выражений, "
+"которые можно нажать в терминале."
+
+#: source/gx/tilix/prefeditor/common.d:46
+#: source/gx/tilix/prefeditor/common.d:77
+#: source/gx/tilix/prefeditor/profileeditor.d:1321
+#: source/gx/tilix/terminal/password.d:184
+msgid "Edit"
+msgstr "Изменить"
+
+#: source/gx/tilix/prefeditor/common.d:67
+msgid "Triggers"
+msgstr "Триггеры"
+
+#: source/gx/tilix/prefeditor/common.d:74
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"Триггеры - это регулярные выражения, с которыми сравнивается текст в "
+"терминале. Как только найдётся совпадение, будет выполнено настроенное "
+"действие."
+
+#: source/gx/tilix/prefeditor/prefdialog.d:123
+msgid "Tilix Preferences"
+msgstr "Параметры Tilix"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:140
+#: source/gx/tilix/prefeditor/prefdialog.d:141
+#: source/gx/tilix/prefeditor/prefdialog.d:219
+msgid "Global"
+msgstr "Основные"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:144
+#: source/gx/tilix/prefeditor/prefdialog.d:145
+msgid "Appearance"
+msgstr "Оформление"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:150
+#: source/gx/tilix/prefeditor/prefdialog.d:151
+msgid "Quake"
+msgstr "Выпадающий режим"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:155
+#: source/gx/tilix/prefeditor/prefdialog.d:156
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:162
+#: source/gx/tilix/prefeditor/prefdialog.d:163
+#: source/gx/tilix/prefeditor/prefdialog.d:299
+msgid "Shortcuts"
+msgstr "Комбинации клавиш"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/prefeditor/prefdialog.d:167
+#: source/gx/tilix/prefeditor/prefdialog.d:463
+#: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1087
+#: source/gx/tilix/terminal/terminal.d:858
+msgid "Encoding"
+msgstr "Кодировка"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:170
+#: source/gx/tilix/prefeditor/prefdialog.d:171
+#: source/gx/tilix/prefeditor/profileeditor.d:105
+#: source/gx/tilix/prefeditor/profileeditor.d:575
+msgid "Advanced"
+msgstr "Расширенные"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
+msgid "Profile"
+msgstr "Профиль"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:189
+msgid "Add profile"
+msgstr "Добавить профиль"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:194
+msgid "Delete profile"
+msgstr "Удалить профиль"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:283
+#: source/gx/tilix/terminal/terminal.d:842
+msgid "Profiles"
+msgstr "Профили"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:312
+#: source/gx/tilix/prefeditor/prefdialog.d:320
+#, c-format
+msgid "Profile: %s"
+msgstr "Профиль: %s"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:366
+#, c-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "Вы уверены, что хотите удалить «%s»?"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:557
+msgid "Clone"
+msgstr "Клонировать"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:561
+msgid "Use for new terminals"
+msgstr "Использовать для новых терминалов"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:637
+msgid "Encodings showing in menu:"
+msgstr "Кодировки, доступные в меню:"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:679
+msgid "Enabled"
+msgstr "Включено"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:789
+msgid "Shortcut Key"
+msgstr "Комбинация клавиш"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:801
+msgid "Enable shortcuts"
+msgstr "Включить комбинации клавиш"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:805
+msgid "Set default"
+msgstr "Установить по умолчанию"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:916
+msgid "Overwrite Existing Shortcut"
+msgstr "Перепись существующей комбинации клавиш"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:917
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"Комбинация клавиш %s уже назначена для %s.\n"
+"Отключить комбинацию клавиш для других действий и назначить здесь вместо "
+"этого?"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1135
+msgid "Window style"
+msgstr "Стиль окна"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Borderless"
+msgstr "Не показывать границы"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD"
+msgstr "Отключить CSD"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD, hide toolbar"
+msgstr "Отключить CSD, спрятать панель инструментов"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Normal"
+msgstr "Обычный"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1141
+msgid "Window restart required"
+msgstr "Требуется перезапуск окна"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1150
+msgid "Terminal title style"
+msgstr "Стиль заголовока терминала"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "None"
+msgstr "Отсутствует"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Small"
+msgstr "Мелкий"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1156
+#: source/gx/tilix/prefeditor/prefdialog.d:1350
+msgid "Tab position"
+msgstr "Расположение вкладок"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Bottom"
+msgstr "Снизу"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Left"
+msgstr "Слева"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Right"
+msgstr "Справа"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Top"
+msgstr "Сверху"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1163
+msgid "Theme variant"
+msgstr "Вариант темы"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Dark"
+msgstr "Тёмный"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Light"
+msgstr "Светлый"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1170
+msgid "Background image"
+msgstr "Фоновое изображение"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1172
+msgid "Select Image"
+msgstr "Выбор изображения"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1175
+msgid "All Image Files"
+msgstr "Все файлы изображений"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1196
+msgid "Reset background image"
+msgstr "Сброс фонового изображения"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+msgid "Center"
+msgstr "По центру"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Scale"
+msgstr "Маштабировать"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Stretch"
+msgstr "Растянуть"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Tile"
+msgstr "Повторять"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1221
+msgid "Default session name"
+msgstr "Имя сессии по умолчанию"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1236
+msgid "Application title"
+msgstr "Заголовок приложения"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
+msgid "Enable transparency, requires re-start"
+msgstr "Включение прозрачности требует перезагрузки"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
+msgid "Use a wide handle for splitters"
+msgstr "Использовать широкие отступы"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1265
+msgid "Place the sidebar on the right"
+msgstr "Разместить боковую панель справа"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1269
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "Показывать название терминала, даже если это единственный терминал"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
+msgid "Use overlay scrollbars (Application restart required)"
+msgstr ""
+"Использовать оверлейную полосу прокрутки (требуется перезапуск приложения)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1279
+msgid "Use tabs instead of sidebar (Application restart required)"
+msgstr ""
+"Использовать вкладки вместо боковой панели (требуется перезапуск приложения)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1311
+msgid "Size"
+msgstr "Размер"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1322
+msgid "Height percent"
+msgstr "Высота в процентах"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1333
+msgid "Width percent"
+msgstr "Ширина в процентах"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1343
+msgid "Alignment"
+msgstr "Выравнивание"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1357
+msgid "Window position"
+msgstr "Положение окна"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:556
+msgid "Options"
+msgstr "Настройки"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1374
+msgid "Show terminal on all workspaces"
+msgstr "Показывать терминал на всех рабочих пространствах"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1386
+msgid "Hide window when focus is lost"
+msgstr "Прятать окно при потере фокуса"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1390
+msgid "Delay hiding window by (ms)"
+msgstr "Задерживать убирание окна на (мс)"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1403
+msgid "Hide the toolbar of the window"
+msgstr "Прятать панель инструментов окна"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1418
+msgid "Keep window always on top"
+msgstr "Держать окно поверх других"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1423
+msgid "Display terminal on active monitor"
+msgstr "Отображать терминал на активном мониторе"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1430
+msgid "Display on specific monitor"
+msgstr "Отображать на указанном мониторе"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1433
+msgid "Primary Monitor"
+msgstr "Основной монитор"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1436
+msgid "Monitor "
+msgstr "Монитор "
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1496
+msgid "Behavior"
+msgstr "Поведение"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1502
+msgid "Prompt when creating a new session"
+msgstr "Подсказка при создании нового сеанса"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1507
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "Фокусировать терминал, когда мышь над ним"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1512
+msgid "Autohide the mouse pointer when typing"
+msgstr "Скрывать указатель мыши при наборе"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1517
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "Закрывать терминал нажатием средней кнопки мыши по заголовку"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1522
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "Изменять масштаб с помощью <Control> и колёсика прокрутки мыши"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1527
+msgid "Require the <Control> modifier to edit title on click"
+msgstr ""
+"Требовать нажатия <Control> для редактирования заголовка с помощью щелчка "
+"мыши"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1532
+msgid "Close window when last session is closed"
+msgstr "Закрыть окно, когда последняя сессия закрыта"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1537
+msgid "Save and restore window state"
+msgstr "Загрузка и сохранение состояния окна"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1543
+msgid "Send desktop notification on process complete"
+msgstr "Посылать извещение при окончании процесса"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1551
+msgid "On new instance"
+msgstr "Открывать новые терминалы"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Focus Window"
+msgstr "Показать текущее окно"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Down"
+msgstr "Разделить снизу"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Right"
+msgstr "Разделить справа"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1560
+#: source/gx/tilix/terminal/terminal.d:1850
+msgid "Clipboard"
+msgstr "Буфер обмена"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1566
+msgid "Always use advanced paste dialog"
+msgstr "Всегда использовать расширенный диалог вставки"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1571
+msgid "Warn when attempting unsafe paste"
+msgstr "Предупреждать при попытке небезопасной вставки"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1576
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr ""
+"Обрезать первый символ вставки, если это комментарий или определение "
+"переменной"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Strip trailing whitespaces and linebreak characters on paste"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
-msgid "Some new features and bug fixes."
-msgstr ""
+#: source/gx/tilix/prefeditor/prefdialog.d:1586
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "Автоматически копировать текст в буфер обмена при выделении"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
-msgid "Gerald Nunn"
-msgstr "Gerald Nunn"
+#: source/gx/tilix/prefeditor/profileeditor.d:97
+msgid "General"
+msgstr "Общие"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:99
+msgid "Color"
+msgstr "Цвета"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:100
+msgid "Scrolling"
+msgstr "Прокрутка"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:101
+msgid "Compatibility"
+msgstr "Совместимость"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:693
+#: source/gx/tilix/prefeditor/profileeditor.d:1175
+#: source/gx/tilix/terminal/layout.d:68
+msgid "Badge"
+msgstr "Знак"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:217
+msgid "Profile name"
+msgstr "Имя профиля"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:241
+msgid "Terminal title"
+msgstr "Заголовок терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:254
+msgid "Text Appearance"
+msgstr "Оформление текста"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:262
+msgid "Terminal size"
+msgstr "Размер терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:272
+msgid "columns"
+msgstr "столбцов"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:281
+msgid "rows"
+msgstr "строк"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+#: source/gx/tilix/prefeditor/profileeditor.d:328
+#: source/gx/tilix/terminal/terminal.d:853
+msgid "Reset"
+msgstr "Сброс"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:301
+msgid "Cell spacing"
+msgstr "Расстояние между ячейками"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:311
+msgid "width"
+msgstr "ширина"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:320
+msgid "height"
+msgstr "высота"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:347
+msgid "Margin"
+msgstr "Отступ"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:358
+msgid "Text blink mode"
+msgstr "Режим мерцания текста"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Always"
+msgstr "Всегда"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Focused"
+msgstr "Когда в фокусе"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Never"
+msgstr "Никогда"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Unfocused"
+msgstr "Когда не в фокусе"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:380
+#: source/gx/tilix/prefeditor/profileeditor.d:1199
+msgid "Custom font"
+msgstr "Пользовательский шрифт"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:392
+msgid "Choose A Terminal Font"
+msgstr "Выбрать шрифт терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:401
+msgid "Word-wise select chars"
+msgstr "Выделяемые символы в слове"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:409
+#: source/gx/tilix/prefeditor/profileeditor.d:417
+#: source/gx/tilix/prefeditor/profileeditor.d:659
+msgid "Cursor"
+msgstr "Курсор"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "Block"
+msgstr "Блок"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "IBeam"
+msgstr "I-образный"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "Underline"
+msgstr "Подчёркивание"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:428
+msgid "Cursor blink mode"
+msgstr "Режим мерцания курсора"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "Off"
+msgstr "Выкл"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "On"
+msgstr "Вкл"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "System"
+msgstr "Система"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:436
+msgid "Notification"
+msgstr "Уведомление"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:444
+#: source/gx/tilix/terminal/terminal.d:422
+msgid "Terminal bell"
+msgstr "Подавать гудок"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "Icon and sound"
+msgstr "Значок и звук"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "Sound"
+msgstr "Звук"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:465
+#, c-format
+msgid "ID: %s"
+msgstr "Идентификатор: %s"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:513
+msgid "Color scheme"
+msgstr "Цветовая схема"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:523
+#: source/gx/tilix/prefeditor/profileeditor.d:988
+msgid "Custom"
+msgstr "Пользовательская"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:536
+msgid "Export"
+msgstr "Экспорт"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:548
+msgid "Color palette"
+msgstr "Цветовая палитра"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:570
+msgid "Use theme colors for foreground/background"
+msgstr "Использовать цвета темы для основного и фонового цветов"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:580
+msgid "Show bold text in bright colors"
+msgstr "Показывать полужирный текст ярким цветом"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:592
+msgid "Transparency"
+msgstr "Прозрачность"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:606
+msgid "Unfocused dim"
+msgstr "Фокусировка неактивного состояния"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:654
+msgid "Text"
+msgstr "Текст"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:655
+#: source/gx/tilix/prefeditor/profileeditor.d:757
+msgid "Background"
+msgstr "Фон"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:664
+msgid "Select Cursor Foreground Color"
+msgstr "Выбрать основной цвет курсора терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:666
+msgid "Select Cursor Background Color"
+msgstr "Выбрать цвет фона курсора терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:671
+msgid "Highlight"
+msgstr "Подсветка"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:676
+msgid "Select Highlight Foreground Color"
+msgstr "Выбрать основной цвет подсветки терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:678
+msgid "Select Highlight Background Color"
+msgstr "Выбрать цвет фона подсветки терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:683
+msgid "Bold"
+msgstr "Полужирный"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:688
+msgid "Select Bold Color"
+msgstr "Выбрать цвет полужирного текста"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+msgid "Select Badge Color"
+msgstr "Выбрать цвет значка"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:746
+msgid "Select Background Color"
+msgstr "Выбрать цвет фона"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:762
+#: source/gx/tilix/prefeditor/profileeditor.d:778
+msgid "Select Foreground Color"
+msgstr "Выбрать основной цвет"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:777
+msgid "Foreground"
+msgstr "Передний план"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Black"
+msgstr "Чёрный"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Blue"
+msgstr "Синий"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Green"
+msgstr "Зелёный"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Grey"
+msgstr "Серый"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Orange"
+msgstr "Оранжевый"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Purple"
+msgstr "Фиолетовый"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Red"
+msgstr "Красный"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Turquoise"
+msgstr "Бирюзовый"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:787
+#, c-format
+msgid "Select %s Color"
+msgstr "Выбрать %s цвет"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:794
+#, c-format
+msgid "Select %s Light Color"
+msgstr "Выбрать светло-%s цвет"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:945
+msgid "Export Color Scheme"
+msgstr "Экспорт цветовой схемы"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1022
+msgid "Show scrollbar"
+msgstr "Показать полосу прокрутки"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1026
+msgid "Scroll on output"
+msgstr "Прокручивать при выводе"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1030
+msgid "Scroll on keystroke"
+msgstr "Прокручивать при нажатии клавиши"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1034
+msgid "Limit scrollback to:"
+msgstr "Ограничить прокрутку:"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1069
+msgid "Backspace key generates"
+msgstr "Клавиша «Backspace» генерирует"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Automatic"
+msgstr "Автоматически"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Escape sequence"
+msgstr "Управляющая последовательность"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1078
+msgid "Delete key generates"
+msgstr "Клавиша «Delete» генерирует"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1102
+msgid "Ambiguous-width characters"
+msgstr "Символы неоднозначной ширины"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1105
+msgid "Narrow"
+msgstr "Узкие"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1105
+msgid "Wide"
+msgstr "Широкие"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1126
+msgid "Run command as a login shell"
+msgstr "Запускать команду как оболочку входа"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1130
+msgid "Run a custom command instead of my shell"
+msgstr "Запускать другую команду вместо моей оболочки"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1147
+msgid "When command exits"
+msgstr "При завершении команды"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Exit the terminal"
+msgstr "Выйти из терминала"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Hold the terminal open"
+msgstr "Держать терминал открытым"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Restart the command"
+msgstr "Перезапустить команду"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1189
+msgid "Badge position"
+msgstr "Позиция знака"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Northeast"
+msgstr "Северо-восток"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Northwest"
+msgstr "Северо-запад"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Southeast"
+msgstr "Юго-восток"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Southwest"
+msgstr "Юго-запад"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1211
+msgid "Choose A Badge Font"
+msgstr "Выберите шрифт значка"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1249
+msgid "Notify New Activity"
+msgstr "Оповещать об активности"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1256
+msgid ""
+"A notification can be raised when new activity occurs after a specified "
+"period of silence."
+msgstr ""
+"Уведомление может быть показано, когда случается новая активность после "
+"определённого периода молчания."
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1269
+msgid "Automatic Profile Switching"
+msgstr "Автоматическое переключение профиля"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1278
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"Профили автоматически выбираются на основании значений, введённых здесь.\n"
+"Значения вводятся в формате <i>hostname:directory</i>. Либо имя хоста, либо "
+"каталог могут быть пропущены, но знак двоеточия должен присутствовать. "
+"Записи без имени хоста и каталога не допускаются."
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1280
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"Профили автоматически выбираются на основании значений, введённых здесь.\n"
+"Значения вводятся в формате <i>hostname:directory</i>. Либо имя хоста, либо "
+"каталог могут быть пропущены, но знак двоеточия должен присутствовать. "
+"Записи без имени хоста и каталога не допускаются."
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1292
+msgid "Match"
+msgstr "Совпадения"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1307
+msgid "Enter username@hostname:directory to match"
+msgstr "Введите пользователь@хост:каталог для совпадения"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1309
+msgid "Enter hostname:directory to match"
+msgstr "Введите хост:каталог для сопоставления"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1311
+msgid "Add New Match"
+msgstr "Добавить новое совпадение"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1328
+msgid "Edit username@hostname:directory to match"
+msgstr "Редактировать пользователь@хост:каталог для совпадения"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1330
+msgid "Edit hostname:directory to match"
+msgstr "Редактировать хост:каталог для совпадения"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1332
+msgid "Edit Match"
+msgstr "Редактировать совпадение"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1363
+msgid "Enable by default"
+msgstr "Включить по умолчанию"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1372
+msgid "Threshold for continuous silence"
+msgstr "Время непрерывного бездействия"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1381
+msgid "(seconds)"
+msgstr "(секунд)"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:105
+#: source/gx/tilix/terminal/terminal.d:348
+#: source/gx/tilix/terminal/terminal.d:1309
+msgid "Terminal"
+msgstr "Терминал"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:110
+msgid "Session"
+msgstr "Сеанс"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:116
+msgid "Window"
+msgstr "Окно"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:126
+#: source/gx/tilix/prefeditor/titleeditor.d:127
+msgid "Help"
+msgstr "Помощь"
+
+#: source/gx/tilix/preferences.d:252
+msgid "UpdateState"
+msgstr "Обновить состояние"
+
+#: source/gx/tilix/preferences.d:253
+msgid "ExecuteCommand"
+msgstr "Выполнить команду"
+
+#: source/gx/tilix/preferences.d:254
+msgid "SendNotification"
+msgstr "Отправить уведомление"
+
+#: source/gx/tilix/preferences.d:255
+msgid "UpdateTitle"
+msgstr "Обновить заголовок"
+
+#: source/gx/tilix/preferences.d:256
+msgid "PlayBell"
+msgstr "Проиграть звук"
+
+#: source/gx/tilix/preferences.d:257
+msgid "SendText"
+msgstr "Отправить текст"
+
+#: source/gx/tilix/preferences.d:258
+msgid "InsertPassword"
+msgstr "Вставить пароль"
+
+#: source/gx/tilix/preferences.d:259
+msgid "UpdateBadge"
+msgstr "Обновить значок"
+
+#: source/gx/tilix/preferences.d:260
+msgid "RunProcess"
+msgstr "Запустить процесс"
+
+#: source/gx/tilix/preferences.d:370
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (Скопировать)"
+
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "Не удалось обнаружить потерянный терминал"
+
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "Не удалось найти потерянный сеанс для терминала"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1860
+msgid "Close"
+msgstr "Закрыть"
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "Эта команда запрашивает административный доступ к вашему компьютеру"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "Копирование команд из интернета может быть опасным. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "Убедитесь, что вы понимаете, что делает каждая часть этой команды."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "Преображение"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "Преобразование пробелов в табы"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "Преобразование CRLF и CR в LF"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "Расширенная вставка"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+#: source/gx/tilix/terminal/terminal.d:1824
+#: source/gx/tilix/terminal/terminal.d:1842
+msgid "Paste"
+msgstr "Вставить"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "Параметры оформления"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "Активный"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "Загрузка сеанса"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"Активные варианты всегда являются действующими и вступают в силу "
+"немедленно.\n"
+"Опции загрузки сеанса применяются только при загрузке файла сеанса."
+
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
+msgstr "Мониторинг процесса не включен, это не должно быть вызвано"
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "Новый"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr "Вставить символы перевода строки с паролем"
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "Вставить пароль"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "Пароль"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "Подтвердить пароль"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "Добавить пароль"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "Изменить пароль"
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "Параметры поиска"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "Найти следующее"
+
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "Найти предыдущее"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "Учитывать регистр"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "Только полные слова"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "По регулярному выражению"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "Автоматически переходить к началу"
+
+#: source/gx/tilix/terminal/search.d:219
+#, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr ""
+"Выражение \"%s\" не является допустимым регулярным выражением\n"
+"%s"
+
+#: source/gx/tilix/terminal/terminal.d:391
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Maximize"
+msgstr "Развернуть"
+
+#: source/gx/tilix/terminal/terminal.d:401
+#: source/gx/tilix/terminal/terminal.d:692
+msgid "Disable input synchronization for this terminal"
+msgstr "Выключить синхронизацию ввода для этого терминала"
+
+#: source/gx/tilix/terminal/terminal.d:410
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Read-Only"
+msgstr "Только чтение"
+
+#: source/gx/tilix/terminal/terminal.d:416
+msgid "New output"
+msgstr "Новый вывод"
+
+#: source/gx/tilix/terminal/terminal.d:467
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: source/gx/tilix/terminal/terminal.d:485
+msgid "Edit Encodings"
+msgstr "Редактировать кодировки"
+
+#: source/gx/tilix/terminal/terminal.d:694
+msgid "Enable input synchronization for this terminal"
+msgstr "Включить синхронизацию ввода для этого терминала"
+
+#: source/gx/tilix/terminal/terminal.d:729
+msgid "Library Not Loaded"
+msgstr "Библиотека не загружена"
+
+#: source/gx/tilix/terminal/terminal.d:729
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"Невозможно загрузить библиотеку %s, функциональность паролей недоступна."
+
+#: source/gx/tilix/terminal/terminal.d:828
+msgid "Find…"
+msgstr "Найти…"
+
+#: source/gx/tilix/terminal/terminal.d:835
+msgid "Password..."
+msgstr "Пароль..."
+
+#: source/gx/tilix/terminal/terminal.d:836
+msgid "Bookmark..."
+msgstr "Закладка..."
+
+#: source/gx/tilix/terminal/terminal.d:837
+msgid "Add Bookmark..."
+msgstr "Добавить закладку..."
+
+#: source/gx/tilix/terminal/terminal.d:841
+msgid "Assistants"
+msgstr "Помощники"
+
+#: source/gx/tilix/terminal/terminal.d:848
+msgid "Show File Browser..."
+msgstr "Показать браузер файлов..."
+
+#: source/gx/tilix/terminal/terminal.d:852
+msgid "Save Output…"
+msgstr "Сохранить содержимое…"
+
+#: source/gx/tilix/terminal/terminal.d:854
+msgid "Reset and Clear"
+msgstr "Сброс и очистка"
+
+#: source/gx/tilix/terminal/terminal.d:859
+msgid "Layout Options…"
+msgstr "Параметры оформления…"
+
+#: source/gx/tilix/terminal/terminal.d:863
+msgid "Monitor Silence"
+msgstr "Монитор неактивности"
+
+#: source/gx/tilix/terminal/terminal.d:866
+msgid "Other"
+msgstr "Другое"
+
+#: source/gx/tilix/terminal/terminal.d:875
+msgid "Add Right"
+msgstr "Добавить справа"
+
+#: source/gx/tilix/terminal/terminal.d:879
+msgid "Add Down"
+msgstr "Добавить снизу"
+
+#: source/gx/tilix/terminal/terminal.d:989
+msgid "Terminal Activity"
+msgstr "Активность терминала"
+
+#: source/gx/tilix/terminal/terminal.d:1325
+msgid "Not Enabled"
+msgstr "Не включено"
+
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Restore"
+msgstr "Восстановить"
+
+#: source/gx/tilix/terminal/terminal.d:1708
+msgid "Tilix Custom Notification"
+msgstr "Пользовательские нотификации Tilix"
+
+#: source/gx/tilix/terminal/terminal.d:1809
+msgid "Open Link"
+msgstr "Открыть ссылку"
+
+#: source/gx/tilix/terminal/terminal.d:1810
+msgid "Copy Link Address"
+msgstr "Копировать адрес ссылки"
+
+#: source/gx/tilix/terminal/terminal.d:1820
+#: source/gx/tilix/terminal/terminal.d:1830
+msgid "Copy"
+msgstr "Копировать"
+
+#: source/gx/tilix/terminal/terminal.d:1822
+#: source/gx/tilix/terminal/terminal.d:1836
+msgid "Copy as HTML"
+msgstr "Копировать как HTML"
+
+#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1847
+msgid "Select All"
+msgstr "Выбрать всё"
+
+#: source/gx/tilix/terminal/terminal.d:1864
+msgid "Synchronize input"
+msgstr "Синхронизировать ввод"
+
+#: source/gx/tilix/terminal/terminal.d:2017
+#, c-format
+msgid "Could not check file '%s' due to error '%s'"
+msgstr "Не удалось проверить файл '%s' из-за ошибки '%s'"
+
+#: source/gx/tilix/terminal/terminal.d:2024
+#, fuzzy, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"URI was '%s'"
+msgstr ""
+"Удалённые файловые URI не поддерживаются гиперссылками.\n"
+"URI: \"%s\""
+
+#: source/gx/tilix/terminal/terminal.d:2025
+msgid "Remote File URI Unsupported"
+msgstr "Удалённые файловые URI не поддерживаются"
+
+#: source/gx/tilix/terminal/terminal.d:2057
+#: source/gx/tilix/terminal/terminal.d:2610
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr ""
+"Пользовательское регулярное выражение \"%s\" содержит ошибку, игнорируем"
+
+#: source/gx/tilix/terminal/terminal.d:2058
+msgid "Regular Expression Error"
+msgstr "Ошибка регулярного выражения"
+
+#: source/gx/tilix/terminal/terminal.d:2071
+#, c-format
+msgid "Could not open match '%s'"
+msgstr "Не удалось открыть совпадение \"%s\""
+
+#: source/gx/tilix/terminal/terminal.d:2072
+msgid "Error Opening Match"
+msgstr "Ошибка открытия совпадения"
+
+#: source/gx/tilix/terminal/terminal.d:2570
+#, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr ""
+"Произошла неожиданная ошибка при добавлении регулярного выражения ссылки: %s"
+
+#: source/gx/tilix/terminal/terminal.d:2767
+msgid "Unexpected error occurred, no additional information available"
+msgstr "Произошла неожиданная ошибка, дополнительная информация отсутствует"
+
+#: source/gx/tilix/terminal/terminal.d:2777
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "Произошла неожиданная ошибка: %s"
+
+#: source/gx/tilix/terminal/terminal.d:3659
+msgid "Save Terminal Output"
+msgstr "Сохранить содержимое терминала"
+
+#: source/gx/tilix/terminal/terminal.d:3668
+msgid "All Text Files"
+msgstr "Все текстовые файлы"
+
+#: source/gx/tilix/terminal/terminal.d:3998
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: source/gx/tilix/terminal/terminal.d:4262
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "Дочерний процесс завершился нормально со статусом %d"
+
+#: source/gx/tilix/terminal/terminal.d:4263
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "Дочерний процесс был прерван сигналом %d."
+
+#: source/gx/tilix/terminal/terminal.d:4264
+msgid "The child process was aborted."
+msgstr "Дочерний процесс был прерван."
+
+#: source/gx/tilix/terminal/terminal.d:4270
+msgid "Relaunch"
+msgstr "Перезапустить"
+
+#: source/gx/tilix/terminal/terminal.d:4337
+msgid "Don't Paste"
+msgstr "Не вставлять"
+
+#: source/gx/tilix/terminal/terminal.d:4338
+msgid "Paste Anyway"
+msgstr "Все равно вставить"
 
 #~ msgid "About"
 #~ msgstr "О приложении"
 
+#~ msgid "Allow bold text"
+#~ msgstr "Разрешить полужирный текст"
+
+#~ msgid "Bold is bright"
+#~ msgstr "Яркий полужирный текст"
+
+#~ msgid "Dim"
+#~ msgstr "Неактивное состояние"
+
+#~ msgid "Editing Profile: %s"
+#~ msgstr "Редактирование профиля: %s"
+
+#~ msgid "Ignoring parameter session as '%s' does not exist"
+#~ msgstr "Игнорирование параметров сессии, так как '%s' не существует"
+
+#~ msgid "New window inherits directory and profile from active terminal"
+#~ msgstr "Новое окно наследует рабочий каталог и профиль активного терминала"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open in Terminix"
+#~ msgstr "Открыть в Terminix"
+
 #~ msgid "Quit"
 #~ msgstr "Выйти"
 
-#~ msgid "com.gexperts.Tilix"
-#~ msgstr "com.gexperts.Tilix"
+#~ msgid "Rewrap on resize"
+#~ msgstr "Переносить при изменении размера"
+
+#~ msgid "Select Bookmark..."
+#~ msgstr "Выбрать закладки..."
+
+#~ msgid "Select Dim Color"
+#~ msgstr "Выбрать цвет неактивного состояния терминала"
+
+#~ msgid "Set hint for window manager to disable animation"
+#~ msgstr "Установить свойство менеджера окон для отключения анимации"
 
 #~ msgid ""
 #~ "Some new features and bug fixes, please see https://gnunn1.github.io/"
@@ -2898,46 +3045,15 @@ msgstr "Gerald Nunn"
 #~ "github.io/tilix-web/ для получения дополнительной информации об этом "
 #~ "релизе."
 
-#~ msgid "New window inherits directory and profile from active terminal"
-#~ msgstr "Новое окно наследует рабочий каталог и профиль активного терминала"
+#~ msgid "Terminix"
+#~ msgstr "Terminix"
 
-#~ msgid "Allow bold text"
-#~ msgstr "Разрешить полужирный текст"
-
-#~ msgid "Bold is bright"
-#~ msgstr "Яркий полужирный текст"
-
-#~ msgid "Rewrap on resize"
-#~ msgstr "Переносить при изменении размера"
+#~ msgid "There are processes that are still running, close anyway?"
+#~ msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
 
 #~ msgctxt "shortcut window"
 #~ msgid "View session switcher"
 #~ msgstr "Показать переключатель сеансов"
 
-#~ msgid "Dim"
-#~ msgstr "Неактивное состояние"
-
-#~ msgid "Select Dim Color"
-#~ msgstr "Выбрать цвет неактивного состояния терминала"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Open in Terminix"
-#~ msgstr "Открыть в Terminix"
-
-#~ msgid "Terminix"
-#~ msgstr "Terminix"
-
-#~ msgid "Set hint for window manager to disable animation"
-#~ msgstr "Установить свойство менеджера окон для отключения анимации"
-
-#~ msgid "Ignoring parameter session as '%s' does not exist"
-#~ msgstr "Игнорирование параметров сессии, так как '%s' не существует"
-
-#~ msgid "Select Bookmark..."
-#~ msgstr "Выбрать закладки..."
-
-#~ msgid "There are processes that are still running, close anyway?"
-#~ msgstr "Есть процессы, которые все ещё работают. Все равно закрыть?"
-
-#~ msgid "Editing Profile: %s"
-#~ msgstr "Редактирование профиля: %s"
+#~ msgid "com.gexperts.Tilix"
+#~ msgstr "com.gexperts.Tilix"

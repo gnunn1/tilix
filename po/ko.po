@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-26 00:03+0100\n"
+"POT-Creation-Date: 2021-02-10 20:32+0100\n"
 "PO-Revision-Date: 2019-01-05 01:20+0000\n"
 "Last-Translator: Inho Oh <webispy@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tilix/"
@@ -15,2229 +15,213 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.4-dev\n"
 
-#: source/app.d:139
-#, c-format
-msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
-msgstr ""
-"GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
-
-#: source/app.d:156
-msgid "Unexpected exception occurred"
-msgstr "예상하지 못한 예외 발생"
-
-#: source/app.d:157
-msgid "Error: "
-msgstr "오류: "
-
-#: source/app.d:167
-msgid "Versions"
-msgstr "버전"
-
-#: source/app.d:168
-#, c-format
-msgid "Tilix version: %s"
-msgstr "Tilix 버전: %s"
-
-#: source/app.d:169
-#, c-format
-msgid "VTE version: %s"
-msgstr "VTE 버전: %s"
-
-#: source/app.d:170
-#, c-format
-msgid "GTK Version: %d.%d.%d"
-msgstr "GTK 버전: %d.%d.%d"
-
-#: source/app.d:171
-msgid "Tilix Special Features"
-msgstr "Tilix 특별 기능"
-
-#: source/app.d:172
-msgid "Notifications enabled=%b"
-msgstr "알림 활성화됨=%b"
-
-#: source/app.d:173
-msgid "Triggers enabled=%b"
-msgstr "트리거 활성화됨=%b"
-
-#: source/app.d:174
-msgid "Badges enabled=%b"
-msgstr "뱃지 활성화됨=%b"
-
-#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
-msgid "Do not show this again"
-msgstr "다시 보지 않기"
-
-#: source/gx/gtk/actions.d:25
-msgid "disabled"
-msgstr "비활성화됨"
-
-#: source/gx/tilix/appwindow.d:320
-msgid "Create a new session"
-msgstr "새 세션 만들기"
-
-#: source/gx/tilix/appwindow.d:334
-msgid "View session sidebar"
-msgstr "세션 사이드바 보기"
-
-#: source/gx/tilix/appwindow.d:369
-msgid "Add terminal right"
-msgstr "오른쪽에 터미널 추가"
-
-#: source/gx/tilix/appwindow.d:373
-msgid "Add terminal down"
-msgstr "아래에 터미널 추가"
-
-#: source/gx/tilix/appwindow.d:379
-msgid "Find text in terminal"
-msgstr "터미널에서 텍스트 찾기"
-
-#: source/gx/tilix/appwindow.d:602
-msgid "Enter a new name for the session"
-msgstr "새 세션 이름 입력"
-
-#: source/gx/tilix/appwindow.d:604
-msgid "Change Session Name"
-msgstr "세션 이름 바꾸기"
-
-#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
-msgid "New Window"
-msgstr "새 창"
-
-#: source/gx/tilix/appwindow.d:683
-msgid "Open…"
-msgstr "열기…"
-
-#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-msgid "Save"
-msgstr "저장"
-
-#: source/gx/tilix/appwindow.d:685
-msgid "Save As…"
-msgstr "다른 이름으로 저장…"
-
-#: source/gx/tilix/appwindow.d:691
-msgid "Name…"
-msgstr "이름…"
-
-#: source/gx/tilix/appwindow.d:692
-msgid "Synchronize Input"
-msgstr "입력 동기화"
-
-#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
-#: source/gx/tilix/prefeditor/prefdialog.d:414
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
-msgid "Preferences"
-msgstr "기본 설정"
-
-#: source/gx/tilix/appwindow.d:697
-#, fuzzy
-msgid "Keyboard Shortcuts"
-msgstr "바로 가기"
-
-#: source/gx/tilix/appwindow.d:698
-#, fuzzy
-msgid "About Tilix"
-msgstr "Tilix"
-
-#: source/gx/tilix/appwindow.d:705
-msgid "GC"
-msgstr "GC"
-
-#: source/gx/tilix/appwindow.d:1082
-#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
-msgid "Default"
-msgstr "기본값"
-
-#: source/gx/tilix/appwindow.d:1191
-msgid "There are multiple sessions open, close anyway?"
-msgstr "여러 세션이 열려 있습니다. 그래도 닫을까요?"
-
-#: source/gx/tilix/appwindow.d:1455
-#: source/gx/tilix/prefeditor/profileeditor.d:965
-msgid "All JSON Files"
-msgstr "모든 JSON 파일"
-
-#: source/gx/tilix/appwindow.d:1459 source/gx/tilix/terminal/terminal.d:3694
-#: source/gx/tilix/prefeditor/prefdialog.d:1182
-#: source/gx/tilix/prefeditor/profileeditor.d:969
-msgid "All Files"
-msgstr "모든 파일"
-
-#: source/gx/tilix/appwindow.d:1468
-#, c-format
-msgid "Filename '%s' does not exist"
-msgstr "파일 이름 '%s'이(가) 없습니다"
-
-#: source/gx/tilix/appwindow.d:1500
-msgid "Load Session"
-msgstr "세션 불러오기"
-
-#: source/gx/tilix/appwindow.d:1503
-msgid "Open"
-msgstr "열기"
-
-#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
-#: source/gx/tilix/terminal/terminal.d:3684
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/closedialog.d:202
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-#: source/gx/tilix/prefeditor/profileeditor.d:952
-#: source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "Cancel"
-msgstr "취소"
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Could not load session due to unexpected error."
-msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
-
-#: source/gx/tilix/appwindow.d:1526
-msgid "Error Loading Session"
-msgstr "세션 불러오기 오류"
-
-#: source/gx/tilix/appwindow.d:1549
-msgid "Save Session"
-msgstr "세션 저장"
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Could not save session due to unexpected error."
-msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
-
-#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
-msgid "Error Saving Session"
-msgstr "세션 불러오기 오류"
-
-#: source/gx/tilix/appwindow.d:1681 source/gx/tilix/application.d:320
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:8
+#: source/gx/tilix/application.d:320 source/gx/tilix/appwindow.d:1681
 msgid "Tilix"
 msgstr "Tilix"
 
-#: source/gx/tilix/appwindow.d:1710
-msgid "Quake mode is not supported under Wayland, running as normal window"
-msgstr "퀘이크 모드는 Wayland에서 지원하지 않으며 일반 윈도우로 실행됩니다"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:5
+msgid "A tiling terminal for GNOME"
+msgstr "그놈을 위한 타일링 터미널"
 
-#: source/gx/tilix/appwindow.d:1712
-msgid "Quake Mode Not Supported"
-msgstr "퀘이크 모드가 지원되지 않음"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:8
+msgid "Gerald Nunn"
+msgstr ""
 
-#: source/gx/tilix/appwindow.d:2181
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:10
+msgid "Tilix is a tiling terminal emulator."
+msgstr "Tilix 는 타일링 터미널 에뮬레이터 입니다."
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:13
+msgid "It lets you:"
+msgstr "다음과 같은 것을 할 수 있게 해 줍니다:"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:15
+msgid ""
+"Layout terminals in any fashion by splitting them horizontally or vertically"
+msgstr "터미널을 가로 또는 세로로 분할하여 원하는 방식으로 배치하세요"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:16
+msgid ""
+"Terminals can be re-arranged using drag and drop both within and between "
+"windows"
+msgstr "창 안이나 창 사이에서 끌어옮겨 터미널을 재배열 할 수 있습니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:17
+msgid "Terminals can be detached into a new window via drag and drop"
+msgstr "터미널을 끌어옮겨 새 창으로 분리 할 수 있습니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:18
+msgid ""
+"Input can be synchronized between terminals so commands typed in one "
+"terminal are replicated to the others"
+msgstr ""
+"터미널 사이 입력을 동기화 할 수 있으며 한 터미널에서의 입력이 다른 터미널에 "
+"복제 됩니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:19
+msgid "The grouping of terminals can be saved and loaded from disk"
+msgstr "터미널 그루핑은 디스크에 저장하거나 불러올 수 있습니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:20
+msgid "Terminals support custom titles"
+msgstr "터미널은 사용자 정의 제목을 지원합니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:21
+msgid ""
+"Color schemes are stored in files and custom color schemes can be created by "
+"simply creating a new file"
+msgstr ""
+"색상 스키마는 파일에 보관되며 사용자 정의 색상 스키마는 단순히 새 파일 생성으"
+"로 생성 될 수 있습니다"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:22
+msgid "Transparent background"
+msgstr "투명한 배경"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:23
+msgid "Supports notifications when processes are completed out of view"
+msgstr "뷰 밖에서 프로세스를 끝날때에 대한 알림 지원"
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:25
+msgid ""
+"The application was written using GTK 3 and an effort was made to conform to "
+"GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
+"decorations, though it can be disabled if necessary."
+msgstr ""
+"이 앱은 GTK3 로 작성 되었으며 그놈 휴먼 인터페이스 가이드라인(HIG) 에 따르고"
+"자 노력 했습니다. 결과적으로, 이 앱은 클라이언트 측 데코레이션을 사용하며, 필"
+"요한 경우 비활성화 될 수 있습니다."
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:29
+msgid "Tilix has been tested with GNOME and with Unity."
+msgstr "Tilix 는 그놈과 유니티에서 시험되었습니다."
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:52
+msgid ""
+"Tilix is looking for maintainers! At the moment, only very minimal "
+"maintenance is done, no new features will be implemented and pull-requests "
+"may be reviewed very slowly."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:53
+msgid "If you are interested in helping Tilix, please chime in!"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:54
+msgid "This release adds the following features:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:56
+msgid "Actually install Yaru color scheme"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:57
+msgid "Give every tab the ${title}"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:58
+msgid "Add option to strip trailing whitespace on paste"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
+msgid "This release fixes the following bugs:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 #, fuzzy
-msgid "New output displayed"
-msgstr "새로운 출력"
+msgid "Fix saving of already saved session"
+msgstr "저장된 세션 열기"
 
-#: source/gx/tilix/appwindow.d:2189
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
+msgid "Add shortcut to \"Unselect all\""
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
+msgid "Many Meson buildsystem fixes"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:65
+msgid "Avoid missing the previous command exit code when encoding URLs"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
+msgid "Resolve some D deprecation messages"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:67
+msgid "Mention powerline/fonts in README"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
+msgid "Avoid calling `values()` on a shared object"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
+msgid "Update metainfo data"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
+msgid "Drop compat code for older D frontend versions"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
+msgid "Bump minimum VTE version to 0.46"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
+msgid "Remove deprecated Autotools support"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
+msgid "Add release notes, NEWS file, automatic metainfo update"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
+msgid "Update to GtkD 3.9.0"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:76
+msgid "This release updates translations."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:81
+msgid "This release fixes the following bug:"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:83
+msgid ""
+"Fixes a problem with the session sidebar getting out of sync after having "
+"deleted a session. See issues #1680, #1637 and #1699."
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:91
+msgid "Remove app menu for gnome 3.32"
+msgstr ""
+
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
 #, fuzzy
-msgid "Close session"
-msgstr "세션 닫기"
-
-#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
-#: source/gx/tilix/application.d:272
-msgid "translator-credits"
-msgstr ""
-"Youngbin Han\n"
-"revizes"
-
-#: source/gx/tilix/application.d:281
-msgid "Credits"
-msgstr "크레딧"
-
-#: source/gx/tilix/application.d:658
-msgid "Set the working directory of the terminal"
-msgstr "터미널 작업 디렉토리 설정"
-
-#: source/gx/tilix/application.d:658
-msgid "DIRECTORY"
-msgstr "디렉토리"
-
-#: source/gx/tilix/application.d:659
-msgid "Set the starting profile"
-msgstr "시작 프로파일 설정"
-
-#: source/gx/tilix/application.d:659
-msgid "PROFILE_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:660
-msgid "Set the title of the new terminal"
-msgstr "새 터미널 제목 설정"
-
-#: source/gx/tilix/application.d:660
-msgid "TITLE"
-msgstr ""
-
-#: source/gx/tilix/application.d:661
-msgid "Open the specified session"
-msgstr "특정 세션 열기"
-
-#: source/gx/tilix/application.d:661
-msgid "SESSION_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:663
-msgid "Send an action to current Tilix instance"
-msgstr "현재 Tilix 인스턴스로 동작 보내기"
-
-#: source/gx/tilix/application.d:663
-msgid "ACTION_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:665
-msgid "Execute the parameter as a command"
-msgstr "인자를 명령으로 실행"
-
-#: source/gx/tilix/application.d:665
-msgid "COMMAND"
-msgstr ""
-
-#: source/gx/tilix/application.d:666
-msgid "Maximize the terminal window"
-msgstr "터미널 창 최대화"
-
-#: source/gx/tilix/application.d:667
-msgid "Minimize the terminal window"
-msgstr "터미널 창 최소화"
-
-#: source/gx/tilix/application.d:668
-msgid ""
-"Override the preferred window style to use, one of: normal,disable-csd,"
-"disable-csd-hide-toolbar,borderless"
-msgstr ""
-
-#: source/gx/tilix/application.d:668
-msgid "WINDOW_STYLE"
-msgstr ""
-
-#: source/gx/tilix/application.d:669
-msgid "Full-screen the terminal window"
-msgstr "터미널 창을 전체화면으로"
-
-#: source/gx/tilix/application.d:670
-msgid "Focus the existing window"
-msgstr "기존 창에 포커스 두기"
-
-#: source/gx/tilix/application.d:671
-msgid "Start additional instance as new process (Not Recommended)"
-msgstr "새 프로세스로 추가적인 인스턴스 시작(권장하지 않음)"
-
-#: source/gx/tilix/application.d:672
-msgid ""
-"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
-msgstr "창 크기를 정하세요; 예시: 80x24, 또는 80x24+200+200 (행x열+X+Y)"
-
-#: source/gx/tilix/application.d:672
-msgid "GEOMETRY"
-msgstr ""
-
-#: source/gx/tilix/application.d:673
-msgid ""
-"Opens a window in quake mode or toggles existing quake mode window visibility"
-msgstr ""
-"새 창을 퀘이크 모드에서 열거나, 이미 열려 있는 퀘이크 모드의 창을 보이거나 숨"
-"기기"
-
-#: source/gx/tilix/application.d:674
-#, fuzzy
-msgid "Show the Tilix and dependent component versions"
-msgstr "Tilix 와 의존 구성요소 버전 보이기"
-
-#: source/gx/tilix/application.d:675
-msgid "Show the Tilix preferences dialog directly"
-msgstr "Tilix 설정 다이얼로그 바로 보이기"
-
-#: source/gx/tilix/application.d:676
-#, fuzzy
-msgid ""
-"Group tilix instances into different processes (Experimental, not "
-"recommended)"
-msgstr "새 프로세스로 추가적인 인스턴스 시작(권장하지 않음)"
-
-#: source/gx/tilix/application.d:676
-msgid "GROUP_NAME"
-msgstr ""
-
-#: source/gx/tilix/application.d:679
-msgid "Hidden argument to pass terminal UUID"
-msgstr "터미널 UUID를 전달하기 위한 숨겨진 독립변수"
-
-#: source/gx/tilix/application.d:679
-msgid "TERMINAL_UUID"
-msgstr ""
-
-#: source/gx/tilix/application.d:696
-#, c-format
-msgid "The application ID %s is not valid"
-msgstr ""
-
-#: source/gx/tilix/application.d:854
-msgid ""
-"There appears to be an issue with the configuration of the terminal.\n"
-"This issue is not serious, but correcting it will improve your experience.\n"
-"Click the link below for more information:"
-msgstr ""
-"터미널 설정에 이슈가 있는 것으로 보입니다.\n"
-"이 이슈는 심각하지 않습니다. 그러나 고친다면 사용 경험이 향상됩니다.\n"
-"자세한 정보는 아래 링크를 누르세요:"
-
-#: source/gx/tilix/application.d:855
-msgid "Configuration Issue Detected"
-msgstr "설정 이슈 감지됨"
-
-#: source/gx/tilix/application.d:867
-msgid "Do not show this message again"
-msgstr "이 메시지 다시 보지 않기"
-
-#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
-#, c-format
-msgid "Ignoring as '%s' is not a directory"
-msgstr "'%s'은(는) 디렉토리가 아니므로, 무시합니다"
-
-#: source/gx/tilix/cmdparams.d:152
-#, c-format
-msgid "Geometry string '%s' is invalid and could not be parsed"
-msgstr ""
-
-#: source/gx/tilix/cmdparams.d:186
-msgid ""
-"You cannot load a session and set a profile/working directory/execute "
-"command option, please choose one or the other"
-msgstr ""
-"세션 불러오기와 프로파일/작업 디렉토리/실행 명령어 설정을 하실 수 없습니다. "
-"하나 또는 다른것을 선택하세요"
-
-#: source/gx/tilix/cmdparams.d:193
-msgid "You can only use the action parameter within Tilix"
-msgstr "오직 Tilix 간에서만 동작 인자를 사용하실 수 있습니다"
-
-#: source/gx/tilix/cmdparams.d:215
-msgid ""
-"You cannot use the quake mode with maximize, minimize or geometry parameters"
-msgstr "최대화, 최소화, 크기 조절 설정은 퀘이크 모드에서 사용하실 수 없습니다"
-
-#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
-#: source/gx/tilix/terminal/terminal.d:1860
-msgid "Close"
-msgstr "닫기"
-
-#: source/gx/tilix/terminal/terminal.d:348
-#: source/gx/tilix/terminal/terminal.d:1309
-#: source/gx/tilix/prefeditor/titleeditor.d:105
-msgid "Terminal"
-msgstr "터미널"
-
-#: source/gx/tilix/terminal/terminal.d:391
-#: source/gx/tilix/terminal/terminal.d:1349
-#: source/gx/tilix/terminal/terminal.d:1859
-msgid "Maximize"
-msgstr "최대화"
-
-#: source/gx/tilix/terminal/terminal.d:401
-#: source/gx/tilix/terminal/terminal.d:692
-msgid "Disable input synchronization for this terminal"
-msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
-
-#: source/gx/tilix/terminal/terminal.d:410
-#: source/gx/tilix/terminal/terminal.d:829
-msgid "Read-Only"
-msgstr "읽기전용"
-
-#: source/gx/tilix/terminal/terminal.d:416
-msgid "New output"
-msgstr "새로운 출력"
-
-#: source/gx/tilix/terminal/terminal.d:422
-#: source/gx/tilix/prefeditor/profileeditor.d:446
-msgid "Terminal bell"
-msgstr "터미널 벨"
-
-#: source/gx/tilix/terminal/terminal.d:467
-msgid "Edit Profile"
-msgstr "프로파일 편집"
-
-#: source/gx/tilix/terminal/terminal.d:485
-msgid "Edit Encodings"
-msgstr "인코딩 수정"
-
-#: source/gx/tilix/terminal/terminal.d:694
-msgid "Enable input synchronization for this terminal"
-msgstr "이 터미널에 대해 입력 동기화 활성화 하기"
-
-#: source/gx/tilix/terminal/terminal.d:729
-#, c-format
-msgid ""
-"The library %s could not be loaded, password functionality is unavailable."
-msgstr ""
-"라이브러리 %s 을(를) 불러올 수 없습니다, 암호 기능을 이용할 수 없습니다."
-
-#: source/gx/tilix/terminal/terminal.d:729
-msgid "Library Not Loaded"
-msgstr "라이브러리가 불러와지지 않음"
-
-#: source/gx/tilix/terminal/terminal.d:828
-msgid "Find…"
-msgstr "찾기…"
-
-#: source/gx/tilix/terminal/terminal.d:835
-msgid "Password..."
-msgstr "암호…"
-
-#: source/gx/tilix/terminal/terminal.d:836
-msgid "Bookmark..."
-msgstr "북마크…"
-
-#: source/gx/tilix/terminal/terminal.d:837
-msgid "Add Bookmark..."
-msgstr "북마크 추가…"
-
-#: source/gx/tilix/terminal/terminal.d:841
-msgid "Assistants"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:842
-#: source/gx/tilix/prefeditor/prefdialog.d:283
-msgid "Profiles"
-msgstr "프로파일"
-
-#: source/gx/tilix/terminal/terminal.d:848
-msgid "Show File Browser..."
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:852
-msgid "Save Output…"
-msgstr "출력 저장…"
-
-#: source/gx/tilix/terminal/terminal.d:853
-#: source/gx/tilix/prefeditor/profileeditor.d:289
-#: source/gx/tilix/prefeditor/profileeditor.d:328
-msgid "Reset"
-msgstr "초기화"
-
-#: source/gx/tilix/terminal/terminal.d:854
-msgid "Reset and Clear"
-msgstr "초기화 하고 지우기"
-
-#: source/gx/tilix/terminal/terminal.d:858
-#: source/gx/tilix/prefeditor/prefdialog.d:166
-#: source/gx/tilix/prefeditor/prefdialog.d:167
-#: source/gx/tilix/prefeditor/prefdialog.d:463
-#: source/gx/tilix/prefeditor/prefdialog.d:681
-#: source/gx/tilix/prefeditor/profileeditor.d:1091
-msgid "Encoding"
-msgstr "인코딩"
-
-#: source/gx/tilix/terminal/terminal.d:859
-msgid "Layout Options…"
-msgstr "레이아웃 옵션…"
-
-#: source/gx/tilix/terminal/terminal.d:863
-msgid "Monitor Silence"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:866
-msgid "Other"
-msgstr "기타"
-
-#: source/gx/tilix/terminal/terminal.d:875
-msgid "Add Right"
-msgstr "오른쪽에 추가"
-
-#: source/gx/tilix/terminal/terminal.d:879
-msgid "Add Down"
-msgstr "아래에 추가"
-
-#: source/gx/tilix/terminal/terminal.d:989
-msgid "Terminal Activity"
-msgstr "터미널 활동"
-
-#: source/gx/tilix/terminal/terminal.d:1325
-#, fuzzy
-msgid "Not Enabled"
-msgstr "활성화됨"
-
-#: source/gx/tilix/terminal/terminal.d:1346
-#: source/gx/tilix/terminal/terminal.d:1859
-msgid "Restore"
-msgstr "복원"
-
-#: source/gx/tilix/terminal/terminal.d:1708
-msgid "Tilix Custom Notification"
-msgstr "Tilix 사용자 정의 알림"
-
-#: source/gx/tilix/terminal/terminal.d:1809
-msgid "Open Link"
-msgstr "링크 열기"
-
-#: source/gx/tilix/terminal/terminal.d:1810
-msgid "Copy Link Address"
-msgstr "링크 주소 복사"
-
-#: source/gx/tilix/terminal/terminal.d:1820
-#: source/gx/tilix/terminal/terminal.d:1830
-msgid "Copy"
-msgstr "복사"
-
-#: source/gx/tilix/terminal/terminal.d:1822
-#: source/gx/tilix/terminal/terminal.d:1836
-msgid "Copy as HTML"
-msgstr "HTML로 저장"
-
-#: source/gx/tilix/terminal/terminal.d:1824
-#: source/gx/tilix/terminal/terminal.d:1842
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Paste"
-msgstr "붙여넣기"
-
-#: source/gx/tilix/terminal/terminal.d:1825
-#: source/gx/tilix/terminal/terminal.d:1847
-msgid "Select All"
-msgstr "모두 선택"
-
-#: source/gx/tilix/terminal/terminal.d:1850
-#: source/gx/tilix/prefeditor/prefdialog.d:1560
-msgid "Clipboard"
-msgstr "클립보드"
-
-#: source/gx/tilix/terminal/terminal.d:1864
-msgid "Synchronize input"
-msgstr "입력 동기화"
-
-#: source/gx/tilix/terminal/terminal.d:2017
-#, c-format
-msgid "Could not check file '%s' due to error '%s'"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2024
-#, c-format
-msgid ""
-"Remote file URIs are not supported with hyperlinks.\n"
-"URI was '%s'"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2025
-msgid "Remote File URI Unsupported"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2057
-#: source/gx/tilix/terminal/terminal.d:2632
-#, c-format
-msgid "Custom link regex '%s' has an error, ignoring"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2058
-msgid "Regular Expression Error"
-msgstr "정규 표현식 오류"
-
-#: source/gx/tilix/terminal/terminal.d:2071
-#, c-format
-msgid "Could not open match '%s'"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2072
-msgid "Error Opening Match"
-msgstr ""
-
-#: source/gx/tilix/terminal/terminal.d:2582
-#, fuzzy, c-format
-msgid "Unexpected error occurred when adding link regex: %s"
-msgstr "예상하지 못한 오류가 발생했습니다. %s"
-
-#: source/gx/tilix/terminal/terminal.d:2789
-msgid "Unexpected error occurred, no additional information available"
-msgstr ""
-"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다"
-
-#: source/gx/tilix/terminal/terminal.d:2799
-#, c-format
-msgid "Unexpected error occurred: %s"
-msgstr "예상하지 못한 오류가 발생했습니다. %s"
-
-#: source/gx/tilix/terminal/terminal.d:3681
-msgid "Save Terminal Output"
-msgstr "터미널 출력 저장"
-
-#: source/gx/tilix/terminal/terminal.d:3690
-msgid "All Text Files"
-msgstr "모든 텍스트 파일"
-
-#: source/gx/tilix/terminal/terminal.d:4020
-msgid "Unknown"
-msgstr "알 수 없음"
-
-#: source/gx/tilix/terminal/terminal.d:4284
-#, c-format
-msgid "The child process exited normally with status %d"
-msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
-
-#: source/gx/tilix/terminal/terminal.d:4285
-#, c-format
-msgid "The child process was aborted by signal %d."
-msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다 %d."
-
-#: source/gx/tilix/terminal/terminal.d:4286
-msgid "The child process was aborted."
-msgstr "자식 프로세스가 중지되었습니다."
-
-#: source/gx/tilix/terminal/terminal.d:4292
-msgid "Relaunch"
-msgstr "다시 시작"
-
-#: source/gx/tilix/terminal/terminal.d:4359
-msgid "Don't Paste"
-msgstr "붙여넣지 마세요"
-
-#: source/gx/tilix/terminal/terminal.d:4360
-msgid "Paste Anyway"
-msgstr "어떻게든 붙여넣기"
-
-#: source/gx/tilix/terminal/password.d:137
-#: source/gx/tilix/terminal/password.d:431 source/gx/tilix/session.d:1572
-#: source/gx/tilix/bookmark/bmtreeview.d:73
-#: source/gx/tilix/bookmark/bmeditor.d:231
-msgid "Name"
-msgstr "이름"
-
-#: source/gx/tilix/terminal/password.d:140 source/gx/tilix/constants.d:154
-msgid "ID"
-msgstr "ID"
-
-#: source/gx/tilix/terminal/password.d:161
-msgid "New"
-msgstr "새로 만들기"
-
-#: source/gx/tilix/terminal/password.d:184
-#: source/gx/tilix/prefeditor/common.d:46
-#: source/gx/tilix/prefeditor/common.d:77
-#: source/gx/tilix/prefeditor/profileeditor.d:1325
-msgid "Edit"
-msgstr "편집"
-
-#: source/gx/tilix/terminal/password.d:213
-#: source/gx/tilix/prefeditor/prefdialog.d:556
-#: source/gx/tilix/prefeditor/advdialog.d:141
-#: source/gx/tilix/prefeditor/advdialog.d:319
-#: source/gx/tilix/prefeditor/profileeditor.d:1344
-msgid "Delete"
-msgstr "삭제"
-
-#: source/gx/tilix/terminal/password.d:235
-msgid "Include return character with password"
-msgstr "비밀번호에 반환 문자 포함"
-
-#: source/gx/tilix/terminal/password.d:371
-msgid "Insert Password"
-msgstr "암호 삽입"
-
-#: source/gx/tilix/terminal/password.d:371
-#: source/gx/tilix/prefeditor/advdialog.d:192
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Apply"
-msgstr "적용"
-
-#: source/gx/tilix/terminal/password.d:441
-msgid "Password"
-msgstr "암호"
-
-#: source/gx/tilix/terminal/password.d:451
-msgid "Confirm Password"
-msgstr "암호 확인"
-
-#: source/gx/tilix/terminal/password.d:493 source/gx/tilix/terminal/layout.d:33
-#: source/gx/tilix/closedialog.d:202 source/gx/tilix/bookmark/bmeditor.d:151
-#: source/gx/tilix/bookmark/bmchooser.d:127
-msgid "OK"
-msgstr "확인"
-
-#: source/gx/tilix/terminal/password.d:499
-msgid "Add Password"
-msgstr "암호 추가"
-
-#: source/gx/tilix/terminal/password.d:504
-msgid "Edit Password"
-msgstr "암호 수정"
-
-#: source/gx/tilix/terminal/monitor.d:112
-msgid "Process monitoring is not enabled, this should never be called"
-msgstr ""
-
-#: source/gx/tilix/terminal/search.d:125
-msgid "Search Options"
-msgstr "검색 옵션"
-
-#: source/gx/tilix/terminal/search.d:138
-msgid "Find next"
-msgstr "다음 찾기"
-
-# ***********************************************
-# Keyboard shortcuts to the end, these are shown
-# in the Shortcut preferences and in the future
-# the shortcut overview if available in Gnome 3.20
-# ***********************************************
-#: source/gx/tilix/terminal/search.d:144
-msgid "Find previous"
-msgstr "이전 찾기"
-
-#: source/gx/tilix/terminal/search.d:191
-msgid "Match case"
-msgstr "일치 경우"
-
-#: source/gx/tilix/terminal/search.d:192
-msgid "Match entire word only"
-msgstr "전체 단어 일치만"
-
-#: source/gx/tilix/terminal/search.d:193
-msgid "Match as regular expression"
-msgstr "정규 표현식으로 일치"
-
-#: source/gx/tilix/terminal/search.d:194
-msgid "Wrap around"
-msgstr "주변 감싸기"
-
-#: source/gx/tilix/terminal/search.d:235
-#, fuzzy, c-format
-msgid ""
-"Search '%s' is not a valid regex\n"
-"%s"
-msgstr "표현식 %s 는 올바른 정규표현식이 아닙니다"
-
-#: source/gx/tilix/terminal/layout.d:33
-msgid "Layout Options"
-msgstr "레이아웃 옵션"
-
-#: source/gx/tilix/terminal/layout.d:48
-msgid "Active"
-msgstr "동작"
-
-#: source/gx/tilix/terminal/layout.d:54 source/gx/tilix/closedialog.d:123
-#: source/gx/tilix/constants.d:152
-msgid "Title"
-msgstr "제목"
-
-#: source/gx/tilix/terminal/layout.d:68
-#: source/gx/tilix/prefeditor/profileeditor.d:103
-#: source/gx/tilix/prefeditor/profileeditor.d:697
-#: source/gx/tilix/prefeditor/profileeditor.d:1179
-msgid "Badge"
-msgstr "뱃지"
-
-#: source/gx/tilix/terminal/layout.d:82
-msgid "Session Load"
-msgstr "세션"
-
-#: source/gx/tilix/terminal/layout.d:89
-#: source/gx/tilix/prefeditor/advdialog.d:106
-#: source/gx/tilix/prefeditor/profileeditor.d:98
-#: source/gx/tilix/prefeditor/profileeditor.d:1140
-#: source/gx/tilix/bookmark/bmeditor.d:333
-#: source/gx/tilix/bookmark/bmeditor.d:428
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Command"
-msgstr "명령어"
-
-#: source/gx/tilix/terminal/layout.d:98
-msgid ""
-"Active options are always in effect and apply immediately.\n"
-"Session Load options only apply when loading a session file."
-msgstr ""
-"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
-"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
-
-#: source/gx/tilix/terminal/advpaste.d:33
-msgid "This command is asking for Administrative access to your computer"
-msgstr "이 명령어가 컴퓨터로의 관리자 액세스를 요청합니다"
-
-#: source/gx/tilix/terminal/advpaste.d:34
-msgid "Copying commands from the internet can be dangerous. "
-msgstr "인터넷에서 명령어를 복사하는 것은 위험할 수 있습니다. "
-
-#: source/gx/tilix/terminal/advpaste.d:35
-msgid "Be sure you understand what each part of this command does."
-msgstr "이 명령어의 각 부분이 무엇을 하는지 분명히 이해하세요."
-
-#: source/gx/tilix/terminal/advpaste.d:96
-msgid "Transform"
-msgstr "변환"
-
-#: source/gx/tilix/terminal/advpaste.d:104
-msgid "Convert spaces to tabs"
-msgstr "공백을 탭으로 변환"
-
-#: source/gx/tilix/terminal/advpaste.d:115
-msgid "Convert CRLF and CR to LF"
-msgstr "CRLF와 CR을 LF로 면환"
-
-#: source/gx/tilix/terminal/advpaste.d:137
-msgid "Advanced Paste"
-msgstr "고급 붙여넣기"
-
-#: source/gx/tilix/preferences.d:252
-msgid "UpdateState"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:253
-msgid "ExecuteCommand"
-msgstr "명령 실행"
-
-#: source/gx/tilix/preferences.d:254
-msgid "SendNotification"
-msgstr ""
-
-#: source/gx/tilix/preferences.d:255
-msgid "UpdateTitle"
+msgid "Update icon"
 msgstr "제목 업데이트"
 
-#: source/gx/tilix/preferences.d:256
-msgid "PlayBell"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:93
+msgid "Minor fixes"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:257
-msgid "SendText"
-msgstr "텍스트 전송"
-
-#: source/gx/tilix/preferences.d:258
-msgid "InsertPassword"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
+msgid "Small release to update localizations"
 msgstr ""
 
-#: source/gx/tilix/preferences.d:259
-msgid "UpdateBadge"
-msgstr "뱃지 업데이트"
-
-#: source/gx/tilix/preferences.d:260
-msgid "RunProcess"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
+msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
 msgstr ""
 
-#: source/gx/tilix/preferences.d:370
-#, c-format
-msgid "%s (Copy)"
-msgstr "%s (복사)"
-
-#: source/gx/tilix/colorschemes.d:188
-#, c-format
-msgid "File %s is not a color scheme compliant JSON file"
-msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
-
-#: source/gx/tilix/colorschemes.d:251
-msgid "Color scheme palette requires 16 colors"
-msgstr "색상표에 16 가지 색상이 필요합니다"
-
-#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
-#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
-#: source/gx/tilix/encoding.d:78
-msgid "Western"
-msgstr "서유럽어"
-
-#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
-#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
-msgid "Central European"
-msgstr "중앙 유럽어"
-
-#: source/gx/tilix/encoding.d:20
-msgid "South European"
-msgstr "남유럽어"
-
-#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
-#: source/gx/tilix/encoding.d:83
-msgid "Baltic"
-msgstr "발트어"
-
-#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
-#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
-#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
-msgid "Cyrillic"
-msgstr "키릴어"
-
-# ************************************************
-# Encodings
-# ************************************************
-#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
-#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
-msgid "Arabic"
-msgstr "아랍어"
-
-#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
-#: source/gx/tilix/encoding.d:79
-msgid "Greek"
-msgstr "그리스어"
-
-#: source/gx/tilix/encoding.d:25
-msgid "Hebrew Visual"
-msgstr "시각 히브리어"
-
-#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
-#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
-msgid "Hebrew"
-msgstr "히브리어"
-
-#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
-#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
-msgid "Turkish"
-msgstr "터키어"
-
-#: source/gx/tilix/encoding.d:28
-msgid "Nordic"
-msgstr "북유럽어"
-
-#: source/gx/tilix/encoding.d:30
-msgid "Celtic"
-msgstr "켈트어"
-
-#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
-msgid "Romanian"
-msgstr "루마니아어"
-
-#: source/gx/tilix/encoding.d:33
-msgid "Unicode"
-msgstr "유니코드"
-
-#: source/gx/tilix/encoding.d:34
-msgid "Armenian"
-msgstr "미국어"
-
-#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
-#: source/gx/tilix/encoding.d:40
-msgid "Chinese Traditional"
-msgstr "중국어 정체"
-
-#: source/gx/tilix/encoding.d:37
-msgid "Cyrillic/Russian"
-msgstr "키릴/러시아어"
-
-#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
-#: source/gx/tilix/encoding.d:71
-msgid "Japanese"
-msgstr "일본어"
-
-#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
-#: source/gx/tilix/encoding.d:74
-msgid "Korean"
-msgstr "한국어"
-
-#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
-#: source/gx/tilix/encoding.d:43
-msgid "Chinese Simplified"
-msgstr "중국어 간체"
-
-#: source/gx/tilix/encoding.d:44
-msgid "Georgian"
-msgstr "조지아어"
-
-#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
-msgid "Cyrillic/Ukrainian"
-msgstr "키릴/우크라이나어"
-
-#: source/gx/tilix/encoding.d:58
-msgid "Croatian"
-msgstr "크로아티아어"
-
-#: source/gx/tilix/encoding.d:60
-msgid "Hindi"
-msgstr "힌디어"
-
-#: source/gx/tilix/encoding.d:61
-msgid "Persian"
-msgstr "페르시아어"
-
-#: source/gx/tilix/encoding.d:63
-msgid "Gujarati"
-msgstr "구즈라트어"
-
-#: source/gx/tilix/encoding.d:64
-msgid "Gurmukhi"
-msgstr "구르무키어"
-
-#: source/gx/tilix/encoding.d:66
-msgid "Icelandic"
-msgstr "아이슬란드어"
-
-#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
-#: source/gx/tilix/encoding.d:84
-msgid "Vietnamese"
-msgstr "베트남어"
-
-#: source/gx/tilix/encoding.d:73
-msgid "Thai"
-msgstr "태국어"
-
-#: source/gx/tilix/closedialog.d:129
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-#: source/gx/tilix/bookmark/bmtreeview.d:70
-msgid "Icon"
-msgstr "아이콘"
-
-#: source/gx/tilix/closedialog.d:170
-#, c-format
-msgid "Window (%s)"
-msgstr "창 (%s)"
-
-#: source/gx/tilix/closedialog.d:173
-#, c-format
-msgid "Session (%s)"
-msgstr "세션 (%s)"
-
-#: source/gx/tilix/closedialog.d:189
-msgid "Close Application"
-msgstr "응용프로그램 닫기"
-
-#: source/gx/tilix/closedialog.d:191
-msgid "Close Window"
-msgstr "창 닫기"
-
-#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
-msgid "Close Session"
-msgstr "세션 닫기"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
-msgid "Add bookmark"
-msgstr "북마크 추가"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
-msgid "Edit bookmark"
-msgstr "북마크 수정"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
-msgid "Delete bookmark"
-msgstr "북마크 제거"
-
-#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
-msgid "Unselect bookmark"
-msgstr "북마크 선택 해제"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:123
-msgid "Tilix Preferences"
-msgstr "Tilix 설정"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:140
-#: source/gx/tilix/prefeditor/prefdialog.d:141
-#: source/gx/tilix/prefeditor/prefdialog.d:219
-msgid "Global"
-msgstr "전역"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:144
-#: source/gx/tilix/prefeditor/prefdialog.d:145
-msgid "Appearance"
-msgstr "모양새"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:150
-#: source/gx/tilix/prefeditor/prefdialog.d:151
-msgid "Quake"
-msgstr "퀘이크"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:155
-#: source/gx/tilix/prefeditor/prefdialog.d:156
-msgid "Bookmarks"
-msgstr "북마크"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:162
-#: source/gx/tilix/prefeditor/prefdialog.d:163
-#: source/gx/tilix/prefeditor/prefdialog.d:299
-msgid "Shortcuts"
-msgstr "바로 가기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:170
-#: source/gx/tilix/prefeditor/prefdialog.d:171
-#: source/gx/tilix/prefeditor/profileeditor.d:105
-#: source/gx/tilix/prefeditor/profileeditor.d:577
-msgid "Advanced"
-msgstr "고급"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
-msgid "Profile"
-msgstr "프로파일"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:189
-msgid "Add profile"
-msgstr "프로파일 추가"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:194
-msgid "Delete profile"
-msgstr "프로파일 제거"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:312
-#: source/gx/tilix/prefeditor/prefdialog.d:320
-#, c-format
-msgid "Profile: %s"
-msgstr "프로파일: %s"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:366
-#, c-format
-msgid "Are you sure you want to delete '%s'?"
+#: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:108
+msgid "Some new features and bug fixes."
 msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:557
-msgid "Clone"
-msgstr "복제"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:561
-msgid "Use for new terminals"
-msgstr "새 터미널을 위해 사용"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:637
-msgid "Encodings showing in menu:"
-msgstr "메뉴에 보일 인코딩:"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:679
-msgid "Enabled"
-msgstr "활성화됨"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:765
-#: source/gx/tilix/prefeditor/advdialog.d:287
-msgid "Action"
-msgstr "동작"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:789
-msgid "Shortcut Key"
-msgstr "단축키"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:801
-msgid "Enable shortcuts"
-msgstr "바로 가기 활성화"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:805
-msgid "Set default"
-msgstr "기본값으로 설정"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:916
-msgid "Overwrite Existing Shortcut"
-msgstr "이미 있는 바로가기 덮어쓰기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:917
-#, c-format
-msgid ""
-"The shortcut %s is already assigned to %s.\n"
-"Disable the shortcut for the other action and assign here instead?"
-msgstr ""
-"바로가기 %s 는 이미 %s 로 지정되어 있습니다.\n"
-"다른 동작을 위해 바로가기를 비활성화 하고 여기에 지정할까요?"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1135
-msgid "Window style"
-msgstr "창 스타일"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Normal"
-msgstr "보통"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD"
-msgstr "CSD 비활성화"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Disable CSD, hide toolbar"
-msgstr "CSD 비활성화, 툴바 숨기기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1137
-msgid "Borderless"
-msgstr "테두리 없음"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1141
-msgid "Window restart required"
-msgstr "창을 다시 시작해야 합니다"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1150
-msgid "Terminal title style"
-msgstr "터미널 제목 스타일"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-msgid "Small"
-msgstr "작음"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1151
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-msgid "None"
-msgstr "없음"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1156
-#: source/gx/tilix/prefeditor/prefdialog.d:1350
-#, fuzzy
-msgid "Tab position"
-msgstr "뱃지 위치"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Left"
-msgstr "왼쪽"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-msgid "Right"
-msgstr "오른쪽"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Top"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1157
-#: source/gx/tilix/prefeditor/prefdialog.d:1351
-#: source/gx/tilix/prefeditor/prefdialog.d:1358
-msgid "Bottom"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1163
-msgid "Theme variant"
-msgstr "테마 종류"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Light"
-msgstr "밝음"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1164
-msgid "Dark"
-msgstr "어두움"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1170
-msgid "Background image"
-msgstr "배경 이미지"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1172
-msgid "Select Image"
-msgstr "이미지 선택"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1175
-msgid "All Image Files"
-msgstr "모든 이미지 파일"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1196
-msgid "Reset background image"
-msgstr "배경 이미지 초기화"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Scale"
-msgstr "크기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Tile"
-msgstr "타일"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-#: source/gx/tilix/prefeditor/prefdialog.d:1344
-msgid "Center"
-msgstr "가운데"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1202
-msgid "Stretch"
-msgstr "늘리기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1221
-msgid "Default session name"
-msgstr "기본 세션 이름"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1236
-msgid "Application title"
-msgstr "응용프로그램 제목"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1254
-msgid "Enable transparency, requires re-start"
-msgstr "투명도 활성화 하기, 다시 시작 필요함"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1260
-msgid "Use a wide handle for splitters"
-msgstr "스플라이터에 대해 넓은 핸들 사용하기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1265
-msgid "Place the sidebar on the right"
-msgstr "사이드바를 오른쪽에 두기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1269
-msgid "Show the terminal title even if it's the only terminal"
-msgstr "터미널만 있어도 터미널 제목 보이기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1274
-msgid "Use overlay scrollbars (Application restart required)"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1279
-msgid "Use tabs instead of sidebar (Application restart required)"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1311
-msgid "Size"
-msgstr "크기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1322
-msgid "Height percent"
-msgstr "높이 백분율"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1333
-msgid "Width percent"
-msgstr "너비 백분율"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1343
-msgid "Alignment"
-msgstr "정렬"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1357
-#, fuzzy
-msgid "Window position"
-msgstr "뱃지 위치"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1366
-#: source/gx/tilix/prefeditor/profileeditor.d:558
-msgid "Options"
-msgstr "옵션"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1374
-msgid "Show terminal on all workspaces"
-msgstr "모든 작업공간에서 터미널 보이기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1386
-msgid "Hide window when focus is lost"
-msgstr "포커스를 잃을 때 창 숨기기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1390
-msgid "Delay hiding window by (ms)"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1403
-#, fuzzy
-msgid "Hide the toolbar of the window"
-msgstr "창 제목 막대 숨기기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1418
-msgid "Keep window always on top"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1423
-msgid "Display terminal on active monitor"
-msgstr "활성된 모니터에 터미널 표시"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1430
-msgid "Display on specific monitor"
-msgstr "특정 모니터에서 보이기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1433
-msgid "Primary Monitor"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1436
-msgid "Monitor "
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1496
-msgid "Behavior"
-msgstr "행동"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1502
-msgid "Prompt when creating a new session"
-msgstr "새 세션을 만들 때 세션 설정 입력받기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1507
-msgid "Focus a terminal when the mouse moves over it"
-msgstr "마우스가 위에서 움직일 때 터미널에 포커스 하기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1512
-msgid "Autohide the mouse pointer when typing"
-msgstr "타이핑 할 때 마우스 포인터 자동으로 숨기기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1517
-msgid "Close terminal by clicking middle mouse button on title"
-msgstr "제목에서 마우스 중간 버튼을 눌러 터미널 닫기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1522
-msgid "Zoom the terminal using <Control> and scroll wheel"
-msgstr "<Control>과 스크롤 휠을 이용하여 터미널 확대하기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1527
-msgid "Require the <Control> modifier to edit title on click"
-msgstr "제목 클릭하여 편집 하려면 <Control> 제어자가 필요합니다"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1532
-msgid "Close window when last session is closed"
-msgstr "마지막 세션이 닫힐 때 창 닫기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1537
-msgid "Save and restore window state"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1543
-msgid "Send desktop notification on process complete"
-msgstr "프로세스가 완료될때 데스크톱 알림 보내기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1551
-msgid "On new instance"
-msgstr "새 인스턴스 생성시"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
-msgid "New Session"
-msgstr "새 세션"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Right"
-msgstr "오른쪽으로 분할"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Split Down"
-msgstr "아래로 분할"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1554
-msgid "Focus Window"
-msgstr "창에 포커스"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1566
-msgid "Always use advanced paste dialog"
-msgstr "항상 고급 붙여넣기 다이얼로그 사용"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1571
-msgid "Warn when attempting unsafe paste"
-msgstr "위험한 붙여넣기를 할 때 경고하기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1576
-msgid "Strip first character of paste if comment or variable declaration"
-msgstr "붙여넣기 한 것이 주석 또는 변수 선언문일 경우 첫 문자 삭제하기"
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1581
-msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/prefdialog.d:1586
-msgid "Automatically copy text to clipboard when selecting"
-msgstr "선택할 때 텍스트를 자동으로 클립보드로 복사하기"
-
-#: source/gx/tilix/prefeditor/common.d:37
-msgid "Custom Links"
-msgstr "사용자 정의 링크"
-
-#: source/gx/tilix/prefeditor/common.d:43
-msgid ""
-"A list of user defined links that can be clicked on in the terminal based on "
-"regular expression definitions."
-msgstr ""
-"정규표현식 정의에 기반하여 터미널에서 누를 수 있는 사용자 정의 링크 목록."
-
-#: source/gx/tilix/prefeditor/common.d:67
-msgid "Triggers"
-msgstr "트리거"
-
-#: source/gx/tilix/prefeditor/common.d:74
-msgid ""
-"Triggers are regular expressions that are used to check against output text "
-"in the terminal. When a match is detected the configured action is executed."
-msgstr ""
-"트리거는 터미널의 출력을 확인하기 위한 정규 표현식 입니다. 일치가 감지되면 설"
-"정된 동작이 실행됩니다."
-
-#: source/gx/tilix/prefeditor/titleeditor.d:110
-#, fuzzy
-msgid "Session"
-msgstr "세션"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:116
-msgid "Window"
-msgstr "창"
-
-#: source/gx/tilix/prefeditor/titleeditor.d:126
-#: source/gx/tilix/prefeditor/titleeditor.d:127
-msgid "Help"
-msgstr "도움말"
-
-#: source/gx/tilix/prefeditor/advdialog.d:94
-#: source/gx/tilix/prefeditor/advdialog.d:261
-msgid "Regex"
-msgstr "정규표현식"
-
-#: source/gx/tilix/prefeditor/advdialog.d:118
-msgid "Case Insensitive"
-msgstr "대소문자 구분 한함"
-
-#: source/gx/tilix/prefeditor/advdialog.d:134
-#: source/gx/tilix/prefeditor/advdialog.d:313
-#: source/gx/tilix/prefeditor/profileeditor.d:1307
-msgid "Add"
-msgstr "추가"
-
-#: source/gx/tilix/prefeditor/advdialog.d:151
-msgid "Move up"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:162
-#, fuzzy
-msgid "Move down"
-msgstr "페이지 내리기"
-
-#: source/gx/tilix/prefeditor/advdialog.d:192
-msgid "Edit Custom Links"
-msgstr "사용자 정의 링크 편집"
-
-#: source/gx/tilix/prefeditor/advdialog.d:299
-msgid "Parameter"
-msgstr "인자"
-
-#: source/gx/tilix/prefeditor/advdialog.d:337
-msgid "Limit number of lines for trigger processing to:"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/advdialog.d:362
-msgid "Edit Triggers"
-msgstr "트리거 편집"
-
-#: source/gx/tilix/prefeditor/advdialog.d:405
-#, c-format
-msgid "Row %d: "
-msgstr "열 %d: "
-
-#: source/gx/tilix/prefeditor/profileeditor.d:97
-msgid "General"
-msgstr "일반"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:99
-msgid "Color"
-msgstr "색상"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:100
-msgid "Scrolling"
-msgstr "스크롤링"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:101
-msgid "Compatibility"
-msgstr "호환성"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:217
-msgid "Profile name"
-msgstr "프로파일 이름"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:241
-msgid "Terminal title"
-msgstr "터미널 제목"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:254
-msgid "Text Appearance"
-msgstr "텍스트 모양새"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:262
-msgid "Terminal size"
-msgstr "터미널 크기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:272
-msgid "columns"
-msgstr "행"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:281
-msgid "rows"
-msgstr "열"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:301
-msgid "Cell spacing"
-msgstr "셀 간격"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:311
-msgid "width"
-msgstr "폭"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:320
-msgid "height"
-msgstr "높이"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:347
-msgid "Margin"
-msgstr "여백"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:358
-#, fuzzy
-msgid "Text blink mode"
-msgstr "깜빡임 모드"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Never"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
-msgid "Focused"
-msgstr "창에 포커스"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-#, fuzzy
-msgid "Unfocused"
-msgstr "포커스 해제시 어두운 색상"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:361
-msgid "Always"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:380
-#: source/gx/tilix/prefeditor/profileeditor.d:1203
-#, fuzzy
-msgid "Custom font"
-msgstr "사용자 정의 글꼴"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:392
-msgid "Choose A Terminal Font"
-msgstr "터미널 글꼴 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:402
-msgid "Word-wise select chars"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:411
-#: source/gx/tilix/prefeditor/profileeditor.d:419
-#: source/gx/tilix/prefeditor/profileeditor.d:661
-msgid "Cursor"
-msgstr "커서"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "Block"
-msgstr "블록"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "IBeam"
-msgstr "I빔"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:422
-msgid "Underline"
-msgstr "밑줄"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:430
-#, fuzzy
-msgid "Cursor blink mode"
-msgstr "깜빡임 모드"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "System"
-msgstr "시스템"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "On"
-msgstr "켬"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:433
-msgid "Off"
-msgstr "끔"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:438
-#, fuzzy
-msgid "Notification"
-msgstr "알림 활성화됨=%b"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-msgid "Sound"
-msgstr "소리"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:449
-#, fuzzy
-msgid "Icon and sound"
-msgstr "아이콘 및 소리"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:467
-#, c-format
-msgid "ID: %s"
-msgstr "ID: %s"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:515
-msgid "Color scheme"
-msgstr "색상 스키마"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:525
-#: source/gx/tilix/prefeditor/profileeditor.d:992
-msgid "Custom"
-msgstr "사용자 정의"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:538
-msgid "Export"
-msgstr "내보내기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:550
-msgid "Color palette"
-msgstr "색상 팔레트"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:572
-msgid "Use theme colors for foreground/background"
-msgstr "전경/배경 에 대해 테마 색상 사용"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:582
-msgid "Show bold text in bright colors"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:594
-msgid "Transparency"
-msgstr "투명도"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:608
-msgid "Unfocused dim"
-msgstr "포커스 해제시 어두운 색상"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:656
-msgid "Text"
-msgstr "텍스트"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:657
-#: source/gx/tilix/prefeditor/profileeditor.d:761
-msgid "Background"
-msgstr "배경"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:668
-msgid "Select Cursor Foreground Color"
-msgstr "커서 전경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:670
-msgid "Select Cursor Background Color"
-msgstr "커서 배경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:675
-msgid "Highlight"
-msgstr "강조"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:680
-msgid "Select Highlight Foreground Color"
-msgstr "강조 전경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:682
-msgid "Select Highlight Background Color"
-msgstr "강조 배경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:687
-msgid "Bold"
-msgstr "굵은 글씨"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:692
-msgid "Select Bold Color"
-msgstr "굵은 글씨 색 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:701
-msgid "Select Badge Color"
-msgstr "뱃지 색 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:750
-msgid "Select Background Color"
-msgstr "배경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:766
-#: source/gx/tilix/prefeditor/profileeditor.d:782
-msgid "Select Foreground Color"
-msgstr "전경 색상 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:781
-msgid "Foreground"
-msgstr "전경"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Black"
-msgstr "검정"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Red"
-msgstr "빨강"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Green"
-msgstr "녹색"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Orange"
-msgstr "주황"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Blue"
-msgstr "파랑"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Purple"
-msgstr "보라"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Turquoise"
-msgstr "청록"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:785
-msgid "Grey"
-msgstr "회색"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:791
-#, c-format
-msgid "Select %s Color"
-msgstr "%s색 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:798
-#, c-format
-msgid "Select %s Light Color"
-msgstr "밝은 %s색 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:949
-msgid "Export Color Scheme"
-msgstr "색상 스키마 내보내기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1026
-msgid "Show scrollbar"
-msgstr "스크롤바 보이기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1030
-msgid "Scroll on output"
-msgstr "출력시 스크롤하기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1034
-msgid "Scroll on keystroke"
-msgstr "키 누를 때 스크롤하기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1038
-msgid "Limit scrollback to:"
-msgstr "스크롤 제한:"
-
-# Terminix gettext pot file
-#: source/gx/tilix/prefeditor/profileeditor.d:1073
-msgid "Backspace key generates"
-msgstr "Backspace 키 누를 때 생성할 것"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Automatic"
-msgstr "자동"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Control-H"
-msgstr "Control-H"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "ASCII DEL"
-msgstr "ASCII DEL"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "Escape sequence"
-msgstr "이스케이프 시퀀스"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1076
-#: source/gx/tilix/prefeditor/profileeditor.d:1085
-msgid "TTY"
-msgstr "TTY"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1082
-msgid "Delete key generates"
-msgstr "Delete 키 누를 때 생성할 것"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1106
-msgid "Ambiguous-width characters"
-msgstr "모호한 폭의 문자"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1109
-msgid "Narrow"
-msgstr "좁음"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1109
-msgid "Wide"
-msgstr "넓음"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1130
-msgid "Run command as a login shell"
-msgstr "로그인 셸로 명령어 실행"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1134
-msgid "Run a custom command instead of my shell"
-msgstr "내 셸 대신 사용자 정의 명령어 실행"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1151
-msgid "When command exits"
-msgstr "명령어가 종료될 때"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Exit the terminal"
-msgstr "터미널 나가기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Restart the command"
-msgstr "명령어 다시 시작"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1153
-msgid "Hold the terminal open"
-msgstr "터미널 열림 유지"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1193
-msgid "Badge position"
-msgstr "뱃지 위치"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Northwest"
-msgstr "북서부"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Northeast"
-msgstr "북동부"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Southwest"
-msgstr "남서부"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1197
-msgid "Southeast"
-msgstr "남동부"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1215
-#, fuzzy
-msgid "Choose A Badge Font"
-msgstr "터미널 글꼴 선택"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1253
-#, fuzzy
-msgid "Notify New Activity"
-msgstr "새 활동 알리기"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1260
-msgid ""
-"A notification can be raised when new activity occurs after a specified "
-"period of silence."
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1273
-msgid "Automatic Profile Switching"
-msgstr "프로파일 자동 변경"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1282
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>username@hostname:directory</i> format. Either "
-"the hostname or directory can be omitted but the colon must be present. "
-"Entries with neither hostname or directory are not permitted."
-msgstr ""
-"여기서 입력한 값에 기반하여 프로파일이 자동으로 선택됩니다.\n"
-"<i>사용자이름@호스트이름:디렉토리</i>형식을 사용하여 값이 입력됩니다. 호스트"
-"이름과 디렉토리 중 하나만 있어도 되나, 쌍점은 반드시 있어야 합니다. 호스트이"
-"름과 디렉토리 둘다 없는 입력은 허용되지 않습니다."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1284
-msgid ""
-"Profiles are automatically selected based on the values entered here.\n"
-"Values are entered using a <i>hostname:directory</i> format. Either the "
-"hostname or directory can be omitted but the colon must be present. Entries "
-"with neither hostname or directory are not permitted."
-msgstr ""
-"여기서 입력한 값에 기반하여 프로파일이 자동으로 선택됩니다.\n"
-"<i>호스트이름:디렉토리</i>형식을 사용하여 값이 입력됩니다. 호스트이름과 디렉"
-"토리 중 하나만 있어도 되나, 쌍점은 반드시 있어야 합니다. 호스트이름과 디렉토"
-"리 둘다 없는 입력은 허용되지 않습니다."
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1296
-msgid "Match"
-msgstr "일치값"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1311
-msgid "Enter username@hostname:directory to match"
-msgstr "사용자이름@호스트이름:디렉토리 형식의 일치값을 입력하세요"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1313
-msgid "Enter hostname:directory to match"
-msgstr "호스트이름:디렉토리 형식의 일치값을 입력하세요"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1315
-msgid "Add New Match"
-msgstr "새 일치값 추가"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1332
-msgid "Edit username@hostname:directory to match"
-msgstr "사용자이름@호스트이름:디렉토리 형식으로 일치값을 수정합니다"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1334
-msgid "Edit hostname:directory to match"
-msgstr "호스트이름:디렉토리 형식으로 일치값을 수정합니다"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1336
-msgid "Edit Match"
-msgstr "일치값 수정"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1367
-#, fuzzy
-msgid "Enable by default"
-msgstr "기본값으로 설정"
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1376
-msgid "Threshold for continuous silence"
-msgstr ""
-
-#: source/gx/tilix/prefeditor/profileeditor.d:1385
-msgid "(seconds)"
-msgstr ""
-
-#: source/gx/tilix/session.d:568
-msgid "Could not locate dropped terminal"
-msgstr "중단된 터미널을 위치시킬 수 없습니다"
-
-#: source/gx/tilix/session.d:573
-msgid "Could not locate session for dropped terminal"
-msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
-
-#: source/gx/tilix/bookmark/bmeditor.d:68
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Folder"
-msgstr "폴더 선택"
-
-#: source/gx/tilix/bookmark/bmeditor.d:74
-#, fuzzy
-msgid "Select folder"
-msgstr "%s색 선택"
-
-#: source/gx/tilix/bookmark/bmeditor.d:86
-msgid "Clear folder"
-msgstr "폴더 없애기"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Add Bookmark"
-msgstr "북마크 추가"
-
-#: source/gx/tilix/bookmark/bmeditor.d:150
-msgid "Edit Bookmark"
-msgstr "북마크 수정"
-
-#: source/gx/tilix/bookmark/bmeditor.d:292
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Path"
-msgstr "경로"
-
-#: source/gx/tilix/bookmark/bmeditor.d:294
-msgid "Select Path"
-msgstr "경로 선택"
-
-#: source/gx/tilix/bookmark/bmeditor.d:382
-msgid "Protocol"
-msgstr "프로토콜"
-
-#: source/gx/tilix/bookmark/bmeditor.d:398
-msgid "Host"
-msgstr "호스트"
-
-#: source/gx/tilix/bookmark/bmeditor.d:414
-msgid "User"
-msgstr "사용자"
-
-#: source/gx/tilix/bookmark/bmeditor.d:421
-msgid "Parameters"
-msgstr "인자"
-
-#: source/gx/tilix/bookmark/bmchooser.d:79
-msgid "Include return character with bookmark"
-msgstr "북마크에 반환 문자 포함"
-
-#: source/gx/tilix/bookmark/bmchooser.d:126
-msgid "Select Bookmark"
-msgstr "북마크 선택"
-
-#: source/gx/tilix/bookmark/manager.d:233
-msgid "Error deserializing bookmark"
-msgstr "북마크 역직렬화 오류"
-
-#: source/gx/tilix/bookmark/manager.d:537
-msgid "Root"
-msgstr "루트"
-
-#: source/gx/tilix/bookmark/manager.d:615
-msgid "Could not load bookmarks due to unexpected error"
-msgstr "예상하지 못한 오류로 인해 북마크를 열 수 없습니다"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Folder"
-msgstr "폴더"
-
-#: source/gx/tilix/bookmark/manager.d:687
-msgid "Remote"
-msgstr "원격"
-
-#: source/gx/tilix/constants.d:72
-msgid "A VTE based terminal emulator for Linux"
-msgstr "리눅스용 VTE 기반 터미널 에뮬레이터"
-
-#: source/gx/tilix/constants.d:73
-msgid ""
-"This Source Code Form is subject to the terms of the Mozilla Public License, "
-"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
-"obtain one at http://mozilla.org/MPL/2.0/."
-msgstr ""
-"이 소스 코드 서식은 모질라 공중 허가서, v. 2.0 의 약관에 따릅니다. MPL 이 이 "
-"파일과 함께 배포되지 않은 경우, http://mozilla.org/MPL/2.0/ 에서 얻으실 수 있"
-"습니다."
-
-#: source/gx/tilix/constants.d:78
-msgid "GTK VTE widget team, Tilix would not be possible without their work"
-msgstr "GTK VTE 위젯 팀, 그들의 노력 없이 Tilix 는 불가능 했을 것입니다"
-
-#: source/gx/tilix/constants.d:79
-msgid "GtkD for providing such an excellent GTK wrapper"
-msgstr "GtkD - 훌룡한 GTK 래퍼 제공"
-
-#: source/gx/tilix/constants.d:80
-msgid "Dlang.org for such an excellent language, D"
-msgstr "Dlang.org - 훌룡한 언어, D 제공"
-
-#: source/gx/tilix/constants.d:153
-msgid "Icon title"
-msgstr "아이콘 제목"
-
-#: source/gx/tilix/constants.d:155
-msgid "Directory"
-msgstr "디렉토리"
-
-#: source/gx/tilix/constants.d:156
-msgid "Hostname"
-msgstr "호스트 이름"
-
-#: source/gx/tilix/constants.d:157
-msgid "Username"
-msgstr "사용자 이름"
-
-#: source/gx/tilix/constants.d:158
-msgid "Columns"
-msgstr "행"
-
-#: source/gx/tilix/constants.d:159
-msgid "Rows"
-msgstr "열"
-
-#: source/gx/tilix/constants.d:160
-msgid "Process"
-msgstr ""
-
-#: source/gx/tilix/constants.d:161
-#, fuzzy
-msgid "Status.Read-Only"
-msgstr "읽기전용"
-
-#: source/gx/tilix/constants.d:162
-msgid "Status.Silence"
-msgstr ""
-
-#: source/gx/tilix/constants.d:163
-msgid "Status.Input-Sync"
-msgstr ""
-
-#: source/gx/tilix/constants.d:178
-#, fuzzy
-msgid "Terminal count"
-msgstr "터미널"
-
-#: source/gx/tilix/constants.d:179
-#, fuzzy
-msgid "Terminal number"
-msgstr "터미널 벨"
-
-#: source/gx/tilix/constants.d:180
-msgid "Active terminal title"
-msgstr "활성 터미널 제목"
-
-#: source/gx/tilix/constants.d:197
-msgid "Application name"
-msgstr "응용프로그램 이름"
-
-#: source/gx/tilix/constants.d:198
-msgid "Session name"
-msgstr "세션 이름"
-
-#: source/gx/tilix/constants.d:199
-msgid "Session number"
-msgstr "세션 번호"
-
-#: source/gx/tilix/constants.d:200
-#, fuzzy
-msgid "Session count"
-msgstr "세션"
 
 #: data/nautilus/open-tilix.py:114
 msgid "Open Remote Tilix"
@@ -2272,6 +256,30 @@ msgstr "여기서 Tilix 열기"
 #: data/nautilus/open-tilix.py:139
 msgid "Open Tilix In This Directory"
 msgstr "이 디렉토리에서 Tilix 열기"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
+msgid "A tiling terminal for Gnome"
+msgstr "그놈을 위한 타일링 터미널"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
+msgid "shell;prompt;command;commandline;cmd;"
+msgstr ""
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:17
+#: source/gx/tilix/appwindow.d:679 source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "New Window"
+msgstr "새 창"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:21
+#: source/gx/tilix/prefeditor/prefdialog.d:1554 source/gx/tilix/session.d:1606
+msgid "New Session"
+msgstr "새 세션"
+
+#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:25
+#: source/gx/tilix/appwindow.d:696 source/gx/tilix/prefeditor/prefdialog.d:263
+#: source/gx/tilix/prefeditor/prefdialog.d:414
+msgid "Preferences"
+msgstr "기본 설정"
 
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
@@ -2791,145 +799,2254 @@ msgctxt "shortcut window"
 msgid "Profile"
 msgstr "프로파일"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:5
-msgid "A tiling terminal for Gnome"
-msgstr "그놈을 위한 타일링 터미널"
+#: source/app.d:140
+#, c-format
+msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
+msgstr ""
+"GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
 
-#: data/pkg/desktop/com.gexperts.Tilix.desktop.in:6
-msgid "shell;prompt;command;commandline;cmd;"
+#: source/app.d:150
+#, fuzzy, c-format
+msgid "Your VTE version is too old, you need at least VTE %d.%d!"
+msgstr ""
+"GTK 버전이 너무 오래 되었습니다, 적어도 GTK %d.%d.%d 버전이 필요합니다!"
+
+#: source/app.d:166
+msgid "Unexpected exception occurred"
+msgstr "예상하지 못한 예외 발생"
+
+#: source/app.d:167
+msgid "Error: "
+msgstr "오류: "
+
+#: source/app.d:177
+msgid "Versions"
+msgstr "버전"
+
+#: source/app.d:178
+#, c-format
+msgid "Tilix version: %s"
+msgstr "Tilix 버전: %s"
+
+#: source/app.d:179
+#, c-format
+msgid "VTE version: %s"
+msgstr "VTE 버전: %s"
+
+#: source/app.d:180
+#, c-format
+msgid "GTK Version: %d.%d.%d"
+msgstr "GTK 버전: %d.%d.%d"
+
+#: source/app.d:181
+msgid "Tilix Special Features"
+msgstr "Tilix 특별 기능"
+
+#: source/app.d:182
+msgid "Notifications enabled=%b"
+msgstr "알림 활성화됨=%b"
+
+#: source/app.d:183
+msgid "Triggers enabled=%b"
+msgstr "트리거 활성화됨=%b"
+
+#: source/app.d:184
+msgid "Badges enabled=%b"
+msgstr "뱃지 활성화됨=%b"
+
+#: source/gx/gtk/actions.d:25
+msgid "disabled"
+msgstr "비활성화됨"
+
+#: source/gx/gtk/dialog.d:89 source/gx/tilix/closedialog.d:143
+msgid "Do not show this again"
+msgstr "다시 보지 않기"
+
+#. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
+#: source/gx/tilix/application.d:272
+msgid "translator-credits"
+msgstr ""
+"Youngbin Han\n"
+"revizes"
+
+#: source/gx/tilix/application.d:281
+msgid "Credits"
+msgstr "크레딧"
+
+#: source/gx/tilix/application.d:658
+msgid "DIRECTORY"
+msgstr "디렉토리"
+
+#: source/gx/tilix/application.d:658
+msgid "Set the working directory of the terminal"
+msgstr "터미널 작업 디렉토리 설정"
+
+#: source/gx/tilix/application.d:659
+msgid "PROFILE_NAME"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:9
-msgid "A tiling terminal for GNOME"
-msgstr "그놈을 위한 타일링 터미널"
+#: source/gx/tilix/application.d:659
+msgid "Set the starting profile"
+msgstr "시작 프로파일 설정"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:17
-msgid "Tilix is a tiling terminal emulator."
-msgstr "Tilix 는 타일링 터미널 에뮬레이터 입니다."
+#: source/gx/tilix/application.d:660
+msgid "Set the title of the new terminal"
+msgstr "새 터미널 제목 설정"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:20
-msgid "It lets you:"
-msgstr "다음과 같은 것을 할 수 있게 해 줍니다:"
+#: source/gx/tilix/application.d:660
+msgid "TITLE"
+msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:22
+#: source/gx/tilix/application.d:661
+msgid "Open the specified session"
+msgstr "특정 세션 열기"
+
+#: source/gx/tilix/application.d:661
+msgid "SESSION_NAME"
+msgstr ""
+
+#: source/gx/tilix/application.d:663
+msgid "ACTION_NAME"
+msgstr ""
+
+#: source/gx/tilix/application.d:663
+msgid "Send an action to current Tilix instance"
+msgstr "현재 Tilix 인스턴스로 동작 보내기"
+
+#: source/gx/tilix/application.d:665
+msgid "COMMAND"
+msgstr ""
+
+#: source/gx/tilix/application.d:665
+msgid "Execute the parameter as a command"
+msgstr "인자를 명령으로 실행"
+
+#: source/gx/tilix/application.d:666
+msgid "Maximize the terminal window"
+msgstr "터미널 창 최대화"
+
+#: source/gx/tilix/application.d:667
+msgid "Minimize the terminal window"
+msgstr "터미널 창 최소화"
+
+#: source/gx/tilix/application.d:668
 msgid ""
-"Layout terminals in any fashion by splitting them horizontally or vertically"
-msgstr "터미널을 가로 또는 세로로 분할하여 원하는 방식으로 배치하세요"
+"Override the preferred window style to use, one of: normal,disable-csd,"
+"disable-csd-hide-toolbar,borderless"
+msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:23
+#: source/gx/tilix/application.d:668
+msgid "WINDOW_STYLE"
+msgstr ""
+
+#: source/gx/tilix/application.d:669
+msgid "Full-screen the terminal window"
+msgstr "터미널 창을 전체화면으로"
+
+#: source/gx/tilix/application.d:670
+msgid "Focus the existing window"
+msgstr "기존 창에 포커스 두기"
+
+#: source/gx/tilix/application.d:671
+msgid "Start additional instance as new process (Not Recommended)"
+msgstr "새 프로세스로 추가적인 인스턴스 시작(권장하지 않음)"
+
+#: source/gx/tilix/application.d:672
+msgid "GEOMETRY"
+msgstr ""
+
+#: source/gx/tilix/application.d:672
 msgid ""
-"Terminals can be re-arranged using drag and drop both within and between "
-"windows"
-msgstr "창 안이나 창 사이에서 끌어옮겨 터미널을 재배열 할 수 있습니다"
+"Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)"
+msgstr "창 크기를 정하세요; 예시: 80x24, 또는 80x24+200+200 (행x열+X+Y)"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:24
-msgid "Terminals can be detached into a new window via drag and drop"
-msgstr "터미널을 끌어옮겨 새 창으로 분리 할 수 있습니다"
-
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:25
+#: source/gx/tilix/application.d:673
 msgid ""
-"Input can be synchronized between terminals so commands typed in one "
-"terminal are replicated to the others"
+"Opens a window in quake mode or toggles existing quake mode window visibility"
 msgstr ""
-"터미널 사이 입력을 동기화 할 수 있으며 한 터미널에서의 입력이 다른 터미널에 "
-"복제 됩니다"
+"새 창을 퀘이크 모드에서 열거나, 이미 열려 있는 퀘이크 모드의 창을 보이거나 숨"
+"기기"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:26
-msgid "The grouping of terminals can be saved and loaded from disk"
-msgstr "터미널 그루핑은 디스크에 저장하거나 불러올 수 있습니다"
+#: source/gx/tilix/application.d:674
+#, fuzzy
+msgid "Show the Tilix and dependent component versions"
+msgstr "Tilix 와 의존 구성요소 버전 보이기"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:27
-msgid "Terminals support custom titles"
-msgstr "터미널은 사용자 정의 제목을 지원합니다"
+#: source/gx/tilix/application.d:675
+msgid "Show the Tilix preferences dialog directly"
+msgstr "Tilix 설정 다이얼로그 바로 보이기"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:28
+#: source/gx/tilix/application.d:676
+msgid "GROUP_NAME"
+msgstr ""
+
+#: source/gx/tilix/application.d:676
+#, fuzzy
 msgid ""
-"Color schemes are stored in files and custom color schemes can be created by "
-"simply creating a new file"
+"Group tilix instances into different processes (Experimental, not "
+"recommended)"
+msgstr "새 프로세스로 추가적인 인스턴스 시작(권장하지 않음)"
+
+#: source/gx/tilix/application.d:679
+msgid "Hidden argument to pass terminal UUID"
+msgstr "터미널 UUID를 전달하기 위한 숨겨진 독립변수"
+
+#: source/gx/tilix/application.d:679
+msgid "TERMINAL_UUID"
 msgstr ""
-"색상 스키마는 파일에 보관되며 사용자 정의 색상 스키마는 단순히 새 파일 생성으"
-"로 생성 될 수 있습니다"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:29
-msgid "Transparent background"
-msgstr "투명한 배경"
+#: source/gx/tilix/application.d:696
+#, c-format
+msgid "The application ID %s is not valid"
+msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:30
-msgid "Supports notifications when processes are completed out of view"
-msgstr "뷰 밖에서 프로세스를 끝날때에 대한 알림 지원"
-
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:32
+#: source/gx/tilix/application.d:854
 msgid ""
-"The application was written using GTK 3 and an effort was made to conform to "
-"GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
-"decorations, though it can be disabled if necessary."
+"There appears to be an issue with the configuration of the terminal.\n"
+"This issue is not serious, but correcting it will improve your experience.\n"
+"Click the link below for more information:"
 msgstr ""
-"이 앱은 GTK3 로 작성 되었으며 그놈 휴먼 인터페이스 가이드라인(HIG) 에 따르고"
-"자 노력 했습니다. 결과적으로, 이 앱은 클라이언트 측 데코레이션을 사용하며, 필"
-"요한 경우 비활성화 될 수 있습니다."
+"터미널 설정에 이슈가 있는 것으로 보입니다.\n"
+"이 이슈는 심각하지 않습니다. 그러나 고친다면 사용 경험이 향상됩니다.\n"
+"자세한 정보는 아래 링크를 누르세요:"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:36
-msgid "Tilix has been tested with GNOME and with Unity."
-msgstr "Tilix 는 그놈과 유니티에서 시험되었습니다."
+#: source/gx/tilix/application.d:855
+msgid "Configuration Issue Detected"
+msgstr "설정 이슈 감지됨"
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:54
-msgid "remove app menu for gnome 3.32, update icon, minor fixes"
+#: source/gx/tilix/application.d:867
+msgid "Do not show this message again"
+msgstr "이 메시지 다시 보지 않기"
+
+#: source/gx/tilix/appwindow.d:320
+msgid "Create a new session"
+msgstr "새 세션 만들기"
+
+#: source/gx/tilix/appwindow.d:334
+msgid "View session sidebar"
+msgstr "세션 사이드바 보기"
+
+#: source/gx/tilix/appwindow.d:369
+msgid "Add terminal right"
+msgstr "오른쪽에 터미널 추가"
+
+#: source/gx/tilix/appwindow.d:373
+msgid "Add terminal down"
+msgstr "아래에 터미널 추가"
+
+#: source/gx/tilix/appwindow.d:379
+msgid "Find text in terminal"
+msgstr "터미널에서 텍스트 찾기"
+
+#: source/gx/tilix/appwindow.d:602
+msgid "Enter a new name for the session"
+msgstr "새 세션 이름 입력"
+
+#: source/gx/tilix/appwindow.d:604
+msgid "Change Session Name"
+msgstr "세션 이름 바꾸기"
+
+#: source/gx/tilix/appwindow.d:683
+msgid "Open…"
+msgstr "열기…"
+
+#: source/gx/tilix/appwindow.d:684 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/prefeditor/profileeditor.d:948
+#: source/gx/tilix/terminal/terminal.d:3662
+msgid "Save"
+msgstr "저장"
+
+#: source/gx/tilix/appwindow.d:685
+msgid "Save As…"
+msgstr "다른 이름으로 저장…"
+
+#: source/gx/tilix/appwindow.d:691
+msgid "Name…"
+msgstr "이름…"
+
+#: source/gx/tilix/appwindow.d:692
+msgid "Synchronize Input"
+msgstr "입력 동기화"
+
+#: source/gx/tilix/appwindow.d:697
+#, fuzzy
+msgid "Keyboard Shortcuts"
+msgstr "바로 가기"
+
+#: source/gx/tilix/appwindow.d:698
+#, fuzzy
+msgid "About Tilix"
+msgstr "Tilix"
+
+#: source/gx/tilix/appwindow.d:705
+msgid "GC"
+msgstr "GC"
+
+#: source/gx/tilix/appwindow.d:1082
+#: source/gx/tilix/prefeditor/prefdialog.d:1164 source/gx/tilix/session.d:1222
+msgid "Default"
+msgstr "기본값"
+
+#: source/gx/tilix/appwindow.d:1191
+msgid "There are multiple sessions open, close anyway?"
+msgstr "여러 세션이 열려 있습니다. 그래도 닫을까요?"
+
+#: source/gx/tilix/appwindow.d:1455
+#: source/gx/tilix/prefeditor/profileeditor.d:961
+msgid "All JSON Files"
+msgstr "모든 JSON 파일"
+
+#: source/gx/tilix/appwindow.d:1459
+#: source/gx/tilix/prefeditor/prefdialog.d:1182
+#: source/gx/tilix/prefeditor/profileeditor.d:965
+#: source/gx/tilix/terminal/terminal.d:3672
+msgid "All Files"
+msgstr "모든 파일"
+
+#: source/gx/tilix/appwindow.d:1468
+#, c-format
+msgid "Filename '%s' does not exist"
+msgstr "파일 이름 '%s'이(가) 없습니다"
+
+#: source/gx/tilix/appwindow.d:1500
+msgid "Load Session"
+msgstr "세션 불러오기"
+
+#: source/gx/tilix/appwindow.d:1503 source/gx/tilix/appwindow.d:1552
+#: source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:151 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/prefeditor/profileeditor.d:948
+#: source/gx/tilix/terminal/advpaste.d:137 source/gx/tilix/terminal/layout.d:33
+#: source/gx/tilix/terminal/password.d:371
+#: source/gx/tilix/terminal/password.d:493
+#: source/gx/tilix/terminal/terminal.d:3662
+msgid "Cancel"
+msgstr "취소"
+
+#: source/gx/tilix/appwindow.d:1503
+msgid "Open"
+msgstr "열기"
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Could not load session due to unexpected error."
+msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
+
+#: source/gx/tilix/appwindow.d:1526
+msgid "Error Loading Session"
+msgstr "세션 불러오기 오류"
+
+#: source/gx/tilix/appwindow.d:1549
+msgid "Save Session"
+msgstr "세션 저장"
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Could not save session due to unexpected error."
+msgstr "예상하지 못한 오류로 인해 세션을 불러올 수 없습니다."
+
+#: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
+#, fuzzy
+msgid "Error Saving Session"
+msgstr "세션 불러오기 오류"
+
+#: source/gx/tilix/appwindow.d:1710
+msgid "Quake mode is not supported under Wayland, running as normal window"
+msgstr "퀘이크 모드는 Wayland에서 지원하지 않으며 일반 윈도우로 실행됩니다"
+
+#: source/gx/tilix/appwindow.d:1712
+msgid "Quake Mode Not Supported"
+msgstr "퀘이크 모드가 지원되지 않음"
+
+#: source/gx/tilix/appwindow.d:2181
+#, fuzzy
+msgid "New output displayed"
+msgstr "새로운 출력"
+
+#: source/gx/tilix/appwindow.d:2189
+#, fuzzy
+msgid "Close session"
+msgstr "세션 닫기"
+
+#: source/gx/tilix/bookmark/bmchooser.d:79
+msgid "Include return character with bookmark"
+msgstr "북마크에 반환 문자 포함"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+msgid "Select Bookmark"
+msgstr "북마크 선택"
+
+#: source/gx/tilix/bookmark/bmchooser.d:126
+#: source/gx/tilix/bookmark/bmeditor.d:68
+msgid "Select Folder"
+msgstr "폴더 선택"
+
+#: source/gx/tilix/bookmark/bmchooser.d:127
+#: source/gx/tilix/bookmark/bmeditor.d:151 source/gx/tilix/closedialog.d:202
+#: source/gx/tilix/terminal/layout.d:33 source/gx/tilix/terminal/password.d:493
+msgid "OK"
+msgstr "확인"
+
+#: source/gx/tilix/bookmark/bmeditor.d:74
+#, fuzzy
+msgid "Select folder"
+msgstr "%s색 선택"
+
+#: source/gx/tilix/bookmark/bmeditor.d:86
+msgid "Clear folder"
+msgstr "폴더 없애기"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Add Bookmark"
+msgstr "북마크 추가"
+
+#: source/gx/tilix/bookmark/bmeditor.d:150
+msgid "Edit Bookmark"
+msgstr "북마크 수정"
+
+#: source/gx/tilix/bookmark/bmeditor.d:231
+#: source/gx/tilix/bookmark/bmtreeview.d:73 source/gx/tilix/session.d:1572
+#: source/gx/tilix/terminal/password.d:137
+#: source/gx/tilix/terminal/password.d:431
+msgid "Name"
+msgstr "이름"
+
+#: source/gx/tilix/bookmark/bmeditor.d:292
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Path"
+msgstr "경로"
+
+#: source/gx/tilix/bookmark/bmeditor.d:294
+msgid "Select Path"
+msgstr "경로 선택"
+
+#: source/gx/tilix/bookmark/bmeditor.d:333
+#: source/gx/tilix/bookmark/bmeditor.d:428
+#: source/gx/tilix/bookmark/manager.d:687
+#: source/gx/tilix/prefeditor/advdialog.d:106
+#: source/gx/tilix/prefeditor/profileeditor.d:98
+#: source/gx/tilix/prefeditor/profileeditor.d:1136
+#: source/gx/tilix/terminal/layout.d:89
+msgid "Command"
+msgstr "명령어"
+
+#: source/gx/tilix/bookmark/bmeditor.d:382
+msgid "Protocol"
+msgstr "프로토콜"
+
+#: source/gx/tilix/bookmark/bmeditor.d:398
+msgid "Host"
+msgstr "호스트"
+
+#: source/gx/tilix/bookmark/bmeditor.d:414
+msgid "User"
+msgstr "사용자"
+
+#: source/gx/tilix/bookmark/bmeditor.d:421
+msgid "Parameters"
+msgstr "인자"
+
+#: source/gx/tilix/bookmark/bmtreeview.d:70 source/gx/tilix/closedialog.d:129
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "Icon"
+msgstr "아이콘"
+
+#: source/gx/tilix/bookmark/manager.d:233
+msgid "Error deserializing bookmark"
+msgstr "북마크 역직렬화 오류"
+
+#: source/gx/tilix/bookmark/manager.d:537
+msgid "Root"
+msgstr "루트"
+
+#: source/gx/tilix/bookmark/manager.d:615
+msgid "Could not load bookmarks due to unexpected error"
+msgstr "예상하지 못한 오류로 인해 북마크를 열 수 없습니다"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Folder"
+msgstr "폴더"
+
+#: source/gx/tilix/bookmark/manager.d:687
+msgid "Remote"
+msgstr "원격"
+
+#: source/gx/tilix/closedialog.d:123 source/gx/tilix/constants.d:152
+#: source/gx/tilix/terminal/layout.d:54
+msgid "Title"
+msgstr "제목"
+
+#: source/gx/tilix/closedialog.d:170
+#, c-format
+msgid "Window (%s)"
+msgstr "창 (%s)"
+
+#: source/gx/tilix/closedialog.d:173
+#, c-format
+msgid "Session (%s)"
+msgstr "세션 (%s)"
+
+#: source/gx/tilix/closedialog.d:189
+msgid "Close Application"
+msgstr "응용프로그램 닫기"
+
+#: source/gx/tilix/closedialog.d:191
+msgid "Close Window"
+msgstr "창 닫기"
+
+#: source/gx/tilix/closedialog.d:193 source/gx/tilix/closedialog.d:195
+msgid "Close Session"
+msgstr "세션 닫기"
+
+#: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
+#, c-format
+msgid "Ignoring as '%s' is not a directory"
+msgstr "'%s'은(는) 디렉토리가 아니므로, 무시합니다"
+
+#: source/gx/tilix/cmdparams.d:152
+#, c-format
+msgid "Geometry string '%s' is invalid and could not be parsed"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:59
+#: source/gx/tilix/cmdparams.d:186
 msgid ""
-"Small release to update localizations and update to GtkD 3.8.5 to fix "
-"library name in GtkD."
+"You cannot load a session and set a profile/working directory/execute "
+"command option, please choose one or the other"
+msgstr ""
+"세션 불러오기와 프로파일/작업 디렉토리/실행 명령어 설정을 하실 수 없습니다. "
+"하나 또는 다른것을 선택하세요"
+
+#: source/gx/tilix/cmdparams.d:193
+msgid "You can only use the action parameter within Tilix"
+msgstr "오직 Tilix 간에서만 동작 인자를 사용하실 수 있습니다"
+
+#: source/gx/tilix/cmdparams.d:215
+msgid ""
+"You cannot use the quake mode with maximize, minimize or geometry parameters"
+msgstr "최대화, 최소화, 크기 조절 설정은 퀘이크 모드에서 사용하실 수 없습니다"
+
+#: source/gx/tilix/colorschemes.d:188
+#, c-format
+msgid "File %s is not a color scheme compliant JSON file"
+msgstr "파일 %s은(는) 색상 스키마 호환 JSON 파일이 아닙니다"
+
+#: source/gx/tilix/colorschemes.d:251
+msgid "Color scheme palette requires 16 colors"
+msgstr "색상표에 16 가지 색상이 필요합니다"
+
+#: source/gx/tilix/constants.d:72
+msgid "A VTE based terminal emulator for Linux"
+msgstr "리눅스용 VTE 기반 터미널 에뮬레이터"
+
+#: source/gx/tilix/constants.d:73
+msgid ""
+"This Source Code Form is subject to the terms of the Mozilla Public License, "
+"v. 2.0. If a copy of the MPL was not distributed with this file, You can "
+"obtain one at http://mozilla.org/MPL/2.0/."
+msgstr ""
+"이 소스 코드 서식은 모질라 공중 허가서, v. 2.0 의 약관에 따릅니다. MPL 이 이 "
+"파일과 함께 배포되지 않은 경우, http://mozilla.org/MPL/2.0/ 에서 얻으실 수 있"
+"습니다."
+
+#: source/gx/tilix/constants.d:78
+msgid "GTK VTE widget team, Tilix would not be possible without their work"
+msgstr "GTK VTE 위젯 팀, 그들의 노력 없이 Tilix 는 불가능 했을 것입니다"
+
+#: source/gx/tilix/constants.d:79
+msgid "GtkD for providing such an excellent GTK wrapper"
+msgstr "GtkD - 훌룡한 GTK 래퍼 제공"
+
+#: source/gx/tilix/constants.d:80
+msgid "Dlang.org for such an excellent language, D"
+msgstr "Dlang.org - 훌룡한 언어, D 제공"
+
+#: source/gx/tilix/constants.d:153
+msgid "Icon title"
+msgstr "아이콘 제목"
+
+#: source/gx/tilix/constants.d:154 source/gx/tilix/terminal/password.d:140
+msgid "ID"
+msgstr "ID"
+
+#: source/gx/tilix/constants.d:155
+msgid "Directory"
+msgstr "디렉토리"
+
+#: source/gx/tilix/constants.d:156
+msgid "Hostname"
+msgstr "호스트 이름"
+
+#: source/gx/tilix/constants.d:157
+msgid "Username"
+msgstr "사용자 이름"
+
+#: source/gx/tilix/constants.d:158
+msgid "Columns"
+msgstr "행"
+
+#: source/gx/tilix/constants.d:159
+msgid "Rows"
+msgstr "열"
+
+#: source/gx/tilix/constants.d:160
+msgid "Process"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:64
-msgid "Some new features and bug fixes."
+#: source/gx/tilix/constants.d:161
+#, fuzzy
+msgid "Status.Read-Only"
+msgstr "읽기전용"
+
+#: source/gx/tilix/constants.d:162
+msgid "Status.Silence"
 msgstr ""
 
-#: data/appdata/com.gexperts.Tilix.appdata.xml.in:78
-msgid "Gerald Nunn"
+#: source/gx/tilix/constants.d:163
+msgid "Status.Input-Sync"
 msgstr ""
+
+#: source/gx/tilix/constants.d:178
+#, fuzzy
+msgid "Terminal count"
+msgstr "터미널"
+
+#: source/gx/tilix/constants.d:179
+#, fuzzy
+msgid "Terminal number"
+msgstr "터미널 벨"
+
+#: source/gx/tilix/constants.d:180
+msgid "Active terminal title"
+msgstr "활성 터미널 제목"
+
+#: source/gx/tilix/constants.d:197
+msgid "Application name"
+msgstr "응용프로그램 이름"
+
+#: source/gx/tilix/constants.d:198
+msgid "Session name"
+msgstr "세션 이름"
+
+#: source/gx/tilix/constants.d:199
+msgid "Session number"
+msgstr "세션 번호"
+
+#: source/gx/tilix/constants.d:200
+#, fuzzy
+msgid "Session count"
+msgstr "세션"
+
+#: source/gx/tilix/encoding.d:18 source/gx/tilix/encoding.d:31
+#: source/gx/tilix/encoding.d:45 source/gx/tilix/encoding.d:67
+#: source/gx/tilix/encoding.d:78
+msgid "Western"
+msgstr "서유럽어"
+
+#: source/gx/tilix/encoding.d:19 source/gx/tilix/encoding.d:46
+#: source/gx/tilix/encoding.d:57 source/gx/tilix/encoding.d:76
+msgid "Central European"
+msgstr "중앙 유럽어"
+
+#: source/gx/tilix/encoding.d:20
+msgid "South European"
+msgstr "남유럽어"
+
+#: source/gx/tilix/encoding.d:21 source/gx/tilix/encoding.d:29
+#: source/gx/tilix/encoding.d:83
+msgid "Baltic"
+msgstr "발트어"
+
+#: source/gx/tilix/encoding.d:22 source/gx/tilix/encoding.d:47
+#: source/gx/tilix/encoding.d:53 source/gx/tilix/encoding.d:54
+#: source/gx/tilix/encoding.d:59 source/gx/tilix/encoding.d:77
+msgid "Cyrillic"
+msgstr "키릴어"
+
+# ************************************************
+# Encodings
+# ************************************************
+#: source/gx/tilix/encoding.d:23 source/gx/tilix/encoding.d:50
+#: source/gx/tilix/encoding.d:56 source/gx/tilix/encoding.d:82
+msgid "Arabic"
+msgstr "아랍어"
+
+#: source/gx/tilix/encoding.d:24 source/gx/tilix/encoding.d:62
+#: source/gx/tilix/encoding.d:79
+msgid "Greek"
+msgstr "그리스어"
+
+#: source/gx/tilix/encoding.d:25
+msgid "Hebrew Visual"
+msgstr "시각 히브리어"
+
+#: source/gx/tilix/encoding.d:26 source/gx/tilix/encoding.d:49
+#: source/gx/tilix/encoding.d:65 source/gx/tilix/encoding.d:81
+msgid "Hebrew"
+msgstr "히브리어"
+
+#: source/gx/tilix/encoding.d:27 source/gx/tilix/encoding.d:48
+#: source/gx/tilix/encoding.d:69 source/gx/tilix/encoding.d:80
+msgid "Turkish"
+msgstr "터키어"
+
+#: source/gx/tilix/encoding.d:28
+msgid "Nordic"
+msgstr "북유럽어"
+
+#: source/gx/tilix/encoding.d:30
+msgid "Celtic"
+msgstr "켈트어"
+
+#: source/gx/tilix/encoding.d:32 source/gx/tilix/encoding.d:68
+msgid "Romanian"
+msgstr "루마니아어"
+
+#: source/gx/tilix/encoding.d:33
+msgid "Unicode"
+msgstr "유니코드"
+
+#: source/gx/tilix/encoding.d:34
+msgid "Armenian"
+msgstr "미국어"
+
+#: source/gx/tilix/encoding.d:35 source/gx/tilix/encoding.d:36
+#: source/gx/tilix/encoding.d:40
+msgid "Chinese Traditional"
+msgstr "중국어 정체"
+
+#: source/gx/tilix/encoding.d:37
+msgid "Cyrillic/Russian"
+msgstr "키릴/러시아어"
+
+#: source/gx/tilix/encoding.d:38 source/gx/tilix/encoding.d:51
+#: source/gx/tilix/encoding.d:71
+msgid "Japanese"
+msgstr "일본어"
+
+#: source/gx/tilix/encoding.d:39 source/gx/tilix/encoding.d:52
+#: source/gx/tilix/encoding.d:74
+msgid "Korean"
+msgstr "한국어"
+
+#: source/gx/tilix/encoding.d:41 source/gx/tilix/encoding.d:42
+#: source/gx/tilix/encoding.d:43
+msgid "Chinese Simplified"
+msgstr "중국어 간체"
+
+#: source/gx/tilix/encoding.d:44
+msgid "Georgian"
+msgstr "조지아어"
+
+#: source/gx/tilix/encoding.d:55 source/gx/tilix/encoding.d:70
+msgid "Cyrillic/Ukrainian"
+msgstr "키릴/우크라이나어"
+
+#: source/gx/tilix/encoding.d:58
+msgid "Croatian"
+msgstr "크로아티아어"
+
+#: source/gx/tilix/encoding.d:60
+msgid "Hindi"
+msgstr "힌디어"
+
+#: source/gx/tilix/encoding.d:61
+msgid "Persian"
+msgstr "페르시아어"
+
+#: source/gx/tilix/encoding.d:63
+msgid "Gujarati"
+msgstr "구즈라트어"
+
+#: source/gx/tilix/encoding.d:64
+msgid "Gurmukhi"
+msgstr "구르무키어"
+
+#: source/gx/tilix/encoding.d:66
+msgid "Icelandic"
+msgstr "아이슬란드어"
+
+#: source/gx/tilix/encoding.d:72 source/gx/tilix/encoding.d:75
+#: source/gx/tilix/encoding.d:84
+msgid "Vietnamese"
+msgstr "베트남어"
+
+#: source/gx/tilix/encoding.d:73
+msgid "Thai"
+msgstr "태국어"
+
+#: source/gx/tilix/prefeditor/advdialog.d:94
+#: source/gx/tilix/prefeditor/advdialog.d:261
+msgid "Regex"
+msgstr "정규표현식"
+
+#: source/gx/tilix/prefeditor/advdialog.d:118
+msgid "Case Insensitive"
+msgstr "대소문자 구분 한함"
+
+#: source/gx/tilix/prefeditor/advdialog.d:134
+#: source/gx/tilix/prefeditor/advdialog.d:313
+#: source/gx/tilix/prefeditor/profileeditor.d:1303
+msgid "Add"
+msgstr "추가"
+
+#: source/gx/tilix/prefeditor/advdialog.d:141
+#: source/gx/tilix/prefeditor/advdialog.d:319
+#: source/gx/tilix/prefeditor/prefdialog.d:556
+#: source/gx/tilix/prefeditor/profileeditor.d:1340
+#: source/gx/tilix/terminal/password.d:213
+msgid "Delete"
+msgstr "삭제"
+
+#: source/gx/tilix/prefeditor/advdialog.d:151
+msgid "Move up"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:162
+#, fuzzy
+msgid "Move down"
+msgstr "페이지 내리기"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+#: source/gx/tilix/prefeditor/advdialog.d:362
+#: source/gx/tilix/terminal/password.d:371
+msgid "Apply"
+msgstr "적용"
+
+#: source/gx/tilix/prefeditor/advdialog.d:192
+msgid "Edit Custom Links"
+msgstr "사용자 정의 링크 편집"
+
+#: source/gx/tilix/prefeditor/advdialog.d:287
+#: source/gx/tilix/prefeditor/prefdialog.d:765
+msgid "Action"
+msgstr "동작"
+
+#: source/gx/tilix/prefeditor/advdialog.d:299
+msgid "Parameter"
+msgstr "인자"
+
+#: source/gx/tilix/prefeditor/advdialog.d:337
+msgid "Limit number of lines for trigger processing to:"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/advdialog.d:362
+msgid "Edit Triggers"
+msgstr "트리거 편집"
+
+#: source/gx/tilix/prefeditor/advdialog.d:405
+#, c-format
+msgid "Row %d: "
+msgstr "열 %d: "
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:62
+msgid "Add bookmark"
+msgstr "북마크 추가"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:67
+msgid "Edit bookmark"
+msgstr "북마크 수정"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:72
+msgid "Delete bookmark"
+msgstr "북마크 제거"
+
+#: source/gx/tilix/prefeditor/bookmarkeditor.d:77
+msgid "Unselect bookmark"
+msgstr "북마크 선택 해제"
+
+#: source/gx/tilix/prefeditor/common.d:37
+msgid "Custom Links"
+msgstr "사용자 정의 링크"
+
+#: source/gx/tilix/prefeditor/common.d:43
+msgid ""
+"A list of user defined links that can be clicked on in the terminal based on "
+"regular expression definitions."
+msgstr ""
+"정규표현식 정의에 기반하여 터미널에서 누를 수 있는 사용자 정의 링크 목록."
+
+#: source/gx/tilix/prefeditor/common.d:46
+#: source/gx/tilix/prefeditor/common.d:77
+#: source/gx/tilix/prefeditor/profileeditor.d:1321
+#: source/gx/tilix/terminal/password.d:184
+msgid "Edit"
+msgstr "편집"
+
+#: source/gx/tilix/prefeditor/common.d:67
+msgid "Triggers"
+msgstr "트리거"
+
+#: source/gx/tilix/prefeditor/common.d:74
+msgid ""
+"Triggers are regular expressions that are used to check against output text "
+"in the terminal. When a match is detected the configured action is executed."
+msgstr ""
+"트리거는 터미널의 출력을 확인하기 위한 정규 표현식 입니다. 일치가 감지되면 설"
+"정된 동작이 실행됩니다."
+
+#: source/gx/tilix/prefeditor/prefdialog.d:123
+msgid "Tilix Preferences"
+msgstr "Tilix 설정"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:140
+#: source/gx/tilix/prefeditor/prefdialog.d:141
+#: source/gx/tilix/prefeditor/prefdialog.d:219
+msgid "Global"
+msgstr "전역"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:144
+#: source/gx/tilix/prefeditor/prefdialog.d:145
+msgid "Appearance"
+msgstr "모양새"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:150
+#: source/gx/tilix/prefeditor/prefdialog.d:151
+msgid "Quake"
+msgstr "퀘이크"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:155
+#: source/gx/tilix/prefeditor/prefdialog.d:156
+msgid "Bookmarks"
+msgstr "북마크"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:162
+#: source/gx/tilix/prefeditor/prefdialog.d:163
+#: source/gx/tilix/prefeditor/prefdialog.d:299
+msgid "Shortcuts"
+msgstr "바로 가기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:166
+#: source/gx/tilix/prefeditor/prefdialog.d:167
+#: source/gx/tilix/prefeditor/prefdialog.d:463
+#: source/gx/tilix/prefeditor/prefdialog.d:681
+#: source/gx/tilix/prefeditor/profileeditor.d:1087
+#: source/gx/tilix/terminal/terminal.d:858
+msgid "Encoding"
+msgstr "인코딩"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:170
+#: source/gx/tilix/prefeditor/prefdialog.d:171
+#: source/gx/tilix/prefeditor/profileeditor.d:105
+#: source/gx/tilix/prefeditor/profileeditor.d:575
+msgid "Advanced"
+msgstr "고급"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:176 source/gx/tilix/session.d:1583
+msgid "Profile"
+msgstr "프로파일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:189
+msgid "Add profile"
+msgstr "프로파일 추가"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:194
+msgid "Delete profile"
+msgstr "프로파일 제거"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:283
+#: source/gx/tilix/terminal/terminal.d:842
+msgid "Profiles"
+msgstr "프로파일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:312
+#: source/gx/tilix/prefeditor/prefdialog.d:320
+#, c-format
+msgid "Profile: %s"
+msgstr "프로파일: %s"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:366
+#, c-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:557
+msgid "Clone"
+msgstr "복제"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:561
+msgid "Use for new terminals"
+msgstr "새 터미널을 위해 사용"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:637
+msgid "Encodings showing in menu:"
+msgstr "메뉴에 보일 인코딩:"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:679
+msgid "Enabled"
+msgstr "활성화됨"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:789
+msgid "Shortcut Key"
+msgstr "단축키"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:801
+msgid "Enable shortcuts"
+msgstr "바로 가기 활성화"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:805
+msgid "Set default"
+msgstr "기본값으로 설정"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:916
+msgid "Overwrite Existing Shortcut"
+msgstr "이미 있는 바로가기 덮어쓰기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:917
+#, c-format
+msgid ""
+"The shortcut %s is already assigned to %s.\n"
+"Disable the shortcut for the other action and assign here instead?"
+msgstr ""
+"바로가기 %s 는 이미 %s 로 지정되어 있습니다.\n"
+"다른 동작을 위해 바로가기를 비활성화 하고 여기에 지정할까요?"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1135
+msgid "Window style"
+msgstr "창 스타일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Borderless"
+msgstr "테두리 없음"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD"
+msgstr "CSD 비활성화"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+msgid "Disable CSD, hide toolbar"
+msgstr "CSD 비활성화, 툴바 숨기기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1137
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Normal"
+msgstr "보통"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1141
+msgid "Window restart required"
+msgstr "창을 다시 시작해야 합니다"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1150
+msgid "Terminal title style"
+msgstr "터미널 제목 스타일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "None"
+msgstr "없음"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1151
+msgid "Small"
+msgstr "작음"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1156
+#: source/gx/tilix/prefeditor/prefdialog.d:1350
+#, fuzzy
+msgid "Tab position"
+msgstr "뱃지 위치"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Bottom"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Left"
+msgstr "왼쪽"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+msgid "Right"
+msgstr "오른쪽"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1157
+#: source/gx/tilix/prefeditor/prefdialog.d:1351
+#: source/gx/tilix/prefeditor/prefdialog.d:1358
+msgid "Top"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1163
+msgid "Theme variant"
+msgstr "테마 종류"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Dark"
+msgstr "어두움"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1164
+msgid "Light"
+msgstr "밝음"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1170
+msgid "Background image"
+msgstr "배경 이미지"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1172
+msgid "Select Image"
+msgstr "이미지 선택"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1175
+msgid "All Image Files"
+msgstr "모든 이미지 파일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1196
+msgid "Reset background image"
+msgstr "배경 이미지 초기화"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+#: source/gx/tilix/prefeditor/prefdialog.d:1344
+msgid "Center"
+msgstr "가운데"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Scale"
+msgstr "크기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Stretch"
+msgstr "늘리기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1202
+msgid "Tile"
+msgstr "타일"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1221
+msgid "Default session name"
+msgstr "기본 세션 이름"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1236
+msgid "Application title"
+msgstr "응용프로그램 제목"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1254
+msgid "Enable transparency, requires re-start"
+msgstr "투명도 활성화 하기, 다시 시작 필요함"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1260
+msgid "Use a wide handle for splitters"
+msgstr "스플라이터에 대해 넓은 핸들 사용하기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1265
+msgid "Place the sidebar on the right"
+msgstr "사이드바를 오른쪽에 두기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1269
+msgid "Show the terminal title even if it's the only terminal"
+msgstr "터미널만 있어도 터미널 제목 보이기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1274
+msgid "Use overlay scrollbars (Application restart required)"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1279
+msgid "Use tabs instead of sidebar (Application restart required)"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1311
+msgid "Size"
+msgstr "크기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1322
+msgid "Height percent"
+msgstr "높이 백분율"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1333
+msgid "Width percent"
+msgstr "너비 백분율"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1343
+msgid "Alignment"
+msgstr "정렬"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1357
+#, fuzzy
+msgid "Window position"
+msgstr "뱃지 위치"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1366
+#: source/gx/tilix/prefeditor/profileeditor.d:556
+msgid "Options"
+msgstr "옵션"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1374
+msgid "Show terminal on all workspaces"
+msgstr "모든 작업공간에서 터미널 보이기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1386
+msgid "Hide window when focus is lost"
+msgstr "포커스를 잃을 때 창 숨기기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1390
+msgid "Delay hiding window by (ms)"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1403
+#, fuzzy
+msgid "Hide the toolbar of the window"
+msgstr "창 제목 막대 숨기기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1418
+msgid "Keep window always on top"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1423
+msgid "Display terminal on active monitor"
+msgstr "활성된 모니터에 터미널 표시"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1430
+msgid "Display on specific monitor"
+msgstr "특정 모니터에서 보이기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1433
+msgid "Primary Monitor"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1436
+msgid "Monitor "
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1496
+msgid "Behavior"
+msgstr "행동"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1502
+msgid "Prompt when creating a new session"
+msgstr "새 세션을 만들 때 세션 설정 입력받기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1507
+msgid "Focus a terminal when the mouse moves over it"
+msgstr "마우스가 위에서 움직일 때 터미널에 포커스 하기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1512
+msgid "Autohide the mouse pointer when typing"
+msgstr "타이핑 할 때 마우스 포인터 자동으로 숨기기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1517
+msgid "Close terminal by clicking middle mouse button on title"
+msgstr "제목에서 마우스 중간 버튼을 눌러 터미널 닫기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1522
+msgid "Zoom the terminal using <Control> and scroll wheel"
+msgstr "<Control>과 스크롤 휠을 이용하여 터미널 확대하기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1527
+msgid "Require the <Control> modifier to edit title on click"
+msgstr "제목 클릭하여 편집 하려면 <Control> 제어자가 필요합니다"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1532
+msgid "Close window when last session is closed"
+msgstr "마지막 세션이 닫힐 때 창 닫기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1537
+msgid "Save and restore window state"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1543
+msgid "Send desktop notification on process complete"
+msgstr "프로세스가 완료될때 데스크톱 알림 보내기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1551
+msgid "On new instance"
+msgstr "새 인스턴스 생성시"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Focus Window"
+msgstr "창에 포커스"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Down"
+msgstr "아래로 분할"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1554
+msgid "Split Right"
+msgstr "오른쪽으로 분할"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1560
+#: source/gx/tilix/terminal/terminal.d:1850
+msgid "Clipboard"
+msgstr "클립보드"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1566
+msgid "Always use advanced paste dialog"
+msgstr "항상 고급 붙여넣기 다이얼로그 사용"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1571
+msgid "Warn when attempting unsafe paste"
+msgstr "위험한 붙여넣기를 할 때 경고하기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1576
+msgid "Strip first character of paste if comment or variable declaration"
+msgstr "붙여넣기 한 것이 주석 또는 변수 선언문일 경우 첫 문자 삭제하기"
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1581
+msgid "Strip trailing whitespaces and linebreak characters on paste"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/prefdialog.d:1586
+msgid "Automatically copy text to clipboard when selecting"
+msgstr "선택할 때 텍스트를 자동으로 클립보드로 복사하기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:97
+msgid "General"
+msgstr "일반"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:99
+msgid "Color"
+msgstr "색상"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:100
+msgid "Scrolling"
+msgstr "스크롤링"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:101
+msgid "Compatibility"
+msgstr "호환성"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:103
+#: source/gx/tilix/prefeditor/profileeditor.d:693
+#: source/gx/tilix/prefeditor/profileeditor.d:1175
+#: source/gx/tilix/terminal/layout.d:68
+msgid "Badge"
+msgstr "뱃지"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:217
+msgid "Profile name"
+msgstr "프로파일 이름"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:241
+msgid "Terminal title"
+msgstr "터미널 제목"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:254
+msgid "Text Appearance"
+msgstr "텍스트 모양새"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:262
+msgid "Terminal size"
+msgstr "터미널 크기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:272
+msgid "columns"
+msgstr "행"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:281
+msgid "rows"
+msgstr "열"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:289
+#: source/gx/tilix/prefeditor/profileeditor.d:328
+#: source/gx/tilix/terminal/terminal.d:853
+msgid "Reset"
+msgstr "초기화"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:301
+msgid "Cell spacing"
+msgstr "셀 간격"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:311
+msgid "width"
+msgstr "폭"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:320
+msgid "height"
+msgstr "높이"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:347
+msgid "Margin"
+msgstr "여백"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:358
+#, fuzzy
+msgid "Text blink mode"
+msgstr "깜빡임 모드"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Always"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+#, fuzzy
+msgid "Focused"
+msgstr "창에 포커스"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+msgid "Never"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:361
+#, fuzzy
+msgid "Unfocused"
+msgstr "포커스 해제시 어두운 색상"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:380
+#: source/gx/tilix/prefeditor/profileeditor.d:1199
+#, fuzzy
+msgid "Custom font"
+msgstr "사용자 정의 글꼴"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:392
+msgid "Choose A Terminal Font"
+msgstr "터미널 글꼴 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:401
+msgid "Word-wise select chars"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:409
+#: source/gx/tilix/prefeditor/profileeditor.d:417
+#: source/gx/tilix/prefeditor/profileeditor.d:659
+msgid "Cursor"
+msgstr "커서"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "Block"
+msgstr "블록"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "IBeam"
+msgstr "I빔"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:420
+msgid "Underline"
+msgstr "밑줄"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:428
+#, fuzzy
+msgid "Cursor blink mode"
+msgstr "깜빡임 모드"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "Off"
+msgstr "끔"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "On"
+msgstr "켬"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:431
+msgid "System"
+msgstr "시스템"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:436
+#, fuzzy
+msgid "Notification"
+msgstr "알림 활성화됨=%b"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:444
+#: source/gx/tilix/terminal/terminal.d:422
+msgid "Terminal bell"
+msgstr "터미널 벨"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+#, fuzzy
+msgid "Icon and sound"
+msgstr "아이콘 및 소리"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:447
+msgid "Sound"
+msgstr "소리"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:465
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:513
+msgid "Color scheme"
+msgstr "색상 스키마"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:523
+#: source/gx/tilix/prefeditor/profileeditor.d:988
+msgid "Custom"
+msgstr "사용자 정의"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:536
+msgid "Export"
+msgstr "내보내기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:548
+msgid "Color palette"
+msgstr "색상 팔레트"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:570
+msgid "Use theme colors for foreground/background"
+msgstr "전경/배경 에 대해 테마 색상 사용"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:580
+msgid "Show bold text in bright colors"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:592
+msgid "Transparency"
+msgstr "투명도"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:606
+msgid "Unfocused dim"
+msgstr "포커스 해제시 어두운 색상"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:654
+msgid "Text"
+msgstr "텍스트"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:655
+#: source/gx/tilix/prefeditor/profileeditor.d:757
+msgid "Background"
+msgstr "배경"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:664
+msgid "Select Cursor Foreground Color"
+msgstr "커서 전경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:666
+msgid "Select Cursor Background Color"
+msgstr "커서 배경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:671
+msgid "Highlight"
+msgstr "강조"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:676
+msgid "Select Highlight Foreground Color"
+msgstr "강조 전경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:678
+msgid "Select Highlight Background Color"
+msgstr "강조 배경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:683
+msgid "Bold"
+msgstr "굵은 글씨"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:688
+msgid "Select Bold Color"
+msgstr "굵은 글씨 색 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:697
+msgid "Select Badge Color"
+msgstr "뱃지 색 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:746
+msgid "Select Background Color"
+msgstr "배경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:762
+#: source/gx/tilix/prefeditor/profileeditor.d:778
+msgid "Select Foreground Color"
+msgstr "전경 색상 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:777
+msgid "Foreground"
+msgstr "전경"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Black"
+msgstr "검정"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Blue"
+msgstr "파랑"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Green"
+msgstr "녹색"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Grey"
+msgstr "회색"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Orange"
+msgstr "주황"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Purple"
+msgstr "보라"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Red"
+msgstr "빨강"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:781
+msgid "Turquoise"
+msgstr "청록"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:787
+#, c-format
+msgid "Select %s Color"
+msgstr "%s색 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:794
+#, c-format
+msgid "Select %s Light Color"
+msgstr "밝은 %s색 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:945
+msgid "Export Color Scheme"
+msgstr "색상 스키마 내보내기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1022
+msgid "Show scrollbar"
+msgstr "스크롤바 보이기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1026
+msgid "Scroll on output"
+msgstr "출력시 스크롤하기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1030
+msgid "Scroll on keystroke"
+msgstr "키 누를 때 스크롤하기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1034
+msgid "Limit scrollback to:"
+msgstr "스크롤 제한:"
+
+# Terminix gettext pot file
+#: source/gx/tilix/prefeditor/profileeditor.d:1069
+msgid "Backspace key generates"
+msgstr "Backspace 키 누를 때 생성할 것"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "ASCII DEL"
+msgstr "ASCII DEL"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Automatic"
+msgstr "자동"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Control-H"
+msgstr "Control-H"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "Escape sequence"
+msgstr "이스케이프 시퀀스"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1072
+#: source/gx/tilix/prefeditor/profileeditor.d:1081
+msgid "TTY"
+msgstr "TTY"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1078
+msgid "Delete key generates"
+msgstr "Delete 키 누를 때 생성할 것"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1102
+msgid "Ambiguous-width characters"
+msgstr "모호한 폭의 문자"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1105
+msgid "Narrow"
+msgstr "좁음"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1105
+msgid "Wide"
+msgstr "넓음"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1126
+msgid "Run command as a login shell"
+msgstr "로그인 셸로 명령어 실행"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1130
+msgid "Run a custom command instead of my shell"
+msgstr "내 셸 대신 사용자 정의 명령어 실행"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1147
+msgid "When command exits"
+msgstr "명령어가 종료될 때"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Exit the terminal"
+msgstr "터미널 나가기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Hold the terminal open"
+msgstr "터미널 열림 유지"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1149
+msgid "Restart the command"
+msgstr "명령어 다시 시작"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1189
+msgid "Badge position"
+msgstr "뱃지 위치"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Northeast"
+msgstr "북동부"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Northwest"
+msgstr "북서부"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Southeast"
+msgstr "남동부"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1193
+msgid "Southwest"
+msgstr "남서부"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1211
+#, fuzzy
+msgid "Choose A Badge Font"
+msgstr "터미널 글꼴 선택"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1249
+#, fuzzy
+msgid "Notify New Activity"
+msgstr "새 활동 알리기"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1256
+msgid ""
+"A notification can be raised when new activity occurs after a specified "
+"period of silence."
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1269
+msgid "Automatic Profile Switching"
+msgstr "프로파일 자동 변경"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1278
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>username@hostname:directory</i> format. Either "
+"the hostname or directory can be omitted but the colon must be present. "
+"Entries with neither hostname or directory are not permitted."
+msgstr ""
+"여기서 입력한 값에 기반하여 프로파일이 자동으로 선택됩니다.\n"
+"<i>사용자이름@호스트이름:디렉토리</i>형식을 사용하여 값이 입력됩니다. 호스트"
+"이름과 디렉토리 중 하나만 있어도 되나, 쌍점은 반드시 있어야 합니다. 호스트이"
+"름과 디렉토리 둘다 없는 입력은 허용되지 않습니다."
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1280
+msgid ""
+"Profiles are automatically selected based on the values entered here.\n"
+"Values are entered using a <i>hostname:directory</i> format. Either the "
+"hostname or directory can be omitted but the colon must be present. Entries "
+"with neither hostname or directory are not permitted."
+msgstr ""
+"여기서 입력한 값에 기반하여 프로파일이 자동으로 선택됩니다.\n"
+"<i>호스트이름:디렉토리</i>형식을 사용하여 값이 입력됩니다. 호스트이름과 디렉"
+"토리 중 하나만 있어도 되나, 쌍점은 반드시 있어야 합니다. 호스트이름과 디렉토"
+"리 둘다 없는 입력은 허용되지 않습니다."
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1292
+msgid "Match"
+msgstr "일치값"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1307
+msgid "Enter username@hostname:directory to match"
+msgstr "사용자이름@호스트이름:디렉토리 형식의 일치값을 입력하세요"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1309
+msgid "Enter hostname:directory to match"
+msgstr "호스트이름:디렉토리 형식의 일치값을 입력하세요"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1311
+msgid "Add New Match"
+msgstr "새 일치값 추가"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1328
+msgid "Edit username@hostname:directory to match"
+msgstr "사용자이름@호스트이름:디렉토리 형식으로 일치값을 수정합니다"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1330
+msgid "Edit hostname:directory to match"
+msgstr "호스트이름:디렉토리 형식으로 일치값을 수정합니다"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1332
+msgid "Edit Match"
+msgstr "일치값 수정"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1363
+#, fuzzy
+msgid "Enable by default"
+msgstr "기본값으로 설정"
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1372
+msgid "Threshold for continuous silence"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/profileeditor.d:1381
+msgid "(seconds)"
+msgstr ""
+
+#: source/gx/tilix/prefeditor/titleeditor.d:105
+#: source/gx/tilix/terminal/terminal.d:348
+#: source/gx/tilix/terminal/terminal.d:1309
+msgid "Terminal"
+msgstr "터미널"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:110
+#, fuzzy
+msgid "Session"
+msgstr "세션"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:116
+msgid "Window"
+msgstr "창"
+
+#: source/gx/tilix/prefeditor/titleeditor.d:126
+#: source/gx/tilix/prefeditor/titleeditor.d:127
+msgid "Help"
+msgstr "도움말"
+
+#: source/gx/tilix/preferences.d:252
+msgid "UpdateState"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:253
+msgid "ExecuteCommand"
+msgstr "명령 실행"
+
+#: source/gx/tilix/preferences.d:254
+msgid "SendNotification"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:255
+msgid "UpdateTitle"
+msgstr "제목 업데이트"
+
+#: source/gx/tilix/preferences.d:256
+msgid "PlayBell"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:257
+msgid "SendText"
+msgstr "텍스트 전송"
+
+#: source/gx/tilix/preferences.d:258
+msgid "InsertPassword"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:259
+msgid "UpdateBadge"
+msgstr "뱃지 업데이트"
+
+#: source/gx/tilix/preferences.d:260
+msgid "RunProcess"
+msgstr ""
+
+#: source/gx/tilix/preferences.d:370
+#, c-format
+msgid "%s (Copy)"
+msgstr "%s (복사)"
+
+#: source/gx/tilix/session.d:568
+msgid "Could not locate dropped terminal"
+msgstr "중단된 터미널을 위치시킬 수 없습니다"
+
+#: source/gx/tilix/session.d:573
+msgid "Could not locate session for dropped terminal"
+msgstr "중단된 터미널을 위한 세션을 위치시킬 수 없습니다"
+
+#: source/gx/tilix/sidebar.d:546 source/gx/tilix/terminal/terminal.d:383
+#: source/gx/tilix/terminal/terminal.d:1860
+msgid "Close"
+msgstr "닫기"
+
+#: source/gx/tilix/terminal/advpaste.d:33
+msgid "This command is asking for Administrative access to your computer"
+msgstr "이 명령어가 컴퓨터로의 관리자 액세스를 요청합니다"
+
+#: source/gx/tilix/terminal/advpaste.d:34
+msgid "Copying commands from the internet can be dangerous. "
+msgstr "인터넷에서 명령어를 복사하는 것은 위험할 수 있습니다. "
+
+#: source/gx/tilix/terminal/advpaste.d:35
+msgid "Be sure you understand what each part of this command does."
+msgstr "이 명령어의 각 부분이 무엇을 하는지 분명히 이해하세요."
+
+#: source/gx/tilix/terminal/advpaste.d:96
+msgid "Transform"
+msgstr "변환"
+
+#: source/gx/tilix/terminal/advpaste.d:104
+msgid "Convert spaces to tabs"
+msgstr "공백을 탭으로 변환"
+
+#: source/gx/tilix/terminal/advpaste.d:115
+msgid "Convert CRLF and CR to LF"
+msgstr "CRLF와 CR을 LF로 면환"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+msgid "Advanced Paste"
+msgstr "고급 붙여넣기"
+
+#: source/gx/tilix/terminal/advpaste.d:137
+#: source/gx/tilix/terminal/terminal.d:1824
+#: source/gx/tilix/terminal/terminal.d:1842
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: source/gx/tilix/terminal/layout.d:33
+msgid "Layout Options"
+msgstr "레이아웃 옵션"
+
+#: source/gx/tilix/terminal/layout.d:48
+msgid "Active"
+msgstr "동작"
+
+#: source/gx/tilix/terminal/layout.d:82
+msgid "Session Load"
+msgstr "세션"
+
+#: source/gx/tilix/terminal/layout.d:98
+msgid ""
+"Active options are always in effect and apply immediately.\n"
+"Session Load options only apply when loading a session file."
+msgstr ""
+"활성 옵션은 항상 영향을 주며 바로 적용됩니다.\n"
+"세션 불러오기 옵션은 세션 파일을 불러올 때만 적용됩니다."
+
+#: source/gx/tilix/terminal/monitor.d:112
+msgid "Process monitoring is not enabled, this should never be called"
+msgstr ""
+
+#: source/gx/tilix/terminal/password.d:161
+msgid "New"
+msgstr "새로 만들기"
+
+#: source/gx/tilix/terminal/password.d:235
+msgid "Include return character with password"
+msgstr "비밀번호에 반환 문자 포함"
+
+#: source/gx/tilix/terminal/password.d:371
+msgid "Insert Password"
+msgstr "암호 삽입"
+
+#: source/gx/tilix/terminal/password.d:441
+msgid "Password"
+msgstr "암호"
+
+#: source/gx/tilix/terminal/password.d:451
+msgid "Confirm Password"
+msgstr "암호 확인"
+
+#: source/gx/tilix/terminal/password.d:499
+msgid "Add Password"
+msgstr "암호 추가"
+
+#: source/gx/tilix/terminal/password.d:504
+msgid "Edit Password"
+msgstr "암호 수정"
+
+#: source/gx/tilix/terminal/search.d:125
+msgid "Search Options"
+msgstr "검색 옵션"
+
+#: source/gx/tilix/terminal/search.d:138
+msgid "Find next"
+msgstr "다음 찾기"
+
+# ***********************************************
+# Keyboard shortcuts to the end, these are shown
+# in the Shortcut preferences and in the future
+# the shortcut overview if available in Gnome 3.20
+# ***********************************************
+#: source/gx/tilix/terminal/search.d:144
+msgid "Find previous"
+msgstr "이전 찾기"
+
+#: source/gx/tilix/terminal/search.d:191
+msgid "Match case"
+msgstr "일치 경우"
+
+#: source/gx/tilix/terminal/search.d:192
+msgid "Match entire word only"
+msgstr "전체 단어 일치만"
+
+#: source/gx/tilix/terminal/search.d:193
+msgid "Match as regular expression"
+msgstr "정규 표현식으로 일치"
+
+#: source/gx/tilix/terminal/search.d:194
+msgid "Wrap around"
+msgstr "주변 감싸기"
+
+#: source/gx/tilix/terminal/search.d:219
+#, fuzzy, c-format
+msgid ""
+"Search '%s' is not a valid regex\n"
+"%s"
+msgstr "표현식 %s 는 올바른 정규표현식이 아닙니다"
+
+#: source/gx/tilix/terminal/terminal.d:391
+#: source/gx/tilix/terminal/terminal.d:1349
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Maximize"
+msgstr "최대화"
+
+#: source/gx/tilix/terminal/terminal.d:401
+#: source/gx/tilix/terminal/terminal.d:692
+msgid "Disable input synchronization for this terminal"
+msgstr "이 터미널에 대해 입력 동기화 비활성화 하기"
+
+#: source/gx/tilix/terminal/terminal.d:410
+#: source/gx/tilix/terminal/terminal.d:829
+msgid "Read-Only"
+msgstr "읽기전용"
+
+#: source/gx/tilix/terminal/terminal.d:416
+msgid "New output"
+msgstr "새로운 출력"
+
+#: source/gx/tilix/terminal/terminal.d:467
+msgid "Edit Profile"
+msgstr "프로파일 편집"
+
+#: source/gx/tilix/terminal/terminal.d:485
+msgid "Edit Encodings"
+msgstr "인코딩 수정"
+
+#: source/gx/tilix/terminal/terminal.d:694
+msgid "Enable input synchronization for this terminal"
+msgstr "이 터미널에 대해 입력 동기화 활성화 하기"
+
+#: source/gx/tilix/terminal/terminal.d:729
+msgid "Library Not Loaded"
+msgstr "라이브러리가 불러와지지 않음"
+
+#: source/gx/tilix/terminal/terminal.d:729
+#, c-format
+msgid ""
+"The library %s could not be loaded, password functionality is unavailable."
+msgstr ""
+"라이브러리 %s 을(를) 불러올 수 없습니다, 암호 기능을 이용할 수 없습니다."
+
+#: source/gx/tilix/terminal/terminal.d:828
+msgid "Find…"
+msgstr "찾기…"
+
+#: source/gx/tilix/terminal/terminal.d:835
+msgid "Password..."
+msgstr "암호…"
+
+#: source/gx/tilix/terminal/terminal.d:836
+msgid "Bookmark..."
+msgstr "북마크…"
+
+#: source/gx/tilix/terminal/terminal.d:837
+msgid "Add Bookmark..."
+msgstr "북마크 추가…"
+
+#: source/gx/tilix/terminal/terminal.d:841
+msgid "Assistants"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:848
+msgid "Show File Browser..."
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:852
+msgid "Save Output…"
+msgstr "출력 저장…"
+
+#: source/gx/tilix/terminal/terminal.d:854
+msgid "Reset and Clear"
+msgstr "초기화 하고 지우기"
+
+#: source/gx/tilix/terminal/terminal.d:859
+msgid "Layout Options…"
+msgstr "레이아웃 옵션…"
+
+#: source/gx/tilix/terminal/terminal.d:863
+msgid "Monitor Silence"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:866
+msgid "Other"
+msgstr "기타"
+
+#: source/gx/tilix/terminal/terminal.d:875
+msgid "Add Right"
+msgstr "오른쪽에 추가"
+
+#: source/gx/tilix/terminal/terminal.d:879
+msgid "Add Down"
+msgstr "아래에 추가"
+
+#: source/gx/tilix/terminal/terminal.d:989
+msgid "Terminal Activity"
+msgstr "터미널 활동"
+
+#: source/gx/tilix/terminal/terminal.d:1325
+#, fuzzy
+msgid "Not Enabled"
+msgstr "활성화됨"
+
+#: source/gx/tilix/terminal/terminal.d:1346
+#: source/gx/tilix/terminal/terminal.d:1859
+msgid "Restore"
+msgstr "복원"
+
+#: source/gx/tilix/terminal/terminal.d:1708
+msgid "Tilix Custom Notification"
+msgstr "Tilix 사용자 정의 알림"
+
+#: source/gx/tilix/terminal/terminal.d:1809
+msgid "Open Link"
+msgstr "링크 열기"
+
+#: source/gx/tilix/terminal/terminal.d:1810
+msgid "Copy Link Address"
+msgstr "링크 주소 복사"
+
+#: source/gx/tilix/terminal/terminal.d:1820
+#: source/gx/tilix/terminal/terminal.d:1830
+msgid "Copy"
+msgstr "복사"
+
+#: source/gx/tilix/terminal/terminal.d:1822
+#: source/gx/tilix/terminal/terminal.d:1836
+msgid "Copy as HTML"
+msgstr "HTML로 저장"
+
+#: source/gx/tilix/terminal/terminal.d:1825
+#: source/gx/tilix/terminal/terminal.d:1847
+msgid "Select All"
+msgstr "모두 선택"
+
+#: source/gx/tilix/terminal/terminal.d:1864
+msgid "Synchronize input"
+msgstr "입력 동기화"
+
+#: source/gx/tilix/terminal/terminal.d:2017
+#, c-format
+msgid "Could not check file '%s' due to error '%s'"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2024
+#, c-format
+msgid ""
+"Remote file URIs are not supported with hyperlinks.\n"
+"URI was '%s'"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2025
+msgid "Remote File URI Unsupported"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2057
+#: source/gx/tilix/terminal/terminal.d:2610
+#, c-format
+msgid "Custom link regex '%s' has an error, ignoring"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2058
+msgid "Regular Expression Error"
+msgstr "정규 표현식 오류"
+
+#: source/gx/tilix/terminal/terminal.d:2071
+#, c-format
+msgid "Could not open match '%s'"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2072
+msgid "Error Opening Match"
+msgstr ""
+
+#: source/gx/tilix/terminal/terminal.d:2570
+#, fuzzy, c-format
+msgid "Unexpected error occurred when adding link regex: %s"
+msgstr "예상하지 못한 오류가 발생했습니다. %s"
+
+#: source/gx/tilix/terminal/terminal.d:2767
+msgid "Unexpected error occurred, no additional information available"
+msgstr ""
+"예상하지 못한 오류가 발생했습니다. 이용 가능한 추가적인 정보가 없습니다"
+
+#: source/gx/tilix/terminal/terminal.d:2777
+#, c-format
+msgid "Unexpected error occurred: %s"
+msgstr "예상하지 못한 오류가 발생했습니다. %s"
+
+#: source/gx/tilix/terminal/terminal.d:3659
+msgid "Save Terminal Output"
+msgstr "터미널 출력 저장"
+
+#: source/gx/tilix/terminal/terminal.d:3668
+msgid "All Text Files"
+msgstr "모든 텍스트 파일"
+
+#: source/gx/tilix/terminal/terminal.d:3998
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: source/gx/tilix/terminal/terminal.d:4262
+#, c-format
+msgid "The child process exited normally with status %d"
+msgstr "자식 프로세스가 다음과 같은 상태로 정상적으로 종료되었습니다. %d"
+
+#: source/gx/tilix/terminal/terminal.d:4263
+#, c-format
+msgid "The child process was aborted by signal %d."
+msgstr "자식 프로세스가 다음과 같은 신호에 의해 중지되었습니다 %d."
+
+#: source/gx/tilix/terminal/terminal.d:4264
+msgid "The child process was aborted."
+msgstr "자식 프로세스가 중지되었습니다."
+
+#: source/gx/tilix/terminal/terminal.d:4270
+msgid "Relaunch"
+msgstr "다시 시작"
+
+#: source/gx/tilix/terminal/terminal.d:4337
+msgid "Don't Paste"
+msgstr "붙여넣지 마세요"
+
+#: source/gx/tilix/terminal/terminal.d:4338
+msgid "Paste Anyway"
+msgstr "어떻게든 붙여넣기"
 
 #~ msgid "About"
 #~ msgstr "정보"
 
-#~ msgid "Quit"
-#~ msgstr "끝내기"
+#~ msgid "Allow bold text"
+#~ msgstr "굵은 글씨 허용"
+
+#~ msgid "Dim"
+#~ msgstr "어두운 색상"
+
+#~ msgid "Editing Profile: %s"
+#~ msgstr "편집중인 프로파일: %s"
+
+#~ msgid "Ignoring parameter session as '%s' does not exist"
+#~ msgstr "'%s'이(가) 없으므로 파라미터 세션을 무시합니다"
 
 #~ msgid "New window inherits directory and profile from active terminal"
 #~ msgstr ""
 #~ "새로운 윈도우는 활성 터미널의 현재 디렉토리에서 생성되며 동일한 프로파일"
 #~ "을 사용합니다"
 
-#~ msgid "Allow bold text"
-#~ msgstr "굵은 글씨 허용"
-
-#~ msgid "Rewrap on resize"
-#~ msgstr "크기 조절시 자동으로 줄바꿈 하기"
-
-#~ msgctxt "shortcut window"
-#~ msgid "View session switcher"
-#~ msgstr "세션 전환기 보기"
-
-#~ msgid "Dim"
-#~ msgstr "어두운 색상"
-
-#~ msgid "Select Dim Color"
-#~ msgstr "어두운 색상 선택"
-
 #, fuzzy
 #~ msgctxt "shortcut window"
 #~ msgid "Open in Terminix"
 #~ msgstr "Terminix에서 열기…"
 
+#~ msgid "Quit"
+#~ msgstr "끝내기"
+
+#~ msgid "Rewrap on resize"
+#~ msgstr "크기 조절시 자동으로 줄바꿈 하기"
+
+#~ msgid "Select Dim Color"
+#~ msgstr "어두운 색상 선택"
+
 #~ msgid "Terminix"
 #~ msgstr "Terminix"
-
-#~ msgid "Ignoring parameter session as '%s' does not exist"
-#~ msgstr "'%s'이(가) 없으므로 파라미터 세션을 무시합니다"
 
 #~ msgid "There are processes that are still running, close anyway?"
 #~ msgstr "프로세스가 여전히 실행중입니다. 어떻게든 닫을까요?"
 
-#~ msgid "Editing Profile: %s"
-#~ msgstr "편집중인 프로파일: %s"
+#~ msgctxt "shortcut window"
+#~ msgid "View session switcher"
+#~ msgstr "세션 전환기 보기"
