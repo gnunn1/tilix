@@ -24,7 +24,7 @@ desktop_file = i18n.merge_file(
 install_man(['man/tilix.1'])
 
 # Validate desktop file
-desktop_file_validate = find_program('desktop-file-validate', required:false)
+desktop_file_validate = find_program('desktop-file-validate', required: false)
 if desktop_file_validate.found()
   test (
     'Validate desktop file',
@@ -57,7 +57,9 @@ if appstreamcli.found()
   test (
     'Validate metainfo file',
     appstreamcli,
-    args: ['validate', '--nonet', metainfo_file.full_path()]
+    args: ['validate', '--no-net',
+           join_paths(meson.current_source_dir(), 'metainfo', '@0@.in'.format(tilix_metainfo_name))
+    ]
   )
 endif
 
