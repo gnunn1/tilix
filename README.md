@@ -44,7 +44,7 @@ Tilix requires the following libraries to be installed in order to run:
 This project is looking for maintainers!
 At the moment, only very minimal maintenance is done, no new features will be implemented and pull-requests may be reviewed very slowly.
 
-If you are interesting in giving Tilix some :heart:, [please chime in](https://github.com/gnunn1/tilix/issues/1700)!
+If you are interested in giving Tilix some :heart:, [please chime in](https://github.com/gnunn1/tilix/issues/1700)!
 
 ### Migrating Settings From Terminix
 
