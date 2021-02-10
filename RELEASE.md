@@ -5,10 +5,10 @@ Tilix Release Notes
 
 2. Manually write NEWS entries for Tilix in the same format as usual.
 
-`git shortlog 1.9.3.. | grep -i -v trivial | grep -v Merge > NEWS.new`
+`git shortlog 1.9.4.. | grep -i -v trivial | grep -v Merge > NEWS.new`
 
 ```
-Version 1.9.4
+Version 1.9.5
 ~~~~~~~~~~~~~~
 Released: 2021-xx-xx
 
@@ -25,8 +25,8 @@ Bugfixes:
 
 5. Commit NEWS and other changes to Git, tag release:
 ```
-git commit -a -m "Release version 1.9.4"
-git tag -s -f -m "Release 1.9.4" 1.9.4 <gpg password>
+git commit -a -m "Release version 1.9.5"
+git tag -s -f -m "Release 1.9.5" 1.9.5 <gpg password>
 git push --tags
 git push
 ```
