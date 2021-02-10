@@ -37,13 +37,13 @@ endif
 metainfo_file = i18n.merge_file(
     '@0@.appdata.xml'.format(project_id),
     output: '@BASENAME@',
-    input: 'appdata/@0@.appdata.xml.in'.format(project_id),
+    input: 'metainfo/@0@.appdata.xml.in'.format(project_id),
     po_dir: meson.source_root() / 'po',
     install: true,
     install_dir: datadir / 'metainfo'
 )
 
-# Validate AppData file
+# Validate MetaInfo file
 appstreamcli = find_program('appstreamcli', required: false)
 if appstreamcli.found()
   test (
