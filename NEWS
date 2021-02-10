@@ -1,3 +1,36 @@
+Version 1.9.4
+~~~~~~~~~~~~~
+Released: 2021-02-10
+
+Notes:
+ * Tilix is looking for maintainers! At the moment, only very minimal maintenance is done,
+   no new features will be implemented and pull-requests may be reviewed very slowly.
+
+   If you are interested in helping Tilix, please chime in!
+
+Features:
+ * Actually install Yaru color scheme
+ * Give every tab the ${title} (instead of "Default")
+ * Add option to strip trailing whitespace on paste (#1904)
+
+Bugfixes:
+ * Fix saving of already saved session
+ * Add shortcut to "Unselect all"
+ * Many Meson buildsystem fixes
+ * Avoid missing the previous command exit code when encoding URLs
+ * Resolve some D deprecation messages
+ * Mention powerline/fonts in README
+ * Avoid calling `values()` on a shared object
+ * Update metainfo data
+ * Drop compat code for older D frontend versions
+ * Bump minimum VTE version to 0.46
+ * Remove deprecated Autotools support
+ * Add release notes, NEWS file, automatic metainfo update
+ * Update to GtkD 3.9.0
+
+Translations:
+ * This release contains many localization updates
+
 Version 1.9.3
 ~~~~~~~~~~~~~
 Released: 2019-05-04
