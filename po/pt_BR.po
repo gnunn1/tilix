@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2020-08-30 19:37+0000\n"
-"Last-Translator: Leonardo Santos <devleeo@outlook.com>\n"
+"PO-Revision-Date: 2021-03-01 01:13+0000\n"
+"Last-Translator: Gustavo Costa <sirguxx@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -108,14 +108,18 @@ msgid ""
 "maintenance is done, no new features will be implemented and pull-requests "
 "may be reviewed very slowly."
 msgstr ""
+"Tilix está procurando mantenedores! No momento, apenas uma manutenção mínima "
+"é feita, nenhum novo recurso será implementado e os \"pull requests\" podem "
+"ser revisadas muito lentamente."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:53
 msgid "If you are interested in helping Tilix, please chime in!"
 msgstr ""
+"Se você estiver interessado em ajudar o Tilix, por favor, entre em contato!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:54
 msgid "This release adds the following features:"
-msgstr ""
+msgstr "Esta versão adiciona os seguintes recursos:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:56
 msgid "Actually install Yaru color scheme"
@@ -133,7 +137,7 @@ msgstr ""
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
 msgid "This release fixes the following bugs:"
-msgstr ""
+msgstr "Esta versão corrige os seguintes bugs:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 #, fuzzy
@@ -810,10 +814,9 @@ msgstr ""
 "Sua versão do GTK é muito antiga, você precisa pelo menos do GTK %d.%d.%d!"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
-msgstr ""
-"Sua versão do GTK é muito antiga, você precisa pelo menos do GTK %d.%d.%d!"
+msgstr "Sua versão do VTE é muito antiga, você precisa pelo menos do VTE %d.%d!"
 
 #: source/app.d:166
 msgid "Unexpected exception occurred"
@@ -873,7 +876,8 @@ msgstr ""
 "Daniel Miranda\n"
 "Davi da Silva Böger\n"
 "Fábio Nogueira\n"
-"João Paulo Pulga"
+"João Paulo Pulga\n"
+"Gustavo Costa"
 
 #: source/gx/tilix/application.d:281
 msgid "Credits"
