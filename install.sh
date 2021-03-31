@@ -94,10 +94,10 @@ fi
 desktop-file-validate data/pkg/desktop/com.gexperts.Tilix.desktop
 
 # Generate appdata file, requires xgettext 0.19.7
-msgfmt --xml --template=data/appdata/com.gexperts.Tilix.appdata.xml.in -d po -o data/appdata/com.gexperts.Tilix.appdata.xml
+msgfmt --xml --template=data/metainfo/com.gexperts.Tilix.appdata.xml.in -d po -o data/metainfo/com.gexperts.Tilix.appdata.xml
 if [ $? -ne 0 ]; then
     echo "Note that localizating appdata requires xgettext 0.19.7 or later, copying instead"
-    cp data/appdata/com.gexperts.Tilix.appdata.xml.in data/appdata/com.gexperts.Tilix.appdata.xml
+    cp data/metainfo/com.gexperts.Tilix.appdata.xml.in data/metainfo/com.gexperts.Tilix.appdata.xml
 fi
 
 # Copying Nautilus extension
@@ -123,7 +123,7 @@ cd ../../..
 install -Dm 755 tilix -t "$PREFIX/bin/"
 
 install -Dm 644 data/pkg/desktop/com.gexperts.Tilix.desktop -t "$PREFIX/share/applications/"
-install -Dm 644 data/appdata/com.gexperts.Tilix.appdata.xml -t "$PREFIX/share/metainfo/"
+install -Dm 644 data/metainfo/com.gexperts.Tilix.appdata.xml -t "$PREFIX/share/metainfo/"
 
 # Update icon cache if Prefix is /usr
 if [ "$PREFIX" = '/usr' ] || [ "$PREFIX" = "/usr/local" ]; then
