@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2021-02-14 14:50+0000\n"
+"PO-Revision-Date: 2021-04-27 03:31+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/tilix/"
 "translations/hr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -628,10 +628,9 @@ msgid "Select all"
 msgstr "Odaberi sve"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Odaberi sve"
+msgstr "Odznači sve"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -962,7 +961,6 @@ msgstr ""
 "Quake modusu"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
 msgstr "Prikaži verzije Tilixa i ovisnih komponenti"
 
@@ -971,9 +969,8 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Prikaži dijaloški okvir postavki Tilixa izravno"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "IME_PROFILA"
+msgstr "IME_GRUPE"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1135,14 +1132,12 @@ msgid "Save Session"
 msgstr "Spremi sesiju"
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Could not save session due to unexpected error."
 msgstr "Nije moguće učitati sesiju zbog neočekivane greške."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Greška pri učitavanju sesije"
+msgstr "Greška u spremanju sesije"
 
 #: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -2897,7 +2892,7 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
