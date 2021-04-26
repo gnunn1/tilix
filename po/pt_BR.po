@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2021-03-02 01:50+0000\n"
+"PO-Revision-Date: 2021-04-27 03:31+0000\n"
 "Last-Translator: Gustavo Costa <xfgusta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_BR/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -94,9 +94,10 @@ msgid ""
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
-"A aplicação utiliza o GTK 3, observando as diretrizes de interface de "
-"usuário do GNOME (GNOME HIG). Portanto, decorações de janela internas são "
-"utilizadas, mas podem ser desabilitadas se necessário."
+"A aplicação foi escrita usando GTK 3 e um esforço foi feito para estar em "
+"conformidade com o GNOME Human Interface Guidelines (HIG). Como resultado, "
+"ele usa decorações do lado do cliente, embora possa ser desativado se "
+"necessário."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:29
 msgid "Tilix has been tested with GNOME and with Unity."
@@ -127,11 +128,11 @@ msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:57
 msgid "Give every tab the ${title}"
-msgstr ""
+msgstr "Dá a cada aba o ${title}"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:58
 msgid "Add option to strip trailing whitespace on paste"
-msgstr ""
+msgstr "Adiciona opção para remover espaços em branco no final ao colar"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
@@ -140,41 +141,40 @@ msgid "This release fixes the following bugs:"
 msgstr "Esta versão corrige os seguintes bugs:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
-#, fuzzy
 msgid "Fix saving of already saved session"
-msgstr "Abrir uma sessão salva"
+msgstr "Corrige salvamento de sessão já salva"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
 msgid "Add shortcut to \"Unselect all\""
-msgstr ""
+msgstr "Adiciona atalho para \"Desselecionar tudo\""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
 msgid "Many Meson buildsystem fixes"
-msgstr ""
+msgstr "Muitas correções do sistema de compilação do Meson"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:65
 msgid "Avoid missing the previous command exit code when encoding URLs"
-msgstr ""
+msgstr "Evite perder o código de saída do comando anterior ao codificar URLs"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
 msgid "Resolve some D deprecation messages"
-msgstr ""
+msgstr "Resolve algumas mensagens de descontinuação do D"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:67
 msgid "Mention powerline/fonts in README"
-msgstr ""
+msgstr "Menciona powerline/fontes no README"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
 msgid "Avoid calling `values()` on a shared object"
-msgstr ""
+msgstr "Evita chamar `values ()` em um objeto compartilhado"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
 msgid "Update metainfo data"
-msgstr ""
+msgstr "Atualiza dados do metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
 msgid "Drop compat code for older D frontend versions"
-msgstr ""
+msgstr "Elimina o código compat para versões de front-end D mais antigas"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
 msgid "Bump minimum VTE version to 0.46"
@@ -182,54 +182,57 @@ msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
 msgid "Remove deprecated Autotools support"
-msgstr ""
+msgstr "Remove suporte obsoleto de Autotools"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
 msgid "Add release notes, NEWS file, automatic metainfo update"
 msgstr ""
+"Adiciona notas de lançamento, arquivo NEWS, atualização automática do "
+"metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
 msgid "Update to GtkD 3.9.0"
-msgstr ""
+msgstr "Atualiza para GtkD 3.9.0"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:76
 msgid "This release updates translations."
-msgstr ""
+msgstr "Esta versão atualiza as traduções."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:81
 msgid "This release fixes the following bug:"
-msgstr ""
+msgstr "Esta versão corrige o seguinte bug:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:83
 msgid ""
 "Fixes a problem with the session sidebar getting out of sync after having "
 "deleted a session. See issues #1680, #1637 and #1699."
 msgstr ""
+"Corrige um problema de perda de sincronia da barra lateral da sessão após a "
+"exclusão de uma sessão. Veja os issues #1680, #1637 e #1699."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:91
 msgid "Remove app menu for gnome 3.32"
-msgstr ""
+msgstr "Remove o menu de aplicativo para o gnome 3.32"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
-#, fuzzy
 msgid "Update icon"
-msgstr "AtualizarTítulo"
+msgstr "Atualiza ícone"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:93
 msgid "Minor fixes"
-msgstr ""
+msgstr "Pequenas correções"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
 msgid "Small release to update localizations"
-msgstr ""
+msgstr "Versão pequena para atualizar localizações"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
 msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
-msgstr ""
+msgstr "Atualiza para GtkD 3.8.5 para corrigir o nome da biblioteca no GtkD."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:108
 msgid "Some new features and bug fixes."
-msgstr ""
+msgstr "Alguns novos recursos e correções de bugs."
 
 # ******************
 # Nautilus extension
@@ -316,7 +319,7 @@ msgstr "Abrir as preferências"
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "View configured shortcuts"
-msgstr "Visualizar atalhos do teclado configurados"
+msgstr "Ver atalhos configurados"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
@@ -639,10 +642,9 @@ msgid "Select all"
 msgstr "Selecionar tudo"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Selecionar tudo"
+msgstr "Desselecionar tudo"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -877,7 +879,7 @@ msgstr ""
 "Davi da Silva Böger\n"
 "Fábio Nogueira\n"
 "João Paulo Pulga\n"
-"Gustavo Costa"
+"Gustavo Costa <xfgusta@gmail.com>"
 
 #: source/gx/tilix/application.d:281
 msgid "Credits"
@@ -981,18 +983,16 @@ msgstr ""
 "Abre nova janela ou alterna visibilidade da janela existente (modo Quake)"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
-msgstr "Mostrar versão do Tilix e de dependências"
+msgstr "Mostrar versão do Tilix e de componentes dependentes"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix preferences dialog directly"
 msgstr "Mostrar o diálogo de preferências do Tilix diretamente"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "NOME_DO_PERFIL"
+msgstr "NOME_DO_GRUPO"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1153,14 +1153,12 @@ msgid "Save Session"
 msgstr "Salvar sessão"
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "Não foi possível carregar a sessão devido a um erro inesperado."
+msgstr "Não foi possível salvar a sessão devido a um erro inesperado."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Erro ao carregar sessão"
+msgstr "Erro ao salvar sessão"
 
 #: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -1722,7 +1720,7 @@ msgstr "Favoritos"
 #: source/gx/tilix/prefeditor/prefdialog.d:163
 #: source/gx/tilix/prefeditor/prefdialog.d:299
 msgid "Shortcuts"
-msgstr "Atalhos do teclado"
+msgstr "Atalhos"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:166
 #: source/gx/tilix/prefeditor/prefdialog.d:167
@@ -1790,7 +1788,7 @@ msgstr "Tecla de atalho"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:801
 msgid "Enable shortcuts"
-msgstr "Habilitar atalhos do teclado"
+msgstr "Habilitar atalhos"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:805
 msgid "Set default"
@@ -2091,7 +2089,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
 msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
+msgstr "Retirar espaços em branco e quebra de linha ao colar"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
@@ -2211,7 +2209,7 @@ msgstr "Bloco"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:420
 msgid "IBeam"
-msgstr "Tipo de cursor"
+msgstr "Barra vertical"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:420
 msgid "Underline"
@@ -2927,12 +2925,12 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Não foi possível verificar o arquivo '%s' devido ao erro '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
 msgstr ""
-"URIs de arquivos remotos não são suportados com hiperlinks.\n"
+"URIs de arquivos remotos não são compatíveis com hiperlinks.\n"
 "URI era '%s'"
 
 #: source/gx/tilix/terminal/terminal.d:2025
