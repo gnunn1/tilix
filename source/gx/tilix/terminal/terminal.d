@@ -1438,10 +1438,15 @@ private:
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
 
-        AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
+        Window parent = cast(Window) getToplevel();
+        bool was_maximized = parent.isMaximized();
+        AdvancedPasteDialog dialog = new AdvancedPasteDialog(parent, pasteText, isPasteUnsafe(pasteText));
         scope(exit) {
             dialog.hide();
             dialog.destroy();
+            if (was_maximized) {
+                parent.fullscreen();
+            }
         }
         dialog.showAll();
         if (dialog.run() == ResponseType.APPLY) {
