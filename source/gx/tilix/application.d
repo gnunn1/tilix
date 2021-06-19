@@ -719,6 +719,14 @@ public:
         activateAction(ACTION_COMMAND, new GVariant(param));
     }
 
+    bool isQuake() {
+        AppWindow appWindow = cast(AppWindow) getActiveWindow();
+        if (appWindow !is null && appWindow.isQuake()) {
+            return true;
+        }
+        return cp.quake;
+    }
+
     void addAppWindow(AppWindow window) {
         appWindows ~= window;
         //GTK add window
