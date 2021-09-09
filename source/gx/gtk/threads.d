@@ -152,7 +152,7 @@ void threadsAddIdleDelegate(T, parameterTuple...)(T theDelegate, parameterTuple 
  *
  * This code from grestful (https://github.com/Gert-dev/grestful)
  */
-void threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegate, parameterTuple parameters)
+uint threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegate, parameterTuple parameters)
 {
 	void* delegatePointer = null;
 
@@ -185,7 +185,7 @@ void threadsAddTimeoutDelegate(T, parameterTuple...)(uint interval, T theDelegat
 	// isn't used anymore and collects it.
 	GC.addRoot(delegatePointer);
 
-	gdk.Threads.threadsAddTimeout(
+	return gdk.Threads.threadsAddTimeout(
 		interval,
 		cast(GSourceFunc) &invokeDelegatePointerFunc!(DelegatePointer!(T, parameterTuple), int),
 		delegatePointer
