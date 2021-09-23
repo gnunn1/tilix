@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2019-02-07 19:10+0000\n"
+"PO-Revision-Date: 2021-09-24 09:34+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tilix/"
 "translations/fi/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -30,7 +30,7 @@ msgstr "Laatoittava pääte Gnomelle"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:8
 msgid "Gerald Nunn"
-msgstr ""
+msgstr "Gerald Nunn"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:10
 msgid "Tilix is a tiling terminal emulator."
@@ -624,10 +624,9 @@ msgid "Select all"
 msgstr "Valitse kaikki"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Valitse kaikki"
+msgstr "Älä valitse mitään"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -798,11 +797,11 @@ msgstr ""
 "%d.%d.%d!"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
 msgstr ""
-"Käytössäsi oleva GTK-versio on liian vanha. Tarvitset vähintään GTK-version "
-"%d.%d.%d!"
+"Käytössäsi oleva VTE-versio on liian vanha. Tarvitset vähintään VTE-version "
+"%d.%d!"
 
 #: source/app.d:166
 msgid "Unexpected exception occurred"
@@ -1134,9 +1133,8 @@ msgid "Could not save session due to unexpected error."
 msgstr "Istuntoa ei voitu ladata odottamattoman virheen vuoksi."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Virhe istuntoa ladatessa"
+msgstr "Virhe istuntoa tallentaessa"
 
 #: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -2557,7 +2555,7 @@ msgstr "Raja-arvo jatkuvalle hiljaisuudelle (sekunneissa)"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1381
 msgid "(seconds)"
-msgstr ""
+msgstr "(sekuntia)"
 
 #: source/gx/tilix/prefeditor/titleeditor.d:105
 #: source/gx/tilix/terminal/terminal.d:348
@@ -2617,7 +2615,7 @@ msgstr ""
 #: source/gx/tilix/preferences.d:370
 #, c-format
 msgid "%s (Copy)"
-msgstr ""
+msgstr "%s (kopio)"
 
 #: source/gx/tilix/session.d:568
 msgid "Could not locate dropped terminal"
@@ -2650,7 +2648,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/advpaste.d:104
 msgid "Convert spaces to tabs"
-msgstr ""
+msgstr "Muunna välilyönnit sarkaimiksi"
 
 #: source/gx/tilix/terminal/advpaste.d:115
 msgid "Convert CRLF and CR to LF"
