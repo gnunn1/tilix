@@ -1,0 +1,112 @@
+From a9db09117ab27127ca4c3b8d2f308fae483a9199 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Filipe=20La=C3=ADns?= <filipe.lains@gmail.com>
+Date: Fri, 7 Jun 2019 15:21:44 +0100
+Subject: [PATCH] makefile: fix install path for pkconfig files (#273)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+3742eda70ca3e045b6f513a57082d3487c97abe1 introduced a wrong behavior
+where the install commands for pkgconfig files were blindly ignoring
+$(prefix). This obviously breaks the build and introduces the
+possibility of the pkgconfig files not being installed to the system
+at all since $(libdir) is not suposed to have a leading /, that is
+$(prefix)'s job. All this resulted in a bad makefile being shipped
+in the 3.9.0 release.
+
+Signed-off-by: Filipe Laíns <lains@archlinux.org>
+---
+ GNUmakefile | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/GNUmakefile b/GNUmakefile
+index a5919f5ee..0f44b4c15 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -378,33 +378,33 @@ install-shared-peas: $(SONAME_PEASD) install-shared-gtkd
+ 
+ install-headers-gtkd: gtkd-$(MAJOR).pc
+ 	install -d $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)
+-	install -d $(DESTDIR)$(libdir)/pkgconfig
++	install -d $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 	(cd generated/gtkd;   echo $(SOURCES_GTKD)   | sed -e s,generated/gtkd/,,g   | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 gtkd-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 gtkd-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ install-headers-gtkdgl: gtkdgl-$(MAJOR).pc install-headers-gtkd
+ 	(cd generated/gtkdgl; echo $(SOURCES_GTKDGL) | sed -e s,generated/gtkdgl/,,g | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 gtkdgl-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 gtkdgl-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ install-headers-gtkdsv: gtkdsv-$(MAJOR).pc install-headers-gtkd
+ 	(cd generated/sourceview; echo $(SOURCES_GTKDSV) | sed -e s,generated/sourceview/,,g | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 gtkdsv-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 gtkdsv-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ install-headers-gstreamer: gstreamerd-$(MAJOR).pc install-headers-gtkd
+ 	(cd generated/gstreamer; echo $(SOURCES_GSTREAMERD) | sed -e s,generated/gstreamer/,,g | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 gstreamerd-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 gstreamerd-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ install-headers-vte: vted-$(MAJOR).pc install-headers-gtkd
+ 	(cd generated/vte; echo $(SOURCES_VTED) | sed -e s,generated/vte/,,g | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 vted-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 vted-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ install-headers-peas: peasd-$(MAJOR).pc install-headers-gtkd
+ 	(cd generated/peas; echo $(SOURCES_PEASD) | sed -e s,generated/peas/,,g | xargs tar cf -) | (cd $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR); tar xvf -)
+-	install -m 644 peasd-$(MAJOR).pc $(DESTDIR)$(libdir)/pkgconfig
++	install -m 644 peasd-$(MAJOR).pc $(DESTDIR)$(prefix)/$(libdir)/pkgconfig
+ 
+ uninstall: uninstall-gtkdgl uninstall-gtkdsv uninstall-gstreamer uninstall-vte uninstall-peas
+ 	$(foreach dir,$(shell ls generated/gtkd)  , rm -rf $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/gtkd-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/gtkd-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_GTKD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKD).$(SO_VERSION)
+@@ -412,7 +412,7 @@ uninstall: uninstall-gtkdgl uninstall-gtkdsv uninstall-gstreamer uninstall-vte u
+ 
+ uninstall-gtkdgl:
+ 	$(foreach dir,$(shell ls generated/gtkdgl), rm -rf $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/gtkdgl-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/gtkdgl-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_GTKDGL)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKDGL)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKDGL).$(SO_VERSION)
+@@ -420,7 +420,7 @@ uninstall-gtkdgl:
+ 
+ uninstall-gtkdsv:
+ 	$(foreach dir,$(shell ls generated/sourceview), rm -rf $(DESTDIR)$(prefix)/include/d/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/gtkdsv-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/gtkdsv-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_GTKDSV)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKDSV)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GTKDSV).$(SO_VERSION)
+@@ -428,7 +428,7 @@ uninstall-gtkdsv:
+ 
+ uninstall-gstreamer:
+ 	$(foreach dir,$(shell ls generated/gstreamer), rm -rf $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/gstreamerd-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/gstreamerd-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_GSTREAMERD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GSTREAMERD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_GSTREAMERD).$(SO_VERSION)
+@@ -436,7 +436,7 @@ uninstall-gstreamer:
+ 
+ uninstall-vte:
+ 	$(foreach dir,$(shell ls generated/vte), rm -rf $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/vted-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/vted-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_VTED)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_VTED)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_VTED).$(SO_VERSION)
+@@ -444,7 +444,7 @@ uninstall-vte:
+ 
+ uninstall-peas:
+ 	$(foreach dir,$(shell ls generated/peas), rm -rf $(DESTDIR)$(prefix)/include/d/gtkd-$(MAJOR)/$(dir))
+-	rm -f $(DESTDIR)$(libdir)/pkgconfig/peasd-$(MAJOR).pc
++	rm -f $(DESTDIR)$(prefix)/$(libdir)/pkgconfig/peasd-$(MAJOR).pc
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(LIBNAME_PEASD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_PEASD)
+ 	rm -f $(DESTDIR)$(prefix)/$(libdir)/$(SONAME_PEASD).$(SO_VERSION)

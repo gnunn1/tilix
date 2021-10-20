@@ -1,8 +1,11 @@
 id: com.gexperts.Tilix
 branch: master
 runtime: org.gnome.Platform
-runtime-version: '3.30'
+runtime-version: '3.34'
 sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.ldc
+  - org.freedesktop.Sdk.Extension.dmd
 command: tilix
 finish-args:
   - --share=ipc
@@ -17,19 +20,22 @@ finish-args:
   - --talk-name=org.freedesktop.secrets
   - --device=all
 cleanup:
-  # - '/bin/ldc*'
-  # - '/bin/ldmd2'
-  - '/bin/dmd*'
+  - '/bin/appstreamcli'
+  - '/bin/ncurses6-config'
   - '/bin/po4a*'
   - '/bin/vte*'
-  - '/ldc-0.17'
+  - '/etc/appstream.conf'
   - '/etc/bash_completion.d'
   - '/include'
   - '/lib/cmake'
   - '/lib/debug'
+  - '/lib/libappstream.*'
+  - '/lib/libstemmer.*'
+  - '/lib/libyaml*'
   - '/lib/pkgconfig'
   - '/share/gtk-doc'
   - '/share/man'
+  - '/share/metainfo'
   - '/src'
   - '*.la'
   - '*.a'
@@ -63,63 +69,19 @@ modules:
       - type: archive
         url: https://thrysoee.dk/editline/libedit-20181209-3.1.tar.gz
         sha256: 2811d70c0b000f2ca91b7cb1a37203134441743c4fcc9c37b0b687f328611064
-  - name: ldc-0.17
-    buildsystem: cmake-ninja
-    config-opts:
-      - '-DCMAKE_SYSTEM_PREFIX_PATH=/app'
-      - '-DCMAKE_INSTALL_PREFIX:PATH=/app/ldc-0.17'
-    sources:
-      - type: archive
-        url: https://github.com/ldc-developers/ldc/releases/download/v0.17.5/ldc-0.17.5-src.tar.gz
-        sha256: 7aa540a135f9fa1ee9722cad73100a8f3600a07f9a11d199d8be68887cc90008
-      - type: patch
-        path: disable-ldc-completions.patch
-  - name: dmd
-    buildsystem: simple
-    build-commands:
-      - 'make -j2 -C dmd -f posix.mak install HOST_DMD=/app/ldc-0.17/bin/ldmd2 INSTALL_DIR=$PWD/install'
-      - 'make -j2 -C phobos -f posix.mak install INSTALL_DIR=$PWD/install'
-      - 'cp -rv install/linux/bin* /app/bin'
-      - 'cp -v dmd.conf /app/bin'
-      - 'cp -rv install/linux/lib* /app'
-      - 'install -d /app/src'
-      - 'cp -rv druntime phobos /app/src'
-    sources:
-      - type: git
-        url: https://github.com/dlang/dmd
-        tag: v2.081.1
-        dest: dmd
-      - type: git
-        url: https://github.com/dlang/druntime
-        tag: v2.081.1
-        dest: druntime
-      - type: git
-        url: https://github.com/dlang/tools
-        tag: v2.081.1
-        dest: tools
-      - type: git
-        url: https://github.com/dlang/phobos
-        tag: v2.081.1
-        dest: phobos
-      - type: file
-        path: dmd.conf
-  # - name: ldc
-  #   buildsystem: cmake-ninja
-  #   config-opts:
-  #     - '-DD_COMPILER=/app/ldc-0.17/bin/ldmd2'
-  #   sources:
-  #     - type: archive
-  #       url: https://github.com/ldc-developers/ldc/releases/download/v1.11.0-beta2/ldc-1.11.0-beta2-src.tar.gz
-  #       sha256: 49ef9009238859275e80afa20ee6d37b6797a1b2b41923a2a5922b6381efb14c
   - name: gtkd
     buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/dmd/bin
     build-commands:
       - 'make -j2 prefix=/app install-gtkd install-vte'
     sources:
       - type: archive
-        url: https://gtkd.org/Downloads/sources/GtkD-3.8.4.zip
-        sha256: b9686f30c48df58909c9845dcf7fb6a40745e47b6db412f8eb9ad2c655fd6136
+        url: https://gtkd.org/Downloads/sources/GtkD-3.9.0.zip
+        sha512: f8b8a7b83a23af990abb77f16e4bddf2f72bb65ad210ff8f138b0d4ff66fb5fb2a73a3cbe868a8d2ecf3abf98ece5af771af63068dc2fbf8668e46039320cf0f
         strip-components: 0
+      - type: patch
+        path: gtkd3-pkgconfig.patch
   - name: po4a
     buildsystem: simple
     build-commands:
@@ -133,6 +95,14 @@ modules:
       - type: archive
         url: https://github.com/mquinson/po4a/releases/download/v0.54/po4a-0.54.tar.gz
         sha256: 596f7621697f9dd12709958c229e256b56683d25997ac73c9625a2cc0c603d51
+# TODO: Use shared module from flathub.
+  - name: intltool
+    cleanup:
+      - "*"
+    sources:
+      - type: archive
+        url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
+        sha512: 4c93cb26592ed0b1622d3b7800b5d6622ffa36f58ac73f2ef0bddfab522565fdfb8fa73d81914b9a202f1d62bc995a08960f8adb9f62c86918e75498e85fbfdf
   - name: libvte-patched
     buildsystem: autotools
     config-opts:
@@ -140,19 +110,69 @@ modules:
       - '--disable-vala'
     sources:
       - type: archive
-        url: https://ftp.gnome.org/pub/GNOME/sources/vte/0.53/vte-0.53.0.tar.xz
+        url: https://download.gnome.org/sources/vte/0.53/vte-0.53.0.tar.xz
         sha256: c319eb34e9c64c78cd4940cde0892bd18784bcdcaaa7a23a9c8ec6052317a130
       - type: patch
         path: vte291-command-notify-scroll-speed.patch
+      - type: patch
+        path: vte291-exceptions-gcc811.patch
   - name: toolbox
     buildsystem: simple
     build-commands:
-      - 'gcc -static -o /app/bin/tilix-flatpak-toolbox tilix-flatpak-toolbox.c'
+      - 'gcc -o /app/bin/tilix-flatpak-toolbox tilix-flatpak-toolbox.c'
     sources:
       - type: file
         path: tilix-flatpak-toolbox.c
+  - name: yaml
+    sources:
+      - type: archive
+        url: https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz
+        sha512: dadd7d8e0d88b5ebab005e5d521d56d541580198aa497370966b98c904586e642a1cd4f3881094eb57624f218d50db77417bbfd0ffdce50340f011e35e8c4c02
+  - name: lmdb
+    buildsystem: simple
+    subdir: libraries/liblmdb
+    build-commands:
+      - 'sed -i s~/usr/local~/app~ Makefile'
+      - 'make -j $FLATPAK_BUILDER_N_JOBS'
+      - 'make install'
+      - 'rm /app/lib/liblmdb.a'
+    sources:
+      - type: git
+        url: https://github.com/LMDB/lmdb.git
+        tag: LMDB_0.9.29
+        commit: 8ad7be2510414b9506ec9f9e24f24d04d9b04a1a
+    cleanup:
+      - '/bin'
+      - '/include'
+      - '/lib/debug'
+      - '/share'
+  - name: stemmer
+    buildsystem: simple
+    build-commands:
+      - 'make libstemmer.so -j$FLATPAK_BUILDER_N_JOBS'
+      - 'install -Dm644 include/libstemmer.h /app/include/libstemmer.h'
+      - 'install -Dm644 libstemmer.so.0.0.0 /app/lib/libstemmer.so.0.0.0'
+      - 'ln -s libstemmer.so.0.0.0 /app/lib/libstemmer.so.0'
+      - 'ln -s libstemmer.so.0 /app/lib/libstemmer.so'
+    sources:
+      - type: git
+        url: https://github.com/snowballstem/snowball.git
+        commit: d29510ae32702a81cdc29177a133e894df854550
+      - type: patch
+        path: stemmer-dynlib.patch
+  - name: appstream
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://github.com/ximion/appstream.git
+    cleanup:
+      - '/share/doc'
+      - '/share/gettext'
+      - '/share/installed-tests'
   - name: tilix
     buildsystem: meson
+    build-options:
+      append-path: /usr/lib/sdk/dmd/bin
     sources:
       - type: git
         url: https://github.com/gnunn1/tilix.git
