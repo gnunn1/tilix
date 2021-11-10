@@ -3270,11 +3270,9 @@ private:
                 dragImage = null;
             }
         }
-        if (dr == GtkDragResult.NO_TARGET) {
-            //Only allow detach if whole hierarchy agrees (application, window, session)
-            if (notifyIsActionAllowed(ActionType.DETACH_TERMINAL)) {
-                if (detachTerminalOnDrop(dc)) return true;
-            }
+        //Only allow detach if whole hierarchy agrees (application, window, session)
+        if (notifyIsActionAllowed(ActionType.DETACH_TERMINAL)) {
+            if (detachTerminalOnDrop(dc)) return true;
         }
         return false;
     }
