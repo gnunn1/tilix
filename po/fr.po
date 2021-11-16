@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2021-02-14 14:50+0000\n"
-"Last-Translator: valderaplets <contact@valde.fr>\n"
+"PO-Revision-Date: 2021-11-17 15:52+0000\n"
+"Last-Translator: Glandos <bugs-github@antipoul.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tilix/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.9.1-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -114,6 +114,9 @@ msgid ""
 "maintenance is done, no new features will be implemented and pull-requests "
 "may be reviewed very slowly."
 msgstr ""
+"Tilix recherche des mainteneurs ! Pour le moment, seule la maintenance "
+"minimale est effectuée, aucune nouvelle fonctionnalité ne sera implémenté, "
+"et les requêtes de fusion seront relues très lentement."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:53
 msgid "If you are interested in helping Tilix, please chime in!"
@@ -125,72 +128,75 @@ msgstr "Cette version apporte les fonctionnalités suivantes :"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:56
 msgid "Actually install Yaru color scheme"
-msgstr ""
+msgstr "Installe réellement la palette de couleurs Yaru"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:57
 msgid "Give every tab the ${title}"
-msgstr ""
+msgstr "Mettre ${title} sur chaque onglet"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:58
 msgid "Add option to strip trailing whitespace on paste"
 msgstr ""
+"Ajout d’une option pour enlever les espaces de fin de ligne lors d’un collage"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
-#, fuzzy
 msgid "This release fixes the following bugs:"
 msgstr "Cette version corrige les bugs suivants :"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
-#, fuzzy
 msgid "Fix saving of already saved session"
-msgstr "Ouvrir une session enregistrée"
+msgstr "Correction de l’enregistrement d’une session déjà sauvegardée"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
-#, fuzzy
 msgid "Add shortcut to \"Unselect all\""
-msgstr "Ajoute un raccourci vers \"Tout désinstaller\""
+msgstr "Ajoute un raccourci pour « Tout déselectioner »"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
 msgid "Many Meson buildsystem fixes"
-msgstr ""
+msgstr "Beaucoup de corrections sur le système de compilation Meson"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:65
 msgid "Avoid missing the previous command exit code when encoding URLs"
 msgstr ""
+"Lors de l’encodage des URLs, n’ignore plus le code de sortie de la commande "
+"précédente"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
 msgid "Resolve some D deprecation messages"
-msgstr ""
+msgstr "Résolution de certains messages de dépréciation de D"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:67
 msgid "Mention powerline/fonts in README"
-msgstr ""
+msgstr "Mentions powerline/polices dans le README"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
 msgid "Avoid calling `values()` on a shared object"
-msgstr ""
+msgstr "Évitez d’appeler `values()` sur un objet partagé"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
 msgid "Update metainfo data"
-msgstr ""
+msgstr "Mise à jour des informations metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
 msgid "Drop compat code for older D frontend versions"
 msgstr ""
+"Suppression du code de compatibilité pour les anciennes versions du frontend "
+"D"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
 msgid "Bump minimum VTE version to 0.46"
-msgstr ""
+msgstr "Passage à la version minimale 0.46 pour VTE"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
 msgid "Remove deprecated Autotools support"
-msgstr ""
+msgstr "Suppression du support déprécié des Autotools"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
 msgid "Add release notes, NEWS file, automatic metainfo update"
 msgstr ""
+"Ajout des notes de version, fichier NEWS, mise-à-jour automatique de metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
 msgid "Update to GtkD 3.9.0"
@@ -209,15 +215,16 @@ msgid ""
 "Fixes a problem with the session sidebar getting out of sync after having "
 "deleted a session. See issues #1680, #1637 and #1699."
 msgstr ""
+"Corrige un problème de désynchronisation de la session de la barre latérale "
+"après avoir supprimé une session. Voir #1680, #1637 et #1699."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:91
 msgid "Remove app menu for gnome 3.32"
-msgstr ""
+msgstr "Suppression du menu d’applications pour gnome 3.32"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
-#, fuzzy
 msgid "Update icon"
-msgstr "ActualiserTitre"
+msgstr "Mise-à-jour de l’icône"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:93
 msgid "Minor fixes"
@@ -225,7 +232,7 @@ msgstr "Corrections mineures"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
 msgid "Small release to update localizations"
-msgstr ""
+msgstr "Petite version pour la mise-à-jour des traductions"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
 msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
