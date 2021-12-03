@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-10 20:32+0100\n"
-"PO-Revision-Date: 2021-11-17 15:52+0000\n"
-"Last-Translator: Glandos <bugs-github@antipoul.fr>\n"
+"PO-Revision-Date: 2021-12-04 06:52+0000\n"
+"Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tilix/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9.1-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -235,8 +235,11 @@ msgid "Small release to update localizations"
 msgstr "Petite version pour la mise-à-jour des traductions"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
+#, fuzzy
 msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
 msgstr ""
+"Mettez à jour vers GtkD 3.8.5 pour corriger le nom des bibliothèques dans "
+"GtkD."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:108
 msgid "Some new features and bug fixes."
@@ -644,10 +647,9 @@ msgid "Select all"
 msgstr "Tout sélectionner"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Tout sélectionner"
+msgstr "Tout désélectionner"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -817,10 +819,10 @@ msgstr ""
 "%d.%d !"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
 msgstr ""
-"Votre version de GTK est trop vieille, vous avez besoin au moins de GTK %d."
+"Votre version de VTE est trop ancienne, vous avez besoin au minimum de VTE "
 "%d.%d !"
 
 #: source/app.d:166
@@ -988,7 +990,6 @@ msgstr ""
 "mode quake existante"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
 msgstr "Afficher la version de Tilix et de ses composants"
 
@@ -997,9 +998,8 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Afficher directement la fenêtre de préférences de Tilix"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "NOM_PROFIL"
+msgstr "NOM_DU_GROUPE"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1163,14 +1163,12 @@ msgid "Save Session"
 msgstr "Enregistrer la session"
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "Impossible de charger la session en raison d'une erreur inattendue."
+msgstr "Impossible d'enregistrer la session en raison d'une erreur inattendue."
 
 #: source/gx/tilix/appwindow.d:1584 source/gx/tilix/appwindow.d:1603
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Erreur lors du chargement de la session"
+msgstr "Erreur lors du l'enregistrement de la session"
 
 #: source/gx/tilix/appwindow.d:1710
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -2110,7 +2108,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1581
 msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
+msgstr "Supprimer les espaces superflus et retours à la ligne au collage"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Automatically copy text to clipboard when selecting"
@@ -2954,14 +2952,14 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Impossible de vérifier le fichier '%s1' à cause de l'erreur '%s2'"
 
 #: source/gx/tilix/terminal/terminal.d:2024
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
 msgstr ""
-"Les URIs de fichiers distants ne sont pas pris en charge dans les "
+"Les URIs vers des fichiers distants ne sont pas supportés dans les "
 "hyperliens.\n"
-"L'URI était %s"
+"L'URI était « %s »"
 
 #: source/gx/tilix/terminal/terminal.d:2025
 msgid "Remote File URI Unsupported"
