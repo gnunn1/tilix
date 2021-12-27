@@ -35,25 +35,25 @@ endif
 
 # Merge release information into MetaInfo file
 tilix_metainfo_name = '@0@.appdata.xml'.format(project_id)
-appstreamcli = find_program('appstreamcli')
-metainfo_with_releases = custom_target('metainfo-news-merge',
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
+  metainfo_with_releases = custom_target('metainfo-news-merge',
     input : ['../NEWS', 'metainfo/@0@.in'.format(tilix_metainfo_name)],
     output : ['untranslated-@0@.appdata.xml'.format(project_id)],
     command : [appstreamcli, 'news-to-metainfo', '--limit=6', '@INPUT0@', '@INPUT1@', '@OUTPUT@']
-)
+  )
 
-# Install the MetaInfo file
-metainfo_file = i18n.merge_file(
+  # Install the MetaInfo file
+  metainfo_file = i18n.merge_file(
     tilix_metainfo_name,
     output: tilix_metainfo_name,
     input: metainfo_with_releases,
     po_dir: meson.source_root() / 'po',
     install: true,
     install_dir: datadir / 'metainfo'
-)
+  )
 
-# Validate MetaInfo file
-if appstreamcli.found()
+  # Validate MetaInfo file
   test (
     'Validate metainfo file',
     appstreamcli,
