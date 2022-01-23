@@ -11,7 +11,6 @@ install_data(
 
 # Install the desktop file
 desktop_file = i18n.merge_file(
-    '@0@.desktop'.format(project_id),
     output: '@BASENAME@',
     input: 'pkg/desktop/@0@.desktop.in'.format(project_id),
     po_dir: meson.source_root() / 'po',
@@ -44,7 +43,6 @@ metainfo_with_releases = custom_target('metainfo-news-merge',
 
 # Install the MetaInfo file
 metainfo_file = i18n.merge_file(
-    tilix_metainfo_name,
     output: tilix_metainfo_name,
     input: metainfo_with_releases,
     po_dir: meson.source_root() / 'po',
