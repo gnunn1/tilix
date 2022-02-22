@@ -3,6 +3,12 @@
 # Tilix
 A tiling terminal emulator for Linux using GTK+ 3. The Tilix web site for users is available at [https://gnunn1.github.io/tilix-web](https://gnunn1.github.io/tilix-web).
 
+> :warning: **Maintainers Wanted**<br/>
+> This project is looking for maintainers!
+> At the moment, only very minimal maintenance is done, no new features will be implemented and pull-requests may be reviewed very slowly.
+>
+> If you are interested in giving Tilix some :heart:, [please chime in](https://github.com/gnunn1/tilix/issues/1700)!
+
 ###### Screenshot
 ![Screenshot](https://gnunn1.github.io/tilix-web/assets/images/gallery/tilix-screenshot-1.png)
 
@@ -38,13 +44,6 @@ Tilix requires the following libraries to be installed in order to run:
 * dconf
 * GSettings
 * [Nautilus-Python](https://wiki.gnome.org/Projects/NautilusPython) (Required for Nautilus integration)
-
-### Maintainers Wanted
-
-This project is looking for maintainers!
-At the moment, only very minimal maintenance is done, no new features will be implemented and pull-requests may be reviewed very slowly.
-
-If you are interested in giving Tilix some :heart:, [please chime in](https://github.com/gnunn1/tilix/issues/1700)!
 
 ### Migrating Settings From Terminix
 
