@@ -1528,11 +1528,6 @@ private:
         bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", GSettingsBindFlags.DEFAULT);
         add(cbControlClickTitle);
 
-        //always use regex when searching
-        CheckButton cbAlwaysUseRegex = new CheckButton(_("Always use regex in search dialog"));
-        bh.bind(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH, cbAlwaysUseRegex, "active", GSettingsBindFlags.DEFAULT);
-        add(cbAlwaysUseRegex);
-
         //Closing of last session closes window
         CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
         bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
@@ -1542,6 +1537,11 @@ private:
         CheckButton cbWindowSaveState = new CheckButton(_("Save and restore window state"));
         bh.bind(SETTINGS_WINDOW_SAVE_STATE_KEY, cbWindowSaveState, "active", GSettingsBindFlags.DEFAULT);
         add(cbWindowSaveState);
+
+        //always use regex when searching
+        CheckButton cbAlwaysUseRegex = new CheckButton(_("Always search using regular expressions"));
+        bh.bind(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH, cbAlwaysUseRegex, "active", GSettingsBindFlags.DEFAULT);
+        add(cbAlwaysUseRegex);
 
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {

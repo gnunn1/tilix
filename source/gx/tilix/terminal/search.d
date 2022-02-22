@@ -58,8 +58,11 @@ private:
     enum ACTION_SEARCH_MATCH_REGEX = "match-regex";
     enum ACTION_SEARCH_WRAP_AROUND = "wrap-around";
 
+    GSettings gsSettings;
+
     VTE vte;
     ActionGroupIF terminalActions;
+    SimpleActionGroup sagSearch;
 
     SearchEntry seSearch;
 
@@ -157,7 +160,7 @@ private:
     void createActions() {
         GSettings gsGeneral = new GSettings(SETTINGS_ID);
 
-        SimpleActionGroup sagSearch = new SimpleActionGroup();
+        sagSearch = new SimpleActionGroup();
 
         registerAction(sagSearch, ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE, null, delegate(GVariant value, SimpleAction sa) {
             matchCase = !sa.getState().getBoolean();
@@ -183,6 +186,7 @@ private:
             vte.searchSetWrapAround(newState);
         }, null, gsGeneral.getValue(SETTINGS_SEARCH_DEFAULT_WRAP_AROUND));
 
+        updateActionsState ();
         insertActionGroup(ACTION_SEARCH_PREFIX, sagSearch);
     }
 
@@ -190,10 +194,19 @@ private:
         Menu model = new Menu();
         model.append(_("Match case"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE));
         model.append(_("Match entire word only"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY));
-        model.append(_("Match as regular expression"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX));
         model.append(_("Wrap around"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND));
+        model.append(_("Match as regular expression"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX));
 
         return new Popover(mbOptions, model);
+    }
+
+    void updateActionsState()
+    {
+        auto action = cast(SimpleAction) sagSearch.lookup(ACTION_SEARCH_MATCH_REGEX);
+        bool alwaysUseRegex = gsSettings.getBoolean(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH);
+        action.setEnabled(!alwaysUseRegex);
+        action.setState(new GVariant(alwaysUseRegex));
+        matchAsRegex = alwaysUseRegex;
     }
 
     void setTerminalSearchCriteria() {
@@ -203,9 +216,7 @@ private:
             return;
         }
 
-        GSettings gsSettings = new GSettings(SETTINGS_ID);
-        bool alwaysUseRegex = gsSettings.getBoolean(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH);
-        if (!matchAsRegex && !alwaysUseRegex)
+        if (!matchAsRegex)
             text = GRegex.escapeString(text);
         if (entireWordOnly)
             text = format("\\b%s\\b", text);
@@ -230,9 +241,17 @@ public:
 
     this(VTE vte, ActionGroupIF terminalActions) {
         super();
+
         this.vte = vte;
         this.terminalActions = terminalActions;
+
+        gsSettings = new GSettings(SETTINGS_ID);
         createUI();
+        gsSettings.addOnChanged(delegate(string key, GSettings) {
+            if (key == SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH)
+                updateActionsState();
+        });
+
         this.addOnDestroy(delegate(Widget) {
             this.vte = null;
             this.terminalActions = null;
