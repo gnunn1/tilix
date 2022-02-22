@@ -10,7 +10,7 @@ jobs:
 
   build-dub-ubuntu:
     name: Dub
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
         matrix:
           dc: [dmd-latest, ldc-latest]
@@ -53,31 +53,30 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: cd .github/ci/ && docker build -t tilix -f ./Dockerfile-debian-testing .
+      run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-testing .
 
     - name: Build
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
            ./.github/ci/run-build.sh
 
     - name: Test
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
            ./.github/ci/run-tests.sh
 
 
   build-ubuntu:
     name: Ubuntu LTS
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: sudo ./.github/ci/install-deps-deb.sh
-
-    - name: Update Meson
-      run: sudo pip3 install 'meson~=0.56'
+      run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-ubuntu-jammy .
 
     - name: Build
-      run: CC=gcc CXX=g++ ./.github/ci/run-build.sh
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-build.sh
 
     - name: Test
-      run: CC=gcc CXX=g++ ./.github/ci/run-tests.sh
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-tests.sh
