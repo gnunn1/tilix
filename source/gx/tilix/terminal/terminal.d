@@ -3166,10 +3166,7 @@ private:
         TargetEntry sessionEntry = new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, DropTargets.SESSION);
         TargetEntry[] targets = [uriEntry, utf8TextEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
         vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
-
-        // This is required to be able to drop on root window in Wayland, see gtknotebook.c
-        TargetEntry rootEntry = new TargetEntry("application/x-rootwindow-drop", 0, 0);
-        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry, rootEntry], DragAction.MOVE);
+        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
 
         //Title bar events
         addOnDragBegin(&onTitleDragBegin);
