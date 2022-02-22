@@ -1,0 +1,39 @@
+diff --git c/GNUmakefile i/GNUmakefile
+index 1693f5a..b33a42e 100644
+--- c/GNUmakefile
++++ i/GNUmakefile
+@@ -112,10 +112,10 @@ C_OTHER_OBJECTS = $(C_OTHER_SOURCES:.c=.o)
+ JAVA_CLASSES = $(JAVA_SOURCES:.java=.class)
+ JAVA_RUNTIME_CLASSES=$(JAVARUNTIME_SOURCES:.java=.class)
+ 
+-CFLAGS=-O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations
++CFLAGS=-O2 -fPIC -W -Wall -Wmissing-prototypes -Wmissing-declarations
+ CPPFLAGS=-Iinclude
+ 
+-all: snowball libstemmer.o stemwords $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
++all: snowball libstemmer.o libstemmer.so stemwords $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
+ 
+ clean:
+ 	rm -f $(COMPILER_OBJECTS) $(RUNTIME_OBJECTS) \
+@@ -158,6 +158,9 @@ libstemmer/libstemmer.o: libstemmer/modules.h $(C_LIB_HEADERS)
+ libstemmer.o: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
+ 	$(AR) -cru $@ $^
+ 
++libstemmer.so: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
++	$(CC) $(CFLAGS) -shared $(LDFLAGS) -Wl,-soname,libstemmer.so.0,-version-script,libstemmer/symbol.map -o $@.0.0.0 $^
++
+ stemwords: $(STEMWORDS_OBJECTS) libstemmer.o
+ 	$(CC) -o $@ $^
+ 
+diff --git c/libstemmer/symbol.map i/libstemmer/symbol.map
+new file mode 100644
+index 0000000..7a3d423
+--- /dev/null
++++ i/libstemmer/symbol.map
+@@ -0,0 +1,6 @@
++SB_STEMMER_0 {
++    global:
++        sb_stemmer_*;
++    local:
++        *;
++};

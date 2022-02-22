@@ -1,0 +1,61 @@
+From a13b07d346b280592510e7ee6af05bc602197691 Mon Sep 17 00:00:00 2001
+From: Debarshi Ray <debarshir@gnome.org>
+Date: Tue, 19 Jun 2018 18:28:25 +0200
+Subject: [PATCH] parser: Fix the build with GCC 8.1.1
+
+Otherwise it fails with:
+
+vteseq.cc:47:1: error: declaration of
+      'void vte::parser::Sequence::print() const' has a different
+      exception specifier
+    vte::parser::Sequence::print() const
+    ^~~
+  In file included from vteinternal.hh:30,
+                   from vteseq.cc:34:
+  parser-glue.hh:83:14: note: from previous declaration
+      'void vte::parser::Sequence::print() const noexcept'
+           void print() const noexcept;
+                ^~~~~
+
+... and so on.
+
+Fixes GNOME/vte#5:
+https://gitlab.gnome.org/GNOME/vte/issues/5
+---
+ src/vteseq.cc | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/vteseq.cc b/src/vteseq.cc
+index ba97480c..98f71b87 100644
+--- a/src/vteseq.cc
++++ b/src/vteseq.cc
+@@ -44,7 +44,7 @@
+ using namespace std::literals;
+ 
+ void
+-vte::parser::Sequence::print() const
++vte::parser::Sequence::print() const noexcept
+ {
+ #ifdef VTE_DEBUG
+         auto c = m_seq != nullptr ? terminator() : 0;
+@@ -145,7 +145,7 @@ vte_unichar_strlen(gunichar const* c)
+  */
+ char*
+ vte::parser::Sequence::ucs4_to_utf8(gunichar const* str,
+-                                    ssize_t len) const
++                                    ssize_t len) const noexcept
+ {
+         if (len < 0)
+                 len = vte_unichar_strlen(str);
+@@ -1406,7 +1406,7 @@ VteTerminalPrivate::set_color_index(vte::parser::Sequence const& seq,
+                                     int number,
+                                     int index,
+                                     int index_fallback,
+-                                    int osc)
++                                    int osc) noexcept
+ {
+         auto const str = *token;
+ 
+-- 
+GitLab
+
