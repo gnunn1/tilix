@@ -1,3 +1,29 @@
+Version 1.9.5
+~~~~~~~~~~~~~~
+Released: 2022-02-22
+
+Notes:
+ * Tilix is still looking for a new maintainer!
+
+Features:
+ * Disable advanced paste when there is no linebreak like iTerm2
+ * Add environment variable when in quake mode
+ * Add possibility to configure always enabled regex
+
+Bugfixes:
+ * More appdata -> metainfo move
+ * Add meson target for man page translations
+ * Update flatpak manifest
+ * meson: drop unused argument for i18n.merge_file()
+ * Stop using deprecated Meson features
+ * Keep quake window open if focus is restored before timeout has been reached
+ * Don't check GtkDragResult (Wayland compatibility)
+ * Don't add application/x-rootwindow-drop to dragSourceSet targets
+
+Contributors:
+ Alan Scherger, Antoine Belvire, David King, Jan Beich,
+ kohnish, luk1337, matishadow, Winston Hoy, Matthias Klumpp
+
 Version 1.9.4
 ~~~~~~~~~~~~~
 Released: 2021-02-10
