@@ -1437,7 +1437,7 @@ private:
     void advancedPaste(GdkAtom source) {
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
-        if (pasteText.indexOf("\n") <= -1) return paste(source);
+        if (pasteText.indexOf("\n") < 0) return paste(source);
 
         AdvancedPasteDialog dialog = new AdvancedPasteDialog(cast(Window) getToplevel(), pasteText, isPasteUnsafe(pasteText));
         scope(exit) {
