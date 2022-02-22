@@ -631,11 +631,9 @@ private:
     bool onRowDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
         isRootWindow = false;
-        if (dr == GtkDragResult.NO_TARGET) {
-            //Only allow detach if whole hierarchy agrees (application, window, session)
-            if (sidebar.notifyIsActionAllowed(ActionType.DETACH_SESSION)) {
-                if (detachSessionOnDrop(dc)) return true;
-            }
+        //Only allow detach if whole hierarchy agrees (application, window, session)
+        if (sidebar.notifyIsActionAllowed(ActionType.DETACH_SESSION)) {
+            if (detachSessionOnDrop(dc)) return true;
         }
         return false;
     }
