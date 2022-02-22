@@ -77,8 +77,7 @@ After installing the fonts, select the "Powerline Symbols" font in Tilix via **P
 
 ### Support
 
-If you are having issues with Tilix, feel free to open issues here in github as necessary. Developers and users can  also be found on IRC on the
-[freenode](https://freenode.net) network in the #tilix room.
+If you are having issues with Tilix, feel free to open issues here in github as necessary.
 
 ### Localization
 
