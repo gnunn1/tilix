@@ -2,7 +2,7 @@ project(
     'Tilix', 'd',
     version: '1.9.5',
     license: 'MPL-2.0',
-    meson_version: '>= 0.52'
+    meson_version: '>= 0.56'
 )
 
 compiler = meson.get_compiler('d')
@@ -93,7 +93,6 @@ tilix_sources = [
     'source/app.d'
 ]
 
-source_root = meson.source_root()
 sources_dir = include_directories('source/')
 
 # Dependencies
