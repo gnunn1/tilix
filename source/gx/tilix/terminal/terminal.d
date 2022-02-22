@@ -3652,6 +3652,8 @@ private:
      *  showSaveAsDialog = Determines if save as dialog is shown. Note dialog may be shown even if false is passed if the session filename is not set
      */
     void saveTerminalOutput(bool showSaveAsDialog = true) {
+        import gio.OutputStream : OutputStream;
+
         if (outputFilename.length == 0 || showSaveAsDialog) {
             Window window = cast(Window) getToplevel();
             FileChooserDialog fcd = new FileChooserDialog(
@@ -3686,7 +3688,7 @@ private:
         }
         //Do work here
         GFileIF file = parseName(outputFilename);
-        gio.OutputStream.OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
+        OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
         scope (exit) {
             stream.close(null);
         }

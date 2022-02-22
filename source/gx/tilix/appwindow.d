@@ -652,6 +652,8 @@ private:
      * https://github.com/gnunn1/tilix/issues/342
      */
     void createDelegatedTerminalActions(GSettings gsShortcuts) {
+        import gx.tilix.terminal.terminal : Terminal;
+
         if (Version.checkVersion(3, 15, 3).length != 0) {
             SimpleActionGroup terminalActions = new SimpleActionGroup();
 
@@ -661,7 +663,7 @@ private:
                     registerActionWithSettings(terminalActions, "terminal", action[9..$], gsShortcuts, delegate(GVariant va, SimpleAction sa) {
                         string terminalUUID = getActiveTerminalUUID();
                         logf(LogLevel.trace, "Delegating terminal action '%s' to terminal '%s'", sa.getName(), terminalUUID);
-                        gx.tilix.terminal.terminal.Terminal terminal = cast(gx.tilix.terminal.terminal.Terminal)findWidgetForUUID(terminalUUID);
+                        auto terminal = cast(Terminal) findWidgetForUUID(terminalUUID);
                         if (terminal !is null) {
                             terminal.triggerAction(sa.getName(), va);
                         }

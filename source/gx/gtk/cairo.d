@@ -24,6 +24,7 @@ import gdk.RGBA;
 import gdk.Screen;
 import gdk.Visual;
 import gdk.Window;
+static import gdk.Event;
 
 import gdkpixbuf.Pixbuf;
 
