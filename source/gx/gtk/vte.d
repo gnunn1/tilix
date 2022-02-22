@@ -103,9 +103,13 @@ bool checkVTEFeature(TerminalFeature feature) {
     // Initialized features if not done yet, can't do it statically
     // due to need for GTK to load first
     if (!featuresInitialized) {
+        import vte.c.functions;
+        import gtk.c.functions : gtk_widget_destroy;
+
         // Force terminal to be loaded if not done already
-        Terminal terminal = new Terminal();
-        scope(exit) {terminal.destroy();}
+        auto terminal = vte_terminal_new ();
+        scope(exit) {gtk_widget_destroy(terminal);}
+
 
         // Check if patched events are available
         string[] events = ["notification-received", "terminal-screen-changed"];
@@ -119,7 +123,6 @@ bool checkVTEFeature(TerminalFeature feature) {
 
         import gtkc.Loader: Linker;
         import gtkc.paths: LIBRARY;
-        import vte.c.functions;
         string[] failures = Linker.getLoadFailures(LIBRARY_VTE);
 
         foreach(failure; failures) {
