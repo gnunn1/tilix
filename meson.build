@@ -1,6 +1,6 @@
 project(
     'Tilix', 'd',
-    version: '1.9.5',
+    version: '1.9.6',
     license: 'MPL-2.0',
     meson_version: '>= 0.56'
 )
