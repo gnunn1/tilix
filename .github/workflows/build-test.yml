@@ -73,6 +73,9 @@ jobs:
     - name: Create Build Environment
       run: sudo ./.github/ci/install-deps-deb.sh
 
+    - name: Update Meson
+      run: sudo pip3 install 'meson~=0.56'
+
     - name: Build
       run: CC=gcc CXX=g++ ./.github/ci/run-build.sh
 
