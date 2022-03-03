@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2021-09-24 09:34+0000\n"
+"PO-Revision-Date: 2022-03-04 17:58+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tilix/"
 "translations/fi/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -394,16 +394,14 @@ msgid "Switch to previous session"
 msgstr "Vaihda edelliseen istuntoon"
 
 #: data/resources/ui/shortcuts.ui:73
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to next session"
-msgstr "Vaihda seuraavaan istuntoon"
+msgstr "Järjestä uudelleen seuraavaan istuntoon"
 
 #: data/resources/ui/shortcuts.ui:79
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reorder to previous session"
-msgstr "Vaihda edelliseen istuntoon"
+msgstr "Järjestä uudelleen edelliseen istuntoon"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
@@ -778,7 +776,7 @@ msgstr "Nollaa ja tyhjennä pääte"
 #: data/resources/ui/shortcuts.ui:551
 msgctxt "shortcut window"
 msgid "Toggle read only"
-msgstr ""
+msgstr "Vain luku -tila päälle/pois"
 
 #: data/resources/ui/shortcuts.ui:557
 msgctxt "shortcut window"
@@ -1190,9 +1188,8 @@ msgid "Save Session"
 msgstr "Tallenna istunto"
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "Istuntoa ei voitu ladata odottamattoman virheen vuoksi."
+msgstr "Istuntoa ei voitu tallentaa odottamattoman virheen vuoksi."
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
 msgid "Error Saving Session"
@@ -1641,12 +1638,11 @@ msgstr "Poista"
 
 #: source/gx/tilix/prefeditor/advdialog.d:151
 msgid "Move up"
-msgstr ""
+msgstr "Siirry ylös"
 
 #: source/gx/tilix/prefeditor/advdialog.d:162
-#, fuzzy
 msgid "Move down"
-msgstr "Sivu alas"
+msgstr "Siirry alas"
 
 #: source/gx/tilix/prefeditor/advdialog.d:192
 #: source/gx/tilix/prefeditor/advdialog.d:362
@@ -2091,9 +2087,8 @@ msgid "Save and restore window state"
 msgstr "Tallenna ja palauta ikkunan tila"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Etsi säännöllisenä lausekkeena"
+msgstr "Etsi aina käyttäen säännöllisiä lausekkeita"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
