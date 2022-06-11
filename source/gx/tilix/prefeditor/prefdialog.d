@@ -957,7 +957,7 @@ private:
             return;
         }
 
-        import std.xml: DocumentParser, ElementParser, Element, XMLException;
+        import undead.xml: DocumentParser, ElementParser, Element, XMLException;
 
         try {
             DocumentParser parser = new DocumentParser(ui);

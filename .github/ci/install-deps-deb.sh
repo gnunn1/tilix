@@ -28,4 +28,5 @@ eatmydata apt-get install -yq \
         libsecret-1-dev \
         libunwind-dev \
         libvted-3-dev \
+        libundead0 \
         po4a

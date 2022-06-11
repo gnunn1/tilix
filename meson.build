@@ -101,6 +101,7 @@ vted_dep = dependency('vted-3', version: '>=3.8.5')
 xlib_dep = dependency('x11')
 libunwind_dep = dependency('libunwind')
 libsecret_dep = dependency('libsecret-1', required: false)
+undead_dep = dependency('libundead0', version: '>=1.0.9')
 
 subdir('po')
 subdir('data')
@@ -113,7 +114,8 @@ executable('tilix',
                     vted_dep,
                     xlib_dep,
                     libunwind_dep,
-                    libsecret_dep],
+                    libsecret_dep,
+                    undead_dep],
     d_args: d_extra_args,
     d_module_versions: ['StdLoggerDisableTrace'],
     link_args: d_link_args,
