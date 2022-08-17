@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: tilix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2022-06-02 21:20+0000\n"
+"PO-Revision-Date: 2022-08-19 08:16+0000\n"
 "Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/tilix/"
 "translations/ca/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -34,7 +34,7 @@ msgstr "Gerald Nunn"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:10
 msgid "Tilix is a tiling terminal emulator."
-msgstr "El Tilix és un emulador de mosaics de terminals."
+msgstr "El Tilix és un emulador de terminals en mosaic."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:13
 msgid "It lets you:"
@@ -110,9 +110,8 @@ msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "El Tilix s'ha provat amb el GNOME i amb el Unity."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:59
-#, fuzzy
 msgid "Tilix is still looking for a new maintainer!"
-msgstr "El Tilix és un emulador de mosaics de terminals."
+msgstr "Tilix encara està buscant un mantenidor nou!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:86
@@ -122,64 +121,69 @@ msgstr "Aquesta versió afegeix les funcions següents:"
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 msgid "Disable advanced paste when there is no linebreak like iTerm2"
 msgstr ""
+"Desactiva l'enganxada avançada quan no hi hagi cap salt de línia com a iTerm2"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
 msgid "Add environment variable when in quake mode"
-msgstr ""
+msgstr "Afegeix una variable d'entorn quan estigui en mode quake"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
 msgid "Add possibility to configure always enabled regex"
-msgstr ""
+msgstr "Afegeix possibilitat de configurar una regex sempre habilitada"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:121
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:131
 msgid "This release fixes the following bugs:"
-msgstr ""
+msgstr "Aquesta versió corregeix els errors següents:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
 msgid "More appdata -&gt; metainfo move"
-msgstr ""
+msgstr "Més moviment appdata -&gt; metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
 msgid "Add meson target for man page translations"
-msgstr ""
+msgstr "Afegeix un objectiu de mesó per a traduccions de pàgines de manual"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
 msgid "Update flatpak manifest"
-msgstr ""
+msgstr "Actualitzar el manifest flatpak"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
 msgid "meson: drop unused argument for i18n.merge_file()"
-msgstr ""
+msgstr "meson: elimina l'argument no utilitzat per a i18n.merge_file()"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
 msgid "Stop using deprecated Meson features"
-msgstr ""
+msgstr "Deixar d'utilitzar funcions obsoletes de Meson"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
 msgid ""
 "Keep quake window open if focus is restored before timeout has been reached"
 msgstr ""
+"Mantenir oberta la finestra del mode Quake si el focus es restaura abans que "
+"finalitzi el temps d'espera"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
 msgid "Don't check GtkDragResult"
-msgstr ""
+msgstr "No marcar GtkDragResult"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:75
 msgid "Don't add application/x-rootwindow-drop to dragSourceSet targets"
-msgstr ""
+msgstr "No afegir application/x-rootwindow-drop als objectius dragSourceSet"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:77
 msgid "With contributions from:"
-msgstr ""
+msgstr "Amb les aportacions de:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:78
 msgid ""
 "Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
 "matishadow, Winston Hoy, Matthias Klumpp"
 msgstr ""
+"Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
+"matishadow, Winston Hoy, Matthias Klumpp"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:84
 msgid ""
@@ -201,99 +205,107 @@ msgstr "De fet, instal·la l'esquema de colors Yaru"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
 msgid "Give every tab the ${title}"
-msgstr ""
+msgstr "Posa ${title} a cada pestanya"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:90
 msgid "Add option to strip trailing whitespace on paste"
 msgstr ""
+"Addiciona l'opció de remoure els espais en blanc al final, mentre s'enganxa"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:94
-#, fuzzy
 msgid "Fix saving of already saved session"
-msgstr "Obre una sessió desada"
+msgstr "S'ha corregit el desament d'una sessió ja desada"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:95
 msgid "Add shortcut to \"Unselect all\""
-msgstr ""
+msgstr "Afegir la drecera «Desmarca-ho tot»"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:96
 msgid "Many Meson buildsystem fixes"
-msgstr ""
+msgstr "Moltes correccions al sistema de compilació meson"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:97
 msgid "Avoid missing the previous command exit code when encoding URLs"
 msgstr ""
+"Quan codifiqueu URL, ja no s'ignora el codi de sortida de l'ordre anterior"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:98
 msgid "Resolve some D deprecation messages"
-msgstr ""
+msgstr "Resolució d'alguns missatges d'obsolescència D"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
 msgid "Mention powerline/fonts in README"
-msgstr ""
+msgstr "Menciona powerline/fonts a README"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:100
 msgid "Avoid calling `values()` on a shared object"
-msgstr ""
+msgstr "Eviteu cridar `values()` en un objecte compartit"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
 msgid "Update metainfo data"
-msgstr ""
+msgstr "Actualitzar les dades metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
 msgid "Drop compat code for older D frontend versions"
 msgstr ""
+"S'ha eliminat el codi de compatibilitat per a versions anteriors de la "
+"interfície D"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:103
 msgid "Bump minimum VTE version to 0.46"
-msgstr ""
+msgstr "Augmenta a la versió mínima 0.46 per a VTE"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:104
 msgid "Remove deprecated Autotools support"
-msgstr ""
+msgstr "Elimina el suport obsolet d'Autotools"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:105
 msgid "Add release notes, NEWS file, automatic metainfo update"
 msgstr ""
+"S'han afegit notes de llançament, fitxer NEWS, actualització automàtica de "
+"metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:106
 msgid "Update to GtkD 3.9.0"
-msgstr ""
+msgstr "Actualització a GtkD 3.9.0"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:108
 msgid "This release updates translations."
-msgstr ""
+msgstr "Aquesta versió actualitza les traduccions."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:113
 msgid "This release fixes the following bug:"
-msgstr ""
+msgstr "Aquesta versió soluciona l'error següent:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:115
 msgid ""
 "Fixes a problem with the session sidebar getting out of sync after having "
 "deleted a session. See issues #1680, #1637 and #1699."
 msgstr ""
+"Soluciona un problema amb la dessincronització de la barra lateral de la "
+"sessió després d'haver suprimit una sessió. Vegeu els números 1680, 1637 i "
+"1699."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:123
 msgid "Remove app menu for gnome 3.32"
-msgstr ""
+msgstr "Elimina el menú d'aplicacions per a gnome 3.32"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:124
-#, fuzzy
 msgid "Update icon"
-msgstr "ActualitzaTítol"
+msgstr "Actualitza Icona"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:125
 msgid "Minor fixes"
-msgstr ""
+msgstr "Correccions menors"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:133
 msgid "Small release to update localizations"
-msgstr ""
+msgstr "Petita versió per a actualitzar les localitzacions"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:134
 msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
 msgstr ""
+"Actualitzeu-lo al GtkD 3.8.5 per a corregir el nom de la biblioteca al GtkD."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:140
 msgid "Some new features and bug fixes."
@@ -305,7 +317,7 @@ msgstr "Obre el Tilix de forma remota"
 
 #: data/nautilus/open-tilix.py:115
 msgid "Open Remote Tilix In {}"
-msgstr "Obre el Tilix de forma remota en  {}"
+msgstr "Obrir el Tilix remot a {}"
 
 #: data/nautilus/open-tilix.py:121
 msgid "Open In Tilix"
@@ -313,7 +325,7 @@ msgstr "Obre en Tilix"
 
 #: data/nautilus/open-tilix.py:122
 msgid "Open Tilix In {}"
-msgstr "Obre el Tilix en  {}"
+msgstr "Obre el Tilix a {}"
 
 #: data/nautilus/open-tilix.py:132
 msgid "Open Remote Tilix Here"
@@ -696,10 +708,9 @@ msgid "Select all"
 msgstr "Selecciona-ho tot"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Selecciona-ho tot"
+msgstr "Desmarcar-ho tot"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -867,9 +878,9 @@ msgid "Your GTK version is too old, you need at least GTK %d.%d.%d!"
 msgstr "La versió del GTK és massa antiga, necessiteu almenys el GTK %d.%d.%d!"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
-msgstr "La versió del GTK és massa antiga, necessiteu almenys el GTK %d.%d.%d!"
+msgstr "La vostra versió VTE és massa antiga, necessiteu almenys VTE %d. %d!"
 
 #: source/app.d:166
 msgid "Unexpected exception occurred"
@@ -927,7 +938,8 @@ msgstr "No ho mostris més"
 msgid "translator-credits"
 msgstr ""
 "Carles Ferrando Garcia <carles.ferrando@gmail.com> 2019\n"
-"Artur Vicedo <arturovc89@hotmail.com> 2019"
+"Artur Vicedo <arturovc89@hotmail.com> 2019\n"
+"Maite Guix <maite.guix@me.com> 2022"
 
 #: source/gx/tilix/application.d:281
 msgid "Credits"
@@ -1032,18 +1044,16 @@ msgstr ""
 "el mode Quake existent"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
-msgstr "Mostra les versions del Tilix i dels seus components"
+msgstr "Mostra les versions de Tilix i dels components dependents"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix preferences dialog directly"
 msgstr "Mostra el diàleg de preferències del Tilix directament"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "NOM_DEL_PERFIL"
+msgstr "NOM_GRUP"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1207,14 +1217,12 @@ msgid "Save Session"
 msgstr "Desa la sessió"
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "No s'ha pogut carregar degut a un error inesperat."
+msgstr "No s'ha pogut desar la sessió a causa d'un error inesperat."
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "S'ha produït un error en carregar la sessió"
+msgstr "Error en desar la sessió"
 
 #: source/gx/tilix/appwindow.d:1723
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -1345,7 +1353,7 @@ msgstr "Títol"
 #: source/gx/tilix/closedialog.d:170
 #, c-format
 msgid "Window (%s)"
-msgstr "Finestra  (%s)"
+msgstr "Finestra (%s)"
 
 #: source/gx/tilix/closedialog.d:173
 #, c-format
@@ -1859,7 +1867,7 @@ msgid ""
 "The shortcut %s is already assigned to %s.\n"
 "Disable the shortcut for the other action and assign here instead?"
 msgstr ""
-"La drecera %s ja està assignada a  %s.\n"
+"La drecera %s ja està assignada a %s.\n"
 "Voleu desactivar la drecera de l’altra acció i assignar-la aquí?"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1135
@@ -2095,7 +2103,7 @@ msgstr "Amplia el terminal usant <Control> i la roda de desplaçament"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1527
 msgid "Require the <Control> modifier to edit title on click"
-msgstr "Requereix el modificador <Control>  per editar el títol al fer clic"
+msgstr "Requereix el modificador <Control> per a editar el títol en fer clic"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1532
 msgid "Close window when last session is closed"
@@ -2106,9 +2114,8 @@ msgid "Save and restore window state"
 msgstr "Desa i restaura l'estat de la finestra"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Fes coincidir amb l'expressió regular"
+msgstr "Cercar sempre amb expressions regulars"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
@@ -2361,11 +2368,11 @@ msgstr "Fons"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:664
 msgid "Select Cursor Foreground Color"
-msgstr "Seleccioneu  el color del cursor al primer pla"
+msgstr "Seleccioneu el color de primer pla del cursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:666
 msgid "Select Cursor Background Color"
-msgstr "Seleccioneu  el color del cursor al fons"
+msgstr "Seleccioneu el color de fons del cursor"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:671
 msgid "Highlight"
@@ -2988,12 +2995,12 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "No es pot comprovar el fitxer «%s» degut a un error «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:2025
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
 msgstr ""
-"Els URI dels fitxers remots no són compatibles amb els hiperenllaços. \n"
+"Els URI dels fitxers remots no s'admeten als hiperenllaços.\n"
 "L'URI era «%s»"
 
 #: source/gx/tilix/terminal/terminal.d:2026
@@ -3005,7 +3012,7 @@ msgstr "URI de fitxer remot no compatible"
 #, c-format
 msgid "Custom link regex '%s' has an error, ignoring"
 msgstr ""
-"L'expressió regular «%s» de l'enllaç personalitzat té un error,  s'ignorarà"
+"L'expressió regular «%s» de l'enllaç personalitzat té un error, s'ignorarà"
 
 #: source/gx/tilix/terminal/terminal.d:2059
 msgid "Regular Expression Error"
