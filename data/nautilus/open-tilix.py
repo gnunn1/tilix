@@ -32,6 +32,8 @@ def _checkdecode(s):
 
 def open_terminal_in_file(filename):
     if filename:
+        # escape filename quotations
+        filename = filename.replace('"', '\\"')
         call('{0} -w "{1}" &'.format(TERMINAL, filename), shell=True)
     else:
         call("{0} &".format(TERMINAL), shell=True)
