@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Polish (Tilix)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2022-06-10 02:20+0000\n"
+"PO-Revision-Date: 2022-10-17 00:57+0000\n"
 "Last-Translator: gnu-ewm <gnu.ewm@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tilix/"
 "translations/pl/>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -102,18 +102,19 @@ msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "Tilix przetestowano z GNOME i Unity."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:59
-#, fuzzy
 msgid "Tilix is still looking for a new maintainer!"
-msgstr "Tilix jest emulatorem terminala obsługującym kafle."
+msgstr "Tilix wciąż szuka nowego opiekuna!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:86
 msgid "This release adds the following features:"
-msgstr "To wydanie dodaje następujące funkcje:"
+msgstr "Ta aktualizacja dodaje następujące funkcje:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 msgid "Disable advanced paste when there is no linebreak like iTerm2"
 msgstr ""
+"Wyłącz zaawansowane wklejanie, gdy nie ma podziału wiersza, takiego jak w "
+"iTerm2"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
 msgid "Add environment variable when in quake mode"
@@ -197,9 +198,8 @@ msgid "Add option to strip trailing whitespace on paste"
 msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:94
-#, fuzzy
 msgid "Fix saving of already saved session"
-msgstr "Otwarcie zapisanej sesji"
+msgstr "Poprawiono zapisywanie już zapisanej sesji"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:95
 msgid "Add shortcut to \"Unselect all\""
@@ -268,9 +268,8 @@ msgid "Remove app menu for gnome 3.32"
 msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:124
-#, fuzzy
 msgid "Update icon"
-msgstr "AktualizujTytuł"
+msgstr "Ikona aktualizacji"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:125
 msgid "Minor fixes"
@@ -686,10 +685,9 @@ msgid "Select all"
 msgstr "Zaznaczenie wszystkiego"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Zaznaczenie wszystkiego"
+msgstr "Odznacz wszystko"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -859,11 +857,10 @@ msgstr ""
 "GTK %d.%d.%d!"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
 msgstr ""
-"Zainstalowana wersja GTK jest przestarzała. Wymagana jest co najmniej wersja "
-"GTK %d.%d.%d!"
+"Zainstalowana wersja VTE jest za stara, potrzebujesz przynajmniej VTE %d.%d!"
 
 #: source/app.d:166
 msgid "Unexpected exception occurred"
@@ -1023,18 +1020,16 @@ msgstr ""
 "quake"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
-msgstr "Wypisuje numery wersji programu i zależnych składników"
+msgstr "Pokaż wersję Tilix i zależnych komponentów"
 
 #: source/gx/tilix/application.d:675
 msgid "Show the Tilix preferences dialog directly"
 msgstr "Wyświetla okno preferencji programu"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "NAZWA_PROFILU"
+msgstr "NAZWA_GRUPY"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1195,14 +1190,12 @@ msgid "Save Session"
 msgstr "Zapisywanie sesji"
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Could not save session due to unexpected error."
-msgstr "Nie można wczytać sesji z powodu nieoczekiwanego błędu."
+msgstr "Nie można zapisać sesji z powodu nieoczekiwanego błędu."
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Błąd wczytywania sesji"
+msgstr "Błąd zapisywania sesji"
 
 #: source/gx/tilix/appwindow.d:1723
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -1353,7 +1346,7 @@ msgstr "Zamykanie sesji"
 #: source/gx/tilix/cmdparams.d:119 source/gx/tilix/cmdparams.d:123
 #, c-format
 msgid "Ignoring as '%s' is not a directory"
-msgstr "Ignorowanie. Ciąg „%s” nie jest ścieżką katalogu."
+msgstr "Ignorowanie, ponieważ '%s' nie jest katalogiem"
 
 #: source/gx/tilix/cmdparams.d:152
 #, c-format
@@ -1365,8 +1358,8 @@ msgid ""
 "You cannot load a session and set a profile/working directory/execute "
 "command option, please choose one or the other"
 msgstr ""
-"Nie można jednocześnie wczytać sesji i wskazać bieżącego profilu/katalogu "
-"roboczego/wykonywanego polecenia. Proszę wykonać jedną z tych czynności."
+"Nie można załadować sesji i ustawić profilu/katalogu roboczego/opcji "
+"wykonania polecenia, proszę wybrać jedno z tych dwóch"
 
 #: source/gx/tilix/cmdparams.d:193
 msgid "You can only use the action parameter within Tilix"
@@ -2089,9 +2082,8 @@ msgid "Save and restore window state"
 msgstr "Zapisanie i przywrócenie stanu okna"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Dopasowanie do wyrażenia regularnego"
+msgstr "Zawsze szukaj używając wyrażeń regularnych"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
@@ -2597,7 +2589,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1309
 msgid "Enter hostname:directory to match"
-msgstr "Proszę wprowadzić wzór nazwa_komputera:katalog do dopasowania:"
+msgstr "Wpisz nazwę hosta:katalog, aby dopasować"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1311
 msgid "Add New Match"
@@ -2611,7 +2603,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1330
 msgid "Edit hostname:directory to match"
-msgstr "Proszę wprowadzić wzór nazwa_komputera:katalog do dopasowania:"
+msgstr "Edytuj nazwę hosta:katalog, aby dopasować"
 
 #: source/gx/tilix/prefeditor/profileeditor.d:1332
 msgid "Edit Match"
@@ -2677,9 +2669,8 @@ msgid "InsertPassword"
 msgstr "WprowadźHasło"
 
 #: source/gx/tilix/preferences.d:261
-#, fuzzy
 msgid "UpdateBadge"
-msgstr "Tytuł"
+msgstr "ZnakAktualizacji"
 
 #: source/gx/tilix/preferences.d:262
 msgid "RunProcess"
@@ -2975,13 +2966,13 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Nie można sprawdzić pliku „%s” z powodu błędu „%s”"
 
 #: source/gx/tilix/terminal/terminal.d:2025
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
 msgstr ""
-"Adresy zdalnych plików nie są obsługiwane przez odnośniki.\n"
-"Adres to „%s”"
+"Zdalne URI plików nie są obsługiwane z hiperłączami.\n"
+"URI było \"%s\""
 
 #: source/gx/tilix/terminal/terminal.d:2026
 msgid "Remote File URI Unsupported"
@@ -3016,7 +3007,7 @@ msgstr ""
 
 #: source/gx/tilix/terminal/terminal.d:2771
 msgid "Unexpected error occurred, no additional information available"
-msgstr "Wystąpił nieoczekiwany błąd. Brak dodatkowych informacji."
+msgstr "Wystąpił nieoczekiwany błąd, brak dodatkowych informacji"
 
 #: source/gx/tilix/terminal/terminal.d:2781
 #, c-format
