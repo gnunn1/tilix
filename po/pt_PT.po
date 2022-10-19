@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2021-11-14 11:51+0000\n"
+"PO-Revision-Date: 2022-10-20 11:00+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "tilix/translations/pt_PT/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9.1-dev\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -105,9 +105,8 @@ msgid "Tilix has been tested with GNOME and with Unity."
 msgstr "O Tilix foi testado nos ambientes GNOME e Unity."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:59
-#, fuzzy
 msgid "Tilix is still looking for a new maintainer!"
-msgstr "Tilix é um emulador de terminal em mosaico."
+msgstr "Tilix ainda está à procura de um novo responsável!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:86
@@ -117,14 +116,16 @@ msgstr "Esta versão adiciona os seguintes recursos:"
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 msgid "Disable advanced paste when there is no linebreak like iTerm2"
 msgstr ""
+"Desativar \"colar avançado\" quando não há quebra de linhas como no iTerm2"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:63
 msgid "Add environment variable when in quake mode"
-msgstr ""
+msgstr "Adicionar variável de ambiente quando estiver em modo quake"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:64
 msgid "Add possibility to configure always enabled regex"
 msgstr ""
+"Adicionar possibilidade de configurar expressões regulares sempre ativas"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:66
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:92
@@ -135,46 +136,50 @@ msgstr "Esta versão corrige os seguintes bugs:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
 msgid "More appdata -&gt; metainfo move"
-msgstr ""
+msgstr "Move mais appdata -&gt; metainfo"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
 msgid "Add meson target for man page translations"
-msgstr ""
+msgstr "Adicionar alvo meson para traduções de páginas do man"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
 msgid "Update flatpak manifest"
-msgstr ""
+msgstr "Atualizar manifesto flatpak"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
 msgid "meson: drop unused argument for i18n.merge_file()"
-msgstr ""
+msgstr "meson: descartar argumento não utilizado para i18n.merge_file()"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
 msgid "Stop using deprecated Meson features"
-msgstr ""
+msgstr "Parar de usar funcionalidades Meson descontinuadas"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
 msgid ""
 "Keep quake window open if focus is restored before timeout has been reached"
 msgstr ""
+"Manter janela Quake aberta se o foco for restaurado antes do tempo de "
+"expiração"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
 msgid "Don't check GtkDragResult"
-msgstr ""
+msgstr "Não verificar GtkDragResult"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:75
 msgid "Don't add application/x-rootwindow-drop to dragSourceSet targets"
-msgstr ""
+msgstr "Não adicionar application/x-rootwindow-drop aos alvos dragSourceSet"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:77
 msgid "With contributions from:"
-msgstr ""
+msgstr "Com contribuições de:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:78
 msgid ""
 "Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
 "matishadow, Winston Hoy, Matthias Klumpp"
 msgstr ""
+"Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
+"matishadow, Winston Hoy, Matthias Klumpp"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:84
 msgid ""
@@ -1138,11 +1143,11 @@ msgstr "Sincronizar entrada"
 
 #: source/gx/tilix/appwindow.d:703
 msgid "Keyboard Shortcuts"
-msgstr "Atalhos de teclado"
+msgstr "Teclas de atalho"
 
 #: source/gx/tilix/appwindow.d:704
 msgid "About Tilix"
-msgstr "Sobre"
+msgstr "Acerca do Tilix"
 
 #: source/gx/tilix/appwindow.d:711
 msgid "GC"
@@ -2103,9 +2108,8 @@ msgid "Save and restore window state"
 msgstr "Salvar e restaurar estado da janela"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Coincidir como expressão regular"
+msgstr "Pesquisar sempre usando expressões regulares"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
