@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: terminix\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2022-02-25 16:57+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"PO-Revision-Date: 2022-12-28 18:43+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tilix/translations/"
 "nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -34,7 +34,7 @@ msgstr "Gerald Nunn"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:10
 msgid "Tilix is a tiling terminal emulator."
-msgstr "Tilix is een terminaltoepassing met tegelmogelijkheid."
+msgstr "Tilix is een terminal-app met tegelmogelijkheid."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:13
 msgid "It lets you:"
@@ -102,10 +102,10 @@ msgid ""
 "GNOME Human Interface Guidelines (HIG). As a result, it does use client-side-"
 "decorations, though it can be disabled if necessary."
 msgstr ""
-"De toepassing is geschreven in GTK 3 en er is veel moeite gestoken in het "
-"volgen van de richtlijnen van de HIG (GNOME Human Interface Guidelines). Dit "
-"resulteert in het gebruik van client-side-decorations maar deze kunnen, "
-"indien nodig, worden uitgeschakeld."
+"De app is geschreven in GTK 3 en er is veel moeite gestoken in het volgen "
+"van de richtlijnen van de GNOME HIG (Human Interface Guidelines). Dit "
+"resulteert in het gebruik van client-side-decorations, maar deze kunnen "
+"worden uitgeschakeld indien nodig."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:29
 msgid "Tilix has been tested with GNOME and with Unity."
@@ -174,13 +174,15 @@ msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:77
 msgid "With contributions from:"
-msgstr ""
+msgstr "Met bijdragen van:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:78
 msgid ""
 "Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
 "matishadow, Winston Hoy, Matthias Klumpp"
 msgstr ""
+"Alan Scherger, Antoine Belvire, David King, Jan Beich, kohnish, luk1337, "
+"matishadow, Winston Hoy, Matthias Klumpp"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:84
 msgid ""
@@ -282,7 +284,7 @@ msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:123
 msgid "Remove app menu for gnome 3.32"
-msgstr "Toepassingsmenu verwijderd op gnome 3.32"
+msgstr "App-menu verwijderd voor GNOME 3.32"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:124
 msgid "Update icon"
@@ -363,7 +365,7 @@ msgstr "Voorkeuren"
 #: data/resources/ui/shortcuts.ui:10 data/resources/ui/shortcuts.ui:15
 msgctxt "shortcut window"
 msgid "Application"
-msgstr "Toepassing"
+msgstr "App"
 
 #: data/resources/ui/shortcuts.ui:19
 msgctxt "shortcut window"
@@ -932,7 +934,9 @@ msgstr "Dit bericht niet meer tonen"
 #. TRANSLATORS: Please add your name to the list of translators if you want to be credited for the translations you have done.
 #: source/gx/tilix/application.d:272
 msgid "translator-credits"
-msgstr "Heimen Stoffels"
+msgstr ""
+"Heimen Stoffels\n"
+"Philip Goto <philip.goto@gmail.com>"
 
 #: source/gx/tilix/application.d:281
 msgid "Credits"
@@ -1361,7 +1365,7 @@ msgstr "Sessie (%s)"
 
 #: source/gx/tilix/closedialog.d:189
 msgid "Close Application"
-msgstr "Toepassing sluiten"
+msgstr "App sluiten"
 
 #: source/gx/tilix/closedialog.d:191
 msgid "Close Window"
@@ -1411,7 +1415,7 @@ msgstr "Het kleurenschemapalet vereist 16 kleuren"
 
 #: source/gx/tilix/constants.d:72
 msgid "A VTE based terminal emulator for Linux"
-msgstr "Een op VTE gebaseerde terminaltoepassing voor Linux"
+msgstr "Een op VTE gebaseerde terminal-app voor Linux"
 
 #: source/gx/tilix/constants.d:73
 msgid ""
@@ -1493,7 +1497,7 @@ msgstr "Actieve terminaltitel"
 
 #: source/gx/tilix/constants.d:197
 msgid "Application name"
-msgstr "Toepassingsnaam"
+msgstr "App-naam"
 
 #: source/gx/tilix/constants.d:198
 msgid "Session name"
@@ -1988,7 +1992,7 @@ msgstr "Standaard sessienaam"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1236
 msgid "Application title"
-msgstr "Toepassingstitel"
+msgstr "App-titel"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1254
 msgid "Enable transparency, requires re-start"
@@ -2112,9 +2116,8 @@ msgid "Save and restore window state"
 msgstr "Vensterstatus opslaan en herstellen"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Alleen reguliere expressies"
+msgstr "Altijd zoeken met reguliere expressies"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
