@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: German (Terminix)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-22 17:30+0100\n"
-"PO-Revision-Date: 2022-12-24 15:49+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2023-01-05 08:33+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tilix/"
 "translations/de/>\n"
 "Language: de\n"
@@ -103,12 +103,12 @@ msgstr "Tilix wurde mit GNOME und Unity getestet."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:59
 msgid "Tilix is still looking for a new maintainer!"
-msgstr ""
+msgstr "Tilix sucht noch immer nach einem neuen Maintainer!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:60
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:86
 msgid "This release adds the following features:"
-msgstr "Mit dieser Version werden die folgenden Funktionen hinzugefügt:"
+msgstr "Diese Version fügt folgende Funktionen hinzu:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 msgid "Disable advanced paste when there is no linebreak like iTerm2"
@@ -196,9 +196,8 @@ msgid "Add option to strip trailing whitespace on paste"
 msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:94
-#, fuzzy
 msgid "Fix saving of already saved session"
-msgstr "Gespeicherte Sitzung öffnen"
+msgstr "Speichern einer bereits gespeicherten Sitzung behoben"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:95
 msgid "Add shortcut to \"Unselect all\""
@@ -267,9 +266,8 @@ msgid "Remove app menu for gnome 3.32"
 msgstr ""
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:124
-#, fuzzy
 msgid "Update icon"
-msgstr "Titel aktualisieren"
+msgstr "Icon aktualisiert"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:125
 msgid "Minor fixes"
@@ -695,10 +693,9 @@ msgid "Select all"
 msgstr "Alles markieren"
 
 #: data/resources/ui/shortcuts.ui:437
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Unselect all"
-msgstr "Alles markieren"
+msgstr "Alles abwählen"
 
 #: data/resources/ui/shortcuts.ui:445
 msgctxt "shortcut window"
@@ -871,11 +868,9 @@ msgstr ""
 "benötigt!"
 
 #: source/app.d:150
-#, fuzzy, c-format
+#, c-format
 msgid "Your VTE version is too old, you need at least VTE %d.%d!"
-msgstr ""
-"Die installierte GTK-Version ist veraltet, es wird mindestens GTK %d.%d.%d "
-"benötigt!"
+msgstr "Die VTE-Version ist veraltet, es wird mindestens VTE %d.%d benötigt!"
 
 #: source/app.d:166
 msgid "Unexpected exception occurred"
@@ -1037,7 +1032,6 @@ msgstr ""
 "vorhandenen Fensters im Quake-Modus um"
 
 #: source/gx/tilix/application.d:674
-#, fuzzy
 msgid "Show the Tilix and dependent component versions"
 msgstr "Versionsnummern von Tilix und abhängigen Komponenten anzeigen"
 
@@ -1046,9 +1040,8 @@ msgid "Show the Tilix preferences dialog directly"
 msgstr "Tilix-Einstellungsdialog direkt anzeigen"
 
 #: source/gx/tilix/application.d:676
-#, fuzzy
 msgid "GROUP_NAME"
-msgstr "PROFIL_NAME"
+msgstr "GRUPPEN_NAME"
 
 #: source/gx/tilix/application.d:676
 msgid ""
@@ -1214,15 +1207,13 @@ msgid "Save Session"
 msgstr "Sitzung speichern"
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Could not save session due to unexpected error."
 msgstr ""
-"Die Sitzung konnte wegen eines unerwarteten Fehlers nicht geladen werden."
+"Die Sitzung konnte wegen eines unerwarteten Fehlers nicht gespeichert werden."
 
 #: source/gx/tilix/appwindow.d:1590 source/gx/tilix/appwindow.d:1609
-#, fuzzy
 msgid "Error Saving Session"
-msgstr "Fehler beim Laden der Sitzung"
+msgstr "Fehler beim Speichern der Sitzung"
 
 #: source/gx/tilix/appwindow.d:1723
 msgid "Quake mode is not supported under Wayland, running as normal window"
@@ -2119,9 +2110,8 @@ msgid "Save and restore window state"
 msgstr "Speichern und Wiederherstellen des Fensterzustands"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1542
-#, fuzzy
 msgid "Always search using regular expressions"
-msgstr "Als regulären Ausdruck verarbeiten"
+msgstr "Immer mit regulären Ausdrücken suchen"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1548
 msgid "Send desktop notification on process complete"
@@ -2164,7 +2154,7 @@ msgstr ""
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1586
 msgid "Strip trailing whitespaces and linebreak characters on paste"
-msgstr ""
+msgstr "Beim Einfügen abschließende Leerzeichen und Zeilenumbrüche entfernen"
 
 #: source/gx/tilix/prefeditor/prefdialog.d:1591
 msgid "Automatically copy text to clipboard when selecting"
@@ -3003,7 +2993,7 @@ msgid "Could not check file '%s' due to error '%s'"
 msgstr "Konnte die Datei \"%s\" aufgrund des Fehlers \"%s\" nicht prüfen"
 
 #: source/gx/tilix/terminal/terminal.d:2025
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Remote file URIs are not supported with hyperlinks.\n"
 "URI was '%s'"
