@@ -947,9 +947,10 @@ private:
      * pre GTK 3.20
      */
     void loadLocalizedShortcutLabels() {
-        //Clear associative arrays since clear method isn't compatible with LDC
-        labels = null;
-        prefixes = null;
+        import glib.SimpleXML : SimpleXML;
+        import glib.c.types : GMarkupParser, GMarkupParseContext, GMarkupParseFlags;
+        import std.string : fromStringz;
+        import std.array : empty;
 
         string ui = getResource(SHORTCUT_UI_RESOURCE);
         if (ui.length == 0) {
@@ -957,22 +958,58 @@ private:
             return;
         }
 
-        import std.xml: DocumentParser, ElementParser, Element, XMLException;
+        struct ParseHelper {
+            string currentId = "";
+            bool addNextText = false;
+            string[string] labels;
+        }
+
+        GMarkupParser parseConfig;
+        parseConfig.startElement = function void(GMarkupParseContext* context,
+                                             const(char)* elementNameC,
+                                             char** attributeNames,
+                                             char** attributeValues,
+                                             void* userData,
+                                             GError** err) {
+            auto helper = cast(ParseHelper*)userData;
+            const elementName = elementNameC.fromStringz;
+            if (elementName == "object") {
+                string[string] attrs;
+                for (uint i = 0; attributeNames[i] != null; i++)
+                    attrs[attributeNames[i].fromStringz.to!string] = attributeValues[i].fromStringz.to!string;
+
+                if (attrs.get("class", "") == "GtkShortcutsShortcut")
+                    helper.currentId = attrs["id"];
+
+            } else if (elementName == "property" && !helper.currentId.empty) {
+                for (uint i = 0; attributeNames[i] != null; i++) {
+                    if (attributeNames[i].fromStringz == "name" && attributeValues[i].fromStringz == "title") {
+                        helper.addNextText = true;
+                        break;
+                    }
+                }
+            }
+        };
+        parseConfig.text = function void(GMarkupParseContext* context,
+                                         const(char)* text,
+                                         size_t textLen,
+                                         void* userData,
+                                         GError** err) {
+            auto helper = cast(ParseHelper*)userData;
+            if (!helper.addNextText)
+                return;
+
+            helper.labels[helper.currentId] = C_(SHORTCUT_LOCALIZATION_CONTEXT, text.fromStringz.to!string);
+            helper.currentId = null;
+            helper.addNextText = false;
+        };
 
         try {
-            DocumentParser parser = new DocumentParser(ui);
-            parser.onStartTag["object"] = (ElementParser xml) {
-                if (xml.tag.attr["class"] == "GtkShortcutsShortcut") {
-                    string id = xml.tag.attr["id"];
-                    xml.onEndTag["property"] = (in Element e) {
-                        if (e.tag.attr["name"] == "title") {
-                            labels[id] = C_(SHORTCUT_LOCALIZATION_CONTEXT, e.text);
-                        }
-                    };
-                    xml.parse();
-                }
-            };
-            parser.parse();
+            ParseHelper helper;
+            auto parser = new SimpleXML(&parseConfig, GMarkupParseFlags.PREFIX_ERROR_POSITION, &helper, null);
+            parser.parse(ui, ui.length);
+            labels = helper.labels;
+
             // While you could use sections to get prefixes, not all sections are there
             // and it's not inutituve from a localization perspective. Just add them manually
             prefixes[ACTION_PREFIX_WIN] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Window");
@@ -980,7 +1017,7 @@ private:
             prefixes[ACTION_PREFIX_TERMINAL] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Terminal");
             prefixes[ACTION_PREFIX_SESSION] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Session");
             prefixes[ACTION_PREFIX_NAUTILUS] = C_(SHORTCUT_LOCALIZATION_CONTEXT, "Nautilus");
-        } catch (XMLException e) {
+        } catch (Exception e) {
             error("Failed to parse shortcuts.ui", e);
         }
     }
