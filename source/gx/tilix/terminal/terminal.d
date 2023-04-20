@@ -2461,6 +2461,7 @@ private:
             break;
         case SETTINGS_PROFILE_BADGE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_BADGE_FONT_KEY:
             updateBadgeFont();
+            break;
         default:
             break;
         }
