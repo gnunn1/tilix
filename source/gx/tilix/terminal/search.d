@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
  * distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
@@ -150,6 +150,16 @@ private:
         bButtons.add(btnPrevious);
 
         bSearch.add(bButtons);
+
+        Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
+        btnClose.setTooltipText(_("Close search box"));
+        btnClose.setRelief(ReliefStyle.NONE);
+        btnClose.setFocusOnClick(true);
+        btnClose.addOnClicked(delegate(Button) {
+            setRevealChild(false);
+            vte.grabFocus();
+        });
+        bSearch.packEnd(btnClose, false, false, 0);
 
         Frame frame = new Frame(bSearch, null);
         frame.setShadowType(ShadowType.NONE);
