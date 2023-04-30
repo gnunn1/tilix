@@ -103,6 +103,7 @@ private:
     enum MAX_BG_WIDTH = 3840;
     enum MAX_BG_HEIGHT = 2160;
 
+    GSettings gsDesktop;
     GSettings gsShortcuts;
     GSettings gsGeneral;
     GSettings gsProxy;
@@ -485,6 +486,12 @@ private:
         trace("Startup App Signal");
         Settings.getDefault.addOnNotify(&handleThemeChange, "gtk-theme-name", ConnectFlags.AFTER);
         loadResources();
+        gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
+        gsDesktop.addOnChanged(delegate(string key, Settings) {
+            if (key == SETTINGS_COLOR_SCHEME_KEY) {
+                applyPreference(SETTINGS_THEME_VARIANT_KEY);
+            }
+        });
         gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
         gsShortcuts.addOnChanged(delegate(string key, Settings) {
             string actionName = keyToDetailedActionName(key);
@@ -554,10 +561,21 @@ private:
     void applyPreference(string key) {
         switch (key) {
             case SETTINGS_THEME_VARIANT_KEY:
+                bool darkMode = false;
+                bool reset = false;
                 string theme = gsGeneral.getString(SETTINGS_THEME_VARIANT_KEY);
                 if (theme == SETTINGS_THEME_VARIANT_DARK_VALUE || theme == SETTINGS_THEME_VARIANT_LIGHT_VALUE) {
-                    Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, (SETTINGS_THEME_VARIANT_DARK_VALUE == theme));
+                    darkMode = (SETTINGS_THEME_VARIANT_DARK_VALUE == theme);
                 } else {
+                    string colorSchemePreference = gsDesktop.getString(SETTINGS_COLOR_SCHEME_KEY);
+                    if (colorSchemePreference !is null) {
+                        darkMode = (colorSchemePreference == SETTINGS_COLOR_SCHEME_PREFER_DARK_VALUE);
+                    } else {
+                        reset = true;
+                    }
+                }
+
+                if (reset) {
                     /*
                     * Resetting the theme variant to "Default" depends on new
                     * gtk_settings_reset_property API in Gnome 3.20. Once
@@ -566,6 +584,8 @@ private:
                     if (Version.checkVersion(3, 19, 0).length == 0) {
                         Settings.getDefault.resetProperty(GTK_APP_PREFER_DARK_THEME);
                     }
+                } else {
+                    Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, darkMode);
                 }
                 clearBookmarkIconCache();
                 break;

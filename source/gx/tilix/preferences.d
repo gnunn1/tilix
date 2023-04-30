@@ -23,6 +23,8 @@ import gx.tilix.constants;
 
 //Gnome Desktop Settings
 enum SETTINGS_DESKTOP_ID = "org.gnome.desktop.interface";
+enum SETTINGS_COLOR_SCHEME_KEY = "color-scheme";
+enum SETTINGS_COLOR_SCHEME_PREFER_DARK_VALUE = "prefer-dark";
 enum SETTINGS_MONOSPACE_FONT_KEY = "monospace-font-name";
 
 //Gnome Proxy Settings
