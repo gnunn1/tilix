@@ -479,7 +479,7 @@ private:
         if (!themeCssProvider) {
             tracef("No specific CSS found %s", cssURI);
         }
-        onThemeChange.emit(theme);
+        onThemeChange.emit();
     }
 
     void onAppStartup(GApplication) {
@@ -587,6 +587,7 @@ private:
                 } else {
                     Settings.getDefault().setProperty(GTK_APP_PREFER_DARK_THEME, darkMode);
                 }
+                onThemeChange.emit();
                 clearBookmarkIconCache();
                 break;
             case SETTINGS_MENU_ACCELERATOR_KEY:
@@ -917,13 +918,11 @@ public:
 // Events
 public:
     /**
-    * Invoked when the GTK theme has changed. While things could
-    * listen to gtk.Settings.addOnNotify directly, because this is a
-    * long lived object and GtkD doesn't provide a way to remove
-    * listeners it will lead to memory leaks so we use this instead
-    *
-    * Params:
-    *   name = the name of the theme
+    * Invoked when the GTK theme or theme-variant has changed. While
+    * things could listen to gtk.Settings.addOnNotify directly,
+    * because this is a long lived object and GtkD doesn't provide a
+    * way to remove listeners it will lead to memory leaks so we use
+    * this instead
     */
-    GenericEvent!(string) onThemeChange;
+    GenericEvent!() onThemeChange;
 }

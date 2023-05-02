@@ -3698,7 +3698,7 @@ private:
 
 // Theme changed
 private:
-    void onThemeChanged(string theme) {
+    void onThemeChanged() {
         //Get CSS Provider updated via preference
         applyPreference(SETTINGS_PROFILE_BG_COLOR_KEY);
     }
