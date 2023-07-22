@@ -1,11 +1,11 @@
 id: com.gexperts.Tilix
 branch: master
 runtime: org.gnome.Platform
-runtime-version: '3.34'
 sdk: org.gnome.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.ldc
-  - org.freedesktop.Sdk.Extension.dmd
+runtime-version: '44'
+#sdk-extensions:
+#  - org.freedesktop.Sdk.Extension.ldc
+# - org.freedesktop.Sdk.Extension.dmd
 command: tilix
 finish-args:
   - --share=ipc
@@ -103,7 +103,8 @@ modules:
       - type: archive
         url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
         sha512: 4c93cb26592ed0b1622d3b7800b5d6622ffa36f58ac73f2ef0bddfab522565fdfb8fa73d81914b9a202f1d62bc995a08960f8adb9f62c86918e75498e85fbfdf
-  - name: libvte-patched
+#BROKEN 
+ - name: libvte-patched
     buildsystem: autotools
     config-opts:
       - '--disable-introspection'
@@ -159,12 +160,14 @@ modules:
         url: https://github.com/snowballstem/snowball.git
         commit: d29510ae32702a81cdc29177a133e894df854550
       - type: patch
-        path: stemmer-dynlib.patch
+        path: stemmer-dynlib.patchi
+#BROKEN
   - name: appstream
     buildsystem: meson
     sources:
       - type: git
         url: https://github.com/ximion/appstream.git
+        branch: main
     cleanup:
       - '/share/doc'
       - '/share/gettext'
@@ -176,3 +179,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/gnunn1/tilix.git
+        branch: master
