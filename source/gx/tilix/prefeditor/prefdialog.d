@@ -802,7 +802,7 @@ private:
         bh.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
 
         btnDefault = new Button("edit-undo-symbolic", IconSize.BUTTON);
-        btnDefault.setTooltipText(_("Set default"));
+        btnDefault.setTooltipText(_("Restore default shortcut for this action"));
         btnDefault.setSensitive(false);
         btnDefault.addOnClicked(delegate(Button) {
             TreeIter iter = tvShortcuts.getSelectedIter();
@@ -811,9 +811,9 @@ private:
             size_t length;
             string defaultValue;
             if (filter.getValueString(iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
-              defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
+                defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
             } else {
-              defaultValue = SHORTCUT_DISABLED;
+                defaultValue = SHORTCUT_DISABLED;
             }
             filter.convertIterToChildIter(iter, iter);
             if (defaultValue == SHORTCUT_DISABLED) {
