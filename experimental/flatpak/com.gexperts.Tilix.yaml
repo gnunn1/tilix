@@ -3,9 +3,9 @@ branch: master
 runtime: org.gnome.Platform
 sdk: org.gnome.Sdk
 runtime-version: '44'
-#sdk-extensions:
-#  - org.freedesktop.Sdk.Extension.ldc
-# - org.freedesktop.Sdk.Extension.dmd
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.ldc
+  - org.freedesktop.Sdk.Extension.dmd
 command: tilix
 finish-args:
   - --share=ipc
@@ -103,20 +103,12 @@ modules:
       - type: archive
         url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
         sha512: 4c93cb26592ed0b1622d3b7800b5d6622ffa36f58ac73f2ef0bddfab522565fdfb8fa73d81914b9a202f1d62bc995a08960f8adb9f62c86918e75498e85fbfdf
-#BROKEN 
- - name: libvte-patched
-    buildsystem: autotools
-    config-opts:
-      - '--disable-introspection'
-      - '--disable-vala'
+  - name: libvte
+    buildsystem: meson
     sources:
       - type: archive
-        url: https://download.gnome.org/sources/vte/0.53/vte-0.53.0.tar.xz
-        sha256: c319eb34e9c64c78cd4940cde0892bd18784bcdcaaa7a23a9c8ec6052317a130
-      - type: patch
-        path: vte291-command-notify-scroll-speed.patch
-      - type: patch
-        path: vte291-exceptions-gcc811.patch
+        url: https://download.gnome.org/sources/vte/0.72/vte-0.72.2.tar.xz
+        sha256: f7966fd185a6981f53964162b71cfef7e606495155d6f5827b72aa0dd6741c9e
   - name: toolbox
     buildsystem: simple
     build-commands:
@@ -160,8 +152,13 @@ modules:
         url: https://github.com/snowballstem/snowball.git
         commit: d29510ae32702a81cdc29177a133e894df854550
       - type: patch
-        path: stemmer-dynlib.patchi
-#BROKEN
+        path: stemmer-dynlib.patch
+  - name: xmlb
+    buildsystem: meson
+    sources:
+      - type: archive
+        url: https://github.com/hughsie/libxmlb/releases/download/0.3.11/libxmlb-0.3.11.tar.xz
+        sha256: 0bf704ca040b9ab371a62182d0d6417fe7ae38428e5f48846b87b99e74fe7c23
   - name: appstream
     buildsystem: meson
     sources:
