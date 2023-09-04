@@ -103,12 +103,16 @@ modules:
       - type: archive
         url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
         sha512: 4c93cb26592ed0b1622d3b7800b5d6622ffa36f58ac73f2ef0bddfab522565fdfb8fa73d81914b9a202f1d62bc995a08960f8adb9f62c86918e75498e85fbfdf
-  - name: libvte
+  - name: libvte-patched
     buildsystem: meson
     sources:
       - type: archive
         url: https://download.gnome.org/sources/vte/0.72/vte-0.72.2.tar.xz
         sha256: f7966fd185a6981f53964162b71cfef7e606495155d6f5827b72aa0dd6741c9e
+#      - type: patch
+#        path: vte291-command-notify-scroll-speed.patch
+#      - type: patch
+#        path: vte291-exceptions-gcc811.patch
   - name: toolbox
     buildsystem: simple
     build-commands:
