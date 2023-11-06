@@ -4,7 +4,9 @@
 # Shortcuts Provider was inspired by captain nemo extension
 
 from gettext import gettext, textdomain
-from subprocess import PIPE, call
+from subprocess import Popen
+import shutil
+import shlex
 try:
     from urllib import unquote
     from urlparse import urlparse
@@ -19,7 +21,7 @@ if hasattr(Nautilus, "LocationWidgetProvider"):
     from gi.repository import Gtk
 
 
-TERMINAL = "tilix"
+TERMINAL = shutil.which("tilix")
 TILIX_KEYBINDINGS = "com.gexperts.Tilix.Keybindings"
 GSETTINGS_OPEN_TERMINAL = "nautilus-open"
 REMOTE_URI_SCHEME = ['ftp', 'sftp']
@@ -32,11 +34,9 @@ def _checkdecode(s):
 
 def open_terminal_in_file(filename):
     if filename:
-        # escape filename quotations
-        filename = filename.replace('"', '\\"')
-        call('{0} -w "{1}" &'.format(TERMINAL, filename), shell=True)
+        Popen([TERMINAL, '-w', filename])
     else:
-        call("{0} &".format(TERMINAL), shell=True)
+        Popen([TERMINAL])
 
 # Nautilus 43 doesn't offer the LocationWidgetProvider any more
 if hasattr(Nautilus, "LocationWidgetProvider"):
@@ -91,9 +91,9 @@ class OpenTilixExtension(GObject.GObject, Nautilus.MenuProvider):
             if result.port:
                 value = "{0} -p {1}".format(value, result.port)
             if file_.is_directory():
-                value = '{0} cd "{1}" ; $SHELL'.format(value, result.path)
+                value = '{0} cd {1} ; $SHELL'.format(value, shlex.quote(result.path))
 
-            call('{0} -e "{1}" &'.format(TERMINAL, value), shell=True)
+            Popen([TERMINAL, '-e', value])
         else:
             filename = Gio.File.new_for_uri(file_.get_uri()).get_path()
             open_terminal_in_file(filename)
