@@ -96,6 +96,8 @@ enum TerminalFeature {
     DISABLE_BACKGROUND_DRAW
 }
 
+private static bool g_vteTerminalLoaded = false;
+
 /**
  * Determine which terminal features are supported.
  */
@@ -104,12 +106,12 @@ bool checkVTEFeature(TerminalFeature feature) {
     // due to need for GTK to load first
     if (!featuresInitialized) {
         import vte.c.functions;
-        import gtk.c.functions : gtk_widget_destroy;
 
         // Force terminal to be loaded if not done already
-        auto terminal = vte_terminal_new ();
-        scope(exit) {gtk_widget_destroy(terminal);}
-
+        if (!g_vteTerminalLoaded) {
+            g_vteTerminalLoaded = true;
+            auto terminal = vte_terminal_new ();
+        }
 
         // Check if patched events are available
         string[] events = ["notification-received", "terminal-screen-changed"];
