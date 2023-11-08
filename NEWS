@@ -1,3 +1,34 @@
+Version 1.9.6
+~~~~~~~~~~~~~~
+Released: 2023-11-08
+
+Features:
+ * Add close button to search box
+ * Replace variables in custom link commands
+ * Follow system color-scheme for default theme-variant
+
+Bugfixes:
+ * nautilus: Don't import a specific version
+ * nautilus: Add compatibility with Nautilus 43
+ * nautilus: Avoid shell injection in open-tilix plugin
+ * Drop manpage country names
+ * Replace std.xml with GMarkup-based parser
+ * icon: Fix up prompt pictogram alignment
+ * Fix GLib critical warnings on startup
+
+Miscellaneous:
+ * Change Gnome to GNOME
+ * Replaced icon with more proportional one
+ * Update to GtkD 3.10.0
+ * ci: Run Ubuntu builds in container as well
+ * Change label of "view shortcuts" action
+ * Clarify tooltip of "reset to default" button for keyboard shortcuts
+
+Contributors:
+ Aaron Honeycutt, Andrea Agosti, Arne Jørgensen, Eugene Ivanov,
+ Felix Buehler, Jeremy Bicha, Jiehong Ma, Matthias Klumpp,
+ Waldir Pimenta, Zsombor Welker, taoky
+
 Version 1.9.5
 ~~~~~~~~~~~~~~
 Released: 2022-02-22
