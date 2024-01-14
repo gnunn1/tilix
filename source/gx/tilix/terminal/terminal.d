@@ -1274,7 +1274,7 @@ private:
         string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
         title = getDisplayText(title);
         if (title != lastTitle) {
-            lblTitle.setMarkup(title);
+            lblTitle.setText(title);
             lastTitle = title;
         }
         // Need to always emit title since other titles could be tracking variables that terminal isn't
