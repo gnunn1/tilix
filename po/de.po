@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: German (Terminix)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-08 21:52+0100\n"
-"PO-Revision-Date: 2023-08-07 12:46+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2024-02-05 19:01+0000\n"
+"Last-Translator: David <dawin@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tilix/"
 "translations/de/>\n"
 "Language: de\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:4
 #: data/pkg/desktop/com.gexperts.Tilix.desktop.in:4
@@ -110,6 +110,8 @@ msgstr "Diese Version fügt folgende Funktionen hinzu:"
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:61
 msgid "Disable advanced paste when there is no linebreak like iTerm2"
 msgstr ""
+"Erweitertes Einfügen deaktivieren, wenn es keinen Zeilenumbruch gibt wie bei "
+"iTerm2"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:62
 msgid "Add environment variable when in quake mode"
@@ -130,11 +132,11 @@ msgstr "In dieser Version werden die folgenden Fehler behoben:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:67
 msgid "More appdata -&gt; metainfo move"
-msgstr ""
+msgstr "Mehr appdata -&gt; metainfo Verschiebung"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:68
 msgid "Add meson target for man page translations"
-msgstr ""
+msgstr "Meson-Ziel für Manpage-Übersetzungen hinzugefügt"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:69
 msgid "Update flatpak manifest"
@@ -142,28 +144,31 @@ msgstr "Flatpak-Manifest überarbeiten"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:70
 msgid "meson: drop unused argument for i18n.merge_file()"
-msgstr ""
+msgstr "meson: unbenutztes Argument für i18n.merge_file() entfernt"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:71
 msgid "Stop using deprecated Meson features"
-msgstr ""
+msgstr "Keine Nutzung veralteter Meson-Funktionen mehr"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:72
 msgid ""
 "Keep quake window open if focus is restored before timeout has been reached"
 msgstr ""
+"Quake-Fenster offen halten, wenn der Fokus wiederhergestellt wird, bevor die "
+"Zeitüberschreitung erreicht ist"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:73
 msgid "Don't check GtkDragResult"
-msgstr ""
+msgstr "GtkDragResult nicht prüfen"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:74
 msgid "Don't add application/x-rootwindow-drop to dragSourceSet targets"
 msgstr ""
+"Füge application/x-rootwindow-drop nicht zu den dragSourceSet-Zielen hinzu"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:76
 msgid "With contributions from:"
-msgstr ""
+msgstr "Mit Beiträgen von:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:77
 msgid ""
@@ -177,22 +182,25 @@ msgid ""
 "maintenance is done, no new features will be implemented and pull-requests "
 "may be reviewed very slowly."
 msgstr ""
+"Tilix sucht nach Maintainern! Im Moment wird es nur minimal gepflegt, es "
+"werden keine neuen Funktionen eingebaut und pull-requests können nur sehr "
+"langsam bearbeitet werden."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:84
 msgid "If you are interested in helping Tilix, please chime in!"
-msgstr ""
+msgstr "Falls du interessiert bist, Tilix zu helfen, dann melde dich bitte!"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:87
 msgid "Actually install Yaru color scheme"
-msgstr ""
+msgstr "Yaru-Farbschema tatsächlich installieren"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:88
 msgid "Give every tab the ${title}"
-msgstr ""
+msgstr "Gib jedem Reiter den Titel ${title}"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:89
 msgid "Add option to strip trailing whitespace on paste"
-msgstr ""
+msgstr "Füge Option hinzu, die anhängende Leerzeichen beim einfügen entfernt"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:93
 msgid "Fix saving of already saved session"
@@ -200,69 +208,74 @@ msgstr "Speichern einer bereits gespeicherten Sitzung behoben"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:94
 msgid "Add shortcut to \"Unselect all\""
-msgstr ""
+msgstr "Füge Tastenkombination \"Alles Deselektieren\" hinzu"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:95
 msgid "Many Meson buildsystem fixes"
-msgstr ""
+msgstr "Viele Korrekturen am Meson-Buildsystem"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:96
 msgid "Avoid missing the previous command exit code when encoding URLs"
 msgstr ""
+"Vermeide das Übersehen des vorherigen Befehls-Exit-Codes beim Kodieren von "
+"URLs"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:97
 msgid "Resolve some D deprecation messages"
-msgstr ""
+msgstr "Behebung einiger D Veraltungsmeldungen"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:98
 msgid "Mention powerline/fonts in README"
-msgstr ""
+msgstr "Erwähnung von Powerline/Schriftarten in README"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:99
 msgid "Avoid calling `values()` on a shared object"
-msgstr ""
+msgstr "Vermeide den Aufruf von `values()` auf einem gemeinsamen Objekt"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:100
 msgid "Update metainfo data"
-msgstr ""
+msgstr "Metainfo-Daten aktualisiert"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:101
 msgid "Drop compat code for older D frontend versions"
-msgstr ""
+msgstr "Entfernen des Kompatibilitätscodes für ältere D-Frontend-Versionen"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:102
 msgid "Bump minimum VTE version to 0.46"
-msgstr ""
+msgstr "Erhöhung der minimalen VTE-Version auf 0.46"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:103
 msgid "Remove deprecated Autotools support"
-msgstr ""
+msgstr "Veraltete Autotools-Unterstützung wurde entfernt"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:104
 msgid "Add release notes, NEWS file, automatic metainfo update"
 msgstr ""
+"Hinzufügen von Versionshinweisen, NEWS-Datei, automatisches Metainfo-Update"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:105
 msgid "Update to GtkD 3.9.0"
-msgstr ""
+msgstr "Update auf GtkD 3.9.0"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:107
 msgid "This release updates translations."
-msgstr ""
+msgstr "Diese Version aktualisiert die Übersetzungen."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:112
 msgid "This release fixes the following bug:"
-msgstr ""
+msgstr "Diese Version korrigiert die Folgenden Fehler:"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:114
 msgid ""
 "Fixes a problem with the session sidebar getting out of sync after having "
 "deleted a session. See issues #1680, #1637 and #1699."
 msgstr ""
+"Behebt ein Problem, bei dem die Sitzungs-Seitenleiste nach dem Löschen einer "
+"Sitzung nicht mehr synchron war. Siehe Probleme #1680, #1637 und #1699."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:122
 msgid "Remove app menu for gnome 3.32"
-msgstr ""
+msgstr "App-Menü für Gnome 3.32 entfernen"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:123
 msgid "Update icon"
@@ -270,19 +283,19 @@ msgstr "Icon aktualisiert"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:124
 msgid "Minor fixes"
-msgstr ""
+msgstr "Kleinere Korrekturen"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:132
 msgid "Small release to update localizations"
-msgstr ""
+msgstr "Kleine Version um die Lokalisation zu aktualisieren"
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:133
 msgid "Update to GtkD 3.8.5 to fix library name in GtkD."
-msgstr ""
+msgstr "Update auf GtkD 3.8.5 um den Bibliotheksnamen in GtkD zu korrigieren."
 
 #: data/metainfo/com.gexperts.Tilix.appdata.xml.rel.in:139
 msgid "Some new features and bug fixes."
-msgstr ""
+msgstr "Einige neue Funktionen und Fehler-Korrekturen."
 
 # ******************
 # Nautilus extension
@@ -363,10 +376,9 @@ msgid "Open preferences"
 msgstr "Einstellungsdialog öffnen"
 
 #: data/resources/ui/shortcuts.ui:37
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show keyboard shortcuts"
-msgstr "Tastenkombinationen"
+msgstr "Tastaturkürzel anzeigen"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
@@ -2819,9 +2831,8 @@ msgid "Find previous"
 msgstr "Vorheriger Treffer"
 
 #: source/gx/tilix/terminal/search.d:155
-#, fuzzy
 msgid "Close search box"
-msgstr "Sitzung schließen"
+msgstr "Suchfeld schließen"
 
 #: source/gx/tilix/terminal/search.d:205
 msgid "Match case"
