@@ -46,14 +46,14 @@ jobs:
       run: dub test --compiler=$DC
 
 
-  build-debian-testing:
-    name: Debian Testing
+  build-debian-bookworm:
+    name: Debian Bookworm
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-testing .
+      run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-bookworm .
 
     - name: Build
       run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
