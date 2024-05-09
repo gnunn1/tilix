@@ -1,7 +1,7 @@
 #
 # Docker file for Tilix CI tests on Debian Testing
 #
-FROM debian:testing
+FROM debian:bookworm
 
 # prepare
 RUN mkdir -p /build/ci/
