@@ -79,6 +79,7 @@ install_data(
 install_data(
     [
         'schemes/base16-twilight-dark.json',
+        'schemes/github-dark.json'
         'schemes/linux.json',
         'schemes/material.json',
         'schemes/monokai.json',
