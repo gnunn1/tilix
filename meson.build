@@ -9,8 +9,13 @@ compiler = meson.get_compiler('d')
 if compiler.get_id() == 'llvm'
   d_extra_args = ['-vcolumns']
   d_link_args = []
-else
-  d_extra_args = []
+elif compiler.get_id() == 'dmd'
+  # Workaround for https://issues.dlang.org/show_bug.cgi?id=20668
+  d_extra_args = ['-allinst']
+  d_link_args = []
+elif compiler.get_id() == 'gcc'
+  # Workaround for https://issues.dlang.org/show_bug.cgi?id=20668
+  d_extra_args = ['-fall-instantiations']
   d_link_args = []
 endif
 
