@@ -282,7 +282,7 @@ private:
         bProfileTitle.add(new Separator(Orientation.HORIZONTAL));
         Label lblProfileTitle = new Label(format("<b>%s</b>",_("Profiles")));
         lblProfileTitle.setUseMarkup(true);
-        lblProfileTitle.setHalign(Align.START);
+        lblProfileTitle.setHalign(GtkAlign.START);
         lblProfileTitle.setSensitive(false);
         setAllMargins(row, 6);
         bProfileTitle.add(lblProfileTitle);
@@ -480,7 +480,7 @@ public:
         _title = title;
 
         Label label = new Label(_(name));
-        label.setHalign(Align.START);
+        label.setHalign(GtkAlign.START);
         setAllMargins(label, 6);
         add(label);
     }
@@ -515,7 +515,7 @@ private:
         setAllMargins(box, 6);
 
         lblName = new Label(profile.name);
-        lblName.setHalign(Align.START);
+        lblName.setHalign(GtkAlign.START);
         box.packStart(lblName, true, true, 2);
 
         MenuButton btnMenu = new MenuButton();
@@ -635,7 +635,7 @@ private:
         setMarginBottom(18);
 
         Label lblEncoding = new Label(_("Encodings showing in menu:"));
-        lblEncoding.setHalign(Align.START);
+        lblEncoding.setHalign(GtkAlign.START);
         add(lblEncoding);
 
         string[] menuEncodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
@@ -1176,7 +1176,7 @@ class AppearancePreferences: Box {
             bWindowStyle.add(cbWindowStyle);
 
             Label lblRestart = new Label(_("Window restart required"));
-            lblRestart.setHalign(Align.START);
+            lblRestart.setHalign(GtkAlign.START);
             lblRestart.setSensitive(false);
             bWindowStyle.add(lblRestart);
 
@@ -1256,7 +1256,7 @@ class AppearancePreferences: Box {
 
             //Session Name
             Label lblSessionName = new Label(_("Default session name"));
-            lblSessionName.setHalign(Align.END);
+            lblSessionName.setHalign(GtkAlign.END);
             grid.attach(lblSessionName, 0, row, 1, 1);
 
             Entry eSessionName = new Entry();
@@ -1271,7 +1271,7 @@ class AppearancePreferences: Box {
 
             //Application Title
             Label lblAppTitle = new Label(_("Application title"));
-            lblAppTitle.setHalign(Align.END);
+            lblAppTitle.setHalign(GtkAlign.END);
             grid.attach(lblAppTitle, 0, row, 1, 1);
 
             Entry eAppTitle = new Entry();
@@ -1347,7 +1347,7 @@ private:
 
         Label lblSize = new Label(format("<b>%s</b>", _("Size")));
         lblSize.setUseMarkup(true);
-        lblSize.setHalign(Align.START);
+        lblSize.setHalign(GtkAlign.START);
         add(lblSize);
 
         Grid grid = new Grid();
@@ -1360,7 +1360,7 @@ private:
         Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 90, 10);
         sHeight.setValuePos(GtkPositionType.RIGHT);
         sHeight.setHexpand(true);
-        sHeight.setHalign(Align.FILL);
+        sHeight.setHalign(GtkAlign.FILL);
         bh.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
         grid.attach(sHeight, 1, row, 1, 1);
         row++;
@@ -1371,7 +1371,7 @@ private:
             Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
             sWidth.setValuePos(GtkPositionType.RIGHT);
             sWidth.setHexpand(true);
-            sWidth.setHalign(Align.FILL);
+            sWidth.setHalign(GtkAlign.FILL);
             bh.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
             grid.attach(sWidth, 1, row, 1, 1);
             row++;
@@ -1402,7 +1402,7 @@ private:
 
         Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
         lblOptions.setUseMarkup(true);
-        lblOptions.setHalign(Align.START);
+        lblOptions.setHalign(GtkAlign.START);
         add(lblOptions);
 
         Box bContent = new Box(Orientation.VERTICAL, 6);
@@ -1532,7 +1532,7 @@ private:
 
         Label lblBehavior = new Label(format("<b>%s</b>", _("Behavior")));
         lblBehavior.setUseMarkup(true);
-        lblBehavior.setHalign(Align.START);
+        lblBehavior.setHalign(GtkAlign.START);
         add(lblBehavior);
 
         //Prompt on new session
@@ -1591,7 +1591,7 @@ private:
         Box bNewInstance = new Box(Orientation.HORIZONTAL, 6);
 
         Label lblNewInstance = new Label(_("On new instance"));
-        lblNewInstance.setHalign(Align.END);
+        lblNewInstance.setHalign(GtkAlign.END);
         bNewInstance.add(lblNewInstance);
         ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down"), _("Focus Window")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
         bh.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
@@ -1601,7 +1601,7 @@ private:
         // *********** Clipboard Options
         Label lblClipboard = new Label(format("<b>%s</b>", _("Clipboard")));
         lblClipboard.setUseMarkup(true);
-        lblClipboard.setHalign(Align.START);
+        lblClipboard.setHalign(GtkAlign.START);
         add(lblClipboard);
 
         //Advacned paste is default
@@ -1653,7 +1653,7 @@ private:
     void createUI() {
         setAllMargins(this, 18);
         Grid grid = new Grid();
-        grid.setHalign(Align.FILL);
+        grid.setHalign(GtkAlign.FILL);
         grid.setColumnSpacing(12);
         grid.setRowSpacing(6);
 
