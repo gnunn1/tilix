@@ -47,12 +47,12 @@ public:
 
         Label lblActive = new Label(format("<b>%s</b>", _("Active")));
         lblActive.setUseMarkup(true);
-        lblActive.setHalign(Align.START);
+        lblActive.setHalign(GtkAlign.START);
         grid.attach(lblActive, 0, row, 2, 1);
         row++;
 
         Label lblTitle = new Label(_("Title"));
-        lblTitle.setHalign(Align.END);
+        lblTitle.setHalign(GtkAlign.END);
         grid.attach(lblTitle, 0, row, 1, 1);
         eTitle = new Entry();
         eTitle.setWidthChars(20);
@@ -66,7 +66,7 @@ public:
 
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
             Label lblBadge = new Label(_("Badge"));
-            lblBadge.setHalign(Align.END);
+            lblBadge.setHalign(GtkAlign.END);
             grid.attach(lblBadge, 0, row, 1, 1);
             eBadge = new Entry();
             eBadge.setHexpand(true);
@@ -81,13 +81,13 @@ public:
 
         Label lblLoad = new Label(format("<b>%s</b>", _("Session Load")));
         lblLoad.setUseMarkup(true);
-        lblLoad.setHalign(Align.START);
+        lblLoad.setHalign(GtkAlign.START);
         lblLoad.setMarginTop(6);
         grid.attach(lblLoad, 0, row, 2, 1);
         row++;
 
         Label lblCommand = new Label(_("Command"));
-        lblCommand.setHalign(Align.END);
+        lblCommand.setHalign(GtkAlign.END);
 
         grid.attach(lblCommand, 0, row, 1, 1);
         eCommand = new Entry();

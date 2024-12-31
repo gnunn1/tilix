@@ -107,7 +107,7 @@ for more information.
 #### Build Dependencies
 
 Tilix depends on the following libraries as defined in dub.json:
-* [gtkd](http://gtkd.org/) >= 3.8.2
+* [gtkd](http://gtkd.org/) >= 3.11.0
 * gdk-pixbuf-pixdata (Used when building resource file)
 
 ### Install Tilix

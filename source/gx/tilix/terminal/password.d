@@ -429,7 +429,7 @@ private:
         int row = 0;
         // Name (i.e. Label in libsecret parlance)
         lblName = new Label(_("Name"));
-        lblName.setHalign(Align.END);
+        lblName.setHalign(GtkAlign.END);
         grid.attach(lblName, 0, row, 1, 1);
         eLabel = new Entry();
         eLabel.setWidthChars(40);
@@ -439,7 +439,7 @@ private:
 
         //Password
         lblPassword = new Label(_("Password"));
-        lblPassword.setHalign(Align.END);
+        lblPassword.setHalign(GtkAlign.END);
         grid.attach(lblPassword, 0, row, 1, 1);
         ePassword = new Entry();
         ePassword.setVisibility(false);
@@ -449,7 +449,7 @@ private:
 
         //Confirm Password
         lblRepeatPwd = new Label(_("Confirm Password"));
-        lblRepeatPwd.setHalign(Align.END);
+        lblRepeatPwd.setHalign(GtkAlign.END);
         grid.attach(lblRepeatPwd, 0, row, 1, 1);
         eConfirmPassword = new Entry();
         eConfirmPassword.setVisibility(false);
@@ -460,7 +460,7 @@ private:
         lblMatch = new Label("Password does not match confirmation");
         lblMatch.setSensitive(false);
         lblMatch.setNoShowAll(true);
-        lblMatch.setHalign(Align.CENTER);
+        lblMatch.setHalign(GtkAlign.CENTER);
         grid.attach(lblMatch, 1, row, 1, 1);
 
         with (getContentArea()) {

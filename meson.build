@@ -96,8 +96,8 @@ tilix_sources = [
 sources_dir = include_directories('source/')
 
 # Dependencies
-gtkd_dep = dependency('gtkd-3', version: '>=3.8.5')
-vted_dep = dependency('vted-3', version: '>=3.8.5')
+gtkd_dep = dependency('gtkd-3', version: '>=3.11.0')
+vted_dep = dependency('vted-3', version: '>=3.11.0')
 xlib_dep = dependency('x11')
 libsecret_dep = dependency('libsecret-1', required: false)
 
