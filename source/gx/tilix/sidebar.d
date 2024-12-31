@@ -276,10 +276,10 @@ private:
     void setSidebarPosition() {
         if (gsSettings.getBoolean(SETTINGS_SIDEBAR_RIGHT)) {
             setTransitionType(RevealerTransitionType.SLIDE_LEFT);
-            setHalign(Align.END);
+            setHalign(GtkAlign.END);
         } else {
             setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
-            setHalign(Align.START);
+            setHalign(GtkAlign.START);
         }
     }
 
@@ -300,7 +300,7 @@ public:
 
         setHexpand(false);
         setVexpand(true);
-        setValign(Align.FILL);
+        setValign(GtkAlign.FILL);
         setSidebarPosition();
 
         lbSessions = new ListBox();
@@ -524,7 +524,7 @@ private:
         lblName.setMarginLeft(2);
         lblName.setMarginRight(2);
         lblName.setEllipsize(PangoEllipsizeMode.END);
-        lblName.setHalign(Align.CENTER);
+        lblName.setHalign(GtkAlign.CENTER);
         lblName.setHexpand(true);
         lblName.setSensitive(false);
         lblName.getStyleContext().addClass("tilix-session-name");
@@ -534,7 +534,7 @@ private:
         grid.attach(b, 1, 2, 1, 1);
 
         lblIndex = new Label(format("%d", 0));
-        lblIndex.setValign(Align.END);
+        lblIndex.setValign(GtkAlign.END);
         lblIndex.setVexpand(false);
         setAllMargins(lblIndex, 4);
         lblIndex.setWidthChars(2);

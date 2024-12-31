@@ -217,7 +217,7 @@ protected:
 
     Label createLabel(string text) {
         Label result = new Label(text);
-        result.setHalign(Align.END);
+        result.setHalign(GtkAlign.END);
         return result;
     }
 

@@ -381,7 +381,7 @@ private:
 
 Label createErrorLabel() {
     Label lblErrors = new Label("");
-    lblErrors.setHalign(Align.START);
+    lblErrors.setHalign(GtkAlign.START);
     lblErrors.setMarginTop(12);
     lblErrors.getStyleContext().addClass("tilix-error");
     lblErrors.setNoShowAll(true);

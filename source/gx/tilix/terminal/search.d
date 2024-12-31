@@ -79,11 +79,11 @@ private:
 
         setHexpand(true);
         setVexpand(false);
-        setHalign(Align.FILL);
-        setValign(Align.START);
+        setHalign(GtkAlign.FILL);
+        setValign(GtkAlign.START);
 
         Box bSearch = new Box(Orientation.HORIZONTAL, 6);
-        bSearch.setHalign(Align.CENTER);
+        bSearch.setHalign(GtkAlign.CENTER);
         bSearch.setMarginLeft(4);
         bSearch.setMarginRight(4);
         bSearch.setMarginTop(4);

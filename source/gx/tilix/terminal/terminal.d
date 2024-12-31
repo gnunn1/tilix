@@ -4273,9 +4273,9 @@ public:
         super([_("Relaunch")], [ResponseType.OK]);
         lblPrompt = new Label("");
         getContentArea().packStart(lblPrompt, true, true, 0);
-        lblPrompt.setHalign(Align.START);
-        setHalign(Align.FILL);
-        setValign(Align.START);
+        lblPrompt.setHalign(GtkAlign.START);
+        setHalign(GtkAlign.FILL);
+        setValign(GtkAlign.START);
         trace("Infobar created");
         addOnMap(delegate(Widget) {
             setDefaultResponse(ResponseType.OK);
@@ -4321,7 +4321,7 @@ public:
 
         Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
         lblCmd.setUseMarkup(true);
-        lblCmd.setHalign(Align.START);
+        lblCmd.setHalign(GtkAlign.START);
         lblCmd.setEllipsize(PangoEllipsizeMode.END);
 
         if (count(cmd,"\n") > 6) {

@@ -91,7 +91,7 @@ private:
         Box box = new Box(Orientation.VERTICAL, 6);
 
         Label lbl = new Label("There are processes still running as shown below, close anyway?");
-        lbl.setHalign(Align.START);
+        lbl.setHalign(GtkAlign.START);
         lbl.setMarginBottom(6);
         box.add(lbl);
 

@@ -62,17 +62,17 @@ private:
     bool controlRequired;
 
     void createUI() {
-        setHalign(Align.FILL);
+        setHalign(GtkAlign.FILL);
         
         lblTitle = new Label(_(APPLICATION_NAME));
-        lblTitle.setHalign(Align.CENTER);
+        lblTitle.setHalign(GtkAlign.CENTER);
         lblTitle.getStyleContext().addClass("title");
         lblTitle.setEllipsize(PangoEllipsizeMode.START);
         eb = new EventBox();
         eb.addOnButtonPress(&onButtonPress);
         eb.addOnButtonRelease(&onButtonRelease);
         eb.add(lblTitle);
-        eb.setHalign(Align.FILL);
+        eb.setHalign(GtkAlign.FILL);
         addNamed(eb, PAGE_LABEL);
         
         eTitle = new Entry();
