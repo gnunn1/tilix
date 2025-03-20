@@ -215,7 +215,7 @@ protected:
 
         //Profile Name
         Label lblName = new Label(_("Profile name"));
-        lblName.setHalign(Align.END);
+        lblName.setHalign(GtkAlign.END);
         grid.attach(lblName, 0, row, 1, 1);
         Entry eName = new Entry();
         // Catch and pass name changes up to preferences dialog
@@ -232,14 +232,14 @@ protected:
         row++;
         //Profile ID
         lblId = new Label("");
-        // lblId.setHalign(Align.START);
+        // lblId.setHalign(GtkAlign.START);
         // lblId.setSensitive(false);
         // grid.attach(lblId, 1, row, 1, 1);
         // row++;
 
         //Terminal Title
         Label lblTerminalTitle = new Label(_("Terminal title"));
-        lblTerminalTitle.setHalign(Align.END);
+        lblTerminalTitle.setHalign(GtkAlign.END);
         grid.attach(lblTerminalTitle, 0, row, 1, 1);
         Entry eTerminalTitle = new Entry();
         eTerminalTitle.setHexpand(true);
@@ -253,14 +253,14 @@ protected:
 
         Label lblTextTitle = new Label(format("<b>%s</b>", _("Text Appearance")));
         lblTextTitle.setUseMarkup(true);
-        lblTextTitle.setHalign(Align.START);
+        lblTextTitle.setHalign(GtkAlign.START);
         lblTextTitle.setMarginTop(6);
         grid.attach(lblTextTitle, 0, row, 2, 1);
         row++;
 
         //Terminal Size
         Label lblSize = new Label(_("Terminal size"));
-        lblSize.setHalign(Align.END);
+        lblSize.setHalign(GtkAlign.END);
         grid.attach(lblSize, 0, row, 1, 1);
         SpinButton sbColumn = new SpinButton(16, 511, 1);
         bh.bind(SETTINGS_PROFILE_SIZE_COLUMNS_KEY, sbColumn, "value", GSettingsBindFlags.DEFAULT);
@@ -299,7 +299,7 @@ protected:
         //Terminal Spacing
         if (checkVTEVersion(VTE_VERSION_CELL_SCALE)) {
             Label lblSpacing = new Label(_("Cell spacing"));
-            lblSpacing.setHalign(Align.END);
+            lblSpacing.setHalign(GtkAlign.END);
             grid.attach(lblSpacing, 0, row, 1, 1);
             SpinButton sbWidthSpacing = new SpinButton(1.0, 2.0, 0.1);
             bh.bind(SETTINGS_PROFILE_CELL_WIDTH_SCALE_KEY, sbWidthSpacing, "value", GSettingsBindFlags.DEFAULT);
@@ -345,7 +345,7 @@ protected:
 
         if (isVTEBackgroundDrawEnabled()) {
             Label lblMargin = new Label(_("Margin"));
-            lblMargin.setHalign(Align.END);
+            lblMargin.setHalign(GtkAlign.END);
             grid.attach(lblMargin, 0, row, 1, 1);
             SpinButton sbMargin = new SpinButton(0.0, 256.0, 4);
             bh.bind(SETTINGS_PROFILE_MARGIN_KEY, sbMargin, "value", GSettingsBindFlags.DEFAULT);
@@ -356,7 +356,7 @@ protected:
         if (checkVTEVersion(VTE_VERSION_TEXT_BLINK_MODE)) {
             //Text Blink Mode
             Label lblTextBlinkMode = new Label(_("Text blink mode"));
-            lblTextBlinkMode.setHalign(Align.END);
+            lblTextBlinkMode.setHalign(GtkAlign.END);
             grid.attach(lblTextBlinkMode, 0, row, 1, 1);
             ComboBox cbTextBlinkMode = createNameValueCombo([_("Never"), _("Focused"), _("Unfocused"), _("Always")], SETTINGS_PROFILE_TEXT_BLINK_MODE_VALUES);
             bh.bind(SETTINGS_PROFILE_TEXT_BLINK_MODE_KEY, cbTextBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
@@ -378,7 +378,7 @@ protected:
 
         //Custom Font
         Label lblCustomFont = new Label(_("Custom font"));
-        lblCustomFont.setHalign(Align.END);
+        lblCustomFont.setHalign(GtkAlign.END);
         grid.attach(lblCustomFont, 0, row, 1, 1);
 
 
@@ -399,7 +399,7 @@ protected:
 
         //Select-by-word-chars
         Label lblSelectByWordChars = new Label(_("Word-wise select chars"));
-        lblSelectByWordChars.setHalign(Align.END);
+        lblSelectByWordChars.setHalign(GtkAlign.END);
         grid.attach(lblSelectByWordChars, 0, row, 1, 1);
         Entry eSelectByWordChars = new Entry();
         bh.bind(SETTINGS_PROFILE_WORD_WISE_SELECT_CHARS_KEY, eSelectByWordChars, "text", GSettingsBindFlags.DEFAULT);
@@ -408,14 +408,14 @@ protected:
 
         Label lblCursorTitle = new Label(format("<b>%s</b>", _("Cursor")));
         lblCursorTitle.setUseMarkup(true);
-        lblCursorTitle.setHalign(Align.START);
+        lblCursorTitle.setHalign(GtkAlign.START);
         lblCursorTitle.setMarginTop(6);
         grid.attach(lblCursorTitle, 0, row, 2, 1);
         row++;
 
         //Cursor Shape
         Label lblCursorShape = new Label(_("Cursor"));
-        lblCursorShape.setHalign(Align.END);
+        lblCursorShape.setHalign(GtkAlign.END);
         grid.attach(lblCursorShape, 0, row, 1, 1);
         ComboBox cbCursorShape = createNameValueCombo([_("Block"), _("IBeam"), _("Underline")], [SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE,
                 SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE, SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE]);
@@ -426,7 +426,7 @@ protected:
 
         //Cursor Blink Mode
         Label lblCursorBlinkMode = new Label(_("Cursor blink mode"));
-        lblCursorBlinkMode.setHalign(Align.END);
+        lblCursorBlinkMode.setHalign(GtkAlign.END);
         grid.attach(lblCursorBlinkMode, 0, row, 1, 1);
         ComboBox cbCursorBlinkMode = createNameValueCombo([_("System"), _("On"), _("Off")], SETTINGS_PROFILE_CURSOR_BLINK_MODE_VALUES);
         bh.bind(SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, cbCursorBlinkMode, "active-id", GSettingsBindFlags.DEFAULT);
@@ -436,13 +436,13 @@ protected:
         Label lblNotifyTitle = new Label(format("<b>%s</b>", _("Notification")));
         lblNotifyTitle.setMarginTop(6);
         lblNotifyTitle.setUseMarkup(true);
-        lblNotifyTitle.setHalign(Align.START);
+        lblNotifyTitle.setHalign(GtkAlign.START);
         grid.attach(lblNotifyTitle, 0, row, 2, 1);
         row++;
 
         //Terminal Bell
         Label lblBell = new Label(_("Terminal bell"));
-        lblBell.setHalign(Align.END);
+        lblBell.setHalign(GtkAlign.END);
         grid.attach(lblBell, 0, row, 1, 1);
         ComboBox cbBell = createNameValueCombo([_("None"), _("Sound"), _("Icon"), _("Icon and sound")], SETTINGS_PROFILE_TERMINAL_BELL_VALUES);
         bh.bind(SETTINGS_PROFILE_TERMINAL_BELL_KEY, cbBell, "active-id", GSettingsBindFlags.DEFAULT);
@@ -512,7 +512,7 @@ private:
         int row = 0;
         Label lblScheme = new Label(format("<b>%s</b>", _("Color scheme")));
         lblScheme.setUseMarkup(true);
-        lblScheme.setHalign(Align.END);
+        lblScheme.setHalign(GtkAlign.END);
         grid.attach(lblScheme, 0, row, 1, 1);
 
         cbScheme = new ComboBoxText(false);
@@ -521,7 +521,7 @@ private:
             cbScheme.append(scheme.id, scheme.name);
         }
         cbScheme.append("custom", _("Custom"));
-        cbScheme.setHalign(Align.FILL);
+        cbScheme.setHalign(GtkAlign.FILL);
         cbScheme.setHexpand(true);
         schemeOnChangedHandle = cbScheme.addOnChanged(delegate(ComboBoxText cb) {
             if (cb.getActive >= 0) {
@@ -537,7 +537,7 @@ private:
         btnExport.addOnClicked(&exportColorScheme);
 
         Box bScheme = new Box(Orientation.HORIZONTAL, 6);
-        bScheme.setHalign(Align.FILL);
+        bScheme.setHalign(GtkAlign.FILL);
         bScheme.setHexpand(true);
         bScheme.add(cbScheme);
         bScheme.add(btnExport);
@@ -547,16 +547,16 @@ private:
 
         Label lblPalette = new Label(format("<b>%s</b>", _("Color palette")));
         lblPalette.setUseMarkup(true);
-        lblPalette.setHalign(Align.END);
-        lblPalette.setValign(Align.START);
+        lblPalette.setHalign(GtkAlign.END);
+        lblPalette.setValign(GtkAlign.START);
         grid.attach(lblPalette, 0, row, 1, 1);
         grid.attach(createColorGrid(row), 1, row, 1, 1);
         row++;
 
         Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
         lblOptions.setUseMarkup(true);
-        lblOptions.setValign(Align.START);
-        lblOptions.setHalign(Align.END);
+        lblOptions.setValign(GtkAlign.START);
+        lblOptions.setHalign(GtkAlign.END);
         grid.attach(lblOptions, 0, row, 1, 1);
         grid.attach(createOptions(), 1, row, 1, 1);
         row++;
@@ -590,28 +590,28 @@ private:
         GSettings gsSettings = new GSettings(SETTINGS_ID);
         if (gsSettings.getBoolean(SETTINGS_ENABLE_TRANSPARENCY_KEY)) {
             Label lblTransparent = new Label(_("Transparency"));
-            lblTransparent.setHalign(Align.END);
+            lblTransparent.setHalign(GtkAlign.END);
             lblTransparent.setHexpand(false);
             gSliders.attach(lblTransparent, 0, row, 1, 1);
 
             Scale sTransparent = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
             sTransparent.setDrawValue(false);
             sTransparent.setHexpand(true);
-            sTransparent.setHalign(Align.FILL);
+            sTransparent.setHalign(GtkAlign.FILL);
             bh.bind(SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, sTransparent.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
             gSliders.attach(sTransparent, 1, row, 1, 1);
             row++;
         }
 
         Label lblDim = new Label(_("Unfocused dim"));
-        lblDim.setHalign(Align.END);
+        lblDim.setHalign(GtkAlign.END);
         lblDim.setHexpand(false);
         gSliders.attach(lblDim, 0, row, 1, 1);
 
         Scale sDim = new Scale(Orientation.HORIZONTAL, 0, 100, 10);
         sDim.setDrawValue(false);
         sDim.setHexpand(true);
-        sDim.setHalign(Align.FILL);
+        sDim.setHalign(GtkAlign.FILL);
         bh.bind(SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY, sDim.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
         gSliders.attach(sDim, 1, row, 1, 1);
 
@@ -631,7 +631,7 @@ private:
                 bh.bind(sensitiveKey, result, "sensitive", GSettingsBindFlags.GET | GSettingsBindFlags.NO_SENSITIVITY);
             }
             result.setTitle(title);
-            result.setHalign(Align.START);
+            result.setHalign(GtkAlign.START);
             result.addOnColorSet(delegate(ColorButton cb) {
                 if (!blockColorUpdates) {
                     setCustomScheme();
@@ -1067,7 +1067,7 @@ private:
 
         int row = 0;
         Label lblBackspace = new Label(_("Backspace key generates"));
-        lblBackspace.setHalign(Align.END);
+        lblBackspace.setHalign(GtkAlign.END);
         grid.attach(lblBackspace, 0, row, 1, 1);
         ComboBox cbBackspace = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
         bh.bind(SETTINGS_PROFILE_BACKSPACE_BINDING_KEY, cbBackspace, "active-id", GSettingsBindFlags.DEFAULT);
@@ -1076,7 +1076,7 @@ private:
         row++;
 
         Label lblDelete = new Label(_("Delete key generates"));
-        lblDelete.setHalign(Align.END);
+        lblDelete.setHalign(GtkAlign.END);
         grid.attach(lblDelete, 0, row, 1, 1);
         ComboBox cbDelete = createNameValueCombo([_("Automatic"), _("Control-H"), _("ASCII DEL"), _("Escape sequence"), _("TTY")], SETTINGS_PROFILE_ERASE_BINDING_VALUES);
         bh.bind(SETTINGS_PROFILE_DELETE_BINDING_KEY, cbDelete, "active-id", GSettingsBindFlags.DEFAULT);
@@ -1085,7 +1085,7 @@ private:
         row++;
 
         Label lblEncoding = new Label(_("Encoding"));
-        lblEncoding.setHalign(Align.END);
+        lblEncoding.setHalign(GtkAlign.END);
         grid.attach(lblEncoding, 0, row, 1, 1);
         string[] key, value;
         key.length = encodings.length;
@@ -1100,7 +1100,7 @@ private:
         row++;
 
         Label lblCJK = new Label(_("Ambiguous-width characters"));
-        lblCJK.setHalign(Align.END);
+        lblCJK.setHalign(GtkAlign.END);
         grid.attach(lblCJK, 0, row, 1, 1);
         ComboBox cbCJK = createNameValueCombo([_("Narrow"), _("Wide")], SETTINGS_PROFILE_CJK_WIDTH_VALUES);
         bh.bind(SETTINGS_PROFILE_CJK_WIDTH_KEY, cbCJK, "active-id", GSettingsBindFlags.DEFAULT);
@@ -1173,7 +1173,7 @@ class BadgePage: ProfilePage {
 
         //Badge text
         Label lblBadge = new Label(_("Badge"));
-        lblBadge.setHalign(Align.END);
+        lblBadge.setHalign(GtkAlign.END);
         grid.attach(lblBadge, 0, row, 1, 1);
         Entry eBadge = new Entry();
         eBadge.setHexpand(true);
@@ -1187,7 +1187,7 @@ class BadgePage: ProfilePage {
 
         //Badge Position
         Label lblBadgePosition = new Label(_("Badge position"));
-        lblBadgePosition.setHalign(Align.END);
+        lblBadgePosition.setHalign(GtkAlign.END);
         grid.attach(lblBadgePosition, 0, row, 1, 1);
 
         ComboBox cbBadgePosition = createNameValueCombo([_("Northwest"), _("Northeast"), _("Southwest"), _("Southeast")], SETTINGS_QUADRANT_VALUES);
@@ -1197,7 +1197,7 @@ class BadgePage: ProfilePage {
 
         //Custom Font
         Label lblCustomFont = new Label(_("Custom font"));
-        lblCustomFont.setHalign(Align.END);
+        lblCustomFont.setHalign(GtkAlign.END);
         grid.attach(lblCustomFont, 0, row, 1, 1);
 
 
@@ -1248,7 +1248,7 @@ private:
         //Notify silence threshold
         Label lblSilenceTitle = new Label(format("<b>%s</b>", _("Notify New Activity")));
         lblSilenceTitle.setUseMarkup(true);
-        lblSilenceTitle.setHalign(Align.START);
+        lblSilenceTitle.setHalign(GtkAlign.START);
         lblSilenceTitle.setMarginTop(12);
         grid.attach(lblSilenceTitle, 0, row, 3, 1);
         row++;
@@ -1268,7 +1268,7 @@ private:
         // Profile Switching
         Label lblProfileSwitching = new Label(format("<b>%s</b>", _("Automatic Profile Switching")));
         lblProfileSwitching.setUseMarkup(true);
-        lblProfileSwitching.setHalign(Align.START);
+        lblProfileSwitching.setHalign(GtkAlign.START);
         lblProfileSwitching.setMarginTop(12);
         grid.attach(lblProfileSwitching, 0, row, 3, 1);
         row++;
@@ -1361,7 +1361,7 @@ private:
         uint row = 0;
 
         Label lblSilence = new Label(_("Enable by default"));
-        lblSilence.setHalign(Align.END);
+        lblSilence.setHalign(GtkAlign.END);
         grid.attach(lblSilence, 0, row, 1, 1);
 
         CheckButton cbSilence = new CheckButton();
@@ -1370,7 +1370,7 @@ private:
         row++;
 
         Label lblSilenceDesc = new Label(_("Threshold for continuous silence"));
-        lblSilenceDesc.setHalign(Align.END);
+        lblSilenceDesc.setHalign(GtkAlign.END);
         grid.attach(lblSilenceDesc, 0, row, 1, 1);
 
         Box bSilence = new Box(Orientation.HORIZONTAL, 4);

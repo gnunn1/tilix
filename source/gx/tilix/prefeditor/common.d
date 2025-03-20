@@ -36,7 +36,7 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
     // Custom Links Section
     Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
     lblCustomLinks.setUseMarkup(true);
-    lblCustomLinks.setHalign(Align.START);
+    lblCustomLinks.setHalign(GtkAlign.START);
     grid.attach(lblCustomLinks, 0, row, 3, 1);
     row++;
 
@@ -44,8 +44,8 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
     grid.attach(createDescriptionLabel(customLinksDescription), 0, row, 2, 1);
 
     Button btnEditLink = new Button(_("Edit"));
-    btnEditLink.setHalign(Align.FILL);
-    btnEditLink.setValign(Align.CENTER);    
+    btnEditLink.setHalign(GtkAlign.FILL);
+    btnEditLink.setValign(GtkAlign.CENTER);    
 
     btnEditLink.addOnClicked(delegate(Button) {
         GSettings gs = scb();
@@ -66,7 +66,7 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
         // Triggers Section
         Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
         lblTriggers.setUseMarkup(true);
-        lblTriggers.setHalign(Align.START);
+        lblTriggers.setHalign(GtkAlign.START);
         lblTriggers.setMarginTop(12);
         grid.attach(lblTriggers, 0, row, 3, 1);
         row++;
@@ -75,8 +75,8 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
         grid.attach(createDescriptionLabel(triggersDescription), 0, row, 2, 1);
 
         Button btnEditTriggers = new Button(_("Edit"));
-        btnEditTriggers.setHalign(Align.FILL);
-        btnEditTriggers.setValign(Align.CENTER);    
+        btnEditTriggers.setHalign(GtkAlign.FILL);
+        btnEditTriggers.setValign(GtkAlign.CENTER);    
 
         btnEditTriggers.addOnClicked(delegate(Button) {
             GSettings gs = scb();
@@ -102,7 +102,7 @@ Label createDescriptionLabel(string desc) {
     lblDescription.setUseMarkup(true);
     lblDescription.setSensitive(false);
     lblDescription.setLineWrap(true);
-    lblDescription.setHalign(Align.START);
+    lblDescription.setHalign(GtkAlign.START);
     if (Version.checkVersion(3, 16, 0).length == 0) {
         lblDescription.setXalign(0.0);
     }

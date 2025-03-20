@@ -95,7 +95,7 @@ private:
 
         Label lblTransform = new Label(format("<b>%s</b>", _("Transform")));
         lblTransform.setUseMarkup(true);
-        lblTransform.setHalign(Align.START);
+        lblTransform.setHalign(GtkAlign.START);
         lblTransform.setMarginTop(6);
         b.add(lblTransform);
 
