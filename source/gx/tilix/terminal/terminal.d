@@ -1447,7 +1447,7 @@ private:
         dialog.showAll();
         if (dialog.run() == ResponseType.APPLY) {
             pasteText = dialog.text;
-            vte.feedChild(pasteText[0 .. $]);
+            vte.pasteText(pasteText[0 .. $]);
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
                 scrollToBottom();
             }
@@ -1488,9 +1488,9 @@ private:
 
         if (gsSettings.getBoolean(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY) && pasteText.length > 0 && (pasteText[0] == '#' || pasteText[0] == '$')) {
             pasteText = pasteText[1 .. $];
-            vte.feedChild(pasteText);
+            vte.pasteText(pasteText);
         } else if (stripTrailingWhitespace) {
-            vte.feedChild(pasteText);
+            vte.pasteText(pasteText);
         } else if (source == GDK_SELECTION_CLIPBOARD) {
             vte.pasteClipboard();
         } else {
@@ -4273,9 +4273,9 @@ public:
         super([_("Relaunch")], [ResponseType.OK]);
         lblPrompt = new Label("");
         getContentArea().packStart(lblPrompt, true, true, 0);
-        lblPrompt.setHalign(Align.START);
-        setHalign(Align.FILL);
-        setValign(Align.START);
+        lblPrompt.setHalign(GtkAlign.START);
+        setHalign(GtkAlign.FILL);
+        setValign(GtkAlign.START);
         trace("Infobar created");
         addOnMap(delegate(Widget) {
             setDefaultResponse(ResponseType.OK);
@@ -4321,7 +4321,7 @@ public:
 
         Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
         lblCmd.setUseMarkup(true);
-        lblCmd.setHalign(Align.START);
+        lblCmd.setHalign(GtkAlign.START);
         lblCmd.setEllipsize(PangoEllipsizeMode.END);
 
         if (count(cmd,"\n") > 6) {
