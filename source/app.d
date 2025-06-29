@@ -28,7 +28,7 @@ import gx.tilix.constants;
 
 int main(string[] args) {
     static if (USE_FILE_LOGGING) {
-        sharedLog = new FileLogger("/tmp/tilix.log");
+        sharedLog = new shared FileLogger("/tmp/tilix.log");
     }
 
     bool newProcess = false;
