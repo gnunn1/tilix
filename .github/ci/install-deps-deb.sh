@@ -26,6 +26,5 @@ eatmydata apt-get install -yq \
         libgtkd-3-dev \
         librsvg2-dev \
         libsecret-1-dev \
-        libunwind-dev \
         libvted-3-dev \
         po4a
