@@ -34,7 +34,7 @@ jobs:
                 libvte-2.91-dev
 
     - name: Install D compiler
-      uses: dlang-community/setup-dlang@v1
+      uses: dlang-community/setup-dlang@v2
       with:
         compiler: ${{ matrix.dc }}
 
