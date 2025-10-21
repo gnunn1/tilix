@@ -15,7 +15,7 @@ jobs:
         matrix:
           dc: [dmd-latest, ldc-latest]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Install System Dependencies
       run: |
@@ -49,7 +49,7 @@ jobs:
     name: Debian Testing
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Create Build Environment
       run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-testing .
@@ -67,7 +67,7 @@ jobs:
     name: Ubuntu LTS
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Create Build Environment
       run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-ubuntu-noble .
