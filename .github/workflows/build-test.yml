@@ -8,41 +8,22 @@ on:
 
 jobs:
 
-  build-dub-ubuntu:
-    name: Dub
+  build-debian-stable:
+    name: Debian Testing
     runs-on: ubuntu-latest
-    strategy:
-        matrix:
-          dc: [dmd-latest, ldc-latest]
     steps:
     - uses: actions/checkout@v5
 
-    - name: Install System Dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt-get install -yq \
-                dh-dlang \
-                libatk1.0-dev \
-                libcairo2-dev \
-                libglib2.0-dev \
-                libgtk-3-dev \
-                libpango1.0-dev \
-                librsvg2-dev \
-                libsecret-1-dev \
-                libgtksourceview-3.0-dev \
-                libpeas-dev \
-                libvte-2.91-dev
-
-    - name: Install D compiler
-      uses: dlang-community/setup-dlang@v2
-      with:
-        compiler: ${{ matrix.dc }}
+    - name: Create Build Environment
+      run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-stable .
 
     - name: Build
-      run: dub build --compiler=$DC
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-build.sh
 
     - name: Test
-      run: dub test --compiler=$DC
+      run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
+           ./.github/ci/run-tests.sh
 
 
   build-debian-testing:
@@ -79,3 +60,40 @@ jobs:
     - name: Test
       run: podman run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build tilix
            ./.github/ci/run-tests.sh
+
+
+  build-dub-ubuntu:
+    name: Dub
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          dc: [dmd-latest, ldc-latest]
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -yq \
+                dh-dlang \
+                libatk1.0-dev \
+                libcairo2-dev \
+                libglib2.0-dev \
+                libgtk-3-dev \
+                libpango1.0-dev \
+                librsvg2-dev \
+                libsecret-1-dev \
+                libgtksourceview-3.0-dev \
+                libpeas-dev \
+                libvte-2.91-dev
+
+    - name: Install D compiler
+      uses: dlang-community/setup-dlang@v2
+      with:
+        compiler: ${{ matrix.dc }}
+
+    - name: Build
+      run: dub build --compiler=$DC
+
+    - name: Test
+      run: dub test --compiler=$DC

@@ -1,7 +1,7 @@
 #
-# Docker file for Tilix CI tests on Ubuntu Noble
+# Docker file for Tilix CI tests on Debian Stable
 #
-FROM ubuntu:noble
+FROM debian:trixie
 
 # prepare
 RUN mkdir -p /build/ci/

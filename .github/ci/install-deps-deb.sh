@@ -21,10 +21,15 @@ eatmydata apt-get install -yq \
         ninja-build \
         appstream \
         desktop-file-utils \
-        dh-dlang \
         ldc \
-        libgtkd-3-dev \
+        libatk1.0-dev \
+        libcairo2-dev \
+        libglib2.0-dev \
+        libgtk-3-dev \
+        libpango1.0-dev \
         librsvg2-dev \
         libsecret-1-dev \
-        libvted-3-dev \
+        libgtksourceview-3.0-dev \
+        libpeas-dev \
+        libvte-2.91-dev \
         po4a
