@@ -21,6 +21,7 @@ eatmydata apt-get install -yq \
         ninja-build \
         appstream \
         desktop-file-utils \
+        git \
         ldc \
         libatk1.0-dev \
         libcairo2-dev \
