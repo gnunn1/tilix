@@ -1044,6 +1044,34 @@ private:
         vteHandlers ~= vte.addOnKeyPress(delegate(Event event, Widget widget) {
             if (vte is null) return false;
 
+            // If control-backspace is registered, convert it to control-*, which is
+            // used interchangeably in some terminal emulators,
+            // often for removing a word instead of a character.
+            if (gsProfile.getString(SETTINGS_PROFILE_CTRL_BACKSPACE_KEY) != SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[0] && (event.key.keyval == GdkKeysyms.GDK_BackSpace) && (event.key.state & ModifierType.CONTROL_MASK)) {
+                switch (gsProfile.getString(SETTINGS_PROFILE_CTRL_BACKSPACE_KEY)) {
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[1]: // ^w
+                        vte.feedChild("\u0017");
+                        return true;
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[2]: // ^h
+                        vte.feedChild("\u0008");
+                        return true;
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[3]: // ^?
+                        vte.feedChild("\u001F");
+                        return true;
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[4]: // DEL
+                        vte.feedChild("\u0007");
+                        return true;
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[5]: // ESC [ 3 ~
+                        vte.feedChild("\u001B\u005B\u0033\u007E");
+                        return true;
+                    case SETTINGS_PROFILE_CTRL_BACKSPACE_VALUES[6]: // DEL
+                        vte.feedChild("\u007F");
+                        return true;
+                    default:
+                        break;
+                }
+            }
+
             if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
                 glong row, column;
                 vte.getCursorPosition(column, row);
@@ -2491,6 +2519,7 @@ private:
             SETTINGS_PROFILE_BACKSPACE_BINDING_KEY,
             SETTINGS_PROFILE_DELETE_BINDING_KEY,
             SETTINGS_PROFILE_CJK_WIDTH_KEY, SETTINGS_PROFILE_ENCODING_KEY, SETTINGS_PROFILE_CURSOR_BLINK_MODE_KEY, //Only pass the one font key, will handle both cases
+            SETTINGS_PROFILE_CTRL_BACKSPACE_KEY,
             SETTINGS_PROFILE_FONT_KEY,
             SETTINGS_TERMINAL_TITLE_STYLE_KEY, SETTINGS_AUTO_HIDE_MOUSE_KEY,
             SETTINGS_PROFILE_USE_CURSOR_COLOR_KEY,
