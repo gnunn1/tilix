@@ -12,7 +12,7 @@ jobs:
     name: Debian Stable
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Create Build Environment
       run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-stable .
@@ -30,7 +30,7 @@ jobs:
     name: Debian Testing
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Create Build Environment
       run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-debian-testing .
@@ -48,7 +48,7 @@ jobs:
     name: Ubuntu LTS
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Create Build Environment
       run: cd .github/ci/ && podman build -t tilix -f ./Dockerfile-ubuntu-noble .
@@ -69,7 +69,7 @@ jobs:
         matrix:
           dc: [dmd-latest, ldc-latest]
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Install System Dependencies
       run: |
