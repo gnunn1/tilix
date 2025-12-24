@@ -14,72 +14,125 @@ import std.string;
 import std.typecons : No;
 import std.variant;
 
-import gdk.Event;
-import gdk.Screen;
+import gdk.event;
+import gdk.types;
+import gdk.screen;
+import gdk.types;
 
-import gio.Menu: GMenu = Menu;
-import gio.Settings: GSettings = Settings;
-import gio.SimpleAction;
-import gio.SimpleActionGroup;
+import gio.menu: Menu = Menu;
+import gio.settings: Settings = Settings;
+import gio.simple_action;
+import gio.simple_action_group;
+import gio.types;
 
-import glib.Variant: GVariant = Variant;
+import glib.variant: Variant = Variant;
 
-import gobject.ObjectG;
-import gobject.Signals;
-import gobject.Value;
+import gobject.object;
+import gobject.types;
+import gobject.global;
+import gobject.param_spec;
+import gobject.types;
+import gobject.value;
 
-import gtk.AccelGroup;
-import gtk.Application;
-import gtk.ApplicationWindow;
-import gtk.Box;
-import gtk.Button;
-import gtk.CellRendererAccel;
-import gtk.CellRendererText;
-import gtk.CellRendererToggle;
-import gtk.CheckButton;
-import gtk.ComboBox;
-import gtk.Dialog;
-import gtk.Entry;
-import gtk.FileChooserButton;
-import gtk.FileFilter;
-import gtk.Grid;
-import gtk.HeaderBar;
-import gtk.Image;
-import gtk.Label;
-import gtk.ListBox;
-import gtk.ListBoxRow;
-import gtk.ListStore;
-import gtk.MenuButton;
-import gtk.MessageDialog;
-import gtk.Popover;
-import gtk.Revealer;
-import gtk.Scale;
-import gtk.ScrolledWindow;
-import gtk.SearchEntry;
-import gtk.Separator;
-import gtk.Settings;
-import gtk.SizeGroup;
-import gtk.SpinButton;
-import gtk.Stack;
-import gtk.Switch;
-import gtk.ToggleButton;
-import gtk.TreeIter;
-import gtk.TreeModel;
-import gtk.TreeModelFilter;
-import gtk.TreePath;
-import gtk.TreeStore;
-import gtk.TreeView;
-import gtk.TreeViewColumn;
-import gtk.Version;
-import gtk.Widget;
-import gtk.Window;
+import gtk.accel_group;
+import gtk.types;
+import gtk.application;
+import gtk.types;
+import gtk.application_window;
+import gtk.types;
+import gtk.box;
+import gtk.types;
+import gtk.button;
+import gtk.types;
+import gtk.cell_renderer_accel;
+import gtk.types;
+import gtk.cell_renderer_text;
+import gtk.types;
+import gtk.cell_renderer_toggle;
+import gtk.types;
+import gtk.check_button;
+import gtk.types;
+import gtk.combo_box;
+import gtk.types;
+import gtk.dialog;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.file_chooser_button;
+import gtk.types;
+import gtk.file_filter;
+import gtk.types;
+import gtk.grid;
+import gtk.types;
+import gtk.global;
+import gtk.header_bar;
+import gtk.types;
+import gtk.image;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+import gtk.list_box;
+import gtk.types;
+import gtk.list_box_row;
+import gtk.types;
+import gtk.list_store;
+import gtk.types;
+import gtk.menu_button;
+import gtk.types;
+import gtk.message_dialog;
+import gtk.types;
+import gtk.popover;
+import gtk.types;
+import gtk.revealer;
+import gtk.types;
+import gtk.scale;
+import gtk.types;
+import gtk.scrolled_window;
+import gtk.types;
+import gtk.search_entry;
+import gtk.types;
+import gtk.separator;
+import gtk.types;
+import gtk.settings;
+import gtk.types;
+import gtk.size_group;
+import gtk.types;
+import gtk.spin_button;
+import gtk.types;
+import gtk.stack;
+import gtk.types;
+import gtk.switch_;
+import gtk.types;
+import gtk.toggle_button;
+import gtk.types;
+import gtk.tree_iter;
+import gtk.types;
+import gtk.tree_model;
+import gtk.types;
+import gtk.tree_model_filter;
+import gtk.types;
+import gtk.tree_path;
+import gtk.types;
+import gtk.tree_store;
+import gtk.types;
+import gtk.tree_view;
+import gtk.types;
+import gtk.tree_view_column;
+import gtk.types;
 
-import vte.Terminal;
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
+
+import vte.terminal;
 
 import gx.gtk.actions;
 import gx.gtk.dialog;
 import gx.gtk.resource;
 import gx.gtk.settings;
+import gx.gtk.keys;
+import gx.gtk.types;
 import gx.gtk.util;
 import gx.gtk.vte;
 
@@ -104,7 +157,7 @@ class PreferenceDialog : ApplicationWindow {
 private:
     ToggleButton searchButton;
     Stack pages;
-    GSettings gsSettings;
+    Settings gsSettings;
     HeaderBar hbMain;
     HeaderBar hbSide;
     ListBox lbSide;
@@ -127,9 +180,9 @@ private:
         //Create Listbox
         lbSide = new ListBox();
         lbSide.setCanFocus(true);
-        lbSide.setSelectionMode(SelectionMode.BROWSE);
+        lbSide.setSelectionMode(SelectionMode.Browse);
         lbSide.setVexpand(true);
-        lbSide.addOnRowSelected(&onRowSelected);
+        lbSide.connectRowSelected(&onRowSelected);
 
         //Create Stack and boxes
         pages = new Stack();
@@ -156,7 +209,7 @@ private:
         addNonProfileRow(new GenericPreferenceRow(N_("Bookmarks"), _("Bookmarks")));
 
         ShortcutPreferences sp = new ShortcutPreferences(gsSettings);
-        searchButton.addOnToggled(delegate(ToggleButton button) {
+        searchButton.connectToggled(delegate(ToggleButton button) {
             sp.toggleShortcutsFind();
         });
         pages.addTitled(sp, N_("Shortcuts"), _("Shortcuts"));
@@ -172,46 +225,49 @@ private:
 
         // Profile Editor - Re-used for all profiles
         pe = new ProfileEditor();
-        pe.onProfileNameChanged.connect(&profileNameChanged);
+        pe.onProfileNameChanged .connect(&profileNameChanged);
         pages.addTitled(pe, N_("Profile"), _("Profile"));
         addNonProfileRow(createProfileTitleRow());
         loadProfiles();
 
-        ScrolledWindow sw = new ScrolledWindow(lbSide);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-        sw.setShadowType(ShadowType.NONE);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.add(lbSide);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
+        sw.setShadowType(ShadowType.None);
         sw.setSizeRequest(220, -1);
 
-        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        Box bButtons = new Box(gtk.types.Orientation.Horizontal, 0);
         bButtons.getStyleContext().addClass("linked");
         setAllMargins(bButtons, 6);
-        Button btnAddProfile = new Button("list-add-symbolic", IconSize.BUTTON);
+        Button btnAddProfile = new Button();
+        btnAddProfile.setImage(Image.newFromIconName("list-add-symbolic", IconSize.Button));
         btnAddProfile.setTooltipText(_("Add profile"));
-        btnAddProfile.addOnClicked(&onAddProfile);
+        btnAddProfile.connectClicked(&onAddProfile);
         bButtons.packStart(btnAddProfile, false, false, 0);
 
-        btnDeleteProfile = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDeleteProfile = new Button();
+        btnDeleteProfile.setImage(Image.newFromIconName("list-remove-symbolic", IconSize.Button));
         btnDeleteProfile.setTooltipText(_("Delete profile"));
-        btnDeleteProfile.addOnClicked(&onDeleteProfile);
+        btnDeleteProfile.connectClicked(&onDeleteProfile);
         bButtons.packStart(btnDeleteProfile, false, false, 0);
 
-        Box bSide = new Box(Orientation.VERTICAL, 0);
+        Box bSide = new Box(gtk.types.Orientation.Vertical, 0);
         bSide.add(sw);
-        bSide.add(new Separator(Orientation.HORIZONTAL));
+        bSide.add(new Separator(gtk.types.Orientation.Horizontal));
         bSide.add(bButtons);
 
-        Box box = new Box(Orientation.HORIZONTAL, 0);
+        Box box = new Box(gtk.types.Orientation.Horizontal, 0);
         box.add(bSide);
-        box.add(new Separator(Orientation.VERTICAL));
+        box.add(new Separator(gtk.types.Orientation.Vertical));
         box.add(pages);
 
         add(box);
 
-        SizeGroup sgSide = new SizeGroup(SizeGroupMode.HORIZONTAL);
+        SizeGroup sgSide = new SizeGroup(SizeGroupMode.Horizontal);
         sgSide.addWidget(hbSide);
         sgSide.addWidget(bSide);
 
-        SizeGroup sgMain = new SizeGroup(SizeGroupMode.HORIZONTAL);
+        SizeGroup sgMain = new SizeGroup(SizeGroupMode.Horizontal);
         sgMain.addWidget(hbMain);
         sgMain.addWidget(pages);
 
@@ -227,7 +283,7 @@ private:
 
     void onDecorationLayout() {
         Value layoutValue = new Value("");
-        Settings settings = this.getSettings();
+        gtk.settings.Settings settings = this.getSettings();
         settings.getProperty(GTK_DECORATION_LAYOUT, layoutValue);
 
         string layout = layoutValue.getString();
@@ -251,7 +307,7 @@ private:
         hbMain.setTitle("");
 
         searchButton = new ToggleButton();
-        searchButton.setImage(new Image("system-search-symbolic", IconSize.MENU));
+        searchButton.setImage(Image.newFromIconName("system-search-symbolic", IconSize.Menu));
         searchButton.setNoShowAll(true);
         hbMain.packEnd(searchButton);
 
@@ -262,27 +318,27 @@ private:
         hbSide.setShowCloseButton(true);
         hbSide.setTitle(_("Preferences"));
 
-        Box bTitle = new Box(Orientation.HORIZONTAL, 0);
+        Box bTitle = new Box(gtk.types.Orientation.Horizontal, 0);
         bTitle.add(hbSide);
-        Separator sTitle = new Separator(Orientation.VERTICAL);
+        Separator sTitle = new Separator(gtk.types.Orientation.Vertical);
         sTitle.getStyleContext().addClass("tilix-title-separator");
         bTitle.add(sTitle);
         bTitle.add(hbMain);
 
         this.setTitlebar(bTitle);
-        this.addOnNotify(delegate(ParamSpec, ObjectG) {
+        this.connectNotify("gtk-decoration-layout", delegate(ParamSpec ps, ObjectWrap ow) {
             onDecorationLayout();
-        }, "gtk-decoration-layout");
+        });
         onDecorationLayout();
     }
 
     ListBoxRow createProfileTitleRow() {
         ListBoxRow row = new ListBoxRow();
-        Box bProfileTitle = new Box(Orientation.VERTICAL, 2);
-        bProfileTitle.add(new Separator(Orientation.HORIZONTAL));
+        Box bProfileTitle = new Box(gtk.types.Orientation.Vertical, 2);
+        bProfileTitle.add(new Separator(gtk.types.Orientation.Horizontal));
         Label lblProfileTitle = new Label(format("<b>%s</b>",_("Profiles")));
         lblProfileTitle.setUseMarkup(true);
-        lblProfileTitle.setHalign(GtkAlign.START);
+        lblProfileTitle.setHalign(Align.Start);
         lblProfileTitle.setSensitive(false);
         setAllMargins(row, 6);
         bProfileTitle.add(lblProfileTitle);
@@ -331,7 +387,7 @@ private:
     }
 
     int getProfileRowCount() {
-        return lbSide.getChildren().length - nonProfileRowCount;
+        return cast(int)(lbSide.getChildren().length - nonProfileRowCount);
     }
 
 // Stuff that deals with profiles
@@ -412,15 +468,15 @@ public:
     this(ApplicationWindow window) {
         super(tilix);
         setTitle(_("Preferences"));
-        setTypeHint(WindowTypeHint.DIALOG);
+        setTypeHint(WindowTypeHint.Dialog);
         //setTransientFor(window);
         setDestroyWithParent(true);
         setShowMenubar(false);
-        gsSettings = new GSettings(SETTINGS_ID);
+        gsSettings = new Settings(SETTINGS_ID);
         _wayland = isWayland(window);
         createUI();
         updateUI();
-        this.addOnDestroy(delegate(Widget) {
+        this.connectDestroy(delegate() {
             trace("Preference window is destroyed");
             pe.onProfileNameChanged.disconnect(&profileNameChanged);
             gsSettings.destroy();
@@ -429,7 +485,7 @@ public:
         // For some reason GTK doesn't propagate the destroy
         // signal to the ListBoxRow, have to explicitly remove
         // and destroy it.
-        this.addOnDelete(delegate(Event e, Widget) {
+        this.connectDeleteEvent(delegate(Event e, Widget w) {
             trace("Deleting list box rows");
             ListBoxRow[] rows = gx.gtk.util.getChildren!ListBoxRow(lbSide, false);
             foreach(row; rows) {
@@ -480,12 +536,12 @@ public:
         _title = title;
 
         Label label = new Label(_(name));
-        label.setHalign(GtkAlign.START);
+        label.setHalign(Align.Start);
         setAllMargins(label, 6);
         add(label);
     }
 
-    @property string name() {
+    @property override string name() {
         return _name;
     }
 
@@ -511,21 +567,21 @@ private:
     immutable ACTION_PROFILE_DEFAULT = "default";
 
     void createUI() {
-        Box box = new Box(Orientation.HORIZONTAL, 0);
+        Box box = new Box(gtk.types.Orientation.Horizontal, 0);
         setAllMargins(box, 6);
 
         lblName = new Label(profile.name);
-        lblName.setHalign(GtkAlign.START);
+        lblName.setHalign(Align.Start);
         box.packStart(lblName, true, true, 2);
 
         MenuButton btnMenu = new MenuButton();
-        btnMenu.setRelief(ReliefStyle.NONE);
+        btnMenu.setRelief(ReliefStyle.None);
         btnMenu.setFocusOnClick(false);
         btnMenu.setPopover(createPopover(btnMenu));
 
         box.packEnd(btnMenu, false, false, 0);
 
-        imgDefault = new Image("object-select-symbolic", IconSize.BUTTON);
+        imgDefault = Image.newFromIconName("object-select-symbolic", IconSize.Button);
         imgDefault.setNoShowAll(true);
         box.packEnd(imgDefault, false, false, 0);
         if (isDefault) {
@@ -538,32 +594,30 @@ private:
 
     void createActions() {
         sag = new SimpleActionGroup();
-        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE, null, delegate(GVariant, SimpleAction) {
+        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE, null, delegate(Variant, SimpleAction) {
             dialog.deleteProfile(this);
         });
-        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE, null, delegate(GVariant, SimpleAction) {
+        registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE, null, delegate(Variant, SimpleAction) {
             dialog.cloneProfile(this);
         });
-        saDefault = registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(GVariant, SimpleAction) {
+        saDefault = registerAction(sag, ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT, null, delegate(Variant, SimpleAction) {
             dialog.setDefaultProfile(this);
         });
         insertActionGroup(ACTION_PROFILE_PREFIX, sag);
     }
 
     Popover createPopover(Widget parent) {
-        GMenu model = new GMenu();
-        GMenu section = new GMenu();
+        Menu model = new Menu();
+        Menu section = new Menu();
         section.append(_("Delete"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_DELETE));
         section.append(_("Clone"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_CLONE));
         model.appendSection(null, section);
 
-        section = new GMenu();
+        section = new Menu();
         section.append(_("Use for new terminals"), getActionDetailedName(ACTION_PROFILE_PREFIX, ACTION_PROFILE_DEFAULT));
         model.appendSection(null, section);
 
-        Popover popover = new Popover(parent);
-        popover.bindModel(model, null);
-        return popover;
+        return Popover.newFromModel(parent, model);
     }
 
 public:
@@ -572,7 +626,7 @@ public:
         this.dialog = dialog;
         createActions();
         createUI();
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate() {
             trace("ProfileRow destroyed");
             dialog = null;
             sag.destroy();
@@ -601,7 +655,7 @@ public:
         return profile;
     }
 
-    @property string name() {
+    @property override string name() {
         return profile.name;
     }
 
@@ -624,7 +678,7 @@ private:
     enum COLUMN_NAME = 1;
     enum COLUMN_ENCODING = 2;
 
-    GSettings gsSettings;
+    Settings gsSettings;
 
     ListStore ls;
 
@@ -635,28 +689,33 @@ private:
         setMarginBottom(18);
 
         Label lblEncoding = new Label(_("Encodings showing in menu:"));
-        lblEncoding.setHalign(GtkAlign.START);
+        lblEncoding.setHalign(Align.Start);
         add(lblEncoding);
 
         string[] menuEncodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
-        ls = new ListStore([GType.BOOLEAN, GType.STRING, GType.STRING]);
+        ls = ListStore.new_([cast(GType)GTypeEnum.Boolean, cast(GType)GTypeEnum.String, cast(GType)GTypeEnum.String]);
         foreach (encoding; encodings) {
-            TreeIter iter = ls.createIter();
-            ls.setValue(iter, 0, menuEncodings.canFind(encoding[0]));
-            ls.setValue(iter, 1, encoding[0] ~ " " ~ _(encoding[1]));
-            ls.setValue(iter, 2, encoding[0]);
+            TreeIter iter;
+            ls.append(iter);
+            ls.setValue(iter, 0, new Value(menuEncodings.canFind(encoding[0])));
+            ls.setValue(iter, 1, new Value(encoding[0] ~ " " ~ _(encoding[1])));
+            ls.setValue(iter, 2, new Value(encoding[0]));
         }
 
-        TreeView tv = new TreeView(ls);
+        TreeView tv = new TreeView();
+        tv.setModel(ls);
         tv.setHeadersVisible(false);
 
         CellRendererToggle toggle = new CellRendererToggle();
         toggle.setActivatable(true);
-        toggle.addOnToggled(delegate(string path, CellRendererToggle) {
-            TreeIter iter = new TreeIter();
-            ls.getIter(iter, new TreePath(path));
-            string encoding = ls.getValue(iter, COLUMN_ENCODING).getString();
-            bool enabled = ls.getValue(iter, COLUMN_IS_ENABLED).getBoolean();
+        toggle.connectToggled(delegate(string path, CellRendererToggle crt) {
+            TreeIter iter;
+            ls.getIter(iter, TreePath.newFromString(path));
+            Value val = new Value();
+            ls.getValue(iter, COLUMN_ENCODING, val);
+            string encoding = val.getString();
+            ls.getValue(iter, COLUMN_IS_ENABLED, val);
+            bool enabled = val.getBoolean();
             trace("Menu encoding clicked for " ~ encoding);
 
             string[] encodingList = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
@@ -674,17 +733,26 @@ private:
             } else {
                 gsSettings.setStrv(SETTINGS_ENCODINGS_KEY, encodingList);
             }
-            ls.setValue(iter, COLUMN_IS_ENABLED, !enabled);
+            ls.setValue(iter, COLUMN_IS_ENABLED, new Value(!enabled));
         });
-        TreeViewColumn column = new TreeViewColumn(_("Enabled"), toggle, "active", COLUMN_IS_ENABLED);
+        TreeViewColumn column = new TreeViewColumn();
+        column.setTitle(_("Enabled"));
+        column.packStart(toggle, true);
+        column.addAttribute(toggle, "active", COLUMN_IS_ENABLED);
         tv.appendColumn(column);
-        column = new TreeViewColumn(_("Encoding"), new CellRendererText(), "text", COLUMN_NAME);
+
+        column = new TreeViewColumn();
+        column.setTitle(_("Encoding"));
+        CellRendererText crt = new CellRendererText();
+        column.packStart(crt, true);
+        column.addAttribute(crt, "text", COLUMN_NAME);
         column.setExpand(true);
         tv.appendColumn(column);
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
 
@@ -693,11 +761,11 @@ private:
 
 public:
 
-    this(GSettings gsSettings) {
-        super(Orientation.VERTICAL, 6);
+    this(Settings gsSettings) {
+        super(gtk.types.Orientation.Vertical, 6);
         this.gsSettings = gsSettings;
         createUI();
-        this.addOnDestroy(delegate(Widget) {
+        this.connectDestroy(delegate() {
             gsSettings = null;
         });
     }
@@ -709,8 +777,8 @@ public:
 class ShortcutPreferences : Box {
 
 private:
-    GSettings gsShortcuts;
-    GSettings gsSettings;
+    Settings gsShortcuts;
+    Settings gsSettings;
     SearchEntry se;
     Revealer rFind;
     BindingHelper bh;
@@ -732,6 +800,21 @@ private:
     enum SC_TYPE_ACTION = "action";
     enum SC_TYPE_PROFILE = "profile";
 
+    TreeIter getSelectedIter() {
+        TreeIter iter;
+        TreeModel model;
+        if (tvShortcuts.getSelection().getSelected(model, iter)) {
+            return iter;
+        }
+        return null;
+    }
+
+    string getValueString(TreeModel model, TreeIter iter, uint column) {
+        Value val = new Value();
+        model.getValue(iter, cast(int)column, val);
+        return val.getString();
+    }
+
     void createUI() {
         setMarginLeft(18);
         setMarginRight(18);
@@ -739,7 +822,7 @@ private:
         setMarginBottom(18);
         rFind = new Revealer();
         se = new SearchEntry();
-        se.addOnSearchChanged(delegate(SearchEntry) {
+        se.connectSearchChanged(delegate(SearchEntry se) {
             filter.refilter();
             tvShortcuts.expandAll();
         });
@@ -748,89 +831,100 @@ private:
         add(rFind);
 
         //Shortcuts TreeView, note while detailed action name is in the model it's not actually displayed
-        tsShortcuts = new TreeStore([GType.STRING, GType.STRING, GType.STRING, GType.STRING]);
+        tsShortcuts = TreeStore.new_([cast(GType)GTypeEnum.String, cast(GType)GTypeEnum.String, cast(GType)GTypeEnum.String, cast(GType)GTypeEnum.String]);
         loadShortcuts(tsShortcuts);
 
-        filter = new TreeModelFilter(tsShortcuts, null);
-        filter.setVisibleFunc(cast(GtkTreeModelFilterVisibleFunc) &filterBookmark, cast(void*)this, null);
+        filter = cast(TreeModelFilter)tsShortcuts.filterNew(null);
+        filter.setVisibleFunc(delegate bool(TreeModel model, TreeIter iter) {
+            return filterBookmark(model, iter, this);
+        });
 
-        tvShortcuts = new TreeView(filter);
+        tvShortcuts = new TreeView();
+        tvShortcuts.setModel(filter);
         tvShortcuts.setActivateOnSingleClick(false);
-        tvShortcuts.addOnCursorChanged(delegate(TreeView) {
+        tvShortcuts.connectCursorChanged(delegate(TreeView tv) {
             updateUI();
         });
 
-        bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_ACCELERATORS_ENABLED, tvShortcuts, "sensitive", SettingsBindFlags.Default);
 
-        TreeViewColumn column = new TreeViewColumn(_("Action"), new CellRendererText(), "text", COLUMN_NAME);
+        TreeViewColumn column = new TreeViewColumn();
+        column.setTitle(_("Action"));
+        CellRendererText crt = new CellRendererText();
+        column.packStart(crt, true);
+        column.addAttribute(crt, "text", COLUMN_NAME);
         column.setExpand(true);
         tvShortcuts.appendColumn(column);
 
         craShortcut = new CellRendererAccel();
-        craShortcut.setProperty("editable", 1);
-        craShortcut.setProperty("accel-mode", GtkCellRendererAccelMode.GTK);
-        craShortcut.addOnAccelCleared(delegate(string path, CellRendererAccel) {
+        craShortcut.setProperty("editable", new Value(1));
+        craShortcut.setProperty("accel-mode", new Value(CellRendererAccelMode.Gtk));
+        craShortcut.connectAccelCleared(delegate(string path, CellRendererAccel cra) {
             trace("Clearing shortcut");
-            TreeIter iter = new TreeIter();
-            filter.getIter(iter, new TreePath(path));
+            TreeIter iter;
+            filter.getIter(iter, TreePath.newFromString(path));
             filter.convertIterToChildIter(iter, iter);
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, new Value(_(SHORTCUT_DISABLED)));
             //Note accelerator changed by app which is monitoring gsetting changes
             updateShortcutSetting(iter, SHORTCUT_DISABLED);
         });
-        craShortcut.addOnAccelEdited(delegate(string path, uint accelKey, GdkModifierType accelMods, uint, CellRendererAccel) {
-            string label = AccelGroup.acceleratorGetLabel(accelKey, accelMods);
-            string name = AccelGroup.acceleratorName(accelKey, accelMods);
+        craShortcut.connectAccelEdited(delegate(string path, uint accelKey, gdk.types.ModifierType accelMods, uint hwCode, CellRendererAccel cra) {
+            string label = gtk.global.acceleratorGetLabel(accelKey, accelMods);
+            string name = gtk.global.acceleratorName(accelKey, accelMods);
             trace("Updating shortcut as " ~ label);
-            TreeIter iter = new TreeIter();
-            filter.getIter(iter, new TreePath(path));
+            TreeIter iter;
+            filter.getIter(iter, TreePath.newFromString(path));
             accelChanged(label, name, iter);
         });
-        column = new TreeViewColumn(_("Shortcut Key"), craShortcut, "text", COLUMN_SHORTCUT);
+        column = new TreeViewColumn();
+        column.setTitle(_("Shortcut Key"));
+        column.packStart(craShortcut, true);
+        column.addAttribute(craShortcut, "text", COLUMN_SHORTCUT);
 
         tvShortcuts.appendColumn(column);
 
-        ScrolledWindow scShortcuts = new ScrolledWindow(tvShortcuts);
-        scShortcuts.setShadowType(ShadowType.ETCHED_IN);
-        scShortcuts.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        ScrolledWindow scShortcuts = new ScrolledWindow();
+        scShortcuts.add(tvShortcuts);
+        scShortcuts.setShadowType(ShadowType.EtchedIn);
+        scShortcuts.setPolicy(PolicyType.Never, PolicyType.Automatic);
         scShortcuts.setHexpand(true);
         scShortcuts.setVexpand(true);
 
         add(scShortcuts);
 
-        CheckButton cbAccelerators = new CheckButton(_("Enable shortcuts"));
-        bh.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbAccelerators = CheckButton.newWithLabel(_("Enable shortcuts"));
+        bh.bind(SETTINGS_ACCELERATORS_ENABLED, cbAccelerators, "active", SettingsBindFlags.Default);
 
-        btnDefault = new Button("edit-undo-symbolic", IconSize.BUTTON);
+        btnDefault = new Button();
+        btnDefault.setImage(Image.newFromIconName("edit-undo-symbolic", IconSize.Button));
         btnDefault.setTooltipText(_("Restore default shortcut for this action"));
         btnDefault.setSensitive(false);
-        btnDefault.addOnClicked(delegate(Button) {
-            TreeIter iter = tvShortcuts.getSelectedIter();
+        btnDefault.connectClicked(delegate(Button b) {
+            TreeIter iter = getSelectedIter();
             if (iter is null) return;
-            string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
-            size_t length;
+            string action = getValueString(filter, iter, COLUMN_ACTION_NAME);
             string defaultValue;
-            if (filter.getValueString(iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
-                defaultValue = gsShortcuts.getDefaultValue(action).getString(length);
+            if (getValueString(filter, iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
+                defaultValue = gsShortcuts.getDefaultValue(action).getString();
             } else {
                 defaultValue = SHORTCUT_DISABLED;
             }
             filter.convertIterToChildIter(iter, iter);
             if (defaultValue == SHORTCUT_DISABLED) {
-                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, new Value(_(SHORTCUT_DISABLED)));
                 updateShortcutSetting(iter, SHORTCUT_DISABLED);
             } else if (checkAndPromptChangeShortcut(action, defaultValue)) {
                 //gsShortcuts.setString(action, defaultValue);
                 updateShortcutSetting(iter, defaultValue);
                 uint key;
-                ModifierType mods;
-                AccelGroup.acceleratorParse(defaultValue, key, mods);
-                string label = AccelGroup.acceleratorGetLabel(key, mods);
-                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+                gdk.types.ModifierType mods;
+                gtk.global.acceleratorParse(defaultValue, key, mods);
+                string label = gtk.global.acceleratorGetLabel(key, mods);
+                tsShortcuts.setValue(iter, COLUMN_SHORTCUT, new Value(label));
             }
         });
 
-        Box box = new Box(Orientation.HORIZONTAL, 0);
+        Box box = new Box(gtk.types.Orientation.Horizontal, 0);
         box.packStart(btnDefault, false, false, 0);
         box.packEnd(cbAccelerators, false, false, 0);
 
@@ -840,8 +934,9 @@ private:
     }
 
     void updateUI() {
-        TreeIter selected = tvShortcuts.getSelectedIter();
-        btnDefault.setSensitive(selected !is null && selected.getParent() !is null);
+        TreeIter selected = getSelectedIter();
+        TreeIter parent;
+        btnDefault.setSensitive(selected !is null && tsShortcuts.iterParent(parent, selected));
     }
 
     /**
@@ -849,18 +944,18 @@ private:
      * section of settings.
      */
     void updateShortcutSetting(TreeIter iter, string shortcut) {
-        if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
-            gsShortcuts.setString(tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME), shortcut);
+        if (getValueString(tsShortcuts, iter, COLUMN_SHORTCUT_TYPE) == SC_TYPE_ACTION) {
+            gsShortcuts.setString(getValueString(tsShortcuts, iter, COLUMN_ACTION_NAME), shortcut);
         } else {
-            string uuid = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
-            GSettings gsProfile = prfMgr.getProfileSettings(uuid);
+            string uuid = getValueString(tsShortcuts, iter, COLUMN_ACTION_NAME);
+            Settings gsProfile = prfMgr.getProfileSettings(uuid);
             if (gsProfile !is null) {
                 gsProfile.setString(SETTINGS_PROFILE_SHORTCUT_KEY, shortcut);
             }
             if (shortcut != SHORTCUT_DISABLED) {
-                tilix.addAccelerator(shortcut, getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new GVariant(uuid));
+                tilix.addAccelerator(shortcut, getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new Variant(uuid));
             } else {
-                tilix.removeAccelerator(getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new GVariant(uuid));
+                tilix.removeAccelerator(getActionDetailedName(ACTION_PREFIX_TERMINAL,ACTION_PROFILE_SELECT), new Variant(uuid));
             }
         }
     }
@@ -869,10 +964,10 @@ private:
      * Called when user changes accelerator, will prompt if accelerator duplicates
      */
     void accelChanged(string label, string name, TreeIter iter) {
-        string action = filter.getValueString(iter, COLUMN_ACTION_NAME);
+        string action = getValueString(filter, iter, COLUMN_ACTION_NAME);
         if (checkAndPromptChangeShortcut(action, label)) {
             filter.convertIterToChildIter(iter, iter);
-            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, label);
+            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, new Value(label));
             tracef("Setting action %s to shortcut %s", action, label);
             //Note accelerator changed by app which is monitoring gsetting changes
             updateShortcutSetting(iter, name);
@@ -894,6 +989,7 @@ private:
      * Check if shortcut is already assigned and if so disable it
      */
     bool checkAndPromptChangeShortcut(string actionName, string accelLabel) {
+        import gtk.container: Container;
         // Do not check if accel is already used for nautilus shortcuts
         if (actionName.startsWith("nautilus")) return true;
 
@@ -903,30 +999,39 @@ private:
             //Get second level which is shortcuts
             TreeIterRange shortcutRange = TreeIterRange(tsShortcuts, categoryIter);
             foreach(TreeIter iter; shortcutRange) {
-                string currentActionName = tsShortcuts.getValueString(iter, COLUMN_ACTION_NAME);
+                string currentActionName = getValueString(tsShortcuts, iter, COLUMN_ACTION_NAME);
                 if (currentActionName.startsWith("nautilus")) continue;
                 if (currentActionName.length > 0 && currentActionName != actionName) {
-                    if (tsShortcuts.getValueString(iter, COLUMN_SHORTCUT) == accelLabel) {
+                    if (getValueString(tsShortcuts, iter, COLUMN_SHORTCUT) == accelLabel) {
                         trace("Checking toplevel");
-                        Window window = cast(Window) this.getToplevel();
-                        MessageDialog dlg = new MessageDialog(window, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, null, null);
+                        Window parentWindow = cast(Window) this.getToplevel();
+
+                        import gtk.c.functions: gtk_message_dialog_new;
+                        import gtk.c.types: GtkWindow;
+                        auto _cretval = gtk_message_dialog_new(parentWindow ? cast(GtkWindow*)parentWindow._cPtr(No.Dup) : null,
+                                                               gtk.types.DialogFlags.Modal,
+                                                               gtk.types.MessageType.Question,
+                                                               gtk.types.ButtonsType.OkCancel,
+                                                               null);
+                        MessageDialog dlg = ObjectWrap._getDObject!(MessageDialog)(_cretval, Yes.Take);
+
                         scope (exit) {
                             dlg.destroy();
                         }
-                        string title = "<span weight='bold' size='larger'>" ~ _("Overwrite Existing Shortcut") ~ "</span>";
-                        string msg = format(_("The shortcut %s is already assigned to %s.\nDisable the shortcut for the other action and assign here instead?"), accelLabel, tsShortcuts.getValueString(iter, COLUMN_NAME));
+                        string titleText = "<span weight='bold' size='larger'>" ~ _("Overwrite Existing Shortcut") ~ "</span>";
+                        string msg = format(_("The shortcut %s is already assigned to %s.\nDisable the shortcut for the other action and assign here instead?"), accelLabel, getValueString(tsShortcuts, iter, COLUMN_NAME));
                         with (dlg) {
-                            if (window !is null) setTransientFor(window);
-                            setMarkup(title);
+                            if (parentWindow !is null) setTransientFor(parentWindow);
+                            setMarkup(titleText);
                             getMessageArea().setMarginLeft(0);
                             getMessageArea().setMarginRight(0);
-                            getMessageArea().add(new Label(msg));
-                            setImage(new Image("dialog-question", IconSize.DIALOG));
-                            dlg.setDefaultResponse(ResponseType.OK);
+                            (cast(Container)getMessageArea()).add(new Label(msg));
+                            setImage(Image.newFromIconName("dialog-question", IconSize.Dialog));
+                            setDefaultResponse(gtk.types.ResponseType.Ok);
                             showAll();
                         }
-                        if (dlg.run() != ResponseType.CANCEL) {
-                            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, _(SHORTCUT_DISABLED));
+                        if (dlg.run() != gtk.types.ResponseType.Cancel) {
+                            tsShortcuts.setValue(iter, COLUMN_SHORTCUT, new Value(_(SHORTCUT_DISABLED)));
                             updateShortcutSetting(iter, SHORTCUT_DISABLED);
                             //gsShortcuts.setString(currentActionName, SHORTCUT_DISABLED);
                             return true;
@@ -947,8 +1052,8 @@ private:
      * pre GTK 3.20
      */
     void loadLocalizedShortcutLabels() {
-        import glib.SimpleXML : SimpleXML;
-        import glib.c.types : GMarkupParser, GMarkupParseContext, GMarkupParseFlags;
+        import glib.c.functions : g_markup_parse_context_new, g_markup_parse_context_parse, g_markup_parse_context_free;
+        import glib.c.types : GMarkupParser, GMarkupParseContext, GMarkupParseFlags, GError;
         import std.string : fromStringz;
         import std.array : empty;
 
@@ -965,10 +1070,10 @@ private:
         }
 
         GMarkupParser parseConfig;
-        parseConfig.startElement = function void(GMarkupParseContext* context,
+        parseConfig.startElement = cast(typeof(parseConfig.startElement)) function void(GMarkupParseContext* context,
                                              const(char)* elementNameC,
-                                             char** attributeNames,
-                                             char** attributeValues,
+                                             const(char*)* attributeNames,
+                                             const(char*)* attributeValues,
                                              void* userData,
                                              GError** err) {
             auto helper = cast(ParseHelper*)userData;
@@ -990,7 +1095,7 @@ private:
                 }
             }
         };
-        parseConfig.text = function void(GMarkupParseContext* context,
+        parseConfig.text = cast(typeof(parseConfig.text)) function void(GMarkupParseContext* context,
                                          const(char)* text,
                                          size_t textLen,
                                          void* userData,
@@ -1006,8 +1111,9 @@ private:
 
         try {
             ParseHelper helper;
-            auto parser = new SimpleXML(&parseConfig, GMarkupParseFlags.PREFIX_ERROR_POSITION, &helper, null);
-            parser.parse(ui, ui.length);
+            auto parser = g_markup_parse_context_new(&parseConfig, GMarkupParseFlags.PrefixErrorPosition, &helper, null);
+            g_markup_parse_context_parse(parser, toStringz(ui), cast(ptrdiff_t)ui.length, null);
+            g_markup_parse_context_free(parser);
             labels = helper.labels;
 
             // While you could use sections to get prefixes, not all sections are there
@@ -1066,7 +1172,7 @@ private:
         TreeIter currentIter = appendValues(ts, null, ["Profile"]);
         string[] uuids = prfMgr.getProfileUUIDs();
         foreach(uuid; uuids) {
-            GSettings gsProfile = prfMgr.getProfileSettings(uuid);
+            Settings gsProfile = prfMgr.getProfileSettings(uuid);
             try {
                 string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
                 string key = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
@@ -1093,7 +1199,7 @@ private:
             // Check if shortcut supported in current GTK Version
             if (key in gtkVersioned) {
                 int[2] gtkVersion = gtkVersioned[key];
-                if (Version.checkVersion(gtkVersion[0], gtkVersion[1], 0).length > 0) continue;
+                if (gtk.global.checkVersion(gtkVersion[0], gtkVersion[1], 0).length > 0) continue;
             }
             // Check if shortcut supported in current VTE Version
             if (key in vteVersioned) {
@@ -1122,23 +1228,23 @@ private:
         }
     }
 
-    static extern(C) int filterBookmark(GtkTreeModel* gtkModel, GtkTreeIter* gtkIter, ShortcutPreferences page) {
-        TreeIter iter = ObjectG.getDObject!(TreeIter)(gtkIter, true);
-        string name = page.tsShortcuts.getValueString(iter, COLUMN_NAME);
+    static bool filterBookmark(TreeModel gtkModel, TreeIter iter, ShortcutPreferences page) {
+        string name = page.getValueString(gtkModel, iter, COLUMN_NAME);
         //import std.string: No;
         string text = page.se.getText();
-        return (page.tsShortcuts.iterHasChild(iter) || text.length==0 || name.indexOf(text, No.caseSensitive) >= 0);
+        import std.string : indexOf;
+        return (page.tsShortcuts.iterHasChild(iter) || text.length==0 || indexOf(name, text, No.caseSensitive) >= 0);
     }
 
 public:
 
-    this(GSettings gsSettings) {
-        super(Orientation.VERTICAL, 6);
+    this(Settings gsSettings) {
+        super(gtk.types.Orientation.Vertical, 6);
         this.gsSettings = gsSettings;
         bh = new BindingHelper(gsSettings);
-        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
+        gsShortcuts = new Settings(SETTINGS_KEY_BINDINGS_ID);
         createUI();
-        this.addOnDestroy(delegate(Widget) {
+        this.connectDestroy(delegate() {
             bh.unbind();
             bh = null;
             gsSettings = null;
@@ -1155,7 +1261,7 @@ public:
 class AppearancePreferences: Box {
     private:
         BindingHelper bh;
-        GSettings gsSettings;
+        Settings gsSettings;
 
         void createUI() {
             setMarginTop(18);
@@ -1170,13 +1276,13 @@ class AppearancePreferences: Box {
 
             //Window style
             grid.attach(createLabel(_("Window style")), 0, row, 1, 1);
-            Box bWindowStyle = new Box(Orientation.HORIZONTAL, 6);
+            Box bWindowStyle = new Box(gtk.types.Orientation.Horizontal, 6);
             ComboBox cbWindowStyle = createNameValueCombo([_("Normal"), _("Disable CSD"), _("Disable CSD, hide toolbar"), _("Borderless")], SETTINGS_WINDOW_STYLE_VALUES);
-            bh.bind(SETTINGS_WINDOW_STYLE_KEY, cbWindowStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_WINDOW_STYLE_KEY, cbWindowStyle, "active-id", SettingsBindFlags.Default);
             bWindowStyle.add(cbWindowStyle);
 
             Label lblRestart = new Label(_("Window restart required"));
-            lblRestart.setHalign(GtkAlign.START);
+            lblRestart.setHalign(Align.Start);
             lblRestart.setSensitive(false);
             bWindowStyle.add(lblRestart);
 
@@ -1186,27 +1292,27 @@ class AppearancePreferences: Box {
             //Render terminal titlebars smaller then default
             grid.attach(createLabel(_("Terminal title style")), 0, row, 1, 1);
             ComboBox cbTitleStyle = createNameValueCombo([_("Normal"), _("Small"), _("None")], SETTINGS_TERMINAL_TITLE_STYLE_VALUES);
-            bh.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_TERMINAL_TITLE_STYLE_KEY, cbTitleStyle, "active-id", SettingsBindFlags.Default);
             grid.attach(cbTitleStyle, 1, row, 1, 1);
             row++;
 
             grid.attach(createLabel(_("Tab position")), 0, row, 1, 1);
             ComboBox cbTabPosition = createNameValueCombo([_("Left"), _("Right"), _("Top"), _("Bottom")], SETTINGS_TAB_POSITION_VALUES);
-            bh.bind(SETTINGS_TAB_POSITION_KEY, cbTabPosition, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_TAB_POSITION_KEY, cbTabPosition, "active-id", SettingsBindFlags.Default);
             grid.attach(cbTabPosition, 1, row, 1, 1);
             row++;
 
             //Dark Theme
             grid.attach(createLabel(_("Theme variant")), 0, row, 1, 1);
             ComboBox cbThemeVariant = createNameValueCombo([_("Default"), _("Light"), _("Dark")], SETTINGS_THEME_VARIANT_VALUES);
-            bh.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_THEME_VARIANT_KEY, cbThemeVariant, "active-id", SettingsBindFlags.Default);
             grid.attach(cbThemeVariant, 1, row, 1, 1);
             row++;
 
-            //Background Image
+            //Background image
             grid.attach(createLabel(_("Background image")), 0, row, 1, 1);
 
-            FileChooserButton fcbImage = new FileChooserButton(_("Select Image"), FileChooserAction.OPEN);
+            FileChooserButton fcbImage = new FileChooserButton(_("Select Image"), FileChooserAction.Open);
             fcbImage.setHexpand(true);
             FileFilter ff = new FileFilter();
             ff.setName(_("All Image Files"));
@@ -1222,33 +1328,34 @@ class AppearancePreferences: Box {
             if (exists(filename)) {
                 fcbImage.setFilename(filename);
             }
-            fcbImage.addOnFileSet(delegate(FileChooserButton fcb) {
+            fcbImage.connectFileSet(delegate(FileChooserButton fcb) {
                string selectedFilename = fcb.getFilename();
                if (exists(selectedFilename)) {
                    gsSettings.setString(SETTINGS_BACKGROUND_IMAGE_KEY, selectedFilename);
                }
             });
 
-            Button btnReset = new Button("edit-delete-symbolic", IconSize.BUTTON);
+            Button btnReset = new Button();
+            btnReset.setImage(Image.newFromIconName("edit-delete-symbolic", IconSize.Button));
             btnReset.setTooltipText(_("Reset background image"));
-            btnReset.addOnClicked(delegate(Button) {
+            btnReset.connectClicked(delegate(Button b) {
                 fcbImage.unselectAll();
                 gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);
             });
 
             ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
-            bh.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", SettingsBindFlags.Default);
 
             // Background image settings only enabled if transparency is enabled
-            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", GSettingsBindFlags.DEFAULT);
-            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", GSettingsBindFlags.DEFAULT);
-            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbImageMode, "sensitive", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, fcbImage, "sensitive", SettingsBindFlags.Default);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, btnReset, "sensitive", SettingsBindFlags.Default);
+            bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbImageMode, "sensitive", SettingsBindFlags.Default);
 
-            Box bChooser = new Box(Orientation.HORIZONTAL, 2);
+            Box bChooser = new Box(gtk.types.Orientation.Horizontal, 2);
             bChooser.add(fcbImage);
             bChooser.add(btnReset);
 
-            Box bImage = new Box(Orientation.HORIZONTAL, 6);
+            Box bImage = new Box(gtk.types.Orientation.Horizontal, 6);
             bImage.add(bChooser);
             bImage.add(cbImageMode);
             grid.attach(bImage, 1, row, 1, 1);
@@ -1256,13 +1363,13 @@ class AppearancePreferences: Box {
 
             //Session Name
             Label lblSessionName = new Label(_("Default session name"));
-            lblSessionName.setHalign(GtkAlign.END);
+            lblSessionName.setHalign(Align.End);
             grid.attach(lblSessionName, 0, row, 1, 1);
 
             Entry eSessionName = new Entry();
             eSessionName.setHexpand(true);
-            bh.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", GSettingsBindFlags.DEFAULT);
-            if (Version.checkVersion(3, 16, 0).length == 0) {
+            bh.bind(SETTINGS_SESSION_NAME_KEY, eSessionName, "text", SettingsBindFlags.Default);
+            if (checkVersion(3, 16, 0).length == 0) {
                 grid.attach(createTitleEditHelper(eSessionName, TitleEditScope.SESSION), 1, row, 1, 1);
             } else {
                 grid.attach(eSessionName, 1, row, 1, 1);
@@ -1271,13 +1378,13 @@ class AppearancePreferences: Box {
 
             //Application Title
             Label lblAppTitle = new Label(_("Application title"));
-            lblAppTitle.setHalign(GtkAlign.END);
+            lblAppTitle.setHalign(Align.End);
             grid.attach(lblAppTitle, 0, row, 1, 1);
 
             Entry eAppTitle = new Entry();
             eAppTitle.setHexpand(true);
-            bh.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", GSettingsBindFlags.DEFAULT);
-            if (Version.checkVersion(3, 16, 0).length == 0) {
+            bh.bind(SETTINGS_APP_TITLE_KEY, eAppTitle, "text", SettingsBindFlags.Default);
+            if (checkVersion(3, 16, 0).length == 0) {
                 grid.attach(createTitleEditHelper(eAppTitle, TitleEditScope.WINDOW), 1, row, 1, 1);
             } else {
                 grid.attach(eAppTitle, 1, row, 1, 1);
@@ -1287,45 +1394,45 @@ class AppearancePreferences: Box {
             add(grid);
 
             //Enable Transparency, only enabled if less then 3.18
-            if (Version.getMajorVersion() <= 3 && Version.getMinorVersion() < 18) {
-                CheckButton cbTransparent = new CheckButton(_("Enable transparency, requires re-start"));
-                bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", GSettingsBindFlags.DEFAULT);
+            if (getMajorVersion() <= 3 && getMinorVersion() < 18) {
+                CheckButton cbTransparent = CheckButton.newWithLabel(_("Enable transparency, requires re-start"));
+                bh.bind(SETTINGS_ENABLE_TRANSPARENCY_KEY, cbTransparent, "active", SettingsBindFlags.Default);
                 add(cbTransparent);
             }
 
-            if (Version.checkVersion(3, 16, 0).length == 0) {
-                CheckButton cbWideHandle = new CheckButton(_("Use a wide handle for splitters"));
-                bh.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", GSettingsBindFlags.DEFAULT);
+            if (gtk.global.checkVersion(3, 16, 0).length == 0) {
+                CheckButton cbWideHandle = CheckButton.newWithLabel(_("Use a wide handle for splitters"));
+                bh.bind(SETTINGS_ENABLE_WIDE_HANDLE_KEY, cbWideHandle, "active", SettingsBindFlags.Default);
                 add(cbWideHandle);
             }
 
-            CheckButton cbRightSidebar = new CheckButton(_("Place the sidebar on the right"));
-            bh.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbRightSidebar = CheckButton.newWithLabel(_("Place the sidebar on the right"));
+            bh.bind(SETTINGS_SIDEBAR_RIGHT, cbRightSidebar, "active", SettingsBindFlags.Default);
             add(cbRightSidebar);
 
-            CheckButton cbTitleShowWhenSingle = new CheckButton(_("Show the terminal title even if it's the only terminal"));
-            bh.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbTitleShowWhenSingle = CheckButton.newWithLabel(_("Show the terminal title even if it's the only terminal"));
+            bh.bind(SETTINGS_TERMINAL_TITLE_SHOW_WHEN_SINGLE_KEY, cbTitleShowWhenSingle, "active", SettingsBindFlags.Default);
             add(cbTitleShowWhenSingle);
 
-            if (Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0 && environment.get("GTK_OVERLAY_SCROLLING","1") == "1") {
-                CheckButton cbOverlay = new CheckButton(_("Use overlay scrollbars (Application restart required)"));
-                bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", GSettingsBindFlags.DEFAULT);
+            if (gtk.global.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length == 0 && environment.get("GTK_OVERLAY_SCROLLING","1") == "1") {
+                CheckButton cbOverlay = CheckButton.newWithLabel(_("Use overlay scrollbars (Application restart required)"));
+                bh.bind(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY, cbOverlay, "active", SettingsBindFlags.Default);
                 add(cbOverlay);
             }
 
-            CheckButton cbUseTabs = new CheckButton(_("Use tabs instead of sidebar (Application restart required)"));
-            bh.bind(SETTINGS_USE_TABS_KEY, cbUseTabs, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbUseTabs = CheckButton.newWithLabel(_("Use tabs instead of sidebar (Application restart required)"));
+            bh.bind(SETTINGS_USE_TABS_KEY, cbUseTabs, "active", SettingsBindFlags.Default);
             add(cbUseTabs);
         }
 
     public:
-        this(GSettings gsSettings) {
-            super(Orientation.VERTICAL, 6);
+        this(Settings gsSettings) {
+            super(gtk.types.Orientation.Vertical, 6);
             this.gsSettings = gsSettings;
             bh = new BindingHelper(gsSettings);
             createUI();
 
-            addOnDestroy(delegate(Widget) {
+            connectDestroy(delegate() {
                 bh.unbind();
                 bh = null;
 
@@ -1347,7 +1454,7 @@ private:
 
         Label lblSize = new Label(format("<b>%s</b>", _("Size")));
         lblSize.setUseMarkup(true);
-        lblSize.setHalign(GtkAlign.START);
+        lblSize.setHalign(Align.Start);
         add(lblSize);
 
         Grid grid = new Grid();
@@ -1357,43 +1464,43 @@ private:
 
         // Terminal Height
         grid.attach(createLabel(_("Height percent")), 0, row, 1, 1);
-        Scale sHeight = new Scale(Orientation.HORIZONTAL, 10, 90, 10);
-        sHeight.setValuePos(GtkPositionType.RIGHT);
+        Scale sHeight = Scale.newWithRange(gtk.types.Orientation.Horizontal, 10, 90, 10);
+        sHeight.setValuePos(PositionType.Right);
         sHeight.setHexpand(true);
-        sHeight.setHalign(GtkAlign.FILL);
-        bh.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+        sHeight.setHalign(Align.Fill);
+        bh.bind(SETTINGS_QUAKE_HEIGHT_PERCENT_KEY, sHeight.getAdjustment(), "value", SettingsBindFlags.Default);
         grid.attach(sHeight, 1, row, 1, 1);
         row++;
 
         if (!wayland) {
             // Terminal Width
             grid.attach(createLabel(_("Width percent")), 0, row, 1, 1);
-            Scale sWidth = new Scale(Orientation.HORIZONTAL, 10, 100, 10);
-            sWidth.setValuePos(GtkPositionType.RIGHT);
+            Scale sWidth = Scale.newWithRange(gtk.types.Orientation.Horizontal, 10, 100, 10);
+            sWidth.setValuePos(PositionType.Right);
             sWidth.setHexpand(true);
-            sWidth.setHalign(GtkAlign.FILL);
-            bh.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
+            sWidth.setHalign(Align.Fill);
+            bh.bind(SETTINGS_QUAKE_WIDTH_PERCENT_KEY, sWidth.getAdjustment(), "value", SettingsBindFlags.Default);
             grid.attach(sWidth, 1, row, 1, 1);
             row++;
 
             //Alignment
             grid.attach(createLabel(_("Alignment")), 0, row, 1, 1);
             ComboBox cbAlignment = createNameValueCombo([_("Left"), _("Center"), _("Right")], [SETTINGS_QUAKE_ALIGNMENT_LEFT_VALUE, SETTINGS_QUAKE_ALIGNMENT_CENTER_VALUE, SETTINGS_QUAKE_ALIGNMENT_RIGHT_VALUE]);
-            bh.bind(SETTINGS_QUAKE_ALIGNMENT_KEY, cbAlignment, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_ALIGNMENT_KEY, cbAlignment, "active-id", SettingsBindFlags.Default);
             grid.attach(cbAlignment, 1, row, 1, 1);
             row++;
         }
 
         grid.attach(createLabel(_("Tab position")), 0, row, 1, 1);
         ComboBox cbTabPosition = createNameValueCombo([_("Left"), _("Right"), _("Top"), _("Bottom")], SETTINGS_TAB_POSITION_VALUES);
-        bh.bind(SETTINGS_QUAKE_TAB_POSITION_KEY, cbTabPosition, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_QUAKE_TAB_POSITION_KEY, cbTabPosition, "active-id", SettingsBindFlags.Default);
         grid.attach(cbTabPosition, 1, row, 1, 1);
         row++;
 
         if (!wayland) {
             grid.attach(createLabel(_("Window position")), 0, row, 1, 1);
             ComboBox cbWinPosition = createNameValueCombo([_("Top"), _("Bottom")], SETTINGS_QUAKE_WINDOW_POSITION_VALUES);
-            bh.bind(SETTINGS_QUAKE_WINDOW_POSITION_KEY, cbWinPosition, "active-id", GSettingsBindFlags.DEFAULT);
+            bh.bind(SETTINGS_QUAKE_WINDOW_POSITION_KEY, cbWinPosition, "active-id", SettingsBindFlags.Default);
             grid.attach(cbWinPosition, 1, row, 1, 1);
             row++;
         }
@@ -1402,49 +1509,49 @@ private:
 
         Label lblOptions = new Label(format("<b>%s</b>", _("Options")));
         lblOptions.setUseMarkup(true);
-        lblOptions.setHalign(GtkAlign.START);
+        lblOptions.setHalign(Align.Start);
         add(lblOptions);
 
-        Box bContent = new Box(Orientation.VERTICAL, 6);
+        Box bContent = new Box(gtk.types.Orientation.Vertical, 6);
 
         //Show on all workspaces
-        CheckButton cbAllWorkspaces = new CheckButton(_("Show terminal on all workspaces"));
-        bh.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbAllWorkspaces = CheckButton.newWithLabel(_("Show terminal on all workspaces"));
+        bh.bind(SETTINGS_QUAKE_SHOW_ON_ALL_WORKSPACES_KEY, cbAllWorkspaces, "active", SettingsBindFlags.Default);
         bContent.add(cbAllWorkspaces);
 
         //Disable animations
         /*
-        CheckButton cbDisableAnimations = new CheckButton(_("Set hint for window manager to disable animation"));
-        bh.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbDisableAnimations = CheckButton.newWithLabel(_("Set hint for window manager to disable animation"));
+        bh.bind(SETTINGS_QUAKE_DISABLE_ANIMATION_KEY, cbDisableAnimations, "active", SettingsBindFlags.Default);
         bContent.add(cbDisableAnimations);
         */
 
         //Hide window on lose focus, note issue #858
-        CheckButton cbHideOnLoseFocus = new CheckButton(_("Hide window when focus is lost"));
-        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbHideOnLoseFocus = CheckButton.newWithLabel(_("Hide window when focus is lost"));
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, cbHideOnLoseFocus, "active", SettingsBindFlags.Default);
         bContent.add(cbHideOnLoseFocus);
 
         Label lblDelay = new Label(_("Delay hiding window by (ms)"));
-        SpinButton sbDelay = new SpinButton(50, 1000, 50);
-        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY, sbDelay, "value", GSettingsBindFlags.DEFAULT);
-        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, sbDelay, "sensitive", GSettingsBindFlags.DEFAULT);
-        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, lblDelay, "sensitive", GSettingsBindFlags.DEFAULT);
+        SpinButton sbDelay = SpinButton.newWithRange(50, 1000, 50);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_DELAY_KEY, sbDelay, "value", SettingsBindFlags.Default);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, sbDelay, "sensitive", SettingsBindFlags.Default);
+        bh.bind(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY, lblDelay, "sensitive", SettingsBindFlags.Default);
 
-        Box bDelay = new Box(Orientation.HORIZONTAL, 6);
+        Box bDelay = new Box(gtk.types.Orientation.Horizontal, 6);
         bDelay.add(lblDelay);
         bDelay.add(sbDelay);
         bDelay.setMarginLeft(48);
         bContent.add(bDelay);
 
         //Hide headerbar
-        CheckButton cbHideHeaderbar = new CheckButton(_("Hide the toolbar of the window"));
-        bh.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbHideHeaderbar = CheckButton.newWithLabel(_("Hide the toolbar of the window"));
+        bh.bind(SETTINGS_QUAKE_HIDE_HEADERBAR_KEY, cbHideHeaderbar, "active", SettingsBindFlags.Default);
         bContent.add(cbHideHeaderbar);
 
         /*
         //Keep window on top
-        CheckButton cbKeepOnTop = new CheckButton(_("Always keep window on top"));
-        bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbKeepOnTop = CheckButton.newWithLabel(_("Always keep window on top"));
+        bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", SettingsBindFlags.Default);
         bContent.add(cbKeepOnTop);
         */
 
@@ -1452,20 +1559,20 @@ private:
         if (!wayland) {
 
             //Always on top
-            CheckButton cbKeepOnTop = new CheckButton(_("Keep window always on top"));
-            bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbKeepOnTop = CheckButton.newWithLabel(_("Keep window always on top"));
+            bh.bind(SETTINGS_QUAKE_KEEP_ON_TOP_KEY, cbKeepOnTop, "active", SettingsBindFlags.Default);
             bContent.add(cbKeepOnTop);
 
             //Active Monitor
-            CheckButton cbActiveMonitor = new CheckButton(_("Display terminal on active monitor"));
-            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbActiveMonitor = CheckButton.newWithLabel(_("Display terminal on active monitor"));
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbActiveMonitor, "active", SettingsBindFlags.Default);
             bContent.add(cbActiveMonitor);
 
             //Specific Monitor
-            Box bSpecific = new Box(Orientation.HORIZONTAL, 6);
+            Box bSpecific = new Box(gtk.types.Orientation.Horizontal, 6);
             bSpecific.setMarginLeft(36);
             Label lblSpecific = new Label(_("Display on specific monitor"));
-            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, lblSpecific, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, lblSpecific, "sensitive", SettingsBindFlags.InvertBoolean);
             bSpecific.add(lblSpecific);
             string[] names = [_("Primary Monitor")];
             int[] values = [-1];
@@ -1475,25 +1582,29 @@ private:
             }
 
             ComboBox cbScreen = TComboBox!(int).createComboBox(names, values);
-            cbScreen.addOnChanged(delegate(ComboBox cb) {
+            cbScreen.connectChanged(delegate(ComboBox cb) {
                 TreeIter iter;
                 if (cb.getActiveIter(iter)) {
-                    ListStore ls = cast(ListStore)cb.getModel();
-                    bh.settings.setInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, ls.getValueInt(iter, 1));
+                    ListStore ls_ = cast(ListStore)cb.getModel();
+                    Value val = new Value();
+                    ls_.getValue(iter, 1, val);
+                    bh.settings.setInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, val.getInt());
                 } else {
                     bh.settings.setInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY,-1);
                 }
             });
             int index = 0;
             foreach(TreeIter iter; TreeIterRange(cbScreen.getModel())) {
-                if (cbScreen.getModel().getValueInt(iter, 1) == bh.settings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY)) {
+                Value val = new Value();
+                cbScreen.getModel().getValue(iter, 1, val);
+                if (val.getInt() == bh.settings.getInt(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY)) {
                     cbScreen.setActive(index);
                     break;
                 }
                 index++;
             }
-            //bh.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, cbScreen, "active-id", GSettingsBindFlags.DEFAULT);
-            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbScreen, "sensitive", GSettingsBindFlags.INVERT_BOOLEAN);
+            //bh.bind(SETTINGS_QUAKE_SPECIFIC_MONITOR_KEY, cbScreen, "active-id", SettingsBindFlags.Default);
+            bh.bind(SETTINGS_QUAKE_ACTIVE_MONITOR_KEY, cbScreen, "sensitive", SettingsBindFlags.InvertBoolean);
             bSpecific.add(cbScreen);
 
             bContent.add(bSpecific);
@@ -1504,11 +1615,11 @@ private:
 
 public:
 
-    this(GSettings gsSettings, bool wayland) {
-        super(Orientation.VERTICAL, 6);
+    this(Settings gsSettings, bool wayland) {
+        super(gtk.types.Orientation.Vertical, 6);
         bh = new BindingHelper(gsSettings);
         createUI(wayland);
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate() {
             bh.unbind();
             bh = null;
         });
@@ -1532,111 +1643,111 @@ private:
 
         Label lblBehavior = new Label(format("<b>%s</b>", _("Behavior")));
         lblBehavior.setUseMarkup(true);
-        lblBehavior.setHalign(GtkAlign.START);
+        lblBehavior.setHalign(Align.Start);
         add(lblBehavior);
 
         //Prompt on new session
-        CheckButton cbPrompt = new CheckButton(_("Prompt when creating a new session"));
-        bh.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbPrompt = CheckButton.newWithLabel(_("Prompt when creating a new session"));
+        bh.bind(SETTINGS_PROMPT_ON_NEW_SESSION_KEY, cbPrompt, "active", SettingsBindFlags.Default);
         add(cbPrompt);
 
         //Focus follows the mouse
-        CheckButton cbFocusMouse = new CheckButton(_("Focus a terminal when the mouse moves over it"));
-        bh.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbFocusMouse = CheckButton.newWithLabel(_("Focus a terminal when the mouse moves over it"));
+        bh.bind(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY, cbFocusMouse, "active", SettingsBindFlags.Default);
         add(cbFocusMouse);
 
         //Auto hide the mouse
-        CheckButton cbAutoHideMouse = new CheckButton(_("Autohide the mouse pointer when typing"));
-        bh.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbAutoHideMouse = CheckButton.newWithLabel(_("Autohide the mouse pointer when typing"));
+        bh.bind(SETTINGS_AUTO_HIDE_MOUSE_KEY, cbAutoHideMouse, "active", SettingsBindFlags.Default);
         add(cbAutoHideMouse);
 
         //middle click closes the terminal
-        CheckButton cbMiddleClickClose = new CheckButton(_("Close terminal by clicking middle mouse button on title"));
-        bh.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbMiddleClickClose = CheckButton.newWithLabel(_("Close terminal by clicking middle mouse button on title"));
+        bh.bind(SETTINGS_MIDDLE_CLICK_CLOSE_KEY, cbMiddleClickClose, "active", SettingsBindFlags.Default);
         add(cbMiddleClickClose);
 
         //zoom in/out terminal with scroll wheel
-        CheckButton cbControlScrollZoom = new CheckButton(_("Zoom the terminal using <Control> and scroll wheel"));
-        bh.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbControlScrollZoom = CheckButton.newWithLabel(_("Zoom the terminal using <Control> and scroll wheel"));
+        bh.bind(SETTINGS_CONTROL_SCROLL_ZOOM_KEY, cbControlScrollZoom, "active", SettingsBindFlags.Default);
         add(cbControlScrollZoom);
 
         //require control modifier when clicking title
-        CheckButton cbControlClickTitle = new CheckButton(_("Require the <Control> modifier to edit title on click"));
-        bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbControlClickTitle = CheckButton.newWithLabel(_("Require the <Control> modifier to edit title on click"));
+        bh.bind(SETTINGS_CONTROL_CLICK_TITLE_KEY, cbControlClickTitle, "active", SettingsBindFlags.Default);
         add(cbControlClickTitle);
 
         //Closing of last session closes window
-        CheckButton cbCloseWithLastSession = new CheckButton(_("Close window when last session is closed"));
-        bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbCloseWithLastSession = CheckButton.newWithLabel(_("Close window when last session is closed"));
+        bh.bind(SETTINGS_CLOSE_WITH_LAST_SESSION_KEY, cbCloseWithLastSession, "active", SettingsBindFlags.Default);
         add(cbCloseWithLastSession);
 
         // Save window state (maximized, minimized, fullscreen) between invocations
-        CheckButton cbWindowSaveState = new CheckButton(_("Save and restore window state"));
-        bh.bind(SETTINGS_WINDOW_SAVE_STATE_KEY, cbWindowSaveState, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbWindowSaveState = CheckButton.newWithLabel(_("Save and restore window state"));
+        bh.bind(SETTINGS_WINDOW_SAVE_STATE_KEY, cbWindowSaveState, "active", SettingsBindFlags.Default);
         add(cbWindowSaveState);
 
         //always use regex when searching
-        CheckButton cbAlwaysUseRegex = new CheckButton(_("Always search using regular expressions"));
-        bh.bind(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH, cbAlwaysUseRegex, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbAlwaysUseRegex = CheckButton.newWithLabel(_("Always search using regular expressions"));
+        bh.bind(SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH, cbAlwaysUseRegex, "active", SettingsBindFlags.Default);
         add(cbAlwaysUseRegex);
 
         //Show Notifications, only show option if notifications are supported
         if (checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)) {
-            CheckButton cbNotify = new CheckButton(_("Send desktop notification on process complete"));
-            bh.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbNotify = CheckButton.newWithLabel(_("Send desktop notification on process complete"));
+            bh.bind(SETTINGS_NOTIFY_ON_PROCESS_COMPLETE_KEY, cbNotify, "active", SettingsBindFlags.Default);
             add(cbNotify);
         }
 
         //New Instance Options
-        Box bNewInstance = new Box(Orientation.HORIZONTAL, 6);
+        Box bNewInstance = new Box(gtk.types.Orientation.Horizontal, 6);
 
         Label lblNewInstance = new Label(_("On new instance"));
-        lblNewInstance.setHalign(GtkAlign.END);
+        lblNewInstance.setHalign(Align.End);
         bNewInstance.add(lblNewInstance);
         ComboBox cbNewInstance = createNameValueCombo([_("New Window"), _("New Session"), _("Split Right"), _("Split Down"), _("Focus Window")], SETTINGS_NEW_INSTANCE_MODE_VALUES);
-        bh.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", GSettingsBindFlags.DEFAULT);
+        bh.bind(SETTINGS_NEW_INSTANCE_MODE_KEY, cbNewInstance, "active-id", SettingsBindFlags.Default);
         bNewInstance.add(cbNewInstance);
         add(bNewInstance);
 
         // *********** Clipboard Options
         Label lblClipboard = new Label(format("<b>%s</b>", _("Clipboard")));
         lblClipboard.setUseMarkup(true);
-        lblClipboard.setHalign(GtkAlign.START);
+        lblClipboard.setHalign(Align.Start);
         add(lblClipboard);
 
         //Advacned paste is default
-        CheckButton cbAdvDefault = new CheckButton(_("Always use advanced paste dialog"));
-        bh.bind(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY, cbAdvDefault, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbAdvDefault = CheckButton.newWithLabel(_("Always use advanced paste dialog"));
+        bh.bind(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY, cbAdvDefault, "active", SettingsBindFlags.Default);
         add(cbAdvDefault);
 
         //Unsafe Paste Warning
-        CheckButton cbUnsafe = new CheckButton(_("Warn when attempting unsafe paste"));
-        bh.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbUnsafe = CheckButton.newWithLabel(_("Warn when attempting unsafe paste"));
+        bh.bind(SETTINGS_UNSAFE_PASTE_ALERT_KEY, cbUnsafe, "active", SettingsBindFlags.Default);
         add(cbUnsafe);
 
         //Strip Paste
-        CheckButton cbStrip = new CheckButton(_("Strip first character of paste if comment or variable declaration"));
-        bh.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbStrip = CheckButton.newWithLabel(_("Strip first character of paste if comment or variable declaration"));
+        bh.bind(SETTINGS_STRIP_FIRST_COMMENT_CHAR_ON_PASTE_KEY, cbStrip, "active", SettingsBindFlags.Default);
         add(cbStrip);
 
         //Strip trailing whitespace on paste
-        CheckButton cbStripTrailing = new CheckButton(_("Strip trailing whitespaces and linebreak characters on paste"));
-        bh.bind(SETTINGS_STRIP_TRAILING_WHITESPACE, cbStripTrailing, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbStripTrailing = CheckButton.newWithLabel(_("Strip trailing whitespaces and linebreak characters on paste"));
+        bh.bind(SETTINGS_STRIP_TRAILING_WHITESPACE, cbStripTrailing, "active", SettingsBindFlags.Default);
         add(cbStripTrailing);
 
         //Copy on Select
-        CheckButton cbCopyOnSelect = new CheckButton(_("Automatically copy text to clipboard when selecting"));
-        bh.bind(SETTINGS_COPY_ON_SELECT_KEY, cbCopyOnSelect, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbCopyOnSelect = CheckButton.newWithLabel(_("Automatically copy text to clipboard when selecting"));
+        bh.bind(SETTINGS_COPY_ON_SELECT_KEY, cbCopyOnSelect, "active", SettingsBindFlags.Default);
         add(cbCopyOnSelect);
     }
 
 public:
 
-    this(GSettings gsSettings) {
-        super(Orientation.VERTICAL, 6);
+    this(Settings gsSettings) {
+        super(gtk.types.Orientation.Vertical, 6);
         bh = new BindingHelper(gsSettings);
         createUI();
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate() {
             bh.unbind();
             bh = null;
         });
@@ -1648,12 +1759,12 @@ public:
  */
 class AdvancedPreferences : Box {
 private:
-    GSettings gsSettings;
+    Settings gsSettings;
 
     void createUI() {
         setAllMargins(this, 18);
         Grid grid = new Grid();
-        grid.setHalign(GtkAlign.FILL);
+        grid.setHalign(Align.Fill);
         grid.setColumnSpacing(12);
         grid.setRowSpacing(6);
 
@@ -1663,14 +1774,14 @@ private:
         this.add(grid);
     }
 
-    GSettings getSettings() {
+    Settings getSettings() {
         return gsSettings;
     }
 
 public:
 
-    this(GSettings gsSettings) {
-        super(Orientation.VERTICAL, 6);
+    this(Settings gsSettings) {
+        super(gtk.types.Orientation.Vertical, 6);
         this.gsSettings = gsSettings;
         createUI();
     }
@@ -1680,7 +1791,7 @@ public:
 // Function to create a right aligned label with appropriate margins
 private Label createLabel(string text) {
     Label label = new Label(text);
-    label.setHalign(GtkAlign.END);
+    label.setHalign(Align.End);
     //label.setMarginLeft(12);
     return label;
 }

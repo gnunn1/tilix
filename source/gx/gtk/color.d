@@ -9,7 +9,8 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 
-import gdk.RGBA;
+import gdk.rgba;
+import gdk.types;
 
 public:
 
@@ -62,21 +63,21 @@ RGBA getOppositeColor(RGBA rgba) {
     return result;
 }
 
-void contrast(double percent, RGBA rgba, out double r, out double g, out double b) {
+void contrast(double percent, RGBA rgba, double r, double g, double b) {
     double brightness = ((rgba.red * 299.0) + (rgba.green * 587.0) + (rgba.blue * 114.0)) / 1000;
     if (brightness > 0.5) darken(percent, rgba, r, g, b);
     else lighten(percent, rgba, r, g, b);
 }
 
-void lighten(double percent, RGBA rgba, out double r, out double g, out double b) {
+void lighten(double percent, RGBA rgba, double r, double g, double b) {
     adjustColor(percent, rgba, r, g, b);
 }
 
-void darken(double percent, RGBA rgba, out double r, out double g, out double b) {
+void darken(double percent, RGBA rgba, double r, double g, double b) {
     adjustColor(-percent, rgba, r, g, b);
 }
 
-void adjustColor(double cf, RGBA rgba, out double r, out double g, out double b) {
+void adjustColor(double cf, RGBA rgba, double r, double g, double b) {
     if (cf < 0) {
         cf = 1 + cf;
         r = rgba.red * cf;
@@ -89,7 +90,7 @@ void adjustColor(double cf, RGBA rgba, out double r, out double g, out double b)
     }
 }
 
-void desaturate(double percent, RGBA rgba, out double r, out double g, out double b) {
+void desaturate(double percent, RGBA rgba, double r, double g, double b) {
     tracef("desaturate: %f, %f, %f, %f", percent, rgba.red, rgba.green, rgba.blue);
     double L = 0.3 * rgba.red + 0.6 * rgba.green + 0.1 * rgba.blue;
     r = rgba.red + percent * (L - rgba.red);

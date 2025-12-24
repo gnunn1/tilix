@@ -10,11 +10,11 @@ import std.regex;
 import std.stdio;
 import std.string;
 
-import gio.ApplicationCommandLine;
+import gio.application_command_line;
 
-import glib.VariantDict;
-import glib.Variant : GVariant = Variant;
-import glib.VariantType : GVariantType = VariantType;
+import glib.variant_dict;
+import glib.variant : Variant = Variant;
+import glib.variant_type : VariantType = VariantType;
 
 import gx.i18n.l10n;
 import gx.util.path;
@@ -23,7 +23,7 @@ enum CMD_WORKING_DIRECTORY = "working-directory";
 enum CMD_SESSION = "session";
 enum CMD_PROFILE = "profile";
 enum CMD_COMMAND = "command";
-// Not that execute is a special command and not handled by GApplication options.
+// Not that execute is a special command and not handled by gio.application.Application options.
 // See app.d for more info.
 enum CMD_EXECUTE = "execute";
 enum CMD_ACTION = "action";
@@ -46,7 +46,7 @@ enum CMD_GROUP = "group";
  *  PARTIAL - Width and Height only
  *  FULL - Width, Height, x and y
  */
-enum GeometryFlag {NONE, PARTIAL, FULL}
+enum GeometryFlag {None, PARTIAL, FULL}
 
 struct Geometry {
     int x, y;
@@ -93,7 +93,7 @@ private:
     enum GEOMETRY_PATTERN_DIMENSIONS = "(?P<width>\\d+)x(?P<height>\\d+)";
 
     string[] getValues(VariantDict vd, string key) {
-        GVariant value = vd.lookupValue(key, new GVariantType("as"));
+        Variant value = vd.lookupValue(key, new VariantType("as"));
         if (value is null)
             return [];
         else {
@@ -101,13 +101,13 @@ private:
         }
     }
 
-    string getValue(VariantDict vd, string key, GVariantType vt) {
-        GVariant value = vd.lookupValue(key, vt);
+    string getValue(VariantDict vd, string key, VariantType vt) {
+        Variant value = vd.lookupValue(key, vt);
         if (value is null)
             return "";
         else {
             size_t l;
-            return value.getString(l);
+            return value.getString();
         }
     }
 
@@ -152,7 +152,7 @@ private:
                 errorf(_("Geometry string '%s' is invalid and could not be parsed"), value);
             }
         }
-        _geometry.flag = GeometryFlag.NONE;
+        _geometry.flag = GeometryFlag.None;
     }
 
 public:
@@ -161,7 +161,7 @@ public:
         _cmdLine = acl.getCwd();
 
         //Declare a string variant type
-        GVariantType vts = new GVariantType("s");
+        VariantType vts = new VariantType("s");
         VariantDict vd = acl.getOptionsDict();
 
         _workingDir = validatePath(getValue(vd, CMD_WORKING_DIRECTORY, vts));
@@ -211,7 +211,7 @@ public:
         if (geometryParam.length > 0)
             parseGeometry(geometryParam);
 
-        if (_quake && (_maximize || _minimize || _geometry.flag != GeometryFlag.NONE)) {
+        if (_quake && (_maximize || _minimize || _geometry.flag != GeometryFlag.None)) {
                 writeln(_("You cannot use the quake mode with maximize, minimize or geometry parameters"));
                 _exitCode = 3;
                 _exit = true;
@@ -249,7 +249,7 @@ public:
         _focusWindow = false;
         _newProcess = false;
         _quake = false;
-        _geometry = Geometry(0, 0, 0, 0, false, false, GeometryFlag.NONE);
+        _geometry = Geometry(0, 0, 0, 0, false, false, GeometryFlag.None);
         _exit = false;
         _title.length = 0;
         _version = false;
@@ -279,7 +279,7 @@ public:
 
     @property void profileName(string name) {
         _profileName = name;
-    } 
+    }
 
     @property string[] session() {
         return _session;

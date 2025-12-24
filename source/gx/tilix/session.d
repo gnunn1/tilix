@@ -14,41 +14,74 @@ import std.json;
 import std.string;
 import std.uuid;
 
-import cairo.Context;
-import cairo.ImageSurface;
+import cairo.context;
+import cairo.surface;
+import cairo.types;
+import cairo.global;
 
-import gdkpixbuf.Pixbuf;
+import gdkpixbuf.pixbuf;
 
-import gdk.Atom;
-import gdk.Cairo;
-import gdk.Event;
+import gdk.atom;
+import gdk.types;
+import gdk.global;
+import gdk.types;
+import gdk.event;
+import gdk.event_button;
+import gdk.rectangle;
+import gdk.types;
+alias Rectangle = gdk.rectangle.Rectangle;
+import gx.gtk.keys;
+import gx.gtk.types;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : Settings = Settings;
 
-import glib.Util;
+import glib.global;
 
-import gobject.ObjectG;
-import gobject.ParamSpec;
-import gobject.Value;
+import gobject.object;
+import gobject.types;
+import gobject.param_spec;
+import gobject.types;
+import gobject.value;
+import gobject.types;
 
-import gtk.Application;
-import gtk.Box;
-import gtk.Button;
-import gtk.Container;
-import gtk.Clipboard;
-import gtk.ComboBox;
-import gtk.Dialog;
-import gtk.Entry;
-import gtk.Grid;
-import gtk.Label;
-import gtk.Main;
-import gtk.Menu;
-import gtk.MenuItem;
-import gtk.Paned;
-import gtk.Stack;
-import gtk.Version;
-import gtk.Widget;
-import gtk.Window;
+import gtk.application;
+import gtk.types;
+import gtk.box;
+import gtk.types;
+import gtk.button;
+import gtk.types;
+import gtk.container;
+import gtk.types;
+import gtk.clipboard;
+import gtk.types;
+import gtk.combo_box;
+import gtk.types;
+import gtk.dialog;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.grid;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+import gtk.global;
+import gtk.types;
+import gtk.menu;
+import gtk.types;
+import gtk.menu_item;
+import gtk.types;
+import gtk.paned;
+import gtk.types;
+import gtk.stack;
+import gtk.types;
+
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
+import gtk.types;
+import gtk.global;
+import gtk.types;
 
 import gx.gtk.cairo;
 import gx.gtk.dialog;
@@ -136,7 +169,7 @@ private:
     Terminal currentTerminal;
     Terminal[] mruTerminals;
 
-    GSettings gsSettings;
+    Settings gsSettings;
 
     /**
      * Creates the session user interface
@@ -153,17 +186,17 @@ private:
     }
 
     void createBaseUI() {
-        stackGroup = new Box(Orientation.VERTICAL, 0);
+        stackGroup = new Box(gtk.types.Orientation.Vertical, 0);
         stackGroup.getStyleContext().addClass("tilix-background");
         addNamed(stackGroup, STACK_GROUP_NAME);
-        stackMaximized = new Box(Orientation.VERTICAL, 0);
+        stackMaximized = new Box(gtk.types.Orientation.Vertical, 0);
         stackMaximized.getStyleContext().addClass("tilix-background");
         addNamed(stackMaximized, STACK_MAX_NAME);
-        groupChild = new Box(Orientation.VERTICAL, 0);
+        groupChild = new Box(gtk.types.Orientation.Vertical, 0);
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
-        addOnRealize(delegate(Widget) {
+        connectRealize(delegate(Widget w) {
             if (maximizedInfo.isMaximized) {
                 setVisibleChild(stackMaximized);
             }
@@ -188,23 +221,19 @@ private:
         }
     }
 
-    /**
-     * Create a Paned widget and modify some properties to
-     * make it look somewhat attractive on Ubuntu and non Adwaita themes.
-     */
-    TerminalPaned createPaned(Orientation orientation) {
+    TerminalPaned createPaned(gtk.types.Orientation orientation) {
         TerminalPaned result = new TerminalPaned(orientation);
-        if (Version.checkVersion(3, 16, 0).length == 0) {
+        if (gtk.global.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
-        result.addOnButtonPress(delegate(Event event, Widget w) {
-            if (event.button.window == result.getHandleWindow().getWindowStruct() && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+        result.connectButtonPressEvent(delegate(EventButton event, Widget w) {
+            if (event.window._cPtr(No.Dup) == result.getHandleWindow()._cPtr(No.Dup) && event.type == EventType.DoubleButtonPress && event.button == 1) {
                 redistributePanes(cast(Paned) w);
                 return true;
             }
             return false;
         });
-        result.setProperty("position-set", true);
+        result.setProperty("position-set", new Value(true));
         return result;
     }
 
@@ -254,7 +283,7 @@ private:
         root.styleGetProperty("handle-size", handleSize);
         tracef("Handle size is %d", handleSize.getInt());
 
-        int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
+        int size = root.getOrientation() == gtk.types.Orientation.Horizontal ? root.getAllocatedWidth() : root.getAllocatedHeight();
         int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
         tracef("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size);
 
@@ -294,17 +323,17 @@ private:
      * from another session via DND
      */
     void addTerminal(Terminal terminal) {
-        terminal.onClose.connect(&onTerminalClose);
-        terminal.onFocusIn.connect(&onTerminalFocusIn);
-        terminal.onRequestDetach.connect(&onTerminalRequestDetach);
-        terminal.onRequestMove.connect(&onTerminalRequestMove);
-        terminal.onSyncInput.connect(&onTerminalSyncInput);
-        terminal.onRequestStateChange.connect(&onTerminalRequestStateChange);
-        terminal.onTitleChange.connect(&onTerminalTitleChange);
-        terminal.onProcessNotification.connect(&onTerminalProcessNotification);
-        terminal.onIsActionAllowed.connect(&onTerminalIsActionAllowed);
-        terminal.onSessionAttach.connect(&onTerminalSessionAttach);
-        terminal.onNewOutput.connect(&onTerminalNewOutput);
+        terminal.onClose .connect(&onTerminalClose);
+        terminal.onFocusIn .connect(&onTerminalFocusIn);
+        terminal.onRequestDetach .connect(&onTerminalRequestDetach);
+        terminal.onRequestMove .connect(&onTerminalRequestMove);
+        terminal.onSyncInput .connect(&onTerminalSyncInput);
+        terminal.onRequestStateChange .connect(&onTerminalRequestStateChange);
+        terminal.onTitleChange .connect(&onTerminalTitleChange);
+        terminal.onProcessNotification .connect(&onTerminalProcessNotification);
+        terminal.onIsActionAllowed .connect(&onTerminalIsActionAllowed);
+        terminal.onSessionAttach .connect(&onTerminalSessionAttach);
+        terminal.onNewOutput .connect(&onTerminalNewOutput);
         terminals ~= terminal;
         terminal.terminalID = terminals.length;
         terminal.synchronizeInput = synchronizeInput;
@@ -414,7 +443,7 @@ private:
      * If there is some magic way in GTK to do this without the extra Box shim
      * it would be nice to eliminate this.
      */
-    void addNewTerminal(Terminal terminal, Orientation orientation) {
+    void addNewTerminal(Terminal terminal, gtk.types.Orientation orientation) {
         trace("Splitting Terminal " ~ to!string(terminal.terminalID));
         Terminal newTerminal = createTerminal(terminal.defaultProfileUUID);
         trace("Inserting terminal");
@@ -504,13 +533,13 @@ private:
      * Inserts a source terminal into a destination by creating the necessary
      * splitters and box shims
      */
-    void insertTerminal(Terminal dest, Terminal src, Orientation orientation, int child) {
+    void insertTerminal(Terminal dest, Terminal src, gtk.types.Orientation orientation, int child) {
         Box parent = cast(Box) dest.getParent();
         int height = parent.getAllocatedHeight();
         int width = parent.getAllocatedWidth();
 
-        Box b1 = new Box(Orientation.VERTICAL, 0);
-        Box b2 = new Box(Orientation.VERTICAL, 0);
+        Box b1 = new Box(gtk.types.Orientation.Vertical, 0);
+        Box b2 = new Box(gtk.types.Orientation.Vertical, 0);
 
         Paned paned = createPaned(orientation);
         paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
@@ -527,10 +556,10 @@ private:
         }
 
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case gtk.types.Orientation.Horizontal:
             paned.setPosition(width / 2);
             break;
-        case Orientation.VERTICAL:
+        case gtk.types.Orientation.Vertical:
             paned.setPosition(height / 2);
             break;
 
@@ -578,7 +607,7 @@ private:
             //Add terminal to this one
             addTerminal(src);
         }
-        Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
+        gtk.types.Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? gtk.types.Orientation.Vertical : gtk.types.Orientation.Horizontal;
         int child = (dq == DragQuadrant.TOP || dq == DragQuadrant.LEFT) ? 1 : 2;
         //Inserting terminal
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
@@ -760,7 +789,7 @@ private:
     void applyPreference(string key) {
         switch (key) {
             case SETTINGS_ENABLE_WIDE_HANDLE_KEY:
-                if (Version.checkVersion(3, 16, 0).length == 0) {
+                if (gtk.global.checkVersion(3, 16, 0).length == 0) {
                     updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
                 }
                 break;
@@ -923,11 +952,11 @@ private:
      */
     Paned parsePaned(JSONValue value, SessionSizeInfo sizeInfo) {
         trace("Loading paned");
-        Orientation orientation = cast(Orientation) value[NODE_ORIENTATION].integer();
+        gtk.types.Orientation orientation = cast(gtk.types.Orientation) value[NODE_ORIENTATION].integer();
         TerminalPaned paned = createPaned(orientation);
-        Box b1 = new Box(Orientation.VERTICAL, 0);
+        Box b1 = new Box(gtk.types.Orientation.Vertical, 0);
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
-        Box b2 = new Box(Orientation.VERTICAL, 0);
+        Box b2 = new Box(gtk.types.Orientation.Vertical, 0);
         b2.add(parseNode(value[NODE_CHILD2], sizeInfo));
         paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
         paned.pack2(b2, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
@@ -993,23 +1022,23 @@ private:
 
     void initSession() {
 
-        gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
+        gsSettings = new Settings(SETTINGS_ID);
+        gsSettings.connectChanged(null, delegate(string key, Settings s) {
             applyPreference(key);
         });
         getStyleContext.addClass("tilix-background");
 
-        addOnDraw(&onDraw);
+        connectDraw(&onDraw);
     }
 
-    bool onDraw(Scoped!Context cr, Widget w) {
+    bool onDraw(cairo.context.Context cr, Widget w) {
         AppWindow window = cast(AppWindow)getToplevel();
         if (window is null) return false;
         Container child = cast(Container) getVisibleChild();
         if (child is null) return false;
 
         //Cached render
-        ImageSurface isBGImage = window.getBackgroundImage(child);
+        Surface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
 
         cr.save();
@@ -1018,21 +1047,20 @@ private:
         //cr.setOperator(cairo_operator_t.SOURCE);
         cr.paint();
 
-        //Draw child onto temporary image so it doesn't overdraw background
-        import cairo.Surface: Surface;
-        Surface isChildSurface = cr.getTarget().createSimilar(cairo_content_t.COLOR_ALPHA, child.getAllocatedWidth(), child.getAllocatedHeight());
+        import cairo.global: imageSurfaceCreate;
+        Surface isChildSurface = cr.getTarget().createSimilar(Content.ColorAlpha, child.getAllocatedWidth(), child.getAllocatedHeight());
         if (isChildSurface is null) {
-            trace("****** ImageSurface is null");
-            isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
+            trace("****** Surface is null");
+            isChildSurface = imageSurfaceCreate(Format.Argb32, child.getAllocatedWidth(), child.getAllocatedHeight());
         }
-        Context crChild = Context.create(isChildSurface);
+        cairo.context.Context crChild = cairo.global.create(isChildSurface);
         scope (exit) {
             crChild.destroy();
             isChildSurface.destroy();
         }
         propagateDraw(child, crChild);
         cr.setSourceSurface(isChildSurface, 0, 0);
-        cr.setOperator(cairo_operator_t.OVER);
+        cr.setOperator(Operator.Over);
         cr.paint();
 
         cr.restore();
@@ -1040,7 +1068,7 @@ private:
     }
 
     void updateWideHandle(bool value) {
-        if (Version.checkVersion(3, 16, 0).length == 0) {
+        if (gtk.global.checkVersion(3, 16, 0).length == 0) {
             Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
             tracef("Updating wide handle for %d paned", all.length);
             foreach (paned; all) {
@@ -1064,7 +1092,7 @@ public:
         _sessionUUID = randomUUID().toString();
         _name = name;
 
-        this.addOnDestroy(delegate(Widget) {
+        this.connectDestroy(delegate() {
             // Never use experimental logging in destructors, causes
             // memory exceptions on GC for some reason
 
@@ -1184,7 +1212,7 @@ public:
         return root;
     }
 
-    static void getPersistedSessionSize(JSONValue value, out int width, out int height) {
+    static void getPersistedSessionSize(JSONValue value, int width, int height) {
         try {
             width = to!int(value[NODE_WIDTH].integer());
             height = to!int(value[NODE_HEIGHT].integer());
@@ -1226,11 +1254,11 @@ public:
     /**
      * The name of the session
      */
-    @property string name() {
+    @property override string name() {
         return _name;
     }
 
-    @property void name(string value) {
+    @property override void name(string value) {
         if (value.length > 0) {
             _name = value;
             onSessionTitleChange();
@@ -1324,12 +1352,12 @@ public:
                 TerminalPaned paned = cast(TerminalPaned) parent;
                 trace("Testing Paned");
                 if (paned !is null) {
-                    if ((direction == "up" || direction == "down") && paned.getOrientation() == Orientation.VERTICAL) {
+                    if ((direction == "up" || direction == "down") && paned.getOrientation() == gtk.types.Orientation.Vertical) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
                         paned.updateRatio();
                         return;
-                    } else if ((direction == "left" || direction == "right") && paned.getOrientation() == Orientation.HORIZONTAL) {
+                    } else if ((direction == "left" || direction == "right") && paned.getOrientation() == gtk.types.Orientation.Horizontal) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
                         paned.updateRatio();
@@ -1387,8 +1415,8 @@ public:
         trace("Focusing ", direction);
 
         Widget appWindow = currentTerminal.getToplevel();
-        GtkAllocation appWindowAllocation;
-        appWindow.getClip(appWindowAllocation);
+        int appWindowWidth = appWindow.getAllocatedWidth();
+        int appWindowHeight = appWindow.getAllocatedHeight();
 
         // Start at the top left of the current terminal
         int xPos, yPos;
@@ -1398,7 +1426,7 @@ public:
         yPos = yPos + 5;
 
         // While still in the application window, move 20 pixels per loop
-        while (xPos >= 0 && xPos < appWindowAllocation.width && yPos >= 0 && yPos < appWindowAllocation.height) {
+        while (xPos >= 0 && xPos < appWindowWidth && yPos >= 0 && yPos < appWindowHeight) {
             switch (direction) {
             case "up":
                 yPos -= 20;
@@ -1424,10 +1452,10 @@ public:
                 int termX, termY;
                 terminal.translateCoordinates(appWindow, 0, 0, termX, termY);
 
-                GtkAllocation termAllocation;
-                terminal.getClip(termAllocation);
+                int termWidth = terminal.getAllocatedWidth();
+                int termHeight = terminal.getAllocatedHeight();
 
-                if (xPos >= termX && yPos >= termY && xPos <= (termX + termAllocation.width) && yPos <= (termY + termAllocation.height)) {
+                if (xPos >= termX && yPos >= termY && xPos <= (termX + termWidth) && yPos <= (termY + termHeight)) {
                     focusTerminal(terminal);
                     return;
                 }
@@ -1474,7 +1502,7 @@ public:
     /**
      * Adds a new terminal to the currently focused terminal
      */
-    void addTerminal(Orientation orientation) {
+    void addTerminal(gtk.types.Orientation orientation) {
         if (currentTerminal !is null) {
             addNewTerminal(currentTerminal, orientation);
         }
@@ -1494,9 +1522,9 @@ public:
             int width = currentTerminal.getAllocatedWidth();
 
             if (height < width) {
-                addNewTerminal(currentTerminal, Orientation.HORIZONTAL);
+                addNewTerminal(currentTerminal, gtk.types.Orientation.Horizontal);
             } else {
-                addNewTerminal(currentTerminal, Orientation.VERTICAL);
+                addNewTerminal(currentTerminal, gtk.types.Orientation.Vertical);
             }
         }
     }
@@ -1571,7 +1599,7 @@ private:
 
         Label label = new Label(format("<b>%s</b>", _("Name")));
         label.setUseMarkup(true);
-        label.setHalign(GtkAlign.END);
+        label.setHalign(Align.End);
         grid.attach(label, 0, 0, 1, 1);
 
         eName = new Entry();
@@ -1582,7 +1610,7 @@ private:
 
         label = new Label(format("<b>%s</b>", _("Profile")));
         label.setUseMarkup(true);
-        label.setHalign(GtkAlign.END);
+        label.setHalign(Align.End);
         grid.attach(label, 0, 1, 1, 1);
 
         ProfileInfo[] profiles = prfMgr.getProfiles();
@@ -1603,12 +1631,17 @@ private:
 public:
 
     this(Window parent, string name, string profileUUID) {
-        super(_("New Session"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [StockID.CANCEL, StockID.OK], [ResponseType.CANCEL, ResponseType.OK]);
-        setDefaultResponse(ResponseType.OK);
+        super();
+        setTitle(_("New Session"));
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("Ok"), gtk.types.ResponseType.Ok);
+        addButton(_("Cancel"), gtk.types.ResponseType.Cancel);
+        setDefaultResponse(gtk.types.ResponseType.Ok);
         createUI(name, profileUUID);
     }
 
-    @property string name() {
+    @property override string name() {
         return eName.getText();
     }
 
@@ -1636,18 +1669,18 @@ private:
     bool _ignoreRatio;
 
 public:
-    this(Orientation orientation) {
+    this(gtk.types.Orientation orientation) {
         super(orientation);
-        addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
+        connectSizeAllocate(delegate(Rectangle rect, Widget w) {
             updatePosition();
         });
 
-        addOnButtonRelease(delegate(Event event, Widget w) {
+        connectButtonReleaseEvent(delegate(EventButton event, Widget w) {
             updateRatio();
             return false;
         });
 
-        addOnAcceptPosition(delegate(Paned) {
+        connectAcceptPosition(delegate(Paned p) {
             updateRatio();
             return false;
         });
@@ -1656,7 +1689,7 @@ public:
     void updateRatio() {
         //trace("Updating ratio");
         double newRatio = ratio;
-        if (getOrientation() == Orientation.HORIZONTAL) {
+        if (getOrientation() == gtk.types.Orientation.Horizontal) {
             newRatio = to!double(getChild1().getAllocatedWidth()) / to!double(getAllocatedWidth());
             //tracef("Child1 Width=%d, Paned Width=%d, newRatio=%f",getChild1().getAllocatedWidth(),getAllocatedWidth(), newRatio);
         } else {
@@ -1672,7 +1705,7 @@ public:
     void updatePosition(bool force = false) {
         if (ignoreRatio) return;
         //tracef("TerminalPaned Size allocated, ratio %f", ratio);
-        if (getOrientation() == Orientation.HORIZONTAL) {
+        if (getOrientation() == gtk.types.Orientation.Horizontal) {
             if (force || lastWidth != getAllocatedWidth()) {
                 int position = to!int(to!double(getAllocatedWidth()) * ratio);
                 setPosition(position);
@@ -1723,20 +1756,20 @@ struct SessionSizeInfo {
     int width;
     int height;
 
-    double scalePosition(int position, Orientation orientation) {
+    double scalePosition(int position, gtk.types.Orientation orientation) {
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case gtk.types.Orientation.Horizontal:
             return to!double(position) / to!double(width);
-        case Orientation.VERTICAL:
+        case gtk.types.Orientation.Vertical:
             return to!double(position) / to!double(height);
         }
     }
 
-    int getPosition(double scaledPosition, Orientation orientation) {
+    int getPosition(double scaledPosition, gtk.types.Orientation orientation) {
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case gtk.types.Orientation.Horizontal:
             return to!int(scaledPosition * width);
-        case Orientation.VERTICAL:
+        case gtk.types.Orientation.Vertical:
             return to!int(scaledPosition * height);
         }
     }

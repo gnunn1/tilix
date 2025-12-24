@@ -11,9 +11,9 @@ import std.range;
 import std.string;
 import std.uuid;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : Settings = Settings;
 
-import glib.Variant : GVariant = Variant;
+import glib.variant : Variant = Variant;
 
 import gx.i18n.l10n;
 import gx.util.array;
@@ -289,7 +289,7 @@ enum SETTINGS_QUADRANT_SE_VALUE = "southeast";
 immutable string[] SETTINGS_QUADRANT_VALUES = [SETTINGS_QUADRANT_NW_VALUE, SETTINGS_QUADRANT_NE_VALUE, SETTINGS_QUADRANT_SW_VALUE, SETTINGS_QUADRANT_SE_VALUE];
 
 /**
- * Structure that represents a Profile in GSettings
+ * Structure that represents a Profile in Settings
  */
 struct ProfileInfo {
     /**
@@ -319,15 +319,15 @@ private:
 
     enum GSETTINGS_DEFAULT_UUID = "2b7c4080-0ddd-46c5-8f23-563fd3ba789d";
 
-    GSettings gsProfileList;
+    Settings gsProfileList;
 
     string getProfilePath(string uuid) {
         return SETTINGS_PROFILE_PATH ~ uuid ~ "/";
     }
 
-    GSettings createProfile(string uuid, string profileName, bool isDefault) {
+    Settings createProfile(string uuid, string profileName, bool isDefault) {
         //Create Profile
-        GSettings gsProfile = getProfileSettings(uuid);
+        Settings gsProfile = getProfileSettings(uuid);
         trace("Got profile settings for " ~ uuid);
         gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
         trace("Set profile name " ~ profileName);
@@ -351,13 +351,13 @@ package:
 	 * constructed.
 	 */
     this() {
-        gsProfileList = new GSettings(SETTINGS_PROFILE_LIST_ID);
+        gsProfileList = new Settings(SETTINGS_PROFILE_LIST_ID);
     }
 
 public:
 
     /**
-	 * Creates a profile in GSettings and optionally sets it as the default.
+	 * Creates a profile in Settings and optionally sets it as the default.
 	 */
     ProfileInfo createProfile(string profileName, bool isDefault = false) {
         string uuid = randomUUID().toString();
@@ -369,10 +369,10 @@ public:
      * Clones an existing profile
      */
     ProfileInfo cloneProfile(ProfileInfo sourceInfo) {
-        GSettings sourceProfile = getProfileSettings(sourceInfo.uuid);
+        Settings sourceProfile = getProfileSettings(sourceInfo.uuid);
         string uuid = randomUUID().toString();
         string profileName = format(_("%s (Copy)"), sourceProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY));
-        GSettings targetProfile = createProfile(uuid, profileName, false);
+        Settings targetProfile = createProfile(uuid, profileName, false);
         targetProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
 
         string[] keys = sourceProfile.listKeys();
@@ -380,14 +380,14 @@ public:
         foreach(key; keys) {
             // Do not copy profile name
             if (key == SETTINGS_PROFILE_VISIBLE_NAME_KEY) continue;
-            GVariant value = sourceProfile.getValue(key);
+            Variant value = sourceProfile.getValue(key);
             targetProfile.setValue(key, value);
         }
         return ProfileInfo(false, uuid, profileName);
     }
 
     /**
-	 * Deletes the specified profile in GSettings
+	 * Deletes the specified profile in Settings
 	 *
 	 * @param uuid the identifier of the profile to delete
 	 */
@@ -400,12 +400,12 @@ public:
             gsProfileList.setString(SETTINGS_PROFILE_DEFAULT_KEY, ps[0]);
         }
         onDelete.emit(uuid);
-        //TODO - Need to figure out a way to remove path from GSettings
-        //GSettings has no API to do this, terminal is using dconf API directly
+        //TODO - Need to figure out a way to remove path from Settings
+        //Settings has no API to do this, terminal is using dconf API directly
         //This delete removes the profile in the sense it is no longer in the list
         //but otherwise it stays in dconf, try resetting it to see if resetting to default
         //effectively removes it
-        GSettings gsProfile = getProfileSettings(uuid);
+        Settings gsProfile = getProfileSettings(uuid);
         string[] keys = gsProfile.listKeys();
         foreach (string key; keys) {
             gsProfile.reset(key);
@@ -421,7 +421,7 @@ public:
 	 * @param uuid The identifier of the profile to retrieve
 	 */
     ProfileInfo getProfile(string uuid) {
-        GSettings gsProfile = getProfileSettings(uuid);
+        Settings gsProfile = getProfileSettings(uuid);
         string name = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
         // Because the default profile name is 'unnamed', if we run the
         // app for the first time the name says Unnamed instead of Default
@@ -465,7 +465,7 @@ public:
     string findProfileForState(string username, string hostname, string directory) {
         string[] uuids = getProfileUUIDs();
         foreach (uuid; uuids) {
-            GSettings settings = getProfileSettings(uuid);
+            Settings settings = getProfileSettings(uuid);
             string[] matches = settings.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
             foreach (match; matches) {
                 //is there a tilde in the directory right after the first colon?
@@ -506,15 +506,15 @@ public:
     }
 
     /**
-	 * Returns the GSettings object that corresponds to a specific profile. This
+	 * Returns the Settings object that corresponds to a specific profile. This
 	 * object should not be shared between multiple classes. Also note that GtkD
 	 * does not allow you to remove event handlers thus care should be taken to only
-	 * connect from objects which will have a similar lifecycle as the settings.
+	 * Signals.connect from objects which will have a similar lifecycle as the settings.
 	 *
 	 * @param uuid The identifier of the profile
 	 */
-    GSettings getProfileSettings(string uuid) {
-        return new GSettings(SETTINGS_PROFILE_ID, getProfilePath(uuid));
+    Settings getProfileSettings(string uuid) {
+        return Settings.newWithPath(SETTINGS_PROFILE_ID, getProfilePath(uuid));
     }
 
     /**

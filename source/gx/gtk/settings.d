@@ -6,14 +6,15 @@ module gx.gtk.settings;
 
 import std.experimental.logger;
 
-import gtkc.giotypes;
-
-import gobject.ObjectG;
-import gio.Settings: GSettings = Settings;
+import gx.gtk.types;
+import gio.types;
+import gobject.object;
+import gobject.types;
+import gio.settings: Settings = Settings;
 
 /**
  * Bookkeeping class that keps track of objects which are
- * binded to a GSettings object so they can be unbinded later. it
+ * binded to a Settings object so they can be unbinded later. it
  * also supports the concept of deferred bindings where a binding
  * can be added but is not actually attached to a Settings object
  * until one is set.
@@ -22,7 +23,7 @@ class BindingHelper {
 
 private:
     Binding[] bindings;
-    GSettings _settings;
+    Settings _settings;
 
     void bindAll() {
         if (_settings !is null) {
@@ -35,7 +36,7 @@ private:
     /**
      * Adds a binding to the list
      */
-    void addBind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+    void addBind(string key, ObjectWrap object, string property, SettingsBindFlags flags) {
         bindings ~= Binding(key, object, property, flags);
     }
 
@@ -44,7 +45,7 @@ public:
     this() {
     }
 
-    this(GSettings settings) {
+    this(Settings settings) {
         this();
         _settings = settings;
     }
@@ -52,15 +53,15 @@ public:
     /**
      * The current Settings object being used.
      */
-    @property GSettings settings() {
+    @property Settings settings() {
         return _settings;
     }
 
     /**
-     * Setting a new GSettings object will cause this class to unbind
+     * Setting a new Settings object will cause this class to unbind
      * previously set bindings and re-bind to the new settings automatically.
      */
-    @property void settings(GSettings value) {
+    @property void settings(Settings value) {
         if (value != _settings) {
             if (_settings !is null && bindings.length > 0) unbind();
             _settings = value;
@@ -71,7 +72,7 @@ public:
     /**
      * Add a binding to list and binds to Settings if it is set.
      */
-    void bind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+    void bind(string key, ObjectWrap object, string property, SettingsBindFlags flags) {
         addBind(key, object, property, flags);
         if (settings !is null) {
             _settings.bind(key, object, property, flags);
@@ -100,7 +101,7 @@ private:
 
 struct Binding {
     string key;
-    ObjectG object;
+    ObjectWrap object;
     string property;
-    GSettingsBindFlags flags;
+    SettingsBindFlags flags;
 }

@@ -8,16 +8,22 @@ import core.sys.posix.unistd;
 
 import std.algorithm;
 import std.experimental.logger;
+import std.string;
+import std.typecons : Flag, No, Yes;
 
-import gdk.Event;
-import gdk.RGBA;
+import gdk.event;
+import gdk.types;
+import gdk.rgba;
+import gdk.types;
 
-import gobject.Signals;
+import gobject.global;
+import gobject.types;
 
-import glib.Str;
 
-import vte.Terminal;
-import vtec.vtetypes;
+
+import vte.terminal;
+import vte.pty;
+import vte.c.types;
 
 import gx.tilix.constants;
 import gx.tilix.terminal.util;
@@ -41,7 +47,7 @@ public:
     /**
 	 * Sets our main struct and passes it to the parent class.
 	 */
-    this(VteTerminal* vteTerminal, bool ownedRef = false) {
+    this(void* vteTerminal, Flag!"Take" ownedRef = No.Take) {
         super(vteTerminal, ownedRef);
     }
 
@@ -66,13 +72,13 @@ public:
 	protected class OnNotificationReceivedDelegateWrapper
 	{
 		void delegate(string, string, Terminal) dlg;
-		gulong handlerId;
-		ConnectFlags flags;
-		this(void delegate(string, string, Terminal) dlg, gulong handlerId, ConnectFlags flags)
+		ulong handlerId;
+		Flag!"After" after;
+		this(void delegate(string, string, Terminal) dlg, ulong handlerId, Flag!"After" after)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
-			this.flags = flags;
+			this.after = after;
 		}
 	}
 	protected OnNotificationReceivedDelegateWrapper[] onNotificationReceivedListeners;
@@ -85,26 +91,29 @@ public:
 	 *     summary = The summary
 	 *     bod = Extra optional text
 	 */
-	gulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	ulong connectNotificationReceived(void delegate(string, string, Terminal) dlg, Flag!"After" after=No.After)
 	{
-		if (Signals.lookup("notification-received", getType()) != 0) {
-			onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
-			onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = Signals.connectData(
-				this,
-				"notification-received",
+        import gobject.c.functions : g_signal_lookup, g_signal_connect_data;
+        import gobject.c.types : GObject, GCallback, GClosureNotify, GConnectFlags;
+		if (g_signal_lookup(toStringz("notification-received"), Terminal._getGType()) != 0) {
+			onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, after);
+			onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = g_signal_connect_data(
+				cast(GObject*)this._cPtr,
+				toStringz("notification-received"),
 				cast(GCallback)&callBackNotificationReceived,
 				cast(void*)onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1],
 				cast(GClosureNotify)&callBackNotificationReceivedDestroy,
-				connectFlags);
+				after ? GConnectFlags.After : cast(GConnectFlags)0);
 			return onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId;
 		} else {
 			return 0;
 		}
 	}
 
-	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, char* summary, char* bod,OnNotificationReceivedDelegateWrapper wrapper)
+	extern(C) static void callBackNotificationReceived(void* terminalStruct, char* summary, char* bod,OnNotificationReceivedDelegateWrapper wrapper)
 	{
-		wrapper.dlg(Str.toString(summary), Str.toString(bod), wrapper.outer);
+        import std.conv : to;
+		wrapper.dlg(to!string(summary), to!string(bod), wrapper.outer);
 	}
 
 	extern(C) static void callBackNotificationReceivedDestroy(OnNotificationReceivedDelegateWrapper wrapper, GClosure* closure)
@@ -116,7 +125,7 @@ public:
 	{
 		foreach(index, wrapper; onNotificationReceivedListeners)
 		{
-			if (wrapper.dlg == source.dlg && wrapper.flags == source.flags && wrapper.handlerId == source.handlerId)
+			if (wrapper.dlg == source.dlg && wrapper.after == source.after && wrapper.handlerId == source.handlerId)
 			{
 				onNotificationReceivedListeners[index] = null;
 				onNotificationReceivedListeners = std.algorithm.remove(onNotificationReceivedListeners, index);
@@ -128,36 +137,38 @@ public:
 	protected class OnTerminalScreenChangedDelegateWrapper
 	{
 		void delegate(int, Terminal) dlg;
-		gulong handlerId;
-		ConnectFlags flags;
-		this(void delegate(int, Terminal) dlg, gulong handlerId, ConnectFlags flags)
+		ulong handlerId;
+		Flag!"After" after;
+		this(void delegate(int, Terminal) dlg, ulong handlerId, Flag!"After" after)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
-			this.flags = flags;
+			this.after = after;
 		}
 	}
 	protected OnTerminalScreenChangedDelegateWrapper[] onTerminalScreenChangedListeners;
 
 	/** */
-	gulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	ulong connectTerminalScreenChanged(void delegate(int, Terminal) dlg, Flag!"After" after=No.After)
 	{
-		if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
-			onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
-			onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = Signals.connectData(
-				this,
-				"terminal-screen-changed",
+        import gobject.c.functions : g_signal_lookup, g_signal_connect_data;
+        import gobject.c.types : GObject, GCallback, GClosureNotify, GConnectFlags;
+		if (g_signal_lookup(toStringz("terminal-screen-changed"), Terminal._getGType()) != 0) {
+			onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, after);
+			onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = g_signal_connect_data(
+				cast(GObject*)this._cPtr,
+				toStringz("terminal-screen-changed"),
 				cast(GCallback)&callBackTerminalScreenChanged,
 				cast(void*)onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1],
 				cast(GClosureNotify)&callBackTerminalScreenChangedDestroy,
-				connectFlags);
+				after ? GConnectFlags.After : cast(GConnectFlags)0);
 			return onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId;
 		} else {
 			return 0;
 		}
 	}
 
-	extern(C) static void callBackTerminalScreenChanged(VteTerminal* terminalStruct, int object,OnTerminalScreenChangedDelegateWrapper wrapper)
+	extern(C) static void callBackTerminalScreenChanged(void* terminalStruct, int object,OnTerminalScreenChangedDelegateWrapper wrapper)
 	{
 		wrapper.dlg(object, wrapper.outer);
 	}
@@ -171,7 +182,7 @@ public:
 	{
 		foreach(index, wrapper; onTerminalScreenChangedListeners)
 		{
-			if (wrapper.dlg == source.dlg && wrapper.flags == source.flags && wrapper.handlerId == source.handlerId)
+			if (wrapper.dlg == source.dlg && wrapper.after == source.after && wrapper.handlerId == source.handlerId)
 			{
 				onTerminalScreenChangedListeners[index] = null;
 				onTerminalScreenChangedListeners = std.algorithm.remove(onTerminalScreenChangedListeners, index);
@@ -181,16 +192,37 @@ public:
 	}
 
     public bool getDisableBGDraw() {
-		return vte_terminal_get_disable_bg_draw(vteTerminal) != 0;
+        import vte.c.functions;
+        static if (__traits(hasMember, vte.c.functions, "vte_terminal_get_disable_bg_draw")) {
+            return vte_terminal_get_disable_bg_draw(cast(VteTerminal*)_cPtr()) != 0;
+        } else {
+            return false;
+        }
     }
 
     public void setDisableBGDraw(bool isDisabled) {
-		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
+        import vte.c.functions;
+        static if (__traits(hasMember, vte.c.functions, "vte_terminal_set_disable_bg_draw")) {
+            vte_terminal_set_disable_bg_draw(cast(VteTerminal*)_cPtr(), isDisabled);
+        }
+    }
+
+    public bool onButtonPressEvent(gdk.c.types.GdkEventButton* buttonEvent) {
+        import gdk.event : Event;
+        import std.typecons : No;
+        import gobject.object : ObjectWrap;
+        Event ev = ObjectWrap._getDObject!(Event)(cast(gdk.c.types.GdkEvent*)buttonEvent, No.Take);
+        return event(ev);
+    }
+
+    public void feedChild(string text, bool isAddedToHistory = true) {
+        import vte.c.functions : vte_terminal_feed_child;
+        vte_terminal_feed_child(cast(VteTerminal*)_cPtr(), cast(const(ubyte)*)toStringz(text), cast(ptrdiff_t)text.length);
     }
 
 static if (COMPILE_VTE_BACKGROUND_COLOR) {
     public void getColorBackgroundForDraw(RGBA background) {
-		vte_terminal_get_color_background_for_draw(vteTerminal, background is null? null: background.getRGBAStruct());
+		vte_terminal_get_color_background_for_draw(cast(VteTerminal*)_cPtr(), background is null? null: cast(GdkRGBA*)background._cPtr());
     }
 }
 
@@ -204,16 +236,17 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
             warning("getChildPid should not be called from a Flatpak environment.");
 			return -1;
 		} else {
-			if (getPty() is null)
-            	return false;
-        	return tcgetpgrp(getPty().getFd());
+            Pty pty = getPty();
+			if (pty is null)
+            	return -1;
+        	return tcgetpgrp(pty.getFd());
 		}
     }
 }
 
 private:
 
-import gtkc.Loader;
+
 import vte.c.functions;
 
 __gshared extern(C) {
@@ -233,10 +266,10 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
 }
 
 shared static this() {
-	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY_VTE);
-	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY_VTE);
+// 	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY_VTE);
+// 	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY_VTE);
 
 	static if (COMPILE_VTE_BACKGROUND_COLOR) {
-		Linker.link(vte_terminal_get_color_background_for_draw, "vte_terminal_get_color_background_for_draw", LIBRARY_VTE);
+// 		Linker.link(vte_terminal_get_color_background_for_draw, "vte_terminal_get_color_background_for_draw", LIBRARY_VTE);
 	}
 }

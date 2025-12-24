@@ -6,35 +6,29 @@ import std.stdio;
 
 import std.array;
 import std.experimental.logger;
-import std.file;
+import std.file : exists, chdir;
 import std.format;
 import std.process;
 import std.string;
+import glib.global : setPrgname, getCurrentDir, getHomeDir;
+import gtk.global : checkVersion;
 
-import glib.FileUtils;
-import glib.Util;
-
-import gtk.Main;
-import gtk.Version;
-import gtk.MessageDialog;
-
+import gtk.message_dialog;
+import gtk.types;
+import gtk.types;
 import gx.i18n.l10n;
 import gx.gtk.util;
 import gx.gtk.vte;
-
 import gx.tilix.application;
 import gx.tilix.cmdparams;
 import gx.tilix.constants;
-
 int main(string[] args) {
     static if (USE_FILE_LOGGING) {
         sharedLog = new shared FileLogger("/tmp/tilix.log");
     }
-
     bool newProcess = false;
     string group;
-
-    string cwd = Util.getCurrentDir();
+    string cwd = getCurrentDir();
     string pwd;
     string de;
     trace("CWD = " ~ cwd);
@@ -51,17 +45,16 @@ int main(string[] args) {
         error("Unexpected error occurred", e);
     }
 
-    string uhd = Util.getHomeDir();
+    string uhd = getHomeDir();
     trace("UHD = " ~ uhd);
 
     //Debug args
     foreach(i, arg; args) {
         tracef("args[%d]=%s", i, arg);
     }
-
     // Look for execute command and convert it into a normal -e
     // We do this because this switch means take everything after
-    // the switch as a command which GApplication options cannot handle
+    // the switch as a command which gio.application.Application options cannot handle
     // without a callback which D doesn't expose at this time.
     foreach(i, arg; args) {
         if (arg == "-x" || arg == "-e") {
@@ -95,15 +88,14 @@ int main(string[] args) {
             break;
         }
     }
-
     //textdomain
     textdomain(TILIX_DOMAIN);
     // Set application ID for GTK3 on Wayland
-    Util.setPrgname(APPLICATION_ID);
+    setPrgname(APPLICATION_ID);
     // Init GTK early so localization is available
     // Note used to pass empty args but was interfering with GTK default args
-    Main.init(args);
-
+    import gtk.c.functions : gtk_init;
+    gtk_init(null, null);
     trace(format("Starting tilix with %d arguments...", args.length));
     foreach(i, arg; args) {
         trace(format("arg[%d] = %s",i, arg));
@@ -113,7 +105,7 @@ int main(string[] args) {
             infof("CWD = %s", cwd);
             infof("PWD = %s", pwd);
             cwd = pwd;
-            FileUtils.chdir(cwd);
+            chdir(cwd);
         } else if (arg == "--new-process") {
             newProcess = true;
         } else if (arg == "-g") {
@@ -136,11 +128,15 @@ int main(string[] args) {
     }
 
     //Version checking cribbed from grestful, thanks!
-    string gtkError = Version.checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
+    string gtkError = checkVersion(GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH);
     if (gtkError !is null) {
-        MessageDialog dialog = new MessageDialog(null, DialogFlags.MODAL, MessageType.ERROR, ButtonsType.OK,
-                format(_("Your GTK version is too old, you need at least GTK %d.%d.%d!"), GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH), null);
-        dialog.setDefaultResponse(ResponseType.OK);
+        import gtk.c.functions : gtk_message_dialog_new;
+        import gobject.object : ObjectWrap;
+        import std.typecons : Yes;
+        auto dialogPtr = gtk_message_dialog_new(null, gtk.types.DialogFlags.Modal, gtk.types.MessageType.Error, gtk.types.ButtonsType.Ok,
+                toStringz(format(_("Your GTK version is too old, you need at least GTK %d.%d.%d!"), GTK_VERSION_MAJOR, GTK_VERSION_MINOR, GTK_VERSION_PATCH)));
+        MessageDialog dialog = ObjectWrap._getDObject!(MessageDialog)(dialogPtr, Yes.Take);
+        dialog.setDefaultResponse(gtk.types.ResponseType.Ok);
 
         dialog.run();
         return 1;
@@ -148,9 +144,13 @@ int main(string[] args) {
 
     // check minimum VTE version
     if (!checkVTEVersion(VTE_VERSION_MINIMAL)) {
-        MessageDialog dialog = new MessageDialog(null, DialogFlags.MODAL, MessageType.ERROR, ButtonsType.OK,
-                format(_("Your VTE version is too old, you need at least VTE %d.%d!"), VTE_VERSION_MINIMAL[0], VTE_VERSION_MINIMAL[1]), null);
-        dialog.setDefaultResponse(ResponseType.OK);
+        import gtk.c.functions : gtk_message_dialog_new;
+        import gobject.object : ObjectWrap;
+        import std.typecons : Yes;
+        auto dialogPtr = gtk_message_dialog_new(null, gtk.types.DialogFlags.Modal, gtk.types.MessageType.Error, gtk.types.ButtonsType.Ok,
+                toStringz(format(_("Your VTE version is too old, you need at least VTE %d.%d!"), VTE_VERSION_MINIMAL[0], VTE_VERSION_MINIMAL[1])));
+        MessageDialog dialog = ObjectWrap._getDObject!(MessageDialog)(dialogPtr, Yes.Take);
+        dialog.setDefaultResponse(gtk.types.ResponseType.Ok);
 
         dialog.run();
         return 1;
@@ -170,16 +170,14 @@ int main(string[] args) {
     }
     return result;
 }
-
 private:
     void outputVersions() {
         import gx.gtk.vte: getVTEVersion, checkVTEFeature, TerminalFeature, isVTEBackgroundDrawEnabled;
-        import gtk.Version: Version;
-
+        import gtk.global : getMajorVersion, getMinorVersion, getMicroVersion;
         writeln(_("Versions"));
         writeln("\t" ~ format(_("Tilix version: %s"), APPLICATION_VERSION));
         writeln("\t" ~ format(_("VTE version: %s"), getVTEVersion()));
-        writeln("\t" ~ format(_("GTK Version: %d.%d.%d") ~ "\n", Version.getMajorVersion(), Version.getMinorVersion(), Version.getMicroVersion()));
+        writeln("\t" ~ format(_("GTK Version: %d.%d.%d") ~ "\n", getMajorVersion(), getMinorVersion(), getMicroVersion()));
         writeln(_("Tilix Special Features"));
         writeln("\t" ~ format(_("Notifications enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_NOTIFICATION)));
         writeln("\t" ~ format(_("Triggers enabled=%b"), checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)));

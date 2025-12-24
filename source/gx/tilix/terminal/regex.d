@@ -40,14 +40,15 @@ module gx.tilix.terminal.regex;
 import std.conv;
 import std.string;
 
-import glib.MatchInfo;
-import glib.Regex : GRegex = Regex;
+import glib.regex;
+import glib.match_info;
+import glib.types;
 
-import gtkc.glibtypes;
+import glib.c.types;
 
 import gx.gtk.vte;
 
-import vte.Regex: VRegex = Regex;
+import vte.regex: VRegex = Regex;
 
 import gx.tilix.constants;
 
@@ -212,11 +213,12 @@ immutable TerminalRegex[] URL_REGEX_PATTERNS = [
 
 immutable VRegex[URL_REGEX_PATTERNS.length] compiledVRegex;
 
-GRegex compileGRegex(TerminalRegex regex) {
+glib.regex.Regex compileGRegex(TerminalRegex regex) {
     if (regex.pattern.length == 0) return null;
-    GRegexCompileFlags flags = GRegexCompileFlags.OPTIMIZE | regex.caseless ? GRegexCompileFlags.CASELESS : cast(GRegexCompileFlags) 0;
-    flags = flags | GRegexCompileFlags.MULTILINE;
-    return new GRegex(regex.pattern, flags, cast(GRegexMatchFlags) 0);
+    RegexCompileFlags flags = RegexCompileFlags.Optimize;
+    if (regex.caseless) flags |= RegexCompileFlags.Caseless;
+    flags = flags | RegexCompileFlags.Multiline;
+    return new glib.regex.Regex(regex.pattern, flags, cast(RegexMatchFlags) 0);
 }
 
 VRegex compileVRegex(TerminalRegex regex) {
@@ -225,7 +227,7 @@ VRegex compileVRegex(TerminalRegex regex) {
     if (regex.caseless) {
         flags |= PCRE2Flags.CASELESS;
     }
-    return VRegex.newMatch(regex.pattern, -1, flags);
+    return VRegex.newForMatch(regex.pattern, -1, flags);
 }
 
 shared static this() {
@@ -519,7 +521,7 @@ private:
     }
 
     void assertMatchAnchored(string pattern, string search, string expected) {
-        string value = getMatch(pattern, search, GRegexCompileFlags.ANCHORED, cast(GRegexMatchFlags)0);
+        string value = getMatch(pattern, search, RegexCompileFlags.Anchored, cast(RegexMatchFlags)0);
         if (expected == ENTIRE) {
             assert(value == search);
         } else {
@@ -528,13 +530,13 @@ private:
     }
 
     string getMatch(string pattern, string search) {
-        return getMatch(pattern, search, cast(GRegexCompileFlags)0, cast(GRegexMatchFlags)0);
+        return getMatch(pattern, search, cast(RegexCompileFlags)0, cast(RegexMatchFlags)0);
     }
 
-    string getMatch(string pattern, string search, GRegexCompileFlags compileFlags, GRegexMatchFlags matchFlags) {
-        GRegex regex = new GRegex(pattern, compileFlags, matchFlags);
-        MatchInfo match;
+    string getMatch(string pattern, string search, RegexCompileFlags compileFlags, RegexMatchFlags matchFlags) {
+        glib.regex.Regex regex = new glib.regex.Regex(pattern, compileFlags, matchFlags);
+        glib.match_info.MatchInfo match;
         regex.match(search, matchFlags, match);
-        if (match.matches && match.getMatchCount() == 1) return match.fetch(0);
+        if (match.matches() && match.getMatchCount() == 1) return match.fetch(0);
         else return null;
     }

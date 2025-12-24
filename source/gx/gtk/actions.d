@@ -7,20 +7,25 @@ module gx.gtk.actions;
 import std.experimental.logger;
 import std.string;
 
-import gio.ActionMapIF;
-import gio.SimpleAction;
-import gio.Settings : GSettings = Settings;
+import gio.action_map;
+import gio.simple_action;
+import gio.settings : Settings = Settings;
 
-import glib.Variant: GVariant = Variant;
-import glib.VariantType: GVariantType = VariantType;
+import glib.variant: Variant = Variant;
+import glib.variant_type: VariantType = VariantType;
 
-import gtk.AccelGroup;
-import gtk.Application;
-import gtk.ApplicationWindow;
+import gdk.types;
+import gtk.accel_group;
+import gtk.types;
+import gtk.application;
+import gtk.types;
+import gtk.application_window;
+import gtk.types;
+import gtk.types;
 
 import gx.i18n.l10n;
 
-private Application app = null;
+private gtk.application.Application app = null;
 
 enum SHORTCUT_DISABLED = N_("disabled");
 
@@ -29,9 +34,10 @@ enum SHORTCUT_DISABLED = N_("disabled");
  */
 string acceleratorNameToLabel(string acceleratorName) {
     uint acceleratorKey;
-    GdkModifierType acceleratorMods;
-    AccelGroup.acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
-    string label = AccelGroup.acceleratorGetLabel(acceleratorKey, acceleratorMods);
+    gdk.types.ModifierType acceleratorMods;
+    import gtk.global : acceleratorParse, acceleratorGetLabel;
+    acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
+    string label = acceleratorGetLabel(acceleratorKey, acceleratorMods);
     if (label == "") {
       label = _(SHORTCUT_DISABLED);
     }
@@ -48,16 +54,16 @@ string getActionDetailedName(string prefix, string id) {
 /**
  * Returns the key for the corresponding prefix and id. The string
  * that is returned is the key to locate the shortcut in a
- * GSettings object
+ * Settings object
  */
 string getActionKey(string prefix, string id) {
     return prefix ~ "-" ~ id;
 }
 
 /**
-  * Given a GSettings key, returns the coresponding action prefix and id.
+  * Given a Settings key, returns the coresponding action prefix and id.
   */
-void getActionNameFromKey(string key, out string prefix, out string id) {
+void getActionNameFromKey(string key, string prefix, string id) {
     ptrdiff_t index = key.indexOf("-");
     if (index >= 0) {
         prefix = key[0 .. index];
@@ -82,15 +88,15 @@ string keyToDetailedActionName(string key) {
     * prefix =               The prefix part of the action name that comes before the ".", i.e. "app" for GtkApplication, etc
     * id =                   The ID to give to the action. This can be used in other places to refer to the action
     *                             by a string. Must always start with "app.".
-    * settings =             A GIO GSettings object where shortcuts can be looked up using the key name "{prefix}-{id}"
+    * settings =             A GIO Settings object where shortcuts can be looked up using the key name "{prefix}-{id}"
     * callback =             The callback to invoke when the action is invoked.
     * parameterType =        The type of data passed as parameter to the action when activated.
     * state =                The state of the action
     *
     * Returns: The registered action.
     */
-SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(GVariant,
-        SimpleAction) cbActivate = null, GVariantType type = null, GVariant state = null, void delegate(GVariant,
+SimpleAction registerActionWithSettings(ActionMap actionMap, string prefix, string id, Settings settings, void delegate(Variant,
+        SimpleAction) cbActivate = null, VariantType type = null, Variant state = null, void delegate(Variant,
         SimpleAction) cbStateChange = null) {
 
     string[] shortcuts;
@@ -125,27 +131,27 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
     *
     * Returns: The registered action.
     */
-SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(GVariant,
-        SimpleAction) cbActivate = null, GVariantType parameterType = null, GVariant state = null, void delegate(GVariant,
+SimpleAction registerAction(ActionMap actionMap, string prefix, string id, string[] accelerators = null, void delegate(Variant,
+        SimpleAction) cbActivate = null, VariantType parameterType = null, Variant state = null, void delegate(Variant,
         SimpleAction) cbStateChange = null) {
     SimpleAction action;
     if (state is null)
         action = new SimpleAction(id, parameterType);
     else {
-        action = new SimpleAction(id, parameterType, state);
+        action = SimpleAction.newStateful(id, parameterType, state);
     }
 
     if (cbActivate !is null)
-        action.addOnActivate(cbActivate);
+        action.connectActivate(cbActivate);
 
     if (cbStateChange !is null)
-        action.addOnChangeState(cbStateChange);
+        action.connectChangeState(cbStateChange);
 
     actionMap.addAction(action);
 
     if (accelerators.length > 0) {
         if (app is null) {
-            app = cast(Application) Application.getDefault();
+            app = cast(gtk.application.Application) gtk.application.Application.getDefault();
         }
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);

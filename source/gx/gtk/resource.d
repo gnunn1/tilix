@@ -10,18 +10,21 @@ import std.experimental.logger;
 import std.file;
 import std.path;
 
-import gdk.Screen;
+import gdk.screen;
+import gdk.types;
 
-import glib.Bytes;
-import glib.GException;
-import glib.Util;
+import glib.bytes;
+import glib.error;
+import glib.global;
 
-import gio.Resource;
+import gio.resource;
 
-import gtk.CssProvider;
-import gtk.StyleContext;
+import gtk.css_provider;
+import gtk.types;
+import gtk.style_context;
+import gtk.types;
 
-import gtkc.giotypes;
+import gio.c.types;
 
 /**
  * Defined here since not defined in GtkD
@@ -38,14 +41,15 @@ enum ProviderPriority : uint {
  * Find and optionally register a resource
  */
 Resource findResource(string resourcePath, bool register = true) {
-    foreach (path; Util.getSystemDataDirs()) {
+    import gio.global : resourcesRegister;
+    foreach (path; getSystemDataDirs()) {
         auto fullpath = buildPath(path, resourcePath);
         trace("looking for resource " ~ fullpath);
         if (exists(fullpath)) {
             Resource resource = Resource.load(fullpath);
-            if (register && resource) {
+            if (register && resource !is null) {
                 trace("Resource found and registered " ~ fullpath);
-                Resource.register(resource);
+                resourcesRegister(resource);
             }
             return resource;
         }
@@ -59,11 +63,11 @@ CssProvider createCssProvider(string filename, string[string] variables = null) 
         CssProvider provider = new CssProvider();
         string css = getResource(filename, variables);
         if (css.length > 0) {
-            if (provider.loadFromData(css)) {
+            if (provider.loadFromData(cast(ubyte[])css)) {
                 return provider;
             }
         }
-    } catch (GException ge) {
+    } catch (ErrorWrap ge) {
         trace("Unexpected error loading css provider " ~ filename);
         trace("Error: " ~ ge.msg);
     }
@@ -87,7 +91,7 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
                 return null;
             }
         }
-    } catch (GException ge) {
+    } catch (ErrorWrap ge) {
         trace("Unexpected error loading css provider " ~ filename);
         trace("Error: " ~ ge.msg);
     }
@@ -98,10 +102,12 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
  * Loads a textual resource and performs string subsitution based on key-value pairs
  */
 string getResource(string filename, string[string] variables = null) {
+    import gio.global : resourcesLookupData;
+    import gio.types : ResourceLookupFlags;
     Bytes bytes;
     try {
-        bytes = Resource.resourcesLookupData(filename, GResourceLookupFlags.NONE);
-    } catch (GException ge) {
+        bytes = resourcesLookupData(filename, ResourceLookupFlags.None);
+    } catch (ErrorWrap ge) {
         return null;
     }
     if (bytes is null || bytes.getSize() == 0) return null;

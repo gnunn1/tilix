@@ -12,7 +12,7 @@ import std.datetime;
 import std.experimental.logger;
 import std.parallelism;
 
-import vtec.vtetypes;
+import vte.c.types;
 
 import gx.i18n.l10n;
 import gx.gtk.threads;
@@ -24,7 +24,7 @@ import gx.tilix.terminal.activeprocess;
 import gx.tilix.application;
 
 enum MonitorEventType {
-    NONE,
+    None,
     STARTED,
     CHANGED,
     FINISHED
@@ -44,9 +44,9 @@ private:
     bool fireEvents() {
         synchronized {
             foreach(process; processes) {
-                if (process.eventType != MonitorEventType.NONE) {
+                if (process.eventType != MonitorEventType.None) {
                     onChildProcess.emit(process.eventType, process.gpid, process.activePid, process.activeName);
-                    process.eventType = MonitorEventType.NONE;
+                    process.eventType = MonitorEventType.None;
                 }
             }
         }
@@ -163,7 +163,7 @@ shared class ProcessStatus {
     GPid gpid;
     pid_t activePid = -1;
     string activeName = "";
-    MonitorEventType eventType = MonitorEventType.NONE;
+    MonitorEventType eventType = MonitorEventType.None;
 
     this(GPid gpid) {
         this.gpid = gpid;

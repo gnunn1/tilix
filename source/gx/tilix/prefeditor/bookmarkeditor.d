@@ -6,13 +6,26 @@ module gx.tilix.prefeditor.bookmarkeditor;
 
 import std.experimental.logger;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.ScrolledWindow;
-import gtk.TreeIter;
-import gtk.TreePath;
-import gtk.Window;
+import gtk.box;
+import gtk.types;
+import gtk.button;
+import gtk.types;
+import gtk.image;
+import gtk.scrolled_window;
+import gtk.types;
+import gtk.tree_iter;
+import gtk.types;
+import gtk.tree_path;
+import gtk.types;
+import gtk.tree_view;
+import gtk.tree_view_column;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
 
+import gx.gtk.types;
 import gx.i18n.l10n;
 
 import gx.gtk.util;
@@ -39,43 +52,48 @@ private:
         tv = new BMTreeView(false, false, true);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
-        tv.getSelection().setMode(SelectionMode.SINGLE);
-        tv.addOnCursorChanged(delegate(TreeView) {
+        tv.getSelection().setMode(SelectionMode.Single);
+        tv.connectCursorChanged(delegate(TreeView tv) {
             updateUI();
         });
-        tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
+        tv.connectRowActivated(delegate(TreePath path, TreeViewColumn col, TreeView tv) {
             editBookmark(btnEdit);
         });
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Automatic, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
 
         add(sw);
 
-        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        Box bButtons = new Box(gtk.types.Orientation.Horizontal, 0);
         bButtons.getStyleContext().addClass("linked");
 
-        Button btnAdd = new Button("list-add-symbolic", IconSize.BUTTON);
+        Button btnAdd = new Button();
+        btnAdd.setImage(Image.newFromIconName("list-add-symbolic", IconSize.Button));
         btnAdd.setTooltipText(_("Add bookmark"));
-        btnAdd.addOnClicked(&addBookmark);
+        btnAdd.connectClicked(&addBookmark);
         bButtons.add(btnAdd);
 
-        btnEdit = new Button("input-tablet-symbolic", IconSize.BUTTON);
+        btnEdit = new Button();
+        btnEdit.setImage(Image.newFromIconName("input-tablet-symbolic", IconSize.Button));
         btnEdit.setTooltipText(_("Edit bookmark"));
-        btnEdit.addOnClicked(&editBookmark);
+        btnEdit.connectClicked(&editBookmark);
         bButtons.add(btnEdit);
 
-        btnDelete = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDelete = new Button();
+        btnDelete.setImage(Image.newFromIconName("list-remove-symbolic", IconSize.Button));
         btnDelete.setTooltipText(_("Delete bookmark"));
-        btnDelete.addOnClicked(&deleteBookmark);
+        btnDelete.connectClicked(&deleteBookmark);
         bButtons.add(btnDelete);
 
-        btnUnselect = new Button("edit-clear-symbolic", IconSize.BUTTON);
+        btnUnselect = new Button();
+        btnUnselect.setImage(Image.newFromIconName("edit-clear-symbolic", IconSize.Button));
         btnUnselect.setTooltipText(_("Unselect bookmark"));
-        btnUnselect.addOnClicked(&unselectBookmark);
+        btnUnselect.connectClicked(&unselectBookmark);
         bButtons.add(btnUnselect);
 
         add(bButtons);
@@ -96,7 +114,7 @@ private:
             be.destroy();
         }
         be.showAll();
-        if (be.run() == ResponseType.OK) {
+        if (be.run() == gtk.types.ResponseType.Ok) {
             Bookmark bm = be.create();
             tv.addBookmark(bm);
         }
@@ -110,7 +128,7 @@ private:
             be.destroy();
         }
         be.showAll();
-        if (be.run() == ResponseType.OK) {
+        if (be.run() == gtk.types.ResponseType.Ok) {
             be.update(bm);
             tv.updateBookmark(bm);
         }
@@ -126,7 +144,7 @@ private:
 
 public:
     this() {
-        super(Orientation.VERTICAL, 6);
+        super(gtk.types.Orientation.Vertical, 6);
         setAllMargins(this, 18);
         setMarginBottom(6);
         createUI();

@@ -4,27 +4,46 @@
  */
 module gx.gtk.dialog;
 
-import gio.Settings: GSettings = Settings;
+import std.string : toStringz;
+import std.typecons : No, Yes;
+import gio.settings: Settings = Settings;
 
-import gtk.CheckButton;
-import gtk.Entry;
-import gtk.MessageDialog;
-import gtk.Window;
+import gtk.check_button;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.message_dialog;
+import gtk.types;
+import gtk.window;
+import gtk.types;
+import gtk.types;
+import gtk.global;
+import gtk.types;
+import gtk.editable;
+import gtk.types;
+import gtk.container;
+import gtk.types;
+import gtk.c.types;
 
 import gx.i18n.l10n;
 
 /**
  * Displays an error message in a dialog
  */
-void showErrorDialog(Window parent, string message, string title = null) {
-    showMessageDialog(MessageType.ERROR, parent, message, title);
+void showErrorDialog(gtk.window.Window parent, string message, string title = null) {
+    showMessageDialog(gtk.types.MessageType.Error, parent, message, title);
 }
 
 /**
  * Displays a message dialog of the specified type
  */
-void showMessageDialog(MessageType mt, Window parent, string message, string title = null) {
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, mt, ButtonsType.OK, message, null);
+void showMessageDialog(gtk.types.MessageType mt, gtk.window.Window parent, string message, string title = null) {
+    import gtk.c.functions : gtk_message_dialog_new;
+    import gobject.object : ObjectWrap;
+    import std.typecons : Yes;
+    auto dialogPtr = gtk_message_dialog_new(parent ? cast(GtkWindow*)parent._cPtr(No.Dup) : null,
+            gtk.types.DialogFlags.Modal | gtk.types.DialogFlags.UseHeaderBar, mt, gtk.types.ButtonsType.Ok, toStringz(message));
+    MessageDialog dialog = ObjectWrap._getDObject!(MessageDialog)(dialogPtr, Yes.Take);
     scope (exit) {
         dialog.destroy();
     }
@@ -39,37 +58,40 @@ alias OnValidate = bool delegate(string value);
 /**
  * Show an input dialog with a single entry for input
  */
-bool showInputDialog(Window parent, out string value, string initialValue = "", string title = "", string message = "", OnValidate validate = null) {
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL, message, null);
+bool showInputDialog(gtk.window.Window parent, string value, string initialValue = "", string title = "", string message = "", OnValidate validate = null) {
+    import gtk.c.functions : gtk_message_dialog_new;
+    import gobject.object : ObjectWrap;
+    import std.typecons : Yes;
+    auto dialogPtr = gtk_message_dialog_new(parent ? cast(GtkWindow*)parent._cPtr(No.Dup) : null,
+            gtk.types.DialogFlags.Modal | gtk.types.DialogFlags.UseHeaderBar, gtk.types.MessageType.Question, gtk.types.ButtonsType.OkCancel, toStringz(message));
+    MessageDialog dialog = ObjectWrap._getDObject!(MessageDialog)(dialogPtr, Yes.Take);
     scope (exit) {
         dialog.destroy();
     }
     dialog.setTransientFor(parent);
     dialog.setTitle(title);
-    Entry entry;
+    Entry entry = new Entry();
     if (initialValue.length > 0) {
-        entry = new Entry(initialValue);
-    } else {
-        entry = new Entry();
+        entry.setText(initialValue);
     }
-    entry.addOnActivate(delegate(Entry) {
-        dialog.response(ResponseType.OK);
+    entry.connectActivate(delegate(Entry e) {
+        dialog.response(gtk.types.ResponseType.Ok);
     });
     if (validate !is null) {
-        entry.addOnChanged(delegate(EditableIF) {
-            if (validate(entry.getText)) {
+        entry.connectChanged(delegate(Editable e) {
+            if (validate(entry.getText())) {
                 entry.getStyleContext().removeClass("error");
-                dialog.setResponseSensitive(ResponseType.OK, true);
+                dialog.setResponseSensitive(gtk.types.ResponseType.Ok, true);
             } else {
                 entry.getStyleContext().addClass("error");
-                dialog.setResponseSensitive(ResponseType.OK, false);
+                dialog.setResponseSensitive(gtk.types.ResponseType.Ok, false);
             }
         });
     }
-    dialog.getMessageArea().add(entry);
+    (cast(Container)dialog.getMessageArea()).add(entry);
     entry.showAll();
-    dialog.setDefaultResponse(ResponseType.OK);
-    if (dialog.run() == ResponseType.OK) {
+    dialog.setDefaultResponse(gtk.types.ResponseType.Ok);
+    if (dialog.run() == gtk.types.ResponseType.Ok) {
         value = entry.getText();
         return true;
     } else {
@@ -78,24 +100,30 @@ bool showInputDialog(Window parent, out string value, string initialValue = "", 
 }
 
 /**
- * Shows a confirmation dialog with the optional ability to include an ignore checkbox 
+ * Shows a confirmation dialog with the optional ability to include an ignore checkbox
  * tied to gio.Settings so the user no longer has to see the dialog.
  */
-bool showConfirmDialog(Window parent, string message, GSettings settings = null, string promptKey = "") {
+bool showConfirmDialog(gtk.window.Window parent, string message, Settings settings = null, string promptKey = "") {
     if (settings !is null && !settings.getBoolean(promptKey)) return true;
 
-    MessageDialog dialog = new MessageDialog(parent, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, MessageType.QUESTION, ButtonsType.OK_CANCEL,
-            message, null);
-    CheckButton cbPrompt = new CheckButton(_("Do not show this again"));
-    cbPrompt.setMarginLeft(12);
-    dialog.getContentArea().add(cbPrompt);
-    dialog.setDefaultResponse(ResponseType.CANCEL);
+    import gtk.c.functions : gtk_message_dialog_new;
+    import gobject.object : ObjectWrap;
+    import std.typecons : Yes;
+    auto dialogPtr = gtk_message_dialog_new(parent ? cast(GtkWindow*)parent._cPtr(No.Dup) : null,
+            gtk.types.DialogFlags.Modal | gtk.types.DialogFlags.UseHeaderBar, gtk.types.MessageType.Question, gtk.types.ButtonsType.OkCancel, toStringz(message));
+    MessageDialog dialog = ObjectWrap._getDObject!(MessageDialog)(dialogPtr, Yes.Take);
+
+    CheckButton cbPrompt = new CheckButton();
+    cbPrompt.setLabel(_("Do not show this again"));
+    cbPrompt.setMarginStart(12);
+    (cast(Container)dialog.getContentArea()).add(cbPrompt);
+    dialog.setDefaultResponse(gtk.types.ResponseType.Cancel);
     scope (exit) {
         dialog.destroy();
     }
     dialog.showAll();
     bool result = true;
-    if (dialog.run() != ResponseType.OK) {
+    if (dialog.run() != gtk.types.ResponseType.Ok) {
         result = false;
     }
     settings.setBoolean(promptKey, !cbPrompt.getActive());

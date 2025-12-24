@@ -432,7 +432,7 @@ struct _XDisplay{
     uint max_request_size;                          /* maximum number 32 bit words in request*/
     _XrmHashBucketRec* db;
     extern (C) nothrow int function( _XDisplay* )private15;
-    char* display_name;                             /* "host:display" string used on this connect*/
+    char* display_name;                             /* "host:display" string used on this Signals.connect*/
     int default_screen;                             /* default screen for operations */
     int nscreens;                                   /* number of screens on this server*/
     Screen* screens;                                /* pointer to list of screens */

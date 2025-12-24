@@ -6,12 +6,19 @@ module gx.tilix.terminal.layout;
 
 import std.format;
 
-import gtk.Dialog;
-import gtk.Entry;
-import gtk.Grid;
-import gtk.Label;
-import gtk.Version;
-import gtk.Window;
+import gtk.box;
+import gtk.dialog;
+import gtk.global;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.grid;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+
+import gtk.window;
+import gtk.types;
 
 import gx.i18n.l10n;
 import gx.gtk.vte;
@@ -30,9 +37,13 @@ private:
 
 public:
     this(Window window) {
-        super(_("Layout Options"), window, DialogFlags.MODAL + DialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [ResponseType.OK, ResponseType.CANCEL]);
-        setDefaultResponse(ResponseType.OK);
+        super();
+        setTitle(_("PangoLayout Options"));
         setTransientFor(window);
+        setModal(true);
+        addButton(_("Ok"), gtk.types.ResponseType.Ok);
+        addButton(_("Cancel"), gtk.types.ResponseType.Cancel);
+        setDefaultResponse(gtk.types.ResponseType.Ok);
         setDefaultSize(400, -1);
 
         Grid grid = new Grid();
@@ -47,17 +58,17 @@ public:
 
         Label lblActive = new Label(format("<b>%s</b>", _("Active")));
         lblActive.setUseMarkup(true);
-        lblActive.setHalign(GtkAlign.START);
+        lblActive.setHalign(Align.Start);
         grid.attach(lblActive, 0, row, 2, 1);
         row++;
 
         Label lblTitle = new Label(_("Title"));
-        lblTitle.setHalign(GtkAlign.END);
+        lblTitle.setHalign(Align.End);
         grid.attach(lblTitle, 0, row, 1, 1);
         eTitle = new Entry();
         eTitle.setWidthChars(20);
         eTitle.setHexpand(true);
-        if (Version.checkVersion(3,16, 0).length == 0) {
+        if (gtk.global.checkVersion(3,16, 0).length == 0) {
             grid.attach(createTitleEditHelper(eTitle, TitleEditScope.TERMINAL), 1, row, 1, 1);
         } else {
             grid.attach(eTitle, 1, row, 1, 1);
@@ -66,12 +77,12 @@ public:
 
         if (checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW)) {
             Label lblBadge = new Label(_("Badge"));
-            lblBadge.setHalign(GtkAlign.END);
+            lblBadge.setHalign(Align.End);
             grid.attach(lblBadge, 0, row, 1, 1);
             eBadge = new Entry();
             eBadge.setHexpand(true);
             eBadge.setWidthChars(20);
-            if (Version.checkVersion(3,16, 0).length == 0) {
+            if (gtk.global.checkVersion(3,16, 0).length == 0) {
                 grid.attach(createTitleEditHelper(eBadge, TitleEditScope.TERMINAL), 1, row, 1, 1);
             } else {
                 grid.attach(eBadge, 1, row, 1, 1);
@@ -81,13 +92,13 @@ public:
 
         Label lblLoad = new Label(format("<b>%s</b>", _("Session Load")));
         lblLoad.setUseMarkup(true);
-        lblLoad.setHalign(GtkAlign.START);
+        lblLoad.setHalign(Align.Start);
         lblLoad.setMarginTop(6);
         grid.attach(lblLoad, 0, row, 2, 1);
         row++;
 
         Label lblCommand = new Label(_("Command"));
-        lblCommand.setHalign(GtkAlign.END);
+        lblCommand.setHalign(Align.End);
 
         grid.attach(lblCommand, 0, row, 1, 1);
         eCommand = new Entry();
@@ -102,14 +113,14 @@ public:
         grid.attach(lblInfo, 0, row, 2, 1);
         row++;
 
-        getContentArea().add(grid);
+        (cast(Box)getContentArea()).add(grid);
     }
 
-    @property string title() {
+    @property override string title() {
         return eTitle.getText();
     }
 
-    @property void title(string value) {
+    @property override void title(string value) {
         if (value.length > 0) {
             eTitle.setText(value);
         }

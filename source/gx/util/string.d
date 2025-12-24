@@ -20,6 +20,19 @@ string escapeCSV(string value) {
     return value;
 }
 
+/**
+ * Shell quote a string. implementation based on:
+ * http://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash
+ */
+string shellQuote(string value) {
+    if (value.length == 0) return "''";
+    // If it doesn't contain any special characters, just return it
+    import std.regex: regex, matchFirst;
+    if (!matchFirst(value, regex("[^a-zA-Z0-9./_-]"))) return value;
+
+    return "'" ~ value.replace("'", "'\\''") ~ "'";
+}
+
 unittest {
     assert(escapeCSV("test") == "test");
     assert(escapeCSV("gedit \"test\"") == "\"gedit \"\"test\"\"\"");

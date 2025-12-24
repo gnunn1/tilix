@@ -5,27 +5,46 @@
 module gx.tilix.customtitle;
 
 import std.experimental.logger;
+import std.typecons;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event;
+import gdk.event_button;
+import gdk.event_focus;
+import gdk.event_key;
+import gdk.types;
+import gdk.types;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : Settings = Settings;
 
-import gobject.Signals;
-import gobject.Value;
+import gobject.global;
+import gobject.types;
+import gobject.value;
+import gobject.types;
 
-import gtk.Box;
-import gtk.Entry;
-import gtk.EventBox;
-import gtk.Label;
-import gtk.Settings;
-import gtk.Stack;
-import gtk.Widget;
-import gtk.Window;
-import gtk.Version;
+import gtk.box;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.event_box;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+import gtk.settings;
+import gtk.types;
+import gtk.stack;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
+import gtk.global;
 
-import gtkc.glib;
+import pango.types;
 
+import glib.c.functions;
+
+import gx.gtk.keys;
+import gx.gtk.types;
 import gx.gtk.util;
 import gx.i18n.l10n;
 
@@ -56,50 +75,48 @@ private:
 
     TitleEditBox titleEditor;
 
-    gulong focusOutHandlerId;
+    ulong focusOutHandlerId;
 
-    GSettings gsSettings;
+    Settings gsSettings;
     bool controlRequired;
 
     void createUI() {
-        setHalign(GtkAlign.FILL);
-        
+        setHalign(Align.Fill);
+
         lblTitle = new Label(_(APPLICATION_NAME));
-        lblTitle.setHalign(GtkAlign.CENTER);
+        lblTitle.setHalign(Align.Center);
         lblTitle.getStyleContext().addClass("title");
-        lblTitle.setEllipsize(PangoEllipsizeMode.START);
+        lblTitle.setEllipsize(pango.types.EllipsizeMode.Start);
         eb = new EventBox();
-        eb.addOnButtonPress(&onButtonPress);
-        eb.addOnButtonRelease(&onButtonRelease);
+        eb.connectButtonPressEvent(&onButtonPress);
+        eb.connectButtonReleaseEvent(&onButtonRelease);
         eb.add(lblTitle);
-        eb.setHalign(GtkAlign.FILL);
+        eb.setHalign(Align.Fill);
         addNamed(eb, PAGE_LABEL);
-        
+
         eTitle = new Entry();
         eTitle.setWidthChars(5);
         eTitle.setHexpand(true);
-        eTitle.addOnKeyPress(delegate (Event event, Widget widget) {
-            uint keyval;
-            if (event.getKeyval(keyval)) {
-                switch (keyval) {
-                    case GdkKeysyms.GDK_Escape:
-                        setViewMode(ViewMode.LABEL);
-                        onCancelEdit.emit();
-                        return true;
-                    case GdkKeysyms.GDK_Return:
-                        onTitleChange.emit(eTitle.getText());
-                        setViewMode(ViewMode.LABEL);
-                        return true;
-                    default:
-                }
+        eTitle.connectKeyPressEvent(delegate (EventKey event, Widget widget) {
+            uint keyval = event.keyval;
+            switch (keyval) {
+                case Keys.Escape:
+                    setViewMode(ViewMode.LABEL);
+                    onCancelEdit.emit();
+                    return true;
+                case Keys.Return:
+                    onTitleChange.emit(eTitle.getText());
+                    setViewMode(ViewMode.LABEL);
+                    return true;
+                default:
             }
             return false;
         });
-        focusOutHandlerId = eTitle.addOnFocusOut(&onFocusOut, ConnectFlags.AFTER);
-        if (Version.checkVersion(3,16, 0).length == 0) {
+        focusOutHandlerId = eTitle.connectFocusOutEvent(&onFocusOut, Yes.After);
+        if (gtk.global.checkVersion(3,16, 0).length == 0) {
             titleEditor = createTitleEditHelper(eTitle, TitleEditScope.WINDOW);
-            titleEditor.onPopoverShow.connect(&onPopoverShow);
-            titleEditor.onPopoverClosed.connect(&onPopoverClosed);
+            titleEditor.onPopoverShow .connect(&onPopoverShow);
+            titleEditor.onPopoverClosed .connect(&onPopoverClosed);
             addNamed(titleEditor, PAGE_EDIT);
         } else {
             addNamed(eTitle, PAGE_EDIT);
@@ -107,14 +124,14 @@ private:
         setViewMode(ViewMode.LABEL);
     }
 
-    bool onButtonRelease(Event event, Widget widget) {
+    bool onButtonRelease(EventButton event, Widget widget) {
         trace("Button release");
-        if (event.button.button != MouseButton.PRIMARY || !buttonDown) {
+        if (event.button != 1 || !buttonDown) {
             tracef("Ignoring release %b", buttonDown);
             return false;
         }
-        if (controlRequired && !(event.button.state & ModifierType.CONTROL_MASK)) {
-            tracef("No control modifier, ignoring: %d", event.button.state);
+        if (controlRequired && !(event.state & gdk.types.ModifierType.ControlMask)) {
+            tracef("No control modifier, ignoring: %d", event.state);
              return false;
         }
         removeTimeout();
@@ -127,10 +144,10 @@ private:
         return false;
     }
 
-    bool onButtonPress(Event event, Widget widget) {
-        if (event.button.button != MouseButton.PRIMARY) return false;
+    bool onButtonPress(EventButton event, Widget widget) {
+        if (event.button != 1) return false;
 
-        if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS) {
+        if (event.type == EventType.DoubleButtonPress) {
             trace("Double click press");
             buttonDown = false;
             removeTimeout();
@@ -141,7 +158,7 @@ private:
         return false;
     }
 
-    bool onFocusOut(Event event, Widget widget) {
+    bool onFocusOut(EventFocus event, Widget widget) {
         trace("Focus out");
         removeTimeout();
         setViewMode(ViewMode.LABEL);
@@ -193,12 +210,12 @@ private:
 
     void onPopoverShow() {
         trace("Popover showing");
-        Signals.handlerBlock(eTitle, focusOutHandlerId);
+        gobject.global.signalHandlerBlock(eTitle, focusOutHandlerId);
     }
 
     void onPopoverClosed() {
         trace("Popover closing");
-        Signals.handlerUnblock(eTitle, focusOutHandlerId);
+        gobject.global.signalHandlerUnblock(eTitle, focusOutHandlerId);
     }
 
 	extern(C) static bool timeoutCallback(CustomTitle ct) {
@@ -211,15 +228,15 @@ private:
 public:
     this() {
         super();
-        gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
+        gsSettings = new Settings(SETTINGS_ID);
+        gsSettings.connectChanged(null, delegate(string key, Settings s) {
             if (key == SETTINGS_CONTROL_CLICK_TITLE_KEY) {
                 controlRequired = gsSettings.getBoolean(SETTINGS_CONTROL_CLICK_TITLE_KEY);
             }
         });
         controlRequired = gsSettings.getBoolean(SETTINGS_CONTROL_CLICK_TITLE_KEY);
         createUI();
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate(Widget w) {
             removeTimeout();
             gsSettings.destroy();
             gsSettings = null;

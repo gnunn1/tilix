@@ -20,20 +20,31 @@ module gx.gtk.x11;
 import std.experimental.logger;
 import std.string;
 
-import gtkc.glibtypes;
+import glib.c.types;
 
-import gtkc.Loader;
-import gtkc.paths;
 
-import gdk.Atom;
-import gdk.Gdk;
-import gdk.X11;
 
-import gtk.Main;
-import gtk.Window;
+
+import gdk.atom;
+import gdk.types;
+import gdk.global;
+import gdk.types;
+
+import gtk.global;
+import gtk.types;
+import gtk.window;
+import gtk.types;
 
 import x11.X: Atom, ClientMessage, StructureNotifyMask, XWindow=Window;
 import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
+
+import gdk.c.types;
+
+extern(C) uint gdk_x11_get_server_time(void*);
+extern(C) ulong gdk_x11_window_get_xid(void*);
+extern(C) void* gdk_x11_get_default_xdisplay();
+extern(C) ulong gdk_x11_get_default_root_xwindow();
+extern(C) void* gdk_x11_get_xatom_by_name(const(char)*);
 
 /**
  * This function activates an X11 using the _NET_ACTIVE_WINDOW
@@ -46,29 +57,29 @@ import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
  * The original xfce code was licensed under GPL and that license remains in effect for this method only,
  * since code translations are considered a derived work under GPL.
  */
-void activateX11Window(Window window) {
-    uint timestamp = Main.getCurrentEventTime();
+void activateX11Window(gtk.window.Window window) {
+    uint timestamp = getCurrentEventTime();
 
     if (timestamp == 0)
-        timestamp = gdk_x11_get_server_time(window.getWindow().getWindowStruct());
+        timestamp = gdk_x11_get_server_time(window.getWindow()._cPtr());
 
     XClientMessageEvent event;
     event.type = ClientMessage;
-    event.window = getXid(window.getWindow());
+    event.window = gdk_x11_window_get_xid(window.getWindow()._cPtr());
     const(char*) name = toStringz("_NET_ACTIVE_WINDOW");
-    event.message_type = gdk_x11_get_xatom_by_name(name);
+    event.message_type = cast(Atom)gdk_x11_get_xatom_by_name(name);
     event.format = 32;
     event.data.l[0] = 1;
     event.data.l[1] = timestamp;
     event.data.l[2] = event.data.l[3] = event.data.l[4] = 0;
 
-    Display* display = gdk_x11_get_default_xdisplay();
-    XWindow root = gdk_x11_get_default_root_xwindow();
+    Display* display = cast(Display*)gdk_x11_get_default_xdisplay();
+    XWindow root = cast(XWindow)gdk_x11_get_default_root_xwindow();
 
-    Gdk.errorTrapPush();
+    errorTrapPush();
     XSendEvent(display, root, false, StructureNotifyMask, cast(XEvent*) &event);
-    Gdk.flush;
-    if (Gdk.errorTrapPop() != 0) {
+    flush();
+    if (errorTrapPop() != 0) {
         error("Failed to focus window");
     }
 }
@@ -76,25 +87,3 @@ void activateX11Window(Window window) {
 private:
 
 import gdk.c.functions;
-
-shared static this()
-{
-    // Link in some extra functions not provided by GtkD
-    Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY_GDK);
-}
-
-__gshared extern(C)
-{
-    Atom function(const(char)* atom_name) c_gdk_x11_get_xatom_by_name;
-    Display* function() c_gdk_x11_get_default_xdisplay;
-    XWindow function() c_gdk_x11_get_default_root_xwindow;
-    uint function(GdkWindow* window) c_gdk_x11_get_server_time;
-}
-
-alias c_gdk_x11_get_xatom_by_name gdk_x11_get_xatom_by_name;
-alias c_gdk_x11_get_default_xdisplay gdk_x11_get_default_xdisplay;
-alias c_gdk_x11_get_default_root_xwindow gdk_x11_get_default_root_xwindow;
-alias c_gdk_x11_get_server_time gdk_x11_get_server_time;

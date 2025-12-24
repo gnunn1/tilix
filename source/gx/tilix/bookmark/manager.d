@@ -13,16 +13,22 @@ import std.json;
 import std.path;
 import std.uuid;
 
-import gdk.Pixbuf;
-import gdk.RGBA;
-import gdk.Screen;
+import gdkpixbuf.pixbuf;
+import gdk.rgba;
+import gdk.types;
+import gdk.screen;
+import gdk.types;
 
-import glib.Util;
+import glib.global;
 
-import gtk.IconInfo;
-import gtk.IconTheme;
-import gtk.StyleContext;
-import gtk.Widget;
+import gtk.icon_info;
+import gtk.types;
+import gtk.icon_theme;
+import gtk.types;
+import gtk.style_context;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
 
 import gx.i18n.l10n;
 
@@ -595,7 +601,7 @@ public:
     }
 
     void save() {
-        string path = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER);
+        string path = buildPath(getUserConfigDir(), APPLICATION_CONFIG_FOLDER);
         if (!exists(path)) {
             mkdirRecurse(path);
         }
@@ -605,7 +611,7 @@ public:
     }
 
     void load() {
-        string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
+        string filename = buildPath(getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
         if (exists(filename)) {
             try {
                 string json = readText(filename);
@@ -638,10 +644,10 @@ void initBookmarkManager() {
     bmMgr = new BookmarkManager();
 }
 
-Pixbuf[] getBookmarkIcons(Widget widget) {
+gdkpixbuf.pixbuf.Pixbuf[] getBookmarkIcons(Widget widget) {
     if (bmIcons.length > 0) return bmIcons;
     string[] names = ["folder-symbolic","mark-location-symbolic","folder-remote-symbolic", "application-x-executable-symbolic"];
-    Pixbuf[] icons;
+    gdkpixbuf.pixbuf.Pixbuf[] icons;
     IconTheme iconTheme = IconTheme.getForScreen(Screen.getDefault());
     if (iconTheme is null) {
         error("IconTheme could not be loaded");
@@ -654,7 +660,7 @@ Pixbuf[] getBookmarkIcons(Widget widget) {
         return [null, null, null, null];
     }
     foreach(name; names) {
-        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, IconLookupFlags.GENERIC_FALLBACK);
+        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, IconLookupFlags.GenericFallback);
         bool wasSymbolic;
         icons ~= iconInfo.loadSymbolic(fg, null, null, null, wasSymbolic);
     }
@@ -685,7 +691,7 @@ private:
     enum NODE_BOOKMARK_TYPE = "type";
 
     string[5] localizedBookmarks = [N_("Folder"), N_("Path"), N_("Remote"), N_("Command")];
-    Pixbuf[] bmIcons;
+    gdkpixbuf.pixbuf.Pixbuf[] bmIcons;
 
 unittest {
     initBookmarkManager();

@@ -7,14 +7,16 @@ module gx.tilix.prefeditor.common;
 import std.format;
 import std.experimental.logger;
 
-import gio.Settings: GSettings = Settings;
+import gio.settings: Settings = Settings;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.Grid;
-import gtk.Label;
-import gtk.Window;
-import gtk.Version;
+import gtk.box;
+import gtk.button;
+import gtk.grid;
+import gtk.label;
+import gtk.window;
+import gtk.types;
+import gtk.global : checkVersion;
+
 
 import gx.gtk.vte;
 import gx.i18n.l10n;
@@ -32,30 +34,30 @@ import gx.tilix.prefeditor.advdialog;
  * don't use a delegate the references to the event handlers become pinned to
  * one object instance.
  */
-void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool showTriggerLineSettings = false) {
+void createAdvancedUI(Grid grid, ref uint row, Settings delegate() scb, bool showTriggerLineSettings = false) {
     // Custom Links Section
     Label lblCustomLinks = new Label(format("<b>%s</b>", _("Custom Links")));
     lblCustomLinks.setUseMarkup(true);
-    lblCustomLinks.setHalign(GtkAlign.START);
+    lblCustomLinks.setHalign(Align.Start);
     grid.attach(lblCustomLinks, 0, row, 3, 1);
     row++;
 
     string customLinksDescription = _("A list of user defined links that can be clicked on in the terminal based on regular expression definitions.");
     grid.attach(createDescriptionLabel(customLinksDescription), 0, row, 2, 1);
 
-    Button btnEditLink = new Button(_("Edit"));
-    btnEditLink.setHalign(GtkAlign.FILL);
-    btnEditLink.setValign(GtkAlign.CENTER);    
+    Button btnEditLink = Button.newWithLabel(_("Edit"));
+    btnEditLink.setHalign(Align.Fill);
+    btnEditLink.setValign(Align.Center);
 
-    btnEditLink.addOnClicked(delegate(Button) {
-        GSettings gs = scb();
+    btnEditLink.connectClicked(delegate(Button b) {
+        Settings gs = scb();
         string[] links = gs.getStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY);
         EditCustomLinksDialog dlg = new EditCustomLinksDialog(cast(Window) grid.getToplevel(), links);
         scope (exit) {
             dlg.destroy();
         }
         dlg.showAll();
-        if (dlg.run() == ResponseType.APPLY) {
+        if (dlg.run() == gtk.types.ResponseType.Apply) {
             gs.setStrv(SETTINGS_ALL_CUSTOM_HYPERLINK_KEY, dlg.getLinks());
         }
     });
@@ -66,7 +68,7 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
         // Triggers Section
         Label lblTriggers = new Label(format("<b>%s</b>", _("Triggers")));
         lblTriggers.setUseMarkup(true);
-        lblTriggers.setHalign(GtkAlign.START);
+        lblTriggers.setHalign(Align.Start);
         lblTriggers.setMarginTop(12);
         grid.attach(lblTriggers, 0, row, 3, 1);
         row++;
@@ -74,18 +76,18 @@ void createAdvancedUI(Grid grid, ref uint row, GSettings delegate() scb, bool sh
         string triggersDescription = _("Triggers are regular expressions that are used to check against output text in the terminal. When a match is detected the configured action is executed.");
         grid.attach(createDescriptionLabel(triggersDescription), 0, row, 2, 1);
 
-        Button btnEditTriggers = new Button(_("Edit"));
-        btnEditTriggers.setHalign(GtkAlign.FILL);
-        btnEditTriggers.setValign(GtkAlign.CENTER);    
+        Button btnEditTriggers = Button.newWithLabel(_("Edit"));
+        btnEditTriggers.setHalign(Align.Fill);
+        btnEditTriggers.setValign(Align.Center);
 
-        btnEditTriggers.addOnClicked(delegate(Button) {
-            GSettings gs = scb();
+        btnEditTriggers.connectClicked(delegate(Button b) {
+            Settings gs = scb();
             EditTriggersDialog dlg = new EditTriggersDialog(cast(Window) grid.getToplevel(), gs, showTriggerLineSettings);
             scope (exit) {
                 dlg.destroy();
             }
             dlg.showAll();
-            if (dlg.run() == ResponseType.APPLY) {
+            if (dlg.run() == gtk.types.ResponseType.Apply) {
                 gs.setStrv(SETTINGS_ALL_TRIGGERS_KEY, dlg.getTriggers());
             }
         });
@@ -102,8 +104,8 @@ Label createDescriptionLabel(string desc) {
     lblDescription.setUseMarkup(true);
     lblDescription.setSensitive(false);
     lblDescription.setLineWrap(true);
-    lblDescription.setHalign(GtkAlign.START);
-    if (Version.checkVersion(3, 16, 0).length == 0) {
+    lblDescription.setHalign(Align.Start);
+    if (checkVersion(3, 16, 0).length == 0) {
         lblDescription.setXalign(0.0);
     }
     lblDescription.setMaxWidthChars(70);

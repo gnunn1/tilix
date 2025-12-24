@@ -8,17 +8,23 @@ import std.algorithm;
 import std.experimental.logger;
 import std.path;
 
-import gio.Settings;
+import gio.settings;
 
-import gobject.ObjectG;
-import gobject.Value;
+import gobject.object;
+import gobject.types;
+import gobject.value;
+import gobject.types;
 
-import gtkc.gobject;
+import gobject.c.functions;
 
-import gtk.Builder;
-import gtk.ShortcutsGroup;
-import gtk.ShortcutsShortcut;
-import gtk.ShortcutsWindow;
+import gtk.builder;
+import gtk.types;
+import gtk.shortcuts_group;
+import gtk.types;
+import gtk.shortcuts_shortcut;
+import gtk.types;
+import gtk.shortcuts_window;
+import gtk.types;
 
 import gx.gtk.actions;
 import gx.i18n.l10n;
@@ -58,7 +64,10 @@ ShortcutsWindow getShortcutWindow() {
                 string accelName = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
                 if (accelName == SHORTCUT_DISABLED) accelName.length = 0;
                 trace("Create ShortcutShortcut");
-                ShortcutsShortcut ss = cast(ShortcutsShortcut) new ObjectG(ShortcutsShortcut.getType(), ["title","accelerator"], [new Value(gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY)), new Value(accelName)]);
+                auto _cretval = g_object_new(ShortcutsShortcut._getGType(), null);
+                ShortcutsShortcut ss = ObjectWrap._getDObject!(ShortcutsShortcut)(_cretval, Yes.Take);
+                ss.setProperty("title", new Value(gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY)));
+                ss.setProperty("accelerator", new Value(accelName));
                 if (ss !is null) {
                     sgProfile.add(ss);
                 } else {

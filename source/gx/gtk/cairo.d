@@ -14,35 +14,49 @@ static if (__VERSION__ >= 2075) {
 }
 import std.experimental.logger;
 
-import cairo.Context;
-import cairo.ImageSurface;
-import cairo.Surface;
+import cairo.context;
+import cairo.surface;
+import cairo.global;
 
-import gdk.Cairo;
-import gdk.Pixbuf;
-import gdk.RGBA;
-import gdk.Screen;
-import gdk.Visual;
-import gdk.Window;
-static import gdk.Event;
+import pango.context : PangoContext = Context;
+import pango.layout : PangoLayout = Layout;
 
-import gdkpixbuf.Pixbuf;
+import gdk.event;
+import gdk.types;
+import gdk.event_expose;
+import gdk.types;
+import gdk.global;
+import gdk.types;
+import gdkpixbuf.pixbuf;
+import gdk.rgba;
+import gdk.types;
+import gdk.screen;
+import gdk.types;
+import gdk.visual;
+import gdk.types;
+import gdk.window;
+import gdk.types;
 
-import gtkc.cairotypes;
+import cairo.c.types;
 
-import gtk.Container;
-import gtk.Main;
-import gtk.OffscreenWindow;
-import gtk.Widget;
+import gtk.container;
+import gtk.types;
+import gtk.global;
+import gtk.types;
+import gtk.offscreen_window;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
+import gtk.types;
 
-Pixbuf getWidgetImage(Widget widget, double factor) {
+gdkpixbuf.pixbuf.Pixbuf getWidgetImage(Widget widget, double factor) {
     return getWidgetImage(widget, factor, widget.getAllocatedWidth(), widget.getAllocatedHeight());
 }
 
 // Added support for specifying width and height explicitly in cases
 // where container has been realized but widget has not been, for example
 // pages added to Notebook but never shown
-Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
+gdkpixbuf.pixbuf.Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
@@ -53,12 +67,12 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     if (widget.isDrawable()) {
         widget.queueDraw();
         static if (__VERSION__ >= 2075) {
-            while (gtk.Main.Main.eventsPending() && sw.peek.total!"msecs"<100) {
-                Main.iterationDo(false);
+            while (gtk.global.eventsPending() && sw.peek.total!"msecs"<100) {
+                mainIterationDo(false);
             }
         } else {
-            while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
-                Main.iterationDo(false);
+            while (gtk.global.eventsPending() && sw.peek().msecs<100) {
+                mainIterationDo(false);
             }
         }
         return getDrawableWidgetImage(widget, factor, width, height);
@@ -86,19 +100,19 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
             solution implemented here.
             */
             static if (__VERSION__ >= 2075) {
-                while (!window.canDraw && gtk.Main.Main.eventsPending() && sw.peek.total!"msecs"<100) {
-                    Main.iterationDo(false);
+                while (!window.canDraw && gtk.global.eventsPending() && sw.peek.total!"msecs"<100) {
+                    mainIterationDo(false);
                 }
             } else {
-                while (gtk.Main.Main.eventsPending() && sw.peek().msecs<100) {
-                    Main.iterationDo(false);
+                while (gtk.global.eventsPending() && sw.peek().msecs<100) {
+                    mainIterationDo(false);
                 }
             }
             // While we could call getPixBuf() on Offscreen Window, drawing
             // it ourselves gives better results when dealing with transparency
-            Pixbuf pb = getDrawableWidgetImage(widget, factor, width, height);
+            gdkpixbuf.pixbuf.Pixbuf pb = getDrawableWidgetImage(widget, factor, width, height);
             if (pb is null) {
-                error("Pixbuf from renderwindow is null");
+                error("gdkpixbuf.pixbuf.Pixbuf from renderwindow is null");
                 return pb;
             }
             return pb;
@@ -113,45 +127,45 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
 
 enum ImageLayoutMode {SCALE, TILE, CENTER, STRETCH};
 
-ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
-    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
-    ImageSurface surface = ImageSurface.create(format, pb.getWidth(), pb.getHeight());
-    Context cr = Context.create(surface);
+Surface renderImage(gdkpixbuf.pixbuf.Pixbuf pb, bool alpha = false) {
+    cairo_format_t format = alpha?cairo_format_t.Argb32:cairo_format_t.Rgb24;
+    Surface surface = imageSurfaceCreate(format, pb.getWidth(), pb.getHeight());
+    cairo.context.Context cr = cairo.global.create(surface);
     scope(exit) {
         cr.destroy();
     }
-    setSourcePixbuf(cr, pb, 0, 0);
-    cr.setOperator(cairo_operator_t.SOURCE);
+    gdk.global.cairoSetSourcePixbuf(cr, pb, 0, 0);
+    cr.setOperator(cairo_operator_t.Source);
     cr.paint();
     return surface;
 }
 
 /**
- * Renders an image onto an ImageSurface using different modes
+ * Renders an image onto an Surface using different modes
  */
-ImageSurface renderImage(Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
-    ImageSurface surface = renderImage(pbSource);
+Surface renderImage(gdkpixbuf.pixbuf.Pixbuf pbSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.Bilinear) {
+    Surface surface = renderImage(pbSource);
     scope(exit) {
         surface.destroy();
     }
     return renderImage(surface, outputWidth, outputHeight, mode, alpha, scaleMode);
 }
 
-ImageSurface renderImage(ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
-    cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
-    ImageSurface surface = ImageSurface.create(format, outputWidth, outputHeight);
-    Context cr = Context.create(surface);
+Surface renderImage(Surface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, bool alpha = false, cairo_filter_t scaleMode = cairo_filter_t.Bilinear) {
+    cairo_format_t format = alpha?cairo_format_t.Argb32:cairo_format_t.Rgb24;
+    Surface surface = imageSurfaceCreate(format, outputWidth, outputHeight);
+    cairo.context.Context cr = cairo.global.create(surface);
     scope(exit) {
         cr.destroy();
     }
     if (alpha) {
-        cr.setOperator(cairo_operator_t.SOURCE);
+        cr.setOperator(cairo_operator_t.Source);
     }
     renderImage(cr, isSource, outputWidth, outputHeight, mode, scaleMode);
     return surface;
 }
 
-void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, cairo_filter_t scaleMode = cairo_filter_t.BILINEAR) {
+void renderImage(cairo.context.Context cr, Surface isSource, int outputWidth, int outputHeight, ImageLayoutMode mode, cairo_filter_t scaleMode = cairo_filter_t.Bilinear) {
     StopWatch sw = StopWatch(AutoStart.yes);
     scope (exit) {
         sw.stop();
@@ -161,11 +175,11 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
     }
     final switch (mode) {
         case ImageLayoutMode.SCALE:
-            double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
-            double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
+            double xScale = to!double(outputWidth) / to!double(imageSurfaceGetWidth(isSource));
+            double yScale = to!double(outputHeight) / to!double(imageSurfaceGetHeight(isSource));
             double ratio = max(xScale, yScale);
-            double xOffset = (outputWidth - (isSource.getWidth() * ratio)) / 2.0;
-            double yOffset = (outputHeight - (isSource.getHeight() * ratio)) / 2.0;
+            double xOffset = (outputWidth - (imageSurfaceGetWidth(isSource) * ratio)) / 2.0;
+            double yOffset = (outputHeight - (imageSurfaceGetHeight(isSource) * ratio)) / 2.0;
             cr.translate(xOffset, yOffset);
             cr.scale(ratio, ratio);
             cr.setSourceSurface(isSource, 0, 0);
@@ -174,19 +188,19 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
             break;
         case ImageLayoutMode.TILE:
             cr.setSourceSurface(isSource, 0, 0);
-            cr.getSource().setExtend(cairo_extend_t.REPEAT);
+            cr.getSource().setExtend(cairo_extend_t.Repeat);
             cr.paint();
             break;
         case ImageLayoutMode.CENTER:
-            double x = (outputWidth - isSource.getWidth())/2;
-            double y = (outputHeight - isSource.getHeight())/2;
+            double x = (outputWidth - imageSurfaceGetWidth(isSource))/2;
+            double y = (outputHeight - imageSurfaceGetHeight(isSource))/2;
             cr.translate(x,y);
             cr.setSourceSurface(isSource, 0, 0);
             cr.paint();
             break;
         case ImageLayoutMode.STRETCH:
-            double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
-            double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
+            double xScale = to!double(outputWidth) / to!double(imageSurfaceGetWidth(isSource));
+            double yScale = to!double(outputHeight) / to!double(imageSurfaceGetHeight(isSource));
             cr.scale(xScale, yScale);
             cr.setSourceSurface(isSource, 0, 0);
             cr.getSource().setFilter(scaleMode);
@@ -196,7 +210,7 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
 }
 
 private:
-Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int height) {
+gdkpixbuf.pixbuf.Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int height) {
     int w = width;
     int h = height;
     tracef("Original: %d, %d", w, h);
@@ -205,22 +219,22 @@ Pixbuf getDrawableWidgetImage(Widget widget, double factor, int width, int heigh
     tracef("Factor: %f, New: %d, %d", factor, pw, ph);
 
     Window window = widget.getWindow();
-    Surface surface = window.createSimilarSurface(cairo_content_t.COLOR, pw, ph);
-    Context cr = Context.create(surface);
+    Surface surface = window.createSimilarSurface(cairo_content_t.Color, pw, ph);
+    cairo.context.Context cr = cairo.global.create(surface);
     scope(exit) {
         surface.destroy();
         cr.destroy();
     }
     cr.scale(factor, factor);
     widget.draw(cr);
-    Pixbuf pb = getFromSurface(surface, 0, 0, pw, ph);
+    gdkpixbuf.pixbuf.Pixbuf pb = gdk.global.pixbufGetFromSurface(surface, 0, 0, pw, ph);
     return pb;
 }
 
 class RenderWindow: OffscreenWindow {
     bool _canDraw = false;
 
-    bool onDamage(gdk.Event.Event, Widget) {
+    bool onDamage(gdk.event_expose.EventExpose, Widget) {
         trace("Damage event received");
         _canDraw = true;
         return false;
@@ -229,7 +243,7 @@ class RenderWindow: OffscreenWindow {
 public:
     this() {
         super();
-        addOnDamage(&onDamage);
+        connectDamageEvent(&onDamage);
         show();
     }
 

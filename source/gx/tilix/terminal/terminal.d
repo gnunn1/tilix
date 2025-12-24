@@ -31,93 +31,109 @@ import std.traits;
 import std.typecons;
 import std.uuid;
 
-import cairo.Context;
+import cairo.context;
 
-import gdk.Atom;
-import gdk.DragContext;
-import gdk.Event;
-import gdk.Keysyms;
-import gdk.RGBA;
-import gdk.Screen;
-import gdk.Window: GdkWindow = Window;
+import gdk.atom;
+import gdk.drag_context;
+import gdk.event;
+import gdk.event_button;
+import gdk.event_crossing;
+import gdk.event_focus;
+import gdk.event_key;
+import gdk.event_scroll;
+import gdk.rgba;
+import gdk.rectangle;
+import gdk.screen;
+import gdk.visual;
+import gdk.window: GdkWindow = Window;
+import gdk.types;
 
-import gdkpixbuf.Pixbuf;
+alias Screen = gdk.screen.Screen;
+alias Visual = gdk.visual.Visual;
+alias Window = gtk.window.Window;
+alias Rectangle = gdk.rectangle.Rectangle;
 
-import gio.ActionMapIF;
-import gio.FileIF : GFileIF = FileIF;
-import gio.FileT: GFileT = FileT;
-import gio.Menu : GMenu = Menu;
-import gio.MenuItem : GMenuItem = MenuItem;
-import gio.Notification : GNotification = Notification;
-import gio.Settings : GSettings = Settings;
-import gio.SimpleAction;
-import gio.SimpleActionGroup;
-import gio.ThemedIcon;
+import gdkpixbuf.pixbuf;
 
-import glib.ArrayG;
-import glib.GException;
-import glib.MatchInfo : GMatchInfo = MatchInfo;
-import glib.Regex : GRegex = Regex;
-import glib.ShellUtils;
-import glib.SimpleXML;
-import glib.Str;
-import glib.Util;
-import glib.URI;
-import glib.Variant : GVariant = Variant;
-import glib.VariantBuilder : GVariantBuilder = VariantBuilder;
-import glib.VariantType : GVariantType = VariantType;
+import gio.action_map;
+import gio.file;
+import gio.menu : Menu = Menu;
+import gio.menu_item : MenuItem = MenuItem;
+import gio.notification : Notification = Notification;
+import gio.settings : Settings = Settings;
+import gio.simple_action;
+import gio.simple_action_group;
+import gio.themed_icon;
+import gio.types;
 
-import gobject.ObjectG;
-import gobject.Signals;
+import glib.error;
+import glib.match_info : GMatchInfo = MatchInfo;
+import glib.regex : GRegex = Regex;
+import glib.global;
+import glib.uri;
+import glib.variant : Variant = Variant;
+import glib.variant_builder : VariantBuilder = VariantBuilder;
+import glib.variant_type : VariantType = VariantType;
+import glib.main_context;
+import glib.key_file;
+import glib.types;
 
-import gtk.Adjustment;
-import gtk.Box;
-import gtk.Button;
-import gtk.Clipboard;
-import gtk.CssProvider;
-import gtk.Dialog;
-import gtk.DragAndDrop;
-import gtk.Entry;
-import gtk.EventBox;
-import gtk.FileChooserDialog;
-import gtk.FileFilter;
-import gtk.Frame;
-import gtk.Image;
-import gtk.InfoBar;
-import gtk.Label;
-import gtk.Main;
-import gtk.Menu;
-import gtk.MenuButton;
-import gtk.MenuItem;
-import gtk.MessageDialog;
-import gtk.MountOperation;
-import gtk.Overlay;
-import gtk.Popover;
-import gtk.Revealer;
-import gtk.ScrolledWindow;
-import gtk.Scrollbar;
-import gtk.SelectionData;
-import gtk.Separator;
-import gtk.SeparatorMenuItem;
-import gtk.Spinner;
-import gtk.StyleContext;
-import gtk.TargetEntry;
-import gtk.ToggleButton;
-import gtk.Version;
-import gtk.Widget;
-import gtk.Window;
+import gobject.object;
+import gobject.global;
+import gobject.types;
+import pango.types;
 
-import gtkc.glib;
+import gtk.adjustment;
+import gtk.box;
+import gtk.button;
+import gtk.clipboard;
+import gtk.container;
+import gtk.css_provider;
+import gtk.dialog;
+import gtk.entry;
+import gtk.event_box;
+import gtk.file_chooser_dialog;
+import gtk.file_filter;
+import gtk.frame;
+import gtk.image;
+import gtk.info_bar;
+import gtk.label;
+import gtk.global;
+import gtk.menu;
+import gtk.menu_button;
+import gtk.menu_item;
+import gtk.message_dialog;
+import gtk.mount_operation;
+import gtk.overlay;
+import gtk.popover;
+import gtk.revealer;
+import gtk.scrolled_window;
+import gtk.scrollbar;
+import gtk.selection_data;
+import gtk.separator;
+import gtk.separator_menu_item;
+import gtk.spinner;
+import gtk.style_context;
+import gtk.target_entry;
+import gtk.toggle_button;
+import gtk.widget;
+import gtk.window;
+import gtk.types;
 
-import pango.PgCairo;
-import pango.PgContext;
-import pango.PgFontDescription;
-import pango.PgLayout;
+import std.regex;
 
-import vte.Pty;
-import vte.Regex : VRegex = Regex;
-import vte.Terminal : VTE = Terminal;
-import vtec.vtetypes;
+import glib.c.functions;
+
+import pangocairo.global;
+import pango.context : PangoContext = Context;
+import pango.font_description;
+import pango.layout : PangoLayout = Layout;
+
+import vte.pty;
+import vte.regex : VRegex = Regex;
+import vte.terminal : VTE = Terminal;
+import vte.types;
+import vte.c.types;
 
 import gx.gtk.actions;
 import gx.gtk.cairo;
@@ -125,10 +141,13 @@ import gx.gtk.color;
 import gx.gtk.clipboard;
 import gx.gtk.dialog;
 import gx.gtk.resource;
-import gx.gtk.util;
 import gx.gtk.vte;
+import gx.gtk.keys;
+import gx.gtk.types;
+import gx.gtk.util;
 import gx.i18n.l10n;
 import gx.util.array;
+import gx.util.string;
 
 import gx.tilix.application;
 import gx.tilix.bookmark.bmchooser;
@@ -212,7 +231,7 @@ private:
     SearchRevealer rFind;
 
     ExtendedVTE vte;
-    gulong[] vteHandlers;
+    ulong[] vteHandlers;
     Overlay terminalOverlay;
     ScrolledWindow sw;
     Scrollbar sb;
@@ -230,10 +249,10 @@ private:
     SimpleActionGroup sagTerminalActions;
 
     SimpleAction saProfileSelect;
-    GMenu profileMenu;
+    Menu profileMenu;
 
     SimpleAction saEncodingSelect;
-    GMenu encodingMenu;
+    Menu encodingMenu;
 
     SimpleAction saCopy;
     SimpleAction saCopyAsHtml;
@@ -243,10 +262,10 @@ private:
 
     SimpleAction saMaximize;
 
-    GSettings gsProfile;
-    GSettings gsShortcuts;
-    GSettings gsDesktop;
-    GSettings gsSettings;
+    Settings gsProfile;
+    Settings gsShortcuts;
+    Settings gsDesktop;
+    Settings gsSettings;
 
     //The UUID of the profile which is currently active
     string _activeProfileUUID;
@@ -269,7 +288,7 @@ private:
     //If synchronized is on, determines if there is a local override turning it off for this terminal only
     bool _synchronizeInputOverride = true;
     // The handler for the VTE commit signal, tracked to disable it when required
-    gulong _commitHandlerId;
+    ulong _commitHandlerId;
     //Determines if this terminal is the only terminal in the session
     bool _isSingleTerminal = true;
 
@@ -322,7 +341,7 @@ private:
         sagTerminalActions = new SimpleActionGroup();
         createActions(sagTerminalActions);
 
-        Box box = new Box(Orientation.VERTICAL, 0);
+        Box box = new Box(gtk.types.Orientation.Vertical, 0);
         add(box);
         // Create the title bar of the pane
         Widget titlePane = createTitlePane();
@@ -339,7 +358,7 @@ private:
      * Creates the top bar of the terminal pane
      */
     Widget createTitlePane() {
-        bTitle = new Box(Orientation.HORIZONTAL, 0);
+        bTitle = new Box(gtk.types.Orientation.Horizontal, 0);
         bTitle.getStyleContext().addClass("terminal-titlebar");
         //Showing is controlled by terminal title preference
         bTitle.setNoShowAll(true);
@@ -347,49 +366,51 @@ private:
 
         lblTitle = new Label(_("Terminal"));
         lblTitle.getStyleContext().addClass("tilix-terminal-title");
-        lblTitle.setEllipsize(PangoEllipsizeMode.START);
+        lblTitle.setEllipsize(pango.types.EllipsizeMode.Start);
         lblTitle.setUseMarkup(true);
 
         //Profile Menu
-        profileMenu = new GMenu();
+        profileMenu = new Menu();
 
         //Encoding Menu
-        encodingMenu = new GMenu();
+        encodingMenu = new Menu();
 
-        Box bTitleLabel = new Box(Orientation.HORIZONTAL, 6);
+        Box bTitleLabel = new Box(gtk.types.Orientation.Horizontal, 6);
         bTitleLabel.add(lblTitle);
-        bTitleLabel.add(new Image("pan-down-symbolic", IconSize.MENU));
+        bTitleLabel.add(Image.newFromIconName("pan-down-symbolic", IconSize.Menu));
 
         mbTitle = new MenuButton();
-        mbTitle.setRelief(ReliefStyle.NONE);
+        mbTitle.setRelief(ReliefStyle.None);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.addOnButtonPress(delegate(Event e, Widget w) {
+        mbTitle.connectButtonPressEvent(delegate(EventButton event, Widget w) {
             buildProfileMenu();
             buildEncodingMenu();
             return false;
         });
 
         mbTitle.add(bTitleLabel);
-        mbTitle.addOnShow(delegate(Widget) {
+        mbTitle.connectShow(delegate(Widget w) {
             mbTitle.queueResize();
-        }, ConnectFlags.AFTER);
+        }, Yes.After);
         mbTitle.setMarginRight(10);
 
         bTitle.packStart(mbTitle, false, false, 0);
 
         //Close Button
-        Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
+        Button btnClose = new Button();
+        btnClose.setImage(Image.newFromIconName("window-close-symbolic", IconSize.Menu));
         btnClose.setTooltipText(_("Close"));
-        btnClose.setRelief(ReliefStyle.NONE);
+        btnClose.setRelief(ReliefStyle.None);
         btnClose.setFocusOnClick(false);
         btnClose.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
         bTitle.packEnd(btnClose, false, false, 0);
 
         //Maximize Button
-        btnMaximize = new Button("window-maximize-symbolic", IconSize.MENU);
+        btnMaximize = new Button();
+        btnMaximize.setImage(Image.newFromIconName("window-maximize-symbolic", IconSize.Menu));
         btnMaximize.setTooltipText(_("Maximize"));
-        btnMaximize.setRelief(ReliefStyle.NONE);
+        btnMaximize.setRelief(ReliefStyle.None);
         btnMaximize.setFocusOnClick(false);
         btnMaximize.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
         bTitle.packEnd(btnMaximize, false, false, 0);
@@ -397,21 +418,21 @@ private:
         //Synchronize Input Button
         tbSyncInput = new ToggleButton();
         tbSyncInput.setNoShowAll(true);
-        tbSyncInput.setImage(new Image("input-keyboard-symbolic", IconSize.MENU));
+        tbSyncInput.setImage(Image.newFromIconName("input-keyboard-symbolic", IconSize.Menu));
         tbSyncInput.setTooltipText(_("Disable input synchronization for this terminal"));
-        tbSyncInput.setRelief(ReliefStyle.NONE);
+        tbSyncInput.setRelief(ReliefStyle.None);
         tbSyncInput.setFocusOnClick(false);
         tbSyncInput.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
         bTitle.packEnd(tbSyncInput, false, false, 0);
 
         //Read Only Image
-        imgReadOnly = new Image("changes-prevent-symbolic", IconSize.MENU);
+        imgReadOnly = Image.newFromIconName("changes-prevent-symbolic", IconSize.Menu);
         imgReadOnly.setNoShowAll(true);
         imgReadOnly.setTooltipText(_("Read-Only"));
         bTitle.packEnd(imgReadOnly, false, false, 0);
 
         //New Output
-        imgNewOuput = new Image("insert-text-symbolic", IconSize.MENU);
+        imgNewOuput = Image.newFromIconName("insert-text-symbolic", IconSize.Menu);
         imgNewOuput.setNoShowAll(true);
         imgNewOuput.setTooltipText(_("New output"));
         bTitle.packEnd(imgNewOuput, false, false, 0);
@@ -426,18 +447,18 @@ private:
         EventBox evtTitle = new EventBox();
         evtTitle.add(bTitle);
         //Handle double click for window state change
-        evtTitle.addOnButtonPress(delegate(Event event, Widget) {
+        evtTitle.connectButtonPressEvent(delegate(EventButton event, Widget w) {
             int childX, childY;
             mbTitle.translateCoordinates(evtTitle, 0, 0, childX, childY);
             //Ignore clicks propagated from Menu Button, see #215
-            if (event.button.x >= childX && event.button.x <= childX + mbTitle.getAllocatedWidth() && event.button.y >= childY
-                && event.button.y <= childY + mbTitle.getAllocatedHeight()) {
+            if (event.x >= childX && event.x <= childX + mbTitle.getAllocatedWidth() && event.y >= childY
+                && event.y <= childY + mbTitle.getAllocatedHeight()) {
                 return false;
             }
-            if (event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
+            if (event.type == EventType.DoubleButtonPress && event.button == 1) {
                 toggleMaximize();
-            } else if (event.getEventType() == EventType.BUTTON_PRESS) {
-                if (event.button.button == MouseButton.MIDDLE && gsSettings.getBoolean(SETTINGS_MIDDLE_CLICK_CLOSE_KEY)) {
+            } else if (event.type == EventType.ButtonPress) {
+                if (event.button == 2 && gsSettings.getBoolean(SETTINGS_MIDDLE_CLICK_CLOSE_KEY)) {
                     SimpleAction close = cast(SimpleAction) sagTerminalActions.lookupAction(ACTION_CLOSE);
                     close.activate(null);
                 } else {
@@ -456,14 +477,14 @@ private:
         if (aProfileSelect !is null) {
             aProfileSelect.setEnabled(_defaultProfileUUID.length == 0);
         }
-        saProfileSelect.setState(new GVariant(activeProfileUUID));
+        saProfileSelect.setState(new Variant(activeProfileUUID));
         ProfileInfo[] profiles = prfMgr.getProfiles();
         foreach (profile; profiles) {
-            GMenuItem menuItem = new GMenuItem(replace(profile.name, "_", "__"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
-            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new GVariant(profile.uuid));
+            MenuItem menuItem = new MenuItem(replace(profile.name, "_", "__"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT));
+            menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_SELECT), new Variant(profile.uuid));
             profileMenu.appendItem(menuItem);
         }
-        GMenu menuSection = new GMenu();
+        Menu menuSection = new Menu();
         menuSection.append(_("Edit Profile"), getActionDetailedName(ACTION_PREFIX, ACTION_PROFILE_PREFERENCE));
         profileMenu.appendSection(null, menuSection);
     }
@@ -471,17 +492,17 @@ private:
     //Dynamically build the menus for selecting an encoding
     void buildEncodingMenu() {
         encodingMenu.removeAll();
-        saEncodingSelect.setState(new GVariant(vte.getEncoding()));
+        saEncodingSelect.setState(new Variant(vte.getEncoding()));
         string[] encodings = gsSettings.getStrv(SETTINGS_ENCODINGS_KEY);
         foreach (encoding; encodings) {
             if (encoding in lookupEncoding) {
                 string name = lookupEncoding[encoding];
-                GMenuItem menuItem = new GMenuItem(encoding ~ " " ~ _(name), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
-                menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new GVariant(encoding));
+                MenuItem menuItem = new MenuItem(encoding ~ " " ~ _(name), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT));
+                menuItem.setActionAndTargetValue(getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_SELECT), new Variant(encoding));
                 encodingMenu.appendItem(menuItem);
             }
         }
-        GMenu menuSection = new GMenu();
+        Menu menuSection = new Menu();
         menuSection.append(_("Edit Encodings"), getActionDetailedName(ACTION_PREFIX, ACTION_ENCODING_PREFERENCE));
         encodingMenu.appendSection(null, menuSection);
     }
@@ -491,19 +512,19 @@ private:
      */
     void createActions(SimpleActionGroup group) {
         //Find actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND, gsShortcuts, delegate(Variant, SimpleAction) {
             if (!rFind.getRevealChild()) {
                 rFind.setRevealChild(true);
             }
             rFind.focusSearchEntry();
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_PREVIOUS, gsShortcuts, delegate(Variant, SimpleAction) {
             bool result = vte.searchFindPrevious();
             if (!result && !vte.searchGetWrapAround) {
                 vte.searchFindNext();
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FIND_NEXT, gsShortcuts, delegate(Variant, SimpleAction) {
             bool result = vte.searchFindNext();
             if (!result && !vte.searchGetWrapAround) {
                 vte.searchFindPrevious();
@@ -511,20 +532,20 @@ private:
         });
 
         //Clipboard actions
-        saCopy = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(GVariant, SimpleAction) {
+        saCopy = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY, gsShortcuts, delegate(Variant, SimpleAction) {
             if (vte.getHasSelection()) {
                 vte.copyClipboard();
             }
         });
         if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
-            saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(GVariant, SimpleAction) {
+            saCopyAsHtml = registerActionWithSettings(group, ACTION_PREFIX, ACTION_COPY_AS_HTML, gsShortcuts, delegate(Variant, SimpleAction) {
                 if (vte.getHasSelection()) {
-                    vte.copyClipboardFormat(VteFormat.HTML);
+                    vte.copyClipboardFormat(Format.Html);
                 }
             });
         }
 
-        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        saPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE, gsShortcuts, delegate(Variant, SimpleAction) {
             // Check to see if something other then terminal has focus
             Window window = cast(Window) getToplevel();
             if (window !is null) {
@@ -535,13 +556,13 @@ private:
                 }
             }
             if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                advancedPaste(GDK_SELECTION_CLIPBOARD);
+                advancedPaste(SELECTION_CLIPBOARD);
             } else {
-                paste(GDK_SELECTION_CLIPBOARD);
+                paste(SELECTION_CLIPBOARD);
             }
         });
 
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PASTE_PRIMARY, gsShortcuts, delegate(Variant, SimpleAction) {
             // Check to see if something other then terminal has focus
             Window window = cast(Window) getToplevel();
             if (window !is null) {
@@ -552,56 +573,56 @@ private:
                 }
             }
             if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                advancedPaste(GDK_SELECTION_PRIMARY);
+                advancedPaste(SELECTION_PRIMARY);
             } else {
-                paste(GDK_SELECTION_PRIMARY);
+                paste(SELECTION_PRIMARY);
             }
         });
 
-        saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        saAdvancedPaste = registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADVANCED_PASTE, gsShortcuts, delegate(Variant, SimpleAction) {
             if (Clipboard.get(null).waitIsTextAvailable()) {
-                advancedPaste(GDK_SELECTION_CLIPBOARD);
+                advancedPaste(SELECTION_CLIPBOARD);
             }
         });
 
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            registerActionWithSettings(group, ACTION_PREFIX, ACTION_NEXT_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_NEXT_PROMPT, gsShortcuts, delegate(Variant, SimpleAction) {
                 moveToPrompt(1);
             });
-            registerActionWithSettings(group, ACTION_PREFIX, ACTION_PREVIOUS_PROMPT, gsShortcuts, delegate(GVariant, SimpleAction) {
+            registerActionWithSettings(group, ACTION_PREFIX, ACTION_PREVIOUS_PROMPT, gsShortcuts, delegate(Variant, SimpleAction) {
                 moveToPrompt(-1);
             });
         }
 
 
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.selectAll(); });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_UNSELECT_ALL, gsShortcuts, delegate(GVariant, SimpleAction) { vte.unselectAll(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_ALL, gsShortcuts, delegate(Variant, SimpleAction) { vte.selectAll(); });
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_UNSELECT_ALL, gsShortcuts, delegate(Variant, SimpleAction) { vte.unselectAll(); });
 
         //Link Actions, no shortcuts, context menu only
-        registerAction(group, ACTION_PREFIX, ACTION_COPY_LINK, null, delegate(GVariant, SimpleAction) {
+        registerAction(group, ACTION_PREFIX, ACTION_COPY_LINK, null, delegate(Variant, SimpleAction) {
             if (match.match) {
                 Clipboard.get(null).setText(match.match, to!int(match.match.length));
             }
         });
-        registerAction(group, ACTION_PREFIX, ACTION_OPEN_LINK, null, delegate(GVariant, SimpleAction) {
+        registerAction(group, ACTION_PREFIX, ACTION_OPEN_LINK, null, delegate(Variant, SimpleAction) {
             if (match.match) {
                 openURI(match);
             }
         });
 
         //Zoom actions
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_IN, gsShortcuts, delegate(Variant, SimpleAction) {
             zoomIn();
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_OUT, gsShortcuts, delegate(Variant, SimpleAction) {
             zoomOut();
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ZOOM_NORMAL, gsShortcuts, delegate(Variant, SimpleAction) {
             zoomNormal();
         });
 
         //Cycle terminal style
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE_STYLE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TITLE_STYLE, gsShortcuts, delegate(Variant, SimpleAction) {
             string style = gsSettings.getString(SETTINGS_TERMINAL_TITLE_STYLE_KEY);
             size_t index = SETTINGS_TERMINAL_TITLE_STYLE_VALUES.countUntil(style);
             index++;
@@ -612,7 +633,7 @@ private:
         });
 
         //Override terminal title
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_LAYOUT, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_LAYOUT, gsShortcuts, delegate(Variant, SimpleAction) {
             LayoutDialog dialog = new LayoutDialog(cast(Window) getToplevel());
             scope (exit) {
                 dialog.destroy();
@@ -621,7 +642,7 @@ private:
             dialog.title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
             dialog.command = _overrideCommand;
             dialog.showAll();
-            if (dialog.run() == ResponseType.OK) {
+            if (dialog.run() == gtk.types.ResponseType.Ok) {
                 _overrideTitle = dialog.title;
                 _overrideBadge = dialog.badge;
                 _overrideCommand = dialog.command;
@@ -630,10 +651,10 @@ private:
         });
 
         //Maximize Terminal
-        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(GVariant, SimpleAction) { toggleMaximize(); });
+        saMaximize = registerActionWithSettings(group, ACTION_PREFIX, ACTION_MAXIMIZE, gsShortcuts, delegate(Variant, SimpleAction) { toggleMaximize(); });
 
         //Close Terminal Action
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_CLOSE, gsShortcuts, delegate(Variant, SimpleAction) {
             string name;
             if (isProcessRunning(name)) {
                 ProcessInformation pi = ProcessInformation(ProcessInfoSource.TERMINAL, (name.length > 0? name: getDisplayText("")), uuid, []);
@@ -643,37 +664,37 @@ private:
         });
 
         //Read Only
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_READ_ONLY, gsShortcuts, delegate(Variant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
-            sa.setState(new GVariant(newState));
+            sa.setState(new Variant(newState));
             vte.setInputEnabled(!newState);
             if (newState) imgReadOnly.show();
             else imgReadOnly.hide();
-        }, null, new GVariant(false));
+        }, null, new Variant(false));
 
         //Silence Action
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MONITOR_SILENCE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_MONITOR_SILENCE, gsShortcuts, delegate(Variant state, SimpleAction sa) {
             monitorSilence = !sa.getState().getBoolean();
-            sa.setState(new GVariant(monitorSilence));
-        }, null, new GVariant(monitorSilence));
+            sa.setState(new Variant(monitorSilence));
+        }, null, new Variant(monitorSilence));
 
         //Open CWD in Browser
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FILE_BROWSER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_FILE_BROWSER, gsShortcuts, delegate(Variant state, SimpleAction sa) {
             // Only support local directories for now
-            string uri = URI.filenameToUri(gst.currentLocalDirectory, null);
+            string uri = glib.global.filenameToUri(gst.currentLocalDirectory, null);
             tracef("Opening directory: %s, hostname: %s, uri: %s", gst.currentDirectory, gst.currentHostname, uri);
-            MountOperation.showUri(null, uri, Main.getCurrentEventTime);
+            gtk.global.showUriOnWindow(cast(Window)getToplevel(), uri, gtk.global.getCurrentEventTime());
         });
 
         //Clear Terminal && Reset and Clear Terminal
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET, gsShortcuts, delegate(Variant, SimpleAction) {
             vte.reset(false, false);
             if (isSynchronizedInput()) {
                 SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.RESET, null, null);
                 onSyncInput.emit(this, se);
             }
         });
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_RESET_AND_CLEAR, gsShortcuts, delegate(Variant, SimpleAction) {
             vte.reset(true, true);
             // Clear history of prompts
             checkPromptBuffer();
@@ -684,9 +705,9 @@ private:
         });
 
         //Sync Input Override
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE, gsShortcuts, delegate(Variant state, SimpleAction sa) {
             bool newState = !sa.getState().getBoolean();
-            sa.setState(new GVariant(newState));
+            sa.setState(new Variant(newState));
             _synchronizeInputOverride = newState;
             if (_synchronizeInputOverride) {
                 tbSyncInput.setTooltipText(_("Disable input synchronization for this terminal"));
@@ -694,10 +715,10 @@ private:
                 tbSyncInput.setTooltipText(_("Enable input synchronization for this terminal"));
             }
 
-        }, null, new GVariant(true));
+        }, null, new Variant(true));
 
         //Insert Terminal Number
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_NUMBER, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_NUMBER, gsShortcuts, delegate(Variant state, SimpleAction sa) {
             string text = to!string(terminalID);
             feedChild(text, true);
             if (isSynchronizedInput()) {
@@ -707,91 +728,82 @@ private:
         }, null, null);
 
         //Insert Password
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_PASSWORD, gsShortcuts, delegate(GVariant state, SimpleAction sa) {
-            import gtkc.Loader: Linker;
-            import secretc.secret: LIBRARY_SECRET;
-            if (Linker.isLoaded(LIBRARY_SECRET)) {
-                tracef("Library %s was loaded", LIBRARY_SECRET);
-                PasswordManagerDialog pdm = new PasswordManagerDialog(cast(Window)this.getToplevel());
-                scope(exit) {pdm.destroy();}
-                pdm.showAll();
-                if (pdm.run() == ResponseType.APPLY) {
-                    string password = pdm.password;
-                    vte.feedChild(password);
-                    static if (!USE_COMMIT_SYNCHRONIZATION) {
-                        if (isSynchronizedInput()) {
-                            SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, password);
-                            onSyncInput.emit(this, se);
-                        }
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_INSERT_PASSWORD, gsShortcuts, delegate(Variant state, SimpleAction sa) {
+            PasswordManagerDialog pdm = new PasswordManagerDialog(cast(Window)this.getToplevel());
+            scope(exit) {pdm.destroy();}
+            pdm.showAll();
+            if (pdm.run() == gtk.types.ResponseType.Apply) {
+                string password = pdm.password;
+                vte.feedChild(password);
+                static if (!USE_COMMIT_SYNCHRONIZATION) {
+                    if (isSynchronizedInput()) {
+                        SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.INSERT_TEXT, null, password);
+                        onSyncInput.emit(this, se);
                     }
                 }
-            } else {
-                showErrorDialog(cast(Window)getToplevel(), format(_("The library %s could not be loaded, password functionality is unavailable."), LIBRARY_SECRET), _("Library Not Loaded"));
             }
         }, null, null);
 
         //SaveAs
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(GVariant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SAVE, gsShortcuts, delegate(Variant state, SimpleAction sa) { saveTerminalOutput(); }, null, null);
 
         //Edit Profile Preference
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PROFILE_PREFERENCE, gsShortcuts, delegate(Variant, SimpleAction) {
             tilix.presentProfilePreferences(prfMgr.getProfile(_activeProfileUUID));
         }, null, null);
 
         //Select Profile
-        GVariant pu = new GVariant(activeProfileUUID);
-        saProfileSelect = registerAction(group, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(GVariant value, SimpleAction sa) {
-            size_t l;
-            string uuid = value.getString(l);
+        Variant pu = new Variant(activeProfileUUID);
+        saProfileSelect = registerAction(group, ACTION_PREFIX, ACTION_PROFILE_SELECT, null, delegate(Variant value, SimpleAction sa) {
+            string uuid = value.getString();
             activeProfileUUID = uuid;
             saProfileSelect.setState(value);
         }, pu.getType(), pu);
 
         //Edit Encodings Preference
-        registerAction(group, ACTION_PREFIX, ACTION_ENCODING_PREFERENCE, null, delegate(GVariant, SimpleAction) {
+        registerAction(group, ACTION_PREFIX, ACTION_ENCODING_PREFERENCE, null, delegate(Variant, SimpleAction) {
             tilix.presentEncodingPreferences();
         }, null, null);
 
         // Select Encoding
-        GVariant encoding = new GVariant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
-        saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(GVariant value, SimpleAction sa) {
-            size_t l;
+        Variant encoding = new Variant(gsProfile.getString(SETTINGS_PROFILE_ENCODING_KEY));
+        saEncodingSelect = registerAction(group, ACTION_PREFIX, ACTION_ENCODING_SELECT, null, delegate(Variant value, SimpleAction sa) {
             sa.setState(value);
-            vte.setEncoding(value.getString(l));
+            vte.setEncoding(value.getString());
         }, encoding.getType(), encoding);
 
         // Add Bookmark
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, gsShortcuts, delegate(GVariant, SimpleAction) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_ADD_BOOKMARK, gsShortcuts, delegate(Variant, SimpleAction) {
             addBookmark();
         }, null, null);
 
         // Select Bookmark
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SELECT_BOOKMARK, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             selectBookmark();
         }, null, null);
 
         // Scroll Up
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_UP, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_UP, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() - 1);
         }, null, null);
 
         // Scroll Down
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_DOWN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_SCROLL_DOWN, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() + 1);
         }, null, null);
 
         // Page Up
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_UP, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_UP, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() - vte.getVadjustment().getPageSize());
         }, null, null);
 
         // Page Down
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_DOWN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_PAGE_DOWN, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             vte.getVadjustment().setValue(vte.getVadjustment().getValue() + vte.getVadjustment().getPageSize());
         }, null, null);
 
         // Toggle margin
-        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TOGGLE_MARGIN, gsShortcuts, delegate(GVariant value, SimpleAction sa) {
+        registerActionWithSettings(group, ACTION_PREFIX, ACTION_TOGGLE_MARGIN, gsShortcuts, delegate(Variant value, SimpleAction sa) {
             marginEnabled = !marginEnabled;
             vte.queueDraw();
         }, null, null);
@@ -804,16 +816,16 @@ private:
      * Creates the terminal pane popover
      */
     Popover createPopover(Widget parent) {
-        GMenu model = new GMenu();
+        Menu model = new Menu();
 
         createPopoverMenuItems(model);
 
         Popover pm = new Popover(parent);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
-        pm.addOnMap(delegate(Widget) {
+        pm.connectMap(delegate(Widget w) {
            if (dimPercent > 0) vte.queueDraw();
         });
-        pm.addOnUnmap(delegate(Widget) {
+        pm.connectUnmap(delegate(Widget w) {
            if (dimPercent > 0) vte.queueDraw();
         });
         pm.bindModel(model, null);
@@ -823,43 +835,43 @@ private:
     /**
      * Creates the popover menu items
      */
-    void createPopoverMenuItems(GMenu model) {
-        GMenu menuSection = new GMenu();
+    void createPopoverMenuItems(Menu model) {
+        Menu menuSection = new Menu();
         menuSection.append(_("Find…"), getActionDetailedName(ACTION_PREFIX, ACTION_FIND));
         menuSection.append(_("Read-Only"), getActionDetailedName(ACTION_PREFIX, ACTION_READ_ONLY));
         model.appendSection(null, menuSection);
 
         // Assistants
-        GMenu submenu = new GMenu();
-        menuSection = new GMenu();
+        Menu submenu = new Menu();
+        menuSection = new Menu();
         menuSection.append(_("Password..."), getActionDetailedName(ACTION_PREFIX, ACTION_INSERT_PASSWORD));
         menuSection.append(_("Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_BOOKMARK));
         menuSection.append(_("Add Bookmark..."), getActionDetailedName(ACTION_PREFIX, ACTION_ADD_BOOKMARK));
         submenu.appendSection(null, menuSection);
 
-        menuSection = new GMenu();
+        menuSection = new Menu();
         menuSection.appendSubmenu(_("Assistants"), submenu);
         menuSection.appendSubmenu(_("Profiles"), profileMenu);
         model.appendSection(null, menuSection);
 
-        submenu = new GMenu();
+        submenu = new Menu();
 
-        menuSection = new GMenu();
+        menuSection = new Menu();
         menuSection.append(_("Show File Browser..."), getActionDetailedName(ACTION_PREFIX, ACTION_FILE_BROWSER));
         submenu.appendSection(null, menuSection);
 
-        menuSection = new GMenu();
+        menuSection = new Menu();
         menuSection.append(_("Save Output…"), getActionDetailedName(ACTION_PREFIX, ACTION_SAVE));
         menuSection.append(_("Reset"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET));
         menuSection.append(_("Reset and Clear"), getActionDetailedName(ACTION_PREFIX, ACTION_RESET_AND_CLEAR));
         submenu.appendSection(null, menuSection);
 
-        menuSection = new GMenu();
+        menuSection = new Menu();
         menuSection.appendSubmenu(_("Encoding"), encodingMenu);
-        menuSection.append(_("Layout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
+        menuSection.append(_("PangoLayout Options…"), getActionDetailedName(ACTION_PREFIX, ACTION_LAYOUT));
         submenu.appendSection(null, menuSection);
 
-        menuSection = new GMenu();
+        menuSection = new Menu();
         menuSection.append(_("Monitor Silence"), getActionDetailedName(ACTION_PREFIX, ACTION_MONITOR_SILENCE));
         submenu.appendSection(null, menuSection);
 
@@ -869,22 +881,22 @@ private:
     /**
      * Creates the horizontal/vertical add buttons
      */
-    GMenuItem createAddButtons() {
-        GMenuItem addH = new GMenuItem(null, "session.add-right");
-        addH.setAttributeValue("verb-icon", new GVariant("tilix-add-horizontal-symbolic"));
-        addH.setAttributeValue("label", new GVariant(_("Add Right")));
+    MenuItem createAddButtons() {
+        MenuItem addH = new MenuItem(null, "session.add-right");
+        addH.setAttributeValue("verb-icon", new Variant("tilix-add-horizontal-symbolic"));
+        addH.setAttributeValue("label", new Variant(_("Add Right")));
 
-        GMenuItem addV = new GMenuItem(null, "session.add-down");
-        addV.setAttributeValue("verb-icon", new GVariant("tilix-add-vertical-symbolic"));
-        addV.setAttributeValue("label", new GVariant(_("Add Down")));
+        MenuItem addV = new MenuItem(null, "session.add-down");
+        addV.setAttributeValue("verb-icon", new Variant("tilix-add-vertical-symbolic"));
+        addV.setAttributeValue("label", new Variant(_("Add Down")));
 
-        GMenu addSection = new GMenu();
+        Menu addSection = new Menu();
         addSection.appendItem(addH);
         addSection.appendItem(addV);
 
-        GMenuItem add = new GMenuItem(null, null);
+        MenuItem add = new MenuItem(null, null);
         add.setSection(addSection);
-        add.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
+        add.setAttributeValue("display-hint", new Variant("horizontal-buttons"));
 
         return add;
     }
@@ -904,8 +916,8 @@ private:
             vte.setAllowHyperlink(true);
         }
         //Event handlers
-        vteHandlers ~= vte.addOnChildExited(&onTerminalChildExited);
-        vte.addOnBell(delegate(VTE) {
+        vteHandlers ~= vte.connectChildExited(delegate(int status, VTE t) { onTerminalChildExited(status, t); });
+        vte.connectBell(delegate(VTE t) {
             // Originally planned on not showing bell when window is not active but too many edge cases
             // like window is active in different monitor, window is visible but not active, just a message
             // to deal with IMHO. Notifications right solution for that
@@ -917,19 +929,19 @@ private:
             }
         });
 
-        vteHandlers ~= vte.addOnWindowTitleChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.connectWindowTitleChanged(delegate(VTE terminal) {
             if (vte !is null) {
                 trace("Window title changed");
                 gst.updateState();
                 updateDisplayText();
             }
         });
-        vteHandlers ~= vte.addOnIconTitleChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.connectIconTitleChanged(delegate(VTE terminal) {
             if (vte !is null) {
                 updateDisplayText();
             }
         });
-        vteHandlers ~= vte.addOnCurrentDirectoryUriChanged(delegate(VTE terminal) {
+        vteHandlers ~= vte.connectCurrentDirectoryUriChanged(delegate(VTE terminal) {
             if (vte is null) return;
 
             string hostname, directory;
@@ -941,15 +953,15 @@ private:
                 checkAutomaticProfileSwitch();
             }
         });
-        vteHandlers ~= vte.addOnCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri); });
-        vteHandlers ~= vte.addOnFocusIn(&onTerminalWidgetFocusIn);
-        vteHandlers ~= vte.addOnFocusOut(&onTerminalWidgetFocusOut);
-        vteHandlers ~= vte.addOnNotificationReceived(delegate(string summary, string _body, VTE terminal) {
+        vteHandlers ~= vte.connectCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri()); });
+        vteHandlers ~= vte.connectFocusInEvent(&onTerminalWidgetFocusIn);
+        vteHandlers ~= vte.connectFocusOutEvent(&onTerminalWidgetFocusOut);
+        vteHandlers ~= vte.connectNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (terminalInitialized && !terminal.hasFocus() && gpid > 0) {
                 notifyProcessNotification(summary, _body, uuid);
             }
         });
-        vteHandlers ~= vte.addOnContentsChanged(delegate(VTE) {
+        vteHandlers ~= vte.connectContentsChanged(delegate(VTE t) {
             if (vte is null) return;
 
             // VTE configuration problem, Issue #34
@@ -984,8 +996,9 @@ private:
                         glong cursorCol, cursorRow;
                         vte.getCursorPosition(cursorCol, cursorRow);
                         if (cursorRow > 0) cursorRow--;
-                        ArrayG attr = new ArrayG(false, false, 16);
-                        string text = vte.getTextRange(cursorRow, 0, cursorRow, 128, null, null, attr);
+                        size_t length;
+                        import vte.types : Format;
+                        string text = vte.getTextRangeFormat(Format.Text, cursorRow, 0, cursorRow, 128, length);
                         notifyProcessNotification(_("Terminal Activity"), text, uuid);
                     }
                 }
@@ -1005,31 +1018,30 @@ private:
          * Monitor changes in the VTE to test for triggers
          */
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            vteHandlers ~= vte.addOnContentsChanged(&onVTECheckTriggers, GConnectFlags.AFTER);
-            vteHandlers ~= vte.addOnTerminalScreenChanged(&onVTEScreenChanged);
+            vteHandlers ~= vte.connectContentsChanged(delegate(VTE t) { onVTECheckTriggers(t); }, Yes.After);
+            vteHandlers ~= vte.connectTerminalScreenChanged(delegate(int screen, VTE t) { onVTEScreenChanged(screen, t); });
         }
 
-        vteHandlers ~= vte.addOnSizeAllocate(delegate(GdkRectangle*, Widget) {
+        vteHandlers ~= vte.connectSizeAllocate(delegate(Rectangle rect, Widget w) {
             updateDisplayText();
-        }, GConnectFlags.AFTER);
-        vteHandlers ~= vte.addOnEnterNotify(delegate(Event event, Widget) {
+        }, Yes.After);
+        vteHandlers ~= vte.connectEnterNotifyEvent(delegate(EventCrossing event, Widget w) {
             if (vte is null) return false;
 
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
                 vte.grabFocus();
             }
             return false;
-        }, GConnectFlags.AFTER);
+        }, Yes.After);
 
-        vteHandlers ~= vte.addOnButtonPress(&onTerminalButtonPress);
-        vteHandlers ~= vte.addOnKeyRelease(delegate(Event event, Widget widget) {
+        vteHandlers ~= vte.connectButtonPressEvent(&onTerminalButtonPress);
+        vteHandlers ~= vte.connectKeyReleaseEvent(delegate(EventKey event, Widget widget) {
             if (vte is null) return false;
 
             // If copy is assigned to control-c, check if VTE has selection and then
             // copy otherwise pass it on to VTE as interrupt
-            uint keyval;
-            event.getKeyval(keyval);
-            if ((keyval == GdkKeysyms.GDK_c) && (event.key.state & ModifierType.CONTROL_MASK)) {
+            uint keyval = event.keyval;
+            if ((keyval == Keys.c) && (event.state & gdk.types.ModifierType.ControlMask)) {
                 string[] actions = tilix.getActionsForAccel("<Ctrl>c");
                 if (actions.length > 0 &&
                    (actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY) || actions[0] == getActionDetailedName(ACTION_PREFIX,ACTION_COPY_AS_HTML)) &&
@@ -1041,29 +1053,30 @@ private:
             }
             return false;
         });
-        vteHandlers ~= vte.addOnKeyPress(delegate(Event event, Widget widget) {
+        vteHandlers ~= vte.connectKeyPressEvent(delegate(EventKey event, Widget widget) {
             if (vte is null) return false;
 
-            if (event.key.keyval == GdkKeysyms.GDK_Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
+            if (event.keyval == Keys.Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
                 glong row, column;
                 vte.getCursorPosition(column, row);
                 addPromptPosition(row);
                 tracef("Added prompt position %d", row);
             }
 
-            if (isSynchronizedInput() && event.key.sendEvent != SendEvent.SYNC) {
+            if (isSynchronizedInput() && event.sendEvent != SendEvent.SYNC) {
                 static if (USE_COMMIT_SYNCHRONIZATION) {
                     // Only synchronize hard code VTE keys otherwise let commit event take care of it
-                    if (!isVTEHandledKeystroke(event.key.keyval, event.key.state)) return false;
+                    if (!isVTEHandledKeystroke(event.keyval, event.state)) return false;
                 }
-                tracef("Synchronizing key %d", event.key.keyval);
-                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, event);
+                tracef("Synchronizing key %d", event.keyval);
+                Event genericEvent = new Event(cast(void*)event._cPtr, No.Take);
+                SyncInputEvent se = SyncInputEvent(_terminalUUID, SyncInputEventType.KEY_PRESS, genericEvent);
                 onSyncInput.emit(this, se);
             }
             return false;
         });
 
-        vteHandlers ~= vte.addOnSelectionChanged(delegate(VTE) {
+        vteHandlers ~= vte.connectSelectionChanged(delegate(VTE t) {
             if (vte is null) return;
 
             if (vte.getHasSelection() && gsSettings.getBoolean(SETTINGS_COPY_ON_SELECT_KEY)) {
@@ -1072,7 +1085,7 @@ private:
         });
 
         static if (USE_COMMIT_SYNCHRONIZATION) {
-            _commitHandlerId = vte.addOnCommit(delegate(string text, uint length, VTE) {
+            _commitHandlerId = vte.connectCommit(delegate(string text, uint length, VTE t) {
                 //tracef("%d Terminal Commit: %s", _terminalID, text);
                 if (vte !is null && isSynchronizedInput() && length > 0) {
                     // Workaround for #888
@@ -1087,22 +1100,22 @@ private:
         // prompt positions if user cleared VTE buffer, i.e. "clear" command.
         // Used for terminal-next-prompt and terminal-previous-prompt actions
         if (checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED)) {
-            vteHandlers ~= vte.addOnTextDeleted(delegate(VTE) {
+            vteHandlers ~= vte.connectTextDeleted(delegate(VTE t) {
                 checkPromptBuffer();
             });
         }
 
         pmContext = new Popover(vte);
         pmContext.setModal(true);
-        pmContext.setPosition(PositionType.BOTTOM);
+        pmContext.setPosition(PositionType.Bottom);
         // Force VTE to redraw on showing/hiding of popover if dimUnfocused is active
-        pmContext.addOnMap(delegate(Widget) {
+        pmContext.connectMap(delegate(Widget w) {
            if (dimPercent > 0) vte.queueDraw();
         });
-        pmContext.addOnUnmap(delegate(Widget) {
+        pmContext.connectUnmap(delegate(Widget w) {
            if (dimPercent > 0) vte.queueDraw();
         });
-        pmContext.addOnClosed(delegate(Popover) {
+        pmContext.connectClosed(delegate(Popover p) {
             // See #305 for more info on why this is here
             saCopy.setEnabled(true);
             if (saCopyAsHtml !is null) {
@@ -1111,51 +1124,52 @@ private:
             saPaste.setEnabled(true);
         });
 
-        vteHandlers ~= vte.addOnPopupMenu(delegate(Widget) {
+        vteHandlers ~= vte.connectPopupMenu(delegate(Widget w) {
             showContextPopover();
             return true;
         });
 
         if (_useOverlayScrollbar == 2) {
-            if ( Version.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0 || environment.get("GTK_OVERLAY_SCROLLING","1") == "0") _useOverlayScrollbar = 0;
+            if ( gtk.global.checkVersion(3, GTK_SCROLLEDWINDOW_VERSION, 0).length != 0 || environment.get("GTK_OVERLAY_SCROLLING","1") == "0") _useOverlayScrollbar = 0;
             else _useOverlayScrollbar = gsSettings.getBoolean(SETTINGS_USE_OVERLAY_SCROLLBAR_KEY)?-1:0;
             tracef("Initialized overlay scrollbar to %d", _useOverlayScrollbar);
         }
 
         terminalOverlay = new Overlay();
         if (useOverlayScrollbar) {
-            sw = new ScrolledWindow(vte);
+            sw = new ScrolledWindow();
+            sw.add(vte);
             sw.getStyleContext.addClass("tilix-terminal-scrolledwindow");
             sw.setPropagateNaturalHeight(true);
             sw.setPropagateNaturalWidth(true);
-            sw.getVadjustment().addOnValueChanged(&updateNewOutputIndicator);
+            sw.getVadjustment().connectValueChanged(&updateNewOutputIndicator);
             terminalOverlay.add(sw);
         } else {
             terminalOverlay.add(vte);
         }
 
-        Box terminalBox = new Box(Orientation.HORIZONTAL, 0);
+        Box terminalBox = new Box(gtk.types.Orientation.Horizontal, 0);
         terminalBox.add(terminalOverlay);
 
         // See https://bugzilla.gnome.org/show_bug.cgi?id=760718 for why we use
         // a Scrollbar instead of a ScrolledWindow. It's pity considering the
         // overlay scrollbars look awesome with VTE
         if (!useOverlayScrollbar) {
-            sb = new Scrollbar(Orientation.VERTICAL, vte.getVadjustment());
+            sb = new Scrollbar(gtk.types.Orientation.Vertical, vte.getVadjustment());
             sb.getStyleContext().addClass("tilix-terminal-scrollbar");
-            sb.getAdjustment().addOnValueChanged(&updateNewOutputIndicator);
+            sb.getAdjustment().connectValueChanged(&updateNewOutputIndicator);
             terminalBox.add(sb);
 
             //Draw a transparent background to override Window draw
             //to support transparent terminal scrollbars without
             //impacting other chrome. If no scrollbar CSSProvider is loaded
             //then this drawing does not happen
-            terminalBox.addOnDraw(delegate(Scoped!Context cr, Widget w) {
+            terminalBox.connectDraw(delegate(cairo.context.Context cr, Widget w) {
                 if (sbProvider !is null) {
                     cr.save();
                     // Paint Transparent
                     cr.setSourceRgba(0, 0, 0, 0);
-                    cr.setOperator(cairo_operator_t.SOURCE);
+                    cr.setOperator(cairo_operator_t.Source);
 
                     // Switched to just painting the scrollbar area, that 1 pixel clip that was required was giving
                     // me the twitches
@@ -1181,10 +1195,10 @@ private:
             vte.setDisableBGDraw(true);
         }
 
-        Box box = new Box(Orientation.VERTICAL, 0);
+        Box box = new Box(gtk.types.Orientation.Vertical, 0);
         rFind = new SearchRevealer(vte, sagTerminalActions);
-        rFind.onSearchEntryFocusIn.connect(&terminalWidgetFocusIn);
-        rFind.onSearchEntryFocusOut.connect(&terminalWidgetFocusOut);
+        rFind.onSearchEntryFocusIn .connect(&terminalWidgetFocusIn);
+        rFind.onSearchEntryFocusOut .connect(&terminalWidgetFocusOut);
 
         box.add(rFind);
         box.add(terminalBox);
@@ -1348,7 +1362,7 @@ private:
             icon = "window-maximize-symbolic";
             btnMaximize.setTooltipText(_("Maximize"));
         }
-        btnMaximize.setImage(new Image(icon, IconSize.BUTTON));
+        btnMaximize.setImage(Image.newFromIconName(icon, IconSize.Button));
     }
 
     /**
@@ -1383,7 +1397,7 @@ private:
         BookmarkChooser bc = new BookmarkChooser(cast(Window)getToplevel(), BMSelectionMode.LEAF);
         scope(exit) {bc.destroy();}
         bc.showAll();
-        if (bc.run() == ResponseType.OK && bc.bookmark !is null) {
+        if (bc.run() == gtk.types.ResponseType.Ok && bc.bookmark !is null) {
             string text = bc.bookmark.terminalCommand;
             if (gsSettings.getBoolean(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY)) {
                 trace("Add new line");
@@ -1419,7 +1433,7 @@ private:
         BookmarkEditor be = new BookmarkEditor(cast(Window)getToplevel(), BookmarkEditorMode.ADD, bm, true);
         scope(exit) {be.destroy();}
         be.showAll();
-        if (be.run() == ResponseType.OK) {
+        if (be.run() == gtk.types.ResponseType.Ok) {
             FolderBookmark fb = be.folder;
             bm = be.create();
             bmMgr.add(fb, bm);
@@ -1434,7 +1448,7 @@ private:
         return (text.indexOf("sudo") > -1) && (text.indexOf("\n") > -1);
     }
 
-    void advancedPaste(GdkAtom source) {
+    void advancedPaste(gdk.atom.Atom source) {
         string pasteText = Clipboard.get(source).waitForText();
         if (pasteText.length == 0) return;
         if (pasteText.indexOf("\n") < 0) return paste(source);
@@ -1445,7 +1459,7 @@ private:
             dialog.destroy();
         }
         dialog.showAll();
-        if (dialog.run() == ResponseType.APPLY) {
+        if (dialog.run() == gtk.types.ResponseType.Apply) {
             pasteText = dialog.text;
             vte.pasteText(pasteText[0 .. $]);
             if (gsProfile.getBoolean(SETTINGS_PROFILE_SCROLL_ON_INPUT_KEY)) {
@@ -1461,7 +1475,7 @@ private:
         focusTerminal();
     }
 
-    void paste(GdkAtom source) {
+    void paste(gdk.atom.Atom source) {
 
         string pasteText = Clipboard.get(source).waitForText();
 
@@ -1491,7 +1505,7 @@ private:
             vte.pasteText(pasteText);
         } else if (stripTrailingWhitespace) {
             vte.pasteText(pasteText);
-        } else if (source == GDK_SELECTION_CLIPBOARD) {
+        } else if (source == SELECTION_CLIPBOARD) {
             vte.pasteClipboard();
         } else {
             vte.pastePrimary();
@@ -1598,7 +1612,7 @@ private:
 
     TerminalScreen currentScreen = TerminalScreen.NORMAL;
 
-    void onVTEScreenChanged(int screen, VTE) {
+    void onVTEScreenChanged(int screen, VTE t) {
         currentScreen = cast(TerminalScreen)screen;
         updateDisplayText();
     }
@@ -1608,7 +1622,7 @@ private:
      * It would be nice to detect user typing and not run triggers when text changed but
      * not sure if an ideal way to accomplish that without being leading to false detections.
      */
-    void onVTECheckTriggers(VTE) {
+    void onVTECheckTriggers(VTE t) {
         if (vte is null) return;
 
         //Only process triggers for normal screen
@@ -1635,10 +1649,11 @@ private:
                 startCol = 0;
             }
             //tracef("Testing trigger: (%d, %d) to (%d, %d)", startRow, startCol, cursorRow, cursorCol);
-            ArrayG attr;
             //tracef("Checking from %d,%d to %d,%d",startRow, startCol, cursorRow, cursorCol);
             if (startRow <0) startRow = 0;
-            string text = vte.getTextRange(startRow, startCol, cursorRow, cursorCol, null, null, attr);
+            size_t length;
+            import vte.types : Format;
+            string text = vte.getTextRangeFormat(Format.Text, startRow, startCol, cursorRow, cursorCol, length);
             // Update position early in case we get re-entrant event
             triggerLastRowChecked = cursorRow;
             triggerLastColChecked = cursorCol;
@@ -1750,15 +1765,15 @@ private:
 private:
 
     // Note this event is binded dynamically so no need to check control wheel preference here
-    bool onTerminalScroll(GdkEventScroll* event, Widget widget) {
-        if (vte !is null && (event.state & ModifierType.CONTROL_MASK) && !(event.state & ModifierType.SHIFT_MASK) && !(event.state & ModifierType.MOD1_MASK)) {
+    bool onTerminalScroll(EventScroll event, Widget widget) {
+        if (vte !is null && (event.state & gdk.types.ModifierType.ControlMask) && !(event.state & gdk.types.ModifierType.ShiftMask) && !(event.state & gdk.types.ModifierType.Mod1Mask)) {
             ScrollDirection zoomDirection = event.direction;
-            if (zoomDirection == ScrollDirection.SMOOTH) {
-                zoomDirection = (event.deltaY <= 0)?ScrollDirection.UP: ScrollDirection.DOWN;
+            if (zoomDirection == ScrollDirection.Smooth) {
+                zoomDirection = (event.deltaY <= 0)?ScrollDirection.Up: ScrollDirection.Down;
             }
-            if (zoomDirection == ScrollDirection.UP) {
+            if (zoomDirection == ScrollDirection.Up) {
                 zoomIn();
-            } else if (zoomDirection == ScrollDirection.DOWN) {
+            } else if (zoomDirection == ScrollDirection.Down) {
                 zoomOut();
             }
             return true;
@@ -1786,8 +1801,8 @@ private:
             return;
         case SETTINGS_PROFILE_EXIT_ACTION_HOLD_VALUE:
             TerminalInfoBar ibRelaunch = new TerminalInfoBar();
-            ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
-                if (response == ResponseType.OK) {
+            ibRelaunch.connectResponse(delegate(int response, InfoBar ib) {
+                if (response == gtk.types.ResponseType.Ok) {
                     ibRelaunch.destroy();
                     tracef("Re-launching with %s", _overrideCommand);
                     spawnTerminalProcess(gst.initialCWD, _overrideCommand);
@@ -1803,20 +1818,20 @@ private:
     }
 
     void buildContextMenu() {
-        GMenu mmContext = new GMenu();
+        Menu mmContext = new Menu();
 
         if (match.match) {
-            GMenu linkSection = new GMenu();
+            Menu linkSection = new Menu();
             linkSection.append(_("Open Link"), getActionDetailedName(ACTION_PREFIX, ACTION_OPEN_LINK));
             linkSection.append(_("Copy Link Address"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY_LINK));
             mmContext.appendSection(null, linkSection);
         }
 
         //Add split buttons
-        GMenuItem buttons = createAddButtons();
+        MenuItem buttons = createAddButtons();
         mmContext.appendItem(buttons);
 
-        GMenu clipSection = new GMenu();
+        Menu clipSection = new Menu();
         if (!CLIPBOARD_BTN_IN_CONTEXT) {
             clipSection.append(_("Copy"), getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
             if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
@@ -1826,42 +1841,42 @@ private:
             clipSection.append(_("Select All"), getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
             mmContext.appendSection(null, clipSection);
         } else {
-            GMenuItem copy = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
-            copy.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
-            copy.setAttributeValue("label", new GVariant(_("Copy")));
+            MenuItem copy = new MenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY));
+            copy.setAttributeValue("verb-icon", new Variant("edit-copy-symbolic"));
+            copy.setAttributeValue("label", new Variant(_("Copy")));
             clipSection.appendItem(copy);
 
             if (checkVTEVersion(VTE_VERSION_COPY_AS_HTML)) {
-                GMenuItem copyAsHTML = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
-                copyAsHTML.setAttributeValue("verb-icon", new GVariant("edit-copy-symbolic"));
-                copyAsHTML.setAttributeValue("label", new GVariant(_("Copy as HTML")));
+                MenuItem copyAsHTML = new MenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_COPY_AS_HTML));
+                copyAsHTML.setAttributeValue("verb-icon", new Variant("edit-copy-symbolic"));
+                copyAsHTML.setAttributeValue("label", new Variant(_("Copy as HTML")));
                 clipSection.appendItem(copyAsHTML);
             }
 
-            GMenuItem paste = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
-            paste.setAttributeValue("verb-icon", new GVariant("edit-paste-symbolic"));
-            paste.setAttributeValue("label", new GVariant(_("Paste")));
+            MenuItem paste = new MenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_PASTE));
+            paste.setAttributeValue("verb-icon", new Variant("edit-paste-symbolic"));
+            paste.setAttributeValue("label", new Variant(_("Paste")));
             clipSection.appendItem(paste);
 
-            GMenuItem selectAll = new GMenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
-            selectAll.setAttributeValue("verb-icon", new GVariant("edit-select-all-symbolic"));
-            selectAll.setAttributeValue("label", new GVariant(_("Select All")));
+            MenuItem selectAll = new MenuItem(null, getActionDetailedName(ACTION_PREFIX, ACTION_SELECT_ALL));
+            selectAll.setAttributeValue("verb-icon", new Variant("edit-select-all-symbolic"));
+            selectAll.setAttributeValue("label", new Variant(_("Select All")));
             clipSection.appendItem(selectAll);
 
-            GMenuItem clipItem = new GMenuItem(_("Clipboard"), null);
+            MenuItem clipItem = new MenuItem(_("Clipboard"), null);
             clipItem.setSection(clipSection);
-            clipItem.setAttributeValue("display-hint", new GVariant("horizontal-buttons"));
+            clipItem.setAttributeValue("display-hint", new Variant("horizontal-buttons"));
 
             mmContext.appendItem(clipItem);
         }
         //Check if titlebar is hidden and add extra items
         if (!bTitle.isVisible()) {
-            GMenu windowSection = new GMenu();
+            Menu windowSection = new Menu();
             windowSection.append(terminalWindowState == TerminalWindowState.MAXIMIZED ? _("Restore") : _("Maximize"), getActionDetailedName(ACTION_PREFIX, ACTION_MAXIMIZE));
             windowSection.append(_("Close"), getActionDetailedName(ACTION_PREFIX, ACTION_CLOSE));
             mmContext.appendSection(null, windowSection);
             if (_synchronizeInput) {
-                GMenu syncInputSection = new GMenu();
+                Menu syncInputSection = new Menu();
                 syncInputSection.append(_("Synchronize input"), getActionDetailedName(ACTION_PREFIX, ACTION_SYNC_INPUT_OVERRIDE));
                 mmContext.appendSection(null, syncInputSection);
             }
@@ -1874,9 +1889,9 @@ private:
         pmContext.bindModel(mmContext, null);
     }
 
-    public void checkHyperlinkMatch(Event event) {
+    public void checkHyperlinkMatch(EventButton event) {
         if (!checkVTEVersion(VTE_VERSION_HYPERLINK)) return;
-        string uri = vte.hyperlinkCheckEvent(event);
+        string uri = vte.hyperlinkCheckEvent(new Event(cast(void*)event._cPtr, No.Take));
         if (uri.length == 0) return;
         match.match = uri;
         match.flavor = TerminalURLFlavor.AS_IS;
@@ -1917,16 +1932,17 @@ private:
     /**
      * Signal received when mouse button is pressed in terminal
      */
-    bool onTerminalButtonPress(Event event, Widget widget) {
+    bool onTerminalButtonPress(EventButton event, Widget widget) {
 
         // Find the matching regex that was clicked
-        void updateMatch(Event event) {
+        void updateMatch(EventButton event) {
             match.clear;
             int tag = -1;
             checkHyperlinkMatch(event);
             // Check standard hyperlink if new hyperlink feature returns nothing
             if (match.match.length == 0) {
-                match.match = vte.matchCheckEvent(event, tag);
+                Event genericEvent = new Event(cast(void*)event._cPtr, No.Take);
+                match.match = vte.matchCheckEvent(genericEvent, tag);
                 tracef("Match event received %s", match.match);
             }
             if (match.match.length > 0) {
@@ -1942,36 +1958,39 @@ private:
 
         if (vte is null) return false;
 
-        if (event.type == EventType.BUTTON_PRESS) {
+        if (event.type == EventType.ButtonPress) {
             updateMatch(event);
-            switch (event.button.button) {
-            case MouseButton.PRIMARY:
-                if ((event.button.state & GdkModifierType.CONTROL_MASK) && match.match) {
+            switch (event.button) {
+            case 1:
+                if ((event.state & gdk.types.ModifierType.ControlMask) && match.match) {
                     trace("Opening match");
                     openURI(match);
                     return true;
-                } else if (event.button.state & GdkModifierType.MOD1_MASK) {
-                    import gtk.TargetList;
-                    TargetList list = new TargetList([new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE)]);
-                    dragBegin(list, GdkDragAction.MOVE, MouseButton.PRIMARY, event);
+                } else if (event.state & gdk.types.ModifierType.Mod1Mask) {
+                    import gtk.target_list;
+                    TargetList list = new TargetList();
+                    list.addTable([new TargetEntry(VTE_DND, gtk.types.TargetFlags.SameApp, DropTargets.VTE)]);
+                    Event genericEvent = new Event(cast(void*)event._cPtr, No.Take);
+                    this.dragBegin(list, gdk.types.DragAction.Move, 1, genericEvent);
                     return true;
                 } else {
                     return false;
                 }
-            case MouseButton.SECONDARY:
+            case 3:
                 trace("Enabling actions");
-                if (!(event.button.state & (GdkModifierType.SHIFT_MASK | GdkModifierType.CONTROL_MASK | GdkModifierType.MOD1_MASK)) && vte.onButtonPressEvent(event.button))
+                Event genericEvent = new Event(cast(void*)event._cPtr, No.Take);
+                if (!(event.state & (gdk.types.ModifierType.ShiftMask | gdk.types.ModifierType.ControlMask | gdk.types.ModifierType.Mod1Mask)) && vte.event(genericEvent))
                     return true;
 
                 widget.grabFocus();
                 showContextPopover(event);
                 return true;
-            case MouseButton.MIDDLE:
+            case 2:
                 widget.grabFocus();
                 if (gsSettings.getBoolean(SETTINGS_PASTE_ADVANCED_DEFAULT_KEY)) {
-                    advancedPaste(GDK_SELECTION_PRIMARY);
+                    advancedPaste(SELECTION_PRIMARY);
                 } else {
-                    paste(GDK_SELECTION_PRIMARY);
+                    paste(SELECTION_PRIMARY);
                 }
                 return true;
             default:
@@ -1981,7 +2000,7 @@ private:
         return false;
     }
 
-    void showContextPopover(Event event = null) {
+    void showContextPopover(EventButton event = null) {
         buildContextMenu();
         saCopy.setEnabled(vte.getHasSelection());
         if (saCopyAsHtml !is null) {
@@ -1989,8 +2008,12 @@ private:
         }
         saPaste.setEnabled(Clipboard.get(null).waitIsTextAvailable());
         if (event !is null) {
-            GdkRectangle rect = GdkRectangle(to!int(event.button.x), to!int(event.button.y), 1, 1);
-            pmContext.setPointingTo(&rect);
+            Rectangle rect = new Rectangle();
+            rect.x = to!int(event.x);
+            rect.y = to!int(event.y);
+            rect.width = 1;
+            rect.height = 1;
+            pmContext.setPointingTo(rect);
         }
         pmContext.showAll();
     }
@@ -2012,8 +2035,7 @@ private:
             if (uri.startsWith("file:")) {
                 string filename, hostname;
                 try {
-
-                    filename = URI.filenameFromUri(uri, hostname);
+                    filename = glib.global.filenameFromUri(uri, hostname);
                 } catch (Exception e) {
                     string message = format(_("Could not check file '%s' due to error '%s'"), match.match, e.msg);
                     warning(message);
@@ -2030,7 +2052,7 @@ private:
             break;
         case TerminalURLFlavor.CUSTOM:
             // TODO - Optimize this by caching compiled regex
-            // Also I'm mixing GRegex which is used to detect initial click
+            // Also I'm mixing Regex which is used to detect initial click
             // with D's regex library to parse out groups, might cause some
             // incompatibilities but we'll see
             tracef("Processing custom regex with tag %d", urlMatch.tag);
@@ -2042,11 +2064,11 @@ private:
                     GRegex regex = compileGRegex(tr);
                     if (regex !is null) {
                         GMatchInfo info;
-                        regex.match(urlMatch.match, cast(GRegexMatchFlags) 0, info);
+                        regex.match(urlMatch.match, cast(RegexMatchFlags) 0, info);
                         tracef("Match count %d", info.getMatchCount());
-                        if (info.matches) {
-                            string[] groups = [info.getString()];
-                            groups ~= info.fetchAll();
+                        if (info.matches()) {
+                            string[] groups = [info.fetch(0)];
+                            for (int i = 1; i < info.getMatchCount(); i++) groups ~= info.fetch(i);
                             foreach(group; groups) tracef("Group %s", group);
                             string command = replaceMatchTokens(tr.command, groups);
                             command = replaceVariables(command);
@@ -2055,7 +2077,7 @@ private:
                             spawnShell(command, env, Config.none, currentLocalDirectory);
                         }
                     }
-                } catch (GException ge) {
+                } catch (ErrorWrap ge) {
                     string message = format(_("Custom link regex '%s' has an error, ignoring"), tr.pattern);
                     showErrorDialog(cast(Window)getToplevel(), message, _("Regular Expression Error"));
                     error(message);
@@ -2068,7 +2090,7 @@ private:
         }
         try {
             tracef("Showing URI %s", uri);
-            MountOperation.showUri(null, uri, Main.getCurrentEventTime());
+            gtk.global.showUriOnWindow(cast(Window)getToplevel(), uri, gtk.global.getCurrentEventTime());
         } catch (Exception e) {
             string message = format(_("Could not open match '%s'"), match.match);
             showErrorDialog(cast(Window)getToplevel(), message, _("Error Opening Match"));
@@ -2090,7 +2112,7 @@ private:
     /**
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
-    bool onTerminalWidgetFocusIn(Event event, Widget widget) {
+    bool onTerminalWidgetFocusIn(EventFocus event, Widget widget) {
         terminalWidgetFocusIn(widget);
         return false;
     }
@@ -2098,7 +2120,7 @@ private:
     void terminalWidgetFocusIn(Widget widget) {
         trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
-        bTitle.setStateFlags(StateFlags.ACTIVE, false);
+        bTitle.setStateFlags(gtk.types.StateFlags.Active, false);
         //Fire focus events so session can track which terminal last had focus
         onFocusIn.emit(this);
         // Set colors for dimPercent
@@ -2108,7 +2130,7 @@ private:
     /**
      * Tracks focus of widgets (vte and rFind) in this terminal pane
      */
-    bool onTerminalWidgetFocusOut(Event event, Widget widget) {
+    bool onTerminalWidgetFocusOut(EventFocus event, Widget widget) {
         terminalWidgetFocusOut(widget);
         return false;
     }
@@ -2117,7 +2139,7 @@ private:
         trace("Terminal lost focus " ~ uuid);
         lblTitle.setSensitive(isTerminalWidgetFocused());
         if (!isTerminalWidgetFocused()) {
-            bTitle.unsetStateFlags(StateFlags.ACTIVE);
+            bTitle.unsetStateFlags(gtk.types.StateFlags.Active);
         }
         // Set colors for dimPercent
         setVTEColors();
@@ -2154,7 +2176,7 @@ private:
     /**
      * Handler ID for scroll-event
      */
-    gulong scrollEventHandlerId;
+    ulong scrollEventHandlerId;
 
     void initColors() {
         vteFG = new RGBA();
@@ -2248,8 +2270,8 @@ private:
         case SETTINGS_PROFILE_FG_COLOR_KEY, SETTINGS_PROFILE_BG_COLOR_KEY, SETTINGS_PROFILE_PALETTE_COLOR_KEY, SETTINGS_PROFILE_USE_THEME_COLORS_KEY,
         SETTINGS_PROFILE_BG_TRANSPARENCY_KEY, SETTINGS_PROFILE_DIM_TRANSPARENCY_KEY:
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_THEME_COLORS_KEY)) {
-                getStyleColor(vte.getStyleContext(), StateFlags.ACTIVE, vteFG);
-                getStyleBackgroundColor(vte.getStyleContext(), StateFlags.ACTIVE, vteBG);
+                getStyleColor(vte.getStyleContext(), gtk.types.StateFlags.Active, vteFG);
+                getStyleBackgroundColor(vte.getStyleContext(), gtk.types.StateFlags.Active, vteBG);
             } else {
             if (!vteFG.parse(gsProfile.getString(SETTINGS_PROFILE_FG_COLOR_KEY)))
                 trace("Parsing foreground color failed");
@@ -2317,9 +2339,9 @@ private:
         case SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY:
             if (useOverlayScrollbar) {
                 if (gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY)) {
-                    sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+                    sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
                 } else {
-                    sw.setPolicy(PolicyType.NEVER, PolicyType.NEVER);
+                    sw.setPolicy(PolicyType.Never, PolicyType.Never);
                 }
             } else {
                 sb.setNoShowAll(!gsProfile.getBoolean(SETTINGS_PROFILE_SHOW_SCROLLBAR_KEY));
@@ -2356,11 +2378,11 @@ private:
             updateDisplayText();
             break;
         case SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY, SETTINGS_PROFILE_FONT_KEY:
-            PgFontDescription desc;
+            FontDescription desc;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_SYSTEM_FONT_KEY)) {
-                desc = PgFontDescription.fromString(gsDesktop.getString(SETTINGS_MONOSPACE_FONT_KEY));
+                desc = FontDescription.fromString(gsDesktop.getString(SETTINGS_MONOSPACE_FONT_KEY));
             } else {
-                desc = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY));
+                desc = FontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_FONT_KEY));
             }
             if (desc.getSize() == 0)
                 desc.setSize(10);
@@ -2418,11 +2440,11 @@ private:
         case SETTINGS_CONTROL_SCROLL_ZOOM_KEY:
             if (gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY)) {
                 if (vte !is null && scrollEventHandlerId == 0) {
-                    scrollEventHandlerId = vte.addOnScroll(&onTerminalScroll);
+                    scrollEventHandlerId = vte.connectScrollEvent(&onTerminalScroll);
                 }
             } else {
                 if (vte !is null && scrollEventHandlerId > 0) {
-                    Signals.handlerDisconnect(vte, scrollEventHandlerId);
+                    gobject.global.signalHandlerDisconnect(vte, scrollEventHandlerId);
                     scrollEventHandlerId = 0;
                 }
             }
@@ -2535,13 +2557,16 @@ private:
     }
 
     VteCursorShape getCursorShape(string shape) {
-        final switch (shape) {
+        import vte.types : CursorShape;
+        switch (shape) {
         case SETTINGS_PROFILE_CURSOR_SHAPE_BLOCK_VALUE:
-            return VteCursorShape.BLOCK;
+            return CursorShape.Block;
         case SETTINGS_PROFILE_CURSOR_SHAPE_IBEAM_VALUE:
-            return VteCursorShape.IBEAM;
+            return CursorShape.Ibeam;
         case SETTINGS_PROFILE_CURSOR_SHAPE_UNDERLINE_VALUE:
-            return VteCursorShape.UNDERLINE;
+            return CursorShape.Underline;
+        default:
+            return CursorShape.Block;
         }
     }
 
@@ -2567,9 +2592,9 @@ private:
             foreach (i, regex; compiledVRegex) {
                 int id = vte.matchAddRegex(cast(VRegex) regex, 0);
                 regexTag[id] = URL_REGEX_PATTERNS[i];
-                vte.matchSetCursorType(id, CursorType.HAND2);
+                vte.matchSetCursorType(id, CursorType.Hand2);
             }
-        } catch (GException e) {
+        } catch (ErrorWrap e) {
             errorf(_("Unexpected error occurred when adding link regex: %s"), e.msg);
         }
     }
@@ -2606,10 +2631,10 @@ private:
                     if (compiledRegex !is null) {
                         int id = vte.matchAddRegex(compiledRegex, 0);
                         regexTag[id] = regex;
-                        vte.matchSetCursorType(id, CursorType.HAND2);
+                        vte.matchSetCursorType(id, CursorType.Hand2);
                         tracef("Added regex: %s with tag %d",value[0], id);
                     }
-                } catch (GException ge) {
+                } catch (ErrorWrap ge) {
                     error(format(_("Custom link regex '%s' has an error, ignoring"), regex));
                     error(ge.msg);
                 }
@@ -2622,21 +2647,21 @@ private:
     void feedChild(string text, bool ignoreCommit) {
         if (USE_COMMIT_SYNCHRONIZATION) {
             if (ignoreCommit) {
-                Signals.handlerBlock(vte, _commitHandlerId);
+                gobject.global.signalHandlerBlock(vte, _commitHandlerId);
             }
         }
         vte.feedChild(text);
         if (USE_COMMIT_SYNCHRONIZATION) {
             if (ignoreCommit) {
-                Signals.handlerUnblock(vte, _commitHandlerId);
+                gobject.global.signalHandlerUnblock(vte, _commitHandlerId);
             }
         }
     }
 
     void showInfoBarMessage(string message) {
         TerminalInfoBar ibRelaunch = new TerminalInfoBar();
-        ibRelaunch.addOnResponse(delegate(int response, InfoBar ib) {
-            if (response == ResponseType.OK) {
+        ibRelaunch.connectResponse(delegate(int response, InfoBar ib) {
+            if (response == gtk.types.ResponseType.Ok) {
                 ibRelaunch.destroy();
                 spawnTerminalProcess(gst.initialCWD, _overrideCommand);
             }
@@ -2646,7 +2671,7 @@ private:
         ibRelaunch.showAll();
     }
 
-    void getHostnameAndDirectory(out string hostname, out string directory) {
+    void getHostnameAndDirectory(string hostname, string directory) {
         if (gpid <= 0)
             return;
         string cwd = vte.getCurrentDirectoryUri();
@@ -2654,7 +2679,7 @@ private:
             return;
         }
         trace("Current directory: " ~ cwd);
-        directory = URI.filenameFromUri(cwd, hostname);
+        directory = glib.global.filenameFromUri(cwd, hostname);
     }
 
     /**
@@ -2691,14 +2716,14 @@ private:
             trace("Working directory overridden to " ~ workingDir);
         }
         if (workingDir.length == 0) {
-            string cwd = Util.getCurrentDir();
+            string cwd = getCurrentDir();
             trace("No working directory set, using cwd");
             workingDir = cwd;
         }
 
         trace("Spawn setting workingDir to " ~ workingDir);
 
-        GSpawnFlags flags = GSpawnFlags.SEARCH_PATH_FROM_ENVP;
+        SpawnFlags flags = SpawnFlags.SearchPathFromEnvp;
 
         string shell = null;
         if (isFlatpak()) {
@@ -2707,7 +2732,7 @@ private:
                 shell = "/bin/sh";
             }
         } else {
-            shell = getUserShell(vte.getUserShell());
+            shell = getUserShell("");
         }
 
         string[] args;
@@ -2719,16 +2744,16 @@ private:
             //keep copy of command around
             _overrideCommand = command;
             trace("Overriding the command from command prompt: " ~ command);
-            ShellUtils.shellParseArgv(command, args);
-            flags = flags | GSpawnFlags.SEARCH_PATH;
+            shellParseArgv(command, args);
+            flags = flags | SpawnFlags.SearchPath;
         } else if (gsProfile.getBoolean(SETTINGS_PROFILE_USE_CUSTOM_COMMAND_KEY)) {
-            ShellUtils.shellParseArgv(gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY), args);
-            flags = flags | GSpawnFlags.SEARCH_PATH;
+            shellParseArgv(gsProfile.getString(SETTINGS_PROFILE_CUSTOM_COMMAND_KEY), args);
+            flags = flags | SpawnFlags.SearchPath;
         } else {
             args ~= shell;
             if (gsProfile.getBoolean(SETTINGS_PROFILE_LOGIN_SHELL_KEY)) {
                 args ~= format("-%s", shell);
-                flags = flags | GSpawnFlags.FILE_AND_ARGV_ZERO;
+                flags = flags | SpawnFlags.FileAndArgvZero;
             }
         }
         string[] envv = ["TILIX_ID=" ~ uuid];
@@ -2758,9 +2783,9 @@ private:
             // Add Window ID
             Window tw = cast(Window)getToplevel();
             if (tw !is null && !isWayland(tw)) {
-                GdkWindow window = tw.getWindow();
+                Window window = tw.getWindow();
                 if (window !is null) {
-                    import gdk.X11: getXid;
+                    import gdk.x11: getXid;
                     uint xid = getXid(window);
                     tracef("WINDOWID=%d",xid);
                     envv ~= ["WINDOWID=" ~ to!string(xid)];
@@ -2779,7 +2804,7 @@ private:
                 }
             }
         }
-        catch (GException ge) {
+        catch (ErrorWrap ge) {
             string msg = format(_("Unexpected error occurred: %s"), ge.msg);
             outputError(msg, workingDir, args, envv);
             showInfoBarMessage(msg);
@@ -2825,9 +2850,9 @@ private:
      * VtePty: https://git.gnome.org/browse/gnome-builder/tree/plugins/terminal/gb-terminal-view.c#n238
      * HostCommand(): https://git.gnome.org/browse/gnome-builder/tree/libide/subprocess/ide-breakout-subprocess.c#n1448
      */
-    bool spawnSync(string workingDir, string[] args, string[] envv, GSpawnFlags flags, out int gpid) {
+    bool spawnSync(string workingDir, string[] args, string[] envv, SpawnFlags flags, out GPid gpid) {
         if (isFlatpak()) {
-            Pty pty = vte.ptyNewSync(VtePtyFlags.DEFAULT, null);
+            Pty pty = Pty.newSync(PtyFlags.Default, null);
 
             int pty_master = pty.getFd();
 
@@ -2855,14 +2880,14 @@ private:
                 pty_slaves ~= core.sys.posix.unistd.dup(pty_slaves[0]);
             }
 
-            import VteVersion = vte.Version;
+            import vte.global : getMinorVersion, getMicroVersion;
 
             envv ~= ["TERM=" ~"xterm-256color"];
-            envv ~= [format("VTE_VERSION=%02u%02u", VteVersion.Version.getMinorVersion(), VteVersion.Version.getMicroVersion())];
+            envv ~= [format("VTE_VERSION=%02u%02u", getMinorVersion(), getMicroVersion())];
 
             string[] igneredEnvv = [
                 "PATH",
-                "LD_LIBRARY_PATH",
+//                 "LD_LIBRARY_PATH",
                 "XDG_CONFIG_DIRS",
                 "XDG_CONFIG_HOME",
                 "XDG_DATA_DIRS",
@@ -2893,28 +2918,29 @@ private:
 
             return result;
         } else {
-            return vte.spawnSync(VtePtyFlags.DEFAULT, workingDir, args, envv, flags, null, null, gpid, null);
+            return vte.spawnSync(PtyFlags.Default, workingDir, args, envv, flags, null, gpid, null);
         }
     }
 
-    GVariant buildHostCommandVariant(string workingDir, string[] args, string[] envv, uint[] handles) {
-        if (workingDir.length == 0) workingDir = Util.getHomeDir();
+    Variant buildHostCommandVariant(string workingDir, string[] args, string[] envv, uint[] handles) {
+        if (workingDir.length == 0) workingDir = getHomeDir();
 
-        GVariantBuilder fdBuilder = new GVariantBuilder(new GVariantType("a{uh}"));
+        VariantBuilder fdBuilder = new VariantBuilder(new VariantType("a{uh}"));
         foreach(i, fd; handles) {
-            fdBuilder.addValue(new GVariant(new GVariant(i), new GVariant(g_variant_new_handle(fd), true)));
+            Variant[] fdTuple = [new Variant(cast(uint)i), Variant.newHandle(fd)];
+            fdBuilder.addValue(Variant.newTuple(fdTuple));
         }
-        GVariantBuilder envBuilder = new GVariantBuilder(new GVariantType("a{ss}"));
+        VariantBuilder envBuilder = new VariantBuilder(new VariantType("a{ss}"));
         foreach(env; envv) {
             string[] envPair = env.split("=");
             tracef("Adding env var %s=%s", envPair[0], envPair[1]);
             if (envPair.length ==2) {
-                GVariant pair = new GVariant(new GVariant(envPair[0]), new GVariant(envPair[1]));
+                Variant pair = Variant.newTuple([new Variant(envPair[0]), new Variant(envPair[1])]);
                 envBuilder.addValue(pair);
             }
         }
 
-        import gtkc.glib: g_variant_new;
+        import glib.c.functions: g_variant_new;
 
         immutable(char)* wd = toStringz(workingDir);
         immutable(char)*[] argsv;
@@ -2924,51 +2950,29 @@ private:
         argsv ~= null;
 
 
-        gtkc.glibtypes.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
+        glib.c.types.GVariant* vs = g_variant_new("(^ay^aay@a{uh}@a{ss}u)",
                           wd,
                           argsv.ptr,
-                          fdBuilder.end().getVariantStruct(true),
-                          envBuilder.end().getVariantStruct(true),
+                          cast(glib.c.types.GVariant*)fdBuilder.end()._cPtr(),
+                          cast(glib.c.types.GVariant*)envBuilder.end()._cPtr(),
                           cast(uint) 1);
 
-        return new GVariant(vs, true);
+        return new Variant(vs, Yes.Take);
     }
 
     alias HostCommandExitedCallback = void delegate(int);
 
-    struct HostCommandExitedArgs {
+    private struct HostCommandExitedArgs {
       HostCommandExitedCallback callback;
       int pid = -1;
       uint signalId = 0u;
       int status = -1;
     };
 
-    extern(C) static void hostCommandExitedCallback(GDBusConnection *connection, const(char)* senderName, const(char)* objectPath, const(char)* interfaceName,
-                                                    const(char)* signalName, gtkc.glibtypes.GVariant* parameters, HostCommandExitedArgs *args) {
-        uint pid, status;
-        g_variant_get(parameters, "(uu)", &pid, &status);
-
-        if (args.pid == -1 || pid == args.pid) {
-            import gtkc.gio: g_dbus_connection_signal_unsubscribe;
-
-            if (args.pid == -1) {
-                trace("hostCommandExitedCallback was called before spawn completed.");
-                args.pid = pid;
-                args.status = status;
-            } else {
-                g_dbus_connection_signal_unsubscribe(connection, args.signalId);
-                args.callback(status);
-            }
-
-            GC.removeRoot(cast(void*)args);
-            warning("**********COLLECT**********");
-            GC.collect();
-        }
-    }
-
-    bool sendHostCommand(string workingDir, string[] args, string[] envv, int[] stdio_fds, out int gpid, HostCommandExitedCallback exitedCallback) {
-        import gio.DBusConnection;
-        import gio.UnixFDList;
+    bool sendHostCommand(string workingDir, string[] args, string[] envv, int[] stdio_fds, int gpid, HostCommandExitedCallback exitedCallback) {
+import gio.types : DBusConnectionFlags;
+import gio.dbus_connection;
+import gio.unix_fdlist;
 
         uint[] handles;
 
@@ -2981,39 +2985,55 @@ private:
             }
         }
 
-        DBusConnection connection = new DBusConnection(
+        DBusConnection connection = DBusConnection.newForAddressSync(
             environment.get("DBUS_SESSION_BUS_ADDRESS"),
-            GDBusConnectionFlags.AUTHENTICATION_CLIENT | GDBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+            DBusConnectionFlags.AuthenticationClient | DBusConnectionFlags.MessageBusConnection,
             null,
             null
         );
         connection.setExitOnClose(false);
-        connection.doref();
 
         auto callbackArgs = new HostCommandExitedArgs();
         callbackArgs.callback = exitedCallback;
-        GC.addRoot(cast(void*)callbackArgs);
+        core.memory.GC.addRoot(cast(void*)callbackArgs);
 
+        import gio.types : DBusSignalFlags, DBusCallFlags;
+        import glib.c.functions : g_variant_get;
         uint signalId = connection.signalSubscribe(
             "org.freedesktop.Flatpak",
             "org.freedesktop.Flatpak.Development",
             "HostCommandExited",
             "/org/freedesktop/Flatpak/Development",
             null,
-            DBusSignalFlags.NONE,
-            cast(GDBusSignalCallback)&hostCommandExitedCallback,
-            cast(void*)callbackArgs,
-            null,
-        );
+            DBusSignalFlags.None,
+            delegate(DBusConnection conn, string sender, string path, string iface, string sig, Variant parameters) {
+                uint pid, status;
+                g_variant_get(cast(glib.c.types.GVariant*)parameters._cPtr(), "(uu)", &pid, &status);
 
-        GVariant reply = connection.callWithUnixFdListSync(
+                if (callbackArgs.pid == -1 || pid == callbackArgs.pid) {
+                    import gio.c.functions: g_dbus_connection_signal_unsubscribe;
+
+                    if (callbackArgs.pid == -1) {
+                        trace("hostCommandExitedCallback was called before spawn completed.");
+                        callbackArgs.status = cast(int)status;
+                    } else {
+                        g_dbus_connection_signal_unsubscribe(cast(GDBusConnection*)conn._cPtr(), callbackArgs.signalId);
+                        callbackArgs.callback(cast(int)status);
+                        core.memory.GC.removeRoot(cast(void*)callbackArgs);
+                    }
+                }
+            }
+        );
+        callbackArgs.signalId = signalId;
+
+        Variant reply = connection.callWithUnixFdListSync(
             "org.freedesktop.Flatpak",
             "/org/freedesktop/Flatpak/Development",
             "org.freedesktop.Flatpak.Development",
             "HostCommand",
             buildHostCommandVariant(workingDir, args, envv, handles),
-            new GVariantType("(u)"),
-            GDBusCallFlags.NONE,
+            new VariantType("(u)"),
+            DBusCallFlags.None,
             -1,
             inFdList,
             outFdList,
@@ -3026,7 +3046,9 @@ private:
             return false;
         } else {
             uint pid;
-            g_variant_get(reply.getVariantStruct(), "(u)", &pid);
+            import glib.c.functions : g_variant_get;
+            import glib.c.types : GVariant;
+            g_variant_get(cast(GVariant*)reply._cPtr(), "(u)", &pid);
             gpid = pid;
 
             if (callbackArgs.pid != -1) {
@@ -3048,11 +3070,11 @@ private:
      */
     string captureHostToolboxCommand(string command, string arg, int[] extra_fds) {
         import std.process: Pipe, pipe;
-        import glib.MainContext;
-        import glib.KeyFile;
+        import glib.main_context;
+        import glib.key_file;
 
         KeyFile kf = new KeyFile();
-        kf.loadFromFile("/.flatpak-info", GKeyFileFlags.NONE);
+        kf.loadFromFile("/.flatpak-info", KeyFileFlags.None);
 
         string hostRoot = kf.getString("Instance", "app-path");
         string[] args = [format("%s/bin/tilix-flatpak-toolbox", hostRoot), command, arg];
@@ -3096,8 +3118,8 @@ private:
      */
     void setProxyEnv(ref string[] envv) {
 
-        void addProxy(GSettings gsProxy, string scheme, string urlScheme, string varName) {
-            GSettings gsProxyScheme = gsProxy.getChild(scheme);
+        void addProxy(Settings gsProxy, string scheme, string urlScheme, string varName) {
+            Settings gsProxyScheme = gsProxy.getChild(scheme);
 
             string host = gsProxyScheme.getString("host");
             int port = gsProxyScheme.getInt("port");
@@ -3125,7 +3147,7 @@ private:
 
         if (!gsSettings.getBoolean(SETTINGS_SET_PROXY_ENV_KEY)) return;
 
-        GSettings gsProxy = tilix.getProxySettings();
+        Settings gsProxy = tilix.getProxySettings();
         if (gsProxy is null) return;
         if (gsProxy.getString("mode") != "manual") return;
         addProxy(gsProxy, "http", "http", "http_proxy");
@@ -3149,9 +3171,9 @@ private:
     DragInfo dragInfo = DragInfo(false, DragQuadrant.LEFT);
     bool isRootWindow = false;
     static if (USE_PIXBUF_DND) {
-        Pixbuf dragImage;
+        gdkpixbuf.pixbuf.Pixbuf dragImage;
     } else {
-        Window dragImage;
+        gtk.window.Window dragImage;
     }
 
     /**
@@ -3163,36 +3185,36 @@ private:
     void setupDragAndDrop(Widget title) {
         trace("Setting up drag and drop");
         //DND
-        TargetEntry uriEntry = new TargetEntry("text/uri-list", TargetFlags.OTHER_APP, DropTargets.URILIST);
-        TargetEntry stringEntry = new TargetEntry("STRING", TargetFlags.OTHER_APP, DropTargets.STRING);
-        TargetEntry textEntry = new TargetEntry("text/plain", TargetFlags.OTHER_APP, DropTargets.TEXT);
-        TargetEntry utf8TextEntry = new TargetEntry("UTF8_STRING", TargetFlags.OTHER_APP, DropTargets.UTF8_TEXT);
-        TargetEntry colorEntry = new TargetEntry("application/x-color", TargetFlags.OTHER_APP, DropTargets.COLOR);
-        TargetEntry vteEntry = new TargetEntry(VTE_DND, TargetFlags.SAME_APP, DropTargets.VTE);
-        TargetEntry sessionEntry = new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, DropTargets.SESSION);
+        TargetEntry uriEntry = new TargetEntry("text/uri-list", gtk.types.TargetFlags.OtherApp, DropTargets.URILIST);
+        TargetEntry stringEntry = new TargetEntry("STRING", gtk.types.TargetFlags.OtherApp, DropTargets.STRING);
+        TargetEntry textEntry = new TargetEntry("text/plain", gtk.types.TargetFlags.OtherApp, DropTargets.TEXT);
+        TargetEntry utf8TextEntry = new TargetEntry("UTF8_STRING", gtk.types.TargetFlags.OtherApp, DropTargets.UTF8_TEXT);
+        TargetEntry colorEntry = new TargetEntry("application/x-color", gtk.types.TargetFlags.OtherApp, DropTargets.COLOR);
+        TargetEntry vteEntry = new TargetEntry(VTE_DND, gtk.types.TargetFlags.SameApp, DropTargets.VTE);
+        TargetEntry sessionEntry = new TargetEntry(SESSION_DND, gtk.types.TargetFlags.SameApp, DropTargets.SESSION);
         TargetEntry[] targets = [uriEntry, utf8TextEntry, stringEntry, textEntry, colorEntry, vteEntry, sessionEntry];
-        vte.dragDestSet(DestDefaults.ALL, targets, DragAction.COPY | DragAction.MOVE);
-        dragSourceSet(ModifierType.BUTTON1_MASK, [vteEntry], DragAction.MOVE);
+        vte.dragDestSet(DestDefaults.All, targets, gdk.types.DragAction.Copy | gdk.types.DragAction.Move);
+        dragSourceSet(gdk.types.ModifierType.Button1Mask, [vteEntry], gdk.types.DragAction.Move);
 
         //Title bar events
-        addOnDragBegin(&onTitleDragBegin);
-        addOnDragDataGet(&onTitleDragDataGet);
-        addOnDragFailed(&onTitleDragFailed, ConnectFlags.AFTER);
-        addOnDragEnd(&onTitleDragEnd, ConnectFlags.AFTER);
+        connectDragBegin(&onTitleDragBegin);
+        connectDragDataGet(&onTitleDragDataGet);
+        connectDragFailed(&onTitleDragFailed, Yes.After);
+        connectDragEnd(&onTitleDragEnd, Yes.After);
 
         //VTE Drop events
-        vte.addOnDragDataReceived(&onVTEDragDataReceived);
-        vte.addOnDragMotion(&onVTEDragMotion);
-        vte.addOnDragLeave(&onVTEDragLeave);
+        vte.connectDragDataReceived(&onVTEDragDataReceived);
+        vte.connectDragMotion(&onVTEDragMotion);
+        vte.connectDragLeave(&onVTEDragLeave);
 
         if (checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR)) {
             vte.setClearBackground(false);
         }
         //TODO - Figure out why this is causing issues, see #545
         if (isVTEBackgroundDrawEnabled()) {
-            vte.addOnDraw(&onVTEDrawBadge);
+            vte.connectDraw(&onVTEDrawBadge);
         }
-        vte.addOnDraw(&onVTEDraw, ConnectFlags.AFTER);
+        vte.connectDraw(&onVTEDraw, Yes.After);
 
         trace("Drag and drop completed");
     }
@@ -3203,8 +3225,8 @@ private:
      */
     void onTitleDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
         char[] buffer = (uuid ~ '\0').dup;
-        GdkAtom gdkAtom = data.getTarget();
-        string name = gdk.Atom.name(gdkAtom);
+        gdk.atom.Atom gdkAtom = data.getTarget();
+        string name = gdkAtom.name();
         if (name == "application/x-rootwindow-drop") {
             trace("Root window drop");
             isRootWindow = true;
@@ -3212,12 +3234,12 @@ private:
             tracef("onTitleDragDataGet atom: %s", name);
             isRootWindow = false;
         }
-        data.set(intern(VTE_DND, false), 8, buffer);
+        data.set(gdk.atom.Atom.intern(VTE_DND, false), 8, cast(ubyte[])buffer);
     }
 
     /**
      * Begin the drag operation from the use dragging the title bar, renders the
-     * terminal image into a scaled Pixbuf to use as the drag icon.
+     * terminal image into a scaled gdkpixbuf.pixbuf.Pixbuf to use as the drag icon.
      *
      * Cribbed idea from Terminator, my original implementation worked
      * but had an issue in Fedora 23 potentially due to a Cario bug,
@@ -3235,13 +3257,13 @@ private:
         }
         static if (USE_PIXBUF_DND) {
             dragImage = getWidgetImage(this, 0.20);
-            DragAndDrop.dragSetIconPixbuf(dc, dragImage, 0, 0);
+            gtk.global.dragSetIconPixbuf(dc, dragImage, 0, 0);
         } else {
-            Image image = new Image(getWidgetImage(this, 0.20));
+            Image image = Image.newFromPixbuf(getWidgetImage(this, 0.20));
             image.show();
-            dragImage = new Window(GtkWindowType.POPUP);
+            dragImage = new gtk.window.Window(gtk.types.WindowType.Popup);
             dragImage.add(image);
-            DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+            gtk.global.dragSetIconWidget(dc, dragImage, 0, 0);
         }
     }
 
@@ -3264,7 +3286,7 @@ private:
     /**
      * Called when drag failed, used this to detach a terminal into a new window
      */
-    bool onTitleDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
+    bool onTitleDragFailed(DragContext dc, DragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
         scope(exit) {
             isRootWindow = false;
@@ -3299,7 +3321,7 @@ private:
     }
 
     Terminal getDragTerminal(DragContext dc) {
-        Terminal terminal = cast(Terminal) DragAndDrop.dragGetSourceWidget(dc);
+        Terminal terminal = cast(Terminal) gtk.global.dragGetSourceWidget(dc);
         if (terminal is null) {
             error("Oops, something went wrong not a terminal drag");
             return null;
@@ -3318,7 +3340,20 @@ private:
      */
     bool onVTEDragMotion(DragContext dc, int x, int y, uint time, Widget widget) {
         //Is this a terminal drag or something else?
-        if (!dc.listTargets().find(intern(VTE_DND, false))) {
+        import gdk.c.functions : gdk_drag_context_list_targets;
+        import gdk.c.types : GdkDragContext;
+        import glib.c.types : GList;
+        GList* list = gdk_drag_context_list_targets(cast(GdkDragContext*)dc._cPtr());
+        bool found = false;
+        GList* current = list;
+        while (current !is null) {
+            if (current.data == cast(void*)gdk.atom.Atom.intern(VTE_DND, false)._cPtr()) {
+                found = true;
+                break;
+            }
+            current = current.next;
+        }
+        if (!found) {
             return true;
         }
         //Don't allow drop on the same terminal or if it is maximized
@@ -3403,16 +3438,17 @@ private:
             if (uris) {
                 foreach (uri; uris) {
                     trace("Dropped filename " ~ uri);
-                    GFileIF file = parseName(uri);
+                    import gio.file : File;
+                    File file = File.newForUri(uri);
                     string filename;
                     if (file !is null) {
                         filename = file.getPath();
                         trace("Converted filename " ~ filename);
                     } else {
                         string hostname;
-                        filename = URI.filenameFromUri(uri, hostname);
+                        filename = glib.global.filenameFromUri(uri, hostname);
                     }
-                    string quoted = ShellUtils.shellQuote(filename) ~ " ";
+                    string quoted = gx.util.string.shellQuote(filename) ~ " ";
                     vte.feedChild(quoted);
                 }
             }
@@ -3425,8 +3461,7 @@ private:
             }
             break;
         case DropTargets.COLOR:
-            if (data.getLength() != 8) return;
-            char[] colors = data.getDataWithLength();
+            ubyte[] colors = data.getData();
             string hexColor = format("#%02X%02X%02X", colors[0], colors[1], colors[2]);
             trace("Hex Color " ~ hexColor);
             tracef("Red=%d,Green=%d,Blue=%d,Alpha=%d", colors[0], colors[1], colors[2], colors[3]);
@@ -3437,14 +3472,14 @@ private:
             //Don't allow drop on the same terminal
             if (isSourceAndDestEqual(dc, this) || terminalWindowState == TerminalWindowState.MAXIMIZED)
                 return;
-            string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
+            string uuid = to!string(cast(char[])data.getData());
             DragQuadrant dq = getDragQuadrant(x, y, vte);
             tracef("Receiving Terminal %s, Dropped terminal %s, x=%d, y=%d, dq=%d", _terminalUUID, uuid, x, y, dq);
             notifyTerminalRequestMove(uuid, this, dq);
             dragInfo = DragInfo(false, dq);
             break;
         case DropTargets.SESSION:
-            string uuid = to!string(data.getDataWithLength()[0 .. $ - 1]);
+            string uuid = to!string(cast(char[])data.getData());
             notifySessionRequestAttach(uuid);
             break;
         }
@@ -3454,7 +3489,7 @@ private:
 
     static double[] marginDash = [2.0, 4.0];
 
-    PgFontDescription badgeFont = null;
+    FontDescription badgeFont = null;
 
     int margin = 0;
     bool marginEnabled = false;
@@ -3469,13 +3504,13 @@ private:
             badgeFont = vte.getFont().copy();
             badgeFont.setSize(badgeFont.getSize() * 2);
         } else {
-            badgeFont = PgFontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_BADGE_FONT_KEY));
+            badgeFont = FontDescription.fromString(gsProfile.getString(SETTINGS_PROFILE_BADGE_FONT_KEY));
         }
         tracef("Badge font is %s:%d", badgeFont.getFamily(), badgeFont.getSize());
         vte.queueDraw();
     }
 
-    bool onVTEDrawBadge(Scoped!Context cr, Widget w) {
+    bool onVTEDrawBadge(cairo.context.Context cr, Widget w) {
         cr.save();
         double width = to!double(w.getAllocatedWidth());
         double height = to!double(w.getAllocatedHeight());
@@ -3494,7 +3529,7 @@ private:
             } else {
                 cr.setSourceRgba(vteBG.red, vteBG.green, vteBG.blue, vteBG.alpha);
             }
-            cr.setOperator(cairo_operator_t.SOURCE);
+            cr.setOperator(cairo_operator_t.Source);
             cr.rectangle(0.0, 0.0, width, height);
             cr.clip();
             cr.paint();
@@ -3519,7 +3554,11 @@ private:
             cr.setSourceRgba(vteBadge.red, vteBadge.green, vteBadge.blue, 1.0);
 
             // Create rect for default NW position
-            GdkRectangle rect = GdkRectangle(BADGE_MARGIN, BADGE_MARGIN, to!int(width/2) - BADGE_MARGIN, to!int(height/2) - BADGE_MARGIN);
+            Rectangle rect;
+            rect.x = BADGE_MARGIN;
+            rect.y = BADGE_MARGIN;
+            rect.width = to!int(width/2) - BADGE_MARGIN;
+            rect.height = to!int(height/2) - BADGE_MARGIN;
             string position = gsProfile.getString(SETTINGS_PROFILE_BADGE_POSITION_KEY);
             //Adjust coords of rect for other positions
             switch (position) {
@@ -3536,12 +3575,12 @@ private:
                 default:
             }
 
-            //PgLayout pgl = PgCairo.createLayout(cr);
-            PgLayout pgl = new PgLayout(vte.getPangoContext());
+            //PangoLayout pgl = PgCairo.createLayout(cr);
+            PangoLayout pgl = new PangoLayout(vte.getPangoContext());
             pgl.setFontDescription(badgeFont);
             pgl.setText(_cachedBadge);
-            pgl.setWidth(rect.width * PANGO_SCALE);
-            pgl.setHeight(rect.height * PANGO_SCALE);
+            pgl.setWidth(rect.width * pango.types.SCALE);
+            pgl.setHeight(rect.height * pango.types.SCALE);
 
             int pw, ph;
             pgl.getPixelSize(pw, ph);
@@ -3549,7 +3588,7 @@ private:
             /**************************************************
             /* Old code where we auto-sized the badge,
             /* leave it here in case we want to bring it back
-
+            /*
             //Hack, deduct 0.2 from ratio to make sure text will fit when painted
             /*
             double fontRatio = min(to!double(rect.width)/to!double(pw) - 0.2, to!double(rect.height)/to!double(ph));
@@ -3561,23 +3600,23 @@ private:
                 //tracef("Width %d, Pixel Width %d, Pixel Height %d, Original Font ratio %f, Font size %d", rect.width, pw, ph, fontRatio, fontSize);
                 pgl.getPixelSize(pw, ph);
             } else {
-                pgl.setWrap(PangoWrapMode.WORD_CHAR);
+                pgl.setWrap(pango.types.WrapMode.WordChar);
             }
             */
              /**************************************************/
 
-             pgl.setWrap(PangoWrapMode.WORD_CHAR);
+             pgl.setWrap(pango.types.WrapMode.WordChar);
 
             switch (position) {
                 case SETTINGS_QUADRANT_NE_VALUE:
-                    pgl.setAlignment(PangoAlignment.RIGHT);
+                    pgl.setAlignment(pango.types.Alignment.Right);
                     break;
                 case SETTINGS_QUADRANT_SW_VALUE:
                     rect.y = rect.y + rect.height - ph;
                     break;
                 case SETTINGS_QUADRANT_SE_VALUE:
                     rect.y = rect.y + rect.height - ph;
-                    pgl.setAlignment(PangoAlignment.RIGHT);
+                    pgl.setAlignment(pango.types.Alignment.Right);
                     break;
                 default:
             }
@@ -3586,7 +3625,7 @@ private:
             cr.clip();
             cr.moveTo(rect.x, rect.y);
 
-            PgCairo.showLayout(cr, pgl);
+            pangocairo.global.showLayout(cr, pgl);
 
             cr.resetClip();
         }
@@ -3598,7 +3637,7 @@ private:
     enum STROKE_WIDTH = 4;
 
     //Draw the drag hint if dragging is occurring
-    bool onVTEDraw(Scoped!Context cr, Widget widget) {
+    bool onVTEDraw(cairo.context.Context cr, Widget widget) {
         /*
         if (dimPercent > 0) {
             Window window = cast(Window) getToplevel();
@@ -3617,7 +3656,7 @@ private:
         RGBA color;
 
         if (!vte.getStyleContext().lookupColor("theme_selected_bg_color", color)) {
-            getStyleBackgroundColor(vte.getStyleContext(), StateFlags.SELECTED, color);
+            getStyleBackgroundColor(vte.getStyleContext(), gtk.types.StateFlags.Selected, color);
         }
         cr.setSourceRgba(color.red, color.green, color.blue, 1.0);
         cr.setLineWidth(STROKE_WIDTH);
@@ -3654,15 +3693,20 @@ private:
      *  showSaveAsDialog = Determines if save as dialog is shown. Note dialog may be shown even if false is passed if the session filename is not set
      */
     void saveTerminalOutput(bool showSaveAsDialog = true) {
-        import gio.OutputStream : OutputStream;
+        import gio.output_stream : OutputStream;
+        import gtk.c.functions : gtk_file_chooser_dialog_new;
+        import gtk.c.types : GtkWindow;
 
         if (outputFilename.length == 0 || showSaveAsDialog) {
-            Window window = cast(Window) getToplevel();
-            FileChooserDialog fcd = new FileChooserDialog(
-              _("Save Terminal Output"),
-              window,
-              FileChooserAction.SAVE,
-              [_("Save"), _("Cancel")]);
+            auto _cretval = gtk_file_chooser_dialog_new(
+              toStringz(_("Save Terminal Output")),
+              cast(GtkWindow*)getToplevel()._cPtr(No.Dup),
+              GtkFileChooserAction.Save,
+              toStringz(_("Save")), ResponseType.Ok,
+              toStringz(_("Cancel")), ResponseType.Cancel,
+              null);
+            FileChooserDialog fcd = ObjectWrap._getDObject!(FileChooserDialog)(_cretval, Yes.Take);
+
             scope (exit)
                 fcd.destroy();
 
@@ -3676,25 +3720,27 @@ private:
             fcd.addFilter(ff);
 
             fcd.setDoOverwriteConfirmation(true);
-            fcd.setDefaultResponse(ResponseType.OK);
+            fcd.setDefaultResponse(gtk.types.ResponseType.Ok);
             if (outputFilename.length == 0) {
             } else {
                 fcd.setCurrentName("output.txt");
             }
 
-            if (fcd.run() == ResponseType.OK) {
+            if (fcd.run() == gtk.types.ResponseType.Ok) {
                 outputFilename = fcd.getFilename();
             } else {
                 return;
             }
         }
         //Do work here
-        GFileIF file = parseName(outputFilename);
-        OutputStream stream = file.replace(null, false, GFileCreateFlags.NONE, null);
+        import gio.file : File;
+        import gio.types : FileCreateFlags;
+        File file = File.newForUri(outputFilename);
+        OutputStream stream = file.replace(null, false, FileCreateFlags.None, null);
         scope (exit) {
             stream.close(null);
         }
-        vte.writeContentsSync(stream, VteWriteFlags.DEFAULT, null);
+        vte.writeContentsSync(stream, WriteFlags.Default, null);
     }
 
 // Theme changed
@@ -3750,7 +3796,7 @@ public:
      */
     this(string profileUUID, string requestedUUID) {
         super();
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate(Widget w) {
             //trace("Terminal destroyed");
             finalizeTerminal();
         });
@@ -3775,14 +3821,14 @@ public:
             _overrideTitle = tilix.getGlobalOverrides().title;
         }
 
-        gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) { applyPreference(key); });
+        gsSettings = new Settings(SETTINGS_ID);
+        gsSettings.connectChanged(null, delegate(string key, Settings s) { applyPreference(key); });
         gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
         monitorSilence = gsProfile.getBoolean(SETTINGS_PROFILE_NOTIFY_ENABLED_KEY);
 
-        gsShortcuts = new GSettings(SETTINGS_KEY_BINDINGS_ID);
-        gsDesktop = new GSettings(SETTINGS_DESKTOP_ID);
-        gsDesktop.addOnChanged(delegate(string key, GSettings) {
+        gsShortcuts = new Settings(SETTINGS_KEY_BINDINGS_ID);
+        gsDesktop = new Settings(SETTINGS_DESKTOP_ID);
+        gsDesktop.connectChanged(null, delegate(string key, Settings s) {
             if (key == SETTINGS_MONOSPACE_FONT_KEY) {
                 applyPreference(SETTINGS_PROFILE_FONT_KEY);
             }
@@ -3791,16 +3837,16 @@ public:
         trace("Apply preferences");
         applyPreferences();
         trace("Profile Event Handler");
-        gsProfile.addOnChanged(delegate(string key, Settings) {
+        gsProfile.connectChanged(null, delegate(string key, Settings s) {
             applyPreference(key);
         });
         // notified when theme changed
-        tilix.onThemeChange.connect(&onThemeChanged);
+        tilix.onThemeChange .connect(&onThemeChanged);
         // notified when profile deleted
-        prfMgr.onDelete.connect(&onProfileDeleted);
+        prfMgr.onDelete .connect(&onProfileDeleted);
 
         if (tilix.processMonitor) {
-            ProcessMonitor.instance.onChildProcess.connect(&childProcessEvent);
+            ProcessMonitor.instance.onChildProcess .connect(&childProcessEvent);
         }
         trace("Finished creation");
     }
@@ -3825,7 +3871,7 @@ public:
         if (firstRun) {
             int width = gsProfile.getInt(SETTINGS_PROFILE_SIZE_COLUMNS_KEY);
             int height = gsProfile.getInt(SETTINGS_PROFILE_SIZE_ROWS_KEY);
-            if (tilix.getGlobalOverrides.geometry.flag != GeometryFlag.NONE) {
+            if (tilix.getGlobalOverrides.geometry.flag != GeometryFlag.None) {
                 width = tilix.getGlobalOverrides().geometry.width;
                 height = tilix.getGlobalOverrides().geometry.height;
             }
@@ -3846,8 +3892,7 @@ public:
         if (vte !is null) {
             foreach(handler; vteHandlers) {
                 if (handler > 0) {
-                    Signals.handlerDisconnect(vte, handler);
-                    handler = 0;
+                    gobject.global.signalHandlerDisconnect(vte, handler);
                 }
             }
         }
@@ -3875,7 +3920,8 @@ public:
 
         if (vte !is null && !inDestruction()) {
             //Workaround for #589
-            import gtk.Bin;
+            import gtk.bin;
+import gtk.types;
             Bin bin = cast(Bin)vte.getParent();
             if (bin !is null) {
                 bin.remove(vte);
@@ -3957,7 +4003,7 @@ public:
      * Determines if a child process is running in the terminal,
      * and returns the pid
      */
-    bool isProcessRunning(out pid_t childPid) {
+    bool isProcessRunning(pid_t childPid) {
         if (vte.getPty() is null)
             return false;
 
@@ -3975,7 +4021,7 @@ public:
      * Determines if a child process is running in the terminal,
      * returns the name
      */
-    bool isProcessRunning(out string name) {
+    bool isProcessRunning(string name) {
         // TODO: be correct for flatpak sandbox
         if (vte.getPty() is null)
             return false;
@@ -4033,7 +4079,7 @@ public:
                 break;
             case SyncInputEventType.KEY_PRESS:
                 Event newEvent = sie.event.copy();
-                newEvent.key.sendEvent = SendEvent.SYNC;
+                newEvent.cInstance.key.sendEvent = SendEvent.SYNC;
                 vte.event(newEvent);
                 break;
             case SyncInputEventType.RESET:
@@ -4046,7 +4092,7 @@ public:
         }
     }
 
-    void triggerAction(string name, GVariant value) {
+    void triggerAction(string name, Variant value) {
         SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(name);
         if (action !is null && action.getEnabled()) {
             action.activate(value);
@@ -4095,12 +4141,12 @@ public:
         if (NODE_READONLY in value) {
             vte.setInputEnabled(value[NODE_READONLY].type == JSONType.false_);
             SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_READ_ONLY);
-            action.setState(new GVariant(!vte.getInputEnabled()));
+            action.setState(new Variant(!vte.getInputEnabled()));
         }
         if (NODE_SYNCHRONIZED_INPUT in value) {
             _synchronizeInputOverride = (value[NODE_SYNCHRONIZED_INPUT].type == JSONType.true_);
             SimpleAction action = cast(SimpleAction) sagTerminalActions.lookup(ACTION_SYNC_INPUT_OVERRIDE);
-            action.setState(new GVariant(_synchronizeInputOverride));
+            action.setState(new Variant(_synchronizeInputOverride));
         }
     }
 
@@ -4135,7 +4181,7 @@ public:
             gsProfile.destroy();
             gsProfile = prfMgr.getProfileSettings(_activeProfileUUID);
             // Hook up change event
-            gsProfile.addOnChanged(delegate(string key, Settings) {
+            gsProfile.connectChanged(null, delegate(string key, Settings s) {
                 applyPreference(key);
             });
             applyPreferences();
@@ -4270,17 +4316,18 @@ private:
 
 public:
     this() {
-        super([_("Relaunch")], [ResponseType.OK]);
+        super();
+        addButton(_("Relaunch"), gtk.types.ResponseType.Ok);
         lblPrompt = new Label("");
-        getContentArea().packStart(lblPrompt, true, true, 0);
-        lblPrompt.setHalign(GtkAlign.START);
-        setHalign(GtkAlign.FILL);
-        setValign(GtkAlign.START);
+        (cast(Box)getContentArea()).packStart(lblPrompt, true, true, 0);
+        lblPrompt.setHalign(gtk.types.Align.Start);
+        setHalign(gtk.types.Align.Fill);
+        setValign(gtk.types.Align.Start);
         trace("Infobar created");
-        addOnMap(delegate(Widget) {
-            setDefaultResponse(ResponseType.OK);
-            setMessageType(MessageType.QUESTION);
-        }, ConnectFlags.AFTER);
+        connectMap(delegate(Widget w) {
+            setDefaultResponse(gtk.types.ResponseType.Ok);
+            setMessageType(gtk.types.MessageType.Question);
+        }, Yes.After);
     }
 
     void setMessage(string message) {
@@ -4310,35 +4357,43 @@ package class UnsafePasteDialog : MessageDialog {
 
 public:
 
-    this(Window parent, string cmd) {
-        super(parent, DialogFlags.MODAL, MessageType.WARNING, ButtonsType.NONE, null, null);
+    this(gtk.window.Window parent, string cmd) {
+        import gtk.c.functions : gtk_message_dialog_new;
+        import gtk.c.types : GtkWindow;
+        auto _cretval = gtk_message_dialog_new(parent ? cast(GtkWindow*)parent._cPtr(No.Dup) : null,
+                                               gtk.types.DialogFlags.Modal,
+                                               gtk.types.MessageType.Warning,
+                                               gtk.types.ButtonsType.None,
+                                               null);
+        super(cast(void*)_cretval, Yes.Take);
+
         setTransientFor(parent);
-        getMessageArea().setMarginLeft(0);
-        getMessageArea().setMarginRight(0);
+        getMessageArea().setMarginStart(0);
+        getMessageArea().setMarginEnd(0);
         string[3] msg = getUnsafePasteMessage();
         setMarkup("<span weight='bold' size='larger'>" ~ msg[0] ~ "</span>\n\n" ~ msg[1] ~ "\n" ~ msg[2] ~ "\n" );
-        setImage(new Image("dialog-warning", IconSize.DIALOG));
+        setImage(Image.newFromIconName("dialog-warning", IconSize.Dialog));
 
-        Label lblCmd = new Label(SimpleXML.markupEscapeText(cmd, cmd.length));
+        Label lblCmd = new Label(markupEscapeText(cmd, cast(ptrdiff_t)cmd.length));
         lblCmd.setUseMarkup(true);
-        lblCmd.setHalign(GtkAlign.START);
-        lblCmd.setEllipsize(PangoEllipsizeMode.END);
+        lblCmd.setHalign(gtk.types.Align.Start);
+        lblCmd.setEllipsize(pango.types.EllipsizeMode.End);
 
         if (count(cmd,"\n") > 6) {
-            ScrolledWindow sw = new ScrolledWindow();
-            sw.setShadowType(ShadowType.ETCHED_IN);
-            sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
-            sw.setHexpand(true);
-            sw.setVexpand(true);
-            sw.setSizeRequest(400, 140);
-            sw.add(lblCmd);
-            getMessageArea().add(sw);
+            ScrolledWindow sw_ = new ScrolledWindow();
+            sw_.setShadowType(ShadowType.EtchedIn);
+            sw_.setPolicy(PolicyType.Automatic, PolicyType.Automatic);
+            sw_.setHexpand(true);
+            sw_.setVexpand(true);
+            sw_.setSizeRequest(400, 140);
+            sw_.add(lblCmd);
+            (cast(Container)getMessageArea()).add(sw_);
         } else {
-            getMessageArea().add(lblCmd);
+            (cast(Container)getMessageArea()).add(lblCmd);
         }
 
-        Button btnCancel = new Button(_("Don't Paste"));
-        Button btnIgnore = new Button(_("Paste Anyway"));
+        Button btnCancel = Button.newWithLabel(_("Don't Paste"));
+        Button btnIgnore = Button.newWithLabel(_("Paste Anyway"));
         btnIgnore.getStyleContext().addClass("destructive-action");
         addActionWidget(btnCancel, 1);
         addActionWidget(btnIgnore, 0);
@@ -4350,10 +4405,10 @@ public:
 
 private:
 /**
- * Constants used in Event.key.sendEvent to flag particular situations
+ * Constants used in Event.cInstance.key.sendEvent to flag particular situations
  */
 enum SendEvent {
-    NONE = 0,
+    None = 0,
     SYNC = 1,
     NATURAL_COPY = 2
 }
@@ -4386,7 +4441,7 @@ public:
     string pattern;
     TriggerAction action;
     string parameters;
-    Regex!char compiledRegex;
+    std.regex.Regex!char compiledRegex;
 
     this(string pattern, string actionName, string parameters) {
         this.pattern = pattern;

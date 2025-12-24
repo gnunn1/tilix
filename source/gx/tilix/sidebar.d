@@ -8,39 +8,72 @@ import std.algorithm;
 import std.conv;
 import std.format;
 import std.experimental.logger;
+import std.typecons : Yes, No;
 
-import gdk.Atom;
-import gdk.DragContext;
-import gdk.Event;
-import gdk.Keysyms;
-import gdk.Pixbuf;
-import gdk.Screen;
-import gdk.Window: GdkWindow = Window;
+import gdk.atom;
+import gdk.types;
+import gdk.drag_context;
+import gdk.types;
+import gdk.event;
+import gdk.event_button;
+import gdk.event_key;
+import gdk.types;
+import gx.gtk.keys;
+import gx.gtk.types;
+import gdk.types;
+import gdkpixbuf.pixbuf;
+import gdk.screen;
+import gdk.types;
+import gdk.window;
+alias Window = gdk.window.Window;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : Settings = Settings;
 
-import gobject.Signals;
+import gobject.global;
+import gobject.types;
+import pango.types;
 
-import gtk.Adjustment;
-import gtk.AspectFrame;
-import gtk.Box;
-import gtk.Button;
-import gtk.DragAndDrop;
-import gtk.EventBox;
-import gtk.Frame;
-import gtk.Grid;
-import gtk.Image;
-import gtk.Label;
-import gtk.ListBox;
-import gtk.ListBoxRow;
-import gtk.Main;
-import gtk.Overlay;
-import gtk.Revealer;
-import gtk.ScrolledWindow;
-import gtk.SelectionData;
-import gtk.TargetEntry;
-import gtk.Widget;
-import gtk.Window;
+import gtk.adjustment;
+import gtk.types;
+import gtk.aspect_frame;
+import gtk.types;
+import gtk.box;
+import gtk.types;
+import gtk.button;
+import gtk.types;
+import gtk.global;
+import gtk.types;
+import gtk.event_box;
+import gtk.types;
+import gtk.frame;
+import gtk.types;
+import gtk.grid;
+import gtk.types;
+import gtk.image;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+import gtk.list_box;
+import gtk.types;
+import gtk.list_box_row;
+import gtk.types;
+import gtk.global;
+import gtk.types;
+import gtk.overlay;
+import gtk.types;
+import gtk.revealer;
+import gtk.types;
+import gtk.scrolled_window;
+import gtk.types;
+import gtk.selection_data;
+import gtk.types;
+import gtk.target_entry;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
+import gtk.types;
 
 import gx.gtk.cairo;
 import gx.gtk.util;
@@ -63,7 +96,7 @@ private:
     // mixin for managing is action allowed event delegates
     mixin IsActionAllowedHandler;
 
-    GSettings gsSettings;
+    Settings gsSettings;
 
     ListBox lbSessions;
     ScrolledWindow sw;
@@ -85,17 +118,17 @@ private:
         onSessionDetach.emit(sessionUUID, x, y);
     }
 
-    bool onButtonPress(Event event, Widget w) {
+    bool onButtonPress(EventButton event, Widget w) {
         trace("** Sidebar button press");
         // If button press happened outside of sidebar close it
         // Modified since DND uses eventbox so additional windows in play
-        if (event.getWindow() !is null && lbSessions.getWindow() !is null) {
-            if (event.getWindow().getWindowStruct() == getWindow().getWindowStruct() || event.getWindow().getWindowStruct() == lbSessions.getWindow().getWindowStruct()) {
+        if (event.window !is null && lbSessions.getWindow() !is null) {
+            if (event.window._cPtr(No.Dup) == getWindow()._cPtr(No.Dup) || event.window._cPtr(No.Dup) == lbSessions.getWindow()._cPtr(No.Dup)) {
                 return false;
             }
-            GdkWindow[] windows = lbSessions.getWindow().getChildren().toArray!GdkWindow();
+            gdk.window.Window[] windows = lbSessions.getWindow().getChildren();
             foreach(window; windows) {
-                if (event.getWindow().getWindowStruct() == window.getWindowStruct()) {
+                if (event.window._cPtr(No.Dup) == window._cPtr(No.Dup)) {
                     return false;
                 }
             }
@@ -155,7 +188,7 @@ private:
         if (!after) {
             lbSessions.insert(source, index);
         } else {
-            if (index == lbSessions.getChildren().length() -1) {
+            if (index == cast(int)lbSessions.getChildren().length - 1) {
                 lbSessions.add(source);
             } else {
                 lbSessions.insert(source, index + 1);
@@ -165,73 +198,76 @@ private:
         lbSessions.selectRow(source);
     }
 
-    bool onKeyPress(Event event, Widget w) {
-        uint keyval;
-        if (event.getKeyval(keyval)) {
-            switch (keyval) {
-            case GdkKeysyms.GDK_Page_Up:
-                if (event.key.state & ModifierType.CONTROL_MASK) {
-                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
-                    if (source is null) {
-                        trace("No selected row");
-                        return true;
-                    }
-                    int index = source.getIndex();
-                    if (index > 0) {
-                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index - 1);
-                        reorderSessions(source, target);
-                    }
+    bool onKeyPress(EventKey event, Widget w) {
+        uint keyval = event.keyval;
+        switch (keyval) {
+        case Keys.PageUp:
+            if (event.state & gdk.types.ModifierType.ControlMask) {
+                SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                if (source is null) {
+                    trace("No selected row");
                     return true;
                 }
-                break;
-            case GdkKeysyms.GDK_Page_Down:
-                if (event.key.state & ModifierType.CONTROL_MASK) {
-                    trace("Moving row down");
-                    SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
-                    if (source is null) {
-                        trace("No selected row");
-                        return true;
-                    }
-                    int index = source.getIndex();
-                    if (index < lbSessions.getChildren().length - 1) {
-                        SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index + 1);
-                        reorderSessions(source, target, true);
-                    }
-                    return true;
+                int index = source.getIndex();
+                if (index > 0) {
+                    SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index - 1);
+                    reorderSessions(source, target);
                 }
-                break;
-            default:
-                break;
+                return true;
             }
+            break;
+        case Keys.PageDown:
+            if (event.state & gdk.types.ModifierType.ControlMask) {
+                trace("Moving row down");
+                SideBarRow source = cast(SideBarRow)lbSessions.getSelectedRow();
+                if (source is null) {
+                    trace("No selected row");
+                    return true;
+                }
+                int index = source.getIndex();
+                if (index < cast(int)lbSessions.getChildren().length - 1) {
+                    SideBarRow target = cast(SideBarRow)lbSessions.getRowAtIndex(index + 1);
+                    reorderSessions(source, target, true);
+                }
+                return true;
+            }
+            break;
+        default:
+            break;
         }
         return false;
     }
 
-    bool onKeyRelease(Event event, Widget w) {
-        uint keyval;
-        if (event.getKeyval(keyval)) {
-            switch (keyval) {
-            //If escape key is pressed, close sidebar
-            case GdkKeysyms.GDK_Escape:
-                notifySessionSelected(null);
-                break;
-            case GdkKeysyms.GDK_0:
-            ..
-            case GdkKeysyms.GDK_9:
-                int num = keyval - GdkKeysyms.GDK_0 - 1;
-                if (num == -1) num = 10;
-                ListBoxRow row = lbSessions.getRowAtIndex(num);
-                if (row !is null) {
-                    lbSessions.selectRow(row);
-                    SideBarRow sr = cast(SideBarRow) row;
-                    if (sr !is null && !blockSelectedHandler) {
-                        notifySessionSelected(sr.sessionUUID);
-                    }
+    bool onKeyRelease(EventKey event, Widget w) {
+        uint keyval = event.keyval;
+        switch (keyval) {
+        //If escape key is pressed, close sidebar
+        case Keys.Escape:
+            notifySessionSelected(null);
+            break;
+        case Keys._0:
+        case Keys._1:
+        case Keys._2:
+        case Keys._3:
+        case Keys._4:
+        case Keys._5:
+        case Keys._6:
+        case Keys._7:
+        case Keys._8:
+        case Keys._9:
+            int num = keyval - Keys._0 - 1;
+            if (num == -1) num = 9; // Keys._0 is 10th
+            ListBoxRow row = lbSessions.getRowAtIndex(num);
+            if (row !is null) {
+                lbSessions.selectRow(row);
+                SideBarRow sr = cast(SideBarRow) row;
+                if (sr !is null && !blockSelectedHandler) {
+                    notifySessionSelected(sr.sessionUUID);
                 }
-                break;
-            default:
-                //Ignore other keys
             }
+            break;
+        default:
+            //Ignore other keys
         }
         return false;
     }
@@ -240,17 +276,17 @@ private:
      * Attempt to wrap navigation when hitting edges, works but subsequent navigation becomes wonky
      */
     /*
-    bool onKeyNavFailed(GtkDirectionType direction, Widget) {
+    bool onKeyNavFailed(DirectionType direction, Widget) {
         trace("OnKeyNavFailed called");
         SideBarRow[] rows = gx.gtk.util.getChildren!(SideBarRow)(lbSessions, false);
         switch (direction) {
-            case GtkDirectionType.DOWN:
+            case DirectionType.Down:
                 if (lbSessions.getSelectedRow() == rows[rows.length - 1]) {
                     lbSessions.selectRow(rows[0]);
                     return false;
                 }
                 break;
-            case GtkDirectionType.UP:
+            case DirectionType.Up:
                 if (lbSessions.getSelectedRow() == rows[0]) {
                     lbSessions.selectRow(rows[rows.length - 1]);
                     return false;
@@ -275,11 +311,11 @@ private:
 
     void setSidebarPosition() {
         if (gsSettings.getBoolean(SETTINGS_SIDEBAR_RIGHT)) {
-            setTransitionType(RevealerTransitionType.SLIDE_LEFT);
-            setHalign(GtkAlign.END);
+            setTransitionType(RevealerTransitionType.SlideLeft);
+            setHalign(Align.End);
         } else {
-            setTransitionType(RevealerTransitionType.SLIDE_RIGHT);
-            setHalign(GtkAlign.START);
+            setTransitionType(RevealerTransitionType.SlideRight);
+            setHalign(Align.Start);
         }
     }
 
@@ -287,41 +323,42 @@ public:
     this() {
         super();
 
-        gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
+        gsSettings = new Settings(SETTINGS_ID);
+        gsSettings.connectChanged(null, delegate(string key, Settings s) {
             if (key == SETTINGS_SIDEBAR_RIGHT) {
                 setSidebarPosition();
             }
         });
 
-        addOnButtonPress(&onButtonPress);
-        addOnKeyRelease(&onKeyRelease);
-        addOnKeyPress(&onKeyPress);
+        connectButtonPressEvent(&onButtonPress);
+        connectKeyReleaseEvent(&onKeyRelease);
+        connectKeyPressEvent(&onKeyPress);
 
         setHexpand(false);
         setVexpand(true);
-        setValign(GtkAlign.FILL);
+        setValign(Align.Fill);
         setSidebarPosition();
 
         lbSessions = new ListBox();
         lbSessions.setCanFocus(true);
-        lbSessions.setSelectionMode(SelectionMode.BROWSE);
+        lbSessions.setSelectionMode(SelectionMode.Browse);
         lbSessions.getStyleContext().addClass("tilix-session-sidebar");
-        lbSessions.addOnRowActivated(&onRowActivated);
-        //lbSessions.addOnKeynavFailed(&onKeyNavFailed);
+        lbSessions.connectRowActivated(&onRowActivated);
+        //lbSessions.connectKeynavFailed(&onKeyNavFailed);
 
-        sw = new ScrolledWindow(lbSessions);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
-        sw.setShadowType(ShadowType.IN);
+        sw = new ScrolledWindow();
+        sw.add(lbSessions);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
+        sw.setShadowType(ShadowType.In);
 
-        sw.addOnUnmap(delegate(Widget) {
+        sw.connectUnmap(delegate(Widget w) {
            if (hasGrab()) {
                 grabRemove();
                 trace("** Unmapped, Removing Sidebar Grab");
            }
             hide();
         });
-        sw.addOnMap(delegate(Widget) {
+        sw.connectMap(delegate(Widget w) {
             // Need to give some time for adjustment values to catch up
             threadsAddTimeoutDelegate(20, delegate() {
                 //Make sure row is visible
@@ -329,12 +366,12 @@ public:
                 double increment = adj.getUpper() / lbSessions.getChildren().length;
                 double value = lbSessions.getSelectedRow().getIndex() * increment;
                 tracef("Adjustment Values: Lower=%f, Upper=%f, Value=%f, Row=%f", adj.getLower(), adj.getUpper(), adj.getValue(), value);
-                if (value + increment > adj.getValue() + adj.getPageSize) {
+                if (value + increment > adj.getValue() + adj.getPageSize()) {
                     adj.setValue(value);
                 }
                 return false;
             });
-        }, ConnectFlags.AFTER);
+        }, Yes.After);
 
         add(sw);
     }
@@ -461,7 +498,7 @@ private:
     string _sessionUUID;
     Label lblIndex;
     SideBar sidebar;
-    Window dragImage;
+    gtk.window.Window dragImage;
     EventBox eb;
     Button btnClose;
     Image img;
@@ -470,14 +507,14 @@ private:
     EventBox evNotification;
     AspectFrame afNotification;
 
-    gulong[] ebEventHandlerId;
-    gulong closeButtonHandler;
+    ulong[] ebEventHandlerId;
+    ulong closeButtonHandler;
 
     bool isRootWindow = false;
 
     AspectFrame wrapWidget(Widget widget, string cssClass) {
         AspectFrame af = new AspectFrame(null, 0.5, 0.5, 1.0, false);
-        af.setShadowType(ShadowType.NONE);
+        af.setShadowType(ShadowType.None);
         if (cssClass.length > 0) {
             af.getStyleContext().addClass(cssClass);
         }
@@ -488,13 +525,14 @@ private:
     void createUI(Session session, SessionNotification[string] notifications, int width, int height) {
         Overlay overlay = new Overlay();
         setAllMargins(overlay, 2);
-        Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
-        img = new Image(pb);
+        gdkpixbuf.pixbuf.Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
+        img = Image.newFromPixbuf(pb);
         scope(exit) {
             pb.destroy();
         }
-        Frame imgframe = new Frame(img, null);
-        imgframe.setShadowType(ShadowType.IN);
+        Frame imgframe = new Frame(null);
+        imgframe.add(img);
+        imgframe.setShadowType(ShadowType.In);
         overlay.add(imgframe);
         //Create Notification and Session Numbers
         Grid grid = new Grid();
@@ -523,28 +561,29 @@ private:
         lblName = new Label("");
         lblName.setMarginLeft(2);
         lblName.setMarginRight(2);
-        lblName.setEllipsize(PangoEllipsizeMode.END);
-        lblName.setHalign(GtkAlign.CENTER);
+        lblName.setEllipsize(EllipsizeMode.End);
+        lblName.setHalign(Align.Center);
         lblName.setHexpand(true);
         lblName.setSensitive(false);
         lblName.getStyleContext().addClass("tilix-session-name");
-        Box b = new Box(Orientation.HORIZONTAL, 4);
+        Box b = new Box(gtk.types.Orientation.Horizontal, 4);
         b.setHexpand(true);
         b.add(lblName);
         grid.attach(b, 1, 2, 1, 1);
 
         lblIndex = new Label(format("%d", 0));
-        lblIndex.setValign(GtkAlign.END);
+        lblIndex.setValign(Align.End);
         lblIndex.setVexpand(false);
         setAllMargins(lblIndex, 4);
         lblIndex.setWidthChars(2);
         grid.attach(wrapWidget(lblIndex, "tilix-session-index"), 2, 2, 1, 1);
 
         //Add Close Button
-        btnClose = new Button("window-close-symbolic", IconSize.MENU);
+        btnClose = new Button();
+        btnClose.setImage(Image.newFromIconName("window-close-symbolic", IconSize.Menu));
         btnClose.getStyleContext().addClass("tilix-sidebar-close-button");
         btnClose.setTooltipText(_("Close"));
-        btnClose.setRelief(ReliefStyle.NONE);
+        btnClose.setRelief(ReliefStyle.None);
         btnClose.setFocusOnClick(false);
         grid.attach(btnClose, 2, 0, 1, 1);
 
@@ -554,27 +593,24 @@ private:
         eb = new EventBox();
         eb.add(overlay);
         // Drag and Drop
-        TargetEntry[] targets = [new TargetEntry(SESSION_DND, TargetFlags.SAME_APP, 0)];
-        eb.dragSourceSet(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
-        eb.dragDestSet(DestDefaults.ALL, targets, DragAction.MOVE);
-        ebEventHandlerId ~= eb.addOnDragDataGet(&onRowDragDataGet);
-        ebEventHandlerId ~= eb.addOnDragDataReceived(&onRowDragDataReceived);
-        ebEventHandlerId ~= eb.addOnDragBegin(&onRowDragBegin);
-        ebEventHandlerId ~= eb.addOnDragEnd(&onRowDragEnd);
-        ebEventHandlerId ~= eb.addOnDragFailed(&onRowDragFailed);
+        TargetEntry[] targets = [new TargetEntry(SESSION_DND, gtk.types.TargetFlags.SameApp, 0)];
+        eb.dragSourceSet(gdk.types.ModifierType.Button1Mask, targets, gdk.types.DragAction.Move);
+        eb.dragDestSet(DestDefaults.All, targets, gdk.types.DragAction.Move);
+        ebEventHandlerId ~= eb.connectDragDataGet(&onRowDragDataGet);
+        ebEventHandlerId ~= eb.connectDragDataReceived(&onRowDragDataReceived);
+        ebEventHandlerId ~= eb.connectDragBegin(&onRowDragBegin);
+        ebEventHandlerId ~= eb.connectDragEnd(&onRowDragEnd);
+        ebEventHandlerId ~= eb.connectDragFailed(&onRowDragFailed);
 
         add(eb);
 
-        closeButtonHandler = btnClose.addOnClicked(delegate(Button) {
+        closeButtonHandler = btnClose.connectClicked(delegate(Button b) {
             if (sidebar !is null) sidebar.removeSession(_sessionUUID);
         });
     }
 
     void updateUI(Session session, SessionNotification[string] notifications, int width, int height) {
-        Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
-        scope(exit) {
-            pb.destroy();
-        }
+        gdkpixbuf.pixbuf.Pixbuf pb = getWidgetImage(session.drawable, 0.20, width, height);
         img.setFromPixbuf(pb);
         // Fix #1637
         _sessionUUID = session.uuid;
@@ -598,7 +634,7 @@ private:
 
     void onRowDragBegin(DragContext dc, Widget widget) {
         isRootWindow = false;
-        Image image = new Image(getWidgetImage(this, 1.00));
+        Image image = Image.newFromPixbuf(getWidgetImage(this, 1.00));
         image.show();
 
         if (dragImage !is null) {
@@ -607,9 +643,9 @@ private:
             dragImage = null;
         }
 
-        dragImage = new Window(GtkWindowType.POPUP);
+        dragImage = new gtk.window.Window(gtk.types.WindowType.Popup);
         dragImage.add(image);
-        DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
+        gtk.global.dragSetIconWidget(dc, dragImage, 0, 0);
     }
 
     void onRowDragEnd(DragContext dc, Widget widget) {
@@ -628,7 +664,7 @@ private:
     /**
      * Called when drag failed, used this to detach a session into a new window
      */
-    bool onRowDragFailed(DragContext dc, GtkDragResult dr, Widget widget) {
+    bool onRowDragFailed(DragContext dc, DragResult dr, Widget widget) {
         trace("Drag Failed with ", dr);
         isRootWindow = false;
         //Only allow detach if whole hierarchy agrees (application, window, session)
@@ -649,8 +685,8 @@ private:
     }
 
     void onRowDragDataGet(DragContext dc, SelectionData data, uint info, uint time, Widget widget) {
-        GdkAtom gdkAtom = data.getTarget();
-        string name = gdk.Atom.name(gdkAtom);
+        Atom gdkAtom = data.getTarget();
+        string name = gdkAtom.name();
         if (name == "application/x-rootwindow-drop") {
             trace("onRowDragDataGet Root window drop");
             isRootWindow = true;
@@ -659,12 +695,12 @@ private:
             isRootWindow = false;
         }
         char[] buffer = (sessionUUID ~ '\0').dup;
-        data.set(intern(SESSION_DND, false), 8, buffer);
+        data.set(Atom.intern(SESSION_DND, false), 8, cast(ubyte[])buffer);
 
     }
 
     void onRowDragDataReceived(DragContext dc, int x, int y, SelectionData data, uint info, uint time, Widget widget) {
-        string sourceUUID = to!string(data.getDataWithLength()[0 .. $ - 1]);
+        string sourceUUID = to!string(cast(char[])data.getData());
         tracef("Session UUID %s dropped", sourceUUID);
         sidebar.reorderSessions(sourceUUID, sessionUUID);
     }
@@ -693,9 +729,9 @@ public:
      */
     public void release() {
         foreach(id; ebEventHandlerId) {
-            Signals.handlerDisconnect(eb, id);
+            gobject.global.signalHandlerDisconnect(eb, id);
         }
-        Signals.handlerDisconnect(btnClose, closeButtonHandler);
+        gobject.global.signalHandlerDisconnect(btnClose, closeButtonHandler);
         this.sidebar = null;
     }
 

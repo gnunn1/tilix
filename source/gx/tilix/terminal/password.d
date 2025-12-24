@@ -12,44 +12,71 @@ import std.process;
 import std.string;
 import std.uuid;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event;
+import gdk.event_key;
+import gdk.types;
+import gx.gtk.keys;
+import gx.gtk.types;
 
-import gobject.ObjectG;
+import gobject.object;
+import gobject.types;
+import gobject.value;
+import gobject.global;
 
-import gio.Cancellable;
-import gio.Settings: GSettings=Settings;
-import gio.SimpleAsyncResult;
+import gio.cancellable;
+import gio.settings: Settings=Settings;
+import gio.async_result;
 
-import glib.GException;
-import glib.HashTable;
-import glib.ListG;
+import glib.error;
+import glib.types;
+import glib.global;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.CellRendererText;
-import gtk.CheckButton;
-import gtk.Dialog;
-import gtk.EditableIF;
-import gtk.Entry;
-import gtk.Grid;
-import gtk.Label;
-import gtk.ListStore;
-import gtk.TreeIter;
-import gtk.TreePath;
-import gtk.TreeView;
-import gtk.TreeViewColumn;
-import gtk.ScrolledWindow;
-import gtk.SearchEntry;
-import gtk.Widget;
-import gtk.Window;
+import gtk.box;
+import gtk.types;
+import gtk.button;
+import gtk.types;
+import gtk.cell_renderer_text;
+import gtk.types;
+import gtk.check_button;
+import gtk.types;
+import gtk.dialog;
+import gtk.types;
+import gtk.editable;
+import gtk.types;
+import gtk.entry;
+import gtk.types;
+import gtk.grid;
+import gtk.types;
+import gtk.label;
+import gtk.types;
+import gtk.list_store;
+import gtk.types;
+import gtk.tree_model;
+import gtk.tree_iter;
+import gtk.types;
+import gtk.tree_path;
+import gtk.types;
+import gtk.tree_view;
+import gtk.types;
+import gtk.tree_view_column;
+import gtk.types;
+import gtk.scrolled_window;
+import gtk.types;
+import gtk.search_entry;
+import gtk.types;
+import gtk.widget;
+import gtk.types;
+import gtk.window;
+import gtk.types;
 
-import secret.Collection;
-import secret.Item;
-import secret.Schema;
-import secret.Secret;
-import secret.Service;
-import secret.Value;
+import secret.global;
+import secret.collection;
+import secret.item;
+import secret.schema : Schema;
+import secret.service;
+import secret.value : SecretValue = Value;
+import secret.types;
+import secret.c.types;
 
 import gx.gtk.util;
 import gx.i18n.l10n;
@@ -73,18 +100,35 @@ private:
 
     enum DEFAULT_COLLECTION = "default";
 
-    HashTable EMPTY_ATTRIBUTES;
+    string[string] EMPTY_ATTRIBUTES;
 
     SearchEntry se;
     TreeView tv;
     ListStore ls;
+    Button btnEdit;
+    Button btnDelete;
 
-    GSettings gsSettings;
+    Settings gsSettings;
 
     Schema schema;
     // These are populated asynchronously
     Service service;
     Collection collection;
+
+    TreeIter getSelectedIter() {
+        TreeIter iter;
+        TreeModel model;
+        if (tv.getSelection().getSelected(model, iter)) {
+            return iter;
+        }
+        return null;
+    }
+
+    string getValueString(TreeModel model, TreeIter iter, uint column) {
+        Value val = new Value();
+        model.getValue(iter, cast(int)column, val);
+        return val.getString();
+    }
 
     // Keep a list of pending async operations so we can cancel them
     // if the user closes the app
@@ -106,100 +150,105 @@ private:
             setMarginBottom(18);
         }
 
-        Box b = new Box(Orientation.VERTICAL, 6);
+        Box b = new Box(gtk.types.Orientation.Vertical, 6);
 
         se = new SearchEntry();
-        se.addOnSearchChanged(delegate(SearchEntry) {
+        se.connectSearchChanged(delegate(SearchEntry se) {
             filterEntries();
         });
-        se.addOnKeyPress(delegate(Event event, Widget w) {
-            uint keyval;
-            if (event.getKeyval(keyval)) {
-                if (keyval == GdkKeysyms.GDK_Escape) {
-                    response = ResponseType.CANCEL;
-                    return true;
-                }
-                if (keyval == GdkKeysyms.GDK_Return) {
-                    response = ResponseType.APPLY;
-                    return true;
-                }
+        se.connectKeyPressEvent(delegate(EventKey event, Widget w) {
+            uint keyval = event.keyval;
+            if (keyval == Keys.Escape) {
+                response(gtk.types.ResponseType.Cancel);
+                return true;
+            }
+            if (keyval == Keys.Return) {
+                response(gtk.types.ResponseType.Apply);
+                return true;
             }
             return false;
         });
         b.add(se);
 
-        Box bList = new Box(Orientation.HORIZONTAL, 6);
+        Box bList = new Box(gtk.types.Orientation.Horizontal, 6);
 
-        ls = new ListStore([GType.STRING, GType.STRING]);
+        ls = ListStore.new_([cast(GType)GTypeEnum.String, cast(GType)GTypeEnum.String]);
 
-        tv = new TreeView(ls);
+        tv = new TreeView();
+        tv.setModel(ls);
         tv.setHeadersVisible(false);
-        TreeViewColumn column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", COLUMN_NAME);
+        TreeViewColumn column = new TreeViewColumn();
+        column.setTitle(_("Name"));
+        CellRendererText crt = new CellRendererText();
+        column.packStart(crt, true);
+        column.addAttribute(crt, "text", COLUMN_NAME);
         column.setMinWidth(300);
         tv.appendColumn(column);
-        column = new TreeViewColumn(_("ID"), new CellRendererText(), "text", COLUMN_NAME);
+
+        column = new TreeViewColumn();
+        column.setTitle(_("ID"));
+        crt = new CellRendererText();
+        column.packStart(crt, true);
+        column.addAttribute(crt, "text", COLUMN_ID);
         column.setVisible(false);
         tv.appendColumn(column);
 
-        tv.addOnCursorChanged(delegate(TreeView) {
+        tv.connectCursorChanged(delegate(TreeView tv) {
             updateUI();
         });
-        tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
-            response(ResponseType.APPLY);
+        tv.connectRowActivated(delegate(TreePath p, TreeViewColumn c, TreeView t) {
+            response(gtk.types.ResponseType.Apply);
         });
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
         sw.setSizeRequest(-1, 200);
 
         bList.add(sw);
 
-        Box bButtons = new Box(Orientation.VERTICAL, 6);
-        Button btnNew = new Button(_("New"));
-        btnNew.addOnClicked(delegate(Button) {
+        Box bButtons = new Box(gtk.types.Orientation.Vertical, 6);
+        Button btnNew = Button.newWithLabel(_("New"));
+        btnNew.connectClicked(delegate(Button b) {
             PasswordDialog pd = new PasswordDialog(this);
             scope (exit) {pd.destroy();}
             pd.showAll();
-            if (pd.run() == ResponseType.OK) {
-                SecretSchema* ss = schema.getSchemaStruct();
-                trace("Schema name is " ~ to!string(ss.name));
+            if (pd.run() == gtk.types.ResponseType.Ok) {
                 tracef("Storing password, label=%s",pd.label);
                 Cancellable c = new Cancellable();
                 //We could potentially have many password operations on the go, use random key
                 string uuid = randomUUID().toString();
                 pending[uuid] = c;
-                import gtkc.glib;
-                HashTable attributes = new HashTable(g_str_hash, g_str_equal);
-                immutable(char*) uuidz = toStringz(uuid);
-                attributes.insert(cast(void*)attrID, cast(void*)uuidz);
-                attributes.insert(cast(void*)attrDescription, cast(void*)descriptionValue);
-                Secret.passwordStorev(schema, attributes, DEFAULT_COLLECTION, pd.label, pd.password, c, &passwordStoreCallback, this.getDialogStruct());
+                string[string] attributes;
+                attributes[ATTRIBUTE_ID] = uuid;
+                attributes[ATTRIBUTE_DESCRIPTION] = "Tilix Password";
+                passwordStoreSync(schema, attributes, DEFAULT_COLLECTION, pd.label, pd.password, c);
+                reload();
             }
         });
         bButtons.add(btnNew);
 
-        Button btnEdit = new Button(_("Edit"));
-        btnEdit.addOnClicked(delegate(Button) {
-            TreeIter selected = tv.getSelectedIter();
-            if (selected) {
-                string id = ls.getValueString(selected, COLUMN_ID);
-                PasswordDialog pd = new PasswordDialog(this, ls.getValueString(selected, COLUMN_NAME), "");
+        btnEdit = Button.newWithLabel(_("Edit"));
+        btnEdit.connectClicked(delegate(Button b) {
+            TreeIter selected = getSelectedIter();
+            if (selected !is null) {
+                string id = getValueString(ls, selected, COLUMN_ID);
+                PasswordDialog pd = new PasswordDialog(this, getValueString(ls, selected, COLUMN_NAME), "");
                 scope(exit) {pd.destroy();}
                 pd.showAll();
-                if (pd.run() == ResponseType.OK) {
-                    ListG list = collection.getItems();
-                    Item[] items = list.toArray!Item;
+                if (pd.run() == gtk.types.ResponseType.Ok) {
+                    Item[] items = collection.getItems();
                     foreach (item; items) {
                         if (item.getSchemaName() == SCHEMA_NAME) {
-                            string itemID = to!string(cast(char*)item.getAttributes().lookup(cast(void*)attrID));
-                            trace("ItemID " ~ itemID);
-                            if (id == itemID) {
+                            string[string] attributes = item.getAttributes();
+                            if (attributes.get(ATTRIBUTE_ID, "") == id) {
                                 trace("Modifying item...");
                                 item.setLabelSync(pd.label, null);
-                                item.setSecretSync(new Value(pd.password, pd.password.length, "text/plain"), null);
+                                item.setAttributesSync(schema, attributes, null);
+                                item.setSecretSync(new SecretValue(pd.password, cast(ptrdiff_t)pd.password.length, "text/plain"), null);
                                 reload();
                                 break;
                             }
@@ -210,15 +259,14 @@ private:
         });
         bButtons.add(btnEdit);
 
-        Button btnDelete = new Button(_("Delete"));
-        btnDelete.addOnClicked(delegate(Button) {
-            TreeIter selected = tv.getSelectedIter();
-            if (selected) {
-                string id = ls.getValueString(selected, COLUMN_ID);
-                HashTable ht = createHashTable();
-                immutable(char*) idz = toStringz(id);
-                ht.insert(cast(void*)attrID, cast(void*)idz);
-                Secret.passwordClearvSync(schema, ht, null);
+        btnDelete = Button.newWithLabel(_("Delete"));
+        btnDelete.connectClicked(delegate(Button b) {
+            TreeIter selected = getSelectedIter();
+            if (selected !is null) {
+                string id = getValueString(ls, selected, COLUMN_ID);
+                string[string] attributes;
+                attributes[ATTRIBUTE_ID] = id;
+                passwordClearSync(schema, attributes, null);
                 foreach(index, row; rows) {
                     if (row[1] == id) {
                         std.algorithm.remove(rows, index);
@@ -232,8 +280,8 @@ private:
         bList.add(bButtons);
 
         b.add(bList);
-        CheckButton cbIncludeEnter = new CheckButton(_("Include return character with password"));
-        gsSettings.bind(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", GSettingsBindFlags.DEFAULT);
+        CheckButton cbIncludeEnter = CheckButton.newWithLabel(_("Include return character with password"));
+        gsSettings.bind(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", SettingsBindFlags.Default);
 
         b.add(cbIncludeEnter);
         getContentArea().add(b);
@@ -241,15 +289,16 @@ private:
 
     void filterEntries() {
         string selectedID;
-        TreeIter selected = tv.getSelectedIter();
-        if (selected) selectedID = ls.getValueString(selected, COLUMN_ID);
+        TreeIter selected = getSelectedIter();
+        if (selected !is null) selectedID = getValueString(ls, selected, COLUMN_ID);
         selected = null;
         ls.clear();
         foreach(row; rows) {
             if (se.getText().length ==0 || row[0].indexOf(se.getText()) >=0) {
-                TreeIter iter = ls.createIter();
-                ls.setValue(iter, COLUMN_NAME, row[0]);
-                ls.setValue(iter, COLUMN_ID, row[1]);
+                TreeIter iter;
+                ls.append(iter);
+                ls.setValue(iter, COLUMN_NAME, new Value(row[0]));
+                ls.setValue(iter, COLUMN_ID, new Value(row[1]));
                 if (row[1] == selectedID) selected = iter;
             }
         }
@@ -258,13 +307,11 @@ private:
     }
 
     void loadEntries() {
-        ListG list = collection.getItems();
-        if (list is null) return;
-        Item[] items = list.toArray!Item;
+        Item[] items = collection.getItems();
         rows.length = 0;
         foreach (item; items) {
             if (item.getSchemaName() == SCHEMA_NAME) {
-                string id = to!string(cast(char*)item.getAttributes().lookup(cast(void*)attrID));
+                string id = item.getAttributes().get(ATTRIBUTE_ID, "");
                 rows ~= [item.getLabel(), id];
             }
         }
@@ -277,106 +324,83 @@ private:
     // Reload entries from collections
     void reload() {
         // Have to disconnect otherwise you just get back cached entries
-        service.disconnect();
         service = null;
         collection = null;
         createService();
     }
 
-    HashTable createHashTable() {
-        import gtkc.glib;
-        return new HashTable(g_str_hash, g_str_equal);
-    }
-
     void createSchema() {
-        HashTable ht = createHashTable();
-        ht.insert(cast(void*)attrID, cast(void*)0);
-        ht.insert(cast(void*)attrDescription, cast(void*)0);
-        schema = new Schema(SCHEMA_NAME, SecretSchemaFlags.NONE, ht);
+        import secret.c.functions : secret_schema_new;
+        import secret.c.types : SecretSchemaFlags, SecretSchemaAttributeType;
+        import gobject.object : ObjectWrap;
+        import std.typecons : Yes;
+
+        auto _cretval = secret_schema_new(toStringz(SCHEMA_NAME), SecretSchemaFlags.None,
+            toStringz(ATTRIBUTE_ID), SecretSchemaAttributeType.String,
+            toStringz(ATTRIBUTE_DESCRIPTION), SecretSchemaAttributeType.String,
+            null);
+        schema = ObjectWrap._getDObject!(Schema)(_cretval, Yes.Take);
     }
 
     void createService() {
         Cancellable c = new Cancellable();
         pending[PENDING_SERVICE] = c;
-        Service.get(SecretServiceFlags.OPEN_SESSION, c, &secretServiceCallback, this.getDialogStruct());
+        Service.get(SecretServiceFlags.OpenSession, c, (ObjectWrap sourceObject, AsyncResult res) {
+            trace("secretServiceCallback called");
+            try {
+                Service ss = Service.getFinish(res);
+                if (ss !is null) {
+                    pending.remove(PENDING_SERVICE);
+                    this.service = ss;
+                    createCollection();
+                    trace("Retrieved secret service");
+                }
+            } catch (ErrorWrap ge) {
+                trace("Error occurred: " ~ ge.msg);
+            }
+        });
     }
 
     void createCollection() {
         Cancellable c = new Cancellable();
         pending[PENDING_COLLECTION] = c;
-        Collection.forAlias(service, DEFAULT_COLLECTION, SecretCollectionFlags.LOAD_ITEMS, c, &collectionCallback, this.getDialogStruct());
+        Collection.forAlias(service, DEFAULT_COLLECTION, SecretCollectionFlags.LoadItems, c, (ObjectWrap sourceObject, AsyncResult res) {
+            trace("collectionCallback called");
+            try {
+                Collection c_ = Collection.forAliasFinish(res);
+                if (c_ !is null) {
+                    this.pending.remove(PENDING_COLLECTION);
+                    this.collection = c_;
+                    this.loadEntries();
+                    trace("Retrieved default collection");
+                }
+            } catch (ErrorWrap ge) {
+                trace("Error occurred: " ~ ge.msg);
+            }
+        });
     }
 
     void updateUI() {
-        setResponseSensitive(ResponseType.APPLY, tv.getSelectedIter() !is null);
-    }
-
-    extern(C) static void passwordStoreCallback(GObject* sourceObject, GAsyncResult* res, void* userData) {
-        trace("passwordCallback called");
-        try {
-            Secret.passwordStoreFinish(new SimpleAsyncResult(cast(GSimpleAsyncResult*)res, false));
-            PasswordManagerDialog pd = cast(PasswordManagerDialog) ObjectG.getDObject!(Dialog)(cast(GtkDialog*) userData, false);
-            if (pd !is null) {
-                trace("Re-loading entries");
-                pd.reload();
-            }
-        } catch (GException ge) {
-            trace("Error occurred: " ~ ge.msg);
-            return;
-        }
-    }
-
-    extern(C) static void collectionCallback(GObject* sourceObject, GAsyncResult* res, void* userData) {
-        trace("collectionCallback called");
-        try {
-            Collection c = Collection.forAliasFinish(new SimpleAsyncResult(cast(GSimpleAsyncResult*)res, false));
-            if (c !is null) {
-                PasswordManagerDialog pd = cast(PasswordManagerDialog) ObjectG.getDObject!(Dialog)(cast(GtkDialog*) userData, false);
-                if (pd !is null) {
-                    pd.pending.remove(PENDING_COLLECTION);
-                    pd.collection = c;
-                    pd.loadEntries();
-                    trace("Retrieved default collection");
-                }
-            }
-        } catch (GException ge) {
-            trace("Error occurred: " ~ ge.msg);
-            return;
-        }
-    }
-
-    extern(C) static void secretServiceCallback(GObject* sourceObject, GAsyncResult* res, void* userData) {
-        trace("secretServiceCallback called");
-        try {
-            Service ss = Service.getFinish(new SimpleAsyncResult(cast(GSimpleAsyncResult*)res, false));
-            if (ss !is null) {
-                PasswordManagerDialog pd = cast(PasswordManagerDialog) ObjectG.getDObject!(Dialog)(cast(GtkDialog*) userData, false);
-                if (pd !is null) {
-                    pd.pending.remove(PENDING_SERVICE);
-                    pd.service = ss;
-                    pd.createCollection();
-                    trace("Retrieved secret service");
-                }
-            }
-
-        } catch (GException ge) {
-            trace("Error occurred: " ~ ge.msg);
-            return;
-        }
+        setResponseSensitive(gtk.types.ResponseType.Apply, getSelectedIter() !is null);
     }
 
 public:
 
     this(Window parent) {
-        super(_("Insert Password"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Apply"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
-        gsSettings = new GSettings(SETTINGS_ID);
-        setDefaultResponse(GtkResponseType.APPLY);
-        addOnDestroy(delegate(Widget) {
+        super();
+        setTitle(_("Insert Password"));
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("Apply"), gtk.types.ResponseType.Apply);
+        addButton(_("Cancel"), gtk.types.ResponseType.Cancel);
+        gsSettings = new Settings(SETTINGS_ID);
+        setDefaultResponse(gtk.types.ResponseType.Apply);
+        connectDestroy(delegate() {
             foreach(c; pending) {
                 c.cancel();
             }
         });
-        EMPTY_ATTRIBUTES = createHashTable();
+        EMPTY_ATTRIBUTES = null;
         attrID = toStringz(ATTRIBUTE_ID);
         attrDescription = toStringz(ATTRIBUTE_DESCRIPTION);
         descriptionValue = toStringz("Tilix Password");
@@ -387,14 +411,13 @@ public:
     }
 
     @property string password() {
-        TreeIter selected = tv.getSelectedIter();
-        if (selected) {
-            string id = ls.getValueString(selected, COLUMN_ID);
+        TreeIter selected = getSelectedIter();
+        if (selected !is null) {
+            string id = getValueString(ls, selected, COLUMN_ID);
             trace("Getting password for " ~ id);
-            HashTable ht = createHashTable();
-            immutable(char*) idz = toStringz(id);
-            ht.insert(cast(void*)attrID, cast(void*)idz);
-            string password = Secret.passwordLookupvSync(schema, ht, null);
+            string[string] attributes;
+            attributes[ATTRIBUTE_ID] = id;
+            string password = passwordLookupSync(schema, attributes, null);
             if (gsSettings.getBoolean(SETTINGS_PASSWORD_INCLUDE_RETURN_KEY)) {
                 password ~= '\n';
             }
@@ -429,7 +452,7 @@ private:
         int row = 0;
         // Name (i.e. Label in libsecret parlance)
         lblName = new Label(_("Name"));
-        lblName.setHalign(GtkAlign.END);
+        lblName.setHalign(Align.End);
         grid.attach(lblName, 0, row, 1, 1);
         eLabel = new Entry();
         eLabel.setWidthChars(40);
@@ -439,7 +462,7 @@ private:
 
         //Password
         lblPassword = new Label(_("Password"));
-        lblPassword.setHalign(GtkAlign.END);
+        lblPassword.setHalign(Align.End);
         grid.attach(lblPassword, 0, row, 1, 1);
         ePassword = new Entry();
         ePassword.setVisibility(false);
@@ -449,7 +472,7 @@ private:
 
         //Confirm Password
         lblRepeatPwd = new Label(_("Confirm Password"));
-        lblRepeatPwd.setHalign(GtkAlign.END);
+        lblRepeatPwd.setHalign(Align.End);
         grid.attach(lblRepeatPwd, 0, row, 1, 1);
         eConfirmPassword = new Entry();
         eConfirmPassword.setVisibility(false);
@@ -460,7 +483,7 @@ private:
         lblMatch = new Label("Password does not match confirmation");
         lblMatch.setSensitive(false);
         lblMatch.setNoShowAll(true);
-        lblMatch.setHalign(GtkAlign.CENTER);
+        lblMatch.setHalign(Align.Center);
         grid.attach(lblMatch, 1, row, 1, 1);
 
         with (getContentArea()) {
@@ -471,17 +494,17 @@ private:
             add(grid);
         }
         updateUI();
-        eLabel.addOnChanged(&entryChanged);
-        ePassword.addOnChanged(&entryChanged);
-        eConfirmPassword.addOnChanged(&entryChanged);
+        eLabel.connectChanged(&entryChanged);
+        ePassword.connectChanged(&entryChanged);
+        eConfirmPassword.connectChanged(&entryChanged);
     }
 
-    void entryChanged(EditableIF) {
+    void entryChanged(Editable) {
         updateUI();
     }
 
     void updateUI() {
-        setResponseSensitive(GtkResponseType.OK, eLabel.getText().length > 0 && ePassword.getText().length > 0 && ePassword.getText() == eConfirmPassword.getText());
+        setResponseSensitive(gtk.types.ResponseType.Ok, eLabel.getText().length > 0 && ePassword.getText().length > 0 && ePassword.getText() == eConfirmPassword.getText());
         if (ePassword.getText() != eConfirmPassword.getText()) {
             lblMatch.show();
         } else {
@@ -490,8 +513,13 @@ private:
     }
 
     this(Window parent, string title) {
-        super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
-        setDefaultResponse(GtkResponseType.OK);
+        super();
+        setTitle(title);
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("Ok"), gtk.types.ResponseType.Ok);
+        addButton(_("Cancel"), gtk.types.ResponseType.Cancel);
+        setDefaultResponse(gtk.types.ResponseType.Ok);
     }
 
 public:

@@ -8,22 +8,30 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 import std.signals;
+import std.typecons : Yes, No;
 
-import gio.SimpleAction;
-import gio.SimpleActionGroup;
-import gio.Menu: GMenu = Menu;
-import gio.MenuItem : GMenuItem = MenuItem;
+import gio.simple_action;
+import gio.simple_action_group;
+import gio.menu: Menu = Menu;
+import gio.menu_item : MenuItem = MenuItem;
 
-import glib.Variant: GVariant = Variant;
-import glib.VariantType: GVariantType = VariantType;
+import glib.variant: Variant = Variant;
+import glib.variant_type: VariantType = VariantType;
 
-import gtk.Box;
-import gtk.Entry;
-import gtk.Image;
-import gtk.Main;
-import gtk.MenuButton;
-import gtk.MountOperation;
-import gtk.PopoverMenu;
+import gtk.box;
+import gtk.entry;
+import gtk.image;
+import gtk.global;
+import gtk.menu_button;
+import gtk.mount_operation;
+import gtk.popover;
+alias Popover = gtk.popover.Popover;
+import gtk.popover_menu;
+import gtk.types;
+import gtk.widget;
+alias Widget = gtk.widget.Widget;
+import gtk.window;
+alias Window = gtk.window.Window;
 
 import gx.gtk.actions;
 
@@ -67,7 +75,7 @@ private:
         add(entry);
 
         MenuButton mbVariables = new MenuButton();
-        mbVariables.add(new Image("pan-down-symbolic", IconSize.MENU));
+        mbVariables.add(Image.newFromIconName("pan-down-symbolic", IconSize.Menu));
         mbVariables.setFocusOnClick(false);
         mbVariables.setPopover(createPopover(tes));
         add(mbVariables);
@@ -76,12 +84,12 @@ private:
     /**
      * Create menu items from array for each section (window, session, terminal)
      */
-    GMenu createItems(immutable(string[]) localized, immutable(string[]) values, string actionPrefix) {
-        GMenu section = new GMenu();
+    Menu createItems(immutable(string[]) localized, immutable(string[]) values, string actionPrefix) {
+        Menu section = new Menu();
         foreach(index, variable; localized) {
             string actionName = format("%s-%02d", actionPrefix, index);
             SimpleAction action = new SimpleAction(actionName, null);
-            action.addOnActivate(delegate(GVariant, SimpleAction sa) {
+            action.connectActivate(delegate(Variant v, SimpleAction sa) {
                 string name = sa.getName();
                 int i = to!int("" ~ name[$-2 .. $]);
                 int position = entry.getPosition();
@@ -98,42 +106,43 @@ private:
      * Create all menu items in popover to help editing menu items
      */
     PopoverMenu createPopover(TitleEditScope tes) {
-        GMenu model = new GMenu();
+        Menu model = new Menu();
 
         // Terminal items
-        GMenu terminalSection = createItems(VARIABLE_TERMINAL_LOCALIZED, VARIABLE_TERMINAL_VALUES, "terminal");
+        Menu terminalSection = createItems(VARIABLE_TERMINAL_LOCALIZED, VARIABLE_TERMINAL_VALUES, "terminal");
         model.appendSection(_("Terminal"), terminalSection);
 
         //Session menu items
         if (tes == TitleEditScope.SESSION || tes == TitleEditScope.WINDOW) {
-            GMenu sessionSection = createItems(VARIABLE_SESSION_LOCALIZED, VARIABLE_SESSION_VALUES, "session");
+            Menu sessionSection = createItems(VARIABLE_SESSION_LOCALIZED, VARIABLE_SESSION_VALUES, "session");
             model.appendSection(_("Session"), sessionSection);
         }
 
         //App menu items
         if (tes == TitleEditScope.WINDOW) {
-            GMenu windowSection = createItems(VARIABLE_WINDOW_LOCALIZED, VARIABLE_WINDOW_VALUES, "window");
+            Menu windowSection = createItems(VARIABLE_WINDOW_LOCALIZED, VARIABLE_WINDOW_VALUES, "window");
             model.appendSection(_("Window"), windowSection);
         }
 
         // Help Menu Item
-        GMenu helpSection = new GMenu();
+        Menu helpSection = new Menu();
         SimpleAction saHelp = new SimpleAction("help", null);
-        saHelp.addOnActivate(delegate(GVariant, SimpleAction) {
-            MountOperation.showUri(null, "https://gnunn1.github.io/tilix-web/manual/title/", Main.getCurrentEventTime());
+        saHelp.connectActivate(delegate(Variant v, SimpleAction sa) {
+            import gtk.global : showUriOnWindow, getCurrentEventTime;
+            showUriOnWindow(cast(Window)getToplevel(), "https://gnunn1.github.io/tilix-web/manual/title/", getCurrentEventTime());
         });
         sagVariables.insert(saHelp);
         helpSection.append(_("Help"), getActionDetailedName(ACTION_PREFIX, "help"));
         model.appendSection(_("Help"), helpSection);
 
         PopoverMenu pm = new PopoverMenu();
-        pm.addOnMap(delegate(Widget) {
+        pm.connectMap(delegate(Widget w) {
             onPopoverShow.emit();
         });
-        pm.addOnClosed(delegate(Widget) {
+        pm.connectClosed(delegate(Popover p) {
             entry.grabFocus();
             onPopoverClosed.emit();
-        }, ConnectFlags.AFTER);
+        }, Yes.After);
 
         pm.bindModel(model, null);
         return pm;
@@ -142,12 +151,12 @@ private:
 
 public:
     this(Entry entry, TitleEditScope tes) {
-        super(Orientation.HORIZONTAL, 0);
+        super(gtk.types.Orientation.Horizontal, 0);
         this.entry = entry;
         getStyleContext().addClass("linked");
         setHexpand(true);
         createUI(tes);
-        addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate() {
             sagVariables.destroy();
             sagVariables = null;
         });

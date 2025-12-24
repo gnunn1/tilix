@@ -65,7 +65,7 @@ public:
  * optional but the delimiters are not
  ***********************************************************/
 
-void parsePromptParts(string prompt, out string username, out string hostname, out string directory) {
+void parsePromptParts(string prompt, string username, string hostname, string directory) {
     if (prompt.length == 0) return;
     ptrdiff_t userStarts = prompt.indexOf('@');
     ptrdiff_t dirStarts = prompt.indexOf(':');
