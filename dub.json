@@ -1,53 +1,43 @@
 {
-    "name": "tilix",
-    "description": "A VTE based terminal emulator for Linux",
-    "copyright": "Copyright © 2016, Gerald Nunn",
-    "authors": ["Gerald Nunn"],
-    "mainSourceFile": "source/app.d",
-    "dflags-ldc": ["-disable-linker-strip-dead","-link-defaultlib-shared=false"],
-    "dependencies": {
-        "gtk-d:gtkd": {
-            "version": "3.11.0"
-        },
-        "gtk-d:vte": {
-            "version": "3.11.0"
-        }
+  "name": "tilix",
+  "description": "A VTE based terminal emulator for Linux",
+  "copyright": "Copyright © 2016, Gerald Nunn",
+  "authors": ["Gerald Nunn"],
+  "mainSourceFile": "source/app.d",
+  "dflags-ldc": ["-disable-linker-strip-dead"],
+  "dependencies": {
+    "gtk-d:gtkd": {
+      "version": "3.11.0"
     },
-    "buildTypes": {
-        "release": {
-        },
-        "debug": {
-            "debugVersions": ["GC"],
-            "dflags": ["-g"]
-        },
-        "localize": {
-            "versions": ["Localize"]
-        },
-        "i686": {
-            "dflags": ["-m32", "-c"]
-        }
+    "gtk-d:vte": {
+      "version": "3.11.0"
+    }
+  },
+  "buildTypes": {
+    "release": {},
+    "debug": {
+      "debugVersions": ["GC"],
+      "dflags": ["-g"]
     },
-
-    "configurations": [
-        {
-            "name": "default",
-            "targetType": "executable",
-            "libs-linux": ["X11"],
-            "versions": ["StdLoggerDisableTrace"]
-        },
-        {
-            "name": "trace",
-            "targetType": "executable",
-            "libs-linux": ["X11"],
-            "debugVersions": ["Destructors"]
-        },
-        {
-            "name": "dynamic",
-            "targetType": "executable",
-            "libs": ["gtkd-3"],
-            "libs-linux": ["X11"],
-            "lflags": ["-defaultlib=libgtkd-3.so"],
-            "versions": ["StdLoggerDisableTrace"]
-        }
-    ]
+    "localize": {
+      "versions": ["Localize"]
+    },
+    "i686": {
+      "dflags": ["-m32", "-c"]
+    }
+  },
+  "configurations": [
+    {
+      "name": "default",
+      "targetType": "executable",
+      "libs-linux": ["X11"],
+      "versions": ["StdLoggerDisableTrace"]
+    },
+    {
+      "name": "trace",
+      "targetType": "executable",
+      "libs-linux": ["X11"],
+      "debugVersions": ["Destructors"]
+    }
+  ]
 }
