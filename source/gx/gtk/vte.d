@@ -190,7 +190,7 @@ unittest {
     assert(!checkVTEVersionNumber(1, 1));
     assert(checkVTEVersionNumber(0, 9));
 
-    vteMajorVersion = getMajorVersion();
-    vteMinorVersion = getMinorVersion();
+    vteMajorVersion = vte.global.getMajorVersion();
+    vteMinorVersion = vte.global.getMinorVersion();
     assert(checkVTEVersion(VTE_VERSION_MINIMAL));
 }

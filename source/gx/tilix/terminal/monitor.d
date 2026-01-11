@@ -97,7 +97,10 @@ public:
         synchronized {
             if (gpid in processes) {
                 processes.remove(gpid);
-                if (running && processes.length == 0) stop();
+                // `processes` is `shared`; accessing its length directly is rejected by newer DMD.
+                // We already hold the global monitor here, so it is safe to view it as non-shared.
+                auto localProcesses = cast(ProcessStatus[GPid]) processes;
+                if (running && localProcesses.length == 0) stop();
             }
         }
     }

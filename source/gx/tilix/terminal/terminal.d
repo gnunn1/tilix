@@ -140,6 +140,7 @@ import gx.gtk.cairo;
 import gx.gtk.color;
 import gx.gtk.clipboard;
 import gx.gtk.dialog;
+import gx.gtk.eventsignals;
 import gx.gtk.resource;
 import gx.gtk.vte;
 import gx.gtk.keys;
@@ -383,7 +384,7 @@ private:
         mbTitle.setRelief(ReliefStyle.None);
         mbTitle.setFocusOnClick(false);
         mbTitle.setPopover(createPopover(mbTitle));
-        mbTitle.connectButtonPressEvent(delegate(EventButton event, Widget w) {
+        connectButtonPressEventBoxed(mbTitle, delegate(EventButton event, Widget w) {
             buildProfileMenu();
             buildEncodingMenu();
             return false;
@@ -447,7 +448,7 @@ private:
         EventBox evtTitle = new EventBox();
         evtTitle.add(bTitle);
         //Handle double click for window state change
-        evtTitle.connectButtonPressEvent(delegate(EventButton event, Widget w) {
+        connectButtonPressEventBoxed(evtTitle, delegate(EventButton event, Widget w) {
             int childX, childY;
             mbTitle.translateCoordinates(evtTitle, 0, 0, childX, childY);
             //Ignore clicks propagated from Menu Button, see #215
@@ -954,8 +955,16 @@ private:
             }
         });
         vteHandlers ~= vte.connectCurrentFileUriChanged(delegate(VTE terminal) { trace("Current file is " ~ vte.getCurrentFileUri()); });
-        vteHandlers ~= vte.connectFocusInEvent(&onTerminalWidgetFocusIn);
-        vteHandlers ~= vte.connectFocusOutEvent(&onTerminalWidgetFocusOut);
+        // `gid` currently unmarshals `GdkEventFocus` using `g_value_get_pointer`,
+        // which triggers GLib criticals. We don't need the event payload.
+        vteHandlers ~= vte.connectFocusInEvent(delegate() {
+            terminalWidgetFocusIn(vte);
+            return false;
+        });
+        vteHandlers ~= vte.connectFocusOutEvent(delegate() {
+            terminalWidgetFocusOut(vte);
+            return false;
+        });
         vteHandlers ~= vte.connectNotificationReceived(delegate(string summary, string _body, VTE terminal) {
             if (terminalInitialized && !terminal.hasFocus() && gpid > 0) {
                 notifyProcessNotification(summary, _body, uuid);
@@ -1025,7 +1034,9 @@ private:
         vteHandlers ~= vte.connectSizeAllocate(delegate(Rectangle rect, Widget w) {
             updateDisplayText();
         }, Yes.After);
-        vteHandlers ~= vte.connectEnterNotifyEvent(delegate(EventCrossing event, Widget w) {
+        // `gid` currently unmarshals `GdkEventCrossing` using `g_value_get_pointer`,
+        // which triggers GLib criticals. We don't need the event payload here.
+        vteHandlers ~= vte.connectEnterNotifyEvent(delegate() {
             if (vte is null) return false;
 
             if (gsSettings.getBoolean(SETTINGS_TERMINAL_FOCUS_FOLLOWS_MOUSE_KEY)) {
@@ -1034,8 +1045,8 @@ private:
             return false;
         }, Yes.After);
 
-        vteHandlers ~= vte.connectButtonPressEvent(&onTerminalButtonPress);
-        vteHandlers ~= vte.connectKeyReleaseEvent(delegate(EventKey event, Widget widget) {
+        vteHandlers ~= connectButtonPressEventBoxed(vte, &onTerminalButtonPress);
+        vteHandlers ~= connectKeyReleaseEventBoxed(vte, delegate(EventKey event, Widget widget) {
             if (vte is null) return false;
 
             // If copy is assigned to control-c, check if VTE has selection and then
@@ -1053,7 +1064,7 @@ private:
             }
             return false;
         });
-        vteHandlers ~= vte.connectKeyPressEvent(delegate(EventKey event, Widget widget) {
+        vteHandlers ~= connectKeyPressEventBoxed(vte, delegate(EventKey event, Widget widget) {
             if (vte is null) return false;
 
             if (event.keyval == Keys.Return && checkVTEFeature(TerminalFeature.EVENT_SCREEN_CHANGED) && currentScreen == TerminalScreen.NORMAL) {
@@ -2109,14 +2120,6 @@ private:
         return vte.hasFocus || rFind.hasSearchEntryFocus();
     }
 
-    /**
-     * Tracks focus of widgets (vte and rFind) in this terminal pane
-     */
-    bool onTerminalWidgetFocusIn(EventFocus event, Widget widget) {
-        terminalWidgetFocusIn(widget);
-        return false;
-    }
-
     void terminalWidgetFocusIn(Widget widget) {
         trace("Terminal gained focus " ~ uuid);
         lblTitle.setSensitive(true);
@@ -2125,14 +2128,6 @@ private:
         onFocusIn.emit(this);
         // Set colors for dimPercent
         setVTEColors();
-    }
-
-    /**
-     * Tracks focus of widgets (vte and rFind) in this terminal pane
-     */
-    bool onTerminalWidgetFocusOut(EventFocus event, Widget widget) {
-        terminalWidgetFocusOut(widget);
-        return false;
     }
 
     void terminalWidgetFocusOut(Widget widget) {
@@ -2440,7 +2435,7 @@ private:
         case SETTINGS_CONTROL_SCROLL_ZOOM_KEY:
             if (gsSettings.getBoolean(SETTINGS_CONTROL_SCROLL_ZOOM_KEY)) {
                 if (vte !is null && scrollEventHandlerId == 0) {
-                    scrollEventHandlerId = vte.connectScrollEvent(&onTerminalScroll);
+                    scrollEventHandlerId = connectScrollEventBoxed(vte, &onTerminalScroll);
                 }
             } else {
                 if (vte !is null && scrollEventHandlerId > 0) {
@@ -4028,7 +4023,9 @@ import gtk.types;
         pid_t childPid;
         bool result = isProcessRunning(childPid);
 
-        if (childPid == -1) {
+        // `vte.getChildPid()` can transiently report `0` during shutdown/teardown.
+        // Treat any non-positive PID as "no child" to avoid probing `/proc/0`.
+        if (childPid <= 0) {
             return false;
         }
 

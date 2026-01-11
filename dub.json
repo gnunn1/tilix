@@ -1,51 +1,21 @@
 {
-<<<<<<< HEAD
-    "name": "tilix",
-    "description": "A VTE based terminal emulator for Linux",
-    "copyright": "Copyright © 2016, Gerald Nunn",
-    "authors": ["Gerald Nunn"],
-    "mainSourceFile": "source/app.d",
-    "dflags-ldc": ["-disable-linker-strip-dead","-link-defaultlib-shared=false"],
-    "dependencies": {
-        "gid:gtk3": "0.9.7",
-        "gid:vte2": "0.9.7",
-        "gid:gdk3": "0.9.7",
-        "gid:gio2": "0.9.7",
-        "gid:glib2": "0.9.7",
-        "gid:pango1": "0.9.7",
-        "gid:pangocairo1": "0.9.7",
-        "gid:cairo1": "0.9.7",
-        "gid:secret1": "0.9.7",
-        "gid:gdkpixbuf2": "0.9.7"
-||||||| 3d2b9b74
-    "name": "tilix",
-    "description": "A VTE based terminal emulator for Linux",
-    "copyright": "Copyright © 2016, Gerald Nunn",
-    "authors": ["Gerald Nunn"],
-    "mainSourceFile": "source/app.d",
-    "dflags-ldc": ["-disable-linker-strip-dead","-link-defaultlib-shared=false"],
-    "dependencies": {
-        "gtk-d:gtkd": {
-            "version": "3.11.0"
-        },
-        "gtk-d:vte": {
-            "version": "3.11.0"
-        }
-=======
   "name": "tilix",
   "description": "A VTE based terminal emulator for Linux",
   "copyright": "Copyright © 2016, Gerald Nunn",
   "authors": ["Gerald Nunn"],
   "mainSourceFile": "source/app.d",
-  "dflags-ldc": ["-disable-linker-strip-dead"],
+  "dflags-ldc": ["-disable-linker-strip-dead", "-link-defaultlib-shared=false"],
   "dependencies": {
-    "gtk-d:gtkd": {
-      "version": "3.11.0"
->>>>>>> dejan/gid-git3-extra
-    },
-    "gtk-d:vte": {
-      "version": "3.11.0"
-    }
+    "gid:gtk3": "0.9.7",
+    "gid:vte2": "0.9.7",
+    "gid:gdk3": "0.9.7",
+    "gid:gio2": "0.9.7",
+    "gid:glib2": "0.9.7",
+    "gid:pango1": "0.9.7",
+    "gid:pangocairo1": "0.9.7",
+    "gid:cairo1": "0.9.7",
+    "gid:secret1": "0.9.7",
+    "gid:gdkpixbuf2": "0.9.7"
   },
   "buildTypes": {
     "release": {},
@@ -53,52 +23,6 @@
       "debugVersions": ["GC"],
       "dflags": ["-g"]
     },
-<<<<<<< HEAD
-
-    "configurations": [
-      {
-        "name": "default",
-        "targetType": "executable",
-        "libs-linux": ["X11", "gdk-x11-3.0"],
-        "versions": ["StdLoggerDisableTrace"]
-      },
-        {
-            "name": "gid",
-            "targetType": "executable",
-            "versions": ["StdLoggerDisableTrace"]
-        },
-        {
-            "name": "trace",
-            "targetType": "executable",
-            "libs-linux": ["X11", "gdk-x11-3.0"],
-            "debugVersions": ["Destructors"]
-        }
-    ]
-||||||| 3d2b9b74
-
-    "configurations": [
-        {
-            "name": "default",
-            "targetType": "executable",
-            "libs-linux": ["X11"],
-            "versions": ["StdLoggerDisableTrace"]
-        },
-        {
-            "name": "trace",
-            "targetType": "executable",
-            "libs-linux": ["X11"],
-            "debugVersions": ["Destructors"]
-        },
-        {
-            "name": "dynamic",
-            "targetType": "executable",
-            "libs": ["gtkd-3"],
-            "libs-linux": ["X11"],
-            "lflags": ["-defaultlib=libgtkd-3.so"],
-            "versions": ["StdLoggerDisableTrace"]
-        }
-    ]
-=======
     "localize": {
       "versions": ["Localize"]
     },
@@ -110,15 +34,19 @@
     {
       "name": "default",
       "targetType": "executable",
-      "libs-linux": ["X11"],
+      "libs-linux": ["X11", "gdk-x11-3.0"],
+      "versions": ["StdLoggerDisableTrace"]
+    },
+    {
+      "name": "gid",
+      "targetType": "executable",
       "versions": ["StdLoggerDisableTrace"]
     },
     {
       "name": "trace",
       "targetType": "executable",
-      "libs-linux": ["X11"],
+      "libs-linux": ["X11", "gdk-x11-3.0"],
       "debugVersions": ["Destructors"]
     }
   ]
->>>>>>> dejan/gid-git3-extra
 }

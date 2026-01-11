@@ -32,6 +32,7 @@ int main(string[] args) {
     string pwd;
     string de;
     trace("CWD = " ~ cwd);
+    writeln("foo");
     try {
         pwd = environment["PWD"];
         de = environment["XDG_CURRENT_DESKTOP"];

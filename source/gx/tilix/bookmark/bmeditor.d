@@ -6,7 +6,6 @@ module gx.tilix.bookmark.bmeditor;
 
 import std.conv;
 import std.experimental.logger;
-import std.signals;
 import std.string;
 import std.traits;
 import std.typecons;

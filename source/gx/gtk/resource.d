@@ -42,6 +42,50 @@ enum ProviderPriority : uint {
  */
 Resource findResource(string resourcePath, bool register = true) {
     import gio.global : resourcesRegister;
+
+    string[] tried;
+
+    void tryPath(string fullpath) {
+        tried ~= fullpath;
+        trace("looking for resource " ~ fullpath);
+        if (exists(fullpath)) {
+            Resource resource = Resource.load(fullpath);
+            if (register && resource !is null) {
+                trace("Resource found and registered " ~ fullpath);
+                resourcesRegister(resource);
+            }
+            // Early-exit via exception-free control flow: caller checks return.
+            throw new Exception(fullpath);
+        }
+    }
+
+    // Development convenience: allow running from the build tree without installing.
+    // In the repo, the compiled resource is located at `data/resources/tilix.gresource`.
+    auto resourceFile = baseName(resourcePath);
+    try {
+        tryPath(resourcePath);
+        tryPath(buildPath("data", "resources", resourceFile));
+        tryPath(buildPath("..", "data", "resources", resourceFile));
+
+        // Try relative to the executable location.
+        import std.file : thisExePath;
+        auto exeDir = dirName(thisExePath());
+        tryPath(buildPath(exeDir, resourcePath));
+        tryPath(buildPath(exeDir, "..", "data", "resources", resourceFile));
+    } catch (Exception e) {
+        // We use the exception message as the found path.
+        auto fullpath = e.msg;
+        if (exists(fullpath)) {
+            Resource resource = Resource.load(fullpath);
+            if (register && resource !is null) {
+                trace("Resource found and registered " ~ fullpath);
+                resourcesRegister(resource);
+            }
+            return resource;
+        }
+    }
+
+    // Installed locations (XDG data dirs).
     foreach (path; getSystemDataDirs()) {
         auto fullpath = buildPath(path, resourcePath);
         trace("looking for resource " ~ fullpath);
@@ -53,8 +97,10 @@ Resource findResource(string resourcePath, bool register = true) {
             }
             return resource;
         }
+        tried ~= fullpath;
     }
-    errorf("Resource %s could not be found", resourcePath);
+
+    errorf("Resource %s could not be found (tried: %s)", resourcePath, tried.join(", "));
     return null;
 }
 

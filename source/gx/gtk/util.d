@@ -155,9 +155,15 @@ bool isWayland(Window window) {
  */
 string getGtkTheme() {
     Settings settings = new Settings("org.gnome.desktop.interface");
-    Value value = new Value();
-    settings.getProperty("gtk-theme-name", value);
-    return value.getString();
+    // `GSettings` keys are not GObject properties; the theme name is stored in
+    // the `gtk-theme` key of `org.gnome.desktop.interface`.
+    try {
+        return settings.getString("gtk-theme");
+    } catch (ErrorWrap) {
+        return "";
+    } catch (Exception) {
+        return "";
+    }
 }
 
 /**

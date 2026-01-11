@@ -31,6 +31,7 @@ import gdk.rectangle;
 import gdk.types;
 alias Rectangle = gdk.rectangle.Rectangle;
 import gx.gtk.keys;
+import gx.gtk.eventsignals;
 import gx.gtk.types;
 
 import gio.settings : Settings = Settings;
@@ -226,7 +227,7 @@ private:
         if (gtk.global.checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
-        result.connectButtonPressEvent(delegate(EventButton event, Widget w) {
+        connectButtonPressEventBoxed(result, delegate(EventButton event, Widget w) {
             if (event.window._cPtr(No.Dup) == result.getHandleWindow()._cPtr(No.Dup) && event.type == EventType.DoubleButtonPress && event.button == 1) {
                 redistributePanes(cast(Paned) w);
                 return true;
@@ -312,6 +313,23 @@ private:
             warningf("Warning, the profile %s does not exist, using default profile instead", profileUUID);
             realUUID = prfMgr.getDefaultProfile();
         }
+
+        // Defensive fallback: if the default profile is unset or points to a non-existent profile,
+        // pick the first available profile so we can always create a working terminal.
+        bool realUUIDExists = false;
+        foreach (pUUID; profileUUIDs) {
+            if (pUUID == realUUID) {
+                realUUIDExists = true;
+                break;
+            }
+        }
+        if (realUUID.length == 0 || (!realUUIDExists && profileUUIDs.length > 0)) {
+            warningf("Default profile '%s' is not valid, falling back to '%s'", realUUID, profileUUIDs[0]);
+            realUUID = profileUUIDs[0];
+            // Persist so subsequent terminals use a valid default.
+            prfMgr.setDefaultProfile(realUUID);
+        }
+
         Terminal terminal = new Terminal(realUUID, uuid);
         addTerminal(terminal);
         return terminal;
@@ -1675,7 +1693,9 @@ public:
             updatePosition();
         });
 
-        connectButtonReleaseEvent(delegate(EventButton event, Widget w) {
+        // `gid` unmarshalling for `button-release-event` uses `g_value_get_pointer`.
+        // Use boxed marshalling to avoid GLib criticals.
+        connectButtonReleaseEventBoxed(this, delegate(EventButton event, Widget w) {
             updateRatio();
             return false;
         });

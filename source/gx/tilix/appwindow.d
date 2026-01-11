@@ -29,6 +29,7 @@ import gtk.application_window : ApplicationWindow;
 import gio.c.types : GApplicationFlags;
 
 import gx.gtk.keys;
+import gx.gtk.eventsignals;
 import gx.gtk.types;
 
 import gobject.object;
@@ -369,7 +370,7 @@ private:
             tbSideBar.setFocusOnClick(false);
             tbSideBar.setActionName(getActionDetailedName("win", ACTION_WIN_SIDEBAR));
             tbSideBar.connectDraw(&drawSideBarBadge, Yes.After);
-            tbSideBar.connectScrollEvent(delegate(EventScroll event, Widget w) {
+            connectScrollEventBoxed(tbSideBar, delegate(EventScroll event, Widget w) {
                 ScrollDirection direction = event.direction;
 
                 if (direction == ScrollDirection.Up) {
@@ -1779,7 +1780,9 @@ public:
 
         createUI();
 
-        connectDeleteEvent(&onWindowClosed);
+        // `gid` unmarshalling for `delete-event` uses `g_value_get_pointer`.
+        // Use boxed marshalling to avoid GLib criticals.
+        connectDeleteEventBoxed(this, &onWindowClosed);
         connectDestroy(&onWindowDestroyed);
         connectRealize(&onWindowRealized);
         /*
@@ -1808,7 +1811,10 @@ public:
             }
         }, Yes.After);
         connectCompositedChanged(&onCompositedChanged);
-        connectFocusOutEvent(delegate(EventFocus e, Widget widget) {
+        // With `gid`, unmarshalling `GdkEventFocus` for focus signals can trigger
+        // `g_value_get_pointer` assertions. We don't need the event payload, so
+        // use zero-arg handlers.
+        connectFocusOutEvent(delegate() {
             if (isQuake && gsSettings.getBoolean(SETTINGS_QUAKE_HIDE_LOSE_FOCUS_KEY)) {
                 Window window = tilix.getActiveWindow();
                 if (window !is null) {
@@ -1834,7 +1840,7 @@ public:
             }
             return false;
         }, Yes.After);
-        connectFocusInEvent(delegate(EventFocus e, Widget widget) {
+        connectFocusInEvent(delegate() {
             // if we're restoring focus to quake window, we want to keep it open
             removeTimeout();
 
@@ -1844,13 +1850,20 @@ public:
             }
             return false;
         });
-        connectWindowStateEvent(delegate(EventWindowState state, Widget w) {
+        // With `gid`, unmarshalling `GdkEventWindowState` for this signal can trigger
+        // `g_value_get_pointer` assertions. We don't actually need the event payload,
+        // so use a zero-arg handler and query the current window state directly.
+        connectWindowStateEvent(delegate() {
             trace("Window state changed");
-            if ((state.newWindowState & WindowState.Fullscreen) == WindowState.Fullscreen) {
-                trace("Window state is fullscreen");
-            }
-            if (getWindow() !is null && !isQuake() && gsSettings.getBoolean(SETTINGS_WINDOW_SAVE_STATE_KEY)) {
-                gsSettings.setInt(SETTINGS_WINDOW_STATE_KEY, cast(int)getWindow().getState());
+            auto window = getWindow();
+            if (window !is null) {
+                auto currentState = window.getState();
+                if ((currentState & WindowState.Fullscreen) == WindowState.Fullscreen) {
+                    trace("Window state is fullscreen");
+                }
+                if (!isQuake() && gsSettings.getBoolean(SETTINGS_WINDOW_SAVE_STATE_KEY)) {
+                    gsSettings.setInt(SETTINGS_WINDOW_STATE_KEY, cast(int) currentState);
+                }
             }
             return false;
         });
@@ -2199,7 +2212,7 @@ public:
         // double clicking the EventBox will hide the EventBox and show the lblEditBox
         lblBox = new EventBox();
         lblBox.add(lblText);
-        lblBox.connectButtonPressEvent(delegate(EventButton event, Widget w) {
+        connectButtonPressEventBoxed(lblBox, delegate(EventButton event, Widget w) {
             if (event.type == EventType.DoubleButtonPress && event.cInstance.button == 1) {
                 lblEditBox.setText(session.name());
                 stTitle.setVisibleChildName(PAGE_EDIT);
@@ -2213,7 +2226,8 @@ public:
         // when done editing the Entry, hide the Entry and show the lblBox again
         lblEditBox = new Entry();
         lblEditBox.setHexpand(true);
-        lblEditBox.connectFocusOutEvent(delegate(EventFocus event, Widget w) {
+        // Avoid `EventFocus` unmarshalling issues with `gid` (we don't need the event payload).
+        lblEditBox.connectFocusOutEvent(delegate() {
             string text = lblEditBox.getText().strip();
             if (text.length == 0)
                 return GDK_EVENT_PROPAGATE;

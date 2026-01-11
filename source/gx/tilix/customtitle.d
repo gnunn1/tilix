@@ -43,6 +43,7 @@ import pango.types;
 
 import glib.c.functions;
 
+import gx.gtk.eventsignals;
 import gx.gtk.keys;
 import gx.gtk.types;
 import gx.gtk.util;
@@ -88,8 +89,10 @@ private:
         lblTitle.getStyleContext().addClass("title");
         lblTitle.setEllipsize(pango.types.EllipsizeMode.Start);
         eb = new EventBox();
-        eb.connectButtonPressEvent(&onButtonPress);
-        eb.connectButtonReleaseEvent(&onButtonRelease);
+        // `gid` currently unmarshals `GdkEventButton` using `g_value_get_pointer`.
+        // Use boxed marshalling to avoid GLib criticals / invalid events.
+        connectButtonPressEventBoxed(eb, &onButtonPress);
+        connectButtonReleaseEventBoxed(eb, &onButtonRelease);
         eb.add(lblTitle);
         eb.setHalign(Align.Fill);
         addNamed(eb, PAGE_LABEL);
@@ -97,7 +100,7 @@ private:
         eTitle = new Entry();
         eTitle.setWidthChars(5);
         eTitle.setHexpand(true);
-        eTitle.connectKeyPressEvent(delegate (EventKey event, Widget widget) {
+        connectKeyPressEventBoxed(eTitle, delegate (EventKey event, Widget widget) {
             uint keyval = event.keyval;
             switch (keyval) {
                 case Keys.Escape:
@@ -112,6 +115,8 @@ private:
             }
             return false;
         });
+        // `gid` currently unmarshals `GdkEventFocus` using `g_value_get_pointer`,
+        // which triggers GLib criticals. We don't need the event payload.
         focusOutHandlerId = eTitle.connectFocusOutEvent(&onFocusOut, Yes.After);
         if (gtk.global.checkVersion(3,16, 0).length == 0) {
             titleEditor = createTitleEditHelper(eTitle, TitleEditScope.WINDOW);
@@ -158,7 +163,7 @@ private:
         return false;
     }
 
-    bool onFocusOut(EventFocus event, Widget widget) {
+    bool onFocusOut() {
         trace("Focus out");
         removeTimeout();
         setViewMode(ViewMode.LABEL);

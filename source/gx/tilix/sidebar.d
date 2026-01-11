@@ -19,6 +19,7 @@ import gdk.event_button;
 import gdk.event_key;
 import gdk.types;
 import gx.gtk.keys;
+import gx.gtk.eventsignals;
 import gx.gtk.types;
 import gdk.types;
 import gdkpixbuf.pixbuf;
@@ -330,9 +331,12 @@ public:
             }
         });
 
-        connectButtonPressEvent(&onButtonPress);
-        connectKeyReleaseEvent(&onKeyRelease);
-        connectKeyPressEvent(&onKeyPress);
+        // `gid` currently unmarshals `GdkEvent*` using `g_value_get_pointer`, which
+        // triggers GLib criticals and can yield invalid event objects.
+        // Use boxed marshalling for these interactive event signals.
+        connectButtonPressEventBoxed(this, &onButtonPress);
+        connectKeyReleaseEventBoxed(this, &onKeyRelease);
+        connectKeyPressEventBoxed(this, &onKeyPress);
 
         setHexpand(false);
         setVexpand(true);

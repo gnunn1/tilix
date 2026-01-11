@@ -7,7 +7,6 @@ module gx.tilix.prefeditor.titleeditor;
 import std.conv;
 import std.experimental.logger;
 import std.format;
-import std.signals;
 import std.typecons : Yes, No;
 
 import gio.simple_action;

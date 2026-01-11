@@ -63,11 +63,14 @@ string getActionKey(string prefix, string id) {
 /**
   * Given a Settings key, returns the coresponding action prefix and id.
   */
-void getActionNameFromKey(string key, string prefix, string id) {
+void getActionNameFromKey(string key, ref string prefix, ref string id) {
     ptrdiff_t index = key.indexOf("-");
     if (index >= 0) {
         prefix = key[0 .. index];
         id = key[index + 1 .. $];
+    } else {
+        prefix = key;
+        id = "";
     }
 }
 

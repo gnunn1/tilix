@@ -492,7 +492,8 @@ private:
 
     void onAppStartup(Application app) {
         trace("Startup App Signal");
-        (new Settings("org.gnome.desktop.interface")).connectNotify("gtk-theme-name", delegate(ParamSpec ps, ObjectWrap ow) {
+        // Monitor GTK theme changes via the `gtk-theme` GSettings key.
+        (new Settings("org.gnome.desktop.interface")).connectChanged("gtk-theme", delegate(string key, Settings s) {
             handleThemeChange(null, null);
         }, Yes.After);
         loadResources();

@@ -65,6 +65,8 @@ import gtk.types;
 import gtk.grid;
 import gtk.types;
 import gtk.global;
+
+import gx.gtk.eventsignals;
 import gtk.header_bar;
 import gtk.types;
 import gtk.image;
@@ -485,7 +487,7 @@ public:
         // For some reason GTK doesn't propagate the destroy
         // signal to the ListBoxRow, have to explicitly remove
         // and destroy it.
-        this.connectDeleteEvent(delegate(Event e, Widget w) {
+        connectDeleteEventBoxed(this, delegate(Event e, Widget w) {
             trace("Deleting list box rows");
             ListBoxRow[] rows = gx.gtk.util.getChildren!ListBoxRow(lbSide, false);
             foreach(row; rows) {

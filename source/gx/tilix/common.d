@@ -6,10 +6,10 @@ module gx.tilix.common;
 
 import std.algorithm;
 import std.experimental.logger;
-import std.signals;
 import std.string;
 
 import gx.util.array;
+import gx.util.signals;
 
 /**************************************************************
  * This block defines some generic signal handling based on D's
@@ -65,7 +65,10 @@ public:
  * optional but the delimiters are not
  ***********************************************************/
 
-void parsePromptParts(string prompt, string username, string hostname, string directory) {
+void parsePromptParts(string prompt, ref string username, ref string hostname, ref string directory) {
+    username = "";
+    hostname = "";
+    directory = "";
     if (prompt.length == 0) return;
     ptrdiff_t userStarts = prompt.indexOf('@');
     ptrdiff_t dirStarts = prompt.indexOf(':');

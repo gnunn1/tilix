@@ -285,12 +285,14 @@ public:
             this.vte = null;
             this.terminalActions = null;
         });
-        seSearch.connectFocusInEvent(delegate(EventFocus event, Widget widget) {
-            onSearchEntryFocusIn.emit(widget);
+        // `gid` currently unmarshals `GdkEventFocus` using `g_value_get_pointer`,
+        // which triggers GLib criticals. We don't need the event payload here.
+        seSearch.connectFocusInEvent(delegate() {
+            onSearchEntryFocusIn.emit(seSearch);
             return false;
         });
-        seSearch.connectFocusOutEvent(delegate(EventFocus event, Widget widget) {
-            onSearchEntryFocusOut.emit(widget);
+        seSearch.connectFocusOutEvent(delegate() {
+            onSearchEntryFocusOut.emit(seSearch);
             return false;
         });
     }
