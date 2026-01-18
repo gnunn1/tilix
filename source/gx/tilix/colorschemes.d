@@ -12,9 +12,9 @@ import std.json;
 import std.path;
 import std.uuid;
 
-import gdk.RGBA;
+import gdk.rgba : RGBA;
 
-import glib.Util;
+import glib.global : getSystemDataDirs, getUserConfigDir;
 
 import gx.gtk.color;
 import gx.gtk.util;
@@ -171,7 +171,7 @@ int findSchemeByColors(ColorScheme[] schemes, ColorScheme scheme) {
  */
 ColorScheme[] loadColorSchemes() {
     ColorScheme[] schemes;
-    string[] paths = Util.getSystemDataDirs() ~ Util.getUserConfigDir();
+    string[] paths = getSystemDataDirs() ~ getUserConfigDir();
     foreach (path; paths) {
         auto fullpath = buildPath(path, APPLICATION_CONFIG_FOLDER, SCHEMES_FOLDER);
         trace("Loading color schemes from " ~ fullpath);

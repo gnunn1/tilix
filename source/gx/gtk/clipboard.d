@@ -4,15 +4,16 @@
  */
 module gx.gtk.clipboard;
 
-import gdk.Atom;
+// GID imports - gdk
+import gdk.atom : Atom;
 
 /* Clipboard Atoms */
-GdkAtom GDK_SELECTION_CLIPBOARD;
-GdkAtom GDK_SELECTION_PRIMARY;
-GdkAtom GDK_SELECTION_SECONDARY;
+Atom GDK_SELECTION_CLIPBOARD;
+Atom GDK_SELECTION_PRIMARY;
+Atom GDK_SELECTION_SECONDARY;
 
 static this() {
-    GDK_SELECTION_CLIPBOARD = intern("CLIPBOARD", true);
-    GDK_SELECTION_PRIMARY = intern("PRIMARY", true);
-    GDK_SELECTION_SECONDARY = intern("SECONDARY", true);
+    GDK_SELECTION_CLIPBOARD = Atom.intern("CLIPBOARD", true);
+    GDK_SELECTION_PRIMARY = Atom.intern("PRIMARY", true);
+    GDK_SELECTION_SECONDARY = Atom.intern("SECONDARY", true);
 }

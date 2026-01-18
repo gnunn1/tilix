@@ -7,18 +7,17 @@ module gx.tilix.shortcuts;
 import std.algorithm;
 import std.experimental.logger;
 import std.path;
+import std.typecons : Yes;
 
-import gio.Settings;
+import gio.settings : Settings;
 
-import gobject.ObjectG;
-import gobject.Value;
+import gobject.c.functions : g_object_new;
+import gobject.c.types : GObject;
 
-import gtkc.gobject;
-
-import gtk.Builder;
-import gtk.ShortcutsGroup;
-import gtk.ShortcutsShortcut;
-import gtk.ShortcutsWindow;
+import gtk.builder : Builder;
+import gtk.shortcuts_group : ShortcutsGroup;
+import gtk.shortcuts_shortcut : ShortcutsShortcut;
+import gtk.shortcuts_window : ShortcutsWindow;
 
 import gx.gtk.actions;
 import gx.i18n.l10n;
@@ -58,7 +57,11 @@ ShortcutsWindow getShortcutWindow() {
                 string accelName = gsProfile.getString(SETTINGS_PROFILE_SHORTCUT_KEY);
                 if (accelName == SHORTCUT_DISABLED) accelName.length = 0;
                 trace("Create ShortcutShortcut");
-                ShortcutsShortcut ss = cast(ShortcutsShortcut) new ObjectG(ShortcutsShortcut.getType(), ["title","accelerator"], [new Value(gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY)), new Value(accelName)]);
+                // Create ShortcutsShortcut via C API and wrap with GID
+                GObject* cObj = g_object_new(ShortcutsShortcut._getGType(), null);
+                ShortcutsShortcut ss = new ShortcutsShortcut(cast(void*)cObj, Yes.Take);
+                ss.title = gsProfile.getString(SETTINGS_PROFILE_VISIBLE_NAME_KEY);
+                ss.accelerator = accelName;
                 if (ss !is null) {
                     sgProfile.add(ss);
                 } else {

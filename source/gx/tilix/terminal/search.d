@@ -7,34 +7,39 @@ module gx.tilix.terminal.search;
 import std.experimental.logger;
 import std.format;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event : Event;
+import gdk.event_key : EventKey;
+import gdk.event_focus : EventFocus;
+import gdk.c.types : GdkModifierType;
+// GID does not provide gdk.keysyms, define required constants locally
+private enum GdkKeysyms { GDK_Return = 0xff0d, GDK_Escape = 0xff1b }
 
-import gio.ActionGroupIF;
-import gio.Menu;
-import gio.Settings : GSettings = Settings;
-import gio.SimpleAction;
-import gio.SimpleActionGroup;
+import gio.action_group : ActionGroup;
+import gio.menu : GMenu = Menu;
+import gio.settings : GSettings = Settings;
+import gio.simple_action : SimpleAction;
+import gio.simple_action_group : SimpleActionGroup;
 
-import glib.GException;
-import glib.Regex: GRegex = Regex;
-import glib.Variant : GVariant = Variant;
+import glib.error : ErrorWrap;
+import glib.regex: GRegex = Regex;
+import glib.variant : GVariant = Variant;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.CheckButton;
-import gtk.Frame;
-import gtk.Image;
-import gtk.MenuButton;
-import gtk.Popover;
-import gtk.Revealer;
-import gtk.SearchEntry;
-import gtk.ToggleButton;
-import gtk.Widget;
-import gtk.Version;
+import gtk.box : Box;
+import gtk.button : Button;
+import gtk.check_button : CheckButton;
+import gtk.frame : Frame;
+import gtk.image : Image;
+import gtk.menu_button : MenuButton;
+import gtk.popover : Popover;
+import gtk.revealer : Revealer;
+import gtk.search_entry : SearchEntry;
+import gtk.toggle_button : ToggleButton;
+import gtk.widget : Widget;
+import gtk.global : checkVersion;
+import gtk.types : Align, IconSize, Orientation, ReliefStyle, ShadowType;
 
-import vte.Regex: VRegex = Regex;
-import vte.Terminal : VTE = Terminal;
+import vte.regex: VRegex = Regex;
+import vte.terminal : VTE = Terminal;
 
 import gx.gtk.actions;
 import gx.gtk.vte;
@@ -61,7 +66,7 @@ private:
     GSettings gsSettings;
 
     VTE vte;
-    ActionGroupIF terminalActions;
+    ActionGroup terminalActions;
     SimpleActionGroup sagSearch;
 
     SearchEntry seSearch;
@@ -79,46 +84,44 @@ private:
 
         setHexpand(true);
         setVexpand(false);
-        setHalign(GtkAlign.FILL);
-        setValign(GtkAlign.START);
+        setHalign(Align.Fill);
+        setValign(Align.Start);
 
-        Box bSearch = new Box(Orientation.HORIZONTAL, 6);
-        bSearch.setHalign(GtkAlign.CENTER);
+        Box bSearch = new Box(Orientation.Horizontal, 6);
+        bSearch.setHalign(Align.Center);
         bSearch.setMarginLeft(4);
         bSearch.setMarginRight(4);
         bSearch.setMarginTop(4);
         bSearch.setMarginBottom(4);
         bSearch.setHexpand(true);
 
-        Box bEntry = new Box(Orientation.HORIZONTAL, 0);
+        Box bEntry = new Box(Orientation.Horizontal, 0);
         bEntry.getStyleContext().addClass("linked");
 
         seSearch = new SearchEntry();
         seSearch.setWidthChars(1);
         seSearch.setMaxWidthChars(30);
-        if (Version.checkVersion(3, 20, 0).length != 0) {
+        if (checkVersion(3, 20, 0).length != 0) {
             seSearch.getStyleContext().addClass("tilix-search-entry");
         }
-        seSearch.addOnSearchChanged(delegate(SearchEntry) {
+        seSearch.connectSearchChanged(delegate() {
             setTerminalSearchCriteria();
         });
-        seSearch.addOnKeyRelease(delegate(Event event, Widget) {
-            uint keyval;
-            if (event.getKeyval(keyval)) {
-                switch (keyval) {
-                    case GdkKeysyms.GDK_Escape:
-                        setRevealChild(false);
-                        vte.grabFocus();
-                        break;
-                    case GdkKeysyms.GDK_Return:
-                        if (event.key.state & GdkModifierType.SHIFT_MASK) {
-                            terminalActions.activateAction(ACTION_FIND_NEXT, null);
-                        } else {
-                            terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);
-                        }
-                        break;
-                    default:
-                }
+        seSearch.connectKeyReleaseEvent(delegate(EventKey event) {
+            uint keyval = event.keyval;
+            switch (keyval) {
+                case GdkKeysyms.GDK_Escape:
+                    setRevealChild(false);
+                    vte.grabFocus();
+                    break;
+                case GdkKeysyms.GDK_Return:
+                    if (event.state & GdkModifierType.ShiftMask) {
+                        terminalActions.activateAction(ACTION_FIND_NEXT, null);
+                    } else {
+                        terminalActions.activateAction(ACTION_FIND_PREVIOUS, null);
+                    }
+                    break;
+                default:
             }
             return false;
         });
@@ -127,42 +130,42 @@ private:
         mbOptions = new MenuButton();
         mbOptions.setTooltipText(_("Search Options"));
         mbOptions.setFocusOnClick(false);
-        Image iHamburger = new Image("pan-down-symbolic", IconSize.MENU);
+        Image iHamburger = Image.newFromIconName("pan-down-symbolic", IconSize.Menu);
         mbOptions.add(iHamburger);
         mbOptions.setPopover(createPopover);
         bEntry.add(mbOptions);
 
         bSearch.add(bEntry);
 
-        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        Box bButtons = new Box(Orientation.Horizontal, 0);
         bButtons.getStyleContext().addClass("linked");
 
-        Button btnNext = new Button("go-up-symbolic", IconSize.MENU);
-        btnNext.setTooltipText(_("Find next"));
-        btnNext.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
-        btnNext.setCanFocus(false);
-        bButtons.add(btnNext);
+        Button btnUp = Button.newFromIconName("go-up-symbolic", IconSize.Menu);
+        btnUp.setTooltipText(_("Find next"));
+        btnUp.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_PREVIOUS));
+        btnUp.setCanFocus(false);
+        bButtons.add(btnUp);
 
-        Button btnPrevious = new Button("go-down-symbolic", IconSize.MENU);
-        btnPrevious.setTooltipText(_("Find previous"));
-        btnPrevious.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
-        btnPrevious.setCanFocus(false);
-        bButtons.add(btnPrevious);
+        Button btnDown = Button.newFromIconName("go-down-symbolic", IconSize.Menu);
+        btnDown.setTooltipText(_("Find previous"));
+        btnDown.setActionName(getActionDetailedName(ACTION_PREFIX, ACTION_FIND_NEXT));
+        btnDown.setCanFocus(false);
+        bButtons.add(btnDown);
 
         bSearch.add(bButtons);
 
-        Button btnClose = new Button("window-close-symbolic", IconSize.MENU);
-        btnClose.setTooltipText(_("Close search box"));
-        btnClose.setRelief(ReliefStyle.NONE);
-        btnClose.setFocusOnClick(true);
-        btnClose.addOnClicked(delegate(Button) {
-            setRevealChild(false);
-            vte.grabFocus();
+        Button btnClose = Button.newFromIconName("window-close-symbolic", IconSize.Menu);
+        btnClose.setRelief(ReliefStyle.None);
+        btnClose.setFocusOnClick(false);
+        btnClose.connectClicked(delegate() {
+            this.setRevealChild(false);
+            this.vte.grabFocus();
         });
         bSearch.packEnd(btnClose, false, false, 0);
 
-        Frame frame = new Frame(bSearch, null);
-        frame.setShadowType(ShadowType.NONE);
+        Frame frame = new Frame(null);
+        frame.add(bSearch);
+        frame.setShadowType(ShadowType.None);
         frame.getStyleContext().addClass("tilix-search-frame");
         add(frame);
     }
@@ -201,13 +204,13 @@ private:
     }
 
     Popover createPopover() {
-        Menu model = new Menu();
+        GMenu model = new GMenu();
         model.append(_("Match case"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_CASE));
         model.append(_("Match entire word only"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_ENTIRE_WORD_ONLY));
         model.append(_("Wrap around"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_WRAP_AROUND));
         model.append(_("Match as regular expression"), getActionDetailedName(ACTION_SEARCH_PREFIX, ACTION_SEARCH_MATCH_REGEX));
 
-        return new Popover(mbOptions, model);
+        return Popover.newFromModel(mbOptions, model);
     }
 
     void updateActionsState()
@@ -237,9 +240,9 @@ private:
                 flags |= PCRE2Flags.CASELESS;
             }
             trace("Setting VTE.Regex for pattern %s", text);
-            vte.searchSetRegex(VRegex.newSearch(text, -1, flags), 0);
+            vte.searchSetRegex(VRegex.newForSearch(text, -1, flags), 0);
             seSearch.getStyleContext().removeClass("error");
-        } catch (GException ge) {
+        } catch (ErrorWrap ge) {
             string message = format(_("Search '%s' is not a valid regex\n%s"), text, ge.msg);
             seSearch.getStyleContext().addClass("error");
             error(message);
@@ -249,7 +252,7 @@ private:
 
 public:
 
-    this(VTE vte, ActionGroupIF terminalActions) {
+    this(VTE vte, ActionGroup terminalActions) {
         super();
 
         this.vte = vte;
@@ -257,21 +260,21 @@ public:
 
         gsSettings = new GSettings(SETTINGS_ID);
         createUI();
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
+        gsSettings.connectChanged(null, delegate(string key) {
             if (key == SETTINGS_ALWAYS_USE_REGEX_IN_SEARCH)
                 updateActionsState();
         });
 
-        this.addOnDestroy(delegate(Widget) {
+        connectDestroy(delegate() {
             this.vte = null;
             this.terminalActions = null;
         });
-        seSearch.addOnFocusIn(delegate(Event event, Widget widget) {
-            onSearchEntryFocusIn.emit(widget);
+        seSearch.connectFocusInEvent(delegate(EventFocus event) {
+            onSearchEntryFocusIn.emit(this);
             return false;
         });
-        seSearch.addOnFocusIn(delegate(Event event, Widget widget) {
-            onSearchEntryFocusOut.emit(widget);
+        seSearch.connectFocusOutEvent(delegate(EventFocus event) {
+            onSearchEntryFocusOut.emit(this);
             return false;
         });
     }

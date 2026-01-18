@@ -10,25 +10,28 @@ import std.string;
 import std.traits;
 import std.typecons : No;
 
-import gdk.Atom;
-import gdk.DragContext;
-import gdk.Pixbuf;
+import gdk.atom : Atom;
+import gdk.drag_context;
+import gdk.types : DragAction, ModifierType;
+import gdkpixbuf.pixbuf;
 
-import gobject.Value;
+import gobject.value;
 
-import gtk.CellRendererPixbuf;
-import gtk.CellRendererText;
-import gtk.SelectionData;
-import gtk.TargetEntry;
-import gtk.TreeViewColumn;
-import gtk.TreeIter;
-import gtk.TreeModel;
-import gtk.TreeModelIF;
-import gtk.TreeModelFilter;
-import gtk.TreePath;
-import gtk.TreeStore;
-import gtk.TreeView;
-import gtk.Widget;
+import gx.gtk.util : GTypes;
+
+import gtk.cell_renderer_pixbuf : CellRendererPixbuf;
+import gtk.cell_renderer_text : CellRendererText;
+import gtk.selection_data;
+import gtk.target_entry;
+import gtk.tree_view_column : TreeViewColumn;
+import gtk.tree_iter;
+import gtk.tree_model;
+import gtk.tree_model_filter;
+import gtk.tree_path;
+import gtk.tree_store;
+import gtk.tree_view;
+import gtk.types : TargetFlags, TreeViewDropPosition;
+import gtk.widget;
 
 import gx.i18n.l10n;
 
@@ -42,7 +45,7 @@ enum Columns : uint {
 }
 
 TreeStore createBMTreeModel(Pixbuf[] icons, bool foldersOnly) {
-    TreeStore ts = new TreeStore([Pixbuf.getType(), GType.STRING, GType.STRING, GType.BOOLEAN]);
+    TreeStore ts = TreeStore.new_([Pixbuf._getGType(), GTypes.STRING, GTypes.STRING, GTypes.BOOLEAN]);
     loadBookmarks(ts, null, bmMgr.root, foldersOnly, icons);
     return ts;
 }
@@ -67,20 +70,50 @@ private:
     void createColumns() {
         CellRendererPixbuf crp = new CellRendererPixbuf();
         crp.setProperty("stock-size", 16);
-        TreeViewColumn column = new TreeViewColumn(_("Icon"), crp, "pixbuf", Columns.ICON);
+        TreeViewColumn column = new TreeViewColumn();
+        column.setTitle(_("Icon"));
+        column.packStart(crp, true);
+        column.addAttribute(crp, "pixbuf", cast(int)Columns.ICON);
         appendColumn(column);
 
-        column = new TreeViewColumn(_("Name"), new CellRendererText(), "text", Columns.NAME);
+        CellRendererText crtName = new CellRendererText();
+        column = new TreeViewColumn();
+        column.setTitle(_("Name"));
+        column.packStart(crtName, true);
+        column.addAttribute(crtName, "text", cast(int)Columns.NAME);
         column.setExpand(true);
         appendColumn(column);
 
-        column = new TreeViewColumn("UUID", new CellRendererText(), "text", Columns.UUID);
+        CellRendererText crtUuid = new CellRendererText();
+        column = new TreeViewColumn();
+        column.setTitle("UUID");
+        column.packStart(crtUuid, true);
+        column.addAttribute(crtUuid, "text", cast(int)Columns.UUID);
         column.setVisible(false);
         appendColumn(column);
 
-        column = new TreeViewColumn("Filter", new CellRendererText(), "text", Columns.FILTER);
+        CellRendererText crtFilter = new CellRendererText();
+        column = new TreeViewColumn();
+        column.setTitle("Filter");
+        column.packStart(crtFilter, true);
+        column.addAttribute(crtFilter, "text", cast(int)Columns.FILTER);
         column.setVisible(false);
         appendColumn(column);
+    }
+
+    TreeIter getSelectedIter() {
+        TreeModel model;
+        TreeIter iter;
+        if (getSelection().getSelected(model, iter)) {
+            return iter;
+        }
+        return null;
+    }
+
+    string getValueString(TreeModel model, TreeIter iter, int column) {
+        Value val;
+        model.getValue(iter, column, val);
+        return val.getString();
     }
 
     FolderBookmark getParentBookmark(Bookmark bm, out TreeIter parent) {
@@ -92,7 +125,7 @@ private:
                 return bmMgr.root;
             }
         }
-        return cast(FolderBookmark) bmMgr.get(getModel().getValueString(parent, Columns.UUID));
+        return cast(FolderBookmark) bmMgr.get(getValueString(getModel(), parent, cast(int)Columns.UUID));
     }
 
     /**
@@ -100,20 +133,19 @@ private:
      * of the node that should be focused.
      */
     void updateFilter() {
-
         void checkFilter(TreeIter iter) {
-            string name = ts.getValueString(iter, Columns.NAME);
+            string name = getValueString(ts, iter, cast(int)Columns.NAME);
             bool visible = filterText.length == 0 || name.indexOf(filterText, No.caseSensitive) >= 0;
-            ts.setValue(iter, Columns.FILTER, visible);
+            ts.setValue(iter, cast(int)Columns.FILTER, new Value(visible));
             if (visible) {
                 TreeIter parent = iter;
-                Value value = new Value();
+                Value value;
                 // Walk up the parent hierarchy and set it's visibility to true
                 while (ts.iterParent(parent, parent)) {
                     // has parent visibility already been set?
-                    value = ts.getValue(parent, Columns.FILTER, value);
+                    ts.getValue(parent, cast(int)Columns.FILTER, value);
                     if (value.getBoolean()) break;
-                    ts.setValue(parent, Columns.FILTER, true);
+                    ts.setValue(parent, cast(int)Columns.FILTER, new Value(true));
                     //if (!ts.iterParent(parent, parent)) break;
                 }
             }
@@ -138,7 +170,7 @@ private:
 
     void selectFirstFilteredLeaf() {
         bool focusLeaf(TreeIter iter) {
-            string uuid = filter.getValueString(iter, Columns.UUID);
+            string uuid = getValueString(filter, iter, cast(int)Columns.UUID);
             FolderBookmark bm = cast(FolderBookmark) bmMgr.get(uuid);
             if (bm is null) {
                 getSelection().selectIter(iter);
@@ -171,9 +203,9 @@ private:
         TreeIter iter = getSelectedIter();
         if (iter !is null) {
             //string uuid = ts.getValueString(iter, Columns.UUID);
-            string path = iter.getTreePath().toString();
-            char[] buffer = (path ~ '\0').dup;
-            data.set(intern(BOOKMARK_DND, false), 8, buffer);
+            string path = ts.getPath(iter).toString();
+            ubyte[] buffer = cast(ubyte[])(path ~ '\0').dup;
+            data.set(Atom.intern(BOOKMARK_DND, false), 8, buffer);
         }
     }
 
@@ -186,26 +218,26 @@ private:
         TreeIter target = new TreeIter();
         ts.getIter(target, pathTarget);
 
-        string dataPath = to!string(data.getDataWithLength()[0 .. $ - 1]);
+        string dataPath = cast(string)(data.getData()[0 .. $ - 1]);
         tracef("Data received %s", dataPath);
-        TreePath pathSource = new TreePath(dataPath);
+        TreePath pathSource = TreePath.newFromString(dataPath);
         TreeIter source = new TreeIter();
         ts.getIter(source, pathSource);
 
         //Move bookmark first
-        Bookmark bmTarget = bmMgr.get(ts.getValueString(target, Columns.UUID));
-        Bookmark bmSource = bmMgr.get(ts.getValueString(source, Columns.UUID));
+        Bookmark bmTarget = bmMgr.get(getValueString(ts, target, cast(int)Columns.UUID));
+        Bookmark bmSource = bmMgr.get(getValueString(ts, source, cast(int)Columns.UUID));
         try {
             switch (tvdp) {
-                case TreeViewDropPosition.BEFORE:
+                case TreeViewDropPosition.Before:
                     bmMgr.moveBefore(bmTarget, bmSource);
                     break;
-                case TreeViewDropPosition.AFTER:
+                case TreeViewDropPosition.After:
                     bmMgr.moveAfter(bmTarget, bmSource);
                     break;
-                case TreeViewDropPosition.INTO_OR_BEFORE:
+                case TreeViewDropPosition.IntoOrBefore:
                 ..
-                case TreeViewDropPosition.INTO_OR_AFTER:
+                case TreeViewDropPosition.IntoOrAfter:
                     FolderBookmark fb = cast(FolderBookmark) bmTarget;
                     if (fb is null) {
                         error("Unexpected, not a folder bookmark, bookmark not moved");
@@ -226,41 +258,43 @@ private:
 
         TreeIter iter;
         final switch (tvdp) {
-            case TreeViewDropPosition.BEFORE:
+            case TreeViewDropPosition.Before:
                 TreeIter iterParent;
                 if (!ts.iterParent(iterParent, target)) {
                     iterParent = null;
                 }
                 ts.insertBefore(iter, iterParent, target);
                 break;
-            case TreeViewDropPosition.AFTER:
+            case TreeViewDropPosition.After:
                 TreeIter iterParent;
                 if (!ts.iterParent(iterParent, target)) {
                     iterParent = null;
                 }
                 ts.insertAfter(iter, iterParent, target);
                 break;
-            case TreeViewDropPosition.INTO_OR_BEFORE:
-                iter = ts.append(target);
+            case TreeViewDropPosition.IntoOrBefore:
+                ts.append(iter, target);
                 break;
-            case TreeViewDropPosition.INTO_OR_AFTER:
-                iter = ts.append(target);
+            case TreeViewDropPosition.IntoOrAfter:
+                ts.append(iter, target);
                 break;
         }
 
         foreach(column; EnumMembers!Columns) {
-            ts.setValue(iter, column, ts.getValue(source, column));
+            Value val;
+            ts.getValue(source, cast(int)column, val);
+            ts.setValue(iter, cast(int)column, val);
         }
         ts.remove(source);
     }
 
     void setupDragAndDrop() {
-        TargetEntry bmEntry = new TargetEntry(BOOKMARK_DND, TargetFlags.SAME_WIDGET, DropTargets.BOOKMARK);
+        TargetEntry bmEntry = new TargetEntry(BOOKMARK_DND, TargetFlags.SameWidget, DropTargets.BOOKMARK);
         TargetEntry[] targets = [bmEntry];
-        enableModelDragDest(targets, DragAction.MOVE);
-        enableModelDragSource(ModifierType.BUTTON1_MASK, targets, DragAction.MOVE);
-        addOnDragDataGet(&onDragDataGet);
-        addOnDragDataReceived(&onDragDataReceived);
+        enableModelDragDest(targets, DragAction.Move);
+        enableModelDragSource(ModifierType.Button1Mask, targets, DragAction.Move);
+        connectDragDataGet(&onDragDataGet);
+        connectDragDataReceived(&onDragDataReceived);
     }
 
 public:
@@ -270,8 +304,8 @@ public:
         ts = createBMTreeModel(icons, foldersOnly);
 
         if (enableFilter) {
-            filter = new TreeModelFilter(ts, null);
-            filter.setVisibleColumn(Columns.FILTER);
+            filter = cast(TreeModelFilter) ts.filterNew(null);
+            filter.setVisibleColumn(cast(int)Columns.FILTER);
             setModel(filter);
         } else {
             setModel(ts);
@@ -285,7 +319,7 @@ public:
     Bookmark getSelectedBookmark() {
         TreeIter selected = getSelectedIter();
         if (selected is null) return null;
-        return bmMgr.get(getModel().getValueString(selected, Columns.UUID));
+        return bmMgr.get(getValueString(getModel(), selected, cast(int)Columns.UUID));
     }
 
     /**
@@ -310,7 +344,7 @@ public:
         TreeIter iter = addBookmarktoParent(ts, parent, bm, icons);
         ignoreOperationFlag = false;
         if (parent !is null) {
-            expandRow(parent, ts, false);
+            expandRow(ts.getPath(parent), false);
         }
         getSelection().selectIter(iter);
         return fbm;
@@ -335,8 +369,8 @@ public:
      */
     void updateBookmark(Bookmark bm) {
         TreeIter selected = getSelectedIter();
-        if (selected is null || ts.getValueString(selected, Columns.UUID) != bm.uuid) return;
-        ts.setValue(selected, Columns.NAME, bm.name);
+        if (selected is null || getValueString(ts, selected, cast(int)Columns.UUID) != bm.uuid) return;
+        ts.setValue(selected, cast(int)Columns.NAME, new Value(bm.name));
     }
 
     @property string filterText() {
@@ -376,10 +410,11 @@ void loadBookmarks(TreeStore ts, TreeIter current, FolderBookmark parent, bool f
 }
 
 TreeIter addBookmarktoParent(TreeStore ts, TreeIter parent, Bookmark bm, Pixbuf[] icons) {
-    TreeIter result = ts.createIter(parent);
-    ts.setValue(result, Columns.ICON, icons[cast(uint)bm.type()]);
-    ts.setValue(result, Columns.NAME, bm.name);
-    ts.setValue(result, Columns.UUID, bm.uuid);
-    ts.setValue(result, Columns.FILTER,  true);
+    TreeIter result;
+    ts.append(result, parent);
+    ts.setValue(result, cast(int)Columns.ICON, new Value(icons[cast(uint)bm.type()]));
+    ts.setValue(result, cast(int)Columns.NAME, new Value(bm.name));
+    ts.setValue(result, cast(int)Columns.UUID, new Value(bm.uuid));
+    ts.setValue(result, cast(int)Columns.FILTER, new Value(true));
     return result;
 }

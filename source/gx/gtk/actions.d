@@ -7,16 +7,22 @@ module gx.gtk.actions;
 import std.experimental.logger;
 import std.string;
 
-import gio.ActionMapIF;
-import gio.SimpleAction;
-import gio.Settings : GSettings = Settings;
+// GID imports - gio
+import gio.action_map : ActionMap;
+import gio.simple_action : SimpleAction;
+import gio.settings : Settings;
 
-import glib.Variant: GVariant = Variant;
-import glib.VariantType: GVariantType = VariantType;
+// GID imports - glib
+import glib.variant : Variant;
+import glib.variant_type : VariantType;
 
-import gtk.AccelGroup;
-import gtk.Application;
-import gtk.ApplicationWindow;
+// GID imports - gtk
+import gtk.application : Application;
+import gtk.application_window : ApplicationWindow;
+import gtk.global : acceleratorParse, acceleratorGetLabel;
+
+// GID imports - gdk (for modifier type)
+import gdk.types : ModifierType;
 
 import gx.i18n.l10n;
 
@@ -29,11 +35,11 @@ enum SHORTCUT_DISABLED = N_("disabled");
  */
 string acceleratorNameToLabel(string acceleratorName) {
     uint acceleratorKey;
-    GdkModifierType acceleratorMods;
-    AccelGroup.acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
-    string label = AccelGroup.acceleratorGetLabel(acceleratorKey, acceleratorMods);
+    ModifierType acceleratorMods;
+    acceleratorParse(acceleratorName, acceleratorKey, acceleratorMods);
+    string label = acceleratorGetLabel(acceleratorKey, acceleratorMods);
     if (label == "") {
-      label = _(SHORTCUT_DISABLED);
+        label = _(SHORTCUT_DISABLED);
     }
     return label;
 }
@@ -89,9 +95,9 @@ string keyToDetailedActionName(string key) {
     *
     * Returns: The registered action.
     */
-SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, string id, GSettings settings, void delegate(GVariant,
-        SimpleAction) cbActivate = null, GVariantType type = null, GVariant state = null, void delegate(GVariant,
-        SimpleAction) cbStateChange = null) {
+SimpleAction registerActionWithSettings(ActionMap actionMap, string prefix, string id, Settings settings,
+        void delegate(Variant, SimpleAction) cbActivate = null, VariantType type = null, Variant state = null,
+        void delegate(Variant, SimpleAction) cbStateChange = null) {
 
     string[] shortcuts;
     try {
@@ -125,27 +131,31 @@ SimpleAction registerActionWithSettings(ActionMapIF actionMap, string prefix, st
     *
     * Returns: The registered action.
     */
-SimpleAction registerAction(ActionMapIF actionMap, string prefix, string id, string[] accelerators = null, void delegate(GVariant,
-        SimpleAction) cbActivate = null, GVariantType parameterType = null, GVariant state = null, void delegate(GVariant,
-        SimpleAction) cbStateChange = null) {
+SimpleAction registerAction(ActionMap actionMap, string prefix, string id, string[] accelerators = null,
+        void delegate(Variant, SimpleAction) cbActivate = null, VariantType parameterType = null,
+        Variant state = null, void delegate(Variant, SimpleAction) cbStateChange = null) {
     SimpleAction action;
     if (state is null)
         action = new SimpleAction(id, parameterType);
     else {
-        action = new SimpleAction(id, parameterType, state);
+        action = SimpleAction.newStateful(id, parameterType, state);
     }
 
     if (cbActivate !is null)
-        action.addOnActivate(cbActivate);
+        action.connectActivate(cbActivate);
 
     if (cbStateChange !is null)
-        action.addOnChangeState(cbStateChange);
+        action.connectChangeState(cbStateChange);
 
     actionMap.addAction(action);
 
     if (accelerators.length > 0) {
         if (app is null) {
-            app = cast(Application) Application.getDefault();
+            import gio.application : GioApplication = Application;
+            auto gioApp = GioApplication.getDefault();
+            if (gioApp !is null) {
+                app = cast(Application) gioApp;
+            }
         }
         if (app !is null) {
             app.setAccelsForAction(prefix.length == 0 ? id : getActionDetailedName(prefix, id), accelerators);
