@@ -4,18 +4,29 @@
  */
 module gx.tilix.bookmark.bmchooser;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event;
+// GID does not provide gdk.keysyms, define required key constants locally
+private enum GdkKeysyms {
+    GDK_Escape = 0xff1b,
+    GDK_Return = 0xff0d,
+}
 
-import gio.Settings: GSettings = Settings;
+import gdk.event_key : EventKey;
 
-import gtk.Box;
-import gtk.CheckButton;
-import gtk.Dialog;
-import gtk.ScrolledWindow;
-import gtk.SearchEntry;
-import gtk.Widget;
-import gtk.Window;
+import gio.settings: GSettings = Settings;
+import gio.types : SettingsBindFlags;
+
+import gtk.box;
+import gtk.check_button : CheckButton;
+import gtk.dialog;
+import gtk.scrolled_window;
+import gtk.search_entry : SearchEntry;
+import gtk.tree_path : TreePath;
+import gtk.tree_view : TreeView;
+import gtk.tree_view_column : TreeViewColumn;
+import gtk.types : DialogFlags, Orientation, PolicyType, ResponseType, SelectionMode, ShadowType;
+import gtk.widget;
+import gtk.window;
 
 import gx.gtk.util;
 
@@ -46,38 +57,39 @@ private:
         tv = new BMTreeView(true, mode == BMSelectionMode.FOLDER);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
-        tv.getSelection().setMode(SelectionMode.BROWSE);
-        tv.addOnCursorChanged(delegate(TreeView) {
+        tv.getSelection().setMode(SelectionMode.Browse);
+        tv.connectCursorChanged(delegate(TreeView v) {
             updateUI();
         });
-        tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
-            response(ResponseType.OK);
+        tv.connectRowActivated(delegate(TreePath p, TreeViewColumn c, TreeView v) {
+            response(ResponseType.Ok);
         });
-        tv.addOnKeyPress(&checkKeyPress);
+        tv.connectKeyPressEvent(&checkKeyPress);
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow(null, null);
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
         sw.setSizeRequest(-1, 200);
 
         SearchEntry se = new SearchEntry();
-        se.addOnSearchChanged(delegate(SearchEntry) {
+        se.connectSearchChanged(delegate(SearchEntry entry) {
             tv.filterText = se.getText();
             updateUI();
         });
-        se.addOnKeyPress(&checkKeyPress);
+        se.connectKeyPressEvent(&checkKeyPress);
 
-        Box box = new Box(Orientation.VERTICAL, 6);
+        Box box = new Box(Orientation.Vertical, 6);
         setAllMargins(box, 18);
         box.add(se);
         box.add(sw);
 
         if (mode != BMSelectionMode.FOLDER) {
             gsSettings = new GSettings(SETTINGS_ID);
-            CheckButton cbIncludeEnter = new CheckButton(_("Include return character with bookmark"));
-            gsSettings.bind(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", GSettingsBindFlags.DEFAULT);
+            CheckButton cbIncludeEnter = CheckButton.newWithLabel(_("Include return character with bookmark"));
+            gsSettings.bind(SETTINGS_BOOKMARK_INCLUDE_RETURN_KEY, cbIncludeEnter, "active", SettingsBindFlags.Default);
             box.add(cbIncludeEnter);
         }
 
@@ -85,7 +97,7 @@ private:
     }
 
     void updateUI() {
-        setResponseSensitive(ResponseType.OK, isSelectEnabled());
+        setResponseSensitive(ResponseType.Ok, isSelectEnabled());
     }
 
     bool isSelectEnabled() {
@@ -104,18 +116,17 @@ private:
         return enabled;
     }
 
-    bool checkKeyPress(Event event, Widget w) {
-        uint keyval;
-        if (event.getKeyval(keyval)) {
-            if (keyval == GdkKeysyms.GDK_Escape) {
-                response = ResponseType.CANCEL;
+    bool checkKeyPress(EventKey event, Widget w) {
+        if (event is null) return false;
+        uint keyval = event.keyval;
+        if (keyval == GdkKeysyms.GDK_Escape) {
+            response(ResponseType.Cancel);
+            return true;
+        }
+        if (keyval == GdkKeysyms.GDK_Return) {
+            if (isSelectEnabled()) {
+                response(ResponseType.Ok);
                 return true;
-            }
-            if (keyval == GdkKeysyms.GDK_Return) {
-                if (isSelectEnabled()) {
-                    response = ResponseType.OK;
-                    return true;
-                }
             }
         }
         return false;
@@ -123,9 +134,14 @@ private:
 
 public:
     this(Window parent, BMSelectionMode mode) {
+        super();
         string title = mode == BMSelectionMode.FOLDER? _("Select Folder"):_("Select Bookmark");
-        super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
-        setDefaultResponse(GtkResponseType.OK);
+        setTitle(title);
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("Cancel"), ResponseType.Cancel);
+        addButton(_("OK"), ResponseType.Ok);
+        setDefaultResponse(ResponseType.Ok);
         this.mode = mode;
         createUI();
         updateUI();

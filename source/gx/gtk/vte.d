@@ -7,12 +7,21 @@ module gx.gtk.vte;
 import std.experimental.logger;
 import std.format;
 
-import gdk.Keysyms;
+// GID imports - gdk
+import gdk.types : KEY_Page_Up, KEY_Page_Down, KEY_Home, KEY_End, KEY_Up, KEY_Down;
+import gdk.c.types : GdkModifierType;
 
-import gobject.Signals: Signals;
+// GID imports - gobject
+import gobject.global : signalLookup;
 
-import vte.Terminal;
-import vte.Version;
+// GID imports - gdk
+import gdk.rgba : RGBA;
+import vte.c.types : GdkRGBA, VteTerminal;
+
+// GID imports - vte
+import vte.c.functions : vte_terminal_new, vte_terminal_set_colors;
+import vte.global : getMajorVersion, getMinorVersion;
+import vte.terminal : Terminal;
 
 // Constants used to version VTE features
 int[2] VTE_VERSION_MINIMAL = [0, 46];
@@ -57,16 +66,16 @@ enum PCRE2Flags : uint {
  * that VTE handles internally.
  */
 bool isVTEHandledKeystroke(uint keyval, GdkModifierType modifier) {
-    if ((keyval == GdkKeysyms.GDK_Page_Up ||
-        keyval == GdkKeysyms.GDK_Page_Down ||
-        keyval == GdkKeysyms.GDK_Home ||
-        keyval == GdkKeysyms.GDK_End) && (GdkModifierType.SHIFT_MASK & modifier)) {
+    if ((keyval == KEY_Page_Up ||
+        keyval == KEY_Page_Down ||
+        keyval == KEY_Home ||
+        keyval == KEY_End) && (GdkModifierType.ShiftMask & modifier)) {
             return true;
         }
-    if ((keyval == GdkKeysyms.GDK_Up ||
-        keyval == GdkKeysyms.GDK_Down) &&
-        (GdkModifierType.SHIFT_MASK & modifier) &&
-        (GdkModifierType.CONTROL_MASK & modifier)) {
+    if ((keyval == KEY_Up ||
+        keyval == KEY_Down) &&
+        (GdkModifierType.ShiftMask & modifier) &&
+        (GdkModifierType.ControlMask & modifier)) {
             return true;
         }
     return false;
@@ -102,38 +111,27 @@ private static bool g_vteTerminalLoaded = false;
  * Determine which terminal features are supported.
  */
 bool checkVTEFeature(TerminalFeature feature) {
-    // Initialized features if not done yet, can't do it statically
+    // Initialize features if not done yet, can't do it statically
     // due to need for GTK to load first
     if (!featuresInitialized) {
-        import vte.c.functions;
-
         // Force terminal to be loaded if not done already
         if (!g_vteTerminalLoaded) {
             g_vteTerminalLoaded = true;
-            auto terminal = vte_terminal_new ();
+            auto terminal = vte_terminal_new();
         }
 
         // Check if patched events are available
         string[] events = ["notification-received", "terminal-screen-changed"];
-        foreach(i, event; events) {
-            bool supported = (Signals.lookup(event, Terminal.getType()) != 0);
+        foreach (i, event; events) {
+            bool supported = (signalLookup(event, Terminal._getGType()) != 0);
             terminalFeatures[cast(TerminalFeature) i] = supported;
         }
 
         // Check if disable background draw is available
-        terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = true;
+        // In GID we can't easily check for symbol load failures like GtkD's Linker,
+        // so we rely on version checking instead
+        terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR);
 
-        import gtkc.Loader: Linker;
-        import gtkc.paths: LIBRARY;
-        string[] failures = Linker.getLoadFailures(LIBRARY_VTE);
-
-        foreach(failure; failures) {
-            if (failure == "vte_terminal_get_disable_bg_draw") {
-                trace("Background draw disabled");
-                terminalFeatures[TerminalFeature.DISABLE_BACKGROUND_DRAW] = false;
-            }
-            tracef("VTE function %s could not be linked", failure);
-        }
         featuresInitialized = true;
     }
     if (feature in terminalFeatures) {
@@ -147,6 +145,38 @@ bool isVTEBackgroundDrawEnabled() {
     return checkVTEFeature(TerminalFeature.DISABLE_BACKGROUND_DRAW) || checkVTEVersion(VTE_VERSION_BACKGROUND_OPERATOR);
 }
 
+/**
+ * Workaround for GID VTE binding bug where palette RGBA array is not
+ * correctly passed to vte_terminal_set_colors. The GID binding uses
+ * obj._cPtr instead of obj._cPtr() for palette elements, getting a
+ * delegate instead of calling the method.
+ *
+ * This function correctly builds the GdkRGBA array and calls the C function.
+ */
+void setTerminalColors(Terminal terminal, RGBA foreground, RGBA background, RGBA[] palette) {
+    import gid.gid : No;
+
+    // Build palette array correctly
+    GdkRGBA[] paletteArray;
+    if (palette !is null) {
+        paletteArray = new GdkRGBA[palette.length];
+        foreach (i, rgba; palette) {
+            if (rgba !is null) {
+                paletteArray[i] = *cast(GdkRGBA*)rgba._cPtr(No.Dup);
+            }
+        }
+    }
+
+    // Call VTE C function directly
+    vte_terminal_set_colors(
+        cast(VteTerminal*)terminal._cPtr(No.Dup),
+        foreground ? cast(const(GdkRGBA)*)foreground._cPtr(No.Dup) : null,
+        background ? cast(const(GdkRGBA)*)background._cPtr(No.Dup) : null,
+        paletteArray.length > 0 ? paletteArray.ptr : null,
+        paletteArray.length
+    );
+}
+
 private:
 
 uint vteMajorVersion = 0;
@@ -158,11 +188,11 @@ bool[TerminalFeature] terminalFeatures;
 static this() {
     // Get version numbers
     try {
-        vteMajorVersion = Version.getMajorVersion();
-        vteMinorVersion = Version.getMinorVersion();
+        vteMajorVersion = getMajorVersion();
+        vteMinorVersion = getMinorVersion();
     }
     catch (Error e) {
-        //Ignore, means VTE doesn't support version API, default to 46
+        // Ignore, means VTE doesn't support version API, default to 46
     }
 }
 
@@ -181,7 +211,7 @@ unittest {
     assert(!checkVTEVersionNumber(1, 1));
     assert(checkVTEVersionNumber(0, 9));
 
-    vteMajorVersion = Version.getMajorVersion();
-    vteMinorVersion = Version.getMinorVersion();
+    vteMajorVersion = getMajorVersion();
+    vteMinorVersion = getMinorVersion();
     assert(checkVTEVersion(VTE_VERSION_MINIMAL));
 }

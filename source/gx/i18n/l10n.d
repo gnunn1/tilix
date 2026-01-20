@@ -4,7 +4,7 @@
  */
 module gx.i18n.l10n;
 
-import glib.Internationalization;
+import glib.global : dgettext, dpgettext2;
 
 void textdomain(string domain) {
     _textdomain = domain;
@@ -15,7 +15,7 @@ void textdomain(string domain) {
  * and po files for translation
  */
 string _(string text) {
-    return Internationalization.dgettext(_textdomain, text);
+    return dgettext(_textdomain, text);
 }
 
 /**
@@ -24,7 +24,7 @@ string _(string text) {
  * translations, depending on the context in which they are used.
  */
 string C_(string context, string text) {
-    return Internationalization.dpgettext2(_textdomain, context, text);
+    return dpgettext2(_textdomain, context, text);
 }
 
 /**

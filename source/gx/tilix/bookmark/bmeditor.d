@@ -9,27 +9,30 @@ import std.experimental.logger;
 import std.signals;
 import std.string;
 import std.traits;
+import std.typecons : Yes;
 
-import glib.Util;
+import glib.global : getHomeDir;
 
-import gobject.ObjectG;
-import gobject.ParamSpec;
+import gobject.object : ObjectWrap;
+import gobject.param_spec;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.ComboBox;
-import gtk.Dialog;
-import gtk.Entry;
-import gtk.FileChooserButton;
-import gtk.Grid;
-import gtk.HeaderBar;
-import gtk.Label;
-import gtk.Separator;
-import gtk.SpinButton;
-import gtk.Stack;
-import gtk.StackSwitcher;
-import gtk.Widget;
-import gtk.Window;
+import gtk.box;
+import gtk.button;
+import gtk.combo_box;
+import gtk.dialog;
+import gtk.editable : Editable;
+import gtk.entry;
+import gtk.file_chooser_button;
+import gtk.grid;
+import gtk.header_bar;
+import gtk.label;
+import gtk.separator;
+import gtk.types : Align, DialogFlags, FileChooserAction, IconSize, Orientation, ResponseType;
+import gtk.spin_button;
+import gtk.stack;
+import gtk.stack_switcher;
+import gtk.widget;
+import gtk.window;
 
 import gx.gtk.util;
 import gx.i18n.l10n;
@@ -58,11 +61,11 @@ private:
     FolderBookmark _folder;
 
     void createUI(Bookmark bm, bool folderPicker) {
-        Box bContent = new Box(Orientation.VERTICAL, 6);
+        Box bContent = new Box(Orientation.Vertical, 6);
         setAllMargins(bContent, 18);
 
         if (folderPicker) {
-            Box bPicker = new Box(Orientation.HORIZONTAL, 0);
+            Box bPicker = new Box(Orientation.Horizontal, 0);
             bPicker.getStyleContext().addClass("linked");
             eFolder = new Entry();
             eFolder.setPlaceholderText(_("Select Folder"));
@@ -70,21 +73,20 @@ private:
             eFolder.setHexpand(true);
             bPicker.add(eFolder);
 
-            Button btnFolderPicker = new Button("folder-symbolic", IconSize.BUTTON);
+            Button btnFolderPicker = Button.newFromIconName("folder-symbolic", IconSize.Button);
             btnFolderPicker.setTooltipText(_("Select folder"));
-            btnFolderPicker.addOnClicked(delegate(Button) {
+            btnFolderPicker.connectClicked(delegate(Button btn) {
                 BookmarkChooser bc = new BookmarkChooser(this, BMSelectionMode.FOLDER);
                 scope(exit) {bc.destroy();}
                 bc.showAll();
-                if (bc.run() == ResponseType.OK) {
+                if (bc.run() == ResponseType.Ok) {
                     folder = cast(FolderBookmark) bc.bookmark;
                 }
             });
             bPicker.add(btnFolderPicker);
-
-            Button btnClearFolder = new Button("edit-clear-symbolic", IconSize.BUTTON);
+            Button btnClearFolder = Button.newFromIconName("edit-clear-symbolic", IconSize.Button);
             btnClearFolder.setTooltipText(_("Clear folder"));
-            btnClearFolder.addOnClicked(delegate(Button) {
+            btnClearFolder.connectClicked(delegate(Button btn) {
                 _folder = null;
                 eFolder.setText("");
             });
@@ -93,13 +95,13 @@ private:
         }
 
         stEditors = new Stack();
-        stEditors.addOnNotify(delegate(ParamSpec, ObjectG) {
+        stEditors.connectNotify("visible-child", delegate(ParamSpec ps, ObjectWrap obj) {
             updateUI();
             BaseEditor be = cast(BaseEditor)stEditors.getVisibleChild();
             if (be !is null) {
                 be.focusEditor();
             }
-        },"visible-child", ConnectFlags.AFTER);
+        }, Yes.After);
 
         // Adding a new bookmark or editing one?
         if (mode == BookmarkEditorMode.EDIT) {
@@ -134,26 +136,30 @@ private:
 
     void validateChanged(BaseEditor be, bool valid) {
         if (be == getEditor()) {
-            setResponseSensitive(ResponseType.OK, valid);
+            setResponseSensitive(ResponseType.Ok, valid);
         }
     }
 
     void updateUI() {
         if (getEditor() !is null) {
-            setResponseSensitive(ResponseType.OK, getEditor().validate());
+            setResponseSensitive(ResponseType.Ok, getEditor().validate());
         }
     }
 
 public:
 
     this(Window parent, BookmarkEditorMode mode, Bookmark bm = null, bool folderPicker = false) {
+        super();
         string title = (mode == BookmarkEditorMode.ADD)? _("Add Bookmark"):_("Edit Bookmark");
-        super(title, parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
+        setTitle(title);
         setTransientFor(parent);
-        setDefaultResponse(GtkResponseType.OK);
+        setModal(true);
+        addButton(_("Cancel"), ResponseType.Cancel);
+        addButton(_("OK"), ResponseType.Ok);
+        setDefaultResponse(ResponseType.Ok);
         this.mode = mode;
         createUI(bm, folderPicker);
-        this.addOnShow(delegate(Widget) {
+        this.connectShow(delegate(Widget w) {
             BaseEditor be = cast(BaseEditor)stEditors.getVisibleChild();
             be.focusEditor();
         });
@@ -217,7 +223,7 @@ protected:
 
     Label createLabel(string text) {
         Label result = new Label(text);
-        result.setHalign(GtkAlign.END);
+        result.setHalign(Align.End);
         return result;
     }
 
@@ -232,7 +238,7 @@ public:
 
         eName = new Entry();
         eName.setHexpand(true);
-        eName.addOnChanged(delegate(EditableIF) {
+        eName.connectChanged(delegate(Editable e) {
             onValidChanged.emit(this, validate);
         });
         attach(eName, 1, row, 1, 1);
@@ -291,9 +297,9 @@ public:
 
         attach(createLabel(_("Path")), 0, row, 1, 1);
 
-        fcbPath = new FileChooserButton(_("Select Path"), FileChooserAction.SELECT_FOLDER);
+        fcbPath = new FileChooserButton(_("Select Path"), FileChooserAction.SelectFolder);
         fcbPath.setHexpand(true);
-        fcbPath.setFilename(Util.getHomeDir());
+        fcbPath.setFilename(getHomeDir());
         attach(fcbPath, 1, row, 1, 1);
         row++;
 
@@ -333,7 +339,7 @@ public:
         attach(createLabel(_("Command")), 0, row, 1, 1);
 
         eCommand = new Entry();
-        eCommand.addOnChanged(delegate(EditableIF) {
+        eCommand.connectChanged(delegate(Editable e) {
             onValidChanged.emit(this, validate);
         });
         eCommand.setHexpand(true);
@@ -388,7 +394,7 @@ public:
 
         cbProtocol = createNameValueCombo(protocols);
         cbProtocol.setActiveId(to!string(ProtocolType.SSH));
-        cbProtocol.addOnChanged(delegate(ComboBox) {
+        cbProtocol.connectChanged(delegate(ComboBox cb) {
             eCommand.setSensitive(cbProtocol.getActiveId() == to!string(ProtocolType.SSH));
         });
         attach(cbProtocol, 1, row, 1, 1);
@@ -396,15 +402,15 @@ public:
 
         // Host and Port
         attach(createLabel(_("Host")), 0, row, 1, 1);
-        Box bHost = new Box(Orientation.HORIZONTAL, 6);
+        Box bHost = new Box(Orientation.Horizontal, 6);
         eHost = new Entry();
-        eHost.addOnChanged(delegate(EditableIF) {
+        eHost.connectChanged(delegate(Editable e) {
             onValidChanged.emit(this, validate);
         });
         eHost.setHexpand(true);
         bHost.add(eHost);
         bHost.add(new Label(":"));
-        sPort = new SpinButton(0, 65535, 1);
+        sPort = SpinButton.newWithRange(0, 65535, 1);
         sPort.setValue(0);
         bHost.add(sPort);
         attach(bHost, 1, row, 1, 1);
