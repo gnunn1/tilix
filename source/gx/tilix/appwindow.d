@@ -2034,6 +2034,9 @@ public:
             case SETTINGS_BACKGROUND_IMAGE_MODE_SCALE_VALUE:
                 mode = ImageLayoutMode.SCALE;
                 break;
+            case SETTINGS_BACKGROUND_IMAGE_MODE_SCALE_FIT_VALUE:
+                mode = ImageLayoutMode.SCALE_FIT;
+                break;
             case SETTINGS_BACKGROUND_IMAGE_MODE_TILE_VALUE:
                 mode = ImageLayoutMode.TILE;
                 break;

@@ -111,7 +111,7 @@ Pixbuf getWidgetImage(Widget widget, double factor, int width, int height) {
     }
 }
 
-enum ImageLayoutMode {SCALE, TILE, CENTER, STRETCH};
+enum ImageLayoutMode {SCALE, SCALE_FIT, TILE, CENTER, STRETCH};
 
 ImageSurface renderImage(Pixbuf pb, bool alpha = false) {
     cairo_format_t format = alpha?cairo_format_t.ARGB32:cairo_format_t.RGB24;
@@ -161,9 +161,10 @@ void renderImage(Context cr, ImageSurface isSource, int outputWidth, int outputH
     }
     final switch (mode) {
         case ImageLayoutMode.SCALE:
+        case ImageLayoutMode.SCALE_FIT:
             double xScale = to!double(outputWidth) / to!double(isSource.getWidth());
             double yScale = to!double(outputHeight) / to!double(isSource.getHeight());
-            double ratio = max(xScale, yScale);
+            double ratio = mode == ImageLayoutMode.SCALE ? max(xScale, yScale) : min(xScale, yScale);
             double xOffset = (outputWidth - (isSource.getWidth() * ratio)) / 2.0;
             double yOffset = (outputHeight - (isSource.getHeight() * ratio)) / 2.0;
             cr.translate(xOffset, yOffset);
