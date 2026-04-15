@@ -188,6 +188,15 @@ public:
 		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
     }
 
+    /**
+     * Paste text via vte_terminal_paste_text (VTE >= 0.68), which normalizes
+     * newlines to \r. Shim for builds against GtkD < 3.11 where the D binding
+     * vte.Terminal.pasteText does not exist.
+     */
+    public void pasteText(string text) {
+        vte_terminal_paste_text(vteTerminal, Str.toStringz(text));
+    }
+
 static if (COMPILE_VTE_BACKGROUND_COLOR) {
     public void getColorBackgroundForDraw(RGBA background) {
 		vte_terminal_get_color_background_for_draw(vteTerminal, background is null? null: background.getRGBAStruct());
@@ -219,6 +228,7 @@ import vte.c.functions;
 __gshared extern(C) {
 	int function(VteTerminal* terminal) c_vte_terminal_get_disable_bg_draw;
 	void function(VteTerminal* terminal, int isAudible) c_vte_terminal_set_disable_bg_draw;
+	void function(VteTerminal* terminal, const(char)* text) c_vte_terminal_paste_text;
 
 	static if (COMPILE_VTE_BACKGROUND_COLOR) {
 		void function(VteTerminal* terminal, GdkRGBA* color) c_vte_terminal_get_color_background_for_draw;
@@ -227,6 +237,7 @@ __gshared extern(C) {
 
 alias vte_terminal_get_disable_bg_draw = c_vte_terminal_get_disable_bg_draw;
 alias vte_terminal_set_disable_bg_draw = c_vte_terminal_set_disable_bg_draw;
+alias vte_terminal_paste_text = c_vte_terminal_paste_text;
 
 static if (COMPILE_VTE_BACKGROUND_COLOR) {
 	alias vte_terminal_get_color_background_for_draw = c_vte_terminal_get_color_background_for_draw;
@@ -235,6 +246,7 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
 shared static this() {
 	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY_VTE);
 	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY_VTE);
+	Linker.link(vte_terminal_paste_text, "vte_terminal_paste_text", LIBRARY_VTE);
 
 	static if (COMPILE_VTE_BACKGROUND_COLOR) {
 		Linker.link(vte_terminal_get_color_background_for_draw, "vte_terminal_get_color_background_for_draw", LIBRARY_VTE);
