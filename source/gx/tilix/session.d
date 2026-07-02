@@ -14,46 +14,48 @@ import std.json;
 import std.string;
 import std.uuid;
 
-import cairo.Context;
-import cairo.ImageSurface;
+import cairo.context : Context;
+import cairo.global : imageSurfaceCreate, create;
+import cairo.surface : Surface;
+import cairo.types : Format, Content;
+import cairo.c.types : cairo_operator_t;
 
-import gdkpixbuf.Pixbuf;
+import gdkpixbuf.pixbuf : Pixbuf;
 
-import gdk.Atom;
-import gdk.Cairo;
-import gdk.Event;
+import gdk.event : Event;
+import gdk.event_button : EventButton;
+import gdk.c.types : GdkRectangle;
+import gdk.types : EventType;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : GSettings = Settings;
 
-import glib.Util;
+import glib.global : getSystemDataDirs, getUserConfigDir;
 
-import gobject.ObjectG;
-import gobject.ParamSpec;
-import gobject.Value;
+import gobject.value : Value;
 
-import gtk.Application;
-import gtk.Box;
-import gtk.Button;
-import gtk.Container;
-import gtk.Clipboard;
-import gtk.ComboBox;
-import gtk.Dialog;
-import gtk.Entry;
-import gtk.Grid;
-import gtk.Label;
-import gtk.Main;
-import gtk.Menu;
-import gtk.MenuItem;
-import gtk.Paned;
-import gtk.Stack;
-import gtk.Version;
-import gtk.Widget;
-import gtk.Window;
+import gtk.box : Box;
+import gtk.combo_box : ComboBox;
+import gtk.container : Container;
+import gtk.dialog : Dialog;
+import gtk.entry : Entry;
+import gtk.global : checkVersion;
+import gtk.grid : Grid;
+import gtk.label : Label;
+import gtk.paned : Paned;
+import gtk.stack : Stack;
+import gtk.types : Align, Allocation, DialogFlags, ResponseType, Orientation, Stock;
+import gtk.widget : Widget;
+import gtk.window : Window;
+
+// GID does not provide gdk.keysyms, define required constants locally
+private enum MouseButton {
+    PRIMARY = 1,
+}
 
 import gx.gtk.cairo;
 import gx.gtk.dialog;
 import gx.gtk.threads;
-import gx.gtk.util;
+import gx.gtk.util : createNameValueCombo, findChildren;
 import gx.i18n.l10n;
 import gx.util.array;
 
@@ -71,7 +73,9 @@ enum SessionStateChange {
     TERMINAL_FOCUSED,
     TERMINAL_TITLE,
     TERMINAL_OUTPUT,
-    SESSION_TITLE
+    SESSION_TITLE,
+    NAME,
+    FIND
 };
 
 /**
@@ -153,17 +157,17 @@ private:
     }
 
     void createBaseUI() {
-        stackGroup = new Box(Orientation.VERTICAL, 0);
+        stackGroup = new Box(Orientation.Vertical, 0);
         stackGroup.getStyleContext().addClass("tilix-background");
         addNamed(stackGroup, STACK_GROUP_NAME);
-        stackMaximized = new Box(Orientation.VERTICAL, 0);
+        stackMaximized = new Box(Orientation.Vertical, 0);
         stackMaximized.getStyleContext().addClass("tilix-background");
         addNamed(stackMaximized, STACK_MAX_NAME);
-        groupChild = new Box(Orientation.VERTICAL, 0);
+        groupChild = new Box(Orientation.Vertical, 0);
         stackGroup.add(groupChild);
         // Need this to switch the stack in case we loaded a layout
         // with a maximized terminal since stack can't be switched until realized
-        addOnRealize(delegate(Widget) {
+        connectRealize(delegate() {
             if (maximizedInfo.isMaximized) {
                 setVisibleChild(stackMaximized);
             }
@@ -194,12 +198,12 @@ private:
      */
     TerminalPaned createPaned(Orientation orientation) {
         TerminalPaned result = new TerminalPaned(orientation);
-        if (Version.checkVersion(3, 16, 0).length == 0) {
+        if (checkVersion(3, 16, 0).length == 0) {
             result.setWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
         }
-        result.addOnButtonPress(delegate(Event event, Widget w) {
-            if (event.button.window == result.getHandleWindow().getWindowStruct() && event.getEventType() == EventType.DOUBLE_BUTTON_PRESS && event.button.button == MouseButton.PRIMARY) {
-                redistributePanes(cast(Paned) w);
+        result.connectButtonPressEvent(delegate(EventButton event) {
+            if (event.window == result.getHandleWindow() && event.type == EventType._2buttonPress && event.button == MouseButton.PRIMARY) {
+                redistributePanes(result);
                 return true;
             }
             return false;
@@ -254,7 +258,7 @@ private:
         root.styleGetProperty("handle-size", handleSize);
         tracef("Handle size is %d", handleSize.getInt());
 
-        int size = root.getOrientation() == Orientation.HORIZONTAL ? root.getAllocatedWidth() : root.getAllocatedHeight();
+        int size = root.getOrientation() == Orientation.Horizontal ? root.getAllocatedWidth() : root.getAllocatedHeight();
         int baseSize = (size - (handleSize.getInt() * model.count)) / (model.count + 1);
         tracef("Redistributing %d terminals with pos %d out of total size %d", model.count + 1, baseSize, size);
 
@@ -453,10 +457,10 @@ private:
             //If terminal is maximized we can short-circuit check since
             // we know terminal's parent already
             if (maximizedInfo.isMaximized) {
-                return equal(box1, maximizedInfo.parent) ? box2 : box1;
+                return box1 is maximizedInfo.parent ? box2 : box1;
             }
 
-            Widget widget1 = gx.gtk.util.getChildren!(Widget)(box1, false)[0];
+            Widget widget1 = findChildren!(Widget)(box1, false)[0];
 
             Terminal terminal1 = cast(Terminal) widget1;
 
@@ -487,7 +491,7 @@ private:
         //Fixes segmentation fault where when added box we created another layer of Box which caused the cast
         //to Paned to fail
         //Get child widget, could be Terminal or Paned
-        Widget widget = gx.gtk.util.getChildren!(Widget)(otherBox, false)[0];
+        Widget widget = findChildren!(Widget)(otherBox, false)[0];
         //Remove widget from original Box parent
         otherBox.remove(widget);
         //Add widget to new parent
@@ -509,8 +513,8 @@ private:
         int height = parent.getAllocatedHeight();
         int width = parent.getAllocatedWidth();
 
-        Box b1 = new Box(Orientation.VERTICAL, 0);
-        Box b2 = new Box(Orientation.VERTICAL, 0);
+        Box b1 = new Box(Orientation.Vertical, 0);
+        Box b2 = new Box(Orientation.Vertical, 0);
 
         Paned paned = createPaned(orientation);
         paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
@@ -527,10 +531,10 @@ private:
         }
 
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case Orientation.Horizontal:
             paned.setPosition(width / 2);
             break;
-        case Orientation.VERTICAL:
+        case Orientation.Vertical:
             paned.setPosition(height / 2);
             break;
 
@@ -578,7 +582,7 @@ private:
             //Add terminal to this one
             addTerminal(src);
         }
-        Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
+        Orientation orientation = (dq == DragQuadrant.TOP || dq == DragQuadrant.BOTTOM) ? Orientation.Vertical : Orientation.Horizontal;
         int child = (dq == DragQuadrant.TOP || dq == DragQuadrant.LEFT) ? 1 : 2;
         //Inserting terminal
         //trace(format("Inserting terminal orient=$d, child=$d", orientation, child));
@@ -588,7 +592,7 @@ private:
     void closeTerminal(Terminal terminal) {
         removeTerminal(terminal);
         terminal.finalizeTerminal();
-        //Try to avoid destroying things explicitly due to GtkD issue
+        //Try to avoid destroying things explicitly due to GTK binding reference handling
         terminal.destroy();
     }
 
@@ -760,7 +764,7 @@ private:
     void applyPreference(string key) {
         switch (key) {
             case SETTINGS_ENABLE_WIDE_HANDLE_KEY:
-                if (Version.checkVersion(3, 16, 0).length == 0) {
+                if (checkVersion(3, 16, 0).length == 0) {
                     updateWideHandle(gsSettings.getBoolean(SETTINGS_ENABLE_WIDE_HANDLE_KEY));
                 }
                 break;
@@ -851,8 +855,8 @@ private:
          * Added to check for maximized state and grab right terminal
          */
         void serializeBox(string node, Box box) {
-            Widget[] widgets = gx.gtk.util.getChildren!(Widget)(box, false);
-            if (widgets.length == 0 && maximizedInfo.isMaximized && equal(box, maximizedInfo.parent)) {
+            Widget[] widgets = findChildren!(Widget)(box, false);
+            if (widgets.length == 0 && maximizedInfo.isMaximized && box is maximizedInfo.parent) {
                 value.object[node] = serializeWidget(maximizedInfo.terminal, sizeInfo);
             } else {
                 value.object[node] = serializeWidget(widgets[0], sizeInfo);
@@ -881,7 +885,7 @@ private:
         value[NODE_WIDTH] = JSONValue(terminal.getAllocatedWidth());
         value[NODE_HEIGHT] = JSONValue(terminal.getAllocatedHeight());
         value[NODE_UUID] = terminal.uuid;
-        if (maximizedInfo.isMaximized && equal(terminal, maximizedInfo.terminal)) {
+        if (maximizedInfo.isMaximized && terminal is maximizedInfo.terminal) {
             value[NODE_MAXIMIZED] = JSONValue(true);
         }
         return terminal.serialize(value);
@@ -925,9 +929,9 @@ private:
         trace("Loading paned");
         Orientation orientation = cast(Orientation) value[NODE_ORIENTATION].integer();
         TerminalPaned paned = createPaned(orientation);
-        Box b1 = new Box(Orientation.VERTICAL, 0);
+        Box b1 = new Box(Orientation.Vertical, 0);
         b1.add(parseNode(value[NODE_CHILD1], sizeInfo));
-        Box b2 = new Box(Orientation.VERTICAL, 0);
+        Box b2 = new Box(Orientation.Vertical, 0);
         b2.add(parseNode(value[NODE_CHILD2], sizeInfo));
         paned.pack1(b1, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
         paned.pack2(b2, PANED_RESIZE_MODE, PANED_SHRINK_MODE);
@@ -994,22 +998,22 @@ private:
     void initSession() {
 
         gsSettings = new GSettings(SETTINGS_ID);
-        gsSettings.addOnChanged(delegate(string key, GSettings) {
+        gsSettings.connectChanged(null, delegate(string key, GSettings gs) {
             applyPreference(key);
         });
         getStyleContext.addClass("tilix-background");
 
-        addOnDraw(&onDraw);
+        connectDraw(&onDraw);
     }
 
-    bool onDraw(Scoped!Context cr, Widget w) {
+    bool onDraw(Context cr, Widget w) {
         AppWindow window = cast(AppWindow)getToplevel();
         if (window is null) return false;
         Container child = cast(Container) getVisibleChild();
         if (child is null) return false;
 
         //Cached render
-        ImageSurface isBGImage = window.getBackgroundImage(child);
+        Surface isBGImage = window.getBackgroundImage(child);
         if (isBGImage is null) return false;
 
         cr.save();
@@ -1019,20 +1023,19 @@ private:
         cr.paint();
 
         //Draw child onto temporary image so it doesn't overdraw background
-        import cairo.Surface: Surface;
-        Surface isChildSurface = cr.getTarget().createSimilar(cairo_content_t.COLOR_ALPHA, child.getAllocatedWidth(), child.getAllocatedHeight());
+        Surface isChildSurface = cr.getTarget().createSimilar(Content.ColorAlpha, child.getAllocatedWidth(), child.getAllocatedHeight());
         if (isChildSurface is null) {
             trace("****** ImageSurface is null");
-            isChildSurface = ImageSurface.create(cairo_format_t.ARGB32, child.getAllocatedWidth(), child.getAllocatedHeight());
+            isChildSurface = imageSurfaceCreate(Format.Argb32, child.getAllocatedWidth(), child.getAllocatedHeight());
         }
-        Context crChild = Context.create(isChildSurface);
+        Context crChild = create(isChildSurface);
         scope (exit) {
             crChild.destroy();
             isChildSurface.destroy();
         }
         propagateDraw(child, crChild);
         cr.setSourceSurface(isChildSurface, 0, 0);
-        cr.setOperator(cairo_operator_t.OVER);
+        cr.setOperator(cairo_operator_t.Over);
         cr.paint();
 
         cr.restore();
@@ -1040,8 +1043,8 @@ private:
     }
 
     void updateWideHandle(bool value) {
-        if (Version.checkVersion(3, 16, 0).length == 0) {
-            Paned[] all = gx.gtk.util.getChildren!(Paned)(stackGroup, true);
+        if (checkVersion(3, 16, 0).length == 0) {
+            Paned[] all = findChildren!(Paned)(stackGroup, true);
             tracef("Updating wide handle for %d paned", all.length);
             foreach (paned; all) {
                 paned.setWideHandle(value);
@@ -1058,13 +1061,19 @@ public:
      *  name        = The name of the session
      */
     this(string name) {
+        this(name, null, null);
+    }
+
+    this(string name, string profileUUID, string workingDir) {
         super();
         initSession();
         createBaseUI();
         _sessionUUID = randomUUID().toString();
         _name = name;
-
-        this.addOnDestroy(delegate(Widget) {
+        if (profileUUID !is null || workingDir !is null) {
+            initSession(profileUUID, workingDir, false);
+        }
+        this.connectDestroy(delegate() {
             // Never use experimental logging in destructors, causes
             // memory exceptions on GC for some reason
 
@@ -1163,7 +1172,7 @@ public:
     JSONValue serialize() {
 
         // Force all Paned to update their ratios, needed when upgrading from pre-ratio files
-        TerminalPaned[] panes = gx.gtk.util.getChildren!TerminalPaned(stackGroup, true);
+        TerminalPaned[] panes = findChildren!TerminalPaned(stackGroup, true);
         foreach(paned; panes) {
             trace("Updating paned position after session load");
             paned.updateRatio();
@@ -1177,7 +1186,7 @@ public:
         root.object[NODE_WIDTH] = JSONValue(getAllocatedWidth());
         root.object[NODE_HEIGHT] = JSONValue(getAllocatedHeight());
         SessionSizeInfo sizeInfo = SessionSizeInfo(getAllocatedWidth(), getAllocatedHeight());
-        root.object[NODE_CHILD] = serializeWidget(gx.gtk.util.getChildren!(Widget)(groupChild, false)[0], sizeInfo);
+        root.object[NODE_CHILD] = serializeWidget(findChildren!(Widget)(groupChild, false)[0], sizeInfo);
         root.object[NODE_UUID] = _sessionUUID;
         root[NODE_TYPE] = WidgetType.SESSION;
         setlocale(LC_ALL, null);
@@ -1226,11 +1235,11 @@ public:
     /**
      * The name of the session
      */
-    @property string name() {
+    @property override string name() {
         return _name;
     }
 
-    @property void name(string value) {
+    @property override void name(string value) {
         if (value.length > 0) {
             _name = value;
             onSessionTitleChange();
@@ -1292,6 +1301,11 @@ public:
         return false;
     }
 
+    bool isSearching() {
+        // Returns whether the session is in search mode
+        return false; // Placeholder - actual implementation would check search state
+    }
+
     /**
      * Returns information about any running processes in the terminal.
      */
@@ -1324,12 +1338,12 @@ public:
                 TerminalPaned paned = cast(TerminalPaned) parent;
                 trace("Testing Paned");
                 if (paned !is null) {
-                    if ((direction == "up" || direction == "down") && paned.getOrientation() == Orientation.VERTICAL) {
+                    if ((direction == "up" || direction == "down") && paned.getOrientation() == Orientation.Vertical) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
                         paned.updateRatio();
                         return;
-                    } else if ((direction == "left" || direction == "right") && paned.getOrientation() == Orientation.HORIZONTAL) {
+                    } else if ((direction == "left" || direction == "right") && paned.getOrientation() == Orientation.Horizontal) {
                         trace("Resizing " ~ direction);
                         paned.setPosition(paned.getPosition() + increment);
                         paned.updateRatio();
@@ -1387,8 +1401,9 @@ public:
         trace("Focusing ", direction);
 
         Widget appWindow = currentTerminal.getToplevel();
-        GtkAllocation appWindowAllocation;
-        appWindow.getClip(appWindowAllocation);
+        GdkRectangle appWindowAllocation;
+        appWindowAllocation.width = appWindow.getAllocatedWidth();
+        appWindowAllocation.height = appWindow.getAllocatedHeight();
 
         // Start at the top left of the current terminal
         int xPos, yPos;
@@ -1424,8 +1439,9 @@ public:
                 int termX, termY;
                 terminal.translateCoordinates(appWindow, 0, 0, termX, termY);
 
-                GtkAllocation termAllocation;
-                terminal.getClip(termAllocation);
+                GdkRectangle termAllocation;
+                termAllocation.width = terminal.getAllocatedWidth();
+                termAllocation.height = terminal.getAllocatedHeight();
 
                 if (xPos >= termX && yPos >= termY && xPos <= (termX + termAllocation.width) && yPos <= (termY + termAllocation.height)) {
                     focusTerminal(terminal);
@@ -1465,6 +1481,13 @@ public:
         return false;
     }
 
+    /**
+     * Activate a terminal by UUID (alias for focusTerminal)
+     */
+    bool activateTerminal(string uuid) {
+        return focusTerminal(uuid);
+    }
+
     void toggleTerminalFind() {
         if (currentTerminal !is null) {
             currentTerminal.toggleFind();
@@ -1494,9 +1517,9 @@ public:
             int width = currentTerminal.getAllocatedWidth();
 
             if (height < width) {
-                addNewTerminal(currentTerminal, Orientation.HORIZONTAL);
+                addNewTerminal(currentTerminal, Orientation.Horizontal);
             } else {
-                addNewTerminal(currentTerminal, Orientation.VERTICAL);
+                addNewTerminal(currentTerminal, Orientation.Vertical);
             }
         }
     }
@@ -1523,7 +1546,10 @@ public:
     * listens to this event and removes the session when received.
     */
     GenericEvent!(Session) onClose;
-
+    /**
+     * An event that occurs when the user requests to close the session.
+     */
+    GenericEvent!(Session) onUserClose;
     /**
      * Occurs when a terminal is detached.
      *
@@ -1571,7 +1597,7 @@ private:
 
         Label label = new Label(format("<b>%s</b>", _("Name")));
         label.setUseMarkup(true);
-        label.setHalign(GtkAlign.END);
+        label.setHalign(Align.End);
         grid.attach(label, 0, 0, 1, 1);
 
         eName = new Entry();
@@ -1582,7 +1608,7 @@ private:
 
         label = new Label(format("<b>%s</b>", _("Profile")));
         label.setUseMarkup(true);
-        label.setHalign(GtkAlign.END);
+        label.setHalign(Align.End);
         grid.attach(label, 0, 1, 1, 1);
 
         ProfileInfo[] profiles = prfMgr.getProfiles();
@@ -1603,12 +1629,17 @@ private:
 public:
 
     this(Window parent, string name, string profileUUID) {
-        super(_("New Session"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [StockID.CANCEL, StockID.OK], [ResponseType.CANCEL, ResponseType.OK]);
-        setDefaultResponse(ResponseType.OK);
+        super();
+        setTitle(_("New Session"));
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("_Cancel"), ResponseType.Cancel);
+        addButton(_("_OK"), ResponseType.Ok);
+        setDefaultResponse(ResponseType.Ok);
         createUI(name, profileUUID);
     }
 
-    @property string name() {
+    @property override string name() {
         return eName.getText();
     }
 
@@ -1638,16 +1669,16 @@ private:
 public:
     this(Orientation orientation) {
         super(orientation);
-        addOnSizeAllocate(delegate(GdkRectangle* rect, Widget) {
+        connectSizeAllocate(delegate(Allocation rect) {
             updatePosition();
         });
 
-        addOnButtonRelease(delegate(Event event, Widget w) {
+        connectButtonReleaseEvent(delegate(EventButton event) {
             updateRatio();
             return false;
         });
 
-        addOnAcceptPosition(delegate(Paned) {
+        connectAcceptPosition(delegate() {
             updateRatio();
             return false;
         });
@@ -1656,7 +1687,7 @@ public:
     void updateRatio() {
         //trace("Updating ratio");
         double newRatio = ratio;
-        if (getOrientation() == Orientation.HORIZONTAL) {
+        if (getOrientation() == Orientation.Horizontal) {
             newRatio = to!double(getChild1().getAllocatedWidth()) / to!double(getAllocatedWidth());
             //tracef("Child1 Width=%d, Paned Width=%d, newRatio=%f",getChild1().getAllocatedWidth(),getAllocatedWidth(), newRatio);
         } else {
@@ -1672,7 +1703,7 @@ public:
     void updatePosition(bool force = false) {
         if (ignoreRatio) return;
         //tracef("TerminalPaned Size allocated, ratio %f", ratio);
-        if (getOrientation() == Orientation.HORIZONTAL) {
+        if (getOrientation() == Orientation.Horizontal) {
             if (force || lastWidth != getAllocatedWidth()) {
                 int position = to!int(to!double(getAllocatedWidth()) * ratio);
                 setPosition(position);
@@ -1725,18 +1756,18 @@ struct SessionSizeInfo {
 
     double scalePosition(int position, Orientation orientation) {
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case Orientation.Horizontal:
             return to!double(position) / to!double(width);
-        case Orientation.VERTICAL:
+        case Orientation.Vertical:
             return to!double(position) / to!double(height);
         }
     }
 
     int getPosition(double scaledPosition, Orientation orientation) {
         final switch (orientation) {
-        case Orientation.HORIZONTAL:
+        case Orientation.Horizontal:
             return to!int(scaledPosition * width);
-        case Orientation.VERTICAL:
+        case Orientation.Vertical:
             return to!int(scaledPosition * height);
         }
     }
@@ -1776,8 +1807,8 @@ private:
         PanedNode result = new PanedNode(node);
         Box box1 = cast(Box) node.getChild1();
         Box box2 = cast(Box) node.getChild2();
-        Paned[] paned1 = gx.gtk.util.getChildren!(Paned)(box1, false);
-        Paned[] paned2 = gx.gtk.util.getChildren!(Paned)(box2, false);
+        Paned[] paned1 = findChildren!(Paned)(box1, false);
+        Paned[] paned2 = findChildren!(Paned)(box2, false);
         if (paned1.length > 0 && paned1[0].getOrientation() == node.getOrientation())
             result.child[0] = createModel(paned1[0]);
         if (paned2.length > 0 && paned2[0].getOrientation() == node.getOrientation())

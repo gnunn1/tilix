@@ -45,3 +45,17 @@ enum ACTION_FILE_BROWSER = "file-browser";
 enum ACTION_PREVIOUS_PROMPT = "previous-prompt";
 enum ACTION_NEXT_PROMPT = "next-prompt";
 enum ACTION_TOGGLE_MARGIN = "toggle-margin";
+
+struct ActionInfo {
+    string name;
+}
+
+// Actions that should be delegated from session to terminal
+immutable ActionInfo[] terminalDelegatedActions = [
+    ActionInfo(ACTION_COPY),
+    ActionInfo(ACTION_PASTE),
+    ActionInfo(ACTION_SELECT_ALL),
+    ActionInfo(ACTION_ZOOM_IN),
+    ActionInfo(ACTION_ZOOM_OUT),
+    ActionInfo(ACTION_ZOOM_NORMAL),
+];

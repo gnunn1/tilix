@@ -9,7 +9,8 @@ import std.conv;
 import std.experimental.logger;
 import std.format;
 
-import gdk.RGBA;
+// GID imports - gdk
+import gdk.rgba : RGBA;
 
 public:
 
@@ -23,11 +24,11 @@ public:
  */
 string rgbaTo8bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
     string prepend = includeHash ? "#" : "";
-    int red = to!(int)(color.red() * 255);
-    int green = to!(int)(color.green() * 255);
-    int blue = to!(int)(color.blue() * 255);
+    int red = to!(int)(color.red * 255);
+    int green = to!(int)(color.green * 255);
+    int blue = to!(int)(color.blue * 255);
     if (includeAlpha) {
-        int alpha = to!(int)(color.alpha() * 255);
+        int alpha = to!(int)(color.alpha * 255);
         return prepend ~ format("%02X%02X%02X%02X", red, green, blue, alpha);
     } else {
         return prepend ~ format("%02X%02X%02X", red, green, blue);
@@ -45,11 +46,11 @@ string rgbaTo8bitHex(RGBA color, bool includeAlpha = false, bool includeHash = f
  */
 string rgbaTo16bitHex(RGBA color, bool includeAlpha = false, bool includeHash = false) {
     string prepend = includeHash ? "#" : "";
-    int red = to!(int)(color.red() * 255);
-    int green = to!(int)(color.green() * 255);
-    int blue = to!(int)(color.blue() * 255);
+    int red = to!(int)(color.red * 255);
+    int green = to!(int)(color.green * 255);
+    int blue = to!(int)(color.blue * 255);
     if (includeAlpha) {
-        int alpha = to!(int)(color.alpha() * 255);
+        int alpha = to!(int)(color.alpha * 255);
         return prepend ~ format("%02X%02X%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue, alpha, alpha);
     } else {
         return prepend ~ format("%02X%02X%02X%02X%02X%02X", red, red, green, green, blue, blue);

@@ -8,22 +8,28 @@ import std.experimental.logger;
 import std.format;
 import std.string;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event : Event;
+import gdk.event_key : EventKey;
+// GID does not provide gdk.keysyms, define required constants locally
+private enum GdkKeysyms { GDK_Return = 0xff0d, GDK_Escape = 0xff1b }
 
-import gio.Settings: GSettings = Settings;
+import gio.settings: GSettings = Settings;
+import gio.types : SettingsBindFlags;
 
-import gtk.Box;
-import gtk.CheckButton;
-import gtk.Dialog;
-import gtk.Label;
-import gtk.SpinButton;
-import gtk.TextBuffer;
-import gtk.TextTagTable;
-import gtk.TextView;
-import gtk.ScrolledWindow;
-import gtk.Widget;
-import gtk.Window;
+import gtk.box : Box;
+import gtk.check_button : CheckButton;
+import gtk.dialog : Dialog;
+import gtk.label : Label;
+import gtk.spin_button : SpinButton;
+import gtk.text_buffer : TextBuffer;
+import gtk.text_iter : TextIter;
+import gtk.text_tag_table : TextTagTable;
+import gtk.text_view : TextView;
+import gtk.scrolled_window : ScrolledWindow;
+import gtk.widget : Widget;
+import gtk.window : Window;
+import gtk.types : Align, DialogFlags, Orientation, PolicyType, ResponseType, ShadowType;
+import gdk.types : ModifierType;
 
 import gx.i18n.l10n;
 
@@ -62,31 +68,31 @@ private:
             setMarginBottom(18);
         }
 
-        Box b = new Box(Orientation.VERTICAL, 6);
+        Box b = new Box(Orientation.Vertical, 6);
         if (unsafe) {
             string[3] msg = getUnsafePasteMessage();
             Label lblUnsafe = new Label("<span weight='bold' size='large'>" ~ msg[0] ~ "</span>\n" ~ msg[1] ~ "\n" ~ msg[2]);
             lblUnsafe.setUseMarkup(true);
             lblUnsafe.setLineWrap(true);
             b.add(lblUnsafe);
-            getWidgetForResponse(ResponseType.APPLY).getStyleContext().addClass("destructive-action");
+            getWidgetForResponse(ResponseType.Apply).getStyleContext().addClass("destructive-action");
         }
 
         buffer = new TextBuffer(new TextTagTable());
-        buffer.setText(text);
-        TextView view = new TextView(buffer);
-        view.addOnKeyPress(delegate(Event event, Widget w) {
-            uint keyval;
-            event.getKeyval(keyval);
-            if (keyval == GdkKeysyms.GDK_Return && (event.key.state & GdkModifierType.CONTROL_MASK)) {
-                response(GtkResponseType.APPLY);
+        buffer.setText(text, cast(int)text.length);
+        TextView view = TextView.newWithBuffer(buffer);
+        view.connectKeyPressEvent(delegate(EventKey event) {
+            uint keyval = event.keyval;
+            if (keyval == GdkKeysyms.GDK_Return && (event.state & ModifierType.ControlMask)) {
+                response(ResponseType.Apply);
                 return true;
             }
             return false;
         });
-        ScrolledWindow sw = new ScrolledWindow(view);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow();
+        sw.add(view);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Automatic, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
         sw.setSizeRequest(400, 140);
@@ -95,32 +101,34 @@ private:
 
         Label lblTransform = new Label(format("<b>%s</b>", _("Transform")));
         lblTransform.setUseMarkup(true);
-        lblTransform.setHalign(GtkAlign.START);
+        lblTransform.setHalign(Align.Start);
         lblTransform.setMarginTop(6);
         b.add(lblTransform);
 
         //Tabs to Spaces
-        Box bTabs = new Box(Orientation.HORIZONTAL, 6);
-        cbTabsToSpaces = new CheckButton(_("Convert spaces to tabs"));
-        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, cbTabsToSpaces, "active", GSettingsBindFlags.DEFAULT);
+        Box bTabs = new Box(Orientation.Horizontal, 6);
+        cbTabsToSpaces = CheckButton.newWithLabel(_("Convert spaces to tabs"));
+        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, cbTabsToSpaces, "active", SettingsBindFlags.Default);
         bTabs.add(cbTabsToSpaces);
 
-        sbTabWidth = new SpinButton(0, 32, 1);
-        gsSettings.bind(SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY, sbTabWidth.getAdjustment(), "value", GSettingsBindFlags.DEFAULT);
-        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, sbTabWidth, "sensitive", GSettingsBindFlags.DEFAULT);
+        sbTabWidth = SpinButton.newWithRange(0, 32, 1);
+        gsSettings.bind(SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY, sbTabWidth.getAdjustment(), "value", SettingsBindFlags.Default);
+        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY, sbTabWidth, "sensitive", SettingsBindFlags.Default);
         bTabs.add(sbTabWidth);
 
         b.add(bTabs);
 
-        cbConvertCRLF = new CheckButton(_("Convert CRLF and CR to LF"));
-        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY, cbConvertCRLF, "active", GSettingsBindFlags.DEFAULT);
+        cbConvertCRLF = CheckButton.newWithLabel(_("Convert CRLF and CR to LF"));
+        gsSettings.bind(SETTINGS_ADVANCED_PASTE_REPLACE_CRLF_KEY, cbConvertCRLF, "active", SettingsBindFlags.Default);
         b.add(cbConvertCRLF);
 
         getContentArea().add(b);
     }
 
     string transform() {
-        string text = buffer.getText();
+        TextIter startIter, endIter;
+        buffer.getBounds(startIter, endIter);
+        string text = buffer.getText(startIter, endIter, false);
         if (gsSettings.getBoolean(SETTINGS_ADVANCED_PASTE_REPLACE_TABS_KEY)) {
             text = text.detab(gsSettings.getInt(SETTINGS_ADVANCED_PASTE_SPACE_COUNT_KEY));
         }
@@ -134,9 +142,13 @@ private:
 
 public:
     this(Window parent, string text, bool unsafe) {
-        super(_("Advanced Paste"), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("Paste"), _("Cancel")], [GtkResponseType.APPLY, GtkResponseType.CANCEL]);
+        super();
+        setTitle(_("Advanced Paste"));
         setTransientFor(parent);
-        setDefaultResponse(GtkResponseType.APPLY);
+        setModal(true);
+        addButton(_("Paste"), ResponseType.Apply);
+        addButton(_("Cancel"), ResponseType.Cancel);
+        setDefaultResponse(ResponseType.Apply);
         gsSettings = new GSettings(SETTINGS_ID);
         createUI(text, unsafe);
     }

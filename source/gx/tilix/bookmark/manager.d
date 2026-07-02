@@ -13,16 +13,17 @@ import std.json;
 import std.path;
 import std.uuid;
 
-import gdk.Pixbuf;
-import gdk.RGBA;
-import gdk.Screen;
+import gdkpixbuf.pixbuf;
+import gdk.rgba;
+import gdk.screen;
 
-import glib.Util;
+import glib.global : getUserConfigDir;
 
-import gtk.IconInfo;
-import gtk.IconTheme;
-import gtk.StyleContext;
-import gtk.Widget;
+import gtk.icon_info;
+import gtk.icon_theme;
+import gtk.types : IconLookupFlags;
+import gtk.style_context;
+import gtk.widget;
 
 import gx.i18n.l10n;
 
@@ -595,7 +596,7 @@ public:
     }
 
     void save() {
-        string path = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER);
+        string path = buildPath(getUserConfigDir(), APPLICATION_CONFIG_FOLDER);
         if (!exists(path)) {
             mkdirRecurse(path);
         }
@@ -605,7 +606,7 @@ public:
     }
 
     void load() {
-        string filename = buildPath(Util.getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
+        string filename = buildPath(getUserConfigDir(), APPLICATION_CONFIG_FOLDER, BOOKMARK_FILE);
         if (exists(filename)) {
             try {
                 string json = readText(filename);
@@ -654,7 +655,11 @@ Pixbuf[] getBookmarkIcons(Widget widget) {
         return [null, null, null, null];
     }
     foreach(name; names) {
-        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, IconLookupFlags.GENERIC_FALLBACK);
+        IconInfo iconInfo = iconTheme.lookupIcon(name, 16, IconLookupFlags.GenericFallback);
+        if (iconInfo is null) {
+            icons ~= null;
+            continue;
+        }
         bool wasSymbolic;
         icons ~= iconInfo.loadSymbolic(fg, null, null, null, wasSymbolic);
     }

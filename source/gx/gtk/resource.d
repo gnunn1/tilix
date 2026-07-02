@@ -10,21 +10,25 @@ import std.experimental.logger;
 import std.file;
 import std.path;
 
-import gdk.Screen;
+// GID imports - gdk
+import gdk.screen : Screen;
 
-import glib.Bytes;
-import glib.GException;
-import glib.Util;
+// GID imports - gio
+import gio.global : resourcesLookupData, resourcesRegister;
+import gio.resource : Resource;
+import gio.types : ResourceLookupFlags;
 
-import gio.Resource;
+// GID imports - glib
+import glib.bytes : Bytes;
+import glib.error : ErrorWrap;
+import glib.global : getSystemDataDirs, getUserDataDir;
 
-import gtk.CssProvider;
-import gtk.StyleContext;
-
-import gtkc.giotypes;
+// GID imports - gtk
+import gtk.css_provider : CssProvider;
+import gtk.style_context : StyleContext;
 
 /**
- * Defined here since not defined in GtkD
+ * Provider priority values for CSS styling
  */
 enum ProviderPriority : uint {
     FALLBACK = 1,
@@ -38,14 +42,16 @@ enum ProviderPriority : uint {
  * Find and optionally register a resource
  */
 Resource findResource(string resourcePath, bool register = true) {
-    foreach (path; Util.getSystemDataDirs()) {
+    // Search in user data dir first, then system data dirs
+    string[] searchPaths = [getUserDataDir()] ~ getSystemDataDirs();
+    foreach (path; searchPaths) {
         auto fullpath = buildPath(path, resourcePath);
         trace("looking for resource " ~ fullpath);
         if (exists(fullpath)) {
             Resource resource = Resource.load(fullpath);
             if (register && resource) {
                 trace("Resource found and registered " ~ fullpath);
-                Resource.register(resource);
+                resourcesRegister(resource);
             }
             return resource;
         }
@@ -59,11 +65,11 @@ CssProvider createCssProvider(string filename, string[string] variables = null) 
         CssProvider provider = new CssProvider();
         string css = getResource(filename, variables);
         if (css.length > 0) {
-            if (provider.loadFromData(css)) {
+            if (provider.loadFromData(cast(ubyte[]) css)) {
                 return provider;
             }
         }
-    } catch (GException ge) {
+    } catch (ErrorWrap ge) {
         trace("Unexpected error loading css provider " ~ filename);
         trace("Error: " ~ ge.msg);
     }
@@ -80,14 +86,14 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
         if (provider !is null) {
             Screen screen = Screen.getDefault();
             if (screen !is null) {
-                StyleContext.addProviderForScreen(Screen.getDefault(), provider, priority);
+                StyleContext.addProviderForScreen(screen, provider, priority);
                 return provider;
             } else {
                 warning("Default screen is null, no CSS provider added and as a result Tilix UI may appear incorrect");
                 return null;
             }
         }
-    } catch (GException ge) {
+    } catch (ErrorWrap ge) {
         trace("Unexpected error loading css provider " ~ filename);
         trace("Error: " ~ ge.msg);
     }
@@ -100,13 +106,14 @@ CssProvider addCssProvider(string filename, ProviderPriority priority, string[st
 string getResource(string filename, string[string] variables = null) {
     Bytes bytes;
     try {
-        bytes = Resource.resourcesLookupData(filename, GResourceLookupFlags.NONE);
-    } catch (GException ge) {
+        bytes = resourcesLookupData(filename, ResourceLookupFlags.None);
+    } catch (ErrorWrap ge) {
         return null;
     }
     if (bytes is null || bytes.getSize() == 0) return null;
     else {
-        string contents = to!string(cast(char*)bytes.getData());
+        ubyte[] data = bytes.getData();
+        string contents = to!string(cast(char[]) data);
         if (variables !is null) {
             foreach(variable; variables.byKeyValue()) {
                 contents = contents.replace(variable.key, variable.value);

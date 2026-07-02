@@ -40,7 +40,7 @@ immutable bool USE_COMMIT_SYNCHRONIZATION = false;
 
 /**
  * Compile tilix with support for VTE method vte_terminal_get_color_background_for_draw,
- * only needed until VTE 0.54 is released and GtkD is updated.
+ * only needed until VTE 0.54 is released and the binding is updated.
  */
 immutable bool COMPILE_VTE_BACKGROUND_COLOR = false;
 
@@ -76,7 +76,8 @@ enum APPLICATION_ICON_NAME = "com.gexperts.Tilix";
 immutable string[] APPLICATION_AUTHORS = [APPLICATION_AUTHOR];
 string[] APPLICATION_CREDITS = [
     N_("GTK VTE widget team, Tilix would not be possible without their work"),
-    N_("GtkD for providing such an excellent GTK wrapper"),
+    N_("GID for providing the current GTK bindings"),
+    N_("GtkD for providing the original GTK wrapper"),
     N_("Dlang.org for such an excellent language, D")
 ];
 immutable string[] APPLICATION_ARTISTS = [];

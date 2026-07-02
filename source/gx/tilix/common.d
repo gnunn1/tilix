@@ -134,7 +134,10 @@ public:
 
 enum ActionType {
     DETACH_TERMINAL,
-    DETACH_SESSION
+    DETACH_SESSION,
+    SPLIT_HORIZONTAL,
+    SPLIT_VERTICAL,
+    SPLIT_AUTO
 }
 
 /**
@@ -208,6 +211,7 @@ enum ProcessInfoSource {APPLICATION, WINDOW, SESSION, TERMINAL}
  */
 struct ProcessInformation {
     ProcessInfoSource source;
+    string name;
     string description;
     string uuid;
     ProcessInformation[] children;
@@ -299,5 +303,8 @@ interface ITerminal : IIdentifiable {
      * by the terminal.
      */
     @property string defaultProfileUUID();
-
+    /**
+     * Execute a named action on the terminal
+     */
+    void executeAction(string actionName);
 }

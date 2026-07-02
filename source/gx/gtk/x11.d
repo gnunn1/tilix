@@ -17,23 +17,23 @@
 
 module gx.gtk.x11;
 
+import core.sys.posix.dlfcn : dlopen, dlsym, RTLD_NOW, RTLD_GLOBAL;
 import std.experimental.logger;
 import std.string;
 
-import gtkc.glibtypes;
+// GID imports - gdk
+import gdk.global : errorTrapPop, errorTrapPush, flush;
+import gdk.window : GdkWindow = Window;
+import gdk.c.types : GdkWindow_ = GdkWindow;
 
-import gtkc.Loader;
-import gtkc.paths;
+// GID imports - gtk
+import gtk.global : getCurrentEventTime;
+import gtk.window : Window;
 
-import gdk.Atom;
-import gdk.Gdk;
-import gdk.X11;
+import gid.gid : No;
 
-import gtk.Main;
-import gtk.Window;
-
-import x11.X: Atom, ClientMessage, StructureNotifyMask, XWindow=Window;
-import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
+import x11.X : Atom, ClientMessage, StructureNotifyMask, XWindow = Window;
+import x11.Xlib : Display, XClientMessageEvent, XSendEvent, XEvent;
 
 /**
  * This function activates an X11 using the _NET_ACTIVE_WINDOW
@@ -47,14 +47,25 @@ import x11.Xlib: Display, XClientMessageEvent, XSendEvent, XEvent;
  * since code translations are considered a derived work under GPL.
  */
 void activateX11Window(Window window) {
-    uint timestamp = Main.getCurrentEventTime();
+    if (!x11FunctionsLoaded) {
+        warning("X11 functions not available, cannot activate window");
+        return;
+    }
+
+    uint timestamp = getCurrentEventTime();
+
+    GdkWindow gdkWin = window.getWindow();
+    if (gdkWin is null) {
+        warning("GdkWindow is null, cannot activate X11 window");
+        return;
+    }
 
     if (timestamp == 0)
-        timestamp = gdk_x11_get_server_time(window.getWindow().getWindowStruct());
+        timestamp = gdk_x11_get_server_time(cast(GdkWindow_*) gdkWin._cPtr(No.Dup));
 
     XClientMessageEvent event;
     event.type = ClientMessage;
-    event.window = getXid(window.getWindow());
+    event.window = getXid(gdkWin);
     const(char*) name = toStringz("_NET_ACTIVE_WINDOW");
     event.message_type = gdk_x11_get_xatom_by_name(name);
     event.format = 32;
@@ -65,36 +76,88 @@ void activateX11Window(Window window) {
     Display* display = gdk_x11_get_default_xdisplay();
     XWindow root = gdk_x11_get_default_root_xwindow();
 
-    Gdk.errorTrapPush();
+    errorTrapPush();
     XSendEvent(display, root, false, StructureNotifyMask, cast(XEvent*) &event);
-    Gdk.flush;
-    if (Gdk.errorTrapPop() != 0) {
+    flush();
+    if (errorTrapPop() != 0) {
         error("Failed to focus window");
     }
 }
 
+/**
+ * Get the X11 window ID from a GdkWindow
+ */
+XWindow getXid(GdkWindow gdkWin) {
+    if (!x11FunctionsLoaded || gdkWin is null) {
+        return 0;
+    }
+    return gdk_x11_window_get_xid(cast(GdkWindow_*) gdkWin._cPtr(No.Dup));
+}
+
+/**
+ * Get the GType for X11 windows
+ */
+import gobject.c.types : GType;
+GType getX11WindowType() {
+    if (!x11FunctionsLoaded) {
+        return 0;
+    }
+    return gdk_x11_window_get_type();
+}
+
 private:
 
-import gdk.c.functions;
+// Flag to check if X11 functions are loaded
+bool x11FunctionsLoaded = false;
 
-shared static this()
-{
-    // Link in some extra functions not provided by GtkD
-    Linker.link(gdk_x11_get_xatom_by_name, "gdk_x11_get_xatom_by_name", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_default_xdisplay, "gdk_x11_get_default_xdisplay", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_default_root_xwindow, "gdk_x11_get_default_root_xwindow", LIBRARY_GDK);
-    Linker.link(gdk_x11_get_server_time, "gdk_x11_get_server_time", LIBRARY_GDK);
+// Function pointer types for X11-specific GDK functions
+extern (C) {
+    alias gdk_x11_get_xatom_by_name_func = Atom function(const(char)* atom_name);
+    alias gdk_x11_get_default_xdisplay_func = Display* function();
+    alias gdk_x11_get_default_root_xwindow_func = XWindow function();
+    alias gdk_x11_get_server_time_func = uint function(GdkWindow_* window);
+    alias gdk_x11_window_get_xid_func = XWindow function(GdkWindow_* window);
+    alias gdk_x11_window_get_type_func = GType function();
 }
 
-__gshared extern(C)
-{
-    Atom function(const(char)* atom_name) c_gdk_x11_get_xatom_by_name;
-    Display* function() c_gdk_x11_get_default_xdisplay;
-    XWindow function() c_gdk_x11_get_default_root_xwindow;
-    uint function(GdkWindow* window) c_gdk_x11_get_server_time;
-}
+// Function pointers
+__gshared gdk_x11_get_xatom_by_name_func gdk_x11_get_xatom_by_name;
+__gshared gdk_x11_get_default_xdisplay_func gdk_x11_get_default_xdisplay;
+__gshared gdk_x11_get_default_root_xwindow_func gdk_x11_get_default_root_xwindow;
+__gshared gdk_x11_get_server_time_func gdk_x11_get_server_time;
+__gshared gdk_x11_window_get_xid_func gdk_x11_window_get_xid;
+__gshared gdk_x11_window_get_type_func gdk_x11_window_get_type;
 
-alias c_gdk_x11_get_xatom_by_name gdk_x11_get_xatom_by_name;
-alias c_gdk_x11_get_default_xdisplay gdk_x11_get_default_xdisplay;
-alias c_gdk_x11_get_default_root_xwindow gdk_x11_get_default_root_xwindow;
-alias c_gdk_x11_get_server_time gdk_x11_get_server_time;
+shared static this() {
+    // Try to load X11-specific GDK functions dynamically
+    void* handle = dlopen("libgdk-3.so.0", RTLD_NOW | RTLD_GLOBAL);
+    if (handle is null) {
+        handle = dlopen("libgdk-3.so", RTLD_NOW | RTLD_GLOBAL);
+    }
+
+    if (handle is null) {
+        trace("Could not load libgdk-3.so for X11 functions");
+        return;
+    }
+
+    gdk_x11_get_xatom_by_name = cast(gdk_x11_get_xatom_by_name_func) dlsym(handle, "gdk_x11_get_xatom_by_name");
+    gdk_x11_get_default_xdisplay = cast(gdk_x11_get_default_xdisplay_func) dlsym(handle, "gdk_x11_get_default_xdisplay");
+    gdk_x11_get_default_root_xwindow = cast(gdk_x11_get_default_root_xwindow_func) dlsym(handle, "gdk_x11_get_default_root_xwindow");
+    gdk_x11_get_server_time = cast(gdk_x11_get_server_time_func) dlsym(handle, "gdk_x11_get_server_time");
+    gdk_x11_window_get_xid = cast(gdk_x11_window_get_xid_func) dlsym(handle, "gdk_x11_window_get_xid");
+    gdk_x11_window_get_type = cast(gdk_x11_window_get_type_func) dlsym(handle, "gdk_x11_window_get_type");
+
+    // Check if all functions were loaded
+    x11FunctionsLoaded = (gdk_x11_get_xatom_by_name !is null &&
+                          gdk_x11_get_default_xdisplay !is null &&
+                          gdk_x11_get_default_root_xwindow !is null &&
+                          gdk_x11_get_server_time !is null &&
+                          gdk_x11_window_get_xid !is null &&
+                          gdk_x11_window_get_type !is null);
+
+    if (x11FunctionsLoaded) {
+        trace("X11 GDK functions loaded successfully");
+    } else {
+        trace("Some X11 GDK functions could not be loaded");
+    }
+}

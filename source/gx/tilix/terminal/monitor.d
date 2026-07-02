@@ -12,7 +12,7 @@ import std.datetime;
 import std.experimental.logger;
 import std.parallelism;
 
-import vtec.vtetypes;
+import vte.c.types;
 
 import gx.i18n.l10n;
 import gx.gtk.threads;

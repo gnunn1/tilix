@@ -11,12 +11,13 @@ import std.range;
 import std.string;
 import std.uuid;
 
-import gio.Settings : GSettings = Settings;
+import gio.settings : GSettings = Settings;
 
-import glib.Variant : GVariant = Variant;
+import glib.variant : GVariant = Variant;
 
 import gx.i18n.l10n;
 import gx.util.array;
+import gx.gtk.util : getSettingsStrv;
 
 import gx.tilix.common;
 import gx.tilix.constants;
@@ -332,7 +333,7 @@ private:
         gsProfile.setString(SETTINGS_PROFILE_VISIBLE_NAME_KEY, profileName);
         trace("Set profile name " ~ profileName);
 
-        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        string[] ps = getSettingsStrv(gsProfileList, SETTINGS_PROFILE_LIST_KEY);
         trace("Get list of profiles");
 
         ps ~= uuid;
@@ -392,7 +393,7 @@ public:
 	 * @param uuid the identifier of the profile to delete
 	 */
     void deleteProfile(string uuid) {
-        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        string[] ps = getSettingsStrv(gsProfileList, SETTINGS_PROFILE_LIST_KEY);
         gx.util.array.remove(ps, uuid);
         gsProfileList.setStrv(SETTINGS_PROFILE_LIST_KEY, ps);
         if (uuid == getDefaultProfile() && ps.length > 0) {
@@ -439,7 +440,7 @@ public:
 	 */
     ProfileInfo[] getProfiles() {
         ProfileInfo[] results;
-        string[] ps = gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        string[] ps = getSettingsStrv(gsProfileList, SETTINGS_PROFILE_LIST_KEY);
         foreach (string uuid; ps) {
             results ~= getProfile(uuid);
         }
@@ -447,7 +448,7 @@ public:
     }
 
     string[] getProfileUUIDs() {
-        return gsProfileList.getStrv(SETTINGS_PROFILE_LIST_KEY);
+        return getSettingsStrv(gsProfileList, SETTINGS_PROFILE_LIST_KEY);
     }
 
     string getProfileUUIDFromName(string profileName) {
@@ -460,13 +461,26 @@ public:
     }
 
     /**
+     * Returns the ProfileInfo for a profile with the given name.
+     * Returns a ProfileInfo with empty uuid if not found.
+     */
+    ProfileInfo getProfileByName(string profileName) {
+        ProfileInfo[] profiles = getProfiles();
+        foreach (profile; profiles) {
+            if (profile.name == profileName)
+                return profile;
+        }
+        return ProfileInfo.init;
+    }
+
+    /**
      * Finds the profile that matches the current hostname and directory
      */
     string findProfileForState(string username, string hostname, string directory) {
         string[] uuids = getProfileUUIDs();
         foreach (uuid; uuids) {
             GSettings settings = getProfileSettings(uuid);
-            string[] matches = settings.getStrv(SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
+            string[] matches = getSettingsStrv(settings, SETTINGS_PROFILE_AUTOMATIC_SWITCH_KEY);
             foreach (match; matches) {
                 //is there a tilde in the directory right after the first colon?
                 auto isTilde = match.indexOf(":~");
@@ -507,14 +521,14 @@ public:
 
     /**
 	 * Returns the GSettings object that corresponds to a specific profile. This
-	 * object should not be shared between multiple classes. Also note that GtkD
-	 * does not allow you to remove event handlers thus care should be taken to only
-	 * connect from objects which will have a similar lifecycle as the settings.
+	 * object should not be shared between multiple classes. Also note that the
+	 * binding does not allow you to remove event handlers thus care should be taken
+	 * to only connect from objects which will have a similar lifecycle as the settings.
 	 *
 	 * @param uuid The identifier of the profile
 	 */
     GSettings getProfileSettings(string uuid) {
-        return new GSettings(SETTINGS_PROFILE_ID, getProfilePath(uuid));
+        return GSettings.newWithPath(SETTINGS_PROFILE_ID, getProfilePath(uuid));
     }
 
     /**

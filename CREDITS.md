@@ -16,6 +16,7 @@ please feel free to let me know or update this file via a pull request.
 * Matthias Clausen
 * Christian Herget
 * Allan Day
+* Dejan Lekić (migration to giD, and various other improvements after the migration)
 
 While not directly contributing to Tilix, I would also like to thank the following
 people and organizations for their contributions to projects without whose existence
@@ -25,3 +26,4 @@ Tilix would not exist.
 * Mike Wey for GtkD
 * The D Foundation
 * Gnome Project, http://www.gnome.org
+* Element Green for the gidgen and [giD](https://github.com/Kymorphia/gid) projects.

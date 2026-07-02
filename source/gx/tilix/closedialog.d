@@ -6,33 +6,44 @@ module gx.tilix.closedialog;
 
 import std.experimental.logger;
 import std.format;
+import std.typecons : Yes;
 
-import gdkpixbuf.Pixbuf;
+import gdkpixbuf.pixbuf : Pixbuf;
 
-import gdk.Event;
-import gdk.Keysyms;
+import gdk.event : Event;
+import gdk.event_key : EventKey;
 
-import gio.Settings: GSettings = Settings;
+import gio.settings : GSettings = Settings;
 
-import gobject.Value;
+import gobject.c.types : GType;
+import gobject.value : Value;
 
-import gtk.Box;
-import gtk.CellRendererPixbuf;
-import gtk.CellRendererText;
-import gtk.CheckButton;
-import gtk.Dialog;
-import gtk.IconInfo;
-import gtk.IconTheme;
-import gtk.Label;
-import gtk.ScrolledWindow;
-import gtk.TreeIter;
-import gtk.TreeStore;
-import gtk.TreeView;
-import gtk.TreeViewColumn;
-import gtk.Window;
+import gtk.box : Box;
+import gtk.cell_renderer_pixbuf : CellRendererPixbuf;
+import gtk.cell_renderer_text : CellRendererText;
+import gtk.check_button : CheckButton;
+import gtk.dialog : Dialog;
+import gtk.icon_info : IconInfo;
+import gtk.icon_theme : IconTheme;
+import gtk.label : Label;
+import gtk.scrolled_window : ScrolledWindow;
+import gtk.tree_iter : TreeIter;
+import gtk.tree_store : TreeStore;
+import gtk.tree_view : TreeView;
+import gtk.tree_view_column : TreeViewColumn;
+import gtk.types : Align, DialogFlags, ResponseType, IconLookupFlags, Orientation, PolicyType, ShadowType;
+import pango.types : EllipsizeMode;
+import gtk.widget : Widget;
+import gtk.window : Window;
+
+// GID does not provide gdk.keysyms, so define the required key constants locally
+private enum GdkKeysyms {
+    GDK_Escape = 0xff1b,
+    GDK_Return = 0xff0d,
+}
 
 import gx.i18n.l10n;
-import gx.gtk.util;
+import gx.gtk.util : GTypes, setAllMargins;
 
 import gx.tilix.common;
 import gx.tilix.preferences;
@@ -49,13 +60,13 @@ bool promptCanCloseProcesses(GSettings gsSettings, Window window, ProcessInforma
     scope(exit) { dialog.destroy();}
     dialog.showAll();
     int result =  dialog.run();
-    if (result == ResponseType.OK && dialog.futureIgnore) {
+    if (result == ResponseType.Ok && dialog.futureIgnore) {
         gsSettings.setBoolean(SETTINGS_PROMPT_ON_CLOSE_PROCESS_KEY, false);
     }
 
     // Weird looking code, exists because of the way hotkeys get interpreted into results, it's
     // easier to check if the result is not OK
-    bool cancelClose = (result != ResponseType.OK);
+    bool cancelClose = (result != ResponseType.Ok);
     return !cancelClose;
 }
 
@@ -88,51 +99,55 @@ private:
             warning("Could not load icon for 'utilities-terminal'");
         }
         setAllMargins(getContentArea(), 18);
-        Box box = new Box(Orientation.VERTICAL, 6);
+        Box box = new Box(Orientation.Vertical, 6);
 
         Label lbl = new Label("There are processes still running as shown below, close anyway?");
-        lbl.setHalign(GtkAlign.START);
+        lbl.setHalign(Align.Start);
         lbl.setMarginBottom(6);
         box.add(lbl);
 
-        ts = new TreeStore([GType.STRING, Pixbuf.getType(), GType.STRING]);
+        ts = TreeStore.new_([GTypes.STRING, Pixbuf._getGType(), GTypes.STRING]);
         loadProcesses();
-
-        tv = new TreeView(ts);
-        tv.addOnKeyRelease(delegate(Event event, Widget) {
-            uint keyval;
-            if (event.getKeyval(keyval)) {
-                switch (keyval) {
-                    case GdkKeysyms.GDK_Escape:
-                        response(GtkResponseType.CANCEL);
-                        break;
-                    case GdkKeysyms.GDK_Return:
-                        response(GtkResponseType.OK);
-                        break;
-                    default:
-                }
+        tv = new TreeView();
+        tv.setModel(ts);
+        tv.connectKeyReleaseEvent(delegate(EventKey event, Widget w) {
+            uint keyval = event.keyval;
+            switch (keyval) {
+                case GdkKeysyms.GDK_Escape:
+                    response(ResponseType.Cancel);
+                    break;
+                case GdkKeysyms.GDK_Return:
+                    response(ResponseType.Ok);
+                    break;
+                default:
             }
             return false;
-
         });
         tv.setHeadersVisible(false);
 
         CellRendererText crt = new CellRendererText();
-        crt.setProperty("ellipsize", new Value(PangoEllipsizeMode.END));
+        crt.setProperty("ellipsize", new Value(EllipsizeMode.End));
 
-        TreeViewColumn column = new TreeViewColumn(_("Title"), crt, "text", COLUMNS.NAME);
+        TreeViewColumn column = new TreeViewColumn();
+        column.setTitle(_("Title"));
+        column.packStart(crt, true);
+        column.addAttribute(crt, "text", cast(int)COLUMNS.NAME);
         column.setExpand(true);
         tv.appendColumn(column);
 
         CellRendererPixbuf crp = new CellRendererPixbuf();
         crp.setProperty("stock-size", 16);
-        column = new TreeViewColumn(_("Icon"), crp, "pixbuf", COLUMNS.ICON);
+        column = new TreeViewColumn();
+        column.setTitle(_("Icon"));
+        column.packStart(crp, true);
+        column.addAttribute(crp, "pixbuf", cast(int)COLUMNS.ICON);
         column.setExpand(true);
         tv.appendColumn(column);
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.NEVER, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow(null, null);
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Never, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
         sw.setSizeRequest(-1, 300);
@@ -140,7 +155,7 @@ private:
         box.add(sw);
         tv.expandAll();
 
-        cbIgnore = new CheckButton(_("Do not show this again"));
+        cbIgnore = CheckButton.newWithLabel(_("Do not show this again"));
         box.add(cbIgnore);
 
         getContentArea().add(box);
@@ -161,22 +176,23 @@ private:
     }
 
     void loadProcess(TreeIter parent, ProcessInformation pi) {
-        TreeIter current = ts.createIter(parent);
+        TreeIter current;
+        ts.append(current, parent);
         if (pi.source == ProcessInfoSource.TERMINAL) {
-            ts.setValue(current, COLUMNS.ICON, pbTerminal);
+            ts.setValue(current, cast(int)COLUMNS.ICON, new Value(pbTerminal));
         }
         switch (pi.source) {
             case ProcessInfoSource.WINDOW:
-                ts.setValue(current, COLUMNS.NAME, format(_("Window (%s)"), pi.description));
+                ts.setValue(current, cast(int)COLUMNS.NAME, new Value(format(_("Window (%s)"), pi.description)));
                 break;
             case ProcessInfoSource.SESSION:
-                ts.setValue(current, COLUMNS.NAME, format(_("Session (%s)"), pi.description));
+                ts.setValue(current, cast(int)COLUMNS.NAME, new Value(format(_("Session (%s)"), pi.description)));
                 break;
             default:
-                ts.setValue(current, COLUMNS.NAME, pi.description);
+                ts.setValue(current, cast(int)COLUMNS.NAME, new Value(pi.description));
                 break;
         }
-        ts.setValue(current, COLUMNS.UUID, pi.uuid);
+        ts.setValue(current, cast(int)COLUMNS.UUID, new Value(pi.uuid));
 
         foreach(child; pi.children) {
             loadProcess(current, child);
@@ -197,11 +213,15 @@ private:
     }
 
 public:
-
     this(Window parent, ProcessInformation processes) {
-        super(getTitle(processes.source), parent, GtkDialogFlags.MODAL + GtkDialogFlags.USE_HEADER_BAR, [_("OK"), _("Cancel")], [GtkResponseType.OK, GtkResponseType.CANCEL]);
+        super();
+        setTitle(getTitle(processes.source));
+        setTransientFor(parent);
+        setModal(true);
+        addButton(_("Cancel"), ResponseType.Cancel);
+        addButton(_("OK"), ResponseType.Ok);
         this.processes = processes;
-        setDefaultResponse(GtkResponseType.OK);
+        setDefaultResponse(ResponseType.Ok);
         createUI();
     }
 

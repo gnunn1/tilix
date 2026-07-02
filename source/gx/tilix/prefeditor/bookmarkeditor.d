@@ -6,12 +6,15 @@ module gx.tilix.prefeditor.bookmarkeditor;
 
 import std.experimental.logger;
 
-import gtk.Box;
-import gtk.Button;
-import gtk.ScrolledWindow;
-import gtk.TreeIter;
-import gtk.TreePath;
-import gtk.Window;
+import gtk.box;
+import gtk.button;
+import gtk.scrolled_window;
+import gtk.tree_iter;
+import gtk.tree_path;
+import gtk.tree_view : TreeView;
+import gtk.tree_view_column : TreeViewColumn;
+import gtk.types : IconSize, Orientation, PolicyType, ResponseType, SelectionMode, ShadowType;
+import gtk.window;
 
 import gx.i18n.l10n;
 
@@ -39,43 +42,44 @@ private:
         tv = new BMTreeView(false, false, true);
         tv.setActivateOnSingleClick(false);
         tv.setHeadersVisible(false);
-        tv.getSelection().setMode(SelectionMode.SINGLE);
-        tv.addOnCursorChanged(delegate(TreeView) {
+        tv.getSelection().setMode(SelectionMode.Single);
+        tv.connectCursorChanged(delegate(TreeView v) {
             updateUI();
         });
-        tv.addOnRowActivated(delegate(TreePath, TreeViewColumn, TreeView) {
+        tv.connectRowActivated(delegate(TreePath p, TreeViewColumn c, TreeView v) {
             editBookmark(btnEdit);
         });
 
-        ScrolledWindow sw = new ScrolledWindow(tv);
-        sw.setShadowType(ShadowType.ETCHED_IN);
-        sw.setPolicy(PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
+        ScrolledWindow sw = new ScrolledWindow(null, null);
+        sw.add(tv);
+        sw.setShadowType(ShadowType.EtchedIn);
+        sw.setPolicy(PolicyType.Automatic, PolicyType.Automatic);
         sw.setHexpand(true);
         sw.setVexpand(true);
 
         add(sw);
 
-        Box bButtons = new Box(Orientation.HORIZONTAL, 0);
+        Box bButtons = new Box(Orientation.Horizontal, 0);
         bButtons.getStyleContext().addClass("linked");
 
-        Button btnAdd = new Button("list-add-symbolic", IconSize.BUTTON);
+        Button btnAdd = Button.newFromIconName("list-add-symbolic", IconSize.Button);
         btnAdd.setTooltipText(_("Add bookmark"));
-        btnAdd.addOnClicked(&addBookmark);
+        btnAdd.connectClicked(&addBookmark);
         bButtons.add(btnAdd);
 
-        btnEdit = new Button("input-tablet-symbolic", IconSize.BUTTON);
+        btnEdit = Button.newFromIconName("input-tablet-symbolic", IconSize.Button);
         btnEdit.setTooltipText(_("Edit bookmark"));
-        btnEdit.addOnClicked(&editBookmark);
+        btnEdit.connectClicked(&editBookmark);
         bButtons.add(btnEdit);
 
-        btnDelete = new Button("list-remove-symbolic", IconSize.BUTTON);
+        btnDelete = Button.newFromIconName("list-remove-symbolic", IconSize.Button);
         btnDelete.setTooltipText(_("Delete bookmark"));
-        btnDelete.addOnClicked(&deleteBookmark);
+        btnDelete.connectClicked(&deleteBookmark);
         bButtons.add(btnDelete);
 
-        btnUnselect = new Button("edit-clear-symbolic", IconSize.BUTTON);
+        btnUnselect = Button.newFromIconName("edit-clear-symbolic", IconSize.Button);
         btnUnselect.setTooltipText(_("Unselect bookmark"));
-        btnUnselect.addOnClicked(&unselectBookmark);
+        btnUnselect.connectClicked(&unselectBookmark);
         bButtons.add(btnUnselect);
 
         add(bButtons);
@@ -84,7 +88,7 @@ private:
     }
 
     void updateUI() {
-        TreeIter selected = tv.getSelectedIter();
+        Bookmark selected = tv.getSelectedBookmark();
         btnEdit.setSensitive(selected !is null);
         btnDelete.setSensitive(selected !is null);
         btnUnselect.setSensitive(selected !is null);
@@ -96,7 +100,7 @@ private:
             be.destroy();
         }
         be.showAll();
-        if (be.run() == ResponseType.OK) {
+        if (be.run() == ResponseType.Ok) {
             Bookmark bm = be.create();
             tv.addBookmark(bm);
         }
@@ -110,7 +114,7 @@ private:
             be.destroy();
         }
         be.showAll();
-        if (be.run() == ResponseType.OK) {
+        if (be.run() == ResponseType.Ok) {
             be.update(bm);
             tv.updateBookmark(bm);
         }
@@ -121,12 +125,12 @@ private:
     }
 
     void unselectBookmark(Button button) {
-        tv.getSelection().unselectIter(tv.getSelectedIter());
+        tv.getSelection().unselectAll();
     }
 
 public:
     this() {
-        super(Orientation.VERTICAL, 6);
+        super(Orientation.Vertical, 6);
         setAllMargins(this, 18);
         setMarginBottom(6);
         createUI();

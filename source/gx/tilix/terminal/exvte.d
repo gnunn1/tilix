@@ -8,16 +8,21 @@ import core.sys.posix.unistd;
 
 import std.algorithm;
 import std.experimental.logger;
+import std.typecons : Flag, No, Yes;
 
-import gdk.Event;
-import gdk.RGBA;
+import gdk.event;
+import gdk.rgba;
 
-import gobject.Signals;
+import gobject.global : signalLookup;
+import gobject.c.functions : g_signal_connect_data;
+import gobject.c.types : GCallback, GClosure, GClosureNotify, GConnectFlags, GObject, GType;
 
-import glib.Str;
+import std.string : fromStringz;
+import glib.c.types : gulong;
 
-import vte.Terminal;
-import vtec.vtetypes;
+import vte.terminal;
+import vte.c.types;
+import vte.c.functions : vte_terminal_get_type;
 
 import gx.tilix.constants;
 import gx.tilix.terminal.util;
@@ -28,7 +33,7 @@ enum TerminalScreen {
 };
 
 /**
- * Extends default GtKD VTE widget to support various patches
+ * Extends default GID VTE widget to support various patches
  * which provide additional features when available.
  */
 class ExtendedVTE : Terminal {
@@ -41,8 +46,8 @@ public:
     /**
 	 * Sets our main struct and passes it to the parent class.
 	 */
-    this(VteTerminal* vteTerminal, bool ownedRef = false) {
-        super(vteTerminal, ownedRef);
+    this(VteTerminal* vteTerminal, Flag!"Take" take = No.Take) {
+        super(cast(void*) vteTerminal, take);
     }
 
     /**
@@ -67,8 +72,8 @@ public:
 	{
 		void delegate(string, string, Terminal) dlg;
 		gulong handlerId;
-		ConnectFlags flags;
-		this(void delegate(string, string, Terminal) dlg, gulong handlerId, ConnectFlags flags)
+		GConnectFlags flags;
+		this(void delegate(string, string, Terminal) dlg, gulong handlerId, GConnectFlags flags)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
@@ -85,12 +90,13 @@ public:
 	 *     summary = The summary
 	 *     bod = Extra optional text
 	 */
-	gulong addOnNotificationReceived(void delegate(string, string, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	gulong connectNotificationReceived(void delegate(string, string, Terminal) dlg, GConnectFlags connectFlags=cast(GConnectFlags)0)
 	{
-		if (Signals.lookup("notification-received", getType()) != 0) {
+		GType gtype = vte_terminal_get_type();
+		if (signalLookup("notification-received", gtype) != 0) {
 			onNotificationReceivedListeners ~= new OnNotificationReceivedDelegateWrapper(dlg, 0, connectFlags);
-			onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = Signals.connectData(
-				this,
+			onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1].handlerId = g_signal_connect_data(
+				cast(GObject*) _cPtr,
 				"notification-received",
 				cast(GCallback)&callBackNotificationReceived,
 				cast(void*)onNotificationReceivedListeners[onNotificationReceivedListeners.length - 1],
@@ -104,7 +110,7 @@ public:
 
 	extern(C) static void callBackNotificationReceived(VteTerminal* terminalStruct, char* summary, char* bod,OnNotificationReceivedDelegateWrapper wrapper)
 	{
-		wrapper.dlg(Str.toString(summary), Str.toString(bod), wrapper.outer);
+		wrapper.dlg(fromStringz(summary).idup, fromStringz(bod).idup, wrapper.outer);
 	}
 
 	extern(C) static void callBackNotificationReceivedDestroy(OnNotificationReceivedDelegateWrapper wrapper, GClosure* closure)
@@ -129,8 +135,8 @@ public:
 	{
 		void delegate(int, Terminal) dlg;
 		gulong handlerId;
-		ConnectFlags flags;
-		this(void delegate(int, Terminal) dlg, gulong handlerId, ConnectFlags flags)
+		GConnectFlags flags;
+		this(void delegate(int, Terminal) dlg, gulong handlerId, GConnectFlags flags)
 		{
 			this.dlg = dlg;
 			this.handlerId = handlerId;
@@ -140,12 +146,13 @@ public:
 	protected OnTerminalScreenChangedDelegateWrapper[] onTerminalScreenChangedListeners;
 
 	/** */
-	gulong addOnTerminalScreenChanged(void delegate(int, Terminal) dlg, ConnectFlags connectFlags=cast(ConnectFlags)0)
+	gulong connectTerminalScreenChanged(void delegate(int, Terminal) dlg, GConnectFlags connectFlags=cast(GConnectFlags)0)
 	{
-		if (Signals.lookup("terminal-screen-changed", getType()) != 0) {
+		GType gtype = vte_terminal_get_type();
+		if (signalLookup("terminal-screen-changed", gtype) != 0) {
 			onTerminalScreenChangedListeners ~= new OnTerminalScreenChangedDelegateWrapper(dlg, 0, connectFlags);
-			onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = Signals.connectData(
-				this,
+			onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1].handlerId = g_signal_connect_data(
+				cast(GObject*) _cPtr,
 				"terminal-screen-changed",
 				cast(GCallback)&callBackTerminalScreenChanged,
 				cast(void*)onTerminalScreenChangedListeners[onTerminalScreenChangedListeners.length - 1],
@@ -181,16 +188,16 @@ public:
 	}
 
     public bool getDisableBGDraw() {
-		return vte_terminal_get_disable_bg_draw(vteTerminal) != 0;
+		return vte_terminal_get_disable_bg_draw(cast(VteTerminal*) _cPtr) != 0;
     }
 
     public void setDisableBGDraw(bool isDisabled) {
-		vte_terminal_set_disable_bg_draw(vteTerminal, isDisabled);
+		vte_terminal_set_disable_bg_draw(cast(VteTerminal*) _cPtr, isDisabled);
     }
 
 static if (COMPILE_VTE_BACKGROUND_COLOR) {
     public void getColorBackgroundForDraw(RGBA background) {
-		vte_terminal_get_color_background_for_draw(vteTerminal, background is null? null: background.getRGBAStruct());
+		vte_terminal_get_color_background_for_draw(cast(VteTerminal*) _cPtr, background is null ? null : cast(GdkRGBA*) background._cPtr);
     }
 }
 
@@ -213,7 +220,7 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
 
 private:
 
-import gtkc.Loader;
+import core.sys.posix.dlfcn;
 import vte.c.functions;
 
 __gshared extern(C) {
@@ -232,11 +239,18 @@ static if (COMPILE_VTE_BACKGROUND_COLOR) {
 	alias vte_terminal_get_color_background_for_draw = c_vte_terminal_get_color_background_for_draw;
 }
 
-shared static this() {
-	Linker.link(vte_terminal_get_disable_bg_draw, "vte_terminal_get_disable_bg_draw", LIBRARY_VTE);
-	Linker.link(vte_terminal_set_disable_bg_draw, "vte_terminal_set_disable_bg_draw", LIBRARY_VTE);
+private void* linkFunc(void* handle, const(char)* name) {
+    return dlsym(handle, name);
+}
 
-	static if (COMPILE_VTE_BACKGROUND_COLOR) {
-		Linker.link(vte_terminal_get_color_background_for_draw, "vte_terminal_get_color_background_for_draw", LIBRARY_VTE);
-	}
+shared static this() {
+    void* handle = dlopen(null, RTLD_NOW);
+    if (handle !is null) {
+        c_vte_terminal_get_disable_bg_draw = cast(typeof(c_vte_terminal_get_disable_bg_draw)) linkFunc(handle, "vte_terminal_get_disable_bg_draw");
+        c_vte_terminal_set_disable_bg_draw = cast(typeof(c_vte_terminal_set_disable_bg_draw)) linkFunc(handle, "vte_terminal_set_disable_bg_draw");
+
+        static if (COMPILE_VTE_BACKGROUND_COLOR) {
+            c_vte_terminal_get_color_background_for_draw = cast(typeof(c_vte_terminal_get_color_background_for_draw)) linkFunc(handle, "vte_terminal_get_color_background_for_draw");
+        }
+    }
 }

@@ -85,15 +85,17 @@ with translations, please do not submit direct pull requests to this repository 
 
 ### Building
 
-Tilix is written in [D](https://dlang.org/) and GTK 3 using the gtkd framework. This project uses dub to manage the build process including fetching the dependencies,
+Tilix is written in [D](https://dlang.org/) and GTK 3 using the [gid](https://github.com/Kymorphia/gid) (GObject Introspection D) bindings. This project uses dub to manage the build process including fetching the dependencies,
 thus there is no need to install dependencies manually. The only thing you need to install to build the application is the D tools (compiler and Phobos) along with dub itself.
-Note that D supports three [compilers](https://wiki.dlang.org/Compilers) (DMD, GDC and LDC) but Tilix only supports DMD and LDC.
+Note that D supports three [compilers](https://wiki.dlang.org/Compilers) (DMD, GDC and LDC) but Tilix requires the GDC compiler for proper GObject introspection support.
 
 Once you have those installed, compiling the application is a one line command as follows:
 
 ```
-dub build --build=release
+dub build --compiler=gdc --build=release
 ```
+
+You can also use the `dmd` or `ldc2` compilers if you prefer. Use `dmd` while developing and `gdc` or `ldc2` for release builds.
 
 The application depends on various resources to function correctly, run `sudo ./install.sh` to build and copy all of the resources to the correct locations. Note this
 has only been tested on Arch Linux, use with caution.
@@ -107,8 +109,16 @@ for more information.
 #### Build Dependencies
 
 Tilix depends on the following libraries as defined in dub.json:
-* [gtkd](http://gtkd.org/) >= 3.11.0
+* [gid](https://github.com/Kymorphia/gid) 0.9.7 or later (GObject Introspection D bindings for GTK3, VTE, and libsecret)
 * gdk-pixbuf-pixdata (Used when building resource file)
+
+##### GID Package Requirements
+
+The gid bindings require the following system packages for GObject introspection:
+* `gobject-introspection` - GObject introspection core
+* `gtk3` - GTK+ 3 libraries and typelib files
+* `vte291` or `vte3` - VTE terminal widget (version 0.46+)
+* `libsecret` - Secret Service API library
 
 ### Install Tilix
 

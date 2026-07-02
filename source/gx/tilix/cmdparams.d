@@ -10,11 +10,11 @@ import std.regex;
 import std.stdio;
 import std.string;
 
-import gio.ApplicationCommandLine;
+import gio.application_command_line : ApplicationCommandLine;
 
-import glib.VariantDict;
-import glib.Variant : GVariant = Variant;
-import glib.VariantType : GVariantType = VariantType;
+import glib.variant : Variant;
+import glib.variant_dict : VariantDict;
+import glib.variant_type : VariantType;
 
 import gx.i18n.l10n;
 import gx.util.path;
@@ -93,7 +93,7 @@ private:
     enum GEOMETRY_PATTERN_DIMENSIONS = "(?P<width>\\d+)x(?P<height>\\d+)";
 
     string[] getValues(VariantDict vd, string key) {
-        GVariant value = vd.lookupValue(key, new GVariantType("as"));
+        Variant value = vd.lookupValue(key, new VariantType("as"));
         if (value is null)
             return [];
         else {
@@ -101,13 +101,12 @@ private:
         }
     }
 
-    string getValue(VariantDict vd, string key, GVariantType vt) {
-        GVariant value = vd.lookupValue(key, vt);
+    string getValue(VariantDict vd, string key, VariantType vt) {
+        Variant value = vd.lookupValue(key, vt);
         if (value is null)
             return "";
         else {
-            size_t l;
-            return value.getString(l);
+            return value.getString();
         }
     }
 
@@ -161,7 +160,7 @@ public:
         _cmdLine = acl.getCwd();
 
         //Declare a string variant type
-        GVariantType vts = new GVariantType("s");
+        VariantType vts = new VariantType("s");
         VariantDict vd = acl.getOptionsDict();
 
         _workingDir = validatePath(getValue(vd, CMD_WORKING_DIRECTORY, vts));

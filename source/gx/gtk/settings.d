@@ -6,10 +6,12 @@ module gx.gtk.settings;
 
 import std.experimental.logger;
 
-import gtkc.giotypes;
+// GID imports - gio
+import gio.settings : GSettings = Settings;
+import gio.types : SettingsBindFlags;
 
-import gobject.ObjectG;
-import gio.Settings: GSettings = Settings;
+// GID imports - gobject
+import gobject.object : ObjectWrap;
 
 /**
  * Bookkeeping class that keps track of objects which are
@@ -35,7 +37,7 @@ private:
     /**
      * Adds a binding to the list
      */
-    void addBind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+    void addBind(string key, ObjectWrap object, string property, SettingsBindFlags flags) {
         bindings ~= Binding(key, object, property, flags);
     }
 
@@ -71,7 +73,7 @@ public:
     /**
      * Add a binding to list and binds to Settings if it is set.
      */
-    void bind(string key, ObjectG object, string property, GSettingsBindFlags flags) {
+    void bind(string key, ObjectWrap object, string property, SettingsBindFlags flags) {
         addBind(key, object, property, flags);
         if (settings !is null) {
             _settings.bind(key, object, property, flags);
@@ -83,7 +85,7 @@ public:
      */
     void unbind() {
         foreach(binding; bindings) {
-            _settings.unbind(binding.object, binding.property);
+            GSettings.unbind(binding.object, binding.property);
         }
     }
 
@@ -100,7 +102,7 @@ private:
 
 struct Binding {
     string key;
-    ObjectG object;
+    ObjectWrap object;
     string property;
-    GSettingsBindFlags flags;
+    SettingsBindFlags flags;
 }
