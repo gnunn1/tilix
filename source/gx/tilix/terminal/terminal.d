@@ -3241,6 +3241,18 @@ private:
             image.show();
             dragImage = new Window(GtkWindowType.POPUP);
             dragImage.add(image);
+            // The drag icon window is purely visual and should never receive
+            // pointer input. Make it input-transparent (empty input shape) so
+            // that if the drag-end/drag-failed signal fails to fire and this
+            // top-level window is left mapped, it can no longer intercept
+            // clicks meant for other windows. See issues #1825 / #1237
+            // ("invisible box that prevents clicking"). Any such orphan is
+            // destroyed at the start of the next drag (see above).
+            import cairo.Region : Region;
+            dragImage.realize();
+            if (dragImage.getWindow() !is null) {
+                dragImage.getWindow().inputShapeCombineRegion(Region.create(), 0, 0);
+            }
             DragAndDrop.dragSetIconWidget(dc, dragImage, 0, 0);
         }
     }
