@@ -112,6 +112,17 @@
     <value nick='tty' value='4'/>
   </enum>
 
+  <enum id='com.gexperts.Tilix.EraseControl'>
+    <value nick='none' value='0'/>
+    <value nick='control-h' value='1'/>
+    <value nick='control-w' value='2'/>
+    <value nick='control-?' value='3'/>
+    <value nick='ascii-backspace' value='4'/>
+    <value nick='ascii-delete' value='5'/>
+    <value nick='delete-sequence' value='6'/>
+    <value nick='tty' value='7'/>
+  </enum>
+
   <enum id='com.gexperts.Tilix.ExitAction'>
     <value nick='close' value='0'/>
     <value nick='restart' value='1'/>
@@ -748,6 +759,10 @@
     <key name="cjk-utf8-ambiguous-width" enum="com.gexperts.Tilix.CJKWidth">
       <default>'narrow'</default>
       <summary>Whether ambiguous-width characters are narrow or wide when using UTF-8 encoding</summary>
+    </key>
+    <key name="ctrl-backspace" enum="com.gexperts.Tilix.EraseControl">
+      <default>'none'</default>
+      <summary>Makes the terminal threat "Control+Backspace" as different control instead of "Backspace". May be used as a shortcut for removing deleting a word instead of a character.</summary>
     </key>
     <!-- Terminal Title -->
     <key name="terminal-title" type="s">
