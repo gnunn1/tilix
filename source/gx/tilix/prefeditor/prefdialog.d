@@ -1236,7 +1236,7 @@ class AppearancePreferences: Box {
                 gsSettings.reset(SETTINGS_BACKGROUND_IMAGE_KEY);
             });
 
-            ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
+            ComboBox cbImageMode = createNameValueCombo([_("Scale"), _("Scale (fit)"), _("Tile"), _("Center"),_("Stretch")], SETTINGS_BACKGROUND_IMAGE_MODE_VALUES);
             bh.bind(SETTINGS_BACKGROUND_IMAGE_MODE_KEY, cbImageMode, "active-id", GSettingsBindFlags.DEFAULT);
 
             // Background image settings only enabled if transparency is enabled
