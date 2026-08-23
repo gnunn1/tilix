@@ -186,6 +186,77 @@ struct SyncInputEvent {
 }
 
 /**
+ * Result of a single evaluation of the VTE configuration warning debounce, see #982 and
+ * checkVTEConfigWarning below.
+ */
+struct VTEConfigWarningCheck {
+    // Pending cursor position the caller should remember for the next evaluation, or -1/-1 if no
+    // check is currently pending.
+    glong pendingRow = -1;
+    glong pendingCol = -1;
+    // Whether the caller should show the VTE configuration warning now.
+    bool shouldWarn;
+}
+
+/**
+ * Pure decision logic for the VTE configuration warning debounce (#982), extracted here so it can
+ * be unit tested without a real VTE widget/pty.
+ *
+ * Only called while the directory is still unreported and the terminal is otherwise a candidate
+ * for the warning (see the call site in the contents-changed handler for the surrounding guards).
+ * `pendingRow`/`pendingCol` is the state remembered from the previous evaluation (-1/-1 if none is
+ * pending); `cursorRow`/`cursorCol` is the terminal's current cursor position.
+ *
+ * Rather than warning as soon as the cursor is away from the terminal's home position (which can
+ * simply be the echo of a key pressed before the shell was ready, see #982) or after a fixed delay,
+ * this only warns once the cursor is seen at a *different* position than where it was the first
+ * time the check looked suspicious - i.e. once there is proof of genuinely new output while the
+ * directory is still unset, rather than a guess at how long the shell's prompt setup might take.
+ */
+VTEConfigWarningCheck checkVTEConfigWarning(glong pendingRow, glong pendingCol, glong cursorRow, glong cursorCol) {
+    if (cursorRow == 0 && cursorCol == 0) {
+        // Cursor never left the home position, nothing looks suspicious yet (see #425).
+        return VTEConfigWarningCheck(pendingRow, pendingCol, false);
+    }
+    if (pendingRow < 0) {
+        // First suspicious sample: remember where the cursor is, don't warn yet.
+        return VTEConfigWarningCheck(cursorRow, cursorCol, false);
+    }
+    if (cursorRow != pendingRow || cursorCol != pendingCol) {
+        // The cursor moved again while the directory is still unset: genuinely new output arrived
+        // and no directory report ever came with it.
+        return VTEConfigWarningCheck(-1, -1, true);
+    }
+    // Same position as last time, keep waiting.
+    return VTEConfigWarningCheck(pendingRow, pendingCol, false);
+}
+
+unittest {
+    // A stray keystroke echoed before the shell was ready: first sample just remembers the
+    // position, no warning yet.
+    VTEConfigWarningCheck r1 = checkVTEConfigWarning(-1, -1, 0, 5);
+    assert(!r1.shouldWarn);
+    assert(r1.pendingRow == 0 && r1.pendingCol == 5);
+
+    // Re-evaluating at the exact same position (e.g. a duplicate/metadata-only content-changed,
+    // such as the window title being set) changes nothing yet.
+    VTEConfigWarningCheck r2 = checkVTEConfigWarning(r1.pendingRow, r1.pendingCol, 0, 5);
+    assert(!r2.shouldWarn);
+    assert(r2.pendingRow == 0 && r2.pendingCol == 5);
+
+    // The cursor moves on (e.g. the shell printed its own prompt) while the directory is still
+    // unset: now warn, and clear the pending state.
+    VTEConfigWarningCheck r3 = checkVTEConfigWarning(r2.pendingRow, r2.pendingCol, 1, 0);
+    assert(r3.shouldWarn);
+    assert(r3.pendingRow < 0 && r3.pendingCol < 0);
+
+    // Cursor still at the home position: never suspicious, regardless of any pending state (#425).
+    VTEConfigWarningCheck r4 = checkVTEConfigWarning(-1, -1, 0, 0);
+    assert(!r4.shouldWarn);
+    assert(r4.pendingRow < 0 && r4.pendingCol < 0);
+}
+
+/**
  * This class is a composite widget that consists of the VTE Terminal
  * widget and the title bar. From the perspective of a session this is
  * treated as the Terminal, the Session class has no direct access to the
@@ -296,6 +367,11 @@ private:
     long bellStart = 0;
     bool deferShowBell;
     uint timeoutID;
+
+    // Cursor position recorded the first time the VTE configuration check below looks suspicious,
+    // see #982. -1 means no check is currently pending.
+    glong vteConfigWarningPendingRow = -1;
+    glong vteConfigWarningPendingCol = -1;
 
     // Track when the last activity was
     long lastActivity;
@@ -965,10 +1041,26 @@ private:
                 glong cursorCol, cursorRow;
                 vte.getCursorPosition(cursorCol, cursorRow);
                 //tracef("\trow=%d, column=%d",cursorRow,cursorCol);
-                if (cursorRow > 0 || cursorCol >0) {
+                // See #982: rather than warning as soon as the cursor is away from home, or after a
+                // fixed delay, checkVTEConfigWarning debounces on genuinely new content instead - a
+                // key pressed and echoed by the tty before the shell's PROMPT_COMMAND runs can make
+                // this signal fire while the window title has already been set but the OSC 7 directory
+                // report (sent moments later in the same prompt cycle) hasn't arrived yet.
+                bool wasPending = vteConfigWarningPendingRow >= 0;
+                auto check = checkVTEConfigWarning(vteConfigWarningPendingRow, vteConfigWarningPendingCol, cursorRow, cursorCol);
+                vteConfigWarningPendingRow = check.pendingRow;
+                vteConfigWarningPendingCol = check.pendingCol;
+                if (check.shouldWarn) {
                     trace("Warning VTE Configuration");
                     tilix.warnVTEConfigIssue();
+                } else if (!wasPending && vteConfigWarningPendingRow >= 0) {
+                    trace("Possible VTE configuration issue, waiting for further content before deciding");
                 }
+            } else {
+                // Directory got reported (or the check no longer applies for another reason); drop any
+                // pending suspicion.
+                vteConfigWarningPendingRow = -1;
+                vteConfigWarningPendingCol = -1;
             }
             // Update initialized state after initial content change to give prompt_command a chance to kick in
             //gst.updateState();
