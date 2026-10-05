@@ -100,6 +100,7 @@ import gtk.SelectionData;
 import gtk.Separator;
 import gtk.SeparatorMenuItem;
 import gtk.Spinner;
+import gtk.Stack;
 import gtk.StyleContext;
 import gtk.TargetEntry;
 import gtk.ToggleButton;
@@ -140,6 +141,7 @@ import gx.tilix.common;
 import gx.tilix.constants;
 import gx.tilix.encoding;
 import gx.tilix.preferences;
+import gx.tilix.prefeditor.titleeditor;
 import gx.tilix.terminal.actions;
 import gx.tilix.terminal.advpaste;
 import gx.tilix.terminal.exvte;
@@ -234,6 +236,9 @@ private:
 
     SimpleAction saEncodingSelect;
     GMenu encodingMenu;
+
+    //Entry in the title popover for editing the title expression
+    Entry eTitleEdit;
 
     SimpleAction saCopy;
     SimpleAction saCopyAsHtml;
@@ -618,7 +623,7 @@ private:
                 dialog.destroy();
             }
             dialog.badge = _overrideBadge.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_BADGE_TEXT_KEY) : _overrideBadge;
-            dialog.title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
+            dialog.title = currentTitleExpression();
             dialog.command = _overrideCommand;
             dialog.showAll();
             if (dialog.run() == ResponseType.OK) {
@@ -817,7 +822,60 @@ private:
            if (dimPercent > 0) vte.queueDraw();
         });
         pm.bindModel(model, null);
+        addTitleEditor(pm);
         return pm;
+    }
+
+    /**
+     * Adds an entry at the top of the title popover showing the title
+     * expression for this terminal so it can be edited in place. Pressing
+     * Enter applies it as the terminal's title override, the same override
+     * set via Layout Options and saved with the session.
+     *
+     * GTK3 has no public API for custom widgets in a model bound popover, so
+     * the entry is packed into the "main" page that bindModel creates. That
+     * page is a vertical GtkBox whose menu items live in a nested child, so
+     * the entry survives the menu being rebuilt. GtkD wraps that private GTK
+     * widget as a plain Widget, hence the C API is used to check and pack it.
+     */
+    void addTitleEditor(Popover pm) {
+        import gobject.c.functions : g_type_check_instance_is_a;
+        import gobject.c.types : GTypeInstance;
+        import gtk.c.functions : gtk_bin_get_child, gtk_stack_get_child_by_name, gtk_box_pack_start, gtk_box_reorder_child;
+        import gtk.c.types : GtkBin, GtkStack, GtkBox, GtkWidget;
+
+        GtkWidget* stack = gtk_bin_get_child(cast(GtkBin*) pm.getPopoverStruct());
+        GtkWidget* page = null;
+        if (stack !is null && g_type_check_instance_is_a(cast(GTypeInstance*) stack, Stack.getType())) {
+            page = gtk_stack_get_child_by_name(cast(GtkStack*) stack, "main");
+        }
+        if (page is null || !g_type_check_instance_is_a(cast(GTypeInstance*) page, Box.getType())) {
+            warning("Unexpected popover layout, the title editor is not available");
+            return;
+        }
+
+        eTitleEdit = new Entry();
+        eTitleEdit.setHexpand(true);
+        eTitleEdit.setWidthChars(24);
+        eTitleEdit.setTooltipText(_("Terminal title, press Enter to apply.\nClear it to use the profile title again."));
+        eTitleEdit.addOnActivate(delegate(Entry) {
+            applyTitleOverride(eTitleEdit.getText());
+            pm.hide();
+        });
+
+        Widget editor = eTitleEdit;
+        if (Version.checkVersion(3, 16, 0).length == 0) {
+            editor = createTitleEditHelper(eTitleEdit, TitleEditScope.TERMINAL);
+        }
+        editor.setMarginBottom(6);
+        gtk_box_pack_start(cast(GtkBox*) page, editor.getWidgetStruct(), false, false, 0);
+        gtk_box_reorder_child(cast(GtkBox*) page, editor.getWidgetStruct(), 0);
+        editor.showAll();
+
+        //Show the expression currently in effect each time the popover opens
+        pm.addOnMap(delegate(Widget) {
+            eTitleEdit.setText(currentTitleExpression());
+        });
     }
 
     /**
@@ -1268,11 +1326,27 @@ private:
     }
 
     /**
+     * The title expression in effect for this terminal, the override
+     * if one is set otherwise the profile title.
+     */
+    string currentTitleExpression() {
+        return _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
+    }
+
+    /**
+     * Sets the title override from an expression typed by the user
+     * and refreshes the title.
+     */
+    void applyTitleOverride(string expression) {
+        _overrideTitle = resolveTitleOverride(expression, gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY));
+        updateDisplayText();
+    }
+
+    /**
      * Updates the terminal title and the application title in response to UI changes
      */
     void updateTitle() {
-        string title = _overrideTitle.length == 0 ? gsProfile.getString(SETTINGS_PROFILE_TITLE_KEY) : _overrideTitle;
-        title = getDisplayText(title);
+        string title = getDisplayText(currentTitleExpression());
         if (title != lastTitle) {
             lblTitle.setMarkup(title);
             lastTitle = title;
@@ -4648,6 +4722,26 @@ public:
     @property string localHostname() {
         return _localHostname;
     }
+}
+
+/**
+ * Resolves a title expression typed by the user into the override to store
+ * for a terminal. Typing nothing, or the profile's own expression, means no
+ * override so the terminal keeps following the profile.
+ */
+private string resolveTitleOverride(string expression, string profileExpression) {
+    return expression == profileExpression ? "" : expression;
+}
+
+unittest {
+    // Nothing typed means no override
+    assert(resolveTitleOverride("", "${title}") == "");
+    // The profile's own expression is not an override either
+    assert(resolveTitleOverride("${title}", "${title}") == "");
+    // Anything else is kept exactly as typed
+    assert(resolveTitleOverride("build box", "${title}") == "build box");
+    assert(resolveTitleOverride("${directory} #${terminalNumber}", "${title}") == "${directory} #${terminalNumber}");
+    assert(resolveTitleOverride(" spaced ", "${title}") == " spaced ");
 }
 
 /*
